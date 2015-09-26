@@ -64,5 +64,6 @@ class XcaTreeView: public QTreeView
 	void headerDetails(void);
 	void columnRemove(void);
 	void columnsChanged(void);
+	void editComment(void);
 };
 #endif

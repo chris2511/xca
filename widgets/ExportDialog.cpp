@@ -53,16 +53,16 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 	help[exportType::PEM_selected] =
 		tr("Concatenated list of all selected items in one PEM text file");
 	help[exportType::PEM_chain] = tr("Concatenated text format of the complete certificate chain in one PEM file");
-	help[exportType::PEM_trusted] =
-		tr("Concatenated text format of all trusted certificates in one PEM file");
+	help[exportType::PEM_unrevoked] =
+		tr("Concatenated text format of all unrevoked certificates in one PEM file");
 	help[exportType::PEM_all] =
 		tr("Concatenated text format of all certificates in one PEM file");
 	help[exportType::DER] = tr("Binary DER encoded file");
 	help[exportType::PKCS7] = tr("PKCS#7 encoded single certificate");
 	help[exportType::PKCS7_chain] =
 		tr("PKCS#7 encoded complete certificate chain");
-	help[exportType::PKCS7_trusted] =
-		tr("All trusted certificates encoded in one PKCS#7 file");
+	help[exportType::PKCS7_unrevoked] =
+		tr("All unrevoked certificates encoded in one PKCS#7 file");
 	help[exportType::PKCS7_selected] =
 		tr("All selected certificates encoded in one PKCS#7 file");
 	help[exportType::PKCS7_all] =

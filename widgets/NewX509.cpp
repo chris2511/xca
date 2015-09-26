@@ -16,6 +16,8 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QValidator>
+#include <QMap>
+#include <QPair>
 #include "MainWindow.h"
 #include "v3ext.h"
 #include "lib/x509name.h"
@@ -69,29 +71,30 @@ NewX509::NewX509(QWidget *parent)
 
 	nsImg->setPixmap(*MainWindow::nsImg);
 	serialNr->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
-	QStringList strings;
+	QList<pki_base *> requests;
 
 	// are there any useable private keys  ?
-	newKeyDone("");
+	newKeyDone(NULL);
 
 	// any PKCS#10 requests to be used ?
-	strings = MainWindow::reqs->getDesc();
-	if (strings.isEmpty()) {
+	requests = MainWindow::reqs->getAllRequests();
+	if (requests.isEmpty()) {
 		fromReqCB->setDisabled(true);
 		fromReqCB->setChecked(false);
 	}
 	else {
-		reqList->insertItems(0, strings);
+		reqList->insertPkiItems(requests);
 	}
 	on_fromReqCB_clicked();
 
 	// How about signing certificates ?
-	strings = MainWindow::certs->getSignerDesc();
-	if (strings.isEmpty()) {
+	QList<pki_base*> issuers = MainWindow::certs->getAllIssuers();
+	if (issuers.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 	} else {
-		certList->insertItems(0, strings);
+		certList->insertPkiItems(issuers);
 	}
+#warning "Remove WG_QA_SERIAL finally! :-)"
 #ifdef WG_QA_SERIAL
 	selfQASignRB = new QRadioButton(signerBox);
 	setTabOrder(serialNr, selfQASignRB);
@@ -102,14 +105,13 @@ NewX509::NewX509(QWidget *parent)
 	l->insertWidget(1, selfQASignRB);
 #endif
 	// set dates to now and now + 1 year
-	validNumber->setText("1");
+	validN->setText("1");
 	validRange->setCurrentIndex(2);
 	on_applyTime_clicked();
 
 	// settings for the templates ....
-	strings.clear();
-	strings = MainWindow::temps->getDescPredefs();
-	tempList->insertItems(0, strings);
+	QList<pki_base*> templates = MainWindow::temps->getDescPredefs();
+	tempList->insertPkiItems(templates);
 
 	// setup Extended keyusage
 	foreach(int nid, eku_nid)
@@ -276,6 +278,30 @@ NewX509::NewX509(QWidget *parent)
 	}
 	if (pki_x509::disable_netscape)
 		tabWidget->removeTab(4);
+
+	// Setup widget <-> Template mapping
+#define MAP_LE(name) templateLineEdits[#name] = name;
+	MAP_LE(subAltName);
+	MAP_LE(issAltName);
+	MAP_LE(crlDist);
+	MAP_LE(nsComment);
+	MAP_LE(nsBaseUrl);
+	MAP_LE(nsRevocationUrl);
+	MAP_LE(nsCARevocationUrl);
+	MAP_LE(nsRenewalUrl);
+	MAP_LE(nsCaPolicyUrl);
+	MAP_LE(nsSslServerName);
+	MAP_LE(validN);
+	MAP_LE(basicPath);
+
+#define MAP_CB(name) templateCheckBoxes[#name] = name;
+	MAP_CB(bcCritical);
+	MAP_CB(kuCritical);
+	MAP_CB(ekuCritical);
+	MAP_CB(subKey);
+	MAP_CB(authKey);
+	MAP_CB(validMidn);
+	MAP_CB(noWellDefinedExpDate);
 }
 
 void NewX509::setRequest()
@@ -344,18 +370,15 @@ void NewX509::setReqAttributes(pki_x509req *req)
 /* Initialize dialog for Template creation */
 void NewX509::setTemp(pki_temp *temp)
 {
-	QString text = tr("Create XCA template");
-	if (temp->getIntName() != "--") {
-		description->setText(temp->getIntName());
-		description->setDisabled(true);
-		text = tr("Edit XCA template");
-	}
-	capt->setText(text);
+	description->setText(temp->getIntName());
+	capt->setText(tr("Edit XCA template"));
 	tabWidget->removeTab(0);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
 	pt = tmpl;
+	fromTemplate(temp);
+	comment->setPlainText(temp->getComment());
 }
 
 /* Initialize dialog for Certificate creation */
@@ -381,17 +404,15 @@ void NewX509::defineTemplate(pki_temp *temp)
 /* Select a Request for signing it */
 void NewX509::defineRequest(pki_x509req *req)
 {
-	if (!req)
-		return;
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
-	QString reqname = req->getIntName();
-	reqList->setCurrentIndex(reqList->findText(reqname));
+	reqList->setCurrentPkiItem(req);
 	on_fromReqCB_clicked();
 }
 
 /* Preset all values from another request to create a similar one */
 void NewX509::fromX509super(pki_x509super *cert_or_req, bool applyTemp)
+void NewX509::fromX509super(pki_x509super *cert_or_req)
 {
 	pki_temp *temp = new pki_temp("");
 	temp->fromCert(cert_or_req);
@@ -402,8 +423,7 @@ void NewX509::fromX509super(pki_x509super *cert_or_req, bool applyTemp)
 	pki_key *key = cert_or_req->getRefKey();
 	if (key) {
 		usedKeysToo->setChecked(true);
-		keyList->setCurrentIndex(private_keys.indexOf(
-			key->getIntNameWithType()));
+		keyList->setCurrentPkiItem(key);
 	}
 	hashAlgo->setCurrentMD(cert_or_req->getDigest());
 
@@ -434,17 +454,14 @@ void NewX509::fromX509super(pki_x509super *cert_or_req, bool applyTemp)
 /* Preset the signing certificate */
 void NewX509::defineSigner(pki_x509 *defcert, bool applyTemp)
 {
-	int index;
 	// suggested from: Andrey Brindeew <abr@abr.pp.ru>
 	if (defcert && defcert->canSign() ) {
-		QString name = defcert->getIntName();
-		foreignSignRB->setChecked(true);
-		certList->setEnabled(true);
-		if ((index = certList->findText(name)) >= 0) {
-			certList->setCurrentIndex(index);
-		}
-		if (applyTemp && !defcert->getTemplate().isEmpty()) {
-			on_applyTemplate_clicked();
+		if (certList->setCurrentPkiItem(defcert) != -1) {
+			foreignSignRB->setChecked(true);
+			certList->setEnabled(true);
+			if (applyTemp && defcert->getTemplate()) {
+				on_applyTemplate_clicked();
+			}
 		}
 	}
 }
@@ -503,39 +520,33 @@ static QString lb2QString(QListWidget *lb)
 void NewX509::subjectFromTemplate(pki_temp *temp)
 {
 	if (temp)
-		setX509name(temp->xname);
+		setX509name(temp->getSubject());
 }
+
 
 void NewX509::extensionsFromTemplate(pki_temp *temp)
 {
 	if (!temp)
 		return;
-	subAltName->setText(temp->subAltName);
-	issAltName->setText(temp->issAltName);
-	crlDist->setText(temp->crlDist);
-	setAuthInfAcc_string(temp->authInfAcc);
-	nsComment->setText(temp->nsComment);
-	nsBaseUrl->setText(temp->nsBaseUrl);
-	nsRevocationUrl->setText(temp->nsRevocationUrl);
-	nsCARevocationUrl->setText(temp->nsCARevocationUrl);
-	nsRenewalUrl->setText(temp->nsRenewalUrl);
-	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl);
-	nsSslServerName->setText(temp->nsSslServerName);
-	int2lb(nsCertType, temp->nsCertType);
-	basicCA->setCurrentIndex(temp->ca);
-	bcCritical->setChecked(temp->bcCrit);
-	kuCritical->setChecked(temp->keyUseCrit);
-	ekuCritical->setChecked(temp->eKeyUseCrit);
-	subKey->setChecked(temp->subKey);
-	authKey->setChecked(temp->authKey);
-	int2lb(keyUsage, temp->keyUse);
-	QString2lb(ekeyUsage, temp->eKeyUse);
-	validNumber->setText(QString::number(temp->validN));
-	validRange->setCurrentIndex(temp->validM);
-	midnightCB->setChecked(temp->validMidn);
-	basicPath->setText(temp->pathLen);
-	nconf_data->document()->setPlainText(temp->adv_ext);
-	noWellDefinedExpDate->setChecked(temp->noWellDefined);
+
+	QMapIterator<QString, QLineEdit*> l(templateLineEdits);
+	while (l.hasNext()) {
+		l.next();
+		l.value()->setText(temp->getSetting(l.key()));
+	}
+	QMapIterator<QString, QCheckBox*> i(templateCheckBoxes);
+	while (i.hasNext()) {
+		i.next();
+		i.value()->setChecked(temp->getSettingInt(i.key()));
+	}
+	int2lb(nsCertType, temp->getSettingInt("nsCertType"));
+	basicCA->setCurrentIndex(temp->getSettingInt("ca"));
+	int2lb(keyUsage, temp->getSettingInt("keyUse"));
+	QString2lb(ekeyUsage, temp->getSetting("eKeyUse"));
+	validRange->setCurrentIndex(temp->getSettingInt("validM"));
+	nconf_data->document()->setPlainText(temp->getSetting("adv_ext"));
+	setAuthInfAcc_string(temp->getSetting("authInfAcc"));
+
 	on_applyTime_clicked();
 }
 
@@ -548,39 +559,35 @@ void NewX509::fromTemplate(pki_temp *temp)
 void NewX509::toTemplate(pki_temp *temp)
 {
 	temp->setIntName(description->text());
-	temp->xname = getX509name();
-	temp->subAltName = subAltName->text();
-	temp->issAltName = issAltName->text();
-	temp->crlDist = crlDist->text();
-	temp->authInfAcc = getAuthInfAcc_string();
-	temp->nsComment = nsComment->text();
-	temp->nsBaseUrl = nsBaseUrl->text();
-	temp->nsRevocationUrl = nsRevocationUrl->text();
-	temp->nsCARevocationUrl = nsCARevocationUrl->text();
-	temp->nsRenewalUrl = nsRenewalUrl->text();
-	temp->nsCaPolicyUrl = nsCaPolicyUrl->text();
-	temp->nsSslServerName = nsSslServerName->text();
-	temp->nsCertType =  lb2int(nsCertType);
-	temp->ca = basicCA->currentIndex();
-	temp->bcCrit = bcCritical->isChecked();
-	temp->keyUseCrit = kuCritical->isChecked();
-	temp->eKeyUseCrit = ekuCritical->isChecked();
-	temp->subKey = subKey->isChecked();
-	temp->authKey = authKey->isChecked();
-	temp->keyUse = lb2int(keyUsage);
-	temp->eKeyUse = lb2QString(ekeyUsage);
-	temp->validN = validNumber->text().toInt();
-	temp->validM = validRange->currentIndex();
-	temp->pathLen = basicPath->text();
-	if (!temp->pathLen.isEmpty())
-		temp->pathLen = QString::number(temp->pathLen.toInt());
-	temp->validMidn = midnightCB->isChecked();
-	if (nconf_data->isReadOnly()) {
-		temp->adv_ext = v3ext_backup;
-	} else {
-		temp->adv_ext = nconf_data->toPlainText();
+	temp->setSubject(getX509name());
+
+	QMapIterator<QString, QLineEdit*> l(templateLineEdits);
+	while (l.hasNext()) {
+		l.next();
+		temp->setSetting(l.key(), l.value()->text());
 	}
-	temp->noWellDefined = noWellDefinedExpDate->isChecked();
+	QMapIterator<QString, QCheckBox*> i(templateCheckBoxes);
+	while (i.hasNext()) {
+		i.next();
+		temp->setSetting(i.key(), i.value()->isChecked());
+	}
+
+	temp->setSetting("authInfAcc", getAuthInfAcc_string());
+	temp->setSetting("nsCertType", lb2int(nsCertType));
+	temp->setSetting("ca", basicCA->currentIndex());
+	temp->setSetting("keyUse", lb2int(keyUsage));
+	temp->setSetting("eKeyUse", lb2QString(ekeyUsage));
+	temp->setSetting("validN", validN->text().toInt());
+	temp->setSetting("validM", validRange->currentIndex());
+	if (!temp->getSetting("basicPath").isEmpty())
+		temp->setSetting("basicPath", temp->getSettingInt("basicPath"));
+	if (nconf_data->isReadOnly()) {
+		temp->setSetting("adv_ext", v3ext_backup);
+	} else {
+		temp->setSetting("adv_ext", nconf_data->toPlainText());
+	}
+
+	temp->setComment(comment->toPlainText());
 }
 
 void NewX509::on_fromReqCB_clicked()
@@ -649,8 +656,7 @@ void NewX509::switchHashAlgo()
 
 void NewX509::on_showReqBut_clicked()
 {
-	QString req = reqList->currentText();
-	emit showReq(req);
+	emit showReq(reqList->currentPkiItem());
 }
 
 void NewX509::on_genKeyBut_clicked()
@@ -673,7 +679,7 @@ void NewX509::on_certList_currentIndexChanged(int)
 	if (!cert)
 		return;
 
-	QString templ = cert->getTemplate();
+	pki_temp *templ = cert->getTemplate();
 	snb = cert->getNotBefore();
 	sna = cert->getNotAfter();
 	if (snb > notBefore->getDate())
@@ -681,10 +687,8 @@ void NewX509::on_certList_currentIndexChanged(int)
 	if (sna < notAfter->getDate())
 		notAfter->setDate(sna);
 
-	if (templ.isEmpty())
-		return;
-
-	templateChanged(templ);
+	if (templ)
+		templateChanged(templ);
 }
 
 
@@ -702,33 +706,46 @@ void NewX509::templateChanged(QString tempname)
 
 void NewX509::templateChanged(pki_temp *templ)
 {
-	QString tempname = templ->getIntName();
-	templateChanged(tempname);
+	tempList->setCurrentPkiItem(templ);
 }
 
 pki_temp *NewX509::currentTemplate()
 {
 	if (!tempList->isEnabled())
 		return NULL;
-	QString name = tempList->currentText();
-	if (name.isEmpty())
-		return NULL;
-	return (pki_temp *)MainWindow::temps->getByName(name);
+	return static_cast<pki_temp*>(tempList->currentPkiItem());
+}
+
+void NewX509::selfComment(QString msg)
+{
+	QString c = comment->toPlainText();
+	if (!c.endsWith("\n"))
+		c += "\n";
+	c += QString("(%1)\n").arg(msg);
+	comment->setPlainText(c);
 }
 
 void NewX509::on_applyTemplate_clicked()
 {
-	fromTemplate(currentTemplate());
+	pki_temp *t = currentTemplate();
+	fromTemplate(t);
+	selfComment(tr("Template '%1' applied").arg(t->comboText()));
 }
 
 void NewX509::on_applySubject_clicked()
 {
-	subjectFromTemplate(currentTemplate());
+	pki_temp *t = currentTemplate();
+	subjectFromTemplate(t);
+	selfComment(tr("Subject applied from template '%1'")
+			.arg(t->comboText()));
 }
 
 void NewX509::on_applyExtensions_clicked()
 {
-	extensionsFromTemplate(currentTemplate());
+	pki_temp *t = currentTemplate();
+	extensionsFromTemplate(t);
+	selfComment(tr("Extensions applied from template '%1'")
+			.arg(t->comboText()));
 }
 
 void NewX509::on_foreignSignRB_toggled(bool)
@@ -736,51 +753,42 @@ void NewX509::on_foreignSignRB_toggled(bool)
 	switchHashAlgo();
 }
 
-void NewX509::newKeyDone(QString name)
+void NewX509::newKeyDone(pki_key *nkey)
 {
-	QStringList keys;
-	private_keys = MainWindow::keys->get0KeyDesc(true);
-	private_keys0 = MainWindow::keys->get0KeyDesc(false);
-	keyList->clear();
-	if (usedKeysToo->isChecked())
-		keys = private_keys;
-	else
-		keys = private_keys0;
-
-	keyList->insertItems(0, keys);
-	if (name.isEmpty() && keys.count() >0)
-		name = keys[0];
-	keyList->setCurrentIndex(keys.indexOf(name));
+	allKeys =   MainWindow::keys->getAllKeys();
+	unusedKeys= MainWindow::keys->getUnusedKeys();
+	on_usedKeysToo_toggled(true);
+	if (nkey) {
+		selfComment(tr("New key '%1' created")
+				.arg(nkey->comboText()));
+		keyList->setCurrentPkiItem(nkey);
+	} else {
+		keyList->setCurrentIndex(0);
+	}
 }
 
 void NewX509::on_usedKeysToo_toggled(bool)
 {
-	QString cur = keyList->currentText();
-	QStringList keys;
+	pki_base *cur = keyList->currentPkiItem();
 	keyList->clear();
-	if (usedKeysToo->isChecked())
-		keys = private_keys;
-	else
-		keys = private_keys0;
-
-	keyList->insertItems(0, keys);
-	keyList->setCurrentIndex(keys.indexOf(cur));
+	keyList->insertPkiItems(usedKeysToo->isChecked() ?
+			allKeys : unusedKeys);
+	keyList->setCurrentPkiItem(cur);
 }
 
 pki_key *NewX509::getSelectedKey()
 {
-	QString name = pki_key::removeTypeFromIntName(keyList->currentText());
-	return (pki_key *)MainWindow::keys->getByName(name);
+	return (pki_key*)keyList->currentPkiItem();
 }
 
 pki_x509 *NewX509::getSelectedSigner()
 {
-	return (pki_x509 *)MainWindow::certs->getByName(certList->currentText());
+	return (pki_x509 *)certList->currentPkiItem();
 }
 
 pki_x509req *NewX509::getSelectedReq()
 {
-	return (pki_x509req *)MainWindow::reqs->getByName(reqList->currentText());
+	return (pki_x509req *)reqList->currentPkiItem();
 }
 
 x509name NewX509::getX509name(int _throw)
@@ -848,7 +856,7 @@ void NewX509::setX509name(const x509name &n)
 
 void NewX509::on_applyTime_clicked()
 {
-	notAfter->setDiff(notBefore, validNumber->text().toInt(),
+	notAfter->setDiff(notBefore, validN->text().toInt(),
 				     validRange->currentIndex());
 }
 

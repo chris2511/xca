@@ -21,8 +21,8 @@ class pki_pkcs7: public pki_base
 		void encryptBio(pki_x509 *crt, BIO * bio);
 	public:
 		pki_pkcs7(const QString name = "");
-		/* destructor */
 		virtual ~pki_pkcs7();
+		const char *getClassName() const;
 
 		void signFile(pki_x509 *crt, QString filename);
 		void signCert(pki_x509 *crt, pki_x509 *contCert);

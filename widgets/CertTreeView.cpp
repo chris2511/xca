@@ -72,8 +72,6 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 			 SLOT(manageRevocations()));
 		subCa->setEnabled(cert->canSign());
 	}
-	menu->addAction(tr("Trust"), this,
-		SLOT(setTrust()))->setEnabled(allUnrevoked);
 	if (sameParent && parentCanSign) {
 		QString n = multi ? QString(" [%1]").arg(indexes.size()) : "";
 		menu->addAction(tr("Renewal") +n, this, SLOT(certRenewal()));
@@ -189,11 +187,3 @@ void CertTreeView::unRevoke()
 	if (certs)
 		certs->unRevoke(getSelectedIndexes());
 }
-
-void CertTreeView::setTrust()
-{
-	if (certs)
-		certs->setTrust(getSelectedIndexes());
-	proxy->invalidate();
-}
-

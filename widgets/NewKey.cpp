@@ -9,9 +9,10 @@
 #include "NewKey.h"
 #include "MainWindow.h"
 #include "lib/pki_evp.h"
-#include "widgets/distname.h"
-#include "widgets/clicklabel.h"
 #include "lib/pkcs11.h"
+#include "distname.h"
+#include "clicklabel.h"
+#include "ItemCombo.h"
 #include <QLabel>
 #include <QPushButton>
 #include <QLineEdit>

@@ -15,43 +15,428 @@
 #include <QDebug>
 #include <QStatusBar>
 #include <QMessageBox>
+#include <QtSql>
 #include "lib/db_base.h"
 #include "lib/func.h"
+#include "lib/db.h"
 #include "widgets/ImportMulti.h"
 #include "widgets/NewKey.h"
 
-void MainWindow::set_geometry(char *p, db_header_t *head)
+QSqlError MainWindow::initSqlDB()
 {
-	if (head->version != 1)
+	QStringList sl; sl
+
+/* The "32bit hash" in public_keys, x509super, requests, certs and crls
+ * is used to quickly find items in the DB by reference.
+ * It consists of the first 4 bytes of a SHA1 hash.
+ * Collisions are of course possible.
+ *
+ * All binaries are stored Base64 encoded in a column of type
+ * "B64_BLOB" It is defined here as "VARCHAR(10000)"
+ */
+
+#define B64_BLOB "VARCHAR(10000)"
+
+/*
+ * The B64(DER(something)) function means DER encode something
+ * and then Base64 encode that.
+ * So finally this is PEM without newlines, header and footer
+ *
+ * Dates are alway stored as 'CHAR(15)' in the
+ * ASN.1 Generalized time 'yyyyMMddHHmmssZ' format
+ */
+
+#define DB_DATE "CHAR(15)"
+
+/*
+ * Configuration settings from
+ *  the Options dialog, window size, last export directory,
+ *  default key type and size,
+ *  table column (position, sort order, visibility)
+ */
+<< "CREATE TABLE settings ("
+	"key CHAR(20) UNIQUE, "
+	"value VARCHAR(1024))"
+<< "INSERT INTO settings (key, value) VALUES ('schema', '1')"
+
+/*
+ * All items (keys, tokens, requests, certs, crls, templates)
+ * are stored here with the primary key and some common data
+ * The other tables containing the details reference the "id"
+ * as FOREIGN KEY.
+ */
+<< "CREATE TABLE items("
+	"id SERIAL PRIMARY KEY, "
+	"name VARCHAR(128), "	/* Internal name of the item */
+	"type INTEGER, "	/* enum pki_type */
+	"date "DB_DATE", "	/* Time of insertion (creation/import) */
+	"comment VARCHAR(2048))"
+
+/*
+ * Storage of public keys. Private keys and tokens also store
+ * their public part here.
+ */
+<< "CREATE TABLE public_keys ("
+	"item INTEGER, "	/* reference to items(id) */
+	"type CHAR(4), "	/* RSA DSA EC (as text) */
+	"hash INTEGER, "	/* 32 bit hash */
+	"len INTEGER, "		/* key size in bits */
+	"public "B64_BLOB", "	/* B64(DER(public key)) */
+	"FOREIGN KEY (item) REFERENCES items (id))"
+
+/*
+ * The private part of RSA, DSA, EC keys.
+ * references to "items" and "public_keys"
+ */
+<< "CREATE TABLE private_keys ("
+	"item INTEGER, "	/* reference to items(id) */
+	"ownPass INTEGER, "	/* Encrypted by DB pwd or own pwd */
+	"private "B64_BLOB", "	/* B64(Encrypt(DER(private key))) */
+	"FOREIGN KEY (item) REFERENCES items (id))"
+
+/*
+ * Smart cards or other PKCS#11 tokens
+ * references to "items" and "public_keys"
+ */
+<< "CREATE TABLE tokens ("
+	"item INTEGER, "	/* reference to items(id) */
+	"card_manufacturer VARCHAR(64), " /* Card location data */
+	"card_serial VARCHAR(64), "	  /* as text */
+	"card_model VARCHAR(64), "
+	"card_label VARCHAR(64), "
+	"slot_label VARCHAR(64), "
+	"object_id VARCHAR(64), "	  /* Unique ID on the token */
+	"FOREIGN KEY (item) REFERENCES items (id))"
+
+/*
+ * Encryption and hash mechanisms supported by a token
+ */
+<< "CREATE TABLE token_mechanism ("
+	"item INTEGER, "	/* reference to items(id) */
+	"mechanism INTEGER, "	/* PKCS#11: CK_MECHANISM_TYPE */
+	"FOREIGN KEY (item) REFERENCES items (id))"
+
+/*
+ * An X509 Super class, consisting of a
+ *  - Distinguishd name hash
+ *  - Referenced key in the database
+ *  - hash of the public key, used for lookups if there
+ *    is no key to reference
+ * used by Requests and certificates and the use-counter of keys:
+ * "SELECT from x509super WHERE key=?"
+ */
+<< "CREATE TABLE x509super ("
+	"item INTEGER, "	/* reference to items(id) */
+	"subj_hash INTEGER, "	/* 32 bit hash of the Distinguished name */
+	"key INTEGER, "		/* reference to the key items(id) */
+	"key_hash INTEGER, "	/* 32 bit hash of the public key */
+	"FOREIGN KEY (item) REFERENCES items (id), "
+	"FOREIGN KEY (key) REFERENCES items (id)) "
+
+/*
+ * PKCS#10 Certificate request details
+ * also takes information from the "x509super" table.
+ */
+<< "CREATE TABLE requests ("
+	"item INTEGER, "	/* reference to items(id) */
+	"hash INTEGER, "	/* 32 bit hash of the request */
+	"signed INTEGER, "	/* Whether it was once signed. */
+	"request "B64_BLOB", "	/* B64(DER(PKCS#10 request)) */
+	"FOREIGN KEY (item) REFERENCES items (id)) "
+
+/*
+ * X509 certificate details
+ * also takes information from the "x509super" table.
+ * The content of the columns: hash, iss_hash, serial, ca
+ * can also be retrieved directly from the certificate, but are good
+ * to lurk around for faster lookup
+ */
+<< "CREATE TABLE certs ("
+	"item INTEGER, "	/* reference to items(id) */
+	"hash INTEGER, "	/* 32 bit hash of the cert */
+	"iss_hash INTEGER, "	/* 32 bit hash of the issuer DN */
+	"serial VARCHAR(64), "	/* Serial number of the certificate */
+	"issuer INTEGER, "	/* The items(id) of the issuer or NULL */
+	"ca INTEGER, "		/* CA: yes / no from BasicConstraints */
+	"crlExpire "DB_DATE", "	/* CRL expiry date */
+	"crlNo INTEGER, "	/* Last CRL Number expiry date */
+	"cert "B64_BLOB", "	/* B64(DER(certificate)) */
+	"FOREIGN KEY (item) REFERENCES items (id), "
+	"FOREIGN KEY (issuer) REFERENCES items (id)) "
+
+/*
+ * Storage of CRLs
+ */
+<< "CREATE TABLE crls ("
+	"item INTEGER, "	/* reference to items(id) */
+	"hash INTEGER, "	/* 32 bit hash of the CRL */
+	"num INTEGER, "		/* Number of revoked certificates */
+	"iss_hash INTEGER, "	/* 32 bit hash of the issuer DN */
+	"issuer INTEGER, "	/* The items(id) of the issuer or NULL */
+	"crl "B64_BLOB", "	/* B64(DER(revocation list)) */
+	"FOREIGN KEY (item) REFERENCES items (id), "
+	"FOREIGN KEY (issuer) REFERENCES items (id)) "
+
+/*
+ * Revocations (serial, date, reason, issuer) used to create new
+ * CRLs. "Manage revocations"
+ */
+<< "CREATE TABLE revocations ("
+	"caId INTEGER, "        /* reference to certs(item) */
+	"serial VARCHAR(64), "	/* Serial number of the revoked certificate */
+	"date "DB_DATE", "	/* Time of creating the revocation */
+	"invaldate "DB_DATE", "	/* Time of invalidation */
+	"crlNo INTEGER, "	/* Crl Number of CRL of first appearance */
+	"reasonBit INTEGER, "	/* Bit number of the revocation reason */
+	"FOREIGN KEY (caId) REFERENCES items (id))"
+
+/*
+ * Templates
+ */
+<< "CREATE TABLE templates ("
+	"item INTEGER, "        /* reference to items(id) */
+	"version INTEGER, "	/* Version of the template format */
+	"template "B64_BLOB", "	/* The base64 encoded template */
+	"FOREIGN KEY (item) REFERENCES items (id))"
+
+	;
+	XSqlQuery q;
+	if (!db.transaction())
+		return db.lastError();
+	foreach(QString sql, sl) {
+		fprintf(stderr, "EXEC: '%s'\n", CCHAR(sql));
+		if (!q.exec(sql)) {
+			db.rollback();
+			return q.lastError();
+		}
+	}
+	db.commit();
+	return QSqlError();
+}
+
+QSqlError MainWindow::openSqlDB()
+{
+	QStringList drivers = QSqlDatabase::drivers();
+	foreach( QString driver, drivers)
+		fprintf(stderr, "DB driver: '%s'\n", CCHAR(driver));
+
+#define POSTGRES 1
+#ifndef POSTGRES
+	db.setDatabaseName(dbfile);
+#else
+	db.setDatabaseName("xca_pg");
+	db.setHostName("192.168.140.7");
+	db.setUserName("xca");
+	db.setPassword("xca");
+#endif
+	if (db.driverName() == "QSQLITE") {
+		// chmod 0600
+		if (!QFile::exists(dbfile)) {
+			QFile f(dbfile);
+			f.open(QIODevice::WriteOnly);
+			f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
+			f.close();
+		}
+	}
+	if (!db.open())
+		return db.lastError();
+	QStringList tables = db.tables();
+	if (!tables.contains("items")) {
+		return initSqlDB();
+	}
+	return QSqlError();
+}
+
+void MainWindow::set_geometry(QString geo)
+{
+	QStringList sl = geo.split(",");
+	if (sl.size() != 2)
 		return;
-	QByteArray ba = QByteArray::fromRawData(p, head->len);
-	int w, h, i;
-	w = db::intFromData(ba);
-	h = db::intFromData(ba);
-	i = db::intFromData(ba);
-	resize(w,h);
+	resize(sl[0].toInt(), sl[1].toInt());
+	int i = sl[2].toInt();
 	if (i != -1)
 		tabView->setCurrentIndex(i);
+}
+
+void MainWindow::dbSqlError(QSqlError err)
+{
+	if (!err.isValid())
+		err = QSqlDatabase::database().lastError();
+
+	if (err.isValid()) {
+		fprintf(stderr, "SQL ERROR: '%s'\n", CCHAR(err.text()));
+		XCA_WARN(err.text());
+	}
+}
+
+bool MainWindow::checkForOldDbFormat()
+{
+	// 0x ca db 19 69
+	static const char magic[] = { 0xca, 0xdb, 0x19, 0x69 };
+	char head[4];
+
+	QFile file(dbfile);
+	if (!file.open(QIODevice::ReadOnly))
+		return 0;
+	file.read(head, sizeof head);
+	file.close();
+	return !memcmp(head, magic, sizeof head);
+}
+
+int MainWindow::verifyOldDbPass(QString dbname)
+{
+	// look for the password
+	QString passhash;
+	db_header_t head;
+	class db mydb(dbname);
+	mydb.first();
+	if (!mydb.find(setting, QString("pwhash"))) {
+		QString val;
+		char *p;
+		if ((p = (char *)mydb.load(&head))) {
+			passhash = p;
+			free(p);
+			return initPass(passhash);
+		}
+	}
+	return 2;
+}
+
+void MainWindow::importOldDatabase(QString dbname)
+{
+	class db mydb(dbname);
+	unsigned char *p = NULL;
+	db_header_t head;
+	pki_base *pki;
+	db_base *cont;
+	QList<enum pki_type> pkitype; pkitype <<
+	    smartCard << asym_key << tmpl << x509_req << x509 << revocation;
+
+	storeSetting("pwhash", pki_evp::passHash);
+	for (int i=0; i < pkitype.count(); i++) {
+		mydb.first();
+		while (mydb.find(pkitype[i], QString()) == 0) {
+			QString s;
+			p = mydb.load(&head);
+			if (!p) {
+				qWarning("Load was empty !");
+				goto next;
+			}
+			switch (pkitype[i]) {
+			case smartCard:
+				cont = keys;
+				pki = new pki_scard("");
+				break;
+			case asym_key:
+				cont = keys;
+				pki = new pki_evp();
+				break;
+			case x509_req:
+				cont = reqs;
+				pki = new pki_x509req();
+				break;
+			case x509:
+				cont = certs;
+				pki = new pki_x509();
+				break;
+			case revocation:
+				cont = crls;
+				pki = new pki_crl();
+				break;
+			case tmpl:
+				cont = temps;
+				pki = new pki_temp();
+				break;
+			default:
+				goto next;
+			}
+			pki->setIntName(QString::fromUtf8(head.name));
+
+			try {
+				pki->fromData(p, &head);
+			}
+			catch (errorEx &err) {
+				err.appendString(pki->getIntName());
+				Error(err);
+				delete pki;
+				pki = NULL;
+			}
+			fprintf(stderr, "load old: '%s'\n", CCHAR(pki->getIntName()));
+			free(p);
+			if (pki) {
+				cont->insertPKI(pki);
+			}
+next:
+			if (mydb.next())
+				break;
+		}
+	}
+	QStringList sl; sl << "workingdir" << "pkcs11path" <<
+		"default_hash" << "mandatory_dn" << "explicit_dn" <<
+		"string_opt" << "optionflags1" << "defaultkey";
+
+	mydb.first();
+	while (!mydb.find(setting, QString())) {
+		QString val;
+		char *p;
+		if ((p = (char *)mydb.load(&head))) {
+			val = p;
+			free(p);
+		}
+		QString set = QString::fromUtf8(head.name);
+		if (sl.contains(set)) {
+			if (set == "optionflags1")
+				set = "optionflags";
+			storeSetting(set, val);
+		}
+		if (mydb.next())
+			break;
+	}
 }
 
 int MainWindow::init_database()
 {
 	int ret = 2;
+	QSqlError err;
+	QString oldDbFile;
+
 	qDebug("Opening database: %s", QString2filename(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
+	if (checkForOldDbFormat()) {
+		QString newname = dbfile;
+		if (newname.endsWith(".xdb"))
+			newname = newname.left(newname.length() -4);
+		newname += "_backup_" + QDateTime::currentDateTime()
+				.toString("yyyyMMdd_hhmmss") + ".xdb";
+		if (!XCA_OKCANCEL(tr("Found an old version of the XCA database. I will make a backup copy called: '%1' and convert the database into the new format").arg(newname))) {
+			dbfile = "";
+			return 1;
+		}
+		if (verifyOldDbPass(dbfile) != 1)
+			return 1;
+		if (!QFile::rename(dbfile, newname)) {
+			XCA_WARN(tr("Failed to rename the database file, because the target already exists"));
+			return 1;
+		}
+		oldDbFile = newname;
+	}
 	Entropy::seed_rng();
+	err = openSqlDB();
+	dbSqlError(err);
 	certView->setRootIsDecorated(db_x509::treeview);
 
 	try {
-		ret = initPass();
-		if (ret == 2)
-			return ret;
-		keys = new db_key(dbfile, this);
-		reqs = new db_x509req(dbfile, this);
-		certs = new db_x509(dbfile, this);
-		temps = new db_temp(dbfile, this);
-		crls = new db_crl(dbfile, this);
+		if (pki_evp::passwd.isEmpty()) {
+			ret = initPass();
+			if (ret == 2)
+				return ret;
+		}
+		keys = new db_key(this);
+		reqs = new db_x509req(this);
+		certs = new db_x509(this);
+		temps = new db_temp(this);
+		crls = new db_crl(this);
 		certs->updateAfterDbLoad();
 	}
 	catch (errorEx &err) {
@@ -72,15 +457,6 @@ int MainWindow::init_database()
 	pkcs11path = QString();
 	workingdir = QDir::currentPath();
 	setOptFlags((QString()));
-
-	connect( keys, SIGNAL(newKey(pki_key *)),
-		certs, SLOT(newKey(pki_key *)) );
-	connect( keys, SIGNAL(delKey(pki_key *)),
-		certs, SLOT(delKey(pki_key *)) );
-	connect( keys, SIGNAL(newKey(pki_key *)),
-		reqs, SLOT(newKey(pki_key *)) );
-	connect( keys, SIGNAL(delKey(pki_key *)),
-		reqs, SLOT(delKey(pki_key *)) );
 
 	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
 		SLOT(connNewX509(NewX509 *)) );
@@ -105,57 +481,32 @@ int MainWindow::init_database()
 	certView->setModel(certs);
 	tempView->setModel(temps);
 	crlView->setModel(crls);
-	try {
-		db mydb(dbfile);
 
-		while (mydb.find(setting, QString()) == 0) {
-			QString key;
-			db_header_t head;
-			char *p = (char *)mydb.load(&head);
-			if (!p) {
-				if (mydb.next())
-					break;
-				continue;
-			}
-			key = head.name;
+	if (!oldDbFile.isEmpty())
+		importOldDatabase(oldDbFile);
 
-			if (key == "workingdir")
-				workingdir = p;
-			else if (key == "pkcs11path")
-				pkcs11path = p;
-			else if (key == "default_hash")
-				hashBox::setDefault(p);
-			else if (key == "mandatory_dn")
-				mandatory_dn = p;
-			else if (key == "explicit_dn")
-				explicit_dn = p;
-			/* what a stupid idea.... */
-			else if (key == "multiple_key_use")
-				mydb.erase();
-			else if (key == "string_opt")
-				string_opt = p;
-			else if (key == "suppress")
-				mydb.erase();
-			else if (key == "optionflags1")
-				setOptFlags((QString(p)));
-			/* Different optionflags, since setOptFlags()
-			 * does an abort() for unknown flags in
-			 * older versions.   *Another stupid idea*
-			 * This is for backward compatibility
-			 */
-			else if (key == "optionflags")
-				setOptFlags_old((QString(p)));
-			else if (key == "defaultkey")
-				NewKey::setDefault((QString(p)));
-			else if (key == "mw_geometry")
-				set_geometry(p, &head);
-			free(p);
-			if (mydb.next())
-				break;
-		}
-	} catch (errorEx &err) {
-		Error(err);
-		return ret;
+	XSqlQuery query("SELECT key, value FROM settings");
+	while (query.next()) {
+		QString key = query.value(0).toString();
+		QString value = query.value(1).toString();
+		if (key == "workingdir")
+			workingdir = value;
+		else if (key == "pkcs11path")
+			pkcs11path = value;
+		else if (key == "default_hash")
+			hashBox::setDefault(value);
+		else if (key == "mandatory_dn")
+			mandatory_dn = value;
+		else if (key == "explicit_dn")
+			explicit_dn = value;
+		else if (key == "string_opt")
+			string_opt = value;
+		else if (key == "optionflags")
+			setOptFlags(value);
+		else if (key == "defaultkey")
+			NewKey::setDefault(value);
+		else if (key == "mw_geometry")
+			set_geometry(value);
 	}
 	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
 	if (explicit_dn.isEmpty())
@@ -205,6 +556,9 @@ void MainWindow::dump_database()
 
 void MainWindow::undelete()
 {
+#warning undelete NOT WORKING!
+	qDebug("undelete NOT WORKING!");
+#if 0
 	ImportMulti *dlgi = new ImportMulti(this);
 	db_header_t head;
 	db mydb(dbfile);
@@ -242,6 +596,7 @@ void MainWindow::undelete()
 		XCA_INFO(tr("No deleted items found"));
 	}
 	delete dlgi;
+#endif
 }
 
 int MainWindow::open_default_db()
@@ -290,17 +645,48 @@ void MainWindow::default_database()
 
 }
 
+QString MainWindow::getSetting(QString key)
+{
+	XSqlQuery q;
+	SQL_PREPARE(q, "SELECT value FROM settings WHERE key=?");
+	q.bindValue(0, key);
+	q.exec();
+	if (q.first()) {
+		return q.value(0).toString();
+	}
+	dbSqlError(q.lastError());
+	return QString();
+}
+
+void MainWindow::storeSetting(QString key, QString value)
+{
+	XSqlQuery q;
+	SQL_PREPARE(q, "UPDATE settings SET value=? WHERE key=?");
+	q.bindValue(0, value);
+	q.bindValue(1, key);
+	q.exec();
+	dbSqlError(q.lastError());
+	if (q.numRowsAffected() == 1)
+		return;
+	SQL_PREPARE(q, "INSERT INTO settings (key, value) VALUES (?, ?)");
+	q.bindValue(0, key);
+	q.bindValue(1, value);
+	q.exec();
+	dbSqlError(q.lastError());
+}
+
 void MainWindow::close_database()
 {
 	QByteArray ba;
-	if (!dbfile.isEmpty()) {
-		ba += db::intToData(size().width());
-		ba += db::intToData(size().height());
-		ba += db::intToData(tabView->currentIndex());
-		db mydb(dbfile);
-		mydb.set((const unsigned char *)ba.constData(), ba.size(), 1,
-			setting, "mw_geometry");
-	}
+	if (!db.isOpen())
+		return;
+
+	qDebug("Closing database: %s", QString2filename(dbfile));
+	QString s = QString("%1,%2,%3")
+		.arg(size().width()).arg(size().height())
+		.arg(tabView->currentIndex());
+	storeSetting("mw_geometry", s);
+
 	setItemEnabled(false);
 	statusBar()->removeWidget(searchEdit);
 	dbindex->clear();
@@ -322,11 +708,13 @@ void MainWindow::close_database()
 	if (keys)
 		delete(keys);
 
+	db_base::flushLookup();
 	reqs = NULL;
 	certs = NULL;
 	temps = NULL;
 	keys = NULL;
 
+	db.close();
 	pki_evp::passwd.cleanse();
 	pki_evp::passwd = QByteArray();
 
@@ -334,19 +722,6 @@ void MainWindow::close_database()
 		return;
 	crls = NULL;
 
-
-	try {
-		int ret;
-		db mydb(dbfile);
-		ret = mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
-		if (ret == 1)
-			XCA_INFO(tr("Errors detected and repaired while deleting outdated items from the database. A backup file was created"));
-		if (ret == 2)
-			XCA_INFO(tr("Removing deleted or outdated items from the database failed."));
-	}
-	catch (errorEx &err) {
-		MainWindow::Error(err);
-	}
 	update_history(dbfile);
 	pkcs11::remove_libs();
 	enableTokenMenu(pkcs11::loaded());

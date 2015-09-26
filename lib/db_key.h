@@ -25,10 +25,10 @@ class db_key: public db_base
 		virtual dbheaderList getHeaders();
 		exportType::etype clipboardFormat(QModelIndexList indexes) const;
 	public:
-		db_key(QString db, MainWindow *mw);
-		QStringList getPrivateDesc();
-		QStringList get0KeyDesc(bool all = false);
-		pki_base *newPKI(db_header_t *head = NULL);
+		db_key(MainWindow *mw);
+		QList<pki_base*> getUnusedKeys();
+		QList<pki_base*> getAllKeys();
+		pki_base *newPKI(enum pki_type type = none);
 		void inToCont(pki_base *pki);
 		void remFromCont(QModelIndex &idx);
 		pki_base* insert(pki_base *item);
@@ -45,7 +45,7 @@ class db_key: public db_base
 	signals:
 		void delKey(pki_key *delkey);
 		void newKey(pki_key *newkey);
-		void keyDone(QString name);
+		void keyDone(pki_key *nkey);
 };
 
 #endif

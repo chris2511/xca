@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>487</width>
-    <height>320</height>
+    <height>501</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -82,19 +82,55 @@
     </spacer>
    </item>
    <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Subject manager</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="kvView" name="subjectManager"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QPushButton" name="extDNadd">
+          <property name="text">
+           <string>Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="extDNdel">
+          <property name="text">
+           <string>Delete</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="certName">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="1">
          <widget class="QLineEdit" name="serial"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="randomSerial">
-          <property name="text">
-           <string>Use random Serial numbers</string>
-          </property>
-         </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label">
@@ -120,6 +156,20 @@
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Next serial for signing</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="randomSerial">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Use random Serial numbers</string>
           </property>
          </widget>
         </item>
@@ -150,6 +200,17 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>kvView</class>
+   <extends>QTableView</extends>
+   <header>widgets/kvView.h</header>
+   <slots>
+    <slot>addKvRow()</slot>
+    <slot>deleteCurrentRow()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -159,12 +220,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>141</y>
+     <x>240</x>
+     <y>345</y>
     </hint>
     <hint type="destinationlabel">
      <x>271</x>
-     <y>111</y>
+     <y>306</y>
     </hint>
    </hints>
   </connection>
@@ -176,7 +237,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>341</x>
-     <y>291</y>
+     <y>472</y>
     </hint>
     <hint type="destinationlabel">
      <x>292</x>
@@ -192,11 +253,43 @@
    <hints>
     <hint type="sourcelabel">
      <x>445</x>
-     <y>292</y>
+     <y>473</y>
     </hint>
     <hint type="destinationlabel">
      <x>445</x>
      <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>extDNadd</sender>
+   <signal>clicked()</signal>
+   <receiver>subjectManager</receiver>
+   <slot>addKvRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>363</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>extDNdel</sender>
+   <signal>clicked()</signal>
+   <receiver>subjectManager</receiver>
+   <slot>deleteCurrentRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>362</x>
+     <y>139</y>
     </hint>
    </hints>
   </connection>

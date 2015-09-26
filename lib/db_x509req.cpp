@@ -8,17 +8,17 @@
 
 #include "db_x509req.h"
 #include "pki_x509req.h"
-#include "widgets/CertDetail.h"
 #include "widgets/MainWindow.h"
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include <QAction>
 
 
-db_x509req::db_x509req(QString DBfile, MainWindow *mw)
-	:db_x509super(DBfile, mw)
+db_x509req::db_x509req(MainWindow *mw)
+	:db_x509super(mw)
 {
 	class_name = "requests";
+	sqlHashTable = "requests";
 	pkitype << x509_req;
 	updateHeaders();
 	loadContainer();
@@ -36,8 +36,9 @@ dbheaderList db_x509req::getHeaders()
 	return h;
 }
 
-pki_base *db_x509req::newPKI(db_header_t *)
+pki_base *db_x509req::newPKI(enum pki_type type)
 {
+	(void)type;
 	return new pki_x509req();
 }
 
@@ -86,6 +87,9 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		dlg->initCtx(NULL, NULL, req);
 		dlg->getReqAttributes(req);
 		req->createReq(key, xn, dlg->hashAlgo->currentHash(), dlg->getAllExt());
+		 // set the comment field
+		req->setComment(dlg->comment->toPlainText());
+
 		createSuccess(insert(req));
 	}
 	catch (errorEx &err) {
@@ -103,41 +107,10 @@ void db_x509req::toRequest(QModelIndex index)
 	newItem(NULL, req);
 }
 
-void db_x509req::inToCont(pki_base *pki)
-{
-	pki_x509req *req = (pki_x509req *)pki;
-	db_base::inToCont(pki);
-	findKey(req);
-	if (!mainwin->certs)
-		return;
-	pki_key *pub = req->getPubKey();
-	if (pub) {
-		int certs = mainwin->certs->findByPubKey(pub).count();
-		delete pub;
-		if (certs > 0) {
-			req->setDone();
-		}
-	}
-}
-
 void db_x509req::load(void)
 {
 	load_req l;
 	load_default(l);
-}
-
-void db_x509req::showPki(pki_base *pki)
-{
-	pki_x509req *req = (pki_x509req *)pki;
-	CertDetail *dlg;
-	dlg = new CertDetail(mainwin);
-	if (dlg) {
-		dlg->setReq(req);
-		connect(dlg->privKey, SIGNAL( doubleClicked(QString) ),
-			mainwin->keys, SLOT( showItem(QString) ));
-		dlg->exec();
-		delete dlg;
-	}
 }
 
 void db_x509req::store(QModelIndex index)
@@ -173,4 +146,9 @@ void db_x509req::signReq(QModelIndex index)
 {
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 	emit newCert(req);
+}
+
+QList<pki_base *> db_x509req::getAllRequests()
+{
+	return sqlSELECTpki("SELECT item FROM requests");
 }

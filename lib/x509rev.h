@@ -9,16 +9,20 @@
 #define __X509REV_H
 
 #include <QStringList>
+#include <QSqlRecord>
+#include <QSqlQuery>
+#include <QSqlError>
 #include <openssl/x509.h>
 #include "asn1time.h"
 #include "asn1int.h"
+#include "pki_base.h"
 
 class x509rev
 {
 	private:
 		a1int serial;
 		a1time date, ivalDate;
-		int reason_idx;
+		int reason_idx, crlNo;
 		void set(const x509rev &x);
 
 		X509_REVOKED *toREVOKED(bool withReason=true) const;
@@ -45,7 +49,8 @@ class x509rev
 		{
 			set(n);
 		}
-
+		x509rev(QSqlRecord rec);
+		void executeQuery(XSqlQuery &q);
 		bool isValid() const
 		{
 			return serial != a1int(0L) && !date.isUndefined();
@@ -92,6 +97,10 @@ class x509rev
 		{
 			return ivalDate;
 		}
+		int getCrlNo() const
+		{
+			return crlNo;
+		}
 		X509_REVOKED *get(bool withReason=true) const
 		{
 			return toREVOKED(withReason);
@@ -101,6 +110,7 @@ class x509rev
 class x509revList : public QList<x509rev>
 {
 	public:
+		static x509revList fromSql(QVariant caId);
 		bool merged;
 		QByteArray toBA();
 		void fromBA(QByteArray &ba);
@@ -121,5 +131,6 @@ class x509revList : public QList<x509rev>
 				append(r);
 			}
 		}
+		QSqlError sqlUpdate(QVariant caId);
 };
 #endif

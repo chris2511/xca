@@ -51,9 +51,14 @@ int a1time::from_asn1(const ASN1_TIME *a)
 		setUndefined();
 		return 0;
 	}
-	*this = QDateTime::fromString(t, GEN_FORMAT);
+	return fromPlain(t);
+}
+
+int a1time::fromPlain(QString plain)
+{
+	*this = QDateTime::fromString(plain, GEN_FORMAT);
 	setTimeSpec(Qt::UTC);
-	return 0;
+	return isValid() ? 0 : -1;
 }
 
 int a1time::set_asn1(QString str, int type)
@@ -99,6 +104,12 @@ a1time::a1time(const ASN1_TIME *a)
 {
 	atime = NULL;
 	from_asn1(a);
+}
+
+a1time::a1time(QString plain)
+{
+	atime = NULL;
+	fromPlain(plain);
 }
 
 a1time::~a1time()

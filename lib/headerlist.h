@@ -23,11 +23,13 @@
 #define HD_x509key_name -5
 #define HD_counter -6
 #define HD_x509_sigalg -7
+#define HD_creation -8
+#define HD_comment -9
 
 #define HD_cert_serial -10
 #define HD_cert_notBefore -11
 #define HD_cert_notAfter -12
-#define HD_cert_trust -13
+//#define HD_cert_trust -13
 #define HD_cert_revocation -14
 #define HD_cert_ca	 -15
 #define HD_cert_md5fp	 -16
@@ -38,7 +40,7 @@
 #define HD_req_signed -20
 #define HD_req_unstr_name -21
 #define HD_req_chall_pass -22
-#define HD_temp_type -30
+//#define HD_temp_type -30
 
 #define HD_crl_signer -40
 #define HD_crl_revoked -42
@@ -92,7 +94,7 @@ class dbheader
 		name = aname;
 	}
 #endif
-	dbheader(int aid, bool ashow,
+	dbheader(int aid, bool ashow = false,
 		QString aname = QString(), QString atip = QString())
 	{
 		init();
@@ -135,21 +137,22 @@ class dbheader
 		}
 		return false;
 	}
-	QByteArray toData()
+	QString toData()
 	{
-		QByteArray ba;
-		ba += db::intToData(visualIndex);
-		ba += db::intToData(sortIndicator);
-		ba += db::intToData(size);
-		ba += db::boolToData(show);
-		return ba;
+		QStringList sl; sl
+		<< QString::number(visualIndex)
+		<< QString::number(sortIndicator)
+		<< QString::number(size)
+		<< QString::number(show);
+		return sl.join(" ");
 	}
-	void fromData(QByteArray &ba)
+	void fromData(QString s)
 	{
-		visualIndex = db::intFromData(ba);
-		sortIndicator = db::intFromData(ba);
-		size = db::intFromData(ba);
-		show = db::boolFromData(ba);
+		QStringList sl = s.split(" ");
+		visualIndex = sl[0].toInt();
+		sortIndicator = sl[1].toInt();
+		size = sl[2].toInt();
+		show = sl[3].toInt();
 	}
 	void setupHeaderView(int sect, QHeaderView *hv)
 	{
@@ -207,42 +210,39 @@ class dbheaderList: public QList<dbheader*>
 	}
 	dbheaderList() :QList<dbheader*>() {
 	}
-	QByteArray toData()
+	QString toData()
 	{
-		QByteArray ba;
+		QStringList sl;
 		for (int i=0; i<count(); i++) {
+			QStringList seq;
 			dbheader *h = at(i);
 			if (!h->mustSave())
 				continue;
-			ba += db::intToData(h->id);
+			seq << QString("%1").arg(h->id);
 			if (h->id > 0) {
-				ASN1_OBJECT *o = OBJ_nid2obj(h->id);
-				ba += i2d_bytearray(I2D_VOID(i2d_ASN1_OBJECT), o);
+				seq << OBJ_obj2QString(
+					OBJ_nid2obj(h->id), 1);
 			}
-			ba += h->toData();
+			seq << h->toData();
+			sl << seq.join(":");
 		}
-		return ba;
+		return sl.join(",");
 	}
-	void fromData(QByteArray &ba)
+	void fromData(QString s)
 	{
-		while (ba.size()) {
-			int id = db::intFromData(ba);
+		QStringList sl = s.split(",");
+		foreach(QString hd, sl) {
+			QStringList sl1 = hd.split(":");
+			int id = sl1.takeFirst().toInt();
 			if (id > 0) {
-				ASN1_OBJECT *o = (ASN1_OBJECT*)d2i_bytearray(D2I_VOID(d2i_ASN1_OBJECT), ba);
-				id = OBJ_obj2nid(o);
-				ASN1_OBJECT_free(o);
+				id = OBJ_txt2nid(CCHAR(sl1.takeFirst()));
 			}
 			for (int i=0; i<count(); i++) {
 				dbheader *h = at(i);
 				if (h->id == id) {
-					h->fromData(ba);
-					id = 0;
+					h->fromData(sl1.takeFirst());
 					break;
 				}
-			}
-			if (id != 0) {
-				dbheader h("dummy");
-				h.fromData(ba);
 			}
 		}
 	}

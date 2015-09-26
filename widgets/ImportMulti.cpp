@@ -33,7 +33,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::certImg);
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	mcont = new db_token(QString(), parent);
+	mcont = new db_token(parent);
 	listView->setModel(mcont);
 	listView->setIconSize(pki_evp::icon[0]->size());
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);

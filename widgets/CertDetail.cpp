@@ -21,7 +21,6 @@ CertDetail::CertDetail(QWidget *parent)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	descr->setReadOnly(true);
 	showConf = false;
 }
 
@@ -47,6 +46,7 @@ void CertDetail::setX509super(pki_x509super *x)
 	pki_key *key= x->getRefKey();
 	if (key) {
 		privKey->setText(key->getIntName());
+		privKey->setClickText(key->getSqlItemId().toString());
 		if (key->isPrivKey()) {
 			privKey->setGreen();
 		} else {
@@ -73,6 +73,11 @@ void CertDetail::setX509super(pki_x509super *x)
 
 	// Algorithm
 	sigAlgo->setText(x->getSigAlg());
+	connect(sigAlgo, SIGNAL(doubleClicked(QString)),
+		MainWindow::getResolver(), SLOT(searchOid(QString)));
+
+	// Comment
+	comment->setPlainText(x->getComment());
 }
 
 void CertDetail::setCert(pki_x509 *cert)
@@ -96,25 +101,15 @@ void CertDetail::setCert(pki_x509 *cert)
 			signature->disableToolTip();
 		} else {
 			signature->setText(cert->getSigner()->getIntName());
+			privKey->setClickText(cert->getSqlItemId().toString());
 			signature->setGreen();
-		}
-
-		// check trust state
-		trustState->disableToolTip();
-		if (cert->getEffTrust() == 0) {
-			trustState->setText(tr("Not trusted"));
-			trustState->setRed();
-		}
-		else {
-			trustState->setText(tr("Trusted"));
-			trustState->setGreen();
 		}
 
 		// the serial
 		serialNr->setText(cert->getSerial().toHex());
 
 		// details of the issuer
-		issuer->setX509name(cert->getIssuer());
+		issuer->setX509name(cert->getIssuerName());
 
 		// The dates
 		notBefore->setText(cert->getNotBefore().toPretty());
@@ -170,7 +165,6 @@ void CertDetail::setReq(pki_x509req *req)
 			signature->setText("PKCS#10");
 		}
 		signature->disableToolTip();
-		trustState->hide();
 		fingerprints->hide();
 		validity->hide();
 		serialLabel->hide();

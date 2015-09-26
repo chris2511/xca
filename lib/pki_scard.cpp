@@ -34,13 +34,16 @@ bool pki_scard::only_token_hashes = false;
 
 void pki_scard::init(void)
 {
-	class_name = "pki_scard";
 	ownPass = ptPin;
-	dataVersion = 2;
 	pkiType = smartCard;
 
 	card_serial = card_manufacturer = card_label = "";
 	card_model = slot_label = "";
+}
+
+const char *pki_scard::getClassName() const
+{
+	return "pki_scard";
 }
 
 pki_scard::pki_scard(const QString name)
@@ -65,6 +68,56 @@ QString pki_scard::getMsg(msg_type msg)
 	case msg_delete_multi: return tr("Delete the %1 keys: %2?");
 	}
 	return pki_base::getMsg(msg);
+}
+
+QSqlError pki_scard::insertSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_key::insertSqlData();
+	if (e.isValid())
+		return e;
+
+	SQL_PREPARE(q, "INSERT INTO tokens (item, card_manufacturer, card_serial, "
+					"card_model, card_label, slot_label, "
+					"object_id) "
+		  "VALUES (?, ?, ?, ?, ?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, card_manufacturer);
+	q.bindValue(2, card_serial);
+	q.bindValue(3, card_model);
+	q.bindValue(4, card_label);
+	q.bindValue(5, slot_label);
+	q.bindValue(6, object_id);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "INSERT INTO token_mechanism (item, mechanism) "
+		  "VALUES (?, ?)");
+	q.bindValue(0, sqlItemId);
+	foreach(CK_MECHANISM_TYPE m, mech_list) {
+		q.bindValue(1, QVariant((uint)m));
+		q.exec();
+	}
+	return q.lastError();
+}
+
+QSqlError pki_scard::deleteSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_key::deleteSqlData();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "DELETE FROM tokens WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "DELETE FROM token_mechanism WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
 }
 
 EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
@@ -690,24 +743,6 @@ pki_scard::~pki_scard()
 {
 }
 
-QByteArray pki_scard::toData()
-{
-	QByteArray ba;
-
-	ba += db::stringToData(card_serial);
-	ba += db::stringToData(card_manufacturer);
-	ba += db::stringToData(card_label);
-	ba += db::stringToData(slot_label);
-	ba += db::stringToData(card_model);
-	ba += db::stringToData(object_id);
-	ba += db::intToData(mech_list.count());
-	for (int i=0; i<mech_list.count(); i++)
-		ba += db::intToData(mech_list[i]);
-
-	ba += i2d();
-	return ba;
-}
-
 void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 {
 	int version, size;
@@ -744,20 +779,16 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 	}
 }
 
-bool pki_scard::isPubKey() const
-{
-	return false;
-}
-
 QString pki_scard::getTypeString(void) const
 {
 	return tr("Token %1").arg(pki_key::getTypeString());
 }
 
-EVP_PKEY *pki_scard::decryptKey() const
+EVP_PKEY *pki_scard::decryptKey(int oldkey) const
 {
 	slotid slot_id;
 	QString pin, key_id;
+	(void)oldkey;
 
 	if (!prepare_card(&slot_id))
 		throw errorEx(tr("Failed to find the key on the token"));

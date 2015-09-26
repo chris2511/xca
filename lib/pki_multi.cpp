@@ -24,7 +24,6 @@ pki_multi::pki_multi(const QString name)
 	:pki_base(name)
 {
 	multi.clear();
-	class_name="pki_multi";
 }
 
 pki_multi::~pki_multi()
@@ -32,6 +31,11 @@ pki_multi::~pki_multi()
 	pki_base *pki;
 	while ((pki = pull()))
 		delete pki;
+}
+
+const char *pki_multi::getClassName() const
+{
+	return "pki_multi";
 }
 
 pki_base *pki_multi::pull()

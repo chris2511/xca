@@ -24,12 +24,11 @@
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QList>
+#include <QtSql>
 #include <QMessageBox>
 #include <QMenu>
 #include <QToolTip>
 #include <QLocale>
-
-#define DBFILE "xca.xdb"
 
 class db_x509;
 class pki_multi;
@@ -81,12 +80,15 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QStringList history;
 		tipMenu *historyMenu;
 		void update_history_menu();
-		void set_geometry(char *p, db_header_t *head);
+		void set_geometry(QString geo);
 		QLineEdit *searchEdit;
 		QStringList urlsToOpen;
 		int checkOldGetNewPass(Passwd &pass);
-		QString updateDbPassword(QString newdb, Passwd pass);
 		int exportIndex(QString fname, bool hierarchy);
+		void checkDB();
+		QSqlError initSqlDB();
+		QSqlError openSqlDB();
+		QSqlDatabase db;
 
 	protected:
 		void init_images();
@@ -115,6 +117,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static QString explicit_dn;
 		static QString explicit_dn_default;
 		int exitApp;
+		QSqlDatabase *getDb()
+		{
+			return &db;
+		}
 		QString dbfile;
 		QLabel *dbindex;
 
@@ -123,6 +129,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void loadSettings();
 		void saveSettings();
 		int initPass();
+		int initPass(QString passhash);
 		void read_cmdline(int argc, char *argv[]);
 		void load_engine();
 		static OidResolver *getResolver()
@@ -130,6 +137,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 			return resolver;
 		}
 		static void Error(errorEx &err);
+		static void dbSqlError(QSqlError err = QSqlError());
+		static void storeSetting(QString key, QString value);
+		static QString getSetting(QString key);
+
 		void cmd_version();
 		void cmd_help(const char* msg);
 
@@ -143,10 +154,12 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void dropEvent(QDropEvent *event);
 		void dragEnterEvent(QDragEnterEvent *event);
 		int open_default_db();
-		void setDefaultKey(QString def);
 		void load_history();
 		void update_history(QString file);
 		void initResolver();
+		bool checkForOldDbFormat();
+		int verifyOldDbPass(QString dbname);
+		void importOldDatabase(QString dbname);
 
 	public slots:
 		int init_database();
@@ -158,10 +171,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void connNewX509(NewX509 *nx);
 		void about();
 		void help();
-		void import_dbdump();
 		void undelete();
 		void loadPem();
-		bool pastePem(QString text);
+		bool pastePem(QString text, bool silent=false);
 		void pastePem();
 		void changeDbPass();
 		void openURLs(QStringList &files);

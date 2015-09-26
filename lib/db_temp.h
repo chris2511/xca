@@ -20,18 +20,16 @@ class db_temp: public db_x509name
 	Q_OBJECT
     protected:
 	QPixmap *keyicon;
-	pki_base *predefs;
-	dbheaderList getHeaders();
+	QList<pki_base*> predefs;
 
     public:
-	db_temp(QString DBfile, MainWindow *mw);
+	db_temp(MainWindow *mw);
 	~db_temp();
-	pki_base *newPKI(db_header_t *head = NULL);
+	pki_base *newPKI(enum pki_type type = none);
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
 	void fillContextMenu(QMenu *menu, const QModelIndex &index);
-	pki_base *getByName(QString desc);
-	QStringList getDescPredefs();
+	QList<pki_base*> getDescPredefs();
 	void newItem();
 	void showPki(pki_base *pki);
 	void load();

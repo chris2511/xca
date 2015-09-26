@@ -21,16 +21,16 @@ class db_x509req: public db_x509super
 	protected:
 		dbheaderList getHeaders();
 	public:
-		db_x509req(QString DBfile, MainWindow *mw);
+		db_x509req(MainWindow *mw);
 		pki_base* insert(pki_base *item);
-		pki_base *newPKI(db_header_t *head = NULL);
+		pki_base *newPKI(enum pki_type type = none);
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
-		void inToCont(pki_base *pki);
+//		void inToCont(pki_base *pki);
 		void store(QModelIndex index);
 		void signReq(QModelIndex index);
 		void toRequest(QModelIndex index);
 		void load();
-		void showPki(pki_base *pki);
+		QList<pki_base*> getAllRequests();
 
 	public slots:
 		void newItem(pki_temp *temp, pki_x509req *orig = NULL);

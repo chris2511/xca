@@ -22,7 +22,8 @@ class pki_key: public pki_base
 {
 		Q_OBJECT
 	protected:
-		int ownPass;
+		int ownPass, key_size;
+		bool isPub;
 		EVP_PKEY *key;
 		QString BN2QString(const BIGNUM *bn) const;
 		QString BNoneLine(BIGNUM *bn) const;
@@ -37,39 +38,22 @@ class pki_key: public pki_base
 		pki_key(const QString name = "");
 		pki_key(const pki_key *pk);
 		virtual ~pki_key();
+		const char *getClassName() const;
 		static builtin_curves builtinCurves;
 		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
-
-		virtual EVP_PKEY *decryptKey() const
-		{
-			return NULL;
-		}
-		virtual QString length() const
-		{
-			return QString();
-		}
-		virtual bool isPubKey() const
-		{
-			return true;
-		}
-		virtual const EVP_MD *getDefaultMD()
-		{
-			return NULL;
-		}
+		QString length() const;
+		QString comboText() const;
+		virtual EVP_PKEY *decryptKey(int oldkey=0) const;
+		virtual const EVP_MD *getDefaultMD();
 		virtual bool isToken();
 		virtual QString getTypeString(void) const;
-		virtual QString getIntNameWithType(void);
 		virtual QList<int> possibleHashNids();
 		virtual QString getMsg(msg_type msg);
-		virtual QString length();
 
 		void writePublic(const QString fname, bool pem);
 		bool compare(pki_base *ref);
 		int getKeyType() const;
-		static QString removeTypeFromIntName(QString n);
 		bool isPrivKey() const;
-		int incUcount();
-		int decUcount();
 		int getUcount();
 		int getOwnPass(void)
 		{
@@ -78,6 +62,10 @@ class pki_key: public pki_base
 		EVP_PKEY *getPubKey()
 		{
 			return key;
+		}
+		bool isPubKey() const
+		{
+			return isPub;
 		}
 		BIO *pem(BIO *, int);
 		QVariant column_data(dbheader *hd);
@@ -92,6 +80,9 @@ class pki_key: public pki_base
 		QByteArray i2d();
 		EVP_PKEY *load_ssh2_key(FILE *fp);
 		void writeSSH2public(QString fname);
+		QSqlError insertSqlData();
+		QSqlError deleteSqlData();
+		QSqlError restoreSql(QVariant sqlId);
 };
 
 #endif

@@ -19,11 +19,15 @@
 pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
 	:pki_base(d)
 {
-	class_name="pki_pkcs12";
 	key = new pki_evp(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
 	openssl_error();
+}
+
+const char *pki_pkcs12::getClassName() const
+{
+	return "pki_pkcs12";
 }
 
 pki_pkcs12::pki_pkcs12(const QString fname)
@@ -34,7 +38,6 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 	EVP_PKEY *mykey = NULL;
 	X509 *mycert = NULL;
 	key=NULL; cert=NULL;
-	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file:\n%1").arg(compressFilename(fname)));
 	fp = fopen_read(fname);

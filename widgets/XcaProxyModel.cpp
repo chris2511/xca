@@ -15,6 +15,10 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 	if (!db)
 		return QSortFilterProxyModel::lessThan(left, right);
 
+	if (left.column() < 0 || right.column() < 0) {
+		qDebug("BAD COLUMN: %d %d\n", left.column(), right.column());
+		return true;
+	}
 	if (db->isNumericCol(left.column()) &&
 	    db->isNumericCol(right.column()))
 	{

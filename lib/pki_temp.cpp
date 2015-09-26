@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2012 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2015 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -11,80 +11,120 @@
 #include "exception.h"
 #include "widgets/MainWindow.h"
 #include <QDir>
+#include <QBuffer>
+#include <QDataStream>
 
-QPixmap *pki_temp::icon=  NULL;
+#define TEMPLATE_DS_VERSION (QDataStream::Qt_4_2)
+
+QList<QString> pki_temp::tmpl_keys = QList<QString>()
+	<< "subAltName"
+	<< "issAltName"
+	<< "crlDist"
+	<< "authInfAcc"
+	<< "nsCertType"
+	<< "nsComment"
+	<< "nsBaseUrl"
+	<< "nsRevocationUrl"
+	<< "nsCARevocationUrl"
+	<< "nsRenewalUrl"
+	<< "nsCaPolicyUrl"
+	<< "nsSslServerName"
+	<< "ca"
+	<< "bcCritical"
+	<< "ekuCritical"
+	<< "kuCritical"
+	<< "subKey"
+	<< "authKey"
+	<< "basicPath"
+	<< "validN"
+	<< "validM"
+	<< "validMidn"
+	<< "keyUse"
+	<< "eKeyUse"
+	<< "adv_ext"
+	<< "noWellDefinedExpDate";
+
+QPixmap *pki_temp::icon = NULL;
 
 pki_temp::pki_temp(const pki_temp *pk)
 	:pki_x509name(pk->desc)
 {
-	class_name = pk->class_name;
-	dataVersion=pk->dataVersion;
-	pkiType=pk->pkiType;
+	pkiType = pk->pkiType;
 
-	xname=pk->xname;
-	subAltName=pk->subAltName;
-	issAltName=pk->issAltName;
-	crlDist=pk->crlDist;
-	authInfAcc=pk->authInfAcc;
-	certPol=pk->certPol;
-	nsCertType=pk->nsCertType;
-	nsComment=pk->nsComment;
-	nsBaseUrl=pk->nsBaseUrl;
-	nsRevocationUrl=pk->nsRevocationUrl;
-	nsCARevocationUrl=pk->nsCARevocationUrl;
-	nsRenewalUrl=pk->nsRenewalUrl;
-	nsCaPolicyUrl=pk->nsCaPolicyUrl;
-	nsSslServerName=pk->nsSslServerName;
-	ca=pk->ca;
-	bcCrit=pk->bcCrit;
-	keyUseCrit=pk->keyUseCrit;
-	eKeyUseCrit=pk->eKeyUseCrit;
-	subKey=pk->subKey;
-	authKey=pk->authKey;
-	pathLen=pk->pathLen;
-	validN=pk->validN;
-	validM=pk->validM;
-	validMidn=pk->validMidn;
-	keyUse=pk->keyUse;
-	eKeyUse=pk->eKeyUse;
-	adv_ext=pk->adv_ext;
-	noWellDefined=pk->noWellDefined;
+	xname = pk->xname;
+	settings = pk->settings;
 }
 
 pki_temp::pki_temp(const QString d)
 	:pki_x509name(d)
 {
-	class_name = "pki_temp";
-	dataVersion=6;
 	pkiType=tmpl;
 
-	subAltName="";
-	issAltName="";
-	crlDist="";
-	authInfAcc="";
-	certPol="";
-	nsCertType=0;
-	nsComment="xca certificate";
-	nsBaseUrl="";
-	nsRevocationUrl="";
-	nsCARevocationUrl="";
-	nsRenewalUrl="";
-	nsCaPolicyUrl="";
-	nsSslServerName="";
-	ca=0;
-	bcCrit=false;
-	keyUseCrit=false;
-	eKeyUseCrit=false;
-	subKey=false;
-	authKey=false;
-	validMidn=false;
-	pathLen="";
-	validN=365;
-	validM=0;
-	keyUse=0;
-	eKeyUse="";
-	adv_ext="";
-	noWellDefined=false;
+	foreach(QString key, tmpl_keys) {
+		settings[key] = QString();
+	}
+	settings["nsComment"] = "xca certificate";
+	settings["validN"] = "365";
+}
+
+const char *pki_temp::getClassName() const
+{
+	return "pki_temp";
+}
+
+QString pki_temp::comboText() const
+{
+	return pre_defined ? QString("[default] ") + pki_base::comboText() :
+			 pki_base::comboText();
+}
+
+QSqlError pki_temp::insertSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_x509name::insertSqlData();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "INSERT INTO templates (item, version, template) "
+		  "VALUES (?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, TMPL_VERSION);
+	q.bindValue(2, toData().toBase64());
+	q.exec();
+	return q.lastError();
+}
+
+QSqlError pki_temp::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	e = pki_x509name::restoreSql(sqlId);
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "SELECT version, template FROM templates WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return sqlItemNotFound(sqlId);
+	int version = q.value(0).toInt();
+	QByteArray ba = QByteArray::fromBase64(q.value(1).toByteArray());
+	fromData(ba, version);
+	return e;
+}
+
+QSqlError pki_temp::deleteSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_x509name::deleteSqlData();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "DELETE FROM templates WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
 }
 
 QString pki_temp::getMsg(msg_type msg)
@@ -129,12 +169,20 @@ static int bitsToInt(extList &el, int nid, bool *crit)
 	return ret;
 }
 
+void pki_temp::fromExtList(extList *el, int nid, const char *item)
+{
+	QString target;
+	el->genConf(nid, &target, &adv_ext);
+	settings[item] = target;
+}
+
 extList pki_temp::fromCert(pki_x509super *cert_or_req)
 {
 	x509name n;
 	extList el = cert_or_req->getV3ext();
+	adv_ext.clear();
 
-	nsComment = "";
+	settings["nsComment"] = "";
 
 	n = cert_or_req->getSubject();
 	foreach(QString sn, MainWindow::explicit_dn) {
@@ -149,50 +197,51 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			xname.addEntryByNid(nid, n.getEntry(i));
 	}
 
-	el.genConf(NID_subject_alt_name, &subAltName, &adv_ext);
-	el.genConf(NID_issuer_alt_name, &issAltName, &adv_ext);
-	el.genConf(NID_crl_distribution_points, &crlDist, &adv_ext);
-	el.genConf(NID_info_access, &authInfAcc, &adv_ext);
-
-	el.genConf(NID_netscape_comment, &nsComment);
-	el.genConf(NID_netscape_base_url, &nsBaseUrl);
-	el.genConf(NID_netscape_revocation_url, &nsRevocationUrl);
-	el.genConf(NID_netscape_ca_revocation_url, &nsCARevocationUrl);
-	el.genConf(NID_netscape_renewal_url, &nsRenewalUrl);
-	el.genConf(NID_netscape_ca_policy_url, &nsCaPolicyUrl);
-	el.genConf(NID_netscape_ssl_server_name, &nsSslServerName);
+	fromExtList(&el, NID_subject_alt_name, "subAltName");
+	fromExtList(&el, NID_issuer_alt_name, "issAltName");
+	fromExtList(&el, NID_crl_distribution_points, "crlDist");
+	fromExtList(&el, NID_info_access, "authInfAcc");
+	fromExtList(&el, NID_netscape_comment, "nsComment");
+	fromExtList(&el, NID_netscape_base_url, "nsBaseUrl");
+	fromExtList(&el, NID_netscape_revocation_url, "nsRevocationUrl");
+	fromExtList(&el, NID_netscape_ca_revocation_url, "nsCARevocationUrl");
+	fromExtList(&el, NID_netscape_renewal_url, "nsRenewalUrl");
+	fromExtList(&el, NID_netscape_ca_policy_url, "nsCaPolicyUrl");
+	fromExtList(&el, NID_netscape_ssl_server_name, "nsSslServerName");
 
 	QString r;
 	if (el.genConf(NID_basic_constraints, &r)) {
 		QStringList sl = r.split(",");
 		if (sl.contains("critical"))
-			bcCrit = true;
-		ca = sl.contains("CA:TRUE") ? 1 : 2;
-		pathLen = sl.filter("pathlen:").join("").mid(8, -1);
+			settings["bcCritical"] = "1";
+		settings["ca"] = sl.contains("CA:TRUE") ? 1 : 2;
+		settings["basicPath"]=sl.filter("pathlen:").join("") .mid(8,-1);
 	} else {
-		bcCrit = false;
-		ca = 0;
+		settings["bcCritical"] = "";
+		settings["ca"] = "";
+		settings["basicPath"] = "";
 	}
-	authKey = el.delByNid(NID_authority_key_identifier);
-	subKey =  el.delByNid(NID_subject_key_identifier);
+	settings["authKey"] = el.delByNid(NID_authority_key_identifier);
+	settings["subKey"] =  el.delByNid(NID_subject_key_identifier);
 
-	nsCertType = bitsToInt(el, NID_netscape_cert_type, NULL);
+	int nsCT = bitsToInt(el, NID_netscape_cert_type, NULL);
 	/* bit 4 is unused. Move higher bits down. */
-	nsCertType = (nsCertType & 0xf) | ((nsCertType & 0xf0) >> 1);
+	settings["nsCertType"] = (nsCT & 0xf) | ((nsCT & 0xf0) >> 1);
 
-	keyUse = bitsToInt(el, NID_key_usage, &keyUseCrit);
+	bool keyUseCritical;
+	settings["keyUse"] = QString::number(
+				bitsToInt(el, NID_key_usage, &keyUseCritical));
 
-	el.genConf(NID_ext_key_usage, &eKeyUse);
-	if (eKeyUse.startsWith("critical,")) {
-		eKeyUseCrit = true;
-		eKeyUse = eKeyUse.mid(9, -1);
-	}
+	settings["keyUseCritical"] = keyUseCritical ? "1" : "0";
+	fromExtList(&el, NID_ext_key_usage, "eKeyUse");
+
 	el.genGenericConf(&adv_ext);
+	settings["adv_ext"] = adv_ext;
 
 	if (cert_or_req->getType() == x509) {
 		pki_x509 *cert = (pki_x509*)cert_or_req;
 		if (cert->getNotAfter().isUndefined()) {
-			noWellDefined = true;
+			settings["noWellDefinedExpDate"] = "1";
 		} else {
 			a1time notBefore = cert->getNotBefore();
 			a1time notAfter  = cert->getNotAfter();
@@ -200,20 +249,20 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			if (notBefore.toPlain().endsWith("000000Z") &&
 			    notAfter.toPlain().endsWith("235959Z"))
 			{
-				validMidn = true;
+				settings["validMidn"] = "1";
 			}
 
 			int diff = notBefore.daysTo(notAfter);
-			validM = 0;
+			settings["validM"] = "0";
 			if (diff > 60) {
-				validM = 1;
+				settings["validM"] = "1";
 				diff /= 30;
 				if (diff > 24) {
-					validM = 2;
+					settings["validM"] = "2";
 					diff /= 12;
 				}
 			}
-			validN = diff;
+			settings["validN"] = QString::number(diff);
 		}
 	}
 	return el;
@@ -241,52 +290,53 @@ static QString old_eKeyUse2QString(int old)
 	return sl.join(", ");
 }
 
-void pki_temp::fromData(const unsigned char *p, int size, int version)
+void pki_temp::old_fromData(const unsigned char *p, int size, int version)
 {
 	QByteArray ba((const char*)p, size);
 
-	destination = db::stringFromData(ba);
-	bcCrit = db::boolFromData(ba);
-	keyUseCrit = db::boolFromData(ba);
-	eKeyUseCrit = db::boolFromData(ba);
-	subKey = db::boolFromData(ba);
-	authKey = db::boolFromData(ba);
-	ca = db::intFromData(ba);
+	/* destination = */ db::stringFromData(ba);
+	settings["bcCritical"] = QString::number(db::boolFromData(ba));
+	settings["keyUseCritical"] = QString::number(db::boolFromData(ba));
+	settings["eKyUseCritical"] = QString::number(db::boolFromData(ba));
+	settings["subKey"] = QString::number(db::boolFromData(ba));
+	settings["authKey"] = QString::number(db::boolFromData(ba));
+	settings["ca"] = QString::number(db::intFromData(ba));
 	if (version > 5) {
-		pathLen = db::stringFromData(ba);
+		settings["basicPath"] = db::stringFromData(ba);
 	} else {
-		pathLen = QString::number(db::intFromData(ba));
-		if (pathLen == "0")
-			pathLen = "";
+		settings["basicPath"] = QString::number(db::intFromData(ba));
+		if (settings["basicPath"] == "0")
+			settings["basicPath"] = "";
 	}
-	validN = db::intFromData(ba);
-	validM = db::intFromData(ba);
-	keyUse = db::intFromData(ba);
+	settings["validN"] = QString::number(db::intFromData(ba));
+	settings["validM"] = QString::number(db::intFromData(ba));
+	settings["keyUse"] = QString::number(db::intFromData(ba));
 	if (version > 4) {
-		eKeyUse = db::stringFromData(ba);
+		settings["eKeyUse"] = db::stringFromData(ba);
 	} else {
 		int old = db::intFromData(ba);
-		eKeyUse = old_eKeyUse2QString(old);
+		settings["eKeyUse"] = old_eKeyUse2QString(old);
 	}
-	nsCertType = db::intFromData(ba);
-	subAltName = db::stringFromData(ba);
-	issAltName = db::stringFromData(ba);
-	crlDist = db::stringFromData(ba);
-	nsComment = db::stringFromData(ba);
-	nsBaseUrl = db::stringFromData(ba);
-	nsRevocationUrl = db::stringFromData(ba);
-	nsCARevocationUrl = db::stringFromData(ba);
-	nsRenewalUrl = db::stringFromData(ba);
-	nsCaPolicyUrl = db::stringFromData(ba);
-	nsSslServerName = db::stringFromData(ba);
+	settings["nsCertType"] = QString::number(db::intFromData(ba));
+	settings["subAltName"] = db::stringFromData(ba);
+	settings["issAltName"] = db::stringFromData(ba);
+	settings["crlDist"] = db::stringFromData(ba);
+	settings["nsComment"] = db::stringFromData(ba);
+	settings["nsBaseUrl"] = db::stringFromData(ba);
+	settings["nsRevocationUrl"] = db::stringFromData(ba);
+	settings["nsCARevocationUrl"] = db::stringFromData(ba);
+	settings["nsRenewalUrl"] = db::stringFromData(ba);
+	settings["nsCaPolicyUrl"] = db::stringFromData(ba);
+	settings["nsSslServerName"] = db::stringFromData(ba);
 	xname.d2i(ba);
-	authInfAcc = db::stringFromData(ba);
-	certPol = db::stringFromData(ba);
-	validMidn = db::boolFromData(ba);
+	settings["authInfAcc"] = db::stringFromData(ba);
+	/* certPol = */ db::stringFromData(ba);
+	settings["validMidn"] = QString::number(db::boolFromData(ba));
 	if (version>2)
-		adv_ext = db::stringFromData(ba);
+		settings["adv_ext"] = db::stringFromData(ba);
 	if (version>3)
-		noWellDefined = db::boolFromData(ba);
+		settings["noWellDefinedExpDate"] =
+				QString::number(db::boolFromData(ba));
 
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
@@ -297,37 +347,41 @@ QByteArray pki_temp::toData()
 {
 	QByteArray ba;
 
-	ba += db::stringToData(destination);
-	ba += db::boolToData(bcCrit);
-	ba += db::boolToData(keyUseCrit);
-	ba += db::boolToData(eKeyUseCrit);
-	ba += db::boolToData(subKey);
-	ba += db::boolToData(authKey);
-	ba += db::intToData(ca);
-	ba += db::stringToData(pathLen);
-	ba += db::intToData(validN);
-	ba += db::intToData(validM);
-	ba += db::intToData(keyUse);
-	ba += db::stringToData(eKeyUse);
-	ba += db::intToData(nsCertType);
-	ba += db::stringToData(subAltName);
-	ba += db::stringToData(issAltName);
-	ba += db::stringToData(crlDist);
-	ba += db::stringToData(nsComment);
-	ba += db::stringToData(nsBaseUrl);
-	ba += db::stringToData(nsRevocationUrl);
-	ba += db::stringToData(nsCARevocationUrl);
-	ba += db::stringToData(nsRenewalUrl);
-	ba += db::stringToData(nsCaPolicyUrl);
-	ba += db::stringToData(nsSslServerName);
 	ba += xname.i2d();
-	ba += db::stringToData(authInfAcc);
-	ba += db::stringToData(certPol);
-	ba += db::boolToData(validMidn);
-	ba += db::stringToData(adv_ext);
-	ba += db::boolToData(noWellDefined);
 
+	QBuffer buf(&ba);
+	buf.open(QIODevice::WriteOnly | QIODevice::Append);
+	QDataStream out(&buf);
+	out.setVersion(TEMPLATE_DS_VERSION);
+	out << settings;
+	buf.close();
 	return ba;
+}
+
+void pki_temp::fromData(QByteArray &ba, int version)
+{
+	int size = ba.size();
+	xname.d2i(ba);
+	QBuffer buf(&ba);
+	buf.open(QIODevice::ReadOnly);
+	QDataStream in(&buf);
+	in.setVersion(TEMPLATE_DS_VERSION);
+	in >> settings;
+	buf.close();
+	fprintf(stderr, "Settings: %d, ba-size:%d size:%d\n",
+			settings.size(), ba.size(), size);
+	(void)version;
+	//if (version < 11) ....
+}
+
+void pki_temp::fromData(const unsigned char *p, int size, int version)
+{
+	if (version < 10) {
+		old_fromData(p, size, version);
+	} else {
+		QByteArray ba((const char*)p, size);
+		fromData(ba, version);
+	}
 }
 
 QByteArray pki_temp::toExportData()
@@ -335,7 +389,7 @@ QByteArray pki_temp::toExportData()
 	QByteArray data, header;
 	data = toData();
 	header = db::intToData(data.count());
-	header += db::intToData(dataVersion);
+	header += db::intToData(TMPL_VERSION);
 	header += data;
 	return header;
 }
@@ -377,34 +431,14 @@ BIO *pki_temp::pem(BIO *b, int format)
 void pki_temp::fromExportData(QByteArray data)
 {
 	int size, version;
-	const int hsize = sizeof(uint32_t);
-	bool oldimport = false;
 
-	if (data.size() < hsize) {
+	if (data.size() < (int)sizeof(uint32_t))
 		my_error(tr("Template file content error (too small)"));
-	}
 
-	QByteArray header = data.mid(0, hsize);
-	size = db::intFromData(header);
-
-	if (size > 65535 || size <0) {
-		/* oldimport templates are prepended by its size in
-		 * host endianess. Recover the size */
-                size = intFromData(data);
-		if (size > 65535 || size <0) {
-			my_error(tr("Template file content error (bad size)"));
-		}
-		oldimport = true;
-	}
-	if (oldimport) {
-		oldFromData((const unsigned char*)data.constData(),
-				data.size());
-	} else {
-		size = db::intFromData(data);
-		version = db::intFromData(data);
-		fromData((const unsigned char*)data.constData(),
-				data.size(), version);
-	}
+	size = db::intFromData(data);
+	version = db::intFromData(data);
+	fromData((const unsigned char*)data.constData(),
+		data.size(), version);
 }
 
 void pki_temp::try_fload(QString fname, const char *mode)
@@ -471,7 +505,8 @@ void pki_temp::fromPEM_BIO(BIO *bio, QString name)
 	PEM_read_bio(bio, &nm, &header, &data, &len);
 
 	if (ign_openssl_error())
-		throw errorEx(tr("Not a PEM encoded XCA Template"), class_name);
+		throw errorEx(tr("Not a PEM encoded XCA Template"),
+			getClassName());
 
 	if (!strcmp(nm, PEM_STRING_XCA_TEMPLATE)) {
 		ba = QByteArray::fromRawData((char*)data, len);
@@ -489,7 +524,6 @@ void pki_temp::fromPEM_BIO(BIO *bio, QString name)
 
 pki_temp::~pki_temp()
 {
-
 }
 
 bool pki_temp::compare(pki_base *)
@@ -499,86 +533,7 @@ bool pki_temp::compare(pki_base *)
 	return false;
 }
 
-QVariant pki_temp::column_data(dbheader *hd)
-{
-	switch (hd->id) {
-		case HD_temp_type:
-			return QVariant(destination);
-	}
-	return pki_x509name::column_data(hd);
-}
-
 QVariant pki_temp::getIcon(dbheader *hd)
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
-
-void pki_temp::oldFromData(const unsigned char *p, int size)
-{
-	int version;
-
-	QByteArray ba((const char*)p, size);
-
-	version=intFromData(ba);
-	intFromData(ba); /* type */
-	if (version == 1) {
-		ca = 2;
-		bool mca = intFromData(ba);
-		if (mca) ca = 1;
-	}
-	bcCrit=db::boolFromData(ba);
-	keyUseCrit=db::boolFromData(ba);
-	eKeyUseCrit=db::boolFromData(ba);
-	subKey=db::boolFromData(ba);
-	authKey=db::boolFromData(ba);
-	db::boolFromData(ba);
-	db::boolFromData(ba);
-	if (version >= 2) {
-		ca = intFromData(ba);
-	}
-	pathLen = QString::number(db::intFromData(ba));
-	if (pathLen == "0")
-		pathLen = "";
-	validN = intFromData(ba);
-	validM = intFromData(ba);
-	keyUse=intFromData(ba);
-	int old=db::intFromData(ba);
-	eKeyUse = old_eKeyUse2QString(old);
-	nsCertType=intFromData(ba);
-	if (version == 1) {
-		xname.addEntryByNid(OBJ_sn2nid("C"), db::stringFromData(ba));
-		xname.addEntryByNid(OBJ_sn2nid("ST"), db::stringFromData(ba));
-		xname.addEntryByNid(OBJ_sn2nid("L"), db::stringFromData(ba));
-		xname.addEntryByNid(OBJ_sn2nid("O"), db::stringFromData(ba));
-		xname.addEntryByNid(OBJ_sn2nid("OU"), db::stringFromData(ba));
-		xname.addEntryByNid(OBJ_sn2nid("CN"), db::stringFromData(ba));
-		xname.addEntryByNid(OBJ_sn2nid("Email"),db::stringFromData(ba));
-	}
-	pki_openssl_error();
-	subAltName=db::stringFromData(ba);
-	issAltName=db::stringFromData(ba);
-	crlDist=db::stringFromData(ba);
-	nsComment=db::stringFromData(ba);
-	nsBaseUrl=db::stringFromData(ba);
-	nsRevocationUrl=db::stringFromData(ba);
-	nsCARevocationUrl=db::stringFromData(ba);
-	nsRenewalUrl=db::stringFromData(ba);
-	nsCaPolicyUrl=db::stringFromData(ba);
-	nsSslServerName=db::stringFromData(ba);
-	// next version:
-	if (version >= 2) {
-		xname.d2i(ba);
-		pki_openssl_error();
-	}
-	if (version >= 3) {
-		authInfAcc=db::stringFromData(ba);
-		certPol=db::stringFromData(ba);
-		validMidn=db::boolFromData(ba);
-	}
-
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
-	}
-	pki_openssl_error();
-}
-

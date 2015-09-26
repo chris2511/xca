@@ -11,29 +11,52 @@
 #include "pki_evp.h"
 #include "pki_scard.h"
 #include "pass_info.h"
-#include "widgets/CertDetail.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportDialog.h"
 #include "widgets/MainWindow.h"
 #include "widgets/PwDialog.h"
 #include "widgets/RevocationList.h"
-#include "ui_TrustState.h"
 #include "ui_CaProperties.h"
-#include "ui_About.h"
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include <QAction>
 
 bool db_x509::treeview = true;
 
-db_x509::db_x509(QString DBfile, MainWindow *mw)
-	:db_x509super(DBfile, mw)
+db_x509::db_x509(MainWindow *mw)
+	:db_x509super(mw)
 {
-	rootItem->setIntName("[x509 root]");
 	class_name = "certificates";
+	sqlHashTable = "certs";
 	pkitype << x509;
 	updateHeaders();
 	loadContainer();
+	dereferenceIssuer();
+}
+
+void db_x509::dereferenceIssuer()
+{
+	XSqlQuery q("SELECT item, issuer FROM certs");
+	while (q.next()) {
+		pki_base *root = rootItem;
+		pki_x509 *cert = static_cast<pki_x509*>(
+					lookupPki(q.value(0).toULongLong()));
+		pki_x509 *issuer = static_cast<pki_x509*>(
+					lookupPki(q.value(1).toULongLong()));
+		if (cert && issuer) {
+			cert->setSigner(issuer);
+			if (cert != issuer)
+				root = issuer;
+		}
+		if (cert->getParent() != root) {
+			fprintf(stderr, "MOVE '%s' from '%s' to '%s'\n",
+				CCHAR(cert->getIntName()),
+				CCHAR(cert->getParent()->getIntName()),
+				CCHAR(root->getIntName()));
+			cert->getParent()->takeChild(cert);
+			insertChild(root, cert);
+		}
+	}
 }
 
 void db_x509::updateAfterCrlLoad(pki_x509 *pki)
@@ -64,85 +87,41 @@ dbheaderList db_x509::getHeaders()
 				tr("Not before")) <<
 		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),
 				tr("Not after")) <<
-		new dbheader(HD_cert_trust,	false,tr("Trust state")) <<
 		new dbheader(HD_cert_revocation,false, tr("Revocation")) <<
 		new dbheader(HD_cert_crl_expire,true, tr("CRL Expiration"));
 	return h;
 }
 
-pki_base *db_x509::newPKI(db_header_t *)
+pki_base *db_x509::newPKI(enum pki_type type)
 {
+	(void)type;
 	return new pki_x509();
 }
 
-pki_x509 *db_x509::findSigner(pki_x509 *client)
+QList<pki_base *> db_x509::getAllIssuers()
 {
-	pki_x509 *signer;
-	if ((signer = client->getSigner()) != NULL)
-		return signer;
-	// first check for self-signed
-	if (client->verify(client)) {
-		return client;
-	}
-	FOR_ALL_pki(pki, pki_x509) {
-		if (client->verify(pki)) {
-			return pki;
-		}
-	}
-	return NULL;
+	/* Select X509 CA certificates with available private key */
+	return sqlSELECTpki("SELECT x509super.item FROM x509super "
+		"JOIN private_keys ON x509super.key = private_keys.item "
+		"JOIN certs ON certs.item = x509super.item "
+		"WHERE certs.ca=1");
 }
-
-QStringList db_x509::getPrivateDesc()
-{
-	QStringList x;
-	FOR_ALL_pki(pki, pki_x509)
-		if (pki->getRefKey())
-			x.append(pki->getIntName());
-	return x;
-}
-
-QStringList db_x509::getSignerDesc()
-{
-	QStringList x;
-	FOR_ALL_pki(pki, pki_x509)
-		if (pki->canSign())
-			x.append(pki->getIntName());
-	return x;
-}
-
 
 void db_x509::remFromCont(QModelIndex &idx)
 {
-	int row;
+	db_x509super::remFromCont(idx);
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-	pki_base *parent_pki = pki->getParent();
-	row = pki->row();
 	pki_x509 *child;
 	pki_base *new_parent;
 	QModelIndex new_idx;
 
-	beginRemoveRows(parent(idx), row, row);
-	parent_pki->takeChild(pki);
-	endRemoveRows();
-
 	while (pki->childCount()) {
 		child = (pki_x509*)pki->childItems.takeFirst();
 		child->delSigner((pki_x509*)pki);
-		new_parent = findSigner(child);
+		new_parent = child->findIssuer();
 		insertChild(new_parent, child);
 	}
 	mainwin->crls->removeSigner(pki);
-	pki_key *pub = ((pki_x509*)pki)->getPubKey();
-	if (pub) {
-		if (mainwin->certs->findByPubKey(pub).count() == 0) {
-			QList<pki_x509super *> reqs;
-			reqs = mainwin->reqs->findByPubKey(pub);
-			foreach(pki_x509super *r, reqs)
-				((pki_x509req*)r)->setDone(false);
-		}
-		delete pub;
-	}
-	return;
 }
 
 void db_x509::changeView()
@@ -157,9 +136,9 @@ void db_x509::changeView()
 	beginRemoveRows(QModelIndex(), 0, rows -1);
 	pki_base *pki = rootItem;
 	pki_base *parent;
-	while(pki->childCount()) {
+	while (pki->childCount()) {
 		pki = pki->takeFirst();
-		while(pki != rootItem && !pki->childCount()) {
+		while (pki != rootItem && !pki->childCount()) {
 			parent = pki->getParent();
 			temproot->append(pki);
 			pki = parent;
@@ -174,16 +153,13 @@ void db_x509::changeView()
 		mainwin->BNviewState->setText(tr("Tree View"));
 
 	while ((temproot->childCount())) {
+		pki_base *parent = rootItem;
 		pki = temproot->takeFirst();
-		inToCont(pki);
+		if (treeview)
+			parent = static_cast<pki_x509*>(pki)->getSigner();
+		insertChild(parent, pki);
 	}
 	delete temproot;
-}
-
-void db_x509::calcEffTrust()
-{
-	FOR_ALL_pki(pki, pki_x509)
-		pki->calcEffTrust();
 }
 
 static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
@@ -207,8 +183,6 @@ void db_x509::inToCont(pki_base *pki)
 {
 	pki_x509 *cert = (pki_x509*)pki;
 	cert->setParent(NULL);
-	cert->delSigner(cert->getSigner());
-	findSigner(cert);
 	pki_base *root = cert->getSigner();
 	if (!treeview || root == cert || root == NULL)
 		root = rootItem;
@@ -216,30 +190,45 @@ void db_x509::inToCont(pki_base *pki)
 	insertChild(root, cert);
 
 	QList<pki_x509 *> childs;
+	QList<pki_base *> items;
+	unsigned pubhash = cert->pubHash();
+	unsigned namehash = cert->getSubject().hashNum();
+
 	/* Search for another certificate (name and key)
 	 * and use its childs if we are newer */
-	FOR_ALL_pki(client, pki_x509) {
-		if (client == cert)
+	items = sqlSELECTpki(
+		"SELECT x509super.item FROM x509super "
+		"JOIN public_keys ON x509super.key = public_keys.item "
+		"JOIN certs ON certs.item = x509super.item "
+		"WHERE certs.ca=1 AND x509super.subj_hash=? "
+		"AND x509super.key_hash=?",
+			QList<QVariant>() << namehash << pubhash);
+	foreach(pki_base *b, items) {
+		pki_x509 *other = static_cast<pki_x509*>(b);
+		if (other == cert)
 			continue;
-		if (!client->compareNameAndKey(cert))
+		if (!other->compareNameAndKey(cert))
 			continue;
-		if (cert->getNotAfter() < client->getNotAfter())
+		if (cert->getNotAfter() < other->getNotAfter())
 			continue;
-		foreach(pki_base *_child, client->childItems) {
-			pki_x509 *child = static_cast<pki_x509*>(_child);
-			child->delSigner(client);
+		foreach(pki_base *b, other->childItems) {
+			pki_x509 *child = static_cast<pki_x509*>(b);
+			child->delSigner(other);
 			childs << child;
 		}
 	}
 	/* Search rootItem childs, whether they are ours */
-	foreach(pki_base *_child, rootItem->childItems) {
-		pki_x509 *child = static_cast<pki_x509*>(_child);
+	foreach(pki_base *b, rootItem->childItems) {
+		pki_x509 *child = static_cast<pki_x509*>(b);
 		if (child == cert || child->getSigner() == child)
 			continue;
 		if (child->verify_only(cert))
 			childs << child;
 	}
 	/* move collected childs to us */
+	XSqlQuery q;
+	SQL_PREPARE(q, "UPDATE certs SET issuer=? WHERE item=?");
+	q.bindValue(0, cert->getSqlItemId());
 	foreach(pki_x509 *child, childs) {
 		int row;
 		if (recursiveSigning(cert, child))
@@ -247,61 +236,51 @@ void db_x509::inToCont(pki_base *pki)
 		if (!child->verify(cert))
 			continue;
 		row = child->row();
-		beginRemoveRows(index(child), row, row);
-		child->getParent()->takeChild(child);
-		endRemoveRows();
-		if (treeview)
+		if (treeview) {
+			beginRemoveRows(index(child->getParent()), row, row);
+			child->getParent()->takeChild(child);
+			endRemoveRows();
 			insertChild(cert, child);
-		else
-			insertChild(rootItem, child);
-	}
-	findKey(cert);
-	pki_key *pub = cert->getPubKey();
-	if (pub) {
-		QList<pki_x509super *> reqs = mainwin->reqs->findByPubKey(pub);
-		delete pub;
-
-		foreach(pki_x509super *r, reqs) {
-			((pki_x509req*)r)->setDone();
 		}
+		q.bindValue(1, child->getSqlItemId());
+		q.exec();
+		mainwin->dbSqlError(q.lastError());
 	}
-	calcEffTrust();
+	/* Update CRLs */
+	items = sqlSELECTpki( "SELECT item FROM crls WHERE iss_hash=?",
+			QList<QVariant>() << namehash);
+	SQL_PREPARE(q, "UPDATE crls SET issuer=? WHERE item=?");
+	foreach(pki_base *b, items) {
+		pki_crl *crl = static_cast<pki_crl*>(b);
+		crl->verify(cert);
+		cert = crl->getIssuer();
+		if (!cert)
+			continue;
+		q.bindValue(0, cert->getSqlItemId());
+		q.bindValue(1, crl->getSqlItemId());
+		q.exec();
+		mainwin->dbSqlError(q.lastError());
+	}
 }
 
-pki_x509 *db_x509::getBySubject(const x509name &xname, pki_x509 *last)
-{
-	bool lastfound = false;
-	if (last == NULL) lastfound = true;
-
-	FOR_ALL_pki(pki, pki_x509) {
-		if ( pki->getSubject() ==  xname) {
-			if (lastfound) {
-				return pki;
-			}
-		}
-		if (pki == last) {
-			lastfound = true;
-		}
-	}
-	return NULL;
-}
-
-void db_x509::writeAllCerts(const QString fname, bool onlyTrusted)
+void db_x509::writeAllCerts(const QString fname, bool unrevoked)
 {
 	bool append = false;
 	FOR_ALL_pki(pki, pki_x509) {
-		if (onlyTrusted && pki->getTrust() != 2) continue;
+		if (unrevoked && pki->isRevoked())
+			 continue;
 		pki->writeCert(fname.toLatin1(), true, append);
 		append = true;
 	}
 }
 
-QList<pki_x509*> db_x509::getCerts(bool onlyTrusted)
+QList<pki_x509*> db_x509::getCerts(bool unrevoked)
 {
 	QList<pki_x509*> c;
 	c.clear();
 	FOR_ALL_pki(pki, pki_x509) {
-		if (onlyTrusted && pki->getTrust() != 2) continue;
+		if (unrevoked && pki->isRevoked())
+			continue;
 		c.append(pki);
 	}
 	return c;
@@ -395,9 +374,6 @@ pki_base *db_x509::insert(pki_base *item)
 	serial = searchSerial(cert);
 	if ( ++serial > cert->getCaSerial()) {
 		cert->setCaSerial(serial);
-	}
-	if (mainwin->crls) {
-		mainwin->crls->updateRevocations(cert);
 	}
 	updatePKI(cert);
 	return cert;
@@ -521,7 +497,6 @@ void db_x509::newCert(NewX509 *dlg)
 			return;
 		serial = getUniqueSerial(signcert);
 		signkey = signcert->getRefKey();
-		cert->setTrust(1);
 #ifdef WG_QA_SERIAL
 	} else if (dlg->selfQASignRB->isChecked()){
 		Passwd pass;
@@ -531,13 +506,11 @@ void db_x509::newCert(NewX509 *dlg)
 		signcert = cert;
 		signkey = clientkey;
 		serial.setHex(pass);
-		cert->setTrust(2);
 #endif
 	} else {
 		signcert = cert;
 		signkey = clientkey;
 		serial.setHex(dlg->serialNr->text());
-		cert->setTrust(2);
 	}
 
 	dlg->initCtx(cert, signcert, NULL);
@@ -588,6 +561,9 @@ void db_x509::newCert(NewX509 *dlg)
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
 
+	// set the comment field
+	cert->setComment(dlg->comment->toPlainText());
+
 	cert = (pki_x509*)insert(cert);
 	createSuccess(cert);
 	updatePKI(signcert);
@@ -613,22 +589,6 @@ void db_x509::newCert(NewX509 *dlg)
 		if (tempkey != NULL)
 			delete(tempkey);
     }
-}
-
-void db_x509::showPki(pki_base *pki)
-{
-	pki_x509 *crt = (pki_x509 *)pki;
-	CertDetail *dlg;
-	dlg = new CertDetail(mainwin);
-	if (dlg) {
-		dlg->setCert(crt);
-		connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-			mainwin->keys, SLOT(showItem(QString)));
-		connect(dlg->signature, SIGNAL(doubleClicked(QString)),
-			this, SLOT( showItem(QString) ));
-		dlg->exec();
-		delete dlg;
-	}
 }
 
 void db_x509::store(QModelIndex idx)
@@ -694,12 +654,12 @@ void db_x509::store(QModelIndexList list)
 				"PEM + PKCS#8");
 	}
 	types << exportType() <<
-		exportType(exportType::PKCS7_trusted, "p7b",
-			tr("PKCS#7 trusted")) <<
+		exportType(exportType::PKCS7_unrevoked, "p7b",
+			tr("PKCS#7 unrevoked")) <<
 		exportType(exportType::PKCS7_all, "p7b",
 			tr("PKCS#7 all")) <<
-		exportType(exportType::PEM_trusted, "pem",
-			tr("PEM trusted")) <<
+		exportType(exportType::PEM_unrevoked, "pem",
+			tr("PEM unrevoked")) <<
 		exportType(exportType::PEM_all, "pem",
 			tr("PEM all")) <<
 		exportType(exportType::Index, "txt",
@@ -738,7 +698,7 @@ void db_x509::store(QModelIndexList list)
 				append = true;
 			}
 			break;
-		case exportType::PEM_trusted:
+		case exportType::PEM_unrevoked:
 			writeAllCerts(fname,true);
 			break;
 		case exportType::PEM_all:
@@ -749,7 +709,7 @@ void db_x509::store(QModelIndexList list)
 			break;
 		case exportType::PKCS7:
 		case exportType::PKCS7_chain:
-		case exportType::PKCS7_trusted:
+		case exportType::PKCS7_unrevoked:
 		case exportType::PKCS7_selected:
 		case exportType::PKCS7_all:
 			writePKCS7(crt, fname, type, list);
@@ -858,11 +818,11 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
 				p7->addCert(cert);
 			}
 			break;
-		case exportType::PKCS7_trusted:
+		case exportType::PKCS7_unrevoked:
 		case exportType::PKCS7_all:
 			FOR_ALL_pki(cer, pki_x509) {
 				if ((type == exportType::PKCS7_all) ||
-				    (cer->getTrust() == 2))
+				    (!cer->isRevoked()))
 					p7->addCert(cer);
 			}
 			break;
@@ -879,6 +839,19 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
 
 }
 
+void db_x509::storeRevocations(pki_x509 *cert)
+{
+	QSqlDatabase *db = mainwin->getDb();
+	if (db->transaction()) {
+		QSqlError e;
+		e = cert->revList.sqlUpdate(cert->getSqlItemId());
+		if (e.isValid())
+			db->rollback();
+		else
+			db->commit();
+	}
+}
+
 void db_x509::manageRevocations(QModelIndex idx)
 {
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
@@ -890,53 +863,8 @@ void db_x509::manageRevocations(QModelIndex idx)
 		mainwin->crls, SLOT(newItem(pki_x509*)));
 	if (dlg->exec()) {
 		cert->setRevocations(dlg->getRevList());
-		updatePKI(cert);
+		storeRevocations(cert);
 		emit columnsContentChanged();
-	}
-}
-
-void db_x509::setTrust(QModelIndexList indexes)
-{
-	int newstate = -1;
-	Ui::TrustState ui;
-	pki_x509 *cert = NULL;
-
-	if (indexes.size() == 0)
-		return;
-	if (indexes.size() == 1)
-		cert = static_cast<pki_x509*>(indexes[0].internalPointer());
-
-	QDialog *dlg = new QDialog(mainwin);
-	ui.setupUi(dlg);
-	ui.image->setPixmap(*MainWindow::certImg);
-	if (cert) {
-		int state = cert->getTrust();
-		if (cert->getSigner() == cert) {
-			if (state == 1)
-				state = 0;
-			ui.trust1->setDisabled(true);
-		}
-		if (state == 0 ) ui.trust0->setChecked(true);
-		if (state == 1 ) ui.trust1->setChecked(true);
-		if (state == 2 ) ui.trust2->setChecked(true);
-	}
-	if (!dlg->exec()) {
-		delete dlg;
-		return;
-	}
-	if (ui.trust0->isChecked()) newstate = 0;
-	if (ui.trust1->isChecked()) newstate = 1;
-	if (ui.trust2->isChecked()) newstate = 2;
-	delete dlg;
-	if (newstate == -1) {
-		return;
-	}
-	foreach(QModelIndex idx, indexes) {
-		cert = static_cast<pki_x509*>(idx.internalPointer());
-		if (newstate != cert->getTrust()) {
-			cert->setTrust(newstate);
-			updatePKI(cert);
-		}
 	}
 }
 
@@ -1048,7 +976,7 @@ void db_x509::do_revoke(QModelIndexList indexes, const x509rev &r)
 		revlist << rev;
 	}
 	parent->mergeRevList(revlist);
-	updatePKI(parent);
+	storeRevocations(parent);
 }
 
 void db_x509::unRevoke(QModelIndexList indexes)
@@ -1081,7 +1009,7 @@ void db_x509::unRevoke(QModelIndexList indexes)
 		if (i != -1)
 			parent->revList.takeAt(i);
 	}
-	updatePKI(parent);
+	storeRevocations(parent);
 	emit columnsContentChanged();
 }
 
@@ -1130,6 +1058,7 @@ void db_x509::caProperties(QModelIndex idx)
 {
 	Ui::CaProperties ui;
 	int i;
+#warning FIXME for Policies
 
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert)
@@ -1144,7 +1073,7 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
 	ui.image->setPixmap(*MainWindow::certImg);
-	QString templ = cert->getTemplate();
+	QString templ; //cert->getTemplate()->getIntName();
 	QStringList tempList = mainwin->temps->getDesc();
 	for (i=0; i<tempList.count(); i++) {
 		if (tempList[i] == templ)
@@ -1153,12 +1082,28 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.temp->addItems(tempList);
 	ui.temp->setCurrentIndex(i);
 	ui.certName->setTitle(cert->getIntName());
+
+	QStringList sl;
+	sl << tr("Type") << tr("Action");
+	ui.subjectManager->initCols(sl);
+
+	sl.clear();
+	foreach(int nid, *MainWindow::dn_nid)
+                sl << QString(OBJ_nid2ln(nid));
+	ui.subjectManager->setKeys(sl, 0);
+
+	sl.clear();
+	sl << "From request" << "From template" << "Erase" << "Match"
+	   << "Template as regex";
+	ui.subjectManager->setKeys(sl, 1);
+
 	if (dlg->exec()) {
 		a1int nserial;
 		cert->setCrlDays(ui.days->value());
 		nserial.setHex(ui.serial->text());
 		cert->setCaSerial(nserial);
-		cert->setTemplate(ui.temp->currentText());
+#warning Fixme, too
+//		cert->setTemplate(ui.temp->currentText());
 		cert->setUseRandomSerial(ui.randomSerial->isChecked());
 		updatePKI(cert);
 	}

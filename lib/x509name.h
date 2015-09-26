@@ -36,6 +36,7 @@ class x509name
 		int entryCount() const;
 		x509name &operator = (const x509name &x);
 		bool operator == (const x509name &x) const;
+		bool operator != (const x509name &x) const;
 		static int getNidByName(const QString &nid_name);
 		void addEntryByNid(int nid, const QString entry);
 		QString checkLength() const;
@@ -45,6 +46,7 @@ class x509name
 		QString getMostPopular() const;
 		QString taggedValues() const;
 		QString hash() const;
+		unsigned long hashNum() const;
 		bool search(const QRegExp &pattern);
 };
 

@@ -10,49 +10,40 @@
 #include "pki_base.h"
 #include "exception.h"
 #include <QString>
+#include <openssl/evp.h>
+#include <openssl/sha.h>
 
-int pki_base::pki_counter = 0;
 int pki_base::suppress_messages = 0;
 QRegExp pki_base::limitPattern;
 
 pki_base::pki_base(const QString name, pki_base *p)
 {
 	desc = name;
-	class_name = "pki_base";
 	parent = p;
-	pki_counter++;
 	childItems.clear();
-	dataVersion=0;
 	pkiType=none;
-}
-
-int pki_base::getVersion()
-{
-	return dataVersion;
-}
-
-enum pki_type pki_base::getType()
-{
-	return pkiType;
 }
 
 pki_base::~pki_base(void)
 {
 	while (childItems.size() > 0)
 		delete takeFirst();
-	pki_counter--;
 }
 
-
-QString pki_base::getIntName() const
+QString pki_base::comboText() const
 {
 	return desc;
 }
-
-QString pki_base::getUnderlinedName() const
+void pki_base::deleteFromToken() { };
+void pki_base::deleteFromToken(slotid) { };
+void pki_base::writeDefault(const QString) { }
+void pki_base::fromPEM_BIO(BIO *, QString) { }
+void pki_base::fload(const QString) { }
+int pki_base::renameOnToken(slotid, QString)
 {
-	return getIntName().replace(QRegExp("[ &;`/\\\\]+"), "_");
+	return 0;
 }
+
 
 bool pki_base::visible()
 {
@@ -61,20 +52,26 @@ bool pki_base::visible()
 	return getIntName().contains(limitPattern);
 }
 
-int pki_base::get_pki_counter()
+QString pki_base::getMsg(msg_type msg)
 {
-	return pki_counter;
+	return tr("Internal error: Unexpected message: %1 %2")
+		.arg(getClassName()).arg(msg);
 }
 
-QString pki_base::getClassName()
+QByteArray pki_base::i2d()
 {
-	QString x = class_name;
-	return x;
+	return QByteArray();
 }
 
-void pki_base::setIntName(const QString &d)
+BIO *pki_base::pem(BIO *, int format)
 {
-	desc = d;
+	(void)format;
+	return NULL;
+}
+
+const char *pki_base::getClassName() const
+{
+	return "pki_base";
 }
 
 void pki_base::fopen_error(const QString fname)
@@ -97,7 +94,7 @@ void pki_base::my_error(const QString error) const
 {
 	if (!error.isEmpty()) {
 		fprintf(stderr, "%s\n", CCHAR(tr("Error: ") + error));
-		throw errorEx(error, class_name);
+		throw errorEx(error, getClassName());
 	}
 }
 
@@ -115,6 +112,78 @@ QString pki_base::rmslashdot(const QString &s)
 	int r = a.lastIndexOf('.');
 	int l = a.lastIndexOf('/');
 	return s.mid(l+1,r-l-1);
+}
+
+QSqlError pki_base::insertSql()
+{
+	XSqlQuery q;
+	QString insert;
+	QSqlError e;
+	insertion_date.now();
+
+	SQL_PREPARE(q, "INSERT INTO items "
+		  "(name, type, date, comment) "
+		  "VALUES (?, ?, ?, ?)");
+	q.bindValue(0, getIntName());
+	q.bindValue(1, getType());
+	q.bindValue(2, insertion_date.toPlain());
+	q.bindValue(3, getComment());
+	q.exec();
+	e = q.lastError();
+	if (!e.isValid()) {
+		sqlItemId = q.lastInsertId();
+		e = insertSqlData();
+	}
+	return e;
+}
+
+QSqlError pki_base::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	SQL_PREPARE(q, "SELECT name, date, comment FROM items WHERE id=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return sqlItemNotFound(sqlId);
+	desc = q.value(0).toString();
+	insertion_date.fromPlain(q.value(1).toString());
+	comment = q.value(2).toString();
+	sqlItemId = sqlId;
+	return e;
+}
+
+QSqlError pki_base::deleteSql()
+{
+	XSqlQuery q;
+	QString insert;
+	QSqlError e;
+
+	if (!sqlItemId.isValid()) {
+		qDebug("INVALID sqlItemId (DELETE %s)", CCHAR(getIntName()));
+			return sqlItemNotFound(QVariant());
+	}
+	SQL_PREPARE(q, "DELETE FROM items WHERE id=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	e = q.lastError();
+	if (!e.isValid())
+		e = deleteSqlData();
+	return e;
+}
+
+QSqlError pki_base::sqlItemNotFound(QVariant sqlId) const
+{
+	return QSqlError(QString("XCA SQL database inconsistent"),
+			QString("Item %2 not found %1")
+				.arg(getClassName())
+				.arg(sqlId.toString()),
+			QSqlError::UnknownError);
 }
 
 pki_base *pki_base::getParent()
@@ -187,6 +256,10 @@ QVariant pki_base::column_data(dbheader *hd)
 	switch (hd->id) {
 	case HD_internal_name:
 		return QVariant(getIntName());
+	case HD_creation:
+		return QVariant(insertion_date.toSortable());
+	case HD_comment:
+		return QVariant(comment.section('\n', 0, 0));
 	}
 	return QVariant();
 }
@@ -197,23 +270,26 @@ QVariant pki_base::getIcon(dbheader *hd)
 	return QVariant();
 }
 
-uint32_t pki_base::intFromData(QByteArray &ba)
+bool pki_base::compare(pki_base *ref)
 {
-	/* For import "oldFromData" use the endian dependent version */
-	uint32_t ret;
-	if ((unsigned)(ba.count()) < sizeof(uint32_t)) {
-		ba.clear();
-		return 0;
-	}
-	memcpy(&ret, ba.constData(), sizeof(uint32_t));
-	ba = ba.mid(sizeof(uint32_t));
+	bool ret;
+	ret = (i2d() == ref->i2d());
+	pki_openssl_error();
 	return ret;
 }
 
-bool pki_base::compare(pki_base *refcrl)
+/* Signed 32 bit interger */
+unsigned pki_base::hash(QByteArray ba)
 {
-	bool ret;
-	ret = (i2d() == refcrl->i2d());
-	pki_openssl_error();
-	return ret;
+	unsigned char md[EVP_MAX_MD_SIZE];
+
+	SHA1((const unsigned char *)ba.constData(), ba.length(), md);
+
+	return (((unsigned)md[0]     ) | ((unsigned)md[1]<<8L) |
+		((unsigned)md[2]<<16L) | ((unsigned)md[3]<<24L)
+		) & 0x7fffffffL;
+}
+unsigned pki_base::hash()
+{
+	return hash(i2d());
 }

@@ -24,7 +24,6 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 	setWindowTitle(tr(XCA_TITLE));
 
 	image->setPixmap(*MainWindow::revImg);
-	descr->setReadOnly(true);
 }
 
 void CrlDetail::setCrl(pki_crl *crl)
@@ -34,19 +33,18 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 	iss = crl->getIssuer();
 	signCheck->disableToolTip();
+	signCheck->setClickText(crl->getSigAlg());
 	if (iss != NULL) {
 		issuerIntName->setText(iss->getIntName());
+		issuerIntName->setClickText(iss->getSqlItemId().toString());
 		issuerIntName->setGreen();
-		pki_key *key = iss->getPubKey();
-		if (crl->verify(key)) {
+		if (crl->verify(iss)) {
 			signCheck->setText(crl->getSigAlg());
 			signCheck->setGreen();
 		} else {
 			signCheck->setText(tr("Failed"));
 			signCheck->setRed();
 		}
-		if (key)
-			delete key;
 	} else {
 		issuerIntName->setText(tr("Unknown signer"));
 		issuerIntName->setDisabled(true);
@@ -54,6 +52,9 @@ void CrlDetail::setCrl(pki_crl *crl)
 		signCheck->setText(tr("Verification not possible"));
 		signCheck->setDisabled(true);
 	}
+
+	connect(signCheck, SIGNAL(doubleClicked(QString)),
+		MainWindow::getResolver(), SLOT(searchOid(QString)));
 
 	descr->setText(crl->getIntName());
 	lUpdate->setText(crl->getLastUpdate().toPretty());
@@ -67,4 +68,6 @@ void CrlDetail::setCrl(pki_crl *crl)
 	RevocationList::setupRevocationView(certList, crl->getRevList(), iss);
 
 	v3extensions->document()->setHtml(crl->printV3ext());
+
+	comment->setPlainText(crl->getComment());
 }

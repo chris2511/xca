@@ -20,10 +20,12 @@
 class pki_evp: public pki_key
 {
 		Q_OBJECT
-	protected:
 		QByteArray encKey;
 		void init();
-		void veryOldFromData(unsigned char *p, int size);
+		QByteArray getEncKey() const;
+		static QString _sha512passwd(QByteArray pass, QString salt,
+						int size, int repeat);
+	protected:
 		void openssl_pw_error(QString fname);
 	public:
 		static QPixmap *icon[2];
@@ -32,16 +34,18 @@ class pki_evp: public pki_key
 		static Passwd oldpasswd;
 		static QString md5passwd(QByteArray pass);
 		static QString sha512passwd(QByteArray pass, QString salt);
+		static QString sha512passwT(QByteArray pass, QString salt);
 		void generate(int bits, int type, QProgressBar *progress);
 		void generate(int bits, int type, QProgressBar *progress,
 				int curve_nid);
 		void setOwnPass(enum passType);
+		const char *getClassName() const;
 		pki_evp(const QString name = "", int type = EVP_PKEY_RSA);
 		pki_evp(EVP_PKEY *pkey);
 		void set_evp_key(EVP_PKEY *pkey);
 		void encryptKey(const char *password = NULL);
 		void bogusEncryptKey();
-		EVP_PKEY *decryptKey() const;
+		EVP_PKEY *decryptKey(int oldkey=0) const;
 		pki_evp(const pki_evp *pk);
 		/* destructor */
 		virtual ~pki_evp();
@@ -52,16 +56,17 @@ class pki_evp: public pki_key
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		void fromData(const unsigned char *p, db_header_t *head);
-		void oldFromData(unsigned char *p, int size);
-		QByteArray toData();
 		void writeKey(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
 		void writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
-		bool isPubKey() const;
 		int verify();
 		const EVP_MD *getDefaultMD();
 		QVariant getIcon(dbheader *hd);
+		bool sqlUpdatePrivateKey();
+		QSqlError insertSqlData();
+		QSqlError deleteSqlData();
+		QSqlError restoreSql(QVariant sqlId);
 };
 
 #endif

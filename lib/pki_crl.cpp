@@ -9,6 +9,7 @@
 #include "pki_crl.h"
 #include "func.h"
 #include "exception.h"
+#include "db_base.h"
 #include <QDir>
 
 #include "openssl_compat.h"
@@ -20,10 +21,13 @@ pki_crl::pki_crl(const QString name )
 {
 	issuer = NULL;
 	crl = X509_CRL_new();
-	class_name="pki_crl";
 	pki_openssl_error();
-	dataVersion=1;
 	pkiType=revocation;
+}
+
+const char *pki_crl::getClassName() const
+{
+	return "pki_crl";
 }
 
 void pki_crl::fromPEM_BIO(BIO *bio, QString name)
@@ -52,6 +56,74 @@ QString pki_crl::getMsg(msg_type msg)
 	case msg_delete_multi: return tr("Delete the %1 revocation lists: %2?");
 	}
 	return pki_base::getMsg(msg);
+}
+
+QSqlError pki_crl::insertSqlData()
+{
+	XSqlQuery q;
+	unsigned name_hash = getSubject().hashNum();
+
+	SQL_PREPARE(q, "SELECT x509super.item FROM x509super "
+		"JOIN certs ON certs.item = x509super.item "
+		"WHERE x509super.subj_hash=? AND certs.ca=1");
+	q.bindValue(0, name_hash);
+	q.exec();
+	if (q.lastError().isValid())
+		return q.lastError();
+	while (q.next()) {
+		pki_x509 *x = static_cast<pki_x509*>(
+			db_base::lookupPki(q.value(0).toULongLong()));
+		if (!x) {
+			qDebug("CA certificate with id %d not found",
+				q.value(0).toInt());
+			continue;
+		}
+		verify(x);
+	}
+	SQL_PREPARE(q, "INSERT INTO crls (item, hash, num, iss_hash, issuer, crl) "
+		  "VALUES (?, ?, ?, ?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, hash());
+	q.bindValue(2, numRev());
+	q.bindValue(3, name_hash);
+	q.bindValue(4, issuer ? issuer->getSqlItemId() : QVariant());
+	q.bindValue(5, i2d().toBase64());
+	q.exec();
+	return q.lastError();
+}
+
+QSqlError pki_crl::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	e = pki_base::restoreSql(sqlId);
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "SELECT crl, issuer FROM crls WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return sqlItemNotFound(sqlId);
+	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	d2i(ba);
+	setIssuer(static_cast<pki_x509*>(
+                        db_base::lookupPki(q.value(1).toULongLong())));
+	return e;
+}
+
+QSqlError pki_crl::deleteSqlData()
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	SQL_PREPARE(q, "DELETE FROM crls WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
 }
 
 void pki_crl::fload(const QString fname)
@@ -149,13 +221,6 @@ void pki_crl::fromData(const unsigned char *p, db_header_t *head)
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
-}
-
-QByteArray pki_crl::toData()
-{
-	QByteArray ba = i2d();
-	pki_openssl_error();
-	return ba;
 }
 
 void pki_crl::addRev(const x509rev &xrev, bool withReason)
@@ -265,14 +330,25 @@ x509name pki_crl::getSubject() const
 	return x509name(X509_CRL_get_issuer(crl));
 }
 
-bool pki_crl::verify(pki_key *key)
+bool pki_crl::verify(pki_x509 *issuer)
 {
-	bool ret=false;
-	if (key) {
-		ret = (X509_CRL_verify(crl, key->getPubKey()) == 1);
-		pki_ign_openssl_error();
+	if (getSubject() != issuer->getSubject())
+		return false;
+	pki_key *key = issuer->getPubKey();
+	if (!key)
+		return false;
+	int ret = X509_CRL_verify(crl, key->getPubKey());
+	pki_ign_openssl_error();
+	if (ret != 1) {
+		delete key;
+		return false;
 	}
-	return ret;
+	delete key;
+	pki_x509 *curr = getIssuer();
+	if (curr && curr->getNotAfter() > issuer->getNotAfter())
+		return true;
+	setIssuer(issuer);
+	return true;
 }
 
 void pki_crl::setCrlNumber(a1int num)
@@ -349,14 +425,4 @@ QVariant pki_crl::column_data(dbheader *hd)
 QVariant pki_crl::getIcon(dbheader *hd)
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
-}
-
-void pki_crl::oldFromData(unsigned char *p, int size)
-{
-	QByteArray ba((const char *)p, size);
-	d2i(ba);
-
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
-	}
 }

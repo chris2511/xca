@@ -39,7 +39,7 @@ int PwDialog::execute(pass_info *p, Passwd *passwd, bool write, bool abort)
 	dlg = new PwDialog(p, write);
 	if (abort)
 		dlg->addAbortButton();
-        ret = dlg->exec();
+	ret = dlg->exec();
 	*passwd = dlg->getPass();
 	delete dlg;
 	return ret;

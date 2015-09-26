@@ -11,52 +11,84 @@
 #include "pki_base.h"
 #include "x509name.h"
 #include "asn1time.h"
-#include "pki_x509.h"
+#include "pki_x509super.h"
 
 #define D5 "-----"
 #define PEM_STRING_XCA_TEMPLATE "XCA TEMPLATE"
+#define TMPL_VERSION 10
+
+#define CHECK_TMPL_KEY if (!tmpl_keys.contains(key)) { qDebug("Unknown template key: %s(%s)",  __func__, CCHAR(key)); }
 
 class pki_temp: public pki_x509name
 {
 		Q_OBJECT
 	protected:
+		static QList<QString> tmpl_keys;
 		int dataSize();
 		void try_fload(QString fname, const char *mode);
+		bool pre_defined;
+		x509name xname;
+		QMap<QString, QString> settings;
+		QString adv_ext;
+		void fromExtList(extList *el, int nid, const char *item);
+
 	public:
 		static QPixmap *icon;
-		x509name xname;
-		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
-		QString nsComment, nsBaseUrl, nsRevocationUrl,
-			nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl,
-			nsSslServerName, destination, adv_ext, eKeyUse, pathLen;
-		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey,
-			validMidn, noWellDefined;
-		int nsCertType, keyUse, ca;
-		int validN, validM;
 
 		// methods
-		extList fromCert(pki_x509super *cert_or_req);
-
+		const char *getClassName() const;
+		QString getSetting(QString key)
+		{
+			CHECK_TMPL_KEY
+			return settings[key];
+		}
+		int getSettingInt(QString key)
+		{
+			CHECK_TMPL_KEY
+			return settings[key].toInt();
+		}
+		void setSetting(QString key, QString value)
+		{
+			CHECK_TMPL_KEY
+			settings[key] = value;
+		}
+		void setSetting(QString key, int value)
+		{
+			CHECK_TMPL_KEY
+			settings[key] = QString::number(value);
+		}
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d = QString());
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
+		void old_fromData(const unsigned char *p, int size, int version);
 		void fromData(const unsigned char *p, db_header_t *head );
-		void oldFromData(const unsigned char *p, int size);
-
+		void fromData(QByteArray &ba, int version);
+		void setAsPreDefined()
+		{
+			pre_defined = true;
+		}
+		QString comboText() const;
 		QByteArray toData();
 		bool compare(pki_base *ref);
 		void writeTemp(QString fname);
-		QVariant column_data(dbheader *hd);
 		QVariant getIcon(dbheader *hd);
-		virtual QString getMsg(msg_type msg);
+		QString getMsg(msg_type msg);
 		x509name getSubject() const;
+		void setSubject(x509name n)
+		{
+			xname = n;
+		}
 		BIO *pem(BIO *b, int format);
 		QByteArray toExportData();
 		void fromPEM_BIO(BIO *, QString);
 		void fromExportData(QByteArray data);
+		extList fromCert(pki_x509super *cert_or_req);
+		QSqlError insertSqlData();
+		QSqlError deleteSqlData();
+		QSqlError restoreSql(QVariant sqlId);
 };
 
 #endif

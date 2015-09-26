@@ -17,9 +17,12 @@ pki_pkcs7::pki_pkcs7(const QString name)
 	p7 = PKCS7_new();
 	PKCS7_set_type(p7, NID_pkcs7_signed);
 	PKCS7_content_new(p7, NID_pkcs7_data);
-	class_name = "pki_pkcs7";
 }
 
+const char *pki_pkcs7::getClassName() const
+{
+	return "pki_pkcs7";
+}
 
 pki_pkcs7::~pki_pkcs7()
 {
@@ -56,7 +59,8 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	STACK_OF(X509) *certstack;
 	if (!crt) return;
 	privkey = crt->getRefKey();
-	if (!privkey) throw errorEx("No private key for signing found", class_name);
+	if (!privkey) throw errorEx("No private key for signing found",
+					getClassName());
 	certstack = sk_X509_new_null();
 
 	pki_x509 *signer = crt->getSigner();

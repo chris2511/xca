@@ -16,8 +16,8 @@ class QPixmap;
 
 class exportType {
     public:
-	enum etype { Separator, PEM, PEM_chain, PEM_trusted, PEM_all,
-		DER, PKCS7, PKCS7_chain, PKCS7_trusted, PKCS7_all,
+	enum etype { Separator, PEM, PEM_chain, PEM_unrevoked, PEM_all,
+		DER, PKCS7, PKCS7_chain, PKCS7_unrevoked, PKCS7_all,
 		PKCS12, PKCS12_chain, PEM_cert_key, PEM_cert_pk8,
 		PEM_key, PEM_private, PEM_private_encrypt, DER_private,
 		DER_key, PKCS8, PKCS8_encrypt, SSH2_public,

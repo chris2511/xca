@@ -16,12 +16,16 @@
 #include <QMimeData>
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
+#include "widgets/XcaDialog.h"
 
-db_base::db_base(QString db, MainWindow *mw)
+
+QHash<quint64, pki_base*> db_base::lookup;
+
+db_base::db_base(MainWindow *mw)
 	:QAbstractItemModel(NULL)
 {
-	dbName = db;
 	rootItem = newPKI();
+	rootItem->setIntName(rootItem->getClassName());
 	mainwin = mw;
 	colResizing = 0;
 	currentIdx = QModelIndex();
@@ -34,8 +38,9 @@ db_base::~db_base()
 	delete rootItem;
 }
 
-pki_base *db_base::newPKI(db_header_t *)
+pki_base *db_base::newPKI(enum pki_type type)
 {
+	(void)type;
 	return new pki_base("rootItem");
 }
 
@@ -64,139 +69,75 @@ void db_base::remFromCont(QModelIndex &idx)
 	emit columnsContentChanged();
 }
 
-int db_base::handleBadEntry(unsigned char *p, db_header_t *head)
+QString db_base::sqlItemSelector()
 {
-	QString name = QString::fromUtf8(head->name);
-	QString txt = tr("Bad database item\nName: %1\nType: %2\nSize: %3\n%4")
-		.arg(name).arg(class_name)
-		.arg(head->len - sizeof(db_header_t))
-		.arg(tr("Do you want to delete the item from the database? The bad item may be extracted into a separate file."));
+	QStringList sl;
+	QString selector;
 
-	xcaWarning msg(mainwin, txt);
-	msg.addButton(QMessageBox::Ok)->setText(tr("Delete"));
-	msg.addButton(QMessageBox::Apply)->setText(tr("Delete and extract"));
-	msg.addButton(QMessageBox::Cancel)->setText(tr("Continue"));
+	foreach(enum pki_type pt, pkitype)
+		sl << QString("type=%1").arg(pt);
 
-	switch (msg.exec()) {
-	case QMessageBox::Ok:
-		return 1;
-	case QMessageBox::Cancel:
-	default:
-		return 0;
-	case QMessageBox::Apply:
-		break;
+	return sl.join(" OR ");
+}
+
+QList<pki_base *> db_base::sqlSELECTpki(QString query, QList<QVariant> values)
+{
+	QList<pki_base *> x;
+	XSqlQuery q;
+	int i, num_values = values.size();
+
+	SQL_PREPARE(q, query);
+	for (i=0; i < num_values; i++) {
+		q.bindValue(i, values[i]);
 	}
-
-	QString s = QFileDialog::getSaveFileName(mainwin, QString(), name,
-			QString(), NULL, QFileDialog::DontConfirmOverwrite);
-
-	size_t l;
-	db_header_t h;
-	FILE *fp = fopen_write(s);
-	if (!fp) {
-		throw errorEx(tr("Error opening file: '%1': %2").
-                        arg(s).arg(strerror(errno)), class_name);
-	}
-
-	h.magic   = xntohl(head->magic);
-	h.len     = xntohl(head->len);
-	h.headver = xntohs(head->headver);
-	h.type    = xntohs(head->type);
-	h.version = xntohs(head->version);
-	h.flags   = xntohs(head->flags);
-	memcpy(h.name, head->name, NAMELEN);
-
-	l = fwrite(&h, sizeof h, 1, fp);
-	l += fwrite(p, head->len - sizeof h, 1, fp);
-	fclose(fp);
-
-	return (l == 2);
+	q.exec();
+	mainwin->dbSqlError(q.lastError());
+	while (q.next())
+		x << lookupPki(q.value(0).toULongLong());
+	return x;
 }
 
 void db_base::loadContainer()
 {
-	db mydb(dbName);
-	unsigned char *p = NULL;
-	db_header_t head;
-	pki_base *pki;
+	XSqlQuery q;
+	QSqlError e;
+	QString stmt;
 
-	for (int i=0; i < pkitype.count(); i++) {
-		mydb.first();
-		while (mydb.find(pkitype[i], QString()) == 0) {
-			QString s;
-			p = mydb.load(&head);
-			if (!p) {
-				qWarning("Load was empty !");
-				goto next;
-			}
-			pki = newPKI(&head);
-			if (pki->getVersion() < head.version) {
-				qWarning("Item[%s]: Version %d "
-					"> known version: %d -> ignored",
-					head.name, head.version,
-					pki->getVersion()
-				);
-				free(p);
-				delete pki;
-				goto next;
-			}
-			pki->setIntName(QString::fromUtf8(head.name));
+	stmt = QString("SELECT id, type FROM items WHERE ") + sqlItemSelector();
+	q.exec(stmt);
+	e = q.lastError();
+	mainwin->dbSqlError(e);
 
-			try {
-				pki->fromData(p, &head);
-			}
-			catch (errorEx &err) {
-				err.appendString(pki->getIntName());
-				mainwin->Error(err);
-				delete pki;
-				pki = NULL;
-				try {
-					if (handleBadEntry(p, &head)) {
-						mydb.erase();
-					}
-				} catch (errorEx &err) {
-					mainwin->Error(err);
-				}
-			}
-			free(p);
-			if (pki) {
-				inToCont(pki);
-			}
-next:
-			if (mydb.next())
-				break;
+	while (q.next()) {
+		enum pki_type t = (enum pki_type)q.value(1).toInt();
+		pki_base *pki = newPKI(t);
+		e = pki->restoreSql(q.value(0));
+		if (!e.isValid()) {
+			insertChild(rootItem, pki);
+			lookup[q.value(0).toULongLong()] = pki;
+		} else {
+			mainwin->dbSqlError(e);
 		}
 	}
 
-	mydb.first();
-	if (!mydb.find(setting, class_name + "_hdView")) {
-		QByteArray ba;
-		char *p;
-		if ((p = (char *)mydb.load(&head))) {
-			ba = QByteArray(p, head.len - sizeof(db_header_t));
-			free(p);
+	QString view = mainwin->getSetting(class_name + "_hdView");
+	if (view.isEmpty()) {
+		for (int i=0; i< allHeaders.count(); i++) {
+			allHeaders[i]->reset();
 		}
-		if (head.version != 5)
-			return;
-		try {
-			allHeaders.fromData(ba);
-		}  catch (errorEx()) {
-			for (int i=0; i< allHeaders.count(); i++) {
-				allHeaders[i]->reset();
-			}
-		}
+	} else {
+		allHeaders.fromData(view);
 	}
 	emit columnsContentChanged();
-	return;
 }
 
 void db_base::updateHeaders()
 {
-	QByteArray ba = allHeaders.toData();
+	QString s = allHeaders.toData();
 	foreach(dbheader *h, allHeaders)
 		delete h;
 	allHeaders = getHeaders();
-	allHeaders.fromData(ba);
+	allHeaders.fromData(s);
 }
 
 dbheaderList db_base::getHeaders()
@@ -204,19 +145,20 @@ dbheaderList db_base::getHeaders()
 	dbheaderList h;
 	/* "No." handled in XcaProxyModel */
 	h << new dbheader(HD_internal_name, true, tr("Internal name"))
-	  << new dbheader(HD_counter, false, tr("No."));
+	  << new dbheader(HD_counter, false, tr("No."))
+	  << new dbheader(HD_creation, false, tr("Date"),
+			tr("Date of creation or insertion"))
+	  << new dbheader(HD_comment, false, tr("Comment"),
+			tr("First line of the comment field"));
 	return h;
 }
 
-
 void db_base::saveHeaderState()
 {
-	if (dbName.isEmpty())
-		return;
-	QByteArray ba = allHeaders.toData();
-	db mydb(dbName);
-	mydb.set((const unsigned char *)ba.constData(), ba.size(), 5,
-		setting, class_name + "_hdView");
+	QSqlDatabase *db = mainwin->getDb();
+	if (db->isOpen())
+		mainwin->storeSetting(class_name + "_hdView",
+					allHeaders.toData());
 }
 
 void db_base::setVisualIndex(int i, int visualIndex)
@@ -267,19 +209,26 @@ void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 	allHeaders[logicalIndex]->sortIndicator = order;
 }
 
+QSqlError db_base::insertPKI_noTransaction(pki_base *pki)
+{
+	QSqlError e = pki->insertSql();
+	lookup[pki->getSqlItemId().toULongLong()] = pki;
+	inToCont(pki);
+	mainwin->dbSqlError(e);
+	emit columnsContentChanged();
+	return e;
+}
+
 void db_base::insertPKI(pki_base *pki)
 {
-	QString name;
-	db mydb(dbName);
-	QByteArray ba = pki->toData();
-
-	if (ba.count() > 0) {
-		name = mydb.uniq_name(pki->getIntName(), pkitype);
-		pki->setIntName(name);
-		mydb.add((const unsigned char*)ba.constData(), ba.count(),
-			pki->getVersion(), pki->getType(), name);
+	QSqlDatabase *db = mainwin->getDb();
+	if (db->transaction()) {
+		QSqlError e = insertPKI_noTransaction(pki);
+		if (e.isValid())
+			db->rollback();
+		else
+			db->commit();
 	}
-	inToCont(pki);
 	emit columnsContentChanged();
 }
 
@@ -319,6 +268,7 @@ void db_base::pem2clipboard(QModelIndexList indexes) const
 void db_base::deletePKI(QModelIndex idx)
 {
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	QSqlDatabase *db = mainwin->getDb();
 	try {
 		try {
 			pki->deleteFromToken();
@@ -326,12 +276,16 @@ void db_base::deletePKI(QModelIndex idx)
 			MainWindow::Error(err);
 		}
 
-		remFromCont(idx);
-
-		db mydb(dbName);
-		mydb.find(pki->getType(), pki->getIntName());
-		mydb.erase();
-		delete pki;
+		if (db->transaction()) {
+			QSqlError e = pki->deleteSql();
+			remFromCont(idx);
+	                mainwin->dbSqlError(e);
+			if (e.isValid())
+				db->rollback();
+			else
+				db->commit();
+			mainwin->dbSqlError(e);
+		}
 	} catch (errorEx &err) {
 		MainWindow::Error(err);
 	}
@@ -339,14 +293,9 @@ void db_base::deletePKI(QModelIndex idx)
 
 void db_base::updatePKI(pki_base *pki)
 {
-	db mydb(dbName);
-
-	QByteArray ba = pki->toData();
-
-	if (ba.count() > 0) {
-		mydb.set((const unsigned char*)ba.constData(), ba.count(),
-			pki->getVersion(), pki->getType(), pki->getIntName());
-	}
+	(void)pki;
+#warning UPDATING updatePKI
+	fprintf(stderr, "UUUUUUUUUUUUPDATE MIT SQL FEHLER\n");
 }
 
 void db_base::showItem(const QModelIndex &index)
@@ -356,7 +305,7 @@ void db_base::showItem(const QModelIndex &index)
 
 void db_base::showItem(const QString name)
 {
-	pki_base *pki = getByName(name);
+	pki_base *pki = lookupPki(name.toULongLong());
 	if (pki)
 		showPki(pki);
 }
@@ -376,6 +325,10 @@ void db_base::insertChild(pki_base *parent, pki_base *child)
 	endInsertRows();
 }
 
+/* Does all the linking from existing keys, crls, certs
+ * to the new imported or generated item
+ * called before the new item will be inserted into the database
+ */
 void db_base::inToCont(pki_base *pki)
 {
 	insertChild(rootItem, pki);
@@ -394,7 +347,10 @@ pki_base *db_base::getByReference(pki_base *refpki)
 {
 	if (refpki == NULL)
 		return NULL;
-	FOR_ALL_pki(pki, pki_base) {
+	QList<pki_base*> list = sqlSELECTpki(
+		QString("SELECT item FROM %1 WHERE hash=?").arg(sqlHashTable),
+		QList<QVariant>() << QVariant(refpki->hash()));
+	foreach(pki_base *pki, list) {
 		if (refpki->compare(pki))
 			return pki;
 	}
@@ -444,6 +400,8 @@ QModelIndex db_base::index(int row, int column, const QModelIndex &parent)
 {
 	pki_base *parentItem;
 
+if(column <0)
+	abort();
 	if (!parent.isValid())
 		parentItem = rootItem;
 	else
@@ -569,17 +527,50 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 		on = item->getIntName();
 		if (nn == on)
 			return true;
-		db mydb(dbName);
-		try {
-			mydb.rename(item->getType(), on, nn);
-			item->setIntName(nn);
-			emit dataChanged(index, index);
-			return true;
-		} catch (errorEx &err) {
-			mainwin->Error(err);
-		}
+		updateItem(item, nn, item->getComment());
+		return true;
 	}
 	return false;
+}
+
+void db_base::updateItem(pki_base *pki, QString name, QString comment)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	SQL_PREPARE(q, "UPDATE items SET name=?, comment=? WHERE id=?");
+	q.bindValue(0, name);
+	q.bindValue(1, comment);
+	q.bindValue(2, pki->getSqlItemId());
+	q.exec();
+	e = q.lastError();
+	mainwin->dbSqlError(e);
+	if (e.isValid())
+		return;
+	pki->setIntName(name);
+	pki->setComment(comment);
+
+	QModelIndex i, j;
+	i = index(pki);
+	j = index(i.row(), allHeaders.size(), i.parent());
+	emit dataChanged(i, j);
+}
+
+void db_base::editComment(const QModelIndex &index)
+{
+	pki_base *item = static_cast<pki_base*>(index.internalPointer());
+	if (!index.isValid() || !item)
+		return;
+
+	QTextEdit *t = new QTextEdit(mainwin);
+	t->setAutoFormatting(QTextEdit::AutoNone);
+	t->setAcceptRichText(false);
+	t->setPlainText(item->getComment());
+	XcaDialog *d = new XcaDialog(mainwin, item->getType(), t,
+		tr("Edit comment"), item->getIntName());
+	if (d->exec())
+		updateItem(item, item->getIntName(), t->toPlainText());
+	delete d;
 }
 
 void db_base::load_default(load_base &load)

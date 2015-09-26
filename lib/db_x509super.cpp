@@ -8,12 +8,13 @@
 #include "pki_base.h"
 #include "db_x509super.h"
 #include "widgets/MainWindow.h"
-#include "ui_About.h"
+#include "widgets/CertDetail.h"
+#include "widgets/XcaDialog.h"
 #include "oid.h"
 #include <QMessageBox>
 
-db_x509name::db_x509name(QString db, MainWindow *mw)
-	:db_base(db, mw)
+db_x509name::db_x509name(MainWindow *mw)
+	:db_base(mw)
 {
 }
 
@@ -30,9 +31,24 @@ dbheaderList db_x509name::getHeaders()
 	return h;
 }
 
-db_x509super::db_x509super(QString db, MainWindow *mw)
-	:db_x509name(db, mw)
+db_x509super::db_x509super(MainWindow *mw)
+	:db_x509name(mw)
 {
+}
+
+void db_x509super::loadContainer()
+{
+	db_x509name::loadContainer();
+	/* Resolve Key references */
+	FOR_ALL_pki(pki, pki_x509super) {
+		QVariant keySqlId = pki->getKeySqlId();
+		if (!keySqlId.isValid())
+			continue;
+		quint64 id = keySqlId.toULongLong();
+		if (!lookup.contains(id))
+			continue;
+		pki->setRefKey(static_cast<pki_key*>(lookup[id]));
+	}
 }
 
 dbheaderList db_x509super::getHeaders()
@@ -69,16 +85,6 @@ dbheaderList db_x509super::getHeaders()
 	foreach(int nid, v3ns_nid)
 		h << new nid_dbheader(nid, dbheader::hd_v3ext_ns);
 	return h;
-}
-
-void db_x509super::delKey(pki_key *delkey)
-{
-	FOR_ALL_pki(pki, pki_x509super) { pki->delRefKey(delkey); }
-}
-
-void db_x509super::newKey(pki_key *newkey)
-{
-	 FOR_ALL_pki(pki,pki_x509super) { pki->setRefKey(newkey); }
 }
 
 pki_key *db_x509super::findKey(pki_x509super *ref)
@@ -158,18 +164,15 @@ void db_x509super::toTemplate(QModelIndex index)
 		temp->setIntName(pki->getIntName());
 		extList el = temp->fromCert(pki);
 		if (el.size()) {
-			Ui::About ui;
 			QString etext;
-		        QDialog *d = new QDialog(mainwin, 0);
-		        ui.setupUi(d);
 			etext = QString("<h3>") +
 				tr("The following extensions were not ported into the template") +
 				QString("</h3><hr>") +
 				el.getHtml("<br>");
-			ui.textbox->setHtml(etext);
-			d->setWindowTitle(XCA_TITLE);
-			ui.image->setPixmap(*MainWindow::tempImg);
-			ui.image1->setPixmap(*MainWindow::certImg);
+			QTextEdit *textbox = new QTextEdit(etext);
+		        XcaDialog *d = new XcaDialog(mainwin, x509, textbox,
+						QString(), QString());
+			d->aboutDialog(MainWindow::tempImg);
 		        d->exec();
 		        delete d;
 		}
@@ -180,3 +183,33 @@ void db_x509super::toTemplate(QModelIndex index)
 	}
 }
 
+void db_x509super::showPki(pki_base *pki)
+{
+	pki_x509super *x = (pki_x509req *)pki;
+	CertDetail *dlg;
+	dlg = new CertDetail(mainwin);
+	if (!dlg)
+		return;
+
+	switch (x->getType()) {
+		case x509_req: dlg->setReq((pki_x509req*)x); break;
+		case x509: dlg->setCert((pki_x509*)x); break;
+		default:
+			delete dlg;
+			return;
+	}
+	connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
+		mainwin->keys, SLOT(showItem(QString)));
+	connect(dlg->signature, SIGNAL(doubleClicked(QString)),
+		this, SLOT(showItem(QString)));
+	if (dlg->exec()) {
+		QString newname = dlg->descr->text();
+		QString newcomment = dlg->comment->toPlainText();
+		if (newname != pki->getIntName() ||
+		    newcomment != pki->getComment())
+		{
+			updateItem(pki, newname, newcomment);
+		}
+	}
+	delete dlg;
+}

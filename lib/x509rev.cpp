@@ -7,11 +7,13 @@
 
 #include "x509rev.h"
 #include "db.h"
-#include "base.h"
+#include "pki_base.h"
 #include "func.h"
 #include "exception.h"
 #include <openssl/x509v3.h>
 #include <QStringList>
+#include <QVariant>
+#include <QSqlQuery>
 
 #include "openssl_compat.h"
 
@@ -56,6 +58,16 @@ QString x509rev::getReason() const
 	return crl_reasons[reason_idx].lname;
 }
 
+static int reasonBit2Idx(int bit)
+{
+	for (int i=0; crl_reasons[i].lname; i++) {
+		if (bit == crl_reasons[i].bitnum) {
+			return i;
+		}
+	}
+	return 0;
+}
+
 void x509rev::fromREVOKED(const X509_REVOKED *rev)
 {
 	ASN1_ENUMERATED *reason;
@@ -74,11 +86,7 @@ void x509rev::fromREVOKED(const X509_REVOKED *rev)
 	if (reason) {
 		r = ASN1_ENUMERATED_get(reason);
 		openssl_error();
-		for (int i=0; crl_reasons[i].lname; i++) {
-			if (r == crl_reasons[i].bitnum) {
-				reason_idx = i;
-			}
-		}
+		reason_idx = reasonBit2Idx(r);
 		ASN1_ENUMERATED_free(reason);
 	}
 	ivalDate.setUndefined();
@@ -157,6 +165,25 @@ void x509rev::dump() const
 		crl_reasons[reason_idx].lname);
 }
 
+x509rev::x509rev(QSqlRecord rec)
+{
+	serial.setHex(rec.value(0).toString());
+	date.fromPlain(rec.value(1).toString());
+	ivalDate.fromPlain(rec.value(2).toString());
+	crlNo = rec.value(3).toInt();
+	reason_idx = reasonBit2Idx(rec.value(4).toInt());
+}
+
+void x509rev::executeQuery(XSqlQuery &q)
+{
+	// 0 is the caId
+	q.bindValue(1, serial.toHex());
+	q.bindValue(2, date.toPlain());
+	q.bindValue(3, ivalDate.toPlain());
+	q.bindValue(4, crl_reasons[reason_idx].bitnum);
+	q.exec();
+}
+
 void x509revList::fromBA(QByteArray &ba)
 {
 	int i, num = db::intFromData(ba);
@@ -203,4 +230,43 @@ bool x509revList::identical(const x509revList &other) const
 			return false;
 	}
 	return true;
+}
+
+x509revList x509revList::fromSql(QVariant caId)
+{
+	XSqlQuery q;
+	x509revList list;
+
+	SQL_PREPARE(q, "SELECT serial, date, invaldate, crlNo, reasonBit "
+			"FROM revocations WHERE caId=?");
+	q.bindValue(0, caId);
+	q.exec();
+	if (q.lastError().isValid())
+		return list;
+	while (q.next()) {
+		x509rev r(q.record());
+		list.append(r);
+	}
+	return list;
+}
+
+QSqlError x509revList::sqlUpdate(QVariant caId)
+{
+	// Transaction from outside !!
+	XSqlQuery q;
+	QSqlError e;
+	SQL_PREPARE(q, "DELETE FROM revocations WHERE caId=?");
+	q.bindValue(0, caId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "INSERT INTO revocations "
+		"(caId, serial, date, invaldate, reasonBit) "
+		"VALUES (?,?,?,?,?)");
+	q.bindValue(0, caId);
+	for (int i=0; i<size(); i++) {
+		x509rev r = at(i);
+		r.executeQuery(q);
+	}
 }

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>491</width>
+    <height>224</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TimeInput</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="dateBox">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinAndMaxSize</enum>
+      </property>
+      <item>
+       <widget class="QWidget" name="widget" native="true">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>last update</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="Validity" name="lastUpdate">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>next update</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="Validity" name="nextUpdate">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0" colspan="2">
+          <widget class="QLineEdit" name="validNumber"/>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="validRange">
+           <item>
+            <property name="text">
+             <string>Days</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Months</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Years</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="applyTime">
+           <property name="text">
+            <string>Apply</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="midnightCB">
+           <property name="text">
+            <string>Midnight</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="checkBox">
+           <property name="text">
+            <string>Local time</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2" colspan="2">
+          <widget class="QCheckBox" name="noWellDefinedExpDate">
+           <property name="text">
+            <string>No well-defined expiration</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Validity</class>
+   <extends>QDateTimeEdit</extends>
+   <header>widgets/validity.h</header>
+   <container>1</container>
+   <slots>
+    <slot>hideTimeCheck(int)</slot>
+    <slot>localTime(int)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>128</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>256</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>nextUpdate</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>187</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>lastUpdate</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>lastUpdate</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>nextUpdate</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>146</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>applyTime</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>applyTimeRange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>310</x>
+     <y>195</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>297</x>
+     <y>228</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>applyTimeRange()</slot>
+ </slots>
+</ui>

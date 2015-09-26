@@ -14,7 +14,7 @@
 #ifndef OPENSSL_NO_EC
 #include <openssl/ec.h>
 #endif
-#include "ui_About.h"
+#include "XcaDialog.h"
 #include "ui_Help.h"
 #include "lib/func.h"
 #include "lib/entropy.h"
@@ -45,8 +45,10 @@ void MainWindow::cmd_help(const char* msg)
 
 void MainWindow::about()
 {
-	Ui::About ui;
-	QDialog *about = new QDialog(this, 0);
+	QTextEdit *textbox = new QTextEdit(NULL);
+	XcaDialog *about = new XcaDialog(this, x509, textbox,
+					QString(), QString());
+	about->aboutDialog(scardImg);
 	QString openssl, qt, cont, version, brainpool;
 #ifndef OPENSSL_NO_EC
 #ifdef NID_brainpoolP160r1
@@ -81,7 +83,6 @@ void MainWindow::about()
 	} else {
 		version = QString("%1<br>QT version: %2").arg(openssl).arg(qt);
 	}
-	ui.setupUi(about);
 	Entropy::seed_rng();
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
@@ -105,10 +106,7 @@ void MainWindow::about()
 			.arg(version_str(true)).arg(getPrefix())
 			.arg(getUserSettingsDir());
 
-	about->setWindowTitle(XCA_TITLE);
-	ui.image->setPixmap( *keyImg );
-	ui.image1->setPixmap( *certImg );
-	ui.textbox->setHtml(cont);
+	textbox->setHtml(cont);
 	about->exec();
 	delete about;
 }

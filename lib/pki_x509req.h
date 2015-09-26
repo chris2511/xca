@@ -30,14 +30,13 @@ class pki_x509req : public pki_x509super
 	public:
 		extList getV3ext();
 		static QPixmap *icon[3];
+		const char *getClassName() const;
 		pki_x509req(QString name = "");
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		~pki_x509req();
 		void fromData(const unsigned char *p, db_header_t *head);
-		void oldFromData(unsigned char *p, int size);
-		QByteArray toData();
 		x509name getSubject() const;
 		void writeReq(const QString fname, bool pem);
 		X509_REQ *getReq()
@@ -49,8 +48,8 @@ class pki_x509req : public pki_x509super
 
 		int verify();
 		pki_key *getPubKey() const;
-		void createReq(pki_key *key, const x509name &dn, const EVP_MD *md,
-		   extList el);
+		void createReq(pki_key *key, const x509name &dn,
+			const EVP_MD *md, extList el);
 		void setSubject(const x509name &n);
 		/* SPKAC special functions */
 		QVariant column_data(dbheader *hd);
@@ -68,6 +67,9 @@ class pki_x509req : public pki_x509super
 		QByteArray i2d();
 		BIO *pem(BIO *, int);
 		bool visible();
+		QSqlError insertSqlData();
+		QSqlError deleteSqlData();
+		QSqlError restoreSql(QVariant sqlId);
 };
 
 #endif

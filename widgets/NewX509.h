@@ -55,13 +55,17 @@ class NewX509: public QDialog, public Ui::NewX509
 		enum pki_type pt;
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
-		QStringList private_keys, private_keys0, tabnames;
+		QStringList tabnames;
+		QList<pki_base*> unusedKeys, allKeys;
 		pki_x509 *ctx_cert;
 		QString v3ext_backup;
 		kvmodel *extDNmodel;
 		extList getExtDuplicates();
 		void checkIcon(const QString &text, int nid, QLabel*img);
 		QString dnEntryByNid(int nid);
+		void selfComment(QString msg);
+		QMap<QString, QLineEdit*> templateLineEdits;
+		QMap<QString, QCheckBox*> templateCheckBoxes;
 
 	public:
 		QRadioButton *selfQASignRB;
@@ -119,7 +123,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_fromReqCB_clicked();
 		void on_keyList_currentIndexChanged(const QString &);
 		void on_reqList_currentIndexChanged(const QString &);
-		void newKeyDone(QString name);
+		void newKeyDone(pki_key *nkey);
 		void on_applyTime_clicked();
 		void on_editSubAlt_clicked();
 		void on_editIssAlt_clicked();
@@ -145,7 +149,7 @@ class NewX509: public QDialog, public Ui::NewX509
 
 	signals:
 		void genKey(QString);
-		void showReq(QString req);
+		void showReq(pki_base *req);
 };
 
 #endif

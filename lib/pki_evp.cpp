@@ -33,18 +33,13 @@ QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
 void pki_evp::init()
 {
-	class_name = "pki_evp";
 	ownPass = ptCommon;
-	dataVersion=2;
-	pkiType=asym_key;
+	pkiType = asym_key;
 }
 
-QString pki_evp::removeTypeFromIntName(QString n)
+const char *pki_evp::getClassName() const
 {
-	if (n.right(1) != ")" )
-		return n;
-	n.truncate(n.length() - 6);
-	return n;
+	return "pki_evp";
 }
 
 void pki_evp::setOwnPass(enum passType x)
@@ -71,7 +66,26 @@ void pki_evp::setOwnPass(enum passType x)
 		ownPass = oldOwnPass;
 		throw(err);
 	}
-	EVP_PKEY_free(pk_back);
+	if (!sqlUpdatePrivateKey()) {
+		EVP_PKEY_free(pk);
+		key = pk_back;
+		ownPass = oldOwnPass;
+	}
+}
+
+bool pki_evp::sqlUpdatePrivateKey()
+{
+	XSqlQuery q;
+	SQL_PREPARE(q, "UPDATE private_keys SET private=?, ownPass=? "
+		"WHERE item=?");
+	q.bindValue(0, encKey.toBase64());
+	q.bindValue(1, ownPass);
+	q.bindValue(2, sqlItemId);
+	q.exec();
+
+	encKey.fill(0);
+	encKey.clear();
+	return !q.lastError().isValid() && q.numRowsAffected() == 1;
 }
 
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
@@ -141,7 +155,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	BN_GENCB_free(bar);
 #endif
-
+	isPub = false;
 	pki_openssl_error();
 	encryptKey();
 }
@@ -152,7 +166,7 @@ pki_evp::pki_evp(const pki_evp *pk)
 	init();
 	pki_openssl_error();
 	ownPass = pk->ownPass;
-	encKey = pk->encKey;
+	isPub = pk->isPub;
 }
 
 pki_evp::pki_evp(const QString name, int type)
@@ -161,16 +175,6 @@ pki_evp::pki_evp(const QString name, int type)
 	init();
 	EVP_PKEY_set_type(key, type);
 	pki_openssl_error();
-}
-
-pki_evp::pki_evp(EVP_PKEY *pkey)
-	:pki_key()
-{
-	init();
-	if (key) {
-		EVP_PKEY_free(key);
-	}
-	key = pkey;
 }
 
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
@@ -217,6 +221,23 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 }
 #endif
 
+pki_evp::pki_evp(EVP_PKEY *pkey)
+	:pki_key()
+{
+	init();
+	if (key) {
+		EVP_PKEY_free(key);
+	}
+	key = pkey;
+	isPub = true;
+	if (EVP_PKEY_isPrivKey(key)) {
+		isPub = false;
+		ownPass = ptPrivate;
+		encryptKey();
+		pki_openssl_error();
+	}
+}
+
 void pki_evp::openssl_pw_error(QString fname)
 {
 	switch (ERR_peek_error() & 0xff000fff) {
@@ -225,7 +246,7 @@ void pki_evp::openssl_pw_error(QString fname)
 	case ERR_PACK(ERR_LIB_EVP, 0, EVP_R_BAD_DECRYPT):
 		pki_ign_openssl_error();
 		throw errorEx(tr("Failed to decrypt the key (bad password) ")+
-				fname, class_name, E_PASSWD);
+				fname, getClassName(), E_PASSWD);
 	}
 }
 
@@ -397,15 +418,34 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head)
 		throw errorEx(tr("Ignoring unsupported private key"));
 
 	encKey = ba;
+	isPub = encKey.size() == 0;
+	if (isPub)
+		return;
+
+	/* Convert old encryption scheme to the new one */
+	EVP_PKEY *pk = decryptKey(1);
+	EVP_PKEY_free(key);
+	key = pk;
+	encryptKey();
+	pki_openssl_error();
 }
 
-EVP_PKEY *pki_evp::decryptKey() const
+static void passToKey(Passwd &pass, unsigned char *iv,
+	const EVP_CIPHER *cipher, unsigned char *ckey, int old)
+{
+	/* generate the key */
+	EVP_BytesToKey(cipher, old ? EVP_sha1() : EVP_sha256(), iv,
+		pass.constUchar(), pass.size(), old ? 1 : 8000, ckey, NULL);
+}
+
+EVP_PKEY *pki_evp::decryptKey(int oldkey) const
 {
 	unsigned char *p;
 	const unsigned char *p1;
 	int outl, decsize;
 	unsigned char iv[EVP_MAX_IV_LENGTH];
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	QByteArray myencKey;
 
 	EVP_PKEY *tmpkey;
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
@@ -432,35 +472,36 @@ EVP_PKEY *pki_evp::decryptKey() const
 		pass_info pi(XCA_TITLE, tr("Please enter the password to decrypt the private key: '%1'").arg(getIntName()));
 		ret = PwDialog::execute(&pi, &ownPassBuf, false);
 		if (ret != 1)
-			throw errorEx(tr("Password input aborted"), class_name);
+			throw errorEx(tr("Password input aborted"),
+					getClassName());
 	} else if (ownPass == ptBogus) { // BOGUS pass
 		ownPassBuf = "Bogus";
 	} else {
 		ownPassBuf = passwd;
-		while (md5passwd(ownPassBuf) != passHash &&
+		while (sha512passwT(ownPassBuf, passHash) != passHash &&
 			sha512passwd(ownPassBuf, passHash) != passHash)
 		{
 			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key '%1'").arg(getIntName()));
 			ret = PwDialog::execute(&p, &ownPassBuf, false);
 			if (ret != 1)
-				throw errorEx(tr("Password input aborted"), class_name);
+				throw errorEx(tr("Password input aborted"),
+						getClassName());
 		}
 	}
-	p = (unsigned char *)OPENSSL_malloc(encKey.count());
+	if (encKey.count() == 0)
+		myencKey = getEncKey();
+	else
+		myencKey = encKey;
+	if (myencKey.count() == 0)
+		return NULL;
+	p = (unsigned char *)OPENSSL_malloc(myencKey.count());
 	check_oom(p);
 	pki_openssl_error();
 	p1 = p;
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 
-	memcpy(iv, encKey.constData(), 8); /* recover the iv */
-	/* generate the key */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv,
-		ownPassBuf.constUchar(),
-		ownPassBuf.size(), 1, ckey, NULL);
-	/* we use sha1 as message digest,
-	 * because an md5 version of the password is
-	 * stored in the database...
-	 */
+	memcpy(iv, myencKey.constData(), 8); /* recover the iv */
+	passToKey(ownPassBuf, iv, cipher, ckey, oldkey);
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	ctx = EVP_CIPHER_CTX_new();
 #else
@@ -469,15 +510,16 @@ EVP_PKEY *pki_evp::decryptKey() const
 	EVP_CIPHER_CTX_init(ctx);
 	EVP_DecryptInit(ctx, cipher, ckey, iv);
 	EVP_DecryptUpdate(ctx, p , &outl,
-		(const unsigned char*)encKey.constData() +8, encKey.count() -8);
-
+		(const unsigned char*)myencKey.constData() +8,
+		myencKey.count() -8);
 	decsize = outl;
 	EVP_DecryptFinal(ctx, p + decsize , &outl);
 	decsize += outl;
-	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey.count() -8);
+	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, myencKey.count() -8);
 	pki_openssl_error();
 	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
 	pki_openssl_error();
+	OPENSSL_cleanse(p, myencKey.count());
 	OPENSSL_free(p);
 	EVP_CIPHER_CTX_cleanup(ctx);
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
@@ -488,18 +530,8 @@ EVP_PKEY *pki_evp::decryptKey() const
 		RSA *rsa = EVP_PKEY_get0_RSA(tmpkey);
 		RSA_blinding_on(rsa, NULL);
 	}
+	myencKey.fill(0);
 	return tmpkey;
-}
-
-QByteArray pki_evp::toData()
-{
-	QByteArray ba;
-
-	ba += db::intToData(getKeyType());
-	ba += db::intToData(ownPass);
-	ba += i2d();
-	ba += encKey;
-	return ba;
 }
 
 EVP_PKEY *pki_evp::priv2pub(EVP_PKEY* key)
@@ -542,7 +574,7 @@ void pki_evp::encryptKey(const char *password)
 			arg(getIntName()));
 		ret = PwDialog::execute(&p, &ownPassBuf, true);
 		if (ret != 1)
-			throw errorEx("Password input aborted", class_name);
+			throw errorEx("Password input aborted", getClassName());
 	} else if (ownPass == ptBogus) { // BOGUS password
 		ownPassBuf = "Bogus";
 	} else {
@@ -554,12 +586,13 @@ void pki_evp::encryptKey(const char *password)
 			int ret = 0;
 			ownPassBuf = passwd;
 			pass_info p(XCA_TITLE, tr("Please enter the database password for encrypting the key"));
-			while (md5passwd(ownPassBuf) != passHash &&
-				sha512passwd(ownPassBuf, passHash) != passHash )
+			while (sha512passwT(ownPassBuf, passHash) != passHash &&
+				sha512passwd(ownPassBuf, passHash) != passHash)
 			{
 				ret = PwDialog::execute(&p, &ownPassBuf, false);
 				if (ret != 1)
-					throw errorEx("Password input aborted", class_name);
+					throw errorEx("Password input aborted",
+							getClassName());
 			}
 		}
 	}
@@ -567,9 +600,7 @@ void pki_evp::encryptKey(const char *password)
 	/* Prepare Encryption */
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	Entropy::get(iv, 8);      /* Generate a salt */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv,
-			ownPassBuf.constUchar(),
-			ownPassBuf.size(), 1, ckey, NULL);
+	passToKey(ownPassBuf, iv, cipher, ckey, 0);
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	ctx = EVP_CIPHER_CTX_new();
 #else
@@ -578,9 +609,10 @@ void pki_evp::encryptKey(const char *password)
 	EVP_CIPHER_CTX_init (ctx);
 	pki_openssl_error();
 
-	/* reserve space for unencrypted and encrypted key */
+	/* reserve space for encrypted key */
 	keylen = i2d_PrivateKey(key, NULL);
 	encKey.resize(keylen + EVP_MAX_KEY_LENGTH + 8);
+	/* allocate space for unencrypted key */
 	punenc1 = punenc = (unsigned char *)OPENSSL_malloc(keylen);
 	check_oom(punenc);
 	keylen = i2d_PrivateKey(key, &punenc1);
@@ -606,7 +638,7 @@ void pki_evp::encryptKey(const char *password)
 	EVP_CIPHER_CTX_free(ctx);
 #endif
 	/* wipe out the memory */
-	memset(punenc, 0, keylen);
+	OPENSSL_cleanse(punenc, keylen);
 	OPENSSL_free(punenc);
 	pki_openssl_error();
 
@@ -616,9 +648,6 @@ void pki_evp::encryptKey(const char *password)
 	key = pkey1;
 	pki_openssl_error();
 
-	//CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
-
-	//printf("Encrypt: encKey_len=%d\n", encKey_len);
 	return;
 }
 
@@ -632,13 +661,83 @@ void pki_evp::set_evp_key(EVP_PKEY *pkey)
 void pki_evp::bogusEncryptKey()
 {
 	ownPass = ptBogus;
+	isPub = false;
 	encryptKey();
 }
 
 pki_evp::~pki_evp()
 {
+	encKey.fill(0);
 }
 
+QSqlError pki_evp::insertSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_key::insertSqlData();
+	if (e.isValid())
+		return e;
+	if (isPubKey())
+		return QSqlError();
+
+	SQL_PREPARE(q, "INSERT INTO private_keys (item, ownPass, private) "
+		  "VALUES (?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, ownPass);
+	q.bindValue(2, encKey.toBase64());
+	q.exec();
+	encKey.fill(0);
+	encKey.clear();
+	return q.lastError();
+}
+
+QSqlError pki_evp::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	e = pki_key::restoreSql(sqlId);
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "SELECT ownPass FROM private_keys WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return QSqlError();
+	/* This is a private key */
+	ownPass = q.value(0).toInt();
+	isPub = false;
+	return e;
+}
+
+QByteArray pki_evp::getEncKey() const
+{
+	XSqlQuery q;
+	QSqlError e;
+	QByteArray ba;
+
+	SQL_PREPARE(q, "SELECT private FROM private_keys WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid() || !q.first())
+		return QByteArray();
+	return QByteArray::fromBase64(q.value(0).toByteArray());
+}
+
+QSqlError pki_evp::deleteSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_key::deleteSqlData();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "DELETE FROM private_keys WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
+}
 
 void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem)
@@ -729,14 +828,6 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 	pki_openssl_error();
 }
 
-bool pki_evp::isPubKey() const
-{
-	if (encKey.count() == 0) {
-		return true;
-	}
-	return false;
-}
-
 int pki_evp::verify()
 {
 	bool veri = false;
@@ -812,7 +903,8 @@ QString pki_evp::md5passwd(QByteArray pass)
 	return str;
 }
 
-QString pki_evp::sha512passwd(QByteArray pass, QString salt)
+QString pki_evp::_sha512passwd(QByteArray pass, QString salt,
+				int size, int repeat)
 {
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
 	EVP_MD_CTX mdctxbuf;
@@ -823,10 +915,10 @@ QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 	int j;
 	unsigned char m[EVP_MAX_MD_SIZE];
 
-	if (salt.length() <5)
+	if (salt.length() < size) {
 		abort();
-
-	str = salt.left(5);
+	}
+	str = salt.left(size);
 	pass = str.toLatin1() + pass;
 
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
@@ -834,15 +926,16 @@ QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 #else
 	mdctx = &mdctxbuf;
 #endif
+	while (repeat--) {
+		EVP_DigestInit(mdctx, EVP_sha512());
+		EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
+		EVP_DigestFinal(mdctx, m, (unsigned*)&n);
+		pass = QByteArray((char*)m, n);
 
-	EVP_DigestInit(mdctx, EVP_sha512());
-	EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
-	EVP_DigestFinal(mdctx, m, (unsigned*)&n);
-
+	}
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	EVP_MD_CTX_free(mdctx);
 #endif
-
 	for (j=0; j<n; j++) {
 		char zs[4];
 		sprintf(zs, "%02X",m[j]);
@@ -851,90 +944,12 @@ QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 	return str;
 }
 
-void pki_evp::veryOldFromData(unsigned char *p, int size )
+QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 {
-	unsigned char *sik, *pdec, *pdec1, *sik1;
-	int outl, decsize;
-	unsigned char iv[EVP_MAX_IV_LENGTH];
-	unsigned char ckey[EVP_MAX_KEY_LENGTH];
-	memset(iv, 0, EVP_MAX_IV_LENGTH);
-	RSA *rsakey;
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	EVP_CIPHER_CTX ctxbuf;
-#endif
-	EVP_CIPHER_CTX *ctx;
-	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
-	sik = (unsigned char *)OPENSSL_malloc(size);
-	check_oom(sik);
-	pki_openssl_error();
-	pdec = (unsigned char *)OPENSSL_malloc(size);
-	if (pdec == NULL ) {
-		OPENSSL_free(sik);
-		check_oom(pdec);
-	}
-	pdec1=pdec;
-	sik1=sik;
-	memcpy(iv, p, 8); /* recover the iv */
-	/* generate the key */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, oldpasswd.constUchar(),
-		oldpasswd.size(), 1, ckey, NULL);
-	/* we use sha1 as message digest,
-	 * because an md5 version of the password is
-	 * stored in the database...
-	 */
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	ctx = EVP_CIPHER_CTX_new();
-#else
-	ctx = &ctxbuf;
-#endif
-
-	EVP_CIPHER_CTX_init(ctx);
-	EVP_DecryptInit(ctx, cipher, ckey, iv);
-	EVP_DecryptUpdate(ctx, pdec , &outl, p + 8, size - 8);
-	decsize = outl;
-	EVP_DecryptFinal(ctx, pdec + decsize, &outl);
-	decsize += outl;
-	pki_openssl_error();
-	memcpy(sik, pdec, decsize);
-	if (getKeyType() == EVP_PKEY_RSA) {
-		rsakey=d2i_RSAPrivateKey(NULL,(const unsigned char **)&pdec, decsize);
-		if (pki_ign_openssl_error()) {
-			rsakey = d2i_RSA_PUBKEY(NULL, (const unsigned char **)&sik, decsize);
-		}
-		pki_openssl_error();
-		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
-	}
-	OPENSSL_free(sik1);
-	OPENSSL_free(pdec1);
-	EVP_CIPHER_CTX_cleanup(ctx);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	EVP_CIPHER_CTX_free(ctx);
-#endif
-	pki_openssl_error();
-	encryptKey();
+	return _sha512passwd(pass, salt, 5, 1);
 }
 
-void pki_evp::oldFromData(unsigned char *p, int size )
+QString pki_evp::sha512passwT(QByteArray pass, QString salt)
 {
-	int version, type;
-
-	QByteArray ba;
-
-	version = intFromData(ba);
-	if (version != 1) { // backward compatibility
-		veryOldFromData(p, size);
-		return;
-	}
-	if (key)
-		EVP_PKEY_free(key);
-
-	key = NULL;
-	type = intFromData(ba);
-	ownPass = intFromData(ba);
-
-	d2i_old(ba, type);
-	pki_openssl_error();
-
-	encKey = ba;
+	return _sha512passwd(pass, salt, 17, 8000);
 }
-

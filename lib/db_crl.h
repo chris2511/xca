@@ -22,8 +22,8 @@ class db_crl: public db_x509name
 		QPixmap *crlicon;
 		dbheaderList getHeaders();
 	public:
-		db_crl(QString db, MainWindow *mw);
-		pki_base *newPKI(db_header_t *head = NULL);
+		db_crl(MainWindow *mw);
+		pki_base *newPKI(enum pki_type type);
 		void revokeCerts(pki_crl *crl);
 		void inToCont(pki_base *pki);
 		pki_base *insert(pki_base *item);
@@ -32,7 +32,6 @@ class db_crl: public db_x509name
 		void load();
 		void showPki(pki_base *pki);
 		void updateCertView();
-		void updateRevocations(pki_x509 *cert);
 
 	public slots:
 		void newItem();

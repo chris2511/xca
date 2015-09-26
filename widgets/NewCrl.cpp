@@ -18,11 +18,9 @@
 #include <QMessageBox>
 
 NewCrl::NewCrl(QWidget *parent, pki_x509 *signer)
-	:QDialog(parent)
+	:QWidget(parent)
 {
 	setupUi(this);
-	setWindowTitle(XCA_TITLE);
-	image->setPixmap(*MainWindow::revImg);
 	dateBox->setTitle(signer->getIntName());
 	validNumber->setText(QString::number(signer->getCrlDays()));
 	validRange->setCurrentIndex(0);

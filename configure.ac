@@ -110,7 +110,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
     QT_UIC="${_QT_HOST_BINS}/uic"
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
-      Qt5_CFLAGS="$Qt5_CFLAGS -std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      Qt5_CFLAGS="$Qt5_CFLAGS -std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
     WANT_QT_VERSION=5
     QT_VERSION=5
@@ -128,7 +128,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
     fi
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
-      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
     WANT_QT_VERSION=4
     QT_VERSION=4
@@ -146,7 +146,7 @@ if test -z "${QT_VERSION}"; then
       QT_UIC="${_QT_HOST_BINS}/uic"
       FRAMEDIR=${_QTDIR}/lib
       QT_LIBS=" -framework QtGui -framework QtCore -framework QtWidgets -Xlinker -rpath -Xlinker ${FRAMEDIR}"
-      QT_CFLAGS="-std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtWidgets.framework/Headers"
+      QT_CFLAGS="-std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtWidgets.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
     fi
     AC_MSG_WARN([Qt pkg-config failed, using fallback defaults (${QT_LIBS})]);
 fi

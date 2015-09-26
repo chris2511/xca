@@ -28,11 +28,11 @@
 #include "widgets/KeyDetail.h"
 #include "widgets/NewKey.h"
 
-db_key::db_key(QString db, MainWindow *mw)
-	:db_base(db, mw)
+db_key::db_key(MainWindow *mw)
+	:db_base(mw)
 {
-	rootItem->setIntName("[key root]");
 	class_name = "keys";
+	sqlHashTable = "public_keys";
 	pkitype << asym_key << smartCard;
 	updateHeaders();
 	loadContainer();
@@ -51,45 +51,66 @@ dbheaderList db_key::getHeaders()
 	return h;
 }
 
-pki_base *db_key::newPKI(db_header_t *head)
+pki_base *db_key::newPKI(enum pki_type type)
 {
-	if (!head || head->type == asym_key)
+	if (type == asym_key)
 		return new pki_evp("");
 	return new pki_scard("");
 }
 
-
-QStringList db_key::getPrivateDesc()
+QList<pki_base *> db_key::getAllKeys()
 {
-	QStringList x;
-	x.clear();
-	FOR_ALL_pki(pki, pki_key)
-		if (pki->isPrivKey())
-			x.append(pki->getIntName());
-	return x;
+	return sqlSELECTpki("SELECT item from public_keys");
 }
 
-QStringList db_key::get0KeyDesc(bool all)
+QList<pki_base *> db_key::getUnusedKeys()
 {
-	QStringList x;
-	FOR_ALL_pki(pki, pki_key) {
-		if ((pki->getUcount() == 0) || all)
-			x.append(pki->getIntNameWithType());
-	}
-	return x;
+	return sqlSELECTpki("SELECT public_keys.item FROM public_keys "
+		"LEFT OUTER JOIN x509super ON x509super.key = public_keys.item "
+		"WHERE x509super.item IS NULL");
 }
 
 void db_key::remFromCont(QModelIndex &idx)
 {
 	db_base::remFromCont(idx);
-	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-	emit delKey((pki_key *)pki);
+	XSqlQuery q;
+	pki_key *pki = static_cast<pki_key*>(idx.internalPointer());
+
+	QList<pki_base*> items = sqlSELECTpki(
+		"SELECT item FROM x509super WHERE key=?",
+		QList<QVariant>() << QVariant(pki->getSqlItemId()));
+	foreach(pki_base *b, items) {
+		pki_x509super *x509s = static_cast<pki_x509super*>(b);
+		x509s->setRefKey(NULL);
+	}
+
+	SQL_PREPARE(q, "UPDATE x509super SET key=NULL WHERE item=?");
+	q.bindValue(0, pki->getSqlItemId());
+	q.exec();
+	mainwin->dbSqlError(q.lastError());
 }
 
 void db_key::inToCont(pki_base *pki)
 {
 	db_base::inToCont(pki);
-	emit newKey((pki_key *)pki);
+	pki_key *key = static_cast<pki_key*>(pki);
+	unsigned hash = key->hash();
+	QList<pki_base*> items = sqlSELECTpki(
+		"SELECT item FROM x509super WHERE key IS NULL AND key_hash=?",
+		QList<QVariant>() << QVariant(hash));
+	XSqlQuery q;
+	SQL_PREPARE(q, "UPDATE x509super SET key=? WHERE item=?");
+	q.bindValue(0, key->getSqlItemId());
+	foreach(pki, items) {
+		pki_x509super *x509s = static_cast<pki_x509super*>(pki);
+		if (!x509s->compareRefKey(key))
+			continue;
+		/* Found item matching this key */
+		x509s->setRefKey(key);
+		q.bindValue(1, x509s->getSqlItemId());
+		q.exec();
+		mainwin->dbSqlError(q.lastError());
+	}
 }
 
 pki_base* db_key::insert(pki_base *item)
@@ -162,7 +183,7 @@ void db_key::newItem(QString name)
 				dlg->getKeyCurve_nid());
 		}
 		key = (pki_key*)insert(key);
-		emit keyDone(key->getIntNameWithType());
+		emit keyDone(key);
 		createSuccess(key);
 
 	} catch (errorEx &err) {
@@ -172,7 +193,7 @@ void db_key::newItem(QString name)
 	if (dlg->rememberDefault->isChecked()) {
 		QString def = dlg->getAsString();
 		if (dlg->setDefault(def) == 0)
-			mainwin->setDefaultKey(def);
+			mainwin->storeSetting("defaultkey", def);
 	}
 	status->removeWidget(bar);
 	delete bar;
@@ -203,7 +224,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 
 	foreach(QModelIndex idx, indexes) {
 		pki_key *key = static_cast<pki_key*>
-				(idx.internalPointer());
+			(idx.internalPointer());
 		if (key->isPubKey() || key->isToken())
 			allPriv = false;
 		if (key->getKeyType() != EVP_PKEY_RSA &&
@@ -334,5 +355,4 @@ void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)
 		throw errorEx(tr("Tried to change password of a token"));
 	}
 	targetKey->setOwnPass(x);
-	updatePKI(targetKey);
 }

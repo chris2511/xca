@@ -27,12 +27,13 @@ class db_x509: public db_x509super
 		QPixmap *certicon[4];
 		pki_x509 *get1SelectedCert();
 		dbheaderList getHeaders();
+		void dereferenceIssuer();
 
 	public:
 		static bool treeview;
-		db_x509(QString DBfile, MainWindow *mw);
-		pki_base *newPKI(db_header_t *head = NULL);
-		pki_x509 *findSigner(pki_x509 *client);
+		db_x509(MainWindow *mw);
+		pki_base *newPKI(enum pki_type type = none);
+		pki_x509 *findIssuer(pki_x509 *client);
 		void updateAfterDbLoad();
 		void updateAfterCrlLoad(pki_x509 *pki);
 
@@ -40,15 +41,11 @@ class db_x509: public db_x509super
 		void updateViewAll();
 		void updateViewPKI(pki_base *pki);
 		void remFromCont(QModelIndex &idx);
-		QStringList getPrivateDesc();
-		QStringList getSignerDesc();
-		void calcEffTrust();
-		QList<pki_x509*> getCerts(bool onlyTrusted);
+		QList<pki_base*> getAllIssuers();
+		QList<pki_x509*> getCerts(bool unrevoked);
 		a1int searchSerial(pki_x509 *signer);
-		void writeAllCerts(const QString fname, bool onlyTrusted);
 		void writeIndex(const QString fname, bool hierarchy);
-		pki_x509 *getByIssSerial(const pki_x509 *issuer, const a1int &a);
-		pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
+		void writeAllCerts(const QString fname, bool unrevoked);
 		pki_base *insert(pki_base *item);
 		void newCert(NewX509 *dlg);
 		void newCert(pki_x509 *cert);
@@ -63,7 +60,6 @@ class db_x509: public db_x509super
 		void toRequest(QModelIndex idx);
 		void store(QModelIndex idx);
 		void store(QModelIndexList list);
-		void showPki(pki_base *pki);
 		void load();
 		void caProperties(QModelIndex idx);
 		void toCertificate(QModelIndex index);
@@ -72,7 +68,7 @@ class db_x509: public db_x509super
 		void revoke(QModelIndexList indexes);
 		void do_revoke(QModelIndexList indexes, const x509rev &r);
 		void unRevoke(QModelIndexList indexes);
-		void setTrust(QModelIndexList indexes);
+		void storeRevocations(pki_x509 *cert);
 
 	public slots:
 		void newItem();

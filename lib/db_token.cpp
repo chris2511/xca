@@ -3,11 +3,15 @@
 #include "exception.h"
 #include "widgets/MainWindow.h"
 
-db_token::db_token(QString db, MainWindow *mw)
-        :db_base(db, mw)
+db_token::db_token(MainWindow *mw)
+        :db_base(mw)
 {
 	class_name = "manageTokens";
 	updateHeaders();
+}
+
+void db_token::saveHeaderState()
+{
 }
 
 bool db_token::setData(const QModelIndex &index, const QVariant &value, int role)

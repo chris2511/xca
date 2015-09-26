@@ -24,18 +24,70 @@ pki_x509req::pki_x509req(const QString name)
 	: pki_x509super(name)
 {
 	privkey = NULL;
-	class_name = "pki_x509req";
 	request = X509_REQ_new();
 	pki_openssl_error();
-	dataVersion=1;
 	pkiType=x509_req;
 	done = false;
+}
+
+const char *pki_x509req::getClassName() const
+{
+	return "pki_x509req";
 }
 
 pki_x509req::~pki_x509req()
 {
 	if (request)
 		X509_REQ_free(request);
+}
+
+QSqlError pki_x509req::insertSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_x509super::insertSqlData();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "INSERT INTO requests (item, hash, signed, request) "
+		  "VALUES (?, ?, 0, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, hash());
+	q.bindValue(2, i2d().toBase64());
+	q.exec();
+	return q.lastError();
+}
+
+QSqlError pki_x509req::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	e = pki_x509super::restoreSql(sqlId);
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "SELECT request, signed FROM requests WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return sqlItemNotFound(sqlId);
+	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	d2i(ba);
+	done = q.value(1).toBool();
+	return e;
+}
+
+QSqlError pki_x509req::deleteSqlData()
+{
+	XSqlQuery q;
+	QSqlError e = pki_x509super::deleteSqlData();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "DELETE FROM requests WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
 }
 
 void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, extList el)
@@ -163,7 +215,15 @@ void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 
 	size = head->len - sizeof(db_header_t);
 
-	oldFromData((unsigned char *)p, size);
+	QByteArray ba((const char *)p, size);
+	privkey = NULL;
+
+	d2i(ba);
+	pki_openssl_error();
+
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
+	}
 }
 
 void pki_x509req::addAttribute(int nid, QString content)
@@ -192,13 +252,6 @@ int pki_x509req::sigAlg()
 void pki_x509req::setSubject(const x509name &n)
 {
 	X509_REQ_set_subject_name(request, n.get());
-}
-
-QByteArray pki_x509req::toData()
-{
-	QByteArray ba = i2d();
-	pki_openssl_error();
-	return ba;
 }
 
 void pki_x509req::writeDefault(const QString fname)
@@ -324,12 +377,4 @@ bool pki_x509req::visible()
 	if (getAttribute(NID_pkcs9_challengePassword).contains(limitPattern))
 		return true;
 	return false;
-}
-
-void pki_x509req::oldFromData(unsigned char *p, int size)
-{
-	QByteArray ba((const char *)p, size);
-	privkey = NULL;
-
-	d2i(ba);
 }

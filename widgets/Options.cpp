@@ -18,7 +18,7 @@ Options::Options(MainWindow *parent)
 {
 	mw = parent;
 
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
 	setupUi(this);
 
 	foreach(int nid, *MainWindow::dn_nid) {

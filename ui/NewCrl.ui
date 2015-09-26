@@ -1,177 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>NewCrl</class>
- <widget class="QDialog" name="NewCrl">
+ <widget class="QWidget" name="NewCrl">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>451</width>
-    <height>478</height>
+    <width>354</width>
+    <height>369</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
-    <layout class="QHBoxLayout">
-     <item>
-      <widget class="QLabel" name="TextLabel1">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>14</pointsize>
-         <weight>50</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-        </font>
-       </property>
-       <property name="text">
-        <string>Create CRL</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="image">
-       <property name="minimumSize">
-        <size>
-         <width>95</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>95</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <spacer>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item>
     <widget class="QGroupBox" name="dateBox">
      <property name="title">
       <string/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinAndMaxSize</enum>
+      </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Last update</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="Validity" name="lastUpdate">
-          <property name="calendarPopup">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Next update</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="Validity" name="nextUpdate">
-          <property name="calendarPopup">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
+       <widget class="QWidget" name="widget" native="true">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Last update</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="Validity" name="lastUpdate">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Next update</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="Validity" name="nextUpdate">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLineEdit" name="validNumber"/>
-        </item>
-        <item row="0" column="2">
-         <widget class="QComboBox" name="validRange">
-          <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0" colspan="2">
+          <widget class="QLineEdit" name="validNumber"/>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="validRange">
+           <item>
+            <property name="text">
+             <string>Days</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Months</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Years</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="midnightCB">
            <property name="text">
-            <string>Days</string>
+            <string>Midnight</string>
            </property>
-          </item>
-          <item>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="checkBox">
            <property name="text">
-            <string>Months</string>
+            <string>Local time</string>
            </property>
-          </item>
-          <item>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="applyTime">
            <property name="text">
-            <string>Years</string>
+            <string>Apply</string>
            </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="midnightCB">
-          <property name="text">
-           <string>Midnight</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox">
-          <property name="text">
-           <string>Local time</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="applyTime">
-          <property name="text">
-           <string>Apply</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>1</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
@@ -179,77 +128,89 @@
       <string>Options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="crlNumber"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QCheckBox" name="setCrlNumber">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>CRL number</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="subAltName">
-        <property name="text">
-         <string>Subject alternative name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QCheckBox" name="revocationReasons">
-        <property name="text">
-         <string>Revocation reasons</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QCheckBox" name="authKeyId">
-        <property name="text">
-         <string>Authority key identifier</string>
+         <string>Hash algorithm</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <widget class="hashBox" name="hashAlgo"/>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_3">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Hash algorithm</string>
+         <string>Subject alternative name</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="subAltName">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Authority key identifier</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="authKeyId">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>CRL number</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="setCrlNumber">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="crlNumber"/>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Revocation reasons</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="revocationReasons">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <spacer>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>21</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
     </widget>
    </item>
   </layout>
@@ -271,123 +232,8 @@
    <header>widgets/hashBox.h</header>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>subAltName</tabstop>
- </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>midnightCB</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>nextUpdate</receiver>
-   <slot>hideTimeCheck(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>104</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>233</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>midnightCB</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>lastUpdate</receiver>
-   <slot>hideTimeCheck(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>124</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>233</x>
-     <y>118</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>NewCrl</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>538</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>70</x>
-     <y>459</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>NewCrl</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>410</x>
-     <y>538</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>179</x>
-     <y>454</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>nextUpdate</receiver>
-   <slot>localTime(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>291</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>418</x>
-     <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>lastUpdate</receiver>
-   <slot>localTime(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>291</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>124</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>midnightCB</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>checkBox</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>81</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>291</x>
-     <y>243</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>setCrlNumber</sender>
    <signal>clicked(bool)</signal>
@@ -395,12 +241,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>158</x>
-     <y>424</y>
+     <x>198</x>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
-     <x>220</x>
-     <y>428</y>
+     <x>225</x>
+     <y>326</y>
     </hint>
    </hints>
   </connection>

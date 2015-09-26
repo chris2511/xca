@@ -31,6 +31,7 @@ class pki_multi: public pki_base
 		{
 			return multi.count();
 		}
+		const char *getClassName() const;
 
 };
 

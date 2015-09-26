@@ -8,6 +8,7 @@
 #include "func.h"
 #include "oid.h"
 #include "pki_x509super.h"
+#include "db_base.h"
 
 pki_x509super::pki_x509super(const QString name)
 	: pki_x509name(name)
@@ -17,9 +18,70 @@ pki_x509super::pki_x509super(const QString name)
 
 pki_x509super::~pki_x509super()
 {
-	if (privkey)
-		privkey->decUcount();
+}
+
+QSqlError pki_x509super::insertSqlData()
+{
+	XSqlQuery q;
+	unsigned hash = pubHash();
+
+	SQL_PREPARE(q, "SELECT item FROM public_keys WHERE hash=?");
+	q.bindValue(0, hash);
+	q.exec();
+	if (q.lastError().isValid())
+		return q.lastError();
+	while (q.next()) {
+		pki_key *x = static_cast<pki_key*>(
+			db_base::lookupPki(q.value(0).toULongLong()));
+		if (!x) {
+			qDebug("Public key with id %d not found",
+				q.value(0).toInt());
+			continue;
+		}
+		if (compareRefKey(x)) {
+			setRefKey(x);
+			break;
+		}
+	}
+
+	SQL_PREPARE(q, "INSERT INTO x509super (item, subj_hash, key, key_hash) "
+		  "VALUES (?, ?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, (uint)getSubject().hashNum());
+	q.bindValue(2, privkey ? privkey->getSqlItemId() : QVariant());
+	q.bindValue(3, hash);
+	q.exec();
+	return q.lastError();
+}
+
+QSqlError pki_x509super::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	e = pki_base::restoreSql(sqlId);
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "SELECT key FROM x509super WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return sqlItemNotFound(sqlId);
+	keySqlId = q.value(0);
 	privkey = NULL;
+	return e;
+}
+
+QSqlError pki_x509super::deleteSqlData()
+{
+	XSqlQuery q;
+	SQL_PREPARE(q, "DELETE FROM x509super WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
 }
 
 pki_key *pki_x509super::getRefKey() const
@@ -27,27 +89,36 @@ pki_key *pki_x509super::getRefKey() const
 	return privkey;
 }
 
-void pki_x509super::setRefKey(pki_key *ref)
+unsigned pki_x509super::pubHash()
 {
-	if (ref == NULL || privkey != NULL )
-		return;
-	pki_key *mk = getPubKey();
-	if (mk == NULL)
-		return;
-	if (ref->compare(mk)) {
-		// this is our key
-		privkey = ref;
-		ref->incUcount();
+	unsigned hash;
+	if (privkey) {
+		hash = privkey->hash();
+	} else {
+		pki_key *x = getPubKey();
+		hash = x->hash();
+		delete x;
 	}
-	delete mk;
+	return hash;
 }
 
-void pki_x509super::delRefKey(pki_key *ref)
+bool pki_x509super::compareRefKey(pki_key *ref) const
 {
-	if (ref != privkey || ref == NULL)
-		return;
-	ref->decUcount();
-	privkey = NULL;
+	bool x;
+
+	if (ref == NULL)
+		return false;
+	pki_key *mk = getPubKey();
+	if (mk == NULL)
+		return false;
+	x = ref->compare(mk);
+	delete mk;
+	return x;
+}
+
+void pki_x509super::setRefKey(pki_key *ref)
+{
+	privkey = ref;
 }
 
 QString pki_x509super::getSigAlg()

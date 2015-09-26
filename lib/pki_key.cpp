@@ -24,25 +24,44 @@ pki_key::pki_key(const QString name)
         :pki_base(name)
 {
 	key = EVP_PKEY_new();
-	ucount = 0;
-	class_name = "pki_key";
+	key_size = 0;
+	isPub = true;
+}
+
+const char *pki_key::getClassName() const
+{
+	return "pki_key";
 }
 
 pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {
-	ucount = pk->ucount;
-	key = EVP_PKEY_new();
 	if (pk->key) {
 		QByteArray ba = i2d_bytearray(I2D_VOID(i2d_PUBKEY), pk->key);
 		d2i(ba);
+	} else {
+		key = EVP_PKEY_new();
 	}
+	key_size = pk->key_size;
 }
 
 pki_key::~pki_key()
 {
 	if (key)
 		EVP_PKEY_free(key);
+}
+
+EVP_PKEY *pki_key::decryptKey(int oldkey) const
+{
+	(void)oldkey;
+	qDebug("VIRTUAL pki_key::decryptKey() should NEVER be called");
+	return NULL;
+}
+
+const EVP_MD *pki_key::getDefaultMD()
+{
+	qDebug("VIRTUAL pki_key::getDefaultMD() should NEVER be called");
+	return NULL;
 }
 
 void pki_key::d2i(QByteArray &ba)
@@ -127,7 +146,7 @@ BIO *pki_key::pem(BIO *b, int format)
 	return b;
 }
 
-QString pki_key::length()
+QString pki_key::length() const
 {
 	bool dsa_unset = false;
 
@@ -197,22 +216,11 @@ QString pki_key::getMsg(msg_type msg)
 	return pki_base::getMsg(msg);
 }
 
-QString pki_key::getIntNameWithType()
+QString pki_key::comboText() const
 {
 	return QString("%1 (%2:%3%4)").arg(getIntName()).arg(getTypeString()).
 		arg(length()).arg(isPubKey() ?
 			QString(" ") + tr("Public key") : QString(""));
-}
-
-QString pki_key::removeTypeFromIntName(QString n)
-{
-	int i;
-	if (n.right(1) != ")" )
-		return n;
-	i = n.lastIndexOf(" (");
-	if (i > 0)
-		n.truncate(i);
-	return n;
 }
 
 bool pki_key::isToken()
@@ -225,20 +233,19 @@ bool pki_key::isPrivKey() const
 	return !isPubKey();
 }
 
-int pki_key::incUcount()
-{
-	ucount++;
-	return ucount;
-}
-int pki_key::decUcount()
-{
-	ucount--;
-	return ucount;
-}
-
 int pki_key::getUcount()
 {
-	return ucount;
+	XSqlQuery q;
+	int size = -1;
+	SQL_PREPARE(q, "SELECT COUNT(*) FROM x509super WHERE key=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	if (q.first())
+		size = q.value(0).toInt();
+	else
+		qDebug("Failed to get key count for %s", CCHAR(getIntName()));
+	MainWindow::dbSqlError(q.lastError());
+	return size;
 }
 
 int pki_key::getKeyType() const
@@ -395,8 +402,7 @@ QString pki_key::BN2QString(const BIGNUM *bn) const
 		return "--";
 	QString x="";
 	char zs[10];
-	int j;
-	int size = BN_num_bytes(bn);
+	int j, size = BN_num_bytes(bn);
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
 	check_oom(buf);
 	BN_bn2bin(bn, buf);
@@ -436,6 +442,92 @@ QVariant pki_key::column_data(dbheader *hd)
 			return QVariant(r);
 	}
 	return pki_base::column_data(hd);
+}
+
+QSqlError pki_key::insertSqlData()
+{
+	unsigned myhash = hash();
+	XSqlQuery q;
+	QList<pki_x509super*> list;
+
+	SQL_PREPARE(q, "SELECT item FROM x509super WHERE key_hash=? AND key IS NULL");
+	q.bindValue(0, myhash);
+	q.exec();
+	if (q.lastError().isValid())
+		return q.lastError();
+	while (q.next()) {
+		pki_x509super *x = static_cast<pki_x509super*>(
+				db_base::lookupPki(q.value(0).toULongLong()));
+		if (!x) {
+			qDebug("X509 Super class with id %d not found",
+				q.value(0).toInt());
+			continue;
+		}
+		if (x->compareRefKey(this)) {
+			x->setRefKey(this);
+			list << x;
+		}
+	}
+	q.finish();
+
+	SQL_PREPARE(q, "UPDATE x509super SET key=? WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	foreach(pki_x509super* x, list) {
+		q.bindValue(1, x->getSqlItemId());
+		q.exec();
+		if (q.lastError().isValid())
+			return q.lastError();
+	}
+	q.finish();
+
+	SQL_PREPARE(q, "INSERT INTO public_keys (item, type, hash, len, public) "
+		  "VALUES (?, ?, ?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, getTypeString());
+	q.bindValue(2, myhash);
+	q.bindValue(3, EVP_PKEY_bits(key));
+	q.bindValue(4, i2d().toBase64());
+	q.exec();
+	return q.lastError();
+}
+
+QSqlError pki_key::restoreSql(QVariant sqlId)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	e = pki_base::restoreSql(sqlId);
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "SELECT public, len FROM public_keys WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (!q.first())
+		return sqlItemNotFound(sqlId);
+	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	d2i(ba);
+	key_size = q.value(1).toInt();
+	return e;
+}
+
+QSqlError pki_key::deleteSqlData()
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	SQL_PREPARE(q, "DELETE FROM public_keys WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "UPDATE x509super SET key=NULL WHERE key=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	return q.lastError();
 }
 
 BIGNUM *pki_key::ssh_key_data2bn(QByteArray *ba, bool skip)

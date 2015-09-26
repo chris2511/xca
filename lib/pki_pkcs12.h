@@ -34,6 +34,7 @@ class pki_pkcs12: public pki_base
 		pki_pkcs12(const QString fname);
 
 		~pki_pkcs12();
+		const char *getClassName() const;
 		void addCaCert(pki_x509 *acert);
 		pki_key *getKey();
 		pki_x509 *getCert();

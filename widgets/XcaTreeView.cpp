@@ -275,6 +275,12 @@ void XcaTreeView::doubleClick(const QModelIndex &m)
 		basemodel->showItem(getIndex(m));
 }
 
+void XcaTreeView::editComment(void)
+{
+	if (basemodel)
+		basemodel->editComment(currentIndex());
+}
+
 void XcaTreeView::pem2clipboard(void)
 {
 	if (basemodel)
@@ -393,9 +399,10 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	menu->addAction(tr("Paste PEM data"), mainwin, SLOT(pastePem()));
 
-	if (indexes.size() == 1)
+	if (indexes.size() == 1) {
 		menu->addAction(tr("Rename"), this, SLOT(editIdx()));
-
+		menu->addAction(tr("Edit comment"), this, SLOT(editComment()));
+	}
 	if (indexes.size() > 0) {
 		menu->addAction(tr("Delete"), this, SLOT(deleteItems()));
 		subExport = menu->addMenu(tr("Export"));

@@ -142,6 +142,12 @@ QString x509name::hash() const
 	return QString("%1").arg(X509_NAME_hash(xn), 8, 16, QChar('0'));
 }
 
+/* 32 bit signed integer */
+unsigned long x509name::hashNum() const
+{
+	return X509_NAME_hash(xn) & 0x7fffffffL;
+}
+
 QStringList x509name::entryList(int i) const
 {
 	QStringList sl;
@@ -193,6 +199,11 @@ QByteArray x509name::i2d()
 bool x509name::operator == (const x509name &x) const
 {
 	return (X509_NAME_cmp(xn, x.xn) == 0);
+}
+
+bool x509name::operator != (const x509name &x) const
+{
+	return (X509_NAME_cmp(xn, x.xn) != 0);
 }
 
 x509name &x509name::operator = (const x509name &x)

@@ -31,13 +31,12 @@ class pki_scard: public pki_key
 	public:
 		pki_scard(const QString name);
 		virtual ~pki_scard();
+		const char *getClassName() const;
 		static QPixmap *icon[1];
 		static bool only_token_hashes;
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		bool prepare_card(slotid *slot, bool verifyPubkey=true) const;
 		void fromData(const unsigned char *p, db_header_t *head);
-		QByteArray toData();
-		bool isPubKey() const;
 		QString getTypeString(void) const;
 		QString getManufacturer() const
 		{
@@ -64,7 +63,7 @@ class pki_scard: public pki_key
 		{
 			return card_label;
 		}
-		EVP_PKEY *decryptKey() const;
+		EVP_PKEY *decryptKey(int oldkey=0) const;
 		QString scardLogin(pkcs11 &p11, bool so, bool force=false)const;
 		void changePin();
 		void initPin();
@@ -90,6 +89,8 @@ class pki_scard: public pki_key
 		int renameOnToken(slotid slot, QString name);
 		QString getMsg(msg_type msg);
 		bool visible();
+		QSqlError insertSqlData();
+		QSqlError deleteSqlData();
 };
 
 #endif

@@ -144,8 +144,6 @@ void MainWindow::init_menu()
 				SLOT(exportIndexHierarchy()));
 	acList += extra->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
-	acList += extra->addAction(tr("&Import old db_dump"), this,
-				SLOT(import_dbdump()));
 	acList += extra->addAction(tr("&Undelete items"), this,
 				SLOT(undelete()));
 	extra->addAction(tr("Generate DH parameter"), this,
@@ -218,44 +216,6 @@ void MainWindow::load_database()
 	changeDB(fname);
 }
 
-void MainWindow::import_dbdump()
-{
-	extern int read_dump(const char *, db_base **, char *, int);
-	Passwd pass;
-	char buf[50];
-
-	db_base *dbl[] = { keys, reqs, certs, temps, crls };
-	if (!keys)
-		return;
-	QString file = QFileDialog::getOpenFileName(this, tr(XCA_TITLE), homedir,
-			tr("Database dump ( *.dump );; All files ( * )"));
-
-	if (file.isEmpty())
-		return;
-
-	pass_info p(tr("Import password"),
-		tr("Please enter the password of the old database"), this);
-	if (PwDialog::execute(&p, &pass) != 1)
-		return;
-	try {
-		read_dump(CCHAR(file), dbl, buf, sizeof(buf));
-		if (pki_evp::md5passwd(pass) != buf) {
-			xcaWarning msg(this, tr("Password verification error. Ignore keys ?"));
-			msg.addButton(QMessageBox::Cancel);
-			msg.addButton(QMessageBox::Ok)->setText(
-					tr("Import anyway"));
-
-			if (msg.exec() == QMessageBox::Cancel)
-				return;
-		}
-		pki_evp::oldpasswd = pass;
-		read_dump(CCHAR(file), dbl, NULL, 0);
-		pki_evp::oldpasswd.cleanse();
-	} catch (errorEx &err) {
-		Error(err);
-	}
-}
-
 void MainWindow::setOptions()
 {
 	if (dbfile.isEmpty())
@@ -284,25 +244,18 @@ void MainWindow::setOptions()
 		return;
 	}
 	QString alg = opt->hashAlgo->currentHashName();
-	db mydb(dbfile);
-	mydb.set((const unsigned char *)CCHAR(alg), alg.length()+1, 1,
-			setting, "default_hash");
+	storeSetting("default_hash", alg);
 	hashBox::setDefault(alg);
 
 	mandatory_dn = opt->getExtDnString();
 	explicit_dn = opt->getExpDnString();
-	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
-			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
+	storeSetting("mandatory_dn", mandatory_dn);
 	if (explicit_dn.isEmpty())
 		explicit_dn = explicit_dn_default;
 	if (explicit_dn != explicit_dn_default) {
-		mydb.set((const unsigned char *)CCHAR(explicit_dn),
-			explicit_dn.length()+1, 1, setting, "explicit_dn");
+		storeSetting("explicit_dn", explicit_dn);
 	} else {
-		mydb.first();
-		if (!mydb.find(setting, "explicit_dn")) {
-			mydb.erase();
-		}
+		XSqlQuery query("DELETE FROM settings WHERE key='explicit_dn'");
 	}
 	QString flags = getOptFlags();
 	pki_base::suppress_messages = opt->suppress->checkState();
@@ -313,11 +266,7 @@ void MainWindow::setOptions()
 
 	if (flags != getOptFlags()) {
 		flags = getOptFlags();
-		mydb.set((const unsigned char *)(CCHAR(flags)),
-				flags.length()+1, 1, setting, "optionflags1");
-		mydb.first();
-		if (!mydb.find(setting, "suppress"))
-			mydb.erase();
+		storeSetting("optionflags", flags);
 		certView->showHideSections();
 		reqView->showHideSections();
 	}
@@ -325,14 +274,12 @@ void MainWindow::setOptions()
 	if (opt->getStringOpt() != string_opt) {
 		string_opt = opt->getStringOpt();
 		ASN1_STRING_set_default_mask_asc((char *)CCHAR(string_opt));
-		mydb.set((const unsigned char *)CCHAR(string_opt),
-				string_opt.length()+1, 1, setting,"string_opt");
+		storeSetting("string_opt", string_opt);
 	}
 	QString newpath = opt->getPkcs11Provider();
 	if (newpath != pkcs11path) {
 		pkcs11path = newpath;
-		mydb.set((const unsigned char *) CCHAR(pkcs11path),
-			pkcs11path.length()+1, 1,setting, "pkcs11path");
+		storeSetting("pkcs11path", pkcs11path);
 	}
 	enableTokenMenu(pkcs11::loaded());
 	delete opt;

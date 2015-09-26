@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>712</width>
-    <height>634</height>
+    <width>747</width>
+    <height>637</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -68,7 +68,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_0">
       <attribute name="title">
@@ -97,23 +97,14 @@
           <string>Signing request</string>
          </property>
          <layout class="QVBoxLayout">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="margin">
-           <number>9</number>
-          </property>
           <item>
            <widget class="QWidget" name="reqWidget" native="true">
             <layout class="QGridLayout">
              <property name="margin">
               <number>0</number>
              </property>
-             <property name="spacing">
-              <number>6</number>
-             </property>
              <item row="0" column="1">
-              <widget class="QComboBox" name="reqList"/>
+              <widget class="itemCombo" name="reqList"/>
              </item>
              <item row="1" column="1">
               <widget class="QPushButton" name="showReqBut">
@@ -152,9 +143,6 @@
           <item>
            <widget class="QWidget" name="attrWidget" native="true">
             <layout class="QHBoxLayout">
-             <property name="spacing">
-              <number>6</number>
-             </property>
              <property name="margin">
               <number>0</number>
              </property>
@@ -186,20 +174,8 @@
           <string>Signing</string>
          </property>
          <layout class="QVBoxLayout">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="margin">
-           <number>9</number>
-          </property>
           <item>
            <layout class="QHBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="margin">
-             <number>0</number>
-            </property>
             <item>
              <widget class="QRadioButton" name="selfSignRB">
               <property name="text">
@@ -224,12 +200,6 @@
           </item>
           <item>
            <layout class="QHBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="margin">
-             <number>0</number>
-            </property>
             <item>
              <widget class="QRadioButton" name="foreignSignRB">
               <property name="text">
@@ -238,7 +208,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="certList">
+             <widget class="itemCombo" name="certList">
               <property name="toolTip">
                <string>All certificates in your database that can create valid signatures</string>
               </property>
@@ -264,12 +234,6 @@
        </item>
        <item>
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
-         <property name="margin">
-          <number>0</number>
-         </property>
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
@@ -305,7 +269,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QComboBox" name="tempList">
+           <widget class="itemCombo" name="tempList">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -476,14 +440,8 @@
           <string>Private key</string>
          </property>
          <layout class="QHBoxLayout">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="margin">
-           <number>9</number>
-          </property>
           <item>
-           <widget class="QComboBox" name="keyList">
+           <widget class="itemCombo" name="keyList">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -589,9 +547,6 @@
             <string notr="true">Key identifier</string>
            </property>
            <layout class="QVBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
             <property name="margin">
              <number>8</number>
             </property>
@@ -639,9 +594,6 @@
           <bool>true</bool>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="spacing">
-           <number>6</number>
-          </property>
           <property name="margin">
            <number>0</number>
           </property>
@@ -689,7 +641,7 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
              <item row="0" column="0" colspan="2">
-              <widget class="QLineEdit" name="validNumber"/>
+              <widget class="QLineEdit" name="validN"/>
              </item>
              <item row="0" column="2">
               <widget class="QComboBox" name="validRange">
@@ -724,7 +676,7 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QCheckBox" name="midnightCB">
+              <widget class="QCheckBox" name="validMidn">
                <property name="toolTip">
                 <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
                </property>
@@ -925,26 +877,14 @@
        <string>Key usage</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
        <property name="margin">
         <number>8</number>
        </property>
        <item>
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
-         <property name="margin">
-          <number>0</number>
-         </property>
          <item>
           <widget class="QGroupBox" name="kuBox">
            <layout class="QVBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
             <property name="margin">
              <number>8</number>
             </property>
@@ -1016,9 +956,6 @@
          <item>
           <widget class="QGroupBox" name="ekuBox">
            <layout class="QVBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
             <property name="margin">
              <number>8</number>
             </property>
@@ -1119,12 +1056,6 @@
          </item>
          <item>
           <layout class="QVBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
            <item>
             <widget class="QLabel" name="nsImg">
              <property name="minimumSize">
@@ -1160,12 +1091,6 @@
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout_3">
-         <property name="margin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <item row="3" column="1">
           <widget class="QLineEdit" name="nsRenewalUrl"/>
          </item>
@@ -1263,6 +1188,16 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Comment</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <widget class="QTextEdit" name="comment"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
@@ -1302,7 +1237,12 @@
   <customwidget>
    <class>DoubleClickLabel</class>
    <extends>QLabel</extends>
-   <header location="global">widgets/clicklabel.h</header>
+   <header>widgets/clicklabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>itemCombo</class>
+   <extends>QComboBox</extends>
+   <header>widgets/ItemCombo.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1333,8 +1273,8 @@
   <tabstop>authKey</tabstop>
   <tabstop>notBefore</tabstop>
   <tabstop>notAfter</tabstop>
-  <tabstop>validNumber</tabstop>
-  <tabstop>midnightCB</tabstop>
+  <tabstop>validN</tabstop>
+  <tabstop>validMidn</tabstop>
   <tabstop>checkBox</tabstop>
   <tabstop>noWellDefinedExpDate</tabstop>
   <tabstop>validRange</tabstop>
@@ -1406,8 +1346,8 @@
    <slot>deleteCurrentRow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>622</x>
-     <y>284</y>
+     <x>713</x>
+     <y>199</y>
     </hint>
     <hint type="destinationlabel">
      <x>57</x>
@@ -1422,8 +1362,8 @@
    <slot>addKvRow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>622</x>
-     <y>252</y>
+     <x>713</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>57</x>
@@ -1464,7 +1404,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>midnightCB</sender>
+   <sender>validMidn</sender>
    <signal>stateChanged(int)</signal>
    <receiver>notBefore</receiver>
    <slot>hideTimeCheck(int)</slot>
@@ -1480,7 +1420,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>midnightCB</sender>
+   <sender>validMidn</sender>
    <signal>stateChanged(int)</signal>
    <receiver>notAfter</receiver>
    <slot>hideTimeCheck(int)</slot>
@@ -1502,8 +1442,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>557</x>
-     <y>584</y>
+     <x>566</x>
+     <y>627</y>
     </hint>
     <hint type="destinationlabel">
      <x>285</x>
@@ -1518,8 +1458,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>643</x>
-     <y>587</y>
+     <x>652</x>
+     <y>627</y>
     </hint>
     <hint type="destinationlabel">
      <x>405</x>
@@ -1560,14 +1500,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>midnightCB</sender>
+   <sender>validMidn</sender>
    <signal>clicked(bool)</signal>
    <receiver>checkBox</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>350</x>
-     <y>333</y>
+     <x>431</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel">
      <x>447</x>

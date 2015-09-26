@@ -13,7 +13,7 @@
 
 class pki_key;
 
-class NewCrl: public QDialog, public Ui::NewCrl
+class NewCrl: public QWidget, public Ui::NewCrl
 {
 	Q_OBJECT
 

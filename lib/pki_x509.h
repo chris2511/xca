@@ -12,6 +12,7 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 #include <openssl/pem.h>
+#include "pki_temp.h"
 #include "pki_key.h"
 #include "pki_x509req.h"
 #include "pki_x509super.h"
@@ -26,14 +27,13 @@ class pki_x509 : public pki_x509super
 		Q_OBJECT
 	private:
 		pki_x509 *psigner;
-		a1time crlExpiry;
+		QVariant signerSqlId;
+		a1time crlExpire;
 		bool randomSerial;
-		int trust;
-		int efftrust;
 		a1int caSerial;
 		a1int crlNumber;
 		int crlDays;
-		QString caTemplate;
+		pki_temp *caTemplate;
 		X509 *cert;
 		void init();
 		x509rev revocation;
@@ -51,6 +51,11 @@ class pki_x509 : public pki_x509super
 		pki_x509(const QString name = "");
 		~pki_x509();
 
+		const char *getClassName() const;
+		void setSigner(pki_x509 *signer)
+		{
+			psigner = signer;
+		}
 		void fload(const QString fname);
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		void store_token(bool alwaysSelect);
@@ -64,15 +69,14 @@ class pki_x509 : public pki_x509super
 		a1time getNotBefore() const;
 		a1time getNotAfter() const;
 		x509name getSubject() const;
-		x509name getIssuer() const;
+		x509name getIssuerName() const;
 		void setSubject(const x509name &n);
 		void setIssuer(const x509name &n);
 		bool caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen);
 
-		QByteArray toData();
 		void fromData(const unsigned char *p, db_header_t *head);
-		void oldFromData(unsigned char *p, int size);
-		bool canSign();
+		bool isCA() const;
+		bool canSign() const;
 		void writeCert(const QString fname, bool PEM, bool append = false);
 		void writeIndexEntry(FILE *fp);
 		void writeIndexEntry(const QString fname, bool append = false);
@@ -87,20 +91,16 @@ class pki_x509 : public pki_x509super
 		bool checkDate();
 		bool addV3ext(const x509v3ext &e, bool skip_existing = false);
 		void sign(pki_key *signkey, const EVP_MD *digest);
+		pki_x509 *findIssuer();
 		X509 *getCert()
 		{
 			return cert;
 		}
-		int getTrust();
-		void setTrust(int t);
-		int getEffTrust();
-		void setEffTrust(int t);
 		void setRevoked(bool rev, a1time inval = a1time(),
 				QString reason = QString());
 		void setRevoked(const x509rev &revok);
 		bool isRevoked();
 		pki_x509 *getBySerial(const a1int &a) const;
-		int calcEffTrust();
 		a1int getIncCaSerial();
 		a1int getCaSerial()
 		{
@@ -119,12 +119,12 @@ class pki_x509 : public pki_x509super
 			if (n > crlNumber)
 				crlNumber = n;
 		}
-		void setTemplate(QString s)
+		void setTemplate(pki_temp *t)
 		{
-			if (s.length() > 0)
-				caTemplate = s;
+			if (t)
+				caTemplate = t;
 		}
-		QString getTemplate()
+		pki_temp *getTemplate()
 		{
 			return caTemplate;
 		}
@@ -150,7 +150,6 @@ class pki_x509 : public pki_x509super
 			return revocation;
 		}
 		pk11_attlist objectAttributes();
-		void setCrlExpiry(const a1time &time);
 		bool hasExtension(int nid);
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		bool visible();
@@ -171,6 +170,13 @@ class pki_x509 : public pki_x509super
 		}
 		void setRevocations(const x509revList &rl);
 		bool compareNameAndKey(pki_x509 *other);
+		void setCrlExpire(a1time a)
+		{
+			crlExpire = a;
+		}
+		QSqlError insertSqlData();
+		QSqlError deleteSqlData();
+		QSqlError restoreSql(QVariant sqlId);
 };
 
 #endif
