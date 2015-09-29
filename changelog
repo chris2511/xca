@@ -1,3 +1,4 @@
+ * Add OID resolver, move some Menu items to "Extra"
  * SF. Bug. #81 Make xca qt5 compatible
  * SF. Bug. #107 error:0D0680A8:asn1 encoding
  * Don't validate notBefore and notAfter if they are disabled.

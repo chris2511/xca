@@ -17,7 +17,8 @@
 #include "lib/func.h"
 #include "lib/db_x509super.h"
 #include "ui_Options.h"
-#include "widgets/hashBox.h"
+#include "hashBox.h"
+#include "OidResolver.h"
 #include <QApplication>
 #include <QClipboard>
 #include <QMenuBar>
@@ -36,7 +37,7 @@ public:
 void MainWindow::init_menu()
 {
 	static QMenu *file = NULL, *help = NULL, *import = NULL,
-			*token = NULL, *languageMenu = NULL;
+			*token = NULL, *languageMenu = NULL, *extra = NULL;
 	static QActionGroup * langGroup = NULL;
 	QAction *a;
 
@@ -90,21 +91,11 @@ void MainWindow::init_menu()
 	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
 		QKeySequence::Open);
 	file->addMenu(historyMenu);
-	file->addAction(tr("Generate DH parameter"), this,
-				 SLOT(generateDHparam()));
 	file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
 	acList += file->addAction(tr("&Close DataBase"), this,
 		SLOT(close_database()), QKeySequence(QKeySequence::Close));
-	acList += file->addAction(tr("&Dump DataBase"), this,
-				SLOT(dump_database()));
-	acList += file->addAction(tr("C&hange DataBase password"), this,
-				SLOT(changeDbPass()));
-	acList += file->addAction(tr("&Import old db_dump"), this,
-				SLOT(import_dbdump()));
-	acList += file->addAction(tr("&Undelete items"), this,
-				SLOT(undelete()));
-	file->addSeparator();
+
 	a = new QAction(tr("Options"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(setOptions()));
 	a->setMenuRole(QAction::PreferencesRole);
@@ -140,6 +131,19 @@ void MainWindow::init_menu()
 				SLOT(changeSoPin()) );
 	token->addAction(tr("Init PIN"), this,
 				SLOT(initPin()) );
+
+	extra = menuBar()->addMenu(tr("Extra"));
+	acList += extra->addAction(tr("&Dump DataBase"), this,
+				SLOT(dump_database()));
+	acList += extra->addAction(tr("C&hange DataBase password"), this,
+				SLOT(changeDbPass()));
+	acList += extra->addAction(tr("&Import old db_dump"), this,
+				SLOT(import_dbdump()));
+	acList += extra->addAction(tr("&Undelete items"), this,
+				SLOT(undelete()));
+	extra->addAction(tr("Generate DH parameter"), this,
+				 SLOT(generateDHparam()));
+	extra->addAction(tr("OID Resolver"), this, SLOT(resolveOID()));
 
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()),
@@ -397,4 +401,11 @@ QString MainWindow::getOptFlags()
 	if (pki_x509::disable_netscape)
 		flags << "disable_netscape";
 	return flags.join(",");
+}
+
+void MainWindow::resolveOID()
+{
+	OidResolver *o = new OidResolver(this);
+	o->exec();
+	delete o;
 }

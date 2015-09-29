@@ -89,6 +89,7 @@ HEADERS += local.h \
            widgets/TempTreeView.h \
            widgets/X509SuperTreeView.h \
            widgets/XcaHeaderView.h \
+           widgets/OidResolver.h \
            widgets/XcaProxyModel.h
 
 FORMS += ui/About.ui \
@@ -111,6 +112,7 @@ FORMS += ui/About.ui \
          ui/TrustState.ui \
          ui/SearchPkcs11.ui \
          ui/v3ext.ui \
+         ui/OidResolver.ui \
 	 ui/RevocationList.ui
 
 SOURCES += lib/asn1int.cpp \
@@ -182,6 +184,7 @@ SOURCES += lib/asn1int.cpp \
 	   widgets/TempTreeView.cpp \
 	   widgets/X509SuperTreeView.cpp \
 	   widgets/XcaHeaderView.cpp \
+	   widgets/OidResolver.cpp \
 	   widgets/XcaProxyModel.cpp
 
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts lang/xca_hr.ts

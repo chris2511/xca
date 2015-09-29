@@ -169,5 +169,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void initPin();
 		void generateDHparam();
 		void open_database(QAction* a);
+		void resolveOID();
 };
 #endif
