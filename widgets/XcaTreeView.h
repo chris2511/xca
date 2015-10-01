@@ -17,6 +17,9 @@
 class XcaTreeView: public QTreeView
 {
 	Q_OBJECT
+
+	dbheader *curr_hd;
+
    protected:
 	db_base *basemodel;
 	QSortFilterProxyModel *proxy;
@@ -56,5 +59,7 @@ class XcaTreeView: public QTreeView
 	void doubleClick(const QModelIndex &m);
 	void load(void);
 	void pem2clipboard(void);
+	void headerDetails(void);
+	void columnRemove(void);
 };
 #endif

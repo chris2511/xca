@@ -142,11 +142,11 @@ NewX509::NewX509(QWidget *parent)
 	QWidget::setTabOrder(description, extDNlist);
 	QWidget *old = description;
 	foreach(int nid, expl_dn_nid) {
-		QLabel *label;
+		DoubleClickLabel *label;
 		QLineEdit *edit;
 		QString trans = dn_translations[nid];
 
-		label = new QLabel(this);
+		label = new DoubleClickLabel(this);
 		if (translate_dn && !trans.isEmpty()) {
 			label->setText(trans);
 			label->setToolTip(QString("[%1] %2")
@@ -156,6 +156,9 @@ NewX509::NewX509(QWidget *parent)
 			label->setToolTip(QString("[%1] %2")
 				.arg(OBJ_nid2sn(nid)).arg(trans));
 		}
+		label->setClickText(OBJ_nid2sn(nid));
+		connect(label, SIGNAL(doubleClicked(QString)),
+                        MainWindow::getResolver(), SLOT(searchOid(QString)));
 		edit = new QLineEdit(this);
 		setupLineEditByNid(nid, edit);
 		nameEdits << nameEdit(nid, edit, label);
@@ -181,11 +184,11 @@ NewX509::NewX509(QWidget *parent)
 	old = reqSubChange;
 	n = 0;
 	foreach(int nid, attr_nid) {
-		QLabel *label;
+		DoubleClickLabel *label;
 		QLineEdit *edit;
 		QString trans = dn_translations[nid];
 
-		label = new QLabel(this);
+		label = new DoubleClickLabel(this);
 		if (translate_dn && !trans.isEmpty()) {
 			label->setText(trans);
 			label->setToolTip(QString(OBJ_nid2sn(nid)));
@@ -193,6 +196,9 @@ NewX509::NewX509(QWidget *parent)
 			label->setText(QString(OBJ_nid2ln(nid)));
 			label->setToolTip(trans);
 		}
+		label->setClickText(OBJ_nid2sn(nid));
+		connect(label, SIGNAL(doubleClicked(QString)),
+                        MainWindow::getResolver(), SLOT(searchOid(QString)));
 		edit = new QLineEdit(this);
 		attrEdits << nameEdit(nid, edit, label);
 		setupLineEditByNid(nid, edit);
@@ -212,7 +218,7 @@ NewX509::NewX509(QWidget *parent)
 	pt = none;
 	notAfter->setEndDate(true);
 
-	QMap<int, QLabel*> nidLabel;
+	QMap<int, DoubleClickLabel*> nidLabel;
 	nidLabel[NID_subject_alt_name] = sanLbl;
 	nidLabel[NID_issuer_alt_name] = ianLbl;
 	nidLabel[NID_crl_distribution_points] = crldpLbl;
@@ -226,13 +232,16 @@ NewX509::NewX509(QWidget *parent)
 	nidLabel[NID_netscape_comment] = nsCommentLbl;
 
 	foreach(int nid, nidLabel.keys()) {
-		QLabel *l = nidLabel[nid];
+		DoubleClickLabel *l = nidLabel[nid];
 		l->setText(translate_dn ?
 			dn_translations[nid] : OBJ_nid2ln(nid));
 		if (l->toolTip().isEmpty()) {
 			l->setToolTip(translate_dn ?
 				OBJ_nid2ln(nid) : dn_translations[nid]);
 		}
+		l->setClickText(OBJ_nid2sn(nid));
+		connect(l, SIGNAL(doubleClicked(QString)),
+                        MainWindow::getResolver(), SLOT(searchOid(QString)));
 	}
 
 	QMap<int, QGroupBox*> nidGroupBox;

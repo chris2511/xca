@@ -13,7 +13,8 @@
 #include "lib/x509name.h"
 #include "lib/db_x509super.h"
 #include "lib/base.h"
-#include "widgets/clicklabel.h"
+#include "clicklabel.h"
+#include "MainWindow.h"
 
 DistName::DistName(QWidget* parent)
     : QWidget(parent)
@@ -48,7 +49,8 @@ DistName::DistName(QWidget* parent)
 
 void DistName::setX509name(const x509name &n)
 {
-	QLabel *l1, *l2;
+	DoubleClickLabel *l1;
+	QLabel *l2;
 	QStringList sl;
 	for (int i=0; i<n.entryCount(); i++) {
 		QString toolt, label, trans;
@@ -62,16 +64,20 @@ void DistName::setX509name(const x509name &n)
 			toolt = trans;
 			label = sl[1];
 		}
-		l1 = new QLabel(this);
+		l1 = new DoubleClickLabel(this);
 		l2 = new CopyLabel(this);
 		l1->setTextFormat(Qt::PlainText);
 		l1->setText(label);
+		l1->setClickText(sl[1]);
 		if (l1->text().isEmpty())
 			l1->setText(sl[0]);
 		l2->setText(sl[2]);
 
 		l1->setToolTip(QString("[%1] %2").arg(sl[0]).arg(toolt));
 		l2->setToolTip(sl[3]);
+
+		connect(l1, SIGNAL(doubleClicked(QString)),
+			MainWindow::getResolver(), SLOT(searchOid(QString)));
 
 		DistNameLayout->addWidget(l1, i, 0);
 		DistNameLayout->addWidget(l2, i, 1);

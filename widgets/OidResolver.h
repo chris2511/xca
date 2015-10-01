@@ -10,7 +10,7 @@
 
 #include "ui_OidResolver.h"
 
-class OidResolver: public QDialog, public Ui::OidResolver
+class OidResolver: public QWidget, public Ui::OidResolver
 {
 	Q_OBJECT
 

@@ -9,6 +9,7 @@
 #define __MAINWINDOW_H
 
 #include "NewX509.h"
+#include "OidResolver.h"
 #include "ui_MainWindow.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
@@ -69,6 +70,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	Q_OBJECT
 
 	private:
+		static OidResolver *resolver;
 		QString workingdir;
 		QString string_opt;
 		QString pkcs11path;
@@ -122,6 +124,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		int initPass();
 		void read_cmdline(int argc, char *argv[]);
 		void load_engine();
+		static OidResolver *getResolver()
+		{
+			return resolver;
+		}
 		static void Error(errorEx &err);
 		void cmd_version();
 		void cmd_help(const char* msg);
@@ -160,6 +166,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void openURLs();
 		void changeEvent(QEvent *event);
 
+	protected slots:
+		void closeEvent(QCloseEvent * event);
+
 	private slots:
 		void setOptions();
 		void manageToken();
@@ -169,6 +178,5 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void initPin();
 		void generateDHparam();
 		void open_database(QAction* a);
-		void resolveOID();
 };
 #endif

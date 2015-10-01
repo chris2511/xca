@@ -143,7 +143,7 @@ void MainWindow::init_menu()
 				SLOT(undelete()));
 	extra->addAction(tr("Generate DH parameter"), this,
 				 SLOT(generateDHparam()));
-	extra->addAction(tr("OID Resolver"), this, SLOT(resolveOID()));
+	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));
 
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()),
@@ -401,11 +401,4 @@ QString MainWindow::getOptFlags()
 	if (pki_x509::disable_netscape)
 		flags << "disable_netscape";
 	return flags.join(",");
-}
-
-void MainWindow::resolveOID()
-{
-	OidResolver *o = new OidResolver(this);
-	o->exec();
-	delete o;
 }

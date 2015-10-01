@@ -61,6 +61,8 @@ QString MainWindow::mandatory_dn;
 QString MainWindow::explicit_dn;
 QString MainWindow::explicit_dn_default = QString("C,ST,L,O,OU,CN,emailAddress");
 
+OidResolver *MainWindow::resolver = NULL;
+
 void MainWindow::enableTokenMenu(bool enable)
 {
 	foreach(QWidget *w, scardList) {
@@ -89,7 +91,10 @@ MainWindow::MainWindow(QWidget *parent)
 	statusBar()->addWidget(dbindex, 1);
 
 	setupUi(this);
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
+
+	resolver = new OidResolver(NULL);
+	resolver->setWindowTitle(XCA_TITLE);
 
 	wdList << keyButtons << reqButtons << certButtons <<
 		tempButtons <<	crlButtons;
@@ -556,6 +561,14 @@ MainWindow::~MainWindow()
 	fprintf(stderr, "Memdebug:\n");
 	CRYPTO_mem_leaks_fp(stderr);
 #endif
+}
+
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+	if (resolver) {
+		delete resolver;
+	}
+	QMainWindow::closeEvent(e);
 }
 
 QString makeSalt(void)

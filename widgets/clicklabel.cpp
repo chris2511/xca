@@ -11,8 +11,22 @@
 #include <QPalette>
 #include <QColor>
 
+void DoubleClickLabel::mouseDoubleClickEvent(QMouseEvent * e)
+{
+	QWidget::mouseDoubleClickEvent(e);
+	if (clicktext.isEmpty())
+		emit doubleClicked(text());
+	else
+		emit doubleClicked(clicktext);
+}
+
+void DoubleClickLabel::setClickText(QString s)
+{
+	clicktext = s;
+}
+
 ClickLabel::ClickLabel(QWidget *parent)
-	:QLabel(parent)
+	:DoubleClickLabel(parent)
 {
 	QFont fnt( font() );
 	fnt.setBold(true);
@@ -29,12 +43,6 @@ ClickLabel::ClickLabel(QWidget *parent)
 	pal.setColor(QPalette::Inactive, QPalette::Window, col );
 	setPalette( pal );
 	setTextFormat(Qt::PlainText);
-}
-
-void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
-{
-	QWidget::mouseDoubleClickEvent(e);
-	emit doubleClicked(text());
 }
 
 void ClickLabel::setColor(const QColor &col)
@@ -62,7 +70,7 @@ void ClickLabel::disableToolTip()
 
 
 CopyLabel::CopyLabel(QWidget *parent)
-	:QLabel(parent)
+	:DoubleClickLabel(parent)
 {
 	setFrameShape(QFrame::Panel);
 	setFrameShadow(QFrame::Sunken);

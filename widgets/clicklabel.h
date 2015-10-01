@@ -12,7 +12,23 @@
 
 class QMouseEvent;
 
-class ClickLabel : public QLabel
+class DoubleClickLabel : public QLabel
+{
+  Q_OBJECT
+
+	QString clicktext;
+  public:
+	DoubleClickLabel(QWidget *parent) : QLabel(parent) { }
+	void setClickText(QString s);
+
+  protected:
+	void mouseDoubleClickEvent ( QMouseEvent * e );
+
+  signals:
+	void doubleClicked(QString text);
+};
+
+class ClickLabel : public DoubleClickLabel
 {
   Q_OBJECT
 
@@ -23,14 +39,10 @@ class ClickLabel : public QLabel
 	void disableToolTip();
 
   protected:
-	void mouseDoubleClickEvent ( QMouseEvent * e );
 	void setColor(const QColor &col);
-
-  signals:
-	void doubleClicked(QString text);
 };
 
-class CopyLabel : public QLabel
+class CopyLabel : public DoubleClickLabel
 {
   Q_OBJECT
 

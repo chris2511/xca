@@ -12,7 +12,7 @@
 #include "lib/exception.h"
 
 OidResolver::OidResolver(QWidget *parent)
-	:QDialog(parent)
+	:QWidget(parent)
 {
 	setWindowTitle(tr(XCA_TITLE));
 	setupUi(this);
@@ -23,6 +23,7 @@ void OidResolver::searchOid(QString s)
 	bool ok;
 	int n;
 
+	input->setText(s);
 	s = s.trimmed();
 	n = s.toUInt(&ok);
 	if (!ok)
@@ -49,4 +50,6 @@ void OidResolver::searchOid(QString s)
 		}
 	}
 	ign_openssl_error();
+	show();
+	raise();
 }

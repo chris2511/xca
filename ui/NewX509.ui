@@ -68,7 +68,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_0">
       <attribute name="title">
@@ -769,7 +769,7 @@
        <item>
         <layout class="QGridLayout" name="gridLayout_12">
          <item row="0" column="0">
-          <widget class="QLabel" name="sanLbl"/>
+          <widget class="DoubleClickLabel" name="sanLbl"/>
          </item>
          <item row="0" column="1">
           <widget class="QLabel" name="subAltIco">
@@ -805,7 +805,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="ianLbl"/>
+          <widget class="DoubleClickLabel" name="ianLbl"/>
          </item>
          <item row="1" column="2" colspan="2">
           <widget class="QLineEdit" name="issAltName">
@@ -855,7 +855,7 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="aiaLbl"/>
+          <widget class="DoubleClickLabel" name="aiaLbl"/>
          </item>
          <item row="3" column="1">
           <widget class="QLabel" name="authInfAccIco">
@@ -917,7 +917,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="crldpLbl"/>
+          <widget class="DoubleClickLabel" name="crldpLbl"/>
          </item>
         </layout>
        </item>
@@ -1176,16 +1176,16 @@
           <widget class="QLineEdit" name="nsCaPolicyUrl"/>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="nsCaRevLbl"/>
+          <widget class="DoubleClickLabel" name="nsCaRevLbl"/>
          </item>
          <item row="5" column="1">
           <widget class="QLineEdit" name="nsSslServerName"/>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="nsRevLbl"/>
+          <widget class="DoubleClickLabel" name="nsRevLbl"/>
          </item>
          <item row="5" column="0">
-          <widget class="QLabel" name="nsSslServerLbl"/>
+          <widget class="DoubleClickLabel" name="nsSslServerLbl"/>
          </item>
          <item row="0" column="1">
           <widget class="QLineEdit" name="nsBaseUrl"/>
@@ -1194,16 +1194,16 @@
           <widget class="QLineEdit" name="nsCARevocationUrl"/>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="nsRenewLbl"/>
+          <widget class="DoubleClickLabel" name="nsRenewLbl"/>
          </item>
          <item row="6" column="0">
-          <widget class="QLabel" name="nsCommentLbl"/>
+          <widget class="DoubleClickLabel" name="nsCommentLbl"/>
          </item>
          <item row="4" column="0">
-          <widget class="QLabel" name="nsCaPolicyLbl"/>
+          <widget class="DoubleClickLabel" name="nsCaPolicyLbl"/>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="nsBaseLbl"/>
+          <widget class="DoubleClickLabel" name="nsBaseLbl"/>
          </item>
          <item row="1" column="1">
           <widget class="QLineEdit" name="nsRevocationUrl"/>
@@ -1301,6 +1301,11 @@
     <slot>addKvRow()</slot>
     <slot>deleteCurrentRow()</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>DoubleClickLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">widgets/clicklabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

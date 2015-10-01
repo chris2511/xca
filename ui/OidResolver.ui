@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>OidResolver</class>
- <widget class="QDialog" name="OidResolver">
+ <widget class="QWidget" name="OidResolver">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>266</height>
+    <width>401</width>
+    <height>241</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -38,7 +38,7 @@
    <item>
     <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>Enter The OID, the Nid, or one of the textual representations</string>
+      <string>Enter the OID, the Nid, or one of the textual representations</string>
      </property>
     </widget>
    </item>
@@ -65,6 +65,9 @@
    </item>
    <item>
     <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -74,6 +77,12 @@
      </item>
      <item row="0" column="1">
       <widget class="CopyLabel" name="oid">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -81,19 +90,18 @@
         </size>
        </property>
        <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Short name</string>
+        <string notr="true"/>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="CopyLabel" name="sn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -114,6 +122,12 @@
      </item>
      <item row="2" column="1">
       <widget class="CopyLabel" name="ln">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -137,6 +151,12 @@
      </item>
      <item row="3" column="1">
       <widget class="CopyLabel" name="nid">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -151,17 +171,14 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Short name</string>
+       </property>
+      </widget>
+     </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>
@@ -175,50 +192,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>OidResolver</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>227</x>
-     <y>161</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>188</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>OidResolver</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>295</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>188</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>input</sender>
    <signal>textChanged(QString)</signal>
    <receiver>OidResolver</receiver>
    <slot>searchOid(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>65</y>
+     <x>207</x>
+     <y>103</y>
     </hint>
     <hint type="destinationlabel">
-     <x>398</x>
-     <y>12</y>
+     <x>144</x>
+     <y>47</y>
     </hint>
    </hints>
   </connection>

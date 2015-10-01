@@ -274,7 +274,19 @@ void XcaTreeView::pem2clipboard(void)
 		basemodel->pem2clipboard(getSelectedIndexes());
 }
 
-void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
+void XcaTreeView::headerDetails(void)
+{
+	if (curr_hd && curr_hd->id > 0 && mainwin)
+		mainwin->getResolver()->searchOid(QString::number(curr_hd->id));
+}
+
+void XcaTreeView::columnRemove(void)
+{
+	if (curr_hd->action)
+		curr_hd->action->setChecked(false);
+}
+
+void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 {
 	int shown = 0;
 	tipMenu *menu, *dn, *v3ext, *current, *v3ns;
@@ -287,6 +299,15 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 	v3ext = new tipMenu(tr("X509v3 Extensions"), mainwin);
 	v3ns = new tipMenu(tr("Netscape extensions"), mainwin);
 	menu->addAction(tr("Reset"), basemodel, SLOT(columnResetDefaults()));
+	if (col >= 0 && col < allHeaders.size()) {
+		curr_hd = allHeaders[col];
+		menu->addAction(tr("Remove Column"), this,SLOT(columnRemove()));
+		if (curr_hd->id > 0)
+			menu->addAction(tr("Details"), this,
+						SLOT(headerDetails()));
+	} else {
+		curr_hd = NULL;
+	}
 	sep = menu->addSeparator();
 	foreach(hd, allHeaders) {
 		switch (hd->type) {
@@ -378,5 +399,5 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 
 	fillContextMenu(menu, subExport, index, indexes);
 
-	contextMenu(e, menu);
+	contextMenu(e, menu, -1);
 }
