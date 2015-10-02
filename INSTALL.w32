@@ -7,8 +7,9 @@ This is for debian hosts, cross-compiling a windows binary.
 Needed packages:
   mingw cross compiler
   makensis cross tool
+  wine (to run moc.exe and uic.exe)
 
-# apt-get install mingw32 mingw32-binutils mingw32-runtime nsis
+# apt-get install mingw32 mingw32-binutils mingw32-runtime nsis wine
 
 create a new, empty directory say xca-w32
 $ cd xca-w32

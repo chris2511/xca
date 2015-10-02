@@ -22,6 +22,11 @@ SetCompressor /SOLID lzma
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 !define MUI_FINISHPAGE_RUN "$INSTDIR\xca.exe"
 
+!define MUI_HEADERIMAGE
+!define MUI_HEADERIMAGE_BITMAP "${TOPDIR}/img\bigcert.bmp"
+!define MUI_HEADERIMAGE_RIGHT
+!define MUI_ICON "${TOPDIR}/img\key.ico"
+
 ;-----------------------------------
 ; Pagelist
 
@@ -290,7 +295,7 @@ SectionEnd
   LangString DESC_SecShortcut ${LANG_ENGLISH} "Shortcuts on the desktop and the menu."
   LangString DESC_SecShortcut ${LANG_GERMAN}  "Programmgruppe auf dem Desktop und im Menu."
   LangString DESC_SecShortcut ${LANG_FRENCH} "Raccourcis sur le bureau et dans le menu."
-  LangString DESC_SecShortcut ${LANG_CROATIAN} "Prečac na radnoj površini i izborniku."
+  LangString DESC_SecShortcut ${LANG_CROATIAN} "Precac na radnoj površini i izborniku."
 
   LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb *.xca *.pem and 'open with' for *.crt *.crl *.pfx *.p7b *.cer"
   LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und 'Öffnen mit' für *.crt *.crl *.pfx *.p7b *.cer"
@@ -300,7 +305,7 @@ SectionEnd
   LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian, spanish, french and croatian."
   LangString DESC_SecTrans ${LANG_GERMAN}  "Übersetzungen in deutsch, russisch, spanisch kroatisch und französisch."
   LangString DESC_SecTrans ${LANG_FRENCH} "Traductions pour l'allemand, le russe, l'espagnol, le français et le croate."
-  LangString DESC_SecTrans ${LANG_CROATIAN} "Prijevodi na njemački, ruski, španjolski, francuski i hrvatski jezik."
+  LangString DESC_SecTrans ${LANG_CROATIAN} "Prijevodi na njemacki, ruski, španjolski, francuski i hrvatski jezik."
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
