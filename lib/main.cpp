@@ -10,7 +10,9 @@
 #include <QTranslator>
 #include <QTextCodec>
 #include <QDir>
+#include <QDirIterator>
 #include <QFile>
+#include <QDebug>
 #include <openssl/rand.h>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
@@ -23,10 +25,16 @@
 
 QLocale XCA_application::lang = QLocale::system();
 QFont XCA_application::tableFont;
+QList<QLocale> XCA_application::langAvail;
 
 void XCA_application::setMainwin(MainWindow *m)
 {
 	mainw = m;
+}
+
+bool XCA_application::languageAvailable(QLocale l)
+{
+	return langAvail.contains(l);
 }
 
 XCA_application::XCA_application(int &argc, char *argv[])
@@ -41,6 +49,17 @@ XCA_application::XCA_application(int &argc, char *argv[])
 
 	if (file.open(QIODevice::ReadOnly)) {
 		lang = QLocale(QString(file.read(128)));
+	}
+
+	langAvail << QLocale::system();
+	langAvail << QString("en");
+	QDirIterator qmIt(getPrefix(), QStringList() << "*.qm", QDir::Files);
+	while (qmIt.hasNext()) {
+		XcaTranslator t;
+		qmIt.next();
+		QString language = qmIt.fileInfo().baseName().mid(4, -1);
+		if (t.load(language, "xca", getPrefix()))
+			langAvail << QLocale(language);
 	}
 	setupLanguage(lang);
 #ifdef Q_WS_MAC
@@ -80,8 +99,13 @@ void XCA_application::setupLanguage(QLocale l)
 #endif
 		<< getPrefix()
 #ifndef WIN32
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+		<< "/usr/local/share/qt5/translations/"
+		<< "/usr/share/qt5/translations/"
+#else
 		<< "/usr/local/share/qt4/translations/"
 		<< "/usr/share/qt4/translations/"
+#endif
 		<< "/usr/share/qt/translations/"
 #endif
 		;

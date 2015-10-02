@@ -46,6 +46,7 @@ private:
 	XcaTranslator *xcaTr;
 	static QLocale lang;
 	Entropy entropy;
+	static QList<QLocale> langAvail;
 
 public:
 	XCA_application(int &argc, char *argv[]);
@@ -54,6 +55,7 @@ public:
 	void setupLanguage(QLocale lang);
 	static QLocale language() { return lang; }
 	static QFont tableFont;
+	static bool languageAvailable(QLocale l);
 	bool eventFilter(QObject *watched, QEvent *ev);
 
 public slots:

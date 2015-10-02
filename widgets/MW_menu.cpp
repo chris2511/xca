@@ -46,6 +46,7 @@ void MainWindow::init_menu()
 	if (help) delete help;
 	if (import) delete import;
 	if (token) delete token;
+	if (extra) delete extra;
 	if (languageMenu) delete languageMenu;
 	if (historyMenu) delete historyMenu;
 	if (langGroup) delete langGroup;
@@ -78,6 +79,7 @@ void MainWindow::init_menu()
 		QAction *a = new QAction(l.english, langGroup);
 		a->setToolTip(l.native);
 		a->setData(QVariant(l.locale));
+		a->setDisabled(!XCA_application::languageAvailable(l.locale));
 		a->setCheckable(true);
 		langGroup->addAction(a);
 		languageMenu->addAction(a);
