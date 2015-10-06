@@ -2,8 +2,6 @@ AC_DEFUN([XCA_COMPILE_TEST], [
 
 # Try to compile a little application
 #####################################
-CXXFLAGS="${CXXFLAGS} ${OPENSSL_CFLAGS}${QT_CFLAGS}"
-LIBS="${LIBS} ${OPENSSL_LIBS}${QT_LIBS}"
 
 AC_TRY_RUN([
 #include <stdio.h>

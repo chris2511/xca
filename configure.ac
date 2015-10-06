@@ -175,8 +175,14 @@ AC_CHECK_HEADER(ltdl.h, , [
   exit 1
 ])
 
+# Finally collect the compiler flags
+#####################################
+CXXFLAGS="${CXXFLAGS} ${OPENSSL_CFLAGS} ${QT_CFLAGS}"
+LIBS="${LIBS} ${OPENSSL_LIBS} ${QT_LIBS}"
+
 # Just give it a try .....
 ##########################
+
 XCA_COMPILE_TEST()
 
 AX_CHECK_GNU_MAKE()
