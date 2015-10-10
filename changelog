@@ -1,3 +1,5 @@
+xca 1.3.2 Sat Oct 10 2015
+
  * Gentoo Bug #562288 linking fails
  * Add OID resolver, move some Menu items to "Extra"
  * SF. Bug. #81 Make xca qt5 compatible
