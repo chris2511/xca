@@ -84,6 +84,9 @@ void KeyDetail::setKey(pki_key *key)
 			tlPrivEx->setText(tr("Private key"));
 			tlPubEx->setText(tr("Curve name"));
 			keyPubEx->setText(OBJ_nid2sn(nid));
+			connect(keyPubEx, SIGNAL(doubleClicked(QString)),
+				MainWindow::getResolver(),
+				SLOT(searchOid(QString)));
 			keyPubEx->setToolTip(CurveComment(nid));
 			keyModulus->setText(key->ecPubKey());
 			break;

@@ -66,6 +66,6 @@ fi
 XCA_BUILD="`pwd`"/xca_build
 export INSTALL_DIR=`pwd`/install
 
-#do_openssl
-#do_libtool
+do_openssl
+do_libtool
 do_XCA
