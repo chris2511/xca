@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>589</width>
-    <height>267</height>
+    <height>303</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -172,6 +172,9 @@
         <enum>QFrame::Sunken</enum>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>4</number>
+        </property>
         <item>
          <spacer name="verticalSpacer">
           <property name="orientation">

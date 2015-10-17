@@ -2329,12 +2329,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
 <context>
     <name>OidResolver</name>
     <message>
-        <location filename="../ui/OidResolver.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
+        <location filename="../ui/OidResolver.ui" line="+28"/>
         <source>OID Resolver</source>
         <translation type="unfinished"></translation>
     </message>

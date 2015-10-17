@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-17 12:48+0200\n"
+"POT-Creation-Date: 2015-10-17 13:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1688,40 +1688,36 @@ msgid "Configfile error on line %1\n"
 msgstr ""
 
 #: OidResolver#1
-msgid "Form"
-msgstr ""
-
-#: OidResolver#2
-msgctxt "OidResolver#2"
+msgctxt "OidResolver#1"
 msgid "OID Resolver"
 msgstr ""
 
-#: OidResolver#3
+#: OidResolver#2
 msgid "Enter the OID, the Nid, or one of the textual representations"
 msgstr ""
 
-#: OidResolver#4
-msgctxt "OidResolver#4"
+#: OidResolver#3
+msgctxt "OidResolver#3"
 msgid "Search"
 msgstr ""
 
-#: OidResolver#5
+#: OidResolver#4
 msgid "OID"
 msgstr ""
 
-#: OidResolver#6
+#: OidResolver#5
 msgid "Long name"
 msgstr ""
 
-#: OidResolver#7
+#: OidResolver#6
 msgid "OpenSSL internal ID"
 msgstr ""
 
-#: OidResolver#8
+#: OidResolver#7
 msgid "Nid"
 msgstr ""
 
-#: OidResolver#9
+#: OidResolver#8
 msgid "Short name"
 msgstr ""
 

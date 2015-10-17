@@ -2055,12 +2055,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>OidResolver</name>
     <message>
-        <location filename="../ui/OidResolver.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
+        <location filename="../ui/OidResolver.ui" line="+28"/>
         <source>OID Resolver</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1162,12 +1162,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+63"/>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Extra</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>OID Resolver</source>
-        <translation type="unfinished"></translation>
+        <translation>OID Resolver</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2294,50 +2294,46 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>OidResolver</name>
     <message>
-        <location filename="../ui/OidResolver.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+17"/>
         <source>OID Resolver</source>
-        <translation type="unfinished"></translation>
+        <translation>OID Resolver</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Enter the OID, the Nid, or one of the textual representations</source>
-        <translation type="unfinished"></translation>
+        <translation>Die OID, die Nid oder den Text eingeben</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Search</source>
-        <translation type="unfinished">Suchen</translation>
+        <translation>Suchen</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>OID</source>
-        <translation type="unfinished"></translation>
+        <translation>OID</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>Long name</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Kurzbezeichner</translatorcomment>
+        <translation>Ausführliche Bezeichnung</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+22"/>
         <source>OpenSSL internal ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne OpenSSL ID</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Nid</source>
-        <translation type="unfinished"></translation>
+        <translation>Nid</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Short name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurzbezeichnung</translation>
     </message>
 </context>
 <context>
@@ -3200,12 +3196,12 @@ in Bibliothek %3
     <message>
         <location line="+3"/>
         <source>Remove Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalte ausblenden</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Details</source>
-        <translation type="unfinished">Details</translation>
+        <translation>Details</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -4595,7 +4591,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+16"/>
         <source>No known PEM encoded items found</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine bekanntes PEM Format gefunden</translation>
     </message>
 </context>
 <context>
