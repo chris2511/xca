@@ -404,7 +404,7 @@
 <context>
     <name>ClickLabel</name>
     <message>
-        <location filename="../widgets/clicklabel.cpp" line="+23"/>
+        <location filename="../widgets/clicklabel.cpp" line="+37"/>
         <source>Double click for details</source>
         <translation>Haga doble click para obtener detalles</translation>
     </message>
@@ -499,7 +499,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+142"/>
+        <location filename="../ui/ExportDialog.ui" line="+113"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -509,7 +509,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+65"/>
         <source>Export Format</source>
         <translation type="unfinished"></translation>
     </message>
@@ -649,7 +649,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="-103"/>
+        <location filename="../ui/ExportDialog.ui" line="-115"/>
         <source>Name</source>
         <translation type="unfinished">Nombre</translation>
     </message>
@@ -735,7 +735,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+60"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+61"/>
         <source>
 Name: %1
 Model: %2
@@ -875,7 +875,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+10"/>
         <source>Unknown key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -990,7 +990,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+124"/>
+        <location filename="../widgets/MW_menu.cpp" line="+117"/>
         <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1041,7 +1041,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+914"/>
+        <location filename="../widgets/MainWindow.cpp" line="+927"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1061,7 +1061,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-61"/>
+        <location filename="../widgets/MW_menu.cpp" line="-52"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1106,7 +1106,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1121,12 +1121,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+53"/>
         <source>Generate DH parameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-50"/>
         <source>Set as default DataBase</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1136,7 +1136,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+40"/>
         <source>&amp;Dump DataBase</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1156,7 +1156,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-43"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1242,6 +1242,16 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+3"/>
+        <source>Extra</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>OID Resolver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1281,7 +1291,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-613"/>
+        <location filename="../widgets/MainWindow.cpp" line="-633"/>
         <source>no such option: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1311,7 +1321,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+59"/>
         <source>Current Password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1327,17 +1337,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+5"/>
-        <location line="+105"/>
+        <location line="+112"/>
         <source>New Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-105"/>
+        <location line="-112"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+112"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1375,12 +1385,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+30"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-175"/>
+        <location filename="../widgets/MW_menu.cpp" line="-179"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1621,12 +1631,12 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+602"/>
+        <location filename="../widgets/NewX509.cpp" line="+611"/>
         <source>Subject</source>
         <translation>Sujeto</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-466"/>
+        <location filename="../widgets/NewX509.cpp" line="-475"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1795,7 +1805,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+43"/>
-        <location filename="../widgets/NewX509.cpp" line="+848"/>
+        <location filename="../widgets/NewX509.cpp" line="+857"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1828,12 +1838,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-897"/>
+        <location filename="../widgets/NewX509.cpp" line="-906"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+180"/>
+        <location line="+189"/>
         <source>Create Certificate signing request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1907,13 +1917,13 @@ Please enter the DH parameter bits</source>
         <location line="+34"/>
         <location line="+11"/>
         <location line="+23"/>
-        <location line="+22"/>
+        <location line="+23"/>
         <location line="+19"/>
         <source>Abort rollout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-174"/>
+        <location line="-175"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1928,13 +1938,13 @@ Please enter the DH parameter bits</source>
         <location line="+61"/>
         <location line="+45"/>
         <location line="+23"/>
-        <location line="+22"/>
+        <location line="+23"/>
         <location line="+19"/>
         <source>Continue rollout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-154"/>
+        <location line="-155"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation type="unfinished"></translation>
@@ -1995,12 +2005,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+2"/>
         <location line="+23"/>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Edit dates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-43"/>
         <location line="+23"/>
         <source>Adjust date and continue</source>
         <translation type="unfinished"></translation>
@@ -2011,7 +2021,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2039,6 +2049,55 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../widgets/NewX509.cpp" line="-2"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OidResolver</name>
+    <message>
+        <location filename="../ui/OidResolver.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>OID Resolver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Enter the OID, the Nid, or one of the textual representations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>OID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Long name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <location line="+22"/>
+        <source>OpenSSL internal ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Nid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Short name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2233,7 +2292,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+324"/>
+        <location line="+329"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation type="unfinished"></translation>
@@ -2443,7 +2502,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+441"/>
+        <location filename="../lib/func.cpp" line="+444"/>
         <source>Country code</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2669,7 +2728,7 @@ In library %3
         <translation type="unfinished">Eliminar</translation>
     </message>
     <message>
-        <location filename="../widgets/RevocationList.cpp" line="+70"/>
+        <location filename="../widgets/RevocationList.cpp" line="+71"/>
         <source>No.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2786,7 +2845,7 @@ In library %3
 <context>
     <name>TempTreeView</name>
     <message>
-        <location filename="../widgets/TempTreeView.cpp" line="+20"/>
+        <location filename="../widgets/TempTreeView.cpp" line="+22"/>
         <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2868,7 +2927,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+282"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+298"/>
         <source>Subject entries</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2888,7 +2947,17 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+3"/>
+        <source>Remove Column</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+51"/>
         <source>Columns</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2971,17 +3040,17 @@ Size: %3
     </message>
     <message>
         <location line="+19"/>
-        <location line="+540"/>
+        <location line="+539"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-430"/>
+        <location line="-429"/>
         <source>No.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+404"/>
+        <location line="+403"/>
         <source>How to export the %1 selected items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3044,7 +3113,7 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+78"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3438,7 +3507,7 @@ and so it was not imported</source>
         <translation type="obsolete">Solicitud</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+80"/>
         <source>PEM chain</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3740,7 +3809,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+54"/>
-        <location line="+217"/>
+        <location line="+218"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3753,7 +3822,7 @@ and thus was not stored</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+177"/>
+        <location filename="../lib/pki_evp.cpp" line="+180"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3763,7 +3832,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+55"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation type="unfinished"></translation>
@@ -3897,6 +3966,11 @@ and thus was not stored</source>
         <location line="+5"/>
         <location line="+5"/>
         <source>Seek failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>No known PEM encoded items found</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4055,7 +4129,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+280"/>
+        <location line="+286"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4129,7 +4203,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+58"/>
-        <location line="+533"/>
+        <location line="+538"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4192,7 +4266,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+281"/>
+        <location line="+282"/>
         <source>Signed</source>
         <translation type="unfinished">Firma</translation>
     </message>
