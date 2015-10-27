@@ -788,10 +788,9 @@ void MainWindow::Error(errorEx &err)
 	box.addButton(QMessageBox::Ok);
 	if (box.exec() == QMessageBox::Apply) {
 		QClipboard *cb = QApplication::clipboard();
+		cb->setText(msg);
 		if (cb->supportsSelection())
 			cb->setText(msg, QClipboard::Selection);
-		else
-			cb->setText(msg);
 	}
 }
 

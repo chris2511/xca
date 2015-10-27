@@ -314,8 +314,7 @@ void db_base::pem2clipboard(QModelIndexList indexes)
 
 	if (cb->supportsSelection())
 		cb->setText(msg, QClipboard::Selection);
-	else
-		cb->setText(msg);
+	cb->setText(msg);
 }
 
 void db_base::deletePKI(QModelIndex idx)
