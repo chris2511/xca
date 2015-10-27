@@ -18,3 +18,7 @@ name
 dnQualifier
 generationQualifier
 x500UniqueIdentifier
+businessCategory
+streetAddress
+localityName
+postalCode
