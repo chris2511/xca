@@ -558,7 +558,7 @@
         <translation type="unfinished">Имя файла</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+68"/>
         <source>Export Format</source>
         <translation type="unfinished">Формат экспорта</translation>
     </message>
@@ -1002,7 +1002,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+98"/>
+        <location filename="../widgets/MW_menu.cpp" line="+99"/>
         <source>&amp;Close DataBase</source>
         <translation>&amp;Закрыть базу данных</translation>
     </message>
@@ -1021,7 +1021,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-31"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1053,6 +1053,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+1"/>
         <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Slovak</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2219,7 +2224,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>OID</source>
         <translation type="unfinished"></translation>
     </message>

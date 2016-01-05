@@ -62,14 +62,15 @@ void MainWindow::init_menu()
                 this, SLOT(open_database(QAction*)));
 
 	languages <<
-		myLang("System", tr("System"), QLocale::system()) <<
+		myLang("System",   tr("System"),   QLocale::system()) <<
 		myLang("Croatian", tr("Croatian"), QLocale("hr")) <<
-		myLang("English", tr("English"), QLocale("en")) <<
-		myLang("French", tr("French"), QLocale("fr")) <<
-		myLang("German", tr("German"), QLocale("de")) <<
-		myLang("Russian", tr("Russian"), QLocale("ru")) <<
-		myLang("Spanish", tr("Spanish"), QLocale("es")) <<
-		myLang("Turkish", tr("Turkish"), QLocale("tr"));
+		myLang("English",  tr("English"),  QLocale("en")) <<
+		myLang("French",   tr("French"),   QLocale("fr")) <<
+		myLang("German",   tr("German"),   QLocale("de")) <<
+		myLang("Russian",  tr("Russian"),  QLocale("ru")) <<
+		myLang("Slovak",   tr("Slovak"),   QLocale("sk")) <<
+		myLang("Spanish",  tr("Spanish"),  QLocale("es")) <<
+		myLang("Turkish",  tr("Turkish"),  QLocale("tr"));
 
 	languageMenu = new tipMenu(tr("Language"), this);
 	connect(languageMenu, SIGNAL(triggered(QAction*)),

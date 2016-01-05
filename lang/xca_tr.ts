@@ -586,7 +586,7 @@ PEM base64 kodlanmış DER dosyası
         <translation type="obsolete">Lütfen dosya adını giriniz</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+68"/>
         <source>Export Format</source>
         <translation>Verme biçimi</translation>
     </message>
@@ -726,7 +726,7 @@ PEM base64 kodlanmış DER dosyası
         <translation>Üzerine yazmayın</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="-115"/>
+        <location filename="../ui/ExportDialog.ui" line="-118"/>
         <source>Name</source>
         <translation type="unfinished">İsim</translation>
     </message>
@@ -1075,7 +1075,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+117"/>
+        <location filename="../widgets/MW_menu.cpp" line="+118"/>
         <source>Certificates</source>
         <translation>Sertifikalar</translation>
     </message>
@@ -1201,7 +1201,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-31"/>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Exit</source>
         <translation>Çıkış</translation>
     </message>
@@ -1423,7 +1428,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-179"/>
+        <location filename="../widgets/MW_menu.cpp" line="-180"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1458,7 +1463,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2175,7 +2180,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>OID</source>
         <translation type="unfinished"></translation>
     </message>

@@ -596,7 +596,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
         <translation type="obsolete">Bitte den Dateinamen eingeben</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+68"/>
         <source>Export Format</source>
         <translation>Exportformat</translation>
     </message>
@@ -1091,7 +1091,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+98"/>
+        <location filename="../widgets/MW_menu.cpp" line="+99"/>
         <source>&amp;Close DataBase</source>
         <translation>Datenbank s&amp;chliessen</translation>
     </message>
@@ -1110,7 +1110,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-31"/>
         <source>Recent DataBases</source>
         <translation>Zuletzt geöffnet</translation>
     </message>
@@ -1143,6 +1143,11 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <location line="+1"/>
         <source>Russian</source>
         <translation>Russisch</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2294,7 +2299,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>OidResolver</name>
     <message>
-        <location line="+17"/>
+        <location filename="../ui/OidResolver.ui" line="+28"/>
         <source>OID Resolver</source>
         <translation>OID Resolver</translation>
     </message>
@@ -2309,7 +2314,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Suchen</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>OID</source>
         <translation>OID</translation>
     </message>

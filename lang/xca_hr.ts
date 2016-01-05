@@ -609,7 +609,7 @@ PEM je base64 kodirana DER datoteka</translation>
         <translation type="obsolete">Unesite ime datoteke</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+68"/>
         <source>Export Format</source>
         <translation>Format izvoza</translation>
     </message>
@@ -1133,7 +1133,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+117"/>
+        <location filename="../widgets/MW_menu.cpp" line="+118"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -1204,7 +1204,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Nije uspjelo uklanjanje obrisanih ili zastarjelih stavki iz baze podataka.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-57"/>
+        <location filename="../widgets/MW_menu.cpp" line="-58"/>
         <source>Recent DataBases</source>
         <translation>Nedavna baza podataka</translation>
     </message>
@@ -1239,7 +1239,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Ruski</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>Španjolski</translation>
     </message>
@@ -1309,7 +1309,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Opcije</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-31"/>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Exit</source>
         <translation>Izlaz</translation>
     </message>
@@ -2344,7 +2349,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation type="unfinished">Traži</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>OID</source>
         <translation type="unfinished"></translation>
     </message>

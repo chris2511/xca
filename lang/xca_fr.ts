@@ -515,7 +515,7 @@
         <translation>Nom du fichier</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+68"/>
         <source>Export Format</source>
         <translation>Format d&apos;exportation</translation>
     </message>
@@ -975,7 +975,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+117"/>
+        <location filename="../widgets/MW_menu.cpp" line="+118"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
@@ -1046,7 +1046,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Le nettoyage des éléments détruits ou échus de la base de données a échoué.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-57"/>
+        <location filename="../widgets/MW_menu.cpp" line="-58"/>
         <source>Recent DataBases</source>
         <translation>Bases de données utilisées recemment</translation>
     </message>
@@ -1081,7 +1081,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Russe</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>Espagnol</translation>
     </message>
@@ -1151,7 +1151,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Options</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-31"/>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Exit</source>
         <translation>Quitter</translation>
     </message>
@@ -2064,7 +2069,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <translation type="unfinished">Chercher</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>OID</source>
         <translation type="unfinished"></translation>
     </message>
