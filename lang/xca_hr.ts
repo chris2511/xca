@@ -1518,7 +1518,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="+34"/>
-        <source>The following error occured:</source>
+        <source>The following error occurred:</source>
         <translation>Desila se sljedeća greška:</translation>
     </message>
     <message>

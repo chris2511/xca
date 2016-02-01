@@ -148,7 +148,7 @@ int read_dump(const char *filename, db_base **dbs, char *md5, int md5_len)
 						pki->oldFromData((unsigned char*)p, retlen);
 						db->insert(pki);
 					} catch (errorEx &err) {
-						printf("Error catched for '%s'\n", CCHAR(pki->getIntName()));
+						printf("Error caught for '%s'\n", CCHAR(pki->getIntName()));
 					}
 				}
 			} else if (md5) {

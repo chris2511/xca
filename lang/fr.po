@@ -1156,7 +1156,7 @@ msgstr ""
 "%1"
 
 #: MainWindow#84
-msgid "The following error occured:"
+msgid "The following error occurred:"
 msgstr "L'erreur suivante s'est produite:"
 
 #: MainWindow#85

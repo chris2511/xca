@@ -1352,7 +1352,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location line="+34"/>
-        <source>The following error occured:</source>
+        <source>The following error occurred:</source>
         <translation>L&apos;erreur suivante s&apos;est produite:</translation>
     </message>
     <message>

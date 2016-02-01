@@ -1360,7 +1360,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+34"/>
-        <source>The following error occured:</source>
+        <source>The following error occurred:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
