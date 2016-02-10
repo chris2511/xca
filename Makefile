@@ -99,9 +99,9 @@ clean:
 				-o -name ".build-stamp" \
 				-o -name ".depend" \
 				-o -name "moc_*.cpp" | xargs rm -f
-	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
-	rm -f lang/*.xml
-	rm -f xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX) *.dmg
+	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz doc/xca_db_stat.1.gz img/imgres.cpp
+	rm -f lang/*.xml lang/.build-stamp
+	rm -f xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX) lib/xca_db_stat$(SUFFIX) *.dmg
 	rm -rf xca-$(VERSION)*
 
 distclean: clean
