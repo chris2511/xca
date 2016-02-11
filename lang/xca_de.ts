@@ -1082,7 +1082,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     </message>
     <message>
         <location line="+62"/>
-        <source>The following error occured:</source>
+        <source>The following error occurred:</source>
         <translation>Der folgende Fehler ist aufgetreten:</translation>
     </message>
     <message>

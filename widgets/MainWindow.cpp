@@ -782,7 +782,7 @@ void MainWindow::Error(errorEx &err)
 {
 	if (err.isEmpty())
 		 return;
-	QString msg =  tr("The following error occured:") + "\n" + err.getString();
+	QString msg =  tr("The following error occurred:") + "\n" + err.getString();
 	xcaWarning box(NULL, msg);
 	box.addButton(QMessageBox::Apply)->setText(tr("Copy to Clipboard"));
 	box.addButton(QMessageBox::Ok);

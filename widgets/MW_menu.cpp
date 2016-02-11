@@ -381,7 +381,7 @@ void MainWindow::setOptFlags(QString flags)
 		else if (flag == "disable_netscape")
 			pki_x509::disable_netscape = true;
 		else if (!flag.isEmpty())
-			fprintf(stderr, "Unkown flag '%s'\n", CCHAR(flag));
+			fprintf(stderr, "Unknown flag '%s'\n", CCHAR(flag));
 	}
 	if (old_disable_netscape != pki_x509::disable_netscape) {
 		certView->showHideSections();

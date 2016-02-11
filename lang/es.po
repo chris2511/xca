@@ -947,7 +947,7 @@ msgid ""
 msgstr ""
 
 #: MainWindow#71
-msgid "The following error occured:"
+msgid "The following error occurred:"
 msgstr ""
 
 #: MainWindow#72

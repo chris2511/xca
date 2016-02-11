@@ -266,7 +266,7 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		break;
 #endif
 	default:
-		throw errorEx(QString("Unkown Keytype %d").arg(pk->type));
+		throw errorEx(QString("Unknown Keytype %d").arg(pk->type));
 
 	}
 	return attrs;
@@ -419,7 +419,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	}
 #endif
 	default:
-		throw errorEx(QString("Unkown Keytype %d").arg(pkey->type));
+		throw errorEx(QString("Unknown Keytype %d").arg(pkey->type));
 
 	}
 
