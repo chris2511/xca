@@ -6,6 +6,7 @@ AC_INIT([X Certificate and Key management],
 AC_MSG_NOTICE([     ***************************************************])
 AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${PACKAGE_VERSION}])
 AC_MSG_NOTICE([     ***************************************************])
+AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_CXX
 AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
