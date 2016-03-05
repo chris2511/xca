@@ -420,7 +420,7 @@ void MainWindow::initToken()
 		if (ti.tokenInitialized()) {
 			ret = PwDialog::execute(&p, &pin, false);
 		} else {
-			p.setDescription(tr("Please enter the new SO PIN (PUK) of the token '%1'").
+			p.setDescription(tr("Please enter the new SO PIN (PUK) for the token '%1'").
 			arg(slotname) + "\n" + ti.pinInfo());
 			ret = PwDialog::execute(&p, &pin, true);
 		}

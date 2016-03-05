@@ -102,7 +102,7 @@ void ImportMulti::addItem(pki_base *pki)
 		delete pm;
 	}
 	else  {
-		XCA_WARN(tr("The type of the Item '%1' is not recognized").
+		XCA_WARN(tr("The type of the item '%1' is not recognized").
 			arg(cn));
 	}
 }
@@ -246,7 +246,7 @@ pki_base *ImportMulti::import(QModelIndex &idx)
 
 	db = select_db(cn);
 	if (!db) {
-		XCA_WARN(tr("The type of the Item '%1' is not recognized").
+		XCA_WARN(tr("The type of the item '%1' is not recognized").
 			arg(cn));
 		delete pki;
 		return NULL;

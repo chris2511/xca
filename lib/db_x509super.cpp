@@ -60,7 +60,7 @@ dbheaderList db_x509super::getHeaders()
 
 	h <<	new dbheader(HD_x509key_name, false, tr("Key name"),
 			tr("Internal name of the key")) <<
-		new dbheader(HD_x509_sigalg, false, tr("Signature Algorithm"));
+		new dbheader(HD_x509_sigalg, false, tr("Signature algorithm"));
 
 
 	foreach(int nid, v3nid)

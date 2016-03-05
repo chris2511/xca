@@ -464,7 +464,7 @@ void dn_translations_setup()
 	dn_translations[NID_pkcs9_challengePassword] = QObject::tr("Challenge password");
 
 	dn_translations[NID_basic_constraints] = QObject::tr("Basic Constraints");
-	dn_translations[NID_subject_alt_name] = QObject::tr("subject alternative name");
+	dn_translations[NID_subject_alt_name] = QObject::tr("Subject alternative name");
 	dn_translations[NID_issuer_alt_name] = QObject::tr("issuer alternative name");
 	dn_translations[NID_subject_key_identifier] = QObject::tr("Subject key identifier");
 	dn_translations[NID_authority_key_identifier] = QObject::tr("Authority key identifier");

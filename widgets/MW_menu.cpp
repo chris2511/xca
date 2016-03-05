@@ -121,7 +121,7 @@ void MainWindow::init_menu()
 	import->addAction(tr("Template"), tempView, SLOT(load()) );
 	import->addAction(tr("Revocation list"), crlView, SLOT(load()));
 	import->addAction(tr("PEM file"), this, SLOT(loadPem()) );
-	import->addAction(tr("paste PEM file"), this, SLOT(pastePem()));
+	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()));
 
 	token = menuBar()->addMenu(tr("&Token"));
 	token->addAction(tr("&Manage Security token"), this,
@@ -224,7 +224,7 @@ void MainWindow::import_dbdump()
 	if (!keys)
 		return;
 	QString file = QFileDialog::getOpenFileName(this, tr(XCA_TITLE), homedir,
-			tr("Database dump ( *.dump );;All files ( * )"));
+			tr("Database dump ( *.dump );; All files ( * )"));
 
 	if (file.isEmpty())
 		return;

@@ -57,13 +57,13 @@ dbheaderList db_x509::getHeaders()
 	h <<	new dbheader(HD_cert_ca,	true, tr("CA"),
 			tr("reflects the basic Constraints extension")) <<
 		new dbheader(HD_cert_serial,	true, tr("Serial")) <<
-		new dbheader(HD_cert_md5fp,	false,tr("md5 fingerprint")) <<
-		new dbheader(HD_cert_sha1fp,	false,tr("sha1 fingerprint")) <<
-		new dbheader(HD_cert_sha256fp,	false,tr("sha256 fingerprint")) <<
+		new dbheader(HD_cert_md5fp,	false,tr("MD5 fingerprint")) <<
+		new dbheader(HD_cert_sha1fp,	false,tr("SHA1 fingerprint")) <<
+		new dbheader(HD_cert_sha256fp,	false,tr("SHA256 fingerprint")) <<
 		new dbheader(HD_cert_notBefore, false,tr("Start date"),
-				tr("not Before")) <<
+				tr("Not before")) <<
 		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),
-				tr("not After")) <<
+				tr("Not after")) <<
 		new dbheader(HD_cert_trust,	false,tr("Trust state")) <<
 		new dbheader(HD_cert_revocation,false, tr("Revocation")) <<
 		new dbheader(HD_cert_crl_expire,true, tr("CRL Expiration"));
@@ -659,13 +659,13 @@ void db_x509::store(QModelIndexList list)
 			exportType(exportType::PEM_chain, "pem",
 				tr("PEM chain")) <<
 			exportType(exportType::PKCS7_chain, "p7b",
-				tr("PKCS #7 chain"));
+				tr("PKCS#7 chain"));
 	}
 
 	if (privkey && privkey->isPrivKey() && !privkey->isToken()) {
 		if (chain) {
 			usual << exportType(exportType::PKCS12_chain, "p12",
-				tr("PKCS #12 chain"));
+				tr("PKCS#12 chain"));
 			types << exportType(exportType::PKCS12, "p12",
 				"PKCS #12");
 		} else {
@@ -680,9 +680,9 @@ void db_x509::store(QModelIndexList list)
 	}
 	types << exportType() <<
 		exportType(exportType::PKCS7_trusted, "p7b",
-			tr("PKCS #7 trusted")) <<
+			tr("PKCS#7 trusted")) <<
 		exportType(exportType::PKCS7_all, "p7b",
-			tr("PKCS #7 all")) <<
+			tr("PKCS#7 all")) <<
 		exportType(exportType::PEM_trusted, "pem",
 			tr("PEM trusted")) <<
 		exportType(exportType::PEM_all, "pem",

@@ -49,8 +49,8 @@ load_base::~load_base()
 load_key::load_key()
 	:load_base()
 {
-	filter = QObject::tr("PKI Keys ( *.pem *.der *.key );;"
-			"PKCS#8 Keys ( *.p8 *.pk8 );;"
+	filter = QObject::tr("PKI Keys ( *.pem *.der *.key );; "
+			"PKCS#8 Keys ( *.p8 *.pk8 );; "
 			"SSH Public Keys ( *.pub );;") + filter;
 	caption = QObject::tr("Import RSA key");
 }
@@ -64,7 +64,7 @@ pki_base * load_key::newItem()
 load_req::load_req()
 	:load_base()
 {
-	filter = QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr );;"
+	filter = QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr );; "
 			"Netscape Request ( *.spkac *.spc );;") + filter;
 	caption = QObject::tr("Import Request");
 }

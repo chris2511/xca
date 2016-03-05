@@ -360,7 +360,7 @@
            <item>
             <widget class="QPushButton" name="BNnewTemp">
              <property name="text">
-              <string>&amp;New template</string>
+              <string>&amp;New Template</string>
              </property>
             </widget>
            </item>

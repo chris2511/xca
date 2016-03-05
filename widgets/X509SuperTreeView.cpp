@@ -27,7 +27,7 @@ void X509SuperTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	transform = menu->addMenu(tr("Transform"));
 	transform->addAction(tr("Template"), this,
 		SLOT(toTemplate()))->setEnabled(!x->isSpki());
-	transform->addAction(tr("Public Key"), this,
+	transform->addAction(tr("Public key"), this,
 		SLOT(extractPubkey()))->setEnabled(!x->getRefKey());
 }
 

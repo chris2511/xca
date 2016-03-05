@@ -53,12 +53,7 @@
         <translation>Не доступен</translation>
     </message>
     <message>
-        <location line="+25"/>
-        <source>Details of the certificate</source>
-        <translation>Сведения о сертификате</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+34"/>
         <source>Signer unknown</source>
         <translation>Подписавший неизвестен</translation>
     </message>
@@ -99,6 +94,7 @@
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="+36"/>
+        <location filename="../widgets/CertDetail.cpp" line="-76"/>
         <source>Details of the Certificate</source>
         <translation>Сведения о сертификате</translation>
     </message>
@@ -214,7 +210,7 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-124"/>
+        <location filename="../widgets/CertDetail.cpp" line="-48"/>
         <source>Show config</source>
         <translation>Показать конфигурацию</translation>
     </message>
@@ -300,7 +296,7 @@
     <message>
         <location line="+2"/>
         <location line="+22"/>
-        <source>Edit times</source>
+        <source>Edit dates</source>
         <translation>Изменить период</translation>
     </message>
     <message>
@@ -473,12 +469,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>Next Update</source>
+        <source>Next update</source>
         <translation>Следующее обновление</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Last Update</source>
+        <source>Last update</source>
         <translation>Последнее обновление</translation>
     </message>
     <message>
@@ -701,18 +697,14 @@
         <translation>&amp;Готово</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+105"/>
-        <location line="+144"/>
-        <source>The type of the Item &apos;%1&apos; is not recognized</source>
-        <translation>Невозможно определить тип &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <location line="+48"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+297"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Невозможно отобразить сведения о &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-192"/>
+        <location line="+144"/>
+        <location line="+51"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Невозможно определить тип &apos;%1&apos;</translation>
     </message>
@@ -1002,7 +994,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+49"/>
+        <source>Paste PEM file</source>
+        <translation>Вставить файл PEM</translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Extra</source>
         <translation>Дополнительно</translation>
     </message>
@@ -1125,7 +1122,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+28"/>
-        <source>&amp;New template</source>
+        <source>&amp;New Template</source>
         <translation>&amp;Новый шаблон</translation>
     </message>
     <message>
@@ -1215,7 +1212,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>PEM файл</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+102"/>
+        <source>Database dump ( *.dump );; All files ( * )</source>
+        <translation>Дамп базы данных ( *.dump );; Все файлы ( * )</translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Import password</source>
         <translation>Пароль при импорте</translation>
     </message>
@@ -1240,19 +1242,9 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>И&amp;мпорт</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>paste PEM file</source>
-        <translation>Вставить PEM данные</translation>
-    </message>
-    <message>
-        <location line="+30"/>
+        <location line="+39"/>
         <source>About</source>
         <translation>О программе</translation>
-    </message>
-    <message>
-        <location line="+71"/>
-        <source>Database dump ( *.dump );;All files ( * )</source>
-        <translation>Дамп базы данных ( *.dump );;Все файлы ( * )</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="-547"/>
@@ -1260,7 +1252,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Импорт PEM данные</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+36"/>
+        <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
+        <translation>Пожалуйста, введите новый PIN SO (PUK) для модуля защиты &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>Новое название модуля защиты &apos;%1&apos;</translation>
     </message>
@@ -1291,7 +1288,7 @@ Please enter the DH parameter bits</source>
 Пожалуйста, введите желаемую длину параметров</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-133"/>
+        <location filename="../widgets/MW_menu.cpp" line="-62"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Новая база данных</translation>
     </message>
@@ -1331,12 +1328,7 @@ Please enter the DH parameter bits</source>
         <translation>Пожалуйста, введите первоначальный PIN SO (PUK) для модуля защиты &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Please enter the new SO PIN (PUK) of the token &apos;%1&apos;</source>
-        <translation>Пожалуйста, введите новый PIN SO (PUK) для модуля защиты &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <location line="+116"/>
+        <location line="+122"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Модуль защиты &apos;%1&apos; не содержит ни ключей, ни сертификатов</translation>
     </message>
@@ -1405,17 +1397,7 @@ Please enter the DH parameter bits</source>
         <translation>Новый CRL</translation>
     </message>
     <message>
-        <location line="+76"/>
-        <source>next update</source>
-        <translation>Следующее обновление</translation>
-    </message>
-    <message>
-        <location line="-14"/>
-        <source>last update</source>
-        <translation>Последнее обновление</translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+105"/>
         <source>Days</source>
         <translation>Дней</translation>
     </message>
@@ -1445,7 +1427,12 @@ Please enter the DH parameter bits</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+21"/>
+        <source>CRL number</source>
+        <translation>Порядковый номер CRL</translation>
+    </message>
+    <message>
+        <location line="+37"/>
         <source>Hash algorithm</source>
         <translation>Алгоритм подписи</translation>
     </message>
@@ -1465,12 +1452,17 @@ Please enter the DH parameter bits</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>CRL Number</source>
-        <translation>Порядковый номер CRL</translation>
+        <location line="-87"/>
+        <source>Last update</source>
+        <translation>Последнее обновление</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+14"/>
+        <source>Next update</source>
+        <translation>Следующее обновление</translation>
+    </message>
+    <message>
+        <location line="+99"/>
         <source>Revocation reasons</source>
         <translation>Указывать причину отзыва</translation>
     </message>
@@ -1478,13 +1470,7 @@ Please enter the DH parameter bits</source>
 <context>
     <name>NewKey</name>
     <message>
-        <location filename="../ui/NewKey.ui" line="+14"/>
-        <location line="+25"/>
-        <source>New key</source>
-        <translation>Новый ключ</translation>
-    </message>
-    <message>
-        <location line="+47"/>
+        <location filename="../ui/NewKey.ui" line="+86"/>
         <source>Please give a name to the new key and select the desired keysize</source>
         <translation>Введите название нового ключа и задайте параметры ключа</translation>
     </message>
@@ -1499,7 +1485,12 @@ Please enter the DH parameter bits</source>
         <translation>Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+49"/>
+        <source>Curve name</source>
+        <translation>Эллиптическая кривая</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Keysize</source>
         <translation>Длина ключа</translation>
     </message>
@@ -1519,7 +1510,9 @@ Please enter the DH parameter bits</source>
         <translation>Внутреннее имя нового ключа</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-107"/>
+        <location line="+25"/>
+        <location line="+85"/>
         <source>New Key</source>
         <translation>Новый ключ</translation>
     </message>
@@ -1527,11 +1520,6 @@ Please enter the DH parameter bits</source>
         <location line="+54"/>
         <source>Keytype</source>
         <translation>Тип ключа</translation>
-    </message>
-    <message>
-        <location line="-27"/>
-        <source>Curve</source>
-        <translation>Эллиптическая кривая</translation>
     </message>
     <message>
         <location filename="../widgets/NewKey.cpp" line="+180"/>
@@ -2316,13 +2304,13 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     </message>
     <message>
         <location line="-96"/>
-        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
-        <translation>Ключи PKI ( *.pem *.der *.key );;Ключи PKCS#8 ( *.p8 *.pk8 );;Открытые ключи SSH ( *.pub );;</translation>
+        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
+        <translation>Ключи PKI ( *.pem *.der *.key );; Ключи PKCS#8 ( *.p8 *.pk8 );; Открытые ключи SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+15"/>
-        <source>PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;</source>
-        <translation>PKCS#10 CSR ( *.pem *.der *.csr );;Запрос Netscape ( *.spkac *.spc );;</translation>
+        <source>PKCS#10 CSR ( *.pem *.der *.csr );; Netscape Request ( *.spkac *.spc );;</source>
+        <translation>PKCS#10 CSR ( *.pem *.der *.csr );; Запрос Netscape ( *.spkac *.spc );;</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -2623,8 +2611,8 @@ In library %3
     </message>
     <message>
         <location line="+1"/>
-        <source>subject alternative name</source>
-        <translation>Альтернативное название субъекта</translation>
+        <source>Subject alternative name</source>
+        <translation>Альтернативное имя субъекта</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2634,12 +2622,12 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation type="unfinished">Идентификатор ключа субъекта</translation>
+        <translation>Идентификатор ключа субъекта</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished">Идентификатор ключа ЦС</translation>
+        <translation>Идентификатор ключа ЦС</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2820,7 +2808,7 @@ In library %3
     </message>
     <message>
         <location line="+7"/>
-        <source>include sub directorys</source>
+        <source>Include subdirectories</source>
         <translation>Включая подпапки</translation>
     </message>
     <message>
@@ -2930,7 +2918,7 @@ In library %3
     </message>
     <message>
         <location line="+2"/>
-        <source>Public Key</source>
+        <source>Public key</source>
         <translation>Открытый ключ</translation>
     </message>
 </context>
@@ -3085,7 +3073,7 @@ Size: %3
     </message>
     <message>
         <location line="+1"/>
-        <source>PEM Files( *.pem );; All files ( * )</source>
+        <source>PEM files ( *.pem );; All files ( * )</source>
         <translation>Файлы PEM ( *.pem );; Все файлы ( * )</translation>
     </message>
 </context>
@@ -3124,7 +3112,7 @@ Size: %3
     <message>
         <location line="+1"/>
         <source>CRL number</source>
-        <translation>Порядковый номер CRL</translation>
+        <translation>Кол. отозванных</translation>
     </message>
     <message>
         <location line="+119"/>
@@ -3304,8 +3292,8 @@ and will be completed by the new, private part of the key</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>XCA templates ( *.xca);; All files ( * )</source>
-        <translation>XCA шаблоны ( *.xca);; Все файлы ( * )</translation>
+        <source>XCA templates ( *.xca );; All files ( * )</source>
+        <translation>XCA шаблоны ( *.xca );; Все файлы ( * )</translation>
     </message>
     <message>
         <location line="-122"/>
@@ -3321,12 +3309,7 @@ and will be completed by the new, private part of the key</source>
         <translation>Серийный номер</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>not After</source>
-        <translation>Сертификат действителен по</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+8"/>
         <source>Trust state</source>
         <translation>Состояние доверия</translation>
     </message>
@@ -3346,32 +3329,12 @@ and will be completed by the new, private part of the key</source>
         <translation>отражает расширение основных настроек</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>md5 fingerprint</source>
-        <translation>Отпечаток MD5</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>sha1 fingerprint</source>
-        <translation>Отпечаток SHA1</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>sha256 fingerprint</source>
-        <translation>Отпечаток SHA256</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Start date</source>
         <translation>Действителен с</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>not Before</source>
-        <translation>Сертификат действителен с</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>CRL Expiration</source>
         <translation>CRL действителен до</translation>
     </message>
@@ -3411,7 +3374,42 @@ and will be completed by the new, private part of the key</source>
         <translation>ЦС</translation>
     </message>
     <message>
-        <location line="+626"/>
+        <location line="+3"/>
+        <source>MD5 fingerprint</source>
+        <translation>Отпечаток MD5</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SHA1 fingerprint</source>
+        <translation>Отпечаток SHA1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SHA256 fingerprint</source>
+        <translation>Отпечаток SHA256</translation>
+    </message>
+    <message>
+        <location line="+591"/>
+        <source>PKCS#7 chain</source>
+        <translation>Цепочка PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>PKCS#12 chain</source>
+        <translation>Цепочка PKCS#12</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>PKCS#7 trusted</source>
+        <translation>Доверенный PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>PKCS#7 all</source>
+        <translation>Всё PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Certificate export</source>
         <translation>Экспортировать сертификат</translation>
     </message>
@@ -3428,7 +3426,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+363"/>
         <source> days</source>
-        <translation>дней</translation>
+        <translation> дней</translation>
     </message>
     <message>
         <location line="-757"/>
@@ -3440,37 +3438,27 @@ and so it was not imported</source>
 и поэтому не был импортирован</translation>
     </message>
     <message>
-        <location line="+299"/>
+        <location line="-288"/>
+        <source>Not before</source>
+        <translation>Сертификат действителен с</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not after</source>
+        <translation>Сертификат действителен по</translation>
+    </message>
+    <message>
+        <location line="+585"/>
         <source>PEM chain</source>
         <translation>Цепочка PEM</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>PKCS #7 chain</source>
-        <translation>Цепочка PKCS #7</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>PKCS #12 chain</source>
-        <translation>Цепочка PKCS #12</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+17"/>
         <source>PEM + key</source>
         <translation>PEM + ключ</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>PKCS #7 trusted</source>
-        <translation>Доверенный PKCS #7</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>PKCS #7 all</source>
-        <translation>Всё PKCS #7</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+10"/>
         <source>PEM trusted</source>
         <translation>Доверенный PEM</translation>
     </message>
@@ -3575,7 +3563,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Signature Algorithm</source>
+        <source>Signature algorithm</source>
         <translation>Алгоритм подписи</translation>
     </message>
     <message>
@@ -3586,7 +3574,7 @@ and thus was not stored</source>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation>Файлы настроек ( *.conf *.cnf);; Все файлы ( * )</translation>
+        <translation>Файлы настроек ( *.conf *.cnf );; Все файлы ( * )</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -3794,7 +3782,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+9"/>
-        <source>public key</source>
+        <source>Public key</source>
         <translation>Открытый ключ</translation>
     </message>
     <message>
@@ -4068,7 +4056,7 @@ and thus was not stored</source>
     <message>
         <location line="+522"/>
         <source>Not trusted</source>
-        <translation>Нет доверия</translation>
+        <translation>Не доверенный</translation>
     </message>
     <message>
         <location line="+0"/>

@@ -78,7 +78,7 @@ void CertDetail::setX509super(pki_x509super *x)
 void CertDetail::setCert(pki_x509 *cert)
 {
 	image->setPixmap(*MainWindow::certImg);
-	headerLabel->setText(tr("Details of the certificate"));
+	headerLabel->setText(tr("Details of the Certificate"));
 	try {
 		setX509super(cert);
 

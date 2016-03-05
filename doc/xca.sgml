@@ -493,8 +493,8 @@ or disable it completely by setting it to <tt>Not defined</tt>
 
 <p>
 
-The <tt>not Before</tt> field is set to the current date and time of the
-operating system and the <tt>not After</tt> field is set to the current
+The <tt>Not before</tt> field is set to the current date and time of the
+operating system and the <tt>Not after</tt> field is set to the current
 date and time plus the specified time range.
 When applying time ranges, the expiry date (not after) is calculated by taking
 the currently configured start date (not before) and adding the time range.
@@ -1576,7 +1576,7 @@ applied together with the HTTPS_client or HTTPS_server template.
 
 <enum>
   <item>Click on the <bf>Templates</bf> tab.
-  <item>Click on the <bf>New template</bf> button
+  <item>Click on the <bf>New Template</bf> button
   <item>Select an appropriate value for the Preset Template Values, then
         click <bf>OK</bf>
   <item>Under the <bf>Subject</bf> tab, specify an internal name for the

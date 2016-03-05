@@ -61,7 +61,7 @@
       <item row="1" column="0" colspan="2">
        <widget class="QCheckBox" name="subdirs">
         <property name="text">
-         <string>include sub directorys</string>
+         <string>Include subdirectories</string>
         </property>
        </widget>
       </item>

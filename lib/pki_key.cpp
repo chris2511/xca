@@ -162,7 +162,7 @@ QString pki_key::getIntNameWithType()
 {
 	return QString("%1 (%2:%3%4)").arg(getIntName()).arg(getTypeString()).
 		arg(length()).arg(isPubKey() ?
-			QString(" ") + tr("public key") : QString(""));
+			QString(" ") + tr("Public key") : QString(""));
 }
 
 QString pki_key::removeTypeFromIntName(QString n)

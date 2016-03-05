@@ -628,7 +628,7 @@ void db_base::store(QModelIndexList indexes)
 	QString fn = mainwin->getPath() + QDir::separator() + "export.pem";
 	QString s = QFileDialog::getSaveFileName(mainwin,
 		tr("Save %1 items in one file as").arg(indexes.size()), fn,
-		tr("PEM Files( *.pem );; All files ( * )"));
+		tr("PEM files ( *.pem );; All files ( * )"));
 	if (s.isEmpty())
 		return;
 	s = nativeSeparator(s);
