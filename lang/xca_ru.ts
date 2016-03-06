@@ -533,22 +533,22 @@
     <message>
         <location line="+2"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сцепленные вместе все выбранные элементы в одном PEM файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сцепленная вместе вся цепочка сертификации в одном PEM файле</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Concatenated text format of all trusted certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сцепленные вместе все доверенные сертификаты в одном PEM файле</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Concatenated text format of all certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сцепленные вместе все сертификаты в одном PEM файле</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -558,47 +558,47 @@
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Отдельный сертификат в формате PKCS#7</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Вся цепочка сертификатов в формате PKCS#7</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All trusted certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Все доверенные сертификаты в одном PKCS#7 файле</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Все выбранные сертификаты в одном PKCS#7 файле</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Все сертификаты в одном PKCS#7 файле</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертификат и закрытый ключ в зашифрованном PKCS#12 файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Вся цепочка сертификатов и закртый ключ в зашифрованном PKCS#12 файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертификат и закрытый ключ в одном PEM файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертификат и закрытый ключ в зашифрованном PKCS#8 файле</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -613,32 +613,32 @@
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрытый ключ в тектовом формате без пароля</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрытый ключ в тектовом формате OpenSSL без пароля</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрытый ключ в двоичном формате DER без пароля</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрытый ключ в текстовом формате PKCS#8 без пароля</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрытый ключ в текстовом формате PKCS#8 с паролем</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished"></translation>
+        <translation>Открытый ключ в формате SSH2</translation>
     </message>
     <message>
         <location line="+39"/>
