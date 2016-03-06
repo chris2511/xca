@@ -168,7 +168,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Usually 1024 or 2048 bit keys are used</string>
+         <string>Usually at least 2048 bit keys are recommended</string>
         </property>
        </widget>
       </item>

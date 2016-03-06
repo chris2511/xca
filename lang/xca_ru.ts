@@ -1495,12 +1495,7 @@ Please enter the DH parameter bits</source>
         <translation>Длина ключа</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <source>Usually 1024 or 2048 bit keys are used</source>
-        <translation>Обычно используют 1024- или 2048-битные ключи</translation>
-    </message>
-    <message>
-        <location line="+17"/>
+        <location line="+30"/>
         <source>Remember as default</source>
         <translation>Параметры по умолчанию</translation>
     </message>
@@ -1517,7 +1512,12 @@ Please enter the DH parameter bits</source>
         <translation>Новый ключ</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+47"/>
+        <source>Usually at least 2048 bit keys are recommended</source>
+        <translation>Обычно рекомендуется генерировать как минимум 2048-битные ключи</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Keytype</source>
         <translation>Тип ключа</translation>
     </message>
