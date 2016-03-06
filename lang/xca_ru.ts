@@ -1044,21 +1044,21 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+105"/>
         <location line="+92"/>
         <location line="+138"/>
-        <location line="+58"/>
+        <location line="+65"/>
         <source>&amp;Export</source>
         <translation>&amp;Экспорт</translation>
     </message>
     <message>
-        <location line="-386"/>
+        <location line="-393"/>
         <location line="+105"/>
         <location line="+92"/>
         <location line="+124"/>
-        <location line="+72"/>
+        <location line="+79"/>
         <source>&amp;Import</source>
         <translation>&amp;Импорт</translation>
     </message>
     <message>
-        <location line="-386"/>
+        <location line="-393"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>Импорт PFX (PKCS#12)</translation>
     </message>
@@ -1066,21 +1066,21 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+7"/>
         <location line="+98"/>
         <location line="+92"/>
-        <location line="+196"/>
+        <location line="+203"/>
         <source>&amp;Show Details</source>
         <translation>&amp;Показать сведения</translation>
     </message>
     <message>
-        <location line="-379"/>
+        <location line="-386"/>
         <location line="+98"/>
         <location line="+92"/>
         <location line="+103"/>
-        <location line="+93"/>
+        <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location line="-346"/>
+        <location line="-353"/>
         <source>Certificate signing requests</source>
         <translation>Запросы на подпись</translation>
     </message>
@@ -1134,6 +1134,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+61"/>
         <source>Revocation lists</source>
         <translation>Списки отзыва сертификатов</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>&amp;New CRL</source>
+        <translation>&amp;Новый список отзыва</translation>
     </message>
     <message>
         <location filename="../widgets/MW_database.cpp" line="+168"/>

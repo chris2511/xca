@@ -444,6 +444,13 @@
           </property>
           <layout class="QVBoxLayout">
            <item>
+            <widget class="QPushButton" name="BNnewCrl">
+             <property name="text">
+              <string>&amp;New CRL</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="BNexportCrl">
              <property name="text">
               <string>&amp;Export</string>
@@ -996,6 +1003,22 @@
     <hint type="destinationlabel">
      <x>402</x>
      <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNnewCrl</sender>
+   <signal>clicked()</signal>
+   <receiver>crlView</receiver>
+   <slot>newItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>264</y>
     </hint>
    </hints>
   </connection>
