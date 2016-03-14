@@ -256,7 +256,7 @@ void MainWindow::init_images()
 
 void MainWindow::read_cmdline(int argc, char *argv[])
 {
-	int cnt = 1, opt = 0, force_load = 0;
+	int cnt = 1, opt = 0, force_load = 0, export_index = 1;
 	char *arg = NULL;
 	exitApp = 0;
 	QStringList failed;
@@ -277,6 +277,9 @@ void MainWindow::read_cmdline(int argc, char *argv[])
 					break;
 				case 'd':
 					force_load=1;
+					break;
+				case 'i':
+					export_index=1;
 					break;
 				case 'v':
 					cmd_version();
@@ -305,6 +308,10 @@ void MainWindow::read_cmdline(int argc, char *argv[])
 			if (changeDB(file) == 2)
 				exitApp = 1;
 			force_load = 0;
+		} else if (export_index) {
+			if (exportIndex(file) == 2)
+				exitApp = 1;
+			export_index = 0;
 		} else {
 			int ret;
 			pki_multi *pki = probeAnything(file, &ret);
@@ -855,6 +862,35 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 		Error(err);
 	}
 	return pki;
+}
+
+void MainWindow::exportIndex()
+{
+	exportIndex(NULL);
+}
+
+int MainWindow::exportIndex(QString fname)
+{
+	if (fname == NULL || fname.isEmpty()) {
+
+		QString filter = tr("Certificate Index ( index.txt )") + ";;" + tr("All files ( * )");
+
+		fname = QFileDialog::getSaveFileName(this, QString(), fname, filter, NULL);
+
+		if (fname.isEmpty())
+			return 1;
+
+		nativeSeparator(fname);
+	}
+
+	if (certs == NULL) {
+		open_default_db();
+		if (certs == NULL)
+			return 2;
+	}
+
+	certs->writeIndex(fname);
+	return 0;
 }
 
 void MainWindow::generateDHparam()

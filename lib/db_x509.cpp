@@ -307,6 +307,15 @@ QList<pki_x509*> db_x509::getCerts(bool onlyTrusted)
 	return c;
 }
 
+void db_x509::writeIndex(const QString fname)
+{
+	bool append = false;
+	FOR_ALL_pki(pki, pki_x509) {
+		pki->writeIndexEntry(fname, append);
+		append = true;
+	}
+}
+
 a1int db_x509::searchSerial(pki_x509 *signer)
 {
 	// returns the highest certificate serial
@@ -677,7 +686,9 @@ void db_x509::store(QModelIndexList list)
 		exportType(exportType::PEM_trusted, "pem",
 			tr("PEM trusted")) <<
 		exportType(exportType::PEM_all, "pem",
-			tr("PEM all"));
+			tr("PEM all")) <<
+		exportType(exportType::Index, "txt",
+			tr("Certificate Index file"));
 
 	types = usual << exportType() << types;
 	ExportDialog *dlg = new ExportDialog(mainwin, tr("Certificate export"),
@@ -755,6 +766,14 @@ void db_x509::store(QModelIndexList list)
 				pkey->writeKey(fname, NULL, NULL, true);
 			}
 			crt->writeCert(fname, true, true);
+			break;
+		case exportType::Index:
+			append = false;
+			foreach(QModelIndex idx, list) {
+				crt = static_cast<pki_x509*>(idx.internalPointer());
+				crt->writeIndexEntry(fname, append);
+				append = true;
+			}
 			break;
 		default:
 			exit(1);

@@ -32,6 +32,7 @@ void MainWindow::cmd_help(const char* msg) {
 		" -h shows this help screen and exit\n"
 		" -e <type>:<name>  extract entry.\n"
 		" -d expect the following argument to be the database name to use\n"
+		" -i expect the following argument to be the index file to generate\n"
 		" -x Exit after processing all commandline options\n\n");
 
 	if(msg) {

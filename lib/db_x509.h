@@ -46,6 +46,7 @@ class db_x509: public db_x509super
 		QList<pki_x509*> getCerts(bool onlyTrusted);
 		a1int searchSerial(pki_x509 *signer);
 		void writeAllCerts(const QString fname, bool onlyTrusted);
+		void writeIndex(const QString fname);
 		pki_x509 *getByIssSerial(const pki_x509 *issuer, const a1int &a);
 		pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
 		pki_base *insert(pki_base *item);

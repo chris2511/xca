@@ -138,6 +138,8 @@ void MainWindow::init_menu()
 	extra = menuBar()->addMenu(tr("Extra"));
 	acList += extra->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
+	acList += extra->addAction(tr("&Export Certificate Index"), this,
+				SLOT(exportIndex()));
 	acList += extra->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
 	acList += extra->addAction(tr("&Import old db_dump"), this,

@@ -86,6 +86,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QStringList urlsToOpen;
 		int checkOldGetNewPass(Passwd &pass);
 		QString updateDbPassword(QString newdb, Passwd pass);
+		int exportIndex(QString fname);
 
 	protected:
 		void init_images();
@@ -165,6 +166,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void openURLs(QStringList &files);
 		void openURLs();
 		void changeEvent(QEvent *event);
+		void exportIndex();
 
 	protected slots:
 		void closeEvent(QCloseEvent * event);

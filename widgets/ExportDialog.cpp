@@ -85,6 +85,7 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 	help[exportType::PKCS8_encrypt] =
 		tr("Encrypted private key in PKCS#8 text format");
 	help[exportType::SSH2_public] = tr("The public key encoded in SSH2 format");
+	help[exportType::Index] = tr("Certificate Index file");
 
 	on_exportFormat_highlighted(0);
 }

@@ -583,6 +583,42 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 		fopen_error(fname);
 }
 
+void pki_x509::writeIndexEntry(FILE *fp)
+{
+	QString flag = NULL;
+	bool revoked = isRevoked();
+
+	if (revoked)
+		flag = "R";
+	else if (checkDate())
+		flag = "V";
+	else
+		flag = "E";
+
+	QString line = QString("%1\t%2\t%3\t%4\tunknown\t%5\n").arg(
+		flag, getNotAfter().toPlain(), (revoked ? revocation.getDate().toPlain() : ""),
+		getSerial().toHex(), getSubject().oneLine(XN_FLAG_ONELINE));
+
+	QByteArray ba = line.toUtf8();
+	fwrite(ba.constData(), ba.size(), 1, fp);
+}
+
+void pki_x509::writeIndexEntry(const QString fname, bool append)
+{
+	FILE *fp;
+	const char *p = "w";
+	if (append)
+		p = "a";
+	fp = fopen(QString2filename(fname), p);
+	if (fp != NULL) {
+		if (cert)
+			writeIndexEntry(fp);
+		fclose(fp);
+		pki_openssl_error();
+	} else
+		fopen_error(fname);
+}
+
 BIO *pki_x509::pem(BIO *b, int format)
 {
 	(void)format;

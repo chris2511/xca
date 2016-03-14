@@ -74,6 +74,8 @@ class pki_x509 : public pki_x509super
 		void oldFromData(unsigned char *p, int size);
 		bool canSign();
 		void writeCert(const QString fname, bool PEM, bool append = false);
+		void writeIndexEntry(FILE *fp);
+		void writeIndexEntry(const QString fname, bool append = false);
 		bool verify(pki_x509 *signer);
 		bool verify_only(pki_x509 *signer);
 		pki_key *getPubKey() const;
