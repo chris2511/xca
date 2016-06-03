@@ -91,18 +91,28 @@ if test -n "${_QTDIR}" && test -d "${_QTDIR}"; then
   DYLD_LIBRARY_PATH="${_QTDIR}/lib:${DYLD_LIBRARY_PATH}"
 fi
 
-PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
-  _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
-  QT_MOC="${_QT_HOST_BINS}/moc"
-  QT_UIC="${_QT_HOST_BINS}/uic"
-  if test -n "$DARWIN"; then
-    FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
-    Qt5_CFLAGS="$Qt5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
-  fi
-  QT_VERSION=5
-  QT_CFLAGS="${Qt5_CFLAGS} -fPIC"
-  QT_LIBS="${Qt5_LIBS}"
-], [
+AC_ARG_WITH([qt-version],
+  AS_HELP_STRING([--with-qt-version], [Select the Qt version]),
+  [WANT_QT_VERSION="$withval"],
+  [WANT_QT_VERSION=detect])
+
+if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
+  PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
+    _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
+    QT_MOC="${_QT_HOST_BINS}/moc"
+    QT_UIC="${_QT_HOST_BINS}/uic"
+    if test -n "$DARWIN"; then
+      FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
+      Qt5_CFLAGS="$Qt5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
+    fi
+    WANT_QT_VERSION=5
+    QT_VERSION=5
+    QT_CFLAGS="${Qt5_CFLAGS} -fPIC"
+    QT_LIBS="${Qt5_LIBS}"
+])
+fi
+
+if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
   PKG_CHECK_MODULES(Qt4, [QtCore >= 4.6, QtCore < 5.0, QtGui >= 4.6, QtGui < 5.0], [
     QT_MOC="`pkg-config --variable=moc_location QtCore`"
     QT_UIC="`pkg-config --variable=uic_location QtCore`"
@@ -113,18 +123,21 @@ PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
       Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers"
     fi
+    WANT_QT_VERSION=4
     QT_VERSION=4
     QT_CFLAGS="${Qt4_CFLAGS}"
     QT_LIBS="${Qt4_LIBS}"
-  ], [
+  ])
+fi
+
+if test -z "${QT_VERSION}"; then
     if test -z "$DARWIN"; then
       QT_LIBS=" -lQtCore -lQtGui "
     else
       QT_LIBS=" -framework QtGui -framework QtCore "
     fi
     AC_MSG_WARN([Qt pkg-config failed, using fallback defaults (${QT_LIBS})]);
-  ])
-])
+fi
 
 AC_SUBST([QT_CFLAGS])
 AC_SUBST([QT_LIBS])
