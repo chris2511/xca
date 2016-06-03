@@ -17,13 +17,13 @@ xca.html: xca.sgml
 	echo 'The documentation for XCA can be viewed online at: <a href="http://xca.sourceforge.net/">http://xca.sourceforge.net/</a>.' > $@
 	test ! -f xca-doc.tgz || tar zxf xca-doc.tgz
 	@$(PRINT) "  DOC    [$(BASENAME)] $@"
-	$(DOCTOOL) $< >/dev/null
+	$(ENABLE_DOC)$(DOCTOOL) $< >/dev/null
 
 install: $(doc)
-	install -m 755 -d $(destdir)$(htmldir) \
-		$(destdir)$(mandir)/man1
-	install -m 644 xca*.html $(destdir)$(htmldir)
-	install *.1.gz $(destdir)/$(mandir)/man1
+	$(ENABLE_DOC)install -m 755 -d $(destdir)$(htmldir)
+	$(ENABLE_DOC)install -m 644 xca*.html $(destdir)$(htmldir)
+	install -m 755 -d $(destdir)$(mandir)/man1
+	install -m 644 *.1.gz $(destdir)/$(mandir)/man1
 
 app: xca.html
 	mkdir -p $(APPDIR)/Resources

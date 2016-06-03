@@ -203,20 +203,29 @@ AX_CHECK_GNU_MAKE()
 
 # linuxdoc application detection
 ##################################
-AC_CHECK_PROGS([DOCTOOL], [linuxdoc sgml2html], [":"])
-AC_SUBST([DOCTOOL])
+AC_ARG_ENABLE([doc],
+  AS_HELP_STRING([--disable-doc], [Disable documentation installation]),
+  ,
+  [enable_doc=yes])
+test "${enable_doc}" = "yes" && ENABLE_DOC= || ENABLE_DOC='\#'
+AC_SUBST([ENABLE_DOC])
 
-case "$DOCTOOL" in
- linuxdoc) DOCTOOL="linuxdoc -B html";;
- sgml2html) DOCTOOL="sgml2html -s 1";;
- :)
-  if test "${srcdir}" != "."; then
-    mkdir -p doc
-    cp ${srcdir}/doc/xca-doc.tgz doc/
-  fi
-  AC_MSG_WARN(['linuxdoc' or 'sgml2html' not found, using pre-compiled documentation])
-  ;;
-esac
+if test "${enable_doc}"; then
+  AC_CHECK_PROGS([DOCTOOL], [linuxdoc sgml2html], [":"])
+  AC_SUBST([DOCTOOL])
+
+  case "$DOCTOOL" in
+   linuxdoc) DOCTOOL="linuxdoc -B html";;
+   sgml2html) DOCTOOL="sgml2html -s 1";;
+   :)
+    if test "${srcdir}" != "."; then
+      mkdir -p doc
+      cp ${srcdir}/doc/xca-doc.tgz doc/
+    fi
+    AC_MSG_WARN(['linuxdoc' or 'sgml2html' not found, using pre-compiled documentation])
+    ;;
+  esac
+fi
 
 # Setup done. Write local.h and Local.mak
 ############################################
