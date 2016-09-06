@@ -596,8 +596,8 @@ void pki_x509::writeIndexEntry(FILE *fp)
 		flag = "E";
 
 	QString line = QString("%1\t%2\t%3\t%4\tunknown\t%5\n").arg(
-		flag, getNotAfter().toPlain(), (revoked ? revocation.getDate().toPlain() : ""),
-		getSerial().toHex(), getSubject().oneLine(XN_FLAG_ONELINE));
+		flag, getNotAfter().toPlainUTC(), (revoked ? revocation.getDate().toPlainUTC() : ""),
+		getSerial().toHex(), QString(X509_NAME_oneline(getSubject().get(), NULL, 0)));
 
 	QByteArray ba = line.toUtf8();
 	fwrite(ba.constData(), ba.size(), 1, fp);

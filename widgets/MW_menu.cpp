@@ -140,6 +140,8 @@ void MainWindow::init_menu()
 				SLOT(dump_database()));
 	acList += extra->addAction(tr("&Export Certificate Index"), this,
 				SLOT(exportIndex()));
+	acList += extra->addAction(tr("&Export Certificate Index hierarchy"), this,
+				SLOT(exportIndexHierarchy()));
 	acList += extra->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
 	acList += extra->addAction(tr("&Import old db_dump"), this,

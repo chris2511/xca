@@ -307,12 +307,28 @@ QList<pki_x509*> db_x509::getCerts(bool onlyTrusted)
 	return c;
 }
 
-void db_x509::writeIndex(const QString fname)
+void db_x509::writeIndex(const QString fname, bool hierarchy)
 {
 	bool append = false;
-	FOR_ALL_pki(pki, pki_x509) {
-		pki->writeIndexEntry(fname, append);
-		append = true;
+	if (hierarchy) {
+		FOR_ALL_pki(pki, pki_x509) {
+			if (pki->childCount()) {
+
+				QString newfname = fname + "." + pki->getIntName().replace(QRegExp("[^a-zA-Z0-9]"),QString(""));;
+
+				append = false;
+				foreach(pki_base *_child, pki->childItems) {
+					pki_x509 *child = static_cast<pki_x509*>(_child);
+					child->writeIndexEntry(newfname, append);
+					append = true;
+				}
+			}
+		}
+	} else {
+		FOR_ALL_pki(pki, pki_x509) {
+			pki->writeIndexEntry(fname, append);
+			append = true;
+		}
 	}
 }
 

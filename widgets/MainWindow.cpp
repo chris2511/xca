@@ -281,6 +281,9 @@ void MainWindow::read_cmdline(int argc, char *argv[])
 				case 'i':
 					export_index=1;
 					break;
+				case 'I':
+					export_index=2;
+					break;
 				case 'v':
 					cmd_version();
 					opt=0;
@@ -309,7 +312,7 @@ void MainWindow::read_cmdline(int argc, char *argv[])
 				exitApp = 1;
 			force_load = 0;
 		} else if (export_index) {
-			if (exportIndex(file) == 2)
+			if (exportIndex(file, (export_index == 2)) == 2)
 				exitApp = 1;
 			export_index = 0;
 		} else {
@@ -866,10 +869,15 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 
 void MainWindow::exportIndex()
 {
-	exportIndex(NULL);
+	exportIndex(NULL, false);
 }
 
-int MainWindow::exportIndex(QString fname)
+void MainWindow::exportIndexHierarchy()
+{
+	exportIndex(NULL, true);
+}
+
+int MainWindow::exportIndex(QString fname, bool hierarchy)
 {
 	if (fname == NULL || fname.isEmpty()) {
 
@@ -889,7 +897,17 @@ int MainWindow::exportIndex(QString fname)
 			return 2;
 	}
 
-	certs->writeIndex(fname);
+	bool needChangeView = hierarchy && !certs->treeview;
+	if (needChangeView) {
+		certView->changeView();
+	}
+
+	certs->writeIndex(fname, hierarchy);
+
+	if (needChangeView) {
+		certView->changeView();
+	}
+
 	return 0;
 }
 

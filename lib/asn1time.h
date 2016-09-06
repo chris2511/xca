@@ -34,6 +34,7 @@ class a1time : public QDateTime
 	QString toPretty() const;
 	QString toPrettyGMT() const;
 	QString toPlain() const;
+	QString toPlainUTC() const;
 	QString toSortable() const;
 	ASN1_TIME *get();
 	ASN1_TIME *get_utc();

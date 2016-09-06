@@ -165,6 +165,15 @@ QString a1time::toPlain() const
 	return toUTC().toString(GEN_FORMAT);
 }
 
+QString a1time::toPlainUTC() const
+{
+	if (isUndefined())
+		return QString(UNDEFINED_DATE);
+	if (!isValid())
+		 return QString("Broken-InvalidZ");
+	return toUTC().toString(UTC_FORMAT);
+}
+
 QString a1time::toSortable() const
 {
 	if (isUndefined())
