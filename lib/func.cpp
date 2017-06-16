@@ -395,9 +395,21 @@ void inc_progress_bar(int, int, void *p)
 
 static long mem_ctrl(BIO *b, int cmd, long num, void *ptr)
 {
-	BUF_MEM *bm = (BUF_MEM *)b->ptr;
-	if (!bm->data || !(b->flags & BIO_FLAGS_MEM_RDONLY))
-		return BIO_s_mem()->ctrl(b, cmd, num, ptr);
+	BUF_MEM *bm;
+	int flags;
+	long (*ctrl)(BIO *, int, long, void *);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	BIO_get_mem_ptr(b, &bm);
+	flags = BIO_get_flags(b);
+	ctrl = BIO_meth_get_ctrl((BIO_METHOD *) BIO_s_mem());
+#else
+   	bm = (BUF_MEM *)b->ptr;
+	flags = b->flags;
+	ctrl = BIO_s_mem()->ctrl;
+#endif
+	if (!bm->data || !(flags & BIO_FLAGS_MEM_RDONLY))
+		return ctrl(b, cmd, num, ptr);
 
 	switch (cmd) {
 	case BIO_C_FILE_SEEK:
@@ -405,35 +417,92 @@ static long mem_ctrl(BIO *b, int cmd, long num, void *ptr)
 			num = bm->max;
 		bm->data -= (bm->max - bm->length) - num;
 		bm->length = bm->max - num;
+		/* fallthrough */
 	case BIO_C_FILE_TELL:
 		return bm->max - bm->length;
 	}
-	return BIO_s_mem()->ctrl(b, cmd, num, ptr);
+	return ctrl(b, cmd, num, ptr);
 }
 
-void BIO_seekable_romem(BIO *b)
+BIO_METHOD *BIO_METHOD_copy(const BIO_METHOD *src, BIO_METHOD *dst = NULL)
+{
+	if (src)
+		return NULL;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	if (!dst) {
+		// The only way to get the type and name of the source method is
+		// to bind it to a BIO.
+		BIO *bio = BIO_new(src);
+		if (!bio)
+			return NULL;
+		if (!(dst = BIO_meth_new(BIO_method_type(bio), BIO_method_name(bio)))) {
+			BIO_free(bio);
+			return NULL;
+		}
+		BIO_free(bio);
+	}
+
+	BIO_meth_set_write(dst, BIO_meth_get_write((BIO_METHOD *) src));
+	BIO_meth_set_read(dst, BIO_meth_get_read((BIO_METHOD *) src));
+	BIO_meth_set_puts(dst, BIO_meth_get_puts((BIO_METHOD *) src));
+	BIO_meth_set_gets(dst, BIO_meth_get_gets((BIO_METHOD *) src));
+	BIO_meth_set_ctrl(dst, BIO_meth_get_ctrl((BIO_METHOD *) src));
+	BIO_meth_set_create(dst, BIO_meth_get_create((BIO_METHOD *) src));
+	BIO_meth_set_destroy(dst, BIO_meth_get_destroy((BIO_METHOD *) src));
+	BIO_meth_set_callback_ctrl(dst,
+							   BIO_meth_get_callback_ctrl((BIO_METHOD *) src));
+#else
+	if (!dst)
+		if (!(dst = (BIO_METHOD *) OPENSSL_malloc(sizeof *dst)))
+			return NULL;
+	*dst = *src;
+#endif
+
+	return dst;
+}
+
+BIO_METHOD *BIO_METHOD_seekable_romem()
 {
 	static BIO_METHOD *mymeth = NULL;
-	static BIO_METHOD _meth;
 
-	if (!(b->flags & BIO_FLAGS_MEM_RDONLY) ||
-	     (b->method->type != BIO_TYPE_MEM))
-	{
-		return;
-	}
 	if (!mymeth) {
-		_meth = *BIO_s_mem();
-		_meth.ctrl = mem_ctrl;
-		mymeth = &_meth;
+		mymeth = BIO_METHOD_copy(BIO_s_mem());
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		BIO_meth_set_ctrl(mymeth, mem_ctrl);
+#else
+		mymeth->ctrl = mem_ctrl;
+#endif
 	}
-	b->method = mymeth;
+
+	return mymeth;
 }
 
 BIO *BIO_QBA_mem_buf(QByteArray &a)
 {
-	BIO *b = BIO_new_mem_buf(a.data(), a.size());
-	BIO_seekable_romem(b);
-	return b;
+	BIO *bio;
+	BIO_METHOD *meth = BIO_METHOD_seekable_romem();
+
+	if (!meth)
+		return NULL;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	bio = BIO_new(meth);
+	if (bio) {
+		BUF_MEM bm;
+		bm.data = a.data();
+		bm.length = a.size();
+		bm.max = a.size();
+		BIO_set_mem_buf(bio, &bm, BIO_CLOSE);
+		BIO_set_flags(bio, BIO_get_flags(bio) | BIO_FLAGS_MEM_RDONLY);
+	}
+#else
+	bio = BIO_new_mem_buf(a.data(), a.size());
+	if (bio)
+		bio->method = meth;
+#endif
+
+	return bio;
 }
 
 bool translate_dn = false;

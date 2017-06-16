@@ -80,7 +80,22 @@ void pki_crl::fload(const QString fname)
 
 QString pki_crl::getSigAlg()
 {
-	QString alg = OBJ_nid2ln(OBJ_obj2nid(crl->sig_alg->algorithm));
+	QString alg;
+	const ASN1_OBJECT *paobj;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	const ASN1_BIT_STRING *psig;
+	const X509_ALGOR *palg;
+	int pptype;
+	const void *ppval;
+
+	X509_CRL_get0_signature(crl, &psig, &palg);
+	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
+#else
+	paobj = crl->sig_alg->algorithm;
+#endif
+
+	alg = OBJ_nid2ln(OBJ_obj2nid(paobj));
 	return alg;
 }
 
@@ -90,15 +105,25 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	issuer = iss;
 	if (!iss)
 		my_error(tr("No issuer given"));
-	crl->crl->issuer = issuer->getSubject().get();
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	X509_CRL_set_version(crl, 1); /* version 2 CRL */
+	X509_CRL_set_issuer_name(crl, issuer->getSubject().get());
+#else
 	a1int version = 1; /* version 2 CRL */
 	crl->crl->version = version.get();
+	crl->crl->issuer = issuer->getSubject().get();
+#endif
 	pki_openssl_error();
 }
 
 a1int pki_crl::getVersion()
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	a1int a(X509_CRL_get_version(crl));
+#else
 	a1int a(crl->crl->version);
+#endif
+
 	return a;
 }
 
@@ -175,7 +200,11 @@ bool pki_crl::visible()
 		return true;
 	if (getSigAlg().contains(limitPattern))
 		return true;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	el.setStack(X509_CRL_get0_extensions(crl));
+#else
 	el.setStack(crl->crl->extensions);
+#endif
 	return el.search(limitPattern);
 }
 
@@ -224,24 +253,57 @@ BIO *pki_crl::pem(BIO *b, int format)
 a1time pki_crl::getLastUpdate()
 {
 	a1time a;
-	if (crl && crl->crl)
-		a.set(crl->crl->lastUpdate);
+	const ASN1_TIME *at = NULL;
+
+	if (crl)
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		at = X509_CRL_get0_lastUpdate(crl);
+#else
+		if (crl->crl)
+			at = crl->crl->lastUpdate;
+#endif
+
+	if (at)
+		a.set(at);
+
 	return a;
 }
 
 a1time pki_crl::getNextUpdate()
 {
 	a1time a;
-	if (crl && crl->crl)
-		a.set(crl->crl->nextUpdate);
+	const ASN1_TIME *at = NULL;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		at = X509_CRL_get0_nextUpdate(crl);
+#else
+		if (crl->crl)
+			at = crl->crl->nextUpdate;
+#endif
+
+	if (at)
+		a.set(at);
+
 	return a;
 }
 
 int pki_crl::numRev()
 {
-	if (crl && crl->crl && crl->crl->revoked)
-		return sk_X509_REVOKED_num(crl->crl->revoked);
-	return 0;
+	int n = 0;
+	STACK_OF(X509_REVOKED) *st = NULL;
+
+	if (crl)
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		st = X509_CRL_get_REVOKED(crl);
+#else
+		if (crl->crl)
+			st = crl->crl->revoked;
+#endif
+
+	if (st)
+		n = sk_X509_REVOKED_num(st);
+
+	return n;
 }
 
 x509revList pki_crl::getRevList()
@@ -249,10 +311,20 @@ x509revList pki_crl::getRevList()
 	x509revList ret;
 	int i, num = numRev();
 
-	for (i=0; i<num; i++) {
-		x509rev r(sk_X509_REVOKED_value(crl->crl->revoked, i));
-		pki_openssl_error();
-		ret << r;
+	if (num) {
+		STACK_OF(X509_REVOKED) *st;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		st = X509_CRL_get_REVOKED(crl);
+#else
+		st = crl->crl->revoked;
+#endif
+
+		for (i=0; i<num; i++) {
+			x509rev r(sk_X509_REVOKED_value(st, i));
+			pki_openssl_error();
+			ret << r;
+		}
 	}
 	return ret;
 }
@@ -260,16 +332,26 @@ x509revList pki_crl::getRevList()
 x509name pki_crl::getSubject() const
 {
 	x509name x;
-	if (crl && crl->crl && crl->crl->issuer) {
-		x.set(crl->crl->issuer);
-	}
-	return x ;
+	X509_NAME *iss = NULL;
+
+	if (crl)
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		iss = X509_CRL_get_issuer(crl);
+#else
+		if (crl->crl)
+			iss = crl->crl->issuer;
+#endif
+
+	if (iss)
+		x.set(iss);
+
+	return x;
 }
 
 bool pki_crl::verify(pki_key *key)
 {
 	bool ret=false;
-	if (crl && crl->crl && key) {
+	if (crl && key) {
 		ret = (X509_CRL_verify(crl, key->getPubKey()) == 1);
 		pki_ign_openssl_error();
 	}
@@ -310,7 +392,12 @@ x509v3ext pki_crl::getExtByNid(int nid)
 {
 	extList el;
 	x509v3ext e;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	el.setStack(X509_CRL_get0_extensions(crl));
+#else
 	el.setStack(crl->crl->extensions);
+#endif
 
 	for (int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
@@ -321,7 +408,13 @@ x509v3ext pki_crl::getExtByNid(int nid)
 QString pki_crl::printV3ext()
 {
 	extList el;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	el.setStack(X509_CRL_get0_extensions(crl));
+#else
 	el.setStack(crl->crl->extensions);
+#endif
+
 	QString text = el.getHtml("<br>");
 	pki_openssl_error();
 	return text;

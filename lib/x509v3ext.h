@@ -33,6 +33,7 @@ class x509v3ext
 	// bool operator == (const x509v3ext &x) const;
 	QString getObject() const;
 	int getCritical() const;
+	ASN1_OCTET_STRING *getData() const;
 	QString getValue(bool html=false) const;
 	QString getHtml() const;
 	X509_EXTENSION *get() const;
@@ -62,7 +63,7 @@ class x509v3ext
 class extList : public QList<x509v3ext>
 {
     public:
-	void setStack(STACK_OF(X509_EXTENSION) *st, int start=0);
+	void setStack(const STACK_OF(X509_EXTENSION) *st, int start=0);
 	STACK_OF(X509_EXTENSION) *getStack();
 	QString getHtml(const QString &sep);
 	bool delByNid(int nid);

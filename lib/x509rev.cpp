@@ -62,8 +62,13 @@ void x509rev::fromREVOKED(const X509_REVOKED *rev)
 
 	if (!rev)
 		return;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	serial = a1int(X509_REVOKED_get0_serialNumber(rev));
+	date = a1time(X509_REVOKED_get0_revocationDate(rev));
+#else
 	serial = a1int(rev->serialNumber);
 	date = a1time(rev->revocationDate);
+#endif
 
 	reason = (ASN1_ENUMERATED *)X509_REVOKED_get_ext_d2i(
 			(X509_REVOKED *)rev, NID_crl_reason, &j, NULL);
@@ -96,7 +101,11 @@ X509_REVOKED *x509rev::toREVOKED(bool withReason) const
 	a1time d = date;
 	X509_REVOKED *rev = X509_REVOKED_new();
 	check_oom(rev);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	X509_REVOKED_set_serialNumber(rev, serial.get());
+#else
 	rev->serialNumber = serial.get();
+#endif
 	X509_REVOKED_set_revocationDate(rev, d.get_utc());
 
 	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date,

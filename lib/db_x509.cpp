@@ -605,7 +605,6 @@ void db_x509::newCert(NewX509 *dlg)
 	}
 	if (tempkey != NULL)
 		delete(tempkey);
-		tempkey = NULL;
     }
 
     catch (errorEx &err) {

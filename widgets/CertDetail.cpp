@@ -194,7 +194,12 @@ void CertDetail::setReq(pki_x509req *req)
 			QString trans;
 			X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
 
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			nid = OBJ_obj2nid(X509_ATTRIBUTE_get0_object(att));
+#else
 			nid = OBJ_obj2nid(att->object);
+#endif
+
 			if (X509_REQ_extension_nid(nid)) {
 				continue;
 			}
@@ -213,6 +218,13 @@ void CertDetail::setReq(pki_x509req *req)
 			attrLayout->addWidget(label, i, 0);
 			added++;
 
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			int count = X509_ATTRIBUTE_count(att);
+			for (int j = 0; j < count; j++) {
+				label = labelFromAsn1String(X509_ATTRIBUTE_get0_type(att, j)->value.asn1_string);
+				attrLayout->addWidget(label, i, j + 1);
+			}
+#else
 			if (att->single) {
 				label = labelFromAsn1String(att->value.single->value.asn1_string);
 				attrLayout->addWidget(label, i, 1);
@@ -223,6 +235,7 @@ void CertDetail::setReq(pki_x509req *req)
 				label = labelFromAsn1String(sk_ASN1_TYPE_value(att->value.set, j)->value.asn1_string);
 				attrLayout->addWidget(label, i, j +1);
 			}
+#endif
 		}
 		ASN1_IA5STRING *chal = req->spki_challange();
 		if (chal) {

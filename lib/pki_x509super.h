@@ -32,7 +32,7 @@ class pki_x509super : public pki_x509name
 		Q_OBJECT
 	protected:
 		pki_key *privkey;
-		virtual ASN1_OBJECT *sigAlg() {
+		virtual const ASN1_OBJECT *sigAlg() {
 			return NULL;
 		}
 	public:

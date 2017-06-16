@@ -24,14 +24,14 @@ class pki_key: public pki_base
 	protected:
 		int ownPass;
 		EVP_PKEY *key;
-		QString BN2QString(BIGNUM *bn) const;
+		QString BN2QString(const BIGNUM *bn) const;
 		QString BNoneLine(BIGNUM *bn) const;
 		QByteArray SSH2publicQByteArray();
 
 	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
 		void ssh_key_QBA2data(QByteArray &ba, QByteArray *data);
-		void ssh_key_bn2data(BIGNUM *bn, QByteArray *data);
+		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data);
 		int ucount; // usage counter
 	public:
 		pki_key(const QString name = "");
@@ -65,7 +65,7 @@ class pki_key: public pki_base
 
 		void writePublic(const QString fname, bool pem);
 		bool compare(pki_base *ref);
-		int getKeyType();
+		int getKeyType() const;
 		static QString removeTypeFromIntName(QString n);
 		bool isPrivKey() const;
 		int incUcount();

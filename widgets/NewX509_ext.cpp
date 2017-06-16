@@ -198,6 +198,7 @@ extList NewX509::getAdvanced()
 	extList elist;
 	long err_line=0;
 	STACK_OF(X509_EXTENSION) **sk, *sk_tmp = NULL;
+	const STACK_OF(X509_EXTENSION) *csk;
 	const char *ext_name = "default";
 	int ret, start;
 
@@ -223,8 +224,13 @@ extList NewX509::getAdvanced()
 	}
 
 	if (ext_ctx.subject_cert) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		csk = X509_get0_extensions(ext_ctx.subject_cert);
+		start = csk? sk_X509_EXTENSION_num(csk): 0;
+#else
 		sk = &ext_ctx.subject_cert->cert_info->extensions;
 		start = *sk ? sk_X509_EXTENSION_num(*sk) : 0;
+#endif
 	} else {
 		sk = &sk_tmp;
 		start = 0;
@@ -232,12 +238,24 @@ extList NewX509::getAdvanced()
 
 	X509V3_set_nconf(&ext_ctx, conf);
 
-	if (X509V3_EXT_add_nconf_sk(conf, &ext_ctx, (char *)ext_name, sk)) {
-		openssl_error();
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	if (ext_ctx.subject_cert) {
+		if (X509V3_EXT_add_nconf(conf, &ext_ctx,
+								 (char *) ext_name, ext_ctx.subject_cert))
+			openssl_error();
+		csk = X509_get0_extensions(ext_ctx.subject_cert);
+	} else
+#endif
+	{
+		if (X509V3_EXT_add_nconf_sk(conf, &ext_ctx, (char *)ext_name, sk))
+			openssl_error();
+		csk = *sk;
 	}
-	elist.setStack(*sk, start);
-	if (sk == &sk_tmp)
+
+	elist.setStack(csk, start);
+	if (!ext_ctx.subject_cert)
 		sk_X509_EXTENSION_pop_free(sk_tmp, X509_EXTENSION_free);
+
 	X509V3_set_nconf(&ext_ctx, NULL);
 	NCONF_free(conf);
 	BIO_free(bio);
@@ -317,12 +335,16 @@ extList NewX509::getExtDuplicates()
 {
 	int i, start, cnt, n1, n;
 	x509v3ext e;
-	STACK_OF(X509_EXTENSION) *sk;
+	const STACK_OF(X509_EXTENSION) *sk;
 	extList el_dup, el;
 	QString olist;
 
 	if (ext_ctx.subject_cert) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		sk = X509_get0_extensions(ext_ctx.subject_cert);
+#else
 		sk = ext_ctx.subject_cert->cert_info->extensions;
+#endif
 	} else
 		return el_dup;
 

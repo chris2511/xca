@@ -25,13 +25,8 @@ x509name::x509name(const X509_NAME *n)
 
 x509name::x509name(STACK_OF(X509_NAME_ENTRY) *entries)
 {
-	X509_NAME *n = X509_NAME_new();
-	STACK_OF(X509_NAME_ENTRY) *ba = n->entries;
 	xn = NULL;
-	n->entries = entries;
-	set(n);
-	n->entries = ba;
-	X509_NAME_free(n);
+	set(entries);
 }
 
 x509name::x509name(const x509name &n)
@@ -50,6 +45,21 @@ x509name &x509name::set(const X509_NAME *n)
 	if (xn != NULL)
 		X509_NAME_free(xn);
 	xn = X509_NAME_dup((X509_NAME *)n);
+	return *this;
+}
+
+x509name &x509name::set(const STACK_OF(X509_NAME_ENTRY) *entries)
+{
+	if (xn != NULL)
+		X509_NAME_free(xn);
+	xn = X509_NAME_new();
+	if (xn && entries) {
+		int count = sk_X509_NAME_ENTRY_num(entries);
+		for (int i = 0; i < count; i++) {
+			X509_NAME_ENTRY *entry = sk_X509_NAME_ENTRY_value(entries, i);
+			X509_NAME_add_entry(xn, entry, -1, 0);
+		}
+	}
 	return *this;
 }
 
@@ -150,20 +160,20 @@ int x509name::nid(int i) const
 {
 	X509_NAME_ENTRY *ne;
 
-	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
+	ne = X509_NAME_get_entry(xn, i);
 	if (ne == NULL)
 		return NID_undef;
-	return OBJ_obj2nid(ne->object);
+	return OBJ_obj2nid(X509_NAME_ENTRY_get_object(ne));
 }
 
 QString x509name::getOid(int i) const
 {
 	X509_NAME_ENTRY *ne;
 
-	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
+	ne = X509_NAME_get_entry(xn, i);
 	if (ne == NULL)
 		return QString();
-	return OBJ_obj2QString(ne->object, 1);
+	return OBJ_obj2QString(X509_NAME_ENTRY_get_object(ne), 1);
 }
 
 void x509name::d2i(QByteArray &ba)

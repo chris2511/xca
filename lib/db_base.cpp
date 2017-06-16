@@ -640,7 +640,9 @@ void db_base::store(QModelIndexList indexes)
 			throw errorEx(tr("Error opening file: '%1': %2").
 				arg(s).arg(strerror(errno)), class_name);
 		}
-		fwrite(pem.toLatin1(), pem.size(), 1, fp);
+		if (fwrite(pem.toLatin1(), pem.size(), 1, fp)) {
+			/* IGNORE_RESULT */
+		}
 		fclose(fp);
 	}
 	catch (errorEx &err) {

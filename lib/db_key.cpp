@@ -297,14 +297,14 @@ void db_key::store(QModelIndex index)
 			break;
 		case exportType::PEM_private_encrypt:
 			enc = EVP_des_ede3_cbc();
-			/* fall */
+			/* fallthrough */
 		case exportType::PEM_private:
 			privkey->writeKey(fname, enc,
 				PwDialog::pwCallback, true);
 			break;
 		case exportType::PKCS8_encrypt:
 			enc = EVP_des_ede3_cbc();
-			/* fall */
+			/* fallthrough */
 		case exportType::PKCS8:
 			privkey->writePKCS8(fname, enc,
 				PwDialog::pwCallback, true);

@@ -80,11 +80,16 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 
 		pk11_attr_data n(CKA_MODULUS);
 		p11.loadAttribute(n, object);
-		rsa->n = n.getBignum();
 
 		pk11_attr_data e(CKA_PUBLIC_EXPONENT);
 		p11.loadAttribute(e, object);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		RSA_set0_key(rsa, n.getBignum(), e.getBignum(), NULL);
+#else
+		rsa->n = n.getBignum();
 		rsa->e = e.getBignum();
+#endif
 
 		pkey = EVP_PKEY_new();
 		EVP_PKEY_assign_RSA(pkey, rsa);
@@ -95,19 +100,25 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 
 		pk11_attr_data p(CKA_PRIME);
 		p11.loadAttribute(p, object);
-		dsa->p = p.getBignum();
 
 		pk11_attr_data q(CKA_SUBPRIME);
 		p11.loadAttribute(q, object);
-		dsa->q = q.getBignum();
 
 		pk11_attr_data g(CKA_BASE);
 		p11.loadAttribute(g, object);
-		dsa->g = g.getBignum();
 
 		pk11_attr_data pub(CKA_VALUE);
 		p11.loadAttribute(pub, object);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		DSA_set0_pqg(dsa, p.getBignum(), q.getBignum(), g.getBignum());
+		DSA_set0_key(dsa, pub.getBignum(), NULL);
+#else
+		dsa->p = p.getBignum();
+		dsa->q = q.getBignum();
+		dsa->g = g.getBignum();
 		dsa->pub_key = pub.getBignum();
+#endif
 
 		pkey = EVP_PKEY_new();
 		EVP_PKEY_assign_DSA(pkey, dsa);
@@ -235,29 +246,64 @@ void pki_scard::deleteFromToken()
 pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 {
 	QByteArray ba;
-	RSA *rsa = pk->pkey.rsa;
-	DSA *dsa = pk->pkey.dsa;
+	int keytype;
+	RSA *rsa;
+	DSA *dsa;
 #ifndef OPENSSL_NO_EC
-	EC_KEY *ec = pk->pkey.ec;
+	EC_KEY *ec;
 #endif
+	const BIGNUM *n = NULL;
+	const BIGNUM *e = NULL;
+	const BIGNUM *p = NULL;
+	const BIGNUM *q = NULL;
+	const BIGNUM *g = NULL;
 
 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS,
 			priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY));
 
-	switch (EVP_PKEY_type(pk->type)) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	keytype = EVP_PKEY_id(pk);
+#else
+	keytype = pk->type;
+#endif
+
+	switch (EVP_PKEY_type(keytype)) {
 	case EVP_PKEY_RSA:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		rsa = EVP_PKEY_get0_RSA(pk);
+		RSA_get0_key(rsa, &n, &e, NULL);
+#else
+		rsa = pk->pkey.rsa;
+		n = rsa->n;
+		e = rsa->e;
+#endif
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
-			pk11_attr_data(CKA_MODULUS, rsa->n, false) <<
-			pk11_attr_data(CKA_PUBLIC_EXPONENT, rsa->e, false);
+			pk11_attr_data(CKA_MODULUS, n) <<
+			pk11_attr_data(CKA_PUBLIC_EXPONENT, e);
 		break;
 	case EVP_PKEY_DSA:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		dsa = EVP_PKEY_get0_DSA(pk);
+		DSA_get0_pqg(dsa, &p, &q, &g);
+#else
+		dsa = pk->pkey.dsa;
+		p = dsa->p;
+		q = dsa->q;
+		g = dsa->g;
+#endif
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_DSA) <<
-			pk11_attr_data(CKA_PRIME, dsa->p, false) <<
-			pk11_attr_data(CKA_SUBPRIME, dsa->q, false) <<
-			pk11_attr_data(CKA_BASE, dsa->g, false);
+			pk11_attr_data(CKA_PRIME, p) <<
+			pk11_attr_data(CKA_SUBPRIME, q) <<
+			pk11_attr_data(CKA_BASE, g);
 		break;
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		ec = EVP_PKEY_get0_EC_KEY(pk);
+#else
+		ec = pk->pkey.ec;
+#endif
+
 		ba = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
 				EC_KEY_get0_group(ec));
 
@@ -266,7 +312,7 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		break;
 #endif
 	default:
-		throw errorEx(QString("Unknown Keytype %d").arg(pk->type));
+		throw errorEx(QString("Unknown Keytype %d").arg(keytype));
 
 	}
 	return attrs;
@@ -332,14 +378,23 @@ int pki_scard::renameOnToken(slotid slot, QString name)
 void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 {
 	QByteArray ba;
-	RSA *rsa = pkey->pkey.rsa;
-	DSA *dsa = pkey->pkey.dsa;
+	int keytype;
+	RSA *rsa;
+	DSA *dsa;
 #ifndef OPENSSL_NO_EC
-	EC_KEY *ec = pkey->pkey.ec;
+	EC_KEY *ec;
 #endif
 	pk11_attlist pub_atts;
 	pk11_attlist priv_atts;
 	QList<CK_OBJECT_HANDLE> objects;
+	const BIGNUM *d = NULL;
+	const BIGNUM *p = NULL;
+	const BIGNUM *q = NULL;
+	const BIGNUM *dmp1 = NULL;
+	const BIGNUM *dmq1 = NULL;
+	const BIGNUM *iqmp = NULL;
+	const BIGNUM *priv_key = NULL;
+	const BIGNUM *pub_key = NULL;
 
 	pub_atts = objectAttributesNoId(pkey, false);
 	priv_atts = objectAttributesNoId(pkey, true);
@@ -373,19 +428,48 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		pk11_attr_bool(CKA_DECRYPT, true) <<
 		pk11_attr_bool(CKA_SIGN, true);
 
-	switch (EVP_PKEY_type(pkey->type)) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	keytype = EVP_PKEY_id(pkey);
+#else
+	keytype = pkey->type;
+#endif
+
+	switch (EVP_PKEY_type(keytype)) {
 	case EVP_PKEY_RSA:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		rsa = EVP_PKEY_get0_RSA(pkey);
+		RSA_get0_key(rsa, NULL, NULL, &d);
+		RSA_get0_factors(rsa, &p, &q);
+		RSA_get0_crt_params(rsa, &dmp1, &dmq1, &iqmp);
+#else
+		rsa = pkey->pkey.rsa;
+		d = rsa->d;
+		p = rsa->p;
+		q = rsa->q;
+		dmp1 = rsa->dmp1;
+		dmq1 = rsa->dmq1;
+		iqmp = rsa->iqmp;
+#endif
 		priv_atts <<
-		pk11_attr_data(CKA_PRIVATE_EXPONENT, rsa->d, false) <<
-		pk11_attr_data(CKA_PRIME_1, rsa->p, false) <<
-		pk11_attr_data(CKA_PRIME_2, rsa->q, false) <<
-		pk11_attr_data(CKA_EXPONENT_1, rsa->dmp1, false) <<
-		pk11_attr_data(CKA_EXPONENT_2, rsa->dmq1, false) <<
-		pk11_attr_data(CKA_COEFFICIENT, rsa->iqmp, false);
+		pk11_attr_data(CKA_PRIVATE_EXPONENT, d) <<
+		pk11_attr_data(CKA_PRIME_1, p) <<
+		pk11_attr_data(CKA_PRIME_2, q) <<
+		pk11_attr_data(CKA_EXPONENT_1, dmp1) <<
+		pk11_attr_data(CKA_EXPONENT_2, dmq1) <<
+		pk11_attr_data(CKA_COEFFICIENT, iqmp);
 		break;
 	case EVP_PKEY_DSA:
-		priv_atts << pk11_attr_data(CKA_VALUE, dsa->priv_key, false);
-		pub_atts << pk11_attr_data(CKA_VALUE, dsa->pub_key, false);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		dsa = EVP_PKEY_get0_DSA(pkey);
+		DSA_get0_key(dsa, &pub_key, &priv_key);
+#else
+		dsa = pkey->pkey.dsa;
+		priv_key = dsa->priv_key;
+		pub_key = dsa->pub_key;
+#endif
+
+		priv_atts << pk11_attr_data(CKA_VALUE, priv_key);
+		pub_atts << pk11_attr_data(CKA_VALUE, pub_key);
 		break;
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC: {
@@ -394,6 +478,12 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		int size;
 		unsigned char *buf;
 		ASN1_OCTET_STRING *os;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		ec = EVP_PKEY_get0_EC_KEY(pkey);
+#else
+		ec = pkey->pkey.ec;
+#endif
 		point = EC_POINT_point2bn(EC_KEY_get0_group(ec),
 			EC_KEY_get0_public_key(ec),
 			EC_KEY_get_conv_form(ec), NULL, NULL);
@@ -419,7 +509,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	}
 #endif
 	default:
-		throw errorEx(QString("Unknown Keytype %d").arg(pkey->type));
+		throw errorEx(QString("Unknown Keytype %d").arg(keytype));
 
 	}
 
@@ -451,7 +541,7 @@ QList<int> pki_scard::possibleHashNids()
 		return pki_key::possibleHashNids();
 
 	foreach(CK_MECHANISM_TYPE mechanism, mech_list) {
-		switch (EVP_PKEY_type(key->type)) {
+		switch (EVP_PKEY_type(getKeyType())) {
 		case EVP_PKEY_RSA:
 			switch (mechanism) {
 			case CKM_MD5_RSA_PKCS:    nids << NID_md5; break;
@@ -477,7 +567,7 @@ QList<int> pki_scard::possibleHashNids()
 		}
 	}
 	if (nids.count() == 0) {
-		switch (EVP_PKEY_type(key->type)) {
+		switch (EVP_PKEY_type(getKeyType())) {
 		case EVP_PKEY_RSA:
 			nids << NID_md5 << NID_sha1 << NID_sha256 <<
 				NID_sha384 << NID_sha512 << NID_ripemd160;
@@ -498,10 +588,18 @@ const EVP_MD *pki_scard::getDefaultMD()
 	if (mech_list.contains(CKM_SHA1_RSA_PKCS))
 		return EVP_sha1();
 	if (mech_list.contains(CKM_DSA_SHA1))
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		return EVP_sha1();
+#else
 		return EVP_dss1();
+#endif
 #ifndef OPENSSL_NO_EC
 	if (mech_list.contains(CKM_ECDSA_SHA1))
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		return EVP_sha1();
+#else
 		return EVP_ecdsa();
+#endif
 #endif
 	if (mech_list.contains(CKM_SHA512_RSA_PKCS))
 		return EVP_sha512();
@@ -672,6 +770,7 @@ QByteArray pki_scard::toData()
 void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 {
 	int version, size;
+	void *ptr = NULL;
 
 	size = head->len - sizeof(db_header_t);
         version = head->version;
@@ -692,9 +791,16 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 		mech_list << db::intFromData(ba);
 
 	d2i(ba);
-	if (!key || !key->pkey.ptr) {
+
+	if (key)
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		ptr = EVP_PKEY_get0(key);
+#else
+		ptr = key->pkey.ptr;
+#endif
+
+	if (!ptr)
 		throw errorEx(tr("Ignoring unsupported token key"));
-	}
 
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));

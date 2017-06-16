@@ -152,11 +152,18 @@ void hashBox::setCurrentMD(const EVP_MD *md)
 void hashBox::setupHashes(QList<int> nids)
 {
 	QString md = currentText();
+	int mdtype;
+
 	if (!wanted_md.isEmpty())
 		md = wanted_md;
 	clear();
 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
-		if (nids.contains(hashalgos[i].md->type)) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		mdtype = EVP_MD_type(hashalgos[i].md);
+#else
+		mdtype = hashalgos[i].md->type;
+#endif
+		if (nids.contains(mdtype)) {
 			addItem(QString(hashalgos[i].name));
 		}
 	}

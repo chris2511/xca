@@ -458,7 +458,13 @@ pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
 	while (1) {
 		unsigned char buf[ID_LEN];
 		pk11_attlist atts(class_att);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		RAND_bytes(buf, ID_LEN);
+#else
 		RAND_pseudo_bytes(buf, ID_LEN);
+#endif
+
 		id.setValue(buf, ID_LEN);
 		atts << id;
 		if (objectList(atts).count() == 0)
@@ -652,7 +658,8 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	return size;
 }
 
-#if OPENSSL_VERSION_NUMBER < 0x10000000L
+#if OPENSSL_VERSION_NUMBER < 0x10000000L ||								\
+	OPENSSL_VERSION_NUMBER >= 0x10100000L
 static int rsa_privdata_free(RSA *rsa)
 {
 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
@@ -664,12 +671,19 @@ static int rsa_encrypt(int flen, const unsigned char *from,
 			unsigned char *to, RSA * rsa, int padding)
 {
 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
+	const BIGNUM *n = NULL;
 
 	if (padding != RSA_PKCS1_PADDING) {
 		return -1;
 	}
-	return priv->encrypt(flen, from, to, BN_num_bytes(rsa->n),
-				CKM_RSA_PKCS);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	RSA_get0_key(rsa, &n, NULL, NULL);
+#else
+	n = rsa->n;
+#endif
+
+	return priv->encrypt(flen, from, to, BN_num_bytes(n), CKM_RSA_PKCS);
 }
 
 static int rsa_decrypt(int flen, const unsigned char *from,
@@ -683,36 +697,235 @@ static int rsa_decrypt(int flen, const unsigned char *from,
 	return priv->decrypt(flen, from, to, flen, CKM_RSA_PKCS);
 }
 
+static int dsa_privdata_free(DSA *dsa)
+{
+	pkcs11 *p11 = (pkcs11*)DSA_get_ex_data(dsa, 0);
+	delete p11;
+	return 0;
+}
+
+static DSA_SIG *dsa_sign(const unsigned char *dgst, int dlen, DSA *dsa)
+{
+	int len, rs_len;
+	unsigned char rs_buf[128];
+	pkcs11 *p11 = (pkcs11*)DSA_get_ex_data(dsa, 0);
+	DSA_SIG *dsa_sig = DSA_SIG_new();
+	BIGNUM *r, *s;
+
+	// siglen is unsigned and can't cope with -1 as return value
+	len = p11->encrypt(dlen, dgst, rs_buf, sizeof rs_buf, CKM_DSA);
+	if (len & 0x01) // Must be even
+		goto out;
+
+	rs_len = len / 2;
+	r = BN_bin2bn(rs_buf, rs_len, NULL);
+	s = BN_bin2bn(rs_buf + rs_len, rs_len, NULL);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	DSA_SIG_set0(dsa_sig, r, s);
+#else
+	dsa_sig->r = r;
+	dsa_sig->s = s;
+#endif
+	if (r && s)
+		return dsa_sig;
+out:
+	DSA_SIG_free(dsa_sig);
+	ign_openssl_error();
+	return NULL;
+}
+
+#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
+//	OpenSSL < 1.0.0 have no EC_KEY_METHOD.
+
+static void ec_privdata_free(EC_KEY *ec)
+{
+	pkcs11 *p11 = (pkcs11*)EC_KEY_get_ex_data(ec, 0);
+	delete p11;
+}
+
+static int ec_sign_setup(EC_KEY *ec, BN_CTX *ctx, BIGNUM **kinvp, BIGNUM **rp)
+{
+	(void) ec;
+	(void) ctx;
+	(void) kinvp;
+	(void) rp;
+	return 1;
+}
+
+static ECDSA_SIG *ec_do_sign(const unsigned char *dgst, int dgst_len,
+							 const BIGNUM *in_kinv, const BIGNUM *in_r,
+							 EC_KEY *ec)
+{
+	int len, rs_len;
+	unsigned char rs_buf[512];
+	ECDSA_SIG *ec_sig = ECDSA_SIG_new();
+	pkcs11 *p11 = (pkcs11 *) EC_KEY_get_ex_data(ec, 0);
+	BIGNUM *r, *s;
+
+	(void) in_kinv;
+	(void) in_r;
+
+	// siglen is unsigned and can' cope with -1 as return value
+	len = p11->encrypt(dgst_len, dgst, rs_buf, sizeof rs_buf, CKM_ECDSA);
+	if (len & 0x01) // Must be even
+		goto out;
+	/* The buffer contains r and s concatenated
+	 * Both of equal size
+	 * pkcs-11v2-20.pdf chapter 12.13.1, page 232
+	 */
+	rs_len = len / 2;
+	r = BN_bin2bn(rs_buf, rs_len, NULL);
+	s = BN_bin2bn(rs_buf + rs_len, rs_len, NULL);
+	ECDSA_SIG_set0(ec_sig, r, s);
+	if (r && s)
+		return ec_sig;
+
+out:
+	ECDSA_SIG_free(ec_sig);
+	ign_openssl_error();
+	return NULL;
+}
+
+static int ec_sign(int type, const unsigned char *dgst, int dlen,
+				   unsigned char *sig, unsigned int *siglen,
+				   const BIGNUM *kinv, const BIGNUM *r, EC_KEY *ec)
+{
+	ECDSA_SIG *ec_sig;
+	int ret = 0;
+	int len;
+
+	(void) type;
+	ec_sig = ec_do_sign(dgst, dlen, kinv, r, ec);
+	if (!ec_sig)
+		return 0;
+
+	len = i2d_ECDSA_SIG(ec_sig, &sig);
+	if (len <= 0)
+		goto out;
+	*siglen = len;
+	ret = 1;
+out:
+	ECDSA_SIG_free(ec_sig);
+	ign_openssl_error();
+	return ret;
+}
+#endif
+
 EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 {
-	static RSA_METHOD rsa_meth, *ops = NULL;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	static RSA_METHOD rsa_meth_buf;
+	static DSA_METHOD dsa_meth_buf;
+#endif
+	static RSA_METHOD *rsa_meth = NULL;
+	static DSA_METHOD *dsa_meth = NULL;
+#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
+	static EC_KEY_METHOD *ec_key_meth = NULL;
+	EC_KEY *ec;
+#endif
 	RSA *rsa;
-	EVP_PKEY *evp;
+	DSA *dsa;
+	EVP_PKEY *evp = NULL;
+	int keytype;
 
 	p11slot.isValid();
 
-	switch (EVP_PKEY_type(pub->type)) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	keytype = EVP_PKEY_id(pub);
+#else
+	keytype = pub->type;
+#endif
+
+	switch (EVP_PKEY_type(keytype)) {
 	case EVP_PKEY_RSA:
-		rsa = RSAPublicKey_dup(pub->pkey.rsa);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		rsa = EVP_PKEY_get0_RSA(pub);
+#else
+		rsa = pub->pkey.rsa;
+#endif
+		rsa = RSAPublicKey_dup(rsa);
 		openssl_error();
-		if (!ops) {
-			rsa_meth = *RSA_get_default_method();
-			rsa_meth.rsa_priv_enc = rsa_encrypt;
-			rsa_meth.rsa_priv_dec = rsa_decrypt;
-			rsa_meth.finish = rsa_privdata_free;
-			ops = &rsa_meth;
+		if (!rsa_meth) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			rsa_meth = RSA_meth_dup(RSA_get_default_method());
+			RSA_meth_set_priv_enc(rsa_meth, rsa_encrypt);
+			RSA_meth_set_priv_dec(rsa_meth, rsa_decrypt);
+			RSA_meth_set_finish(rsa_meth, rsa_privdata_free);
+#else
+			rsa_meth = &rsa_meth_buf;
+			*rsa_meth = *RSA_get_default_method();
+			rsa_meth->rsa_priv_enc = rsa_encrypt;
+			rsa_meth->rsa_priv_dec = rsa_decrypt;
+			rsa_meth->finish = rsa_privdata_free;
+#endif
 		}
 		p11obj = obj;
-		RSA_set_method(rsa, ops);
+		RSA_set_method(rsa, rsa_meth);
 		RSA_set_app_data(rsa, this);
 		evp = EVP_PKEY_new();
 		openssl_error();
 		EVP_PKEY_assign_RSA(evp, rsa);
-		return evp;
+		break;
+	case EVP_PKEY_DSA:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		dsa = EVP_PKEY_get0_DSA(pub);
+#else
+		dsa = pub->pkey.dsa;
+#endif
+		dsa = DSAparams_dup(dsa);
+		openssl_error();
+		if (!dsa_meth) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			dsa_meth = DSA_meth_dup(DSA_get_default_method());
+			DSA_meth_set_sign(dsa_meth, dsa_sign);
+			DSA_meth_set_finish(dsa_meth, dsa_privdata_free);
+#else
+			dsa_meth = &dsa_meth_buf;
+			*dsa_meth = *DSA_get_default_method();
+			dsa_meth->dsa_do_sign = dsa_sign;
+			dsa_meth->finish = dsa_privdata_free;
+#endif
+		}
+		p11obj = obj;
+		DSA_set_method(dsa, dsa_meth);
+		DSA_set_ex_data(dsa, 0, this);
+		evp = EVP_PKEY_new();
+		openssl_error();
+		EVP_PKEY_assign_DSA(evp, dsa);
+		break;
+#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
 	case EVP_PKEY_EC:
-		return NULL;
+		ec = EVP_PKEY_get0_EC_KEY(pub);
+		ec = EC_KEY_dup(ec);
+		openssl_error();
+		if (!ec_key_meth) {
+			int (*ec_init_proc)(EC_KEY *key);
+			void (*ec_finish_proc)(EC_KEY *key);
+			int (*ec_copy_proc)(EC_KEY *dest, const EC_KEY *src);
+			int (*ec_set_group_proc)(EC_KEY *key, const EC_GROUP *grp);
+			int (*ec_set_private_proc)(EC_KEY *key, const BIGNUM *priv_key);
+			int (*ec_set_public_proc)(EC_KEY *key, const EC_POINT *pub_key);
+
+			ec_key_meth = EC_KEY_METHOD_new(EC_KEY_get_default_method());
+			EC_KEY_METHOD_set_sign(ec_key_meth,
+								   ec_sign, ec_sign_setup, ec_do_sign);
+			EC_KEY_METHOD_get_init(ec_key_meth, &ec_init_proc, &ec_finish_proc,
+								   &ec_copy_proc, &ec_set_group_proc,
+								   &ec_set_private_proc, &ec_set_public_proc);
+			EC_KEY_METHOD_set_init(ec_key_meth, ec_init_proc, ec_privdata_free,
+								   ec_copy_proc, ec_set_group_proc,
+								   ec_set_private_proc, ec_set_public_proc);
+		}
+		p11obj = obj;
+		EC_KEY_set_method(ec, ec_key_meth);
+		EC_KEY_set_ex_data(ec, 0, this);
+		evp = EVP_PKEY_new();
+		openssl_error();
+		EVP_PKEY_assign_EC_KEY(evp, ec);
+		break;
+#endif
 	}
-	return NULL;
+	return evp;
 }
 #else
 
@@ -781,6 +994,7 @@ static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 		case NID_ecdsa_with_SHA1:
 			fprintf(stderr, "%s: NID_ecdsa_with_SHA1 unexpected\n",
 				__func__);
+			/* fallthrough */
 		case NID_sha1:
 		case NID_sha224:
 		case NID_sha256:

@@ -146,10 +146,14 @@ void pki_x509::init()
 
 void pki_x509::setSerial(const a1int &serial)
 {
-	if (cert->cert_info->serialNumber != NULL ) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	X509_set_serialNumber(cert, serial.get());
+#else
+	if (cert->cert_info->serialNumber != NULL) {
 		ASN1_INTEGER_free(cert->cert_info->serialNumber);
 	}
 	cert->cert_info->serialNumber = serial.get();
+#endif
 	pki_openssl_error();
 }
 
@@ -176,7 +180,13 @@ a1int pki_x509::getIncCaSerial()
 	unsigned char buf[SERIAL_LEN];
 	if (!randomSerial)
 		return caSerial++;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	RAND_bytes(buf, SERIAL_LEN);
+#else
 	RAND_pseudo_bytes(buf, SERIAL_LEN);
+#endif
+
 	a1int serial;
 	serial.setRaw(buf, SERIAL_LEN);
 	return serial;
@@ -186,9 +196,29 @@ a1int pki_x509::hashInfo(const EVP_MD *md) const
 {
 	unsigned char digest[EVP_MAX_MD_SIZE];
 	unsigned len = 0;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	unsigned char *str = NULL;
+	int i;
+
+	// In OpenSSL 1.1, X509 structure is opaque and their is no API to get
+	// cert_info. We then have to get cert_info data as a DER string and
+	// compute the digest on it.
+	
+	i = i2d_re_X509_tbs(cert, &str);
+	if (!str)
+		pki_openssl_error();
+	else {
+		i = EVP_Digest(str, i, digest, &len, md, NULL);
+		OPENSSL_free(str);
+		if (!i)
+			pki_openssl_error();
+	}
+#else
 	if (!ASN1_item_digest(ASN1_ITEM_rptr(X509_CINF), md,
 				(char*)cert->cert_info,digest,&len))
 		pki_openssl_error();
+#endif
 	a1int a;
 	a.setRaw(digest,len);
 	return a;
@@ -399,31 +429,51 @@ a1time pki_x509::getNotAfter() const
 
 x509name pki_x509::getSubject() const
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	x509name x(X509_get_subject_name(cert));
+#else
 	x509name x(cert->cert_info->subject);
+#endif
+
 	pki_openssl_error();
 	return x;
 }
 
 x509name pki_x509::getIssuer() const
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	x509name x(X509_get_issuer_name(cert));
+#else
 	x509name x(cert->cert_info->issuer);
+#endif
+
 	pki_openssl_error();
 	return x;
 }
 
 void pki_x509::setSubject(const x509name &n)
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	X509_set_subject_name(cert, n.get());
+#else
 	if (cert->cert_info->subject != NULL)
 		X509_NAME_free(cert->cert_info->subject);
 	cert->cert_info->subject = n.get();
+#endif
+
 	pki_openssl_error();
 }
 
 void pki_x509::setIssuer(const x509name &n)
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	X509_set_issuer_name(cert, n.get());
+#else
 	if ((cert->cert_info->issuer) != NULL)
 		X509_NAME_free(cert->cert_info->issuer);
 	cert->cert_info->issuer = n.get();
+#endif
+
 	pki_openssl_error();
 }
 
@@ -776,7 +826,13 @@ bool pki_x509::checkDate()
 extList pki_x509::getV3ext()
 {
 	extList el;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	el.setStack(X509_get0_extensions(cert));
+#else
 	el.setStack(cert->cert_info->extensions);
+#endif
+
 	return el;
 }
 
@@ -795,9 +851,21 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	return el[i];
 }
 
-ASN1_OBJECT *pki_x509::sigAlg()
+const ASN1_OBJECT *pki_x509::sigAlg()
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	const ASN1_BIT_STRING *psig;
+	const X509_ALGOR *palg;
+	const ASN1_OBJECT *paobj;
+	int pptype;
+	const void *ppval;
+
+	X509_get0_signature(&psig, &palg, cert);
+	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
+	return paobj;
+#else
 	return cert->sig_alg->algorithm;
+#endif
 }
 
 pki_x509 *pki_x509::getSigner()

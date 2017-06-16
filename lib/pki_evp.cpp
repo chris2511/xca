@@ -31,7 +31,11 @@ QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
 void pki_evp::init(int type)
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	EVP_PKEY_set_type(key, type);
+#else
 	key->type = type;
+#endif
 	class_name = "pki_evp";
 	ownPass = ptCommon;
 	dataVersion=2;
@@ -76,6 +80,11 @@ void pki_evp::setOwnPass(enum passType x)
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
 {
 	Entropy::seed_rng();
+	RSA *rsakey = NULL;
+	DSA *dsakey = NULL;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	BN_GENCB *cb = NULL;
+#endif
 
 #ifdef OPENSSL_NO_EC
 	(void)curve_nid;
@@ -86,17 +95,54 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 
 	switch (type) {
 	case EVP_PKEY_RSA:
-		RSA *rsakey;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		BIGNUM *e;
+	    e = BN_new();
+		if (e) {
+			if (BN_set_word(e, 0x10001)) {
+				cb = BN_GENCB_new();
+				if (cb) {
+					BN_GENCB_set_old(cb, inc_progress_bar, progress);
+					rsakey = RSA_new();
+					if (rsakey) {
+						if (!RSA_generate_key_ex(rsakey, bits, e, cb)) {
+							RSA_free(rsakey);
+							rsakey = NULL;
+						}
+					}
+					BN_GENCB_free(cb);
+				}
+			}
+			BN_clear_free(e);
+		}
+#else
 		rsakey = RSA_generate_key(bits, 0x10001, inc_progress_bar,
 			progress);
+#endif
+
 		if (rsakey)
 			EVP_PKEY_assign_RSA(key, rsakey);
 		break;
 	case EVP_PKEY_DSA:
-		DSA *dsakey;
 		progress->setMaximum(500);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		cb = BN_GENCB_new();
+		if (cb) {
+			BN_GENCB_set_old(cb, inc_progress_bar, progress);
+			dsakey = DSA_new();
+			if (dsakey) {
+				if (!DSA_generate_parameters_ex(dsakey, bits,
+												NULL, 0, NULL, NULL, cb)) {
+					DSA_free(dsakey);
+					dsakey = NULL;
+				}
+			}
+			BN_GENCB_free(cb);
+		}
+#else
 		dsakey = DSA_generate_parameters(bits, NULL, 0, NULL, NULL,
 				inc_progress_bar, progress);
+#endif
 		DSA_generate_key(dsakey);
 		if (dsakey)
 			EVP_PKEY_assign_DSA(key, dsakey);
@@ -132,7 +178,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 pki_evp::pki_evp(const pki_evp *pk)
 	:pki_key(pk)
 {
-	init(pk->key->type);
+	init(pk->getKeyType());
 	pki_openssl_error();
 	ownPass = pk->ownPass;
 	encKey = pk->encKey;
@@ -157,14 +203,48 @@ pki_evp::pki_evp(EVP_PKEY *pkey)
 
 static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 {
-	switch (EVP_PKEY_type(key->type)) {
+	int keytype;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	keytype = EVP_PKEY_id(key);
+#else
+	keytype = key->type;
+#endif
+
+	switch (EVP_PKEY_type(keytype)) {
 		case EVP_PKEY_RSA:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		RSA *rsa;
+		const BIGNUM *d;
+		d = NULL;
+	   	rsa = EVP_PKEY_get0_RSA(key);
+		if (rsa)
+			RSA_get0_key(rsa, NULL, NULL, &d);
+		return d? true: false;
+#else
 			return key->pkey.rsa->d ? true: false;
+#endif
 		case EVP_PKEY_DSA:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			DSA *dsa;
+			const BIGNUM *privkey;
+			dsa = EVP_PKEY_get0_DSA(key);
+			privkey = NULL;
+			if (dsa)
+				DSA_get0_key(dsa, NULL, &privkey);
+			return privkey? true: false;
+#else
 			return key->pkey.dsa->priv_key ? true: false;
+#endif
 #ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			EC_KEY *ec;
+			ec = EVP_PKEY_get0_EC_KEY(key);
+			return ec? true: false;
+#else
 			return EC_KEY_get0_private_key(key->pkey.ec) ? true: false;
+#endif
 #endif
 	}
 	return false;
@@ -211,10 +291,23 @@ void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 static void search_ec_oid(EVP_PKEY *pkey)
 {
 #ifndef OPENSSL_NO_EC
-	if (pkey->type != EVP_PKEY_EC)
+	int keytype;
+	EC_KEY *ec;
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	keytype = EVP_PKEY_id(pkey);
+#else
+	keytype = pkey->type;
+#endif
+
+	if (keytype != EVP_PKEY_EC)
 		return;
 
-	EC_KEY *ec = pkey->pkey.ec;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	ec = EVP_PKEY_get0_EC_KEY(pkey);
+#else
+	ec = pkey->pkey.ec;
+#endif
 
 	const EC_GROUP *ec_group = EC_KEY_get0_group(ec);
 	EC_GROUP *builtin;
@@ -317,9 +410,10 @@ void pki_evp::fload(const QString fname)
 	}
 }
 
-void pki_evp::fromData(const unsigned char *p, db_header_t *head )
+void pki_evp::fromData(const unsigned char *p, db_header_t *head)
 {
 	int version, type, size;
+	void *ptr = NULL;
 
 	if (key)
 		EVP_PKEY_free(key);
@@ -338,9 +432,17 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head )
 		d2i(ba);
 	}
 	pki_openssl_error();
-	if (!key || !key->pkey.ptr) {
+
+	if (key)
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		ptr = EVP_PKEY_get0(key);
+#else
+		ptr = key->pkey.ptr;
+#endif
+
+	if (!ptr)
 		throw errorEx(tr("Ignoring unsupported private key"));
-	}
+
 	encKey = ba;
 }
 
@@ -353,7 +455,10 @@ EVP_PKEY *pki_evp::decryptKey() const
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 
 	EVP_PKEY *tmpkey;
-	EVP_CIPHER_CTX ctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	EVP_CIPHER_CTX ctxbuf;
+#endif
+	EVP_CIPHER_CTX *ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	Passwd ownPassBuf;
 	int ret;
@@ -403,23 +508,38 @@ EVP_PKEY *pki_evp::decryptKey() const
 	 * because an md5 version of the password is
 	 * stored in the database...
 	 */
-	EVP_CIPHER_CTX_init(&ctx);
-	EVP_DecryptInit(&ctx, cipher, ckey, iv);
-	EVP_DecryptUpdate(&ctx, p , &outl,
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	ctx = EVP_CIPHER_CTX_new();
+#else
+	ctx = &ctxbuf;
+#endif
+	EVP_CIPHER_CTX_init(ctx);
+	EVP_DecryptInit(ctx, cipher, ckey, iv);
+	EVP_DecryptUpdate(ctx, p , &outl,
 		(const unsigned char*)encKey.constData() +8, encKey.count() -8);
 
 	decsize = outl;
-	EVP_DecryptFinal(&ctx, p + decsize , &outl);
+	EVP_DecryptFinal(ctx, p + decsize , &outl);
 	decsize += outl;
 	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey.count() -8);
 	pki_openssl_error();
-	tmpkey = d2i_PrivateKey(key->type, NULL, &p1, decsize);
+	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
 	pki_openssl_error();
 	OPENSSL_free(p);
-	EVP_CIPHER_CTX_cleanup(&ctx);
+	EVP_CIPHER_CTX_cleanup(ctx);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	EVP_CIPHER_CTX_free(ctx);
+#endif
 	pki_openssl_error();
-	if (EVP_PKEY_type(tmpkey->type) == EVP_PKEY_RSA)
-		RSA_blinding_on(tmpkey->pkey.rsa, NULL);
+	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
+		RSA *rsa;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	   	rsa = EVP_PKEY_get0_RSA(tmpkey);
+#else
+		rsa = tmpkey->pkey.rsa;
+#endif
+		RSA_blinding_on(rsa, NULL);
+	}
 	return tmpkey;
 }
 
@@ -427,7 +547,7 @@ QByteArray pki_evp::toData()
 {
 	QByteArray ba;
 
-	ba += db::intToData(key->type);
+	ba += db::intToData(getKeyType());
 	ba += db::intToData(ownPass);
 	ba += i2d();
 	ba += encKey;
@@ -458,7 +578,10 @@ void pki_evp::encryptKey(const char *password)
 {
 	int outl, keylen;
 	EVP_PKEY *pkey1 = NULL;
-	EVP_CIPHER_CTX ctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	EVP_CIPHER_CTX ctxbuf;
+#endif
+	EVP_CIPHER_CTX *ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	unsigned char iv[EVP_MAX_IV_LENGTH], *punenc, *punenc1;
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
@@ -499,7 +622,12 @@ void pki_evp::encryptKey(const char *password)
 	EVP_BytesToKey(cipher, EVP_sha1(), iv,
 			ownPassBuf.constUchar(),
 			ownPassBuf.size(), 1, ckey, NULL);
-	EVP_CIPHER_CTX_init (&ctx);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	ctx = EVP_CIPHER_CTX_new();
+#else
+	ctx = &ctxbuf;
+#endif
+	EVP_CIPHER_CTX_init (ctx);
 	pki_openssl_error();
 
 	/* reserve space for unencrypted and encrypted key */
@@ -518,14 +646,17 @@ void pki_evp::encryptKey(const char *password)
 
 	/* do the encryption */
 	/* store key right after the iv */
-	EVP_EncryptInit(&ctx, cipher, ckey, iv);
+	EVP_EncryptInit(ctx, cipher, ckey, iv);
 	unsigned char *penc = (unsigned char *)encKey.data() +8;
-	EVP_EncryptUpdate(&ctx, penc, &outl, punenc, keylen);
+	EVP_EncryptUpdate(ctx, penc, &outl, punenc, keylen);
 	int encKey_len = outl;
-	EVP_EncryptFinal(&ctx, penc + encKey_len, &outl);
+	EVP_EncryptFinal(ctx, penc + encKey_len, &outl);
 	encKey.resize(encKey_len + outl +8);
 	/* Cleanup */
-	EVP_CIPHER_CTX_cleanup(&ctx);
+	EVP_CIPHER_CTX_cleanup(ctx);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	EVP_CIPHER_CTX_free(ctx);
+#endif
 	/* wipe out the memory */
 	memset(punenc, 0, keylen);
 	OPENSSL_free(punenc);
@@ -600,6 +731,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
+	int keytype;
 	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key '%1'").arg(getIntName()));
 	if (isPubKey()) {
 		writePublic(fname, pem);
@@ -614,19 +746,39 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		pkey = decryptKey();
 		if (pkey) {
 			if (pem) {
-				switch (pkey->type) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+				keytype = EVP_PKEY_id(pkey);
+#else
+				keytype = pkey->type;
+#endif
+				switch (keytype) {
 				case EVP_PKEY_RSA:
-					PEM_write_RSAPrivateKey(fp,
-					  pkey->pkey.rsa, enc, NULL, 0, cb, &p);
+					RSA *rsa;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+					rsa = EVP_PKEY_get0_RSA(pkey);
+#else
+					rsa = pkey->pkey.rsa;
+#endif
+					PEM_write_RSAPrivateKey(fp, rsa, enc, NULL, 0, cb, &p);
 					break;
 				case EVP_PKEY_DSA:
-					PEM_write_DSAPrivateKey(fp,
-					  pkey->pkey.dsa, enc, NULL, 0, cb, &p);
+					DSA *dsa;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+					dsa = EVP_PKEY_get0_DSA(pkey);
+#else
+					dsa = pkey->pkey.dsa;
+#endif
+					PEM_write_DSAPrivateKey(fp, dsa, enc, NULL, 0, cb, &p);
 					break;
 #ifndef OPENSSL_NO_EC
 				case EVP_PKEY_EC:
-					PEM_write_ECPrivateKey(fp,
-					  pkey->pkey.ec, enc, NULL, 0, cb, &p);
+					EC_KEY *ec;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+					ec = EVP_PKEY_get0_EC_KEY(pkey);
+#else
+					ec = pkey->pkey.ec;
+#endif
+					PEM_write_ECPrivateKey(fp, ec, enc, NULL, 0, cb, &p);
 					break;
 #endif
 				default:
@@ -655,8 +807,14 @@ int pki_evp::verify()
 {
 	bool veri = false;
 	return true;
-	if (key->type == EVP_PKEY_RSA && isPrivKey()) {
-		if (RSA_check_key(key->pkey.rsa) == 1)
+	if (getKeyType() == EVP_PKEY_RSA && isPrivKey()) {
+		RSA *rsa;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		rsa = EVP_PKEY_get0_RSA(key);
+#else
+		rsa = key->pkey.rsa;
+#endif
+		if (RSA_check_key(rsa) == 1)
 			veri = true;
 	}
 	if (isPrivKey())
@@ -667,8 +825,11 @@ int pki_evp::verify()
 
 const EVP_MD *pki_evp::getDefaultMD()
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	return EVP_sha1();
+#else
 	const EVP_MD *md;
-	switch (key->type) {
+	switch (getKeyType()) {
 		case EVP_PKEY_RSA: md = EVP_sha1(); break;
 		case EVP_PKEY_DSA: md = EVP_dss1(); break;
 #ifndef OPENSSL_NO_EC
@@ -677,6 +838,7 @@ const EVP_MD *pki_evp::getDefaultMD()
 		default: md = NULL; break;
 	}
 	return md;
+#endif
 }
 
 QVariant pki_evp::getIcon(dbheader *hd)
@@ -690,14 +852,29 @@ QVariant pki_evp::getIcon(dbheader *hd)
 QString pki_evp::md5passwd(QByteArray pass)
 {
 
-	EVP_MD_CTX mdctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	EVP_MD_CTX mdctxbuf;
+#endif
+	EVP_MD_CTX *mdctx;
 	QString str;
 	int n;
 	int j;
 	unsigned char m[EVP_MAX_MD_SIZE];
-	EVP_DigestInit(&mdctx, EVP_md5());
-	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());
-	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	mdctx = EVP_MD_CTX_new();
+#else
+	mdctx = &mdctxbuf;
+#endif
+
+	EVP_DigestInit(mdctx, EVP_md5());
+	EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
+	EVP_DigestFinal(mdctx, m, (unsigned*)&n);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	EVP_MD_CTX_free(mdctx);
+#endif
+
 	for (j=0; j<n; j++) {
 		char zs[4];
 		sprintf(zs, "%02X%c",m[j], (j+1 == n) ?'\0':':');
@@ -708,8 +885,10 @@ QString pki_evp::md5passwd(QByteArray pass)
 
 QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 {
-
-	EVP_MD_CTX mdctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	EVP_MD_CTX mdctxbuf;
+#endif
+	EVP_MD_CTX *mdctx;
 	QString str;
 	int n;
 	int j;
@@ -721,9 +900,19 @@ QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 	str = salt.left(5);
 	pass = str.toLatin1() + pass;
 
-	EVP_DigestInit(&mdctx, EVP_sha512());
-	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());
-	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	mdctx = EVP_MD_CTX_new();
+#else
+	mdctx = &mdctxbuf;
+#endif
+
+	EVP_DigestInit(mdctx, EVP_sha512());
+	EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
+	EVP_DigestFinal(mdctx, m, (unsigned*)&n);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	EVP_MD_CTX_free(mdctx);
+#endif
 
 	for (j=0; j<n; j++) {
 		char zs[4];
@@ -741,7 +930,10 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	RSA *rsakey;
-	EVP_CIPHER_CTX ctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	EVP_CIPHER_CTX ctxbuf;
+#endif
+	EVP_CIPHER_CTX *ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	sik = (unsigned char *)OPENSSL_malloc(size);
 	check_oom(sik);
@@ -761,15 +953,21 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	 * because an md5 version of the password is
 	 * stored in the database...
 	 */
-	EVP_CIPHER_CTX_init (&ctx);
-	EVP_DecryptInit( &ctx, cipher, ckey, iv);
-	EVP_DecryptUpdate( &ctx, pdec , &outl, p + 8, size -8 );
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	ctx = EVP_CIPHER_CTX_new();
+#else
+	ctx = &ctxbuf;
+#endif
+
+	EVP_CIPHER_CTX_init(ctx);
+	EVP_DecryptInit(ctx, cipher, ckey, iv);
+	EVP_DecryptUpdate(ctx, pdec , &outl, p + 8, size - 8);
 	decsize = outl;
-	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
+	EVP_DecryptFinal(ctx, pdec + decsize, &outl);
 	decsize += outl;
 	pki_openssl_error();
 	memcpy(sik, pdec, decsize);
-	if (key->type == EVP_PKEY_RSA) {
+	if (getKeyType() == EVP_PKEY_RSA) {
 		rsakey=d2i_RSAPrivateKey(NULL,(const unsigned char **)&pdec, decsize);
 		if (pki_ign_openssl_error()) {
 			rsakey = d2i_RSA_PUBKEY(NULL, (const unsigned char **)&sik, decsize);
@@ -779,7 +977,10 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	}
 	OPENSSL_free(sik1);
 	OPENSSL_free(pdec1);
-	EVP_CIPHER_CTX_cleanup(&ctx);
+	EVP_CIPHER_CTX_cleanup(ctx);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	EVP_CIPHER_CTX_free(ctx);
+#endif
 	pki_openssl_error();
 	encryptKey();
 }

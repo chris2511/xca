@@ -17,4 +17,4 @@
 # RFC 4334
 1.3.6.1.5.5.7.3.13:     id-kp-eapOverPPP:       EAP over PPP
 1.3.6.1.5.5.7.3.14:     id-kp-eapOverLAN:       EAP over Lan
-1.3.6.1.5.2.3.5:        id-pkkdcekuoid:         KDC Authentication
+1.3.6.1.5.2.3.5:        pkInitKDC:      KDC Authentication

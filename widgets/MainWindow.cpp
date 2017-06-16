@@ -919,6 +919,9 @@ void MainWindow::generateDHparam()
 	bool ok;
 	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman parameters are needed for different applications, but not handled by XCA.\nPlease enter the DH parameter bits"),
 		1024, 1024, 4096, 0, &ok);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	BN_GENCB *cb = NULL;
+#endif
 
 	if (!ok)
 		return;
@@ -936,7 +939,18 @@ void MainWindow::generateDHparam()
 		bar->setMinimum(0);
 		bar->setMaximum(100);
 		status->addPermanentWidget(bar, 1);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		cb = BN_GENCB_new();
+		if (!cb)
+			throw errorEx("");
+		BN_GENCB_set_old(cb, inc_progress_bar, bar);
+		dh = DH_new();
+		DH_generate_parameters_ex(dh, num, 2, cb);
+#else
 		dh = DH_generate_parameters(num, 2, inc_progress_bar, bar);
+#endif
+
 		status->removeWidget(bar);
 		openssl_error();
 
@@ -959,6 +973,10 @@ void MainWindow::generateDHparam()
 		DH_free(dh);
 	if (fp)
 		fclose(fp);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	if (cb)
+		BN_GENCB_free(cb);
+#endif
 	if (bar)
 		delete bar;
 }

@@ -23,6 +23,7 @@ class x509name
 		x509name(STACK_OF(X509_NAME_ENTRY) *entries);
 		~x509name();
 		x509name &set(const X509_NAME *n);
+		x509name &set(const STACK_OF(X509_NAME_ENTRY) *entries);
 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
 		int nid(int i) const;
 		QString getOid(int i) const;

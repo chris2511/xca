@@ -206,16 +206,32 @@ x509name pki_x509req::getSubject() const
 	return x;
 }
 
-ASN1_OBJECT *pki_x509req::sigAlg()
+const ASN1_OBJECT *pki_x509req::sigAlg()
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	const ASN1_BIT_STRING *psig;
+	const X509_ALGOR *palg;
+	const ASN1_OBJECT *paobj;
+	int pptype;
+	const void *ppval;
+
+	X509_REQ_get0_signature(request, &psig, &palg);
+	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
+	return paobj;
+#else
 	return request->sig_alg->algorithm;
+#endif
 }
 
 void pki_x509req::setSubject(const x509name &n)
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	X509_REQ_set_subject_name(request, n.get());
+#else
 	if (request->req_info->subject != NULL)
 		X509_NAME_free(request->req_info->subject);
 	request->req_info->subject = n.get();
+#endif
 }
 
 bool pki_x509req::isSpki() const
@@ -292,12 +308,27 @@ pki_key *pki_x509req::getPubKey() const
 
 QString pki_x509req::getSigAlg()
 {
-	ASN1_OBJECT *o;
+	const ASN1_OBJECT *o;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	const ASN1_BIT_STRING *psig;
+	const X509_ALGOR *palg;
+	X509_ALGOR *palg2;
+	int pptype;
+	const void *ppval;
+
+	if (spki) {
+		X509_PUBKEY_get0_param(NULL, NULL, NULL, &palg2, spki->spkac->pubkey);
+		palg = palg2;
+	} else
+		X509_REQ_get0_signature(request, &psig, &palg);
+	X509_ALGOR_get0(&o, &pptype, &ppval, palg);
+#else
 	if (spki) {
 		o = spki->spkac->pubkey->algor->algorithm;
 	} else {
 		o = request->sig_alg->algorithm;
 	}
+#endif
 	return QString(OBJ_nid2ln(OBJ_obj2nid(o)));
 }
 
@@ -393,21 +424,30 @@ ASN1_IA5STRING *pki_x509req::spki_challange()
 QString pki_x509req::getAttribute(int nid)
 {
 	int n;
+	int count;
+	QStringList ret;
+
 	n = X509_REQ_get_attr_by_NID(request, nid, -1);
 	if (n == -1)
 		return QString("");
 	X509_ATTRIBUTE *att = X509_REQ_get_attr(request, n);
 	if (!att)
 		return QString("");
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	count = X509_ATTRIBUTE_count(att);
+	for (int j = 0; j < count; j++)
+		ret << asn1ToQString(X509_ATTRIBUTE_get0_type(att, j)->
+				             value.asn1_string);
+#else
 	if (att->single)
 		return asn1ToQString(att->value.single->value.asn1_string);
 
-	int count = sk_ASN1_TYPE_num(att->value.set);
-	QStringList ret;
+	count = sk_ASN1_TYPE_num(att->value.set);
 	for (int j=0; j<count; j++) {
 		ret << asn1ToQString(sk_ASN1_TYPE_value(att->value.set, j)->
 					value.asn1_string);
 	}
+#endif
 	return ret.join(", ");
 }
 

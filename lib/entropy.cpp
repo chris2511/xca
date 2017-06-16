@@ -141,8 +141,14 @@ Entropy::~Entropy()
 		unsigned char buf[1024];
 		seed_rng();
 		f.setPermissions(QFile::ReadOwner|QFile::WriteOwner);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		RAND_bytes(buf, sizeof buf);
+#else
 		RAND_pseudo_bytes(buf, sizeof buf);
-                f.write((char*)buf, sizeof buf);
+#endif
+
+		f.write((char*)buf, sizeof buf);
 		f.close();
 	}
 #ifdef DEBUG_ENTROPY

@@ -277,7 +277,9 @@ void MainWindow::default_database()
 	if (fp) {
 		QByteArray ba;
 		ba = filename2bytearray(fi.canonicalFilePath() + "\n");
-		fwrite(ba.constData(), ba.size(), 1, fp);
+		if (fwrite(ba.constData(), ba.size(), 1, fp)) {
+			/* IGNORE_RESULT */
+		}
 		fclose(fp);
 	}
 

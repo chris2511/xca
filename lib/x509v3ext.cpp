@@ -27,8 +27,9 @@ x509v3ext::x509v3ext(const X509_EXTENSION *n)
 
 x509v3ext::x509v3ext(const x509v3ext &n)
 {
+	ASN1_OCTET_STRING *str = n.getData();
 	ext = X509_EXTENSION_new();
-	if (n.ext && n.ext->value && n.ext->value->length > 0)
+	if (str && str->length)
 		set(n.ext);
 }
 
@@ -59,9 +60,13 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		ext = X509_EXTENSION_new();
 	else {
 		if (ctx && ctx->subject_cert) {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			X509_add_ext(ctx->subject_cert, ext, -1);
+#else
 			STACK_OF(X509_EXTENSION) **sk;
 			sk = &ctx->subject_cert->cert_info->extensions;
 			X509v3_add_ext(sk, ext, -1);
+#endif
 		}
 	}
 	return *this;
@@ -118,6 +123,11 @@ int x509v3ext::getCritical() const
 	return X509_EXTENSION_get_critical(ext);
 }
 
+ASN1_OCTET_STRING *x509v3ext::getData() const
+{
+	return X509_EXTENSION_get_data(ext);
+}
+
 QString x509v3ext::getValue(bool html) const
 {
 	QString text = "";
@@ -127,7 +137,7 @@ QString x509v3ext::getValue(bool html) const
 
 	ret = X509V3_EXT_print(bio, ext, X509V3_EXT_DEFAULT, 0);
 	if (ign_openssl_error() || !ret) {
-		ret = M_ASN1_OCTET_STRING_print(bio, ext->value);
+		ret = ASN1_STRING_print(bio, (ASN1_STRING *) getData());
 	}
 	if (!ign_openssl_error() && ret) {
 		long len = BIO_get_mem_data(bio, &p);
@@ -362,8 +372,25 @@ bool x509v3ext::parse_ia5(QString *single, QString *adv) const
 	QString ret;
 
 	if (!str) {
-		const unsigned char *p = ext->value->data;
-		str = d2i_ASN1_type_bytes(NULL, &p, ext->value->length, TEXTS);
+		const unsigned char *p = getData()->data;
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+		long len;
+		int tag, xclass;
+		if (ASN1_get_object(&p, &len, &tag, &xclass, getData()->length) & 0x80)
+			return false;
+		if (tag >= 32)
+			return false;
+		if (!(ASN1_tag2bit(tag) & TEXTS))
+			return false;
+		if (!(str = ASN1_STRING_type_new(tag)))
+			return false;
+		if (!ASN1_STRING_set(str, p, len)) {
+			ASN1_STRING_free(str);
+			return false;
+		}
+#else
+		str = d2i_ASN1_type_bytes(NULL, &p, getData()->length, TEXTS);
+#endif
 		if (ign_openssl_error() || !str)
 			return false;
 		ret = QString("<ERROR: NOT IA5 but %1>%2").
@@ -766,7 +793,7 @@ bool x509v3ext::parse_generic(QString *, QString *adv) const
 {
 	const ASN1_OBJECT *o = object();
 	QString der, obj = o ? obj2SnOid(o) : QString("<ERROR>");
-	ASN1_OCTET_STRING *v = ext->value;
+	ASN1_OCTET_STRING *v = getData();
 
 	for (int i=0; i<v->length; i++)
 		der += QString(":%1").arg((int)(v->data[i]), 2, 16, QChar('0'));
@@ -963,8 +990,8 @@ X509_EXTENSION *x509v3ext::get() const
 
 bool x509v3ext::isValid() const
 {
-	return ext && ext->value && ext->value->length > 0 &&
-		OBJ_obj2nid(ext->object) != NID_undef;
+	return ext && getData() && getData()->length > 0 &&
+		OBJ_obj2nid(X509_EXTENSION_get_object(ext)) != NID_undef;
 }
 
 /*************************************************************/
@@ -992,7 +1019,7 @@ void extList::genGenericConf(QString *adv)
 	}
 }
 
-void extList::setStack(STACK_OF(X509_EXTENSION) *st, int start)
+void extList::setStack(const STACK_OF(X509_EXTENSION) *st, int start)
 {
 	clear();
 	int cnt = sk_X509_EXTENSION_num(st);
