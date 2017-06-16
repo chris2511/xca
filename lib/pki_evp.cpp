@@ -22,6 +22,8 @@
 #include <QApplication>
 #include <QDir>
 
+#include "openssl_compat.h"
+
 Passwd pki_evp::passwd;
 Passwd pki_evp::oldpasswd;
 
@@ -31,11 +33,7 @@ QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
 void pki_evp::init(int type)
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	EVP_PKEY_set_type(key, type);
-#else
-	key->type = type;
-#endif
 	class_name = "pki_evp";
 	ownPass = ptCommon;
 	dataVersion=2;
@@ -80,11 +78,6 @@ void pki_evp::setOwnPass(enum passType x)
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
 {
 	Entropy::seed_rng();
-	RSA *rsakey = NULL;
-	DSA *dsakey = NULL;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	BN_GENCB *cb = NULL;
-#endif
 
 #ifdef OPENSSL_NO_EC
 	(void)curve_nid;
@@ -93,60 +86,35 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 	progress->setMaximum(100);
 	progress->setValue(50);
 
-	switch (type) {
-	case EVP_PKEY_RSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		BIGNUM *e;
-	    e = BN_new();
-		if (e) {
-			if (BN_set_word(e, 0x10001)) {
-				cb = BN_GENCB_new();
-				if (cb) {
-					BN_GENCB_set_old(cb, inc_progress_bar, progress);
-					rsakey = RSA_new();
-					if (rsakey) {
-						if (!RSA_generate_key_ex(rsakey, bits, e, cb)) {
-							RSA_free(rsakey);
-							rsakey = NULL;
-						}
-					}
-					BN_GENCB_free(cb);
-				}
-			}
-			BN_clear_free(e);
-		}
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	BN_GENCB _bar, *bar = &_bar;
 #else
-		rsakey = RSA_generate_key(bits, 0x10001, inc_progress_bar,
-			progress);
+	BN_GENCB *bar = BN_GENCB_new();
 #endif
+	BN_GENCB_set_old(bar, inc_progress_bar, progress);
 
-		if (rsakey)
+	switch (type) {
+	case EVP_PKEY_RSA: {
+		RSA *rsakey = RSA_new();
+		BIGNUM *e = BN_new();
+		BN_set_word(e, 0x10001);
+		if (RSA_generate_key_ex(rsakey, bits, e, bar))
 			EVP_PKEY_assign_RSA(key, rsakey);
+		else
+			RSA_free(rsakey);
+		BN_free(e);
 		break;
-	case EVP_PKEY_DSA:
+	}
+	case EVP_PKEY_DSA: {
+		DSA *dsakey = DSA_new();
 		progress->setMaximum(500);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		cb = BN_GENCB_new();
-		if (cb) {
-			BN_GENCB_set_old(cb, inc_progress_bar, progress);
-			dsakey = DSA_new();
-			if (dsakey) {
-				if (!DSA_generate_parameters_ex(dsakey, bits,
-												NULL, 0, NULL, NULL, cb)) {
-					DSA_free(dsakey);
-					dsakey = NULL;
-				}
-			}
-			BN_GENCB_free(cb);
-		}
-#else
-		dsakey = DSA_generate_parameters(bits, NULL, 0, NULL, NULL,
-				inc_progress_bar, progress);
-#endif
-		DSA_generate_key(dsakey);
-		if (dsakey)
-			EVP_PKEY_assign_DSA(key, dsakey);
+		if (DSA_generate_parameters_ex(dsakey, bits, NULL, 0, NULL,
+		    NULL, bar) && DSA_generate_key(dsakey))
+				EVP_PKEY_assign_DSA(key, dsakey);
+		else
+			DSA_free(dsakey);
 		break;
+	}
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		EC_KEY *eckey;
@@ -171,6 +139,10 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 		break;
 #endif
 	}
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+	BN_GENCB_free(bar);
+#endif
+
 	pki_openssl_error();
 	encryptKey();
 }

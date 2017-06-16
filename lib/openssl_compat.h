@@ -20,6 +20,7 @@
 #define X509_get0_extensions(cert) ((cert)->cert_info->extensions)
 #define X509_get_signature_nid(cert) OBJ_obj2nid((cert)->sig_alg->algorithm)
 #define X509_REQ_get_signature_nid(req) OBJ_obj2nid((req)->sig_alg->algorithm)
+#define EVP_PKEY_set_type(key, type) ((key)->type = (type))
 
 #endif
 
