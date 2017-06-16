@@ -21,6 +21,9 @@
 #define X509_get_signature_nid(cert) OBJ_obj2nid((cert)->sig_alg->algorithm)
 #define X509_REQ_get_signature_nid(req) OBJ_obj2nid((req)->sig_alg->algorithm)
 #define EVP_PKEY_set_type(key, type) ((key)->type = (type))
+#define X509_REVOKED_get0_serialNumber(r) (r->serialNumber)
+#define X509_REVOKED_get0_revocationDate(r) (r->revocationDate)
+
 
 #endif
 
