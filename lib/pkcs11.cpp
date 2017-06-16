@@ -25,6 +25,8 @@
 #include "ui_SelectToken.h"
 #include "widgets/PwDialog.h"
 
+#include "openssl_compat.h"
+
 pkcs11_lib_list pkcs11::libs;
 
 pkcs11::pkcs11()
@@ -458,13 +460,7 @@ pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
 	while (1) {
 		unsigned char buf[ID_LEN];
 		pk11_attlist atts(class_att);
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		RAND_bytes(buf, ID_LEN);
-#else
-		RAND_pseudo_bytes(buf, ID_LEN);
-#endif
-
 		id.setValue(buf, ID_LEN);
 		atts << id;
 		if (objectList(atts).count() == 0)

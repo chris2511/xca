@@ -18,6 +18,7 @@
 #include <openssl/rand.h>
 #include "func.h"
 #include "entropy.h"
+#include "openssl_compat.h"
 
 #ifdef WIN32
 /* On Windows O_NONBLOCK is an unknown concept :-)
@@ -141,13 +142,7 @@ Entropy::~Entropy()
 		unsigned char buf[1024];
 		seed_rng();
 		f.setPermissions(QFile::ReadOwner|QFile::WriteOwner);
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		RAND_bytes(buf, sizeof buf);
-#else
-		RAND_pseudo_bytes(buf, sizeof buf);
-#endif
-
 		f.write((char*)buf, sizeof buf);
 		f.close();
 	}
