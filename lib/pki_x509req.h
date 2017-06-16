@@ -31,7 +31,7 @@ class pki_x509req : public pki_x509super
 		X509_REQ *request;
 		NETSCAPE_SPKI *spki;
 		bool done;
-		const ASN1_OBJECT *sigAlg();
+		int sigAlg();
 
 	public:
 		extList getV3ext();

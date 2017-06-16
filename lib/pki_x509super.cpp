@@ -52,14 +52,12 @@ void pki_x509super::delRefKey(pki_key *ref)
 
 QString pki_x509super::getSigAlg()
 {
-	QString alg = OBJ_nid2ln(OBJ_obj2nid(sigAlg()));
-	pki_openssl_error();
-	return alg;
+	return QString(OBJ_nid2ln(sigAlg()));
 }
 
 const EVP_MD *pki_x509super::getDigest()
 {
-	return EVP_get_digestbyobj(sigAlg());
+	return EVP_get_digestbynid(sigAlg());
 }
 
 QVariant pki_x509super::column_data(dbheader *hd)

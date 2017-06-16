@@ -15,8 +15,12 @@
 #define __OPENSS_COMPAT_XCA_H
 
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
+
 #define RAND_bytes(buf, size) RAND_pseudo_bytes((buf), (size))
-#define X509_get0_extensions(cert) (cert)->cert_info->extensions
+#define X509_get0_extensions(cert) ((cert)->cert_info->extensions)
+#define X509_get_signature_nid(cert) OBJ_obj2nid((cert)->sig_alg->algorithm)
+#define X509_REQ_get_signature_nid(req) OBJ_obj2nid((req)->sig_alg->algorithm)
 
 #endif
+
 #endif

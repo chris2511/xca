@@ -791,21 +791,9 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	return el[i];
 }
 
-const ASN1_OBJECT *pki_x509::sigAlg()
+int pki_x509::sigAlg()
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	const ASN1_BIT_STRING *psig;
-	const X509_ALGOR *palg;
-	const ASN1_OBJECT *paobj;
-	int pptype;
-	const void *ppval;
-
-	X509_get0_signature(&psig, &palg, cert);
-	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
-	return paobj;
-#else
-	return cert->sig_alg->algorithm;
-#endif
+	return X509_get_signature_nid(cert);
 }
 
 pki_x509 *pki_x509::getSigner()

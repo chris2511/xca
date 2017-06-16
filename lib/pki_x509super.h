@@ -32,8 +32,8 @@ class pki_x509super : public pki_x509name
 		Q_OBJECT
 	protected:
 		pki_key *privkey;
-		virtual const ASN1_OBJECT *sigAlg() {
-			return NULL;
+		virtual int sigAlg() {
+			return NID_undef;
 		}
 	public:
 		pki_x509super(const QString name = "");

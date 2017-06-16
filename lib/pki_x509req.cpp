@@ -16,6 +16,8 @@
 #include <openssl/err.h>
 #include <QDir>
 
+#include "openssl_compat.h"
+
 QPixmap *pki_x509req::icon[4] = { NULL, NULL, NULL, NULL };
 
 pki_x509req::pki_x509req(const QString name)
@@ -206,21 +208,9 @@ x509name pki_x509req::getSubject() const
 	return x;
 }
 
-const ASN1_OBJECT *pki_x509req::sigAlg()
+int pki_x509req::sigAlg()
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	const ASN1_BIT_STRING *psig;
-	const X509_ALGOR *palg;
-	const ASN1_OBJECT *paobj;
-	int pptype;
-	const void *ppval;
-
-	X509_REQ_get0_signature(request, &psig, &palg);
-	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
-	return paobj;
-#else
-	return request->sig_alg->algorithm;
-#endif
+	return X509_REQ_get_signature_nid(request);
 }
 
 void pki_x509req::setSubject(const x509name &n)

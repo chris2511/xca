@@ -39,7 +39,7 @@ class pki_x509 : public pki_x509super
 		x509rev revocation;
 
 	protected:
-		const ASN1_OBJECT *sigAlg();
+		int sigAlg();
 
 	public:
 		static QPixmap *icon[6];
