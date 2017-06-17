@@ -32,6 +32,8 @@
 #define DSA_SIG_set0(dsa_sig, r, s) ((dsa_sig)->r = r, (dsa_sig)->s = s)
 #define EVP_PKEY_get0_DSA(pub) ((pub)->pkey.dsa)
 #define EVP_PKEY_get0_RSA(pub) ((pub)->pkey.rsa)
+#define EVP_PKEY_get0_EC_KEY(pub) ((pub)->pkey.ec)
+#define EVP_PKEY_get0(p) ((p)->pkey.ptr)
 
 #define X509_CRL_get_signature_nid(crl) OBJ_obj2nid((crl)->sig_alg->algorithm)
 #define X509_CRL_get0_extensions(crl) ((crl)->crl->extensions)

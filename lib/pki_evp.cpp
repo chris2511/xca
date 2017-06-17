@@ -173,54 +173,50 @@ pki_evp::pki_evp(EVP_PKEY *pkey)
 	key = pkey;
 }
 
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 {
-	int keytype;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	keytype = EVP_PKEY_id(key);
-#else
-	keytype = key->type;
-#endif
+	const BIGNUM *b;
+	int keytype = EVP_PKEY_id(key);
 
 	switch (EVP_PKEY_type(keytype)) {
 		case EVP_PKEY_RSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		RSA *rsa;
-		const BIGNUM *d;
-		d = NULL;
-	   	rsa = EVP_PKEY_get0_RSA(key);
-		if (rsa)
-			RSA_get0_key(rsa, NULL, NULL, &d);
-		return d? true: false;
-#else
-			return key->pkey.rsa->d ? true: false;
-#endif
+			RSA_get0_key(EVP_PKEY_get0_RSA(key), NULL, NULL, &b);
+			return b ? true: false;
 		case EVP_PKEY_DSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-			DSA *dsa;
-			const BIGNUM *privkey;
-			dsa = EVP_PKEY_get0_DSA(key);
-			privkey = NULL;
-			if (dsa)
-				DSA_get0_key(dsa, NULL, &privkey);
-			return privkey? true: false;
-#else
-			return key->pkey.dsa->priv_key ? true: false;
-#endif
+			DSA_get0_key(EVP_PKEY_get0_DSA(key), NULL, &b);
+			return b ? true: false;
 #ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-			EC_KEY *ec;
-			ec = EVP_PKEY_get0_EC_KEY(key);
-			return ec? true: false;
-#else
-			return EC_KEY_get0_private_key(key->pkey.ec) ? true: false;
-#endif
+			return EC_KEY_get0_private_key(
+				EVP_PKEY_get0_EC_KEY(key)) ? true: false;
 #endif
 	}
 	return false;
 }
+
+#else
+
+static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
+{
+	int keytype;
+
+	keytype = EVP_PKEY_id(key);
+
+	switch (EVP_PKEY_type(keytype)) {
+		case EVP_PKEY_RSA:
+			return key->pkey.rsa->d ? true: false;
+		case EVP_PKEY_DSA:
+			return key->pkey.dsa->priv_key ? true: false;
+#ifndef OPENSSL_NO_EC
+		case EVP_PKEY_EC:
+			return EC_KEY_get0_private_key(key->pkey.ec) ?
+							true: false;
+#endif
+	}
+	return false;
+}
+#endif
 
 void pki_evp::openssl_pw_error(QString fname)
 {
@@ -263,23 +259,13 @@ void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 static void search_ec_oid(EVP_PKEY *pkey)
 {
 #ifndef OPENSSL_NO_EC
-	int keytype;
 	EC_KEY *ec;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	keytype = EVP_PKEY_id(pkey);
-#else
-	keytype = pkey->type;
-#endif
+	int keytype = EVP_PKEY_id(pkey);
 
 	if (keytype != EVP_PKEY_EC)
 		return;
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	ec = EVP_PKEY_get0_EC_KEY(pkey);
-#else
-	ec = pkey->pkey.ec;
-#endif
 
 	const EC_GROUP *ec_group = EC_KEY_get0_group(ec);
 	EC_GROUP *builtin;
@@ -406,12 +392,7 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head)
 	pki_openssl_error();
 
 	if (key)
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		ptr = EVP_PKEY_get0(key);
-#else
-		ptr = key->pkey.ptr;
-#endif
-
 	if (!ptr)
 		throw errorEx(tr("Ignoring unsupported private key"));
 
@@ -504,12 +485,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 #endif
 	pki_openssl_error();
 	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
-		RSA *rsa;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	   	rsa = EVP_PKEY_get0_RSA(tmpkey);
-#else
-		rsa = tmpkey->pkey.rsa;
-#endif
+		RSA *rsa = EVP_PKEY_get0_RSA(tmpkey);
 		RSA_blinding_on(rsa, NULL);
 	}
 	return tmpkey;
@@ -718,44 +694,29 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		pkey = decryptKey();
 		if (pkey) {
 			if (pem) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 				keytype = EVP_PKEY_id(pkey);
-#else
-				keytype = pkey->type;
-#endif
 				switch (keytype) {
 				case EVP_PKEY_RSA:
-					RSA *rsa;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-					rsa = EVP_PKEY_get0_RSA(pkey);
-#else
-					rsa = pkey->pkey.rsa;
-#endif
-					PEM_write_RSAPrivateKey(fp, rsa, enc, NULL, 0, cb, &p);
+					PEM_write_RSAPrivateKey(fp,
+						EVP_PKEY_get0_RSA(pkey),
+						enc, NULL, 0, cb, &p);
 					break;
 				case EVP_PKEY_DSA:
-					DSA *dsa;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-					dsa = EVP_PKEY_get0_DSA(pkey);
-#else
-					dsa = pkey->pkey.dsa;
-#endif
-					PEM_write_DSAPrivateKey(fp, dsa, enc, NULL, 0, cb, &p);
+					PEM_write_DSAPrivateKey(fp,
+						EVP_PKEY_get0_DSA(pkey),
+						enc, NULL, 0, cb, &p);
 					break;
 #ifndef OPENSSL_NO_EC
 				case EVP_PKEY_EC:
-					EC_KEY *ec;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-					ec = EVP_PKEY_get0_EC_KEY(pkey);
-#else
-					ec = pkey->pkey.ec;
-#endif
-					PEM_write_ECPrivateKey(fp, ec, enc, NULL, 0, cb, &p);
+					PEM_write_ECPrivateKey(fp,
+						EVP_PKEY_get0_EC_KEY(pkey),
+						enc, NULL, 0, cb, &p);
 					break;
 #endif
 				default:
-					PEM_write_PrivateKey(fp, pkey,
-							enc, NULL, 0, cb, &p);
+					PEM_write_PrivateKey(fp,
+						pkey,
+						enc, NULL, 0, cb, &p);
 				}
 			} else {
 				i2d_PrivateKey_fp(fp, pkey);
@@ -780,12 +741,7 @@ int pki_evp::verify()
 	bool veri = false;
 	return true;
 	if (getKeyType() == EVP_PKEY_RSA && isPrivKey()) {
-		RSA *rsa;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		rsa = EVP_PKEY_get0_RSA(key);
-#else
-		rsa = key->pkey.rsa;
-#endif
+		RSA *rsa = EVP_PKEY_get0_RSA(key);
 		if (RSA_check_key(rsa) == 1)
 			veri = true;
 	}
