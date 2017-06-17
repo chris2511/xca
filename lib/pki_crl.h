@@ -23,6 +23,7 @@ class pki_crl: public pki_x509name
 	protected:
 		pki_x509 *issuer;
 		X509_CRL *crl;
+		extList extensions() const;
 	public:
 		pki_crl(const QString name = "");
 		/* destructor */

@@ -11,6 +11,8 @@
 #include "exception.h"
 #include <QDir>
 
+#include "openssl_compat.h"
+
 QPixmap *pki_crl::icon = NULL;
 
 pki_crl::pki_crl(const QString name )
@@ -80,23 +82,7 @@ void pki_crl::fload(const QString fname)
 
 QString pki_crl::getSigAlg()
 {
-	QString alg;
-	const ASN1_OBJECT *paobj;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	const ASN1_BIT_STRING *psig;
-	const X509_ALGOR *palg;
-	int pptype;
-	const void *ppval;
-
-	X509_CRL_get0_signature(crl, &psig, &palg);
-	X509_ALGOR_get0(&paobj, &pptype, &ppval, palg);
-#else
-	paobj = crl->sig_alg->algorithm;
-#endif
-
-	alg = OBJ_nid2ln(OBJ_obj2nid(paobj));
-	return alg;
+	return QString(OBJ_nid2ln(X509_CRL_get_signature_nid(crl)));
 }
 
 void pki_crl::createCrl(const QString d, pki_x509 *iss )
@@ -105,26 +91,16 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	issuer = iss;
 	if (!iss)
 		my_error(tr("No issuer given"));
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	X509_CRL_set_version(crl, 1); /* version 2 CRL */
 	X509_CRL_set_issuer_name(crl, issuer->getSubject().get());
-#else
-	a1int version = 1; /* version 2 CRL */
-	crl->crl->version = version.get();
-	crl->crl->issuer = issuer->getSubject().get();
-#endif
+	X509_CRL_set_issuer_name(crl, (X509_NAME*)issuer->getSubject().get0());
+
 	pki_openssl_error();
 }
 
 a1int pki_crl::getVersion()
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	a1int a(X509_CRL_get_version(crl));
-#else
-	a1int a(crl->crl->version);
-#endif
-
-	return a;
+	return a1int(X509_CRL_get_version(crl));
 }
 
 void pki_crl::setLastUpdate(const a1time &a)
@@ -193,19 +169,21 @@ void pki_crl::addV3ext(const x509v3ext &e)
 	pki_openssl_error();
 }
 
-bool pki_crl::visible()
+extList pki_crl::extensions() const
 {
 	extList el;
+	el.setStack(X509_CRL_get0_extensions(crl));
+	pki_openssl_error();
+	return el;
+}
+
+bool pki_crl::visible()
+{
 	if (pki_x509name::visible())
 		return true;
 	if (getSigAlg().contains(limitPattern))
 		return true;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	el.setStack(X509_CRL_get0_extensions(crl));
-#else
-	el.setStack(crl->crl->extensions);
-#endif
-	return el.search(limitPattern);
+	return extensions().search(limitPattern);
 }
 
 void pki_crl::sign(pki_key *key, const EVP_MD *md)
@@ -390,14 +368,8 @@ bool pki_crl::getCrlNumber(a1int *num)
 
 x509v3ext pki_crl::getExtByNid(int nid)
 {
-	extList el;
+	extList el = extensions();
 	x509v3ext e;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	el.setStack(X509_CRL_get0_extensions(crl));
-#else
-	el.setStack(crl->crl->extensions);
-#endif
 
 	for (int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
@@ -407,15 +379,7 @@ x509v3ext pki_crl::getExtByNid(int nid)
 
 QString pki_crl::printV3ext()
 {
-	extList el;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	el.setStack(X509_CRL_get0_extensions(crl));
-#else
-	el.setStack(crl->crl->extensions);
-#endif
-
-	QString text = el.getHtml("<br>");
+	QString text = extensions().getHtml("<br>");
 	pki_openssl_error();
 	return text;
 }

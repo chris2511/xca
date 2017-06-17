@@ -277,3 +277,8 @@ X509_NAME *x509name::get() const
 	return X509_NAME_dup(xn);
 }
 
+const X509_NAME *x509name::get0() const
+{
+	return xn;
+}
+

@@ -130,6 +130,11 @@ ASN1_INTEGER *a1int::get() const
 	return dup(in);
 }
 
+const ASN1_INTEGER *a1int::get0() const
+{
+       return in;
+}
+
 long a1int::getLong() const
 {
 	return ASN1_INTEGER_get(in);

@@ -41,6 +41,7 @@ class x509name
 		QString checkLength() const;
 		QString popEntryByNid(int nid);
 		X509_NAME *get() const;
+		const X509_NAME *get0() const;
 		QString getMostPopular() const;
 		QString taggedValues() const;
 		QString hash() const;
