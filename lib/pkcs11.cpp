@@ -672,13 +672,7 @@ static int rsa_encrypt(int flen, const unsigned char *from,
 	if (padding != RSA_PKCS1_PADDING) {
 		return -1;
 	}
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	RSA_get0_key(rsa, &n, NULL, NULL);
-#else
-	n = rsa->n;
-#endif
-
 	return priv->encrypt(flen, from, to, BN_num_bytes(n), CKM_RSA_PKCS);
 }
 
@@ -716,12 +710,7 @@ static DSA_SIG *dsa_sign(const unsigned char *dgst, int dlen, DSA *dsa)
 	rs_len = len / 2;
 	r = BN_bin2bn(rs_buf, rs_len, NULL);
 	s = BN_bin2bn(rs_buf + rs_len, rs_len, NULL);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	DSA_SIG_set0(dsa_sig, r, s);
-#else
-	dsa_sig->r = r;
-	dsa_sig->s = s;
-#endif
 	if (r && s)
 		return dsa_sig;
 out:
@@ -749,8 +738,7 @@ static int ec_sign_setup(EC_KEY *ec, BN_CTX *ctx, BIGNUM **kinvp, BIGNUM **rp)
 }
 
 static ECDSA_SIG *ec_do_sign(const unsigned char *dgst, int dgst_len,
-							 const BIGNUM *in_kinv, const BIGNUM *in_r,
-							 EC_KEY *ec)
+			 const BIGNUM *in_kinv, const BIGNUM *in_r, EC_KEY *ec)
 {
 	int len, rs_len;
 	unsigned char rs_buf[512];
@@ -783,8 +771,8 @@ out:
 }
 
 static int ec_sign(int type, const unsigned char *dgst, int dlen,
-				   unsigned char *sig, unsigned int *siglen,
-				   const BIGNUM *kinv, const BIGNUM *r, EC_KEY *ec)
+			   unsigned char *sig, unsigned int *siglen,
+			   const BIGNUM *kinv, const BIGNUM *r, EC_KEY *ec)
 {
 	ECDSA_SIG *ec_sig;
 	int ret = 0;
@@ -804,6 +792,27 @@ out:
 	ECDSA_SIG_free(ec_sig);
 	ign_openssl_error();
 	return ret;
+}
+
+static EC_KEY_METHOD *setup_ec_key_meth()
+{
+	EC_KEY_METHOD *ec_key_meth;
+	int (*ec_init_proc)(EC_KEY *key);
+	void (*ec_finish_proc)(EC_KEY *key);
+	int (*ec_copy_proc)(EC_KEY *dest, const EC_KEY *src);
+	int (*ec_set_group_proc)(EC_KEY *key, const EC_GROUP *grp);
+	int (*ec_set_private_proc)(EC_KEY *key, const BIGNUM *priv_key);
+	int (*ec_set_public_proc)(EC_KEY *key, const EC_POINT *pub_key);
+
+	ec_key_meth = EC_KEY_METHOD_new(EC_KEY_get_default_method());
+	EC_KEY_METHOD_set_sign(ec_key_meth, ec_sign, ec_sign_setup, ec_do_sign);
+	EC_KEY_METHOD_get_init(ec_key_meth, &ec_init_proc, &ec_finish_proc,
+				&ec_copy_proc, &ec_set_group_proc,
+				&ec_set_private_proc, &ec_set_public_proc);
+	EC_KEY_METHOD_set_init(ec_key_meth, ec_init_proc, ec_privdata_free,
+				ec_copy_proc, ec_set_group_proc,
+				ec_set_private_proc, ec_set_public_proc);
+	return ec_key_meth;
 }
 #endif
 
@@ -826,23 +835,15 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 
 	p11slot.isValid();
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	keytype = EVP_PKEY_id(pub);
-#else
-	keytype = pub->type;
-#endif
 
 	switch (EVP_PKEY_type(keytype)) {
 	case EVP_PKEY_RSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		rsa = EVP_PKEY_get0_RSA(pub);
-#else
-		rsa = pub->pkey.rsa;
-#endif
 		rsa = RSAPublicKey_dup(rsa);
 		openssl_error();
 		if (!rsa_meth) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0x1010000L
 			rsa_meth = RSA_meth_dup(RSA_get_default_method());
 			RSA_meth_set_priv_enc(rsa_meth, rsa_encrypt);
 			RSA_meth_set_priv_dec(rsa_meth, rsa_decrypt);
@@ -863,11 +864,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		EVP_PKEY_assign_RSA(evp, rsa);
 		break;
 	case EVP_PKEY_DSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		dsa = EVP_PKEY_get0_DSA(pub);
-#else
-		dsa = pub->pkey.dsa;
-#endif
 		dsa = DSAparams_dup(dsa);
 		openssl_error();
 		if (!dsa_meth) {
@@ -895,22 +892,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		ec = EC_KEY_dup(ec);
 		openssl_error();
 		if (!ec_key_meth) {
-			int (*ec_init_proc)(EC_KEY *key);
-			void (*ec_finish_proc)(EC_KEY *key);
-			int (*ec_copy_proc)(EC_KEY *dest, const EC_KEY *src);
-			int (*ec_set_group_proc)(EC_KEY *key, const EC_GROUP *grp);
-			int (*ec_set_private_proc)(EC_KEY *key, const BIGNUM *priv_key);
-			int (*ec_set_public_proc)(EC_KEY *key, const EC_POINT *pub_key);
-
-			ec_key_meth = EC_KEY_METHOD_new(EC_KEY_get_default_method());
-			EC_KEY_METHOD_set_sign(ec_key_meth,
-								   ec_sign, ec_sign_setup, ec_do_sign);
-			EC_KEY_METHOD_get_init(ec_key_meth, &ec_init_proc, &ec_finish_proc,
-								   &ec_copy_proc, &ec_set_group_proc,
-								   &ec_set_private_proc, &ec_set_public_proc);
-			EC_KEY_METHOD_set_init(ec_key_meth, ec_init_proc, ec_privdata_free,
-								   ec_copy_proc, ec_set_group_proc,
-								   ec_set_private_proc, ec_set_public_proc);
+			ec_key_meth = setup_ec_key_meth();
 		}
 		p11obj = obj;
 		EC_KEY_set_method(ec, ec_key_meth);
