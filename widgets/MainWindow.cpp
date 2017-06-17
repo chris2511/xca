@@ -343,7 +343,12 @@ bool MainWindow::pastePem(QString text)
 {
 	bool success = false;
 	QByteArray pemdata = text.toLatin1();
-	BIO *b = BIO_QBA_mem_buf(pemdata);
+	if (pemdata.size() == 0)
+		return false;
+	FILE *fp = fmemopen(pemdata.data(), pemdata.size(), "rb");
+	check_oom(fp);
+	BIO *b = BIO_new_fp(fp, BIO_CLOSE);
+
 	check_oom(b);
 	pki_multi *pem = NULL;
 	ImportMulti *dlgi = NULL;
