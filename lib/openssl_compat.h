@@ -35,6 +35,8 @@
 
 #define X509_CRL_get_signature_nid(crl) OBJ_obj2nid((crl)->sig_alg->algorithm)
 #define X509_CRL_get0_extensions(crl) ((crl)->crl->extensions)
+#define X509_CRL_get0_lastUpdate(crl) ((crl)->crl->lastUpdate)
+#define X509_CRL_get0_nextUpdate(crl) ((crl)->crl->nextUpdate)
 
 static inline void RSA_get0_key(const RSA *r,
 	const BIGNUM **n, const BIGNUM **e, const BIGNUM **d)

@@ -28,7 +28,7 @@ pki_crl::pki_crl(const QString name )
 
 void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 {
-	X509_CRL*_crl;
+	X509_CRL *_crl;
 	_crl = PEM_read_bio_X509_CRL(bio, NULL, NULL, NULL);
 	openssl_error(name);
 	X509_CRL_free(crl);
@@ -71,8 +71,7 @@ void pki_crl::fload(const QString fname)
 				X509_CRL_free(_crl);
 			throw errorEx(tr("Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
 		}
-		if (crl)
-			X509_CRL_free(crl);
+		X509_CRL_free(crl);
 		crl = _crl;
 		setIntName(rmslashdot(fname));
 		pki_openssl_error();
@@ -207,12 +206,10 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 {
 	FILE *fp = fopen_write(fname);
 	if (fp != NULL) {
-		if (crl){
-			if (pem)
-				PEM_write_X509_CRL(fp, crl);
-			else
-				i2d_X509_CRL_fp(fp, crl);
-		}
+		if (pem)
+			PEM_write_X509_CRL(fp, crl);
+		else
+			i2d_X509_CRL_fp(fp, crl);
 		fclose(fp);
 		pki_openssl_error();
 	} else
@@ -230,106 +227,44 @@ BIO *pki_crl::pem(BIO *b, int format)
 
 a1time pki_crl::getLastUpdate()
 {
-	a1time a;
-	const ASN1_TIME *at = NULL;
-
-	if (crl)
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		at = X509_CRL_get0_lastUpdate(crl);
-#else
-		if (crl->crl)
-			at = crl->crl->lastUpdate;
-#endif
-
-	if (at)
-		a.set(at);
-
-	return a;
+	return a1time(X509_CRL_get0_lastUpdate(crl));
 }
 
 a1time pki_crl::getNextUpdate()
 {
-	a1time a;
-	const ASN1_TIME *at = NULL;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		at = X509_CRL_get0_nextUpdate(crl);
-#else
-		if (crl->crl)
-			at = crl->crl->nextUpdate;
-#endif
-
-	if (at)
-		a.set(at);
-
-	return a;
+	return a1time(X509_CRL_get0_nextUpdate(crl));
 }
 
 int pki_crl::numRev()
 {
-	int n = 0;
-	STACK_OF(X509_REVOKED) *st = NULL;
+	STACK_OF(X509_REVOKED) *st = X509_CRL_get_REVOKED(crl);
 
-	if (crl)
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		st = X509_CRL_get_REVOKED(crl);
-#else
-		if (crl->crl)
-			st = crl->crl->revoked;
-#endif
-
-	if (st)
-		n = sk_X509_REVOKED_num(st);
-
-	return n;
+	return st ? sk_X509_REVOKED_num(st) : 0;
 }
 
 x509revList pki_crl::getRevList()
 {
 	x509revList ret;
 	int i, num = numRev();
+	STACK_OF(X509_REVOKED) *st = X509_CRL_get_REVOKED(crl);
 
-	if (num) {
-		STACK_OF(X509_REVOKED) *st;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		st = X509_CRL_get_REVOKED(crl);
-#else
-		st = crl->crl->revoked;
-#endif
-
-		for (i=0; i<num; i++) {
-			x509rev r(sk_X509_REVOKED_value(st, i));
-			pki_openssl_error();
-			ret << r;
-		}
+	for (i=0; i<num; i++) {
+		x509rev r(sk_X509_REVOKED_value(st, i));
+		pki_openssl_error();
+		ret << r;
 	}
 	return ret;
 }
 
 x509name pki_crl::getSubject() const
 {
-	x509name x;
-	X509_NAME *iss = NULL;
-
-	if (crl)
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		iss = X509_CRL_get_issuer(crl);
-#else
-		if (crl->crl)
-			iss = crl->crl->issuer;
-#endif
-
-	if (iss)
-		x.set(iss);
-
-	return x;
+	return x509name(X509_CRL_get_issuer(crl));
 }
 
 bool pki_crl::verify(pki_key *key)
 {
 	bool ret=false;
-	if (crl && key) {
+	if (key) {
 		ret = (X509_CRL_verify(crl, key->getPubKey()) == 1);
 		pki_ign_openssl_error();
 	}
