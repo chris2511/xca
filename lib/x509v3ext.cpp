@@ -60,13 +60,7 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		ext = X509_EXTENSION_new();
 	else {
 		if (ctx && ctx->subject_cert) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 			X509_add_ext(ctx->subject_cert, ext, -1);
-#else
-			STACK_OF(X509_EXTENSION) **sk;
-			sk = &ctx->subject_cert->cert_info->extensions;
-			X509v3_add_ext(sk, ext, -1);
-#endif
 		}
 	}
 	return *this;
