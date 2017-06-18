@@ -58,7 +58,6 @@ class pki_x509req : public pki_x509super
 		pki_key *getPubKey() const;
 		void createReq(pki_key *key, const x509name &dn, const EVP_MD *md,
 		   extList el);
-		QString getSigAlg();
 		void setSubject(const x509name &n);
 		/* SPKAC special functions */
 		ASN1_IA5STRING *spki_challange();

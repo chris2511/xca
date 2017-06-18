@@ -14,6 +14,7 @@
 #include <openssl/err.h>
 #include <QMessageBox>
 
+#include "openssl_compat.h"
 
 pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
 	:pki_base(d)
@@ -61,15 +62,9 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 		}
 		ign_openssl_error();
 		if (mycert) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-			int len = 0;
 			unsigned char *str = X509_alias_get0(mycert, NULL);
 			if (str)
-				alias = QString::fromUtf8((const char *) str, len);
-#else
-			if (mycert->aux && mycert->aux->alias)
-				alias = asn1ToQString(mycert->aux->alias);
-#endif
+				alias = QString::fromUtf8((const char *)str);
 			alias = QString::fromUtf8(alias.toLatin1());
 			cert = new pki_x509(mycert);
 			if (alias.isEmpty()) {

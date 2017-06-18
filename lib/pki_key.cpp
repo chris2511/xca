@@ -16,6 +16,8 @@
 #include <QDir>
 #include "widgets/PwDialog.h"
 
+#include "openssl_compat.h"
+
 builtin_curves pki_key::builtinCurves;
 
 pki_key::pki_key(const QString name)
@@ -103,7 +105,6 @@ QString pki_key::length()
 {
 	bool dsa_unset = false;
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	if (EVP_PKEY_id(key) == EVP_PKEY_DSA) {
 		const BIGNUM *p = NULL;
 		DSA *dsa = EVP_PKEY_get0_DSA(key);
@@ -111,9 +112,6 @@ QString pki_key::length()
 			DSA_get0_pqg(dsa, &p, NULL, NULL);
 		dsa_unset = p == NULL;
 	}
-#else
-	dsa_unset = key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL;
-#endif
 
 	if (dsa_unset)
 		return QString("???");
@@ -219,11 +217,7 @@ int pki_key::getUcount()
 
 int pki_key::getKeyType() const
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	return EVP_PKEY_id(key);
-#else
-	return key->type;
-#endif
 }
 
 QString pki_key::modulus()
@@ -231,17 +225,10 @@ QString pki_key::modulus()
 	if (getKeyType() == EVP_PKEY_RSA) {
 		const BIGNUM *n = NULL;
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		RSA *rsa = EVP_PKEY_get0_RSA(key);
 		RSA_get0_key(rsa, &n, NULL, NULL);
-#else
-		n = key->pkey.rsa->n;
-#endif
-
 		return BN2QString(n);
 	}
-
-
 	return QString();
 }
 
@@ -249,17 +236,10 @@ QString pki_key::pubEx()
 {
 	if (getKeyType() == EVP_PKEY_RSA) {
 		const BIGNUM *e = NULL;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		RSA *rsa = EVP_PKEY_get0_RSA(key);
 		RSA_get0_key(rsa, NULL, &e, NULL);
-#else
-		e = key->pkey.rsa->e;
-#endif
 		return BN2QString(e);
 	}
-
-
 	return QString();
 }
 
@@ -267,18 +247,11 @@ QString pki_key::subprime()
 {
 	if (getKeyType() == EVP_PKEY_DSA) {
 		const BIGNUM *q = NULL;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		DSA *dsa = EVP_PKEY_get0_DSA(key);
 		if (dsa)
 			DSA_get0_pqg(dsa, NULL, &q, NULL);
-#else
-		q = key->pkey.dsa->q;
-#endif
-
 		return BN2QString(q);
 	}
-
 	return QString();
 }
 
@@ -286,18 +259,11 @@ QString pki_key::pubkey()
 {
 	if (getKeyType() == EVP_PKEY_DSA) {
 		const BIGNUM *pubkey = NULL;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		DSA *dsa = EVP_PKEY_get0_DSA(key);
 		if (dsa)
 			DSA_get0_key(dsa, &pubkey, NULL);
-#else
-		pubkey = key->pkey.dsa->pub_key;
-#endif
-
 		return BN2QString(pubkey);
 	}
-
 	return QString();
 }
 #ifndef OPENSSL_NO_EC
@@ -307,13 +273,7 @@ int pki_key::ecParamNid()
 
 	if (getKeyType() != EVP_PKEY_EC)
 		return NID_undef;
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	ec = EVP_PKEY_get0_EC_KEY(key);
-#else
-	ec = key->pkey.ec;
-#endif
-
 	return EC_GROUP_get_curve_name(EC_KEY_get0_group(ec));
 }
 
@@ -323,12 +283,7 @@ QString pki_key::ecPubKey()
 	const EC_KEY *ec = NULL;
 
 	if (getKeyType() == EVP_PKEY_EC) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		ec = EVP_PKEY_get0_EC_KEY(key);
-#else
-		ec = key->pkey.ec;
-#endif
-
 		BIGNUM  *pub_key = EC_POINT_point2bn(EC_KEY_get0_group(ec),
 				EC_KEY_get0_public_key(ec),
 				EC_KEY_get_conv_form(ec), NULL, NULL);
@@ -507,15 +462,9 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
 			/* Skip "ssh-rsa..." */
 			ssh_key_data2bn(&ba, true);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 			BIGNUM *e = ssh_key_data2bn(&ba);
 			BIGNUM *n = ssh_key_data2bn(&ba);
 			RSA_set0_key(rsa, n, e, NULL);
-#else
-			rsa->e = ssh_key_data2bn(&ba);
-			rsa->n = ssh_key_data2bn(&ba);
-#endif
-
 			pk = EVP_PKEY_new();
 			EVP_PKEY_assign_RSA(pk, rsa);
 			break;
@@ -525,19 +474,12 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
 			/* Skip "ssh-dsa..." */
 			ssh_key_data2bn(&ba, true);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 			BIGNUM *p = ssh_key_data2bn(&ba);
 			BIGNUM *q = ssh_key_data2bn(&ba);
 			BIGNUM *g = ssh_key_data2bn(&ba);
 			BIGNUM *pubkey = ssh_key_data2bn(&ba);
 			DSA_set0_pqg(dsa, p, q, g);
 			DSA_set0_key(dsa, pubkey, NULL);
-#else
-			dsa->p = ssh_key_data2bn(&ba);
-			dsa->q = ssh_key_data2bn(&ba);
-			dsa->g = ssh_key_data2bn(&ba);
-			dsa->pub_key = ssh_key_data2bn(&ba);
-#endif
 
 			pk = EVP_PKEY_new();
 			EVP_PKEY_assign_DSA(pk, dsa);
@@ -578,7 +520,6 @@ QByteArray pki_key::SSH2publicQByteArray()
 	case EVP_PKEY_RSA:
 		txt = "ssh-rsa";
 		ssh_key_QBA2data(txt, &data);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		{
 			RSA *rsa = EVP_PKEY_get0_RSA(key);
 			const BIGNUM *n, *e;
@@ -586,15 +527,10 @@ QByteArray pki_key::SSH2publicQByteArray()
 			ssh_key_bn2data(e, &data);
 			ssh_key_bn2data(n, &data);
 		}
-#else
-		ssh_key_bn2data(key->pkey.rsa->e, &data);
-		ssh_key_bn2data(key->pkey.rsa->n, &data);
-#endif
 		break;
 	case EVP_PKEY_DSA:
 		txt = "ssh-dss";
 		ssh_key_QBA2data(txt, &data);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		{
 			DSA *dsa = EVP_PKEY_get0_DSA(key);
 			const BIGNUM *p, *q, *g, *pubkey;
@@ -605,12 +541,6 @@ QByteArray pki_key::SSH2publicQByteArray()
 			ssh_key_bn2data(g, &data);
 			ssh_key_bn2data(pubkey, &data);
 		}
-#else
-		ssh_key_bn2data(key->pkey.dsa->p, &data);
-		ssh_key_bn2data(key->pkey.dsa->q, &data);
-		ssh_key_bn2data(key->pkey.dsa->g, &data);
-		ssh_key_bn2data(key->pkey.dsa->pub_key, &data);
-#endif
 		break;
 	default:
 		return QByteArray();

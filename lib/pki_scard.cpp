@@ -27,6 +27,8 @@
 #include <QThread>
 #include <ltdl.h>
 
+#include "openssl_compat.h"
+
 QPixmap *pki_scard::icon[1] = { NULL };
 bool pki_scard::only_token_hashes = false;
 
@@ -84,12 +86,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		pk11_attr_data e(CKA_PUBLIC_EXPONENT);
 		p11.loadAttribute(e, object);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		RSA_set0_key(rsa, n.getBignum(), e.getBignum(), NULL);
-#else
-		rsa->n = n.getBignum();
-		rsa->e = e.getBignum();
-#endif
 
 		pkey = EVP_PKEY_new();
 		EVP_PKEY_assign_RSA(pkey, rsa);
@@ -110,15 +107,8 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		pk11_attr_data pub(CKA_VALUE);
 		p11.loadAttribute(pub, object);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		DSA_set0_pqg(dsa, p.getBignum(), q.getBignum(), g.getBignum());
 		DSA_set0_key(dsa, pub.getBignum(), NULL);
-#else
-		dsa->p = p.getBignum();
-		dsa->q = q.getBignum();
-		dsa->g = g.getBignum();
-		dsa->pub_key = pub.getBignum();
-#endif
 
 		pkey = EVP_PKEY_new();
 		EVP_PKEY_assign_DSA(pkey, dsa);
@@ -246,7 +236,6 @@ void pki_scard::deleteFromToken()
 pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 {
 	QByteArray ba;
-	int keytype;
 	RSA *rsa;
 	DSA *dsa;
 #ifndef OPENSSL_NO_EC
@@ -261,36 +250,17 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS,
 			priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY));
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	keytype = EVP_PKEY_id(pk);
-#else
-	keytype = pk->type;
-#endif
-
-	switch (EVP_PKEY_type(keytype)) {
+	switch (EVP_PKEY_type(EVP_PKEY_id(pk))) {
 	case EVP_PKEY_RSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		rsa = EVP_PKEY_get0_RSA(pk);
 		RSA_get0_key(rsa, &n, &e, NULL);
-#else
-		rsa = pk->pkey.rsa;
-		n = rsa->n;
-		e = rsa->e;
-#endif
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
 			pk11_attr_data(CKA_MODULUS, n) <<
 			pk11_attr_data(CKA_PUBLIC_EXPONENT, e);
 		break;
 	case EVP_PKEY_DSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		dsa = EVP_PKEY_get0_DSA(pk);
 		DSA_get0_pqg(dsa, &p, &q, &g);
-#else
-		dsa = pk->pkey.dsa;
-		p = dsa->p;
-		q = dsa->q;
-		g = dsa->g;
-#endif
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_DSA) <<
 			pk11_attr_data(CKA_PRIME, p) <<
 			pk11_attr_data(CKA_SUBPRIME, q) <<
@@ -298,12 +268,7 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		break;
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		ec = EVP_PKEY_get0_EC_KEY(pk);
-#else
-		ec = pk->pkey.ec;
-#endif
-
 		ba = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
 				EC_KEY_get0_group(ec));
 
@@ -312,7 +277,8 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		break;
 #endif
 	default:
-		throw errorEx(QString("Unknown Keytype %d").arg(keytype));
+		throw errorEx(QString("Unknown Keytype %d")
+				.arg(EVP_PKEY_type(EVP_PKEY_id(pk))));
 
 	}
 	return attrs;
@@ -378,7 +344,6 @@ int pki_scard::renameOnToken(slotid slot, QString name)
 void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 {
 	QByteArray ba;
-	int keytype;
 	RSA *rsa;
 	DSA *dsa;
 #ifndef OPENSSL_NO_EC
@@ -428,28 +393,13 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		pk11_attr_bool(CKA_DECRYPT, true) <<
 		pk11_attr_bool(CKA_SIGN, true);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	keytype = EVP_PKEY_id(pkey);
-#else
-	keytype = pkey->type;
-#endif
-
-	switch (EVP_PKEY_type(keytype)) {
+	switch (EVP_PKEY_type(EVP_PKEY_id(pkey))) {
 	case EVP_PKEY_RSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		rsa = EVP_PKEY_get0_RSA(pkey);
 		RSA_get0_key(rsa, NULL, NULL, &d);
 		RSA_get0_factors(rsa, &p, &q);
 		RSA_get0_crt_params(rsa, &dmp1, &dmq1, &iqmp);
-#else
-		rsa = pkey->pkey.rsa;
-		d = rsa->d;
-		p = rsa->p;
-		q = rsa->q;
-		dmp1 = rsa->dmp1;
-		dmq1 = rsa->dmq1;
-		iqmp = rsa->iqmp;
-#endif
+
 		priv_atts <<
 		pk11_attr_data(CKA_PRIVATE_EXPONENT, d) <<
 		pk11_attr_data(CKA_PRIME_1, p) <<
@@ -459,14 +409,8 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		pk11_attr_data(CKA_COEFFICIENT, iqmp);
 		break;
 	case EVP_PKEY_DSA:
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		dsa = EVP_PKEY_get0_DSA(pkey);
 		DSA_get0_key(dsa, &pub_key, &priv_key);
-#else
-		dsa = pkey->pkey.dsa;
-		priv_key = dsa->priv_key;
-		pub_key = dsa->pub_key;
-#endif
 
 		priv_atts << pk11_attr_data(CKA_VALUE, priv_key);
 		pub_atts << pk11_attr_data(CKA_VALUE, pub_key);
@@ -479,11 +423,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		unsigned char *buf;
 		ASN1_OCTET_STRING *os;
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		ec = EVP_PKEY_get0_EC_KEY(pkey);
-#else
-		ec = pkey->pkey.ec;
-#endif
 		point = EC_POINT_point2bn(EC_KEY_get0_group(ec),
 			EC_KEY_get0_public_key(ec),
 			EC_KEY_get_conv_form(ec), NULL, NULL);
@@ -509,7 +449,8 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	}
 #endif
 	default:
-		throw errorEx(QString("Unknown Keytype %d").arg(keytype));
+		throw errorEx(QString("Unknown Keytype %d")
+				.arg(EVP_PKEY_id(pkey)));
 
 	}
 
@@ -793,11 +734,7 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 	d2i(ba);
 
 	if (key)
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		ptr = EVP_PKEY_get0(key);
-#else
-		ptr = key->pkey.ptr;
-#endif
 
 	if (!ptr)
 		throw errorEx(tr("Ignoring unsupported token key"));

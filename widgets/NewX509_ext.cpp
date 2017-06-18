@@ -18,6 +18,7 @@
 #include "lib/x509v3ext.h"
 #include "lib/func.h"
 
+#include "lib/openssl_compat.h"
 
 x509v3ext NewX509::getBasicConstraints()
 {
@@ -224,13 +225,8 @@ extList NewX509::getAdvanced()
 	}
 
 	if (ext_ctx.subject_cert) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		csk = X509_get0_extensions(ext_ctx.subject_cert);
 		start = csk? sk_X509_EXTENSION_num(csk): 0;
-#else
-		sk = &ext_ctx.subject_cert->cert_info->extensions;
-		start = *sk ? sk_X509_EXTENSION_num(*sk) : 0;
-#endif
 	} else {
 		sk = &sk_tmp;
 		start = 0;
@@ -238,15 +234,12 @@ extList NewX509::getAdvanced()
 
 	X509V3_set_nconf(&ext_ctx, conf);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	if (ext_ctx.subject_cert) {
 		if (X509V3_EXT_add_nconf(conf, &ext_ctx,
-								 (char *) ext_name, ext_ctx.subject_cert))
+				(char *) ext_name, ext_ctx.subject_cert))
 			openssl_error();
 		csk = X509_get0_extensions(ext_ctx.subject_cert);
-	} else
-#endif
-	{
+	} else {
 		if (X509V3_EXT_add_nconf_sk(conf, &ext_ctx, (char *)ext_name, sk))
 			openssl_error();
 		csk = *sk;
@@ -340,11 +333,7 @@ extList NewX509::getExtDuplicates()
 	QString olist;
 
 	if (ext_ctx.subject_cert) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 		sk = X509_get0_extensions(ext_ctx.subject_cert);
-#else
-		sk = ext_ctx.subject_cert->cert_info->extensions;
-#endif
 	} else
 		return el_dup;
 

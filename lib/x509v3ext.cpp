@@ -367,24 +367,7 @@ bool x509v3ext::parse_ia5(QString *single, QString *adv) const
 
 	if (!str) {
 		const unsigned char *p = getData()->data;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		long len;
-		int tag, xclass;
-		if (ASN1_get_object(&p, &len, &tag, &xclass, getData()->length) & 0x80)
-			return false;
-		if (tag >= 32)
-			return false;
-		if (!(ASN1_tag2bit(tag) & TEXTS))
-			return false;
-		if (!(str = ASN1_STRING_type_new(tag)))
-			return false;
-		if (!ASN1_STRING_set(str, p, len)) {
-			ASN1_STRING_free(str);
-			return false;
-		}
-#else
-		str = d2i_ASN1_type_bytes(NULL, &p, getData()->length, TEXTS);
-#endif
+		str = d2i_ASN1_OCTET_STRING(NULL, &p, getData()->length);
 		if (ign_openssl_error() || !str)
 			return false;
 		ret = QString("<ERROR: NOT IA5 but %1>%2").
