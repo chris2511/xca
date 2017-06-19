@@ -345,9 +345,9 @@ bool MainWindow::pastePem(QString text)
 	QByteArray pemdata = text.toLatin1();
 	if (pemdata.size() == 0)
 		return false;
-	FILE *fp = fmemopen(pemdata.data(), pemdata.size(), "rb");
+	FILE *fp = fp_from_data(pemdata);
 	check_oom(fp);
-	BIO *b = BIO_new_fp(fp, BIO_CLOSE);
+	BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
 
 	check_oom(b);
 	pki_multi *pem = NULL;
@@ -364,6 +364,7 @@ bool MainWindow::pastePem(QString text)
 	catch (errorEx &err) {
 		Error(err);
 	}
+	fp_from_data_finish(fp);
 	if (dlgi)
 		delete dlgi;
 	if (pem)

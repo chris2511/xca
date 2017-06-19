@@ -213,6 +213,37 @@ QString filename2QString(const char *fname)
 #endif
 }
 
+#ifdef WIN32
+static QString xca_tmpfile()
+{
+	return getHomeDir() + "\\" + "tmp_file.dat";
+}
+#endif
+
+void fp_from_data_finish(FILE *fp)
+{
+	if (fp)
+		fclose(fp);
+#ifdef WIN32
+	QFile::remove(xca_tmpfile());
+#endif
+}
+
+FILE *fp_from_data(QByteArray data)
+{
+#ifdef WIN32
+	QFile::remove(xca_tmpfile());
+	FILE *fp = fopen_write(xca_tmpfile());
+	if (!fp)
+		return NULL;
+	fwrite(data.data(), data.size(), 1, fp);
+	return fp;
+#else
+	return fmemopen(data.data(), data.size(), "rb");
+#endif
+}
+
+
 QString compressFilename(QString filename, int maxlen)
 {
 	if (filename.length() < maxlen)
