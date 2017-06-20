@@ -116,12 +116,9 @@ MainWindow::MainWindow(QWidget *parent)
 	QStringList drivers = QSqlDatabase::drivers();
 	foreach(QString driver, drivers) {
 		QSqlDatabase d = QSqlDatabase::addDatabase(driver, driver +"_C");
-		fprintf(stderr, "DB driver: '%s' LastInsertId: %s\n",
-			CCHAR(driver), d.driver()->
-			hasFeature(QSqlDriver::LastInsertId) ? "YES":"NO" );
+		fprintf(stderr, "DB driver: '%s'\n", CCHAR(driver));
 	}
 
-#define POSTGRES 1
 #ifndef POSTGRES
 	db = QSqlDatabase::addDatabase("QSQLITE");
 #else

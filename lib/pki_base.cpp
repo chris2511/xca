@@ -121,17 +121,25 @@ QSqlError pki_base::insertSql()
 	QSqlError e;
 	insertion_date.now();
 
+	SQL_PREPARE(q, "SELECT MAX(id) +1 from items");
+	q.exec();
+	if (q.first())
+		sqlItemId = q.value(0);
+
+	if (sqlItemId.toULongLong() == 0)
+		sqlItemId = 1;
+
 	SQL_PREPARE(q, "INSERT INTO items "
-		  "(name, type, date, comment) "
-		  "VALUES (?, ?, ?, ?)");
-	q.bindValue(0, getIntName());
-	q.bindValue(1, getType());
-	q.bindValue(2, insertion_date.toPlain());
-	q.bindValue(3, getComment());
+		  "(id, name, type, date, comment) "
+		  "VALUES (?, ?, ?, ?, ?)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, getIntName());
+	q.bindValue(2, getType());
+	q.bindValue(3, insertion_date.toPlain());
+	q.bindValue(4, getComment());
 	q.exec();
 	e = q.lastError();
 	if (!e.isValid()) {
-		sqlItemId = q.lastInsertId();
 		e = insertSqlData();
 	}
 	return e;

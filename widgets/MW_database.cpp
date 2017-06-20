@@ -216,11 +216,6 @@ QSqlError MainWindow::initSqlDB()
 
 QSqlError MainWindow::openSqlDB()
 {
-	QStringList drivers = QSqlDatabase::drivers();
-	foreach( QString driver, drivers)
-		fprintf(stderr, "DB driver: '%s'\n", CCHAR(driver));
-
-#define POSTGRES 1
 #ifndef POSTGRES
 	db.setDatabaseName(dbfile);
 #else
