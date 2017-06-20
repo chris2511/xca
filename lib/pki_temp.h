@@ -72,6 +72,10 @@ class pki_temp: public pki_x509name
 		}
 		QString comboText() const;
 		QByteArray toData();
+		QString toB64Data()
+		{
+			return QString::fromAscii(toData().toBase64());
+		}
 		bool compare(pki_base *ref);
 		void writeTemp(QString fname);
 		QVariant getIcon(dbheader *hd);

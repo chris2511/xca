@@ -486,7 +486,7 @@ QSqlError pki_key::insertSqlData()
 	q.bindValue(1, getTypeString());
 	q.bindValue(2, myhash);
 	q.bindValue(3, EVP_PKEY_bits(key));
-	q.bindValue(4, i2d().toBase64());
+	q.bindValue(4, i2d_b64());
 	q.exec();
 	return q.lastError();
 }

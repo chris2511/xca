@@ -102,7 +102,7 @@ QSqlError pki_x509::insertSqlData()
 	q.bindValue(4, signer ? signer->getSqlItemId() : QVariant());
 	q.bindValue(5, (int)isCA());
 	q.bindValue(6, now.toPlain());
-	q.bindValue(7, i2d().toBase64());
+	q.bindValue(7, i2d_b64());
 	q.exec();
 	return q.lastError();
 }

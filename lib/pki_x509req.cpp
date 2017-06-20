@@ -51,7 +51,7 @@ QSqlError pki_x509req::insertSqlData()
 		  "VALUES (?, ?, 0, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, hash());
-	q.bindValue(2, i2d().toBase64());
+	q.bindValue(2, i2d_b64());
 	q.exec();
 	return q.lastError();
 }

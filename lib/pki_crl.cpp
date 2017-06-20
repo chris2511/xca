@@ -87,7 +87,7 @@ QSqlError pki_crl::insertSqlData()
 	q.bindValue(2, numRev());
 	q.bindValue(3, name_hash);
 	q.bindValue(4, issuer ? issuer->getSqlItemId() : QVariant());
-	q.bindValue(5, i2d().toBase64());
+	q.bindValue(5, i2d_b64());
 	q.exec();
 	return q.lastError();
 }

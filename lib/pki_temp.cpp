@@ -88,7 +88,7 @@ QSqlError pki_temp::insertSqlData()
 		  "VALUES (?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, TMPL_VERSION);
-	q.bindValue(2, toData().toBase64());
+	q.bindValue(2, toB64Data());
 	q.exec();
 	return q.lastError();
 }

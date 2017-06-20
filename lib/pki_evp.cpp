@@ -78,7 +78,7 @@ bool pki_evp::sqlUpdatePrivateKey()
 	XSqlQuery q;
 	SQL_PREPARE(q, "UPDATE private_keys SET private=?, ownPass=? "
 		"WHERE item=?");
-	q.bindValue(0, encKey.toBase64());
+	q.bindValue(0, encKey_b64());
 	q.bindValue(1, ownPass);
 	q.bindValue(2, sqlItemId);
 	q.exec();
@@ -683,7 +683,7 @@ QSqlError pki_evp::insertSqlData()
 		  "VALUES (?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, ownPass);
-	q.bindValue(2, encKey.toBase64());
+	q.bindValue(2, encKey_b64());
 	q.exec();
 	encKey.fill(0);
 	encKey.clear();

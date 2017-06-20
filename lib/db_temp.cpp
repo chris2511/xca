@@ -159,7 +159,7 @@ bool db_temp::alterTemp(pki_temp *temp)
 		return false;
 	SQL_PREPARE(q, "UPDATE templates SET version=?, template=? WHERE item=?");
 	q.bindValue(0, TMPL_VERSION);
-	q.bindValue(1, temp->toData().toBase64());
+	q.bindValue(1, temp->toB64Data());
 	q.bindValue(2, temp->getSqlItemId());
 	q.exec();
 	e = q.lastError();

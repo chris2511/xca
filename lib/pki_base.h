@@ -145,6 +145,10 @@ class pki_base : public QObject
 		{
 			return pkiType;
 		}
+		QString i2d_b64()
+		{
+			return QString::fromAscii(i2d().toBase64());
+		}
 		virtual QByteArray i2d();
 		virtual bool compare(pki_base *);
 		virtual QString getMsg(msg_type msg);

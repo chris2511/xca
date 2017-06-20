@@ -216,6 +216,7 @@ QSqlError MainWindow::initSqlDB()
 
 QSqlError MainWindow::openSqlDB()
 {
+#define POSTGRES 1
 #ifndef POSTGRES
 	db.setDatabaseName(dbfile);
 #else
