@@ -179,13 +179,13 @@ QSqlError pki_base::deleteSql()
 		qDebug("INVALID sqlItemId (DELETE %s)", CCHAR(getIntName()));
 			return sqlItemNotFound(QVariant());
 	}
+	e = deleteSqlData();
+	if (e.isValid())
+		return e;
 	SQL_PREPARE(q, "DELETE FROM items WHERE id=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
-	e = q.lastError();
-	if (!e.isValid())
-		e = deleteSqlData();
-	return e;
+	return q.lastError();
 }
 
 QSqlError pki_base::sqlItemNotFound(QVariant sqlId) const
