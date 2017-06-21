@@ -110,8 +110,8 @@ pki_base *db_crl::insert(pki_base *item)
 	insertPKI(crl);
 	revokeCerts(crl);
 	pki_x509 *issuer = crl->getIssuer();
-	if (issuer)
-		mainwin->certs->updateAfterCrlLoad(issuer);
+	if (issuer && !issuer->revList.merged)
+		mainwin->certs->storeRevocations(issuer);
 	return crl;
 }
 

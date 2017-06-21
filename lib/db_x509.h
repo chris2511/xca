@@ -34,8 +34,6 @@ class db_x509: public db_x509super
 		db_x509(MainWindow *mw);
 		pki_base *newPKI(enum pki_type type = none);
 		pki_x509 *findIssuer(pki_x509 *client);
-		void updateAfterDbLoad();
-		void updateAfterCrlLoad(pki_x509 *pki);
 
 		bool updateView();
 		void updateViewAll();

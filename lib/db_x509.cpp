@@ -59,21 +59,6 @@ void db_x509::dereferenceIssuer()
 	}
 }
 
-void db_x509::updateAfterCrlLoad(pki_x509 *pki)
-{
-	if (pki->revList.merged) {
-		updatePKI(pki);
-		pki->revList.merged = false;
-	}
-}
-
-void db_x509::updateAfterDbLoad()
-{
-	FOR_ALL_pki(pki, pki_x509) {
-		updateAfterCrlLoad(pki);
-	}
-}
-
 dbheaderList db_x509::getHeaders()
 {
 	dbheaderList h = db_x509super::getHeaders();
@@ -850,6 +835,7 @@ void db_x509::storeRevocations(pki_x509 *cert)
 		else
 			db->commit();
 	}
+	cert->revList.merged = false;
 }
 
 void db_x509::manageRevocations(QModelIndex idx)
