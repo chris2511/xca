@@ -116,6 +116,7 @@ void pki_multi::fromPEMbyteArray(QByteArray &ba, QString name)
 				break;
 			ba.remove(0, startpos);
 			item->fromPEMbyteArray(ba, name);
+			item->pkiSource = imported;
 			openssl_error();
 			multi.append(item);
 		} catch (errorEx &err) {

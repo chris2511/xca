@@ -258,6 +258,7 @@ void db_crl::newItem(pki_x509 *cert)
 
 		crl = new pki_crl();
 		crl->createCrl(cert->getIntName(), cert);
+		crl->pkiSource = generated;
 
 		bool withReason = widget->revocationReasons->isChecked();
 		foreach(x509rev rev, cert->revList)

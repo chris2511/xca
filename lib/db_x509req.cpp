@@ -81,6 +81,7 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		pki_key *key = dlg->getSelectedKey();
 		x509name xn = dlg->getX509name();
 		req = new pki_x509req();
+		req->pkiSource = dlg->getPkiSource();
 
 		req->setIntName(dlg->description->text());
 
@@ -145,6 +146,7 @@ void db_x509req::store(QModelIndex index)
 void db_x509req::signReq(QModelIndex index)
 {
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	req->pkiSource = generated;
 	emit newCert(req);
 }
 

@@ -27,6 +27,13 @@
 	(q).location(__FILE__,__LINE__); \
 } while (0);
 
+enum pki_source {
+	unknown,
+	imported,
+	generated,
+	transformed
+};
+
 class XSqlQuery: public QSqlQuery
 {
 		QString lastq;
@@ -110,6 +117,7 @@ class pki_base : public QObject
 			msg_delete_multi,
 			msg_create,
 		};
+		enum pki_source pkiSource;
 		QList<pki_base*> childItems;
 
 		pki_base(const QString d = "", pki_base *p = NULL);

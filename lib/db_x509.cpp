@@ -563,7 +563,7 @@ void db_x509::newCert(NewX509 *dlg)
 
 	// set the comment field
 	cert->setComment(dlg->comment->toPlainText());
-
+	cert->pkiSource = dlg->getPkiSource();
 	cert = (pki_x509*)insert(cert);
 	createSuccess(cert);
 	updatePKI(signcert);
@@ -1020,6 +1020,7 @@ void db_x509::toCertificate(QModelIndex index)
 		return;
 	if (!cert->getRefKey() && cert->getSigner() != cert)
 		extractPubkey(index);
+	cert->pkiSource = transformed;
 	newCert(cert);
 }
 
@@ -1032,6 +1033,7 @@ void db_x509::toRequest(QModelIndex idx)
 	try {
 		pki_x509req *req = new pki_x509req();
 		check_oom(req);
+		req->pkiSource = transformed;
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(),
 			cert->getDigest(), cert->getV3ext());

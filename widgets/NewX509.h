@@ -53,6 +53,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		X509V3_CTX ext_ctx;
 		void editV3ext(QLineEdit *le, QString types, int n);
 		enum pki_type pt;
+		enum pki_source pkiSource;
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
 		QStringList tabnames;
@@ -118,6 +119,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		int validateExtensions(QString nconf, QString &result);
 		int do_validateExtensions();
 		void undo_validateExtensions();
+		enum pki_source getPkiSource() const;
 
 	public slots:
 		void on_fromReqCB_clicked();

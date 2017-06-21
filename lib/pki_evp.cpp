@@ -156,6 +156,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 	BN_GENCB_free(bar);
 #endif
 	isPub = false;
+	pkiSource = generated;
 	pki_openssl_error();
 	encryptKey();
 }

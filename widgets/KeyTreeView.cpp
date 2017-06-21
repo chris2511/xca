@@ -143,6 +143,7 @@ void KeyTreeView::toToken()
 			return;
 		card = new pki_scard(key->getIntName());
 		card->store_token(slot, key->decryptKey());
+		card->pkiSource = key->pkiSource;
 		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").
 			arg(key->getIntName());
 		if (XCA_YESNO(msg)) {

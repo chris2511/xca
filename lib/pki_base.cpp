@@ -22,6 +22,7 @@ pki_base::pki_base(const QString name, pki_base *p)
 	parent = p;
 	childItems.clear();
 	pkiType=none;
+	pkiSource=unknown;
 }
 
 pki_base::~pki_base(void)
@@ -43,7 +44,6 @@ int pki_base::renameOnToken(slotid, QString)
 {
 	return 0;
 }
-
 
 bool pki_base::visible()
 {
@@ -130,13 +130,14 @@ QSqlError pki_base::insertSql()
 		sqlItemId = 1;
 
 	SQL_PREPARE(q, "INSERT INTO items "
-		  "(id, name, type, date, comment) "
-		  "VALUES (?, ?, ?, ?, ?)");
+		  "(id, name, type, date, source, comment) "
+		  "VALUES (?, ?, ?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, getIntName());
 	q.bindValue(2, getType());
 	q.bindValue(3, insertion_date.toPlain());
-	q.bindValue(4, getComment());
+	q.bindValue(4, pkiSource);
+	q.bindValue(5, getComment());
 	q.exec();
 	e = q.lastError();
 	if (!e.isValid()) {
@@ -150,7 +151,8 @@ QSqlError pki_base::restoreSql(QVariant sqlId)
 	XSqlQuery q;
 	QSqlError e;
 
-	SQL_PREPARE(q, "SELECT name, date, comment FROM items WHERE id=?");
+	SQL_PREPARE(q, "SELECT name, date, source, comment "
+			"FROM items WHERE id=?");
 	q.bindValue(0, sqlId);
 	q.exec();
 	e = q.lastError();
@@ -161,7 +163,8 @@ QSqlError pki_base::restoreSql(QVariant sqlId)
 		return sqlItemNotFound(sqlId);
 	desc = q.value(0).toString();
 	insertion_date.fromPlain(q.value(1).toString());
-	comment = q.value(2).toString();
+	comment = q.value(3).toString();
+	pkiSource = (enum pki_source)q.value(2).toInt();
 	sqlItemId = sqlId;
 	return e;
 }

@@ -45,7 +45,7 @@ NewX509::NewX509(QWidget *parent)
 
 	/* temporary storage for creating temporary X509V3_CTX */
 	ctx_cert = NULL;
-
+	pkiSource = generated;
 	foreach(int nid, dn_nid)
 		keys << QString(OBJ_nid2ln(nid));
 
@@ -399,6 +399,7 @@ void NewX509::defineTemplate(pki_temp *temp)
 {
 	fromTemplate(temp);
 	templateChanged(temp);
+	pkiSource = transformed;
 }
 
 /* Select a Request for signing it */
@@ -407,6 +408,7 @@ void NewX509::defineRequest(pki_x509req *req)
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
 	reqList->setCurrentPkiItem(req);
+	pkiSource = transformed;
 	on_fromReqCB_clicked();
 }
 
@@ -1135,6 +1137,11 @@ void NewX509::gotoTab(int tab)
 			break;
 		}
 	}
+}
+
+enum pki_source NewX509::getPkiSource() const
+{
+	return pkiSource;
 }
 
 void NewX509::accept()

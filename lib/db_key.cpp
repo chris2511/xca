@@ -182,6 +182,7 @@ void db_key::newItem(QString name)
 			nkey->generate(ksize, dlg->getKeytype(), bar,
 				dlg->getKeyCurve_nid());
 		}
+		key->pkiSource = generated;
 		key = (pki_key*)insert(key);
 		emit keyDone(key);
 		createSuccess(key);

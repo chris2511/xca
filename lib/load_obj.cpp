@@ -34,6 +34,7 @@ pki_base *load_base::loadItem(QString s)
 		delete pki;
 		throw err;
 	}
+	pki->pkiSource = imported;
 	return pki;
 }
 
