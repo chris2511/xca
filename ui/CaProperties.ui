@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>487</width>
-    <height>501</height>
+    <height>434</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -129,49 +129,25 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="serial"/>
-        </item>
-        <item row="2" column="0">
+        <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
            <string>Days until next CRL issuing</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="0" column="1">
          <widget class="QSpinBox" name="days"/>
         </item>
-        <item row="3" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
            <string>Default template</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QComboBox" name="temp"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Next serial for signing</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="randomSerial">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Use random Serial numbers</string>
-          </property>
-         </widget>
+         <widget class="QComboBox" name="temp"/>
         </item>
        </layout>
       </item>
@@ -213,22 +189,6 @@
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>randomSerial</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>serial</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>240</x>
-     <y>345</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>271</x>
-     <y>306</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>

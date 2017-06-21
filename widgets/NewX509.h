@@ -69,7 +69,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		QMap<QString, QCheckBox*> templateCheckBoxes;
 
 	public:
-		QRadioButton *selfQASignRB;
 		QLineEdit *description;
 		NewX509(QWidget *parent);
 		virtual ~NewX509();

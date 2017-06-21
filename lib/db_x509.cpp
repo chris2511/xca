@@ -21,6 +21,8 @@
 #include <QContextMenuEvent>
 #include <QAction>
 
+#include <openssl/rand.h>
+
 bool db_x509::treeview = true;
 
 db_x509::db_x509(MainWindow *mw)
@@ -296,31 +298,25 @@ void db_x509::writeIndex(const QString fname, bool hierarchy)
 	}
 }
 
-a1int db_x509::searchSerial(pki_x509 *signer)
+#define SERIAL_LEN 8
+static a1int randomSerial()
 {
-	// returns the highest certificate serial
-	// of all certs with this signer (itself too)
-	a1int sserial, myserial;
-	if (!signer)
-		return sserial;
-	sserial = signer->getCaSerial();
-	FOR_ALL_pki(pki, pki_x509)
-		if (pki->getSigner() == signer)  {
-			myserial = pki->getSerial();
-			if (sserial < myserial) {
-				sserial = myserial;
-			}
-		}
-	return sserial;
+	unsigned char buf[SERIAL_LEN];
+	RAND_bytes(buf, SERIAL_LEN);
+	a1int serial;
+	serial.setRaw(buf, SERIAL_LEN);
+	return serial;
 }
 
 a1int db_x509::getUniqueSerial(pki_x509 *signer)
 {
-	// returnes an unused unique serial
+	// returns an unused unique serial
 	a1int serial;
 	x509rev rev;
 	while (true) {
-		serial = signer->getIncCaSerial();
+		serial = randomSerial();
+		if (!signer)
+			break;
 		rev.setSerial(serial);
 		if (signer->revList.contains(rev))
 			continue;
@@ -328,8 +324,6 @@ a1int db_x509::getUniqueSerial(pki_x509 *signer)
 			continue;
 		break;
 	}
-	if (!signer->usesRandomSerial())
-		updatePKI(signer);
 	return serial;
 }
 
@@ -342,25 +336,7 @@ pki_base *db_x509::insert(pki_base *item)
 		delete(cert);
 		return NULL;
 	}
-	cert->setCaSerial((cert->getSerial()));
 	insertPKI(cert);
-	a1int serial;
-
-	// check the CA serial of the CA of this cert to avoid serial doubles
-	if (cert->getSigner() != cert && cert->getSigner()) {
-		serial = cert->getSerial();
-		if (cert->getSigner()->getCaSerial() < ++serial ) {
-			cert->getSigner()->setCaSerial(serial);
-			updatePKI(cert->getSigner());
-		}
-	}
-
-	// check CA serial of this cert
-	serial = searchSerial(cert);
-	if ( ++serial > cert->getCaSerial()) {
-		cert->setCaSerial(serial);
-	}
-	updatePKI(cert);
 	return cert;
 }
 
@@ -482,20 +458,10 @@ void db_x509::newCert(NewX509 *dlg)
 			return;
 		serial = getUniqueSerial(signcert);
 		signkey = signcert->getRefKey();
-#ifdef WG_QA_SERIAL
-	} else if (dlg->selfQASignRB->isChecked()){
-		Passwd pass;
-		pass_info p(XCA_TITLE, tr("Please enter the new hexadecimal secret number for the QA process."));
-		if (PwDialog::execute(&p, &pass, true) != 1)
-			throw errorEx(tr("The QA process has been terminated by the user."));
-		signcert = cert;
-		signkey = clientkey;
-		serial.setHex(pass);
-#endif
 	} else {
 		signcert = cert;
 		signkey = clientkey;
-		serial.setHex(dlg->serialNr->text());
+		serial = getUniqueSerial(NULL);
 	}
 
 	dlg->initCtx(cert, signcert, NULL);
@@ -534,15 +500,6 @@ void db_x509::newCert(NewX509 *dlg)
 	}
 
 	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
-#ifdef WG_QA_SERIAL
-	if (dlg->selfQASignRB->isChecked()) {
-		// sign the request intermediately in order to finally fill
-		// up the cert_info substructure.
-		cert->sign(signkey, hashAlgo);
-		// now set the QA serial.
-		cert->setSerial(cert->hashInfo(EVP_md5()));
-	}
-#endif
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
 
@@ -1054,9 +1011,6 @@ void db_x509::caProperties(QModelIndex idx)
 
 	QDialog *dlg = new QDialog(mainwin);
 	ui.setupUi(dlg);
-	ui.serial->setText(cert->getCaSerial().toHex());
-	ui.serial->setDisabled(cert->usesRandomSerial());
-	ui.randomSerial->setChecked(cert->usesRandomSerial());
 	ui.days->setSuffix(tr(" days"));
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
@@ -1086,13 +1040,9 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.subjectManager->setKeys(sl, 1);
 
 	if (dlg->exec()) {
-		a1int nserial;
 		cert->setCrlDays(ui.days->value());
-		nserial.setHex(ui.serial->text());
-		cert->setCaSerial(nserial);
 #warning Fixme, too
 //		cert->setTemplate(ui.temp->currentText());
-		cert->setUseRandomSerial(ui.randomSerial->isChecked());
 		updatePKI(cert);
 	}
 	delete dlg;

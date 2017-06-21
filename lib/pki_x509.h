@@ -29,8 +29,6 @@ class pki_x509 : public pki_x509super
 		pki_x509 *psigner;
 		QVariant signerSqlId;
 		a1time crlExpire;
-		bool randomSerial;
-		a1int caSerial;
 		a1int crlNumber;
 		int crlDays;
 		pki_temp *caTemplate;
@@ -102,14 +100,6 @@ class pki_x509 : public pki_x509super
 		bool isRevoked();
 		pki_x509 *getBySerial(const a1int &a) const;
 		a1int getIncCaSerial();
-		a1int getCaSerial()
-		{
-			return caSerial;
-		}
-		void setCaSerial(a1int s)
-		{
-			caSerial = s;
-		}
 		a1int getCrlNumber()
 		{
 			return crlNumber;
@@ -136,14 +126,6 @@ class pki_x509 : public pki_x509super
 		int getCrlDays()
 		{
 			return crlDays;
-		}
-		bool usesRandomSerial()
-		{
-			return randomSerial;
-		}
-		void setUseRandomSerial(bool r)
-		{
-			randomSerial = r;
 		}
 		x509rev getRevocation()
 		{

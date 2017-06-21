@@ -159,7 +159,7 @@ QSqlError MainWindow::initSqlDB()
 	"issuer INTEGER, "	/* The items(id) of the issuer or NULL */
 	"ca INTEGER, "		/* CA: yes / no from BasicConstraints */
 	"crlExpire "DB_DATE", "	/* CRL expiry date */
-	"crlNo INTEGER, "	/* Last CRL Number expiry date */
+	"crlNo INTEGER, "	/* Last CRL Number */
 	"cert "B64_BLOB", "	/* B64(DER(certificate)) */
 	"FOREIGN KEY (item) REFERENCES items (id), "
 	"FOREIGN KEY (issuer) REFERENCES items (id)) "
@@ -433,7 +433,6 @@ int MainWindow::init_database()
 		certs = new db_x509(this);
 		temps = new db_temp(this);
 		crls = new db_crl(this);
-		certs->updateAfterDbLoad();
 	}
 	catch (errorEx &err) {
 		Error(err);

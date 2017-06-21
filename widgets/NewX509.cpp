@@ -70,7 +70,6 @@ NewX509::NewX509(QWidget *parent)
 	}
 
 	nsImg->setPixmap(*MainWindow::nsImg);
-	serialNr->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 	QList<pki_base *> requests;
 
 	// are there any useable private keys  ?
@@ -94,16 +93,7 @@ NewX509::NewX509(QWidget *parent)
 	} else {
 		certList->insertPkiItems(issuers);
 	}
-#warning "Remove WG_QA_SERIAL finally! :-)"
-#ifdef WG_QA_SERIAL
-	selfQASignRB = new QRadioButton(signerBox);
-	setTabOrder(serialNr, selfQASignRB);
-	setTabOrder(selfQASignRB, foreignSignRB);
-	selfQASignRB->setText(tr(
-			"Create a &self signed certificate with a MD5-hashed QA serial"));
-	QBoxLayout *l = (QBoxLayout *)signerBox->layout();
-	l->insertWidget(1, selfQASignRB);
-#endif
+
 	// set dates to now and now + 1 year
 	validN->setText("1");
 	validRange->setCurrentIndex(2);
@@ -867,7 +857,7 @@ void NewX509::setupTmpCtx()
 	pki_x509 *signcert;
 	pki_x509req *req = NULL;
 	pki_key *key = NULL;
-	a1int serial;
+	a1int serial(1);
 	QString errtxt;
 
 	// initially create temporary ctx cert
@@ -888,11 +878,9 @@ void NewX509::setupTmpCtx()
 	// Step 2 - select Signing
 	if (foreignSignRB->isChecked()) {
 		signcert = getSelectedSigner();
-		serial = signcert->getCaSerial();
 	} else {
 		signcert = ctx_cert;
 		ctx_cert->setIssuer(ctx_cert->getSubject());
-		serial.setHex(serialNr->text());
 	}
 	ctx_cert->setSerial(serial);
 	initCtx(ctx_cert, signcert, req);

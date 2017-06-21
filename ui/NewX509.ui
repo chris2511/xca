@@ -179,20 +179,10 @@
             <item>
              <widget class="QRadioButton" name="selfSignRB">
               <property name="text">
-               <string>Create a &amp;self signed certificate with the serial</string>
+               <string>Create a &amp;self signed certificate</string>
               </property>
               <property name="checked">
                <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="serialNr">
-              <property name="toolTip">
-               <string>If you leave this blank the serial 00 will be used</string>
-              </property>
-              <property name="text">
-               <string>1</string>
               </property>
              </widget>
             </item>
@@ -379,12 +369,6 @@
               </attribute>
               <attribute name="horizontalHeaderStretchLastSection">
                <bool>true</bool>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>200</number>
               </attribute>
              </widget>
             </item>
@@ -1252,7 +1236,6 @@
   <tabstop>showReqBut</tabstop>
   <tabstop>reqSubChange</tabstop>
   <tabstop>selfSignRB</tabstop>
-  <tabstop>serialNr</tabstop>
   <tabstop>foreignSignRB</tabstop>
   <tabstop>certList</tabstop>
   <tabstop>hashAlgo</tabstop>
@@ -1368,22 +1351,6 @@
     <hint type="destinationlabel">
      <x>57</x>
      <y>251</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>selfSignRB</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>serialNr</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>275</x>
-     <y>301</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>679</x>
-     <y>313</y>
     </hint>
    </hints>
   </connection>

@@ -47,7 +47,6 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	pki_openssl_error();
 	psigner = crt->psigner;
 	setRefKey(crt->getRefKey());
-	caSerial = crt->caSerial;
 	caTemplate = crt->caTemplate;
 	revocation = crt->revocation;
 	crlDays = crt->crlDays;
@@ -258,13 +257,11 @@ pki_x509::~pki_x509()
 void pki_x509::init()
 {
 	psigner = NULL;
-	caSerial = 1;
 	caTemplate = NULL;
 	crlDays = 30;
 	crlExpire.setUndefined();
 	cert = NULL;
 	pkiType = x509;
-	randomSerial = false;
 }
 
 void pki_x509::setSerial(const a1int &serial)
@@ -288,19 +285,6 @@ pki_x509 *pki_x509::getBySerial(const a1int &a) const
 			return pki;
 	}
 	return NULL;
-}
-
-#define SERIAL_LEN 8
-a1int pki_x509::getIncCaSerial()
-{
-	unsigned char buf[SERIAL_LEN];
-	if (!randomSerial)
-		return caSerial++;
-
-	RAND_bytes(buf, SERIAL_LEN);
-	a1int serial;
-	serial.setRaw(buf, SERIAL_LEN);
-	return serial;
 }
 
 a1int pki_x509::hashInfo(const EVP_MD *md) const
@@ -627,16 +611,14 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 			revocation.setSerial(getSerial());
 		}
 	}
-	caSerial.setHex(db::stringFromData(ba));
 	pki_openssl_error();
+	/* Superflous CaSerial = */db::stringFromData(ba);
 	QString __caTemplate = db::stringFromData(ba);
 	crlDays = db::intFromData(ba);
 	crlExpire.d2i(ba);
 	pki_openssl_error();
 	if (version > 1)
-		randomSerial = db::boolFromData(ba);
-	else
-		randomSerial = false;
+		/* randomSerial = */ db::boolFromData(ba);
 	if (version > 2)
 		crlNumber.setHex(db::stringFromData(ba));
 	pki_openssl_error();
