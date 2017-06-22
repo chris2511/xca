@@ -31,10 +31,11 @@ class pki_x509 : public pki_x509super
 		a1time crlExpire;
 		a1int crlNumber;
 		int crlDays;
-		pki_temp *caTemplate;
+		QVariant caTemplateSqlId;
 		X509 *cert;
 		void init();
 		x509rev revocation;
+		QString dnPolicy;
 
 	protected:
 		int sigAlg();
@@ -109,14 +110,13 @@ class pki_x509 : public pki_x509super
 			if (n > crlNumber)
 				crlNumber = n;
 		}
-		void setTemplate(pki_temp *t)
+		void setTemplateSqlId(QVariant sqlId)
 		{
-			if (t)
-				caTemplate = t;
+			caTemplateSqlId = sqlId;
 		}
-		pki_temp *getTemplate()
+		QVariant getTemplateSqlId()
 		{
-			return caTemplate;
+			return caTemplateSqlId;
 		}
 		void setCrlDays(int s)
 		{
@@ -130,6 +130,14 @@ class pki_x509 : public pki_x509super
 		x509rev getRevocation()
 		{
 			return revocation;
+		}
+		void setDnPolicy(QString policy)
+		{
+			dnPolicy = policy;
+		}
+		QString getDnPolicy()
+		{
+			return dnPolicy;
 		}
 		pk11_attlist objectAttributes();
 		bool hasExtension(int nid);

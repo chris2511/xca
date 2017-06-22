@@ -119,7 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
 		fprintf(stderr, "DB driver: '%s'\n", CCHAR(driver));
 	}
 
-#define POSTGRES 1
+//#define POSTGRES 1
 #ifndef POSTGRES
 	db = QSqlDatabase::addDatabase("QSQLITE");
 #else

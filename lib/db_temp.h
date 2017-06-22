@@ -29,7 +29,7 @@ class db_temp: public db_x509name
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
 	void fillContextMenu(QMenu *menu, const QModelIndex &index);
-	QList<pki_base*> getDescPredefs();
+	QList<pki_base*> getAllAndPredefs();
 	void newItem();
 	void showPki(pki_base *pki);
 	void load();

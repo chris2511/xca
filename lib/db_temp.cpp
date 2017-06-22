@@ -69,9 +69,9 @@ pki_base *db_temp::newPKI(enum pki_type type)
 	return new pki_temp("");
 }
 
-QList<pki_base *> db_temp::getDescPredefs()
+QList<pki_base *> db_temp::getAllAndPredefs()
 {
-	return predefs << sqlSELECTpki("SELECT item FROM templates");;
+	return predefs << getAll();
 }
 
 bool db_temp::runTempDlg(pki_temp *temp)

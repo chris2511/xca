@@ -93,7 +93,7 @@ QList<pki_base *> db_base::sqlSELECTpki(QString query, QList<QVariant> values)
 	q.exec();
 	mainwin->dbSqlError(q.lastError());
 	while (q.next())
-		x << lookupPki(q.value(0).toULongLong());
+		x << lookupPki(q.value(0));
 	return x;
 }
 
@@ -291,13 +291,6 @@ void db_base::deletePKI(QModelIndex idx)
 	}
 }
 
-void db_base::updatePKI(pki_base *pki)
-{
-	(void)pki;
-#warning UPDATING updatePKI
-	fprintf(stderr, "UUUUUUUUUUUUPDATE MIT SQL FEHLER\n");
-}
-
 void db_base::showItem(const QModelIndex &index)
 {
 	showPki(static_cast<pki_base*>(index.internalPointer()));
@@ -336,11 +329,11 @@ void db_base::inToCont(pki_base *pki)
 
 pki_base *db_base::getByName(QString desc)
 {
-	FOR_ALL_pki(pki, pki_base) {
-		if (pki->getIntName() == desc)
-			return pki;
-	}
-	return NULL;
+	QList<pki_base*> list = sqlSELECTpki(
+		QString("SELECT id FROM items WHERE name=? AND ") +
+			sqlItemSelector(),
+		QList<QVariant>() << QVariant(desc));
+	return list.isEmpty() ? NULL : list[0];
 }
 
 pki_base *db_base::getByReference(pki_base *refpki)
@@ -357,14 +350,9 @@ pki_base *db_base::getByReference(pki_base *refpki)
 	return NULL;
 }
 
-QStringList db_base::getDesc()
+QList<pki_base *> db_base::getAll()
 {
-	QStringList x;
-	x.clear();
-	FOR_ALL_pki(pki, pki_base) {
-		x.append(pki->getIntName());
-	}
-	return x;
+	return sqlSELECTpki(QString("SELECT item FROM %1").arg(sqlHashTable));
 }
 
 pki_base *db_base::insert(pki_base *item)

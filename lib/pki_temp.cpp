@@ -430,12 +430,12 @@ BIO *pki_temp::pem(BIO *b, int format)
 
 void pki_temp::fromExportData(QByteArray data)
 {
-	int size, version;
+	int version;
 
 	if (data.size() < (int)sizeof(uint32_t))
 		my_error(tr("Template file content error (too small)"));
 
-	size = db::intFromData(data);
+	db::intFromData(data);
 	version = db::intFromData(data);
 	fromData((const unsigned char*)data.constData(),
 		data.size(), version);

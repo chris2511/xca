@@ -25,6 +25,11 @@ class itemCombo : public QComboBox
 	pki_base *currentPkiItem() {
 		return itemData(currentIndex()).value<pki_base*>();
 	}
+	void setNullItem(QString text) {
+		if (itemData(0).value<pki_base*>() == NULL)
+			removeItem(0);
+		insertItem(0, text, QVariant::fromValue(NULL));
+	}
 	int setCurrentPkiItem(pki_base *p) {
 		int idx = findData(QVariant::fromValue(p));
 		setCurrentIndex(idx);

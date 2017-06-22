@@ -47,7 +47,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	pki_openssl_error();
 	psigner = crt->psigner;
 	setRefKey(crt->getRefKey());
-	caTemplate = crt->caTemplate;
+	caTemplateSqlId = crt->caTemplateSqlId;
 	revocation = crt->revocation;
 	crlDays = crt->crlDays;
 	crlExpire = crt->crlExpire;
@@ -92,16 +92,23 @@ QSqlError pki_x509::insertSqlData()
 		return e;
 
 	SQL_PREPARE(q, "INSERT INTO certs (item, hash, iss_hash, serial, issuer, "
-				"ca, crlExpire, crlNo, cert) "
-		  "VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)");
+				"ca, cert) "
+		  "VALUES (?, ?, ?, ?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, hash());
 	q.bindValue(2, (uint)getIssuerName().hashNum());
 	q.bindValue(3, getSerial().toHex());
 	q.bindValue(4, signer ? signer->getSqlItemId() : QVariant());
 	q.bindValue(5, (int)isCA());
-	q.bindValue(6, now.toPlain());
-	q.bindValue(7, i2d_b64());
+	q.bindValue(6, i2d_b64());
+	q.exec();
+	if (!isCA())
+		return q.lastError();
+
+	SQL_PREPARE(q, "INSERT INTO authority (item, crlExpire, crlNo) "
+			"VALUES (?, ?, 0)");
+	q.bindValue(0, sqlItemId);
+	q.bindValue(1, now.toPlain());
 	q.exec();
 	return q.lastError();
 }
@@ -114,7 +121,8 @@ QSqlError pki_x509::restoreSql(QVariant sqlId)
 	e = pki_x509super::restoreSql(sqlId);
 	if (e.isValid())
 		return e;
-	SQL_PREPARE(q, "SELECT cert, issuer, crlNo, crlExpire, serial FROM certs "
+
+	SQL_PREPARE(q, "SELECT cert, issuer, serial FROM certs "
 			"WHERE item=?");
 	q.bindValue(0, sqlId);
 	q.exec();
@@ -126,10 +134,21 @@ QSqlError pki_x509::restoreSql(QVariant sqlId)
 	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
 	d2i(ba);
 	signerSqlId = q.value(1);
-	crlNumber.set(q.value(2).toUInt());
-	crlExpire.fromPlain(q.value(3).toString());
 	revList = x509revList::fromSql(sqlId);
 	QVariant serial = q.value(4);
+
+	SQL_PREPARE(q, "SELECT crlNo, crlExpire, template FROM authority "
+			"WHERE item=?");
+	q.bindValue(0, sqlId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	if (q.first()) {
+		crlNumber.set(q.value(0).toUInt());
+		crlExpire.fromPlain(q.value(1).toString());
+		caTemplateSqlId = q.value(2);
+	}
 
 	SQL_PREPARE(q, "SELECT serial, date, invaldate, crlNo, reasonBit "
 			"FROM revocations WHERE caId=? AND serial=?");
@@ -151,6 +170,12 @@ QSqlError pki_x509::deleteSqlData()
 	if (e.isValid())
 		return e;
 	SQL_PREPARE(q, "DELETE FROM certs WHERE item=?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	e = q.lastError();
+	if (e.isValid())
+		return e;
+	SQL_PREPARE(q, "DELETE FROM authority WHERE item=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
 	e = q.lastError();
@@ -195,7 +220,7 @@ pki_x509 *pki_x509::findIssuer()
 	q.exec();
 	while (q.next()) {
 		issuer = static_cast<pki_x509*>(
-				db_base::lookupPki(q.value(0).toULongLong()));
+				db_base::lookupPki(q.value(0)));
 		if (!issuer) {
 			qDebug("Certificate with id %d not found",
                                 q.value(0).toInt());
@@ -257,7 +282,7 @@ pki_x509::~pki_x509()
 void pki_x509::init()
 {
 	psigner = NULL;
-	caTemplate = NULL;
+	caTemplateSqlId = QVariant();
 	crlDays = 30;
 	crlExpire.setUndefined();
 	cert = NULL;

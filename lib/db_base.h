@@ -62,6 +62,10 @@ class db_base: public QAbstractItemModel
 		{
 			return lookup[i];
 		}
+		static pki_base *lookupPki(QVariant v)
+		{
+			return lookupPki(v.toULongLong());
+		}
 		static void flushLookup()
 		{
 			lookup.clear();
@@ -75,12 +79,11 @@ class db_base: public QAbstractItemModel
 		virtual ~db_base();
 		virtual void insertPKI(pki_base *pki);
 		virtual QSqlError insertPKI_noTransaction(pki_base *pki);
-		virtual void updatePKI(pki_base *pki);
 		pki_base *getByName(QString desc);
 		pki_base *getByReference(pki_base *refpki);
 		pki_base *getByPtr(void *);
 		virtual void loadContainer();
-		QStringList getDesc();
+		QList<pki_base *> getAll();
 		virtual pki_base* insert(pki_base *item);
 		virtual void inToCont(pki_base *pki);
 		virtual void remFromCont(QModelIndex &idx);

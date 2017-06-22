@@ -32,7 +32,7 @@ QSqlError pki_x509super::insertSqlData()
 		return q.lastError();
 	while (q.next()) {
 		pki_key *x = static_cast<pki_key*>(
-			db_base::lookupPki(q.value(0).toULongLong()));
+			db_base::lookupPki(q.value(0)));
 		if (!x) {
 			qDebug("Public key with id %d not found",
 				q.value(0).toInt());

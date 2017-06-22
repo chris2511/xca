@@ -69,6 +69,7 @@ QSqlError MainWindow::initSqlDB()
 	"id SERIAL PRIMARY KEY, "
 	"name VARCHAR(128), "	/* Internal name of the item */
 	"type INTEGER, "	/* enum pki_type */
+	"source INTEGER, "	/* enum pki_source */
 	"date "DB_DATE", "	/* Time of insertion (creation/import) */
 	"comment VARCHAR(2048))"
 
@@ -158,11 +159,22 @@ QSqlError MainWindow::initSqlDB()
 	"serial VARCHAR(64), "	/* Serial number of the certificate */
 	"issuer INTEGER, "	/* The items(id) of the issuer or NULL */
 	"ca INTEGER, "		/* CA: yes / no from BasicConstraints */
-	"crlExpire "DB_DATE", "	/* CRL expiry date */
-	"crlNo INTEGER, "	/* Last CRL Number */
 	"cert "B64_BLOB", "	/* B64(DER(certificate)) */
 	"FOREIGN KEY (item) REFERENCES items (id), "
 	"FOREIGN KEY (issuer) REFERENCES items (id)) "
+
+/*
+ * X509 cartificate Authority data
+ */
+<< "CREATE TABLE authority ("
+	"item INTEGER, "	/* reference to items(id) */
+	"template INTEGER, "	/* reference to items(id) of the default template*/
+	"crlExpire "DB_DATE", "	/* CRL expiry date */
+	"crlNo INTEGER, "	/* Last CRL Number */
+	"crlDays INTEGER, "	/* CRL days until renewal */
+	"dnPolicy, "		/* DistinguishedName policy */
+	"FOREIGN KEY (item) REFERENCES items (id), "
+	"FOREIGN KEY (template) REFERENCES items (id)) "
 
 /*
  * Storage of CRLs
@@ -216,7 +228,7 @@ QSqlError MainWindow::initSqlDB()
 
 QSqlError MainWindow::openSqlDB()
 {
-#define POSTGRES 1
+//#define POSTGRES 1
 #ifndef POSTGRES
 	db.setDatabaseName(dbfile);
 #else
@@ -268,7 +280,7 @@ void MainWindow::dbSqlError(QSqlError err)
 bool MainWindow::checkForOldDbFormat()
 {
 	// 0x ca db 19 69
-	static const char magic[] = { 0xca, 0xdb, 0x19, 0x69 };
+	static const unsigned char magic[] = { 0xca, 0xdb, 0x19, 0x69 };
 	char head[4];
 
 	QFile file(dbfile);

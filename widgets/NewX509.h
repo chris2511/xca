@@ -67,7 +67,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void selfComment(QString msg);
 		QMap<QString, QLineEdit*> templateLineEdits;
 		QMap<QString, QCheckBox*> templateCheckBoxes;
-
+		pki_temp *caTemplate(pki_x509 *ca) const;
 	public:
 		QLineEdit *description;
 		NewX509(QWidget *parent);

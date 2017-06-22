@@ -100,8 +100,8 @@ NewX509::NewX509(QWidget *parent)
 	on_applyTime_clicked();
 
 	// settings for the templates ....
-	QList<pki_base*> templates = MainWindow::temps->getDescPredefs();
-	tempList->insertPkiItems(templates);
+	tempList->insertPkiItems(MainWindow::temps->getAllAndPredefs());
+	tempList->setNullItem(tr("No template"));
 
 	// setup Extended keyusage
 	foreach(int nid, eku_nid)
@@ -443,6 +443,29 @@ void NewX509::fromX509super(pki_x509super *cert_or_req)
 
 }
 
+pki_temp *NewX509::caTemplate(pki_x509 *ca) const
+{
+	QVariant sqlId = ca->getTemplateSqlId();
+	if (!sqlId.isValid())
+		return NULL;
+	return (pki_temp*)MainWindow::temps->lookupPki(sqlId);
+}
+
+/* Preset all values from another cert to create a aimilar one */
+void NewX509::defineCert(pki_x509 *cert)
+{
+	fromX509super(cert);
+
+	pki_x509 *signer = cert->getSigner();
+	if (signer == cert) {
+		foreignSignRB->setChecked(false);
+	} else if (signer) {
+		defineSigner(signer);
+	}
+	notBefore->setDate(cert->getNotBefore());
+	notAfter->setDate(cert->getNotAfter());
+}
+
 /* Preset the signing certificate */
 void NewX509::defineSigner(pki_x509 *defcert, bool applyTemp)
 {
@@ -671,7 +694,7 @@ void NewX509::on_certList_currentIndexChanged(int)
 	if (!cert)
 		return;
 
-	pki_temp *templ = cert->getTemplate();
+	pki_temp *templ = caTemplate(cert);
 	snb = cert->getNotBefore();
 	sna = cert->getNotAfter();
 	if (snb > notBefore->getDate())
@@ -720,6 +743,8 @@ void NewX509::selfComment(QString msg)
 void NewX509::on_applyTemplate_clicked()
 {
 	pki_temp *t = currentTemplate();
+	if (!t)
+		return;
 	fromTemplate(t);
 	selfComment(tr("Template '%1' applied").arg(t->comboText()));
 }

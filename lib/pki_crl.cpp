@@ -72,7 +72,7 @@ QSqlError pki_crl::insertSqlData()
 		return q.lastError();
 	while (q.next()) {
 		pki_x509 *x = static_cast<pki_x509*>(
-			db_base::lookupPki(q.value(0).toULongLong()));
+			db_base::lookupPki(q.value(0)));
 		if (!x) {
 			qDebug("CA certificate with id %d not found",
 				q.value(0).toInt());
@@ -110,8 +110,7 @@ QSqlError pki_crl::restoreSql(QVariant sqlId)
 		return sqlItemNotFound(sqlId);
 	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
 	d2i(ba);
-	setIssuer(static_cast<pki_x509*>(
-                        db_base::lookupPki(q.value(1).toULongLong())));
+	setIssuer(static_cast<pki_x509*>( db_base::lookupPki(q.value(1))));
 	return e;
 }
 

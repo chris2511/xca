@@ -42,15 +42,15 @@ void db_x509::dereferenceIssuer()
 	while (q.next()) {
 		pki_base *root = rootItem;
 		pki_x509 *cert = static_cast<pki_x509*>(
-					lookupPki(q.value(0).toULongLong()));
+					lookupPki(q.value(0)));
 		pki_x509 *issuer = static_cast<pki_x509*>(
-					lookupPki(q.value(1).toULongLong()));
+					lookupPki(q.value(1)));
 		if (cert && issuer) {
 			cert->setSigner(issuer);
 			if (cert != issuer)
 				root = issuer;
 		}
-		if (cert->getParent() != root) {
+		if (cert && cert->getParent() != root) {
 			fprintf(stderr, "MOVE '%s' from '%s' to '%s'\n",
 				CCHAR(cert->getIntName()),
 				CCHAR(cert->getParent()->getIntName()),
@@ -508,7 +508,6 @@ void db_x509::newCert(NewX509 *dlg)
 	cert->pkiSource = dlg->getPkiSource();
 	cert = (pki_x509*)insert(cert);
 	createSuccess(cert);
-	updatePKI(signcert);
 	if (cert && clientkey->isToken()) {
 		pki_scard *card = (pki_scard*)clientkey;
 		if (XCA_YESNO(tr("Store the certificate to the key on the token '%1 (#%2)' ?").
@@ -1001,9 +1000,10 @@ void db_x509::toToken(QModelIndex idx, bool alwaysSelect)
 
 void db_x509::caProperties(QModelIndex idx)
 {
+	QStringList actions;
 	Ui::CaProperties ui;
+	QString policy;
 	int i;
-#warning FIXME for Policies
 
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert)
@@ -1015,14 +1015,16 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
 	ui.image->setPixmap(*MainWindow::certImg);
-	QString templ; //cert->getTemplate()->getIntName();
-	QStringList tempList = mainwin->temps->getDesc();
-	for (i=0; i<tempList.count(); i++) {
-		if (tempList[i] == templ)
-			break;
-	}
-	ui.temp->addItems(tempList);
-	ui.temp->setCurrentIndex(i);
+
+	QVariant tmplId = cert->getTemplateSqlId();
+	pki_base *templ = mainwin->temps->lookupPki(tmplId);
+
+	ui.temp->insertPkiItems(mainwin->temps->getAll());
+        ui.temp->setNullItem(tr("No template"));
+	ui.temp->setCurrentIndex(0);
+	if (templ)
+		ui.temp->setCurrentPkiItem(templ);
+
 	ui.certName->setTitle(cert->getIntName());
 
 	QStringList sl;
@@ -1034,16 +1036,54 @@ void db_x509::caProperties(QModelIndex idx)
                 sl << QString(OBJ_nid2ln(nid));
 	ui.subjectManager->setKeys(sl, 0);
 
-	sl.clear();
-	sl << "From request" << "From template" << "Erase" << "Match"
-	   << "Template as regex";
-	ui.subjectManager->setKeys(sl, 1);
+	actions << "From request" << "From template" << "Erase" << "Match";
+	ui.subjectManager->setKeys(actions, 1);
+
+	sl = cert->getDnPolicy().split(",");
+
+	printf("Policy: '%s'\n", CCHAR(cert->getDnPolicy()));
+	ui.subjectManager->deleteAllRows();
+	foreach(policy, sl) {
+		QStringList polKV, l = policy.split(":");
+		if (l.size() != 2)
+			continue;
+		printf("Option: %d\n", l[1].toInt());
+		polKV << QString(OBJ_nid2ln(OBJ_sn2nid(CCHAR(l[0]))));
+		polKV << actions[l[1].toInt()];
+		ui.subjectManager->addRow(polKV);
+        }
 
 	if (dlg->exec()) {
+		int rows = ui.subjectManager->rowCount();
+		XSqlQuery q;
+		QSqlError e;
+		templ = ui.temp->currentPkiItem();
+		tmplId = templ ? templ->getSqlItemId() : QVariant();
+
+		sl.clear();
+		for (i=0; i<rows; i++) {
+			QStringList l = ui.subjectManager->getRow(i);
+			int idx = actions.indexOf(l[1]);
+			if (idx == -1)
+				continue;
+			sl << QString("%1:%2")
+				.arg(OBJ_nid2sn(OBJ_ln2nid(CCHAR(l[0]))))
+				.arg(idx);
+                }
+		policy = sl.join(",");
+		cert->setTemplateSqlId(tmplId);
 		cert->setCrlDays(ui.days->value());
-#warning Fixme, too
-//		cert->setTemplate(ui.temp->currentText());
-		updatePKI(cert);
+		cert->setDnPolicy(policy);
+
+		SQL_PREPARE(q, "UPDATE authority SET crlDays=?, dnPolicy=?, "
+				"template=? WHERE item=?");
+
+		q.bindValue(0, cert->getCrlDays());
+		q.bindValue(1, policy);
+		q.bindValue(2, tmplId);
+		q.bindValue(3, cert->getSqlItemId());
+		q.exec();
+		mainwin->dbSqlError(q.lastError());
 	}
 	delete dlg;
 }
