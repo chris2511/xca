@@ -151,12 +151,12 @@ bool db_temp::alterTemp(pki_temp *temp)
 {
 	XSqlQuery q;
 	QSqlError e;
-        QSqlDatabase *db = mainwin->getDb();
+	QSqlDatabase db = QSqlDatabase::database();
 
 	if (!runTempDlg(temp))
 		return false;
 
-	if (!db->transaction())
+	if (!db.transaction())
 		return false;
 	SQL_PREPARE(q, "UPDATE templates SET version=?, template=? WHERE item=?");
 	q.bindValue(0, TMPL_VERSION);
@@ -166,10 +166,10 @@ bool db_temp::alterTemp(pki_temp *temp)
 	e = q.lastError();
 	mainwin->dbSqlError(e);
 	if (e.isValid()) {
-		db->rollback();
+		db.rollback();
 		return false;
 	}
 	updateItem(temp, temp->getIntName(), temp->getComment());
-	db->commit();
+	db.commit();
 	return true;
 }

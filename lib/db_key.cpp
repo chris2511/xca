@@ -66,7 +66,7 @@ QList<pki_base *> db_key::getAllKeys()
 QList<pki_base *> db_key::getUnusedKeys()
 {
 	return sqlSELECTpki("SELECT public_keys.item FROM public_keys "
-		"LEFT OUTER JOIN x509super ON x509super.key = public_keys.item "
+		"LEFT OUTER JOIN x509super ON x509super.pkey= public_keys.item "
 		"WHERE x509super.item IS NULL");
 }
 
@@ -77,14 +77,14 @@ void db_key::remFromCont(QModelIndex &idx)
 	pki_key *pki = static_cast<pki_key*>(idx.internalPointer());
 
 	QList<pki_base*> items = sqlSELECTpki(
-		"SELECT item FROM x509super WHERE key=?",
+		"SELECT item FROM x509super WHERE pkey=?",
 		QList<QVariant>() << QVariant(pki->getSqlItemId()));
 	foreach(pki_base *b, items) {
 		pki_x509super *x509s = static_cast<pki_x509super*>(b);
 		x509s->setRefKey(NULL);
 	}
 
-	SQL_PREPARE(q, "UPDATE x509super SET key=NULL WHERE item=?");
+	SQL_PREPARE(q, "UPDATE x509super SET pkey=NULL WHERE item=?");
 	q.bindValue(0, pki->getSqlItemId());
 	q.exec();
 	mainwin->dbSqlError(q.lastError());
@@ -96,10 +96,10 @@ void db_key::inToCont(pki_base *pki)
 	pki_key *key = static_cast<pki_key*>(pki);
 	unsigned hash = key->hash();
 	QList<pki_base*> items = sqlSELECTpki(
-		"SELECT item FROM x509super WHERE key IS NULL AND key_hash=?",
+		"SELECT item FROM x509super WHERE pkey IS NULL AND key_hash=?",
 		QList<QVariant>() << QVariant(hash));
 	XSqlQuery q;
-	SQL_PREPARE(q, "UPDATE x509super SET key=? WHERE item=?");
+	SQL_PREPARE(q, "UPDATE x509super SET pkey=? WHERE item=?");
 	q.bindValue(0, key->getSqlItemId());
 	foreach(pki, items) {
 		pki_x509super *x509s = static_cast<pki_x509super*>(pki);

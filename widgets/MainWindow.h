@@ -87,8 +87,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		int exportIndex(QString fname, bool hierarchy);
 		void checkDB();
 		QSqlError initSqlDB();
-		QSqlError openSqlDB();
-		QSqlDatabase db;
+		QString openSqlDB(QString dbName);
+		QString currentDB;
 
 	protected:
 		void init_images();
@@ -117,19 +117,14 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static QString explicit_dn;
 		static QString explicit_dn_default;
 		int exitApp;
-		QSqlDatabase *getDb()
-		{
-			return &db;
-		}
-		QString dbfile;
 		QLabel *dbindex;
 
 		MainWindow(QWidget *parent);
 		virtual ~MainWindow();
 		void loadSettings();
 		void saveSettings();
-		int initPass();
-		int initPass(QString passhash);
+		int initPass(QString dbName);
+		int initPass(QString dbName, QString passhash);
 		void read_cmdline(int argc, char *argv[]);
 		void load_engine();
 		static OidResolver *getResolver()
@@ -158,11 +153,12 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void update_history(QString file);
 		void initResolver();
 		bool checkForOldDbFormat();
+		bool checkForOldDbFormat(QString dbfile);
 		int verifyOldDbPass(QString dbname);
 		void importOldDatabase(QString dbname);
 
 	public slots:
-		int init_database();
+		int init_database(QString dbName);
 		void new_database();
 		void load_database();
 		void close_database();
@@ -181,6 +177,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void changeEvent(QEvent *event);
 		void exportIndex();
 		void exportIndexHierarchy();
+		void openRemoteSqlDB();
 
 	protected slots:
 		void closeEvent(QCloseEvent * event);

@@ -155,8 +155,7 @@ dbheaderList db_base::getHeaders()
 
 void db_base::saveHeaderState()
 {
-	QSqlDatabase *db = mainwin->getDb();
-	if (db->isOpen())
+	if (QSqlDatabase::database().isOpen())
 		mainwin->storeSetting(class_name + "_hdView",
 					allHeaders.toData());
 }
@@ -221,13 +220,13 @@ QSqlError db_base::insertPKI_noTransaction(pki_base *pki)
 
 void db_base::insertPKI(pki_base *pki)
 {
-	QSqlDatabase *db = mainwin->getDb();
-	if (db->transaction()) {
+	QSqlDatabase db = QSqlDatabase::database();
+	if (db.transaction()) {
 		QSqlError e = insertPKI_noTransaction(pki);
 		if (e.isValid())
-			db->rollback();
+			db.rollback();
 		else
-			db->commit();
+			db.commit();
 	}
 	emit columnsContentChanged();
 }
@@ -268,7 +267,7 @@ void db_base::pem2clipboard(QModelIndexList indexes) const
 void db_base::deletePKI(QModelIndex idx)
 {
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-	QSqlDatabase *db = mainwin->getDb();
+	QSqlDatabase db = QSqlDatabase::database();
 	try {
 		try {
 			pki->deleteFromToken();
@@ -276,14 +275,14 @@ void db_base::deletePKI(QModelIndex idx)
 			MainWindow::Error(err);
 		}
 
-		if (db->transaction()) {
+		if (db.transaction()) {
 			QSqlError e = pki->deleteSql();
 			remFromCont(idx);
 	                mainwin->dbSqlError(e);
 			if (e.isValid())
-				db->rollback();
+				db.rollback();
 			else
-				db->commit();
+				db.commit();
 			mainwin->dbSqlError(e);
 		}
 	} catch (errorEx &err) {

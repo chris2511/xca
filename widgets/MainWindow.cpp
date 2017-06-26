@@ -119,12 +119,6 @@ MainWindow::MainWindow(QWidget *parent)
 		fprintf(stderr, "DB driver: '%s'\n", CCHAR(driver));
 	}
 
-//#define POSTGRES 1
-#ifndef POSTGRES
-	db = QSqlDatabase::addDatabase("QSQLITE");
-#else
-	db = QSqlDatabase::addDatabase("QPSQL7");
-#endif
 	historyMenu = NULL;
 	init_menu();
 	setItemEnabled(false);
@@ -649,6 +643,7 @@ void MainWindow::changeDbPass()
 {
 	Passwd pass;
 	XSqlQuery q;
+	QSqlDatabase db = QSqlDatabase::database();
 
 	if (!checkOldGetNewPass(pass))
 		return;
@@ -682,13 +677,13 @@ void MainWindow::changeDbPass()
 	pki_evp::passwd = pass;
 }
 
-int MainWindow::initPass()
+int MainWindow::initPass(QString dbName)
 {
 	QString passhash = getSetting("pwhash");
-	return initPass(passhash);
+	return initPass(dbName, passhash);
 }
 
-int MainWindow::initPass(QString passhash)
+int MainWindow::initPass(QString dbName, QString passhash)
 {
 	pki_evp::passHash = QString();
 	QString salt, pass;
@@ -696,8 +691,8 @@ int MainWindow::initPass(QString passhash)
 
 	pass_info p(tr("New Password"), tr("Please enter a password, "
 			"that will be used to encrypt your private keys "
-			"in the database file:\n%1").
-			arg(compressFilename(dbfile)), this);
+			"in the database:\n%1").
+			arg(compressFilename(dbName)), this);
 
 	pki_evp::passHash = passhash;
 	if (pki_evp::passHash.isEmpty()) {
@@ -716,7 +711,7 @@ int MainWindow::initPass(QString passhash)
 				XCA_WARN(
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
-			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbfile)));
+			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbName)));
 			ret = PwDialog::execute(&p, &pki_evp::passwd,
 						false, true);
 			if (ret != 1) {
@@ -944,8 +939,8 @@ void MainWindow::changeEvent(QEvent *event)
 			if (model)
 				model->updateHeaders();
 		}
-		if (!dbfile.isEmpty())
-			dbindex->setText(tr("Database") + ": " + dbfile);
+		if (!currentDB.isEmpty())
+			dbindex->setText(tr("Database") + ": " + currentDB);
 	}
 	QMainWindow::changeEvent(event);
 }

@@ -19,8 +19,9 @@
 #include "lib/db_base.h"
 #include "lib/func.h"
 #include "lib/db.h"
-#include "widgets/ImportMulti.h"
-#include "widgets/NewKey.h"
+#include "ImportMulti.h"
+#include "NewKey.h"
+#include "OpenDb.h"
 
 QSqlError MainWindow::initSqlDB()
 {
@@ -55,9 +56,9 @@ QSqlError MainWindow::initSqlDB()
  *  table column (position, sort order, visibility)
  */
 << "CREATE TABLE settings ("
-	"key CHAR(20) UNIQUE, "
+	"key_ CHAR(20) UNIQUE, " /* mySql does not like "key" or "option" */
 	"value VARCHAR(1024))"
-<< "INSERT INTO settings (key, value) VALUES ('schema', '1')"
+<< "INSERT INTO settings (key_, value) VALUES ('schema', '1')"
 
 /*
  * All items (keys, tokens, requests, certs, crls, templates)
@@ -66,7 +67,7 @@ QSqlError MainWindow::initSqlDB()
  * as FOREIGN KEY.
  */
 << "CREATE TABLE items("
-	"id SERIAL PRIMARY KEY, "
+	"id INTEGER PRIMARY KEY, "
 	"name VARCHAR(128), "	/* Internal name of the item */
 	"type INTEGER, "	/* enum pki_type */
 	"source INTEGER, "	/* enum pki_source */
@@ -124,15 +125,15 @@ QSqlError MainWindow::initSqlDB()
  *  - hash of the public key, used for lookups if there
  *    is no key to reference
  * used by Requests and certificates and the use-counter of keys:
- * "SELECT from x509super WHERE key=?"
+ * "SELECT from x509super WHERE pkey=?"
  */
 << "CREATE TABLE x509super ("
 	"item INTEGER, "	/* reference to items(id) */
 	"subj_hash INTEGER, "	/* 32 bit hash of the Distinguished name */
-	"key INTEGER, "		/* reference to the key items(id) */
+	"pkey INTEGER, "	/* reference to the key items(id) */
 	"key_hash INTEGER, "	/* 32 bit hash of the public key */
 	"FOREIGN KEY (item) REFERENCES items (id), "
-	"FOREIGN KEY (key) REFERENCES items (id)) "
+	"FOREIGN KEY (pkey) REFERENCES items (id)) "
 
 /*
  * PKCS#10 Certificate request details
@@ -172,7 +173,7 @@ QSqlError MainWindow::initSqlDB()
 	"crlExpire "DB_DATE", "	/* CRL expiry date */
 	"crlNo INTEGER, "	/* Last CRL Number */
 	"crlDays INTEGER, "	/* CRL days until renewal */
-	"dnPolicy, "		/* DistinguishedName policy */
+	"dnPolicy VARCHAR(1024), "	/* DistinguishedName policy */
 	"FOREIGN KEY (item) REFERENCES items (id), "
 	"FOREIGN KEY (template) REFERENCES items (id)) "
 
@@ -213,8 +214,15 @@ QSqlError MainWindow::initSqlDB()
 
 	;
 	XSqlQuery q;
+	QSqlDatabase db = QSqlDatabase::database();
+	QStringList tables = db.tables();
+
+	if (tables.contains("items")) {
+		return QSqlError();
+	}
 	if (!db.transaction())
 		return db.lastError();
+
 	foreach(QString sql, sl) {
 		fprintf(stderr, "EXEC: '%s'\n", CCHAR(sql));
 		if (!q.exec(sql)) {
@@ -226,33 +234,28 @@ QSqlError MainWindow::initSqlDB()
 	return QSqlError();
 }
 
-QSqlError MainWindow::openSqlDB()
+QString MainWindow::openSqlDB(QString dbName)
 {
-//#define POSTGRES 1
-#ifndef POSTGRES
-	db.setDatabaseName(dbfile);
-#else
-	db.setDatabaseName("xca_pg");
-	db.setHostName("192.168.140.7");
-	db.setUserName("xca");
-	db.setPassword("xca");
-#endif
-	if (db.driverName() == "QSQLITE") {
-		// chmod 0600
-		if (!QFile::exists(dbfile)) {
-			QFile f(dbfile);
-			f.open(QIODevice::WriteOnly);
-			f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
-			f.close();
+	OpenDb *opendb = new OpenDb(this, dbName);
+	if (opendb->exec()) {
+		opendb->openDatabase();
+		QSqlError e = initSqlDB();
+		printf("DB-DESC: '%s'\n", CCHAR(opendb->getDescriptor()));
+		if (e.isValid()) {
+			dbSqlError();
+			dbName = QString();
+		} else {
+			dbName = opendb->getDescriptor();
 		}
 	}
-	if (!db.open())
-		return db.lastError();
-	QStringList tables = db.tables();
-	if (!tables.contains("items")) {
-		return initSqlDB();
-	}
-	return QSqlError();
+	delete opendb;
+	return dbName;
+}
+
+void MainWindow::openRemoteSqlDB()
+{
+	close_database();
+	init_database("@/QPSQL7:");
 }
 
 void MainWindow::set_geometry(QString geo)
@@ -277,7 +280,7 @@ void MainWindow::dbSqlError(QSqlError err)
 	}
 }
 
-bool MainWindow::checkForOldDbFormat()
+bool MainWindow::checkForOldDbFormat(QString dbfile)
 {
 	// 0x ca db 19 69
 	static const unsigned char magic[] = { 0xca, 0xdb, 0x19, 0x69 };
@@ -304,7 +307,7 @@ int MainWindow::verifyOldDbPass(QString dbname)
 		if ((p = (char *)mydb.load(&head))) {
 			passhash = p;
 			free(p);
-			return initPass(passhash);
+			return initPass(dbname, passhash);
 		}
 	}
 	return 2;
@@ -402,41 +405,43 @@ next:
 	}
 }
 
-int MainWindow::init_database()
+int MainWindow::init_database(QString dbName)
 {
 	int ret = 2;
 	QSqlError err;
 	QString oldDbFile;
 
-	qDebug("Opening database: %s", QString2filename(dbfile));
+	qDebug("Opening database: %s", QString2filename(dbName));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
-	if (checkForOldDbFormat()) {
-		QString newname = dbfile;
+	if (checkForOldDbFormat(dbName)) {
+		QString newname = dbName;
 		if (newname.endsWith(".xdb"))
 			newname = newname.left(newname.length() -4);
 		newname += "_backup_" + QDateTime::currentDateTime()
 				.toString("yyyyMMdd_hhmmss") + ".xdb";
 		if (!XCA_OKCANCEL(tr("Found an old version of the XCA database. I will make a backup copy called: '%1' and convert the database into the new format").arg(newname))) {
-			dbfile = "";
 			return 1;
 		}
-		if (verifyOldDbPass(dbfile) != 1)
+		if (verifyOldDbPass(dbName) != 1)
 			return 1;
-		if (!QFile::rename(dbfile, newname)) {
+		if (!QFile::rename(dbName, newname)) {
 			XCA_WARN(tr("Failed to rename the database file, because the target already exists"));
 			return 1;
 		}
 		oldDbFile = newname;
 	}
 	Entropy::seed_rng();
-	err = openSqlDB();
-	dbSqlError(err);
+	dbName = openSqlDB(dbName);
+	if (!QSqlDatabase::database().isOpen()) {
+		dbSqlError();
+		return 1;
+	}
 	certView->setRootIsDecorated(db_x509::treeview);
 
 	try {
 		if (pki_evp::passwd.isEmpty()) {
-			ret = initPass();
+			ret = initPass(dbName);
 			if (ret == 2)
 				return ret;
 		}
@@ -448,7 +453,6 @@ int MainWindow::init_database()
 	}
 	catch (errorEx &err) {
 		Error(err);
-		dbfile = "";
 		return ret;
 	}
 
@@ -492,7 +496,7 @@ int MainWindow::init_database()
 	if (!oldDbFile.isEmpty())
 		importOldDatabase(oldDbFile);
 
-	XSqlQuery query("SELECT key, value FROM settings");
+	XSqlQuery query("SELECT key_, value FROM settings");
 	while (query.next()) {
 		QString key = query.value(0).toString();
 		QString value = query.value(1).toString();
@@ -523,13 +527,14 @@ int MainWindow::init_database()
 	if (pki_evp::passwd.isNull())
 		XCA_INFO(tr("Using or exporting private keys will not be possible without providing the correct password"));
 
-	dbindex->setText(tr("Database") + ": " + dbfile);
 	load_engine();
 	hashBox hb(this);
 	if (hb.isInsecure()) {
 		XCA_WARN(tr("The currently used default hash '%1' is insecure. Please select at least 'SHA 224' for security reasons.").arg(hb.currentHashName()));
 		setOptions();
 	}
+	dbindex->setText(tr("Database") + ": " + dbName);
+	currentDB = dbName;
 	return ret;
 }
 
@@ -608,7 +613,7 @@ void MainWindow::undelete()
 
 int MainWindow::open_default_db()
 {
-	if (!dbfile.isEmpty())
+	if (QSqlDatabase::database().isOpen())
 		return 0;
 	FILE *fp = fopen_read(getUserSettingsDir() +
 			QDir::separator() + "defaultdb");
@@ -619,22 +624,21 @@ int MainWindow::open_default_db()
 	size_t len = fread(buff, 1, 255, fp);
 	fclose(fp);
 	buff[len] = 0;
-	dbfile = filename2QString(buff).trimmed();
+	QString dbfile = filename2QString(buff).trimmed();
 	if (QFile::exists(dbfile))
-		return init_database();
-	dbfile = QString();
+		return init_database(dbfile);
 	return 0;
 }
 
 void MainWindow::default_database()
 {
-	QFileInfo fi(dbfile);
+	QFileInfo fi(currentDB);
 	QString dir = getUserSettingsDir();
 	QString file = dir +QDir::separator() +"defaultdb";
 	FILE *fp;
 	QDir d;
 
-	if (dbfile.isEmpty()) {
+	if (currentDB.isEmpty()) {
 		QFile::remove(file);
 		return;
 	}
@@ -655,7 +659,7 @@ void MainWindow::default_database()
 QString MainWindow::getSetting(QString key)
 {
 	XSqlQuery q;
-	SQL_PREPARE(q, "SELECT value FROM settings WHERE key=?");
+	SQL_PREPARE(q, "SELECT value FROM settings WHERE key_=?");
 	q.bindValue(0, key);
 	q.exec();
 	if (q.first()) {
@@ -668,16 +672,18 @@ QString MainWindow::getSetting(QString key)
 void MainWindow::storeSetting(QString key, QString value)
 {
 	XSqlQuery q;
-	SQL_PREPARE(q, "UPDATE settings SET value=? WHERE key=?");
-	q.bindValue(0, value);
-	q.bindValue(1, key);
+	QSqlError e;
+
+	SQL_PREPARE(q, "SELECT COUNT(key_) FROM settings WHERE key_=?");
+	q.bindValue(0, key);
 	q.exec();
 	dbSqlError(q.lastError());
-	if (q.numRowsAffected() == 1)
-		return;
-	SQL_PREPARE(q, "INSERT INTO settings (key, value) VALUES (?, ?)");
-	q.bindValue(0, key);
-	q.bindValue(1, value);
+	if (q.first() && q.value(0).toInt() == 1)
+		SQL_PREPARE(q, "UPDATE settings SET value=? WHERE key_=?");
+	else
+		SQL_PREPARE(q, "INSERT INTO settings (value, key_) VALUES (?,?)");
+	q.bindValue(0, value);
+	q.bindValue(1, key);
 	q.exec();
 	dbSqlError(q.lastError());
 }
@@ -685,10 +691,21 @@ void MainWindow::storeSetting(QString key, QString value)
 void MainWindow::close_database()
 {
 	QByteArray ba;
-	if (!db.isOpen())
-		return;
+	QString connName;
+	bool dbopen;
 
-	qDebug("Closing database: %s", QString2filename(dbfile));
+	{
+		/* Destroy "db" at the end of the block */
+		QSqlDatabase db = QSqlDatabase::database();
+		connName= db.connectionName();
+		dbopen = db.isOpen();
+	}
+
+	if (!dbopen) {
+		QSqlDatabase::removeDatabase(connName);
+		return;
+	}
+	qDebug("Closing database: %s", QString2filename(currentDB));
 	QString s = QString("%1,%2,%3")
 		.arg(size().width()).arg(size().height())
 		.arg(tabView->currentIndex());
@@ -721,7 +738,7 @@ void MainWindow::close_database()
 	temps = NULL;
 	keys = NULL;
 
-	db.close();
+	QSqlDatabase::database().close();
 	pki_evp::passwd.cleanse();
 	pki_evp::passwd = QByteArray();
 
@@ -729,10 +746,11 @@ void MainWindow::close_database()
 		return;
 	crls = NULL;
 
-	update_history(dbfile);
+	update_history(currentDB);
 	pkcs11::remove_libs();
 	enableTokenMenu(pkcs11::loaded());
-	dbfile.clear();
+	QSqlDatabase::removeDatabase(connName);
+	currentDB.clear();
 }
 
 void MainWindow::load_history()

@@ -25,7 +25,7 @@
 #define SQL_PREPARE(q,cmd) do { \
 	(q).prepare(cmd); \
 	(q).location(__FILE__,__LINE__); \
-} while (0);
+} while (0)
 
 enum pki_source {
 	unknown,

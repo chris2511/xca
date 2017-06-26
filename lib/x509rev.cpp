@@ -268,5 +268,9 @@ QSqlError x509revList::sqlUpdate(QVariant caId)
 	for (int i=0; i<size(); i++) {
 		x509rev r = at(i);
 		r.executeQuery(q);
+		e = q.lastError();
+		if (e.isValid())
+			break;
 	}
+	return e;
 }

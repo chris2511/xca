@@ -237,7 +237,7 @@ int pki_key::getUcount()
 {
 	XSqlQuery q;
 	int size = -1;
-	SQL_PREPARE(q, "SELECT COUNT(*) FROM x509super WHERE key=?");
+	SQL_PREPARE(q, "SELECT COUNT(*) FROM x509super WHERE pkey=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
 	if (q.first())
@@ -450,7 +450,8 @@ QSqlError pki_key::insertSqlData()
 	XSqlQuery q;
 	QList<pki_x509super*> list;
 
-	SQL_PREPARE(q, "SELECT item FROM x509super WHERE key_hash=? AND key IS NULL");
+	SQL_PREPARE(q, "SELECT item FROM x509super WHERE key_hash=? AND "
+			"pkey IS NULL");
 	q.bindValue(0, myhash);
 	q.exec();
 	if (q.lastError().isValid())
@@ -470,7 +471,7 @@ QSqlError pki_key::insertSqlData()
 	}
 	q.finish();
 
-	SQL_PREPARE(q, "UPDATE x509super SET key=? WHERE item=?");
+	SQL_PREPARE(q, "UPDATE x509super SET pkey=? WHERE item=?");
 	q.bindValue(0, sqlItemId);
 	foreach(pki_x509super* x, list) {
 		q.bindValue(1, x->getSqlItemId());
@@ -524,7 +525,7 @@ QSqlError pki_key::deleteSqlData()
 	e = q.lastError();
 	if (e.isValid())
 		return e;
-	SQL_PREPARE(q, "UPDATE x509super SET key=NULL WHERE key=?");
+	SQL_PREPARE(q, "UPDATE x509super SET pkey=NULL WHERE key=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
 	return q.lastError();

@@ -44,7 +44,7 @@ QSqlError pki_x509super::insertSqlData()
 		}
 	}
 
-	SQL_PREPARE(q, "INSERT INTO x509super (item, subj_hash, key, key_hash) "
+	SQL_PREPARE(q, "INSERT INTO x509super (item, subj_hash, pkey, key_hash) "
 		  "VALUES (?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, (uint)getSubject().hashNum());
@@ -62,7 +62,7 @@ QSqlError pki_x509super::restoreSql(QVariant sqlId)
 	e = pki_base::restoreSql(sqlId);
 	if (e.isValid())
 		return e;
-	SQL_PREPARE(q, "SELECT key FROM x509super WHERE item=?");
+	SQL_PREPARE(q, "SELECT pkey FROM x509super WHERE item=?");
 	q.bindValue(0, sqlId);
 	q.exec();
 	e = q.lastError();

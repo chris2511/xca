@@ -93,6 +93,7 @@ void MainWindow::init_menu()
 		QKeySequence::New);
 	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
 		QKeySequence::Open);
+	file->addAction(tr("Open Remote DataBase"), this, SLOT(openRemoteSqlDB()));
 	file->addMenu(historyMenu);
 	file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
@@ -160,7 +161,7 @@ void MainWindow::init_menu()
 	wdMenuList += import;
 	scardList += token;
 
-	setItemEnabled(!dbfile.isEmpty());
+	setItemEnabled(!currentDB.isEmpty());
 }
 
 int MainWindow::changeDB(QString fname)
@@ -169,8 +170,7 @@ int MainWindow::changeDB(QString fname)
 		return 1;
 	close_database();
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
-	dbfile = fname;
-	return init_database();
+	return init_database(fname);
 }
 
 void MainWindow::update_history_menu()
@@ -218,7 +218,7 @@ void MainWindow::load_database()
 
 void MainWindow::setOptions()
 {
-	if (dbfile.isEmpty())
+	if (!QSqlDatabase::database().isOpen())
 		return;
 
 	Options *opt = new Options(this);

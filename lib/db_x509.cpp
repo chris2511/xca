@@ -89,7 +89,7 @@ QList<pki_base *> db_x509::getAllIssuers()
 {
 	/* Select X509 CA certificates with available private key */
 	return sqlSELECTpki("SELECT x509super.item FROM x509super "
-		"JOIN private_keys ON x509super.key = private_keys.item "
+		"JOIN private_keys ON x509super.pkey = private_keys.item "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1");
 }
@@ -185,7 +185,7 @@ void db_x509::inToCont(pki_base *pki)
 	 * and use its childs if we are newer */
 	items = sqlSELECTpki(
 		"SELECT x509super.item FROM x509super "
-		"JOIN public_keys ON x509super.key = public_keys.item "
+		"JOIN public_keys ON x509super.pkey = public_keys.item "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1 AND x509super.subj_hash=? "
 		"AND x509super.key_hash=?",
@@ -782,14 +782,14 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
 
 void db_x509::storeRevocations(pki_x509 *cert)
 {
-	QSqlDatabase *db = mainwin->getDb();
-	if (db->transaction()) {
+	QSqlDatabase db = QSqlDatabase::database();
+	if (db.transaction()) {
 		QSqlError e;
 		e = cert->revList.sqlUpdate(cert->getSqlItemId());
 		if (e.isValid())
-			db->rollback();
+			db.rollback();
 		else
-			db->commit();
+			db.commit();
 	}
 	cert->revList.merged = false;
 }

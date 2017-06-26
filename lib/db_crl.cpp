@@ -72,7 +72,6 @@ void db_crl::revokeCerts(pki_crl *crl)
 
 void db_crl::removeSigner(pki_base *signer)
 {
-#warning FIXME ......
 	FOR_ALL_pki(crl, pki_crl) {
 		if (crl->getIssuer() == signer) {
 			crl->setIssuer(NULL);
@@ -248,7 +247,7 @@ void db_crl::newItem(pki_x509 *cert)
 		delete dlg;
 		return;
 	}
-	QSqlDatabase *db = mainwin->getDb();
+	QSqlDatabase db = QSqlDatabase::database();
 	try {
 		x509v3ext e;
 		X509V3_CTX ext_ctx;
@@ -285,7 +284,7 @@ void db_crl::newItem(pki_x509 *cert)
 		crl->setLastUpdate(widget->lastUpdate->getDate());
 		crl->setNextUpdate(widget->nextUpdate->getDate());
 		crl->sign(cert->getRefKey(), widget->hashAlgo->currentHash());
-		if (!db->transaction())
+		if (!db.transaction())
 			throw errorEx(tr("Failed to initiate DB transaction"));
 		transact = true;
 		cert->setCrlExpire(widget->nextUpdate->getDate());
@@ -306,15 +305,15 @@ void db_crl::newItem(pki_x509 *cert)
 		if (err.isValid())
 			throw errorEx(tr("Database error: ").arg(err.text()));
 		insertPKI_noTransaction(crl);
-		err = db->lastError();
+		err = db.lastError();
 		if (err.isValid())
 			throw errorEx(tr("Database error: ").arg(err.text()));
-		db->commit();
+		db.commit();
 		createSuccess((crl));
 	}
 	catch (errorEx &err) {
 		if (transact)
-			db->rollback();
+			db.rollback();
 		MainWindow::Error(err);
 		if (crl)
 			delete crl;
