@@ -92,26 +92,14 @@ QSqlError pki_crl::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_crl::restoreSql(QVariant sqlId)
+void pki_crl::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_base::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "SELECT crl, issuer FROM crls WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	pki_base::restoreSql(rec);
+	QByteArray ba = QByteArray::fromBase64(
+				rec.value(VIEW_crls_crl).toByteArray());
 	d2i(ba);
-	setIssuer(static_cast<pki_x509*>( db_base::lookupPki(q.value(1))));
-	return e;
+	setIssuer(static_cast<pki_x509*>(db_base::lookupPki(
+			rec.value(VIEW_crls_issuer))));
 }
 
 QSqlError pki_crl::deleteSqlData()

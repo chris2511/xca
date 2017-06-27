@@ -103,21 +103,19 @@ void db_base::loadContainer()
 	QSqlError e;
 	QString stmt;
 
-	stmt = QString("SELECT id, type FROM items WHERE ") + sqlItemSelector();
-	q.exec(stmt);
+	SQL_PREPARE(q, QString("SELECT * FROM view_") + sqlHashTable);
+	q.exec();
 	e = q.lastError();
 	mainwin->dbSqlError(e);
 
 	while (q.next()) {
-		enum pki_type t = (enum pki_type)q.value(1).toInt();
+		enum pki_type t;
+		QSqlRecord rec = q.record();
+		t = (enum pki_type)q.value(VIEW_item_type).toInt();
 		pki_base *pki = newPKI(t);
-		e = pki->restoreSql(q.value(0));
-		if (!e.isValid()) {
-			insertChild(rootItem, pki);
-			lookup[q.value(0).toULongLong()] = pki;
-		} else {
-			mainwin->dbSqlError(e);
-		}
+		pki->restoreSql(rec);
+		insertChild(rootItem, pki);
+		lookup[q.value(VIEW_item_id).toULongLong()] = pki;
 	}
 
 	QString view = mainwin->getSetting(class_name + "_hdView");

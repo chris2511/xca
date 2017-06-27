@@ -102,6 +102,18 @@ QSqlError pki_scard::insertSqlData()
 	return q.lastError();
 }
 
+void pki_scard::restoreSql(QSqlRecord &rec)
+{
+	pki_key::restoreSql(rec);
+	card_manufacturer = rec.value(VIEW_tokens_card_manufacturer).toString();
+	card_serial = rec.value(VIEW_tokens_card_serial).toString();
+	card_model = rec.value(VIEW_tokens_card_model).toString();
+	card_label = rec.value(VIEW_tokens_card_label).toString();
+	slot_label = rec.value(VIEW_tokens_slot_label).toString();
+	object_id = rec.value(VIEW_tokens_object_id).toString();
+	card_manufacturer = rec.value(VIEW_tokens_card_manufacturer).toString();
+}
+
 QSqlError pki_scard::deleteSqlData()
 {
 	XSqlQuery q;

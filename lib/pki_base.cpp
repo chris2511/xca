@@ -146,27 +146,13 @@ QSqlError pki_base::insertSql()
 	return e;
 }
 
-QSqlError pki_base::restoreSql(QVariant sqlId)
+void pki_base::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	SQL_PREPARE(q, "SELECT name, date, source, comment "
-			"FROM items WHERE id=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	desc = q.value(0).toString();
-	insertion_date.fromPlain(q.value(1).toString());
-	comment = q.value(3).toString();
-	pkiSource = (enum pki_source)q.value(2).toInt();
-	sqlItemId = sqlId;
-	return e;
+	sqlItemId = rec.value(VIEW_item_id);
+	desc = rec.value(VIEW_item_name).toString();
+	insertion_date.fromPlain(rec.value(VIEW_item_date).toString());
+	comment = rec.value(VIEW_item_comment).toString();
+	pkiSource = (enum pki_source)rec.value(VIEW_item_source).toInt();
 }
 
 QSqlError pki_base::deleteSql()

@@ -691,26 +691,12 @@ QSqlError pki_evp::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_evp::restoreSql(QVariant sqlId)
+void pki_evp::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_key::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "SELECT ownPass FROM private_keys WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return QSqlError();
-	/* This is a private key */
-	ownPass = q.value(0).toInt();
-	isPub = false;
-	return e;
+	pki_key::restoreSql(rec);
+	isPub = rec.isNull(VIEW_private_ownpass);
+	if (!isPub)
+		ownPass = rec.value(VIEW_private_ownpass).toInt();
 }
 
 QByteArray pki_evp::getEncKey() const

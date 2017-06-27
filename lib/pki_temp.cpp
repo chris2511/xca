@@ -93,26 +93,13 @@ QSqlError pki_temp::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_temp::restoreSql(QVariant sqlId)
+void pki_temp::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_x509name::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "SELECT version, template FROM templates WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	int version = q.value(0).toInt();
-	QByteArray ba = QByteArray::fromBase64(q.value(1).toByteArray());
+	pki_base::restoreSql(rec);
+	int version = rec.value(VIEW_temp_version).toInt();
+	QByteArray ba = QByteArray::fromBase64(
+				rec.value(VIEW_temp_template).toByteArray());
 	fromData(ba, version);
-	return e;
 }
 
 QSqlError pki_temp::deleteSqlData()

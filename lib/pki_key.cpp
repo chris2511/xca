@@ -497,26 +497,13 @@ QSqlError pki_key::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_key::restoreSql(QVariant sqlId)
+void pki_key::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_base::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "SELECT public, len FROM public_keys WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	pki_base::restoreSql(rec);
+	QByteArray ba = QByteArray::fromBase64(
+			rec.value(VIEW_public_keys_public).toByteArray());
 	d2i(ba);
-	key_size = q.value(1).toInt();
-	return e;
+	key_size = rec.value(VIEW_public_keys_len).toInt();
 }
 
 QSqlError pki_key::deleteSqlData()

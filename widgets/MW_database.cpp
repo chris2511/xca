@@ -25,7 +25,7 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList sl; sl
+	QStringList schemas[2]; schemas[0]
 
 /* The "32bit hash" in public_keys, x509super, requests, certs and crls
  * is used to quickly find items in the DB by reference.
@@ -213,21 +213,79 @@ QSqlError MainWindow::initSqlDB()
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
 	;
+/* Schema Version 2  */
+	schemas[1]
+
+/* Views */
+<< "CREATE VIEW view_public_keys AS SELECT "
+	"items.id, items.name, items.type AS item_type, items.date, "
+	"items.source, items.comment, "
+	"public_keys.type as key_type, public_keys.len, public_keys.public, "
+	"private_keys.ownPass, "
+	"tokens.card_manufacturer, tokens.card_serial, tokens.card_model, "
+	"tokens.card_label, tokens.slot_label, tokens.object_id "
+	"FROM public_keys LEFT JOIN items ON public_keys.item = items.id "
+	"LEFT JOIN private_keys ON private_keys.item = public_keys.item "
+	"LEFT JOIN tokens ON public_keys.item = tokens.item"
+
+<< "CREATE VIEW view_certs AS SELECT "
+	"items.id, items.name, items.type, items.date AS item_date, "
+	"items.source, items.comment, "
+	"x509super.pkey, "
+	"certs.serial AS certs_serial, certs.issuer, certs.ca, certs.cert, "
+	"authority.template, authority.crlExpire, "
+	"authority.crlNo AS auth_crlno, authority.crlDays, authority.dnPolicy, "
+	"revocations.serial, revocations.date, revocations.invaldate, "
+	"revocations.crlNo, revocations.reasonBit "
+	"FROM certs LEFT JOIN items ON certs.item = items.id "
+	"LEFT JOIN x509super ON x509super.item = certs.item "
+	"LEFT JOIN authority ON authority.item = certs.item "
+	"LEFT JOIN revocations ON revocations.caId = certs.issuer "
+				"AND revocations.serial = certs.serial"
+
+<< "CREATE VIEW view_requests AS SELECT "
+	"items.id, items.name, items.type, items.date, "
+	"items.source, items.comment, "
+	"x509super.pkey, "
+	"requests.request, requests.signed "
+	"FROM requests LEFT JOIN items ON requests.item = items.id "
+	"LEFT JOIN x509super ON x509super.item = requests.item"
+
+<< "CREATE VIEW view_crls AS SELECT "
+	"items.id, items.name, items.type, items.date, "
+	"items.source, items.comment, "
+	"crls.num, crls.issuer, crls.crl "
+	"FROM crls LEFT JOIN items ON crls.item = items.id "
+
+<< "CREATE VIEW view_templates AS SELECT "
+	"items.id, items.name, items.type, items.date, "
+	"items.source, items.comment, "
+	"templates.version, templates.template "
+	"FROM templates LEFT JOIN items ON templates.item = items.id"
+
+
+<< "UPDATE settings SET value='2' WHERE key_='schema'"
+	;
+
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
 	QStringList tables = db.tables();
+	unsigned i = 0;
 
-	if (tables.contains("items")) {
-		return QSqlError();
+	if (tables.contains("settings")) {
+		QString schema = getSetting("schema");
+		i = schema.toInt();
 	}
 	if (!db.transaction())
 		return db.lastError();
 
-	foreach(QString sql, sl) {
-		fprintf(stderr, "EXEC: '%s'\n", CCHAR(sql));
-		if (!q.exec(sql)) {
-			db.rollback();
-			return q.lastError();
+	for (; i < ARRAY_SIZE(schemas); i++) {
+		foreach(QString sql, schemas[i]) {
+			fprintf(stderr, "EXEC[%d]: '%s'\n", i, CCHAR(sql));
+			if (!q.exec(sql)) {
+				db.rollback();
+				return q.lastError();
+			}
 		}
 	}
 	db.commit();

@@ -113,54 +113,26 @@ QSqlError pki_x509::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_x509::restoreSql(QVariant sqlId)
+void pki_x509::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_x509super::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-
-	SQL_PREPARE(q, "SELECT cert, issuer, serial FROM certs "
-			"WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	bool ca;
+	pki_x509super::restoreSql(rec);
+	QByteArray ba = QByteArray::fromBase64(
+				rec.value(VIEW_x509_cert).toByteArray());
 	d2i(ba);
-	signerSqlId = q.value(1);
-	revList = x509revList::fromSql(sqlId);
-	QVariant serial = q.value(4);
-
-	SQL_PREPARE(q, "SELECT crlNo, crlExpire, template FROM authority "
-			"WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (q.first()) {
-		crlNumber.set(q.value(0).toUInt());
-		crlExpire.fromPlain(q.value(1).toString());
-		caTemplateSqlId = q.value(2);
+	signerSqlId = rec.value(VIEW_x509_issuer);
+	ca = rec.value(VIEW_x509_ca).toBool();
+	crlNumber.set(rec.value(VIEW_x509_auth_crlNo).toUInt());
+	crlExpire.fromPlain(rec.value(VIEW_x509_auth_crlExpire).toString());
+	caTemplateSqlId = rec.value(VIEW_x509_auth_template);
+	crlDays = rec.value(VIEW_x509_auth_crlDays).toInt();
+	dnPolicy = rec.value(VIEW_x509_auth_dnPolicy).toString();
+	if (rec.isNull(VIEW_x509_revocation))
+		revocation = x509rev(rec, VIEW_x509_revocation);
+	if (ca) {
+#warning Improve revocation load (make it on demand) with revList accessor
+		revList = x509revList::fromSql(sqlItemId);
 	}
-
-	SQL_PREPARE(q, "SELECT serial, date, invaldate, crlNo, reasonBit "
-			"FROM revocations WHERE caId=? AND serial=?");
-	q.bindValue(0, signerSqlId);
-	q.bindValue(1, serial);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (q.first())
-		revocation = x509rev(q.record());
-	return q.lastError();
 }
 
 QSqlError pki_x509::deleteSqlData()

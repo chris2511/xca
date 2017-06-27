@@ -14,6 +14,8 @@
 #include "x509name.h"
 #include "x509v3ext.h"
 
+#define VIEW_x509super_keyid 6
+
 class pki_x509name : public pki_base
 {
     public:
@@ -67,7 +69,7 @@ class pki_x509super : public pki_x509name
 		bool visible();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

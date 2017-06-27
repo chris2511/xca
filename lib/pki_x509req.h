@@ -15,6 +15,8 @@
 #include "pki_x509super.h"
 #include "x509name.h"
 
+#define VIEW_x509req_request 7
+#define VIEW_x509req_signed 8
 
 class pki_x509;
 
@@ -69,7 +71,7 @@ class pki_x509req : public pki_x509super
 		bool visible();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

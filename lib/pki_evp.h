@@ -17,6 +17,8 @@
 #include "pki_key.h"
 #include "Passwd.h"
 
+#define VIEW_private_ownpass 9
+
 class pki_evp: public pki_key
 {
 		Q_OBJECT
@@ -70,7 +72,7 @@ class pki_evp: public pki_key
 		bool sqlUpdatePrivateKey();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

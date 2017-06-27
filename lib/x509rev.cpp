@@ -165,13 +165,13 @@ void x509rev::dump() const
 		crl_reasons[reason_idx].lname);
 }
 
-x509rev::x509rev(QSqlRecord rec)
+x509rev::x509rev(QSqlRecord rec, int offset)
 {
-	serial.setHex(rec.value(0).toString());
-	date.fromPlain(rec.value(1).toString());
-	ivalDate.fromPlain(rec.value(2).toString());
-	crlNo = rec.value(3).toInt();
-	reason_idx = reasonBit2Idx(rec.value(4).toInt());
+	serial.setHex(rec.value(offset).toString());
+	date.fromPlain(rec.value(offset +1).toString());
+	ivalDate.fromPlain(rec.value(offset +2).toString());
+	crlNo = rec.value(offset +3).toInt();
+	reason_idx = reasonBit2Idx(rec.value(offset +4).toInt());
 }
 
 void x509rev::executeQuery(XSqlQuery &q)

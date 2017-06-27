@@ -55,25 +55,11 @@ QSqlError pki_x509super::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_x509super::restoreSql(QVariant sqlId)
+void pki_x509super::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_base::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "SELECT pkey FROM x509super WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	keySqlId = q.value(0);
-	privkey = NULL;
-	return e;
+	pki_base::restoreSql(rec);
+	keySqlId = rec.value(VIEW_x509super_keyid);
+        privkey = NULL;
 }
 
 QSqlError pki_x509super::deleteSqlData()

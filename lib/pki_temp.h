@@ -19,6 +19,9 @@
 
 #define CHECK_TMPL_KEY if (!tmpl_keys.contains(key)) { qDebug("Unknown template key: %s(%s)",  __func__, CCHAR(key)); }
 
+#define VIEW_temp_version 6
+#define VIEW_temp_template 7
+
 class pki_temp: public pki_x509name
 {
 		Q_OBJECT
@@ -92,7 +95,7 @@ class pki_temp: public pki_x509name
 		extList fromCert(pki_x509super *cert_or_req);
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

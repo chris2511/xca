@@ -22,6 +22,17 @@
 #include "x509v3ext.h"
 #include "pkcs11.h"
 
+#define VIEW_x509_serial 7
+#define VIEW_x509_issuer 8
+#define VIEW_x509_ca 9
+#define VIEW_x509_cert 10
+#define VIEW_x509_auth_template 11
+#define VIEW_x509_auth_crlExpire 12
+#define VIEW_x509_auth_crlNo 13
+#define VIEW_x509_auth_crlDays 14
+#define VIEW_x509_auth_dnPolicy 15
+#define VIEW_x509_revocation 16
+
 class pki_x509 : public pki_x509super
 {
 		Q_OBJECT
@@ -166,7 +177,7 @@ class pki_x509 : public pki_x509super
 		}
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

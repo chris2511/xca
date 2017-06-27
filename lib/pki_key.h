@@ -18,6 +18,10 @@
 
 #define MAX_KEY_LENGTH 4096
 
+#define VIEW_public_keys_type 6
+#define VIEW_public_keys_len 7
+#define VIEW_public_keys_public 8
+
 class pki_key: public pki_base
 {
 		Q_OBJECT
@@ -86,7 +90,7 @@ class pki_key: public pki_base
 		}
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

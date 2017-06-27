@@ -15,6 +15,13 @@
 #include "pkcs11.h"
 #include "pki_key.h"
 
+#define VIEW_tokens_card_manufacturer 10
+#define VIEW_tokens_card_serial 11
+#define VIEW_tokens_card_model 12
+#define VIEW_tokens_card_label 13
+#define VIEW_tokens_slot_label 14
+#define VIEW_tokens_object_id  15
+
 class pki_scard: public pki_key
 {
 		Q_OBJECT
@@ -91,6 +98,7 @@ class pki_scard: public pki_key
 		bool visible();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

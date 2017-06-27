@@ -49,7 +49,7 @@ class x509rev
 		{
 			set(n);
 		}
-		x509rev(QSqlRecord rec);
+		x509rev(QSqlRecord rec, int offset = 0);
 		void executeQuery(XSqlQuery &q);
 		bool isValid() const
 		{

@@ -288,7 +288,7 @@ void db_crl::newItem(pki_x509 *cert)
 			throw errorEx(tr("Failed to initiate DB transaction"));
 		transact = true;
 		cert->setCrlExpire(widget->nextUpdate->getDate());
-		SQL_PREPARE(q, "UPDATE certs set crlNo=?, crlExpire=? WHERE item=?");
+		SQL_PREPARE(q, "UPDATE authority set crlNo=?, crlExpire=? WHERE item=?");
 		q.bindValue(0, (uint)cert->getCrlNumber().getLong());
 		q.bindValue(1, widget->nextUpdate->getDate().toPlain());
 		q.bindValue(2, cert->getSqlItemId());

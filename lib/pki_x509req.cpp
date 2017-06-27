@@ -56,26 +56,13 @@ QSqlError pki_x509req::insertSqlData()
 	return q.lastError();
 }
 
-QSqlError pki_x509req::restoreSql(QVariant sqlId)
+void pki_x509req::restoreSql(QSqlRecord &rec)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	e = pki_x509super::restoreSql(sqlId);
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "SELECT request, signed FROM requests WHERE item=?");
-	q.bindValue(0, sqlId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	if (!q.first())
-		return sqlItemNotFound(sqlId);
-	QByteArray ba = QByteArray::fromBase64(q.value(0).toByteArray());
+	pki_x509super::restoreSql(rec);
+	QByteArray ba = QByteArray::fromBase64(
+				rec.value(VIEW_x509req_request).toByteArray());
 	d2i(ba);
-	done = q.value(1).toBool();
-	return e;
+	done = rec.value(VIEW_x509req_signed).toBool();
 }
 
 QSqlError pki_x509req::deleteSqlData()

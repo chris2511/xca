@@ -16,6 +16,10 @@
 #include "asn1time.h"
 #include "asn1int.h"
 
+#define VIEW_crls_num 6
+#define VIEW_crls_issuer 7
+#define VIEW_crls_crl 8
+
 class pki_crl: public pki_x509name
 {
 		Q_OBJECT
@@ -72,7 +76,7 @@ class pki_crl: public pki_x509name
 		bool visible();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		QSqlError restoreSql(QVariant sqlId);
+		void restoreSql(QSqlRecord &rec);
 };
 
 #endif

@@ -34,6 +34,13 @@ enum pki_source {
 	transformed
 };
 
+#define VIEW_item_id 0
+#define VIEW_item_name 1
+#define VIEW_item_type 2
+#define VIEW_item_date 3
+#define VIEW_item_source 4
+#define VIEW_item_comment 5
+
 class XSqlQuery: public QSqlQuery
 {
 		QString lastq;
@@ -76,12 +83,23 @@ class XSqlQuery: public QSqlQuery
 		}
 		bool exec()
 		{
-			fprintf(stderr, "QUERY: %s\n", CCHAR(query_details()));
-			return QSqlQuery::exec();
+			QString res;
+			setForwardOnly(true);
+			bool r = QSqlQuery::exec();
+			if (isSelect())
+				res = QString("Rows selected: %1").arg(size());
+			else
+				res = QString("Rows affected: %1")
+					.arg(numRowsAffected());
+			fprintf(stderr, "QUERY: %s - %s\n",
+					CCHAR(query_details()),
+					CCHAR(res));
+			return r;
 		}
 		bool prepare(QString q)
 		{
 			lastq = q;
+			setForwardOnly(true);
 			return QSqlQuery::prepare(q);
 		}
 		void location(const char *f, int l)
@@ -211,7 +229,7 @@ class pki_base : public QObject
 		{
 			return QSqlError();
 		}
-		virtual QSqlError restoreSql(QVariant sqlId);
+		virtual void restoreSql(QSqlRecord &rec);
 		QSqlError sqlItemNotFound(QVariant sqlId) const;
 		unsigned hash();
 };
