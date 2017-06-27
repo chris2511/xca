@@ -38,6 +38,7 @@ QSqlError pki_x509super::insertSqlData()
 				q.value(0).toInt());
 			continue;
 		}
+		x->resetUcount();
 		if (compareRefKey(x)) {
 			setRefKey(x);
 			break;
@@ -78,6 +79,8 @@ QSqlError pki_x509super::restoreSql(QVariant sqlId)
 QSqlError pki_x509super::deleteSqlData()
 {
 	XSqlQuery q;
+	if (privkey)
+		privkey->resetUcount();
 	SQL_PREPARE(q, "DELETE FROM x509super WHERE item=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();

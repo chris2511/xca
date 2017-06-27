@@ -26,6 +26,7 @@ pki_key::pki_key(const QString name)
 	key = EVP_PKEY_new();
 	key_size = 0;
 	isPub = true;
+	useCount = -1;
 }
 
 const char *pki_key::getClassName() const
@@ -43,6 +44,7 @@ pki_key::pki_key(const pki_key *pk)
 		key = EVP_PKEY_new();
 	}
 	key_size = pk->key_size;
+	useCount = -1;
 }
 
 pki_key::~pki_key()
@@ -236,6 +238,8 @@ bool pki_key::isPrivKey() const
 int pki_key::getUcount()
 {
 	XSqlQuery q;
+	if (useCount != -1)
+		return useCount;
 	int size = -1;
 	SQL_PREPARE(q, "SELECT COUNT(*) FROM x509super WHERE pkey=?");
 	q.bindValue(0, sqlItemId);
@@ -245,6 +249,7 @@ int pki_key::getUcount()
 	else
 		qDebug("Failed to get key count for %s", CCHAR(getIntName()));
 	MainWindow::dbSqlError(q.lastError());
+	useCount = size;
 	return size;
 }
 

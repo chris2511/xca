@@ -33,7 +33,7 @@ class pki_key: public pki_base
 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
 		void ssh_key_QBA2data(QByteArray &ba, QByteArray *data);
 		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data);
-		int ucount; // usage counter
+		int useCount; // usage counter
 	public:
 		pki_key(const QString name = "");
 		pki_key(const pki_key *pk);
@@ -80,6 +80,10 @@ class pki_key: public pki_base
 		QByteArray i2d();
 		EVP_PKEY *load_ssh2_key(FILE *fp);
 		void writeSSH2public(QString fname);
+		void resetUcount()
+		{
+			useCount = -1;
+		}
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		QSqlError restoreSql(QVariant sqlId);
