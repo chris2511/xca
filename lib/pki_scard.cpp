@@ -112,6 +112,8 @@ void pki_scard::restoreSql(QSqlRecord &rec)
 	slot_label = rec.value(VIEW_tokens_slot_label).toString();
 	object_id = rec.value(VIEW_tokens_object_id).toString();
 	card_manufacturer = rec.value(VIEW_tokens_card_manufacturer).toString();
+	isPub = false;
+	qDebug() << card_manufacturer <<card_serial<<card_model<<card_label<<slot_label<<object_id;
 }
 
 QSqlError pki_scard::deleteSqlData()

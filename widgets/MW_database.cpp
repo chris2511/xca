@@ -25,7 +25,7 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList schemas[2]; schemas[0]
+	QStringList schemas[3]; schemas[0]
 
 /* The "32bit hash" in public_keys, x509super, requests, certs and crls
  * is used to quickly find items in the DB by reference.
@@ -265,6 +265,38 @@ QSqlError MainWindow::initSqlDB()
 
 
 << "UPDATE settings SET value='2' WHERE key_='schema'"
+
+	;
+/* Schema Version 3 */
+	schemas[2]
+
+<< "CREATE INDEX i_settings_key_ ON settings (key_)"
+<< "CREATE INDEX i_items_id ON items (id)"
+<< "CREATE INDEX i_public_keys_item ON public_keys (item)"
+<< "CREATE INDEX i_public_keys_hash ON public_keys (hash)"
+<< "CREATE INDEX i_private_keys_item ON private_keys (item)"
+<< "CREATE INDEX i_tokens_item ON tokens (item)"
+<< "CREATE INDEX i_token_mechanism_item ON token_mechanism (item)"
+<< "CREATE INDEX i_x509super_item ON x509super (item)"
+<< "CREATE INDEX i_x509super_subj_hash ON x509super (subj_hash)"
+<< "CREATE INDEX i_x509super_key_hash ON x509super (key_hash)"
+<< "CREATE INDEX i_x509super_pkey ON x509super (pkey)"
+<< "CREATE INDEX i_requests_item ON requests (item)"
+<< "CREATE INDEX i_requests_hash ON requests (hash)"
+<< "CREATE INDEX i_certs_item ON certs (item)"
+<< "CREATE INDEX i_certs_hash ON certs (hash)"
+<< "CREATE INDEX i_certs_iss_hash ON certs (iss_hash)"
+<< "CREATE INDEX i_certs_serial ON certs (serial)"
+<< "CREATE INDEX i_certs_issuer ON certs (issuer)"
+<< "CREATE INDEX i_certs_ca ON certs (ca)"
+<< "CREATE INDEX i_authority_item ON authority (item)"
+<< "CREATE INDEX i_crls_item ON crls (item)"
+<< "CREATE INDEX i_crls_hash ON crls (hash)"
+<< "CREATE INDEX i_crls_iss_hash ON crls (iss_hash)"
+<< "CREATE INDEX i_crls_issuer ON crls (issuer)"
+<< "CREATE INDEX i_revocations_caId_serial ON revocations (caId, serial)"
+<< "CREATE INDEX i_templates_item ON templates (item)"
+<< "UPDATE settings SET value='3' WHERE key_='schema'"
 	;
 
 	XSqlQuery q;

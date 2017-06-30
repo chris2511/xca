@@ -280,6 +280,9 @@ bool x509revList::sqlUpdateNoTrans(QVariant caId)
 
 bool x509revList::sqlUpdate(QVariant caId)
 {
+	return sqlUpdateNoTrans(caId);
+#warning Fix nested db.transaction()
+#if 0
 	QSqlDatabase db = QSqlDatabase::database();
 
 	if (!db.transaction())
@@ -290,4 +293,5 @@ bool x509revList::sqlUpdate(QVariant caId)
 	}
 	db.commit();
 	return true;
+#endif
 }

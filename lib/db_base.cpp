@@ -228,7 +228,6 @@ void db_base::insertPKI(pki_base *pki)
 		else
 			db.commit();
 	}
-	emit columnsContentChanged();
 }
 
 QString db_base::pem2QString(QModelIndexList indexes) const
