@@ -110,29 +110,25 @@ QSqlError pki_x509::insertSqlData()
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, now.toPlain());
 	q.exec();
+	if (fromDataRevList.size() > 0)
+		fromDataRevList.sqlUpdateNoTrans(sqlItemId);
 	return q.lastError();
 }
 
 void pki_x509::restoreSql(QSqlRecord &rec)
 {
-	bool ca;
 	pki_x509super::restoreSql(rec);
 	QByteArray ba = QByteArray::fromBase64(
 				rec.value(VIEW_x509_cert).toByteArray());
 	d2i(ba);
 	signerSqlId = rec.value(VIEW_x509_issuer);
-	ca = rec.value(VIEW_x509_ca).toBool();
 	crlNumber.set(rec.value(VIEW_x509_auth_crlNo).toUInt());
 	crlExpire.fromPlain(rec.value(VIEW_x509_auth_crlExpire).toString());
 	caTemplateSqlId = rec.value(VIEW_x509_auth_template);
 	crlDays = rec.value(VIEW_x509_auth_crlDays).toInt();
 	dnPolicy = rec.value(VIEW_x509_auth_dnPolicy).toString();
-	if (rec.isNull(VIEW_x509_revocation))
+	if (!rec.isNull(VIEW_x509_revocation))
 		revocation = x509rev(rec, VIEW_x509_revocation);
-	if (ca) {
-#warning Improve revocation load (make it on demand) with revList accessor
-		revList = x509revList::fromSql(sqlItemId);
-	}
 }
 
 QSqlError pki_x509::deleteSqlData()
@@ -632,10 +628,8 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	}
 	pki_openssl_error();
 	if (version > 3) {
-		x509revList curr(revList);
-		revList.fromBA(ba);
+		fromDataRevList.fromBA(ba);
 		pki_openssl_error();
-		revList.merge(curr);
 	}
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
@@ -752,21 +746,38 @@ bool pki_x509::verify(pki_x509 *signer)
 	if (verify_only(signer)) {
 		int idx;
 		x509rev r;
+		x509revList rl(revocation);
 		r.setSerial(getSerial());
 		psigner = signer;
-		psigner->revList.merge(x509revList(revocation));
-		idx = psigner->revList.indexOf(r);
+		signerSqlId = psigner->sqlItemId;
+		psigner->mergeRevList(rl);
+		rl = psigner->getRevList();
+		idx = rl.indexOf(r);
 		if (idx != -1)
-			revocation = psigner->revList[idx];
+			revocation = rl[idx];
 		return true;
 	}
 	return false;
 }
 
+x509revList pki_x509::getRevList() const
+{
+	return isCA() ? x509revList::fromSql(sqlItemId) : x509revList();
+}
+
+void pki_x509::mergeRevList(x509revList &l)
+{
+	x509revList revList = getRevList();
+	revList.merge(l);
+
+	if (revList.merged)
+		revList.sqlUpdate(sqlItemId);
+}
+
 void pki_x509::setRevocations(const x509revList &rl)
 {
-	revList = rl;
 	x509rev rev;
+	x509revList revList = rl;
 
 	foreach(pki_base *p, childItems) {
 		pki_x509 *pki = static_cast<pki_x509 *>(p);
@@ -777,6 +788,7 @@ void pki_x509::setRevocations(const x509revList &rl)
 		else
 			pki->revocation = x509rev();
 	}
+	revList.sqlUpdate(sqlItemId);
 }
 
 pki_key *pki_x509::getPubKey() const

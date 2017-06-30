@@ -232,6 +232,7 @@ class pki_base : public QObject
 		virtual void restoreSql(QSqlRecord &rec);
 		QSqlError sqlItemNotFound(QVariant sqlId) const;
 		unsigned hash();
+		QString pki_source_name() const;
 };
 
 Q_DECLARE_METATYPE(pki_base *);

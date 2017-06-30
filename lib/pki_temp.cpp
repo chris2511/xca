@@ -199,21 +199,23 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	QString r;
 	if (el.genConf(NID_basic_constraints, &r)) {
 		QStringList sl = r.split(",");
+		printf("NID_basic_constraints: '%s', %d\n", CCHAR(r), sl.size());
 		if (sl.contains("critical"))
 			settings["bcCritical"] = "1";
-		settings["ca"] = sl.contains("CA:TRUE") ? 1 : 2;
+		settings["ca"] = sl.contains("CA:TRUE") ? "1" : "2";
 		settings["basicPath"]=sl.filter("pathlen:").join("") .mid(8,-1);
 	} else {
 		settings["bcCritical"] = "";
 		settings["ca"] = "";
 		settings["basicPath"] = "";
 	}
-	settings["authKey"] = el.delByNid(NID_authority_key_identifier);
-	settings["subKey"] =  el.delByNid(NID_subject_key_identifier);
+	settings["authKey"] = el.delByNid(NID_authority_key_identifier) ? "1" : "0";
+	settings["subKey"] =  el.delByNid(NID_subject_key_identifier) ? "1" : "0";
 
 	int nsCT = bitsToInt(el, NID_netscape_cert_type, NULL);
 	/* bit 4 is unused. Move higher bits down. */
-	settings["nsCertType"] = (nsCT & 0xf) | ((nsCT & 0xf0) >> 1);
+	settings["nsCertType"] = QString::number(
+				(nsCT & 0xf) | ((nsCT & 0xf0) >> 1));
 
 	bool keyUseCritical;
 	settings["keyUse"] = QString::number(

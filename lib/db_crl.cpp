@@ -108,9 +108,6 @@ pki_base *db_crl::insert(pki_base *item)
 	}
 	insertPKI(crl);
 	revokeCerts(crl);
-	pki_x509 *issuer = crl->getIssuer();
-	if (issuer && !issuer->revList.merged)
-		mainwin->certs->storeRevocations(issuer);
 	return crl;
 }
 
@@ -260,7 +257,7 @@ void db_crl::newItem(pki_x509 *cert)
 		crl->pkiSource = generated;
 
 		bool withReason = widget->revocationReasons->isChecked();
-		foreach(x509rev rev, cert->revList)
+		foreach(x509rev rev, cert->getRevList())
 			crl->addRev(rev, withReason);
 
 		if (widget->authKeyId->isChecked()) {

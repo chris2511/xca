@@ -146,6 +146,8 @@ dbheaderList db_base::getHeaders()
 	  << new dbheader(HD_counter, false, tr("No."))
 	  << new dbheader(HD_creation, false, tr("Date"),
 			tr("Date of creation or insertion"))
+	  << new dbheader(HD_source, false, tr("Source"),
+			tr("Generated, Imported, Transformed"))
 	  << new dbheader(HD_comment, false, tr("Comment"),
 			tr("First line of the comment field"));
 	return h;

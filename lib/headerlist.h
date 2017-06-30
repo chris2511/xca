@@ -25,6 +25,7 @@
 #define HD_x509_sigalg -7
 #define HD_creation -8
 #define HD_comment -9
+#define HD_source -100
 
 #define HD_cert_serial -10
 #define HD_cert_notBefore -11

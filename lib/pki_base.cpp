@@ -248,6 +248,18 @@ pki_base *pki_base::takeFirst()
 	return childItems.takeFirst();
 }
 
+QString pki_base::pki_source_name() const
+{
+	switch (pkiSource) {
+		default:
+		case unknown: return tr("Unknown");
+		case imported: return tr("Imported");
+		case generated: return tr("Generated");
+		case transformed: return tr("Transformed");
+	}
+	return QString("???");
+}
+
 QVariant pki_base::column_data(dbheader *hd)
 {
 	switch (hd->id) {
@@ -257,6 +269,8 @@ QVariant pki_base::column_data(dbheader *hd)
 		return QVariant(insertion_date.toSortable());
 	case HD_comment:
 		return QVariant(comment.section('\n', 0, 0));
+	case HD_source:
+		return QVariant(pki_source_name());
 	}
 	return QVariant();
 }

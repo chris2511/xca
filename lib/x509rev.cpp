@@ -167,11 +167,13 @@ void x509rev::dump() const
 
 x509rev::x509rev(QSqlRecord rec, int offset)
 {
+	fprintf(stderr, "QSqlRecord offset: %d\n", offset);
 	serial.setHex(rec.value(offset).toString());
 	date.fromPlain(rec.value(offset +1).toString());
 	ivalDate.fromPlain(rec.value(offset +2).toString());
 	crlNo = rec.value(offset +3).toInt();
 	reason_idx = reasonBit2Idx(rec.value(offset +4).toInt());
+	dump();
 }
 
 void x509rev::executeQuery(XSqlQuery &q)
@@ -247,30 +249,45 @@ x509revList x509revList::fromSql(QVariant caId)
 		x509rev r(q.record());
 		list.append(r);
 	}
+	list.merged = false;
 	return list;
 }
 
-QSqlError x509revList::sqlUpdate(QVariant caId)
+bool x509revList::sqlUpdateNoTrans(QVariant caId)
 {
-	// Transaction from outside !!
 	XSqlQuery q;
-	QSqlError e;
+	QSqlDatabase db = QSqlDatabase::database();
+
 	SQL_PREPARE(q, "DELETE FROM revocations WHERE caId=?");
 	q.bindValue(0, caId);
 	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
+	if (q.lastError().isValid())
+		return false;
+
 	SQL_PREPARE(q, "INSERT INTO revocations "
-		"(caId, serial, date, invaldate, reasonBit) "
-		"VALUES (?,?,?,?,?)");
+			"(caId, serial, date, invaldate, reasonBit) "
+			"VALUES (?,?,?,?,?)");
 	q.bindValue(0, caId);
 	for (int i=0; i<size(); i++) {
 		x509rev r = at(i);
 		r.executeQuery(q);
-		e = q.lastError();
-		if (e.isValid())
-			break;
+		if (q.lastError().isValid())
+				return false;
 	}
-	return e;
+        merged = false;
+	return true;
+}
+
+bool x509revList::sqlUpdate(QVariant caId)
+{
+	QSqlDatabase db = QSqlDatabase::database();
+
+	if (!db.transaction())
+		return false;
+	if (!sqlUpdateNoTrans(caId)) {
+		db.rollback();
+		return false;
+	}
+	db.commit();
+	return true;
 }

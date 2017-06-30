@@ -47,6 +47,7 @@ class pki_x509 : public pki_x509super
 		void init();
 		x509rev revocation;
 		QString dnPolicy;
+		x509revList fromDataRevList;
 
 	protected:
 		int sigAlg();
@@ -55,7 +56,6 @@ class pki_x509 : public pki_x509super
 		static QPixmap *icon[5];
 		static bool dont_colorize_expiries;
 		static bool disable_netscape;
-		x509revList revList;
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");
@@ -166,10 +166,9 @@ class pki_x509 : public pki_x509super
 		virtual int renameOnToken(slotid slot, QString name);
 		BIO *pem(BIO *, int);
 		virtual QVariant bg_color(dbheader *hd);
-		void mergeRevList(x509revList l) {
-			revList.merge(l);
-		}
+		void mergeRevList(x509revList &l);
 		void setRevocations(const x509revList &rl);
+		x509revList getRevList() const;
 		bool compareNameAndKey(pki_x509 *other);
 		void setCrlExpire(a1time a)
 		{

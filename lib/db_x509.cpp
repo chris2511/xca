@@ -101,12 +101,22 @@ void db_x509::remFromCont(QModelIndex &idx)
 	pki_x509 *child;
 	pki_base *new_parent;
 	QModelIndex new_idx;
+	QList<pki_x509 *> childs;
 
 	while (pki->childCount()) {
 		child = (pki_x509*)pki->childItems.takeFirst();
 		child->delSigner((pki_x509*)pki);
 		new_parent = child->findIssuer();
 		insertChild(new_parent, child);
+		if (new_parent)
+			childs << child;
+	}
+	XSqlQuery q;
+	SQL_PREPARE(q, "UPDATE certs SET issuer=? WHERE item=?");
+	foreach(pki_x509 *child, childs) {
+		q.bindValue(0, child->getSigner()->getSqlItemId());
+		q.bindValue(1, child->getSqlItemId());
+		q.exec();
 	}
 	mainwin->crls->removeSigner(pki);
 }
@@ -180,6 +190,7 @@ void db_x509::inToCont(pki_base *pki)
 	QList<pki_base *> items;
 	unsigned pubhash = cert->pubHash();
 	unsigned namehash = cert->getSubject().hashNum();
+	x509revList revList;
 
 	/* Search for another certificate (name and key)
 	 * and use its childs if we are newer */
@@ -203,6 +214,7 @@ void db_x509::inToCont(pki_base *pki)
 			child->delSigner(other);
 			childs << child;
 		}
+		revList.merge(other->getRevList());
 	}
 	/* Search rootItem childs, whether they are ours */
 	foreach(pki_base *b, rootItem->childItems) {
@@ -214,6 +226,7 @@ void db_x509::inToCont(pki_base *pki)
 	}
 	/* move collected childs to us */
 	XSqlQuery q;
+	x509revList revokedChilds;
 	SQL_PREPARE(q, "UPDATE certs SET issuer=? WHERE item=?");
 	q.bindValue(0, cert->getSqlItemId());
 	foreach(pki_x509 *child, childs) {
@@ -232,7 +245,13 @@ void db_x509::inToCont(pki_base *pki)
 		q.bindValue(1, child->getSqlItemId());
 		q.exec();
 		mainwin->dbSqlError(q.lastError());
+		if (child->isRevoked())
+			revokedChilds << child->getRevocation();
 	}
+	q.finish();
+	revList.merge(revokedChilds);
+	cert->setRevocations(revList);
+
 	/* Update CRLs */
 	items = sqlSELECTpki( "SELECT item FROM crls WHERE iss_hash=?",
 			QList<QVariant>() << namehash);
@@ -311,14 +330,21 @@ static a1int randomSerial()
 a1int db_x509::getUniqueSerial(pki_x509 *signer)
 {
 	// returns an unused unique serial
-	a1int serial;
+	a1int serial, signer_serial;
 	x509rev rev;
+	x509revList revList;
+	if (signer) {
+		signer_serial = signer->getSerial();
+		revList = signer->getRevList();
+	}
 	while (true) {
 		serial = randomSerial();
 		if (!signer)
 			break;
+		if (signer_serial == serial)
+			continue;
 		rev.setSerial(serial);
-		if (signer->revList.contains(rev))
+		if (revList.contains(rev))
 			continue;
 		if (signer->getBySerial(serial))
 			continue;
@@ -780,32 +806,17 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
 
 }
 
-void db_x509::storeRevocations(pki_x509 *cert)
-{
-	QSqlDatabase db = QSqlDatabase::database();
-	if (db.transaction()) {
-		QSqlError e;
-		e = cert->revList.sqlUpdate(cert->getSqlItemId());
-		if (e.isValid())
-			db.rollback();
-		else
-			db.commit();
-	}
-	cert->revList.merged = false;
-}
-
 void db_x509::manageRevocations(QModelIndex idx)
 {
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert)
 		return;
 	RevocationList *dlg = new RevocationList(mainwin);
-	dlg->setRevList(cert->revList, cert);
+	dlg->setRevList(cert->getRevList(), cert);
 	connect(dlg, SIGNAL(genCRL(pki_x509*)),
 		mainwin->crls, SLOT(newItem(pki_x509*)));
 	if (dlg->exec()) {
 		cert->setRevocations(dlg->getRevList());
-		storeRevocations(cert);
 		emit columnsContentChanged();
 	}
 }
@@ -918,12 +929,13 @@ void db_x509::do_revoke(QModelIndexList indexes, const x509rev &r)
 		revlist << rev;
 	}
 	parent->mergeRevList(revlist);
-	storeRevocations(parent);
 }
 
 void db_x509::unRevoke(QModelIndexList indexes)
 {
 	pki_x509 *parent = NULL;
+	x509revList revList;
+
 	foreach(QModelIndex idx, indexes) {
 		pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 		if (!cert)
@@ -937,9 +949,12 @@ void db_x509::unRevoke(QModelIndexList indexes)
 		}
 	}
 	if (!parent) {
-		qWarning("%s(%d): Certs have different/no signer\n",
+		qWarning("%s(%d): Certs have different/no issuer\n",
 			 __func__, __LINE__);
+		return;
 	}
+	revList = parent->getRevList();
+
 	foreach(QModelIndex idx, indexes) {
 		pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 		int i;
@@ -947,11 +962,11 @@ void db_x509::unRevoke(QModelIndexList indexes)
 
 		cert->setRevoked(x509rev());
 		rev.setSerial(cert->getSerial());
-		i = parent->revList.indexOf(rev);
+		i = revList.indexOf(rev);
 		if (i != -1)
-			parent->revList.takeAt(i);
+			revList.takeAt(i);
 	}
-	storeRevocations(parent);
+	parent->setRevocations(revList);
 	emit columnsContentChanged();
 }
 

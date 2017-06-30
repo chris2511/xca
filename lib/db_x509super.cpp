@@ -129,6 +129,7 @@ void db_x509super::extractPubkey(QModelIndex index)
 	if (!key)
 		return;
 	key->setIntName(pki->getIntName());
+	key->pkiSource = transformed;
 	key = (pki_key*)mainwin->keys->insert(key);
 	if (!key)
 		return;
@@ -176,6 +177,7 @@ void db_x509super::toTemplate(QModelIndex index)
 		        d->exec();
 		        delete d;
 		}
+		temp->pkiSource = transformed;
 		createSuccess(mainwin->temps->insert(temp));
 	}
 	catch (errorEx &err) {
