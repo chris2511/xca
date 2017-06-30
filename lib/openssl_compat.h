@@ -57,7 +57,7 @@ static inline void DSA_get0_pqg(const DSA *d,
 }
 
 static inline void DSA_get0_key(const DSA *d,
-                   const BIGNUM **priv, const BIGNUM **pub)
+                   const BIGNUM **pub, const BIGNUM **priv)
 {
 	if(priv) *priv = d->priv_key; if(pub) *pub = d->pub_key;
 }
