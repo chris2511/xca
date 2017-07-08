@@ -93,7 +93,7 @@ void pki_base::fwrite_ba(FILE *fp, QByteArray ba, QString fname)
 void pki_base::my_error(const QString error) const
 {
 	if (!error.isEmpty()) {
-		fprintf(stderr, "%s\n", CCHAR(tr("Error: ") + error));
+		qCritical() << "Error:" << error;
 		throw errorEx(error, getClassName());
 	}
 }

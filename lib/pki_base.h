@@ -91,9 +91,8 @@ class XSqlQuery: public QSqlQuery
 			else
 				res = QString("Rows affected: %1")
 					.arg(numRowsAffected());
-			fprintf(stderr, "QUERY: %s - %s\n",
-					CCHAR(query_details()),
-					CCHAR(res));
+			qDebug() << QString("QUERY: %1 - %2")
+					.arg(query_details()).arg(res);
 			return r;
 		}
 		bool prepare(QString q)

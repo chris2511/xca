@@ -252,7 +252,7 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 		p11.loadAttribute(label, object);
 		slot_label = label.getText();
 	} catch (errorEx &err) {
-		printf("No PubKey Label: %s\n", err.getCString());
+		qDebug() << "No PubKey Label:" << err.getString();
 		// ignore
 	}
 	if (slot_label.isEmpty()) {
@@ -266,7 +266,7 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			slot_label = xn.getMostPopular();
 			pki_openssl_error();
 		} catch (errorEx &err) {
-			printf("No Pubkey Subject: %s\n", err.getCString());
+			qDebug() << "No Pubkey Subject:" << err.getString();
 			// ignore
 		}
 	}
@@ -745,7 +745,7 @@ void pki_scard::generateKey_card(int type, slotid slot, int size,
 	atts << pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) << kt.id;
 	QList<CK_OBJECT_HANDLE> objects = p11.objectList(atts);
 	if (objects.count() != 1)
-		printf("OBJECTS found: %d\n",objects.count());
+		qCritical() << "OBJECTS found:" << objects.count();
 
 	if (objects.count() == 0)
 		throw errorEx(tr("Unable to find generated key on card"));

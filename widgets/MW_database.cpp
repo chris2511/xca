@@ -330,7 +330,7 @@ QSqlError MainWindow::initSqlDB()
 
 	for (; i < ARRAY_SIZE(schemas); i++) {
 		foreach(QString sql, schemas[i]) {
-			fprintf(stderr, "EXEC[%d]: '%s'\n", i, CCHAR(sql));
+			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
 			if (!q.exec(sql)) {
 				db.rollback();
 				return q.lastError();
@@ -347,7 +347,7 @@ QString MainWindow::openSqlDB(QString dbName)
 	if (opendb->exec()) {
 		opendb->openDatabase();
 		QSqlError e = initSqlDB();
-		printf("DB-DESC: '%s'\n", CCHAR(opendb->getDescriptor()));
+		qDebug() << "DB-DESC:" << opendb->getDescriptor();
 		if (e.isValid()) {
 			dbSqlError();
 			dbName = QString();
@@ -382,7 +382,7 @@ void MainWindow::dbSqlError(QSqlError err)
 		err = QSqlDatabase::database().lastError();
 
 	if (err.isValid()) {
-		fprintf(stderr, "SQL ERROR: '%s'\n", CCHAR(err.text()));
+		qCritical() << "SQL ERROR:" << err.text();
 		XCA_WARN(err.text());
 	}
 }
@@ -479,7 +479,7 @@ void MainWindow::importOldDatabase(QString dbname)
 				delete pki;
 				pki = NULL;
 			}
-			fprintf(stderr, "load old: '%s'\n", CCHAR(pki->getIntName()));
+			qDebug() << "load old:" << pki->getIntName();
 			free(p);
 			if (pki) {
 				cont->insertPKI(pki);
@@ -660,7 +660,7 @@ void MainWindow::dump_database()
 		return;
 	}
 
-	printf("Dumping to %s\n", CCHAR(dirname));
+	qDebug() << "Dumping to" << dirname;
 	try {
 		keys->dump(dirname);
 		certs->dump(dirname);

@@ -307,7 +307,7 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 		p11.loadAttribute(label, object);
 		desc = label.getText();
 	} catch(errorEx &err) {
-		printf("No Cert Label: %s\n", err.getCString());
+		qDebug("No Cert Label: %s", err.getCString());
 		// IGNORE
 	}
 	pk11_attr_data x509(CKA_VALUE);
@@ -326,7 +326,7 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			desc = xn.getMostPopular();
 			pki_openssl_error();
 		} catch(errorEx &err) {
-			printf("No Cert Subject: %s\n", err.getCString());
+			qDebug("No Cert Subject: %s", err.getCString());
 			// IGNORE
 		}
 	}
@@ -839,20 +839,13 @@ void pki_x509::setPubKey(pki_key *key)
 
 QString pki_x509::fingerprint(const EVP_MD *digest)
 {
-	QString fp="";
-	char zs[4];
-	unsigned int n, j;
+	unsigned int n;
 	unsigned char md[EVP_MAX_MD_SIZE];
 
 	pki_openssl_error();
-	if (X509_digest(cert, digest, md, &n)) {
-		for (j=0; j<n; j++) {
-			sprintf(zs, "%02X%c",md[j], (j+1 == n) ?'\0':':');
-			fp += zs;
-		}
-	}
+	X509_digest(cert, digest, md, &n);
 	pki_openssl_error();
-	return fp;
+	return formatHash(md, n);
 }
 
 bool pki_x509::checkDate()

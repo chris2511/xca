@@ -629,8 +629,8 @@ int pkcs11::decrypt(int flen, const unsigned char *from,
 			(CK_BYTE *)from, flen, to, &size);
 
 	if (rv != CKR_OK) {
-		fprintf(stderr, "Error: C_Decrypt(init): %s\n",
-			pk11errorString(rv));
+		qDebug() << "Error: C_Decrypt(init):"
+			 << pk11errorString(rv);
 		return -1;
 	}
 	return size;
@@ -652,8 +652,8 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 				(CK_BYTE *)from, flen, to, &size);
 
 	if (rv != CKR_OK) {
-		fprintf(stderr, "Error: C_Sign(init): %s\n",
-			pk11errorString(rv));
+		qDebug() << "Error: C_Sign(init):"
+			 << pk11errorString(rv);
 		return -1;
 	}
 	return size;
@@ -975,8 +975,8 @@ static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 		EVP_PKEY_CTX_set_data(ctx, NULL);
 		switch (EVP_MD_type((const EVP_MD *)p2)) {
 		case NID_ecdsa_with_SHA1:
-			fprintf(stderr, "%s: NID_ecdsa_with_SHA1 unexpected\n",
-				__func__);
+			qDebug() << __func__
+				<< "NID_ecdsa_with_SHA1 unexpected";
 			/* fallthrough */
 		case NID_sha1:
 		case NID_sha224:
@@ -990,7 +990,7 @@ static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 	case EVP_PKEY_CTRL_DIGESTINIT:
 		return 1;
 	}
-	fprintf(stderr, "EC Don't call me %d\n", type);
+	qWarning() << "EC Don't call me" << type;
 	return -2;
 }
 #endif
@@ -1218,7 +1218,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #endif
 	}
 	if (ENGINE_get_ex_data(e, eng_idx))
-		fprintf(stderr, "Christian forgot to free the previous Card key. Blame him");
+		qWarning() << "Christian forgot to free the previous Card key. Blame him";
 
 	ENGINE_set_ex_data(e, eng_idx, this);
 	p11obj = obj;

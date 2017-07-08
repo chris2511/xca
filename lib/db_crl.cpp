@@ -90,8 +90,7 @@ void db_crl::inToCont(pki_base *pki)
 		"WHERE x509super.subj_hash=? AND certs.ca=1",
 				QList<QVariant>() << QVariant(hash));
 	foreach(pki_base *b, items) {
-		fprintf(stderr, "Possible Crl issuer: '%s'\n",
-			 CCHAR(b->getIntName()));
+		qDebug() << "Possible Crl issuer:" << b->getIntName();
 		crl->verify(static_cast<pki_x509*>(b));
 	}
 	db_base::inToCont(pki);

@@ -31,7 +31,6 @@ void MainWindow::cmd_help(const char* msg)
 		"\n"
 		" -v show version information and exit\n"
 		" -h shows this help screen and exit\n"
-		" -e <type>:<name>  extract entry.\n"
 		" -d expect the following argument to be the database name to use\n"
 		" -i expect the following argument to be the index file to generate\n"
 		" -I expect the following argument to be the base name the index file hierarchy to generate\n"

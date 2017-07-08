@@ -15,6 +15,7 @@
 
 #include <QFile>
 #include <QDir>
+#include <QDebug>
 #include <openssl/rand.h>
 #include "func.h"
 #include "entropy.h"
@@ -97,10 +98,13 @@ void Entropy::seed_rng()
 	random_from_file("/dev/urandom", 32);
 #endif
 #ifdef DEBUG_ENTROPY
-	fprintf(stderr, "Seeding %d bytes:", pool_pos);
-	for (unsigned i=0; i<pool_pos; i++)
-		fprintf(stderr, " %02x", pool[i]);
-	fprintf(stderr, "\nEntropy strength: %d\n", seed_strength);
+	{
+		QDebug dbg = qDebug();
+		dbg << QString("Seeding %1 bytes:").arg(pool_pos);
+		for (unsigned i=0; i<pool_pos; i++)
+			dbg << pool[i];
+	}
+	qDebug("Entropy strength: %d", seed_strength);
 #endif
 	pool_pos = 0;
 }
@@ -138,7 +142,7 @@ int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 	}
 	close(fd);
 #ifdef DEBUG_ENTROPY
-	fprintf(stderr, "Entropy from file '%s' = %d bytes\n", file, sum);
+	qDebug("Entropy from file '%s' = %d bytes", file, sum);
 #endif
 	return sum;
 }
@@ -170,6 +174,6 @@ Entropy::~Entropy()
 	QByteArray ba = filename2bytearray(rnd);
 	RAND_write_file(ba.constData());
 #ifdef DEBUG_ENTROPY
-	fprintf(stderr, "Seed strength: %d\n", seed_strength);
+	qDebug("Seed strength: %d", seed_strength);
 #endif
 }

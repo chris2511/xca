@@ -26,6 +26,7 @@ QString getUserSettingsDir();
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
 QStringList getLibExtensions();
 
+QString formatHash(const unsigned char *md, unsigned size, bool colon = true);
 QByteArray filename2bytearray(const QString &fname);
 QString filename2QString(const char *fname);
 QString compressFilename(QString filename, int maxlen = 50);

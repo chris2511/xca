@@ -534,11 +534,11 @@ int db::mv(QFile &new_file)
 		} else {
 			QFile::rename(tempn, name);
 			QFile::remove(new_file.fileName());
-			printf("%s file.error(%d)\n", CCHAR(name), file.error());
+			qDebug() << name << "file.error:" << file.error();
 			return 2;
 		}
 	} else {
-		printf("%s file.error(%d)\n", CCHAR(tempn), file.error());
+		qDebug() << tempn << "file.error:" << file.error();
 		return 2;
 	}
 	return 0;

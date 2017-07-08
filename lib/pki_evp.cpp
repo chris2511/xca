@@ -515,7 +515,6 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	decsize = outl;
 	EVP_DecryptFinal(ctx, p + decsize , &outl);
 	decsize += outl;
-	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, myencKey.count() -8);
 	pki_openssl_error();
 	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
 	pki_openssl_error();
@@ -819,9 +818,7 @@ QString pki_evp::md5passwd(QByteArray pass)
 	EVP_MD_CTX mdctxbuf;
 #endif
 	EVP_MD_CTX *mdctx;
-	QString str;
 	int n;
-	int j;
 	unsigned char m[EVP_MAX_MD_SIZE];
 
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
@@ -837,13 +834,7 @@ QString pki_evp::md5passwd(QByteArray pass)
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	EVP_MD_CTX_free(mdctx);
 #endif
-
-	for (j=0; j<n; j++) {
-		char zs[4];
-		sprintf(zs, "%02X%c",m[j], (j+1 == n) ?'\0':':');
-		str += zs;
-	}
-	return str;
+	return formatHash(m, n);
 }
 
 QString pki_evp::_sha512passwd(QByteArray pass, QString salt,
@@ -855,7 +846,6 @@ QString pki_evp::_sha512passwd(QByteArray pass, QString salt,
 	EVP_MD_CTX *mdctx;
 	QString str;
 	int n;
-	int j;
 	unsigned char m[EVP_MAX_MD_SIZE];
 
 	if (salt.length() < size) {
@@ -879,12 +869,7 @@ QString pki_evp::_sha512passwd(QByteArray pass, QString salt,
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	EVP_MD_CTX_free(mdctx);
 #endif
-	for (j=0; j<n; j++) {
-		char zs[4];
-		sprintf(zs, "%02X",m[j]);
-		str += zs;
-	}
-	return str;
+	return str + formatHash(m, n, false);
 }
 
 QString pki_evp::sha512passwd(QByteArray pass, QString salt)

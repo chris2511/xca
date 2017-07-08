@@ -116,7 +116,7 @@ MainWindow::MainWindow(QWidget *parent)
 	QStringList drivers = QSqlDatabase::drivers();
 	foreach(QString driver, drivers) {
 //		QSqlDatabase d = QSqlDatabase::addDatabase(driver, driver +"_C");
-		fprintf(stderr, "DB driver: '%s'\n", CCHAR(driver));
+		qDebug() << "DB driver:" << driver;
 	}
 
 	historyMenu = NULL;
@@ -129,7 +129,7 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef MDEBUG
 	CRYPTO_malloc_debug_init();
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
-	fprintf(stderr, "malloc() debugging on.\n");
+	qWarning() << "malloc() debugging on.";
 #endif
 
 	ERR_load_crypto_strings();

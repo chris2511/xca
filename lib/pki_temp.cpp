@@ -199,7 +199,6 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	QString r;
 	if (el.genConf(NID_basic_constraints, &r)) {
 		QStringList sl = r.split(",");
-		printf("NID_basic_constraints: '%s', %d\n", CCHAR(r), sl.size());
 		if (sl.contains("critical"))
 			settings["bcCritical"] = "1";
 		settings["ca"] = sl.contains("CA:TRUE") ? "1" : "2";
@@ -349,7 +348,6 @@ QByteArray pki_temp::toData()
 
 void pki_temp::fromData(QByteArray &ba, int version)
 {
-	int size = ba.size();
 	xname.d2i(ba);
 	QBuffer buf(&ba);
 	buf.open(QIODevice::ReadOnly);
@@ -357,8 +355,6 @@ void pki_temp::fromData(QByteArray &ba, int version)
 	in.setVersion(TEMPLATE_DS_VERSION);
 	in >> settings;
 	buf.close();
-	fprintf(stderr, "Settings: %d, ba-size:%d size:%d\n",
-			settings.size(), ba.size(), size);
 	(void)version;
 	//if (version < 11) ....
 }

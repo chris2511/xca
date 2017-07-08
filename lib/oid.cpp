@@ -11,6 +11,7 @@
 #include <QStringList>
 #include <QMessageBox>
 #include <QTextEdit>
+#include <QDebug>
 #include <QDir>
 #include "func.h"
 #include "oid.h"
@@ -56,9 +57,9 @@ static void readOIDs(QString fname)
 			int nid = OBJ_txt2nid(oid.constData());
 			if (nid != NID_undef) {
 				if (sn != OBJ_nid2sn(nid)) {
-					printf("%s SN differs: '%s' '%s'\n",
-						oid.constData(), sn.constData(),
-						OBJ_nid2sn(nid));
+					qWarning() << "OID: " << oid <<
+						"SN differs: " << sn <<
+						" " << OBJ_nid2sn(nid);
 					oid_name_clash[sn] = OBJ_nid2sn(nid);
 					differs = true;
 				}
@@ -66,6 +67,9 @@ static void readOIDs(QString fname)
 					printf("%s LN differs: '%s' '%s'\n",
 						oid.constData(), ln.constData(),
 						OBJ_nid2ln(nid));
+					qWarning() << "OID: " << oid <<
+						"LN differs: " << ln <<
+						" " << OBJ_nid2ln(nid);
 					oid_name_clash[ln] = OBJ_nid2ln(nid);
 					differs = true;
 				}

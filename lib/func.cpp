@@ -34,6 +34,7 @@
 #include <QPushButton>
 #include <QProgressBar>
 #include <QTextEdit>
+#include <QDebug>
 
 #if defined(Q_OS_WIN32)
 #include <shlobj.h>
@@ -265,10 +266,13 @@ QString asn1ToQString(const ASN1_STRING *str, bool quote)
 			qs = QString::fromLatin1((const char*)str->data, str->length);
 	}
 #if 0
-	printf("Convert %s (%d %d) string to '%s' len %d:", ASN1_tag2str(str->type), str->type, V_ASN1_UTF8STRING, CCHAR(qs), str->length);
+	QString s;
+	qDebug("Convert %s (%d %d) string to '%s' len %d:",
+		ASN1_tag2str(str->type), str->type,
+		V_ASN1_UTF8STRING, CCHAR(qs), str->length);
 	for (int i=0; i< str->length; i++)
-		printf(" %02x", str->data[i]);
-	printf("\n");
+		s += QString(" %1").arg(str->data[i], 2, 16);
+	qDebug() << s;
 #endif
 	if (quote)
 		qs.replace('\n', "\\n\\");
@@ -372,7 +376,7 @@ bool _ign_openssl_error(const QString txt, const char *file, int line)
 	QString errtxt;
 #if PRINT_IGNORED_ANYWAY
 	if (!txt.isEmpty() && ERR_peek_error())
-		fprintf(stderr, "%s\n", CCHAR(txt));
+		qDebug() << txt;
 #else
 	(void)txt;
 	(void)file;
@@ -381,11 +385,20 @@ bool _ign_openssl_error(const QString txt, const char *file, int line)
 	while (int i = ERR_get_error() ) {
 		errtxt = ERR_error_string(i, NULL);
 #if PRINT_IGNORED_ANYWAY
-		fprintf(stderr, CCHAR(QString("IGNORED (%1:%2) : %3\n").
-			arg(file).arg(line).arg(errtxt)));
+		qDebug() << QString("IGNORED (%1:%2) : %3\n")
+				.arg(file).arg(line).arg(errtxt);
 #endif
 	}
 	return !errtxt.isEmpty();
+}
+
+QString formatHash(const unsigned char *md, unsigned size, bool colon)
+{
+	QString s, t;
+	for (unsigned j = 0; j < size; j++)
+		s += t.sprintf("%02X%s", md[j],
+				(j+1 == size) || !colon ? "" : ":");
+	return s;
 }
 
 void inc_progress_bar(int, int, void *p)

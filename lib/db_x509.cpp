@@ -51,10 +51,9 @@ void db_x509::dereferenceIssuer()
 				root = issuer;
 		}
 		if (cert && cert->getParent() != root) {
-			fprintf(stderr, "MOVE '%s' from '%s' to '%s'\n",
-				CCHAR(cert->getIntName()),
-				CCHAR(cert->getParent()->getIntName()),
-				CCHAR(root->getIntName()));
+			qDebug() << "MOVE" << cert->getIntName()
+				<< "from" << cert->getParent()->getIntName()
+				<< "to" << root->getIntName();
 			cert->getParent()->takeChild(cert);
 			insertChild(root, cert);
 		}
@@ -167,9 +166,8 @@ static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
 			return false;
 		}
 		if (s == client) {
-			printf("Recursive signing: '%s' <-> '%s'\n",
-				CCHAR(s->getIntName()),
-				CCHAR(cert->getIntName()));
+			qWarning() << "Recursive signing:" << s->getIntName()
+				<< "<->" << cert->getIntName();
 			return true;
 		}
 	}
@@ -1056,13 +1054,13 @@ void db_x509::caProperties(QModelIndex idx)
 
 	sl = cert->getDnPolicy().split(",");
 
-	printf("Policy: '%s'\n", CCHAR(cert->getDnPolicy()));
+	qDebug() << "Policy:" << cert->getDnPolicy();
 	ui.subjectManager->deleteAllRows();
 	foreach(policy, sl) {
 		QStringList polKV, l = policy.split(":");
 		if (l.size() != 2)
 			continue;
-		printf("Option: %d\n", l[1].toInt());
+		qDebug() << "Option:" << l[1].toInt();
 		polKV << QString(OBJ_nid2ln(OBJ_sn2nid(CCHAR(l[0]))));
 		polKV << actions[l[1].toInt()];
 		ui.subjectManager->addRow(polKV);

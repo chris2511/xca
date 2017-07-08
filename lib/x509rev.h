@@ -27,9 +27,9 @@ class x509rev
 
 		X509_REVOKED *toREVOKED(bool withReason=true) const;
 		void fromREVOKED(const X509_REVOKED *rev);
-		void dump() const;
 
 	public:
+		operator QString() const;
 		static QStringList crlreasons();
 		void d2i(QByteArray &ba);
 		QByteArray i2d() const;

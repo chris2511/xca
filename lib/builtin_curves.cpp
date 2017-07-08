@@ -4,6 +4,7 @@
  * All rights reserved.
  */
 #include <openssl/evp.h>
+#include <QDebug>
 
 #include "builtin_curves.h"
 #include "exception.h"
@@ -154,10 +155,10 @@ builtin_curves::builtin_curves()
 		}
 #undef PRINT_KNOWN_CURVES
 #ifdef PRINT_KNOWN_CURVES
-		fprintf(stderr, "%50s %27s %20s %s\n",
-			curves[i].comment, OBJ_nid2sn(nid),
-			CCHAR(OBJ_obj2QString(OBJ_nid2obj(nid), 1)),
-			type == CKF_EC_F_P ? "Fp" : "F2m");
+		qDebug() << QString(curves[i].comment).leftJustified(50)
+			<< QString(OBJ_nid2sn(nid)).leftJustified(27)
+			<< OBJ_obj2QString(OBJ_nid2obj(nid),1).leftJustified(20)
+			<< (type == CKF_EC_F_P ? "Fp" : "F2m");
 #endif
 		append(builtin_curve(nid, QString(curves[i].comment),
 			BN_num_bits(order), flag, type));

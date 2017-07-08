@@ -97,7 +97,7 @@ void x509rev::fromREVOKED(const X509_REVOKED *rev)
 		ivalDate = a1time(at);
 		ASN1_GENERALIZEDTIME_free(at);
 	}
-	//dump();
+	qDebug() << *this;
 }
 
 X509_REVOKED *x509rev::toREVOKED(bool withReason) const
@@ -118,7 +118,7 @@ X509_REVOKED *x509rev::toREVOKED(bool withReason) const
 		ASN1_ENUMERATED_free(a);
 	}
 	openssl_error();
-	//dump();
+	qDebug() << *this;
 	return rev;
 }
 
@@ -157,23 +157,22 @@ bool x509rev::identical(const x509rev &x) const
 		reason_idx == x.reason_idx;
 }
 
-void x509rev::dump() const
+x509rev::operator QString() const
 {
-	fprintf(stderr, "Rev: %s D:%s I:%s Reason: %d '%s'\n",
-		CCHAR(serial.toHex()), CCHAR(date.toSortable()),
-		CCHAR(ivalDate.toSortable()), reason_idx,
-		crl_reasons[reason_idx].lname);
+	return QString("Rev: %1 D:%2 I:%3 Reason: %4 '%5'\n")
+		.arg(serial.toHex(), date.toSortable(), ivalDate.toSortable())
+		.arg(reason_idx).arg(crl_reasons[reason_idx].lname);
 }
 
 x509rev::x509rev(QSqlRecord rec, int offset)
 {
-	fprintf(stderr, "QSqlRecord offset: %d\n", offset);
+	qDebug() << "QSqlRecord offset:" << offset;
 	serial.setHex(rec.value(offset).toString());
 	date.fromPlain(rec.value(offset +1).toString());
 	ivalDate.fromPlain(rec.value(offset +2).toString());
 	crlNo = rec.value(offset +3).toInt();
 	reason_idx = reasonBit2Idx(rec.value(offset +4).toInt());
-	dump();
+	qDebug() << *this;
 }
 
 void x509rev::executeQuery(XSqlQuery &q)
