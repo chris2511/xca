@@ -24,7 +24,6 @@
 /* On Windows O_NONBLOCK is an unknown concept :-)
  * We don't need it anyway on that platform ....
  */
-#define EWOULDBLOCK EAGAIN
 #define O_NONBLOCK 0
 #endif
 
@@ -64,7 +63,7 @@ void Entropy::seed_rng()
 
 #ifdef WIN32
 	if (seed_strength < 16) {
-		RAND_screen();
+		RAND_poll();
 		seed_strength += 8;
 	}
 #else

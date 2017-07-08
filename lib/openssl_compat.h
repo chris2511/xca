@@ -19,6 +19,7 @@
 #include <openssl/dsa.h>
 
 #define RAND_bytes(buf, size) RAND_pseudo_bytes((buf), (size))
+#define RAND_poll() RAND_screen()
 
 #define X509_get0_extensions(cert) ((cert)->cert_info->extensions)
 #define X509_get_signature_nid(cert) OBJ_obj2nid((cert)->sig_alg->algorithm)

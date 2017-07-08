@@ -183,5 +183,5 @@ trans:
 
 do.doc do.lang headers: local.h
 
-Local.mak: $(TOPDIR)/configure Local.mak.in
+Local.mak: configure Local.mak.in
 	$(TOPDIR)/configure

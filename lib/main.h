@@ -13,9 +13,6 @@
 #include <QTranslator>
 #include <QLocale>
 #include "widgets/MainWindow.h"
-#ifdef WIN32
-#include <windows.h>
-#endif
 #include "entropy.h"
 
 extern char segv_data[1024];

@@ -81,7 +81,7 @@ Section "xca (required)" SecMain
   File /nonfatal "${QTDIR}\bin\libgcc_s_dw2-1.dll"
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
-  File "${INSTALLDIR}\bin\libeay32.dll"
+  File "${INSTALLDIR}\bin\libcrypto-1_1.dll"
 
   ; delete unneeded engine
   Delete "$INSTDIR\libp11-1.dll"

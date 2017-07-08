@@ -61,6 +61,7 @@ static void readOIDs(QString fname)
 		}
 	}
 	fclose(fp);
+	ign_openssl_error();
 }
 
 void initOIDs()

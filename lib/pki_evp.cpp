@@ -210,8 +210,7 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 			return key->pkey.dsa->priv_key ? true: false;
 #ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
-			return EC_KEY_get0_private_key(key->pkey.ec) ?
-							true: false;
+			return EC_KEY_get0_private_key(key->pkey.ec) ? true: false;
 #endif
 	}
 	return false;

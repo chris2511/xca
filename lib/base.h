@@ -16,13 +16,8 @@
 #endif
 
 #include <qglobal.h>
-#include "local.h"
-
-#ifdef WIN32
-#include <windows.h>
-#endif
-
 #include <openssl/opensslv.h>
+#include "local.h"
 
 #define CCHAR(x) qPrintable(x)
 #endif
