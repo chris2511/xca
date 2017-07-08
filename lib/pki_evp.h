@@ -51,7 +51,9 @@ class pki_evp: public pki_key
 		void set_evp_key(EVP_PKEY *pkey);
 		void encryptKey(const char *password = NULL);
 		void bogusEncryptKey();
-		EVP_PKEY *decryptKey(int oldkey=0) const;
+		EVP_PKEY *decryptKey() const;
+		EVP_PKEY *legacyDecryptKey(QByteArray &myencKey,
+					   Passwd &ownPassBuf) const;
 		pki_evp(const pki_evp *pk);
 		/* destructor */
 		virtual ~pki_evp();

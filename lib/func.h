@@ -67,6 +67,11 @@ static inline FILE *fopen_write(QString s)
 	return fopen(QString2filename(s), "wb");
 }
 
+static inline BIO *BIO_from_QByteArray(QByteArray &ba)
+{
+	return BIO_new_mem_buf(ba.data(), ba.length());
+}
+
 /* from version.cpp */
 const char *version_str(bool html);
 

@@ -798,11 +798,10 @@ QString pki_scard::getTypeString(void) const
 	return tr("Token %1").arg(pki_key::getTypeString());
 }
 
-EVP_PKEY *pki_scard::decryptKey(int oldkey) const
+EVP_PKEY *pki_scard::decryptKey() const
 {
 	slotid slot_id;
 	QString pin, key_id;
-	(void)oldkey;
 
 	if (!prepare_card(&slot_id))
 		throw errorEx(tr("Failed to find the key on the token"));

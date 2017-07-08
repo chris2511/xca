@@ -8,7 +8,6 @@
 
 #include "pki_evp.h"
 #include "pass_info.h"
-#include "Passwd.h"
 #include "func.h"
 #include "db.h"
 #include "entropy.h"
@@ -420,53 +419,24 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head)
 
 	encKey = ba;
 	isPub = encKey.size() == 0;
-	if (isPub)
-		return;
-
-	/* Convert old encryption scheme to the new one */
-	EVP_PKEY *pk = decryptKey(1);
-	EVP_PKEY_free(key);
-	key = pk;
-	encryptKey();
-	pki_openssl_error();
 }
 
-static void passToKey(Passwd &pass, unsigned char *iv,
-	const EVP_CIPHER *cipher, unsigned char *ckey, int old)
+static int known_pass(char *buf, int size, int, void *userdata)
 {
-	/* generate the key */
-	EVP_BytesToKey(cipher, old ? EVP_sha1() : EVP_sha256(), iv,
-		pass.constUchar(), pass.size(), old ? 1 : 8000, ckey, NULL);
+	Passwd *pw = static_cast<Passwd*>(userdata);
+        size = MIN(size, pw->size());
+        memcpy(buf, pw->constData(), size);
+        return size;
 }
 
-EVP_PKEY *pki_evp::decryptKey(int oldkey) const
+EVP_PKEY *pki_evp::decryptKey() const
 {
-	unsigned char *p;
-	const unsigned char *p1;
-	int outl, decsize;
-	unsigned char iv[EVP_MAX_IV_LENGTH];
-	unsigned char ckey[EVP_MAX_KEY_LENGTH];
-	QByteArray myencKey;
-
-	EVP_PKEY *tmpkey;
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	EVP_CIPHER_CTX ctxbuf;
-#endif
-	EVP_CIPHER_CTX *ctx;
-	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	Passwd ownPassBuf;
 	int ret;
 
 	if (isPubKey()) {
-		unsigned char *q;
-		outl = i2d_PUBKEY(key, NULL);
-		p = q = (unsigned char *)OPENSSL_malloc(outl);
-		check_oom(q);
-		i2d_PUBKEY(key, &p);
-		p = q;
-		tmpkey = d2i_PUBKEY(NULL, (const unsigned char**)&p, outl);
-		OPENSSL_free(q);
-		return tmpkey;
+		QByteArray ba = i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
+		return (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);
 	}
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
@@ -489,12 +459,39 @@ EVP_PKEY *pki_evp::decryptKey(int oldkey) const
 						getClassName());
 		}
 	}
+	QByteArray myencKey;
 	if (encKey.count() == 0)
 		myencKey = getEncKey();
 	else
 		myencKey = encKey;
 	if (myencKey.count() == 0)
 		return NULL;
+	BIO *b = BIO_from_QByteArray(myencKey);
+	check_oom(b);
+	EVP_PKEY *priv = d2i_PKCS8PrivateKey_bio(b, NULL,
+				known_pass, &ownPassBuf);
+	BIO_free(b);
+	if (priv)
+		return priv;
+	pki_ign_openssl_error();
+	return legacyDecryptKey(myencKey, ownPassBuf);
+}
+
+EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
+				    Passwd &ownPassBuf) const
+{
+	unsigned char *p;
+	const unsigned char *p1;
+	int outl, decsize;
+	unsigned char iv[EVP_MAX_IV_LENGTH];
+	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+
+	EVP_PKEY *tmpkey;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+	EVP_CIPHER_CTX ctxbuf;
+#endif
+	EVP_CIPHER_CTX *ctx;
+	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	p = (unsigned char *)OPENSSL_malloc(myencKey.count());
 	check_oom(p);
 	pki_openssl_error();
@@ -502,7 +499,9 @@ EVP_PKEY *pki_evp::decryptKey(int oldkey) const
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 
 	memcpy(iv, myencKey.constData(), 8); /* recover the iv */
-	passToKey(ownPassBuf, iv, cipher, ckey, oldkey);
+	/* generate the key */
+	EVP_BytesToKey(cipher, EVP_sha1(), iv,
+		ownPassBuf.constUchar(), ownPassBuf.size(), 1, ckey, NULL);
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	ctx = EVP_CIPHER_CTX_new();
 #else
@@ -557,15 +556,6 @@ EVP_PKEY *pki_evp::priv2pub(EVP_PKEY* key)
 
 void pki_evp::encryptKey(const char *password)
 {
-	int outl, keylen;
-	EVP_PKEY *pkey1 = NULL;
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	EVP_CIPHER_CTX ctxbuf;
-#endif
-	EVP_CIPHER_CTX *ctx;
-	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
-	unsigned char iv[EVP_MAX_IV_LENGTH], *punenc, *punenc1;
-	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	Passwd ownPassBuf;
 
 	/* This key has its own, private password */
@@ -598,58 +588,24 @@ void pki_evp::encryptKey(const char *password)
 		}
 	}
 
-	/* Prepare Encryption */
-	memset(iv, 0, EVP_MAX_IV_LENGTH);
-	Entropy::get(iv, 8);      /* Generate a salt */
-	passToKey(ownPassBuf, iv, cipher, ckey, 0);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	ctx = EVP_CIPHER_CTX_new();
-#else
-	ctx = &ctxbuf;
-#endif
-	EVP_CIPHER_CTX_init (ctx);
-	pki_openssl_error();
+	/* Convert private key to DER(PKCS8-aes) */
+	const char *p;
+	BIO *bio = BIO_new(BIO_s_mem());
+	i2d_PKCS8PrivateKey_bio(bio, key, EVP_aes_256_cbc(),
+		ownPassBuf.data(), ownPassBuf.size(), NULL, 0);
+	openssl_error();
+	int l = BIO_get_mem_data(bio, &p);
+	encKey = QByteArray(p, l);
+	BIO_free(bio);
 
-	/* reserve space for encrypted key */
-	keylen = i2d_PrivateKey(key, NULL);
-	encKey.resize(keylen + EVP_MAX_KEY_LENGTH + 8);
-	/* allocate space for unencrypted key */
-	punenc1 = punenc = (unsigned char *)OPENSSL_malloc(keylen);
-	check_oom(punenc);
-	keylen = i2d_PrivateKey(key, &punenc1);
-	pki_openssl_error();
-
-	memcpy(encKey.data(), iv, 8); /* store the iv */
-	/*
-	 * Now DER version of privkey is in punenc
-	 * and privkey is still in key
+	/* Replace private key by public key and
+	   have the encrypted private in "encKey"
 	 */
-
-	/* do the encryption */
-	/* store key right after the iv */
-	EVP_EncryptInit(ctx, cipher, ckey, iv);
-	unsigned char *penc = (unsigned char *)encKey.data() +8;
-	EVP_EncryptUpdate(ctx, penc, &outl, punenc, keylen);
-	int encKey_len = outl;
-	EVP_EncryptFinal(ctx, penc + encKey_len, &outl);
-	encKey.resize(encKey_len + outl +8);
-	/* Cleanup */
-	EVP_CIPHER_CTX_cleanup(ctx);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	EVP_CIPHER_CTX_free(ctx);
-#endif
-	/* wipe out the memory */
-	OPENSSL_cleanse(punenc, keylen);
-	OPENSSL_free(punenc);
-	pki_openssl_error();
-
-	pkey1 = priv2pub(key);
+	EVP_PKEY *pkey1 = priv2pub(key);
 	check_oom(pkey1);
 	EVP_PKEY_free(key);
 	key = pkey1;
 	pki_openssl_error();
-
-	return;
 }
 
 void pki_evp::set_evp_key(EVP_PKEY *pkey)

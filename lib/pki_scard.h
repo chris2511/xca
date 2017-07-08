@@ -70,7 +70,7 @@ class pki_scard: public pki_key
 		{
 			return card_label;
 		}
-		EVP_PKEY *decryptKey(int oldkey=0) const;
+		EVP_PKEY *decryptKey() const;
 		QString scardLogin(pkcs11 &p11, bool so, bool force=false)const;
 		void changePin();
 		void initPin();

@@ -54,6 +54,7 @@ public:
 	static QFont tableFont;
 	static bool languageAvailable(QLocale l);
 	bool eventFilter(QObject *watched, QEvent *ev);
+	bool notify(QObject* receiver, QEvent* event);
 
 public slots:
 	void switchLanguage(QAction* a);

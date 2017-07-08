@@ -74,20 +74,18 @@ void db_key::remFromCont(QModelIndex &idx)
 {
 	db_base::remFromCont(idx);
 	XSqlQuery q;
-	pki_key *pki = static_cast<pki_key*>(idx.internalPointer());
 
+	/* "pkey" column in "x509super" table already updated
+	 * in deleteSql()
+	 */
 	QList<pki_base*> items = sqlSELECTpki(
-		"SELECT item FROM x509super WHERE pkey=?",
-		QList<QVariant>() << QVariant(pki->getSqlItemId()));
+		"SELECT item FROM x509super WHERE pkey is NULL");
 	foreach(pki_base *b, items) {
 		pki_x509super *x509s = static_cast<pki_x509super*>(b);
 		x509s->setRefKey(NULL);
 	}
-
-	SQL_PREPARE(q, "UPDATE x509super SET pkey=NULL WHERE item=?");
-	q.bindValue(0, pki->getSqlItemId());
-	q.exec();
-	mainwin->dbSqlError(q.lastError());
+	/* "UPDATE x509super SET pkey=NULL WHERE pkey=?" done in
+	 * pki->deleteSqlData() */
 }
 
 void db_key::inToCont(pki_base *pki)

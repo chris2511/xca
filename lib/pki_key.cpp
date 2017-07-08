@@ -53,9 +53,8 @@ pki_key::~pki_key()
 		EVP_PKEY_free(key);
 }
 
-EVP_PKEY *pki_key::decryptKey(int oldkey) const
+EVP_PKEY *pki_key::decryptKey() const
 {
-	(void)oldkey;
 	qDebug("VIRTUAL pki_key::decryptKey() should NEVER be called");
 	return NULL;
 }
@@ -517,7 +516,7 @@ QSqlError pki_key::deleteSqlData()
 	e = q.lastError();
 	if (e.isValid())
 		return e;
-	SQL_PREPARE(q, "UPDATE x509super SET pkey=NULL WHERE key=?");
+	SQL_PREPARE(q, "UPDATE x509super SET pkey=NULL WHERE pkey=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
 	return q.lastError();

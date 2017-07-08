@@ -192,6 +192,20 @@ bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
 	return false;
 }
 
+bool XCA_application::notify(QObject* receiver, QEvent* event)
+{
+	try {
+		return QApplication::notify(receiver, event);
+	} catch (errorEx &err) {
+		mainw->Error(err);
+        } catch (...) {
+		qDebug() << QString("Event exception: ")
+			 << receiver << event;
+		abort();
+        }
+	return false;
+}
+
 XCA_application::~XCA_application()
 {
 }

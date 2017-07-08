@@ -25,7 +25,7 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList schemas[3]; schemas[0]
+	QStringList schemas[4]; schemas[0]
 
 /* The "32bit hash" in public_keys, x509super, requests, certs and crls
  * is used to quickly find items in the DB by reference.
@@ -213,7 +213,7 @@ QSqlError MainWindow::initSqlDB()
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
 	;
-/* Schema Version 2  */
+/* Schema Version 2: Views added to quickly load the data */
 	schemas[1]
 
 /* Views */
@@ -267,7 +267,7 @@ QSqlError MainWindow::initSqlDB()
 << "UPDATE settings SET value='2' WHERE key_='schema'"
 
 	;
-/* Schema Version 3 */
+/* Schema Version 3: Add indexes over hashes and primary, foreign keys */
 	schemas[2]
 
 << "CREATE INDEX i_settings_key_ ON settings (key_)"
@@ -297,6 +297,23 @@ QSqlError MainWindow::initSqlDB()
 << "CREATE INDEX i_revocations_caId_serial ON revocations (caId, serial)"
 << "CREATE INDEX i_templates_item ON templates (item)"
 << "UPDATE settings SET value='3' WHERE key_='schema'"
+
+	;
+/* Schema Version 4: Add private key view to extract a private key with:
+	mysql:      mysql -sNp -u xca xca_msq -e
+	or sqlite:  sqlite3 ~/sqlxdb.xdb
+	or psql:    psql -t -h 192.168.140.7 -U xca -d xca_pg -c
+		"SELECT private FROM view_private WHERE name='pk8key';" |\
+		base64 -d | openssl pkcs8 -inform DER
+ * First mysql/psql will ask for a password and then OpenSSL will ask for
+ * the database password.
+ */
+	schemas[3]
+
+<< "CREATE VIEW view_private AS SELECT "
+	"name, private FROM private_keys JOIN items ON "
+	"items.id = private_keys.item"
+<< "UPDATE settings SET value='4' WHERE key_='schema'"
 	;
 
 	XSqlQuery q;

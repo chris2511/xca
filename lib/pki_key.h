@@ -47,7 +47,7 @@ class pki_key: public pki_base
 		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
 		QString length() const;
 		QString comboText() const;
-		virtual EVP_PKEY *decryptKey(int oldkey=0) const;
+		virtual EVP_PKEY *decryptKey() const;
 		virtual const EVP_MD *getDefaultMD();
 		virtual bool isToken();
 		virtual QString getTypeString(void) const;

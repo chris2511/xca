@@ -211,9 +211,12 @@ void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 QSqlError db_base::insertPKI_noTransaction(pki_base *pki)
 {
 	QSqlError e = pki->insertSql();
+	if (e.isValid()) {
+		mainwin->dbSqlError(e);
+		return e;
+	}
 	lookup[pki->getSqlItemId().toULongLong()] = pki;
 	inToCont(pki);
-	mainwin->dbSqlError(e);
 	emit columnsContentChanged();
 	return e;
 }
@@ -276,12 +279,12 @@ void db_base::deletePKI(QModelIndex idx)
 
 		if (db.transaction()) {
 			QSqlError e = pki->deleteSql();
-			remFromCont(idx);
-	                mainwin->dbSqlError(e);
-			if (e.isValid())
+			if (e.isValid()) {
 				db.rollback();
-			else
+			} else {
 				db.commit();
+				remFromCont(idx);
+			}
 			mainwin->dbSqlError(e);
 		}
 	} catch (errorEx &err) {
