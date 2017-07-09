@@ -390,8 +390,8 @@ void NewX509::defineRequest(pki_x509req *req)
 	on_fromReqCB_clicked();
 }
 
-/* Preset all values from another request to create a aimilar one */
-void NewX509::fromX509super(pki_x509super *cert_or_req)
+/* Preset all values from another request to create a similar one */
+void NewX509::fromX509super(pki_x509super *cert_or_req, bool applyTemp)
 {
 	pki_temp *temp = new pki_temp("");
 	temp->fromCert(cert_or_req);
@@ -414,7 +414,7 @@ void NewX509::fromX509super(pki_x509super *cert_or_req)
 		if (signer == cert) {
 			foreignSignRB->setChecked(false);
 		} else if (signer) {
-			defineSigner(signer);
+			defineSigner(signer, applyTemp);
 		}
 		notBefore->setDate(cert->getNotBefore());
 		notAfter->setDate(cert->getNotAfter());
@@ -431,23 +431,8 @@ void NewX509::fromX509super(pki_x509super *cert_or_req)
 
 }
 
-/* Preset all values from another cert to create a aimilar one */
-void NewX509::defineCert(pki_x509 *cert)
-{
-	fromX509super(cert);
-
-	pki_x509 *signer = cert->getSigner();
-	if (signer == cert) {
-		foreignSignRB->setChecked(false);
-	} else if (signer) {
-		defineSigner(signer);
-	}
-	notBefore->setDate(cert->getNotBefore());
-	notAfter->setDate(cert->getNotAfter());
-}
-
 /* Preset the signing certificate */
-void NewX509::defineSigner(pki_x509 *defcert)
+void NewX509::defineSigner(pki_x509 *defcert, bool applyTemp)
 {
 	int index;
 	// suggested from: Andrey Brindeew <abr@abr.pp.ru>
@@ -458,12 +443,11 @@ void NewX509::defineSigner(pki_x509 *defcert)
 		if ((index = certList->findText(name)) >= 0) {
 			certList->setCurrentIndex(index);
 		}
-		if (!defcert->getTemplate().isEmpty()) {
+		if (applyTemp && !defcert->getTemplate().isEmpty()) {
 			on_applyTemplate_clicked();
 		}
 	}
 }
-
 
 static int lb2int(QListWidget *lb)
 {

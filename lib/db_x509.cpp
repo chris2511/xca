@@ -426,7 +426,7 @@ void db_x509::newItem()
 	emit connNewX509(dlg);
 	dlg->setCert();
 	pki_x509 *sigcert = get1SelectedCert();
-	dlg->defineSigner((pki_x509*)sigcert);
+	dlg->defineSigner((pki_x509*)sigcert, true);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -440,7 +440,7 @@ void db_x509::newCert(pki_x509req *req)
 	pki_x509 *sigcert = get1SelectedCert();
 	dlg->setCert();
 	dlg->defineRequest(req);
-	dlg->defineSigner(sigcert);
+	dlg->defineSigner(sigcert, true);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -464,7 +464,7 @@ void db_x509::newCert(pki_x509 *cert)
 	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
 	dlg->setCert();
-	dlg->defineCert(cert);
+	dlg->fromX509super(cert, false);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}

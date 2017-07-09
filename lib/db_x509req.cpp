@@ -69,7 +69,7 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 	if (temp) {
 		dlg->defineTemplate(temp);
 	} else if (orig) {
-		dlg->fromX509super(orig);
+		dlg->fromX509super(orig, true);
 	}
 	dlg->setRequest();
 	if (!dlg->exec()){

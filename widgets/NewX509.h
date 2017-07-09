@@ -75,10 +75,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		void toTemplate(pki_temp *temp);
 		void fromTemplate(pki_temp *temp);
 		void defineTemplate(pki_temp *temp);
-		void defineCert(pki_x509 *cert);
 		void defineRequest(pki_x509req *req);
-		void defineSigner(pki_x509 *defcert);
-		void fromX509super(pki_x509super *cert_or_req);
+		void defineSigner(pki_x509 *defcert, bool applyTemp);
+		void fromX509super(pki_x509super *cert_or_req, bool applyTemp);
 		void templateChanged(pki_temp *templ);
 		pki_key *getSelectedKey();
 		pki_x509 *getSelectedSigner();
