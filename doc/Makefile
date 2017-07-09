@@ -3,9 +3,9 @@ TOPDIR=..
 BUILD=..
 endif
 
-DELFILES=xca*.html xca.1.gz xca_db_stat.1.gz
+DELFILES=xca*.html xca.1.gz
 
-doc: xca.1.gz xca_db_stat.1.gz xca.html changelog.html
+doc: xca.1.gz xca.html changelog.html
 include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1

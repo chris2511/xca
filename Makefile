@@ -34,7 +34,6 @@ OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \
 	-t http://timestamp.comodoca.com -h sha2 -verbose
 
-all: xca_db_stat$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
 export CFLAGS_XCA_DB_STAT=-mconsole
@@ -79,11 +78,6 @@ headers: do.ui commithash.h
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
-xca_db_stat$(SUFFIX): lib/.build-stamp
-	$(MAKE) -C lib -f $(TOPDIR)/lib/Makefile \
-		VPATH=$(TOPDIR)/lib $@
-	cp lib/$@ $@
-
 $(INSTTARGET): install.%: %/.build-stamp
 	mkdir -p $*
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
@@ -99,9 +93,9 @@ clean:
 				-o -name ".build-stamp" \
 				-o -name ".depend" \
 				-o -name "moc_*.cpp" | xargs rm -f
-	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz doc/xca_db_stat.1.gz img/imgres.cpp
+	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt misc/oids.txt
-	rm -f xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX) lib/xca_db_stat$(SUFFIX) *.dmg
+	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg
 	rm -rf xca-$(VERSION)*
 
 distclean: clean
@@ -126,16 +120,15 @@ snapshot:
 	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
 		gzip -9 > xca-$${HASH}.tar.gz
 
-install: xca$(SUFFIX) xca_db_stat$(SUFFIX) $(INSTTARGET)
+install: xca$(SUFFIX) $(INSTTARGET)
 	install -m 755 -d $(destdir)$(bindir)
 	install -m 755 xca $(destdir)$(bindir)
-	install -m 755 xca_db_stat $(destdir)$(bindir)
 	$(STRIP) $(destdir)$(bindir)/xca
 
 setup.exe: setup_xca-$(VERSION).exe
-setup_xca-$(VERSION).exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang do.misc
+setup_xca-$(VERSION).exe: xca$(SUFFIX) do.doc do.lang do.misc
 setup_xca-$(VERSION).exe: misc/xca.nsi
-	for binary in xca$(SUFFIX) xca_db_stat$(SUFFIX); do \
+	for binary in xca$(SUFFIX); do \
 	  $(STRIP) xca$(SUFFIX); \
 	  if test -n "$(OSSLSIGN)"; then \
 	    $(OSSLSIGN) $(OSSLSIGN_OPT) -in $${binary} -out $${binary}.signed && \
@@ -150,7 +143,7 @@ setup_xca-$(VERSION).exe: misc/xca.nsi
 	fi
 
 
-$(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
+$(DMGSTAGE): xca$(SUFFIX)
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
@@ -158,9 +151,7 @@ $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	ln -s /Applications $(DMGSTAGE)
 	install -m 644 $(TOPDIR)/COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
 	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
-	install -m 755 xca_db_stat $(DMGSTAGE)/xca.app/Contents/MacOS
 	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
-	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca_db_stat
 	$(MAKE) $(APPTARGET)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html

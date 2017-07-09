@@ -67,7 +67,6 @@ setup.exe:  W32 installer
 snapshot :  Creates a current snapshot from the local git repository
 xca.app  :  Creates the MacOSX xca.app
 xca.dmg  :  Creates the MacOSX Disk image
-xca_db_stat: Creates the database analyzer
 
 Installing:
 ------------

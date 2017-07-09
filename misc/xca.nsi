@@ -67,7 +67,6 @@ Section "xca (required)" SecMain
   SetOutPath $INSTDIR
   ; Put files there
   File "xca.exe"
-  File "xca_db_stat.exe"
   File "misc\dn.txt"
   File "misc\eku.txt"
   File "misc\oids.txt"
@@ -88,7 +87,7 @@ Section "xca (required)" SecMain
   File "${INSTALLDIR}\bin\libcrypto-1_1.dll"
 
 
-  ; delete unneeded engine
+  ; delete unneeded files when updating
   Delete "$INSTDIR\libp11-1.dll"
   Delete "$INSTDIR\engine_pkcs11.dll"
   Delete "$INSTDIR\libeay32.dll"
@@ -96,8 +95,8 @@ Section "xca (required)" SecMain
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\aia.txt"
+  Delete "$INSTDIR\xca_db_stat.exe"
 
-  ; remove old images
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 
@@ -209,7 +208,6 @@ Section "Uninstall"
   DeleteRegKey HKCU "SOFTWARE\xca"
   ; remove files
   Delete $INSTDIR\xca.exe
-  Delete $INSTDIR\xca_db_stat.exe
   Delete $INSTDIR\key.ico
   Delete $INSTDIR\key.xpm
   Delete $INSTDIR\*.dll

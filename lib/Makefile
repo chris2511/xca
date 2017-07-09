@@ -16,7 +16,3 @@ OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
 
 include $(TOPDIR)/Rules.mak
 sinclude .depend
-
-xca_db_stat$(SUFFIX): xca_db_stat.o db.o db.h
-	@$(PRINT) "  LINK   $@"
-	$(CC) $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) $(CFLAGS_XCA_DB_STAT) xca_db_stat.o db.o $(LIBS) -g -o $@
