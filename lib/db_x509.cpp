@@ -257,8 +257,7 @@ void db_x509::inToCont(pki_base *pki)
 	foreach(pki_base *b, items) {
 		pki_crl *crl = static_cast<pki_crl*>(b);
 		crl->verify(cert);
-		cert = crl->getIssuer();
-		if (!cert)
+		if (cert != crl->getIssuer())
 			continue;
 		q.bindValue(0, cert->getSqlItemId());
 		q.bindValue(1, crl->getSqlItemId());
@@ -916,7 +915,7 @@ void db_x509::do_revoke(QModelIndexList indexes, const x509rev &r)
 		}
 	}
 	if (!parent) {
-		qWarning("%s(%d): Certs have different/no signer\n",
+		qWarning("%s(%d): Certs have different/no signer",
 			 __func__, __LINE__);
 	}
 	foreach(QModelIndex idx, indexes) {

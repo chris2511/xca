@@ -479,9 +479,9 @@ void MainWindow::importOldDatabase(QString dbname)
 				delete pki;
 				pki = NULL;
 			}
-			qDebug() << "load old:" << pki->getIntName();
 			free(p);
 			if (pki) {
+				qDebug() << "load old:" << pki->getIntName();
 				cont->insertPKI(pki);
 			}
 next:

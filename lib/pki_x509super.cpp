@@ -80,13 +80,15 @@ pki_key *pki_x509super::getRefKey() const
 
 unsigned pki_x509super::pubHash()
 {
-	unsigned hash;
+	unsigned hash = 0;
 	if (privkey) {
 		hash = privkey->hash();
 	} else {
 		pki_key *x = getPubKey();
-		hash = x->hash();
-		delete x;
+		if (x) {
+			hash = x->hash();
+			delete x;
+		}
 	}
 	return hash;
 }
