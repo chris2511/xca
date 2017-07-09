@@ -50,6 +50,7 @@ class db_base: public QAbstractItemModel
 			(void)indexes;
 			return exportType::Separator;
 		}
+		bool isValidCol(int col) const;
 
 	public:
 		pki_base *rootItem;

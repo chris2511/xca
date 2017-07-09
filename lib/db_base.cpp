@@ -264,6 +264,8 @@ void db_base::initHeaderView(QHeaderView *hv)
 void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 {
 	int max = allHeaders.count();
+	if (!isValidCol(logicalIndex))
+		return;
 	for (int i=0; i<max; i++) {
 		allHeaders[i]->sortIndicator = -1;
 	}
@@ -534,6 +536,8 @@ static QVariant getHeaderViewInfo(dbheader *h)
 QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		int role) const
 {
+	if (!isValidCol(section))
+		return QVariant();
 	if (orientation == Qt::Horizontal) {
 		switch (role) {
 		case Qt::DisplayRole:
@@ -652,6 +656,8 @@ void db_base::store(QModelIndexList indexes)
 
 bool db_base::columnHidden(int col) const
 {
+	if (!isValidCol(col))
+		return true;
 	if (pki_x509::disable_netscape &&
 	    allHeaders[col]->type == dbheader::hd_v3ext_ns)
 		return true;
@@ -669,5 +675,10 @@ void db_base::columnResetDefaults()
 
 bool db_base::isNumericCol(int col) const
 {
-	return allHeaders[col]->isNumeric();
+	return isValidCol(col) ? allHeaders[col]->isNumeric() : false;
+}
+
+bool db_base::isValidCol(int col) const
+{
+	return col >= allHeaders.size() || col < 0 ? false : true;
 }
