@@ -13,6 +13,9 @@ AC_CHECK_TOOL(STRIP, [strip], [:])
 
 DVERSION="`${CXX} --version | grep apple-darwin || :`"
 case "$DVERSION" in
+  *-apple-darwin17*) DARWIN="High Sierra" ;;
+  *-apple-darwin16*) DARWIN="Sierra" ;;
+  *-apple-darwin15*) DARWIN="El Capitan" ;;
   *-apple-darwin14*) DARWIN="Yosemite" ;;
   *-apple-darwin13*) DARWIN="Mavericks" ;;
   *-apple-darwin12*) DARWIN="Mountain Lion" ;;
@@ -26,7 +29,7 @@ esac
 
 if test -n "${DARWIN}"; then
   AC_MSG_NOTICE([Mac OSX ${DARWIN} detected])
-  CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
+  CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2 -Wno-overloaded-virtual"
 fi
 AC_SUBST([DARWIN])
 AC_SUBST([MACDEPLOYQT])
@@ -103,7 +106,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
     QT_UIC="${_QT_HOST_BINS}/uic"
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
-      Qt5_CFLAGS="$Qt5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
+      Qt5_CFLAGS="$Qt5_CFLAGS -std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
     WANT_QT_VERSION=5
     QT_VERSION=5
@@ -121,7 +124,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
     fi
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
-      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers"
+      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
     WANT_QT_VERSION=4
     QT_VERSION=4
@@ -134,7 +137,12 @@ if test -z "${QT_VERSION}"; then
     if test -z "$DARWIN"; then
       QT_LIBS=" -lQtCore -lQtGui "
     else
-      QT_LIBS=" -framework QtGui -framework QtCore "
+      _QT_HOST_BINS="${_QTDIR}/bin"
+      QT_MOC="${_QT_HOST_BINS}/moc"
+      QT_UIC="${_QT_HOST_BINS}/uic"
+      FRAMEDIR=${_QTDIR}/lib
+      QT_LIBS=" -framework QtGui -framework QtCore -framework QtWidgets -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      QT_CFLAGS="-std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtWidgets.framework/Headers"
     fi
     AC_MSG_WARN([Qt pkg-config failed, using fallback defaults (${QT_LIBS})]);
 fi

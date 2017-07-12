@@ -16,8 +16,12 @@
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
+  #if QT_VERSION < 0x050000
 #include <QDesktopServices>
+  #else
+#include <QStandardPaths>
+  #endif
 #endif
 #include <QDir>
 #include <QFile>
@@ -49,7 +53,7 @@ QStringList getLibExtensions()
 	QStringList l;
 #if defined(_WIN32) || defined(USE_CYGWIN)
 	l << QString("*.dll") << QString("*.DLL");
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
 	l << QString("*.dylib") << QString("*.so");
 #else
 	l << QString("*.so");
@@ -97,7 +101,7 @@ QString getPrefix()
 	lRc = RegCloseKey(hKey);
 	return QString(inst_dir);
 
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
 	// since this is platform-specific anyway,
 	// this is a more robust way to get the bundle directory
 	QDir bundleDir(qApp->applicationDirPath());
@@ -146,7 +150,7 @@ QString getLibDir()
 
 QString getDocDir()
 {
-#if defined(WIN32) || defined (Q_WS_MAC)
+#if defined(WIN32) || defined (Q_OS_MAC)
 	return getPrefix();
 #else
 	return QString(DOCDIR);
@@ -169,10 +173,17 @@ QString getUserSettingsDir()
 	rv = buf;
 	rv += QDir::separator();
 	rv += "xca";
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
+  #if QT_VERSION < 0x050000
 	rv = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 	rv.insert(rv.count() - QCoreApplication::applicationName().count(),
 		QCoreApplication::organizationName());
+  #else
+	rv = QStandardPaths::writableLocation(
+			QStandardPaths::GenericDataLocation) + "/data/" +
+		QCoreApplication::organizationName() + "/" +
+		QCoreApplication::applicationName();
+  #endif
 #else
 	rv = QDir::homePath();
 	rv += QDir::separator();
@@ -213,7 +224,7 @@ QString filename2QString(const char *fname)
 #endif
 }
 
-#ifdef WIN32
+#if defined(WIN32) || defined (Q_OS_MAC)
 static QString xca_tmpfile()
 {
 	return getHomeDir() + "\\" + "tmp_file.dat";
@@ -224,14 +235,14 @@ void fp_from_data_finish(FILE *fp)
 {
 	if (fp)
 		fclose(fp);
-#ifdef WIN32
+#if defined(WIN32) || defined (Q_OS_MAC)
 	QFile::remove(xca_tmpfile());
 #endif
 }
 
 FILE *fp_from_data(QByteArray data)
 {
-#ifdef WIN32
+#if defined(WIN32) || defined (Q_OS_MAC)
 	QFile::remove(xca_tmpfile());
 	FILE *fp = fopen_write(xca_tmpfile());
 	if (!fp)

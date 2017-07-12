@@ -165,7 +165,7 @@ $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	codesign -s "Open Source Developer, Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp http://time.certum.pl
+	-codesign -s "Open Source Developer, Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp http://time.certum.pl
 
 xca.dmg: $(MACTARGET).dmg
 
