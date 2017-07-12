@@ -109,7 +109,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
     QT_VERSION=5
     QT_CFLAGS="${Qt5_CFLAGS} -fPIC"
     QT_LIBS="${Qt5_LIBS}"
-])
+  ],[ : ])
 fi
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
@@ -127,7 +127,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
     QT_VERSION=4
     QT_CFLAGS="${Qt4_CFLAGS}"
     QT_LIBS="${Qt4_LIBS}"
-  ])
+  ],[ : ])
 fi
 
 if test -z "${QT_VERSION}"; then
