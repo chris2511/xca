@@ -27,7 +27,7 @@ class pki_evp: public pki_key
 		QByteArray getEncKey() const;
 		QString encKey_b64()
 		{
-			return QString::fromAscii(encKey.toBase64());
+			return QString::fromLatin1(encKey.toBase64());
 		}
 		static QString _sha512passwd(QByteArray pass, QString salt,
 						int size, int repeat);

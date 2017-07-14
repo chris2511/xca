@@ -104,7 +104,7 @@ AC_ARG_WITH([qt-version],
   [WANT_QT_VERSION=detect])
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
-  PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
+  PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0 Qt5Widgets >= 5.0 Qt5Sql >= 5.0], [
     _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
     QT_MOC="${_QT_HOST_BINS}/moc"
     QT_UIC="${_QT_HOST_BINS}/uic"
@@ -120,7 +120,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
 fi
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
-  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.7, QtCore < 5.0, QtGui >= 4.7, QtGui < 5.0], [
+  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.7 QtCore < 5.0 QtGui >= 4.7 QtGui < 5.0 QtSql >= 4.7 QtSql < 5.0], [
     QT_MOC="`pkg-config --variable=moc_location QtCore`"
     QT_UIC="`pkg-config --variable=uic_location QtCore`"
     if test -n "${QT_MOC}"; then
@@ -145,7 +145,7 @@ if test -z "${QT_VERSION}"; then
       QT_MOC="${_QT_HOST_BINS}/moc"
       QT_UIC="${_QT_HOST_BINS}/uic"
       FRAMEDIR=${_QTDIR}/lib
-      QT_LIBS=" -framework QtGui -framework QtCore -framework QtWidgets -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      QT_LIBS=" -framework QtGui -framework QtCore -framework QtWidgets -framework QtSql -Xlinker -rpath -Xlinker ${FRAMEDIR}"
       QT_CFLAGS="-std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtWidgets.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
     fi
     AC_MSG_WARN([Qt pkg-config failed, using fallback defaults (${QT_LIBS})]);

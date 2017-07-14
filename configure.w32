@@ -50,7 +50,7 @@ CROSS=$CROSS
 CONSOLE=-mwindows
 #CONSOLE=-mconsole
 
-CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include/QtGui -I\$(QTDIR)/include/QtCore -I\$(QTDIR)/include/QtWidgets -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
+CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include/QtGui -I\$(QTDIR)/include/QtCore -I\$(QTDIR)/include/QtWidgets -I\$(QTDIR)/include/QtSql -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
 CFLAGS=-Wall -g -O2 -mthreads  \$(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing -std=c++11
 
 LDFLAGS= -L\$(QTDIR)/lib -L\$(INSTALL_DIR)/lib \
@@ -59,7 +59,7 @@ LDFLAGS= -L\$(QTDIR)/lib -L\$(INSTALL_DIR)/lib \
         -static-libgcc -static-libstdc++
 
 # list of dynamic libraries
-LIBS=-lQt5Gui -lQt5Core -lQt5Widgets -lcrypto -lltdl
+LIBS=-lQt5Gui -lQt5Core -lQt5Widgets -lQt5Sql -lcrypto -lltdl
 
 # As long as the linux uic and moc are version compatible to the W32 ones
 # we use the native tools, because they are much faster than the wine's

@@ -404,7 +404,6 @@ void NewX509::defineRequest(pki_x509req *req)
 
 /* Preset all values from another request to create a similar one */
 void NewX509::fromX509super(pki_x509super *cert_or_req, bool applyTemp)
-void NewX509::fromX509super(pki_x509super *cert_or_req)
 {
 	pki_temp *temp = new pki_temp("");
 	temp->fromCert(cert_or_req);
@@ -451,21 +450,6 @@ pki_temp *NewX509::caTemplate(pki_x509 *ca) const
 	return (pki_temp*)MainWindow::temps->lookupPki(sqlId);
 }
 
-/* Preset all values from another cert to create a aimilar one */
-void NewX509::defineCert(pki_x509 *cert)
-{
-	fromX509super(cert);
-
-	pki_x509 *signer = cert->getSigner();
-	if (signer == cert) {
-		foreignSignRB->setChecked(false);
-	} else if (signer) {
-		defineSigner(signer);
-	}
-	notBefore->setDate(cert->getNotBefore());
-	notAfter->setDate(cert->getNotAfter());
-}
-
 /* Preset the signing certificate */
 void NewX509::defineSigner(pki_x509 *defcert, bool applyTemp)
 {
@@ -474,7 +458,9 @@ void NewX509::defineSigner(pki_x509 *defcert, bool applyTemp)
 		if (certList->setCurrentPkiItem(defcert) != -1) {
 			foreignSignRB->setChecked(true);
 			certList->setEnabled(true);
-			if (applyTemp && defcert->getTemplate()) {
+			if (applyTemp &&
+			    defcert->getTemplateSqlId().isValid())
+			{
 				on_applyTemplate_clicked();
 			}
 		}

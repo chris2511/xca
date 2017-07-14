@@ -33,7 +33,7 @@ QSqlError MainWindow::initSqlDB()
  * Collisions are of course possible.
  *
  * All binaries are stored Base64 encoded in a column of type
- * "B64_BLOB" It is defined here as "VARCHAR(10000)"
+ * " B64_BLOB " It is defined here as "VARCHAR(10000)"
  */
 
 #define B64_BLOB "VARCHAR(10000)"
@@ -71,7 +71,7 @@ QSqlError MainWindow::initSqlDB()
 	"name VARCHAR(128), "	/* Internal name of the item */
 	"type INTEGER, "	/* enum pki_type */
 	"source INTEGER, "	/* enum pki_source */
-	"date "DB_DATE", "	/* Time of insertion (creation/import) */
+	"date " DB_DATE ", "	/* Time of insertion (creation/import) */
 	"comment VARCHAR(2048))"
 
 /*
@@ -83,7 +83,7 @@ QSqlError MainWindow::initSqlDB()
 	"type CHAR(4), "	/* RSA DSA EC (as text) */
 	"hash INTEGER, "	/* 32 bit hash */
 	"len INTEGER, "		/* key size in bits */
-	"public "B64_BLOB", "	/* B64(DER(public key)) */
+	"public " B64_BLOB ", "	/* B64(DER(public key)) */
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
 /*
@@ -93,7 +93,7 @@ QSqlError MainWindow::initSqlDB()
 << "CREATE TABLE private_keys ("
 	"item INTEGER, "	/* reference to items(id) */
 	"ownPass INTEGER, "	/* Encrypted by DB pwd or own pwd */
-	"private "B64_BLOB", "	/* B64(Encrypt(DER(private key))) */
+	"private " B64_BLOB ", "	/* B64(Encrypt(DER(private key))) */
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
 /*
@@ -143,7 +143,7 @@ QSqlError MainWindow::initSqlDB()
 	"item INTEGER, "	/* reference to items(id) */
 	"hash INTEGER, "	/* 32 bit hash of the request */
 	"signed INTEGER, "	/* Whether it was once signed. */
-	"request "B64_BLOB", "	/* B64(DER(PKCS#10 request)) */
+	"request " B64_BLOB ", "	/* B64(DER(PKCS#10 request)) */
 	"FOREIGN KEY (item) REFERENCES items (id)) "
 
 /*
@@ -160,7 +160,7 @@ QSqlError MainWindow::initSqlDB()
 	"serial VARCHAR(64), "	/* Serial number of the certificate */
 	"issuer INTEGER, "	/* The items(id) of the issuer or NULL */
 	"ca INTEGER, "		/* CA: yes / no from BasicConstraints */
-	"cert "B64_BLOB", "	/* B64(DER(certificate)) */
+	"cert " B64_BLOB ", "	/* B64(DER(certificate)) */
 	"FOREIGN KEY (item) REFERENCES items (id), "
 	"FOREIGN KEY (issuer) REFERENCES items (id)) "
 
@@ -170,7 +170,7 @@ QSqlError MainWindow::initSqlDB()
 << "CREATE TABLE authority ("
 	"item INTEGER, "	/* reference to items(id) */
 	"template INTEGER, "	/* reference to items(id) of the default template*/
-	"crlExpire "DB_DATE", "	/* CRL expiry date */
+	"crlExpire " DB_DATE ", "	/* CRL expiry date */
 	"crlNo INTEGER, "	/* Last CRL Number */
 	"crlDays INTEGER, "	/* CRL days until renewal */
 	"dnPolicy VARCHAR(1024), "	/* DistinguishedName policy */
@@ -186,7 +186,7 @@ QSqlError MainWindow::initSqlDB()
 	"num INTEGER, "		/* Number of revoked certificates */
 	"iss_hash INTEGER, "	/* 32 bit hash of the issuer DN */
 	"issuer INTEGER, "	/* The items(id) of the issuer or NULL */
-	"crl "B64_BLOB", "	/* B64(DER(revocation list)) */
+	"crl " B64_BLOB ", "	/* B64(DER(revocation list)) */
 	"FOREIGN KEY (item) REFERENCES items (id), "
 	"FOREIGN KEY (issuer) REFERENCES items (id)) "
 
@@ -197,8 +197,8 @@ QSqlError MainWindow::initSqlDB()
 << "CREATE TABLE revocations ("
 	"caId INTEGER, "        /* reference to certs(item) */
 	"serial VARCHAR(64), "	/* Serial number of the revoked certificate */
-	"date "DB_DATE", "	/* Time of creating the revocation */
-	"invaldate "DB_DATE", "	/* Time of invalidation */
+	"date " DB_DATE ", "	/* Time of creating the revocation */
+	"invaldate " DB_DATE ", "	/* Time of invalidation */
 	"crlNo INTEGER, "	/* Crl Number of CRL of first appearance */
 	"reasonBit INTEGER, "	/* Bit number of the revocation reason */
 	"FOREIGN KEY (caId) REFERENCES items (id))"
@@ -209,7 +209,7 @@ QSqlError MainWindow::initSqlDB()
 << "CREATE TABLE templates ("
 	"item INTEGER, "        /* reference to items(id) */
 	"version INTEGER, "	/* Version of the template format */
-	"template "B64_BLOB", "	/* The base64 encoded template */
+	"template " B64_BLOB ", "	/* The base64 encoded template */
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
 	;

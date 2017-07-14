@@ -172,7 +172,7 @@ class pki_base : public QObject
 		}
 		QString i2d_b64()
 		{
-			return QString::fromAscii(i2d().toBase64());
+			return QString::fromLatin1(i2d().toBase64());
 		}
 		virtual QByteArray i2d();
 		virtual bool compare(pki_base *);
