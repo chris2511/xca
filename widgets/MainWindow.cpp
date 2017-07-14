@@ -390,12 +390,13 @@ void MainWindow::pastePem()
 	ui.button->setText(tr("Import PEM data"));
 	input->setWindowTitle(XCA_TITLE);
 	textbox->setPlainText(text);
-	if (input->exec())
+	if (input->exec()) {
 		text = textbox->toPlainText();
+		if (!text.isEmpty())
+			pastePem(text);
+	}
 	delete input;
 
-	if (!text.isEmpty())
-		pastePem(text);
 }
 
 void MainWindow::initToken()
@@ -1018,6 +1019,11 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 			XCA_application::tableFont.setPointSize(siz -1);
 		}
 		break;
+	case Qt::Key_V:
+		if (e->modifiers() == Qt::ControlModifier) {
+			pastePem();
+			break;
+		}
 	default:
 		QMainWindow::keyPressEvent(e);
 		return;

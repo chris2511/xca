@@ -7,6 +7,7 @@
 
 #include <signal.h>
 #include <QApplication>
+#include <QClipboard>
 #include <QTranslator>
 #include <QTextCodec>
 #include <QDir>
@@ -146,9 +147,9 @@ bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
 	static int mctr;
 	QMouseEvent *me;
 	QStringList l;
+	XcaTreeView *treeview;
 	int key;
 
-	(void)watched;
 	switch (ev->type()) {
 	case QEvent::FileOpen:
 		l << static_cast<QFileOpenEvent *>(ev)->file();
@@ -167,6 +168,19 @@ bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
 		key = static_cast<QKeyEvent *>(ev)->key();
 		if (key < 0x100) {
 			entropy.add(key);
+		}
+		break;
+	case QEvent::MouseButtonPress:
+		me = static_cast<QMouseEvent *>(ev);
+		treeview = watched ?
+			dynamic_cast<XcaTreeView*>(watched->parent()) : NULL;
+
+		if ((watched == mainw || treeview) &&
+		    me->button() == Qt::MidButton &&
+		    QApplication::clipboard()->supportsSelection())
+		{
+			mainw->pastePem();
+			return true;
 		}
 		break;
 	default:

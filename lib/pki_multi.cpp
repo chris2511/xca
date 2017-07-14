@@ -46,18 +46,13 @@ pki_base *pki_multi::pull()
 /* General PEM loader */
 static pki_base *pkiByPEM(QString text, int *skip)
 {
-	int pos;
-	pos = text.indexOf(BEGIN);
-	if (pos <0) {
-		if (skip)
-			*skip = text.length() - (sizeof(BEGIN)-1);
-		return NULL;
-	}
-	if (skip) {
+	int pos = text.indexOf(BEGIN);
+
+	if (skip)
 		*skip = pos;
-		if (pos) /* if we are not at the beginning, retry */
-			return NULL;
-	}
+
+	if (pos < 0)
+		return NULL;
 
 	text = text.remove(0, pos + sizeof(BEGIN)-1);
 	if (text.startsWith(PEM_STRING_X509_OLD D5) ||
@@ -113,7 +108,7 @@ void pki_multi::fromPEMbyteArray(QByteArray &ba, QString name)
 	for (;;) {
 		try {
 			item = pkiByPEM(QString::fromLatin1(ba), &startpos);
-			if (!item || startpos < 0)
+			if (!item)
 				break;
 			ba.remove(0, startpos);
 			item->fromPEMbyteArray(ba, name);
