@@ -57,9 +57,6 @@ void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 
 #define QString2filename(str) filename2bytearray(str).constData()
 
-FILE *fp_from_data(QByteArray data);
-void fp_from_data_finish(FILE*);
-
 static inline FILE *fopen_read(QString s)
 {
 	return fopen(QString2filename(s), "rb");

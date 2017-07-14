@@ -88,6 +88,7 @@ class pki_base : public QObject
 		};
 		uint32_t intFromData(QByteArray &ba);
 		virtual void fromPEM_BIO(BIO *, QString) {};
+		virtual void fromPEMbyteArray(QByteArray &, QString);
 		virtual void deleteFromToken() { };
 		virtual void deleteFromToken(slotid) { };
 		virtual int renameOnToken(slotid, QString)

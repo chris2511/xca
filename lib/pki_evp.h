@@ -48,7 +48,7 @@ class pki_evp: public pki_key
 
 		EVP_PKEY *priv2pub(EVP_PKEY* key);
 		static QString removeTypeFromIntName(QString n);
-		void fromPEM_BIO(BIO *bio, QString name);
+		void fromPEMbyteArray(QByteArray &ba, QString name);
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		void fromData(const unsigned char *p, db_header_t *head);

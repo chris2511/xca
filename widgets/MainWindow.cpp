@@ -345,17 +345,13 @@ bool MainWindow::pastePem(QString text)
 	QByteArray pemdata = text.toLatin1();
 	if (pemdata.size() == 0)
 		return false;
-	FILE *fp = fp_from_data(pemdata);
-	check_oom(fp);
-	BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
 
-	check_oom(b);
 	pki_multi *pem = NULL;
 	ImportMulti *dlgi = NULL;
 	try {
 		pem = new pki_multi();
 		dlgi = new ImportMulti(this);
-		pem->fromPEM_BIO(b, QString("paste"));
+		pem->fromPEMbyteArray(pemdata, QString("paste"));
 		success = pem->count() != 0;
 		dlgi->addItem(pem);
 		pem = NULL;
@@ -364,12 +360,10 @@ bool MainWindow::pastePem(QString text)
 	catch (errorEx &err) {
 		Error(err);
 	}
-	fp_from_data_finish(fp);
 	if (dlgi)
 		delete dlgi;
 	if (pem)
 		delete pem;
-	BIO_free(b);
 	return success;
 }
 

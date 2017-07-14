@@ -101,6 +101,14 @@ void pki_base::my_error(const QString error) const
 	}
 }
 
+
+void pki_base::fromPEMbyteArray(QByteArray &ba, QString name)
+{
+	BIO *bio = BIO_new_mem_buf(ba.data(), ba.length());
+	fromPEM_BIO(bio, name);
+	BIO_free(bio);
+}
+
 QString pki_base::rmslashdot(const QString &s)
 {
 	QByteArray a = s.toLatin1().replace("\\", "/");

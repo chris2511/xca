@@ -95,53 +95,28 @@ static pki_base *pkiByPEM(QString text, int *skip)
 
 void pki_multi::fload(const QString fname)
 {
-	FILE * fp;
-	BIO *bio = NULL;
+	QFile file(fname);
+	QByteArray ba;
 
-	fp = fopen_read(fname);
-	if (!fp) {
+	if (file.error()) {
 		fopen_error(fname);
 		return;
 	}
-	bio = BIO_new_fp(fp, BIO_CLOSE);
-	fromPEM_BIO(bio, fname);
-	BIO_free(bio);
+	ba = file.readAll();
+	fromPEMbyteArray(ba, fname);
 };
 
-#define BUFLEN 1024
-void pki_multi::fromPEM_BIO(BIO *bio, QString name)
+void pki_multi::fromPEMbyteArray(QByteArray &ba, QString name)
 {
-	QString text;
 	pki_base *item = NULL;
-	char buf[BUFLEN];
-	int len, startpos;
+	int startpos;
 	for (;;) {
 		try {
-			int pos = BIO_tell(bio);
-			len = BIO_read(bio, buf, BUFLEN-1);
-			buf[len] = '\0';
-			text = buf;
-			item = pkiByPEM(text, &startpos);
-			if (!item) {
-				if (startpos <= 0)
-					break;
-				if (BIO_seek(bio, pos + startpos) == -1)
-					throw errorEx(tr("Seek failed"));
-				continue;
-			}
-			pos += startpos;
-			if (BIO_seek(bio, pos) == -1)
-				throw errorEx(tr("Seek failed"));
-			item->fromPEM_BIO(bio, name);
-			if (pos == BIO_tell(bio)) {
-				/* No progress, do it manually */
-				if (BIO_seek(bio, pos + 1))
-					throw errorEx(tr("Seek failed"));
-				printf("Could not load: %s\n",
-						CCHAR(item->getClassName()));
-				delete item;
-				continue;
-			}
+			item = pkiByPEM(QString::fromLatin1(ba), &startpos);
+			if (!item || startpos < 0)
+				break;
+			ba.remove(0, startpos);
+			item->fromPEMbyteArray(ba, name);
 			openssl_error();
 			multi.append(item);
 		} catch (errorEx &err) {
@@ -150,6 +125,7 @@ void pki_multi::fromPEM_BIO(BIO *bio, QString name)
 				delete item;
 			item = NULL;
 		}
+		ba.remove(0, sizeof BEGIN -1);
 	}
 	if (multi.size() == 0)
 		throw errorEx(tr("No known PEM encoded items found"));

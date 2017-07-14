@@ -229,21 +229,22 @@ void pki_evp::openssl_pw_error(QString fname)
 	}
 }
 
-void pki_evp::fromPEM_BIO(BIO *bio, QString name)
+void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 {
+	BIO *bio = BIO_new_mem_buf(ba.data(), ba.length());
 	EVP_PKEY *pkey;
-	int pos;
 	pass_info p(XCA_TITLE,
 		tr("Please enter the password to decrypt the private key.") +
 		" " + name);
-	pos = BIO_tell(bio);
 	pkey = PEM_read_bio_PrivateKey(bio, NULL, PwDialog::pwCallback, &p);
 	openssl_pw_error(name);
 	if (!pkey){
 		pki_ign_openssl_error();
-		pos = BIO_seek(bio, pos);
+		BIO_free(bio);
+		bio = BIO_new_mem_buf(ba.data(), ba.length());
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
 	}
+	BIO_free(bio);
 	if (pkey){
 		if (key)
 			EVP_PKEY_free(key);
