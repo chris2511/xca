@@ -20,7 +20,7 @@
 #include "entropy.h"
 #include "openssl_compat.h"
 
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 /* On Windows O_NONBLOCK is an unknown concept :-)
  * We don't need it anyway on that platform ....
  */
@@ -61,7 +61,7 @@ void Entropy::seed_rng()
 	RAND_seed(pool, pool_pos);
 	seed_strength += pool_pos;
 
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	if (seed_strength < 16) {
 		RAND_poll();
 		seed_strength += 8;

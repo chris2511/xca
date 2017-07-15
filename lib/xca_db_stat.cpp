@@ -12,7 +12,7 @@
 
 QByteArray filename2bytearray(const QString &fname)
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	return fname.toLocal8Bit();
 #else
 	return fname.toUtf8();
@@ -21,7 +21,7 @@ QByteArray filename2bytearray(const QString &fname)
 
 QString filename2QString(const char *fname)
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	return QString::fromLocal8Bit(fname);
 #else
 	return QString::fromUtf8(fname);

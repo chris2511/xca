@@ -71,7 +71,7 @@ void initOIDs()
 
 	first_additional_oid = OBJ_new_nid(0);
 	readOIDs(dir + oids);
-#ifndef WIN32
+#if !defined(Q_OS_WIN32)
 #if !defined(Q_OS_MAC)
 	readOIDs(QString(ETC) + oids);
 #endif

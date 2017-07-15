@@ -12,10 +12,6 @@
 #include <QStringList>
 #include <QDebug>
 #include <QDateTime>
-#ifdef WIN32
-#include <windows.h>
-#else
-#include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -24,7 +20,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#endif
 
 #define XNUM(n) CCHAR(QString::number((n), 16))
 
@@ -59,11 +54,11 @@ void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
 		QString name)
 {
 	memset(db, 0, sizeof(db_header_t));
-	db->magic = htonl(XCA_MAGIC);
-	db->len = htonl(sizeof(db_header_t)+len);
-	db->headver = htons(1);
-	db->type = htons(type);
-	db->version = htons(ver);
+	db->magic = xhtonl(XCA_MAGIC);
+	db->len = xhtonl(sizeof(db_header_t)+len);
+	db->headver = xhtons(1);
+	db->type = xhtons(type);
+	db->version = xhtons(ver);
 	db->flags = 0;
 	strncpy(db->name, name.toUtf8(), NAMELEN);
 	db->name[NAMELEN-1] = '\0';
@@ -71,19 +66,19 @@ void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
 
 void db::convert_header(db_header_t *h)
 {
-	h->magic   = ntohl(head.magic);
-	h->len     = ntohl(head.len);
-	h->headver = ntohs(head.headver);
-	h->type    = ntohs(head.type);
-	h->version = ntohs(head.version);
-	h->flags   = ntohs(head.flags);
+	h->magic   = xntohl(head.magic);
+	h->len     = xntohl(head.len);
+	h->headver = xntohs(head.headver);
+	h->type    = xntohs(head.type);
+	h->version = xntohs(head.version);
+	h->flags   = xntohs(head.flags);
 	memcpy(h->name, head.name, NAMELEN);
 }
 
 bool db::verify_magic(void)
 {
 	if (!eof())
-		if (ntohl(head.magic) != XCA_MAGIC) {
+		if (xntohl(head.magic) != XCA_MAGIC) {
 			return false;
 		}
 	return true;
@@ -97,7 +92,7 @@ bool db::eof()
 int db::find(enum pki_type type, QString name)
 {
 	while (!eof()) {
-		if (ntohs(head.type) == type) {
+		if (xntohs(head.type) == type) {
 			if (name.isEmpty()) { /* only compare type */
 				return 0;
 			} else if (QString::fromUtf8(head.name) == name) {
@@ -127,7 +122,7 @@ void db::first(int flag)
 	}
 	if (!verify_magic())
 		return;
-	if (ntohs(head.flags) & flag)
+	if (xntohs(head.flags) & flag)
 		next(flag);
 }
 
@@ -140,7 +135,7 @@ int db::next(int flag)
 	if (eof())
 		return 1;
 
-	head_offset += ntohl(head.len);
+	head_offset += xntohl(head.len);
 	if (head_offset >= file.size()) {
 		head_offset = file.size();
 		return 1;
@@ -171,7 +166,7 @@ int db::next(int flag)
 			head_offset = file.size();
 			return -1;
 		}
-		qint64 hlen = ntohl(head.len);
+		qint64 hlen = xntohl(head.len);
 		if (!verify_magic()) {
 			if (garbage == -1)
 				garbage = head_offset;
@@ -186,7 +181,7 @@ int db::next(int flag)
 			garbage = -1;
 			if (file.size() < head_offset + hlen) {
 				qWarning("next(): Short item (%s of %s) at 0x%s",
-					XNUM(ntohl(head.len)),
+					XNUM(xntohl(head.len)),
 					XNUM(file.size() - head_offset),
 					XNUM(head_offset));
 				garbage = head_offset;
@@ -200,7 +195,7 @@ int db::next(int flag)
 				continue;
 			}
 		}
-		if (!(ntohs(head.flags) & flag)) {
+		if (!(xntohs(head.flags) & flag)) {
 			result = 0;
 			break;
 		} else {
@@ -299,10 +294,10 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		return add(p, len, ver, type, name);
 	} else {
 		file.seek(head_offset);
-		if (len != (int)(ntohl(head.len) - sizeof(db_header_t))) {
+		if (len != (int)(xntohl(head.len) - sizeof(db_header_t))) {
 			int flags;
 			flags = head.flags;
-			head.flags |= htons(DBFLAG_DELETED | DBFLAG_OUTDATED);
+			head.flags |= xhtons(DBFLAG_DELETED | DBFLAG_OUTDATED);
 
 			if (file.write((char*)&head, sizeof head) !=
 					sizeof head)
@@ -319,7 +314,7 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 			}
 			return 0;
 		}
-		head.version = htons(ver);
+		head.version = xhtons(ver);
 		if (file.write((char*)&head, sizeof head) != sizeof head) {
 			fileIOerr("write");
 			return -1;
@@ -341,7 +336,7 @@ unsigned char *db::load(db_header_t *u_header)
 
 	if (eof())
 		return NULL;
-	size = ntohl(head.len) - sizeof(db_header_t);
+	size = xntohl(head.len) - sizeof(db_header_t);
 	data = (unsigned char *)malloc(size);
 	file.seek(head_offset + sizeof(db_header_t));
 	ret = file.read((char*)data, size);
@@ -370,7 +365,7 @@ int db::erase(void)
 	if (eof())
 		return -1;
 
-	head.flags |= htons(DBFLAG_DELETED);
+	head.flags |= xhtons(DBFLAG_DELETED);
 
 	file.seek(head_offset);
 	if (file.write((char*)&head, sizeof(db_header_t)) != sizeof(db_header_t)) {
@@ -414,8 +409,8 @@ int db::shrink(int flags)
 				XNUM(file.pos() - sizeof head - garbage),
 				XNUM(garbage));
 		garbage = -1;
-		head_offset = ntohl(head.len) - sizeof(head);
-		if ((ntohs(head.flags) & flags)) {
+		head_offset = xntohl(head.len) - sizeof(head);
+		if ((xntohs(head.flags) & flags)) {
 			/* FF to the next entry */
 			if (!file.seek(head_offset + file.pos())) {
 				result = 1;
@@ -523,7 +518,7 @@ bool db::backup()
 // Move "new_file" to this database
 int db::mv(QFile &new_file)
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	// here we try to reimplement the simple "mv" command on unix
 	// atomic renaming fails on WIN32 platforms and
 	// forces us to work with temporary files :-(
@@ -555,7 +550,7 @@ int db::mv(QFile &new_file)
 
 QByteArray db::intToData(uint32_t val)
 {
-	uint32_t v = htonl(val);
+	uint32_t v = xhtonl(val);
 	return QByteArray((char*)&v, sizeof(uint32_t));
 }
 
@@ -567,7 +562,7 @@ uint32_t db::intFromData(QByteArray &ba)
 	}
 	memcpy(&ret, ba.constData(), sizeof(uint32_t));
 	ba = ba.mid(sizeof(uint32_t));
-	return ntohl(ret);
+	return xntohl(ret);
 }
 
 QByteArray db::boolToData(bool val)

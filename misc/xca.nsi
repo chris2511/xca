@@ -74,18 +74,28 @@ Section "xca (required)" SecMain
   File "${TOPDIR}/misc\aia.txt"
   File "${TOPDIR}/misc\*.xca"
   File "doc\*.html"
-  File "${BDIR}\mingwm10.dll"
 
-  File "${QTDIR}\bin\QtGui4.dll"
-  File "${QTDIR}\bin\QtCore4.dll"
-  File /nonfatal "${QTDIR}\bin\libgcc_s_dw2-1.dll"
+  File "${QTDIR}\bin\Qt5Gui.dll"
+  File "${QTDIR}\bin\Qt5Core.dll"
+  File "${QTDIR}\bin\Qt5Widgets.dll"
+  File "${QTDIR}\bin\libwinpthread-1.dll"
+  File "${QTDIR}\bin\libstdc++-6.dll"
+  File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
+  SetOutPath $INSTDIR\platforms
+  File "${QTDIR}\plugins\platforms\qwindows.dll"
+  SetOutPath $INSTDIR
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libcrypto-1_1.dll"
 
+
   ; delete unneeded engine
   Delete "$INSTDIR\libp11-1.dll"
   Delete "$INSTDIR\engine_pkcs11.dll"
+  Delete "$INSTDIR\libeay32.dll"
+  Delete "$INSTDIR\QtGui4.dll"
+  Delete "$INSTDIR\QtCore4.dll"
+  Delete "$INSTDIR\mingwm10.dll"
 
   ; remove old images
   ; Write the installation path into the registry

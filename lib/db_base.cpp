@@ -5,12 +5,6 @@
  * All rights reserved.
  */
 
-#ifdef WIN32
-#include <windows.h>
-#else
-#include <netinet/in.h>
-#endif
-
 #include "db_base.h"
 #include "func.h"
 #include "exception.h"
@@ -103,12 +97,12 @@ int db_base::handleBadEntry(unsigned char *p, db_header_t *head)
                         arg(s).arg(strerror(errno)), class_name);
 	}
 
-	h.magic   = ntohl(head->magic);
-	h.len     = ntohl(head->len);
-	h.headver = ntohs(head->headver);
-	h.type    = ntohs(head->type);
-	h.version = ntohs(head->version);
-	h.flags   = ntohs(head->flags);
+	h.magic   = xntohl(head->magic);
+	h.len     = xntohl(head->len);
+	h.headver = xntohs(head->headver);
+	h.type    = xntohs(head->type);
+	h.version = xntohs(head->version);
+	h.flags   = xntohs(head->flags);
 	memcpy(h.name, head->name, NAMELEN);
 
 	l = fwrite(&h, sizeof h, 1, fp);

@@ -20,7 +20,8 @@
 #include "lib/db.h"
 #include "lib/main.h"
 #include "lib/entropy.h"
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
+//For the segfault handler
 #include <windows.h>
 #endif
 
@@ -70,7 +71,7 @@ XCA_application::XCA_application(int &argc, char *argv[])
 #endif
 
 	tableFont = QFont("Courier", QApplication::font().pointSize()
-#if defined(_WIN32) || defined(USE_CYGWIN)
+#if defined (Q_OS_WIN32)
 	+1
 #else
 	+2
@@ -275,7 +276,7 @@ int main_extract(int argc, char *argv[])
 
 char segv_data[1024];
 
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 static LONG CALLBACK w32_segfault(LPEXCEPTION_POINTERS e)
 {
 	if (e->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION) {
@@ -301,7 +302,7 @@ int main( int argc, char *argv[] )
 	int ret = 0, pkictr;
 	MainWindow *mw;
 
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	SetUnhandledExceptionFilter(w32_segfault);
 #else
 	signal(SIGSEGV, segv_handler_gui);

@@ -152,7 +152,7 @@ load_db::load_db()
 load_pkcs11::load_pkcs11()
 	:load_base()
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	filter = QObject::tr("PKCS#11 library ( *.dll );;") + filter;
 #elif defined(Q_OS_MAC)
 	filter = QObject::tr("PKCS#11 library ( *.dylib *.so );;") + filter;

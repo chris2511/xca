@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+
 XCA_DIR="`dirname $0`"
 XCA_DIR="`cd $XCA_DIR/.. && pwd`"
 
@@ -51,17 +52,11 @@ do_XCA()
   cp setup*.exe ..
 )}
 
-if ! test -f mingwm10.dll; then
-  if ! zcat /usr/share/doc/mingw32-runtime/mingwm10.dll.gz >mingwm10.dll; then
-    echo missing mingwm10.dll
-    exit 1
-  fi
-fi
-
-
 XCA_BUILD="`pwd`"/xca_build
 export INSTALL_DIR=`pwd`/install
 
-do_openssl
-do_libtool
+if test -f build-libs; then
+  do_openssl
+  do_libtool
+fi
 do_XCA

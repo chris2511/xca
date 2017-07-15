@@ -4,7 +4,7 @@ BDIR=`cd ..; pwd`
 TOPDIR="`cd $(dirname $0) && pwd`"
 read VERSION < ${TOPDIR}/VERSION
 
-QT=`find "$BDIR"/qt/ -name 4.* |tail -n1`
+QT="$BDIR"/qt/`ls "$BDIR"/qt/ |tail -n1`
 
 LIBS="libcrypto.a libltdl.a"
 INCS="openssl/opensslv.h ltdl.h"
@@ -51,14 +51,15 @@ CONSOLE=-mwindows
 #CONSOLE=-mconsole
 
 CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include/QtGui -I\$(QTDIR)/include/QtCore -I\$(QTDIR)/include/QtWidgets -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
-CFLAGS=-Wall -g -O2 -mthreads  \$(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing
+CFLAGS=-Wall -g -O2 -mthreads  \$(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing -std=c++11
 
 LDFLAGS= -L\$(QTDIR)/lib -L\$(INSTALL_DIR)/lib \
-        -enable-stdcall-fixup -enable-auto-import \
-        -enable-runtime-pseudo-reloc
+        -Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
+        -Wl,-enable-runtime-pseudo-reloc \
+        -static-libgcc -static-libstdc++
 
 # list of dynamic libraries
-LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32 -lltdl
+LIBS=-lQt5Gui -lQt5Core -lQt5Widgets -lcrypto -lltdl
 
 # As long as the linux uic and moc are version compatible to the W32 ones
 # we use the native tools, because they are much faster than the wine's
@@ -75,7 +76,7 @@ RCC=rcc
 LRELEASE=lrelease
 endif
 
-CC=\$(CROSS)gcc
+CC=\$(CROSS)g++
 LD=\$(CROSS)ld
 STRIP=\$(CROSS)strip
 WINDRES=\$(CROSS)windres

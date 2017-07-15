@@ -124,11 +124,11 @@ void MainWindow::help()
 	ui.setupUi(h);
 
 	path = QString("file://");
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	path += "/";
 #endif
 	path += getDocDir() + "/";
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	path = path.replace("\\","/");
 #endif
 	uri = path + "xca.html";

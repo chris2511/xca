@@ -35,12 +35,8 @@
 #include <QProgressBar>
 #include <QTextEdit>
 
-#ifdef WIN32
-#include <windows.h>
+#if defined(Q_OS_WIN32)
 #include <shlobj.h>
-#else
-/* for htons() */
-#include <netinet/in.h>
 #endif
 
 QPixmap *loadImg(const char *name )
@@ -68,7 +64,7 @@ QStringList getLibExtensions()
 
 QString getPrefix()
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	static char inst_dir[100] = "";
 	char *p;
 	ULONG dwLength = 100;
@@ -119,7 +115,7 @@ QString getPrefix()
 QString getHomeDir()
 {
 	QString hd;
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
 	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_PERSONAL, &pidl))) {
@@ -135,7 +131,7 @@ QString getHomeDir()
 QString getLibDir()
 {
 	QString hd;
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
 		if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_SYSTEM, &pidl))) {
@@ -164,7 +160,7 @@ QString getDocDir()
 QString getUserSettingsDir()
 {
 	QString rv;
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
 	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl))) {
@@ -208,7 +204,7 @@ QString getFullFilename(const QString & filename, const QString & selectedFilter
 
 QByteArray filename2bytearray(const QString &fname)
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	return fname.toLocal8Bit();
 #else
 	return fname.toUtf8();
@@ -217,7 +213,7 @@ QByteArray filename2bytearray(const QString &fname)
 
 QString filename2QString(const char *fname)
 {
-#ifdef WIN32
+#if defined(Q_OS_WIN32)
 	return QString::fromLocal8Bit(fname);
 #else
 	return QString::fromUtf8(fname);
@@ -255,7 +251,7 @@ QString asn1ToQString(const ASN1_STRING *str, bool quote)
 		case V_ASN1_BMPSTRING:
 			bmp = (unsigned short*)str->data;
 			for (i = 0; i < str->length/2; i++) {
-				unsigned short s = ntohs(bmp[i]);
+				unsigned short s = xntohs(bmp[i]);
 				qs += QString::fromUtf16(&s, 1);
 			}
 			break;

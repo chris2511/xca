@@ -35,8 +35,10 @@ export INSTALL_DIR="`pwd`"/install
 export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
 export QTDIR=/Users/chris/Qt/5.9.1/clang_64
 
-do_libtool
-do_openssl
+if test -f build-libs; then
+  do_libtool
+  do_openssl
+fi
 
 XCA_BUILD="xca-macbuild"
 # configure XCA and build the DMG file

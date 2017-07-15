@@ -202,7 +202,7 @@ NIDlist *MainWindow::read_nidlist(QString name)
 	NIDlist nl;
 	name = QDir::separator() + name;
 
-#ifndef WIN32
+#if !defined(Q_OS_WIN32)
 	/* first try $HOME/xca/ */
 	nl = readNIDlist(getUserSettingsDir() + name);
 #if !defined(Q_OS_MAC)
