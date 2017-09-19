@@ -2353,7 +2353,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     </message>
     <message>
         <location line="+13"/>
-        <source>%1 missmatch</source>
+        <source>%1 mismatch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2915,7 +2915,7 @@ In library %3
     </message>
     <message>
         <location line="+7"/>
-        <source>include sub directorys</source>
+        <source>Include subdirectories</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4157,7 +4157,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+28"/>
-        <source>Public Key missmatch. Please re-import card</source>
+        <source>Public Key mismatch. Please re-import card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

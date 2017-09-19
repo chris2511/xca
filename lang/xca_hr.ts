@@ -2532,7 +2532,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     </message>
     <message>
         <location line="+13"/>
-        <source>%1 missmatch</source>
+        <source>%1 mismatch</source>
         <translation>%1 je neodgovarajući</translation>
     </message>
     <message>
@@ -3095,7 +3095,7 @@ U knjižnici %3
     </message>
     <message>
         <location line="+7"/>
-        <source>include sub directorys</source>
+        <source>Include subdirectories</source>
         <translation>Uključi podmape</translation>
     </message>
     <message>
@@ -4733,7 +4733,7 @@ i zbog toga nije spreman</translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>Public Key missmatch. Please re-import card</source>
+        <source>Public Key mismatch. Please re-import card</source>
         <translation>Neodgovarajući javni ključ. Molimo ponovo umetnite karticu</translation>
     </message>
     <message>

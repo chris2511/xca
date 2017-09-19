@@ -95,7 +95,7 @@ void PwDialog::setRW(bool write)
 void PwDialog::accept()
 {
 	if (wrDialog && (passA->text() != passB->text())) {
-		XCA_WARN(tr("%1 missmatch").arg(pi->getType()));
+		XCA_WARN(tr("%1 mismatch").arg(pi->getType()));
 		return;
 	}
 	QString pw = passB->text();

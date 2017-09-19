@@ -2248,7 +2248,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     </message>
     <message>
         <location line="+13"/>
-        <source>%1 missmatch</source>
+        <source>%1 mismatch</source>
         <translation>%1 nezhoda</translation>
     </message>
     <message>
@@ -2807,7 +2807,7 @@ V knižnici %3
     </message>
     <message>
         <location line="+7"/>
-        <source>include sub directorys</source>
+        <source>Include subdirectories</source>
         <translation>Zahrnúť podadresáre</translation>
     </message>
     <message>

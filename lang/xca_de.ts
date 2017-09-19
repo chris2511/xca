@@ -2485,7 +2485,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     </message>
     <message>
         <location line="+13"/>
-        <source>%1 missmatch</source>
+        <source>%1 mismatch</source>
         <translation>Keine %1 übereinstimmung</translation>
     </message>
     <message>
@@ -3058,7 +3058,7 @@ in Bibliothek %3
     </message>
     <message>
         <location line="+7"/>
-        <source>include sub directorys</source>
+        <source>Include subdirectories</source>
         <translation>Unterverzeichnisse einschliessen</translation>
     </message>
     <message>
@@ -4655,7 +4655,7 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="+131"/>
-        <source>Public Key missmatch. Please re-import card</source>
+        <source>Public Key mismatch. Please re-import card</source>
         <translation>Öffentlicher Schlüssel passt nicht. Bitte Chipkarte neu importieren</translation>
     </message>
     <message>

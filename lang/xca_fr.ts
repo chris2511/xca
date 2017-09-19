@@ -2249,7 +2249,7 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
     </message>
     <message>
         <location line="+13"/>
-        <source>%1 missmatch</source>
+        <source>%1 mismatch</source>
         <translation>%1 ne correspond pas</translation>
     </message>
     <message>
@@ -2808,7 +2808,7 @@ Dans la bibliothèque %3
     </message>
     <message>
         <location line="+7"/>
-        <source>include sub directorys</source>
+        <source>Include subdirectories</source>
         <translation>include les sous-dossiers</translation>
     </message>
     <message>
@@ -3918,7 +3918,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>Public Key missmatch. Please re-import card</source>
+        <source>Public Key mismatch. Please re-import card</source>
         <translation>La clé publique ne correspond pas. Veuillez re-importer la carte</translation>
     </message>
     <message>

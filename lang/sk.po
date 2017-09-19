@@ -1855,7 +1855,7 @@ msgid "Repeat %1"
 msgstr "Opakovať %1"
 
 #: PwDialog#4
-msgid "%1 missmatch"
+msgid "%1 mismatch"
 msgstr "%1 nezhoda"
 
 #: PwDialog#5
@@ -2314,7 +2314,7 @@ msgid "..."
 msgstr "..."
 
 #: SearchPkcs11#4
-msgid "include sub directorys"
+msgid "Include subdirectories"
 msgstr "Zahrnúť podadresáre"
 
 #: SearchPkcs11#5

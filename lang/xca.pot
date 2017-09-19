@@ -1848,7 +1848,7 @@ msgid "Repeat %1"
 msgstr ""
 
 #: PwDialog#4
-msgid "%1 missmatch"
+msgid "%1 mismatch"
 msgstr ""
 
 #: PwDialog#5
@@ -2299,7 +2299,7 @@ msgid "..."
 msgstr ""
 
 #: SearchPkcs11#4
-msgid "include sub directorys"
+msgid "Include subdirectories"
 msgstr ""
 
 #: SearchPkcs11#5
@@ -3156,7 +3156,7 @@ msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr ""
 
 #: pki_scard#10
-msgid "Public Key missmatch. Please re-import card"
+msgid "Public Key mismatch. Please re-import card"
 msgstr ""
 
 #: pki_scard#11

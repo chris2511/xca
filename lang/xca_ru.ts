@@ -2241,7 +2241,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     </message>
     <message>
         <location line="+13"/>
-        <source>%1 missmatch</source>
+        <source>%1 mismatch</source>
         <translation>%1 не соответствуют</translation>
     </message>
     <message>
@@ -3895,7 +3895,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+131"/>
-        <source>Public Key missmatch. Please re-import card</source>
+        <source>Public Key mismatch. Please re-import card</source>
         <translation>Ошибка открытого ключа. Пожалуйста, импортируйте карту снова</translation>
     </message>
     <message>

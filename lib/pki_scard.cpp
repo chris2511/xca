@@ -608,7 +608,7 @@ bool pki_scard::prepare_card(slotid *slot, bool verifyPubkey) const
 		if (EVP_PKEY_cmp(key, pkey) == 1)
 			return true;
 		if (!object_id.isEmpty())
-			XCA_WARN(tr("Public Key missmatch. Please re-import card"));
+			XCA_WARN(tr("Public Key mismatch. Please re-import card"));
 	}
 	return false;
 }
