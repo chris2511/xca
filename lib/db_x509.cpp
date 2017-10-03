@@ -1106,7 +1106,7 @@ void db_x509::toRequest(QModelIndex idx)
 		check_oom(req);
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(),
-			cert->getRefKey()->getDefaultMD(), cert->getV3ext());
+			cert->getDigest(), cert->getV3ext());
 		createSuccess(mainwin->reqs->insert(req));
 	}
 	catch (errorEx &err) {
