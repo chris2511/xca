@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2015 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2017 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -83,7 +83,7 @@ void MainWindow::about()
 	Entropy::seed_rng();
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2001 - 2015 by Christian Hohnst&auml;dt\n"
+	"<p>Copyright 2001 - 2017 by Christian Hohnst&auml;dt\n"
 	"<p>Version: <b>" PACKAGE_VERSION "</b>"
 	"<p>%1<p>%2"
 	"<p>http://sourceforge.net/projects/xca"
@@ -93,13 +93,6 @@ void MainWindow::about()
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
 	"<tr><th align=left>Kerstin Steinhauff</th><td><u>&lt;tine@kerstine.de&gt;</td></u></tr>"
 	"<tr><td></td><td>Arts and Graphics</td></tr>"
-	"</table><hr><center><u><b>General support</b></u></center>"
-	"<p><table>"
-	"<tr><td><b>Mark Foster</b></td><td><u>&lt;mark@foster.cc&gt;</u></td></tr>"
-	"<tr><td><b>Thorsten Weiss</b></td><td><u>&lt;weiss2@gmx.de&gt;</u></td></tr>"
-	"<tr><td><b>Oobj</b></td><td><u>&lt;www.oobj.com.br&gt;</u></td></tr>"
-	"<tr><td><b>Frank Isemann</b></td><td><u>&lt;isemannf@firflabs.net&gt;</u></td></tr>"
-	"<tr><td><b>Helmut Strobl</b></td><td><u>&lt;helmut.strobl@t-online.de&gt;</u></td></tr>"
 	"</table><hr><center><u><b>Maintained Translations</b></u></center>"
 	"<p><table>"
 	"<tr><td><b>German</b></td><td>Christian Hohnst&auml;dt &lt;christian@hohnstaedt.de&gt;</td></tr>"
