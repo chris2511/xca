@@ -12,7 +12,9 @@ Local.mak
 local.h
 xca
 xca.exe
-setup.exe
+setup_xca*.exe
+xca_db_stat
+xca_db_stat.exe
 aclocal.m4
 autom4te.cache/
 config.log
