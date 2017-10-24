@@ -8,26 +8,27 @@
 #include "hashBox.h"
 #include "lib/base.h"
 
+/* SHA-256 as default */
+#define DEFAULT_MD_IDX 4
 
 static struct {
 	const char *name;
 	const EVP_MD *md;
 } hashalgos[] = {
 	{ "MD 5", EVP_md5() },
+	{ "RIPEMD 160", EVP_ripemd160() },
 	{ "SHA 1", EVP_sha1() },
 	{ "SHA 224", EVP_sha224() },
 	{ "SHA 256", EVP_sha256() },
 	{ "SHA 384", EVP_sha384() },
 	{ "SHA 512", EVP_sha512() },
-	{ "RIPEMD 160", EVP_ripemd160() },
 };
 
 QString hashBox::default_md = QString();
 
 void hashBox::resetDefault()
 {
-	/* SHA1 */
-	default_md = QString(hashalgos[1].name);
+	default_md = QString(hashalgos[DEFAULT_MD_IDX].name);
 }
 
 hashBox::hashBox(QWidget *parent)
@@ -59,7 +60,7 @@ const EVP_MD *hashBox::currentHash()
 		if (hash == hashalgos[i].name)
 			return hashalgos[i].md;
 	}
-	return hashalgos[4].md; /* SHA-256 as fallback */
+	return hashalgos[DEFAULT_MD_IDX].md;
 }
 
 void hashBox::setCurrentString(QString md)
