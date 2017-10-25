@@ -181,6 +181,8 @@ void MainWindow::update_history_menu()
 	for (int i = 0; i < history.size(); i++) {
 		QAction *a;
 		QString txt = history[i];
+		if (!QFile::exists(history[i]))
+			continue;
 		txt = txt.remove(0, txt.lastIndexOf(QDir::separator()) +1);
 		if (txt.size() > 20)
 			txt = QString("...") + txt.mid(txt.size() - 20);
