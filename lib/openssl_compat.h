@@ -45,33 +45,42 @@
 #define X509_CRL_get0_lastUpdate(crl) ((crl)->crl->lastUpdate)
 #define X509_CRL_get0_nextUpdate(crl) ((crl)->crl->nextUpdate)
 
-static inline void RSA_get0_key(const RSA *r,
-	const BIGNUM **n, const BIGNUM **e, const BIGNUM **d)
+static inline void
+RSA_get0_key(const RSA *r, const BIGNUM **n, const BIGNUM **e, const BIGNUM **d)
 {
-	if(n) *n = r->n; if(e) *e = r->e; if(d) *d = r->d;
+	if (n) *n = r->n;
+	if (e) *e = r->e;
+	if (d) *d = r->d;
 }
 
-static inline void DSA_get0_pqg(const DSA *d,
-                   const BIGNUM **p, const BIGNUM **q, const BIGNUM **g)
+static inline void
+DSA_get0_pqg(const DSA *d, const BIGNUM **p, const BIGNUM **q, const BIGNUM **g)
 {
-	if(p) *p = d->p; if(q) *q = d->q; if(g) *g = d->g;
+	if (p) *p = d->p;
+	if (q) *q = d->q;
+	if (g) *g = d->g;
 }
 
-static inline void DSA_get0_key(const DSA *d,
-                   const BIGNUM **pub, const BIGNUM **priv)
+static inline void
+DSA_get0_key(const DSA *d, const BIGNUM **pub, const BIGNUM **priv)
 {
-	if(priv) *priv = d->priv_key; if(pub) *pub = d->pub_key;
+	if (priv) *priv = d->priv_key;
+	if (pub)  *pub  = d->pub_key;
 }
 
-static inline void RSA_get0_factors(const RSA *r, const BIGNUM **p, const BIGNUM **q)
+static inline void
+RSA_get0_factors(const RSA *r, const BIGNUM **p, const BIGNUM **q)
 {
-	if(p) *p = r->p; if(q) *q = r->q;
+	if (p) *p = r->p;
+	if (q) *q = r->q;
 }
-static inline void RSA_get0_crt_params(const RSA *r,
-                          const BIGNUM **dmp1, const BIGNUM **dmq1,
-                          const BIGNUM **iqmp)
+static inline void
+RSA_get0_crt_params(const RSA *r, const BIGNUM **dmp1, const BIGNUM **dmq1,
+								const BIGNUM **iqmp)
 {
-	if(dmp1) *dmp1=r->dmp1; if(dmq1) *dmq1=r->dmq1; if(iqmp) *iqmp=r->iqmp;
+	if (dmp1) *dmp1=r->dmp1;
+	if (dmq1) *dmq1=r->dmq1;
+	if (iqmp) *iqmp=r->iqmp;
 }
 
 #endif
