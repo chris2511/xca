@@ -116,7 +116,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
 fi
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
-  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.6, QtCore < 5.0, QtGui >= 4.6, QtGui < 5.0], [
+  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.7, QtCore < 5.0, QtGui >= 4.7, QtGui < 5.0], [
     QT_MOC="`pkg-config --variable=moc_location QtCore`"
     QT_UIC="`pkg-config --variable=uic_location QtCore`"
     if test -n "${QT_MOC}"; then

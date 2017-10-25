@@ -131,6 +131,7 @@ MainWindow::MainWindow(QWidget *parent)
 	setAcceptDrops(true);
 
 	searchEdit = new QLineEdit();
+	searchEdit->setPlaceholderText(tr("Search"));
 
 	keyView->setMainwin(this, searchEdit);
 	reqView->setMainwin(this, searchEdit);
