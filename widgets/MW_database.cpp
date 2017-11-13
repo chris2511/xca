@@ -170,6 +170,7 @@ int MainWindow::init_database()
 	hashBox hb(this);
 	if (hb.isInsecure()) {
 		XCA_WARN(tr("The currently used default hash '%1' is insecure. Please select at least 'SHA 224' for security reasons.").arg(hb.currentHashName()));
+		setOptions();
 	}
 	return ret;
 }
