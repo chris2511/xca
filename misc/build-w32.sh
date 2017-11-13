@@ -11,7 +11,7 @@ LIBTOOL_DIR="libtool-2.2.6b"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
 LIBTOOL_DL="http://ftp.gnu.org/gnu/libtool/${LIBTOOL_GZ}"
 
-OPENSSL_DIR="openssl-1.1.0f"
+read OPENSSL_DIR < "`dirname $0`/../OpenSSL.version"
 OPENSSL_GZ="${OPENSSL_DIR}".tar.gz
 OPENSSL_DL="https://www.openssl.org/source/${OPENSSL_GZ}"
 

@@ -3,7 +3,7 @@
 do_openssl()
 {
 set -x
-openssl="openssl-1.1.0f"
+read openssl < "`dirname $0`/../OpenSSL.version"
 test -f "$openssl".tar.gz || curl https://www.openssl.org/source/"$openssl".tar.gz > "$openssl".tar.gz
 tar zxf "$openssl".tar.gz
 (cd $openssl
