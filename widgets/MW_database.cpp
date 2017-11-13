@@ -167,6 +167,10 @@ int MainWindow::init_database()
 
 	dbindex->setText(tr("Database") + ": " + dbfile);
 	load_engine();
+	hashBox hb(this);
+	if (hb.isInsecure()) {
+		XCA_WARN(tr("The currently used default hash '%1' is insecure. Please select at least 'SHA 224' for security reasons.").arg(hb.currentHashName()));
+	}
 	return ret;
 }
 

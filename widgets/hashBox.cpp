@@ -11,6 +11,9 @@
 /* SHA-256 as default */
 #define DEFAULT_MD_IDX 4
 
+/* SHA 1 and below are insecure */
+#define INSECURE_MD 2
+
 static struct {
 	const char *name;
 	const EVP_MD *md;
@@ -43,7 +46,22 @@ void hashBox::setKeyType(int type)
 	key_type = type;
 }
 
-const EVP_MD *hashBox::currentHash()
+int hashBox::currentHashIdx() const
+{
+	QString hash = currentText();
+	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
+		if (hash == hashalgos[i].name)
+			return i;
+	}
+	return DEFAULT_MD_IDX;
+}
+
+bool hashBox::isInsecure() const
+{
+	return currentHashIdx() <= INSECURE_MD;
+}
+
+const EVP_MD *hashBox::currentHash() const
 {
 #if OPENSSL_VERSION_NUMBER < 0x10000000L
 	switch(key_type) {
@@ -55,12 +73,10 @@ const EVP_MD *hashBox::currentHash()
 #endif
 	}
 #endif
-	QString hash = currentText();
-	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
-		if (hash == hashalgos[i].name)
-			return hashalgos[i].md;
-	}
-	return hashalgos[DEFAULT_MD_IDX].md;
+	unsigned i= hashBox::currentHashIdx();
+	if (i >= ARRAY_SIZE(hashalgos))
+		i = DEFAULT_MD_IDX;
+	return hashalgos[i].md;
 }
 
 void hashBox::setCurrentString(QString md)
@@ -184,7 +200,7 @@ void hashBox::setupAllHashes()
 	setCurrentString(md);
 }
 
-QString hashBox::currentHashName()
+QString hashBox::currentHashName() const
 {
 	return currentText();
 }

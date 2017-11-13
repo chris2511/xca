@@ -22,8 +22,10 @@ class hashBox: public QComboBox
 	public:
 		hashBox(QWidget *parent);
 		void setKeyType(int type);
-		const EVP_MD *currentHash();
-		QString currentHashName();
+		const EVP_MD *currentHash() const;
+		QString currentHashName() const;
+		int currentHashIdx() const;
+		bool isInsecure() const;
 		void setCurrentMD(const EVP_MD *md);
 		void setCurrentAsDefault();
 		void setDefaultHash();
