@@ -23,7 +23,8 @@ void OidResolver::searchOid(QString s)
 	bool ok;
 	int n;
 
-	input->setText(s);
+	if (input->text() != s)	// Avoid moving the cursor at end if unchanged.
+		input->setText(s);
 	s = s.trimmed();
 	n = s.toUInt(&ok);
 	if (!ok)
