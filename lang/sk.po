@@ -1,19 +1,19 @@
 # This file is distributed under the same license as the XCA package.
-# Slavko <linux@slavino.sk>, 2016.
+# Slavko <linux@slavino.sk>, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: X Certificate and Key management 1.3.2\n"
-"Report-Msgid-Bugs-To: linux@slavino.sk\n"
-"POT-Creation-Date: 2015-05-19 13:24+0200\n"
-"PO-Revision-Date: 2016-01-04 10:41+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-14 07:04+0200\n"
+"PO-Revision-Date: 2017-11-14 17:58+0100\n"
 "Last-Translator: Slavko <linux@slavino.sk>\n"
 "Language-Team: slovenčina <linux@slavino.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 2.91.7\n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: About#1
@@ -86,20 +86,20 @@ msgid "Fingerprints"
 msgstr "Odtlačky"
 
 #: CertDetail#11
-msgid "SHA1"
-msgstr "SHA1"
-
-#: CertDetail#12
 msgid "MD5"
 msgstr "MD5"
 
-#: CertDetail#13
-msgid "A SHA-1 hashsum of the certificate"
-msgstr "Odtlačok certifikátu SHA-1"
-
-#: CertDetail#14
+#: CertDetail#12
 msgid "An md5 hashsum of the certificate"
 msgstr "Odtlačok certifikátu MD5"
+
+#: CertDetail#13
+msgid "SHA1"
+msgstr "SHA1"
+
+#: CertDetail#14
+msgid "A SHA-1 hashsum of the certificate"
+msgstr "Odtlačok certifikátu SHA-1"
 
 #: CertDetail#15
 msgid "SHA256"
@@ -154,39 +154,35 @@ msgid "Not available"
 msgstr "Nedostupné"
 
 #: CertDetail#27
-msgid "Details of the certificate"
-msgstr "Podrobnosti certifikátu"
-
-#: CertDetail#28
 msgid "Signer unknown"
 msgstr "Neznámy podpis"
 
-#: CertDetail#29
+#: CertDetail#28
 msgid "Self signed"
 msgstr "Sebou podpísaný"
 
-#: CertDetail#30
-msgctxt "CertDetail#30"
+#: CertDetail#29
+msgctxt "CertDetail#29"
 msgid "Not trusted"
 msgstr "Nedôveryhodný"
 
-#: CertDetail#31
+#: CertDetail#30
 msgid "Trusted"
 msgstr "Dôveryhodný"
 
-#: CertDetail#32
+#: CertDetail#31
 msgid "Revoked: "
 msgstr "Odvolaný: "
 
-#: CertDetail#33
+#: CertDetail#32
 msgid "Not valid"
 msgstr "Neplatný"
 
-#: CertDetail#34
+#: CertDetail#33
 msgid "Valid"
 msgstr "Platný"
 
-#: CertDetail#35
+#: CertDetail#34
 msgid "Details of the certificate signing request"
 msgstr "Podrobnosti žiadosti o podpísanie certifikátu"
 
@@ -224,27 +220,28 @@ msgstr "Časový rozsah"
 
 #: CertExtend#7
 msgctxt "CertExtend#7"
-msgid "Days"
-msgstr "Dni"
+msgid "Local time"
+msgstr "Lokálny čas"
 
 #: CertExtend#8
 msgctxt "CertExtend#8"
-msgid "Months"
-msgstr "Mesiace"
+msgid "Days"
+msgstr "Dni"
 
 #: CertExtend#9
 msgctxt "CertExtend#9"
-msgid "Years"
-msgstr "Roky"
+msgid "Months"
+msgstr "Mesiace"
 
 #: CertExtend#10
 msgctxt "CertExtend#10"
-msgid "Apply"
-msgstr "Použiť"
+msgid "Years"
+msgstr "Roky"
 
 #: CertExtend#11
-msgid "Revoke old certificate"
-msgstr "Odvolať starý certifikát"
+msgctxt "CertExtend#11"
+msgid "No well-defined expiration"
+msgstr "Bez vypršania"
 
 #: CertExtend#12
 msgctxt "CertExtend#12"
@@ -253,13 +250,12 @@ msgstr "Polnoc"
 
 #: CertExtend#13
 msgctxt "CertExtend#13"
-msgid "Local time"
-msgstr "Lokálny čas"
+msgid "Apply"
+msgstr "Použiť"
 
 #: CertExtend#14
-msgctxt "CertExtend#14"
-msgid "No well-defined expiration"
-msgstr "Bez vypršania"
+msgid "Revoke old certificate"
+msgstr "Odvolať starý certifikát"
 
 #: CertExtend#15
 msgctxt "CertExtend#15"
@@ -270,8 +266,9 @@ msgstr ""
 "Certifikát bude platný skôr ako jeho vydavateľ. To asi nie je to, čo chcete."
 
 #: CertExtend#16
-msgid "Edit times"
-msgstr "Upraviť časy"
+msgctxt "CertExtend#16"
+msgid "Edit dates"
+msgstr "Upraviť dátumy"
 
 #: CertExtend#17
 msgctxt "CertExtend#17"
@@ -401,11 +398,13 @@ msgid "issuing dates"
 msgstr "Dátumy vydania"
 
 #: CrlDetail#9
-msgid "Next Update"
-msgstr "Nasledujúca aktualizácia"
+msgctxt "CrlDetail#9"
+msgid "Next update"
+msgstr "Nasled. aktualizácia"
 
 #: CrlDetail#10
-msgid "Last Update"
+msgctxt "CrlDetail#10"
+msgid "Last update"
 msgstr "Posledná aktualizácia"
 
 #: CrlDetail#11
@@ -565,14 +564,19 @@ msgid "The public key encoded in SSH2 format"
 msgstr "Verejný kľúč kódovaný vo formáte SSH2"
 
 #: ExportDialog#30
+msgctxt "ExportDialog#30"
+msgid "Certificate Index file"
+msgstr "Súbor indexu certifikátov"
+
+#: ExportDialog#31
 msgid "The file: '%1' already exists!"
 msgstr "Súbor: „%1” už existuje!"
 
-#: ExportDialog#31
+#: ExportDialog#32
 msgid "Overwrite"
 msgstr "Prepísať"
 
-#: ExportDialog#32
+#: ExportDialog#33
 msgid "Do not overwrite"
 msgstr "Neprepísať"
 
@@ -612,6 +616,7 @@ msgid "&Remove from list"
 msgstr "Odstrániť zo zoznamu"
 
 #: ImportMulti#6
+msgctxt "ImportMulti#6"
 msgid "Details"
 msgstr "Podrobnosti"
 
@@ -640,22 +645,18 @@ msgid "Manage security token"
 msgstr "Spravovať bezpečnostný token"
 
 #: ImportMulti#11
-msgid "The type of the Item '%1' is not recognized"
-msgstr "Typ položky „%1” nebol rozpoznaný"
-
-#: ImportMulti#12
 msgid "Details of the item '%1' cannot be shown"
 msgstr "Podrobnosti položky „%1” nemožno zobraziť"
 
-#: ImportMulti#13
+#: ImportMulti#12
 msgid "The type of the item '%1' is not recognized"
 msgstr "Typ položky „%1” nebol rozpoznaný"
 
-#: ImportMulti#14
+#: ImportMulti#13
 msgid "The file '%1' did not contain PKI data"
 msgstr "Súbor „%1” neobsahuje dáta PKI"
 
-#: ImportMulti#15
+#: ImportMulti#14
 msgid "The %1 files: '%2' did not contain PKI data"
 msgstr "%1 súbory: „%2” neobsahuje dáta PKI"
 
@@ -730,6 +731,7 @@ msgid "Sub prime"
 msgstr "Sub prime"
 
 #: KeyDetail#17
+msgctxt "KeyDetail#17"
 msgid "Public key"
 msgstr "Verejný kľúč"
 
@@ -739,6 +741,7 @@ msgid "Private key"
 msgstr "Súkromný kľúč"
 
 #: KeyDetail#19
+msgctxt "KeyDetail#19"
 msgid "Curve name"
 msgstr "Meno krivky"
 
@@ -846,18 +849,22 @@ msgid "Templates"
 msgstr "Šablóny"
 
 #: MainWindow#16
-msgid "&New template"
+msgid "&New Template"
 msgstr "&Nová šablóna"
 
 #: MainWindow#17
+msgid "&New CRL"
+msgstr "&Nový CRL"
+
+#: MainWindow#18
 msgid "Ch&ange Template"
 msgstr "&Zmeniť šablónu"
 
-#: MainWindow#18
+#: MainWindow#19
 msgid "Revocation lists"
 msgstr "Zoznamy odvolaných"
 
-#: MainWindow#19
+#: MainWindow#20
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
 "correct password"
@@ -865,15 +872,23 @@ msgstr ""
 "Použitie alebo exportovanie súkromných kľúčov nebude možné bez zadania "
 "správneho hesla"
 
-#: MainWindow#20
+#: MainWindow#21
 msgid "Database"
 msgstr "Databáza"
 
-#: MainWindow#21
+#: MainWindow#22
+msgid ""
+"The currently used default hash '%1' is insecure. Please select at least "
+"'SHA 224' for security reasons."
+msgstr ""
+"Aktuálne použitý predvolený odtlačok „%1” nie je bezpečný. Prosím, kvôli "
+"bezpečnosti, vyberte aspoň „SHA 224”."
+
+#: MainWindow#23
 msgid "No deleted items found"
 msgstr "Nenájdené žiadne zmazané položky"
 
-#: MainWindow#22
+#: MainWindow#24
 msgid ""
 "Errors detected and repaired while deleting outdated items from the "
 "database. A backup file was created"
@@ -881,233 +896,259 @@ msgstr ""
 "Počas odstraňovania starých položiek z databázy boli zistené a opravené "
 "chyby. Bol vytvorený záložný súbor"
 
-#: MainWindow#23
+#: MainWindow#25
 msgid "Removing deleted or outdated items from the database failed."
 msgstr "Odstránenie starých položiek z databázy zlyhalo."
 
-#: MainWindow#24
+#: MainWindow#26
 msgid "Recent DataBases"
 msgstr "Nedávne databázy"
 
-#: MainWindow#25
+#: MainWindow#27
 msgid "System"
 msgstr "systémový"
 
-#: MainWindow#26
+#: MainWindow#28
 msgid "Croatian"
 msgstr "chorvátsky"
 
-#: MainWindow#27
+#: MainWindow#29
 msgid "English"
 msgstr "anglicky"
 
-#: MainWindow#28
+#: MainWindow#30
 msgid "French"
 msgstr "francúzsky"
 
-#: MainWindow#29
+#: MainWindow#31
 msgid "German"
 msgstr "nemecky"
 
-#: MainWindow#30
+#: MainWindow#32
 msgid "Russian"
 msgstr "rusky"
 
-#: MainWindow#31
+#: MainWindow#33
+msgid "Slovak"
+msgstr "slovensky"
+
+#: MainWindow#34
 msgid "Spanish"
 msgstr "španielsky"
 
-#: MainWindow#32
+#: MainWindow#35
 msgid "Turkish"
 msgstr "turecky"
 
-#: MainWindow#33
+#: MainWindow#36
 msgid "Language"
 msgstr "Jazyk"
 
-#: MainWindow#34
+#: MainWindow#37
 msgid "&File"
 msgstr "&Súbor"
 
-#: MainWindow#35
+#: MainWindow#38
 msgid "&New DataBase"
 msgstr "&Nová databáza"
 
-#: MainWindow#36
+#: MainWindow#39
 msgid "&Open DataBase"
 msgstr "&Otvoriť databázu"
 
-#: MainWindow#37
-msgid "Generate DH parameter"
-msgstr "Generovať parameter DH"
-
-#: MainWindow#38
+#: MainWindow#40
 msgid "Set as default DataBase"
 msgstr "Predvolená databáza"
 
-#: MainWindow#39
+#: MainWindow#41
 msgid "&Close DataBase"
 msgstr "&Zatvoriť databázu"
 
-#: MainWindow#40
-msgid "&Dump DataBase"
-msgstr "Vypísať &databázu"
-
-#: MainWindow#41
-msgid "C&hange DataBase password"
-msgstr "Z&meniť heslo databázy"
-
 #: MainWindow#42
-msgid "&Import old db_dump"
-msgstr "&Import starého db_dump"
+msgctxt "MainWindow#42"
+msgid "Options"
+msgstr "Voľby"
 
 #: MainWindow#43
-msgid "&Undelete items"
-msgstr "O&bnoviť zmazané"
-
-#: MainWindow#44
-msgctxt "MainWindow#44"
-msgid "Options"
-msgstr "Nastavenia"
-
-#: MainWindow#45
 msgid "Exit"
 msgstr "Skončiť"
 
-#: MainWindow#46
+#: MainWindow#44
 msgid "I&mport"
 msgstr "&Importovať"
 
-#: MainWindow#47
+#: MainWindow#45
 msgid "Keys"
 msgstr "Kľúče"
 
-#: MainWindow#48
+#: MainWindow#46
 msgid "Requests"
 msgstr "Žiadosti"
 
-#: MainWindow#49
+#: MainWindow#47
 msgid "PKCS#12"
 msgstr "PKCS#12"
 
-#: MainWindow#50
+#: MainWindow#48
 msgid "PKCS#7"
 msgstr "PKCS#7"
 
-#: MainWindow#51
-msgctxt "MainWindow#51"
+#: MainWindow#49
+msgctxt "MainWindow#49"
 msgid "Template"
 msgstr "Šablóna"
 
-#: MainWindow#52
+#: MainWindow#50
 msgid "Revocation list"
 msgstr "Zoznam odvolaných"
 
-#: MainWindow#53
+#: MainWindow#51
 msgid "PEM file"
 msgstr "S&Import starého úbor PEM"
 
-#: MainWindow#54
-msgid "paste PEM file"
+#: MainWindow#52
+msgid "Paste PEM file"
 msgstr "Vložiť súbor PEM"
 
-#: MainWindow#55
+#: MainWindow#53
+msgid "Database dump ( *.dump );; All files ( * )"
+msgstr "Výpis databázy (*.dump);;Všetky súbory (*)"
+
+#: MainWindow#54
 msgid "&Token"
 msgstr "&Token"
 
-#: MainWindow#56
+#: MainWindow#55
 msgid "&Manage Security token"
 msgstr "&Spravovať bezpečnostný token"
 
-#: MainWindow#57
+#: MainWindow#56
 msgid "&Init Security token"
 msgstr "&Inicializovať Bezpečnostný token"
 
-#: MainWindow#58
+#: MainWindow#57
 msgid "&Change PIN"
 msgstr "Zmeniť @PIN"
 
-#: MainWindow#59
+#: MainWindow#58
 msgid "Change &SO PIN"
 msgstr "Zmeniť &SO PIN"
 
-#: MainWindow#60
+#: MainWindow#59
 msgid "Init PIN"
 msgstr "Inicializovať PIN"
 
+#: MainWindow#60
+msgid "Extra"
+msgstr "Extra"
+
 #: MainWindow#61
+msgid "&Dump DataBase"
+msgstr "Vypísať &databázu"
+
+#: MainWindow#62
+msgid "&Export Certificate Index"
+msgstr "&Exportovať index certifikátov"
+
+#: MainWindow#63
+msgid "&Export Certificate Index hierarchy"
+msgstr "&Exportovať hierarchiu indexu certifikátov"
+
+#: MainWindow#64
+msgid "C&hange DataBase password"
+msgstr "Z&meniť heslo databázy"
+
+#: MainWindow#65
+msgid "&Import old db_dump"
+msgstr "&Import starého db_dump"
+
+#: MainWindow#66
+msgid "&Undelete items"
+msgstr "O&bnoviť zmazané"
+
+#: MainWindow#67
+msgid "Generate DH parameter"
+msgstr "Generovať parameter DH"
+
+#: MainWindow#68
+msgctxt "MainWindow#68"
+msgid "OID Resolver"
+msgstr "Prekladač OID"
+
+#: MainWindow#69
 msgid "&Help"
 msgstr "&Pomocník"
 
-#: MainWindow#62
+#: MainWindow#70
 msgid "&Content"
 msgstr "&Obsah"
 
-#: MainWindow#63
+#: MainWindow#71
 msgid "About"
 msgstr "O programe"
 
-#: MainWindow#64
-msgid "Database dump ( *.dump );;All files ( * )"
-msgstr "Výpis databázy (*.dump);;Všetky súbory (*)"
-
-#: MainWindow#65
+#: MainWindow#72
 msgid "Import password"
 msgstr "Heslo importu"
 
-#: MainWindow#66
+#: MainWindow#73
 msgid "Please enter the password of the old database"
 msgstr "Prosím, zdajte heslo starej databázy"
 
-#: MainWindow#67
+#: MainWindow#74
 msgid "Password verification error. Ignore keys ?"
 msgstr "Chyba overenia hesla. Ignorovať kľúče?"
 
-#: MainWindow#68
+#: MainWindow#75
 msgid "Import anyway"
 msgstr "Importovať i tak"
 
-#: MainWindow#69
+#: MainWindow#76
 msgid "no such option: %1"
 msgstr "Neznáma voľba: %1"
 
-#: MainWindow#70
+#: MainWindow#77
 msgid "Import PEM data"
 msgstr "Importovať dáta PEM"
 
-#: MainWindow#71
+#: MainWindow#78
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr "Prosím, zadajte pôvodný SO PIN (PUK) tokenu „%1”"
 
-#: MainWindow#72
-msgid "Please enter the new SO PIN (PUK) of the token '%1'"
-msgstr "Prosím, zadajte nový SO PIN (PUK) tokenu „%1”"
+#: MainWindow#79
+msgctxt "MainWindow#79"
+msgid "Search"
+msgstr "Hľadať"
 
-#: MainWindow#73
+#: MainWindow#80
+msgid "Please enter the new SO PIN (PUK) for the token '%1'"
+msgstr "Prosím, zadajte nový SO PIN (PUK) tokenu: „%1”"
+
+#: MainWindow#81
 msgid "The new label of the token '%1'"
 msgstr "Nová menovka tokenu „%1”"
 
-#: MainWindow#74
+#: MainWindow#82
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr "Token „%1” neobsahuje žiadne kľúče ani certifikáty"
 
-#: MainWindow#75
+#: MainWindow#83
 msgid "Current Password"
 msgstr "Aktuálne heslo"
 
-#: MainWindow#76
+#: MainWindow#84
 msgid "Please enter the current database password"
 msgstr "Prosím, zadajte heslo aktuálnej databázy"
 
-#: MainWindow#77
+#: MainWindow#85
 msgid "The entered password is wrong"
 msgstr "Zadané heslo je zlé"
 
-#: MainWindow#78
+#: MainWindow#86
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: MainWindow#79
+#: MainWindow#87
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
@@ -1115,7 +1156,7 @@ msgstr ""
 "Prosím, zadajte nové heslo na šifrovanie svojich súkromných kľúčov v súbore "
 "databázy"
 
-#: MainWindow#80
+#: MainWindow#88
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
@@ -1125,16 +1166,16 @@ msgstr ""
 "súbore databázy:\n"
 "%1"
 
-#: MainWindow#81
+#: MainWindow#89
 msgid "Password verify error, please try again"
 msgstr "Chyba overenia hesla, prosím, skúste znova"
 
-#: MainWindow#82
-msgctxt "MainWindow#82"
+#: MainWindow#90
+msgctxt "MainWindow#90"
 msgid "Password"
 msgstr "Heslo"
 
-#: MainWindow#83
+#: MainWindow#91
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
@@ -1142,15 +1183,24 @@ msgstr ""
 "Prosím, zadajte heslo na odomknutie databázy:\n"
 "%1"
 
-#: MainWindow#84
-msgid "The following error occured:"
+#: MainWindow#92
+msgid "The following error occurred:"
 msgstr "Nastala nasledujúca chyba:"
 
-#: MainWindow#85
+#: MainWindow#93
 msgid "Copy to Clipboard"
 msgstr "Kopírovať do schránky"
 
-#: MainWindow#86
+#: MainWindow#94
+msgid "Certificate Index ( index.txt )"
+msgstr "Index certifikátov (index.txt)"
+
+#: MainWindow#95
+msgctxt "MainWindow#95"
+msgid "All files ( * )"
+msgstr "Všetky súbory (*)"
+
+#: MainWindow#96
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
 "handled by XCA.\n"
@@ -1160,8 +1210,8 @@ msgstr ""
 "používané v XCA.\n"
 "Prosím, zadajte bity parametra DH"
 
-#: MainWindow#87
-msgctxt "MainWindow#87"
+#: MainWindow#97
+msgctxt "MainWindow#97"
 msgid "Error opening file: '%1': %2"
 msgstr "Chyba otvorenia súboru: „%1”: %2"
 
@@ -1170,12 +1220,14 @@ msgid "Create CRL"
 msgstr "Vytvoriť CRL"
 
 #: NewCrl#2
-msgid "last update"
-msgstr "posledná aktualizácia"
+msgctxt "NewCrl#2"
+msgid "Last update"
+msgstr "Posledná aktualizácia"
 
 #: NewCrl#3
-msgid "next update"
-msgstr "nasledujúca aktualizácia"
+msgctxt "NewCrl#3"
+msgid "Next update"
+msgstr "Nasled. aktualizácia"
 
 #: NewCrl#4
 msgctxt "NewCrl#4"
@@ -1208,59 +1260,62 @@ msgid "Apply"
 msgstr "Použiť"
 
 #: NewCrl#10
-msgid "Hash algorithm"
-msgstr "Algoritmus odtlačku"
+msgctxt "NewCrl#10"
+msgid "Options"
+msgstr "Voľby"
 
 #: NewCrl#11
 msgctxt "NewCrl#11"
-msgid "Authority key identifier"
-msgstr "Identifikátor kľúča autority"
+msgid "CRL number"
+msgstr "Číslo CRL"
 
 #: NewCrl#12
+msgctxt "NewCrl#12"
 msgid "Subject alternative name"
 msgstr "Alternatívne meno predmetu"
 
 #: NewCrl#13
-msgctxt "NewCrl#13"
-msgid "Options"
-msgstr "Voľby"
-
-#: NewCrl#14
-msgid "CRL Number"
-msgstr "Číslo CRL"
-
-#: NewCrl#15
 msgid "Revocation reasons"
 msgstr "Dôvody odvolania"
 
-#: NewKey#1
-msgid "New key"
-msgstr "Nový kľúč"
+#: NewCrl#14
+msgctxt "NewCrl#14"
+msgid "Authority key identifier"
+msgstr "Identifikátor kľúča autority"
 
-#: NewKey#2
+#: NewCrl#15
+msgid "Hash algorithm"
+msgstr "Algoritmus odtlačku"
+
+#: NewKey#1
 msgid "Please give a name to the new key and select the desired keysize"
 msgstr "Prosím, zadajte meno nového kľúča a zvoľte jeho požadovanú veľkosť"
 
-#: NewKey#3
+#: NewKey#2
 msgid "Key properties"
 msgstr "Vlastnosti kľúča"
 
-#: NewKey#4
-msgctxt "NewKey#4"
+#: NewKey#3
+msgctxt "NewKey#3"
 msgid "Name"
 msgstr "Názov"
 
-#: NewKey#5
+#: NewKey#4
 msgid "The internal name of the new key"
 msgstr "Interný názov nového kľúča"
 
+#: NewKey#5
+msgctxt "NewKey#5"
+msgid "Curve name"
+msgstr "Meno krivky"
+
 #: NewKey#6
-msgid "New Key"
-msgstr "Nový kľúč"
+msgid "Usually at least 2048 bit keys are recommended"
+msgstr "Zvyčajne sú odporúčané kľúče aspoň 2048 bitov"
 
 #: NewKey#7
-msgid "Curve"
-msgstr "Krivka"
+msgid "New Key"
+msgstr "Nový kľúč"
 
 #: NewKey#8
 msgctxt "NewKey#8"
@@ -1268,18 +1323,14 @@ msgid "Keysize"
 msgstr "Veľkosť kľúča"
 
 #: NewKey#9
-msgid "Usually 1024 or 2048 bit keys are used"
-msgstr "Zvyčajne sú použité kľúče 1024 alebo 2048 b"
-
-#: NewKey#10
 msgid "Keytype"
 msgstr "Typ kľúča"
 
-#: NewKey#11
+#: NewKey#10
 msgid "Remember as default"
 msgstr "Zapamätať ako predvolené"
 
-#: NewKey#12
+#: NewKey#11
 msgid "Create"
 msgstr "Vytvoriť"
 
@@ -1685,6 +1736,7 @@ msgstr ""
 "Certifikát bude platný skôr ako vydavateľ. To asi nie je to, čo chcete."
 
 #: NewX509#90
+msgctxt "NewX509#90"
 msgid "Edit dates"
 msgstr "Upraviť dátumy"
 
@@ -1724,6 +1776,40 @@ msgstr "Upraviť rozšírenia"
 #: NewX509#96
 msgid "Configfile error on line %1\n"
 msgstr "Chyba konfiguračného súboru v riadku %1\n"
+
+#: OidResolver#1
+msgctxt "OidResolver#1"
+msgid "OID Resolver"
+msgstr "Prekladač OID"
+
+#: OidResolver#2
+msgid "Enter the OID, the Nid, or one of the textual representations"
+msgstr "Zadajte OID, Nid alebo jednu z textových reprezentácií"
+
+#: OidResolver#3
+msgctxt "OidResolver#3"
+msgid "Search"
+msgstr "Hľadať"
+
+#: OidResolver#4
+msgid "OID"
+msgstr "OID"
+
+#: OidResolver#5
+msgid "Long name"
+msgstr "Dlhý názov"
+
+#: OidResolver#6
+msgid "OpenSSL internal ID"
+msgstr "Interné ID OpenSSL"
+
+#: OidResolver#7
+msgid "Nid"
+msgstr "Nid"
+
+#: OidResolver#8
+msgid "Short name"
+msgstr "Krátky názov"
 
 #: Options#1
 msgid "XCA Options"
@@ -1903,144 +1989,303 @@ msgid "Out of Memory at %1:%2"
 msgstr "Nedostatok pamäti na %1:%2"
 
 #: QObject#9
-msgctxt "QObject#9"
+msgid "Country code"
+msgstr "Kód krajiny"
+
+#: QObject#10
+msgid "State or Province"
+msgstr "Štát alebo provincia"
+
+#: QObject#11
+msgid "Locality"
+msgstr "Lokalita"
+
+#: QObject#12
+msgid "Organisation"
+msgstr "Organizácia"
+
+#: QObject#13
+msgid "Organisational unit"
+msgstr "Organizačná jednotka"
+
+#: QObject#14
+msgid "Common name"
+msgstr "Bežný názov"
+
+#: QObject#15
+msgid "E-Mail address"
+msgstr "Emailová adresa"
+
+#: QObject#16
+msgid "Serial number"
+msgstr "Sériové číslo"
+
+#: QObject#17
+msgid "Given name"
+msgstr "Rodné meno"
+
+#: QObject#18
+msgid "Surname"
+msgstr "Priezvisko"
+
+#: QObject#19
+msgid "Title"
+msgstr "Titul"
+
+#: QObject#20
+msgid "Initials"
+msgstr "Iniciály"
+
+#: QObject#21
+msgid "Description"
+msgstr "Popis"
+
+#: QObject#22
+msgid "Role"
+msgstr "Rola"
+
+#: QObject#23
+msgid "Pseudonym"
+msgstr "Pseudonym"
+
+#: QObject#24
+msgid "Generation Qualifier"
+msgstr "Prívlastok generácie"
+
+#: QObject#25
+msgid "x500 Unique Identifier"
+msgstr "Jedinečný identifikátor x500"
+
+#: QObject#26
+msgctxt "QObject#26"
+msgid "Name"
+msgstr "Názov"
+
+#: QObject#27
+msgid "DN Qualifier"
+msgstr "Prívlastok DN"
+
+#: QObject#28
+msgctxt "QObject#28"
+msgid "Unstructured name"
+msgstr "Neštruktúrovaný názov"
+
+#: QObject#29
+msgctxt "QObject#29"
+msgid "Challenge password"
+msgstr "Heslo výzvy"
+
+#: QObject#30
+msgid "Basic Constraints"
+msgstr "Základné obmedzenia"
+
+#: QObject#31
+msgctxt "QObject#31"
+msgid "Subject alternative name"
+msgstr "Alternatívne meno predmetu"
+
+#: QObject#32
+msgid "issuer alternative name"
+msgstr "Alternatívny názov vydavateľa"
+
+#: QObject#33
+msgid "Subject key identifier"
+msgstr "Identifikátor kľúča predmetu"
+
+#: QObject#34
+msgctxt "QObject#34"
+msgid "Authority key identifier"
+msgstr "Identifikátor kľúča autority"
+
+#: QObject#35
+msgctxt "QObject#35"
+msgid "Key usage"
+msgstr "Použitie kľúča"
+
+#: QObject#36
+msgid "Extended key usage"
+msgstr "Rozšírené použitie kľúča"
+
+#: QObject#37
+msgid "CRL distribution points"
+msgstr "Distribučné body CRL"
+
+#: QObject#38
+msgid "Authority information access"
+msgstr "Prístup k informácii CA (AIA)"
+
+#: QObject#39
+msgid "Certificate type"
+msgstr "Typ certifikátu"
+
+#: QObject#40
+msgid "Base URL"
+msgstr "Základná URL"
+
+#: QObject#41
+msgid "Revocation URL"
+msgstr "URL odvolaní"
+
+#: QObject#42
+msgid "CA Revocation URL"
+msgstr "URL odvolaní CA"
+
+#: QObject#43
+msgid "Certificate renewal URL"
+msgstr "URL obnovenia CRL"
+
+#: QObject#44
+msgid "CA policy URL"
+msgstr "URL politiky CA"
+
+#: QObject#45
+msgid "SSL server name"
+msgstr "Meno servera SSL"
+
+#: QObject#46
+msgid "Comment"
+msgstr "Komentár"
+
+#: QObject#47
+msgctxt "QObject#47"
 msgid "All files ( * )"
 msgstr "Všetky súbory (*)"
 
-#: QObject#10
+#: QObject#48
+msgid "Import RSA key"
+msgstr "Importovať kľúč RSA"
+
+#: QObject#49
 msgid ""
-"PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys "
-"( *.pub );;"
+"PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public "
+"Keys ( *.pub );;"
 msgstr ""
 "Kľúče PKI (*.pem *.der *.key);;Kľúče PKCS#8 (*.p8 *.pk8);;Verejné kľúče SSH "
 "(*.pub);;"
 
-#: QObject#11
-msgid "Import RSA key"
-msgstr "Importovať kľúč RSA"
-
-#: QObject#12
-msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
+#: QObject#50
+msgid ""
+"PKCS#10 CSR ( *.pem *.der *.csr );; Netscape Request ( *.spkac *.spc );;"
 msgstr ""
 "Žiadosť PKCS#10 (*.pem *.der *.csr);;Žiadosť Netscape (*.spkac *.spc);;"
 
-#: QObject#13
+#: QObject#51
 msgid "Import Request"
 msgstr "Importovať Žiadosť"
 
-#: QObject#14
+#: QObject#52
 msgid "Certificates ( *.pem *.der *.crt *.cer );;"
 msgstr "Certifikáty (*.pem *.der *.crt *.cer);;"
 
-#: QObject#15
+#: QObject#53
 msgid "Import X.509 Certificate"
 msgstr "Importovať Certifikát X.509"
 
-#: QObject#16
+#: QObject#54
 msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
 msgstr "Dáta PKCS#7 (*.p7s *.p7m *.p7b);;"
 
-#: QObject#17
+#: QObject#55
 msgid "Import PKCS#7 Certificates"
 msgstr "Importovať Certifikáty PKCS#7"
 
-#: QObject#18
+#: QObject#56
 msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
 msgstr "Certifikáty PKCS#12 (*.p12 *.pfx);;"
 
-#: QObject#19
+#: QObject#57
 msgid "Import PKCS#12 Private Certificate"
 msgstr "Importovať Súkromný certifikát PKCS#12"
 
-#: QObject#20
+#: QObject#58
 msgid "XCA templates ( *.xca );;"
 msgstr "Šablóny XCA (*.xca);;"
 
-#: QObject#21
+#: QObject#59
 msgid "Import XCA Templates"
 msgstr "Importovať Šablóny XCA"
 
-#: QObject#22
+#: QObject#60
 msgid "Revocation lists ( *.pem *.der *.crl );;"
 msgstr "Zoznamy odvolaných (*.pem *.der *.crl);;"
 
-#: QObject#23
+#: QObject#61
 msgid "Import Certificate Revocation List"
 msgstr "Importovať Zoznam odvolaných certifikátov"
 
-#: QObject#24
+#: QObject#62
 msgid "XCA Databases ( *.xdb );;"
 msgstr "Databázy XCA (*.xdb);;"
 
-#: QObject#25
+#: QObject#63
 msgid "Open XCA Database"
 msgstr "Otvoriť databázu XCA"
 
-#: QObject#26
+#: QObject#64
 msgid "PKCS#11 library ( *.dll );;"
 msgstr "Knižnica PKCS#11 (*.dll);;"
 
-#: QObject#27
+#: QObject#65
 msgid "PKCS#11 library ( *.dylib *.so );;"
 msgstr "Knižnica PKCS#11 (*.dylib *.so);;"
 
-#: QObject#28
+#: QObject#66
 msgid "PKCS#11 library ( *.so );;"
 msgstr "Knižnica PKCS#11 (*.so);;"
 
-#: QObject#29
+#: QObject#67
 msgid "Open PKCS#11 shared library"
 msgstr "Otvoriť zdieľanú knižnicu PKCS#11"
 
-#: QObject#30
+#: QObject#68
 msgid "PEM files ( *.pem );;"
 msgstr "Súbory PEM (*.pem);;"
 
-#: QObject#31
+#: QObject#69
 msgid "Load PEM encoded file"
 msgstr "Načítať súbor kódovaný PEM"
 
-#: QObject#32
+#: QObject#70
 msgid "Please enter the PIN on the PinPad"
 msgstr "Prosím, zadajte PIN na PinPad-e"
 
-#: QObject#33
+#: QObject#71
 msgid "Please enter the SO PIN (PUK) of the token %1"
 msgstr "Prosím, zadajte SO PIN (PUK) tokenu %1"
 
-#: QObject#34
+#: QObject#72
 msgid "Please enter the PIN of the token %1"
 msgstr "Prosím, zadajte PIN tokenu %1"
 
-#: QObject#35
+#: QObject#73
 msgid "No Security token found"
 msgstr "Nebol nájdený bezpečnostný token"
 
-#: QObject#36
+#: QObject#74
 msgid "Select"
 msgstr "Zvoliť"
 
-#: QObject#37
+#: QObject#75
 msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr "Prosím, zadajte nový SO PIN (PUK) tokenu: „%1”"
 
-#: QObject#38
+#: QObject#76
 msgid "Please enter the new PIN for the token: '%1'"
 msgstr "Prosím, zadajte nový PIN tokenu: '%1'"
 
-#: QObject#39
+#: QObject#77
 msgid "Required PIN size: %1 - %2"
 msgstr "Požadovaná veľkosť PIN: %1 - %2"
 
-#: QObject#40
+#: QObject#78
 msgid "Failed to open PKCS11 library: %1"
 msgstr "Zlyhalo otvorenie knižnice PKCS#11: %1"
 
-#: QObject#41
+#: QObject#79
 msgid "PKCS#11 function '%1' failed: %2"
 msgstr "Funkcia PKCS#11 „%1” zlyhala: %2"
 
-#: QObject#42
+#: QObject#80
 msgid ""
 "PKCS#11 function '%1' failed: %2\n"
 "In library %3\n"
@@ -2050,174 +2295,17 @@ msgstr ""
 "V knižnici %3\n"
 "%4"
 
-#: QObject#43
+#: QObject#81
 msgid "Invalid"
 msgstr "Neplatné"
 
-#: QObject#44
+#: QObject#82
 msgid "%1 is shorter than %2 bytes: '%3'"
 msgstr "%1 je kratšie ako %2 B: „%3”"
 
-#: QObject#45
+#: QObject#83
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr "%1 je dlhšie ako %2 B: „%3”"
-
-#: QObject#46
-msgid "Country code"
-msgstr "Kód krajiny"
-
-#: QObject#47
-msgid "State or Province"
-msgstr "Štát alebo provincia"
-
-#: QObject#48
-msgid "Locality"
-msgstr "Lokalita"
-
-#: QObject#49
-msgid "Organisation"
-msgstr "Organizácia"
-
-#: QObject#50
-msgid "Organisational unit"
-msgstr "Organizačná jednotka"
-
-#: QObject#51
-msgid "Common name"
-msgstr "Bežný názov"
-
-#: QObject#52
-msgid "E-Mail address"
-msgstr "Emailová adresa"
-
-#: QObject#53
-msgid "Serial number"
-msgstr "Sériové číslo"
-
-#: QObject#54
-msgid "Given name"
-msgstr "Rodné meno"
-
-#: QObject#55
-msgid "Surname"
-msgstr "Priezvisko"
-
-#: QObject#56
-msgid "Title"
-msgstr "Titul"
-
-#: QObject#57
-msgid "Initials"
-msgstr "Iniciály"
-
-#: QObject#58
-msgid "Description"
-msgstr "Popis"
-
-#: QObject#59
-msgid "Role"
-msgstr "Rola"
-
-#: QObject#60
-msgid "Pseudonym"
-msgstr "Pseudonym"
-
-#: QObject#61
-msgid "Generation Qualifier"
-msgstr "Prívlastok generácie"
-
-#: QObject#62
-msgid "x500 Unique Identifier"
-msgstr "Jedinečný identifikátor x500"
-
-#: QObject#63
-msgctxt "QObject#63"
-msgid "Name"
-msgstr "Názov"
-
-#: QObject#64
-msgid "DN Qualifier"
-msgstr "Prívlastok DN"
-
-#: QObject#65
-msgctxt "QObject#65"
-msgid "Unstructured name"
-msgstr "Neštruktúrovaný názov"
-
-#: QObject#66
-msgctxt "QObject#66"
-msgid "Challenge password"
-msgstr "Heslo výzvy"
-
-#: QObject#67
-msgid "Basic Constraints"
-msgstr "Základné obmedzenia"
-
-#: QObject#68
-msgid "subject alternative name"
-msgstr "Alternatívny názov predmetu"
-
-#: QObject#69
-msgid "issuer alternative name"
-msgstr "Alternatívny názov vydavateľa"
-
-#: QObject#70
-msgid "Subject key identifier"
-msgstr "Identifikátor kľúča predmetu"
-
-#: QObject#71
-msgctxt "QObject#71"
-msgid "Authority key identifier"
-msgstr "Identifikátor kľúča autority"
-
-#: QObject#72
-msgctxt "QObject#72"
-msgid "Key usage"
-msgstr "Použitie kľúča"
-
-#: QObject#73
-msgid "Extended key usage"
-msgstr "Rozšírené použitie kľúča"
-
-#: QObject#74
-msgid "CRL distribution points"
-msgstr "Distribučné body CRL"
-
-#: QObject#75
-msgid "Authority information access"
-msgstr "Prístup k informácii CA (AIA)"
-
-#: QObject#76
-msgid "Certificate type"
-msgstr "Typ certifikátu"
-
-#: QObject#77
-msgid "Base URL"
-msgstr "Základná URL"
-
-#: QObject#78
-msgid "Revocation URL"
-msgstr "URL odvolaní"
-
-#: QObject#79
-msgid "CA Revocation URL"
-msgstr "URL odvolaní CA"
-
-#: QObject#80
-msgid "Certificate renewal URL"
-msgstr "URL obnovenia CRL"
-
-#: QObject#81
-msgid "CA policy URL"
-msgstr "URL politiky CA"
-
-#: QObject#82
-msgid "SSL server name"
-msgstr "Meno servera SSL"
-
-#: QObject#83
-msgid "Comment"
-msgstr "Komentár"
 
 #: QObject#84
 msgid "String '%1' for '%2' contains invalid characters"
@@ -2275,25 +2363,25 @@ msgid "Generate CRL"
 msgstr "Generovať CRL"
 
 #: Revoke#1
-msgid "Revocation details"
-msgstr "Podrobnosti odvolania"
-
-#: Revoke#2
-msgid "Invalid since"
-msgstr "Neplatný od"
-
-#: Revoke#3
-msgctxt "Revoke#3"
-msgid "Local time"
-msgstr "Lokálny čas"
-
-#: Revoke#4
 msgid "Certificate revocation"
 msgstr "Odvolanie certifikátu"
 
-#: Revoke#5
+#: Revoke#2
+msgid "Revocation details"
+msgstr "Podrobnosti odvolania"
+
+#: Revoke#3
 msgid "Revocation reason"
 msgstr "Dôvod odvolania"
+
+#: Revoke#4
+msgctxt "Revoke#4"
+msgid "Local time"
+msgstr "Lokálny čas"
+
+#: Revoke#5
+msgid "Invalid since"
+msgstr "Neplatný od"
 
 #: Revoke#6
 msgctxt "Revoke#6"
@@ -2393,7 +2481,8 @@ msgid "Template"
 msgstr "Šablóna"
 
 #: X509SuperTreeView#4
-msgid "Public Key"
+msgctxt "X509SuperTreeView#4"
+msgid "Public key"
 msgstr "Verejný kľúč"
 
 #: XcaTreeView#1
@@ -2413,49 +2502,53 @@ msgid "Reset"
 msgstr "Vymazať"
 
 #: XcaTreeView#5
+msgid "Remove Column"
+msgstr "Odstrániť stĺpec"
+
+#: XcaTreeView#6
+msgctxt "XcaTreeView#6"
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: XcaTreeView#7
 msgid "Columns"
 msgstr "Stĺpce"
 
-#: XcaTreeView#6
+#: XcaTreeView#8
 msgid "New"
 msgstr "Nový"
 
-#: XcaTreeView#7
+#: XcaTreeView#9
 msgid "Import"
 msgstr "Importovať"
 
-#: XcaTreeView#8
+#: XcaTreeView#10
 msgid "Paste PEM data"
 msgstr "Vložiť dáta PEM"
 
-#: XcaTreeView#9
+#: XcaTreeView#11
 msgid "Rename"
 msgstr "Premenovať"
 
-#: XcaTreeView#10
-msgctxt "XcaTreeView#10"
+#: XcaTreeView#12
+msgctxt "XcaTreeView#12"
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: XcaTreeView#11
+#: XcaTreeView#13
 msgid "Export"
 msgstr "Exportovať"
 
-#: XcaTreeView#12
-msgctxt "XcaTreeView#12"
+#: XcaTreeView#14
+msgctxt "XcaTreeView#14"
 msgid "Clipboard"
 msgstr "Schránka"
 
-#: XcaTreeView#13
+#: XcaTreeView#15
 msgid "File"
 msgstr "Súbor"
 
 #: db_base#1
-msgctxt "db_base#1"
-msgid "Internal name"
-msgstr "Interný názov"
-
-#: db_base#2
 msgid ""
 "Bad database item\n"
 "Name: %1\n"
@@ -2469,7 +2562,7 @@ msgstr ""
 "Veľkosť: %3\n"
 "%4"
 
-#: db_base#3
+#: db_base#2
 msgid ""
 "Do you want to delete the item from the database? The bad item may be "
 "extracted into a separate file."
@@ -2477,23 +2570,28 @@ msgstr ""
 "Chcete odstrániť položku z databázy? Zlá položka môže byť vyňatá do "
 "samostatného súboru."
 
-#: db_base#4
-msgctxt "db_base#4"
+#: db_base#3
+msgctxt "db_base#3"
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: db_base#5
+#: db_base#4
 msgid "Delete and extract"
 msgstr "Odstrániť a vyňať"
 
-#: db_base#6
+#: db_base#5
 msgid "Continue"
 msgstr "Pokračovať"
 
+#: db_base#6
+msgctxt "db_base#6"
+msgid "Error opening file: '%1': %2"
+msgstr "Chyba otvorenia súboru: „%1”: %2"
+
 #: db_base#7
 msgctxt "db_base#7"
-msgid "Error opening file: '%1': %2"
-msgstr "Chyba otvorenia súboru „%1”: %2"
+msgid "Internal name"
+msgstr "Interný názov"
 
 #: db_base#8
 msgctxt "db_base#8"
@@ -2517,7 +2615,7 @@ msgid "Save %1 items in one file as"
 msgstr "Uložiť %1 položiek v jednom súbore ako"
 
 #: db_base#13
-msgid "PEM Files( *.pem );; All files ( * )"
+msgid "PEM files ( *.pem );; All files ( * )"
 msgstr "Súbory PEM (*.pem);; Všetky súbory (*)"
 
 #: db_crl#1
@@ -2537,14 +2635,17 @@ msgid "Number of revoked certificates"
 msgstr "Počet odvolaných certifikátov"
 
 #: db_crl#5
+msgctxt "db_crl#5"
 msgid "Last update"
 msgstr "Posledná aktualizácia"
 
 #: db_crl#6
+msgctxt "db_crl#6"
 msgid "Next update"
-msgstr "nasledujúca aktualizácia"
+msgstr "Nasled. aktualizácia"
 
 #: db_crl#7
+msgctxt "db_crl#7"
 msgid "CRL number"
 msgstr "Číslo CRL"
 
@@ -2559,20 +2660,20 @@ msgstr ""
 "a tak nebol importovaný"
 
 #: db_crl#9
-msgid "There are no CA certificates for CRL generation"
-msgstr "Neexistujú certifikáty CA na generovanie CRL"
+msgid "Revocation list export"
+msgstr "Export Zoznamu odvolaných"
 
 #: db_crl#10
-msgid "Select CA certificate"
-msgstr "vyberte certifikát CA"
-
-#: db_crl#11
 msgid "CRL ( *.pem *.der *.crl )"
 msgstr "CRL (*.pem *.der *.crl)"
 
+#: db_crl#11
+msgid "There are no CA certificates for CRL generation"
+msgstr "Neexistujú certifikáty CA na generovanie CRL"
+
 #: db_crl#12
-msgid "Revocation list export"
-msgstr "Export Zoznamu odvolaných"
+msgid "Select CA certificate"
+msgstr "vyberte certifikát CA"
 
 #: db_key#1
 msgctxt "db_key#1"
@@ -2625,49 +2726,49 @@ msgid "You are sure to create a key of the size: %1 ?"
 msgstr "naozaj chcete vytvoriť kľúč s veľkosťou: %1?"
 
 #: db_key#10
-msgid "Export keys to Clipboard"
-msgstr "Exportovať kľúče do schránky"
-
-#: db_key#11
-msgctxt "db_key#11"
-msgid "Clipboard"
-msgstr "Schránka"
-
-#: db_key#12
-msgid "Export public key [%1]"
-msgstr "Exportovať verejný kľúč [%1]"
-
-#: db_key#13
 msgid "PEM public"
 msgstr "PEM verejný"
 
-#: db_key#14
+#: db_key#11
 msgid "SSH2 public"
 msgstr "SSH2 verejný"
 
-#: db_key#15
+#: db_key#12
 msgid "PEM private"
 msgstr "PEM súkromný"
 
-#: db_key#16
-msgid "Export private key [%1]"
-msgstr "Exportovať súkromný kľúč [%1]"
+#: db_key#13
+msgid "Export keys to Clipboard"
+msgstr "Exportovať kľúče do schránky"
 
-#: db_key#17
+#: db_key#14
+msgctxt "db_key#14"
+msgid "Clipboard"
+msgstr "Schránka"
+
+#: db_key#15
+msgid "Export public key [%1]"
+msgstr "Exportovať verejný kľúč [%1]"
+
+#: db_key#16
 msgid "DER public"
 msgstr "DER verejný"
 
-#: db_key#18
+#: db_key#17
 msgid "DER private"
 msgstr "DER súkromný"
 
-#: db_key#19
+#: db_key#18
 msgid "PEM encryped"
 msgstr "PEM šifrovaný"
 
-#: db_key#20
+#: db_key#19
 msgid "PKCS#8 encrypted"
 msgstr "PKCS#8 šifrovaný"
+
+#: db_key#20
+msgid "Export private key [%1]"
+msgstr "Exportovať súkromný kľúč [%1]"
 
 #: db_key#21
 msgid "Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )"
@@ -2678,13 +2779,13 @@ msgid "Tried to change password of a token"
 msgstr "Vyskúšaná zmena hesla tokenu"
 
 #: db_temp#1
-msgctxt "db_temp#1"
-msgid "Type"
-msgstr "Typ"
-
-#: db_temp#2
 msgid "Bad template: %1"
 msgstr "Zlá šablóna: %1"
+
+#: db_temp#2
+msgctxt "db_temp#2"
+msgid "Type"
+msgstr "Typ"
 
 #: db_temp#3
 msgid "Nothing"
@@ -2699,7 +2800,7 @@ msgid "Save template as"
 msgstr "Uložiť šablónu ako"
 
 #: db_temp#6
-msgid "XCA templates ( *.xca);; All files ( * )"
+msgid "XCA templates ( *.xca );; All files ( * )"
 msgstr "Šablóny XCA (*.xca);; Všetky súbory (*)"
 
 #: db_x509#1
@@ -2717,32 +2818,34 @@ msgid "Serial"
 msgstr "Sér. číslo"
 
 #: db_x509#4
-msgid "md5 fingerprint"
-msgstr "Odtlačok MD5"
-
-#: db_x509#5
-msgid "sha1 fingerprint"
-msgstr "Odtlačok SHA1"
-
-#: db_x509#6
-msgid "sha256 fingerprint"
-msgstr "Odtlačok SHA256"
-
-#: db_x509#7
 msgid "Start date"
 msgstr "Dátum začiatku"
 
-#: db_x509#8
-msgid "not Before"
-msgstr "nie Pred"
-
-#: db_x509#9
+#: db_x509#5
 msgid "Expiry date"
 msgstr "Dátum vypršania"
 
+#: db_x509#6
+msgid "MD5 fingerprint"
+msgstr "Odtlačok MD5"
+
+#: db_x509#7
+msgid "SHA1 fingerprint"
+msgstr "Odtlačok SHA1"
+
+#: db_x509#8
+msgid "SHA256 fingerprint"
+msgstr "Odtlačok SHA256"
+
+#: db_x509#9
+msgctxt "db_x509#9"
+msgid "Not before"
+msgstr "Nie pred"
+
 #: db_x509#10
-msgid "not After"
-msgstr "nie Po"
+msgctxt "db_x509#10"
+msgid "Not after"
+msgstr "Nie po"
 
 #: db_x509#11
 msgid "Trust state"
@@ -2802,24 +2905,24 @@ msgid "PEM chain"
 msgstr "Reťaz PEM"
 
 #: db_x509#23
-msgid "PKCS #7 chain"
+msgid "PKCS#7 chain"
 msgstr "Reťaz PKCS #7"
 
 #: db_x509#24
-msgid "PKCS #12 chain"
+msgid "PKCS#12 chain"
 msgstr "Reťaz PKCS#12"
 
 #: db_x509#25
-msgid "PEM + key"
-msgstr "PEM + kľúč"
-
-#: db_x509#26
-msgid "PKCS #7 trusted"
+msgid "PKCS#7 trusted"
 msgstr "PKCS#7 dôveryhodný"
 
-#: db_x509#27
-msgid "PKCS #7 all"
+#: db_x509#26
+msgid "PKCS#7 all"
 msgstr "PKCS#7 všetky"
+
+#: db_x509#27
+msgid "PEM + key"
+msgstr "PEM + kľúč"
 
 #: db_x509#28
 msgid "PEM trusted"
@@ -2830,26 +2933,31 @@ msgid "PEM all"
 msgstr "PEM všetky"
 
 #: db_x509#30
+msgctxt "db_x509#30"
+msgid "Certificate Index file"
+msgstr "Súbor indexu certifikátov"
+
+#: db_x509#31
 msgid "Certificate export"
 msgstr "Export certifikátu"
 
-#: db_x509#31
+#: db_x509#32
 msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"
 msgstr "Certifikáty X509 (*.pem *.cer *.crt *.p12 *.p7b)"
 
-#: db_x509#32
+#: db_x509#33
 msgid "There was no key found for the Certificate: '%1'"
 msgstr "Nebol nájdený kľúč certifikátu: „%1”"
 
-#: db_x509#33
+#: db_x509#34
 msgid "Not possible for a token key: '%1'"
 msgstr "Nie je možné pre kľúč tokenu: „%1”"
 
-#: db_x509#34
+#: db_x509#35
 msgid "Not possible for the token-key Certificate '%1'"
 msgstr "Nie je možné pre Certifikát kľúča tokenu „%1”"
 
-#: db_x509#35
+#: db_x509#36
 msgid " days"
 msgstr " dní"
 
@@ -2916,7 +3024,8 @@ msgid "Internal name of the key"
 msgstr "Interný názov kľúča"
 
 #: db_x509super#3
-msgid "Signature Algorithm"
+msgctxt "db_x509super#3"
+msgid "Signature algorithm"
 msgstr "Algoritmus podpisu"
 
 #: db_x509super#4
@@ -3085,8 +3194,9 @@ msgid "Delete the %1 keys: %2?"
 msgstr "Odstrániť %1 kľúčov: %2?"
 
 #: pki_key#7
-msgid "public key"
-msgstr "verejný kľúč"
+msgctxt "pki_key#7"
+msgid "Public key"
+msgstr "Verejný kľúč"
 
 #: pki_key#8
 msgid "Common"
@@ -3118,8 +3228,8 @@ msgid "Failed writing to %1"
 msgstr "Zlyhal zápis do %1"
 
 #: pki_multi#1
-msgid "Seek failed"
-msgstr "Hľadanie zlyhalo"
+msgid "No known PEM encoded items found"
+msgstr "Nájdené neznáme kódované položky PEM"
 
 #: pki_pkcs12#1
 msgid ""
@@ -3187,7 +3297,7 @@ msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr "Prosím, vložte kartu: %1 %2 [%3] so sér. číslom: %4"
 
 #: pki_scard#10
-msgid "Public Key missmatch. Please re-import card"
+msgid "Public Key mismatch. Please re-import card"
 msgstr "Nezhoda verejného kľúča. Prosím, znova importujte kartu"
 
 #: pki_scard#11
@@ -3439,3 +3549,109 @@ msgid ""
 msgstr ""
 "Overenie úspešné:\n"
 "„%1”"
+
+#~ msgid "Details of the certificate"
+#~ msgstr "Podrobnosti certifikátu"
+
+#~ msgid "Edit times"
+#~ msgstr "Upraviť časy"
+
+#~ msgid "Next Update"
+#~ msgstr "Nasledujúca aktualizácia"
+
+#~ msgid "Last Update"
+#~ msgstr "Posledná aktualizácia"
+
+#~ msgid "The type of the Item '%1' is not recognized"
+#~ msgstr "Typ položky „%1” nebol rozpoznaný"
+
+#~ msgid "Please enter the new SO PIN (PUK) of the token '%1'"
+#~ msgstr "Prosím, zadajte nový SO PIN (PUK) tokenu „%1”"
+
+#~ msgid "last update"
+#~ msgstr "posledná aktualizácia"
+
+#~ msgid "next update"
+#~ msgstr "nasledujúca aktualizácia"
+
+#~ msgctxt "NewCrl#13"
+#~ msgid "Options"
+#~ msgstr "Voľby"
+
+#~ msgid "CRL Number"
+#~ msgstr "Číslo CRL"
+
+#~ msgid "New key"
+#~ msgstr "Nový kľúč"
+
+#~ msgctxt "NewKey#4"
+#~ msgid "Name"
+#~ msgstr "Názov"
+
+#~ msgid "Curve"
+#~ msgstr "Krivka"
+
+#~ msgctxt "QObject#9"
+#~ msgid "All files ( * )"
+#~ msgstr "Všetky súbory (*)"
+
+#~ msgctxt "QObject#63"
+#~ msgid "Name"
+#~ msgstr "Názov"
+
+#~ msgid "subject alternative name"
+#~ msgstr "Alternatívny názov predmetu"
+
+#~ msgctxt "QObject#71"
+#~ msgid "Authority key identifier"
+#~ msgstr "Identifikátor kľúča autority"
+
+#~ msgctxt "QObject#72"
+#~ msgid "Key usage"
+#~ msgstr "Použitie kľúča"
+
+#~ msgctxt "Revoke#3"
+#~ msgid "Local time"
+#~ msgstr "Lokálny čas"
+
+#~ msgid "Public Key"
+#~ msgstr "Verejný kľúč"
+
+#~ msgctxt "XcaTreeView#10"
+#~ msgid "Delete"
+#~ msgstr "Odstrániť"
+
+#~ msgctxt "db_base#1"
+#~ msgid "Internal name"
+#~ msgstr "Interný názov"
+
+#~ msgctxt "db_base#4"
+#~ msgid "Delete"
+#~ msgstr "Odstrániť"
+
+#~ msgctxt "db_base#7"
+#~ msgid "Error opening file: '%1': %2"
+#~ msgstr "Chyba otvorenia súboru „%1”: %2"
+
+#~ msgctxt "db_key#11"
+#~ msgid "Clipboard"
+#~ msgstr "Schránka"
+
+#~ msgctxt "db_temp#1"
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "not Before"
+#~ msgstr "nie Pred"
+
+#~ msgid "not After"
+#~ msgstr "nie Po"
+
+#~ msgid "Signature Algorithm"
+#~ msgstr "Algoritmus podpisu"
+
+#~ msgid "public key"
+#~ msgstr "verejný kľúč"
+
+#~ msgid "Seek failed"
+#~ msgstr "Hľadanie zlyhalo"
