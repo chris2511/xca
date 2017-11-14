@@ -1025,6 +1025,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 			pastePem();
 			break;
 		}
+        /* FALLTHROUGH */
 	default:
 		QMainWindow::keyPressEvent(e);
 		return;
