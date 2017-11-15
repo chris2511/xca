@@ -118,7 +118,7 @@ void XCA_application::setupLanguage(QLocale l)
 		}
 	}
 	xcaTr->load(lang, "xca", getPrefix());
-
+	QLocale::setDefault(l);
 	installTranslator(qtTr);
 	installTranslator(xcaTr);
 }

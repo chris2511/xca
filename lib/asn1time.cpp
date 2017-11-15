@@ -143,7 +143,7 @@ QString a1time::toPretty() const
 	if (!isValid())
 		 return QObject::tr("Broken / Invalid");
 
-	return toLocalTime().toString(Qt::SystemLocaleLongDate);
+	return toLocalTime().toString(Qt::DefaultLocaleLongDate);
 }
 
 QString a1time::toPrettyGMT() const
