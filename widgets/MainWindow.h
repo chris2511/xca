@@ -146,6 +146,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setDefaultKey(QString def);
 		void load_history();
 		void update_history(QString file);
+		void initResolver();
 
 	public slots:
 		int init_database();

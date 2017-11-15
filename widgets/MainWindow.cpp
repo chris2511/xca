@@ -80,6 +80,22 @@ void MainWindow::load_engine()
 	enableTokenMenu(pkcs11::loaded());
 }
 
+void MainWindow::initResolver()
+{
+	bool shown = false;
+	QString search;
+
+	if (resolver) {
+		shown = resolver->isVisible();
+		search = resolver->input->text();
+		delete resolver;
+	}
+	resolver = new OidResolver(NULL);
+	resolver->setWindowTitle(XCA_TITLE);
+	if (shown)
+		resolver->searchOid(search);
+}
+
 MainWindow::MainWindow(QWidget *parent)
 	:QMainWindow(parent)
 {
@@ -93,8 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 
-	resolver = new OidResolver(NULL);
-	resolver->setWindowTitle(XCA_TITLE);
+	initResolver();
 
 	wdList << keyButtons << reqButtons << certButtons <<
 		tempButtons <<	crlButtons;

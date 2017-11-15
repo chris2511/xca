@@ -121,6 +121,8 @@ void XCA_application::setupLanguage(QLocale l)
 	QLocale::setDefault(l);
 	installTranslator(qtTr);
 	installTranslator(xcaTr);
+	if (mainw)
+		mainw->initResolver();
 }
 
 void XCA_application::switchLanguage(QAction* a)
