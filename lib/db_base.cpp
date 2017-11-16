@@ -389,8 +389,8 @@ QModelIndex db_base::index(int row, int column, const QModelIndex &parent)
 {
 	pki_base *parentItem;
 
-if(column <0)
-	abort();
+	if(column <0)
+		abort();
 	if (!parent.isValid())
 		parentItem = rootItem;
 	else
