@@ -315,7 +315,7 @@
         <location line="+2"/>
         <location line="+22"/>
         <source>Edit dates</source>
-        <translation type="unfinished">Uredi datume</translation>
+        <translation>Uredi datume</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -372,7 +372,7 @@
     <message>
         <location line="+4"/>
         <source>Similar Certificate</source>
-        <translation>Slična potvrda</translation>
+        <translation>Slična Potvrda</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -484,12 +484,12 @@
     <message>
         <location line="+9"/>
         <source>Next update</source>
-        <translation type="unfinished">Sljedeća obnova</translation>
+        <translation>Sljedeća obnova</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Last update</source>
-        <translation type="unfinished">Posljednja obnova</translation>
+        <translation>Posljednja obnova</translation>
     </message>
     <message>
         <source>Next Update</source>
@@ -750,7 +750,7 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kazalo datoteka Potvrda</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -1182,12 +1182,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+28"/>
         <source>&amp;New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Novi predložak</translation>
     </message>
     <message>
         <location line="+86"/>
         <source>&amp;New CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Novi CRL</translation>
     </message>
     <message>
         <source>&amp;New template</source>
@@ -1217,7 +1217,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+4"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trenutno korišteni osnovni sažetak &apos;%1&apos; je nesiguran. Iz sigurnosnih razloga odaberite barem &apos;SHA 224&apos;.</translation>
     </message>
     <message>
         <location line="+70"/>
@@ -1302,17 +1302,18 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+30"/>
         <source>Paste PEM file</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Ubaci, zalijepi</translatorcomment>
+        <translation>Zalijepi PEM datoteku</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>&amp;Export Certificate Index</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izvezi kazalo Potvrda</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izvezi hijerarhiju kazala Potvrda</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -1322,7 +1323,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+80"/>
         <source>Database dump ( *.dump );; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>Istovar baze podataka ( *dump );; Sve datoteke ( * )</translation>
     </message>
     <message>
         <location line="-134"/>
@@ -1362,7 +1363,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="-31"/>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovački</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -1446,12 +1447,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+3"/>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodatno</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>OID Resolver</source>
-        <translation type="unfinished"></translation>
+        <translation>Prevoditelj OID</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1522,12 +1523,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="-288"/>
         <source>Search</source>
-        <translation type="unfinished">Traži</translation>
+        <translation>Traži</translation>
     </message>
     <message>
         <location line="+294"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Molimo unesite novi SO PIN (PUK) ključ za pametni token &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1602,12 +1603,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+87"/>
         <source>Certificate Index ( index.txt )</source>
-        <translation type="unfinished"></translation>
+        <translation>Kazalo Potvrda ( index.txt )</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>All files ( * )</source>
-        <translation type="unfinished">Sve datoteke ( * )</translation>
+        <translation>Sve datoteke ( * )</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -1675,7 +1676,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+21"/>
         <source>CRL number</source>
-        <translation type="unfinished">Broj CRL</translation>
+        <translation>Broj CRL</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1703,12 +1704,12 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="-106"/>
         <source>Last update</source>
-        <translation type="unfinished">Posljednja obnova</translation>
+        <translation>Posljednja obnova</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Next update</source>
-        <translation type="unfinished">Sljedeća obnova</translation>
+        <translation>Sljedeća obnova</translation>
     </message>
     <message>
         <location line="+73"/>
@@ -1754,12 +1755,12 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+30"/>
         <source>Curve name</source>
-        <translation type="unfinished">Ime krivulje</translation>
+        <translation>Ime krivulje</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Usually at least 2048 bit keys are recommended</source>
-        <translation type="unfinished"></translation>
+        <translation>Obično se savjetuje koristiti ključeve dužine najmanje 2048 bitova</translation>
     </message>
     <message>
         <location line="-157"/>
@@ -2424,43 +2425,43 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location filename="../ui/OidResolver.ui" line="+28"/>
         <source>OID Resolver</source>
-        <translation type="unfinished"></translation>
+        <translation>Prevoditelj OID</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Enter the OID, the Nid, or one of the textual representations</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesite OID, Nid ili neki oblik imena</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Search</source>
-        <translation type="unfinished">Traži</translation>
+        <translation>Traži</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>OID</source>
-        <translation type="unfinished"></translation>
+        <translation>OID</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>Long name</source>
-        <translation type="unfinished"></translation>
+        <translation>Puno ime</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+22"/>
         <source>OpenSSL internal ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Interni OpenSSL ID</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Nid</source>
-        <translation type="unfinished"></translation>
+        <translation>Nid</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Short name</source>
-        <translation type="unfinished"></translation>
+        <translation>Skraćeno ime</translation>
     </message>
 </context>
 <context>
@@ -2706,12 +2707,12 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="-3"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI ključevi ( *.pem *.der *.key );; PKCS#8 ključevi ( *.p8 *.pk8 );; SSH javni ključevi ( *.pub );;</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );; Netscape Request ( *.spkac *.spc );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#10 CSR ( *.pem *.der *.csr );; Netscape zahtjev ( *.spkac *.spc );;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2995,7 +2996,7 @@ U knjižnici %3
     <message>
         <location line="+1"/>
         <source>Subject alternative name</source>
-        <translation type="unfinished">Alternativno ime subjekta</translation>
+        <translation>Alternativno ime subjekta</translation>
     </message>
     <message>
         <source>subject alternative name</source>
@@ -3310,7 +3311,7 @@ U knjižnici %3
     <message>
         <location line="+2"/>
         <source>Public key</source>
-        <translation type="unfinished">Javni ključ</translation>
+        <translation>Javni ključ</translation>
     </message>
     <message>
         <source>Public Key</source>
@@ -3342,12 +3343,12 @@ U knjižnici %3
     <message>
         <location line="+3"/>
         <source>Remove Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukloniti stupac</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Details</source>
-        <translation type="unfinished">Detalji</translation>
+        <translation>Detalji</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -3471,7 +3472,7 @@ Veličina: %3
     <message>
         <location line="+1"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM datoteke ( *.pem );; Sve datoteke ( * )</translation>
     </message>
     <message>
         <source>PEM Files( *.pem );; All files ( * )</source>
@@ -3816,7 +3817,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+46"/>
         <source>XCA templates ( *.xca );; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA predlošci ( *.xca );; Sve datoteke ( * )</translation>
     </message>
     <message>
         <source>copy</source>
@@ -3918,27 +3919,27 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="-5"/>
         <source>MD5 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>MD5 sažetak</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SHA1 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA1 sažetak</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SHA256 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA256 sažetak</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not before</source>
-        <translation type="unfinished">Od</translation>
+        <translation>Od</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not after</source>
-        <translation type="unfinished">Do</translation>
+        <translation>Do</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4003,27 +4004,27 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+81"/>
         <source>PKCS#7 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 lanac</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>PKCS#12 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 lanac</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>PKCS#7 trusted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 pouzdan</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS#7 all</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 svi</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka kazalo Potvrda </translation>
     </message>
     <message>
         <source>New Certificate</source>
@@ -4515,7 +4516,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="+1"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritam potpisa</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -4747,7 +4748,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="+9"/>
         <source>Public key</source>
-        <translation type="unfinished">Javni ključ</translation>
+        <translation>Javni ključ</translation>
     </message>
     <message>
         <location line="+212"/>
@@ -4796,7 +4797,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_multi.cpp" line="+126"/>
         <source>No known PEM encoded items found</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije pronađena nijedna poznata PEM stavka</translation>
     </message>
 </context>
 <context>
