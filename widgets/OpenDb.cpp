@@ -7,16 +7,40 @@
 
 #include <stdio.h>
 #include <QStringList>
+#include <QDebug>
 #include <QFile>
 
 #include "OpenDb.h"
 #include "PwDialog.h"
 #include "lib/base.h"
 
+DbMap OpenDb::getDatabases()
+{
+	QStringList list = QSqlDatabase::drivers();
+	DbMap databases;
+
+	databases["QPSQL7"]   = "PostgreSQL version 6 and 7";
+	databases["QMYSQL3"]  = "MySQL 3.x and 4.x";
+
+	foreach (QString driver, databases.keys()) {
+		if (!list.contains(driver))
+			databases.take(driver);
+	}
+	qDebug() << "Available Remote DB Drivers: " << databases.size();
+	foreach (QString driver, databases.keys())
+		qDebug() << driver;
+	return databases;
+}
+
+bool OpenDb::hasRemoteDrivers()
+{
+	return getDatabases().size() > 0;
+}
+
 OpenDb::OpenDb(QWidget *parent, QString db)
 	:QDialog(parent)
 {
-	QMap<QString, QString> databases;
+	DbMap databases;
 	QString dbTypeName;
 
 	setupUi(this);
@@ -33,31 +57,40 @@ OpenDb::OpenDb(QWidget *parent, QString db)
 		hostName->setText(list[2]);
 		dbTypeName = list[3];
 		dbName->setText(list[4]);
+		sqlite = false;
 	} else {
 		dbName->setText(db);
-		dbTypeName = "QSQLITE";
+		sqlite = true;
 	}
 
-	databases["QPSQL7"]   = "PostgreSQL version 6 and 7";
-	databases["QMYSQL3"]  = "MySQL 3.x and 4.x";
-	databases["QSQLITE" ] = "SQLite version 3 or above";
-
-	list = QSqlDatabase::drivers();
+	databases = getDatabases();
+	list = databases.keys();
 	foreach (QString driver, list) {
-		if (!databases.contains(driver))
-			continue;
 		dbType->insertItem(0, databases[driver], driver);
 		if (driver == dbTypeName)
 			dbType->setCurrentIndex(0);
 	}
+	if (dbType->count() == 1) {
+		dbType->setCurrentIndex(0);
+		dbType->setEnabled(false);
+	}
+}
+
+QString OpenDb::getDbType() const
+{
+	qDebug() << "OpenDb::getDbType: "
+		 << dbType->itemData(dbType->currentIndex()).toString();
+
+	return sqlite ? QString("QSQLITE") :
+			dbType->itemData(dbType->currentIndex()).toString();
 }
 
 void OpenDb::openDatabase() const
 {
-	QString type = dbType->itemData(dbType->currentIndex()).toString();
+	QString type = getDbType();
 	QString pass = dbPassword->text();
 
-	if (type == "QSQLITE" && !QFile::exists(dbName->text())) {
+	if (sqlite && !QFile::exists(dbName->text())) {
 		QFile f(dbName->text());
 		f.open(QIODevice::WriteOnly);
 		f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
@@ -73,7 +106,7 @@ void OpenDb::openDatabase() const
 				.arg(userName->text()).arg(hostName->text()));
 		if (PwDialog::execute(&p, &pwd) != 1)
 			break;
-		pass =QString(pwd);
+		pass = QString(pwd);
 		QSqlDatabase::removeDatabase(connName);
 	}
 }
@@ -96,7 +129,7 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 	db.open();
 	QSqlError e = db.lastError();
 	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
-			db.driverName() == "QSQLITE" || db.isOpen())
+			sqlite || db.isOpen())
 		return true;
 
 	db.close();
@@ -105,21 +138,20 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 
 QString OpenDb::getDescriptor() const
 {
-	QString type = dbType->itemData(dbType->currentIndex()).toString();
-	if (type == "QSQLITE")
-		return dbName->text();
-
-	return QString("%1@%2/%3:%4")
+	return sqlite ?
+		dbName->text() :
+		QString("%1@%2/%3:%4")
 			.arg(userName->text())
 			.arg(hostName->text())
-			.arg(type)
+			.arg(getDbType())
 			.arg(dbName->text());
 }
 
 int OpenDb::exec()
 {
-	QString type = dbType->itemData(dbType->currentIndex()).toString();
-	if (type != "QSQLITE")
-		return QDialog::exec();
-	return 1;
+	if (sqlite)
+		return 1;
+	if (dbType->count() == 0)
+		return 0;
+	return QDialog::exec();
 }

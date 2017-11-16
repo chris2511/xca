@@ -19,6 +19,7 @@
 #include "ui_Options.h"
 #include "hashBox.h"
 #include "OidResolver.h"
+#include "OpenDb.h"
 #include <QApplication>
 #include <QClipboard>
 #include <QMenuBar>
@@ -93,7 +94,9 @@ void MainWindow::init_menu()
 		QKeySequence::New);
 	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
 		QKeySequence::Open);
-	file->addAction(tr("Open Remote DataBase"), this, SLOT(openRemoteSqlDB()));
+	file->addAction(tr("Open Remote DataBase"),
+			this, SLOT(openRemoteSqlDB()))
+			->setEnabled(OpenDb::hasRemoteDrivers());
 	file->addMenu(historyMenu);
 	file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
@@ -180,7 +183,7 @@ void MainWindow::update_history_menu()
 		QAction *a;
 		QString txt = history[i];
 		if (!QFile::exists(history[i]))
-			continue;
+			; //continue;
 		txt = txt.remove(0, txt.lastIndexOf(QDir::separator()) +1);
 		if (txt.size() > 20)
 			txt = QString("...") + txt.mid(txt.size() - 20);
