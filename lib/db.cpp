@@ -35,6 +35,10 @@ db::db(QString filename, QFlags<QFile::Permission> perm)
 		first();
 		if (newFile)
 			file.setPermissions(perm);
+		else if (!verify_magic()) {
+			file.close();
+			throw errorEx("Unknown database format", filename);
+		}
 	}
 }
 
