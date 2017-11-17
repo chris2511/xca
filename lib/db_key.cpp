@@ -113,10 +113,10 @@ void db_key::inToCont(pki_base *pki)
 
 pki_base* db_key::insert(pki_base *item)
 {
-	pki_key *lkey = (pki_key *)item;
+	pki_key *lkey = static_cast<pki_key *>(item);
 	pki_key *oldkey;
 
-	oldkey = (pki_key *)getByReference(lkey);
+	oldkey = static_cast<pki_key *>(getByReference(lkey));
 	if (oldkey != NULL) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) || lkey->isPubKey()){
 			XCA_INFO(

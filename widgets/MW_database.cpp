@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2014 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2017 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -318,8 +318,13 @@ QSqlError MainWindow::initSqlDB()
 
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
-	QStringList tables = db.tables();
+	QStringList tables;
 	unsigned i = 0;
+
+	if (!db.isOpen())
+		return QSqlError();
+
+	tables = db.tables();
 
 	if (tables.contains("settings")) {
 		QString schema = getSetting("schema");
@@ -541,7 +546,7 @@ int MainWindow::init_database(QString dbName)
 	Entropy::seed_rng();
 	dbName = openSqlDB(dbName);
 	if (!QSqlDatabase::database().isOpen()) {
-		dbSqlError();
+		/* Error already printed */
 		return 1;
 	}
 	certView->setRootIsDecorated(db_x509::treeview);

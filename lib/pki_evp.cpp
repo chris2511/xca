@@ -66,7 +66,7 @@ void pki_evp::setOwnPass(enum passType x)
 		throw(err);
 	}
 	if (!sqlUpdatePrivateKey()) {
-		EVP_PKEY_free(pk);
+		EVP_PKEY_free(key);
 		key = pk_back;
 		ownPass = oldOwnPass;
 	}
