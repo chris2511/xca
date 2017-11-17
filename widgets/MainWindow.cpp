@@ -191,10 +191,10 @@ void MainWindow::openURLs()
 	ImportMulti *dlgi = new ImportMulti(this);
 
 	foreach(s, urlsToOpen) {
-	        pki_multi *pki = probeAnything(s);
-		if (pki && !pki->count())
+		pki_multi *pki = probeAnything(s);
+		if (!pki)
 			failed << s;
-	        dlgi->addItem(pki);
+		dlgi->addItem(pki);
 	}
 	urlsToOpen.clear();
 	dlgi->execute(1, failed);
@@ -344,10 +344,12 @@ void MainWindow::read_cmdline(int argc, char *argv[])
 		} else {
 			int ret;
 			pki_multi *pki = probeAnything(file, &ret);
-			if (!pki && ret == 2)
-				 exitApp = 1;
-			if (pki && !pki->count())
-				failed << file;
+			if (!pki) {
+				if (ret == 2)
+					exitApp = 1;
+				else
+					failed << file;
+			}
 			dlgi->addItem(pki);
 		}
 		cnt++;
@@ -787,7 +789,7 @@ void MainWindow::importAnything(QString file)
 	ImportMulti *dlgi = new ImportMulti(this);
 	QStringList failed;
 	pki_multi *pki = probeAnything(file);
-	if (pki && !pki->count())
+	if (!pki)
 		failed << file;
 	dlgi->addItem(pki);
 	dlgi->execute(1, failed);
@@ -803,11 +805,14 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 		if (file.endsWith(".xdb")) {
 #warning FIXME OPEN DATABASE
 			qDebug("FIXME OPEN DATABASE");
+			init_database(file);
 			return pki;
 		}
 		pki->probeAnything(file);
 	} catch (errorEx &err) {
 		Error(err);
+		delete pki;
+		pki = NULL;
 	}
 	return pki;
 }

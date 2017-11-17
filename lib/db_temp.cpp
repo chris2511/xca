@@ -71,7 +71,7 @@ pki_base *db_temp::newPKI(enum pki_type type)
 
 QList<pki_base *> db_temp::getAllAndPredefs()
 {
-	return predefs << getAll();
+	return predefs + getAll();
 }
 
 bool db_temp::runTempDlg(pki_temp *temp)

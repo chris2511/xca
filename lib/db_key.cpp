@@ -347,11 +347,16 @@ void db_key::store(QModelIndex index)
 void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)
 {
 	pki_evp *targetKey;
+	enum pki_key::passType old_type;
+
 	if (!idx.isValid())
 		return;
 	targetKey = static_cast<pki_evp*>(idx.internalPointer());
 	if (targetKey->isToken()) {
 		throw errorEx(tr("Tried to change password of a token"));
 	}
+	old_type = targetKey->getOwnPass();
 	targetKey->setOwnPass(x);
+	if (!targetKey->sqlUpdatePrivateKey())
+		targetKey->setOwnPass(old_type);
 }

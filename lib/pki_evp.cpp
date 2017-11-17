@@ -44,7 +44,7 @@ const char *pki_evp::getClassName() const
 void pki_evp::setOwnPass(enum passType x)
 {
 	EVP_PKEY *pk=NULL, *pk_back = key;
-	int oldOwnPass = ownPass;
+	enum passType oldOwnPass = ownPass;
 
 	if (ownPass == x || isPubKey())
 		return;
@@ -64,11 +64,6 @@ void pki_evp::setOwnPass(enum passType x)
 		key = pk_back;
 		ownPass = oldOwnPass;
 		throw(err);
-	}
-	if (!sqlUpdatePrivateKey()) {
-		EVP_PKEY_free(key);
-		key = pk_back;
-		ownPass = oldOwnPass;
 	}
 }
 
@@ -404,7 +399,7 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head)
 	QByteArray ba((const char*)p, size);
 
 	type = db::intFromData(ba);
-	ownPass = db::intFromData(ba);
+	ownPass = (enum passType)db::intFromData(ba);
 	if (version < 2) {
 		d2i_old(ba, type);
 	} else {
@@ -651,7 +646,7 @@ void pki_evp::restoreSql(QSqlRecord &rec)
 	pki_key::restoreSql(rec);
 	isPub = rec.isNull(VIEW_private_ownpass);
 	if (!isPub)
-		ownPass = rec.value(VIEW_private_ownpass).toInt();
+		ownPass =(enum passType)rec.value(VIEW_private_ownpass).toInt();
 }
 
 QByteArray pki_evp::getEncKey() const

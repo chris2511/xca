@@ -179,15 +179,15 @@ int MainWindow::changeDB(QString fname)
 void MainWindow::update_history_menu()
 {
 	historyMenu->clear();
-	for (int i = 0; i < history.size(); i++) {
+	for (int i = 0, j = 0; i < history.size(); i++) {
 		QAction *a;
 		QString txt = history[i];
-		if (!QFile::exists(history[i]))
-			; //continue;
+		if (!QFile::exists(txt) && !OpenDb::isRemoteDB(txt))
+			continue;
 		txt = txt.remove(0, txt.lastIndexOf(QDir::separator()) +1);
 		if (txt.size() > 20)
 			txt = QString("...") + txt.mid(txt.size() - 20);
-		a = historyMenu->addAction(QString("%1 %2").arg(i).arg(txt));
+		a = historyMenu->addAction(QString("%1 %2").arg(j++).arg(txt));
 		a->setData(QVariant(history[i]));
 		a->setToolTip(history[i]);
 	}

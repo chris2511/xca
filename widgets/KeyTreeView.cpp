@@ -32,6 +32,8 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 			menu->addAction(tr("Reset password"), this,
 					SLOT(resetOwnPass()));
 			break;
+		default:
+			break;
 		}
 	}
 

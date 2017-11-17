@@ -18,6 +18,7 @@ class itemCombo : public QComboBox
     public:
 	itemCombo(QWidget *parent) : QComboBox(parent) { }
 	void insertPkiItems(QList<pki_base*> items) {
+		clear();
 		foreach(pki_base *p, items) {
 			addItem(p->comboText(), QVariant::fromValue(p));
 		}

@@ -21,12 +21,14 @@ class OpenDb: public QDialog, public Ui::OpenDb
 	bool sqlite;
 	bool _openDatabase(QString connName, QString pass) const;
 	QString getDbType() const;
+	static DbMap splitRemoteDbName(QString db);
 
     public:
 	OpenDb(QWidget *parent, QString db);
 	void openDatabase() const;
 	QString getDescriptor() const;
 	static bool hasRemoteDrivers();
+	static bool isRemoteDB(QString db);
 
     public slots:
 	int exec();

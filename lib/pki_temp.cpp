@@ -50,6 +50,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 	:pki_x509name(pk->desc)
 {
 	pkiType = pk->pkiType;
+	pre_defined = false;
 
 	xname = pk->xname;
 	settings = pk->settings;
@@ -58,7 +59,8 @@ pki_temp::pki_temp(const pki_temp *pk)
 pki_temp::pki_temp(const QString d)
 	:pki_x509name(d)
 {
-	pkiType=tmpl;
+	pkiType = tmpl;
+	pre_defined = false;
 
 	foreach(QString key, tmpl_keys) {
 		settings[key] = QString();

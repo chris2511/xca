@@ -25,8 +25,12 @@
 class pki_key: public pki_base
 {
 		Q_OBJECT
+	public:
+		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
+
 	protected:
-		int ownPass, key_size;
+		enum passType ownPass;
+		int key_size;
 		bool isPub;
 		EVP_PKEY *key;
 		QString BN2QString(const BIGNUM *bn) const;
@@ -44,7 +48,6 @@ class pki_key: public pki_base
 		virtual ~pki_key();
 		const char *getClassName() const;
 		static builtin_curves builtinCurves;
-		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
 		QString length() const;
 		QString comboText() const;
 		virtual EVP_PKEY *decryptKey() const;
@@ -59,7 +62,7 @@ class pki_key: public pki_base
 		int getKeyType() const;
 		bool isPrivKey() const;
 		int getUcount();
-		int getOwnPass(void)
+		enum passType getOwnPass(void)
 		{
 			return ownPass;
 		}

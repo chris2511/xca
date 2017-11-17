@@ -242,7 +242,7 @@ pki_base *ImportMulti::import(QModelIndex &idx)
 	}
 
 	if (cn == "pki_evp")
-		((pki_evp*)pki)->setOwnPass(pki_evp::ptCommon);
+		static_cast<pki_evp*>(pki)->setOwnPass(pki_evp::ptCommon);
 
 	db = select_db(cn);
 	if (!db) {

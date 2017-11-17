@@ -101,7 +101,6 @@ NewX509::NewX509(QWidget *parent)
 
 	// settings for the templates ....
 	tempList->insertPkiItems(MainWindow::temps->getAllAndPredefs());
-	tempList->setNullItem(tr("No template"));
 
 	// setup Extended keyusage
 	foreach(int nid, eku_nid)

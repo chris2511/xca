@@ -37,26 +37,45 @@ bool OpenDb::hasRemoteDrivers()
 	return getDatabases().size() > 0;
 }
 
+DbMap OpenDb::splitRemoteDbName(QString db)
+{
+	static const char * const names[] =
+		{ "all", "user", "host", "type", "dbname" };
+	DbMap map;
+	QRegExp rx("(.*)@(.*)/(.*):(.*)");
+	int i, pos = rx.indexIn(db);
+	QStringList list = rx.capturedTexts();
+
+	if (pos != -1 && list.size() == 5) {
+		for (i=0; i<5; i++) {
+			qDebug() << "OpenDB: " << names[i] << list[i];
+			map[names[i]] = list[i];
+		}
+	}
+	return map;
+}
+
+bool OpenDb::isRemoteDB(QString db)
+{
+	DbMap remote_param = splitRemoteDbName(db);
+	return remote_param.size() == 5;
+}
+
 OpenDb::OpenDb(QWidget *parent, QString db)
 	:QDialog(parent)
 {
-	DbMap databases;
+	DbMap databases, remote_param;
 	QString dbTypeName;
 
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 
-	QRegExp rx("(.*)@(.*)/(.*):(.*)");
-	int pos = rx.indexIn(db);
-	QStringList list = rx.capturedTexts();
-	foreach(QString s, list)
-		printf("OpenDB: '%s'\n", CCHAR(s));
-
-	if (pos != -1 && list.size() == 5) {
-		userName->setText(list[1]);
-		hostName->setText(list[2]);
-		dbTypeName = list[3];
-		dbName->setText(list[4]);
+	remote_param = splitRemoteDbName(db);
+	if (remote_param.size() == 5) {
+		userName->setText(remote_param["user"]);
+		hostName->setText(remote_param["host"]);
+		dbTypeName = remote_param["type"];
+		dbName->setText(remote_param["dbname"]);
 		sqlite = false;
 	} else {
 		dbName->setText(db);
@@ -64,8 +83,7 @@ OpenDb::OpenDb(QWidget *parent, QString db)
 	}
 
 	databases = getDatabases();
-	list = databases.keys();
-	foreach (QString driver, list) {
+	foreach (QString driver, databases.keys()) {
 		dbType->insertItem(0, databases[driver], driver);
 		if (driver == dbTypeName)
 			dbType->setCurrentIndex(0);
