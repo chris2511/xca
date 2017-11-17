@@ -174,6 +174,10 @@ class pki_base : public QObject
 		{
 			return QString::fromLatin1(i2d().toBase64());
 		}
+		a1time getInsertionDate() const
+		{
+			return insertion_date;
+		}
 		virtual QByteArray i2d();
 		virtual bool compare(pki_base *);
 		virtual QString getMsg(msg_type msg);

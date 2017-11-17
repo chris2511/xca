@@ -401,7 +401,7 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 
 	if (indexes.size() == 1) {
 		menu->addAction(tr("Rename"), this, SLOT(editIdx()));
-		menu->addAction(tr("Edit comment"), this, SLOT(editComment()));
+		menu->addAction(tr("Properties"), this, SLOT(editComment()));
 	}
 	if (indexes.size() > 0) {
 		menu->addAction(tr("Delete"), this, SLOT(deleteItems()));

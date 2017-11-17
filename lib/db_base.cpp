@@ -17,6 +17,7 @@
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 #include "widgets/XcaDialog.h"
+#include "ui_ItemProperties.h"
 
 
 QHash<quint64, pki_base*> db_base::lookup;
@@ -551,14 +552,17 @@ void db_base::editComment(const QModelIndex &index)
 	if (!index.isValid() || !item)
 		return;
 
-	QTextEdit *t = new QTextEdit(mainwin);
-	t->setAutoFormatting(QTextEdit::AutoNone);
-	t->setAcceptRichText(false);
-	t->setPlainText(item->getComment());
-	XcaDialog *d = new XcaDialog(mainwin, item->getType(), t,
-		tr("Edit comment"), item->getIntName());
+	QWidget *w = new QWidget(NULL);
+	Ui::ItemProperties *prop = new Ui::ItemProperties();
+	prop->setupUi(w);
+	prop->comment->setPlainText(item->getComment());
+	prop->name->setText(item->getIntName());
+	prop->source->setText(item->pki_source_name());
+	prop->insertionDate->setText(item->getInsertionDate().toPretty());
+	XcaDialog *d = new XcaDialog(mainwin, item->getType(), w,
+		tr("Item properties"), QString());
 	if (d->exec())
-		updateItem(item, item->getIntName(), t->toPlainText());
+		updateItem(item, prop->name->text(), prop->comment->toPlainText());
 	delete d;
 }
 
