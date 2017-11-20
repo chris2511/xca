@@ -38,13 +38,11 @@ db_x509::db_x509(MainWindow *mw)
 
 void db_x509::dereferenceIssuer()
 {
-	XSqlQuery q("SELECT item, issuer FROM certs");
+	XSqlQuery q("SELECT item, issuer FROM certs WHERE issuer is NOT NULL");
 	while (q.next()) {
 		pki_base *root = rootItem;
-		pki_x509 *cert = static_cast<pki_x509*>(
-					lookupPki(q.value(0)));
-		pki_x509 *issuer = static_cast<pki_x509*>(
-					lookupPki(q.value(1)));
+		pki_x509 *cert = lookupPki<pki_x509>(q.value(0));
+		pki_x509 *issuer = lookupPki<pki_x509>(q.value(1));
 		if (cert && issuer) {
 			cert->setSigner(issuer);
 			if (cert != issuer)
@@ -84,10 +82,11 @@ pki_base *db_x509::newPKI(enum pki_type type)
 	return new pki_x509();
 }
 
-QList<pki_base *> db_x509::getAllIssuers()
+QList<pki_x509 *> db_x509::getAllIssuers()
 {
 	/* Select X509 CA certificates with available private key */
-	return sqlSELECTpki("SELECT DISTINCT x.item "
+	return sqlSELECTpki<pki_x509>(
+		"SELECT DISTINCT x.item "
 		"FROM (private_keys, tokens) JOIN x509super x "
 		"ON x.pkey = private_keys.item OR x.pkey = tokens.item "
 		"JOIN certs ON certs.item = x.item WHERE certs.ca=1");
@@ -185,23 +184,22 @@ void db_x509::inToCont(pki_base *pki)
 	insertChild(root, cert);
 
 	QList<pki_x509 *> childs;
-	QList<pki_base *> items;
+	QList<pki_x509 *> items;
 	unsigned pubhash = cert->pubHash();
 	unsigned namehash = cert->getSubject().hashNum();
 	x509revList revList;
 
 	/* Search for another certificate (name and key)
 	 * and use its childs if we are newer */
-	items = sqlSELECTpki(
+	items = sqlSELECTpki<pki_x509>(
 		"SELECT x509super.item FROM x509super "
 		"JOIN public_keys ON x509super.pkey = public_keys.item "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1 AND x509super.subj_hash=? "
 		"AND x509super.key_hash=?",
 			QList<QVariant>() << namehash << pubhash);
-	foreach(pki_base *b, items) {
-		pki_x509 *other = dynamic_cast<pki_x509*>(b);
-		if (other == cert || !other)
+	foreach(pki_x509 *other, items) {
+		if (other == cert)
 			continue;
 		if (!other->compareNameAndKey(cert))
 			continue;
@@ -251,13 +249,11 @@ void db_x509::inToCont(pki_base *pki)
 	cert->setRevocations(revList);
 
 	/* Update CRLs */
-	items = sqlSELECTpki( "SELECT item FROM crls WHERE iss_hash=?",
+	QList<pki_crl *> crls = sqlSELECTpki<pki_crl>(
+			"SELECT item FROM crls WHERE iss_hash=?",
 			QList<QVariant>() << namehash);
 	SQL_PREPARE(q, "UPDATE crls SET issuer=? WHERE item=?");
-	foreach(pki_base *b, items) {
-		pki_crl *crl = dynamic_cast<pki_crl*>(b);
-		if (!crl)
-			continue;
+	foreach(pki_crl *crl, crls) {
 		crl->verify(cert);
 		if (cert != crl->getIssuer())
 			continue;
@@ -1031,9 +1027,9 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.image->setPixmap(*MainWindow::certImg);
 
 	QVariant tmplId = cert->getTemplateSqlId();
-	pki_base *templ = mainwin->temps->lookupPki(tmplId);
+	pki_temp *templ = mainwin->temps->lookupPki<pki_temp>(tmplId);
 
-	ui.temp->insertPkiItems(mainwin->temps->getAll());
+	ui.temp->insertPkiItems<pki_temp>(mainwin->temps->getAll<pki_temp>());
         ui.temp->setNullItem(tr("No template"));
 	ui.temp->setCurrentIndex(0);
 	if (templ)
@@ -1071,7 +1067,7 @@ void db_x509::caProperties(QModelIndex idx)
 		int rows = ui.subjectManager->rowCount();
 		XSqlQuery q;
 		QSqlError e;
-		templ = ui.temp->currentPkiItem();
+		templ = ui.temp->currentPkiItem<pki_temp>();
 		tmplId = templ ? templ->getSqlItemId() : QVariant();
 
 		sl.clear();

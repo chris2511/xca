@@ -39,7 +39,7 @@ class db_x509: public db_x509super
 		void updateViewAll();
 		void updateViewPKI(pki_base *pki);
 		void remFromCont(QModelIndex &idx);
-		QList<pki_base*> getAllIssuers();
+		QList<pki_x509*> getAllIssuers();
 		QList<pki_x509*> getCerts(bool unrevoked);
 		void writeIndex(const QString fname, bool hierarchy);
 		void writeAllCerts(const QString fname, bool unrevoked);

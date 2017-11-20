@@ -12,19 +12,20 @@
 #include <QComboBox>
 
 #include "lib/pki_base.h"
+#include "lib/db_base.h"
 
 class itemCombo : public QComboBox
 {
     public:
 	itemCombo(QWidget *parent) : QComboBox(parent) { }
-	void insertPkiItems(QList<pki_base*> items) {
+	template <class T> void insertPkiItems(QList<T*> items) {
 		clear();
-		foreach(pki_base *p, items) {
+		foreach(T *p, items) {
 			addItem(p->comboText(), QVariant::fromValue(p));
 		}
 	}
-	pki_base *currentPkiItem() {
-		return itemData(currentIndex()).value<pki_base*>();
+	template <class T> T *currentPkiItem() {
+		return itemData(currentIndex()).value<T*>();
 	}
 	void setNullItem(QString text) {
 		if (itemData(0).value<pki_base*>() == NULL)

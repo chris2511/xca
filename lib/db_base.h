@@ -8,6 +8,7 @@
 #ifndef __DB_BASE_H
 #define __DB_BASE_H
 
+#include <typeinfo>
 #include "db.h"
 #include "base.h"
 #include "load_obj.h"
@@ -56,22 +57,46 @@ class db_base: public QAbstractItemModel
 			return exportType::Separator;
 		}
 		bool isValidCol(int col) const;
+		static XSqlQuery sqlSELECTpki(QString query,
+				QList<QVariant> values = QList<QVariant>());
 
 	public:
-		static pki_base *lookupPki(quint64 i)
+		template <class T> static T *lookupPki(quint64 i)
 		{
-			return lookup[i];
+			T *pki = dynamic_cast<T*>(lookup[i]);
+			if (!pki && i > 0) {
+				pki_base *p = lookup[i];
+				QString f = QString("Invalid Type of ItemId(%1) %2 %3."
+						" Expected to be %4.")
+						.arg(i).arg(typeid(p).name())
+						.arg(p?p->getIntName() : "<NULL item>")
+						.arg(typeid(T*).name());
+				qCritical(CCHAR(f));
+			}
+			return pki;
 		}
-		static pki_base *lookupPki(QVariant v)
+		template <class T> static T *lookupPki(QVariant v)
 		{
-			return lookupPki(v.toULongLong());
+			return lookupPki<T>(v.toULongLong());
 		}
 		static void flushLookup()
 		{
 			lookup.clear();
 		}
-		QList<pki_base *> sqlSELECTpki(QString query,
-				QList<QVariant> values = QList<QVariant>());
+		template <class T> static QList<T *>
+				sqlSELECTpki(QString query,
+				QList<QVariant> values = QList<QVariant>())
+		{
+			XSqlQuery q = sqlSELECTpki(query, values);
+			QList<T *> x;
+			while (q.next()) {
+				T *pki = lookupPki<T>(q.value(0));
+				if (pki)
+					x << pki;
+			}
+			return x;
+		}
+
 		virtual pki_base *newPKI(enum pki_type type = none);
 		pki_base *rootItem;
 		db_base(MainWindow *mw);
@@ -83,7 +108,12 @@ class db_base: public QAbstractItemModel
 		pki_base *getByReference(pki_base *refpki);
 		pki_base *getByPtr(void *);
 		virtual void loadContainer();
-		QList<pki_base *> getAll();
+		template <class T> QList<T *> getAll()
+		{
+			return sqlSELECTpki<T>(
+		                QString("SELECT item FROM %1")
+					.arg(sqlHashTable));
+		}
 		virtual pki_base* insert(pki_base *item);
 		virtual void inToCont(pki_base *pki);
 		virtual void remFromCont(QModelIndex &idx);

@@ -461,8 +461,8 @@ QSqlError pki_key::insertSqlData()
 	if (q.lastError().isValid())
 		return q.lastError();
 	while (q.next()) {
-		pki_x509super *x = static_cast<pki_x509super*>(
-				db_base::lookupPki(q.value(0)));
+		pki_x509super *x;
+		x = db_base::lookupPki<pki_x509super>(q.value(0));
 		if (!x) {
 			qDebug("X509 Super class with id %d not found",
 				q.value(0).toInt());

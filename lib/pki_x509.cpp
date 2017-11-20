@@ -187,8 +187,7 @@ pki_x509 *pki_x509::findIssuer()
 	q.bindValue(0, hash);
 	q.exec();
 	while (q.next()) {
-		issuer = static_cast<pki_x509*>(
-				db_base::lookupPki(q.value(0)));
+		issuer = db_base::lookupPki<pki_x509>(q.value(0));
 		if (!issuer) {
 			qDebug("Certificate with id %d not found",
                                 q.value(0).toInt());

@@ -83,15 +83,16 @@ void db_crl::inToCont(pki_base *pki)
 {
 	pki_crl *crl = static_cast<pki_crl *>(pki);
 	unsigned hash = crl->getSubject().hashNum();
-	QList<pki_base *> items;
+	QList<pki_x509 *> items;
 
-	items = sqlSELECTpki( "SELECT x509super.item FROM x509super "
+	items = sqlSELECTpki<pki_x509>(
+		"SELECT x509super.item FROM x509super "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE x509super.subj_hash=? AND certs.ca=1",
-				QList<QVariant>() << QVariant(hash));
-	foreach(pki_base *b, items) {
-		qDebug() << "Possible Crl issuer:" << b->getIntName();
-		crl->verify(dynamic_cast<pki_x509*>(b));
+			QList<QVariant>() << QVariant(hash));
+	foreach(pki_x509 *x, items) {
+		qDebug() << "Possible Crl issuer:" << x->getIntName();
+		crl->verify(x);
 	}
 	db_base::inToCont(pki);
 }
@@ -203,8 +204,8 @@ void db_crl::updateRevocations(pki_x509 *cert)
 
 void db_crl::newItem()
 {
-	QList<pki_base *> cas = mainwin->certs->getAllIssuers();
-	pki_base *ca = NULL;
+	QList<pki_x509 *> cas = mainwin->certs->getAllIssuers();
+	pki_x509 *ca = NULL;
 
 	switch (cas.size()) {
 	case 0:
@@ -217,16 +218,16 @@ void db_crl::newItem()
 		itemCombo *c = new itemCombo(NULL);
 		XcaDialog *d = new XcaDialog(mainwin, revocation, c,
 			tr("Select CA certificate"), QString());
-		c->insertPkiItems(cas);
+		c->insertPkiItems<pki_x509>(cas);
 		if (!d->exec()) {
 			delete d;
 			return;
 		}
-		ca = c->currentPkiItem();
+		ca = c->currentPkiItem<pki_x509>();
 		delete d;
 		}
 	}
-	newItem(static_cast<pki_x509*>(ca));
+	newItem(ca);
 }
 
 void db_crl::newItem(pki_x509 *cert)

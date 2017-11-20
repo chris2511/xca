@@ -58,14 +58,14 @@ pki_base *db_key::newPKI(enum pki_type type)
 	return new pki_scard("");
 }
 
-QList<pki_base *> db_key::getAllKeys()
+QList<pki_key *> db_key::getAllKeys()
 {
-	return sqlSELECTpki("SELECT item from public_keys");
+	return sqlSELECTpki<pki_key>("SELECT item from public_keys");
 }
 
-QList<pki_base *> db_key::getUnusedKeys()
+QList<pki_key *> db_key::getUnusedKeys()
 {
-	return sqlSELECTpki("SELECT public_keys.item FROM public_keys "
+	return sqlSELECTpki<pki_key>("SELECT public_keys.item FROM public_keys "
 		"LEFT OUTER JOIN x509super ON x509super.pkey= public_keys.item "
 		"WHERE x509super.item IS NULL");
 }
@@ -78,12 +78,10 @@ void db_key::remFromCont(QModelIndex &idx)
 	/* "pkey" column in "x509super" table already updated
 	 * in deleteSql()
 	 */
-	QList<pki_base*> items = sqlSELECTpki(
+	QList<pki_x509super*> items = sqlSELECTpki<pki_x509super>(
 		"SELECT item FROM x509super WHERE pkey is NULL");
-	foreach(pki_base *b, items) {
-		pki_x509super *x509s = dynamic_cast<pki_x509super*>(b);
-		if (x509s)
-			x509s->setRefKey(NULL);
+	foreach(pki_x509super *x509s, items) {
+		x509s->setRefKey(NULL);
 	}
 	/* "UPDATE x509super SET pkey=NULL WHERE pkey=?" done in
 	 * pki->deleteSqlData() */
@@ -94,15 +92,14 @@ void db_key::inToCont(pki_base *pki)
 	db_base::inToCont(pki);
 	pki_key *key = static_cast<pki_key*>(pki);
 	unsigned hash = key->hash();
-	QList<pki_base*> items = sqlSELECTpki(
+	QList<pki_x509super*> items = sqlSELECTpki<pki_x509super>(
 		"SELECT item FROM x509super WHERE pkey IS NULL AND key_hash=?",
 		QList<QVariant>() << QVariant(hash));
 	XSqlQuery q;
 	SQL_PREPARE(q, "UPDATE x509super SET pkey=? WHERE item=?");
 	q.bindValue(0, key->getSqlItemId());
-	foreach(pki, items) {
-		pki_x509super *x509s = dynamic_cast<pki_x509super*>(pki);
-		if (!x509s || !x509s->compareRefKey(key))
+	foreach(pki_x509super *x509s, items) {
+		if (!x509s->compareRefKey(key))
 			continue;
 		/* Found item matching this key */
 		x509s->setRefKey(key);
@@ -208,7 +205,6 @@ void db_key::load(void)
 
 void db_key::showPki(pki_base *pki)
 {
-	qDebug() << "showPki(pki_base *pki): " << pki->getType() << " - " << pki->getIntName();
 	pki_key *key = dynamic_cast<pki_key *>(pki);
 	if (!key)
 		return;

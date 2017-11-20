@@ -70,28 +70,27 @@ NewX509::NewX509(QWidget *parent)
 	}
 
 	nsImg->setPixmap(*MainWindow::nsImg);
-	QList<pki_base *> requests;
 
 	// are there any useable private keys  ?
 	newKeyDone(NULL);
 
 	// any PKCS#10 requests to be used ?
-	requests = MainWindow::reqs->getAllRequests();
+	QList<pki_x509req *> requests = MainWindow::reqs->getAllRequests();
 	if (requests.isEmpty()) {
 		fromReqCB->setDisabled(true);
 		fromReqCB->setChecked(false);
 	}
 	else {
-		reqList->insertPkiItems(requests);
+		reqList->insertPkiItems<pki_x509req>(requests);
 	}
 	on_fromReqCB_clicked();
 
 	// How about signing certificates ?
-	QList<pki_base*> issuers = MainWindow::certs->getAllIssuers();
+	QList<pki_x509*> issuers = MainWindow::certs->getAllIssuers();
 	if (issuers.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 	} else {
-		certList->insertPkiItems(issuers);
+		certList->insertPkiItems<pki_x509>(issuers);
 	}
 
 	// set dates to now and now + 1 year
@@ -100,7 +99,7 @@ NewX509::NewX509(QWidget *parent)
 	on_applyTime_clicked();
 
 	// settings for the templates ....
-	tempList->insertPkiItems(MainWindow::temps->getAllAndPredefs());
+	tempList->insertPkiItems<pki_temp>(MainWindow::temps->getAllAndPredefs());
 
 	// setup Extended keyusage
 	foreach(int nid, eku_nid)
@@ -446,7 +445,7 @@ pki_temp *NewX509::caTemplate(pki_x509 *ca) const
 	QVariant sqlId = ca->getTemplateSqlId();
 	if (!sqlId.isValid())
 		return NULL;
-	return (pki_temp*)MainWindow::temps->lookupPki(sqlId);
+	return MainWindow::temps->lookupPki<pki_temp>(sqlId);
 }
 
 /* Preset the signing certificate */
@@ -656,7 +655,7 @@ void NewX509::switchHashAlgo()
 
 void NewX509::on_showReqBut_clicked()
 {
-	emit showReq(reqList->currentPkiItem());
+	emit showReq(reqList->currentPkiItem<pki_x509req>());
 }
 
 void NewX509::on_genKeyBut_clicked()
@@ -713,7 +712,7 @@ pki_temp *NewX509::currentTemplate()
 {
 	if (!tempList->isEnabled())
 		return NULL;
-	return static_cast<pki_temp*>(tempList->currentPkiItem());
+	return tempList->currentPkiItem<pki_temp>();
 }
 
 void NewX509::selfComment(QString msg)
@@ -771,26 +770,26 @@ void NewX509::newKeyDone(pki_key *nkey)
 
 void NewX509::on_usedKeysToo_toggled(bool)
 {
-	pki_base *cur = keyList->currentPkiItem();
+	pki_key *cur = keyList->currentPkiItem<pki_key>();
 	keyList->clear();
-	keyList->insertPkiItems(usedKeysToo->isChecked() ?
+	keyList->insertPkiItems<pki_key>(usedKeysToo->isChecked() ?
 			allKeys : unusedKeys);
 	keyList->setCurrentPkiItem(cur);
 }
 
 pki_key *NewX509::getSelectedKey()
 {
-	return (pki_key*)keyList->currentPkiItem();
+	return keyList->currentPkiItem<pki_key>();
 }
 
 pki_x509 *NewX509::getSelectedSigner()
 {
-	return (pki_x509 *)certList->currentPkiItem();
+	return certList->currentPkiItem<pki_x509>();
 }
 
 pki_x509req *NewX509::getSelectedReq()
 {
-	return (pki_x509req *)reqList->currentPkiItem();
+	return reqList->currentPkiItem<pki_x509req>();
 }
 
 x509name NewX509::getX509name(int _throw)

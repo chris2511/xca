@@ -45,7 +45,7 @@ db_temp::db_temp(MainWindow *mw)
 		if (!name.endsWith(".xca", Qt::CaseInsensitive))
 			continue;
 		try {
-			tmpl = (pki_temp*)l.loadItem(name);
+			tmpl = dynamic_cast<pki_temp*>(l.loadItem(name));
 			if (tmpl) {
 				tmpl->setAsPreDefined();
 				predefs << tmpl;
@@ -69,9 +69,9 @@ pki_base *db_temp::newPKI(enum pki_type type)
 	return new pki_temp("");
 }
 
-QList<pki_base *> db_temp::getAllAndPredefs()
+QList<pki_temp *> db_temp::getAllAndPredefs()
 {
-	return predefs + getAll();
+	return predefs + getAll<pki_temp>();
 }
 
 bool db_temp::runTempDlg(pki_temp *temp)
@@ -95,11 +95,11 @@ void db_temp::newItem()
 	QString type;
 
 	itemCombo *ic = new itemCombo(NULL);
-	ic->insertPkiItems(predefs);
+	ic->insertPkiItems<pki_temp>(predefs);
 	XcaDialog *dlg = new XcaDialog(mainwin, tmpl, ic,
 				tr("Preset Template values"), QString());
 	if (dlg->exec()) {
-		temp = new pki_temp((pki_temp*)ic->currentPkiItem());
+		temp = new pki_temp(ic->currentPkiItem<pki_temp>());
 		temp->pkiSource = generated;
 		if (temp) {
 			if (runTempDlg(temp)) {

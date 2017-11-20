@@ -26,8 +26,8 @@ class db_key: public db_base
 		exportType::etype clipboardFormat(QModelIndexList indexes) const;
 	public:
 		db_key(MainWindow *mw);
-		QList<pki_base*> getUnusedKeys();
-		QList<pki_base*> getAllKeys();
+		QList<pki_key*> getUnusedKeys();
+		QList<pki_key*> getAllKeys();
 		pki_base *newPKI(enum pki_type type = none);
 		void inToCont(pki_base *pki);
 		void remFromCont(QModelIndex &idx);

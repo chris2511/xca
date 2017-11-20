@@ -150,7 +150,7 @@ void db_x509req::signReq(QModelIndex index)
 	emit newCert(req);
 }
 
-QList<pki_base *> db_x509req::getAllRequests()
+QList<pki_x509req *> db_x509req::getAllRequests()
 {
-	return sqlSELECTpki("SELECT item FROM requests");
+	return sqlSELECTpki<pki_x509req>("SELECT item FROM requests");
 }

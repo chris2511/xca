@@ -96,4 +96,5 @@ class pki_key: public pki_base
 		void restoreSql(QSqlRecord &rec);
 };
 
+Q_DECLARE_METATYPE(pki_key *);
 #endif

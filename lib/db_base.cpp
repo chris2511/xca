@@ -81,9 +81,8 @@ QString db_base::sqlItemSelector()
 	return sl.join(" OR ");
 }
 
-QList<pki_base *> db_base::sqlSELECTpki(QString query, QList<QVariant> values)
+XSqlQuery db_base::sqlSELECTpki(QString query, QList<QVariant> values)
 {
-	QList<pki_base *> x;
 	XSqlQuery q;
 	int i, num_values = values.size();
 
@@ -92,10 +91,8 @@ QList<pki_base *> db_base::sqlSELECTpki(QString query, QList<QVariant> values)
 		q.bindValue(i, values[i]);
 	}
 	q.exec();
-	mainwin->dbSqlError(q.lastError());
-	while (q.next())
-		x << lookupPki(q.value(0));
-	return x;
+	MainWindow::dbSqlError(q.lastError());
+	return q;
 }
 
 void db_base::loadContainer()
@@ -300,7 +297,7 @@ void db_base::showItem(const QModelIndex &index)
 
 void db_base::showItem(const QString name)
 {
-	pki_base *pki = lookupPki(name.toULongLong());
+	pki_base *pki = lookupPki<pki_base>(name.toULongLong());
 	if (pki)
 		showPki(pki);
 }
@@ -331,7 +328,7 @@ void db_base::inToCont(pki_base *pki)
 
 pki_base *db_base::getByName(QString desc)
 {
-	QList<pki_base*> list = sqlSELECTpki(
+	QList<pki_base*> list = sqlSELECTpki<pki_base>(
 		QString("SELECT id FROM items WHERE name=? AND ") +
 			sqlItemSelector(),
 		QList<QVariant>() << QVariant(desc));
@@ -342,7 +339,7 @@ pki_base *db_base::getByReference(pki_base *refpki)
 {
 	if (refpki == NULL)
 		return NULL;
-	QList<pki_base*> list = sqlSELECTpki(
+	QList<pki_base*> list = sqlSELECTpki<pki_base>(
 		QString("SELECT item FROM %1 WHERE hash=?").arg(sqlHashTable),
 		QList<QVariant>() << QVariant(refpki->hash()));
 	foreach(pki_base *pki, list) {
@@ -350,11 +347,6 @@ pki_base *db_base::getByReference(pki_base *refpki)
 			return pki;
 	}
 	return NULL;
-}
-
-QList<pki_base *> db_base::getAll()
-{
-	return sqlSELECTpki(QString("SELECT item FROM %1").arg(sqlHashTable));
 }
 
 pki_base *db_base::insert(pki_base *item)

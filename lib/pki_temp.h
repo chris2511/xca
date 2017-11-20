@@ -98,4 +98,5 @@ class pki_temp: public pki_x509name
 		void restoreSql(QSqlRecord &rec);
 };
 
+Q_DECLARE_METATYPE(pki_temp *);
 #endif

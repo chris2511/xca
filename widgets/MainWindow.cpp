@@ -652,7 +652,7 @@ void MainWindow::changeDbPass()
 
 	QString salt = makeSalt();
 	QString passhash = pki_evp::sha512passwT(pass, salt);
-	QList<pki_base*> key_list = keys->sqlSELECTpki(
+	QList<pki_evp*> key_list = keys->sqlSELECTpki<pki_evp>(
 		"SELECT item FROM private_keys WHERE ownPass=0");
 
 	if (!db.transaction()) {
@@ -661,8 +661,7 @@ void MainWindow::changeDbPass()
 		return;
 	}
 	try {
-		foreach(pki_base *pki, key_list) {
-			pki_evp *key = static_cast<pki_evp*>(pki);
+		foreach(pki_evp *key, key_list) {
 			EVP_PKEY *evp = key->decryptKey();
 			key->set_evp_key(evp);
 			key->encryptKey(pass.constData());

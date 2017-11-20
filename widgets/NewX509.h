@@ -57,7 +57,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
 		QStringList tabnames;
-		QList<pki_base*> unusedKeys, allKeys;
+		QList<pki_key*> unusedKeys, allKeys;
 		pki_x509 *ctx_cert;
 		QString v3ext_backup;
 		kvmodel *extDNmodel;
