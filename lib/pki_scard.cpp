@@ -36,6 +36,7 @@ void pki_scard::init(void)
 {
 	ownPass = ptPin;
 	pkiType = smartCard;
+	isPub = false;
 
 	card_serial = card_manufacturer = card_label = "";
 	card_model = slot_label = "";
@@ -238,6 +239,8 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	card_manufacturer = ti.manufacturerID();
 	card_serial = ti.serial();
 	card_model = ti.model();
+	pkiSource = token;
+	isPub = false;
 
 	pk11_attr_data id(CKA_ID);
 	p11.loadAttribute(id, object);

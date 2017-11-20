@@ -114,7 +114,9 @@ void db_temp::newItem()
 }
 void db_temp::showPki(pki_base *pki)
 {
-	alterTemp(static_cast<pki_temp *>(pki));
+	pki_temp *t = dynamic_cast<pki_temp *>(pki);
+	if (t)
+		alterTemp(t);
 }
 
 void db_temp::load()

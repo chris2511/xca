@@ -187,9 +187,10 @@ void db_x509super::toTemplate(QModelIndex index)
 
 void db_x509super::showPki(pki_base *pki)
 {
-	pki_x509super *x = (pki_x509req *)pki;
-	CertDetail *dlg;
-	dlg = new CertDetail(mainwin);
+	pki_x509super *x = dynamic_cast<pki_x509super *>(pki);
+	if (!x)
+		return;
+	CertDetail *dlg = new CertDetail(mainwin);
 	if (!dlg)
 		return;
 

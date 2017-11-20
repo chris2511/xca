@@ -81,7 +81,7 @@ void db_crl::removeSigner(pki_base *signer)
 
 void db_crl::inToCont(pki_base *pki)
 {
-	pki_crl *crl = (pki_crl *)pki;
+	pki_crl *crl = static_cast<pki_crl *>(pki);
 	unsigned hash = crl->getSubject().hashNum();
 	QList<pki_base *> items;
 
@@ -91,15 +91,15 @@ void db_crl::inToCont(pki_base *pki)
 				QList<QVariant>() << QVariant(hash));
 	foreach(pki_base *b, items) {
 		qDebug() << "Possible Crl issuer:" << b->getIntName();
-		crl->verify(static_cast<pki_x509*>(b));
+		crl->verify(dynamic_cast<pki_x509*>(b));
 	}
 	db_base::inToCont(pki);
 }
 
 pki_base *db_crl::insert(pki_base *item)
 {
-	pki_crl *crl = (pki_crl *)item;
-	pki_crl *oldcrl = (pki_crl *)getByReference(crl);
+	pki_crl *crl = static_cast<pki_crl *>(item);
+	pki_crl *oldcrl = dynamic_cast<pki_crl *>(getByReference(crl));
 	if (oldcrl) {
 		XCA_INFO(tr("The revocation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
 		delete(crl);
@@ -112,10 +112,10 @@ pki_base *db_crl::insert(pki_base *item)
 
 void db_crl::showPki(pki_base *pki)
 {
-	pki_crl *crl = (pki_crl *)pki;
-	CrlDetail *dlg;
-
-	dlg = new CrlDetail(mainwin);
+	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
+	if (!crl)
+		return;
+	CrlDetail *dlg = new CrlDetail(mainwin);
 	if (!dlg)
 		return;
 

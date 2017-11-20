@@ -81,8 +81,9 @@ void db_key::remFromCont(QModelIndex &idx)
 	QList<pki_base*> items = sqlSELECTpki(
 		"SELECT item FROM x509super WHERE pkey is NULL");
 	foreach(pki_base *b, items) {
-		pki_x509super *x509s = static_cast<pki_x509super*>(b);
-		x509s->setRefKey(NULL);
+		pki_x509super *x509s = dynamic_cast<pki_x509super*>(b);
+		if (x509s)
+			x509s->setRefKey(NULL);
 	}
 	/* "UPDATE x509super SET pkey=NULL WHERE pkey=?" done in
 	 * pki->deleteSqlData() */
@@ -100,8 +101,8 @@ void db_key::inToCont(pki_base *pki)
 	SQL_PREPARE(q, "UPDATE x509super SET pkey=? WHERE item=?");
 	q.bindValue(0, key->getSqlItemId());
 	foreach(pki, items) {
-		pki_x509super *x509s = static_cast<pki_x509super*>(pki);
-		if (!x509s->compareRefKey(key))
+		pki_x509super *x509s = dynamic_cast<pki_x509super*>(pki);
+		if (!x509s || !x509s->compareRefKey(key))
 			continue;
 		/* Found item matching this key */
 		x509s->setRefKey(key);
@@ -207,7 +208,10 @@ void db_key::load(void)
 
 void db_key::showPki(pki_base *pki)
 {
-	pki_evp *key = (pki_evp *)pki;
+	qDebug() << "showPki(pki_base *pki): " << pki->getType() << " - " << pki->getIntName();
+	pki_key *key = dynamic_cast<pki_key *>(pki);
+	if (!key)
+		return;
 	KeyDetail *dlg = new KeyDetail(mainwin);
 	if (dlg) {
 		dlg->setKey(key);

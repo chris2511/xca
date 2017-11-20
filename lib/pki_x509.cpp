@@ -331,6 +331,7 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 		}
 	}
 	setIntName(desc);
+	pkiSource = token;
 	pki_openssl_error();
 }
 
@@ -362,8 +363,8 @@ void pki_x509::store_token(bool alwaysSelect)
 		if (!p11.selectToken(&slot, NULL))
 			return;
 	} else {
-		card = (pki_scard *)privkey;
-		if (!card->prepare_card(&slot))
+		card = dynamic_cast<pki_scard *>(privkey);
+		if (!card || !card->prepare_card(&slot))
 			return;
 	}
 
@@ -398,10 +399,10 @@ void pki_x509::store_token(bool alwaysSelect)
 
 void pki_x509::deleteFromToken()
 {
-	pki_scard *card = (pki_scard *)privkey;
+	pki_scard *card = dynamic_cast<pki_scard *>(privkey);
 	slotidList p11_slots;
 
-	if (!pkcs11::loaded())
+	if (!card || !pkcs11::loaded())
 		return;
 
 	if (privkey && privkey->isToken()) {
@@ -896,7 +897,7 @@ int pki_x509::sigAlg()
 
 pki_x509 *pki_x509::getSigner()
 {
-	return (pki_x509 *)psigner;
+	return static_cast<pki_x509 *>(psigner);
 }
 
 bool pki_x509::isRevoked()

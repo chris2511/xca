@@ -79,14 +79,14 @@ void ImportMulti::addItem(pki_base *pki)
 		mcont->inToCont(pki);
 	}
 	else if (cn == "pki_pkcs7") {
-		pki_pkcs7 *p7 = ( pki_pkcs7 *)pki;
+		pki_pkcs7 *p7 = static_cast<pki_pkcs7 *>(pki);
 		for (int i=0; i<p7->numCert(); i++) {
 			addItem(p7->getCert(i));
 		}
 		delete p7;
 	}
 	else if (cn == "pki_pkcs12") {
-		pki_pkcs12 *p12 = ( pki_pkcs12 *)pki;
+		pki_pkcs12 *p12 = static_cast<pki_pkcs12 *>(pki);
 		addItem(p12->getKey());
 		addItem(p12->getCert());
 		for (int i=0; i<p12->numCa(); i++) {
@@ -95,7 +95,7 @@ void ImportMulti::addItem(pki_base *pki)
 		delete p12;
 	}
 	else if (cn == "pki_multi") {
-		pki_multi *pm = (pki_multi*)pki;
+		pki_multi *pm = static_cast<pki_multi*>(pki);
 		pki_base *inner;
 		while ((inner = pm->pull()))
 			addItem(inner);
@@ -272,25 +272,25 @@ void ImportMulti::on_butDetails_clicked()
 		if (cn == "pki_x509"){
 			CertDetail *dlg;
 			dlg = new CertDetail(mainwin);
-			dlg->setCert((pki_x509 *)pki);
+			dlg->setCert(static_cast<pki_x509 *>(pki));
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_evp" || cn == "pki_scard") {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(mainwin);
-			dlg->setKey((pki_key *)pki);
+			dlg->setKey(static_cast<pki_key *>(pki));
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_x509req") {
 			CertDetail *dlg;
 			dlg = new CertDetail(mainwin);
-			dlg->setReq((pki_x509req *)pki);
+			dlg->setReq(static_cast<pki_x509req *>(pki));
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_crl") {
 			CrlDetail *dlg;
 			dlg = new CrlDetail(mainwin);
-			dlg->setCrl((pki_crl *)pki);
+			dlg->setCrl(static_cast<pki_crl *>(pki));
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_temp") {

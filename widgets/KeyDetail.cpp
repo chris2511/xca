@@ -53,7 +53,7 @@ void KeyDetail::setKey(pki_key *key)
 		keyPrivEx->setRed();
 	} else if (key->isToken()) {
 		image->setPixmap(*MainWindow::scardImg);
-		pki_scard *card = (pki_scard *)key;
+		pki_scard *card = static_cast<pki_scard *>(key);
 		cardBox->setTitle(tr("Token") +" [" +card->getCardLabel() +"]");
 		cardManufacturer->setText(card->getManufacturer() + " " +
 					card->getModel());

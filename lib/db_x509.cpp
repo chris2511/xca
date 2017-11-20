@@ -87,10 +87,10 @@ pki_base *db_x509::newPKI(enum pki_type type)
 QList<pki_base *> db_x509::getAllIssuers()
 {
 	/* Select X509 CA certificates with available private key */
-	return sqlSELECTpki("SELECT x509super.item FROM x509super "
-		"JOIN private_keys ON x509super.pkey = private_keys.item "
-		"JOIN certs ON certs.item = x509super.item "
-		"WHERE certs.ca=1");
+	return sqlSELECTpki("SELECT DISTINCT x.item "
+		"FROM (private_keys, tokens) JOIN x509super x "
+		"ON x.pkey = private_keys.item OR x.pkey = tokens.item "
+		"JOIN certs ON certs.item = x.item WHERE certs.ca=1");
 }
 
 void db_x509::remFromCont(QModelIndex &idx)
@@ -200,8 +200,8 @@ void db_x509::inToCont(pki_base *pki)
 		"AND x509super.key_hash=?",
 			QList<QVariant>() << namehash << pubhash);
 	foreach(pki_base *b, items) {
-		pki_x509 *other = static_cast<pki_x509*>(b);
-		if (other == cert)
+		pki_x509 *other = dynamic_cast<pki_x509*>(b);
+		if (other == cert || !other)
 			continue;
 		if (!other->compareNameAndKey(cert))
 			continue;
@@ -255,7 +255,9 @@ void db_x509::inToCont(pki_base *pki)
 			QList<QVariant>() << namehash);
 	SQL_PREPARE(q, "UPDATE crls SET issuer=? WHERE item=?");
 	foreach(pki_base *b, items) {
-		pki_crl *crl = static_cast<pki_crl*>(b);
+		pki_crl *crl = dynamic_cast<pki_crl*>(b);
+		if (!crl)
+			continue;
 		crl->verify(cert);
 		if (cert != crl->getIssuer())
 			continue;

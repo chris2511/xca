@@ -100,8 +100,9 @@ void CertDetail::setCert(pki_x509 *cert)
 			signature->setGreen();
 			signature->disableToolTip();
 		} else {
-			signature->setText(cert->getSigner()->getIntName());
-			privKey->setClickText(cert->getSqlItemId().toString());
+			pki_x509 *issuer = cert->getSigner();
+			signature->setText(issuer->getIntName());
+			signature->setClickText(issuer->getSqlItemId().toString());
 			signature->setGreen();
 		}
 

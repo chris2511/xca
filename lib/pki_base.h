@@ -31,7 +31,8 @@ enum pki_source {
 	unknown,
 	imported,
 	generated,
-	transformed
+	transformed,
+	token
 };
 
 #define VIEW_item_id 0

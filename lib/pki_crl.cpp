@@ -319,6 +319,8 @@ x509name pki_crl::getSubject() const
 
 bool pki_crl::verify(pki_x509 *issuer)
 {
+	if (!issuer)
+		return false;
 	if (getSubject() != issuer->getSubject())
 		return false;
 	pki_key *key = issuer->getPubKey();
