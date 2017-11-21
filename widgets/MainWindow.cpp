@@ -655,12 +655,13 @@ void MainWindow::changeDbPass()
 	QList<pki_evp*> key_list = keys->sqlSELECTpki<pki_evp>(
 		"SELECT item FROM private_keys WHERE ownPass=0");
 
-	if (!db.transaction()) {
-		errorEx e(tr("Transaction start failed"));
-		Error(e);
-		return;
-	}
 	try {
+		Transaction;
+		if (!TransBegin()) {
+			errorEx e(tr("Transaction start failed"));
+			Error(e);
+			return;
+		}
 		foreach(pki_evp *key, key_list) {
 			EVP_PKEY *evp = key->decryptKey();
 			key->set_evp_key(evp);
@@ -668,14 +669,12 @@ void MainWindow::changeDbPass()
 			key->sqlUpdatePrivateKey();
 		}
 		storeSetting("pwhash", passhash);
+		TransCommit();
+		pki_evp::passHash = passhash;
+		pki_evp::passwd = pass;
 	} catch (errorEx &e) {
 		Error(e);
-		db.rollback();
-		return;
 	}
-	db.commit();
-	pki_evp::passHash = passhash;
-	pki_evp::passwd = pass;
 }
 
 int MainWindow::initPass(QString dbName)

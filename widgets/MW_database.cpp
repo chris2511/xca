@@ -330,19 +330,20 @@ QSqlError MainWindow::initSqlDB()
 		QString schema = getSetting("schema");
 		i = schema.toInt();
 	}
-	if (!db.transaction())
+	Transaction;
+	if (!TransBegin())
 		return db.lastError();
 
 	for (; i < ARRAY_SIZE(schemas); i++) {
 		foreach(QString sql, schemas[i]) {
 			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
 			if (!q.exec(sql)) {
-				db.rollback();
+				TransRollback();
 				return q.lastError();
 			}
 		}
 	}
-	db.commit();
+	TransCommit();
 	return QSqlError();
 }
 

@@ -11,21 +11,16 @@
 #include <openssl/err.h>
 #include <QString>
 #include <QListView>
-#include <QtSql>
 #include "asn1time.h"
 #include "pkcs11_lib.h"
 #include "db.h"
 #include "base.h"
 #include "headerlist.h"
+#include "sql.h"
 
 #define __ME QString("(%1:%2)").arg(getClassName()).arg(getIntName())
 #define pki_openssl_error() _openssl_error(__ME, C_FILE, __LINE__)
 #define pki_ign_openssl_error() _ign_openssl_error(__ME, C_FILE, __LINE__)
-
-#define SQL_PREPARE(q,cmd) do { \
-	(q).prepare(cmd); \
-	(q).location(__FILE__,__LINE__); \
-} while (0)
 
 enum pki_source {
 	unknown,
@@ -41,72 +36,6 @@ enum pki_source {
 #define VIEW_item_date 3
 #define VIEW_item_source 4
 #define VIEW_item_comment 5
-
-class XSqlQuery: public QSqlQuery
-{
-		QString lastq;
-		const char *file;
-		int line;
-	public:
-		QString query_details()
-		{
-			QString lq = lastq;
-			QList<QVariant> list = boundValues().values();
-			QStringList sl;
-			for (int i = 0; i < list.size(); ++i)
-				sl << list.at(i).toString();
-			if (sl.size())
-				lq += QString("[%1]").arg(sl.join(", "));
-			return QString("%1:%2 (%3)")
-				.arg(file).arg(line).arg(lq);
-		}
-		QSqlError lastError()
-		{
-			QSqlError e = QSqlQuery::lastError();
-			if (!e.isValid())
-				return e;
-			QString dt = e.driverText();
-			e.setDriverText(QString("%1 - %2")
-				.arg(dt).arg(query_details()));
-			return e;
-		}
-		XSqlQuery() : QSqlQuery() { }
-		XSqlQuery(QString q) : QSqlQuery(q)
-		{
-			file = ""; line = 0;
-			lastq = q;
-		}
-		bool exec(QString q)
-		{
-			lastq = q;
-			file = ""; line = 0;
-			return QSqlQuery::exec(q);
-		}
-		bool exec()
-		{
-			QString res;
-			setForwardOnly(true);
-			bool r = QSqlQuery::exec();
-			if (isSelect())
-				res = QString("Rows selected: %1").arg(size());
-			else
-				res = QString("Rows affected: %1")
-					.arg(numRowsAffected());
-			qDebug() << QString("QUERY: %1 - %2")
-					.arg(query_details()).arg(res);
-			return r;
-		}
-		bool prepare(QString q)
-		{
-			lastq = q;
-			setForwardOnly(true);
-			return QSqlQuery::prepare(q);
-		}
-		void location(const char *f, int l)
-		{
-			file = f; line = l;
-		}
-};
 
 class pki_base : public QObject
 {

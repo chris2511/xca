@@ -9,7 +9,7 @@ MOCNAMES=db_crl db_key db_temp db_x509 db_x509req db_x509super db_base db_token\
 	pki_base pki_multi pki_evp pki_scard pass_info pki_pkcs7 main
 NAMES=$(MOCNAMES) asn1int oid x509rev asn1time version \
 	x509v3ext func load_obj x509name db \
-	pk11_attribute pkcs11 pkcs11_lib Passwd builtin_curves entropy
+	pk11_attribute pkcs11 pkcs11_lib Passwd builtin_curves entropy sql
 
 
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))

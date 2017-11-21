@@ -206,29 +206,21 @@ void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 	allHeaders[logicalIndex]->sortIndicator = order;
 }
 
-QSqlError db_base::insertPKI_noTransaction(pki_base *pki)
+void db_base::insertPKI(pki_base *pki)
 {
+	Transaction;
+	if (!TransBegin())
+		return;
 	QSqlError e = pki->insertSql();
 	if (e.isValid()) {
 		mainwin->dbSqlError(e);
-		return e;
+		TransRollback();
+		return;
 	}
 	lookup[pki->getSqlItemId().toULongLong()] = pki;
 	inToCont(pki);
 	emit columnsContentChanged();
-	return e;
-}
-
-void db_base::insertPKI(pki_base *pki)
-{
-	QSqlDatabase db = QSqlDatabase::database();
-	if (db.transaction()) {
-		QSqlError e = insertPKI_noTransaction(pki);
-		if (e.isValid())
-			db.rollback();
-		else
-			db.commit();
-	}
+	TransCommit();
 }
 
 QString db_base::pem2QString(QModelIndexList indexes) const
@@ -274,15 +266,12 @@ void db_base::deletePKI(QModelIndex idx)
 		} catch (errorEx &err) {
 			MainWindow::Error(err);
 		}
-
-		if (db.transaction()) {
+		Transaction;
+		if (TransBegin()) {
 			QSqlError e = pki->deleteSql();
-			if (e.isValid()) {
-				db.rollback();
-			} else {
-				db.commit();
+			TransDone(e);
+			if (!e.isValid())
 				remFromCont(idx);
-			}
 			mainwin->dbSqlError(e);
 		}
 	} catch (errorEx &err) {

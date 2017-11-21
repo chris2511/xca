@@ -132,6 +132,5 @@ class x509revList : public QList<x509rev>
 			}
 		}
 		bool sqlUpdate(QVariant caId);
-		bool sqlUpdateNoTrans(QVariant caId);
 };
 #endif

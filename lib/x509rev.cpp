@@ -252,10 +252,13 @@ x509revList x509revList::fromSql(QVariant caId)
 	return list;
 }
 
-bool x509revList::sqlUpdateNoTrans(QVariant caId)
+bool x509revList::sqlUpdate(QVariant caId)
 {
 	XSqlQuery q;
-	QSqlDatabase db = QSqlDatabase::database();
+	Transaction;
+
+	if (!TransBegin())
+		return false;
 
 	SQL_PREPARE(q, "DELETE FROM revocations WHERE caId=?");
 	q.bindValue(0, caId);
@@ -271,26 +274,9 @@ bool x509revList::sqlUpdateNoTrans(QVariant caId)
 		x509rev r = at(i);
 		r.executeQuery(q);
 		if (q.lastError().isValid())
-				return false;
+			return false;
 	}
         merged = false;
+	TransCommit();
 	return true;
-}
-
-bool x509revList::sqlUpdate(QVariant caId)
-{
-	return sqlUpdateNoTrans(caId);
-#warning Fix nested db.transaction()
-#if 0
-	QSqlDatabase db = QSqlDatabase::database();
-
-	if (!db.transaction())
-		return false;
-	if (!sqlUpdateNoTrans(caId)) {
-		db.rollback();
-		return false;
-	}
-	db.commit();
-	return true;
-#endif
 }

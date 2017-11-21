@@ -103,7 +103,6 @@ class db_base: public QAbstractItemModel
 		virtual void updateHeaders();
 		virtual ~db_base();
 		virtual void insertPKI(pki_base *pki);
-		virtual QSqlError insertPKI_noTransaction(pki_base *pki);
 		pki_base *getByName(QString desc);
 		pki_base *getByReference(pki_base *refpki);
 		pki_base *getByPtr(void *);

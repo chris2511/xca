@@ -111,7 +111,7 @@ QSqlError pki_x509::insertSqlData()
 	q.bindValue(1, now.toPlain());
 	q.exec();
 	if (fromDataRevList.size() > 0)
-		fromDataRevList.sqlUpdateNoTrans(sqlItemId);
+		fromDataRevList.sqlUpdate(sqlItemId);
 	return q.lastError();
 }
 

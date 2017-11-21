@@ -4,7 +4,7 @@ TARGET = xca
 DEPENDPATH += . lang lib ui widgets
 INCLUDEPATH += . lib widgets
 QMAKE_MAKEFILE = makefile
-QT += widgets
+QT = gui core sql widgets
 
 RESOURCES = img/imgres.rcc
 RC_FILE = img/w32res.rc
@@ -73,6 +73,7 @@ HEADERS += lib/asn1int.h \
            lib/x509v3ext.h \
            lib/builtin_curves.h \
            lib/entropy.h \
+           lib/sql.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
            widgets/clicklabel.h \
@@ -101,9 +102,10 @@ HEADERS += lib/asn1int.h \
            widgets/X509SuperTreeView.h \
            widgets/XcaHeaderView.h \
            widgets/OidResolver.h \
-	   widgets/ItemCombo.h \
-	   widgets/XcaDialog.h \
-           widgets/XcaProxyModel.h
+           widgets/ItemCombo.h \
+           widgets/XcaDialog.h \
+           widgets/XcaProxyModel.h \
+           widgets/OpenDb.h
 
 FORMS += ui/CaProperties.ui \
          ui/CertDetail.ui \
@@ -125,7 +127,9 @@ FORMS += ui/CaProperties.ui \
          ui/v3ext.ui \
          ui/OidResolver.ui \
          ui/XcaDialog.ui \
-	 ui/RevocationList.ui
+         ui/RevocationList.ui \
+         ui/OpenDb.ui \
+         ui/ItemProperties.ui
 
 SOURCES += lib/asn1int.cpp \
            lib/asn1time.cpp \
@@ -165,6 +169,7 @@ SOURCES += lib/asn1int.cpp \
            lib/builtin_curves.cpp \
            lib/entropy.cpp \
            lib/version.cpp \
+           lib/sql.cpp \
            widgets/CertDetail.cpp \
            widgets/CertExtend.cpp \
            widgets/clicklabel.cpp \
@@ -190,13 +195,14 @@ SOURCES += lib/asn1int.cpp \
            widgets/SearchPkcs11.cpp \
            widgets/RevocationList.cpp \
            widgets/XcaTreeView.cpp \
-	   widgets/CertTreeView.cpp \
-	   widgets/KeyTreeView.cpp \
-	   widgets/ReqTreeView.cpp \
-	   widgets/TempTreeView.cpp \
-	   widgets/X509SuperTreeView.cpp \
-	   widgets/XcaHeaderView.cpp \
-	   widgets/OidResolver.cpp \
-	   widgets/XcaProxyModel.cpp
+           widgets/CertTreeView.cpp \
+           widgets/KeyTreeView.cpp \
+           widgets/ReqTreeView.cpp \
+           widgets/TempTreeView.cpp \
+           widgets/X509SuperTreeView.cpp \
+           widgets/XcaHeaderView.cpp \
+           widgets/OidResolver.cpp \
+           widgets/XcaProxyModel.cpp \
+           widgets/OpenDb.cpp
 
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts lang/xca_hr.ts lang/xca_sk.ts

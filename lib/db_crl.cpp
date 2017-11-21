@@ -106,8 +106,12 @@ pki_base *db_crl::insert(pki_base *item)
 		delete(crl);
 		return NULL;
 	}
-	insertPKI(crl);
-	revokeCerts(crl);
+	Transaction;
+	if (TransBegin()) {
+		insertPKI(crl);
+		revokeCerts(crl);
+		TransCommit();
+	}
 	return crl;
 }
 
@@ -232,7 +236,6 @@ void db_crl::newItem()
 
 void db_crl::newItem(pki_x509 *cert)
 {
-	bool transact = false;
 	if (!cert)
 		return;
 
@@ -270,7 +273,6 @@ void db_crl::newItem(pki_x509 *cert)
 					"issuer:copy", &ext_ctx));
 			}
 		}
-		QSqlError err;
 		if (widget->setCrlNumber->isChecked()) {
 			a1int num;
 			num.setDec(widget->crlNumber->text());
@@ -281,16 +283,17 @@ void db_crl::newItem(pki_x509 *cert)
 		crl->setLastUpdate(widget->lastUpdate->getDate());
 		crl->setNextUpdate(widget->nextUpdate->getDate());
 		crl->sign(cert->getRefKey(), widget->hashAlgo->currentHash());
-		if (!db.transaction())
+
+		Transaction;
+		if (!TransBegin())
 			throw errorEx(tr("Failed to initiate DB transaction"));
-		transact = true;
 		cert->setCrlExpire(widget->nextUpdate->getDate());
 		SQL_PREPARE(q, "UPDATE authority set crlNo=?, crlExpire=? WHERE item=?");
 		q.bindValue(0, (uint)cert->getCrlNumber().getLong());
 		q.bindValue(1, widget->nextUpdate->getDate().toPlain());
 		q.bindValue(2, cert->getSqlItemId());
 		q.exec();
-		err = q.lastError();
+		QSqlError err = q.lastError();
 		if (err.isValid())
 			throw errorEx(tr("Database error: ").arg(err.text()));
 		SQL_PREPARE(q, "UPDATE revocations set crlNo=? "
@@ -301,16 +304,14 @@ void db_crl::newItem(pki_x509 *cert)
 		err = q.lastError();
 		if (err.isValid())
 			throw errorEx(tr("Database error: ").arg(err.text()));
-		insertPKI_noTransaction(crl);
+		insertPKI(crl);
 		err = db.lastError();
 		if (err.isValid())
 			throw errorEx(tr("Database error: ").arg(err.text()));
-		db.commit();
+		TransCommit();
 		createSuccess((crl));
 	}
 	catch (errorEx &err) {
-		if (transact)
-			db.rollback();
 		MainWindow::Error(err);
 		if (crl)
 			delete crl;
