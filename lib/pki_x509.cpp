@@ -105,10 +105,12 @@ QSqlError pki_x509::insertSqlData()
 	if (!isCA())
 		return q.lastError();
 
-	SQL_PREPARE(q, "INSERT INTO authority (item, crlExpire, crlNo) "
-			"VALUES (?, ?, 0)");
+	SQL_PREPARE(q, "INSERT INTO authority (item, template, crlExpire, crlNo, crlDays) "
+			"VALUES (?, ?, ?, 0, ?)");
 	q.bindValue(0, sqlItemId);
-	q.bindValue(1, now.toPlain());
+	q.bindValue(1, caTemplateSqlId);
+	q.bindValue(2, crlExpire.toPlain());
+	q.bindValue(3, crlDays);
 	q.exec();
 	if (fromDataRevList.size() > 0)
 		fromDataRevList.sqlUpdate(sqlItemId);
@@ -606,7 +608,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	}
 	pki_openssl_error();
 	/* Superflous CaSerial = */db::stringFromData(ba);
-	QString __caTemplate = db::stringFromData(ba);
+	QString caTemplate = db::stringFromData(ba);
 	crlDays = db::intFromData(ba);
 	crlExpire.d2i(ba);
 	pki_openssl_error();
@@ -635,7 +637,16 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
 	pki_openssl_error();
+
+	XSqlQuery q;
+	SQL_PREPARE(q, "SELECT id FROM items WHERE name=? AND type=?");
+	q.bindValue(0, caTemplate);
+	q.bindValue(1, tmpl);
+	q.exec();
+	if (q.next())
+		caTemplateSqlId = q.value(0);
 }
+
 
 void pki_x509::writeDefault(const QString fname)
 {

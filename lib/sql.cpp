@@ -34,44 +34,38 @@ DbTransaction::~DbTransaction()
 
 bool DbTransaction::begin(const char *file, int line)
 {
-	QSqlDatabase db = QSqlDatabase::database();
-	if (db.transaction()) {
-		has_begun = true;
-		if (mutex++ == 0)
-			error = 0;
-		debug("Begin", file, line);
-		return true;
-	}
-	return false;
+	mutex++;
+	has_begun = true;
+	debug("Begin", file, line);
+	return mutex > 1 ? true : QSqlDatabase::database().transaction();
 }
 
-bool DbTransaction::commit(const char *file, int line)
+bool DbTransaction::finish(const char *oper, const char *file, int line)
 {
 	if (mutex > 0)
 		mutex--;
 	else
-		qCritical() << "Unbalanced DB Transaction (commit)";
-	debug("Commit", file, line);
+		qCritical() << "Unbalanced DB Transaction in " << oper;
+	debug(oper, file, line);
 	has_begun = false;
 	if (mutex > 0)
 		return true;
+
 	QSqlDatabase db = QSqlDatabase::database();
-	return error ? db.rollback() : db.commit();
+	int e = error;
+	error = 0;
+	return e ? db.rollback() : db.commit();
+}
+
+bool DbTransaction::commit(const char *file, int line)
+{
+	return finish("Commit", file, line);
 }
 
 bool DbTransaction::rollback(const char *file, int line)
 {
 	error++;
-	if (mutex > 0)
-		mutex--;
-	else
-		qCritical() << "Unbalanced DB Transaction (rollback)";
-	debug("Rollback", file, line);
-	has_begun = false;
-	if (mutex > 0)
-		return true;
-	QSqlDatabase db = QSqlDatabase::database();
-	return db.rollback();
+	return finish("Rollback", file, line);
 }
 
 bool DbTransaction::done(QSqlError e, const char *file, int line)

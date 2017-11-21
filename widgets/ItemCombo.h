@@ -12,31 +12,43 @@
 #include <QComboBox>
 
 #include "lib/pki_base.h"
-#include "lib/db_base.h"
+#include "lib/pki_x509.h"
+#include "lib/pki_x509req.h"
+#include "lib/pki_temp.h"
+//#include "lib/db_base.h"
 
+template <class T>
 class itemCombo : public QComboBox
 {
     public:
 	itemCombo(QWidget *parent) : QComboBox(parent) { }
-	template <class T> void insertPkiItems(QList<T*> items) {
+ 	void insertPkiItems(QList<T*> items) {
 		clear();
 		foreach(T *p, items) {
 			addItem(p->comboText(), QVariant::fromValue(p));
 		}
 	}
-	template <class T> T *currentPkiItem() {
-		return itemData(currentIndex()).value<T*>();
+	T *currentPkiItem() {
+		return itemData(currentIndex()).template value<T*>();
 	}
 	void setNullItem(QString text) {
-		if (itemData(0).value<pki_base*>() == NULL)
+		if (itemData(0).template value<T*>() == NULL)
 			removeItem(0);
 		insertItem(0, text, QVariant());
 	}
-	int setCurrentPkiItem(pki_base *p) {
+	int setCurrentPkiItem(T *p) {
 		int idx = findData(QVariant::fromValue(p));
 		setCurrentIndex(idx);
 		return idx;
 	}
 };
 
+//class pki_temp;
+//class pki_x509req;
+//class pki_x509;
+//class pki_key;
+typedef class itemCombo<pki_temp> itemComboTemp;
+typedef class itemCombo<pki_x509req> itemComboReq;
+typedef class itemCombo<pki_x509> itemComboCert;
+typedef class itemCombo<pki_key> itemComboKey;
 #endif

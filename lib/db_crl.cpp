@@ -219,15 +219,15 @@ void db_crl::newItem()
 		ca = cas[0];
 		break;
 	default: {
-		itemCombo *c = new itemCombo(NULL);
+		itemComboCert *c = new itemComboCert(NULL);
 		XcaDialog *d = new XcaDialog(mainwin, revocation, c,
 			tr("Select CA certificate"), QString());
-		c->insertPkiItems<pki_x509>(cas);
+		c->insertPkiItems(cas);
 		if (!d->exec()) {
 			delete d;
 			return;
 		}
-		ca = c->currentPkiItem<pki_x509>();
+		ca = c->currentPkiItem();
 		delete d;
 		}
 	}

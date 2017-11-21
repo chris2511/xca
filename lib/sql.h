@@ -22,6 +22,7 @@ class DbTransaction
 		static int error;
 		bool has_begun;
 		void debug(const char *func, const char *file, int line);
+		bool finish(const char *oper, const char *file, int line);
 
 	public:
 		DbTransaction();

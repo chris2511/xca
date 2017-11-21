@@ -104,7 +104,7 @@
               <number>0</number>
              </property>
              <item row="0" column="1">
-              <widget class="itemCombo" name="reqList"/>
+              <widget class="itemComboReq" name="reqList"/>
              </item>
              <item row="1" column="1">
               <widget class="QPushButton" name="showReqBut">
@@ -198,7 +198,7 @@
              </widget>
             </item>
             <item>
-             <widget class="itemCombo" name="certList">
+             <widget class="itemComboCert" name="certList">
               <property name="toolTip">
                <string>All certificates in your database that can create valid signatures</string>
               </property>
@@ -259,7 +259,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="itemCombo" name="tempList">
+           <widget class="itemComboTemp" name="tempList">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -425,7 +425,7 @@
          </property>
          <layout class="QHBoxLayout">
           <item>
-           <widget class="itemCombo" name="keyList">
+           <widget class="itemComboKey" name="keyList">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1224,7 +1224,22 @@
    <header>widgets/clicklabel.h</header>
   </customwidget>
   <customwidget>
-   <class>itemCombo</class>
+   <class>itemComboReq</class>
+   <extends>QComboBox</extends>
+   <header>widgets/ItemCombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>itemComboKey</class>
+   <extends>QComboBox</extends>
+   <header>widgets/ItemCombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>itemComboCert</class>
+   <extends>QComboBox</extends>
+   <header>widgets/ItemCombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>itemComboTemp</class>
    <extends>QComboBox</extends>
    <header>widgets/ItemCombo.h</header>
   </customwidget>

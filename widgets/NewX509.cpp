@@ -81,7 +81,7 @@ NewX509::NewX509(QWidget *parent)
 		fromReqCB->setChecked(false);
 	}
 	else {
-		reqList->insertPkiItems<pki_x509req>(requests);
+		reqList->insertPkiItems(requests);
 	}
 	on_fromReqCB_clicked();
 
@@ -90,7 +90,7 @@ NewX509::NewX509(QWidget *parent)
 	if (issuers.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 	} else {
-		certList->insertPkiItems<pki_x509>(issuers);
+		certList->insertPkiItems(issuers);
 	}
 
 	// set dates to now and now + 1 year
@@ -99,7 +99,7 @@ NewX509::NewX509(QWidget *parent)
 	on_applyTime_clicked();
 
 	// settings for the templates ....
-	tempList->insertPkiItems<pki_temp>(MainWindow::temps->getAllAndPredefs());
+	tempList->insertPkiItems(MainWindow::temps->getAllAndPredefs());
 
 	// setup Extended keyusage
 	foreach(int nid, eku_nid)
@@ -655,7 +655,7 @@ void NewX509::switchHashAlgo()
 
 void NewX509::on_showReqBut_clicked()
 {
-	emit showReq(reqList->currentPkiItem<pki_x509req>());
+	emit showReq(reqList->currentPkiItem());
 }
 
 void NewX509::on_genKeyBut_clicked()
@@ -712,7 +712,7 @@ pki_temp *NewX509::currentTemplate()
 {
 	if (!tempList->isEnabled())
 		return NULL;
-	return tempList->currentPkiItem<pki_temp>();
+	return tempList->currentPkiItem();
 }
 
 void NewX509::selfComment(QString msg)
@@ -770,26 +770,26 @@ void NewX509::newKeyDone(pki_key *nkey)
 
 void NewX509::on_usedKeysToo_toggled(bool)
 {
-	pki_key *cur = keyList->currentPkiItem<pki_key>();
+	pki_key *cur = keyList->currentPkiItem();
 	keyList->clear();
-	keyList->insertPkiItems<pki_key>(usedKeysToo->isChecked() ?
+	keyList->insertPkiItems(usedKeysToo->isChecked() ?
 			allKeys : unusedKeys);
 	keyList->setCurrentPkiItem(cur);
 }
 
 pki_key *NewX509::getSelectedKey()
 {
-	return keyList->currentPkiItem<pki_key>();
+	return keyList->currentPkiItem();
 }
 
 pki_x509 *NewX509::getSelectedSigner()
 {
-	return certList->currentPkiItem<pki_x509>();
+	return certList->currentPkiItem();
 }
 
 pki_x509req *NewX509::getSelectedReq()
 {
-	return reqList->currentPkiItem<pki_x509req>();
+	return reqList->currentPkiItem();
 }
 
 x509name NewX509::getX509name(int _throw)

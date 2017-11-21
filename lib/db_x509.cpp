@@ -1029,7 +1029,7 @@ void db_x509::caProperties(QModelIndex idx)
 	QVariant tmplId = cert->getTemplateSqlId();
 	pki_temp *templ = mainwin->temps->lookupPki<pki_temp>(tmplId);
 
-	ui.temp->insertPkiItems<pki_temp>(mainwin->temps->getAll<pki_temp>());
+	ui.temp->insertPkiItems(mainwin->temps->getAll<pki_temp>());
         ui.temp->setNullItem(tr("No template"));
 	ui.temp->setCurrentIndex(0);
 	if (templ)
@@ -1067,7 +1067,7 @@ void db_x509::caProperties(QModelIndex idx)
 		int rows = ui.subjectManager->rowCount();
 		XSqlQuery q;
 		QSqlError e;
-		templ = ui.temp->currentPkiItem<pki_temp>();
+		templ = ui.temp->currentPkiItem();
 		tmplId = templ ? templ->getSqlItemId() : QVariant();
 
 		sl.clear();

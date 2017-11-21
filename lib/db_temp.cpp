@@ -94,12 +94,12 @@ void db_temp::newItem()
 	pki_temp *temp = NULL;
 	QString type;
 
-	itemCombo *ic = new itemCombo(NULL);
-	ic->insertPkiItems<pki_temp>(predefs);
+	itemComboTemp *ic = new itemComboTemp(NULL);
+	ic->insertPkiItems(predefs);
 	XcaDialog *dlg = new XcaDialog(mainwin, tmpl, ic,
 				tr("Preset Template values"), QString());
 	if (dlg->exec()) {
-		temp = new pki_temp(ic->currentPkiItem<pki_temp>());
+		temp = new pki_temp(ic->currentPkiItem());
 		temp->pkiSource = generated;
 		if (temp) {
 			if (runTempDlg(temp)) {
