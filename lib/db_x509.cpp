@@ -85,11 +85,14 @@ pki_base *db_x509::newPKI(enum pki_type type)
 QList<pki_x509 *> db_x509::getAllIssuers()
 {
 	/* Select X509 CA certificates with available private key */
-	return sqlSELECTpki<pki_x509>(
-		"SELECT DISTINCT x.item "
-		"FROM (private_keys, tokens) JOIN x509super x "
-		"ON x.pkey = private_keys.item OR x.pkey = tokens.item "
-		"JOIN certs ON certs.item = x.item WHERE certs.ca=1");
+	return sqlSELECTpki<pki_x509>("SELECT x509super.item FROM x509super "
+		"JOIN private_keys ON x509super.pkey = private_keys.item "
+		"JOIN certs ON certs.item = x509super.item "
+		"WHERE certs.ca=1") +
+		sqlSELECTpki<pki_x509>("SELECT x509super.item FROM x509super "
+		"JOIN tokens ON x509super.pkey = tokens.item "
+		"JOIN certs ON certs.item = x509super.item "
+		"WHERE certs.ca=1");
 }
 
 void db_x509::remFromCont(QModelIndex &idx)
@@ -175,7 +178,7 @@ static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
 
 void db_x509::inToCont(pki_base *pki)
 {
-	pki_x509 *cert = (pki_x509*)pki;
+	pki_x509 *cert = static_cast<pki_x509*>(pki);
 	cert->setParent(NULL);
 	pki_base *root = cert->getSigner();
 	if (!treeview || root == cert || root == NULL)
@@ -378,6 +381,36 @@ pki_x509 *db_x509::get1SelectedCert()
 	return static_cast<pki_x509*>(index.internalPointer());
 }
 
+void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
+{
+	if (!req || !cert)
+		return;
+	pki_x509 *issuer = cert->getSigner();
+
+	Transaction;
+	if (!TransBegin())
+		return;
+
+	XSqlQuery q;
+	req->setDone();
+	SQL_PREPARE(q, "UPDATE requests SET signed=? WHERE item=?");
+	q.bindValue(0, req->getDone());
+	q.bindValue(1, req->getSqlItemId());
+	q.exec();
+
+	a1time a;
+	QString comment = req->getComment();
+	req->setComment(comment + "\n" + tr("Signed on %1 by '%2'")
+		.arg(a.toPretty())
+		.arg(issuer ? issuer->getIntName() : tr("Unknown")));
+	SQL_PREPARE(q, "UPDATE items SET comment=? WHERE id=?");
+	q.bindValue(0, req->getComment());
+	q.bindValue(1, req->getSqlItemId());
+	q.exec();
+
+	TransCommit();
+}
+
 void db_x509::newItem()
 {
 	NewX509 *dlg = new NewX509(mainwin);
@@ -429,7 +462,7 @@ void db_x509::newCert(pki_x509 *cert)
 	delete dlg;
 }
 
-void db_x509::newCert(NewX509 *dlg)
+pki_x509 *db_x509::newCert(NewX509 *dlg)
 {
 	pki_x509 *cert = NULL;
 	pki_x509 *signcert = NULL;
@@ -440,19 +473,19 @@ void db_x509::newCert(NewX509 *dlg)
 	QString intname;
 
     try {
-
+	Transaction;
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 		clientkey = dlg->getSelectedKey();
 		if (!clientkey)
-			return;
+			return NULL;
 		subject = dlg->getX509name();
 		intname = dlg->description->text();
 	} else {
 		// A PKCS#10 Request was selected
 		req = dlg->getSelectedReq();
 		if (!req)
-			return;
+			return NULL;
 		clientkey = req->getRefKey();
 		if (clientkey == NULL) {
 			clientkey = req->getPubKey();
@@ -475,8 +508,10 @@ void db_x509::newCert(NewX509 *dlg)
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = dlg->getSelectedSigner();
-		if (!signcert)
-			return;
+		if (!signcert) {
+			delete cert;
+			return NULL;
+		}
 		serial = getUniqueSerial(signcert);
 		signkey = signcert->getRefKey();
 	} else {
@@ -524,6 +559,11 @@ void db_x509::newCert(NewX509 *dlg)
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
 
+	if (!TransBegin()) {
+		delete cert;
+		throw errorEx("Database trnasaction failed");
+	}
+
 	// set the comment field
 	cert->setComment(dlg->comment->toPlainText());
 	cert->pkiSource = dlg->getPkiSource();
@@ -543,6 +583,8 @@ void db_x509::newCert(NewX509 *dlg)
 	}
 	if (tempkey != NULL)
 		delete(tempkey);
+	markRequestSigned(req, cert);
+	TransCommit();
     }
 
     catch (errorEx &err) {
@@ -550,7 +592,9 @@ void db_x509::newCert(NewX509 *dlg)
 		delete cert;
 		if (tempkey != NULL)
 			delete(tempkey);
+		cert = NULL;
     }
+    return cert;
 }
 
 void db_x509::store(QModelIndex idx)

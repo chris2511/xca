@@ -42,6 +42,8 @@ bool DbTransaction::begin(const char *file, int line)
 
 bool DbTransaction::finish(const char *oper, const char *file, int line)
 {
+	if (!has_begun)
+		return true;
 	if (mutex > 0)
 		mutex--;
 	else

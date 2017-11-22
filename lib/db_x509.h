@@ -44,7 +44,8 @@ class db_x509: public db_x509super
 		void writeIndex(const QString fname, bool hierarchy);
 		void writeAllCerts(const QString fname, bool unrevoked);
 		pki_base *insert(pki_base *item);
-		void newCert(NewX509 *dlg);
+		void markRequestSigned(pki_x509req *req, pki_x509 *cert);
+		pki_x509 *newCert(NewX509 *dlg);
 		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, QString s, bool chain);
 		void writePKCS7(pki_x509 *cert, QString s,

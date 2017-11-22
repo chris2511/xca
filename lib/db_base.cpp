@@ -219,8 +219,8 @@ void db_base::insertPKI(pki_base *pki)
 	}
 	lookup[pki->getSqlItemId().toULongLong()] = pki;
 	inToCont(pki);
-	emit columnsContentChanged();
 	TransCommit();
+	emit columnsContentChanged();
 }
 
 QString db_base::pem2QString(QModelIndexList indexes) const
