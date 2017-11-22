@@ -257,6 +257,7 @@ QString pki_base::pki_source_name() const
 		case generated: return tr("Generated");
 		case transformed: return tr("Transformed");
 		case token: return tr("Token");
+		case legacy_db: return tr("Legacy Database");
 	}
 	return QString("???");
 }

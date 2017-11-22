@@ -478,6 +478,7 @@ void MainWindow::importOldDatabase(QString dbname)
 
 			try {
 				pki->fromData(p, &head);
+				pki->pkiSource = legacy_db;
 			}
 			catch (errorEx &err) {
 				err.appendString(pki->getIntName());

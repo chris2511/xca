@@ -27,7 +27,8 @@ enum pki_source {
 	imported,
 	generated,
 	transformed,
-	token
+	token,
+	legacy_db
 };
 
 #define VIEW_item_id 0
