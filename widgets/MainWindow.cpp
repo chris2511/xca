@@ -801,8 +801,6 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 
 	try {
 		if (file.endsWith(".xdb")) {
-#warning FIXME OPEN DATABASE
-			qDebug("FIXME OPEN DATABASE");
 			init_database(file);
 			return pki;
 		}

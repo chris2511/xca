@@ -1062,6 +1062,7 @@ void db_x509::caProperties(QModelIndex idx)
 		polKV << actions[l[1].toInt()];
 		ui.subjectManager->addRow(polKV);
         }
+#warning Complete dnPolicies
 
 	if (dlg->exec()) {
 		int rows = ui.subjectManager->rowCount();

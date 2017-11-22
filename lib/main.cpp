@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <openssl/rand.h>
 #include "widgets/MainWindow.h"
+#include "widgets/OpenDb.h"
 #include "lib/func.h"
 #include "lib/db.h"
 #include "lib/main.h"
@@ -251,13 +252,14 @@ int main( int argc, char *argv[] )
 	mw = new MainWindow(NULL);
 	try {
 		a.setMainwin(mw);
+		OpenDb::checkSqLite();
 		mw->read_cmdline(argc, argv);
 		if (mw->exitApp == 0) {
 			mw->load_history();
 			if (mw->open_default_db() != 2) {
 				mw->show();
 				ret = a.exec();
-			 }
+			}
 		}
 	} catch (errorEx &ex) {
 		mw->Error(ex);

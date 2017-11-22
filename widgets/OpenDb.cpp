@@ -29,7 +29,13 @@ DbMap OpenDb::getDatabases()
 	qDebug() << "Available Remote DB Drivers: " << databases.size();
 	foreach (QString driver, databases.keys())
 		qDebug() << driver;
+
 	return databases;
+}
+
+bool OpenDb::hasSqLite()
+{
+	return QSqlDatabase::isDriverAvailable("QSQLITE");
 }
 
 bool OpenDb::hasRemoteDrivers()
@@ -99,8 +105,15 @@ QString OpenDb::getDbType() const
 	qDebug() << "OpenDb::getDbType: "
 		 << dbType->itemData(dbType->currentIndex()).toString();
 
-	return sqlite ? QString("QSQLITE") :
+	return sqlite ? hasSqLite() ? QString("QSQLITE") : QString("") :
 			dbType->itemData(dbType->currentIndex()).toString();
+}
+
+void OpenDb::checkSqLite()
+{
+	if (hasSqLite())
+		return;
+	XCA_WARN(tr("No SqLite3 driver available. Please install the qt-sqlite package of your distribution"));
 }
 
 void OpenDb::openDatabase() const
@@ -108,6 +121,10 @@ void OpenDb::openDatabase() const
 	QString type = getDbType();
 	QString pass = dbPassword->text();
 
+	if (type.isEmpty()) {
+		checkSqLite();
+		return;
+	}
 	if (sqlite && !QFile::exists(dbName->text())) {
 		QFile f(dbName->text());
 		f.open(QIODevice::WriteOnly);
@@ -135,7 +152,6 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 
 	QStringList hostport = hostName->text().split(":");
 	db.setDatabaseName(dbName->text());
-	printf("hostport.size(): %d\n", hostport.size());
 	if (hostport.size() > 0)
 		db.setHostName(hostport[0]);
 	if (hostport.size() > 1)

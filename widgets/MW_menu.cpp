@@ -88,12 +88,13 @@ void MainWindow::init_menu()
 		if (l.locale == XCA_application::language())
 			a->setChecked(true);
 	}
-
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
-		QKeySequence::New);
+			QKeySequence::New)
+			->setEnabled(OpenDb::hasSqLite());
 	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
-		QKeySequence::Open);
+			QKeySequence::Open)
+			->setEnabled(OpenDb::hasSqLite());
 	file->addAction(tr("Open Remote DataBase"),
 			this, SLOT(openRemoteSqlDB()))
 			->setEnabled(OpenDb::hasRemoteDrivers());

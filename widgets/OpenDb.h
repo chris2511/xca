@@ -27,6 +27,8 @@ class OpenDb: public QDialog, public Ui::OpenDb
 	OpenDb(QWidget *parent, QString db);
 	void openDatabase() const;
 	QString getDescriptor() const;
+	static bool hasSqLite();
+	static void checkSqLite();
 	static bool hasRemoteDrivers();
 	static bool isRemoteDB(QString db);
 
