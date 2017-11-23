@@ -48,7 +48,6 @@
 #define MIN(a,b) ((a)<(b)) ? (a) : (b)
 
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-#error BIG_ENDIAN unexpected. All supported platforms are Little endian.
 #define xhtonl(x) (x)
 #define xntohl(x) (x)
 #define xhtons(x) (x)
