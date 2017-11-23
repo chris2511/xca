@@ -497,6 +497,8 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 			subject = req->getSubject();
 		intname = req->getIntName();
 	}
+	TransThrow();
+
 	if (clientkey == NULL)
 		throw errorEx(tr("Invalid public key"));
 	// initially create cert
@@ -558,11 +560,6 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
-
-	if (!TransBegin()) {
-		delete cert;
-		throw errorEx("Database trnasaction failed");
-	}
 
 	// set the comment field
 	cert->setComment(dlg->comment->toPlainText());
@@ -1086,6 +1083,7 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.subjectManager->initCols(sl);
 
 	sl.clear();
+	sl << "*";
 	foreach(int nid, *MainWindow::dn_nid)
                 sl << QString(OBJ_nid2ln(nid));
 	ui.subjectManager->setKeys(sl, 0);
@@ -1102,7 +1100,10 @@ void db_x509::caProperties(QModelIndex idx)
 		if (l.size() != 2)
 			continue;
 		qDebug() << "Option:" << l[1].toInt();
-		polKV << QString(OBJ_nid2ln(OBJ_sn2nid(CCHAR(l[0]))));
+		if (l[0] == "*")
+			polKV << "*";
+		else
+			polKV << QString(OBJ_nid2ln(OBJ_sn2nid(CCHAR(l[0]))));
 		polKV << actions[l[1].toInt()];
 		ui.subjectManager->addRow(polKV);
         }
@@ -1112,6 +1113,9 @@ void db_x509::caProperties(QModelIndex idx)
 		int rows = ui.subjectManager->rowCount();
 		XSqlQuery q;
 		QSqlError e;
+		Transaction;
+		TransThrow();
+
 		templ = ui.temp->currentPkiItem();
 		tmplId = templ ? templ->getSqlItemId() : QVariant();
 
@@ -1121,9 +1125,10 @@ void db_x509::caProperties(QModelIndex idx)
 			int idx = actions.indexOf(l[1]);
 			if (idx == -1)
 				continue;
-			sl << QString("%1:%2")
-				.arg(OBJ_nid2sn(OBJ_ln2nid(CCHAR(l[0]))))
-				.arg(idx);
+			QString first = l[0];
+			if (first != "*")
+				first = OBJ_nid2sn(OBJ_ln2nid(CCHAR(l[0])));
+			sl << QString("%1:%2").arg(first).arg(idx);
                 }
 		policy = sl.join(",");
 		cert->setTemplateSqlId(tmplId);
@@ -1138,6 +1143,7 @@ void db_x509::caProperties(QModelIndex idx)
 		q.bindValue(2, tmplId);
 		q.bindValue(3, cert->getSqlItemId());
 		q.exec();
+	        TransDone(q.lastError());
 		mainwin->dbSqlError(q.lastError());
 	}
 	delete dlg;

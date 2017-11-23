@@ -25,7 +25,7 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList schemas[4]; schemas[0]
+	QStringList schemas[5]; schemas[0]
 
 /* The "32bit hash" in public_keys, x509super, requests, certs and crls
  * is used to quickly find items in the DB by reference.
@@ -314,6 +314,11 @@ QSqlError MainWindow::initSqlDB()
 	"name, private FROM private_keys JOIN items ON "
 	"items.id = private_keys.item"
 << "UPDATE settings SET value='4' WHERE key_='schema'"
+	;
+
+	schemas[4]
+<< "INSERT INTO settings (key_, value) VALUES ('counter', '1')"
+<< "UPDATE settings SET value='5' WHERE key_='schema'"
 	;
 
 	XSqlQuery q;

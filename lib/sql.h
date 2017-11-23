@@ -31,10 +31,16 @@ class DbTransaction
 		bool commit(const char *file, int line);
 		bool rollback(const char *file, int line);
 		bool done(QSqlError e, const char *file, int line);
+		static bool active()
+		{
+			return mutex > 0;
+		}
 };
 
 #define Transaction DbTransaction __trans
 #define TransBegin() __trans.begin(__FILE__, __LINE__)
+#define TransThrow() if (!__trans.begin(__FILE__, __LINE__)) { \
+		throw errorEx(tr("Failed to start a database transaction")); }
 #define TransCommit() __trans.commit(__FILE__, __LINE__)
 #define TransRollback() __trans.rollback(__FILE__, __LINE__)
 #define TransDone(e) __trans.done(e, __FILE__, __LINE__);

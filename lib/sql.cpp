@@ -54,9 +54,17 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 		return true;
 
 	QSqlDatabase db = QSqlDatabase::database();
-	int e = error;
-	error = 0;
-	return e ? db.rollback() : db.commit();
+	if (error) {
+		error = 0;
+		return db.rollback();
+	}
+	XSqlQuery q;
+	if (db.driverName() == "QPSQL7")
+		SQL_PREPARE(q, "UPDATE settings SET value = CAST (value AS INTEGER) +1 WHERE key_ = 'counter'");
+	else
+		SQL_PREPARE(q, "UPDATE settings SET value = value +1 WHERE key_ = 'counter'");
+	q.exec();
+	return db.commit();
 }
 
 bool DbTransaction::commit(const char *file, int line)
@@ -120,10 +128,15 @@ bool XSqlQuery::exec()
 	QString res;
 	setForwardOnly(true);
 	bool r = QSqlQuery::exec();
-	if (isSelect())
+	if (isSelect()) {
 		res = QString("Rows selected: %1").arg(size());
-	else
+	} else {
 		res = QString("Rows affected: %1").arg(numRowsAffected());
+		if (!DbTransaction::active()) {
+			 qCritical("########## MISSING Transaction in %s(%d)",
+				file, line);
+		}
+	}
 	qDebug() << QString("QUERY: %1 - %2").arg(query_details()).arg(res);
 	return r;
 }

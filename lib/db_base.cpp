@@ -509,6 +509,9 @@ void db_base::updateItem(pki_base *pki, QString name, QString comment)
 	XSqlQuery q;
 	QSqlError e;
 
+	Transaction;
+	TransThrow();
+
 	SQL_PREPARE(q, "UPDATE items SET name=?, comment=? WHERE id=?");
 	q.bindValue(0, name);
 	q.bindValue(1, comment);
@@ -518,6 +521,7 @@ void db_base::updateItem(pki_base *pki, QString name, QString comment)
 	mainwin->dbSqlError(e);
 	if (e.isValid())
 		return;
+	TransDone(e);
 	pki->setIntName(name);
 	pki->setComment(comment);
 
