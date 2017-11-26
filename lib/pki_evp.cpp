@@ -75,6 +75,7 @@ bool pki_evp::sqlUpdatePrivateKey()
 	q.bindValue(0, encKey_b64());
 	q.bindValue(1, ownPass);
 	q.bindValue(2, sqlItemId);
+	AffectedItems(sqlItemId);
 	q.exec();
 
 	encKey.fill(0);

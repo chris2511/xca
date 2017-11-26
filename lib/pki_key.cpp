@@ -480,6 +480,7 @@ QSqlError pki_key::insertSqlData()
 	foreach(pki_x509super* x, list) {
 		q.bindValue(1, x->getSqlItemId());
 		q.exec();
+		AffectedItems(x->getSqlItemId());
 		if (q.lastError().isValid())
 			return q.lastError();
 	}
@@ -518,6 +519,7 @@ QSqlError pki_key::deleteSqlData()
 		return e;
 	SQL_PREPARE(q, "UPDATE x509super SET pkey=NULL WHERE pkey=?");
 	q.bindValue(0, sqlItemId);
+	AffectedItems(sqlItemId);
 	q.exec();
 	return q.lastError();
 }

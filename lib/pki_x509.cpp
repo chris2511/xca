@@ -166,6 +166,16 @@ QSqlError pki_x509::deleteSqlData()
 	SQL_PREPARE(q, "DELETE FROM revocations WHERE caId=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
+	// Select affected items
+	QList<pki_base*> list = db_base::sqlSELECTpki<pki_base>(
+		"SELECT DISTINCT items.id FROM items, certs, crls "
+		"WHERE (items.id = certs.item OR items.id = crls.item) "
+		"AND crls.issuer = ? AND certs.issuer = ?",
+		QList<QVariant>() << QVariant(sqlItemId));
+
+	foreach(pki_base *pki, list)
+		AffectedItems(pki->getSqlItemId());
+
 	return q.lastError();
 }
 

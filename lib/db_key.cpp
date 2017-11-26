@@ -104,6 +104,7 @@ void db_key::inToCont(pki_base *pki)
 		/* Found item matching this key */
 		x509s->setRefKey(key);
 		q.bindValue(1, x509s->getSqlItemId());
+		AffectedItems(x509s->getSqlItemId());
 		q.exec();
 		mainwin->dbSqlError(q.lastError());
 	}

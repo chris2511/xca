@@ -12,10 +12,12 @@
 
 int DbTransaction::mutex;
 int DbTransaction::error;
+QList<quint64> DbTransaction::items;
+
+quint64 DatabaseStamp;
 
 void DbTransaction::debug(const char *func, const char *file, int line)
 {
-	QString f = file;
 	qDebug() << QString("%1(%2) Transaction: %3 Level %4, E:%5 ")
 			.arg(file + QString(file).lastIndexOf("/") +1)
 			.arg(line).arg(func).arg(mutex).arg(error);
@@ -56,14 +58,26 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 	QSqlDatabase db = QSqlDatabase::database();
 	if (error) {
 		error = 0;
+		items.clear();
 		return db.rollback();
 	}
+	mutex++;
 	XSqlQuery q;
-	if (db.driverName() == "QPSQL7")
-		SQL_PREPARE(q, "UPDATE settings SET value = CAST (value AS INTEGER) +1 WHERE key_ = 'counter'");
-	else
-		SQL_PREPARE(q, "UPDATE settings SET value = value +1 WHERE key_ = 'counter'");
+	SQL_PREPARE(q, "SELECT MAX(stamp) +1 from items");
 	q.exec();
+	if (q.first())
+		DatabaseStamp = q.value(0).toULongLong();
+
+	SQL_PREPARE(q, "UPDATE items SET stamp=? WHERE stamp=0");
+	q.bindValue(0, DatabaseStamp);
+	q.exec();
+	SQL_PREPARE(q, "UPDATE items SET stamp=? WHERE item=?");
+	q.bindValue(0, DatabaseStamp);
+	foreach(quint64 id, DbTransaction::items) {
+		q.bindValue(1, id);
+		q.exec();
+	}
+	mutex--;
 	return db.commit();
 }
 

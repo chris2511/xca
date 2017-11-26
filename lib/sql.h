@@ -9,6 +9,7 @@
 #define __SQL_H
 
 #include <QtSql>
+#include <QList>
 
 #define SQL_PREPARE(q,cmd) do { \
 	(q).prepare(cmd); \
@@ -20,6 +21,7 @@ class DbTransaction
 	private:
 		static int mutex;
 		static int error;
+		static QList<quint64> items;
 		bool has_begun;
 		void debug(const char *func, const char *file, int line);
 		bool finish(const char *oper, const char *file, int line);
@@ -35,6 +37,10 @@ class DbTransaction
 		{
 			return mutex > 0;
 		}
+		static void addItems(QVariant v)
+		{
+			items << v.toULongLong();
+		}
 };
 
 #define Transaction DbTransaction __trans
@@ -44,6 +50,8 @@ class DbTransaction
 #define TransCommit() __trans.commit(__FILE__, __LINE__)
 #define TransRollback() __trans.rollback(__FILE__, __LINE__)
 #define TransDone(e) __trans.done(e, __FILE__, __LINE__);
+#define AffectedItems(v) (DbTransaction::addItems(v))
+
 
 class XSqlQuery: public QSqlQuery
 {

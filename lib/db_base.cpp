@@ -518,6 +518,7 @@ void db_base::updateItem(pki_base *pki, QString name, QString comment)
 	q.bindValue(2, pki->getSqlItemId());
 	q.exec();
 	e = q.lastError();
+	AffectedItems(pki->getSqlItemId());
 	mainwin->dbSqlError(e);
 	if (e.isValid())
 		return;

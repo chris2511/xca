@@ -71,7 +71,7 @@ class db_base: public QAbstractItemModel
 						.arg(i).arg(typeid(p).name())
 						.arg(p?p->getIntName() : "<NULL item>")
 						.arg(typeid(T*).name());
-				qCritical(CCHAR(f));
+				qCritical("%s", CCHAR(f));
 			}
 			return pki;
 		}

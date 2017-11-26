@@ -317,7 +317,8 @@ QSqlError MainWindow::initSqlDB()
 	;
 
 	schemas[4]
-<< "INSERT INTO settings (key_, value) VALUES ('counter', '1')"
+<< "ALTER TABLE items ADD stamp INTEGER NOT NULL DEFAULT (0)"
+<< "CREATE INDEX i_items_stamp ON items (stamp)"
 << "UPDATE settings SET value='5' WHERE key_='schema'"
 	;
 

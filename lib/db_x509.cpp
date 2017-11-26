@@ -117,6 +117,7 @@ void db_x509::remFromCont(QModelIndex &idx)
 	foreach(pki_x509 *child, childs) {
 		q.bindValue(0, child->getSigner()->getSqlItemId());
 		q.bindValue(1, child->getSqlItemId());
+		AffectedItems(child->getSqlItemId());
 		q.exec();
 	}
 	mainwin->crls->removeSigner(pki);
@@ -242,6 +243,7 @@ void db_x509::inToCont(pki_base *pki)
 			insertChild(cert, child);
 		}
 		q.bindValue(1, child->getSqlItemId());
+		AffectedItems(child->getSqlItemId());
 		q.exec();
 		mainwin->dbSqlError(q.lastError());
 		if (child->isRevoked())
@@ -262,6 +264,7 @@ void db_x509::inToCont(pki_base *pki)
 			continue;
 		q.bindValue(0, cert->getSqlItemId());
 		q.bindValue(1, crl->getSqlItemId());
+		AffectedItems(crl->getSqlItemId());
 		q.exec();
 		mainwin->dbSqlError(q.lastError());
 	}
@@ -396,6 +399,7 @@ void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
 	SQL_PREPARE(q, "UPDATE requests SET signed=? WHERE item=?");
 	q.bindValue(0, req->getDone());
 	q.bindValue(1, req->getSqlItemId());
+	AffectedItems(req->getSqlItemId());
 	q.exec();
 
 	a1time a;
@@ -1142,6 +1146,7 @@ void db_x509::caProperties(QModelIndex idx)
 		q.bindValue(1, policy);
 		q.bindValue(2, tmplId);
 		q.bindValue(3, cert->getSqlItemId());
+		AffectedItems(cert->getSqlItemId());
 		q.exec();
 	        TransDone(q.lastError());
 		mainwin->dbSqlError(q.lastError());

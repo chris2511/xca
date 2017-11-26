@@ -292,6 +292,7 @@ void db_crl::newItem(pki_x509 *cert)
 		q.bindValue(0, (uint)cert->getCrlNumber().getLong());
 		q.bindValue(1, widget->nextUpdate->getDate().toPlain());
 		q.bindValue(2, cert->getSqlItemId());
+		AffectedItems(cert->getSqlItemId());
 		q.exec();
 		QSqlError err = q.lastError();
 		if (err.isValid())
