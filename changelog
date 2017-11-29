@@ -1,3 +1,16 @@
+
+ * Update OpenSSL version for MacOSX and W32 to 1.1.0g
+ * Change default hash to SHA-256 and
+   add a warning if the default hash algorithm is SHA1 or less
+ * Switch to Qt5 for Windows build and installation
+ * Do not apply the default template when creating a similar cert
+ * Close SF #120 Crash when importing CA certificate
+ * Close SF #116 db_x509.cpp:521: Mismatching allocation and deallocation
+ * Add support for OpenSSL 1.1 (by Patrick Monnerat)
+ * Support generating an OpenSSL "index.txt" (by Adam Dawidowski)
+ * Thales nCipher key generation changes for EC and DSA keys
+ * Add Slovak translation
+
 xca 1.3.2 Sat Oct 10 2015
 
  * Gentoo Bug #562288 linking fails
