@@ -32,7 +32,7 @@ MACTARGET=$(DMGSTAGE)-$(DARWIN)${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
 OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
 	-n "XCA $(VERSION)" -i https://sourceforge.net/projects/xca/ \
-	-t http://time.certum.pl -h sha2 -verbose
+	-t http://timestamp.comodoca.com -h sha2 -verbose
 
 all: xca_db_stat$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
@@ -165,7 +165,7 @@ $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	-codesign -s "Open Source Developer, Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp http://time.certum.pl
+	codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
 
 xca.dmg: $(MACTARGET).dmg
 
