@@ -23,7 +23,7 @@
 bool pki_x509::dont_colorize_expiries = false;
 bool pki_x509::disable_netscape = false;
 
-QPixmap *pki_x509::icon[6] = { NULL, NULL, NULL, NULL, NULL, NULL };
+QPixmap *pki_x509::icon[5];
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()
@@ -949,7 +949,7 @@ QVariant pki_x509::getIcon(dbheader *hd)
 			return QVariant();
 		if (!ca)
 			return QVariant();
-		pixnum = 5;
+		pixnum = 4;
 		break;
 	case HD_internal_name:
 		k = getRefKey();

@@ -42,7 +42,7 @@ class pki_x509 : public pki_x509super
 		int sigAlg();
 
 	public:
-		static QPixmap *icon[6];
+		static QPixmap *icon[5];
 		static bool dont_colorize_expiries;
 		static bool disable_netscape;
 		x509revList revList;
