@@ -44,6 +44,9 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 #else
 	header()->setClickable(true);
 #endif
+	throttle.setSingleShot(true);
+	connect(&throttle, SIGNAL(timeout()), this, SLOT(columnsResize()));
+	connect(&throttle, SIGNAL(timeout()), proxy, SLOT(invalidate()));
 }
 
 XcaTreeView::~XcaTreeView()
@@ -103,9 +106,7 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 		connect(header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),
 			basemodel, SLOT(sortIndicatorChanged(int,Qt::SortOrder)));
 		connect(basemodel, SIGNAL(columnsContentChanged()),
-			this, SLOT(columnsResize()));
-		connect(basemodel, SIGNAL(columnsContentChanged()),
-			proxy, SLOT(invalidate()));
+			this, SLOT(columnsChanged()));
 
 		basemodel->initHeaderView(header());
 	}
@@ -142,6 +143,11 @@ QModelIndexList XcaTreeView::getSelectedIndexes()
 			++it;
 	}
 	return list;
+}
+
+void XcaTreeView::columnsChanged()
+{
+	throttle.start(200);
 }
 
 void XcaTreeView::columnsResize()

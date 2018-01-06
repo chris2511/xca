@@ -12,6 +12,7 @@
 #include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QSortFilterProxyModel>
+#include <QTimer>
 #include "lib/db_base.h"
 
 class XcaTreeView: public QTreeView
@@ -19,6 +20,7 @@ class XcaTreeView: public QTreeView
 	Q_OBJECT
 
 	dbheader *curr_hd;
+	QTimer throttle;
 
    protected:
 	db_base *basemodel;
@@ -61,5 +63,6 @@ class XcaTreeView: public QTreeView
 	void pem2clipboard(void);
 	void headerDetails(void);
 	void columnRemove(void);
+	void columnsChanged(void);
 };
 #endif
