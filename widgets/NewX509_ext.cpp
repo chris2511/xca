@@ -55,12 +55,7 @@ x509v3ext NewX509::getAuthKeyIdent()
 	if (!authKey->isChecked() || !authKey->isEnabled())
 		return ext;
 
-	QString x = "keyid,issuer:always";
-	if (ext_ctx.issuer_cert && X509_get_ext_by_NID(ext_ctx.issuer_cert,
-				NID_subject_key_identifier, -1) != -1)
-	{
-		x = "keyid:always,issuer:always";
-	}
+	QString x = "keyid,issuer";
 	ext.create(NID_authority_key_identifier, x, &ext_ctx);
 	return ext;
 }
