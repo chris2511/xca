@@ -81,6 +81,8 @@ BIO *pki_key::pem(BIO *b, int format)
 {
 	EVP_PKEY *pkey;
 	QByteArray ba;
+	int keytype;
+
 	if (!b)
 		b = BIO_new(BIO_s_mem());
 
@@ -90,6 +92,30 @@ BIO *pki_key::pem(BIO *b, int format)
 		BIO_write(b, ba.data(), ba.size());
 		break;
 	case exportType::PEM_private:
+		pkey = decryptKey();
+		keytype = EVP_PKEY_id(pkey);
+		switch (keytype) {
+		case EVP_PKEY_RSA:
+			PEM_write_bio_RSAPrivateKey(b,
+				EVP_PKEY_get0_RSA(pkey),
+				NULL, NULL, 0, NULL, NULL);
+			break;
+		case EVP_PKEY_DSA:
+			PEM_write_bio_DSAPrivateKey(b,
+				EVP_PKEY_get0_DSA(pkey),
+				NULL, NULL, 0, NULL, NULL);
+			break;
+#ifndef OPENSSL_NO_EC
+		case EVP_PKEY_EC:
+			PEM_write_bio_ECPrivateKey(b,
+				EVP_PKEY_get0_EC_KEY(pkey),
+				NULL, NULL, 0, NULL, NULL);
+			break;
+#endif
+		}
+		EVP_PKEY_free(pkey);
+		break;
+	case exportType::PKCS8:
 		pkey = decryptKey();
 		PEM_write_bio_PrivateKey(b, pkey, NULL, NULL, 0, NULL, NULL);
 		EVP_PKEY_free(pkey);

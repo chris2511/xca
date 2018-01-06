@@ -219,7 +219,9 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes)
 			"pub", tr("SSH2 public"));
 	if (allPriv)
 		types << exportType(exportType::PEM_private, "pem",
-			tr("PEM private"));
+			tr("PEM private"))
+		      << exportType(exportType::PKCS8, "pk8",
+			"PKCS#8");
 
 	ExportDialog *dlg = new ExportDialog(mainwin,
 		tr("Export keys to Clipboard"), QString(), NULL,
