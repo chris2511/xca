@@ -272,7 +272,7 @@ void MainWindow::init_images()
 
 void MainWindow::read_cmdline(int argc, char *argv[])
 {
-	int cnt = 1, opt = 0, force_load = 0, export_index = 1;
+	int cnt = 1, opt = 0, force_load = 0, export_index = 0;
 	char *arg = NULL;
 	exitApp = 0;
 	QStringList failed;
