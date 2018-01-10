@@ -798,6 +798,11 @@ void MainWindow::storeSetting(QString key, QString value)
 	q.bindValue(0, key);
 	q.exec();
 	dbSqlError(q.lastError());
+
+	Transaction;
+	if (!TransBegin())
+		return;
+
 	if (q.first() && q.value(0).toInt() == 1)
 		SQL_PREPARE(q, "UPDATE settings SET value=? WHERE key_=?");
 	else
@@ -806,6 +811,7 @@ void MainWindow::storeSetting(QString key, QString value)
 	q.bindValue(1, key);
 	q.exec();
 	dbSqlError(q.lastError());
+	TransCommit();
 }
 
 void MainWindow::close_database()
