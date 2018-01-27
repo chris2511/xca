@@ -72,7 +72,7 @@ do.ui do.doc do.lang: do.%:
 	mkdir -p $*
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* $*
 
-headers: do.ui
+headers: do.ui commithash.h
 
 %/.build-stamp: headers
 	mkdir -p $*
@@ -105,7 +105,7 @@ clean:
 	rm -rf xca-$(VERSION)*
 
 distclean: clean
-	rm -f local.h Local.mak config.log config.status
+	rm -f local.h Local.mak config.log config.status commithash.h
 
 dist: $(TARGET).tar.gz
 $(TARGET).tar:
@@ -179,9 +179,13 @@ trans:
 	lupdate-qt4 -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE)
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h
 
 do.doc do.lang headers: local.h
 
 Local.mak: configure Local.mak.in
 	$(TOPDIR)/configure
+
+commithash.h:
+	@$(PRINT) "  GEN    $@"
+	$(TOPDIR)/gen_commithash.h.sh $@

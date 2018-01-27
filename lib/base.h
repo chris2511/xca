@@ -17,7 +17,13 @@
 
 #include <qglobal.h>
 #include <openssl/opensslv.h>
+#ifndef QMAKE
 #include "local.h"
+#else
+#define PREFIX "/usr/local"
+#define ETC "/etc"
+#define DOCDIR "/usr/local/doc/xca"
+#endif
 
 #define CCHAR(x) qPrintable(x)
 #endif

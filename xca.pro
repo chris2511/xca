@@ -3,6 +3,8 @@ TEMPLATE = app
 TARGET = xca
 DEPENDPATH += . lang lib ui widgets
 INCLUDEPATH += . lib widgets
+QMAKE_MAKEFILE = makefile
+QT += widgets
 
 RESOURCES = img/imgres.rcc
 RC_FILE = img/w32res.rc
@@ -17,11 +19,20 @@ macx {
 }
 
 LIBS += -lcrypto -lltdl
-QMAKE_CXXFLAGS = -DPREFIX=\\\"/usr/local\\\" -DETC=\\\"/etc\\\" -DDOCDIR=\\\"/usr/local/doc/xca\\\" -Werror
+QMAKE_CXXFLAGS = -Werror -DQMAKE
+DEFINES += PACKAGE_VERSION=\\\"'$$system(cat VERSION)'\\\"
+
+!win32 {
+  commithash.h.commands = ./gen_commithash.h.sh \$@
+  commithash.h.depends = FORCE
+  QMAKE_EXTRA_TARGETS += commithash.h
+}
+win32 {
+  DEFINES += NO_COMMITHASH
+}
 
 # Input
-HEADERS += local.h \
-           lib/asn1int.h \
+HEADERS += lib/asn1int.h \
            lib/asn1time.h \
            lib/base.h \
            lib/db_base.h \
@@ -153,6 +164,7 @@ SOURCES += lib/asn1int.cpp \
            lib/x509v3ext.cpp \
            lib/builtin_curves.cpp \
            lib/entropy.cpp \
+           lib/version.cpp \
            widgets/CertDetail.cpp \
            widgets/CertExtend.cpp \
            widgets/clicklabel.cpp \

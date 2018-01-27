@@ -14,7 +14,7 @@ if test -z "$TVERSION"; then
   exit 1
 fi
 
-if git status -s | grep -v '??'; then
+if ! git diff-index --quiet HEAD --; then
   echo "You have local changes, please commit, reset or stash them"
   exit 1
 fi

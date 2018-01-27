@@ -67,4 +67,7 @@ static inline FILE *fopen_write(QString s)
 	return fopen(QString2filename(s), "wb");
 }
 
+/* from version.cpp */
+const char *version_str(bool html);
+
 #endif

@@ -41,8 +41,12 @@ if test -n "$DARWIN"; then
 fi
 
 if test "$srcdir" != "."; then
-  if test -r "$srcdir"/Local.mak || test -r "$srcdir"/local.h; then
-    AC_ERROR([The source directory (${srcdir}) contains a 'Local.mak' or 'local.h' file.
+  exist=""
+  for f in Local.mak local.h commithash.h; do
+    test ! -r "$srcdir"/"$f" || exist="$exist $f"
+  done
+  if test -n "$exist"; then
+    AC_ERROR([The source directory (${srcdir}) contains the file(s):$exist.
 		They must be removed before building here.])
   fi
 fi

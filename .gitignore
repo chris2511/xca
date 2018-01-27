@@ -1,5 +1,6 @@
 .depend
-.depend
+qmake_qmake_immediate.qrc
+.qmake.stash
 .build-stamp
 *.o
 *.obj
@@ -7,9 +8,11 @@
 *.orig
 *.dll
 *.h.gch
+ui_*.h
 moc_*
 Local.mak
 local.h
+commithash.h
 xca
 xca.exe
 setup_xca*.exe
