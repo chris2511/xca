@@ -672,7 +672,8 @@ static int mycb(char *buf, int size, int, void *)
 void pki_evp::writeDefault(const QString fname)
 {
 	writeKey(fname + QDir::separator() + getIntName() + ".pem",
-			EVP_des_ede3_cbc(), mycb, true);
+		pki_evp::passwd[0] ? EVP_des_ede3_cbc() : NULL,
+		mycb, true);
 }
 
 void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
@@ -723,9 +724,9 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 			}
 			EVP_PKEY_free(pkey);
 		}
-		pki_openssl_error();
 	}
 	fclose(fp);
+	pki_openssl_error();
 }
 
 bool pki_evp::isPubKey() const
