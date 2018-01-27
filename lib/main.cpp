@@ -303,6 +303,7 @@ int main( int argc, char *argv[] )
 {
 	int ret = 0, pkictr;
 	MainWindow *mw;
+	QDir d;
 
 #if defined(Q_OS_WIN32)
 	SetUnhandledExceptionFilter(w32_segfault);
@@ -313,6 +314,7 @@ int main( int argc, char *argv[] )
 	if (QString(argv[1]) == "extract") {
 		return main_extract(argc, argv);
 	}
+	d.mkpath(getUserSettingsDir());
 	XCA_application a(argc, argv);
 	mw = new MainWindow(NULL);
 	try {

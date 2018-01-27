@@ -27,6 +27,38 @@
 #define O_NONBLOCK 0
 #endif
 
+/* Entropy sources for XCA
+ *
+ * Entropy is a very important topic for key generation.
+ *
+ * XCA uses the following sources for entropy:
+ *
+ * 1) During startup
+ *    RAND_poll()
+ *    The OpenSSL seeding mechanism.
+ *    It uses /dev/urandom where possible and the
+ *    Screen content on Windows.
+ *
+ *    If "/dev/random" exists, it will be used for additional
+ *    256bit entropy. Same is true for "/dev/hwrng"
+ *
+ * 2) Before any key or parameter generation a "reseeding"
+ *    is done. Some say reseeding is not neccessary, but
+ *    all say it does not harm.
+ *
+ *    Entropy by Mouse and keyboard events
+ *    main.cpp: bool XCA_application::eventFilter()
+ *    256bit from /dev/urandom (unix/Mac)
+ *
+ * 3) A .rnd state file in the XCA application directory
+ *    is written on exit and read on startup.
+ *    After reading it, the file will be erased to avoid replays.
+ *
+ * 4) When managing a token that supports C_GenerateRandom
+ *    and C_SeedRandom, XCA will seed the token and in return
+ *    seed himself from the token.
+ */
+
 #undef DEBUG_ENTROPY
 
 #define pool_siz (sizeof(pool)/sizeof(pool[0]))
@@ -61,14 +93,8 @@ void Entropy::seed_rng()
 	RAND_seed(pool, pool_pos);
 	seed_strength += pool_pos;
 
-#if defined(Q_OS_WIN32)
-	if (seed_strength < 16) {
-		RAND_poll();
-		seed_strength += 8;
-	}
-#else
-	random_from_file("/dev/random", 64);
-	random_from_file("/dev/hwrng", 64);
+#if !defined(Q_OS_WIN32)
+	random_from_file("/dev/urandom", 32);
 #endif
 #ifdef DEBUG_ENTROPY
 	fprintf(stderr, "Seeding %d bytes:", pool_pos);
@@ -82,13 +108,11 @@ void Entropy::seed_rng()
 int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 {
 	char buf[256];
-	const char *file;
 	int fd, sum;
-	QByteArray ba;
+	QByteArray ba = filename2bytearray(fname);
+	const char *file = ba.constData();
 
-	ba = filename2bytearray(fname);
-	file = ba.constData();
-
+	/* OpenSSL: RAND_load_file() is blocking */
 	fd = open(file, O_RDONLY | O_NONBLOCK);
 
 	if (fd == -1)
@@ -131,20 +155,20 @@ Entropy::Entropy()
 	rnd = getUserSettingsDir() + QDir::separator() + ".rnd";
 	random_from_file(rnd, 1024, 128);
 	QFile::remove(rnd); // don't use it again
+
+	RAND_poll();
+	seed_strength += 8;
+
+#if !defined(Q_OS_WIN32)
+	random_from_file("/dev/random", 32);
+	random_from_file("/dev/hwrng", 32);
+#endif
 }
 
 Entropy::~Entropy()
 {
-	QFile f(rnd);
-
-	if (f.open(QIODevice::ReadWrite)) {
-		unsigned char buf[1024];
-		seed_rng();
-		f.setPermissions(QFile::ReadOwner|QFile::WriteOwner);
-		RAND_bytes(buf, sizeof buf);
-		f.write((char*)buf, sizeof buf);
-		f.close();
-	}
+	QByteArray ba = filename2bytearray(rnd);
+	RAND_write_file(ba.constData());
 #ifdef DEBUG_ENTROPY
 	fprintf(stderr, "Seed strength: %d\n", seed_strength);
 #endif
