@@ -22,7 +22,7 @@ class pki_evp: public pki_key
 		Q_OBJECT
 	protected:
 		QByteArray encKey;
-		void init(int type = EVP_PKEY_RSA);
+		void init();
 		void veryOldFromData(unsigned char *p, int size);
 		void openssl_pw_error(QString fname);
 	public:

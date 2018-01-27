@@ -31,9 +31,8 @@ QString pki_evp::passHash = QString();
 
 QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
-void pki_evp::init(int type)
+void pki_evp::init()
 {
-	EVP_PKEY_set_type(key, type);
 	class_name = "pki_evp";
 	ownPass = ptCommon;
 	dataVersion=2;
@@ -150,16 +149,17 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 pki_evp::pki_evp(const pki_evp *pk)
 	:pki_key(pk)
 {
-	init(pk->getKeyType());
+	init();
 	pki_openssl_error();
 	ownPass = pk->ownPass;
 	encKey = pk->encKey;
 }
 
-pki_evp::pki_evp(const QString name, int type )
+pki_evp::pki_evp(const QString name, int type)
 	:pki_key(name)
 {
-	init(type);
+	init();
+	EVP_PKEY_set_type(key, type);
 	pki_openssl_error();
 }
 
