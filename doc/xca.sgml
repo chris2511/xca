@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>August 2015 - Version 1.3.1
+<date>January 2018 - Version 1.4.1
 
 <abstract>
 
@@ -90,7 +90,7 @@ other applications.
 
 <tscreen><verb>
 
-Copyright (C) 2001 - 2015 Christian Hohnstaedt.
+Copyright (C) 2001 - 2018 Christian Hohnstaedt.
 
  All rights reserved.
 
@@ -124,10 +124,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 This program links to software with different licenses from:
 
- - http://www.openssl.org which includes cryptographic software
+ - https://www.openssl.org which includes cryptographic software
    written by Eric Young (eay@cryptsoft.com)"
 
- - http://www.trolltech.com
+ - https://www.qt.io/
 
 </verb></tscreen>
 
@@ -206,6 +206,44 @@ Diffie Hellman parameters can be created by XCA.
 It does neither need nor use the parameters.
 Applications like OpenVPN however need them and so XCA provides this
 functionality for users convenience.
+
+<sect1>Entropy sources for XCA
+
+<p>
+
+Entropy is a very important topic for key generation.
+OpenSSL comes with a good pseudo random number generator.
+XCA seeds it very thoroughly.
+<enum>
+  <item>During startup
+    <itemize>
+      <item>The OpenSSL seeding mechanism <tt>RAND_poll()</tt>.
+            It uses <tt>/dev/urandom</tt> where possible and the
+            screen content on Windows.
+      <item>XCA also tries to pull at most 256bit from <tt>/dev/random</tt> and <tt>/dev/hwrng</tt> each.
+      <item>A <tt>.rnd</tt> state file in the XCA application directory is
+            read on startup and erased afterwards to avoid replays.
+    </itemize>
+  <item>Before any key or parameter generation a "reseeding"
+    is done. Some say reseeding is not neccessary, but
+    all say it does not harm.
+    <itemize>
+      <item>XCA collects entropy by mouse and keyboard events and its timing.
+            (See <tt>main.cpp: bool XCA_application::eventFilter()</tt>)
+            We are on a desktop host after all.
+      <item>256bit from <tt>/dev/urandom</tt> (unix/Mac)
+    </itemize>
+  <item>A <tt>.rnd</tt> state file in the XCA application directory
+        is written whenever XCA finishes.
+
+  <item>When managing a token or generating a key on a token that supports
+        <tt>C_GenerateRandom</tt> and <tt>C_SeedRandom</tt>, XCA will:
+          <itemize>
+            <item>Seed the token with own random data.
+            <item>Seed the OpenSSL CSPRNG by random bytes from the token.
+          </itemize>
+</enum>
+
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -1406,6 +1444,11 @@ The <em>oids.txt</em> file is searched in reversed order and all
 	<item>Installation directory <newline>e.g.: C:\Programs\xca
 </itemize>
 
+<p>
+
+<sect1>New OIDs <label id="new_oids">
+
+<p>
 All Object IDs that are not official, but belong to your company
 or organisation can be added in the file <tt>oids.txt</tt>.
 All possible locations for this file are searched and all <tt>oids.txt</tt> files
@@ -1418,6 +1461,10 @@ Lines starting with a <bf>#</bf> are ignored.
 
 <p>
 
+<sect1>OID lists
+
+<p>
+
 The files containing OID lists (<tt>eku.txt, dn.txt, aia.txt</tt>)
 are handled in a different way, only the first one found is used.
 The format of this files is one entry per line. The entry can be either the
@@ -1426,6 +1473,25 @@ numerical OID like <tt>1.3.6.1.5.5.8.2.2</tt>, the short name like
 Lines starting with a <bf>#</bf> are ignored.
 If this files shall contain new inofficial OIDs, they must be also mentioned
 in one of the <tt>oids.txt</tt> files.
+
+<p>
+
+<sect1>Adding your company specific Subject entry
+
+<p>
+
+If you want to / need to add your own company specific subject
+entry to your certificate it can be done without recompiling XCA.
+
+<enum>
+  <item>Add its OID with short name and long name to one
+        of the <tt>oids.txt</tt> file listed in <ref id="new_oids" name="New OIDs"> like:<newline>
+        <tt>1.3.6.1.4.1.12345.1: zodiacSign: Zodiac Sign</tt>
+  <item>Add the OID, short name or long name to the first read <tt>dn.txt</tt>
+        On linux: <tt>cp /usr/share/xca/dn.txt ~/.xca/dn.txt && echo "zodiacSign" >> ~/.xca/dn.txt</tt>
+  <item>Start XCA, open your database and goto <tt>Options->Distinguished name</tt>. In the <tt>Explicit subject entries</tt> select <tt>Zodiac Sign</tt>, click <tt>Add</tt>, move it by dragging it in the list and click OK when satisfied.
+  <item>Create a new certificate and see.
+</enum>
 
 <sect>Step by Step guides
 
