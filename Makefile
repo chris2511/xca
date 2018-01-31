@@ -68,7 +68,7 @@ xca$(SUFFIX): $(OBJECTS)
 	@$(PRINT) "  LINK   $@"
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
 
-do.ui do.doc do.lang: do.%:
+do.ui do.doc do.lang do.misc: do.%:
 	mkdir -p $*
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* $*
 
@@ -100,7 +100,7 @@ clean:
 				-o -name ".depend" \
 				-o -name "moc_*.cpp" | xargs rm -f
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz doc/xca_db_stat.1.gz img/imgres.cpp
-	rm -f lang/*.xml lang/.build-stamp
+	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt misc/oids.txt
 	rm -f xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX) lib/xca_db_stat$(SUFFIX) *.dmg
 	rm -rf xca-$(VERSION)*
 
@@ -133,7 +133,7 @@ install: xca$(SUFFIX) xca_db_stat$(SUFFIX) $(INSTTARGET)
 	$(STRIP) $(destdir)$(bindir)/xca
 
 setup.exe: setup_xca-$(VERSION).exe
-setup_xca-$(VERSION).exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang
+setup_xca-$(VERSION).exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang do.misc
 setup_xca-$(VERSION).exe: misc/xca.nsi
 	for binary in xca$(SUFFIX) xca_db_stat$(SUFFIX); do \
 	  $(STRIP) xca$(SUFFIX); \

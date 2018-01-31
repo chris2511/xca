@@ -112,8 +112,8 @@ void initOIDs()
 #if !defined(Q_OS_MAC)
 	readOIDs(QString(ETC) + oids);
 #endif
-	readOIDs(getUserSettingsDir() + oids);
 #endif
+	readOIDs(getUserSettingsDir() + oids);
 }
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList

@@ -110,7 +110,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static QPixmap *keyImg, *csrImg, *certImg, *tempImg,
 				*nsImg, *revImg, *appIco, *scardImg,
 				*doneIco, *warnIco;
-		static NIDlist *eku_nid, *dn_nid, *aia_nid;
+		static NIDlist *eku_nid, *dn_nid;
 		static QString mandatory_dn;
 		static QString explicit_dn;
 		static QString explicit_dn_default;

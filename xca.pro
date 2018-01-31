@@ -12,7 +12,7 @@ RC_FILE = img/w32res.rc
 macx {
 	ICON = img/xca-mac-icon.icns
 	CONFIG += release_and_debug
-	XCA_RESOURCES.files = misc/oids.txt misc/aia.txt misc/CA.xca misc/dn.txt misc/eku.txt misc/HTTPS_client.xca misc/HTTPS_server.xca
+	XCA_RESOURCES.files = misc/oids.txt misc/CA.xca misc/dn.txt misc/eku.txt misc/HTTPS_client.xca misc/HTTPS_server.xca
 	XCA_RESOURCES.files += lang/xca_de.qm lang/xca_es.qm lang/xca_ru.qm lang/xca_fr.qm lang/xca_hr.qm
 	XCA_RESOURCES.path = Contents/Resources
 	QMAKE_BUNDLE_DATA += XCA_RESOURCES

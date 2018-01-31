@@ -32,7 +32,7 @@ NewX509::NewX509(QWidget *parent)
 	int i;
 	eku_nid = *MainWindow::eku_nid;
 	dn_nid = *MainWindow::dn_nid;
-	aia_nid = *MainWindow::aia_nid;
+	aia_nid << OBJ_sn2nid("OCSP") << OBJ_sn2nid("caIssuers");
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
 	foreach(QString dn, MainWindow::explicit_dn.split(","))
 		expl_dn_nid << OBJ_sn2nid(CCHAR(dn));

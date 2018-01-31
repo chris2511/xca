@@ -878,9 +878,6 @@
          </item>
          <item row="3" column="2">
           <widget class="QComboBox" name="aiaOid">
-           <property name="toolTip">
-            <string>can be altered by the file &quot;aia.txt&quot;</string>
-           </property>
           </widget>
          </item>
          <item row="3" column="3">

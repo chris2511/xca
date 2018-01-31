@@ -55,7 +55,6 @@ db_crl	*MainWindow::crls = NULL;
 
 NIDlist *MainWindow::eku_nid = NULL;
 NIDlist *MainWindow::dn_nid = NULL;
-NIDlist *MainWindow::aia_nid = NULL;
 
 QString MainWindow::mandatory_dn;
 QString MainWindow::explicit_dn;
@@ -141,7 +140,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
-	aia_nid = read_nidlist("aia.txt");
 
 	setAcceptDrops(true);
 
@@ -218,9 +216,9 @@ NIDlist *MainWindow::read_nidlist(QString name)
 	NIDlist nl;
 	name = QDir::separator() + name;
 
-#if !defined(Q_OS_WIN32)
 	/* first try $HOME/xca/ */
 	nl = readNIDlist(getUserSettingsDir() + name);
+#if !defined(Q_OS_WIN32)
 #if !defined(Q_OS_MAC)
 	if (nl.count() == 0){
 		/* next is /etx/xca/... */
@@ -580,8 +578,6 @@ MainWindow::~MainWindow()
 		delete eku_nid;
 	if (dn_nid)
 		delete dn_nid;
-	if (aia_nid)
-		delete aia_nid;
 	delete dbindex;
 #ifdef MDEBUG
 	fprintf(stderr, "Memdebug:\n");

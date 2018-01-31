@@ -68,10 +68,9 @@ Section "xca (required)" SecMain
   ; Put files there
   File "xca.exe"
   File "xca_db_stat.exe"
-  File "${TOPDIR}/misc\dn.txt"
-  File "${TOPDIR}/misc\eku.txt"
-  File "${TOPDIR}/misc\oids.txt"
-  File "${TOPDIR}/misc\aia.txt"
+  File "misc\dn.txt"
+  File "misc\eku.txt"
+  File "misc\oids.txt"
   File "${TOPDIR}/misc\*.xca"
   File "doc\*.html"
 
@@ -96,6 +95,7 @@ Section "xca (required)" SecMain
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\mingwm10.dll"
+  Delete "$INSTDIR\aia.txt"
 
   ; remove old images
   ; Write the installation path into the registry
