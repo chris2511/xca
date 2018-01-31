@@ -17,6 +17,8 @@
 
 int first_additional_oid = 0;
 
+QMap<QString,const char*> oid_name_clash;
+
 /* reads additional OIDs from a file: oid, sn, ln */
 static void readOIDs(QString fname)
 {
@@ -37,24 +39,59 @@ static void readOIDs(QString fname)
 		if (pb.startsWith('#') || pb.size() == 0)
 			continue;
 		sl.clear();
-		sl = pb.split(':');
+		sl = pb.split(QRegExp("\\s*:\\s*"));
 		if (sl.count() != 3) {
-			XCA_WARN(QString("Error reading config file: ") + fname + " Line: " +
-				QString::number(line));
+			XCA_WARN(QObject::tr("Error reading config file %1 at line %2")
+				 .arg(fname).arg(line));
 			fclose(fp);
 			return;
 		} else {
-			QByteArray oid = sl[0].trimmed().toLatin1();
-			QByteArray sn = sl[1].trimmed().toLatin1();
-			QByteArray ln = sl[2].trimmed().toLatin1();
+			bool differs = false;
+			QByteArray in_use, oid, sn, ln;
+
+			oid = sl[0].toLatin1();
+			sn = sl[1].toLatin1();
+			ln = sl[2].toLatin1();
 
 			int nid = OBJ_txt2nid(oid.constData());
-			if ((nid != NID_undef) && (sn != OBJ_nid2sn(nid))) {
-				printf("OID: '%s' SN differs: '%s' '%s'\n",
-					oid.constData(), sn.constData(),
-					OBJ_nid2sn(nid));
+			if (nid != NID_undef) {
+				if (sn != OBJ_nid2sn(nid)) {
+					printf("%s SN differs: '%s' '%s'\n",
+						oid.constData(), sn.constData(),
+						OBJ_nid2sn(nid));
+					oid_name_clash[sn] = OBJ_nid2sn(nid);
+					differs = true;
+				}
+				if (ln != OBJ_nid2ln(nid)) {
+					printf("%s LN differs: '%s' '%s'\n",
+						oid.constData(), ln.constData(),
+						OBJ_nid2ln(nid));
+					oid_name_clash[ln] = OBJ_nid2ln(nid);
+					differs = true;
+				}
+			} else {
+				if (OBJ_txt2nid(sn.constData()) != NID_undef)
+					in_use = sn;
+				if (OBJ_txt2nid(ln.constData()) != NID_undef)
+					in_use = ln;
 			}
-			if ((nid == NID_undef) || (sn != OBJ_nid2sn(nid))) {
+			ign_openssl_error();
+			if (differs) {
+				XCA_WARN(QObject::tr("The Object '%1' from file %2 line %3 is already known as '%4:%5:%6' and should be removed.")
+					.arg(sl.join(":")).arg(fname).arg(line)
+					.arg(OBJ_obj2QString(OBJ_nid2obj(nid), 1))
+					.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid))
+				);
+			} else if (!in_use.isEmpty()) {
+				nid = OBJ_txt2nid(in_use.constData());
+				XCA_WARN(QObject::tr("The identifier '%1' for OID %2 from file %3 line %4 is already used for a different OID as '%5:%6:%7' and should be changed to avoid conflicts.")
+					.arg(in_use.constData())
+					.arg(oid.constData())
+					.arg(fname).arg(line)
+					.arg(OBJ_obj2QString(OBJ_nid2obj(nid), 1))
+					.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid))
+				);
+			} else {
 				OBJ_create(oid.constData(), sn.constData(),
 					ln.constData());
 			}
@@ -87,7 +124,7 @@ void initOIDs()
 NIDlist readNIDlist(QString fname)
 {
 	char buff[128];
-	const char *pb;
+	const char *pb, *userdefined;
 	char *pbe;
 	FILE *fp;
 	int line = 0, nid;
@@ -104,10 +141,13 @@ NIDlist readNIDlist(QString fname)
 		while (*pbe == ' ' || *pbe == '\t' || *pbe == '\r' || *pbe == '\n')
 			*pbe-- = '\0';
 
+		userdefined = oid_name_clash[QString(pb)];
+		if (userdefined)
+			pb = userdefined;
 		nid = OBJ_txt2nid((char *)pb);
 		if (nid == NID_undef)
-			XCA_WARN(QString("Unknown (flying:-) Object: ") + fname +
-				" Line: " + QString::number(line));
+			XCA_WARN(QObject::tr("Unknown object '%1' in file %2 line %3")
+				.arg(pb).arg(fname).arg(line));
 		else
 			nl += nid;
 	}

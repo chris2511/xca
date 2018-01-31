@@ -318,7 +318,7 @@ QString OBJ_obj2QString(const ASN1_OBJECT *a, int no_name)
 	char buf[512];
 	int len;
 
-	len = OBJ_obj2txt(buf, 256, a, no_name);
+	len = OBJ_obj2txt(buf, sizeof buf, a, no_name);
 	openssl_error();
 	return QString::fromLatin1(buf, len);
 }

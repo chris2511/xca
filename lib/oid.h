@@ -10,8 +10,10 @@
 
 class QString;
 #include <QList>
+#include <QMap>
 
 extern int first_additional_oid;
+extern QMap<QString,const char*> oid_name_clash;
 
 typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */

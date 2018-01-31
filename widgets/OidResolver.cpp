@@ -7,6 +7,7 @@
 
 #include <openssl/objects.h>
 #include "OidResolver.h"
+#include "lib/oid.h"
 #include "lib/base.h"
 #include "lib/func.h"
 #include "lib/exception.h"
@@ -29,6 +30,11 @@ void OidResolver::searchOid(QString s)
 	n = s.toUInt(&ok);
 	if (!ok)
 		n = OBJ_txt2nid(CCHAR(s));
+	if (n == NID_undef) {
+		const char *clash = oid_name_clash[s];
+		if (clash)
+			n = OBJ_txt2nid(clash);
+	}
 	ign_openssl_error();
 	if (n == NID_undef) {
 		ln->clear();
