@@ -276,13 +276,18 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 	slotidList p11_slots = getSlotList();
 
 	QStringList slotnames;
-	foreach(slotid slot, p11_slots) {
+	QList<int> slotsWithToken;
+
+	for (int i = 0; i < p11_slots.count(); i++) {
 		try {
-			tkInfo info = tokenInfo(slot);
+			tkInfo info = tokenInfo(p11_slots[i]);
+			slotsWithToken.append(i);
 			slotnames << QString("%1 (#%2)").
 				arg(info.label()).arg(info.serial());
 		} catch (errorEx &e) {
-			XCA_WARN(QString("Error: %1").arg(e.getString()));
+			if (e.info != CKR_TOKEN_NOT_PRESENT) {
+				XCA_WARN(QString("Error: %1").arg(e.getString()));
+			}
 		}
 	}
 	switch (slotnames.count()) {
@@ -290,7 +295,7 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 		XCA_WARN(QObject::tr("No Security token found"));
 		return false;
 	case 1:
-		*slot = p11_slots[0];
+		*slot = p11_slots[slotsWithToken[0]];
                 return true;
 	}
 	Ui::SelectToken ui;
@@ -304,7 +309,7 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 		return false;
 	}
 	int selected = ui.tokenBox->currentIndex();
-	*slot = p11_slots[selected];
+	*slot = p11_slots[slotsWithToken[selected]];
 	delete select_slot;
 	return true;
 }
