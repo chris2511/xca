@@ -167,11 +167,7 @@ void CertDetail::setReq(pki_x509req *req)
 			signature->setText("Failed");
 		} else {
 			signature->setGreen();
-			if (req->isSpki()) {
-				signature->setText("SPKAC");
-			} else {
-				signature->setText("PKCS#10");
-			}
+			signature->setText("PKCS#10");
 		}
 		signature->disableToolTip();
 		trustState->hide();
@@ -221,16 +217,6 @@ void CertDetail::setReq(pki_x509req *req)
 				attrLayout->addWidget(label, ii, j +1);
 			}
 			ii++;
-		}
-		ASN1_IA5STRING *chal = req->spki_challange();
-		if (chal) {
-			QLabel *label;
-			label = new QLabel(this);
-			label->setText(QString("SPKI Challenge String"));
-			attrLayout->addWidget(label, 0, 0);
-			label = labelFromAsn1String(chal);
-			attrLayout->addWidget(label, 0, 1);
-			added++;
 		}
 		if (!added) {
 			tabwidget->removeTab(2);

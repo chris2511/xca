@@ -18,7 +18,7 @@
 
 #include "openssl_compat.h"
 
-QPixmap *pki_x509req::icon[4] = { NULL, NULL, NULL, NULL };
+QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
 
 pki_x509req::pki_x509req(const QString name)
 	: pki_x509super(name)
@@ -27,7 +27,6 @@ pki_x509req::pki_x509req(const QString name)
 	class_name = "pki_x509req";
 	request = X509_REQ_new();
 	pki_openssl_error();
-	spki = NULL;
 	dataVersion=1;
 	pkiType=x509_req;
 	done = false;
@@ -37,9 +36,6 @@ pki_x509req::~pki_x509req()
 {
 	if (request)
 		X509_REQ_free(request);
-	if (spki)
-		NETSCAPE_SPKI_free(spki);
-	pki_openssl_error();
 }
 
 void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, extList el)
@@ -89,7 +85,7 @@ QString pki_x509req::getMsg(msg_type msg)
 	 * %2 will be replaced by the internal name of the request
 	 */
 
-	QString type = isSpki() ? "SPKAC" : "PKCS#10";
+	QString type = "PKCS#10";
 
 	switch (msg) {
 	case msg_import: return tr("Successfully imported the %1 certificate request '%2'").arg(type);
@@ -127,11 +123,6 @@ void pki_x509req::fload(const QString fname)
 			_req = d2i_X509_REQ_fp(fp, NULL);
 		}
 		fclose(fp);
-		// SPKAC
-		if (!_req) {
-			pki_ign_openssl_error();
-			ret = load_spkac(fname);
-		}
 		if (ret || pki_ign_openssl_error()) {
 			if (_req)
 				X509_REQ_free(_req);
@@ -161,24 +152,9 @@ void pki_x509req::d2i(QByteArray &ba)
 	}
 }
 
-void pki_x509req::d2i_spki(QByteArray &ba)
-{
-	NETSCAPE_SPKI *s = (NETSCAPE_SPKI*)d2i_bytearray(
-				D2I_VOID(d2i_NETSCAPE_SPKI), ba);
-        if (s) {
-		NETSCAPE_SPKI_free(spki);
-		spki = s;
-	}
-}
-
 QByteArray pki_x509req::i2d()
 {
 	return i2d_bytearray(I2D_VOID(i2d_X509_REQ), request);
-}
-
-QByteArray pki_x509req::i2d_spki()
-{
-	return i2d_bytearray(I2D_VOID(i2d_NETSCAPE_SPKI), spki);
 }
 
 void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
@@ -210,15 +186,6 @@ x509name pki_x509req::getSubject() const
 
 int pki_x509req::sigAlg()
 {
-	if (spki) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		ASN1_OBJECT *o = NULL;
-		X509_PUBKEY_get0_param(&o, 0, 0, 0, spki->spkac->pubkey);
-		return OBJ_obj2nid(o);
-#else
-		return OBJ_obj2nid(spki->spkac->pubkey->algor->algorithm);
-#endif
-	}
 	return X509_REQ_get_signature_nid(request);
 }
 
@@ -227,22 +194,13 @@ void pki_x509req::setSubject(const x509name &n)
 	X509_REQ_set_subject_name(request, n.get());
 }
 
-bool pki_x509req::isSpki() const
-{
-	return spki != NULL;
-}
-
 QByteArray pki_x509req::toData()
 {
-	QByteArray ba;
-
-	ba += i2d();
-	if (spki) {
-		ba += i2d_spki();
-	}
+	QByteArray ba = i2d();
 	pki_openssl_error();
 	return ba;
 }
+
 void pki_x509req::writeDefault(const QString fname)
 {
 	writeReq(fname + QDir::separator() + getIntName() + ".csr", true);
@@ -276,13 +234,7 @@ BIO *pki_x509req::pem(BIO *b, int format)
 int pki_x509req::verify()
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	bool x;
-
-	if (spki) {
-		x = NETSCAPE_SPKI_verify(spki, pkey) > 0;
-	} else {
-		x = X509_REQ_verify(request,pkey) > 0;
-	}
+	bool x = X509_REQ_verify(request,pkey) > 0;
 	pki_ign_openssl_error();
 	EVP_PKEY_free(pkey);
 	return x;
@@ -307,85 +259,6 @@ extList pki_x509req::getV3ext()
 	el.setStack(sk);
 	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
 	return el;
-}
-
-/*!
-   Load a spkac FILE into this request structure.
-   The file format follows the conventions understood by the 'openssl ca'
-   command. (see: 'man ca')
-*/
-int pki_x509req::load_spkac(const QString filename)
-{
-	QFile file;
-	x509name subject;
-	EVP_PKEY *pktmp = NULL;
-	pki_ign_openssl_error();
-
-	file.setFileName(filename);
-        if (!file.open(QIODevice::ReadOnly))
-		return 1;
-
-	while (!file.atEnd()) {
-		int idx, nid;
-		QByteArray line = file.readLine();
-		if (line.size() == 0)
-			continue;
-		idx = line.indexOf('=');
-		if (idx == -1)
-			goto err;
-		QString type = line.left(idx).trimmed();
-		line = line.mid(idx+1).trimmed();
-
-		idx = type.lastIndexOf(QRegExp("[:,\\.]"));
-		if (idx != -1)
-			type = type.mid(idx+1);
-
-		if ((nid = OBJ_txt2nid(CCHAR(type))) == NID_undef) {
-			if (type != "SPKAC")
-				goto err;
-			pki_ign_openssl_error();
-			spki = NETSCAPE_SPKI_b64_decode(line, line.size());
-			if (!spki)
-				goto err;
-			/*
-			  Now extract the key from the SPKI structure and
-			  check the signature.
-			 */
-			pktmp = NETSCAPE_SPKI_get_pubkey(spki);
-			if (pktmp == NULL)
-				goto err;
-
-			if (NETSCAPE_SPKI_verify(spki, pktmp) != 1)
-				goto err;
-		} else {
-			// gather all values in the x509name subject.
-			subject.addEntryByNid(nid,
-				filename2QString(line.constData()));
-		}
-	}
-	if (!pktmp)
-		goto err;
-	setSubject(subject);
-	X509_REQ_set_pubkey(request, pktmp);
-	EVP_PKEY_free(pktmp);
-	return 0;
-err:
-	if (pktmp)
-		EVP_PKEY_free(pktmp);
-	if (spki) {
-		NETSCAPE_SPKI_free(spki);
-		spki = NULL;
-	}
-	return 1;
-}
-
-ASN1_IA5STRING *pki_x509req::spki_challange()
-{
-	if (spki) {
-		if (spki->spkac->challenge->length >0)
-			return spki->spkac->challenge;
-	}
-	return NULL;
 }
 
 QString pki_x509req::getAttribute(int nid)
@@ -431,12 +304,10 @@ QVariant pki_x509req::getIcon(dbheader *hd)
 		k = getRefKey();
 		if (k && k->isPrivKey())
 			pixnum = 1;
-		if (spki != NULL)
-			 pixnum = 2;
 		break;
 	case HD_req_signed:
 		if (done)
-			pixnum = 3;
+			pixnum = 2;
 		break;
 	}
 	if (pixnum == -1)
@@ -461,11 +332,4 @@ void pki_x509req::oldFromData(unsigned char *p, int size)
 	privkey = NULL;
 
 	d2i(ba);
-	if (ba.count() > 0)
-		d2i_spki(ba);
-
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
-	}
 }
-

@@ -28,6 +28,7 @@ pki_base *load_base::loadItem(QString s)
 		return NULL;
 	try {
 		pki->fload(s);
+		openssl_error();
 	}
 	catch (errorEx &err){
 		delete pki;
@@ -64,8 +65,7 @@ pki_base * load_key::newItem()
 load_req::load_req()
 	:load_base()
 {
-	filter = QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr );; "
-			"Netscape Request ( *.spkac *.spc );;") + filter;
+	filter = QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr );; ") + filter;
 	caption = QObject::tr("Import Request");
 }
 

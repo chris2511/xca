@@ -21,21 +21,15 @@ class pki_x509;
 class pki_x509req : public pki_x509super
 {
 		Q_OBJECT
-	private:
-		//loading spkac file and convert it to a request
-		int load_spkac(const QString filename);
-		//for checking spkac content-fields
-		int fix_data(int nid, int *type);
 
 	protected:
 		X509_REQ *request;
-		NETSCAPE_SPKI *spki;
 		bool done;
 		int sigAlg();
 
 	public:
 		extList getV3ext();
-		static QPixmap *icon[4];
+		static QPixmap *icon[3];
 		pki_x509req(QString name = "");
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
@@ -45,7 +39,6 @@ class pki_x509req : public pki_x509super
 		void oldFromData(unsigned char *p, int size);
 		QByteArray toData();
 		x509name getSubject() const;
-		bool isSpki() const;
 		void writeReq(const QString fname, bool pem);
 		X509_REQ *getReq()
 		{
@@ -60,7 +53,6 @@ class pki_x509req : public pki_x509super
 		   extList el);
 		void setSubject(const x509name &n);
 		/* SPKAC special functions */
-		ASN1_IA5STRING *spki_challange();
 		QVariant column_data(dbheader *hd);
 		QVariant getIcon(dbheader *hd);
 		void setDone(bool d = true)
@@ -73,9 +65,7 @@ class pki_x509req : public pki_x509super
 		}
 		virtual QString getMsg(msg_type msg);
 		void d2i(QByteArray &ba);
-		void d2i_spki(QByteArray &ba);
 		QByteArray i2d();
-		QByteArray i2d_spki();
 		BIO *pem(BIO *, int);
 		bool visible();
 };

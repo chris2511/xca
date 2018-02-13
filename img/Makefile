@@ -19,7 +19,7 @@ imgres.cpp: imgres.rcc
 	@$(PRINT) "  RCC    [$(BASENAME)] $@"
 	$(RCC) -o $@ $<
 
-imgres.rcc: bigcert.png bigcrl.png bigcsr.png bigkey.png bigtemp.png crl.png halfkey.png invalidcertkey.png invalidcert.png key.png netscape.png reqkey.png req.png spki.png template.png validcertkey.png validcert.png scard.png
+imgres.rcc: bigcert.png bigcrl.png bigcsr.png bigkey.png bigtemp.png crl.png halfkey.png invalidcertkey.png invalidcert.png key.png netscape.png reqkey.png req.png template.png validcertkey.png validcert.png scard.png
 
 w32res.o: w32res.rc key.ico xca.ico xdb.ico
 	@$(PRINT) " WINDRES $@"
