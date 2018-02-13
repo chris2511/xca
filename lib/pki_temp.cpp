@@ -554,6 +554,7 @@ void pki_temp::oldFromData(const unsigned char *p, int size)
 		xname.addEntryByNid(OBJ_sn2nid("CN"), db::stringFromData(ba));
 		xname.addEntryByNid(OBJ_sn2nid("Email"),db::stringFromData(ba));
 	}
+	pki_openssl_error();
 	subAltName=db::stringFromData(ba);
 	issAltName=db::stringFromData(ba);
 	crlDist=db::stringFromData(ba);
@@ -567,6 +568,7 @@ void pki_temp::oldFromData(const unsigned char *p, int size)
 	// next version:
 	if (version >= 2) {
 		xname.d2i(ba);
+		pki_openssl_error();
 	}
 	if (version >= 3) {
 		authInfAcc=db::stringFromData(ba);
@@ -577,5 +579,6 @@ void pki_temp::oldFromData(const unsigned char *p, int size)
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
+	pki_openssl_error();
 }
 

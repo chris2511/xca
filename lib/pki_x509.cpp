@@ -493,34 +493,41 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 		a1time revoked;
 		isRevoked = db::boolFromData(ba);
 		revoked.d2i(ba);
+		pki_openssl_error();
 		if (isRevoked) {
 			revocation.setDate(revoked);
 			revocation.setSerial(getSerial());
 		}
 	}
 	caSerial.setHex(db::stringFromData(ba));
+	pki_openssl_error();
 	caTemplate = db::stringFromData(ba);
 	crlDays = db::intFromData(ba);
 	crlExpiry.d2i(ba);
+	pki_openssl_error();
 	if (version > 1)
 		randomSerial = db::boolFromData(ba);
 	else
 		randomSerial = false;
 	if (version > 2)
 		crlNumber.setHex(db::stringFromData(ba));
+	pki_openssl_error();
 	if (version > 2 && version < 4) {
 		// load own revocation info, to tell daddy about it
 		a1time invalDate;
 		QString revoke_reason = db::stringFromData(ba);
 		invalDate.d2i(ba);
+		pki_openssl_error();
 		if (isRevoked) {
 			revocation.setReason(revoke_reason);
 			revocation.setInvalDate(invalDate);
 		}
 	}
+	pki_openssl_error();
 	if (version > 3) {
 		x509revList curr(revList);
 		revList.fromBA(ba);
+		pki_openssl_error();
 		revList.merge(curr);
 	}
 	if (ba.count() > 0) {
@@ -528,7 +535,6 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	}
 	pki_openssl_error();
 }
-
 
 QByteArray pki_x509::toData()
 {

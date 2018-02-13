@@ -105,26 +105,31 @@ void pki_crl::setLastUpdate(const a1time &a)
 {
 	a1time t(a);
 	X509_CRL_set_lastUpdate(crl, t.get_utc());
+	pki_openssl_error();
 }
 
 void pki_crl::setNextUpdate(const a1time &a)
 {
 	a1time t(a);
 	X509_CRL_set_nextUpdate(crl, t.get_utc());
+	pki_openssl_error();
 }
 
 pki_crl::~pki_crl()
 {
 	X509_CRL_free(crl);
+	pki_openssl_error();
 }
 
 void pki_crl::d2i(QByteArray &ba)
 {
 	X509_CRL *c = (X509_CRL*)d2i_bytearray(D2I_VOID(d2i_X509_CRL), ba);
+	pki_openssl_error();
 	if (c) {
 		X509_CRL_free(crl);
 		crl = c;
 	}
+	pki_openssl_error();
 }
 
 QByteArray pki_crl::i2d()
