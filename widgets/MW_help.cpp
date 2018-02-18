@@ -89,6 +89,7 @@ void MainWindow::about()
 	"<p>Version: %4<p>%1<p>%2" /* commithash, Brainpool, OpenSSL & Qt Version */
 	"<p>http://sourceforge.net/projects/xca"
 	"<p>Entropy strength: %3"
+	"<p>Installation path: <i>%5</i><br/>User settings path: <i>%6</i>"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
@@ -100,7 +101,9 @@ void MainWindow::about()
 	"<tr><td><b>French</b></td><td>Patrick Monnerat &lt;Patrick.Monnerat@datasphere.ch&gt;</td></tr>"
 	"<tr><td><b>Croatian</b></td><td>Nevenko Bartolincic &lt;nevenko.bartolincic@gmail.com&gt;</td></tr>"
 	"<tr><td><b>Slovak</b></td><td>Slavko &lt;linux@slavino.sk&gt;</td></tr>"
-	"</table>").arg(brainpool).arg(version).arg(Entropy::strength()).arg(version_str(true));
+	"</table>").arg(brainpool).arg(version).arg(Entropy::strength())
+			.arg(version_str(true)).arg(getPrefix())
+			.arg(getUserSettingsDir());
 
 	about->setWindowTitle(XCA_TITLE);
 	ui.image->setPixmap( *keyImg );
