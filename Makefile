@@ -172,7 +172,7 @@ xca.dmg: $(MACTARGET).dmg
 xca.app: $(DMGSTAGE)
 
 $(MACTARGET).dmg: $(DMGSTAGE)
-	hdiutil create -ov -srcfolder $< $@
+	hdiutil create -ov -srcfolder "$<" "$@"
 
 trans:
 	$(MAKE) -C lang po2ts
