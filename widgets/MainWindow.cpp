@@ -155,16 +155,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::dropEvent(QDropEvent *event)
 {
-	QList<QUrl> urls = event->mimeData()->urls();
-	QUrl u;
-	QStringList files;
+	if (event->mimeData()->hasUrls()) {
+		QList<QUrl> urls = event->mimeData()->urls();
+		QUrl u;
+		QStringList files;
 
-	foreach(u, urls) {
-		QString s = u.toLocalFile();
-		files << s;
+		foreach(u, urls) {
+			QString s = u.toLocalFile();
+			files << s;
+		}
+		openURLs(files);
+		event->acceptProposedAction();
+	} else if (event->mimeData()->hasText()) {
+		event->acceptProposedAction();
+		pastePem(event->mimeData()->text());
 	}
-	openURLs(files);
-	event->acceptProposedAction();
 }
 
 void MainWindow::openURLs(QStringList &files)
@@ -192,7 +197,10 @@ void MainWindow::openURLs()
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-	if (event->mimeData()->hasUrls())
+	if (event->mimeData()->hasFormat(X_XCA_DRAG_DATA))
+		return;
+
+	if (event->mimeData()->hasUrls() || event->mimeData()->hasText())
 		event->acceptProposedAction();
 }
 

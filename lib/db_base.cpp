@@ -13,6 +13,7 @@
 #include <QClipboard>
 #include <QDir>
 #include <QDebug>
+#include <QMimeData>
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 
@@ -282,7 +283,7 @@ void db_base::insertPKI(pki_base *pki)
 	emit columnsContentChanged();
 }
 
-QString db_base::pem2QString(QModelIndexList indexes)
+QString db_base::pem2QString(QModelIndexList indexes) const
 {
 	exportType::etype format;
 	QString msg;
@@ -291,6 +292,8 @@ QString db_base::pem2QString(QModelIndexList indexes)
 	foreach(QModelIndex idx, indexes) {
 		long l;
 		const char *p;
+		if (idx.column() != 0)
+			continue;
 		BIO *bio = BIO_new(BIO_s_mem());
 		pki_base *pki = static_cast<pki_base*>
 				(idx.internalPointer());
@@ -303,7 +306,7 @@ QString db_base::pem2QString(QModelIndexList indexes)
 	return msg;
 }
 
-void db_base::pem2clipboard(QModelIndexList indexes)
+void db_base::pem2clipboard(QModelIndexList indexes) const
 {
 	QString msg = pem2QString(indexes);
 	QClipboard *cb = QApplication::clipboard();
@@ -548,10 +551,12 @@ Qt::ItemFlags db_base::flags(const QModelIndex &index) const
 	if (!index.isValid())
 		return Qt::ItemIsEnabled;
 
+	Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
+	defaultFlags |= Qt::ItemIsDragEnabled;
+
 	if (index.column() == 0)
-		return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
-	else
-		return QAbstractItemModel::flags(index);
+		return defaultFlags |= Qt::ItemIsEditable;
+	return defaultFlags;
 }
 
 bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -675,4 +680,17 @@ bool db_base::isNumericCol(int col) const
 bool db_base::isValidCol(int col) const
 {
 	return col >= allHeaders.size() || col < 0 ? false : true;
+}
+
+QMimeData *db_base::mimeData(const QModelIndexList &indexes) const
+{
+	QString data = pem2QString(indexes);
+
+	if (data.isEmpty())
+		return NULL;
+
+	QMimeData *mimeData = new QMimeData();
+	mimeData->setText(data.toLatin1());
+	mimeData->setData(X_XCA_DRAG_DATA, QByteArray());
+	return mimeData;
 }

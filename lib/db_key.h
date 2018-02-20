@@ -23,7 +23,7 @@ class db_key: public db_base
 
 	protected:
 		virtual dbheaderList getHeaders();
-		exportType::etype clipboardFormat(QModelIndexList indexes);
+		exportType::etype clipboardFormat(QModelIndexList indexes) const;
 	public:
 		db_key(QString db, MainWindow *mw);
 		QStringList getPrivateDesc();

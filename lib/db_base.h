@@ -23,6 +23,8 @@
 #define FOR_ALL_pki(pki, pki_type) \
 	for(pki_type *pki=(pki_type*)rootItem->iterate(); pki; pki=(pki_type*)pki->iterate())
 
+#define X_XCA_DRAG_DATA "application/x-xca-drag-data"
+
 class MainWindow;
 class QContextMenuEvent;
 class XcaTreeView;
@@ -45,9 +47,8 @@ class db_base: public QAbstractItemModel
 		virtual dbheaderList getHeaders();
 		int colResizing;
 		int handleBadEntry(unsigned char *p, db_header_t *head);
-		virtual exportType::etype clipboardFormat(QModelIndexList indexes)
+		virtual exportType::etype clipboardFormat(QModelIndexList) const
 		{
-			(void)indexes;
 			return exportType::Separator;
 		}
 		bool isValidCol(int col) const;
@@ -105,10 +106,12 @@ class db_base: public QAbstractItemModel
 		dbheaderList getAllHeaders() {
 			return allHeaders;
 		}
-		void pem2clipboard(QModelIndexList indexes);
-		QString pem2QString(QModelIndexList indexes);
+		void pem2clipboard(QModelIndexList indexes) const;
+		QString pem2QString(QModelIndexList indexes) const;
 
 		void deletePKI(QModelIndex idx);
+		QMimeData *mimeData(const QModelIndexList &indexes) const;
+
 
 	public slots:
 		virtual void newItem() { }

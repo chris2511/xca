@@ -195,7 +195,7 @@ void db_key::showPki(pki_base *pki)
 		delete dlg;
 	}
 }
-exportType::etype db_key::clipboardFormat(QModelIndexList indexes)
+exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 {
 	QList<exportType> types;
 	bool allPriv = true;

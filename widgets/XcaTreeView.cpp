@@ -28,6 +28,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
 	setRootIsDecorated(false);
 	setUniformRowHeights(true);
+	setDragEnabled(true);
 	//setAnimated(true);
 
 	proxy = new XcaProxyModel(this);
