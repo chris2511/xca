@@ -5,7 +5,7 @@ endif
 
 DELFILES=xca*.html xca.1.gz xca_db_stat.1.gz
 
-doc: xca.1.gz xca_db_stat.1.gz xca.html
+doc: xca.1.gz xca_db_stat.1.gz xca.html changelog.html
 include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1
@@ -28,3 +28,13 @@ install: $(doc)
 app: xca.html
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 xca*.html $(APPDIR)/Resources
+
+changelog.html: $(TOPDIR)/changelog $(TOPDIR)/doc/html.header
+	( cat $(TOPDIR)/doc/html.header; \
+	  echo '</head><body>'; \
+	  sed  's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/^\(xca .*\)/<\/ul><p><h3>\1<\/h3><ul>/; s/\*/<\/li><li>/'; \
+	  echo '</body></html>' \
+	) < $< > $@
+
+upload: changelog.html xca.html
+	scp *.html hohnstaedt.de:xca-doc/

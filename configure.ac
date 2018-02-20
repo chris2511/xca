@@ -227,8 +227,8 @@ if test "${enable_doc}"; then
   AC_SUBST([DOCTOOL])
 
   case "$DOCTOOL" in
-   linuxdoc) DOCTOOL="linuxdoc -B html";;
-   sgml2html) DOCTOOL="sgml2html -s 1";;
+   linuxdoc) DOCTOOL="linuxdoc -B html -H \$(TOPDIR)/doc/html.header";;
+   sgml2html) DOCTOOL="sgml2html -s 1 -H \$(TOPDIR)/doc/html.header";;
    :)
     if test "${srcdir}" != "."; then
       mkdir -p doc
