@@ -1094,7 +1094,7 @@ void NewX509::on_tabWidget_currentChanged(int tab)
 
 QString NewX509::mandatoryDnRemain()
 {
-	QStringList dnl = MainWindow::mandatory_dn.split(",");
+	QStringList remain, dnl = MainWindow::mandatory_dn.split(",");
 	x509name n;
 	int i;
 
@@ -1108,7 +1108,12 @@ QString NewX509::mandatoryDnRemain()
 		if (j>=0)
 			dnl.removeAt(j);
 	}
-	return dnl.join(",");
+	if (dnl.size() == 0)
+		return QString();
+
+	foreach(QString x, dnl)
+		remain << QString(OBJ_sn2ln(x.toLatin1()));
+	return QString("'%1'").arg(remain.join("','"));
 }
 
 void NewX509::gotoTab(int tab)
