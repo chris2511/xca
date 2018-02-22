@@ -40,5 +40,5 @@ install:
 app:
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 $(SRCPATH)Info.plist $(SRCPATH)PkgInfo $(APPDIR)
-	install -m 644 $(SRCPATH)*.txt $(SRCPATH)*.xca $(APPDIR)/Resources
+	install -m 644 $(CONFIG_OBJ) $(SRCPATH)*.xca $(APPDIR)/Resources
 
