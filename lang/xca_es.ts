@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1">
 <context>
     <name>About</name>
     <message>
@@ -1047,7 +1047,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+1000"/>
+        <location filename="../widgets/MainWindow.cpp" line="+1017"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1317,7 +1317,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-699"/>
+        <location filename="../widgets/MainWindow.cpp" line="-697"/>
         <source>no such option: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1332,12 +1332,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-288"/>
+        <location line="-294"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+294"/>
+        <location line="+300"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1352,7 +1352,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+57"/>
         <source>Current Password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1833,23 +1833,18 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
-        <source>can be altered by the file &quot;aia.txt&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-79"/>
+        <location line="-43"/>
         <location line="+17"/>
         <location line="+33"/>
-        <location line="+43"/>
+        <location line="+40"/>
         <location filename="../widgets/NewX509.cpp" line="+841"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-100"/>
+        <location line="-97"/>
         <location line="+17"/>
-        <location line="+76"/>
+        <location line="+73"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1945,7 +1940,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+108"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2068,13 +2063,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+222"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+217"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-855"/>
+        <location filename="../ui/NewX509.ui" line="-852"/>
         <source>Distinguished name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2309,7 +2304,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+218"/>
+        <location filename="../lib/db.cpp" line="+222"/>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2345,7 +2340,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>Import RSA key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2356,11 +2351,11 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     </message>
     <message>
         <location line="+15"/>
-        <source>PKCS#10 CSR ( *.pem *.der *.csr );; Netscape Request ( *.spkac *.spc );;</source>
+        <source>PKCS#10 CSR ( *.pem *.der *.csr );; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Import Request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2470,7 +2465,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+53"/>
         <source>No Security token found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2728,6 +2723,26 @@ In library %3
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../lib/oid.cpp" line="+44"/>
+        <source>Error reading config file %1 at line %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>The Object &apos;%1&apos; from file %2 line %3 is already known as &apos;%4:%5:%6&apos; and should be removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>The identifier &apos;%1&apos; for OID %2 from file %3 line %4 is already used for a different OID as &apos;%5:%6:%7&apos; and should be changed to avoid conflicts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -2941,7 +2956,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Transform</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2951,7 +2966,7 @@ In library %3
         <translation type="unfinished">Plantilla</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Public key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2959,7 +2974,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+298"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+305"/>
         <source>Subject entries</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3037,7 +3052,7 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+205"/>
+        <location filename="../lib/db_base.cpp" line="+206"/>
         <source>Internal name</source>
         <translation type="unfinished">Nombre interno</translation>
     </message>
@@ -3072,17 +3087,17 @@ Size: %3
     </message>
     <message>
         <location line="+19"/>
-        <location line="+542"/>
+        <location line="+546"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-432"/>
+        <location line="-436"/>
         <source>No.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+406"/>
+        <location line="+410"/>
         <source>How to export the %1 selected items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3275,13 +3290,13 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Cambiar PIN</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+98"/>
         <source>Export public key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-25"/>
-        <location line="+35"/>
+        <location line="-27"/>
+        <location line="+37"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3291,8 +3306,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-33"/>
-        <location line="+37"/>
+        <location line="-35"/>
+        <location line="+39"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3312,8 +3327,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-41"/>
-        <location line="+46"/>
+        <location line="-43"/>
+        <location line="+48"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3338,12 +3353,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-285"/>
+        <location line="-287"/>
         <source>EC Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+183"/>
         <source>Clipboard</source>
         <translation type="unfinished">Portapapeles</translation>
     </message>
@@ -3845,7 +3860,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+58"/>
         <location line="+210"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
@@ -3911,12 +3926,12 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+37"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-287"/>
         <source>Ignoring unsupported private key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3924,7 +3939,7 @@ and thus was not stored</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+155"/>
+        <location filename="../lib/pki_key.cpp" line="+181"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4159,12 +4174,12 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+286"/>
+        <location line="+288"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-196"/>
         <source>Template file content error (too small)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4232,8 +4247,8 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+574"/>
+        <location line="+65"/>
+        <location line="+573"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4266,7 +4281,7 @@ and thus was not stored</source>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+53"/>
+        <location filename="../lib/pki_x509req.cpp" line="+49"/>
         <source>Signing key not valid (public key)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4291,23 +4306,18 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+34"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="+158"/>
         <source>Signed</source>
         <translation type="unfinished">Firma</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unhandled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+54"/>
-        <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

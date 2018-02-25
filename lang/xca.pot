@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 07:04+0200\n"
+"POT-Creation-Date: 2018-02-25 17:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1530,201 +1530,197 @@ msgid "URI:"
 msgstr ""
 
 #: NewX509#54
-msgid "can be altered by the file \"aia.txt\""
-msgstr ""
-
-#: NewX509#55
-msgctxt "NewX509#55"
+msgctxt "NewX509#54"
 msgid "Key usage"
 msgstr ""
 
-#: NewX509#56
+#: NewX509#55
 msgid "Netscape"
 msgstr ""
 
-#: NewX509#57
+#: NewX509#56
 msgid "Advanced"
 msgstr ""
 
-#: NewX509#58
-msgctxt "NewX509#58"
+#: NewX509#57
+msgctxt "NewX509#57"
 msgid "Validate"
 msgstr ""
 
-#: NewX509#59
+#: NewX509#58
 msgid "Create a &self signed certificate with a MD5-hashed QA serial"
 msgstr ""
 
-#: NewX509#60
+#: NewX509#59
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
 msgstr ""
 
-#: NewX509#61
-msgctxt "NewX509#61"
+#: NewX509#60
+msgctxt "NewX509#60"
 msgid "Internal name"
 msgstr ""
 
-#: NewX509#62
+#: NewX509#61
 msgid "Critical"
 msgstr ""
 
-#: NewX509#63
+#: NewX509#62
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: NewX509#64
+#: NewX509#63
 msgid "minimum size: %1"
 msgstr ""
 
-#: NewX509#65
+#: NewX509#64
 msgid "maximum size: %1"
 msgstr ""
 
-#: NewX509#66
+#: NewX509#65
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: NewX509#67
+#: NewX509#66
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: NewX509#68
+#: NewX509#67
 msgid "Create XCA template"
 msgstr ""
 
-#: NewX509#69
+#: NewX509#68
 msgid "Edit XCA template"
 msgstr ""
 
-#: NewX509#70
+#: NewX509#69
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: NewX509#71
+#: NewX509#70
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#72
+#: NewX509#71
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#73
+#: NewX509#72
 msgid "Errors"
 msgstr ""
 
-#: NewX509#74
+#: NewX509#73
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: NewX509#75
-msgctxt "NewX509#75"
+#: NewX509#74
+msgctxt "NewX509#74"
 msgid "Abort rollout"
 msgstr ""
 
-#: NewX509#76
+#: NewX509#75
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: NewX509#77
+#: NewX509#76
 msgid "Edit subject"
 msgstr ""
 
-#: NewX509#78
-msgctxt "NewX509#78"
+#: NewX509#77
+msgctxt "NewX509#77"
 msgid "Continue rollout"
 msgstr ""
 
-#: NewX509#79
+#: NewX509#78
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: NewX509#80
+#: NewX509#79
 msgid "Continue anyway"
 msgstr ""
 
-#: NewX509#81
+#: NewX509#80
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: NewX509#82
+#: NewX509#81
 msgid "Edit name"
 msgstr ""
 
-#: NewX509#83
+#: NewX509#82
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: NewX509#84
+#: NewX509#83
 msgid "Select key"
 msgstr ""
 
-#: NewX509#85
+#: NewX509#84
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: NewX509#86
-msgctxt "NewX509#86"
+#: NewX509#85
+msgctxt "NewX509#85"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: NewX509#87
+#: NewX509#86
 msgid "Select other signer"
 msgstr ""
 
-#: NewX509#88
+#: NewX509#87
 msgid "Select other key"
 msgstr ""
 
-#: NewX509#89
-msgctxt "NewX509#89"
+#: NewX509#88
+msgctxt "NewX509#88"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
+#: NewX509#89
+msgctxt "NewX509#89"
+msgid "Edit dates"
+msgstr ""
+
 #: NewX509#90
 msgctxt "NewX509#90"
-msgid "Edit dates"
+msgid "Adjust date and continue"
 msgstr ""
 
 #: NewX509#91
 msgctxt "NewX509#91"
-msgid "Adjust date and continue"
-msgstr ""
-
-#: NewX509#92
-msgctxt "NewX509#92"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#93
+#: NewX509#92
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: NewX509#94
+#: NewX509#93
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: NewX509#95
+#: NewX509#94
 msgid "Edit extensions"
 msgstr ""
 
-#: NewX509#96
+#: NewX509#95
 msgid "Configfile error on line %1\n"
 msgstr ""
 
@@ -2104,8 +2100,7 @@ msgid ""
 msgstr ""
 
 #: QObject#50
-msgid ""
-"PKCS#10 CSR ( *.pem *.der *.csr );; Netscape Request ( *.spkac *.spc );;"
+msgid "PKCS#10 CSR ( *.pem *.der *.csr );; "
 msgstr ""
 
 #: QObject#51
@@ -2245,6 +2240,26 @@ msgstr ""
 
 #: QObject#84
 msgid "String '%1' for '%2' contains invalid characters"
+msgstr ""
+
+#: QObject#85
+msgid "Error reading config file %1 at line %2"
+msgstr ""
+
+#: QObject#86
+msgid ""
+"The Object '%1' from file %2 line %3 is already known as '%4:%5:%6' and "
+"should be removed."
+msgstr ""
+
+#: QObject#87
+msgid ""
+"The identifier '%1' for OID %2 from file %3 line %4 is already used for a "
+"different OID as '%5:%6:%7' and should be changed to avoid conflicts."
+msgstr ""
+
+#: QObject#88
+msgid "Unknown object '%1' in file %2 line %3"
 msgstr ""
 
 #: ReqTreeView#1
@@ -3373,11 +3388,6 @@ msgstr ""
 
 #: pki_x509req#8
 msgid "Unhandled"
-msgstr ""
-
-#: pki_x509req#9
-msgctxt "pki_x509req#9"
-msgid "Wrong Size %1"
 msgstr ""
 
 #: v3ext#1
