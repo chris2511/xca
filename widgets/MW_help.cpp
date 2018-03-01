@@ -87,7 +87,7 @@ void MainWindow::about()
 	"<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2001 - 2018 by Christian Hohnst&auml;dt\n"
 	"<p>Version: %4<p>%1<p>%2" /* commithash, Brainpool, OpenSSL & Qt Version */
-	"<p>http://sourceforge.net/projects/xca"
+	"<p>http://hohnstaedt.de/xca"
 	"<p>Entropy strength: %3"
 	"<p>Installation path: <i>%5</i><br/>User settings path: <i>%6</i>"
 	"<hr><table border=0>"
