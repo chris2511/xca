@@ -71,7 +71,8 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 	SQL_PREPARE(q, "UPDATE items SET stamp=? WHERE stamp=0");
 	q.bindValue(0, DatabaseStamp);
 	q.exec();
-	SQL_PREPARE(q, "UPDATE items SET stamp=? WHERE item=?");
+
+	SQL_PREPARE(q, "UPDATE items SET stamp=? WHERE id=?");
 	q.bindValue(0, DatabaseStamp);
 	foreach(quint64 id, DbTransaction::items) {
 		q.bindValue(1, id);

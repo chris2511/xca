@@ -163,7 +163,7 @@ QSqlError pki_base::deleteSql()
 
 	if (!sqlItemId.isValid()) {
 		qDebug("INVALID sqlItemId (DELETE %s)", CCHAR(getIntName()));
-			return sqlItemNotFound(QVariant());
+		return sqlItemNotFound(QVariant());
 	}
 	e = deleteSqlData();
 	if (e.isValid())

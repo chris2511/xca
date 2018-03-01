@@ -170,7 +170,8 @@ QSqlError pki_x509::deleteSqlData()
 		"SELECT DISTINCT items.id FROM items, certs, crls "
 		"WHERE (items.id = certs.item OR items.id = crls.item) "
 		"AND crls.issuer = ? AND certs.issuer = ?",
-		QList<QVariant>() << QVariant(sqlItemId));
+		QList<QVariant>() << QVariant(sqlItemId)
+				  << QVariant(sqlItemId));
 
 	foreach(pki_base *pki, list)
 		AffectedItems(pki->getSqlItemId());
