@@ -192,6 +192,7 @@ QDateTime a1time::now(int delta)
 void a1time::d2i(QByteArray &ba)
 {
 	ASN1_TIME *n = (ASN1_TIME*)d2i_bytearray( D2I_VOID(d2i_ASN1_TIME), ba);
+	openssl_error();
 	if (n) {
 		from_asn1(n);
 		ASN1_TIME_free(n);

@@ -16,33 +16,37 @@ ASN1_INTEGER *a1int::dup(const ASN1_INTEGER *a) const
 {
 	// this wrapper casts the const to work around the nonconst
 	// declared ASN1_STRING_dup (actually it is const
-	return ASN1_INTEGER_dup((ASN1_INTEGER *)a);
+	ASN1_INTEGER *r = ASN1_INTEGER_dup((ASN1_INTEGER *)a);
+	openssl_error();
+	if (!r)
+		r = ASN1_INTEGER_new();
+	check_oom(r);
+	return r;
 }
 
 a1int::a1int()
 {
 	in = ASN1_INTEGER_new();
+	check_oom(in);
 	ASN1_INTEGER_set(in, 0);
+	openssl_error();
 }
 
 a1int::a1int(const ASN1_INTEGER *i)
 {
 	in = dup(i);
-	if (!in)
-		in = ASN1_INTEGER_new();
 }
 
 a1int::a1int(const a1int &a)
 {
 	in = dup(a.in);
-	if (!in)
-		in = ASN1_INTEGER_new();
 }
 
 
 a1int::a1int(long l)
 {
 	in = ASN1_INTEGER_new();
+	check_oom(in);
 	set(l);
 }
 
@@ -61,58 +65,61 @@ a1int &a1int::set(const ASN1_INTEGER *i)
 a1int &a1int::set(long l)
 {
 	ASN1_INTEGER_set(in, l);
+	openssl_error();
 	return *this;
+}
+
+QString a1int::toQString(int dec) const
+{
+	QString r;
+	if (in->length == 0) {
+		return r;
+	}
+	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	openssl_error();
+	char *res = dec ? BN_bn2dec(bn) : BN_bn2hex(bn);
+	openssl_error();
+	r = res;
+	OPENSSL_free(res);
+	BN_free(bn);
+	return r;
 }
 
 QString a1int::toHex() const
 {
-	QString r;
-	if (in->length == 0) {
-		return r;
-	}
-	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
-	char *res = BN_bn2hex(bn);
-	r = res;
-	OPENSSL_free(res);
-	BN_free(bn);
-	return r;
+	return toQString(0);
 }
 
 QString a1int::toDec() const
 {
-	QString r;
-	if (in->length == 0) {
-		return r;
+	return toQString(1);
+}
+
+a1int &a1int::setQString(const QString &s, int dec)
+{
+	BIGNUM *bn = NULL;
+	if (s.isEmpty()) {
+		return *this;
 	}
-	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
-	char *res = BN_bn2dec(bn);
-	r = res;
+	if (dec)
+		BN_dec2bn(&bn, s.toLatin1());
+	else
+		BN_hex2bn(&bn, s.toLatin1());
+	openssl_error();
+	BN_to_ASN1_INTEGER(bn, in);
+	openssl_error();
 	BN_free(bn);
-	OPENSSL_free(res);
-	return r;
+	return *this;
 }
 
 a1int &a1int::setHex(const QString &s)
 {
-	BIGNUM *bn=0;
-	if (s.isEmpty()) {
-		return *this;
-	}
-	if (!BN_hex2bn(&bn,s.toLatin1()))
-		openssl_error();
-	BN_to_ASN1_INTEGER(bn, in);
-	BN_free(bn);
-	return *this;
+	return setQString(s, 0);
 }
 
 a1int &a1int::setDec(const QString &s)
 {
-	BIGNUM *bn=0;
-	if (!BN_dec2bn(&bn,s.toLatin1()))
-		openssl_error();
-	BN_to_ASN1_INTEGER(bn, in);
-	BN_free(bn);
-	return *this;
+	return setQString(s, 1);
 }
 
 a1int &a1int::setRaw(const unsigned char *data, unsigned len)
@@ -121,6 +128,7 @@ a1int &a1int::setRaw(const unsigned char *data, unsigned len)
 	if (!bn)
 		openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
+	openssl_error();
 	BN_free(bn);
 	return *this;
 }
@@ -137,14 +145,19 @@ const ASN1_INTEGER *a1int::get0() const
 
 long a1int::getLong() const
 {
-	return ASN1_INTEGER_get(in);
+	long l = ASN1_INTEGER_get(in);
+	openssl_error();
+	return l;
 }
 
 a1int &a1int::operator ++ (void)
 {
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	openssl_error();
 	BN_add(bn, bn, BN_value_one());
+	openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
+	openssl_error();
 	BN_free(bn);
 	return *this;
 }
@@ -165,6 +178,7 @@ a1int &a1int::operator = (const a1int &a)
 a1int &a1int::operator = (long i)
 {
 	ASN1_INTEGER_set(in, i);
+	openssl_error();
 	return *this;
 }
 

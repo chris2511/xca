@@ -16,6 +16,8 @@ class a1int
    private:
 	ASN1_INTEGER *in;
 	ASN1_INTEGER *dup(const ASN1_INTEGER *a) const;
+	a1int &setQString(const QString &s, int dec);
+	QString toQString(int dec) const;
    public:
 	a1int();
 	a1int(const ASN1_INTEGER *i);
