@@ -1057,8 +1057,6 @@ void db_x509::caProperties(QModelIndex idx)
 {
 	QStringList actions;
 	Ui::CaProperties ui;
-	QString policy;
-	int i;
 
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert)
@@ -1082,39 +1080,7 @@ void db_x509::caProperties(QModelIndex idx)
 
 	ui.certName->setTitle(cert->getIntName());
 
-	QStringList sl;
-	sl << tr("Type") << tr("Action");
-	ui.subjectManager->initCols(sl);
-
-	sl.clear();
-	sl << "*";
-	foreach(int nid, *MainWindow::dn_nid)
-                sl << QString(OBJ_nid2ln(nid));
-	ui.subjectManager->setKeys(sl, 0);
-
-	actions << "From request" << "From template" << "Erase" << "Match";
-	ui.subjectManager->setKeys(actions, 1);
-
-	sl = cert->getDnPolicy().split(",");
-
-	qDebug() << "Policy:" << cert->getDnPolicy();
-	ui.subjectManager->deleteAllRows();
-	foreach(policy, sl) {
-		QStringList polKV, l = policy.split(":");
-		if (l.size() != 2)
-			continue;
-		qDebug() << "Option:" << l[1].toInt();
-		if (l[0] == "*")
-			polKV << "*";
-		else
-			polKV << QString(OBJ_nid2ln(OBJ_sn2nid(CCHAR(l[0]))));
-		polKV << actions[l[1].toInt()];
-		ui.subjectManager->addRow(polKV);
-        }
-#warning Complete dnPolicies
-
 	if (dlg->exec()) {
-		int rows = ui.subjectManager->rowCount();
 		XSqlQuery q;
 		QSqlError e;
 		Transaction;
@@ -1123,29 +1089,15 @@ void db_x509::caProperties(QModelIndex idx)
 		templ = ui.temp->currentPkiItem();
 		tmplId = templ ? templ->getSqlItemId() : QVariant();
 
-		sl.clear();
-		for (i=0; i<rows; i++) {
-			QStringList l = ui.subjectManager->getRow(i);
-			int idx = actions.indexOf(l[1]);
-			if (idx == -1)
-				continue;
-			QString first = l[0];
-			if (first != "*")
-				first = OBJ_nid2sn(OBJ_ln2nid(CCHAR(l[0])));
-			sl << QString("%1:%2").arg(first).arg(idx);
-                }
-		policy = sl.join(",");
 		cert->setTemplateSqlId(tmplId);
 		cert->setCrlDays(ui.days->value());
-		cert->setDnPolicy(policy);
 
-		SQL_PREPARE(q, "UPDATE authority SET crlDays=?, dnPolicy=?, "
+		SQL_PREPARE(q, "UPDATE authority SET crlDays=?, "
 				"template=? WHERE item=?");
 
 		q.bindValue(0, cert->getCrlDays());
-		q.bindValue(1, policy);
-		q.bindValue(2, tmplId);
-		q.bindValue(3, cert->getSqlItemId());
+		q.bindValue(1, tmplId);
+		q.bindValue(2, cert->getSqlItemId());
 		AffectedItems(cert->getSqlItemId());
 		q.exec();
 	        TransDone(q.lastError());

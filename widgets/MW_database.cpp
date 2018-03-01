@@ -173,7 +173,7 @@ QSqlError MainWindow::initSqlDB()
 	"crlExpire " DB_DATE ", "	/* CRL expiry date */
 	"crlNo INTEGER, "	/* Last CRL Number */
 	"crlDays INTEGER, "	/* CRL days until renewal */
-	"dnPolicy VARCHAR(1024), "	/* DistinguishedName policy */
+	"dnPolicy VARCHAR(1024), "	/* DistinguishedName policy (UNUSED) */
 	"FOREIGN KEY (item) REFERENCES items (id), "
 	"FOREIGN KEY (template) REFERENCES items (id)) "
 

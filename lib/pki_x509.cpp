@@ -128,7 +128,6 @@ void pki_x509::restoreSql(QSqlRecord &rec)
 	crlExpire.fromPlain(rec.value(VIEW_x509_auth_crlExpire).toString());
 	caTemplateSqlId = rec.value(VIEW_x509_auth_template);
 	crlDays = rec.value(VIEW_x509_auth_crlDays).toInt();
-	dnPolicy = rec.value(VIEW_x509_auth_dnPolicy).toString();
 	if (!rec.isNull(VIEW_x509_revocation))
 		revocation = x509rev(rec, VIEW_x509_revocation);
 }

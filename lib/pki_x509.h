@@ -30,7 +30,7 @@
 #define VIEW_x509_auth_crlExpire 12
 #define VIEW_x509_auth_crlNo 13
 #define VIEW_x509_auth_crlDays 14
-#define VIEW_x509_auth_dnPolicy 15
+#define VIEW_x509_auth_dnPolicy_UNUSED 15
 #define VIEW_x509_revocation 16
 
 class pki_x509 : public pki_x509super
@@ -46,7 +46,6 @@ class pki_x509 : public pki_x509super
 		X509 *cert;
 		void init();
 		x509rev revocation;
-		QString dnPolicy;
 		x509revList fromDataRevList;
 
 	protected:
@@ -141,14 +140,6 @@ class pki_x509 : public pki_x509super
 		x509rev getRevocation()
 		{
 			return revocation;
-		}
-		void setDnPolicy(QString policy)
-		{
-			dnPolicy = policy;
-		}
-		QString getDnPolicy()
-		{
-			return dnPolicy;
 		}
 		pk11_attlist objectAttributes();
 		bool hasExtension(int nid);
