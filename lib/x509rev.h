@@ -48,8 +48,7 @@ class x509rev
 
 		bool isValid() const
 		{
-			return serial.getLong() != 0 &&
-				!date.isUndefined();
+			return serial != a1int(0L) && !date.isUndefined();
 		}
 		x509rev &set(const X509_REVOKED *r)
 		{
