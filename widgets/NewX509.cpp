@@ -1098,6 +1098,9 @@ QString NewX509::mandatoryDnRemain()
 	x509name n;
 	int i;
 
+	if (MainWindow::mandatory_dn.isEmpty())
+		return QString();
+
 	if (fromReqCB->isChecked() && !reqSubChange->isChecked())
 		n = getSelectedReq()->getSubject();
 	else
