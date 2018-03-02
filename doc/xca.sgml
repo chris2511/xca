@@ -190,12 +190,12 @@ Importing old databases is done by the following steps:
 <p>
 
 The most recent stable version of XCA can be downloaded from
-<url url="http://sourceforge.net/projects/xca" name="XCA download">
+<url url="http://hohnstaedt.de/xca/index.php/download" name="XCA download">
 
 <p>
 
 The current (unstable) HEAD of development can be downloaded and tested via
-<url url="http://xca.git.sourceforge.net/git/gitweb.cgi?p=xca/xca;a=snapshot;h=HEAD;sf=tgz" name="XCA devel">
+<url url="https://github.com/chris2511/xca/" name="XCA devel on github">
 Please do not hesitate to contact me for information about branches.
 
 <sect1>DH Parameters

@@ -14,7 +14,7 @@ include $(TOPDIR)/Rules.mak
 
 xca.html: xca.sgml
 	rm -f xca*.html
-	echo 'The documentation for XCA can be viewed online at: <a href="http://xca.sourceforge.net/">http://xca.sourceforge.net/</a>.' > $@
+	echo 'The documentation for XCA can be viewed online at: <a href="http://hohnstaedt.de/documentation">http://hohnstaedt.de/documentation</a>.' > $@
 	test ! -f xca-doc.tgz || tar zxf xca-doc.tgz
 	@$(PRINT) "  DOC    [$(BASENAME)] $@"
 	$(ENABLE_DOC)$(DOCTOOL) $< >/dev/null
