@@ -688,8 +688,6 @@ void MainWindow::dump_database()
 
 void MainWindow::undelete()
 {
-#warning undelete NOT WORKING!
-	qDebug("undelete NOT WORKING!");
 #if 0
 	ImportMulti *dlgi = new ImportMulti(this);
 	db_header_t head;
