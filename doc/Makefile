@@ -3,9 +3,9 @@ TOPDIR=..
 BUILD=..
 endif
 
-DELFILES=xca*.html xca.1.gz
+DELFILES=xca*.html xca.1.gz changelog.html database_schema.html
 
-doc: xca.1.gz xca.html changelog.html
+doc: xca.1.gz xca.html changelog.html database_schema.html
 include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1
@@ -36,5 +36,8 @@ changelog.html: $(TOPDIR)/changelog $(TOPDIR)/doc/html.header
 	  echo '</body></html>' \
 	) < $< > $@
 
-upload: changelog.html xca.html
+database_schema.html: ../widgets/database_schema.cpp
+	$(TOPDIR)/doc/code2html -lcxx -ohtml $< $@
+
+upload: database_schema.html changelog.html xca.html
 	scp *.html hohnstaedt.de:xca-doc/

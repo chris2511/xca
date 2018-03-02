@@ -1,4 +1,3 @@
-
 /* The "32bit hash" in public_keys, x509super, requests, certs and crls
  * is used to quickly find items in the DB by reference.
  * It consists of the first 4 bytes of a SHA1 hash.
@@ -295,4 +294,3 @@
 << "CREATE INDEX i_items_stamp ON items (stamp)"
 << "UPDATE settings SET value='5' WHERE key_='schema'"
 	;
-
