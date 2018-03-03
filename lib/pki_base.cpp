@@ -49,7 +49,8 @@ bool pki_base::visible()
 {
 	if (limitPattern.isEmpty())
 		return true;
-	return getIntName().contains(limitPattern);
+	return getIntName().contains(limitPattern) ||
+		comment.contains(limitPattern);
 }
 
 QString pki_base::getMsg(msg_type msg)
