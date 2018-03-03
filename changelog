@@ -1,8 +1,13 @@
+xca 1.4.1 Sat Mar 3 2018
+
+ * Replace links to XCA on Sourceforge in the software and
+   documentation by links to my Site.
+
 xca 1.4.1-pre02 Thu Mar 1 2018
 
  * SF Bug #122 isValid() tried to convert the serial to 64 bit
- * Beautify mandatory distinguished name entriy errors
- * Support Dragging certificates and other items as PEM text
+ * Beautify mandatory distinguished name entry errors
+ * Support dragging certificates and other items as PEM text
  * Show User settings and installation path in the about dialog
 
 xca 1.4.1-pre01 Sun Feb 18 2018

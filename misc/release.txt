@@ -9,7 +9,7 @@ Release schedule cheat sheet
 
 
 - update translation and xca.pro (qmake-qt4 -o makefile && make)
-- update VERSION and changelog.txt and .pad files
+- update VERSION, changelog.txt and README.md
 - git tag -a RELEASE.${VERSION}
 - make TVERSION=${VERSION} dist
 - try to compile xca-${VERSION}.tar.gz (again)
