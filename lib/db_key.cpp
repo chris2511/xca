@@ -210,11 +210,20 @@ void db_key::showPki(pki_base *pki)
 	if (!key)
 		return;
 	KeyDetail *dlg = new KeyDetail(mainwin);
-	if (dlg) {
-		dlg->setKey(key);
-		dlg->exec();
-		delete dlg;
+	if (!dlg)
+		return;
+	dlg->setKey(key);
+
+	if (dlg->exec()) {
+		QString newname = dlg->keyDesc->text();
+		QString newcomment = dlg->comment->toPlainText();
+		if (newname != pki->getIntName() ||
+		    newcomment != pki->getComment())
+		{
+			updateItem(pki, newname, newcomment);
+		}
 	}
+	delete dlg;
 }
 exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 {

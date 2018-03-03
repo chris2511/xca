@@ -12,7 +12,7 @@
 
 class pki_key;
 
-class KeyDetail: public QDialog, private Ui::KeyDetail
+class KeyDetail: public QDialog, public Ui::KeyDetail
 {
 	Q_OBJECT
 
