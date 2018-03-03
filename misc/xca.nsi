@@ -108,8 +108,8 @@ Section "xca (required)" SecMain
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "DisplayVersion" "${VERSION}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "Version" "${VERSION}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLUpdateInfo" "http://hohnstaedt.de/xca"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLInfoAbout" "http://xca.sf.net"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "HelpLink" "http://xca.sf.net"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLInfoAbout" "http://hohnstaedt.de/xca"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "HelpLink" "http://hohnstaedt.de/documentation"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "Publisher" "Christian Hohnstaedt <christian@hohnstaedt.de>"
   WriteRegDWord HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "NoModify" '1'
   WriteRegDWord HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "NoRepair" '1'
