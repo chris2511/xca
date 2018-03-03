@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>March 2018 - Version 1.4.1
+<date>March 2018 - Version 2.0.0
 
 <abstract>
 
@@ -15,7 +15,8 @@ This application is intended for creating and managing X.509 certificates, certi
 Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
 For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
-All crypto data is stored in an endian-agnostic file format portable across operating systems.
+All crypto data is stored in a SQL database.
+SQLite, MySQL and PostgreSQL databases are supported.
 
 </abstract>
 
@@ -53,8 +54,8 @@ The database password can be changed by the Menu item <em>File-&gt;Change DataBa
 The different cryptographic parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revocation lists.
 All items can be manipulated either by a context menu available by
 right-clicking on the item, or by using the buttons at the right border.
-Every item is identified by an internal name which is unique in one tab-view
-and is always shown in the first column (as long as the columns are not reordered by the user).
+Every item is identified by an internal name which
+is always shown in the first column as long as the columns are not reordered by the user.
 
 <sect1>File Formats
 
@@ -147,41 +148,31 @@ Thank you very much.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Miscellaneous
-<sect1>Updating from Older Versions (Older than 0.6.0)
+<sect1>Updating from versions earlier than 2.0.0
 
 <p>
 
-Older versions of XCA used a Berkely database for storing the crypto items.
-Starting from version 0.6.0 this has changed to a simple
-endian independent file format for several reasons:
-
-<itemize>
-	<item>The Berkeley db API was a moving target and every distribution had different versions installed.
-	Handling all versions well ended up in an "#ifdef hell"
-	where every second build failure was based on a different API in an other db version.
-	<item>The database got corrupted if a log.0000001 file was deleted.
-	<item>copying a database from one place to another was only possible, if
-	the log file was also copied. This breaks the approach of having
-	one single, simpe file containing the crypto items.
-</itemize>
+Older versions of XCA used a simple serial
+proprietary database for storing the crypto items.
+Starting with version 2.0.0 this has changed to SQL.
+For file based databases the SQLite database is used.
+Since XCA uses SQL, it can also be connected to a network database.
+The databases <em>mySQL</em> and <em>PostgreSQL</em> are tested.
+Please use the <em>Open Remote DataBase</em> menu item to connect to a remote host.
+The main disadvantage leading to the switch to SQL
+was the inaccessability by external tools. Since years users ask for
+command-line access to the database.
+The new database can be queried
+by external tools like <em>sqlite3</em> or <em>sqlitebrowser</em>
+to extract verify or modify content.
+Please see <ref id="extract" name="Extracting items">
 
 <p>
 
-Since XCA 0.6.0 is not compiled with Berkeley DB support it cannot read old
-file formats. The extension of files has changed from *.db to *.xdb .
-Importing old databases is done by the following steps:
-
-<itemize>
-	<item>Use db_dump of your distribution to dump the database to an ASCII file.
-	 (Windows users will find a db_dump.exe in the XCA installation dir).
-	 The command is: db_dump -f xca.db.dump xca.db
-	<item>Start XCA and open a new database (e.g. xca.xdb). XCA asks for a
-	password for this new, empty database.
-	<item>Point your mouse to "File->Import old db_dump" and select the file "xca.db.dump"
-	<item>XCA now asks for the password of the ORIGINAL database, since the ASCII
-	dump still contains the private keys encrypted with the password.
-	<item>Enjoy XCA 0.6.0
-</itemize>
+When opening a legacy database, it will be converted to the new format after
+storing a backup copy of the original database.
+Be careful. XCA before 1.4.0 will overwrite the new SQLite database when opened
+with an elder version of XCA.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
@@ -274,16 +265,35 @@ option given it will exit after finishing the import dialog. This is useful if x
 
 <p>
 
-<sect1>Extracting items
+<sect1>Extracting items <label id="extract">
 
 <p>
 
-On the command line xca may be called with the first argument "extract".
+The sqlitebrowser may be used to examine the elements of the database.
 
-<tt>xca extract &lt;database&gt; &lt;type&gt; &lt;name&gt;</tt>
+The database schema is documented <url url="database_schema.html" name="here">.
+All crypto items are stored as base64 der format and must be
+decoded before feeding openssl: <em>| base64 -d | openssl &lt;x509|req|crl|pkcs8&gt; -inform DER ...</em>
 
-extracts the item with internal name &lt;name&gt; and the type
-<tt>cert</tt> <tt>req</tt> or <tt>crl</tt> from the database in PEM format to &lt;STDOUT&gt;
+<p>
+Extract a private key from the database
+<code>
+sqlite3 ~/xca.xdb "SELECT private FROM view_private WHERE name='pk8key'" | base64 -d | openssl pkcs8 -inform DER
+</code>
+
+<p>
+Extract a CRL
+<code>
+sqlite3 ~/xca.xdb "SELECT crl FROM view_crls WHERE name='ca'" | base64 -d | openssl crl -inform DER
+</code>
+
+<p>
+Modify the comment of an item with id 3
+<code>
+sqlite3 ~/xca.xdb "UPDATE items SET comment='My notes' WHERE id=3"
+</code>
+
+The item names are not required to be unique anymore.
 
 <p>
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -390,6 +400,44 @@ certificate. Multiple items may be selected to delete them all at once.
 The displayed list of items can be reduced by the search-input at the
 bottom right. It affects all tabs. It does not only search inside the displayed columns but the whole content of the items. It searches the internal name,
 issuer, subject, extensions, PKCS#10 attributes and token provider.
+
+<sect1>Date and source of appearance
+
+<p>
+
+XCA tracks the time and source of any newly appeared item.
+Both can be seen when selecting <em>Properties</em> in the
+context menu of an item, or by enabling the <em>Source</em> or
+<em>Date</em> columns.
+
+The source may be one of the following
+<itemize>
+<item>Imported
+<item>Generated
+<item>Transformed
+<item>Token
+<item>Legacy Database
+</itemize>
+
+The content of the date and source fields will never be part of an exported item.
+
+<sect1>Comments
+
+<p>
+XCA allows to insert multi-line comments for all items. They can be edited
+by the properties dialog. When showing the <em>Comment</em>
+column, it will display the first line of the comment field.
+
+XCA itself uses the comment field of certificates and requests
+to leave a note during important operations:
+
+<itemize>
+<item>Applied templates during certificate or request generation
+<item>Generated keys during certificate or request generation
+<item>Signing date, time and internal name of the issuing CA when a request gets signed.
+</itemize>
+
+The content of the comment field will never be part of an exported item.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>The Certificate Input Dialog<label id="wizard">
