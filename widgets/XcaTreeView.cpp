@@ -48,6 +48,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	throttle.setSingleShot(true);
 	connect(&throttle, SIGNAL(timeout()), this, SLOT(columnsResize()));
 	connect(&throttle, SIGNAL(timeout()), proxy, SLOT(invalidate()));
+	setFocusPolicy(Qt::StrongFocus);
 }
 
 XcaTreeView::~XcaTreeView()
@@ -414,4 +415,24 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 	fillContextMenu(menu, subExport, index, indexes);
 
 	contextMenu(e, menu, -1);
+}
+void XcaTreeView::keyPressEvent(QKeyEvent *event)
+{
+	switch (event->key()) {
+		case Qt::Key_Backspace:
+		case Qt::Key_Delete:
+			deleteItems();
+			return;
+		case Qt::Key_Enter:
+		case Qt::Key_Return:
+			showItems();
+			return;
+		case Qt::Key_F2:
+			editIdx();
+			return;
+		case Qt::Key_Escape:
+			clearSelection();
+			return;
+	}
+	QTreeView::keyPressEvent(event);
 }

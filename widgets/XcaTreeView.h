@@ -47,6 +47,7 @@ class XcaTreeView: public QTreeView
 	}
 	void contextMenu(QContextMenuEvent *e,
 			QMenu *parent = NULL, int sect = -1);
+	void keyPressEvent(QKeyEvent *event);
 
    public slots:
 	void showHideSections();
