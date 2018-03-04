@@ -47,17 +47,16 @@ int a1time::from_asn1(const ASN1_TIME *a)
 		return -1;
 	t = QString::fromLatin1((char*)gt->data, gt->length);
 	ASN1_GENERALIZEDTIME_free(gt);
-	if (t == UNDEFINED_DATE) {
-		setUndefined();
-		return 0;
-	}
 	return fromPlain(t);
 }
 
 int a1time::fromPlain(QString plain)
 {
-	*this = QDateTime::fromString(plain, GEN_FORMAT);
 	setTimeSpec(Qt::UTC);
+	if (plain == UNDEFINED_DATE)
+		setUndefined();
+	else
+		*this = fromString(plain, GEN_FORMAT);
 	return isValid() ? 0 : -1;
 }
 

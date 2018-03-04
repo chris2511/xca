@@ -79,6 +79,7 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 		q.exec();
 	}
 	mutex--;
+	items.clear();
 	return db.commit();
 }
 
