@@ -347,7 +347,7 @@ void MainWindow::read_cmdline(int argc, char *argv[])
 			if (!pki) {
 				if (ret == 2)
 					exitApp = 1;
-				else
+				else if (ret == 1)
 					failed << file;
 			}
 			dlgi->addItem(pki);
@@ -796,14 +796,18 @@ void MainWindow::importAnything(QString file)
 
 pki_multi *MainWindow::probeAnything(QString file, int *ret)
 {
-	(void)ret;
-	pki_multi *pki = new pki_multi();
+	if (ret)
+		*ret = 0;
+	pki_multi *pki = NULL;
 
 	try {
 		if (file.endsWith(".xdb")) {
-			init_database(file);
+			int r = init_database(file);
+			if (ret)
+				*ret = r;
 			return pki;
 		}
+		pki = new pki_multi();
 		pki->probeAnything(file);
 	} catch (errorEx &err) {
 		Error(err);
