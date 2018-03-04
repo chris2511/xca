@@ -205,6 +205,10 @@ void db_x509super::showPki(pki_base *pki)
 		mainwin->keys, SLOT(showItem(QString)));
 	connect(dlg->signature, SIGNAL(doubleClicked(QString)),
 		this, SLOT(showItem(QString)));
+	connect(this, SIGNAL(pkiChanged(pki_base*)),
+		dlg, SLOT(itemChanged(pki_base*)));
+	connect(mainwin->keys, SIGNAL(pkiChanged(pki_base*)),
+		dlg, SLOT(itemChanged(pki_base*)));
 	if (dlg->exec()) {
 		QString newname = dlg->descr->text();
 		QString newcomment = dlg->comment->toPlainText();

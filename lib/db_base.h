@@ -175,6 +175,7 @@ class db_base: public QAbstractItemModel
 		void resetHeader();
 		void updateHeader();
 		void columnsContentChanged();
+		void pkiChanged(pki_base *pki);
 };
 
 #endif

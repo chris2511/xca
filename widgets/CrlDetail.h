@@ -11,6 +11,7 @@
 #include "ui_CrlDetail.h"
 
 class pki_crl;
+class pki_base;
 class MainWindow;
 
 class CrlDetail: public QDialog, public Ui::CrlDetail
@@ -18,8 +19,11 @@ class CrlDetail: public QDialog, public Ui::CrlDetail
 	Q_OBJECT
 	private:
 		MainWindow *mw;
+		QVariant issuerSqlId;
 	public:
 		CrlDetail(MainWindow *mainwin);
 		void setCrl(pki_crl *crl);
+	public slots:
+		void itemChanged(pki_base *pki);
 };
 #endif

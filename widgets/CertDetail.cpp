@@ -22,6 +22,8 @@ CertDetail::CertDetail(QWidget *parent)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	showConf = false;
+	keySqlId = QVariant();
+	issuerSqlId = QVariant();
 }
 
 void CertDetail::on_showExt_clicked()
@@ -52,6 +54,7 @@ void CertDetail::setX509super(pki_x509super *x)
 		} else {
 			privKey->setRed();
 		}
+		keySqlId = key->getSqlItemId();
 	} else {
 		privKey->setText(tr("Not available"));
 		privKey->setDisabled(true);
@@ -104,6 +107,7 @@ void CertDetail::setCert(pki_x509 *cert)
 			signature->setText(issuer->getIntName());
 			signature->setClickText(issuer->getSqlItemId().toString());
 			signature->setGreen();
+			issuerSqlId = issuer->getSqlItemId();
 		}
 
 		// the serial
@@ -229,4 +233,13 @@ QLabel *CertDetail::labelFromAsn1String(ASN1_STRING *s)
 	label->setText(asn1ToQString(s));
 	label->setToolTip(QString(ASN1_tag2str(s->type)));
 	return label;
+}
+
+void CertDetail::itemChanged(pki_base *pki)
+{
+	if (pki->getSqlItemId() == keySqlId)
+		privKey->setText(pki->getIntName());
+
+	if (pki->getSqlItemId() == issuerSqlId)
+		signature->setText(pki->getIntName());
 }

@@ -17,7 +17,9 @@ class pki_x509;
 class CertDetail: public QDialog, public Ui::CertDetail
 {
 		Q_OBJECT
+
 		bool showConf;
+		QVariant keySqlId, issuerSqlId;
 		QString conf, exts;
 		QLabel *labelFromAsn1String(ASN1_STRING *s);
 		void setX509super(pki_x509super *x);
@@ -29,6 +31,7 @@ class CertDetail: public QDialog, public Ui::CertDetail
 
 	private slots:
 		void on_showExt_clicked();
+		void itemChanged(pki_base *pki);
 };
 
 #endif

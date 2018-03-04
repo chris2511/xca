@@ -532,6 +532,7 @@ void db_base::updateItem(pki_base *pki, QString name, QString comment)
 	i = index(pki);
 	j = index(i.row(), allHeaders.size(), i.parent());
 	emit dataChanged(i, j);
+	emit pkiChanged(pki);
 }
 
 void db_base::editComment(const QModelIndex &index)

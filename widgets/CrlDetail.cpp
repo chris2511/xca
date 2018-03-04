@@ -8,10 +8,11 @@
 
 #include "CrlDetail.h"
 #include "MainWindow.h"
+#include "distname.h"
+#include "clicklabel.h"
+#include "RevocationList.h"
+#include "OpenDb.h"
 #include "lib/pki_crl.h"
-#include "widgets/distname.h"
-#include "widgets/clicklabel.h"
-#include "widgets/RevocationList.h"
 #include <QLabel>
 #include <QTextEdit>
 #include <QLineEdit>
@@ -24,6 +25,7 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 	setWindowTitle(tr(XCA_TITLE));
 
 	image->setPixmap(*MainWindow::revImg);
+	issuerSqlId = QVariant();
 }
 
 void CrlDetail::setCrl(pki_crl *crl)
@@ -45,6 +47,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 			signCheck->setText(tr("Failed"));
 			signCheck->setRed();
 		}
+		issuerSqlId = iss->getSqlItemId();
 	} else {
 		issuerIntName->setText(tr("Unknown signer"));
 		issuerIntName->setDisabled(true);
@@ -70,4 +73,10 @@ void CrlDetail::setCrl(pki_crl *crl)
 	v3extensions->document()->setHtml(crl->printV3ext());
 
 	comment->setPlainText(crl->getComment());
+}
+
+void CrlDetail::itemChanged(pki_base *pki)
+{
+	if (pki->getSqlItemId() == issuerSqlId)
+		issuerIntName->setText(pki->getIntName());
 }

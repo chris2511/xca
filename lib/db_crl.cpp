@@ -125,8 +125,10 @@ void db_crl::showPki(pki_base *pki)
 		return;
 
 	dlg->setCrl(crl);
-	connect( dlg->issuerIntName, SIGNAL( doubleClicked(QString) ),
-	            mainwin->certs, SLOT( showItem(QString) ));
+	connect(dlg->issuerIntName, SIGNAL(doubleClicked(QString)),
+		mainwin->certs, SLOT(showItem(QString)));
+	connect(mainwin->certs, SIGNAL(pkiChanged(pki_base*)),
+		dlg, SLOT(itemChanged(pki_base*)));
 	if (dlg->exec()) {
 		QString newname = dlg->descr->text();
 		QString newcomment = dlg->comment->toPlainText();
