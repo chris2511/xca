@@ -247,7 +247,7 @@ int MainWindow::init_database(QString dbName)
 			newname = newname.left(newname.length() -4);
 		newname += "_backup_" + QDateTime::currentDateTime()
 				.toString("yyyyMMdd_hhmmss") + ".xdb";
-		if (!XCA_OKCANCEL(tr("Found an old version of the XCA database. I will make a backup copy called: '%1' and convert the database into the new format").arg(newname))) {
+		if (!XCA_OKCANCEL(tr("Legacy database format detected. Creating a backup copy called: '%1' and converting the database to the new format").arg(newname))) {
 			return 1;
 		}
 		if (verifyOldDbPass(dbName) != 1)
@@ -271,6 +271,7 @@ int MainWindow::init_database(QString dbName)
 			ret = initPass(dbName);
 			if (ret == 2)
 				return ret;
+			ret = 0;
 		}
 		keys = new db_key(this);
 		reqs = new db_x509req(this);
