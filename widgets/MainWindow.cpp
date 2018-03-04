@@ -40,6 +40,7 @@
 #include "lib/builtin_curves.h"
 #include "XcaDialog.h"
 #include "PwDialog.h"
+#include "OpenDb.h"
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
@@ -801,7 +802,9 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 	pki_multi *pki = NULL;
 
 	try {
-		if (file.endsWith(".xdb")) {
+		if (file.endsWith(".xdb") ||
+		    !OpenDb::splitRemoteDbName(file).isEmpty())
+		{
 			int r = init_database(file);
 			if (ret)
 				*ret = r;
