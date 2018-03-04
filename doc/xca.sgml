@@ -438,6 +438,17 @@ to leave a note during important operations:
 </itemize>
 
 The content of the comment field will never be part of an exported item.
+
+<sect1>Database primary key
+
+<p>
+When inserting an item into the database new, unique id
+will be generated and used as primary key in the database.
+If the item shall be found in the database by external tools,
+the <tt>items.id</tt> to uniquely identify the item.
+The internal name cannot be used anymore, since it is not unique anymore.
+
+This ID will never be used outside the database.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>The Certificate Input Dialog<label id="wizard">

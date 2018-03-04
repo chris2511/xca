@@ -274,6 +274,8 @@ QVariant pki_base::column_data(dbheader *hd)
 		return QVariant(comment.section('\n', 0, 0));
 	case HD_source:
 		return QVariant(pki_source_name());
+	case HD_primary_key:
+		return sqlItemId;
 	}
 	return QVariant();
 }

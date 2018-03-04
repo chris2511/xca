@@ -142,6 +142,8 @@ dbheaderList db_base::getHeaders()
 	/* "No." handled in XcaProxyModel */
 	h << new dbheader(HD_internal_name, true, tr("Internal name"))
 	  << new dbheader(HD_counter, false, tr("No."))
+	  << new dbheader(HD_primary_key, false, tr("Primary key"),
+			tr("Database unique number"))
 	  << new dbheader(HD_creation, false, tr("Date"),
 			tr("Date of creation or insertion"))
 	  << new dbheader(HD_source, false, tr("Source"),

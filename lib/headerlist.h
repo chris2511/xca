@@ -26,6 +26,7 @@
 #define HD_creation -8
 #define HD_comment -9
 #define HD_source -100
+#define HD_primary_key -101
 
 #define HD_cert_serial -10
 #define HD_cert_notBefore -11
@@ -123,6 +124,7 @@ class dbheader
 	{
 		switch (id) {
 		case HD_counter:
+		case HD_primary_key:
 		case HD_key_size:
 		case HD_key_use:
 		case HD_cert_serial:
