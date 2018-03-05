@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QFile>
 
+#include "MainWindow.h"
 #include "OpenDb.h"
 #include "PwDialog.h"
 #include "lib/base.h"
@@ -120,6 +121,7 @@ void OpenDb::openDatabase() const
 {
 	QString type = getDbType();
 	QString pass = dbPassword->text();
+	int round = 0;
 
 	if (type.isEmpty()) {
 		checkSqLite();
@@ -135,6 +137,10 @@ void OpenDb::openDatabase() const
 		QString connName = QSqlDatabase::addDatabase(type).connectionName();
 		if (_openDatabase(connName, pass))
 			break;
+
+		if (pass.size() > 0 || round > 0)
+			MainWindow::dbSqlError();
+
 		Passwd pwd;
 		pass_info p(XCA_TITLE,
 			tr("Please enter the password to access the database server %2 as user '%1'.")
@@ -143,6 +149,7 @@ void OpenDb::openDatabase() const
 			break;
 		pass = QString(pwd);
 		QSqlDatabase::removeDatabase(connName);
+		round++;
 	}
 }
 

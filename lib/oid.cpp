@@ -15,6 +15,7 @@
 #include <QDir>
 #include "func.h"
 #include "oid.h"
+#include "widgets/XcaWarning.h"
 
 int first_additional_oid = 0;
 

@@ -105,6 +105,7 @@ HEADERS += lib/asn1int.h \
            widgets/ItemCombo.h \
            widgets/XcaDialog.h \
            widgets/XcaProxyModel.h \
+           widgets/XcaMessage.h \
            widgets/OpenDb.h
 
 FORMS += ui/CaProperties.ui \

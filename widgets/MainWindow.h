@@ -9,6 +9,7 @@
 #define __MAINWINDOW_H
 
 #include "NewX509.h"
+#include "XcaWarning.h"
 #include "OidResolver.h"
 #include "ui_MainWindow.h"
 #include "lib/db_key.h"
@@ -25,24 +26,12 @@
 #include <QMenuBar>
 #include <QList>
 #include <QtSql>
-#include <QMessageBox>
 #include <QMenu>
 #include <QToolTip>
 #include <QLocale>
 
 class db_x509;
 class pki_multi;
-
-class xcaWarning: public QMessageBox
-{
-	public:
-		xcaWarning(QWidget *w, QString txt)
-			: QMessageBox(QMessageBox::Warning,
-				 XCA_TITLE, txt, QMessageBox::NoButton, w)
-		{
-			setTextFormat(Qt::PlainText);
-		}
-};
 
 class tipMenu : public QMenu
 {
