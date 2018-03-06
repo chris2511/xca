@@ -18,7 +18,7 @@ class OpenDb: public QDialog, public Ui::OpenDb
 	Q_OBJECT
     private:
 	static DbMap getDatabases();
-	bool sqlite;
+	bool sqlite, show_connection_settings;
 	bool _openDatabase(QString connName, QString pass) const;
 	QString getDbType() const;
 

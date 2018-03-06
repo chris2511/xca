@@ -84,11 +84,15 @@ OpenDb::OpenDb(QWidget *parent, QString db)
 		dbTypeName = remote_param["type"];
 		dbName->setText(remote_param["dbname"]);
 		sqlite = false;
-	} else {
+		show_connection_settings = false;
+	} else if (hasSqLite() && !db.isEmpty()) {
 		dbName->setText(db);
 		sqlite = true;
+		show_connection_settings = false;
+	} else {
+		sqlite = false;
+		show_connection_settings = true;
 	}
-
 	databases = getDatabases();
 	foreach (QString driver, databases.keys()) {
 		dbType->insertItem(0, databases[driver], driver);
@@ -127,11 +131,26 @@ void OpenDb::openDatabase() const
 		checkSqLite();
 		return;
 	}
-	if (sqlite && !QFile::exists(dbName->text())) {
+	if (sqlite) {
 		QFile f(dbName->text());
-		f.open(QIODevice::WriteOnly);
-		f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
-		f.close();
+		if (!QFile::exists(dbName->text())) {
+			f.open(QIODevice::WriteOnly);
+			f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
+			f.close();
+		} else {
+			QString msg = QString(
+					"The file '%1' is not an XCA database")
+					.arg(f.fileName());
+			if (f.size() != 0) {
+				f.open(QIODevice::ReadOnly);
+				QByteArray ba = f.read(6);
+				qDebug() << "FILE:" << f.fileName() << ba;
+				if (ba != "SQLite") {
+					XCA_WARN(msg);
+					return;
+				}
+			}
+		}
 	}
 	while (true) {
 		QString connName = QSqlDatabase::addDatabase(type).connectionName();
@@ -145,10 +164,10 @@ void OpenDb::openDatabase() const
 		pass_info p(XCA_TITLE,
 			tr("Please enter the password to access the database server %2 as user '%1'.")
 				.arg(userName->text()).arg(hostName->text()));
+		QSqlDatabase::removeDatabase(connName);
 		if (PwDialog::execute(&p, &pwd) != 1)
 			break;
 		pass = QString(pwd);
-		QSqlDatabase::removeDatabase(connName);
 		round++;
 	}
 }
@@ -163,14 +182,13 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 		db.setHostName(hostport[0]);
 	if (hostport.size() > 1)
 		db.setPort(hostport[1].toInt());
-
 	db.setUserName(userName->text());
 	db.setPassword(pass);
 
 	db.open();
 	QSqlError e = db.lastError();
 	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
-			sqlite || db.isOpen())
+			db.isOpen())
 		return true;
 
 	db.close();
@@ -190,9 +208,9 @@ QString OpenDb::getDescriptor() const
 
 int OpenDb::exec()
 {
-	if (sqlite)
-		return 1;
 	if (dbType->count() == 0)
 		return 0;
+	if (!show_connection_settings)
+		return 1;
 	return QDialog::exec();
 }

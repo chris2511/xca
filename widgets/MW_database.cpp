@@ -81,7 +81,7 @@ QString MainWindow::openSqlDB(QString dbName)
 void MainWindow::openRemoteSqlDB()
 {
 	close_database();
-	init_database("@/QPSQL7:");
+	init_database(""); //@/QPSQL7:");
 }
 
 void MainWindow::set_geometry(QString geo)
@@ -452,7 +452,7 @@ int MainWindow::open_default_db()
 	fclose(fp);
 	buff[len] = 0;
 	QString dbfile = filename2QString(buff).trimmed();
-	if (QFile::exists(dbfile))
+	if (QFile::exists(dbfile) || OpenDb::isRemoteDB(dbfile))
 		return init_database(dbfile);
 	return 0;
 }
@@ -474,7 +474,11 @@ void MainWindow::default_database()
 	fp = fopen_write(file);
 	if (fp) {
 		QByteArray ba;
-		ba = filename2bytearray(fi.canonicalFilePath() + "\n");
+		if (OpenDb::isRemoteDB(currentDB))
+			ba = filename2bytearray(currentDB);
+		else
+			ba = filename2bytearray(fi.canonicalFilePath());
+		ba += '\n';
 		if (fwrite(ba.constData(), ba.size(), 1, fp)) {
 			/* IGNORE_RESULT */
 		}
