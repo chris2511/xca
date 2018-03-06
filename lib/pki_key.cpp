@@ -165,7 +165,10 @@ QString pki_key::length() const
 	return QString("%1 bit").arg(EVP_PKEY_bits(key));
 }
 
-QString pki_key::getTypeString() const
+/* getKeyTypeString() returns RSA
+ * getTypeString() returns RSA or "Token RSA" for tokens
+ */
+QString pki_key::getKeyTypeString() const
 {
 	QString type;
 
@@ -183,6 +186,11 @@ QString pki_key::getTypeString() const
 			type = "---";
 	}
 	return type;
+}
+
+QString pki_key::getTypeString() const
+{
+	return getKeyTypeString();
 }
 
 QString pki_key::getMsg(msg_type msg)
@@ -489,7 +497,7 @@ QSqlError pki_key::insertSqlData()
 	SQL_PREPARE(q, "INSERT INTO public_keys (item, type, hash, len, public) "
 		  "VALUES (?, ?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
-	q.bindValue(1, getTypeString());
+	q.bindValue(1, getKeyTypeString());
 	q.bindValue(2, myhash);
 	q.bindValue(3, EVP_PKEY_bits(key));
 	q.bindValue(4, i2d_b64());

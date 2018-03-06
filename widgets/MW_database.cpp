@@ -326,8 +326,9 @@ int MainWindow::init_database(QString dbName)
 
 	XSqlQuery query("SELECT key_, value FROM settings");
 	while (query.next()) {
-		QString key = query.value(0).toString();
-		QString value = query.value(1).toString();
+		QString key = query.value(0).toString().simplified();
+		QString value = query.value(1).toString().simplified();
+		qDebug() << "SETTING:" << key << "=" <<value;
 		if (key == "workingdir")
 			workingdir = value;
 		else if (key == "pkcs11path")
@@ -489,7 +490,7 @@ QString MainWindow::getSetting(QString key)
 	q.bindValue(0, key);
 	q.exec();
 	if (q.first()) {
-		return q.value(0).toString();
+		return q.value(0).toString().simplified();
 	}
 	dbSqlError(q.lastError());
 	return QString();
@@ -500,14 +501,14 @@ void MainWindow::storeSetting(QString key, QString value)
 	XSqlQuery q;
 	QSqlError e;
 
+	Transaction;
+	if (!TransBegin())
+		return;
+
 	SQL_PREPARE(q, "SELECT COUNT(key_) FROM settings WHERE key_=?");
 	q.bindValue(0, key);
 	q.exec();
 	dbSqlError(q.lastError());
-
-	Transaction;
-	if (!TransBegin())
-		return;
 
 	if (q.first() && q.value(0).toInt() == 1)
 		SQL_PREPARE(q, "UPDATE settings SET value=? WHERE key_=?");

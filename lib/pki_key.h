@@ -50,6 +50,7 @@ class pki_key: public pki_base
 		static builtin_curves builtinCurves;
 		QString length() const;
 		QString comboText() const;
+		QString getKeyTypeString(void) const;
 		virtual EVP_PKEY *decryptKey() const;
 		virtual const EVP_MD *getDefaultMD();
 		virtual bool isToken();
