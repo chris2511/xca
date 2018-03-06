@@ -61,6 +61,7 @@ class pki_scard: public pki_key
 		{
 			return slot_label;
 		}
+		void updateLabel(QString label);
 		QString getId() const
 		{
 			return object_id;

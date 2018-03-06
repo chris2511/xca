@@ -894,3 +894,21 @@ bool pki_scard::visible()
 	}
 	return false;
 }
+void pki_scard::updateLabel(QString label)
+{
+	XSqlQuery q;
+	Transaction;
+
+	if (slot_label == label)
+		return;
+	if (!TransBegin())
+		return;
+	slot_label = label;
+
+	SQL_PREPARE(q, "UPDATE tokens SET slot_label=? WHERE item=?");
+	q.bindValue(0, slot_label);
+	q.bindValue(1, sqlItemId);
+	q.exec();
+	AffectedItems(sqlItemId);
+	TransCommit();
+}

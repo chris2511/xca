@@ -105,6 +105,8 @@ void ImportMulti::addItem(pki_base *pki)
 		XCA_WARN(tr("The type of the item '%1' is not recognized").
 			arg(cn));
 	}
+	if (cn == "pki_scard")
+		mcont->rename_token_in_database(dynamic_cast<pki_scard*>(pki));
 }
 
 void ImportMulti::dragEnterEvent(QDragEnterEvent *event)

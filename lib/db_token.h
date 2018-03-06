@@ -15,6 +15,7 @@
 #include "pkcs11_lib.h"
 #include "db_base.h"
 
+class pki_scard;
 class db_token: public db_base
 {
 		Q_OBJECT
@@ -29,6 +30,7 @@ class db_token: public db_base
 			slot = s;
 		}
 		void saveHeaderState();
+		void rename_token_in_database(pki_scard *token);
 };
 
 #endif
