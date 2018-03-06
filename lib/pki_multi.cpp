@@ -97,6 +97,7 @@ void pki_multi::fload(const QString fname)
 	QFile file(fname);
 	QByteArray ba;
 
+	file.open(QFile::ReadOnly);
 	if (file.error()) {
 		fopen_error(fname);
 		return;
