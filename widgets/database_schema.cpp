@@ -290,7 +290,7 @@
 	;
 
 	schemas[4]
-<< "ALTER TABLE items ADD stamp INTEGER NOT NULL DEFAULT (0)"
+<< "ALTER TABLE items ADD stamp INTEGER NOT NULL DEFAULT 0"
 << "CREATE INDEX i_items_stamp ON items (stamp)"
 << "UPDATE settings SET value='5' WHERE key_='schema'"
 	;

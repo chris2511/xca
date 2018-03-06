@@ -69,6 +69,9 @@ void pki_evp::setOwnPass(enum passType x)
 
 bool pki_evp::sqlUpdatePrivateKey()
 {
+	Transaction;
+	if (!TransBegin())
+		return false;
 	XSqlQuery q;
 	SQL_PREPARE(q, "UPDATE private_keys SET private=?, ownPass=? "
 		"WHERE item=?");
@@ -80,7 +83,12 @@ bool pki_evp::sqlUpdatePrivateKey()
 
 	encKey.fill(0);
 	encKey.clear();
-	return !q.lastError().isValid() && q.numRowsAffected() == 1;
+
+	if (!q.lastError().isValid() && q.numRowsAffected() == 1) {
+		TransCommit();
+		return true;
+	}
+	return false;
 }
 
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
@@ -460,6 +468,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 		myencKey = getEncKey();
 	else
 		myencKey = encKey;
+	qDebug() << "myencKey.count()"<<myencKey.count();
 	if (myencKey.count() == 0)
 		return NULL;
 	BIO *b = BIO_from_QByteArray(myencKey);
@@ -662,7 +671,7 @@ QByteArray pki_evp::getEncKey() const
 	e = q.lastError();
 	if (e.isValid() || !q.first())
 		return QByteArray();
-	return QByteArray::fromBase64(q.value(0).toByteArray());
+	return QByteArray::fromBase64(q.value(0).toByteArray().trimmed());
 }
 
 QSqlError pki_evp::deleteSqlData()
