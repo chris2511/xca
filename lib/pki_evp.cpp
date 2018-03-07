@@ -717,7 +717,7 @@ static int mycb(char *buf, int size, int, void *)
 
 void pki_evp::writeDefault(const QString fname)
 {
-	writeKey(fname + QDir::separator() + getIntName() + ".pem",
+	writeKey(get_dump_filename(fname, ".pem"),
 		pki_evp::passwd[0] ? EVP_des_ede3_cbc() : NULL,
 		mycb, true);
 }

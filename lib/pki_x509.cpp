@@ -660,8 +660,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 
 void pki_x509::writeDefault(const QString fname)
 {
-	writeCert(fname + QDir::separator() + getIntName() + ".crt",
-			true, false);
+	writeCert(get_dump_filename(fname, ".crt"), true, false);
 }
 
 void pki_x509::writeCert(const QString fname, bool PEM, bool append)

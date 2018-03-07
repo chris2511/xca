@@ -395,7 +395,7 @@ void pki_temp::writeTemp(QString fname)
 
 void pki_temp::writeDefault(const QString fname)
 {
-	writeTemp(fname + QDir::separator() + getIntName() + ".xca");
+	writeTemp(get_dump_filename(fname, ".xca"));
 }
 
 BIO *pki_temp::pem(BIO *b, int format)

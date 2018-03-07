@@ -243,7 +243,7 @@ void pki_x509req::setSubject(const x509name &n)
 
 void pki_x509req::writeDefault(const QString fname)
 {
-	writeReq(fname + QDir::separator() + getIntName() + ".csr", true);
+	writeReq(get_dump_filename(fname, ".csr"), true);
 }
 
 void pki_x509req::writeReq(const QString fname, bool pem)

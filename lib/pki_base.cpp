@@ -309,3 +309,16 @@ unsigned pki_base::hash()
 {
 	return hash(i2d());
 }
+
+QString pki_base::get_dump_filename(const QString &dir, QString ext)
+{
+	QString ctr = "", fn;
+	int count = 0;
+	while (count++ < 1000) {
+		fn = dir +QDir::separator() +getUnderlinedName() +ctr +ext;
+		if (!QFile::exists(fn))
+			return fn;
+		ctr = QString("_%1").arg(count);
+	}
+	return fn;
+}
