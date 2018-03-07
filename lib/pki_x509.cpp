@@ -683,7 +683,7 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 		fopen_error(fname);
 }
 
-void pki_x509::writeIndexEntry(FILE *fp)
+QString pki_x509::getIndexEntry()
 {
 	QString flag = NULL;
 	bool revoked = isRevoked();
@@ -695,28 +695,11 @@ void pki_x509::writeIndexEntry(FILE *fp)
 	else
 		flag = "E";
 
-	QString line = QString("%1\t%2\t%3\t%4\tunknown\t%5\n").arg(
-		flag, getNotAfter().toPlainUTC(), (revoked ? revocation.getDate().toPlainUTC() : ""),
-		getSerial().toHex(), QString(X509_NAME_oneline(getSubject().get(), NULL, 0)));
-
-	QByteArray ba = line.toUtf8();
-	fwrite(ba.constData(), ba.size(), 1, fp);
-}
-
-void pki_x509::writeIndexEntry(const QString fname, bool append)
-{
-	FILE *fp;
-	const char *p = "w";
-	if (append)
-		p = "a";
-	fp = fopen(QString2filename(fname), p);
-	if (fp != NULL) {
-		if (cert)
-			writeIndexEntry(fp);
-		fclose(fp);
-		pki_openssl_error();
-	} else
-		fopen_error(fname);
+	return QString("%1\t%2\t%3\t%4\tunknown\t%5\n").arg(
+		flag, getNotAfter().toPlainUTC(),
+		revoked ? revocation.getDate().toPlainUTC() : "",
+		getSerial().toHex(),
+		QString(X509_NAME_oneline(getSubject().get(), NULL, 0)));
 }
 
 BIO *pki_x509::pem(BIO *b, int format)

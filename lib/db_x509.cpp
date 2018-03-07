@@ -295,26 +295,21 @@ QList<pki_x509*> db_x509::getCerts(bool unrevoked)
 
 void db_x509::writeIndex(const QString fname, bool hierarchy)
 {
-	bool append = false;
 	if (hierarchy) {
-		FOR_ALL_pki(pki, pki_x509) {
-			if (pki->childCount()) {
-
-				QString newfname = fname + "." + pki->getIntName().replace(QRegExp("[^a-zA-Z0-9]"),QString(""));;
-
-				append = false;
-				foreach(pki_base *_child, pki->childItems) {
-					pki_x509 *child = static_cast<pki_x509*>(_child);
-					child->writeIndexEntry(newfname, append);
-					append = true;
-				}
-			}
+		QString dir = fname + "/";
+		dir = nativeSeparator(dir);
+		QList<pki_x509*> issuers = sqlSELECTpki<pki_x509>(
+			"SELECT DISTINCT issuer FROM certs WHERE issuer != item");
+		foreach(pki_x509 *ca, issuers) {
+			writeIndex(dir + ca->getUnderlinedName() + ".txt",
+				sqlSELECTpki<pki_x509>(
+				  "SELECT item FROM certs WHERE issuer=?",
+				  QList<QVariant>() << QVariant(ca->getSqlItemId())
+				)
+			);
 		}
 	} else {
-		FOR_ALL_pki(pki, pki_x509) {
-			pki->writeIndexEntry(fname, append);
-			append = true;
-		}
+		writeIndex(fname,sqlSELECTpki<pki_x509>("SELECT item FROM certs"));
 	}
 }
 
@@ -679,6 +674,7 @@ void db_x509::store(QModelIndexList list)
 		return;
 	}
 	QString fname = dlg->filename->text();
+	QList<pki_x509*> certs;
 	enum exportType::etype type = dlg->type();
 	delete dlg;
 	try {
@@ -748,12 +744,10 @@ void db_x509::store(QModelIndexList list)
 			crt->writeCert(fname, true, true);
 			break;
 		case exportType::Index:
-			append = false;
-			foreach(QModelIndex idx, list) {
-				crt = static_cast<pki_x509*>(idx.internalPointer());
-				crt->writeIndexEntry(fname, append);
-				append = true;
-			}
+			foreach(QModelIndex idx, list)
+				certs << static_cast<pki_x509*>
+					(idx.internalPointer());
+			writeIndex(fname, certs);
 			break;
 		default:
 			exit(1);
@@ -764,6 +758,23 @@ void db_x509::store(QModelIndexList list)
 	}
 }
 
+void db_x509::writeIndex(const QString fname, QList<pki_x509*> items)
+{
+	QFile file(fname);
+	file.open(QFile::ReadWrite);
+	if (file.error()) {
+		throw errorEx(tr("Error opening file: '%1': %2")
+			.arg(fname).arg(strerror(errno)));
+		return;
+	}
+
+	QString index;
+	foreach(pki_x509 *cert, items) {
+		if (cert)
+			index += cert->getIndexEntry();
+	}
+	file.write(index.toUtf8());
+}
 
 void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
 {

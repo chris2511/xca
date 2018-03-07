@@ -87,8 +87,7 @@ class pki_x509 : public pki_x509super
 		bool isCA() const;
 		bool canSign() const;
 		void writeCert(const QString fname, bool PEM, bool append = false);
-		void writeIndexEntry(FILE *fp);
-		void writeIndexEntry(const QString fname, bool append = false);
+		QString getIndexEntry();
 		bool verify(pki_x509 *signer);
 		bool verify_only(pki_x509 *signer);
 		pki_key *getPubKey() const;

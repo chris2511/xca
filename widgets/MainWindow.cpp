@@ -822,45 +822,36 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 
 void MainWindow::exportIndex()
 {
-	exportIndex(NULL, false);
+	exportIndex(QString(), false);
 }
 
 void MainWindow::exportIndexHierarchy()
 {
-	exportIndex(NULL, true);
+	exportIndex(QString(), true);
 }
 
 int MainWindow::exportIndex(QString fname, bool hierarchy)
 {
-	if (fname == NULL || fname.isEmpty()) {
-
-		QString filter = tr("Certificate Index ( index.txt )") + ";;" + tr("All files ( * )");
-
-		fname = QFileDialog::getSaveFileName(this, QString(), fname, filter, NULL);
+	if (fname.isEmpty()) {
+		if (hierarchy)
+			fname = QFileDialog::getExistingDirectory(
+					this, tr(XCA_TITLE), getPath());
+		else
+			fname = QFileDialog::getSaveFileName(this, tr(XCA_TITLE),
+				getPath(),
+				tr("Certificate Index ( index.txt )") + ";;" +
+				tr("All files ( * )"));
 
 		if (fname.isEmpty())
 			return 1;
-
 		nativeSeparator(fname);
 	}
-
 	if (certs == NULL) {
 		open_default_db();
 		if (certs == NULL)
 			return 2;
 	}
-
-	bool needChangeView = hierarchy && !certs->treeview;
-	if (needChangeView) {
-		certView->changeView();
-	}
-
 	certs->writeIndex(fname, hierarchy);
-
-	if (needChangeView) {
-		certView->changeView();
-	}
-
 	return 0;
 }
 
@@ -909,7 +900,7 @@ void MainWindow::generateDHparam()
 
 		QString fname = QString("%1/dh%2.pem").arg(homedir).arg(num);
 		fname = QFileDialog::getSaveFileName(this, QString(),
-			fname, "All files ( * )", NULL);
+			fname, tr("All files ( * )"), NULL);
 		if (fname == "")
 			throw errorEx("");
 		fp = fopen_write(fname);
