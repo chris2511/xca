@@ -168,6 +168,7 @@ class pki_base : public QObject
 		unsigned hash();
 		QString pki_source_name() const;
 		QString get_dump_filename(const QString &dir, QString ext);
+		void selfComment(QString msg);
 };
 
 Q_DECLARE_METATYPE(pki_base *);

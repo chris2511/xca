@@ -322,3 +322,8 @@ QString pki_base::get_dump_filename(const QString &dir, QString ext)
 	}
 	return fn;
 }
+
+void pki_base::selfComment(QString msg)
+{
+	setComment(appendXcaComment(getComment(), msg));
+}

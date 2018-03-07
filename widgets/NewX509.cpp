@@ -717,11 +717,7 @@ pki_temp *NewX509::currentTemplate()
 
 void NewX509::selfComment(QString msg)
 {
-	QString c = comment->toPlainText();
-	if (!c.endsWith("\n"))
-		c += "\n";
-	c += QString("(%1)\n").arg(msg);
-	comment->setPlainText(c);
+	comment->setPlainText(appendXcaComment(comment->toPlainText(), msg));
 }
 
 void NewX509::on_applyTemplate_clicked()

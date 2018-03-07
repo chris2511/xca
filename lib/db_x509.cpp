@@ -403,9 +403,7 @@ void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
 	q.exec();
 
 	a1time a;
-	QString comment = req->getComment();
-	req->setComment(comment + "\n" + tr("Signed on %1 by '%2'")
-		.arg(a.toPretty())
+	req->selfComment(tr("Signed on %1 by '%2'").arg(a.toPretty())
 		.arg(issuer ? issuer->getIntName() : tr("Unknown")));
 	SQL_PREPARE(q, "UPDATE items SET comment=? WHERE id=?");
 	q.bindValue(0, req->getComment());

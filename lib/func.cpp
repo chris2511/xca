@@ -458,3 +458,10 @@ void dn_translations_setup()
 	dn_translations[NID_netscape_ssl_server_name] = QObject::tr("SSL server name");
 	dn_translations[NID_netscape_comment] = QObject::tr("Comment");
 }
+
+QString appendXcaComment(QString current, QString msg)
+{
+	if (!current.endsWith("\n") && !current.isEmpty())
+		current += "\n";
+	return current + QString("(%1)\n").arg(msg);
+}

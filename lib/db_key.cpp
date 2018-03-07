@@ -125,8 +125,8 @@ pki_base* db_key::insert(pki_base *item)
 		} else {
 			XCA_INFO(
 			tr("The database already contains the public part of the imported key as\n'%1\nand will be completed by the new, private part of the key").arg(oldkey->getIntName()));
-			lkey->setComment(oldkey->getComment() + "\n" +
-				tr("Extending public key from %1 by %2")
+			lkey->setComment(oldkey->getComment());
+			lkey->selfComment(tr("Extending public key from %1 by imported key '%2'")
 				.arg(oldkey->getInsertionDate().toPretty())
 				.arg(lkey->getIntName()));
 			lkey->setIntName(oldkey->getIntName());

@@ -130,6 +130,10 @@ void db_x509super::extractPubkey(QModelIndex index)
 		return;
 	key->setIntName(pki->getIntName());
 	key->pkiSource = transformed;
+	key->selfComment(tr("Extracted from %1 '%2'")
+		.arg(pki->getType() == x509 ?
+			tr("Certificate") : tr("Certificate request"))
+		.arg(pki->getIntName()));
 	key = (pki_key*)mainwin->keys->insert(key);
 	if (!key)
 		return;
@@ -178,6 +182,10 @@ void db_x509super::toTemplate(QModelIndex index)
 		        delete d;
 		}
 		temp->pkiSource = transformed;
+		temp->selfComment(tr("Transformed from %1 '%2'")
+			.arg(pki->getType() == x509 ?
+				tr("Certificate") : tr("Certificate request"))
+			.arg(pki->getIntName()));
 		createSuccess(mainwin->temps->insert(temp));
 	}
 	catch (errorEx &err) {

@@ -73,6 +73,8 @@ static inline BIO *BIO_from_QByteArray(QByteArray &ba)
 	return BIO_new_mem_buf(ba.data(), ba.length());
 }
 
+QString appendXcaComment(QString current, QString msg);
+
 /* from version.cpp */
 const char *version_str(bool html);
 
