@@ -382,7 +382,7 @@
     <message>
         <location line="+1"/>
         <source>Manage revocations</source>
-        <translation>Rückzugsliste bearbeiten</translation>
+        <translation>Sperrlisteneinträge bearbeiten</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -397,12 +397,12 @@
     <message>
         <location line="+2"/>
         <source>Revoke</source>
-        <translation>Rücknahme</translation>
+        <translation>Sperren</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unrevoke</source>
-        <translation>Rücknahme aufheben</translation>
+        <translation>Sperrung aufheben</translation>
     </message>
 </context>
 <context>
@@ -437,7 +437,7 @@
     </message>
     <message>
         <source>Revocation</source>
-        <translation type="obsolete">Rücknahme</translation>
+        <translation type="obsolete">Sperrung</translation>
     </message>
     <message>
         <source>Reason</source>
@@ -469,7 +469,7 @@
     <message>
         <location filename="../ui/CrlDetail.ui" line="-129"/>
         <source>Details of the Revocation list</source>
-        <translation>Details der Rücknahmeliste</translation>
+        <translation>Details der Sperrliste</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -532,7 +532,7 @@
     <message>
         <location line="+20"/>
         <source>&amp;Revocation list</source>
-        <translation>&amp;Rücknahmeliste</translation>
+        <translation>&amp;Sperrliste</translation>
     </message>
     <message>
         <source>0</source>
@@ -735,7 +735,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation>Index Datei</translation>
+        <translation>Zertifikatsindexdatei</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -1325,7 +1325,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+86"/>
         <source>&amp;New CRL</source>
-        <translation>&amp;Neue Rücknahmeliste</translation>
+        <translation>&amp;Neue Sperrliste</translation>
     </message>
     <message>
         <source>&amp;New template</source>
@@ -1339,7 +1339,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+61"/>
         <source>Revocation lists</source>
-        <translation>Rücknahmelisten</translation>
+        <translation>Sperrlisten</translation>
     </message>
     <message>
         <location filename="../widgets/MW_database.cpp" line="+168"/>
@@ -1415,7 +1415,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+1"/>
         <source>Revocation list</source>
-        <translation>Rücknahmeliste</translation>
+        <translation>Sperrliste</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1496,7 +1496,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+123"/>
         <source>Certificate Index ( index.txt )</source>
-        <translation>Zertifikats Index ( index.txt )</translation>
+        <translation>Zertifikatsindex ( index.txt )</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1699,7 +1699,7 @@ Bitte die DH Parameter bits angeben</translation>
     <message>
         <location line="+26"/>
         <source>Revocation reasons</source>
-        <translation>Rückzugsgrund</translation>
+        <translation>Sperrungsgrund</translation>
     </message>
 </context>
 <context>
@@ -2687,7 +2687,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+13"/>
         <source>Revocation lists ( *.pem *.der *.crl );;</source>
-        <translation>Rücknahmeliste ( *.pem *.der *.crl );;</translation>
+        <translation>Sperrliste ( *.pem *.der *.crl );;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -3086,7 +3086,7 @@ in Bibliothek %3
     <message>
         <location filename="../ui/RevocationList.ui" line="+30"/>
         <source>Manage revocations</source>
-        <translation>Rückzugsliste bearbeiten</translation>
+        <translation>Sperrlisteneinträge bearbeiten</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -3111,7 +3111,7 @@ in Bibliothek %3
     <message>
         <location line="+0"/>
         <source>Revocation</source>
-        <translation>Rücknahme</translation>
+        <translation>Sperrung</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3134,7 +3134,7 @@ in Bibliothek %3
     <message>
         <location filename="../ui/Revoke.ui" line="+87"/>
         <source>Revocation details</source>
-        <translation>Details der Rücknahmeliste</translation>
+        <translation>Details der Sperrliste</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -3154,7 +3154,7 @@ in Bibliothek %3
     <message>
         <location line="+66"/>
         <source>Revocation reason</source>
-        <translation>Rücknahmegrund</translation>
+        <translation>Sperrgrund</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -3541,7 +3541,7 @@ Grösse %3
     <message>
         <location line="-68"/>
         <source>Revocation list export</source>
-        <translation>Rücknahmeliste exportieren</translation>
+        <translation>Sperrliste exportieren</translation>
     </message>
     <message>
         <source>Import</source>
@@ -3910,7 +3910,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     <message>
         <location line="+1"/>
         <source>Revocation</source>
-        <translation>Rücknahme</translation>
+        <translation>Sperrung</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4071,11 +4071,11 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     </message>
     <message>
         <source>Unrevoke</source>
-        <translation type="obsolete">Rücknahme aufheben</translation>
+        <translation type="obsolete">Sperrung aufheben</translation>
     </message>
     <message>
         <source>Revoke</source>
-        <translation type="obsolete">Rücknahme</translation>
+        <translation type="obsolete">Sperrung</translation>
     </message>
     <message>
         <location line="+651"/>
@@ -4173,7 +4173,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+2"/>
         <source>Certificate Index file</source>
-        <translation>Zertifikat</translation>
+        <translation>Zertifikatsindexdatei</translation>
     </message>
     <message>
         <location line="+61"/>
