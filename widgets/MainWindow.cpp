@@ -822,30 +822,23 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 
 void MainWindow::exportIndex()
 {
-	exportIndex(QString(), false);
+	exportIndex(QFileDialog::getSaveFileName(this, XCA_TITLE, getPath(),
+				tr("Certificate Index ( index.txt )") + ";;" +
+				tr("All files ( * )")),
+			false);
 }
 
 void MainWindow::exportIndexHierarchy()
 {
-	exportIndex(QString(), true);
+	exportIndex(QFileDialog::getExistingDirectory(
+		this, XCA_TITLE, getPath()), true);
 }
 
 int MainWindow::exportIndex(QString fname, bool hierarchy)
 {
-	if (fname.isEmpty()) {
-		if (hierarchy)
-			fname = QFileDialog::getExistingDirectory(
-					this, tr(XCA_TITLE), getPath());
-		else
-			fname = QFileDialog::getSaveFileName(this, tr(XCA_TITLE),
-				getPath(),
-				tr("Certificate Index ( index.txt )") + ";;" +
-				tr("All files ( * )"));
-
-		if (fname.isEmpty())
-			return 1;
-		nativeSeparator(fname);
-	}
+	qDebug() << fname << hierarchy;
+	if (fname.isEmpty())
+		return 1;
 	if (certs == NULL) {
 		open_default_db();
 		if (certs == NULL)

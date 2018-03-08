@@ -243,7 +243,8 @@ XCA seeds it very thoroughly.
 
 <p>
 
-Usage: <tt>xca [-d new.xdb] [-v] [-x] &lt;files&gt;</tt>
+Usage: <tt>xca [-d new.xdb] [-v] [-x] [-i &lt;index-file&gt;]
+		[-I &lt;directory&gt;] &lt;files&gt;</tt>
 
 Next to the usual X command line options. There are the following
 
@@ -251,11 +252,16 @@ Next to the usual X command line options. There are the following
 	<item>-v show version information and exit
 	<item>-d set the database filename (only needed to create a new db)
 	<item>-x exit after processing all command line options
+	<item>-i creates an OpenSSL index file containing all certificates
+	<item>-I creates an OpenSSL index file for each ca in the given,
+		existing directory containing all issued certitifactes.
 </itemize>
 
 There are some deprecated legacy options: [ -k ] [ -r ] [ -c ] [ -p ] [ -7 ] [ -l ] [ -t ] [ -P ]
 
-Before XCA 0.9.0, the type of the items had to be given. This was removed since. Just put all keys, certs, requests and the database unsorted on the commandline. For backwards compatibility those options are ignored when found.
+Before XCA 0.9.0, the type of the items had to be given. This was removed since.
+Just put all keys, certs, requests and the database unsorted on the commandline.
+For backwards compatibility those options are ignored when found.
 
 <p>
 
