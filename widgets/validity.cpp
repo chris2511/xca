@@ -105,7 +105,8 @@ void Validity::updateFormatString()
 	if (timeSpec() == Qt::UTC || midnight) {
 		format += " 'GMT'";
 	} else {
-		format+= " t";
+		format += QString(" '%1'")
+			.arg(QTime::currentTime().toString("t"));
 	}
 	setDisplayFormat(format);
 }
