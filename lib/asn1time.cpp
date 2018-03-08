@@ -52,11 +52,12 @@ int a1time::from_asn1(const ASN1_TIME *a)
 
 int a1time::fromPlain(QString plain)
 {
-	setTimeSpec(Qt::UTC);
+	setTimeSpec(Qt::LocalTime);
 	if (plain == UNDEFINED_DATE)
 		setUndefined();
 	else
 		*this = fromString(plain, GEN_FORMAT);
+	setTimeSpec(Qt::UTC);
 	return isValid() ? 0 : -1;
 }
 
