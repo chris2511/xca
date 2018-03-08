@@ -152,10 +152,14 @@ void ImportMulti::on_butRemove_clicked()
 
 void ImportMulti::on_butOk_clicked()
 {
+	Transaction;
+	if (!TransBegin())
+		return;
 	while (mcont->rootItem->childCount()) {
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
 		import(idx);
 	}
+	TransCommit();
 	accept();
 }
 
@@ -163,13 +167,16 @@ void ImportMulti::on_butImport_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndexList indexes = selectionModel->selectedIndexes();
-	QModelIndex index;
 
-	foreach(index, indexes) {
+	Transaction;
+	if (!TransBegin())
+		return;
+	foreach(QModelIndex index, indexes) {
 		if (index.column() != 0)
 			continue;
 		import(index);
 	}
+	TransCommit();
 }
 
 void ImportMulti::on_deleteToken_clicked()

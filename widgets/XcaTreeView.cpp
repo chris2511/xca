@@ -218,6 +218,10 @@ void XcaTreeView::deleteItems(void)
 		count++;
 	}
 
+	Transaction;
+	if (!TransBegin())
+		return;
+
 	if (count == 1)
 		msg = pki->getMsg(pki_base::msg_delete).arg(pki->getIntName());
 	else
@@ -230,6 +234,7 @@ void XcaTreeView::deleteItems(void)
 	foreach(index, indexes) {
 		basemodel->deletePKI(index);
 	}
+	TransCommit();
 }
 
 void XcaTreeView::storeItems(void)
