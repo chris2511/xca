@@ -1,3 +1,16 @@
+ * The internal name is not neccessarily unique anymore and can be edited
+   in the details dialog as well as the comment.
+ * CSR signing is now statically stored in the database and the comment
+   of the issued certificate.
+ * Private keys in the database are PKCS#8 encrypted and can be exported
+   and decrypted without XCA.
+ * No more incrementing serials. Only unique random serial numbers.
+ * "xca_db_stat" application removed. Use the SQLite3 browser "sqlitebrowser".
+ * "xca extract" functionality removed. SQL views may be used instead.
+ * Each item may be commented. XCA itself comments important events in the item.
+ * Each item knows its time and origin of appearance.
+ * Change database format to SQL(ite) and support MySQL and PostgreSQL.
+
 xca 1.4.1 Sat Mar 3 2018
 
  * Replace links to XCA on Sourceforge in the software and
