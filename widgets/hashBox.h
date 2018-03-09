@@ -15,7 +15,7 @@ class hashBox: public QComboBox
 {
 		Q_OBJECT
 	private:
-		static QString default_md;
+		static int default_md;
 		QString wanted_md;
 		int backup;
 		int key_type;
@@ -27,13 +27,12 @@ class hashBox: public QComboBox
 		int currentHashIdx() const;
 		bool isInsecure() const;
 		void setCurrentMD(const EVP_MD *md);
-		void setCurrentAsDefault();
 		void setDefaultHash();
 		void setupHashes(QList<int> nids);
 		void setupAllHashes();
 		void setCurrentString(QString md);
 		static void setDefault(QString def);
-		static void resetDefault();
+		static QString getDefault();
 };
 
 #endif

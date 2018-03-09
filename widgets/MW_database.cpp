@@ -40,8 +40,7 @@ QSqlError MainWindow::initSqlDB()
 	tables = db.tables();
 
 	if (tables.contains("settings")) {
-		QString schema = getSetting("schema");
-		i = schema.toInt();
+		i = Settings["schema"];
 	}
 	Transaction;
 	if (!TransBegin())
@@ -81,13 +80,13 @@ QString MainWindow::openSqlDB(QString dbName)
 void MainWindow::openRemoteSqlDB()
 {
 	close_database();
-	init_database(""); //@/QPSQL7:");
+	init_database("");
 }
 
 void MainWindow::set_geometry(QString geo)
 {
 	QStringList sl = geo.split(",");
-	if (sl.size() != 2)
+	if (sl.size() != 3)
 		return;
 	resize(sl[0].toInt(), sl[1].toInt());
 	int i = sl[2].toInt();
@@ -149,7 +148,7 @@ void MainWindow::importOldDatabase(QString dbname)
 	QList<enum pki_type> pkitype; pkitype <<
 	    smartCard << asym_key << tmpl << x509_req << x509 << revocation;
 
-	storeSetting("pwhash", pki_evp::passHash);
+	Settings["pwhash"] = pki_evp::passHash;
 	for (int i=0; i < pkitype.count(); i++) {
 		mydb.first();
 		while (mydb.find(pkitype[i], QString()) == 0) {
@@ -225,7 +224,7 @@ next:
 		if (sl.contains(set)) {
 			if (set == "optionflags1")
 				set = "optionflags";
-			storeSetting(set, val);
+			Settings[set] = val;
 		}
 		if (mydb.next())
 			break;
@@ -287,15 +286,6 @@ int MainWindow::init_database(QString dbName)
 	searchEdit->setText("");
 	searchEdit->show();
 	statusBar()->addWidget(searchEdit, 1);
-	mandatory_dn = "";
-	explicit_dn = explicit_dn_default;
-
-	string_opt = QString("MASK:0x2002");
-	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
-	hashBox::resetDefault();
-	pkcs11path = QString();
-	workingdir = QDir::currentPath();
-	setOptFlags((QString()));
 
 	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
 		SLOT(connNewX509(NewX509 *)) );
@@ -324,34 +314,8 @@ int MainWindow::init_database(QString dbName)
 	if (!oldDbFile.isEmpty())
 		importOldDatabase(oldDbFile);
 
-	XSqlQuery query("SELECT key_, value FROM settings");
-	while (query.next()) {
-		QString key = query.value(0).toString().simplified();
-		QString value = query.value(1).toString().simplified();
-		qDebug() << "SETTING:" << key << "=" <<value;
-		if (key == "workingdir")
-			workingdir = value;
-		else if (key == "pkcs11path")
-			pkcs11path = value;
-		else if (key == "default_hash")
-			hashBox::setDefault(value);
-		else if (key == "mandatory_dn")
-			mandatory_dn = value;
-		else if (key == "explicit_dn")
-			explicit_dn = value;
-		else if (key == "string_opt")
-			string_opt = value;
-		else if (key == "optionflags")
-			setOptFlags(value);
-		else if (key == "defaultkey")
-			NewKey::setDefault(value);
-		else if (key == "mw_geometry")
-			set_geometry(value);
-	}
-	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
-	if (explicit_dn.isEmpty())
-		explicit_dn = explicit_dn_default;
-	setWindowTitle(tr(XCA_TITLE));
+	set_geometry(Settings["mw_geometry"]);
+	setWindowTitle(XCA_TITLE);
 	setItemEnabled(true);
 	if (pki_evp::passwd.isNull())
 		XCA_INFO(tr("Using or exporting private keys will not be possible without providing the correct password"));
@@ -369,8 +333,8 @@ int MainWindow::init_database(QString dbName)
 
 void MainWindow::dump_database()
 {
-	QString dirname = QFileDialog::getExistingDirectory(this, tr(XCA_TITLE),
-			getPath());
+	QString dirname = QFileDialog::getExistingDirectory(
+				this, XCA_TITLE, Settings["workingdir"]);
 
 	if (dirname.isEmpty())
 		return;
@@ -487,44 +451,6 @@ void MainWindow::default_database()
 
 }
 
-QString MainWindow::getSetting(QString key)
-{
-	XSqlQuery q;
-	SQL_PREPARE(q, "SELECT value FROM settings WHERE key_=?");
-	q.bindValue(0, key);
-	q.exec();
-	if (q.first()) {
-		return q.value(0).toString().simplified();
-	}
-	dbSqlError(q.lastError());
-	return QString();
-}
-
-void MainWindow::storeSetting(QString key, QString value)
-{
-	XSqlQuery q;
-	QSqlError e;
-
-	Transaction;
-	if (!TransBegin())
-		return;
-
-	SQL_PREPARE(q, "SELECT COUNT(key_) FROM settings WHERE key_=?");
-	q.bindValue(0, key);
-	q.exec();
-	dbSqlError(q.lastError());
-
-	if (q.first() && q.value(0).toInt() == 1)
-		SQL_PREPARE(q, "UPDATE settings SET value=? WHERE key_=?");
-	else
-		SQL_PREPARE(q, "INSERT INTO settings (value, key_) VALUES (?,?)");
-	q.bindValue(0, value);
-	q.bindValue(1, key);
-	q.exec();
-	dbSqlError(q.lastError());
-	TransCommit();
-}
-
 void MainWindow::close_database()
 {
 	QByteArray ba;
@@ -540,13 +466,14 @@ void MainWindow::close_database()
 
 	if (!dbopen) {
 		QSqlDatabase::removeDatabase(connName);
+		Settings.clear();
 		return;
 	}
 	qDebug("Closing database: %s", QString2filename(currentDB));
-	QString s = QString("%1,%2,%3")
-		.arg(size().width()).arg(size().height())
-		.arg(tabView->currentIndex());
-	storeSetting("mw_geometry", s);
+	Settings["mw_geometry"] = QString("%1,%2,%3")
+			.arg(size().width())
+			.arg(size().height())
+			.arg(tabView->currentIndex());
 
 	setItemEnabled(false);
 	statusBar()->removeWidget(searchEdit);
@@ -588,6 +515,7 @@ void MainWindow::close_database()
 	enableTokenMenu(pkcs11::loaded());
 	QSqlDatabase::removeDatabase(connName);
 	currentDB.clear();
+	Settings.clear();
 }
 
 void MainWindow::load_history()

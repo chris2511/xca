@@ -16,6 +16,7 @@
 #include "db.h"
 #include "base.h"
 #include "headerlist.h"
+#include "settings.h"
 #include "sql.h"
 
 #define __ME QString("(%1:%2)").arg(getClassName()).arg(getIntName())
@@ -43,7 +44,6 @@ class pki_base : public QObject
 		Q_OBJECT
 
 	public: /* static */
-		static int suppress_messages;
 		static QRegExp limitPattern;
 		static QString rmslashdot(const QString &fname);
 		static unsigned hash(QByteArray ba);

@@ -7,6 +7,7 @@
 
 #include "hashBox.h"
 #include "lib/base.h"
+#include <QDebug>
 
 /* SHA-256 as default */
 #define DEFAULT_MD_IDX 4
@@ -27,12 +28,7 @@ static struct {
 	{ "SHA 512", EVP_sha512() },
 };
 
-QString hashBox::default_md = QString();
-
-void hashBox::resetDefault()
-{
-	default_md = QString(hashalgos[DEFAULT_MD_IDX].name);
-}
+int hashBox::default_md = DEFAULT_MD_IDX;
 
 hashBox::hashBox(QWidget *parent)
 	:QComboBox(parent)
@@ -160,7 +156,7 @@ void hashBox::setCurrentMD(const EVP_MD *md)
 		hash_nid = EVP_MD_type(md);
 	for (idx = 0; idx<ARRAY_SIZE(hashalgos); idx++) {
 		if (hash_nid == EVP_MD_type(hashalgos[idx].md)) {
-			setCurrentString(hashalgos[idx].name);
+			setCurrentIndex(idx);
 			return;
 		}
 	}
@@ -207,16 +203,20 @@ QString hashBox::currentHashName() const
 
 void hashBox::setDefaultHash()
 {
-	setCurrentString(default_md);
-}
-
-void hashBox::setCurrentAsDefault()
-{
-	default_md = currentText();
+	setCurrentString(hashalgos[default_md].name);
 }
 
 void hashBox::setDefault(QString def)
 {
-	default_md = def;
+	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
+		if (hashalgos[i].name == def) {
+			default_md = i;
+			return;
+		}
+	}
 }
 
+QString hashBox::getDefault()
+{
+	return QString(hashalgos[default_md].name);
+}

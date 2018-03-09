@@ -30,7 +30,6 @@
 #include "openssl_compat.h"
 
 QPixmap *pki_scard::icon[1] = { NULL };
-bool pki_scard::only_token_hashes = false;
 
 void pki_scard::init(void)
 {
@@ -548,7 +547,7 @@ QList<int> pki_scard::possibleHashNids()
 {
 	QList<int> nids;
 
-	if (!only_token_hashes)
+	if (!Settings["only_token_hashes"])
 		return pki_key::possibleHashNids();
 
 	foreach(CK_MECHANISM_TYPE mechanism, mech_list) {

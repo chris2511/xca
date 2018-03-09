@@ -13,7 +13,6 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 
-int pki_base::suppress_messages = 0;
 QRegExp pki_base::limitPattern;
 
 pki_base::pki_base(const QString name, pki_base *p)

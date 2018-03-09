@@ -132,7 +132,7 @@ void db_temp::store(QModelIndex index)
 
 	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());
 
-	QString fn = mainwin->getPath() + QDir::separator() +
+	QString fn = Settings["workingdir"] + QDir::separator() +
 		temp->getUnderlinedName() + ".xca";
 	QString s = QFileDialog::getSaveFileName(mainwin,
 		tr("Save template as"),	fn,
@@ -140,7 +140,7 @@ void db_temp::store(QModelIndex index)
 	if (s.isEmpty())
 		return;
 	s = nativeSeparator(s);
-	mainwin->setPath(s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")) ));
+	Settings["workingdir"] = s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")));
 	try {
 		temp->writeTemp(s);
 	}

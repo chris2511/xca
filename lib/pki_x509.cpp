@@ -21,9 +21,6 @@
 
 #include "openssl_compat.h"
 
-bool pki_x509::dont_colorize_expiries = false;
-bool pki_x509::disable_netscape = false;
-
 QPixmap *pki_x509::icon[5];
 
 pki_x509::pki_x509(X509 *c)
@@ -1021,7 +1018,7 @@ QVariant pki_x509::bg_color(dbheader *hd)
 #define BG_YELLOW  QBrush(QColor(255,255,  0))
 #define BG_CYAN    QBrush(QColor(127,255,212))
 
-	if (dont_colorize_expiries)
+	if (Settings["no_expire_colors"])
 		return QVariant();
 
 	a1time nb, na, now, certwarn;

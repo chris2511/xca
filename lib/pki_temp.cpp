@@ -174,8 +174,8 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	settings["nsComment"] = "";
 
 	n = cert_or_req->getSubject();
-	foreach(QString sn, MainWindow::explicit_dn) {
-		int nid =OBJ_sn2nid(CCHAR(sn));
+	foreach(QString sn, Settings["explicit_dn"].split(",")) {
+		int nid = OBJ_sn2nid(CCHAR(sn));
 		QString ne = n.popEntryByNid(nid);
 		if (!ne.isNull())
 			xname.addEntryByNid(nid, ne);

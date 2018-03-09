@@ -229,138 +229,15 @@ void MainWindow::setOptions()
 
 	Options *opt = new Options(this);
 
-	opt->setExtDnString(mandatory_dn);
-	opt->setExpDnString(explicit_dn);
-	opt->setStringOpt(string_opt);
-	opt->setupPkcs11Provider(pkcs11path);
-	opt->suppress->setCheckState(
-		pki_base::suppress_messages ? Qt::Checked : Qt::Unchecked);
-	opt->noColorize->setCheckState(
-		pki_x509::dont_colorize_expiries ? Qt::Checked : Qt::Unchecked);
-	opt->transDnEntries->setCheckState(
-		translate_dn ? Qt::Checked : Qt::Unchecked);
-	opt->onlyTokenHashes->setCheckState(
-		pki_scard::only_token_hashes ? Qt::Checked : Qt::Unchecked);
-	opt->disableNetscape->setCheckState(
-		pki_x509::disable_netscape ? Qt::Checked : Qt::Unchecked);
-
 	if (!opt->exec()) {
 		delete opt;
 		enableTokenMenu(pkcs11::loaded());
 		return;
 	}
-	QString alg = opt->hashAlgo->currentHashName();
-	storeSetting("default_hash", alg);
-	hashBox::setDefault(alg);
 
-	mandatory_dn = opt->getExtDnString();
-	explicit_dn = opt->getExpDnString();
-	storeSetting("mandatory_dn", mandatory_dn);
-	if (explicit_dn.isEmpty())
-		explicit_dn = explicit_dn_default;
-	if (explicit_dn != explicit_dn_default) {
-		storeSetting("explicit_dn", explicit_dn);
-	} else {
-		XSqlQuery query("DELETE FROM settings WHERE key='explicit_dn'");
-	}
-	QString flags = getOptFlags();
-	pki_base::suppress_messages = opt->suppress->checkState();
-	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();
-	translate_dn = opt->transDnEntries->checkState();
-	pki_scard::only_token_hashes = opt->onlyTokenHashes->checkState();
-	pki_x509::disable_netscape = opt->disableNetscape->checkState();
+	certView->showHideSections();
+	reqView->showHideSections();
 
-	if (flags != getOptFlags()) {
-		flags = getOptFlags();
-		storeSetting("optionflags", flags);
-		certView->showHideSections();
-		reqView->showHideSections();
-	}
-
-	if (opt->getStringOpt() != string_opt) {
-		string_opt = opt->getStringOpt();
-		ASN1_STRING_set_default_mask_asc((char *)CCHAR(string_opt));
-		storeSetting("string_opt", string_opt);
-	}
-	QString newpath = opt->getPkcs11Provider();
-	if (newpath != pkcs11path) {
-		pkcs11path = newpath;
-		storeSetting("pkcs11path", pkcs11path);
-	}
 	enableTokenMenu(pkcs11::loaded());
 	delete opt;
-}
-
-/* Documentation of the flags field:
- * S: Suppress success messages
- * C: Don't colorize success messages
- */
-void MainWindow::setOptFlags_old(QString flags)
-{
-	int s = flags.size(), i;
-	QByteArray b = flags.toLatin1();
-
-	pki_base::suppress_messages = false;
-	pki_x509::dont_colorize_expiries = false;
-	translate_dn = false;
-
-	for (i=0; i<s; i++) {
-		switch (b[i]) {
-		case 'S':
-			pki_base::suppress_messages = true;
-			break;
-		case 'C':
-			pki_x509::dont_colorize_expiries = true;
-			break;
-		case 'T':
-			translate_dn = true;
-			break;
-		}
-	}
-}
-
-void MainWindow::setOptFlags(QString flags)
-{
-	bool old_disable_netscape = pki_x509::disable_netscape;
-	pki_base::suppress_messages = false;
-	pki_x509::dont_colorize_expiries = false;
-	translate_dn = false;
-	pki_scard::only_token_hashes = false;
-	pki_x509::disable_netscape = false;
-
-	foreach(QString flag, flags.split(",")) {
-		if (flag == "suppress_messages")
-			pki_base::suppress_messages = true;
-		else if (flag == "dont_colorize_expiries")
-			pki_x509::dont_colorize_expiries = true;
-		else if (flag == "translate_dn")
-			translate_dn = true;
-		else if (flag == "only_token_hashes")
-			pki_scard::only_token_hashes = true;
-		else if (flag == "disable_netscape")
-			pki_x509::disable_netscape = true;
-		else if (!flag.isEmpty())
-			fprintf(stderr, "Unknown flag '%s'\n", CCHAR(flag));
-	}
-	if (old_disable_netscape != pki_x509::disable_netscape) {
-		certView->showHideSections();
-		reqView->showHideSections();
-	}
-}
-
-QString MainWindow::getOptFlags()
-{
-	QStringList flags;
-
-	if (pki_base::suppress_messages)
-		flags << "suppress_messages";
-	if (pki_x509::dont_colorize_expiries)
-		flags << "dont_colorize_expiries";
-	if (translate_dn)
-		flags << "translate_dn";
-	if (pki_scard::only_token_hashes)
-		flags << "only_token_hashes";
-	if (pki_x509::disable_netscape)
-		flags << "disable_netscape";
-	return flags.join(",");
 }

@@ -14,6 +14,7 @@
 #include <QHeaderView>
 #include <openssl/objects.h>
 #include "db.h"
+#include "settings.h"
 #include "func.h"
 
 #define HD_undef NID_undef
@@ -195,12 +196,12 @@ class nid_dbheader : public dbheader
 	}
 	QString getName()
 	{
-		return translate_dn ? tooltip : name;
+		return Settings["translate_dn"] ? tooltip : name;
 	}
 	QString getTooltip()
 	{
 		return QString("[%1] %2").arg(sn)
-			.arg(translate_dn ? name : tooltip);
+			.arg(Settings["translate_dn"] ? name : tooltip);
 	}
 };
 

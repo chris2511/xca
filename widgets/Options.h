@@ -22,26 +22,13 @@ class Options: public QDialog, public Ui::Options
 		QStringList string_opts;
 		QString getDnString(QListWidget *w);
 		void setDnString(QString dn, QListWidget *w);
+		void setupPkcs11Provider(QString list);
+		QString getPkcs11Provider();
 		MainWindow *mw;
 	public:
 		Options(MainWindow *parent);
 		~Options();
-		void setupPkcs11Provider(QString list);
-		void setStringOpt(const QString string_opt);
-		QString getExtDnString() {
-			return getDnString(extDNlist);
-		}
-		QString getExpDnString() {
-			return getDnString(expDNlist);
-		}
-		QString getStringOpt();
-		QString getPkcs11Provider();
-		void setExpDnString(QString dn) {
-			setDnString(dn, expDNlist);
-		}
-		void setExtDnString(QString dn) {
-			setDnString(dn, extDNlist);
-		}
+		int exec();
 
 	public slots:
 		void on_extDNadd_clicked();

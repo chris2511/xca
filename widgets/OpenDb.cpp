@@ -55,7 +55,6 @@ DbMap OpenDb::splitRemoteDbName(QString db)
 
 	if (pos != -1 && list.size() == 5) {
 		for (i=0; i<5; i++) {
-			qDebug() << "OpenDB: " << names[i] << list[i];
 			map[names[i]] = list[i];
 		}
 	}

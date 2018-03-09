@@ -30,7 +30,7 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 	image->setPixmap(*img);
         label->setText(title);
 	if (pki) {
-		QString fn = mainwin->getPath() + QDir::separator() +
+		QString fn = Settings["workingdir"] + QDir::separator() +
 			pki->getUnderlinedName() + "." + types[0].extension;
 		filename->setText(fn);
 	}
@@ -150,7 +150,8 @@ void ExportDialog::accept()
 		return;
 	}
 	if (mayWriteFile(fn)) {
-		mainwin->setPath(fn.mid(0, fn.lastIndexOf(QRegExp("[/\\\\]"))));
+		Settings["workingdir"] = fn.mid(0, fn.lastIndexOf(
+							QRegExp("[/\\\\]")));
 		QDialog::accept();
 	}
 }

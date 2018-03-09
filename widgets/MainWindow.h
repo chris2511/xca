@@ -20,6 +20,7 @@
 #include "lib/exception.h"
 #include "lib/oid.h"
 #include "lib/Passwd.h"
+#include "lib/settings.h"
 #include "lib/main.h"
 #include <QPixmap>
 #include <QFileDialog>
@@ -59,9 +60,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	private:
 		static OidResolver *resolver;
-		QString workingdir;
 		QString string_opt;
-		QString pkcs11path;
 		QList<QWidget*> wdList;
 		QList<QWidget*> wdMenuList;
 		QList<QWidget*> scardList;
@@ -87,9 +86,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QLabel *statusLabel;
 		QString homedir;
 		int changeDB(QString fname);
-		void setOptFlags(QString flags);
-		void setOptFlags_old(QString flags);
-		QString getOptFlags();
 		void keyPressEvent(QKeyEvent *e);
 
 	public:
@@ -102,9 +98,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 				*nsImg, *revImg, *appIco, *scardImg,
 				*doneIco, *warnIco;
 		static NIDlist *eku_nid, *dn_nid;
-		static QString mandatory_dn;
-		static QString explicit_dn;
-		static QString explicit_dn_default;
 		int exitApp;
 		QLabel *dbindex;
 
@@ -122,14 +115,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		}
 		static void Error(errorEx &err);
 		static void dbSqlError(QSqlError err = QSqlError());
-		static void storeSetting(QString key, QString value);
-		static QString getSetting(QString key);
 
 		void cmd_version();
 		void cmd_help(const char* msg);
 
-		QString getPath();
-		void setPath(QString path);
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
 		void enableTokenMenu(bool enable);

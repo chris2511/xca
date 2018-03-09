@@ -413,7 +413,6 @@ void inc_progress_bar(int, int, void *p)
 	}
 }
 
-bool translate_dn = false;
 QMap<int, QString> dn_translations;
 
 void dn_translations_setup()

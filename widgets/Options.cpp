@@ -35,10 +35,22 @@ Options::Options(MainWindow *parent)
 	  << tr("UTF8 strings only (RFC2459)")
 	  << tr("All strings");
 	mbstring->addItems(s);
+	mbstring->setCurrentIndex(string_opts.indexOf(Settings["string_opt"]));
+
 	searchP11 = NULL;
 	transDnEntries->setText(transDnEntries->text()
 			.arg(OBJ_nid2ln(NID_commonName))
 			.arg(dn_translations[NID_commonName]));
+
+	setDnString(Settings["mandatory_dn"], extDNlist);
+	setDnString(Settings["explicit_dn"], expDNlist);
+	setupPkcs11Provider(Settings["pkcs11path"]);
+
+	suppress->setCheckState(Settings["suppress_messages"]);
+	noColorize->setCheckState(Settings["no_expire_colors"]);
+	transDnEntries->setCheckState(Settings["translate_dn"]);
+	onlyTokenHashes->setCheckState(Settings["only_token_hashes"]);
+	disableNetscape->setCheckState(Settings["disable_netscape"]);
 }
 
 Options::~Options()
@@ -51,6 +63,7 @@ void Options::on_extDNadd_clicked()
 {
 	extDNlist->addItem(extDNobj->currentText());
 }
+
 void Options::on_extDNdel_clicked()
 {
 	extDNlist->takeItem(extDNlist->currentRow());
@@ -68,7 +81,7 @@ void Options::on_expDNdel_clicked()
 
 void Options::on_expDNdefault_clicked()
 {
-	setDnString(MainWindow::explicit_dn_default, expDNlist);
+	setDnString(Settings.defaults("explicit_dn"), expDNlist);
 }
 
 void Options::setDnString(QString dn, QListWidget *w)
@@ -95,17 +108,28 @@ QString Options::getDnString(QListWidget *w)
 	return dn.join(",");
 }
 
-void Options::setStringOpt(const QString string_opt)
+int Options::exec()
 {
-	int index = string_opts.indexOf(string_opt);
-	if (index < 0)
-		index = 0;
-	mbstring->setCurrentIndex(index);
-}
+	if (QDialog::exec() == QDialog::Rejected)
+		return QDialog::Rejected;
 
-QString Options::getStringOpt()
-{
-	return string_opts[mbstring->currentIndex()];
+	Transaction;
+	if (!TransBegin())
+		return QDialog::Rejected;
+
+	Settings["suppress_messages"] = suppress->checkState();
+	Settings["no_expire_colors"] = noColorize->checkState();
+	Settings["translate_dn"] = transDnEntries->checkState();
+	Settings["only_token_hashes"] = onlyTokenHashes->checkState();
+	Settings["disable_netscape"] = disableNetscape->checkState();
+
+	Settings["default_hash"] = hashAlgo->currentHashName();
+	Settings["mandatory_dn"] = getDnString(extDNlist);
+	Settings["explicit_dn"] = getDnString(expDNlist);
+	Settings["string_opt"] = string_opts[mbstring->currentIndex()];
+	Settings["pkcs11path"] = getPkcs11Provider();
+
+	return TransCommit() ? QDialog::Accepted : QDialog::Rejected;
 }
 
 void Options::on_addButton_clicked(void)

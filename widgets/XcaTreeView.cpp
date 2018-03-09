@@ -337,7 +337,7 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 				current = v3ext;
 				break;
 			case dbheader::hd_v3ext_ns:
-				if (pki_x509::disable_netscape)
+				if (Settings["disable_netscape"])
 					continue;
 				current = v3ns;
 				break;

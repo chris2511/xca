@@ -40,7 +40,6 @@ class pki_scard: public pki_key
 		virtual ~pki_scard();
 		const char *getClassName() const;
 		static QPixmap *icon[1];
-		static bool only_token_hashes;
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		bool prepare_card(slotid *slot, bool verifyPubkey=true) const;
 		void fromData(const unsigned char *p, db_header_t *head);

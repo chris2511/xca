@@ -57,7 +57,7 @@ void DistName::setX509name(const x509name &n)
 		int nid = n.nid(i);
 		trans = dn_translations[nid];
 		sl = n.entryList(i);
-		if (translate_dn && !trans.isEmpty()) {
+		if (Settings["translate_dn"] && !trans.isEmpty()) {
 			label = trans;
 			toolt = sl[1];
 		} else {

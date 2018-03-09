@@ -50,7 +50,7 @@ void db_base::createSuccess(pki_base *pki)
 	if (!pki)
 		return;
 
-	if (pki_base::suppress_messages)
+	if (Settings["suppress_messages"])
 		return;
 
 	XCA_INFO(pki->getMsg(pki_base::msg_create).arg(pki->getIntName()));
@@ -116,7 +116,7 @@ void db_base::loadContainer()
 		lookup[q.value(VIEW_item_id).toULongLong()] = pki;
 	}
 
-	QString view = mainwin->getSetting(class_name + "_hdView");
+	QString view = Settings[class_name + "_hdView"];
 	if (view.isEmpty()) {
 		for (int i=0; i< allHeaders.count(); i++) {
 			allHeaders[i]->reset();
@@ -156,8 +156,7 @@ dbheaderList db_base::getHeaders()
 void db_base::saveHeaderState()
 {
 	if (QSqlDatabase::database().isOpen())
-		mainwin->storeSetting(class_name + "_hdView",
-					allHeaders.toData());
+		Settings[class_name + "_hdView"] = allHeaders.toData();
 }
 
 void db_base::setVisualIndex(int i, int visualIndex)
@@ -559,13 +558,13 @@ void db_base::load_default(load_base &load)
 {
 	QString s;
 	QStringList slist = QFileDialog::getOpenFileNames(mainwin, load.caption,
-			mainwin->getPath(), load.filter);
+				Settings["workingdir"], load.filter);
 
 	if (!slist.count())
 		return;
 
 	QString fn = slist[0];
-	mainwin->setPath(fn.mid(0, fn.lastIndexOf("/")));
+	Settings["workingdir"] = fn.mid(0, fn.lastIndexOf("/"));
 
 	ImportMulti *dlgi = new ImportMulti(mainwin);
 	foreach(s, slist) {
@@ -601,14 +600,14 @@ void db_base::store(QModelIndexList indexes)
 		return;
 	}
 
-	QString fn = mainwin->getPath() + QDir::separator() + "export.pem";
+	QString fn = Settings["workingdir"] + QDir::separator() + "export.pem";
 	QString s = QFileDialog::getSaveFileName(mainwin,
 		tr("Save %1 items in one file as").arg(indexes.size()), fn,
 		tr("PEM files ( *.pem );; All files ( * )"));
 	if (s.isEmpty())
 		return;
 	s = nativeSeparator(s);
-	mainwin->setPath(s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")) ));
+	Settings["workingdir"] = s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")));
 	try {
 		QString pem = pem2QString(indexes);
 		FILE *fp = fopen_write(s);
@@ -630,7 +629,7 @@ bool db_base::columnHidden(int col) const
 {
 	if (!isValidCol(col))
 		return true;
-	if (pki_x509::disable_netscape &&
+	if (Settings["disable_netscape"] &&
 	    allHeaders[col]->type == dbheader::hd_v3ext_ns)
 		return true;
 	return !allHeaders[col]->show;

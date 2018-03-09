@@ -194,7 +194,7 @@ void db_key::newItem(QString name)
 	if (dlg->rememberDefault->isChecked()) {
 		QString def = dlg->getAsString();
 		if (dlg->setDefault(def) == 0)
-			mainwin->storeSetting("defaultkey", def);
+			Settings["defaultkey"] = def;
 	}
 	status->removeWidget(bar);
 	delete bar;

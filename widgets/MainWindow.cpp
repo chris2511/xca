@@ -57,10 +57,6 @@ db_crl	*MainWindow::crls = NULL;
 NIDlist *MainWindow::eku_nid = NULL;
 NIDlist *MainWindow::dn_nid = NULL;
 
-QString MainWindow::mandatory_dn;
-QString MainWindow::explicit_dn;
-QString MainWindow::explicit_dn_default = QString("C,ST,L,O,OU,CN,emailAddress");
-
 OidResolver *MainWindow::resolver = NULL;
 
 void MainWindow::enableTokenMenu(bool enable)
@@ -73,7 +69,7 @@ void MainWindow::enableTokenMenu(bool enable)
 void MainWindow::load_engine()
 {
 	try {
-		pkcs11::load_libs(pkcs11path, false);
+		pkcs11::load_libs(Settings["pkcs11path"], false);
 	} catch (errorEx &err) {
 		Error(err);
 	}
@@ -617,7 +613,7 @@ QString makeSalt(void)
 
 int MainWindow::checkOldGetNewPass(Passwd &pass)
 {
-	QString passHash = getSetting("pwhash");
+	QString passHash = Settings["pwhash"];
 	if (!passHash.isEmpty()) {
 		pass_info p(tr("Current Password"),
 			tr("Please enter the current database password"), this);
@@ -669,7 +665,7 @@ void MainWindow::changeDbPass()
 			key->encryptKey(pass.constData());
 			key->sqlUpdatePrivateKey();
 		}
-		storeSetting("pwhash", passhash);
+		Settings["pwhash"] = passhash;
 		TransCommit();
 		pki_evp::passHash = passhash;
 		pki_evp::passwd = pass;
@@ -680,7 +676,7 @@ void MainWindow::changeDbPass()
 
 int MainWindow::initPass(QString dbName)
 {
-	QString passhash = getSetting("pwhash");
+	QString passhash = Settings["pwhash"];
 	return initPass(dbName, passhash);
 }
 
@@ -702,7 +698,7 @@ int MainWindow::initPass(QString dbName, QString passhash)
 			return ret;
 		salt = makeSalt();
 		pki_evp::passHash =pki_evp::sha512passwT(pki_evp::passwd,salt);
-		storeSetting("pwhash", pki_evp::passHash);
+		Settings["pwhash"] = pki_evp::passHash;
 	} else {
 		ret = 0;
 		while (pki_evp::sha512passwT(pki_evp::passwd, pki_evp::passHash)
@@ -762,17 +758,6 @@ void MainWindow::Error(errorEx &err)
 	}
 }
 
-QString MainWindow::getPath()
-{
-	return workingdir;
-}
-
-void MainWindow::setPath(QString str)
-{
-	workingdir = str;
-	storeSetting("workingdir", str);
-}
-
 void MainWindow::connNewX509(NewX509 *nx)
 {
 	connect(nx, SIGNAL(genKey(QString)),
@@ -822,16 +807,17 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 
 void MainWindow::exportIndex()
 {
-	exportIndex(QFileDialog::getSaveFileName(this, XCA_TITLE, getPath(),
+	exportIndex(QFileDialog::getSaveFileName(this, XCA_TITLE,
+				Settings["workingdir"],
 				tr("Certificate Index ( index.txt )") + ";;" +
-				tr("All files ( * )")),
+					tr("All files ( * )")),
 			false);
 }
 
 void MainWindow::exportIndexHierarchy()
 {
 	exportIndex(QFileDialog::getExistingDirectory(
-		this, XCA_TITLE, getPath()), true);
+		this, XCA_TITLE, Settings["workingdir"]), true);
 }
 
 int MainWindow::exportIndex(QString fname, bool hierarchy)

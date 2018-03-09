@@ -137,7 +137,7 @@ void db_x509super::extractPubkey(QModelIndex index)
 	key = (pki_key*)mainwin->keys->insert(key);
 	if (!key)
 		return;
-	if (pki_base::suppress_messages)
+	if (Settings["suppress_messages"])
 		return;
 	XCA_INFO(key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
 }
@@ -145,7 +145,7 @@ void db_x509super::extractPubkey(QModelIndex index)
 void db_x509super::toOpenssl(QModelIndex index) const
 {
 	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
-	QString fn = mainwin->getPath() + QDir::separator() +
+	QString fn = Settings["workingdir"] + QDir::separator() +
 		pki->getUnderlinedName() + ".conf";
 	QString fname = QFileDialog::getSaveFileName(mainwin,
 		tr("Save as OpenSSL config"),	fn,
@@ -153,7 +153,7 @@ void db_x509super::toOpenssl(QModelIndex index) const
 	if (fname.isEmpty())
 		return;
 	fname = nativeSeparator(fname);
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
+	Settings["workingdir"] = fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")));
 	pki->opensslConf(fname);
 }
 
