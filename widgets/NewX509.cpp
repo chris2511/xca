@@ -658,6 +658,12 @@ void NewX509::on_showReqBut_clicked()
 	emit showReq(reqList->currentPkiItem());
 }
 
+void NewX509::itemChanged(pki_base* req)
+{
+	reqList->insertPkiItems(MainWindow::reqs->getAllRequests());
+	reqList->setCurrentPkiItem(dynamic_cast<pki_x509req*>(req));
+}
+
 void NewX509::on_genKeyBut_clicked()
 {
 	QString name = description->text();

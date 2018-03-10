@@ -766,6 +766,8 @@ void MainWindow::connNewX509(NewX509 *nx)
 		nx, SLOT(newKeyDone(pki_key*)));
 	connect(nx, SIGNAL(showReq(pki_base*)),
 		reqs, SLOT(showPki(pki_base*)));
+	connect(reqs, SIGNAL(pkiChanged(pki_base*)),
+		nx, SLOT(itemChanged(pki_base*)));
 }
 
 void MainWindow::importAnything(QString file)

@@ -392,7 +392,7 @@ void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
 	XSqlQuery q;
 	req->setDone();
 	SQL_PREPARE(q, "UPDATE requests SET signed=? WHERE item=?");
-	q.bindValue(0, req->getDone());
+	q.bindValue(0, 1);
 	q.bindValue(1, req->getSqlItemId());
 	AffectedItems(req->getSqlItemId());
 	q.exec();

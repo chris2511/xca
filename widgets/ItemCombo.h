@@ -15,7 +15,6 @@
 #include "lib/pki_x509.h"
 #include "lib/pki_x509req.h"
 #include "lib/pki_temp.h"
-//#include "lib/db_base.h"
 
 template <class T>
 class itemCombo : public QComboBox
@@ -43,10 +42,6 @@ class itemCombo : public QComboBox
 	}
 };
 
-//class pki_temp;
-//class pki_x509req;
-//class pki_x509;
-//class pki_key;
 typedef class itemCombo<pki_temp> itemComboTemp;
 typedef class itemCombo<pki_x509req> itemComboReq;
 typedef class itemCombo<pki_x509> itemComboCert;

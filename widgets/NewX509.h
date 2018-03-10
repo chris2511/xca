@@ -142,6 +142,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_tabWidget_currentChanged(int idx);
 		void on_reqSubChange_clicked();
 		void accept();
+		void itemChanged(pki_base*);
 		void setupExtDNwidget(const QString &s, QLineEdit *w);
 		void checkSubAltName(const QString & text);
 		void checkIssAltName(const QString & text);
