@@ -35,29 +35,33 @@ class revListItem : public QTreeWidgetItem
 	}
 };
 
+static void setup_revRevItem(QTreeWidgetItem *item, const x509rev &revit,
+			const pki_x509 *iss)
+{
+	pki_x509 *rev = iss ? iss->getBySerial(revit.getSerial()) : NULL;
+	if (rev != NULL) {
+		for (int i = 0; i < Cmax; i++)
+			item->setToolTip(i, rev->getIntName());
+	}
+	item->setText(Cserial, revit.getSerial().toHex());
+	item->setText(Cdate, revit.getDate().toSortable());
+	item->setText(Creason, revit.getReason());
+
+	item->setTextAlignment(Cnumber, Qt::AlignRight);
+	item->setTextAlignment(Cserial, Qt::AlignRight);
+
+	a1time a = revit.getInvalDate();
+	if (!a.isUndefined())
+		item->setText(CiDate, a.toSortable());
+}
+
 static void addRevItem(QTreeWidget *certList, const x509rev &revit,
 			int no, const pki_x509 *iss)
 {
 	revListItem *current;
-	pki_x509 *rev;
-	a1time a;
-	rev = iss ? iss->getBySerial(revit.getSerial()) : NULL;
 	current = new revListItem(certList);
-	if (rev != NULL) {
-		for (int i = 0; i < Cmax; i++)
-			current->setToolTip(i, rev->getIntName());
-	}
 	current->setText(Cnumber, QString("%1").arg(no));
-	current->setText(Cserial, revit.getSerial().toHex());
-	current->setText(Cdate, revit.getDate().toSortable());
-	current->setText(Creason, revit.getReason());
-
-	current->setTextAlignment(Cnumber, Qt::AlignRight);
-	current->setTextAlignment(Cserial, Qt::AlignRight);
-
-	a = revit.getInvalDate();
-	if (!a.isUndefined())
-		current->setText(CiDate, a.toSortable());
+	setup_revRevItem(current, revit, iss);
 }
 
 void RevocationList::setupRevocationView(QTreeWidget *certList,
@@ -85,6 +89,8 @@ void RevocationList::setupRevocationView(QTreeWidget *certList,
 	for (i=0; i<cols; i++)
 		certList->resizeColumnToContents(i);
 	certList->setSortingEnabled(true);
+	certList->setSelectionBehavior(QAbstractItemView::SelectRows);
+	certList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 RevocationList::RevocationList(QWidget *w) : QDialog(w)
@@ -97,6 +103,9 @@ RevocationList::RevocationList(QWidget *w) : QDialog(w)
 	genCrl = buttonBox->addButton(tr("Generate CRL"),
 				QDialogButtonBox::ActionRole);
 	connect(genCrl, SIGNAL(clicked(void)), this, SLOT(gencrl(void)));
+
+	connect(certList, SIGNAL(doubleClicked(const QModelIndex &)),
+		this, SLOT(on_editRev_clicked(const QModelIndex &)));
 }
 
 void RevocationList::gencrl(void)
@@ -145,6 +154,36 @@ void RevocationList::on_delRev_clicked(void)
                 revList.takeAt(idx);
 }
 
+void RevocationList::on_editRev_clicked()
+{
+	QTreeWidgetItem *current = certList->currentItem();
+	x509rev rev;
+	int idx;
+	a1int a1_serial;
+
+	if (!current)
+		return;
+
+	a1_serial.setHex(current->text(Cserial));
+	rev.setSerial(a1_serial);
+	idx = revList.indexOf(rev);
+        if (idx == -1)
+		return;
+
+	rev = revList[idx];
+
+	Revocation *revoke = new Revocation(this, QModelIndexList());
+	revoke->setRevocation(rev);
+        if (revoke->exec()) {
+		a1time a1 = rev.getDate();
+		rev = revoke->getRevocation();
+		rev.setDate(a1);
+		revList[idx] = rev;
+		setup_revRevItem(current, rev, issuer);
+	}
+	delete revoke;
+}
+
 Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 {
 	setupUi(this);
@@ -181,12 +220,20 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 x509rev Revocation::getRevocation()
 {
 	x509rev r;
-	a1int i;
 
-	i.setHex(serial->text());
-	r.setSerial(i);
-	r.setDate(a1time::now());
+	r.setSerial(a1int().setHex(serial->text()));
 	r.setInvalDate(invalid->getDate());
+	r.setDate(a1time());
+	r.setCrlNo(0);
 	r.setReason(reason->currentText());
 	return r;
+}
+
+void Revocation::setRevocation(x509rev r)
+{
+	a1int i;
+
+	serial->setText(r.getSerial().toHex());
+	invalid->setDate(r.getInvalDate());
+	reason->setCurrentText(r.getReason());
 }

@@ -85,6 +85,10 @@ class x509rev
 		{
 			reason_idx = crlreasons().indexOf(reason);
 		}
+		void setCrlNo(int n)
+		{
+			crlNo = n;
+		}
 		a1int getSerial() const
 		{
 			return serial;

@@ -147,6 +147,7 @@ void x509rev::set(const x509rev &x)
 	date = x.date;
 	ivalDate = x.ivalDate;
 	reason_idx = x.reason_idx;
+	crlNo = x.crlNo;
 }
 
 bool x509rev::identical(const x509rev &x) const
@@ -181,7 +182,8 @@ void x509rev::executeQuery(XSqlQuery &q)
 	q.bindValue(1, serial.toHex());
 	q.bindValue(2, date.toPlain());
 	q.bindValue(3, ivalDate.toPlain());
-	q.bindValue(4, crl_reasons[reason_idx].bitnum);
+	q.bindValue(4, crlNo ? QVariant(crlNo) : QVariant());
+	q.bindValue(5, crl_reasons[reason_idx].bitnum);
 	q.exec();
 }
 
@@ -260,6 +262,8 @@ bool x509revList::sqlUpdate(QVariant caId)
 	if (!TransBegin())
 		return false;
 
+	x509revList oldList = fromSql(caId);
+
 	SQL_PREPARE(q, "DELETE FROM revocations WHERE caId=?");
 	q.bindValue(0, caId);
 	q.exec();
@@ -267,15 +271,23 @@ bool x509revList::sqlUpdate(QVariant caId)
 		return false;
 
 	SQL_PREPARE(q, "INSERT INTO revocations "
-			"(caId, serial, date, invaldate, reasonBit) "
-			"VALUES (?,?,?,?,?)");
+			"(caId, serial, date, invaldate, crlNo, reasonBit) "
+			"VALUES (?,?,?,?,?,?)");
 	q.bindValue(0, caId);
-	for (int i=0; i<size(); i++) {
-		x509rev r = at(i);
+	foreach(x509rev r, *this) {
+		if (r.getCrlNo() == 0) {
+			int idx = oldList.indexOf(r);
+			if (idx != -1) {
+				x509rev old = oldList.takeAt(idx);
+				r.setCrlNo(old.getCrlNo());
+				qDebug() << "RECOVER OLD CRL NO" << r ;
+			}
+		}
 		r.executeQuery(q);
 		if (q.lastError().isValid())
 			return false;
 	}
+
         merged = false;
 	TransCommit();
 	return true;

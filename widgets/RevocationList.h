@@ -32,6 +32,7 @@ class RevocationList: public QDialog, public Ui::RevocationList
 	public slots:
 		void on_addRev_clicked(void);
 		void on_delRev_clicked(void);
+		void on_editRev_clicked(void);
 		void gencrl(void);
 
 	signals:
@@ -45,5 +46,6 @@ class Revocation: public QDialog, public Ui::Revoke
 	public:
 		Revocation(QWidget *w, QModelIndexList indexes);
 		x509rev getRevocation();
+		void setRevocation(x509rev r);
 };
 #endif
