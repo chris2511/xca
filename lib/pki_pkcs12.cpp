@@ -118,7 +118,7 @@ void pki_pkcs12::writePKCS12(const QString fname)
 		my_error(tr("No key or no Cert and no pkcs12"));
 	}
 
-	FILE *fp = fopen_write(fname);
+	FILE *fp = fopen_write_key(fname);
 	if (fp != NULL) {
 		if (PwDialog::execute(&p, &pass, true) != 1) {
 			fclose(fp);

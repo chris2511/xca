@@ -691,7 +691,7 @@ void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 {
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key '%1'").arg(getIntName()));
-	FILE *fp = fopen_write(fname);
+	FILE *fp = fopen_write_key(fname);
 	if (fp != NULL) {
 		if (key) {
 			pkey = decryptKey();
@@ -732,7 +732,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		writePublic(fname, pem);
 		return;
 	}
-	FILE *fp = fopen_write(fname);
+	FILE *fp = fopen_write_key(fname);
 	if (!fp) {
 		fopen_error(fname);
 		return;

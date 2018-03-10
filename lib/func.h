@@ -14,6 +14,8 @@
 #include <QByteArray>
 #include <QMap>
 #include "base.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 
 class Validity;
 
@@ -65,6 +67,14 @@ static inline FILE *fopen_read(QString s)
 static inline FILE *fopen_write(QString s)
 {
 	return fopen(QString2filename(s), "wb");
+}
+
+static inline FILE *fopen_write_key(QString s)
+{
+	mode_t m = umask(077);
+	FILE *f = fopen_write(s);
+	umask(m);
+	return f;
 }
 
 static inline BIO *BIO_from_QByteArray(QByteArray &ba)
