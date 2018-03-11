@@ -225,9 +225,10 @@ x509rev Revocation::getRevocation()
 
 void Revocation::setRevocation(x509rev r)
 {
-	a1int i;
-
 	serial->setText(r.getSerial());
 	invalid->setDate(r.getInvalDate());
-	reason->setCurrentText(r.getReason());
+	int i = reason->findText(r.getReason());
+	if (i == -1)
+		i = 0;
+	reason->setCurrentIndex(i);
 }
