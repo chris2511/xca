@@ -73,6 +73,7 @@ HEADERS += lib/asn1int.h \
            lib/x509v3ext.h \
            lib/builtin_curves.h \
            lib/entropy.h \
+           lib/settings.h \
            lib/sql.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
@@ -169,6 +170,7 @@ SOURCES += lib/asn1int.cpp \
            lib/x509v3ext.cpp \
            lib/builtin_curves.cpp \
            lib/entropy.cpp \
+           lib/settings.cpp \
            lib/version.cpp \
            lib/sql.cpp \
            widgets/CertDetail.cpp \
