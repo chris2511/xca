@@ -42,6 +42,12 @@ a1int::a1int(const a1int &a)
 	in = dup(a.in);
 }
 
+a1int::a1int(const QString &hex)
+{
+	in = ASN1_INTEGER_new();
+	check_oom(in);
+	setHex(hex);
+}
 
 a1int::a1int(long l)
 {
@@ -200,6 +206,11 @@ bool a1int::operator == (const a1int &a) const
 bool a1int::operator != (const a1int &a) const
 {
 	return (ASN1_INTEGER_cmp(in, a.in) != 0);
+}
+
+a1int::operator QString() const
+{
+	return toHex();
 }
 
 QByteArray a1int::i2d()

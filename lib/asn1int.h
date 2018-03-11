@@ -23,6 +23,7 @@ class a1int
 	a1int(const ASN1_INTEGER *i);
 	a1int(const a1int &a);
 	a1int(long l);
+	a1int(const QString &hex);
 	~a1int();
 	a1int &set(const ASN1_INTEGER *i);
 	a1int &set(long l);
@@ -45,6 +46,7 @@ class a1int
 	bool operator < (const a1int &a) const;
 	bool operator == (const a1int &a) const;
 	bool operator != (const a1int &a) const;
+	operator QString() const;
 };
 
 #endif

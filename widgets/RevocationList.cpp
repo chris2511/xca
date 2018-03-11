@@ -21,10 +21,8 @@ class revListItem : public QTreeWidgetItem
 		int col = treeWidget()->sortColumn();
 		switch (col) {
 		case Cserial: {
-			a1int ithis, iother;
-			ithis.setHex(text(Cserial));
-			iother.setHex(other.text(Cserial));
-			return ithis < iother;
+			return a1int(text(Cserial)) <
+				a1int(other.text(Cserial));
 		}
 		case Cnumber:
 			return text(Cnumber).toLong() <
@@ -43,7 +41,7 @@ static void setup_revRevItem(QTreeWidgetItem *item, const x509rev &revit,
 		for (int i = 0; i < Cmax; i++)
 			item->setToolTip(i, rev->getIntName());
 	}
-	item->setText(Cserial, revit.getSerial().toHex());
+	item->setText(Cserial, revit.getSerial());
 	item->setText(Cdate, revit.getDate().toSortable());
 	item->setText(Creason, revit.getReason());
 
@@ -141,14 +139,12 @@ void RevocationList::on_delRev_clicked(void)
 	QTreeWidgetItem *current = certList->currentItem();
 	x509rev rev;
 	int idx;
-	a1int a1_serial;
 
 	if (!current)
 		return;
 	idx = certList->indexOfTopLevelItem(current);
 	certList->takeTopLevelItem(idx);
-	a1_serial.setHex(current->text(Cserial));
-	rev.setSerial(a1_serial);
+	rev.setSerial(a1int(current->text(Cserial)));
 	idx = revList.indexOf(rev);
         if (idx != -1)
                 revList.takeAt(idx);
@@ -159,13 +155,11 @@ void RevocationList::on_editRev_clicked()
 	QTreeWidgetItem *current = certList->currentItem();
 	x509rev rev;
 	int idx;
-	a1int a1_serial;
 
 	if (!current)
 		return;
 
-	a1_serial.setHex(current->text(Cserial));
-	rev.setSerial(a1_serial);
+	rev.setSerial(a1int(current->text(Cserial)));
 	idx = revList.indexOf(rev);
         if (idx == -1)
 		return;
@@ -203,13 +197,13 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 		}
 		qSort(serials.begin(), serials.end());
 		foreach(a1int a, serials)
-			sl << a.toHex();
+			sl << a;
 		serial->setToolTip(sl.join("\n"));
 		serial->setEnabled(false);
 	} else if (indexes.size() == 1) {
 		pki_x509 *cert = static_cast<pki_x509*>
 				(indexes[0].internalPointer());
-		serial->setText(cert->getSerial().toHex());
+		serial->setText(cert->getSerial());
 		serial->setEnabled(false);
 	} else {
 		serial->setValidator(
@@ -221,7 +215,7 @@ x509rev Revocation::getRevocation()
 {
 	x509rev r;
 
-	r.setSerial(a1int().setHex(serial->text()));
+	r.setSerial(a1int(serial->text()));
 	r.setInvalDate(invalid->getDate());
 	r.setDate(a1time());
 	r.setCrlNo(0);
@@ -233,7 +227,7 @@ void Revocation::setRevocation(x509rev r)
 {
 	a1int i;
 
-	serial->setText(r.getSerial().toHex());
+	serial->setText(r.getSerial());
 	invalid->setDate(r.getInvalDate());
 	reason->setCurrentText(r.getReason());
 }

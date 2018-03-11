@@ -698,7 +698,7 @@ QString pki_x509::getIndexEntry()
 	return QString("%1\t%2\t%3\t%4\tunknown\t%5\n").arg(
 		flag, getNotAfter().toPlainUTC(),
 		revoked ? revocation.getDate().toPlainUTC() : "",
-		getSerial().toHex(),
+		getSerial(),
 		QString(X509_NAME_oneline(getSubject().get(), NULL, 0)));
 }
 
