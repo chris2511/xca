@@ -1,3 +1,5 @@
+xca 2.0.0-pre01 Sun Mar 11 2018
+
  * Close GitHub Bug #5: Exporting a private key results
    in too-permissive permissions
  * Close GitHub Bug #4: Workaround QT bug of editing in QDateTimeEdit
