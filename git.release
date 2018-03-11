@@ -1,0 +1,55 @@
+#!/bin/sh
+
+set -e
+
+type git || exit 1
+test -s VERSION && test -s changelog && test -d ../qt
+
+export TVERSION="$1"
+commit=master
+test -z "$2" || commit="$2"
+
+if test -z "$TVERSION"; then
+  echo "usage: $0 <VERSION> [commit]"
+  echo "   if commit is ommitted, 'master' is used"
+  exit 1
+fi
+
+if ! git diff-index --quiet HEAD --; then
+  echo "You have local changes, please commit, reset or stash them"
+  exit 1
+fi
+
+! git grep -q "^xca $VERSION " changelog
+! git grep -q "$VERSION" VERSION
+
+echo "$TVERSION" > VERSION
+(
+ date +"xca $TVERSION %a %b %d %Y"
+ echo
+ cat changelog
+) > changelog.new
+mv changelog.new changelog
+
+git commit VERSION changelog -m "Prepare XCA $TVERSION"
+git tag -a "RELEASE.$TVERSION" -m "Release version $TVERSION"
+
+# Create the tar.gz
+make dist
+releasedir="$HOME/xca-$TVERSION"
+mkdir -p "$releasedir"
+cp xca-$TVERSION.tar.gz "$releasedir"
+(
+  cd ..
+  tar zxf "$releasedir/xca-$TVERSION.tar.gz"
+  mkdir -p "xca-$TVERSION/BUILD" && cd "xca-$TVERSION/BUILD"
+  ../configure && make -j7
+)
+(
+  cd ..
+  "./xca-$TVERSION/misc/build-w32.sh"
+  cp "setup_xca-${TVERSION}" "$releasedir"
+)
+sh "xca-$TVERSION/misc/gen-binary-hash" "$releasedir"
+cd "$releasedir"
+ls -la
