@@ -1,3 +1,7 @@
+ * Close GitHub Bug #5: Exporting a private key results
+   in too-permissive permissions
+ * Close GitHub Bug #4: Workaround QT bug of editing in QDateTimeEdit
+ * Fix display of dates in the Certificate details (local time displayed a GMT)
  * The internal name is not neccessarily unique anymore and can be edited
    in the details dialog as well as the comment.
  * CSR signing is now statically stored in the database and the comment
