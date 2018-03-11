@@ -48,7 +48,7 @@ cp xca-$TVERSION.tar.gz "$releasedir"
 (
   cd ..
   "./xca-$TVERSION/misc/build-w32.sh"
-  cp "setup_xca-${TVERSION}" "$releasedir"
+  cp "setup_xca-${TVERSION}.exe" "$releasedir"
 )
 sh "xca-$TVERSION/misc/gen-binary-hash" "$releasedir"
 cd "$releasedir"
