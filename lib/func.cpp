@@ -10,6 +10,7 @@
 #include "exception.h"
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
+#include "widgets/XcaWarning.h"
 #include <openssl/objects.h>
 #include <openssl/asn1.h>
 #include <openssl/err.h>
