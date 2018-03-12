@@ -16,6 +16,7 @@
 #include <openssl/rand.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
+#include <openssl/pkcs12.h>
 
 #include <QProgressDialog>
 #include <QApplication>
@@ -425,14 +426,6 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head)
 	isPub = encKey.size() == 0;
 }
 
-static int known_pass(char *buf, int size, int, void *userdata)
-{
-	Passwd *pw = static_cast<Passwd*>(userdata);
-        size = MIN(size, pw->size());
-        memcpy(buf, pw->constData(), size);
-        return size;
-}
-
 EVP_PKEY *pki_evp::decryptKey() const
 {
 	Passwd ownPassBuf;
@@ -473,8 +466,17 @@ EVP_PKEY *pki_evp::decryptKey() const
 		return NULL;
 	BIO *b = BIO_from_QByteArray(myencKey);
 	check_oom(b);
-	EVP_PKEY *priv = d2i_PKCS8PrivateKey_bio(b, NULL,
-				known_pass, &ownPassBuf);
+	EVP_PKEY *priv = NULL;
+	X509_SIG *p8 = d2i_PKCS8_bio(b, NULL);
+	if (p8) {
+		PKCS8_PRIV_KEY_INFO *p8inf = PKCS8_decrypt(p8,
+				ownPassBuf.constData(), ownPassBuf.size());
+		if (p8inf) {
+			priv = EVP_PKCS82PKEY(p8inf);
+			PKCS8_PRIV_KEY_INFO_free(p8inf);
+		}
+		X509_SIG_free(p8);
+	}
 	BIO_free(b);
 	if (priv)
 		return priv;
