@@ -39,7 +39,9 @@ pki_key::pki_key(const pki_key *pk)
 {
 	if (pk->key) {
 		QByteArray ba = i2d_bytearray(I2D_VOID(i2d_PUBKEY), pk->key);
+		key = NULL;
 		d2i(ba);
+		sqlItemId = pk->sqlItemId;
 	} else {
 		key = EVP_PKEY_new();
 	}
