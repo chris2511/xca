@@ -680,6 +680,29 @@ int MainWindow::initPass(QString dbName)
 	return initPass(dbName, passhash);
 }
 
+static void pwhash_upgrade()
+{
+	/* Start automatic update from sha512 to sha512*8000
+	 * if the password is correct. The old sha512 hash does
+	 * start with 'S', while the new hash starts with T. */
+
+	/* Start automatic update from md5 to salted sha512*8000
+	 * if the password is correct. The md5 hash does not
+	 * start with 'S' or 'T, but with a hex-digit */
+	if (pki_evp::passHash.startsWith("T")) {
+		/* Fine, current hash function used. */
+		return;
+	}
+	if (pki_evp::sha512passwd(pki_evp::passwd,
+				pki_evp::passHash) == pki_evp::passHash ||
+	    pki_evp::md5passwd(pki_evp::passwd) == pki_evp::passHash)
+	{
+		QString salt = makeSalt();
+		pki_evp::passHash = pki_evp::sha512passwT(
+				pki_evp::passwd, salt);
+	}
+}
+
 int MainWindow::initPass(QString dbName, QString passhash)
 {
 	pki_evp::passHash = QString();
@@ -700,6 +723,7 @@ int MainWindow::initPass(QString dbName, QString passhash)
 		pki_evp::passHash =pki_evp::sha512passwT(pki_evp::passwd,salt);
 		Settings["pwhash"] = pki_evp::passHash;
 	} else {
+		pwhash_upgrade();
 		ret = 0;
 		while (pki_evp::sha512passwT(pki_evp::passwd, pki_evp::passHash)
 				!= pki_evp::passHash)
@@ -715,26 +739,7 @@ int MainWindow::initPass(QString dbName, QString passhash)
 				pki_evp::passwd = QByteArray();
 				return ret;
 			}
-			if (pki_evp::passHash.startsWith("T")) {
-				/* Fine, current hash function used. */
-				continue;
-			}
-			/* Start automatic update from sha512 to sha512*8000
-			 * if the password is correct. The old sha512 hash does
-			 * start with 'S', while the new hash starts with T. */
-
-			/* Start automatic update from md5 to salted sha512
-			 * if the password is correct. The md5 hash does not
-			 * start with 'S' or 'T, but with a hex-digit */
-			if (pki_evp::sha512passwd(pki_evp::passwd,
-			    pki_evp::passHash) == pki_evp::passHash ||
-			    pki_evp::md5passwd(pki_evp::passwd) ==
-			    pki_evp::passHash)
-			{
-				salt = makeSalt();
-				pki_evp::passHash = pki_evp::sha512passwT(
-						pki_evp::passwd, salt);
-			}
+			pwhash_upgrade();
 		}
 	}
 	if (pki_evp::passwd.isNull())
