@@ -20,8 +20,8 @@ if ! git diff-index --quiet HEAD --; then
   exit 1
 fi
 
-! git grep -q "^xca $VERSION " changelog
-! git grep -q "$VERSION" VERSION
+! git grep -q "^xca $TVERSION " changelog
+! git grep -q "$TVERSION" VERSION
 
 echo "$TVERSION" > VERSION
 (
@@ -44,12 +44,13 @@ cp xca-$TVERSION.tar.gz "$releasedir"
   tar zxf "$releasedir/xca-$TVERSION.tar.gz"
   mkdir -p "xca-$TVERSION/BUILD" && cd "xca-$TVERSION/BUILD"
   ../configure && make -j7
+  mkdir "$releasedir/doc"
+  cp doc/*.html "$releasedir/doc"
 )
 (
   cd ..
   "./xca-$TVERSION/misc/build-w32.sh"
   cp "setup_xca-${TVERSION}.exe" "$releasedir"
 )
-sh "xca-$TVERSION/misc/gen-binary-hash" "$releasedir"
-cd "$releasedir"
-ls -la
+
+ls -la  "$releasedir"

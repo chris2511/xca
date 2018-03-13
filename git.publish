@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+export TVERSION="$1"
+if test -z "$TVERSION"; then
+  echo "usage: $0 <VERSION>"
+  exit 1
+fi
+
+test -s VERSION && test -s changelog && test -s README.md
+test -d .git
+
+releasedir="$HOME/xca-$TVERSION"
+
+./misc/gen-binary-hash "$releasedir"
+echo "$TVERSION""+" > VERSION
+git commit -a -m "Release $TVERSION done"
+
+./github.release.py "$TVERSION" "${releasedir}/"*"xca-$TVERSION".*
+
+cat << EOF
+
+After verifying the commits, tags and github release,
+finally do:
+  git push origin --tags master
+  Un-draft the release on github
+EOF
