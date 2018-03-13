@@ -1,3 +1,5 @@
+xca 2.0.0-pre02 Di Mär 13 2018
+
  * Fix crash during PKCS#12 export
  * Update HTTPS_server template and add example SAN
  * Acceppt empty password for private key decryption
