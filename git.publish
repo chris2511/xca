@@ -1,14 +1,12 @@
 #!/bin/sh
 
 set -e
-export TVERSION="$1"
-if test -z "$TVERSION"; then
-  echo "usage: $0 <VERSION>"
-  exit 1
-fi
 
 test -s VERSION && test -s changelog && test -s README.md
 test -d .git
+
+read TVERSION < VERSION
+export TVERSION
 
 releasedir="$HOME/xca-$TVERSION"
 
