@@ -1,12 +1,14 @@
 # XCA -- X Certificate and Key Management
 
+### This is a pre-release. Please test it and report any issues here - Thanks!
+
 ## __Release Notes__
 
  * Make a backup copy of your database!
  * This version completely changes the database format to SQL(ite)
  * Don't try to open it with older versions of XCA (< 1.4.0). They will corrupt the database.
  * The "Undelete" feature is currently not implemented. If an item gets deleted, it will be lost!
- * Send bugs to christian@hohnstaedt.de
+ * Please report issues on github <https://github.com/chris2511/xca/issues>
 
 ## __Changelog:__
 
