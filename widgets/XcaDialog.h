@@ -21,8 +21,8 @@ class XcaDialog : public QDialog, public Ui::XcaDialog
 	XcaDialog(QWidget *parent, enum pki_type type, QWidget *w,
 		QString t, QString desc) : QDialog(parent)
 	{
-		setWindowTitle(XCA_TITLE);
 		setupUi(this);
+		setWindowTitle(XCA_TITLE);
 
 		QPixmap *icon = NULL;
 		switch (type) {
