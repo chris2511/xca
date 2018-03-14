@@ -77,19 +77,18 @@ Section "xca (required)" SecMain
   File "${QTDIR}\bin\Qt5Core.dll"
   File "${QTDIR}\bin\Qt5Widgets.dll"
   File "${QTDIR}\bin\Qt5Sql.dll"
-  File "${QTDIR}\plugins\sqldrivers\qsqlite.dll"
-  File "${QTDIR}\plugins\sqldrivers\qsqlmysql.dll"
-  File "${QTDIR}\plugins\sqldrivers\qsqlpsql.dll"
   File "${QTDIR}\bin\libwinpthread-1.dll"
   File "${QTDIR}\bin\libstdc++-6.dll"
   File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
-  SetOutPath $INSTDIR\platforms
-  File "${QTDIR}\plugins\platforms\qwindows.dll"
-  SetOutPath $INSTDIR
-
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libcrypto-1_1.dll"
-
+  SetOutPath $INSTDIR\platforms
+  File "${QTDIR}\plugins\platforms\qwindows.dll"
+  SetOutPath $INSTDIR\sqldrivers
+  File "${QTDIR}\plugins\sqldrivers\qsqlite.dll"
+  File "${QTDIR}\plugins\sqldrivers\qsqlmysql.dll"
+  File "${QTDIR}\plugins\sqldrivers\qsqlpsql.dll"
+  SetOutPath $INSTDIR
 
   ; delete unneeded files when updating
   Delete "$INSTDIR\libp11-1.dll"
