@@ -1,3 +1,5 @@
+xca 2.0.0-pre03 Thu Mar 15 2018
+
  * Fix installation of sql plugins in the Windows installer
  * Fix opening, importing and dropping databases
 
