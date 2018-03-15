@@ -1,3 +1,6 @@
+ * Fix installation of sql plugins in the Windows installer
+ * Fix opening, importing and dropping databases
+
 xca 2.0.0-pre02 Tue Mar 13 2018
 
  * Fix crash during PKCS#12 export
