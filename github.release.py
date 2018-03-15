@@ -38,6 +38,7 @@ headers = {'Content-Type': 'text/plain'}
 for file in sys.argv[2:]:
   name = re.sub(".*/", "", file)
   url = upload_url.replace("{?name,label}", "?name=" + name)
+  print("Upload", file)
   response = requests.post(url, headers=headers, data=open(file, 'rb'), auth=(user, passwd))
   r.append(response.json())
 

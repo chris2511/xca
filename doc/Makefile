@@ -32,7 +32,7 @@ app: xca.html
 changelog.html: $(TOPDIR)/changelog $(TOPDIR)/doc/html.header
 	( cat $(TOPDIR)/doc/html.header; \
 	  echo '</head><body><h2>Changelog</h2><div><ul>'; \
-	  sed  's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/^xca \([^ ]*\) *\(.*\)/<\/ul><\/div><div id="changelog_\1"><h3>xca \1 \2<\/h3><ul>/; s/\*/<\/li><li>/'; \
+	  sed  's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; 2,$$ s/^xca.*-pre[0-9][0-9] .*/ <\/li><li class="prerelease">&/; s/^xca \([^ ]*\) *\(.*\)/<\/ul><\/div><div id="changelog_\1"><h3>xca \1 \2<\/h3><ul>/; s/\*/<\/li><li>/'; \
 	  echo '</body></html>' \
 	) < $< > $@
 
