@@ -154,6 +154,7 @@ MainWindow::MainWindow(QWidget *parent)
 	certView->setMainwin(this, searchEdit);
 	tempView->setMainwin(this, searchEdit);
 	crlView->setMainwin(this, searchEdit);
+	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -188,10 +189,12 @@ void MainWindow::openURLs()
 	ImportMulti *dlgi = new ImportMulti(this);
 
 	foreach(s, urlsToOpen) {
-		pki_multi *pki = probeAnything(s);
-		if (!pki)
+		int ret;
+		pki_multi *pki = probeAnything(s, &ret);
+		if (ret)
 			failed << s;
-		dlgi->addItem(pki);
+		else
+			dlgi->addItem(pki);
 	}
 	urlsToOpen.clear();
 	dlgi->execute(1, failed);
@@ -777,12 +780,14 @@ void MainWindow::connNewX509(NewX509 *nx)
 
 void MainWindow::importAnything(QString file)
 {
+	int ret;
 	ImportMulti *dlgi = new ImportMulti(this);
 	QStringList failed;
-	pki_multi *pki = probeAnything(file);
-	if (!pki)
+	pki_multi *pki = probeAnything(file, &ret);
+	if (ret)
 		failed << file;
-	dlgi->addItem(pki);
+	else
+		dlgi->addItem(pki);
 	dlgi->execute(1, failed);
 	delete dlgi;
 }
@@ -806,8 +811,12 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 		pki->probeAnything(file);
 	} catch (errorEx &err) {
 		Error(err);
+	}
+	if (!pki->count()) {
 		delete pki;
 		pki = NULL;
+		if (ret)
+			*ret = 1;
 	}
 	return pki;
 }

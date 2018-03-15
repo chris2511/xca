@@ -63,6 +63,7 @@ QString MainWindow::openSqlDB(QString dbName)
 {
 	OpenDb *opendb = new OpenDb(this, dbName);
 	if (opendb->exec()) {
+		close_database();
 		opendb->openDatabase();
 		QSqlError e = initSqlDB();
 		qDebug() << "DB-DESC:" << opendb->getDescriptor();
@@ -79,7 +80,6 @@ QString MainWindow::openSqlDB(QString dbName)
 
 void MainWindow::openRemoteSqlDB()
 {
-	close_database();
 	init_database("");
 }
 
@@ -238,7 +238,6 @@ int MainWindow::init_database(QString dbName)
 	QString oldDbFile;
 
 	qDebug("Opening database: %s", QString2filename(dbName));
-	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
 	if (checkForOldDbFormat(dbName)) {
 		QString newname = dbName;
@@ -501,14 +500,12 @@ void MainWindow::close_database()
 	certs = NULL;
 	temps = NULL;
 	keys = NULL;
+	crls = NULL;
 
 	QSqlDatabase::database().close();
 	pki_evp::passwd.cleanse();
 	pki_evp::passwd = QByteArray();
 
-	if (!crls)
-		return;
-	crls = NULL;
 
 	update_history(currentDB);
 	pkcs11::remove_libs();
