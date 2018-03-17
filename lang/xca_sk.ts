@@ -2,22 +2,11 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>About</name>
-    <message>
-        <source>Done</source>
-        <translation type="vanished">Hotovo</translation>
-    </message>
-</context>
-<context>
     <name>CaProperties</name>
     <message>
         <location filename="../ui/CaProperties.ui" line="+30"/>
         <source>CA Properties</source>
         <translation>Vlastnosti CA</translation>
-    </message>
-    <message>
-        <source>Use random Serial numbers</source>
-        <translation type="vanished">Použiť náhodné sériové čísla</translation>
     </message>
     <message>
         <location line="+62"/>
@@ -29,10 +18,6 @@
         <source>Default template</source>
         <translation>Predvolená šablóna</translation>
     </message>
-    <message>
-        <source>Next serial for signing</source>
-        <translation type="vanished">Sériové číslo ďalšieho podpisu</translation>
-    </message>
 </context>
 <context>
     <name>CertDetail</name>
@@ -41,10 +26,6 @@
         <location filename="../widgets/CertDetail.cpp" line="+89"/>
         <source>Details of the Certificate</source>
         <translation>Podrobnosti certifikátu</translation>
-    </message>
-    <message>
-        <source>S&amp;tatus</source>
-        <translation type="vanished">S&amp;tav</translation>
     </message>
     <message>
         <location line="+135"/>
@@ -64,16 +45,12 @@
     <message>
         <location line="-35"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Stav</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Internal name</source>
         <translation>Interný názov</translation>
-    </message>
-    <message>
-        <source>Signature algorithm</source>
-        <translation type="vanished">Algoritmus podpisu</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -138,39 +115,27 @@
     <message>
         <location line="+34"/>
         <source>Subject</source>
-        <translation type="unfinished">Predmet</translation>
+        <translation>Predmet</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Vydavateľ</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Extensions</source>
-        <translation type="unfinished">Rozšírenia</translation>
+        <translation>Rozšírenia</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentár</translation>
-    </message>
-    <message>
-        <source>&amp;Subject</source>
-        <translation type="vanished">&amp;Predmet</translation>
-    </message>
-    <message>
-        <source>&amp;Issuer</source>
-        <translation type="vanished">&amp;Vydavateľ</translation>
+        <translation>Komentár</translation>
     </message>
     <message>
         <location line="-31"/>
         <source>Attributes</source>
         <translation>Atribúty</translation>
-    </message>
-    <message>
-        <source>&amp;Extensions</source>
-        <translation type="vanished">&amp;Rozšírenia</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -197,14 +162,6 @@
         <location line="+4"/>
         <source>Self signed</source>
         <translation>Sebou podpísaný</translation>
-    </message>
-    <message>
-        <source>Not trusted</source>
-        <translation type="vanished">Nedôveryhodný</translation>
-    </message>
-    <message>
-        <source>Trusted</source>
-        <translation type="vanished">Dôveryhodný</translation>
     </message>
     <message>
         <location line="+27"/>
@@ -392,10 +349,6 @@
         <translation>Spravovať odvolania</translation>
     </message>
     <message>
-        <source>Trust</source>
-        <translation type="vanished">Dôvera</translation>
-    </message>
-    <message>
         <location line="+6"/>
         <source>Renewal</source>
         <translation>Obnoviť</translation>
@@ -489,7 +442,7 @@
     <message>
         <location line="+25"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentár</translation>
+        <translation>Komentár</translation>
     </message>
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="+47"/>
@@ -555,10 +508,6 @@
         <translation>Zlúčený textový formát úplnej reťaze certifikátu v jednom súbore PEM</translation>
     </message>
     <message>
-        <source>Concatenated text format of all trusted certificates in one PEM file</source>
-        <translation type="vanished">Zlúčený textový formát všetkých dôveryhodných certifikátov v jednom súbore PEM</translation>
-    </message>
-    <message>
         <location line="+4"/>
         <source>Concatenated text format of all certificates in one PEM file</source>
         <translation>Zlúčený textový formát všetkých certifikátov v jednom súbore PEM</translation>
@@ -579,18 +528,14 @@
         <translation>PKCS#7 kódovaná úplná reťaz certifikátov</translation>
     </message>
     <message>
-        <source>All trusted certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Všetky dôveryhodné certifikáty kódované v jednom súbore PKCS#7</translation>
-    </message>
-    <message>
         <location line="-6"/>
         <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlúčený textový formát všetkých dôveryhodných certifikátov v jednom súbore PEM</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>All unrevoked certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Všetky neodvolané certifikáty kódované v jednom súbore PKCS#7</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -665,11 +610,7 @@
     <message>
         <location line="+1"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate Index file</source>
-        <translation type="vanished">Súbor indexu certifikátov</translation>
+        <translation>Súbor indexu certifikátov, špecifický pre OpenSSL, vytvorený ako príkazom „ca” a vyžadovaný nástrojom OCSP</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -791,27 +732,27 @@ Sér. č.: %3</translation>
     <message>
         <location filename="../ui/ItemProperties.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulár</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Name</source>
-        <translation type="unfinished">Názov</translation>
+        <translation>Meno</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Source</source>
-        <translation type="unfinished">Zdroj</translation>
+        <translation>Zdroj</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Insertion date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum vloženia</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentár</translation>
+        <translation>Komentár</translation>
     </message>
 </context>
 <context>
@@ -865,37 +806,33 @@ Sér. č.: %3</translation>
     <message>
         <location line="+51"/>
         <source>Security Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezpečnostný token</translation>
     </message>
     <message>
         <location line="+21"/>
         <location line="+71"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Menovka</translation>
     </message>
     <message>
         <location line="-61"/>
         <source>PKCS#11 ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID PKCS#11</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Token information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informácie otkenu</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentár</translation>
-    </message>
-    <message>
-        <source>Modulus</source>
-        <translation type="vanished">Modulus</translation>
+        <translation>Komentár</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="-15"/>
@@ -906,14 +843,6 @@ Sér. č.: %3</translation>
         <location line="+4"/>
         <source>Not available</source>
         <translation>Nedostupné</translation>
-    </message>
-    <message>
-        <source>Token</source>
-        <translation type="vanished">Token</translation>
-    </message>
-    <message>
-        <source>Security token ID:%1</source>
-        <translation type="vanished">Bezpečnostný token ID:%1</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -940,7 +869,7 @@ Sér. č.: %3</translation>
     <message>
         <location line="+1"/>
         <source>Curve name</source>
-        <translation>Meno krivky</translation>
+        <translation>Názov krivky</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1127,25 +1056,17 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
     <message>
         <location line="-77"/>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="unfinished"></translation>
+        <translation>Detegovaný starý formát databázy. Vytvorená záložná kópia, nazvaná: „%1” a databáza konvertovaná do nového formátu</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje</translation>
     </message>
     <message>
         <location line="+144"/>
         <source>No deleted items found</source>
         <translation>Nenájdené žiadne zmazané položky</translation>
-    </message>
-    <message>
-        <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
-        <translation type="vanished">Počas odstraňovania starých položiek z databázy boli zistené a opravené chyby. Bol vytvorený záložný súbor</translation>
-    </message>
-    <message>
-        <source>Removing deleted or outdated items from the database failed.</source>
-        <translation type="vanished">Odstránenie starých položiek z databázy zlyhalo.</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-62"/>
@@ -1220,7 +1141,7 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
     <message>
         <location line="+3"/>
         <source>Open Remote DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Otvoriť vzdialenú databázu</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1288,10 +1209,6 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
         <translation>Vložiť súbor PEM</translation>
     </message>
     <message>
-        <source>Database dump ( *.dump );; All files ( * )</source>
-        <translation type="vanished">Výpis databázy (*.dump);;Všetky súbory (*)</translation>
-    </message>
-    <message>
         <location line="+2"/>
         <source>&amp;Token</source>
         <translation>&amp;Token</translation>
@@ -1347,10 +1264,6 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
         <translation>Z&amp;meniť heslo databázy</translation>
     </message>
     <message>
-        <source>&amp;Import old db_dump</source>
-        <translation type="vanished">&amp;Import starého db_dump</translation>
-    </message>
-    <message>
         <location line="+3"/>
         <source>&amp;Undelete items</source>
         <translation>O&amp;bnoviť zmazané</translation>
@@ -1379,22 +1292,6 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
         <location line="+2"/>
         <source>About</source>
         <translation>O programe</translation>
-    </message>
-    <message>
-        <source>Import password</source>
-        <translation type="vanished">Heslo importu</translation>
-    </message>
-    <message>
-        <source>Please enter the password of the old database</source>
-        <translation type="vanished">Prosím, zdajte heslo starej databázy</translation>
-    </message>
-    <message>
-        <source>Password verification error. Ignore keys ?</source>
-        <translation type="vanished">Chyba overenia hesla. Ignorovať kľúče?</translation>
-    </message>
-    <message>
-        <source>Import anyway</source>
-        <translation type="vanished">Importovať i tak</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="-611"/>
@@ -1460,18 +1357,13 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
     <message>
         <location line="+24"/>
         <source>Transaction start failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustenie transakcie zlyhalo</translation>
     </message>
     <message>
         <location line="+54"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database file:
-%1</source>
-        <translation type="vanished">Prosím, zadajte heslo, ktoré bude slúžiť na šifrovanie súkromných kľúčov v súbore databázy:
+        <translation>Prosím, zadajte heslo, ktoré bude slúžiť na šifrovanie súkromných kľúčov v databáze:
 %1</translation>
     </message>
     <message>
@@ -1510,7 +1402,7 @@ Týmto bude odstránený kľúč „%1” a nebude ho možné exportovať</trans
         <location line="+1"/>
         <location line="+69"/>
         <source>All files ( * )</source>
-        <translation>Všetky súbory (*)</translation>
+        <translation>Všetky súbory ( * )</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -1527,10 +1419,6 @@ Prosím, zadajte bity parametra DH</translation>
 </context>
 <context>
     <name>NewCrl</name>
-    <message>
-        <source>Create CRL</source>
-        <translation type="vanished">Vytvoriť CRL</translation>
-    </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="+32"/>
         <source>Last update</source>
@@ -1589,7 +1477,7 @@ Prosím, zadajte bity parametra DH</translation>
     <message>
         <location line="-130"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulár</translation>
     </message>
     <message>
         <location line="+185"/>
@@ -1705,21 +1593,9 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>Podpísanie</translation>
     </message>
     <message>
-        <source>Create a &amp;self signed certificate with the serial</source>
-        <translation type="vanished">Vytvoriť sebou podpísaný certifikát so sériovým číslom</translation>
-    </message>
-    <message>
-        <source>If you leave this blank the serial 00 will be used</source>
-        <translation type="vanished">Ak toto ponecháte prázdne, bude použité sériové číslo 00</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation type="vanished">1</translation>
-    </message>
-    <message>
         <location line="+8"/>
         <source>Create a &amp;self signed certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvoriť &amp;sebou podpísaný certifikát</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1920,7 +1796,7 @@ Prosím, zadajte bity parametra DH</translation>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation>Bez vypršania</translation>
+        <translation>Bez definovaného vypršania</translation>
     </message>
     <message>
         <location line="+50"/>
@@ -1944,16 +1820,7 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+395"/>
-        <source>Comment</source>
-        <translation type="unfinished">Komentár</translation>
-    </message>
-    <message>
-        <source>can be altered by the file &quot;aia.txt&quot;</source>
-        <translation type="vanished">možno zmeniť súborom „aia.txt”</translation>
-    </message>
-    <message>
-        <location line="-316"/>
+        <location line="+79"/>
         <source>Key usage</source>
         <translation>Použitie kľúča</translation>
     </message>
@@ -1974,8 +1841,9 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>Overiť</translation>
     </message>
     <message>
-        <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
-        <translation type="vanished">Vytvorí &amp;sebou podpísaný certifikát s sér. číslom QA z odtlačku MD5</translation>
+        <location line="+23"/>
+        <source>Comment</source>
+        <translation>Komentár</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="-872"/>
@@ -2018,10 +1886,6 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>len prosté 7-b znaky</translation>
     </message>
     <message>
-        <source>Create XCA template</source>
-        <translation type="vanished">Vytvoriť šablónu XCA</translation>
-    </message>
-    <message>
         <location line="+25"/>
         <source>Edit XCA template</source>
         <translation>Upraviť šablónu XCA</translation>
@@ -2034,22 +1898,22 @@ Prosím, zadajte bity parametra DH</translation>
     <message>
         <location line="+360"/>
         <source>Template &apos;%1&apos; applied</source>
-        <translation type="unfinished"></translation>
+        <translation>Šablóna „%1” aplikovaná</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Subject applied from template &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Predmet nastavený zo šablóny „%1”</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Extensions applied from template &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšírenia nastavené zo šablóny „%1”</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>New key &apos;%1&apos; created</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvorený nový kľúč „%1”</translation>
     </message>
     <message>
         <location line="+255"/>
@@ -2260,47 +2124,47 @@ hoci ste ich v nastavení definovali ako povinné.</translation>
     <message>
         <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialóg</translation>
+        <translation>Dialóg</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Open remote database</source>
-        <translation type="unfinished"></translation>
+        <translation>Otvoriť vzdialené databázu</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>Database type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ databázy</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Názov stroja</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Meno používateľa</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Password</source>
-        <translation type="unfinished">Heslo</translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Database name</source>
-        <translation type="unfinished"></translation>
+        <translation>Názov databázy</translation>
     </message>
     <message>
         <location filename="../widgets/OpenDb.cpp" line="+120"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie je dostupný ovládač SqLite3. Prosím, nainštalujte balík qt-sqlite svojej distribúcie</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosím, zadajte heslo na prístup k databázovému serveru %2 ako používateľ „%1”.</translation>
     </message>
 </context>
 <context>
@@ -2724,13 +2588,9 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Kľúče PKI (*.pem *.der *.key);;Kľúče PKCS#8 (*.p8 *.pk8);;Verejné kľúče SSH (*.pub);;</translation>
     </message>
     <message>
-        <source>PKCS#10 CSR ( *.pem *.der *.csr );; Netscape Request ( *.spkac *.spc );;</source>
-        <translation type="vanished">Žiadosť PKCS#10 (*.pem *.der *.csr);;Žiadosť Netscape (*.spkac *.spc);;</translation>
-    </message>
-    <message>
         <location line="+15"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );; </source>
-        <translation type="unfinished"></translation>
+        <translation>Žiadosť PKCS#10 ( *.pem *.der *.csr );; </translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2909,22 +2769,22 @@ V knižnici %3
     <message>
         <location filename="../lib/oid.cpp" line="+46"/>
         <source>Error reading config file %1 at line %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba čítania konfiguračného súboru %1 na riadku %2</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>The Object &apos;%1&apos; from file %2 line %3 is already known as &apos;%4:%5:%6&apos; and should be removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt „%1” zo súboru %2 riadok %3 je už známy ako „%4:%5:%6” a mal by byť odstríánený.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The identifier &apos;%1&apos; for OID %2 from file %3 line %4 is already used for a different OID as &apos;%5:%6:%7&apos; and should be changed to avoid conflicts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifikátor „%1” pre OID %2 zo súboru %3 riadok %4 je už použitý pre iné OID ako „%5:%6:%7” a treba ho zmeniť, aby ste predišli konfliktom.</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámy objekt „%1” v súbore %2 riadok %3</translation>
     </message>
 </context>
 <context>
@@ -2960,17 +2820,17 @@ V knižnici %3
     <message>
         <location line="+7"/>
         <source>Edit</source>
-        <translation type="unfinished">Upraviť</translation>
+        <translation>Upraviť</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="+73"/>
         <source>No.</source>
-        <translation>Číslo</translation>
+        <translation>Č.</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Serial</source>
-        <translation>Sér. číslo</translation>
+        <translation>Sériové číslo</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3101,29 +2961,6 @@ V knižnici %3
     </message>
 </context>
 <context>
-    <name>TrustState</name>
-    <message>
-        <source>Certificate trust</source>
-        <translation type="vanished">Dôvera certifikátu</translation>
-    </message>
-    <message>
-        <source>Trustment</source>
-        <translation type="vanished">Dôveryhodnosť</translation>
-    </message>
-    <message>
-        <source>&amp;Never trust this certificate</source>
-        <translation type="vanished">&amp;Nikdy nedôverovať tomuto certifikátu</translation>
-    </message>
-    <message>
-        <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="vanished">&amp;Dôverovať tomuto certifikátu, len ak dôverujem vydavateľovi</translation>
-    </message>
-    <message>
-        <source>&amp;Always trust this certificate</source>
-        <translation type="vanished">&amp;Vždy dôverovať tomuto certifikátu</translation>
-    </message>
-</context>
-<context>
     <name>Validity</name>
     <message>
         <location filename="../widgets/validity.cpp" line="+94"/>
@@ -3214,7 +3051,7 @@ V knižnici %3
     <message>
         <location line="+1"/>
         <source>Properties</source>
-        <translation type="unfinished">Vlastnosti</translation>
+        <translation>Vlastnosti</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3240,34 +3077,6 @@ V knižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <source>Bad database item
-Name: %1
-Type: %2
-Size: %3
-%4</source>
-        <translation type="vanished">Zlá položka databázy
-Názov: %1
-typ: %2
-Veľkosť: %3
-%4</translation>
-    </message>
-    <message>
-        <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
-        <translation type="vanished">Chcete odstrániť položku z databázy? Zlá položka môže byť vyňatá do samostatného súboru.</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="vanished">Odstrániť</translation>
-    </message>
-    <message>
-        <source>Delete and extract</source>
-        <translation type="vanished">Odstrániť a vyňať</translation>
-    </message>
-    <message>
-        <source>Continue</source>
-        <translation type="vanished">Pokračovať</translation>
-    </message>
-    <message>
         <location filename="../lib/db_base.cpp" line="+615"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Chyba otvorenia súboru: „%1”: %2</translation>
@@ -3280,52 +3089,52 @@ Veľkosť: %3
     <message>
         <location line="+1"/>
         <source>No.</source>
-        <translation>Číslo</translation>
+        <translation>Č.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Primary key</source>
-        <translation type="unfinished"></translation>
+        <translation>Primárny kľúč</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Database unique number</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedinečné číslo databázy</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date of creation or insertion</source>
-        <translation type="unfinished"></translation>
+        <translation>Dátum vytvorenia alebo vloženia</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Source</source>
-        <translation type="unfinished">Zdroj</translation>
+        <translation>Zdroj</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generated, Imported, Transformed</source>
-        <translation type="unfinished"></translation>
+        <translation>Generovaný, Importovaný, Transformovaný</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentár</translation>
+        <translation>Komentár</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>First line of the comment field</source>
-        <translation type="unfinished"></translation>
+        <translation>Prvý riadok poľa komentára</translation>
     </message>
     <message>
         <location line="+399"/>
         <source>Item properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti položky</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -3422,19 +3231,19 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+21"/>
         <source>Create CRL</source>
-        <translation type="unfinished">Vytvoriť CRL</translation>
+        <translation>Vytvoriť CRL</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Failed to initiate DB transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlyhala inicializácia DB transakcie</translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: </source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba databázy:</translation>
     </message>
 </context>
 <context>
@@ -3485,7 +3294,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
     <message>
         <location line="+2"/>
         <source>Extending public key from %1 by imported key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšírenie verejného kľúča z %1 importovaním kľúča „%2”</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -3574,17 +3383,9 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation>Zlá šablóna: %1</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation type="vanished">Typ</translation>
-    </message>
-    <message>
-        <source>Nothing</source>
-        <translation type="vanished">Nič</translation>
-    </message>
-    <message>
         <location line="-17"/>
         <source>Empty template</source>
-        <translation type="unfinished"></translation>
+        <translation>Prázdna šablóna</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -3655,10 +3456,6 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation>Nie po</translation>
     </message>
     <message>
-        <source>Trust state</source>
-        <translation type="vanished">Stav dôvery</translation>
-    </message>
-    <message>
         <location line="+1"/>
         <source>Revocation</source>
         <translation>Odvolanie</translation>
@@ -3690,12 +3487,12 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+44"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpísané %1 „%2”</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznáme</translation>
     </message>
     <message>
         <location line="+98"/>
@@ -3705,30 +3502,22 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+158"/>
         <source>PKCS#7 unrevoked</source>
-        <translation type="unfinished"></translation>
+        <translation>Neodvolané PKCS#7</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>PEM unrevoked</source>
-        <translation type="unfinished"></translation>
+        <translation>Neodvolané PEM</translation>
     </message>
     <message>
         <location line="+423"/>
         <source>No template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the new hexadecimal secret number for the QA process.</source>
-        <translation type="vanished">Prosím zadajte šestnástkové tajné číslo procesu QA.</translation>
-    </message>
-    <message>
-        <source>The QA process has been terminated by the user.</source>
-        <translation type="vanished">Proces QA bol prerušený používateľom.</translation>
+        <translation>Bez šablóny</translation>
     </message>
     <message>
         <location line="-559"/>
         <source>The key you selected for signing is not a private one.</source>
-        <translation>Kľúč, zvolený na podpísanie, nie je súkromným.</translation>
+        <translation>Kľúč, zvolený na podpísanie, nie je súkromný.</translation>
     </message>
     <message>
         <location line="+42"/>
@@ -3751,10 +3540,6 @@ a tak nebol importovaný</translation>
         <translation>Reťaz PKCS#12</translation>
     </message>
     <message>
-        <source>PKCS#7 trusted</source>
-        <translation type="vanished">PKCS#7 dôveryhodný</translation>
-    </message>
-    <message>
         <location line="+17"/>
         <source>PKCS#7 all</source>
         <translation>PKCS#7 všetky</translation>
@@ -3763,10 +3548,6 @@ a tak nebol importovaný</translation>
         <location line="-8"/>
         <source>PEM + key</source>
         <translation>PEM + kľúč</translation>
-    </message>
-    <message>
-        <source>PEM trusted</source>
-        <translation type="vanished">PEM dôveryhodný</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -3802,7 +3583,7 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+33"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba otvorenia súboru: „%1”: %2</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -3900,19 +3681,19 @@ a tak nebola uložená</translation>
     <message>
         <location line="+54"/>
         <source>Extracted from %1 &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyňaté z %1 „%2”</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+52"/>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Certifikát</translation>
     </message>
     <message>
         <location line="-52"/>
         <location line="+52"/>
         <source>Certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation>Žiadosť o certifikát</translation>
     </message>
     <message>
         <location line="-36"/>
@@ -3932,7 +3713,7 @@ a tak nebola uložená</translation>
     <message>
         <location line="+11"/>
         <source>Transformed from %1 &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Transformované z %1 „%2”</translation>
     </message>
 </context>
 <context>
@@ -3976,36 +3757,32 @@ a tak nebola uložená</translation>
     <message>
         <location line="+168"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámy</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Importovaný</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generated</source>
-        <translation type="unfinished"></translation>
+        <translation>Generovaný</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Transformed</source>
-        <translation type="unfinished"></translation>
+        <translation>Transformovaný</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Token</source>
-        <translation type="unfinished">Token</translation>
+        <translation>Token</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Legacy Database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error: </source>
-        <translation type="vanished">Chyba: </translation>
+        <translation>Stará databáza</translation>
     </message>
     <message>
         <location line="-203"/>
@@ -4162,17 +3939,17 @@ a tak nebola uložená</translation>
     <message>
         <location line="+202"/>
         <source>Common</source>
-        <translation>Spoločné</translation>
+        <translation>Spoločný</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Private</source>
-        <translation>Súkromné</translation>
+        <translation>Súkromný</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Bogus</source>
-        <translation>Falošné</translation>
+        <translation>Pododný</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4370,10 +4147,6 @@ a tak nebola uložená</translation>
         <translation>Chyba obsahu súboru šablóny (príliš malá)</translation>
     </message>
     <message>
-        <source>Template file content error (bad size)</source>
-        <translation type="vanished">Chyba obsahu súboru šablóny (zlá veľkosť)</translation>
-    </message>
-    <message>
         <location line="+39"/>
         <source>Template file content error (too small): %1</source>
         <translation>Chyba obsahu súboru šablóny (príliš malá): %1</translation>
@@ -4437,18 +4210,6 @@ a tak nebola uložená</translation>
         <translation>Zlá veľkosť %1</translation>
     </message>
     <message>
-        <source>Not trusted</source>
-        <translation type="vanished">Nedôverovať</translation>
-    </message>
-    <message>
-        <source>Trust inherited</source>
-        <translation type="vanished">Dôvera zdedená</translation>
-    </message>
-    <message>
-        <source>Always Trusted</source>
-        <translation type="vanished">Vždy dôverovať</translation>
-    </message>
-    <message>
         <location line="+315"/>
         <source>No</source>
         <translation>Nie</translation>
@@ -4492,7 +4253,12 @@ a tak nebola uložená</translation>
         <translation>Nemožno načítať žiadosť o certifikát zo súboru %1. Vyskúšané formáty PEM, DER a SPKAC.</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+44"/>
+        <source>Wrong Size %1</source>
+        <translation>Zlá veľkosť %1</translation>
+    </message>
+    <message>
+        <location line="+115"/>
         <source>Signed</source>
         <translation>Podpísaný</translation>
     </message>
@@ -4500,11 +4266,6 @@ a tak nebola uložená</translation>
         <location line="+0"/>
         <source>Unhandled</source>
         <translation>Nespracované</translation>
-    </message>
-    <message>
-        <location line="-115"/>
-        <source>Wrong Size %1</source>
-        <translation>Zlá veľkosť %1</translation>
     </message>
 </context>
 <context>
