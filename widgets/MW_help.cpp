@@ -98,7 +98,7 @@ void MainWindow::about()
 	"</table><hr><center><u><b>Maintained Translations</b></u></center>"
 	"<p><table>"
 	"<tr><td><b>German</b></td><td>Christian Hohnst&auml;dt &lt;christian@hohnstaedt.de&gt;</td></tr>"
-	"<tr><td><b>French</b></td><td>Patrick Monnerat &lt;Patrick.Monnerat@datasphere.ch&gt;</td></tr>"
+	"<tr><td><b>French</b></td><td>Patrick Monnerat &lt;patrick@monnerat.net&gt;</td></tr>"
 	"<tr><td><b>Croatian</b></td><td>Nevenko Bartolincic &lt;nevenko.bartolincic@gmail.com&gt;</td></tr>"
 	"<tr><td><b>Slovak</b></td><td>Slavko &lt;linux@slavino.sk&gt;</td></tr>"
 	"</table>").arg(brainpool).arg(version).arg(Entropy::strength())
