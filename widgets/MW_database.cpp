@@ -32,24 +32,18 @@ QSqlError MainWindow::initSqlDB()
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
 	QStringList tables;
-	unsigned i = 0;
-
+	unsigned int i;
 	if (!db.isOpen())
 		return QSqlError();
 
-	tables = db.tables();
-
-	if (tables.contains("settings")) {
-		i = Settings["schema"];
-	}
 	Transaction;
 	if (!TransBegin())
 		return db.lastError();
 
-	for (; i < ARRAY_SIZE(schemas); i++) {
+	for (i = XSqlQuery::schemaVersion(); i < ARRAY_SIZE(schemas); i++) {
 		foreach(QString sql, schemas[i]) {
 			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
-			if (!q.exec(sql)) {
+			if (!q.exec(sql) || q.lastError().isValid()) {
 				TransRollback();
 				return q.lastError();
 			}
@@ -66,13 +60,14 @@ QString MainWindow::openSqlDB(QString dbName)
 		close_database();
 		opendb->openDatabase();
 		QSqlError e = initSqlDB();
-		qDebug() << "DB-DESC:" << opendb->getDescriptor();
 		if (e.isValid()) {
-			dbSqlError();
+			dbSqlError(e);
+			QSqlDatabase::database().close();
 			dbName = QString();
 		} else {
 			dbName = opendb->getDescriptor();
 		}
+		qDebug() << "DB-DESC:" << opendb->getDescriptor() << dbName << e;
 	}
 	delete opendb;
 	return dbName;
@@ -258,7 +253,7 @@ int MainWindow::init_database(QString dbName)
 	}
 	Entropy::seed_rng();
 	dbName = openSqlDB(dbName);
-	if (!QSqlDatabase::database().isOpen()) {
+	if (!QSqlDatabase::database().isOpen() || dbName.isEmpty()) {
 		/* Error already printed */
 		return 1;
 	}
@@ -513,6 +508,7 @@ void MainWindow::close_database()
 	QSqlDatabase::removeDatabase(connName);
 	currentDB.clear();
 	Settings.clear();
+	XSqlQuery::clearTablePrefix();
 }
 
 void MainWindow::load_history()

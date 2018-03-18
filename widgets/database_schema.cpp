@@ -294,3 +294,7 @@
 << "CREATE INDEX i_items_stamp ON items (stamp)"
 << "UPDATE settings SET value='5' WHERE key_='schema'"
 	;
+
+/* When adding new tables or views, also add them to the list
+ * in XSqlQuery::rewriteQuery(QString) in lib/sql.cpp
+ */

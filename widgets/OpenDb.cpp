@@ -15,6 +15,9 @@
 #include "PwDialog.h"
 #include "lib/base.h"
 
+#define NUM_PARAM 6
+#define NUM_PARAM_LEAST 5
+
 DbMap OpenDb::getDatabases()
 {
 	QStringList list = QSqlDatabase::drivers();
@@ -46,17 +49,21 @@ bool OpenDb::hasRemoteDrivers()
 
 DbMap OpenDb::splitRemoteDbName(QString db)
 {
-	static const char * const names[] =
-		{ "all", "user", "host", "type", "dbname" };
+	static const char * const names[NUM_PARAM] =
+		{ "all", "user", "host", "type", "dbname", "prefix" };
 	DbMap map;
-	QRegExp rx("(.*)@(.*)/(.*):(.*)");
+	QRegExp rx("(.*)@(.*)/(.*):([^#]*)#?([^#]*)");
 	int i, pos = rx.indexIn(db);
 	QStringList list = rx.capturedTexts();
 
-	if (pos != -1 && list.size() == 5) {
-		for (i=0; i<5; i++) {
+	if (pos != -1 && list.size() >= NUM_PARAM_LEAST) {
+		if (list.size() == NUM_PARAM_LEAST)
+			list[NUM_PARAM_LEAST] = "";
+		list[NUM_PARAM_LEAST] = list[NUM_PARAM_LEAST].toLower();
+		for (i=0; i < NUM_PARAM; i++) {
 			map[names[i]] = list[i];
 		}
+		qDebug() << "SPLIT DB:" << map;
 	}
 	return map;
 }
@@ -64,7 +71,7 @@ DbMap OpenDb::splitRemoteDbName(QString db)
 bool OpenDb::isRemoteDB(QString db)
 {
 	DbMap remote_param = splitRemoteDbName(db);
-	return remote_param.size() == 5;
+	return remote_param.size() == NUM_PARAM;
 }
 
 OpenDb::OpenDb(QWidget *parent, QString db)
@@ -77,11 +84,12 @@ OpenDb::OpenDb(QWidget *parent, QString db)
 	setWindowTitle(XCA_TITLE);
 
 	remote_param = splitRemoteDbName(db);
-	if (remote_param.size() == 5) {
+	if (remote_param.size() == NUM_PARAM) {
 		userName->setText(remote_param["user"]);
 		hostName->setText(remote_param["host"]);
 		dbTypeName = remote_param["type"];
 		dbName->setText(remote_param["dbname"]);
+		prefix->setText(remote_param["prefix"]);
 		sqlite = false;
 		show_connection_settings = false;
 	} else if (hasSqLite() && !db.isEmpty()) {
@@ -183,26 +191,31 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 		db.setPort(hostport[1].toInt());
 	db.setUserName(userName->text());
 	db.setPassword(pass);
+	XSqlQuery::setTablePrefix(prefix->text().toLower());
 
 	db.open();
 	QSqlError e = db.lastError();
 	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
 			db.isOpen())
 		return true;
-
+	XSqlQuery::clearTablePrefix();
 	db.close();
 	return false;
 };
 
 QString OpenDb::getDescriptor() const
 {
+	QString pref = prefix->text();
+	if (!pref.isEmpty())
+		pref = QString("#%1").arg(pref.toLower());
 	return sqlite ?
 		dbName->text() :
-		QString("%1@%2/%3:%4")
+		QString("%1@%2/%3:%4%5")
 			.arg(userName->text())
 			.arg(hostName->text())
 			.arg(getDbType())
-			.arg(dbName->text());
+			.arg(dbName->text())
+			.arg(pref);
 }
 
 int OpenDb::exec()

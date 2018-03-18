@@ -56,13 +56,24 @@ class DbTransaction
 class XSqlQuery: public QSqlQuery
 {
 	private:
-		QString lastq;
+		QString lastq, query;
 		const char *file;
 		int line;
+		QString rewriteQuery(QString query);
+		static QString table_prefix;
 	public:
 		XSqlQuery();
 		XSqlQuery(QString q);
 
+		static int schemaVersion();
+		static void setTablePrefix(QString p)
+		{
+			table_prefix = p;
+		}
+		static void clearTablePrefix()
+		{
+			table_prefix.clear();
+		}
 		QString query_details();
 		QSqlError lastError();
 		bool exec(QString q);

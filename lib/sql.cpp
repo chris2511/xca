@@ -9,6 +9,7 @@
 #include <QDebug>
 #include "base.h"
 #include "sql.h"
+#include "settings.h"
 
 int DbTransaction::mutex;
 int DbTransaction::error;
@@ -99,12 +100,48 @@ bool DbTransaction::done(QSqlError e, const char *file, int line)
 	return e.isValid() ? rollback(file, line) : commit(file, line);
 }
 
+QString XSqlQuery::table_prefix;
+
+int XSqlQuery::schemaVersion()
+{
+	qDebug() << "table_prefix:" << table_prefix;;
+	return QSqlDatabase::database().tables()
+			.contains(table_prefix + "settings") ?
+				Settings["schema"] : 0;
+}
+
+QString XSqlQuery::rewriteQuery(QString _q)
+{
+	QStringList tables; tables <<
+		"items" << "crls" << "private_keys" << "public_keys" <<
+		"tokens" << "token_mechanism" << "templates" << "certs" <<
+		"authority" << "revocations" << "requests" << "x509super" <<
+		"settings" << "revocations" <<
+
+		"view_public_keys" << "view_certs" << "view_requests" <<
+		"view_crls" << "view_templates" << "view_private" ;
+
+	lastq = query = _q;
+	if (table_prefix.isEmpty())
+		return query;
+
+	QString m = tables.join("|") + "|i_" + tables.join("|i_");
+	m = QString("\\b(%1)").arg(m);
+	query = query.replace(QRegExp(m), table_prefix + "\\1");
+
+	return query;
+}
 
 QString XSqlQuery::query_details()
 {
 	QString lq = lastq;
 	QList<QVariant> list = boundValues().values();
 	QStringList sl;
+
+	if (query != lastq) {
+		lq = QString("%1 (PREFIX[%2]: %3)").arg(lastq)
+				.arg(table_prefix).arg(query);
+	}
 	for (int i = 0; i < list.size(); ++i)
 		sl << list.at(i).toString();
 	if (sl.size())
@@ -126,15 +163,14 @@ XSqlQuery::XSqlQuery() : QSqlQuery()
 {
 }
 
-XSqlQuery::XSqlQuery(QString q) : QSqlQuery(q)
+XSqlQuery::XSqlQuery(QString q) : QSqlQuery()
 {
-	file = ""; line = 0;
-	lastq = q;
+	exec(q);
 }
 
 bool XSqlQuery::exec(QString q)
 {
-	lastq = q;
+	q = rewriteQuery(q);
 	file = ""; line = 0;
 	return QSqlQuery::exec(q);
 }
@@ -159,7 +195,7 @@ bool XSqlQuery::exec()
 
 bool XSqlQuery::prepare(QString q)
 {
-	lastq = q;
+	q = rewriteQuery(q);
 	setForwardOnly(true);
 	return QSqlQuery::prepare(q);
 }

@@ -9,6 +9,7 @@
 #define __OPENDB_H
 
 #include "ui_OpenDb.h"
+#include <QDialog>
 #include <QSqlDatabase>
 
 typedef QMap<QString, QString> DbMap;
