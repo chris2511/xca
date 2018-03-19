@@ -1000,7 +1000,7 @@ void NewX509::undo_validateExtensions()
 
 int NewX509::validateExtensions(QString nconf, QString &result)
 {
-	int ret = 0;
+	int ret = 0, ext_count = 0;
 	QStringList errors;
 	extList el, req_el;
 	ign_openssl_error();
@@ -1015,6 +1015,7 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 		errors += err.getString();
 		el.clear();
 	}
+	ext_count += el.size();
 	if (el.size() > 0) {
 		result += "<h2><center>";
 		result += tr("Other Tabs") + "</center></h2><p>\n";
@@ -1026,6 +1027,7 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 		errors += err.getString();
 		el.clear();
 	}
+	ext_count += el.size();
 	if (el.size() > 0) {
 		if (!result.isEmpty())
 			result += "\n<hr>\n";
@@ -1050,6 +1052,7 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 				el += req_el[i];
 		}
 	}
+	ext_count += el.size();
 	if (el.size() > 0) {
 		if (!result.isEmpty())
 			result += "\n<hr>\n";
@@ -1070,7 +1073,7 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 		result = errtxt + result;
 	}
 	ign_openssl_error();
-	return ret;
+	return ret == 1 ? 1 : ext_count == 0 && pt == x509 ? 2 : 0;
 }
 
 void NewX509::on_editSubAlt_clicked()
@@ -1332,9 +1335,16 @@ void NewX509::accept()
 				break;
 		}
 	}
-	if (do_validateExtensions()) {
-		gotoTab(5);
-		QString text = tr("The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.");
+	int r = do_validateExtensions();
+	if (r) {
+		QString text;
+		if (r == 1) {
+			text = tr("The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.");
+			gotoTab(5);
+		} else {
+			text = tr("The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.");
+			gotoTab(0);
+		}
 		xcaWarning msg(this, text);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
