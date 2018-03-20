@@ -86,8 +86,6 @@ Section "xca (required)" SecMain
   File "${QTDIR}\plugins\platforms\qwindows.dll"
   SetOutPath $INSTDIR\sqldrivers
   File "${QTDIR}\plugins\sqldrivers\qsqlite.dll"
-  File "${QTDIR}\plugins\sqldrivers\qsqlmysql.dll"
-  File "${QTDIR}\plugins\sqldrivers\qsqlpsql.dll"
   SetOutPath $INSTDIR
 
   ; delete unneeded files when updating
@@ -116,6 +114,26 @@ Section "xca (required)" SecMain
   WriteRegDWord HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "NoModify" '1'
   WriteRegDWord HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "NoRepair" '1'
   WriteUninstaller "uninstall.exe"
+SectionEnd
+
+;----------------------------------------
+Section "Support for MySQL databases" SecMySQL
+  SetOutPath $INSTDIR\sqldrivers
+  File "${QTDIR}\plugins\sqldrivers\qsqlmysql.dll"
+  SetOutPath $INSTDIR
+  File "${BDIR}\sql\libmysql.dll"
+SectionEnd
+
+;----------------------------------------
+Section "Support for PostgreSQL databases" SecPostgreSQL
+  SetOutPath $INSTDIR\sqldrivers
+  File "${QTDIR}\plugins\sqldrivers\qsqlpsql.dll"
+  SetOutPath $INSTDIR
+  File "${BDIR}\sql\libeay32.dll"
+  File "${BDIR}\sql\libiconv-2.dll"
+  File "${BDIR}\sql\libintl-8.dll"
+  File "${BDIR}\sql\libpq.dll"
+  File "${BDIR}\sql\msvcr120.dll"
 SectionEnd
 
 ;----------------------------------------
@@ -219,8 +237,13 @@ Section "Uninstall"
   Delete $INSTDIR\*.qm
   Delete $INSTDIR\*.html
   Delete $INSTDIR\*.png
+  Delete $INSTDIR\platforms\*.dll
+  Delete $INSTDIR\sqldrivers\*.dll
   ; MUST REMOVE UNINSTALLER, too
   Delete $INSTDIR\uninstall.exe
+
+  RMDir $INSTDIR\platforms
+  RMDir $INSTDIR\sqldrivers
   RMDir $INSTDIR
 
   ClearErrors
@@ -303,6 +326,12 @@ SectionEnd
   LangString DESC_SecMain ${LANG_FRENCH}  "application XCA."
   LangString DESC_SecMain ${LANG_CROATIAN}  "XCA aplikacija."
 
+  LangString DESC_SecMySQL ${LANG_ENGLISH} "MySQL Database Support."
+  LangString DESC_SecMySQL ${LANG_GERMAN}  "MySQL Datenbank Unterstützung."
+
+  LangString DESC_SecPostgreSQL ${LANG_ENGLISH} "PostgreSQL Database Support."
+  LangString DESC_SecPostgreSQL ${LANG_GERMAN}  "PostgreSQL Datenbank Unterstützung."
+
   LangString DESC_SecShortcut ${LANG_ENGLISH} "Shortcuts on the desktop and the menu."
   LangString DESC_SecShortcut ${LANG_GERMAN}  "Programmgruppe auf dem Desktop und im Menu."
   LangString DESC_SecShortcut ${LANG_FRENCH} "Raccourcis sur le bureau et dans le menu."
@@ -321,6 +350,8 @@ SectionEnd
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecMySQL} $(DESC_SecMySQL)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecPostgreSQL} $(DESC_SecPostgreSQL)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecShortcut)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecFiles} $(DESC_SecFiles)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecTrans} $(DESC_SecTrans)

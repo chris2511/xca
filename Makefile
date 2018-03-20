@@ -125,9 +125,12 @@ install: xca$(SUFFIX) $(INSTTARGET)
 	install -m 755 xca $(destdir)$(bindir)
 	$(STRIP) $(destdir)$(bindir)/xca
 
+xca-8859-1.nsi: misc/xca.nsi
+	iconv -f utf8 -t iso-8859-15 -o "$@" "$<"
+
 setup.exe: setup_xca-$(VERSION).exe
 setup_xca-$(VERSION).exe: xca$(SUFFIX) do.doc do.lang do.misc
-setup_xca-$(VERSION).exe: misc/xca.nsi
+setup_xca-$(VERSION).exe: xca-8859-1.nsi
 	for binary in xca$(SUFFIX); do \
 	  $(STRIP) xca$(SUFFIX); \
 	  if test -n "$(OSSLSIGN)"; then \
