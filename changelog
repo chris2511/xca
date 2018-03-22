@@ -1,3 +1,5 @@
+xca 2.0.0-pre04 Thu Mar 22 2018
+
  * Accept drivers that don't support transactions
  * Install MySQL and PostgreSQL drivers on windows
  * Closes #10: Warn if certificate without any extension is created
