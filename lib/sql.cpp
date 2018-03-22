@@ -10,9 +10,11 @@
 #include "base.h"
 #include "sql.h"
 #include "settings.h"
+#include "widgets/MainWindow.h"
 
 int DbTransaction::mutex;
 int DbTransaction::error;
+bool DbTransaction::hasTransaction;
 QList<quint64> DbTransaction::items;
 
 quint64 DatabaseStamp;
@@ -40,7 +42,14 @@ bool DbTransaction::begin(const char *file, int line)
 	mutex++;
 	has_begun = true;
 	debug("Begin", file, line);
-	return mutex > 1 ? true : QSqlDatabase::database().transaction();
+	if (mutex > 1 || !hasTransaction)
+		return true;
+
+	QSqlDatabase db = QSqlDatabase::database();
+	bool ret = db.transaction();
+	if (!ret)
+		MainWindow::dbSqlError(db.lastError());
+	return ret;
 }
 
 bool DbTransaction::finish(const char *oper, const char *file, int line)
@@ -81,7 +90,11 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 	}
 	mutex--;
 	items.clear();
-	return db.commit();
+
+	bool ret = db.commit();
+	if (!ret)
+		MainWindow::dbSqlError(db.lastError());
+	return ret;
 }
 
 bool DbTransaction::commit(const char *file, int line)

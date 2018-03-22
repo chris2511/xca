@@ -197,7 +197,15 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 	QSqlError e = db.lastError();
 	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
 			db.isOpen())
+	{
+		bool hasTrans = QSqlDatabase::database()
+			.driver()->hasFeature(QSqlDriver::Transactions);
+		DbTransaction::setHasTransaction(hasTrans);
+		if (!hasTrans) {
+			XCA_WARN(tr("The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care."));
+		}
 		return true;
+	}
 	XSqlQuery::clearTablePrefix();
 	db.close();
 	return false;

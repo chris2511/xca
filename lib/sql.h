@@ -22,6 +22,7 @@ class DbTransaction
 		static int mutex;
 		static int error;
 		static QList<quint64> items;
+		static bool hasTransaction;
 		bool has_begun;
 		void debug(const char *func, const char *file, int line);
 		bool finish(const char *oper, const char *file, int line);
@@ -40,6 +41,10 @@ class DbTransaction
 		static void addItems(QVariant v)
 		{
 			items << v.toULongLong();
+		}
+		static void setHasTransaction(bool trans)
+		{
+			hasTransaction = trans;
 		}
 };
 
