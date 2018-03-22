@@ -320,7 +320,7 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 	menu->addAction(tr("Reset"), basemodel, SLOT(columnResetDefaults()));
 	if (col >= 0 && col < allHeaders.size()) {
 		curr_hd = allHeaders[col];
-		menu->addAction(tr("Remove Column"), this,SLOT(columnRemove()));
+		menu->addAction(tr("Hide Column"), this,SLOT(columnRemove()));
 		if (curr_hd->id > 0)
 			menu->addAction(tr("Details"), this,
 						SLOT(headerDetails()));

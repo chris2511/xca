@@ -48,7 +48,7 @@ When setting an empty password, XCA will never ask again for a password
 when opening this database. This can be useful when playing around with test certificates or if all private keys are on security tokens.
 
 <p>
-The database password can be changed by the Menu item <em>File-&gt;Change DataBase password</em>
+The database password can be changed by the Menu item <em>Extra-&gt;Change DataBase password</em>
 
 <p>
 The different cryptographic parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revocation lists.
@@ -155,11 +155,11 @@ Thank you very much.
 Older versions of XCA used a simple serial
 proprietary database for storing the crypto items.
 Starting with version 2.0.0 this has changed to SQL.
-For file based databases the SQLite database is used.
+For file based databases the SQLite database format is used.
 Since XCA uses SQL, it can also be connected to a network database.
 The databases <em>mySQL</em> and <em>PostgreSQL</em> are tested.
 Please use the <em>Open Remote DataBase</em> menu item to connect to a remote host.
-The main disadvantage leading to the switch to SQL
+The main disadvantage of the old format leading to the switch to SQL
 was the inaccessability by external tools. Since years users ask for
 command-line access to the database.
 The new database can be queried
@@ -170,9 +170,10 @@ Please see <ref id="extract" name="Extracting items">
 <p>
 
 When opening a legacy database, it will be converted to the new format after
-storing a backup copy of the original database.
-Be careful. XCA before 1.4.0 will overwrite the new SQLite database when opened
-with an elder version of XCA.
+backiing up the original database.
+
+Please be careful with older XCA versions.
+XCA before 1.4.0 will overwrite the new SQLite database during database open.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
@@ -299,7 +300,8 @@ Modify the comment of an item with id 3
 sqlite3 ~/xca.xdb "UPDATE items SET comment='My notes' WHERE id=3"
 </code>
 
-The item names are not required to be unique anymore.
+The item names are not required to be unique anymore. Each table view in XCA has an optional
+column "Primary key" that may be shown to get the ID of the item in the database.
 
 <p>
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -320,12 +322,69 @@ Column visibility can be changed by the context menu of the table header
 or the "columns" submenu of the table context menu.
 It shows all available columns with checkboxes to show or hide them.
 
+<enum>
+  <item>Common columns:
+    <itemize>
+      <item><em>Reset:</em> Reset column order and visibility to the default.
+      <item><em>Hide Column:</em> Hide the current column.
+		Only shown in the context menu of the column header
+      <item><em>Internal name:</em> Name of the item in the database.
+      <item><em>No.:</em> A simple counter to easily count the items.
+      <item><em>Primary key:</em> Unique number to identify an item in the
+	database. See <ref id="primary_key" name="Database primary key">.
+      <item><em>Date:</em> Date of the appearance in this XCA database.
+		See <ref id="date_and_source" name="Date and Source">
+      <item><em>Source:</em> Origin of this item.
+		See <ref id="date_and_source" name="Date and Source">.
+      <item><em>Comment:</em> A multiline free text input, see <ref id="comment" name="Comment">.
+    </itemize>
+  <item>Private Key columns:
+    <itemize>
+      <item><em>Type:</em> One of <tt>RSA</tt>, <tt>DSA</tt>, <tt>EC</tt>
+      <item><em>Size:</em> Key size in bits.
+      <item><em>EC Group:</em> Curve name of the EC key.
+      <item><em>Use:</em> Number of certificates and requests using this key.
+      <item><em>Password:</em> Protection of the key.
+		See: <ref id="keys" name="RSA, DSA and EC Keys">.
+    </itemize>
+  <item>Certificate and request columns:
+    <itemize>
+      <item><em>Subject:</em> The complete subject name.
+      <item><em>Subject hash:</em> Subject hash used by OpenSSL
+		to lookup certificates. See
+		<url url="https://www.openssl.org/docs/man1.0.2/apps/c_rehash.html"
+			name=" (c_rehash, openssl x509 -hash)">.
+      <item><em>Subject entries:</em> Displays single entries of the subject.
+		The list represents the content of the
+		<ref id="objectids" name="dn.txt"> file.
+      <item><em>X509v3 Extensions:</em> Displays a textual representation
+		of the selected extension.
+      <item><em>X509v3 Extensions:</em> Displays a textual representation
+		of the selected extension.
+      <item><em>Key name:</em> Internal name of the key in the private keys tab.
+      <item><em>Signature algorithm:</em> Signature algorithm used to sign the
+		certificate or request.
+    </itemize>
+  <item>Request columns:
+    <itemize>
+      <item><em>Signed:</em> Whether the request is already signed or not.
+      <item><em>Unstructured nam:</em>
+      <item><em>Challenge password:</em>
+    </itemize>
+  <item>Certificate columns:
+    <itemize>
+      <item><em>CA:</em> CA Basic Constraints flag
+      <item><em>Unstructured nam:</em>
+      <item><em>Challenge password:</em>
+    </itemize>
+ 
+</enum>    
+
 <p>
 
 Columns can be resized and rearranged.
 This configuration is stored in the database and will be reassigned next time
 this database is opened.
-
 
 <sect1>Importing items
 
@@ -339,8 +398,7 @@ of the file extension:
 <itemize>
 	<item><tt>Keys:</tt>  PEM private key, PEM public key,
 		DER private key, DER public key, PKCS#8 private key, SSH public key.
-	<item><tt>Requests</tt> DER request, PEM request,
-		Netscape SPKAC request.
+	<item><tt>Requests</tt> DER request, PEM request
 	<item><tt>Certificates</tt> DER certificate, PEM certificate
 		(PKCS#12 and PKCS#7 certificates must be imported with an
 		extra button, because they may contain more than
@@ -384,8 +442,6 @@ content will be shown on "double-click"
 
 An Item can be renamed via the context menu by right-clicking on the item,
 by pressing &lt;F2&gt; or by the <em>Rename</em> button on the right border.
-If the new name of the item already exists in the database a <tt>_1</tt>
-will be appended to keep the internal name unique.
 
 <sect1>Deleting Items
 
@@ -407,7 +463,7 @@ The displayed list of items can be reduced by the search-input at the
 bottom right. It affects all tabs. It does not only search inside the displayed columns but the whole content of the items. It searches the internal name,
 issuer, subject, extensions, PKCS#10 attributes and token provider.
 
-<sect1>Date and source of appearance
+<sect1>Date and source of appearance <label id="date_and_source">
 
 <p>
 
@@ -427,7 +483,7 @@ The source may be one of the following
 
 The content of the date and source fields will never be part of an exported item.
 
-<sect1>Comments
+<sect1>Comments <label id="comment">
 
 <p>
 XCA allows to insert multi-line comments for all items. They can be edited
@@ -445,16 +501,18 @@ to leave a note during important operations:
 
 The content of the comment field will never be part of an exported item.
 
-<sect1>Database primary key
+<sect1>Database primary key <label id="primary_key">
+
 
 <p>
-When inserting an item into the database new, unique id
+When inserting an item into the database a new, unique id
 will be generated and used as primary key in the database.
 If the item shall be found in the database by external tools,
-the <tt>items.id</tt> to uniquely identify the item.
-The internal name cannot be used anymore, since it is not unique anymore.
+the <tt>items.id</tt> can be used to uniquely identify the item.
+The internal name cannot be used, since it is not neccessarily unique anymore.
 
 This ID will never be used outside the database.
+
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>The Certificate Input Dialog<label id="wizard">
@@ -523,8 +581,8 @@ two letters representing your country code; e.g. <tt>DE</tt> for Germany.
 If you want to create an SSL-server certificate the <tt>Common name</tt>
 must contain the <tt>DNS</tt> name of the server. Alternatively the subject-alternative-name
 extension may be used to define additional DNS names, even wildcards. In this case
-the CommonName must be repeated here, because Web servers disregard the CommonName
-in case ithe subject-alternative-name extension exists.
+the CommonName must be repeated here, because TLS clients disregard the CommonName
+in case the subject-alternative-name extension exists.
 If the <tt>internal name</tt> is empty, the common name will be used
 as internal name.
 It will also be used as default internal name, if a new key is created here.
@@ -532,7 +590,8 @@ It will also be used as default internal name, if a new key is created here.
 <p>
 
 Other rarely used <tt>name-entries</tt> can be selected in the dialog below.
-By using this table instead of the table above, the order of the entries can be adjusted.
+By using this table instead of the explicit entries above,
+the order of the entries can be adjusted.
 A new line can be added via the <em>Add</em> button.
 The current line can be deleted via the <em>Delete</em> button.
 Existing lines can be exchanged and reordered by moving the row-header (containing the row-number) around.
@@ -927,13 +986,21 @@ The password can be changed for each key. The password type means:
 </itemize>
 <p>
 
-All keys carry a use counter which counts the times it is used. When creating new
+All keys carry a use counter which counts the times it is used.
+When creating new
 requests or certificates the list of available keys is reduced to
 the keys with a use counter of 0. This can be overridden by the checkbox
 next to the key list.
 
 <p>
-When importing an EC key with explicit curve parameters, the corresponding curve OID is searched and set if found.
+When importing an EC key with explicit curve parameters,
+the corresponding curve OID is searched and set if found.
+
+<p>
+When exporting the key via SQL from the database,
+see <ref id="extract" name="Extracting items"> openssl asks for the password,
+which is either the database password or its own password in case the
+password type is <tt>private</tt>.
 
 <sect1>Generating Keys
 
@@ -1019,13 +1086,7 @@ includes personal information, they public key and additional extensions.
 
 <p>
 
-Netscape SPKAC files can not be created or exported, but they can be imported and signed.
-This requests are marked in the Signature field as SPKAC and a Netscape icon is
-shown.
-
-<p>
-
-It is not necessary to generate a request prior to signing it by your CA
+It is not neccessary to generate a request prior to signing it by your CA
 or before self-signing it. Simply start generating the certificate directly.
 People using the OpenSSL command line tools, are used to generate a request
 with "openssl req -new ..." and then signing it . This is not necessary with XCA.
@@ -1040,7 +1101,7 @@ all needed information for generating a new Request. See: <ref id="wizard" name=
 
 <p>
 
-The request generation can also be invoked by the context menu of a certificate (Export->Request).
+The request generation can also be invoked by the context menu of a certificate (Transform->Request).
 This menu point is only available if the private key of the certificate is available.
 In this case all needed data is copied from the certificate and the Certificate dialog is not invoked.
 
@@ -1101,7 +1162,9 @@ submenu in the context-menu will be enabled.
 For building the chains the CA flag is disregarded, because there are some
 CAs without this flag.
 Instead it consideres the issuer name and the signature to decide which certificate is the issuer.
-
+In case of more than one possible issuer, the one with the latest
+expiry date will be used as issuer to collect all issued certificates.
+ 
 <sect1>Generating certificates
 
 <p>
@@ -1115,7 +1178,7 @@ In this case the Certificate input dialog is preset with the request to be signe
 <p>
 
 If a <tt>CA certificate</tt> is selected in the certificate list, this
-certificate will be preselected as signer certificate.
+certificate will be preselected as issuing certificate.
 
 <sect1>Certificate details
 
@@ -1135,25 +1198,6 @@ If the certificate is revoked, the revocation date will be shown instead.
 
 On the <em>Subject</em> and <em>Issuer</em> tab the distinguished name is
 also displayed in a format defined in RFC2253 for copy&amp;paste.
-
-<sect1>Certificate trust
-
-<p>
-
-The certificate trust can be changed by the context menu of the certificate.
-It can be set to:
-
-<itemize>
-	<item><bf>Not trusted</bf> - never trust this certificate, even if
-		we trust the issuer. This is the default for imported
-		self-signed certificates.
-	<item><bf>Trust depends on issuer</bf> - only trust this certificate,
-		if we trust the issuer. This is the default for imported and
-		generated non-self-signed certificates.
-	<item><bf>Always trust</bf> - always trust this certificate, even if
-		we do not trust the issuer's certificate or if it is absent.
-		This is the default for generated self-signed certificates.
-</itemize>
 
 <sect1>Certificate Export
 
@@ -1266,12 +1310,9 @@ which makes the following functions available:
 <sect2>CA Properties
 <p>
 <itemize>
-	<item><bf>Serial</bf> The serial number of the next certificate
-		signed by this issuer.
-	<item><bf>Use random serial number</bf> Use a 64bit random serial numbers for certificates signed by this issuer.
 	<item><bf>CRL days</bf> The days until the next CRL release.
 	<item><bf>Signing Template</bf> The default template for
-		signing certificates.
+		issuing certificates.
 </itemize>
 
 <sect2>Manage revocations
@@ -1306,7 +1347,7 @@ Therefore XCA does not care if any duplicates exist in the list of templates.
 <p>
 
 An easy way to create templates is to export an existing certificate or
-PKCS#10 request to a template. Just select <tt>Export->Template</tt>
+PKCS#10 request to a template. Just select <tt>Transform->Template</tt>
 in the context-menu of the item. The private key of the
 Certificate or Request is not needed.
 
@@ -1316,8 +1357,8 @@ Certificate or Request is not needed.
 
 <p>
 
-All certificates are issued for a restricted timeperiod of validity.
-However it can happen that a certificate shoud not be used / becomes invalid
+All certificates are issued for a restricted period of time.
+However it may happen that a certificate should not be used or becomes invalid
 before the "not after" time in the certificate is reached. In this case
 the issuing CA should revoke this certificate by putting it on the list of
 revoked certificates, signing and publishing it.
@@ -1470,7 +1511,7 @@ Here you can select the path to one or more PKCS#11 libraries on your system.
 If the list is empty, the <tt>Token</tt> menu will be unavailable.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<sect>Object IDs
+<sect>Object IDs<label id="objectids">
 
 <p>
 
@@ -1785,22 +1826,4 @@ qUUsBUoG0PtMGjH4Vr/QD5sG8cMecG3FJR4CWwKitoz47h7sxM50B6RB9je1eIvS
 -----END CERTIFICATE-----
 </verb></tscreen>
 
-<sect1>SPKAC
-<p>
-<tscreen><verb>
-SPKAC=MIIBPzCBqTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAw9eRsqOS9k
-gd5Wk5Z2OWLCB8TuYlhRKpvfdIh6dZBERIQ/7xojDhOeg235Y/iWR0Jj9pXLOz2Q
-dL7ppUwsGCnXXQGCdTG4OXAziBZTcLoMIxHzIvJ9pgX3APsuEWospGJzDPQv0sup
-GCEiQK6qzAFa5BISQpIczHufBFGtLbGesCAwEAARYFaGVsbG8wDQYJKoZIhvcNAQ
-EEBQADgYEAZOCMay68W5629GI/fj0R7AGJBQBCu79KtAxcnmiDhI4ELWIoB04wJg
-GqlcdCY6eo1CHZN9LNVltzSUghVl/zPwaBFodhI6CbSnMfk+nkPa2psXQXoQs2+1
-7QPXfOlqDvqyOhwGFnPDMYSLeYVwQjh/Miov+vPV5+8Qhc2owuh9A=
-CN=Fred vom Jupiter
-O=Jupiter Gas Ltd.
-OU=CRM inner planets
-L=Jupiter
-</verb></tscreen>
-
 </article>
-
-
