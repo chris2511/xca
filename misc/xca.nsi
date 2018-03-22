@@ -130,6 +130,7 @@ Section "Support for PostgreSQL databases" SecPostgreSQL
   File "${QTDIR}\plugins\sqldrivers\qsqlpsql.dll"
   SetOutPath $INSTDIR
   File "${BDIR}\sql\libeay32.dll"
+  File "${BDIR}\sql\ssleay32.dll"
   File "${BDIR}\sql\libiconv-2.dll"
   File "${BDIR}\sql\libintl-8.dll"
   File "${BDIR}\sql\libpq.dll"
