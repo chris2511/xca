@@ -18,6 +18,8 @@
 #define NUM_PARAM 6
 #define NUM_PARAM_LEAST 5
 
+QString OpenDb::lastRemote;
+
 DbMap OpenDb::getDatabases()
 {
 	QStringList list = QSqlDatabase::drivers();
@@ -74,32 +76,20 @@ bool OpenDb::isRemoteDB(QString db)
 	return remote_param.size() == NUM_PARAM;
 }
 
-OpenDb::OpenDb(QWidget *parent, QString db)
-	:QDialog(parent)
+void OpenDb::setupDatabaseName(QString db)
 {
-	DbMap databases, remote_param;
+	if (!isRemoteDB(db))
+		return;
+
+	DbMap databases, remote_param = splitRemoteDbName(db);
 	QString dbTypeName;
 
-	setupUi(this);
-	setWindowTitle(XCA_TITLE);
+	userName->setText(remote_param["user"]);
+	hostName->setText(remote_param["host"]);
+	dbName->setText(remote_param["dbname"]);
+	prefix->setText(remote_param["prefix"]);
 
-	remote_param = splitRemoteDbName(db);
-	if (remote_param.size() == NUM_PARAM) {
-		userName->setText(remote_param["user"]);
-		hostName->setText(remote_param["host"]);
-		dbTypeName = remote_param["type"];
-		dbName->setText(remote_param["dbname"]);
-		prefix->setText(remote_param["prefix"]);
-		sqlite = false;
-		show_connection_settings = false;
-	} else if (hasSqLite() && !db.isEmpty()) {
-		dbName->setText(db);
-		sqlite = true;
-		show_connection_settings = false;
-	} else {
-		sqlite = false;
-		show_connection_settings = true;
-	}
+	dbTypeName = remote_param["type"];
 	databases = getDatabases();
 	foreach (QString driver, databases.keys()) {
 		dbType->insertItem(0, databases[driver], driver);
@@ -109,6 +99,26 @@ OpenDb::OpenDb(QWidget *parent, QString db)
 	if (dbType->count() == 1) {
 		dbType->setCurrentIndex(0);
 		dbType->setEnabled(false);
+	}
+}
+
+OpenDb::OpenDb(QWidget *parent, QString db)
+	:QDialog(parent)
+{
+	setupUi(this);
+	setWindowTitle(XCA_TITLE);
+
+	if (isRemoteDB(db)) {
+		setupDatabaseName(db);
+		sqlite = false;
+		show_connection_settings = false;
+	} else if (hasSqLite() && !db.isEmpty()) {
+		dbName->setText(db);
+		sqlite = true;
+		show_connection_settings = false;
+	} else {
+		sqlite = false;
+		show_connection_settings = true;
 	}
 }
 
@@ -226,11 +236,25 @@ QString OpenDb::getDescriptor() const
 			.arg(pref);
 }
 
+void OpenDb::setLastRemote(QString db)
+{
+	if (isRemoteDB(db))
+		lastRemote = db;
+}
+
 int OpenDb::exec()
 {
-	if (dbType->count() == 0)
+	if (!hasSqLite() && !hasRemoteDrivers())
 		return 0;
+
 	if (!show_connection_settings)
 		return 1;
-	return QDialog::exec();
+
+	setupDatabaseName(lastRemote);
+
+	bool ret = QDialog::exec();
+
+	if (ret && !sqlite)
+		lastRemote = getDescriptor();
+	return ret;
 }

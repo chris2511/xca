@@ -536,6 +536,12 @@ void MainWindow::load_history()
 	}
 	file.close();
 	update_history_menu();
+	foreach(name, history) {
+		if (OpenDb::isRemoteDB(name)) {
+			OpenDb::setLastRemote(name);
+			break;
+		}
+	}
 }
 
 void MainWindow::update_history(QString fname)
