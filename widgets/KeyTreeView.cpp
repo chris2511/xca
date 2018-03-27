@@ -6,7 +6,7 @@
  */
 
 #include "lib/pki_scard.h"
-#include "XcaTreeView.h"
+#include "KeyTreeView.h"
 #include "MainWindow.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>

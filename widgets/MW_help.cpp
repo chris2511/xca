@@ -129,7 +129,7 @@ void MainWindow::help()
 
 	ui.textbox->setSource(QUrl(uri));
 	ui.textbox->setSearchPaths(QStringList(path));
-	h->setWindowTitle(tr(XCA_TITLE));
+	h->setWindowTitle(XCA_TITLE);
 	h->show();
 }
 

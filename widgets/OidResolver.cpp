@@ -15,8 +15,8 @@
 OidResolver::OidResolver(QWidget *parent)
 	:QWidget(parent)
 {
-	setWindowTitle(tr(XCA_TITLE));
 	setupUi(this);
+	setWindowTitle(XCA_TITLE);
 }
 
 void OidResolver::searchOid(QString s)

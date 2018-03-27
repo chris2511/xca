@@ -22,7 +22,7 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 {
 	mw = mainwin;
 	setupUi(this);
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
 
 	image->setPixmap(*MainWindow::revImg);
 	issuerSqlId = QVariant();

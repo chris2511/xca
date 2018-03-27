@@ -130,7 +130,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 	QList<keyListItem> keytypes;
 
 	setupUi(this);
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::keyImg);
 
 	if (!name.isEmpty())

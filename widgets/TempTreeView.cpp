@@ -6,7 +6,7 @@
  */
 
 #include "lib/pki_temp.h"
-#include "XcaTreeView.h"
+#include "TempTreeView.h"
 #include "MainWindow.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>

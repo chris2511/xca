@@ -21,7 +21,7 @@ KeyDetail::KeyDetail(QWidget *parent)
 	:QDialog(parent)
 {
 	setupUi(this);
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::keyImg);
 	keyModulus->setFont(XCA_application::tableFont);
 	tabWidget->setCurrentIndex(0);

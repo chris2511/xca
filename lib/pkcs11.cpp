@@ -304,6 +304,7 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 	ui.image->setPixmap(*MainWindow::scardImg);
 	ui.tokenBox->addItems(slotnames);
 	ui.buttonBox->button(QDialogButtonBox::Ok)->setText(QObject::tr("Select"));
+	select_slot->setWindowTitle(XCA_TITLE);
 	if (select_slot->exec() == 0) {
 		delete select_slot;
 		return false;
