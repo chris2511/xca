@@ -2437,7 +2437,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+3"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Zertifikat enthält keine Erweiterungen. Sie sollten die Erweiterungen aus einer der Vorlagen anwenden, um den Zweck des Zertifikats zu definieren.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2587,7 +2587,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+10"/>
         <source>Table prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabellen Prefix</translation>
     </message>
     <message>
         <location filename="../widgets/OpenDb.cpp" line="+138"/>
@@ -2602,7 +2602,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+33"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Datenbanktreiber unterstützt keine Transaktionen. Dies kann vorkommen, wenn client und server unterschiedliche Versionen haben.</translation>
     </message>
 </context>
 <context>
@@ -3247,7 +3247,7 @@ in Bibliothek %3
     <message>
         <location filename="../lib/sql.h" line="+54"/>
         <source>Failed to start a database transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenbanktransaktionsinitialisierung fehlgeschlagen</translation>
     </message>
 </context>
 <context>
@@ -3508,7 +3508,7 @@ in Bibliothek %3
     <message>
         <location line="+3"/>
         <source>Hide Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalte ausblenden</translation>
     </message>
     <message>
         <location line="+2"/>
