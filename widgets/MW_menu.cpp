@@ -175,7 +175,8 @@ int MainWindow::changeDB(QString fname)
 	if (fname.isEmpty())
 		return 1;
 	close_database();
-	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
+	if (!OpenDb::isRemoteDB(fname))
+		homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
 	return init_database(fname);
 }
 
