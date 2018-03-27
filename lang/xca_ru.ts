@@ -790,12 +790,7 @@ Serial: %3</source>
 <context>
     <name>ItemProperties</name>
     <message>
-        <location filename="../ui/ItemProperties.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location filename="../ui/ItemProperties.ui" line="+22"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1244,7 +1239,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;Новый список отзыва</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+328"/>
+        <location filename="../widgets/MW_database.cpp" line="+323"/>
         <location filename="../widgets/MainWindow.cpp" line="+178"/>
         <source>Database</source>
         <translation>База данных</translation>
@@ -1597,12 +1592,7 @@ Please enter the DH parameter bits</source>
         <translation>Последнее обновление</translation>
     </message>
     <message>
-        <location line="-18"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+32"/>
+        <location line="+14"/>
         <source>Next update</source>
         <translation>Следующее обновление</translation>
     </message>
@@ -1650,8 +1640,7 @@ Please enter the DH parameter bits</source>
         <translation>Внутреннее имя нового ключа</translation>
     </message>
     <message>
-        <location line="-107"/>
-        <location line="+25"/>
+        <location line="-82"/>
         <location line="+85"/>
         <source>New Key</source>
         <translation>Новый ключ</translation>
@@ -1968,7 +1957,7 @@ Please enter the DH parameter bits</source>
         <translation>Создать сертификат x509</translation>
     </message>
     <message>
-        <location line="+781"/>
+        <location line="+784"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -1978,12 +1967,12 @@ Please enter the DH parameter bits</source>
         <location line="+11"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+19"/>
+        <location line="+26"/>
         <source>Abort rollout</source>
         <translation>Прервать</translation>
     </message>
     <message>
-        <location line="-175"/>
+        <location line="-182"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Требования RFC3280 по длине нарушены:</translation>
     </message>
@@ -2005,12 +1994,12 @@ Please set at least the internal name.</source>
         <location line="+45"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+19"/>
+        <location line="+26"/>
         <source>Continue rollout</source>
         <translation>Продолжить</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-30"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Срок действия сертификата истечёт до того, как он станет действительным. Скорее всего, даты перепутаны.</translation>
     </message>
@@ -2026,12 +2015,12 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-320"/>
+        <location filename="../widgets/NewX509.cpp" line="-323"/>
         <source>Validate</source>
         <translation>Проверить</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+188"/>
+        <location filename="../widgets/NewX509.cpp" line="+191"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Проверка запроса на подпись завершилась ошибкой.
@@ -2085,7 +2074,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Выбранный для подписи ключ не закрытый.</translation>
     </message>
     <message>
-        <location line="-997"/>
+        <location line="-1000"/>
         <source>Critical</source>
         <translation>Критично</translation>
     </message>
@@ -2119,7 +2108,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+497"/>
+        <location line="+500"/>
         <source>Select other signer</source>
         <translation>Выберите другого издателя</translation>
     </message>
@@ -2145,12 +2134,17 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Срок действия сертификата больше срока действия издателя. Скорее всего, здесь ошибка.</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+44"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Сертификат содержит недействительные либо дублированные расширения. Необходимо выполнить проверку во вкладке &quot;Дополнительно&quot;.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
+        <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Edit extensions</source>
         <translation>Редактировать расширения</translation>
     </message>
@@ -2170,7 +2164,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Применить всё</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1010"/>
+        <location filename="../widgets/NewX509.cpp" line="-1020"/>
         <source>minimum size: %1</source>
         <translation>минимальный размер: %1</translation>
     </message>
@@ -2190,17 +2184,17 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>только 7-битные символы</translation>
     </message>
     <message>
-        <location line="+720"/>
+        <location line="+723"/>
         <source>From PKCS#10 request</source>
         <translation>Из запроса PKCS#10</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-39"/>
         <source>Other Tabs</source>
         <translation>Другие вкладки</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Advanced Tab</source>
         <translation>Вкладка &quot;Дополнительно&quot;</translation>
     </message>
@@ -2264,12 +2258,11 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>OpenDb</name>
     <message>
-        <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Dialog</source>
-        <translation type="unfinished">Поиск</translation>
+        <translation type="obsolete">Поиск</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location filename="../ui/OpenDb.ui" line="+36"/>
         <source>Open remote database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2299,13 +2292,23 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+120"/>
+        <location line="+10"/>
+        <source>Table prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/OpenDb.cpp" line="+138"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2684,7 +2687,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Выберите</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
         <translation>Пожалуйста, введите новый PIN SO (PUK) для модуля защиты &apos;%1&apos;</translation>
     </message>
@@ -2935,6 +2938,11 @@ In library %3
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../lib/sql.h" line="+54"/>
+        <source>Failed to start a database transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -3038,12 +3046,11 @@ In library %3
 <context>
     <name>SearchPkcs11</name>
     <message>
-        <location filename="../ui/SearchPkcs11.ui" line="+14"/>
         <source>Dialog</source>
-        <translation>Поиск</translation>
+        <translation type="vanished">Поиск</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location filename="../ui/SearchPkcs11.ui" line="+41"/>
         <source>Directory</source>
         <translation>Папка</translation>
     </message>
@@ -3071,12 +3078,11 @@ In library %3
 <context>
     <name>SelectToken</name>
     <message>
-        <location filename="../ui/SelectToken.ui" line="+14"/>
         <source>Select Token</source>
-        <translation>Выберите Токен</translation>
+        <translation type="vanished">Выберите Токен</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location filename="../ui/SelectToken.ui" line="+39"/>
         <source>Security token</source>
         <translation>Токен</translation>
     </message>
@@ -3186,9 +3192,13 @@ In library %3
         <translation>Сбросить</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Remove Column</source>
-        <translation>Убрать колонку</translation>
+        <translation type="vanished">Убрать колонку</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Hide Column</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>

@@ -941,12 +941,7 @@ Seriennummer: %3</translation>
 <context>
     <name>ItemProperties</name>
     <message>
-        <location filename="../ui/ItemProperties.ui" line="+14"/>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location filename="../ui/ItemProperties.ui" line="+22"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -1444,7 +1439,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Sperrlisten</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+328"/>
+        <location filename="../widgets/MW_database.cpp" line="+323"/>
         <location filename="../widgets/MainWindow.cpp" line="+178"/>
         <source>Database</source>
         <translation>Datenbank</translation>
@@ -1782,12 +1777,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Subject alternative name</translation>
     </message>
     <message>
-        <location line="-130"/>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-112"/>
         <source>Last update</source>
         <translation>Letztes update</translation>
     </message>
@@ -1857,8 +1847,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Interner Name des neuen Schlüssels</translation>
     </message>
     <message>
-        <location line="-107"/>
-        <location line="+25"/>
+        <location line="-82"/>
         <location line="+85"/>
         <source>New Key</source>
         <translation>Neuer Schlüssel</translation>
@@ -2266,7 +2255,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+781"/>
+        <location line="+784"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2276,12 +2265,12 @@ Bitte die DH Parameter bits angeben</translation>
         <location line="+11"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+19"/>
+        <location line="+26"/>
         <source>Abort rollout</source>
         <translation>Ausstellung abbrechen</translation>
     </message>
     <message>
-        <location line="-175"/>
+        <location line="-182"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Die folgenden Längenbeschränkungen aus RFC3280 werden verletzt:</translation>
     </message>
@@ -2303,12 +2292,12 @@ Bitte mindestens den internen Namen setzen.</translation>
         <location line="+45"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+19"/>
+        <location line="+26"/>
         <source>Continue rollout</source>
         <translation>Ausstellung fortführen</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-30"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
@@ -2324,12 +2313,12 @@ Bitte mindestens den internen Namen setzen.</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-320"/>
+        <location filename="../widgets/NewX509.cpp" line="-323"/>
         <source>Validate</source>
         <translation>Überprüfen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+188"/>
+        <location filename="../widgets/NewX509.cpp" line="+191"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
@@ -2381,7 +2370,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
     </message>
     <message>
-        <location line="-997"/>
+        <location line="-1000"/>
         <source>Critical</source>
         <translation>Wichtig</translation>
     </message>
@@ -2415,7 +2404,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Der Schlüssel &apos;%1&apos; wurde neu erstellt</translation>
     </message>
     <message>
-        <location line="+497"/>
+        <location line="+500"/>
         <source>Select other signer</source>
         <translation>Andere CA wählen</translation>
     </message>
@@ -2441,12 +2430,17 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Das Zertifikat ist länger gültig als der Aussteller. Dies ist wahrscheinlich nicht gewollt.</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+44"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Das Zertifikat enthält ungültige oder duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
+        <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Edit extensions</source>
         <translation>Extensions editieren</translation>
     </message>
@@ -2466,7 +2460,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1010"/>
+        <location filename="../widgets/NewX509.cpp" line="-1020"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2486,17 +2480,17 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Keine Sonderzeichen oder Umlaute</translation>
     </message>
     <message>
-        <location line="+720"/>
+        <location line="+723"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-39"/>
         <source>Other Tabs</source>
         <translation>Andere Tabs</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Advanced Tab</source>
         <translation>Erweiterter Tab</translation>
     </message>
@@ -2561,12 +2555,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>OpenDb</name>
     <message>
-        <location filename="../ui/OpenDb.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+25"/>
+        <location filename="../ui/OpenDb.ui" line="+36"/>
         <source>Open remote database</source>
         <translation>Netzwerkdatenbank öffnen</translation>
     </message>
@@ -2596,7 +2585,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Datenbankname</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+120"/>
+        <location line="+10"/>
+        <source>Table prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/OpenDb.cpp" line="+138"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Kein SQLite3 Treiber verfügbar. Bitte das qt-sqlite Paket der Paketdistribution installieren</translation>
     </message>
@@ -2604,6 +2598,11 @@ though you have declared them as mandatory in the options menu.</source>
         <location line="+44"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation>Bitte das Datenbankpasswort des Benutzers &apos;%1&apos; für die Datenbank auf &apos;%2&apos; eingeben.</translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2993,7 +2992,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>Auswählen</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
         <translation>Bitte die neue SO PIN (PUK) für die Chipkarte &apos;%1&apos; eingeben</translation>
     </message>
@@ -3245,6 +3244,11 @@ in Bibliothek %3
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
         <translation>Unbekanntes Objekt &apos;%1&apos; in Datei %2 in Zeile %3</translation>
     </message>
+    <message>
+        <location filename="../lib/sql.h" line="+54"/>
+        <source>Failed to start a database transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -3348,12 +3352,7 @@ in Bibliothek %3
 <context>
     <name>SearchPkcs11</name>
     <message>
-        <location filename="../ui/SearchPkcs11.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+27"/>
+        <location filename="../ui/SearchPkcs11.ui" line="+41"/>
         <source>Directory</source>
         <translation>Verzeichnis</translation>
     </message>
@@ -3381,12 +3380,11 @@ in Bibliothek %3
 <context>
     <name>SelectToken</name>
     <message>
-        <location filename="../ui/SelectToken.ui" line="+14"/>
         <source>Select Token</source>
-        <translation>Chipkarte auswählen</translation>
+        <translation type="vanished">Chipkarte auswählen</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location filename="../ui/SelectToken.ui" line="+39"/>
         <source>Security token</source>
         <translation>Chipkarte</translation>
     </message>
@@ -3504,9 +3502,13 @@ in Bibliothek %3
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Remove Column</source>
-        <translation>Spalte ausblenden</translation>
+        <translation type="vanished">Spalte ausblenden</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Hide Column</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
