@@ -338,6 +338,7 @@ It shows all available columns with checkboxes to show or hide them.
 		See <ref id="date_and_source" name="Date and Source">.
       <item><em>Comment:</em> A multiline free text input, see <ref id="comment" name="Comment">.
     </itemize>
+
   <item>Private Key columns:
     <itemize>
       <item><em>Type:</em> One of <tt>RSA</tt>, <tt>DSA</tt>, <tt>EC</tt>
@@ -347,6 +348,7 @@ It shows all available columns with checkboxes to show or hide them.
       <item><em>Password:</em> Protection of the key.
 		See: <ref id="keys" name="RSA, DSA and EC Keys">.
     </itemize>
+
   <item>Certificate and request columns:
     <itemize>
       <item><em>Subject:</em> The complete subject name.
@@ -365,20 +367,26 @@ It shows all available columns with checkboxes to show or hide them.
       <item><em>Signature algorithm:</em> Signature algorithm used to sign the
 		certificate or request.
     </itemize>
+
   <item>Request columns:
     <itemize>
       <item><em>Signed:</em> Whether the request is already signed or not.
-      <item><em>Unstructured nam:</em>
-      <item><em>Challenge password:</em>
+      <item><em>Unstructured name</em>
+      <item><em>Challenge password</em>
     </itemize>
+
   <item>Certificate columns:
     <itemize>
       <item><em>CA:</em> CA Basic Constraints flag
-      <item><em>Unstructured nam:</em>
-      <item><em>Challenge password:</em>
+      <item><em>Serial:</em> Serial number
+      <item><em>MD5 / SHA1 / SHA256 fingerprint:</em> Certificate fingerprint
+      <item><em>Start date:</em> Not before date.
+      <item><em>Expiry date:</em> Not after date.
+      <item><em>Revocation:</em> Revocation date of this certificate if revoked.
+      <item><em>CRL Expiration:</em> CRL expiration, if this is a CA
     </itemize>
- 
-</enum>    
+
+</enum>
 
 <p>
 
