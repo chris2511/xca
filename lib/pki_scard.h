@@ -87,7 +87,6 @@ class pki_scard: public pki_key
 		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;
-		const EVP_MD *getDefaultMD();
 		void generateKey_card(int type, slotid slot, int size,
 					int curve_nid, QProgressBar *bar);
 		void deleteFromToken();

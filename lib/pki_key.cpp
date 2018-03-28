@@ -55,18 +55,6 @@ pki_key::~pki_key()
 		EVP_PKEY_free(key);
 }
 
-EVP_PKEY *pki_key::decryptKey() const
-{
-	qDebug("VIRTUAL pki_key::decryptKey() should NEVER be called");
-	return NULL;
-}
-
-const EVP_MD *pki_key::getDefaultMD()
-{
-	qDebug("VIRTUAL pki_key::getDefaultMD() should NEVER be called");
-	return NULL;
-}
-
 void pki_key::d2i(QByteArray &ba)
 {
 	EVP_PKEY *k = (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);

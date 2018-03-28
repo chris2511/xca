@@ -51,8 +51,7 @@ class pki_key: public pki_base
 		QString length() const;
 		QString comboText() const;
 		QString getKeyTypeString(void) const;
-		virtual EVP_PKEY *decryptKey() const;
-		virtual const EVP_MD *getDefaultMD();
+		virtual EVP_PKEY *decryptKey() const = 0;
 		virtual bool isToken();
 		virtual QString getTypeString(void) const;
 		virtual QList<int> possibleHashNids();

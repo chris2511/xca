@@ -593,39 +593,6 @@ QList<int> pki_scard::possibleHashNids()
 	return nids;
 }
 
-const EVP_MD *pki_scard::getDefaultMD()
-{
-	if (mech_list.contains(CKM_SHA1_RSA_PKCS))
-		return EVP_sha1();
-	if (mech_list.contains(CKM_DSA_SHA1))
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		return EVP_sha1();
-#else
-		return EVP_dss1();
-#endif
-#ifndef OPENSSL_NO_EC
-	if (mech_list.contains(CKM_ECDSA_SHA1))
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		return EVP_sha1();
-#else
-		return EVP_ecdsa();
-#endif
-#endif
-	if (mech_list.contains(CKM_SHA512_RSA_PKCS))
-		return EVP_sha512();
-	if (mech_list.contains(CKM_SHA384_RSA_PKCS))
-		return EVP_sha384();
-	if (mech_list.contains(CKM_SHA256_RSA_PKCS))
-		return EVP_sha256();
-	if (mech_list.contains(CKM_RIPEMD160_RSA_PKCS))
-		return EVP_ripemd160();
-	if (mech_list.contains(CKM_MD5_RSA_PKCS))
-		return EVP_md5();
-
-	/* Last resort */
-	return EVP_sha1();
-}
-
 /* Assures the correct card is inserted and
  * returns the slot ID in slot true on success */
 bool pki_scard::prepare_card(slotid *slot, bool verifyPubkey) const

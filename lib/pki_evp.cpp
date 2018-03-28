@@ -792,24 +792,6 @@ int pki_evp::verify()
 	return veri;
 }
 
-const EVP_MD *pki_evp::getDefaultMD()
-{
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	return EVP_sha1();
-#else
-	const EVP_MD *md;
-	switch (getKeyType()) {
-		case EVP_PKEY_RSA: md = EVP_sha1(); break;
-		case EVP_PKEY_DSA: md = EVP_dss1(); break;
-#ifndef OPENSSL_NO_EC
-		case EVP_PKEY_EC:  md = EVP_ecdsa(); break;
-#endif
-		default: md = NULL; break;
-	}
-	return md;
-#endif
-}
-
 QVariant pki_evp::getIcon(dbheader *hd)
 {
 	if (hd->id != HD_internal_name)
