@@ -27,10 +27,10 @@ class x509name
 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
 		int nid(int i) const;
 		QString getOid(int i) const;
-		QByteArray i2d();
+		QByteArray i2d() const;
 		void d2i(QByteArray &ba);
 		QStringList entryList(int i) const;
-		QString getEntryByNid(int nid ) const;
+		QString getEntryByNid(int nid) const;
 		QString getEntry(int i) const;
 		QString getEntryTag(int i) const;
 		int entryCount() const;
@@ -47,7 +47,7 @@ class x509name
 		QString taggedValues() const;
 		QString hash() const;
 		unsigned long hashNum() const;
-		bool search(const QRegExp &pattern);
+		bool search(const QRegExp &pattern) const;
 };
 
 #endif

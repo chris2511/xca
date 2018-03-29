@@ -668,9 +668,7 @@ void NewX509::on_genKeyBut_clicked()
 {
 	QString name = description->text();
 	if (name.isEmpty())
-		name = dnEntryByNid(NID_commonName);
-	if (name.isEmpty())
-		name = dnEntryByNid(NID_pkcs9_emailAddress);
+		name = getX509name().getMostPopular();
 	emit genKey(name);
 }
 
@@ -818,20 +816,6 @@ x509name NewX509::getX509name(int _throw)
 		}
 	}
 	return x;
-}
-
-QString NewX509::dnEntryByNid(int nid)
-{
-	foreach(nameEdit ne, nameEdits) {
-		if (ne.nid == nid && !ne.edit->text().isEmpty())
-			return ne.edit->text();
-	}
-	for (int j=0; j<extDNlist->rowCount(); j++) {
-		QStringList l = extDNlist->getRow(j);
-	        if (OBJ_txt2nid(CCHAR(l[0])) == nid && !l[1].isEmpty())
-			return l[1];
-	}
-	return QString();
 }
 
 void NewX509::setX509name(const x509name &n)
@@ -1194,7 +1178,7 @@ void NewX509::accept()
 		}
 	}
 	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
-		QString cn = dnEntryByNid(NID_commonName);
+		QString cn = getX509name().getMostPopular();
 		if (cn.isEmpty()) {
 			gotoTab(1);
 			xcaWarning msg(this,

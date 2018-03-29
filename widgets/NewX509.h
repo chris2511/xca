@@ -63,7 +63,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		kvmodel *extDNmodel;
 		extList getExtDuplicates();
 		void checkIcon(const QString &text, int nid, QLabel*img);
-		QString dnEntryByNid(int nid);
 		void selfComment(QString msg);
 		QMap<QString, QLineEdit*> templateLineEdits;
 		QMap<QString, QCheckBox*> templateCheckBoxes;

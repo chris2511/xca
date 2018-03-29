@@ -191,7 +191,7 @@ void x509name::d2i(QByteArray &ba)
 	}
 }
 
-QByteArray x509name::i2d()
+QByteArray x509name::i2d() const
 {
 	 return i2d_bytearray(I2D_VOID(i2d_X509_NAME), xn);
 }
@@ -250,7 +250,7 @@ QString x509name::checkLength() const
 	return warn;
 }
 
-bool x509name::search(const QRegExp &pattern)
+bool x509name::search(const QRegExp &pattern) const
 {
 	int i, max = entryCount();
 	for (i=0; i<max; i++) {
