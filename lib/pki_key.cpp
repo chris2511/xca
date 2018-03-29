@@ -82,7 +82,7 @@ void pki_key::d2i_old(QByteArray &ba, int type)
         ba = ba.mid(p1-p);
 }
 
-QByteArray pki_key::i2d()
+QByteArray pki_key::i2d() const
 {
         return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
@@ -183,7 +183,7 @@ QString pki_key::getTypeString() const
 	return getKeyTypeString();
 }
 
-QString pki_key::getMsg(msg_type msg)
+QString pki_key::getMsg(msg_type msg) const
 {
 	/*
 	 * We do not construct english sentences (just a little bit)
@@ -232,7 +232,7 @@ bool pki_key::isPrivKey() const
 	return !isPubKey();
 }
 
-int pki_key::getUcount()
+int pki_key::getUcount() const
 {
 	XSqlQuery q;
 	if (useCount != -1)
@@ -255,7 +255,7 @@ int pki_key::getKeyType() const
 	return EVP_PKEY_id(key);
 }
 
-QString pki_key::modulus()
+QString pki_key::modulus() const
 {
 	if (getKeyType() == EVP_PKEY_RSA) {
 		const BIGNUM *n = NULL;
@@ -267,7 +267,7 @@ QString pki_key::modulus()
 	return QString();
 }
 
-QString pki_key::pubEx()
+QString pki_key::pubEx() const
 {
 	if (getKeyType() == EVP_PKEY_RSA) {
 		const BIGNUM *e = NULL;
@@ -278,7 +278,7 @@ QString pki_key::pubEx()
 	return QString();
 }
 
-QString pki_key::subprime()
+QString pki_key::subprime() const
 {
 	if (getKeyType() == EVP_PKEY_DSA) {
 		const BIGNUM *q = NULL;
@@ -290,7 +290,7 @@ QString pki_key::subprime()
 	return QString();
 }
 
-QString pki_key::pubkey()
+QString pki_key::pubkey() const
 {
 	if (getKeyType() == EVP_PKEY_DSA) {
 		const BIGNUM *pubkey = NULL;
@@ -302,7 +302,7 @@ QString pki_key::pubkey()
 	return QString();
 }
 #ifndef OPENSSL_NO_EC
-int pki_key::ecParamNid()
+int pki_key::ecParamNid() const
 {
 	const EC_KEY *ec;
 
@@ -312,13 +312,12 @@ int pki_key::ecParamNid()
 	return EC_GROUP_get_curve_name(EC_KEY_get0_group(ec));
 }
 
-QString pki_key::ecPubKey()
+QString pki_key::ecPubKey() const
 {
 	QString pub;
-	const EC_KEY *ec = NULL;
 
 	if (getKeyType() == EVP_PKEY_EC) {
-		ec = EVP_PKEY_get0_EC_KEY(key);
+		const EC_KEY *ec = EVP_PKEY_get0_EC_KEY(key);
 		BIGNUM  *pub_key = EC_POINT_point2bn(EC_KEY_get0_group(ec),
 				EC_KEY_get0_public_key(ec),
 				EC_KEY_get_conv_form(ec), NULL, NULL);
@@ -418,7 +417,7 @@ QString pki_key::BN2QString(const BIGNUM *bn) const
 	return x;
 }
 
-QVariant pki_key::column_data(dbheader *hd)
+QVariant pki_key::column_data(dbheader *hd) const
 {
 	QStringList sl;
 	sl << tr("Common") << tr("Private") << tr("Bogus") << tr("PIN");

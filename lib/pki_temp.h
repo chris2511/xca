@@ -79,10 +79,10 @@ class pki_temp: public pki_x509name
 		{
 			return QString::fromLatin1(toData().toBase64());
 		}
-		bool compare(pki_base *ref);
+		bool compare(const pki_base *ref) const;
 		void writeTemp(QString fname);
-		QVariant getIcon(dbheader *hd);
-		QString getMsg(msg_type msg);
+		QVariant getIcon(dbheader *hd) const;
+		QString getMsg(msg_type msg) const;
 		x509name getSubject() const;
 		void setSubject(x509name n)
 		{

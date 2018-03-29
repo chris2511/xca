@@ -792,7 +792,7 @@ int pki_evp::verify()
 	return veri;
 }
 
-QVariant pki_evp::getIcon(dbheader *hd)
+QVariant pki_evp::getIcon(dbheader *hd) const
 {
 	if (hd->id != HD_internal_name)
 		return QVariant();

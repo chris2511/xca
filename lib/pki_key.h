@@ -41,7 +41,7 @@ class pki_key: public pki_base
 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
 		void ssh_key_QBA2data(QByteArray &ba, QByteArray *data);
 		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data);
-		int useCount; // usage counter
+		mutable int useCount; // usage counter
 	public:
 		pki_key(const QString name = "");
 		pki_key(const pki_key *pk);
@@ -55,13 +55,13 @@ class pki_key: public pki_base
 		virtual bool isToken();
 		virtual QString getTypeString(void) const;
 		virtual QList<int> possibleHashNids();
-		virtual QString getMsg(msg_type msg);
+		QString getMsg(msg_type msg) const;
 
 		void writePublic(const QString fname, bool pem);
 		bool compare(pki_base *ref);
 		int getKeyType() const;
 		bool isPrivKey() const;
-		int getUcount();
+		int getUcount() const;
 		enum passType getOwnPass(void)
 		{
 			return ownPass;
@@ -75,16 +75,16 @@ class pki_key: public pki_base
 			return isPub;
 		}
 		BIO *pem(BIO *, int);
-		QVariant column_data(dbheader *hd);
-		QString modulus();
-		QString pubEx();
-		QString subprime();
-		QString pubkey();
-		int ecParamNid();
-		QString ecPubKey();
+		QVariant column_data(dbheader *hd) const;
+		QString modulus() const;
+		QString pubEx() const;
+		QString subprime() const;
+		QString pubkey() const;
+		int ecParamNid() const;
+		QString ecPubKey() const;
 		void d2i(QByteArray &ba);
 		void d2i_old(QByteArray &ba, int type);
-		QByteArray i2d();
+		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(FILE *fp);
 		void writeSSH2public(QString fname);
 		void resetUcount()

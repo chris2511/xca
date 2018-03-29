@@ -113,7 +113,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	EVP_PKEY_free(privkey);
 }
 
-QString pki_x509req::getMsg(msg_type msg)
+QString pki_x509req::getMsg(msg_type msg) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -191,7 +191,7 @@ void pki_x509req::d2i(QByteArray &ba)
 	}
 }
 
-QByteArray pki_x509req::i2d()
+QByteArray pki_x509req::i2d() const
 {
 	return i2d_bytearray(I2D_VOID(i2d_X509_REQ), request);
 }
@@ -231,7 +231,7 @@ x509name pki_x509req::getSubject() const
 	return x;
 }
 
-int pki_x509req::sigAlg()
+int pki_x509req::sigAlg() const
 {
 	return X509_REQ_get_signature_nid(request);
 }
@@ -271,7 +271,7 @@ BIO *pki_x509req::pem(BIO *b, int format)
 	return b;
 }
 
-int pki_x509req::verify()
+int pki_x509req::verify() const
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	bool x = X509_REQ_verify(request,pkey) > 0;
@@ -291,7 +291,7 @@ pki_key *pki_x509req::getPubKey() const
 	 return key;
 }
 
-extList pki_x509req::getV3ext()
+extList pki_x509req::getV3ext() const
 {
 	extList el;
 	STACK_OF(X509_EXTENSION) *sk;
@@ -301,7 +301,7 @@ extList pki_x509req::getV3ext()
 	return el;
 }
 
-QString pki_x509req::getAttribute(int nid)
+QString pki_x509req::getAttribute(int nid) const
 {
 	int n;
 	int count;
@@ -320,7 +320,7 @@ QString pki_x509req::getAttribute(int nid)
 	return ret.join(", ");
 }
 
-QVariant pki_x509req::column_data(dbheader *hd)
+QVariant pki_x509req::column_data(dbheader *hd) const
 {
 	switch (hd->id) {
 	case HD_req_signed:
@@ -333,7 +333,7 @@ QVariant pki_x509req::column_data(dbheader *hd)
 	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509req::getIcon(dbheader *hd)
+QVariant pki_x509req::getIcon(dbheader *hd) const
 {
 	int pixnum = -1;
 	pki_key *k;
@@ -355,7 +355,7 @@ QVariant pki_x509req::getIcon(dbheader *hd)
 	return QVariant(*icon[pixnum]);
 }
 
-bool pki_x509req::visible()
+bool pki_x509req::visible() const
 {
 	if (pki_x509super::visible())
 		return true;

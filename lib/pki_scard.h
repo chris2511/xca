@@ -77,7 +77,7 @@ class pki_scard: public pki_key
 		void changeSoPin();
 		int verify();
 		bool isToken();
-		QVariant getIcon(dbheader *hd);
+		QVariant getIcon(dbheader *hd) const;
 		QList<CK_MECHANISM_TYPE> getMech_list()
 		{
 			return mech_list;
@@ -93,8 +93,8 @@ class pki_scard: public pki_key
 		void deleteFromToken(slotid slot);
 		void store_token(slotid slot, EVP_PKEY *pkey);
 		int renameOnToken(slotid slot, QString name);
-		QString getMsg(msg_type msg);
-		bool visible();
+		QString getMsg(msg_type msg) const;
+		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(QSqlRecord &rec);

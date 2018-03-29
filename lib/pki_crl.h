@@ -34,7 +34,7 @@ class pki_crl: public pki_x509name
 		const char *getClassName() const;
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
-		QString getSigAlg();
+		QString getSigAlg() const;
 		void writeDefault(const QString fname);
 		static QPixmap *icon;
 		void createCrl(const QString d, pki_x509 *iss);
@@ -48,6 +48,10 @@ class pki_crl: public pki_x509name
 		{
 			return issuer;
 		}
+		QString getIssuerName() const
+		{
+			return issuer->getIntName();
+		}
 		void setIssuer(pki_x509 *iss)
 		{
 			 issuer = iss;
@@ -55,25 +59,25 @@ class pki_crl: public pki_x509name
 		x509name getSubject() const;
 		void setLastUpdate(const a1time &t);
 		void setNextUpdate(const a1time &t);
-		a1time getNextUpdate();
-		a1time getLastUpdate();
+		a1time getNextUpdate() const;
+		a1time getLastUpdate() const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		bool verify(pki_x509 *issuer);
-		int numRev();
+		int numRev() const;
 		x509revList getRevList();
 		QString printV3ext();
 		x509v3ext getExtByNid(int nid);
 		a1int getVersion();
-		QVariant column_data(dbheader *hd);
-		QVariant getIcon(dbheader *hd);
-		virtual QString getMsg(msg_type msg);
+		QVariant column_data(dbheader *hd) const;
+		QVariant getIcon(dbheader *hd) const;
+		QString getMsg(msg_type msg) const;
 		void d2i(QByteArray &ba);
-		QByteArray i2d();
+		QByteArray i2d() const;
 		void setCrlNumber(a1int num);
-		bool getCrlNumber(a1int *num);
-		a1int getCrlNumber();
+		bool getCrlNumber(a1int *num) const;
+		a1int getCrlNumber() const;
 		BIO *pem(BIO *, int);
-		bool visible();
+		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(QSqlRecord &rec);

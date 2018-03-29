@@ -52,7 +52,7 @@ pki_scard::pki_scard(const QString name)
 	init();
 }
 
-QString pki_scard::getMsg(msg_type msg)
+QString pki_scard::getMsg(msg_type msg) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -841,12 +841,12 @@ bool pki_scard::isToken()
 	return true;
 }
 
-QVariant pki_scard::getIcon(dbheader *hd)
+QVariant pki_scard::getIcon(dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
 }
 
-bool pki_scard::visible()
+bool pki_scard::visible() const
 {
 	QStringList sl;
 	if (pki_base::visible())
@@ -860,6 +860,7 @@ bool pki_scard::visible()
 	}
 	return false;
 }
+
 void pki_scard::updateLabel(QString label)
 {
 	XSqlQuery q;

@@ -49,7 +49,7 @@ class pki_x509 : public pki_x509super
 		x509revList fromDataRevList;
 
 	protected:
-		int sigAlg();
+		int sigAlg() const;
 
 	public:
 		static QPixmap *icon[5];
@@ -79,7 +79,7 @@ class pki_x509 : public pki_x509super
 		x509name getIssuerName() const;
 		void setSubject(const x509name &n);
 		void setIssuer(const x509name &n);
-		bool caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen);
+		bool caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen) const;
 
 		void fromData(const unsigned char *p, db_header_t *head);
 		bool isCA() const;
@@ -92,8 +92,8 @@ class pki_x509 : public pki_x509super
 		void setPubKey(pki_key *key);
 		pki_x509 *getSigner();
 		void delSigner(pki_base *s);
-		QString fingerprint(const EVP_MD *digest);
-		extList getV3ext();
+		QString fingerprint(const EVP_MD *digest) const;
+		extList getV3ext() const;
 		bool checkDate();
 		bool addV3ext(const x509v3ext &e, bool skip_existing = false);
 		void sign(pki_key *signkey, const EVP_MD *digest);
@@ -105,10 +105,9 @@ class pki_x509 : public pki_x509super
 		void setRevoked(bool rev, a1time inval = a1time(),
 				QString reason = QString());
 		void setRevoked(const x509rev &revok);
-		bool isRevoked();
+		bool isRevoked() const;
 		pki_x509 *getBySerial(const a1int &a) const;
-		a1int getIncCaSerial();
-		a1int getCrlNumber()
+		a1int getCrlNumber() const
 		{
 			return crlNumber;
 		}
@@ -139,21 +138,21 @@ class pki_x509 : public pki_x509super
 			return revocation;
 		}
 		pk11_attlist objectAttributes();
-		bool hasExtension(int nid);
+		bool hasExtension(int nid) const;
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
-		bool visible();
+		bool visible() const;
 		void updateView();
-		x509v3ext getExtByNid(int nid);
-		QVariant column_data(dbheader *hd);
-		QVariant getIcon(dbheader *hd);
-		QByteArray i2d();
+		x509v3ext getExtByNid(int nid) const;
+		QVariant column_data(dbheader *hd) const;
+		QVariant getIcon(dbheader *hd) const;
+		QByteArray i2d() const;
 		void d2i(QByteArray &ba);
 		void deleteFromToken();
 		void deleteFromToken(slotid slot);
-		virtual QString getMsg(msg_type msg);
-		virtual int renameOnToken(slotid slot, QString name);
+		QString getMsg(msg_type msg) const;
+		int renameOnToken(slotid slot, QString name);
 		BIO *pem(BIO *, int);
-		virtual QVariant bg_color(dbheader *hd);
+		QVariant bg_color(dbheader *hd) const;
 		void mergeRevList(x509revList &l);
 		void setRevocations(const x509revList &rl);
 		x509revList getRevList() const;

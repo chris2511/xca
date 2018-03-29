@@ -116,7 +116,7 @@ QSqlError pki_temp::deleteSqlData()
 	return q.lastError();
 }
 
-QString pki_temp::getMsg(msg_type msg)
+QString pki_temp::getMsg(msg_type msg) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -513,14 +513,14 @@ pki_temp::~pki_temp()
 {
 }
 
-bool pki_temp::compare(pki_base *)
+bool pki_temp::compare(const pki_base *) const
 {
 	// we don't care if templates with identical contents
 	// are stored in the database ...
 	return false;
 }
 
-QVariant pki_temp::getIcon(dbheader *hd)
+QVariant pki_temp::getIcon(dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }

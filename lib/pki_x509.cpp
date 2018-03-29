@@ -60,7 +60,7 @@ pki_x509::pki_x509(const QString name)
 	pki_openssl_error();
 }
 
-QString pki_x509::getMsg(msg_type msg)
+QString pki_x509::getMsg(msg_type msg) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -356,7 +356,7 @@ void pki_x509::d2i(QByteArray &ba)
 	pki_openssl_error();
 }
 
-QByteArray pki_x509::i2d()
+QByteArray pki_x509::i2d() const
 {
 	return i2d_bytearray(I2D_VOID(i2d_X509), cert);
 }
@@ -574,7 +574,7 @@ bool pki_x509::canSign() const
 	return isCA();
 }
 
-bool pki_x509::hasExtension(int nid)
+bool pki_x509::hasExtension(int nid) const
 {
 	return getV3ext().idxByNid(nid) != -1;
 }
@@ -840,7 +840,7 @@ void pki_x509::setPubKey(pki_key *key)
 	pki_openssl_error();
 }
 
-QString pki_x509::fingerprint(const EVP_MD *digest)
+QString pki_x509::fingerprint(const EVP_MD *digest) const
 {
 	unsigned int n;
 	unsigned char md[EVP_MAX_MD_SIZE];
@@ -870,14 +870,14 @@ bool pki_x509::checkDate()
 	return true;
 }
 
-extList pki_x509::getV3ext()
+extList pki_x509::getV3ext() const
 {
 	extList el;
 	el.setStack(X509_get0_extensions(cert));
 	return el;
 }
 
-x509v3ext pki_x509::getExtByNid(int nid)
+x509v3ext pki_x509::getExtByNid(int nid) const
 {
 	extList el = getV3ext();
 	int i = el.idxByNid(nid);
@@ -892,7 +892,7 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	return el[i];
 }
 
-int pki_x509::sigAlg()
+int pki_x509::sigAlg() const
 {
 	return X509_get_signature_nid(cert);
 }
@@ -902,7 +902,7 @@ pki_x509 *pki_x509::getSigner()
 	return static_cast<pki_x509 *>(psigner);
 }
 
-bool pki_x509::isRevoked()
+bool pki_x509::isRevoked() const
 {
 	return revocation.isValid();
 }
@@ -912,7 +912,7 @@ void pki_x509::setRevoked(const x509rev &revok)
 	revocation = revok;
 }
 
-bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen)
+bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen) const
 {
 	x509v3ext e = getExtByNid(NID_basic_constraints);
 	if (e.nid() != NID_basic_constraints)
@@ -929,7 +929,7 @@ bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen)
 	return true;
 }
 
-QVariant pki_x509::column_data(dbheader *hd)
+QVariant pki_x509::column_data(dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_cert_serial:
@@ -969,7 +969,7 @@ QVariant pki_x509::column_data(dbheader *hd)
 	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509::getIcon(dbheader *hd)
+QVariant pki_x509::getIcon(dbheader *hd) const
 {
 	int pixnum = 0;
 	bool ca;
@@ -998,7 +998,7 @@ QVariant pki_x509::getIcon(dbheader *hd)
 	return QVariant(*icon[pixnum]);
 }
 
-bool pki_x509::visible()
+bool pki_x509::visible() const
 {
 	if (pki_x509super::visible())
 		return true;
@@ -1015,7 +1015,7 @@ bool pki_x509::visible()
 	return false;
 }
 
-QVariant pki_x509::bg_color(dbheader *hd)
+QVariant pki_x509::bg_color(dbheader *hd) const
 {
 #define BG_RED     QBrush(QColor(255,  0,  0))
 #define BG_YELLOW  QBrush(QColor(255,255,  0))

@@ -40,7 +40,7 @@ void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 	setIntName(rmslashdot(name));
 }
 
-QString pki_crl::getMsg(msg_type msg)
+QString pki_crl::getMsg(msg_type msg) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -136,7 +136,7 @@ void pki_crl::fload(const QString fname)
 		fopen_error(fname);
 }
 
-QString pki_crl::getSigAlg()
+QString pki_crl::getSigAlg() const
 {
 	return QString(OBJ_nid2ln(X509_CRL_get_signature_nid(crl)));
 }
@@ -189,7 +189,7 @@ void pki_crl::d2i(QByteArray &ba)
 	pki_openssl_error();
 }
 
-QByteArray pki_crl::i2d()
+QByteArray pki_crl::i2d() const
 {
 	return i2d_bytearray(I2D_VOID(i2d_X509_CRL), crl);
 }
@@ -230,7 +230,7 @@ extList pki_crl::extensions() const
 	return el;
 }
 
-bool pki_crl::visible()
+bool pki_crl::visible() const
 {
 	if (pki_x509name::visible())
 		return true;
@@ -279,17 +279,17 @@ BIO *pki_crl::pem(BIO *b, int format)
 	return b;
 }
 
-a1time pki_crl::getLastUpdate()
+a1time pki_crl::getLastUpdate() const
 {
 	return a1time(X509_CRL_get0_lastUpdate(crl));
 }
 
-a1time pki_crl::getNextUpdate()
+a1time pki_crl::getNextUpdate() const
 {
 	return a1time(X509_CRL_get0_nextUpdate(crl));
 }
 
-int pki_crl::numRev()
+int pki_crl::numRev() const
 {
 	STACK_OF(X509_REVOKED) *st = X509_CRL_get_REVOKED(crl);
 
@@ -347,7 +347,7 @@ void pki_crl::setCrlNumber(a1int num)
 	pki_openssl_error();
 }
 
-a1int pki_crl::getCrlNumber()
+a1int pki_crl::getCrlNumber() const
 {
 	a1int num;
 	if (!getCrlNumber(&num))
@@ -355,7 +355,7 @@ a1int pki_crl::getCrlNumber()
 	return num;
 }
 
-bool pki_crl::getCrlNumber(a1int *num)
+bool pki_crl::getCrlNumber(a1int *num) const
 {
 	int j;
 	ASN1_INTEGER *i;
@@ -386,12 +386,12 @@ QString pki_crl::printV3ext()
 	return text;
 }
 
-QVariant pki_crl::column_data(dbheader *hd)
+QVariant pki_crl::column_data(dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_crl_signer:
 			if (issuer)
-				return QVariant(getIssuer()->getIntName());
+				return QVariant(getIssuerName());
 			else
 				return QVariant(tr("unknown"));
 		case HD_crl_revoked:
@@ -409,7 +409,7 @@ QVariant pki_crl::column_data(dbheader *hd)
 	return pki_x509name::column_data(hd);
 }
 
-QVariant pki_crl::getIcon(dbheader *hd)
+QVariant pki_crl::getIcon(dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }

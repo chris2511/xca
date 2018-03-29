@@ -93,7 +93,7 @@ class pki_base : public QObject
 		{
 			comment = c;
 		}
-		QVariant getSqlItemId()
+		QVariant getSqlItemId() const
 		{
 			return sqlItemId;
 		}
@@ -101,7 +101,7 @@ class pki_base : public QObject
 		{
 			return pkiType;
 		}
-		QString i2d_b64()
+		QString i2d_b64() const
 		{
 			return QString::fromLatin1(i2d().toBase64());
 		}
@@ -109,9 +109,9 @@ class pki_base : public QObject
 		{
 			return insertion_date;
 		}
-		virtual QByteArray i2d();
-		virtual bool compare(pki_base *);
-		virtual QString getMsg(msg_type msg);
+		virtual QByteArray i2d() const;
+		virtual bool compare(const pki_base *) const;
+		virtual QString getMsg(msg_type msg) const;
 		virtual const char *getClassName() const;
 
 		/* Tree View management */
@@ -120,7 +120,7 @@ class pki_base : public QObject
 		pki_base *child(int row);
 		void append(pki_base *item);
 		void insert(int row, pki_base *item);
-		int childCount();
+		int childCount() const;
 		pki_base *iterate(pki_base *pki = NULL);
 		void takeChild(pki_base *pki);
 		pki_base *takeFirst();
@@ -147,10 +147,9 @@ class pki_base : public QObject
 			return QVariant();
 		}
 		int row() const;
-		virtual QVariant column_data(dbheader *hd);
-		virtual QVariant getIcon(dbheader *hd);
-		virtual bool visible();
-
+		virtual QVariant column_data(dbheader *hd) const;
+		virtual QVariant getIcon(dbheader *hd) const;
+		virtual bool visible() const;
 
 		/* SQL management methods */
 		QSqlError insertSql();

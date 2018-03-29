@@ -44,7 +44,7 @@ int pki_base::renameOnToken(slotid, QString)
 	return 0;
 }
 
-bool pki_base::visible()
+bool pki_base::visible() const
 {
 	if (limitPattern.isEmpty())
 		return true;
@@ -52,13 +52,13 @@ bool pki_base::visible()
 		comment.contains(limitPattern);
 }
 
-QString pki_base::getMsg(msg_type msg)
+QString pki_base::getMsg(msg_type msg) const
 {
 	return tr("Internal error: Unexpected message: %1 %2")
 		.arg(getClassName()).arg(msg);
 }
 
-QByteArray pki_base::i2d()
+QByteArray pki_base::i2d() const
 {
 	return QByteArray();
 }
@@ -210,7 +210,7 @@ void pki_base::insert(int row, pki_base *item)
 	item->setParent(this);
 }
 
-int pki_base::childCount()
+int pki_base::childCount() const
 {
 	return childItems.size();
 }
@@ -262,7 +262,7 @@ QString pki_base::pki_source_name() const
 	return QString("???");
 }
 
-QVariant pki_base::column_data(dbheader *hd)
+QVariant pki_base::column_data(dbheader *hd) const
 {
 	switch (hd->id) {
 	case HD_internal_name:
@@ -279,13 +279,13 @@ QVariant pki_base::column_data(dbheader *hd)
 	return QVariant();
 }
 
-QVariant pki_base::getIcon(dbheader *hd)
+QVariant pki_base::getIcon(dbheader *hd) const
 {
 	(void)hd;
 	return QVariant();
 }
 
-bool pki_base::compare(pki_base *ref)
+bool pki_base::compare(const pki_base *ref) const
 {
 	bool ret;
 	ret = (i2d() == ref->i2d());

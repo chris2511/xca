@@ -111,7 +111,7 @@ void pki_x509super::setRefKey(pki_key *ref)
 	privkey = ref;
 }
 
-QString pki_x509super::getSigAlg()
+QString pki_x509super::getSigAlg() const
 {
 	return QString(OBJ_nid2ln(sigAlg()));
 }
@@ -121,7 +121,7 @@ const EVP_MD *pki_x509super::getDigest()
 	return EVP_get_digestbynid(sigAlg());
 }
 
-QVariant pki_x509super::column_data(dbheader *hd)
+QVariant pki_x509super::column_data(dbheader *hd) const
 {
 	if (hd->id == HD_x509key_name) {
 		if (!privkey)
@@ -196,7 +196,7 @@ void pki_x509super::opensslConf(QString fname)
 	fclose(fp);
 }
 
-bool pki_x509super::visible()
+bool pki_x509super::visible() const
 {
 	if (pki_x509name::visible())
 		return true;
@@ -218,7 +218,7 @@ void pki_x509name::autoIntName()
 	setIntName(subject.getMostPopular());
 }
 
-QVariant pki_x509name::column_data(dbheader *hd)
+QVariant pki_x509name::column_data(dbheader *hd) const
 {
 	switch (hd->id) {
 	case HD_subject_name:
@@ -233,7 +233,7 @@ QVariant pki_x509name::column_data(dbheader *hd)
 	return pki_base::column_data(hd);
 }
 
-bool pki_x509name::visible()
+bool pki_x509name::visible() const
 {
 	if (pki_base::visible())
 		return true;

@@ -20,13 +20,10 @@ class pki_x509name : public pki_base
 {
     public:
 	pki_x509name(const QString name = "");
-	virtual x509name getSubject() const
-	{
-		return x509name();
-	};
+	virtual x509name getSubject() const = 0;
 	void autoIntName();
-	QVariant column_data(dbheader *hd);
-	bool visible();
+	QVariant column_data(dbheader *hd) const;
+	bool visible() const;
 };
 
 class pki_x509super : public pki_x509name
@@ -35,26 +32,14 @@ class pki_x509super : public pki_x509name
 	protected:
 		QVariant keySqlId;
 		pki_key *privkey;
-		virtual int sigAlg() {
-			return NID_undef;
-		}
+		virtual int sigAlg() const = 0;
 	public:
 		pki_x509super(const QString name = "");
 		virtual ~pki_x509super();
-		virtual int verify()
-		{
-			return -1;
-		};
 		unsigned pubHash();
-		virtual pki_key *getPubKey() const
-		{
-			return NULL;
-		};
-		virtual extList getV3ext()
-		{
-			return extList();
-		};
-		virtual QString getSigAlg();
+		virtual pki_key *getPubKey() const = 0;
+		virtual extList getV3ext() const = 0;
+		virtual QString getSigAlg() const;
 		virtual const EVP_MD *getDigest();
 		QVariant getKeySqlId()
 		{
@@ -64,9 +49,9 @@ class pki_x509super : public pki_x509name
 		bool compareRefKey(pki_key* ref) const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);
-		QVariant column_data(dbheader *hd);
+		QVariant column_data(dbheader *hd) const;
 		void opensslConf(QString fname);
-		bool visible();
+		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(QSqlRecord &rec);

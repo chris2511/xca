@@ -27,10 +27,10 @@ class pki_x509req : public pki_x509super
 	protected:
 		X509_REQ *request;
 		bool done;
-		int sigAlg();
+		int sigAlg() const;
 
 	public:
-		extList getV3ext();
+		extList getV3ext() const;
 		static QPixmap *icon[3];
 		const char *getClassName() const;
 		pki_x509req(QString name = "");
@@ -46,16 +46,15 @@ class pki_x509req : public pki_x509super
 			return request;
 		}
 		void addAttribute(int nid, QString content);
-		QString getAttribute(int nid);
+		QString getAttribute(int nid) const;
 
-		int verify();
+		int verify() const;
 		pki_key *getPubKey() const;
 		void createReq(pki_key *key, const x509name &dn,
-			const EVP_MD *md, extList el);
+				const EVP_MD *md, extList el);
 		void setSubject(const x509name &n);
-		/* SPKAC special functions */
-		QVariant column_data(dbheader *hd);
-		QVariant getIcon(dbheader *hd);
+		QVariant column_data(dbheader *hd) const;
+		QVariant getIcon(dbheader *hd) const;
 		void setDone(bool d = true)
 		{
 			done = d;
@@ -64,11 +63,11 @@ class pki_x509req : public pki_x509super
 		{
 			return done;
 		}
-		virtual QString getMsg(msg_type msg);
+		virtual QString getMsg(msg_type msg) const;
 		void d2i(QByteArray &ba);
-		QByteArray i2d();
+		QByteArray i2d() const;
 		BIO *pem(BIO *, int);
-		bool visible();
+		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(QSqlRecord &rec);
