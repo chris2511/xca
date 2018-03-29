@@ -25,11 +25,6 @@ pki_crl::pki_crl(const QString name )
 	pkiType=revocation;
 }
 
-const char *pki_crl::getClassName() const
-{
-	return "pki_crl";
-}
-
 void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 {
 	X509_CRL *_crl;

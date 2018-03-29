@@ -33,11 +33,6 @@ pki_multi::~pki_multi()
 		delete pki;
 }
 
-const char *pki_multi::getClassName() const
-{
-	return "pki_multi";
-}
-
 pki_base *pki_multi::pull()
 {
 	if (multi.isEmpty())

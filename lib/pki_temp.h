@@ -39,7 +39,6 @@ class pki_temp: public pki_x509name
 		static QPixmap *icon;
 
 		// methods
-		const char *getClassName() const;
 		QString getSetting(QString key)
 		{
 			CHECK_TMPL_KEY

@@ -46,7 +46,6 @@ class pki_key: public pki_base
 		pki_key(const QString name = "");
 		pki_key(const pki_key *pk);
 		virtual ~pki_key();
-		const char *getClassName() const;
 		static builtin_curves builtinCurves;
 		QString length() const;
 		QString comboText() const;

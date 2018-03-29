@@ -31,7 +31,6 @@ class pki_crl: public pki_x509name
 	public:
 		pki_crl(const QString name = "");
 		~pki_crl();
-		const char *getClassName() const;
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		QString getSigAlg() const;

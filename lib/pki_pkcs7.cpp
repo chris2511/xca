@@ -19,11 +19,6 @@ pki_pkcs7::pki_pkcs7(const QString name)
 	PKCS7_content_new(p7, NID_pkcs7_data);
 }
 
-const char *pki_pkcs7::getClassName() const
-{
-	return "pki_pkcs7";
-}
-
 pki_pkcs7::~pki_pkcs7()
 {
 	if (p7)

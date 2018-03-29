@@ -37,11 +37,6 @@ void pki_evp::init()
 	pkiType = asym_key;
 }
 
-const char *pki_evp::getClassName() const
-{
-	return "pki_evp";
-}
-
 void pki_evp::setOwnPass(enum passType x)
 {
 	EVP_PKEY *pk=NULL, *pk_back = key;

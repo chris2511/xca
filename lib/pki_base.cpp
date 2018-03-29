@@ -12,6 +12,7 @@
 #include <QString>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
+#include <typeinfo>
 
 QRegExp pki_base::limitPattern;
 
@@ -71,7 +72,7 @@ BIO *pki_base::pem(BIO *, int format)
 
 const char *pki_base::getClassName() const
 {
-	return "pki_base";
+	return typeid(*this).name();
 }
 
 void pki_base::fopen_error(const QString fname)

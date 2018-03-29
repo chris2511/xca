@@ -29,11 +29,6 @@ pki_key::pki_key(const QString name)
 	useCount = -1;
 }
 
-const char *pki_key::getClassName() const
-{
-	return "pki_key";
-}
-
 pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {

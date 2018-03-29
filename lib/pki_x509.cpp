@@ -31,11 +31,6 @@ pki_x509::pki_x509(X509 *c)
 	pki_openssl_error();
 }
 
-const char *pki_x509::getClassName() const
-{
-	return "pki_x509";
-}
-
 pki_x509::pki_x509(const pki_x509 *crt)
 	:pki_x509super(crt->desc)
 {

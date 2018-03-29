@@ -69,11 +69,6 @@ pki_temp::pki_temp(const QString d)
 	settings["validN"] = "365";
 }
 
-const char *pki_temp::getClassName() const
-{
-	return "pki_temp";
-}
-
 QString pki_temp::comboText() const
 {
 	return pre_defined ? QString("[default] ") + pki_base::comboText() :

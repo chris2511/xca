@@ -45,7 +45,6 @@ class pki_evp: public pki_key
 		void generate(int bits, int type, QProgressBar *progress,
 				int curve_nid);
 		void setOwnPass(enum passType);
-		const char *getClassName() const;
 		pki_evp(const QString name = "", int type = EVP_PKEY_RSA);
 		pki_evp(EVP_PKEY *pkey);
 		void set_evp_key(EVP_PKEY *pkey);

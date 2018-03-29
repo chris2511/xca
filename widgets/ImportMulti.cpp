@@ -24,6 +24,7 @@
 #include <QInputDialog>
 #include <QUrl>
 #include <QMimeData>
+#include <typeinfo>
 
 ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)
@@ -71,21 +72,25 @@ void ImportMulti::addItem(pki_base *pki)
 {
 	if (!pki)
 		return;
-	QString cn = pki->getClassName();
 
-	if (cn == "pki_x509" || cn == "pki_evp"  || cn == "pki_x509req" ||
-	    cn == "pki_crl"  || cn == "pki_temp" || cn == "pki_scard")
+	const std::type_info &t = typeid(*pki);
+
+	qDebug() << "TYPEID" << t.name() << typeid(pki_x509).name();
+
+	if (t == typeid(pki_x509)    || t == typeid(pki_evp) ||
+	    t == typeid(pki_x509req) || t == typeid(pki_crl) ||
+	    t == typeid(pki_temp)    || t == typeid(pki_scard))
 	{
 		mcont->inToCont(pki);
 	}
-	else if (cn == "pki_pkcs7") {
+	else if (t == typeid(pki_pkcs7)) {
 		pki_pkcs7 *p7 = static_cast<pki_pkcs7 *>(pki);
 		for (int i=0; i<p7->numCert(); i++) {
 			addItem(p7->getCert(i));
 		}
 		delete p7;
 	}
-	else if (cn == "pki_pkcs12") {
+	else if (t == typeid(pki_pkcs12)) {
 		pki_pkcs12 *p12 = static_cast<pki_pkcs12 *>(pki);
 		addItem(p12->getKey());
 		addItem(p12->getCert());
@@ -94,7 +99,7 @@ void ImportMulti::addItem(pki_base *pki)
 		}
 		delete p12;
 	}
-	else if (cn == "pki_multi") {
+	else if (t == typeid(pki_multi)) {
 		pki_multi *pm = static_cast<pki_multi*>(pki);
 		pki_base *inner;
 		while ((inner = pm->pull()))
@@ -103,9 +108,9 @@ void ImportMulti::addItem(pki_base *pki)
 	}
 	else  {
 		XCA_WARN(tr("The type of the item '%1' is not recognized").
-			arg(cn));
+			arg(t.name()));
 	}
-	if (cn == "pki_scard")
+	if (t == typeid(pki_scard))
 		mcont->rename_token_in_database(dynamic_cast<pki_scard*>(pki));
 }
 
@@ -214,20 +219,14 @@ void ImportMulti::on_renameToken_clicked()
 	}
 }
 
-static db_base *select_db(QString cn)
+static db_base *select_db(const std::type_info &t)
 {
-	if (cn == "pki_x509")
-		return MainWindow::certs;
-	if (cn == "pki_evp")
-		return MainWindow::keys;
-	if (cn == "pki_scard")
-		return MainWindow::keys;
-	if (cn == "pki_x509req")
-		return MainWindow::reqs;
-	if (cn == "pki_crl")
-		return MainWindow::crls;
-	if (cn == "pki_temp")
-		return MainWindow::temps;
+	if (t == typeid(pki_x509))    return MainWindow::certs;
+	if (t == typeid(pki_evp))     return MainWindow::keys;
+	if (t == typeid(pki_scard))   return MainWindow::keys;
+	if (t == typeid(pki_x509req)) return MainWindow::reqs;
+	if (t == typeid(pki_crl))     return MainWindow::crls;
+	if (t == typeid(pki_temp))    return MainWindow::temps;
 	return NULL;
 }
 
@@ -243,20 +242,21 @@ pki_base *ImportMulti::import(QModelIndex &idx)
 		mainwin->load_database();
 	}
 
-	QString cn = pki->getClassName();
+	const std::type_info &t = typeid(*pki);
+
 	mcont->remFromCont(idx);
 	if (!mainwin->keys) {
 		delete pki;
 		return NULL;
 	}
 
-	if (cn == "pki_evp")
+	if (t == typeid(pki_evp))
 		static_cast<pki_evp*>(pki)->setOwnPass(pki_evp::ptCommon);
 
-	db = select_db(cn);
+	db = select_db(t);
 	if (!db) {
 		XCA_WARN(tr("The type of the item '%1' is not recognized").
-			arg(cn));
+			arg(t.name()));
 		delete pki;
 		return NULL;
 	}
@@ -276,37 +276,37 @@ void ImportMulti::on_butDetails_clicked()
 
 	if (!pki)
 		return;
-	QString cn = pki->getClassName();
+	const std::type_info &t = typeid(*pki);
 	try {
-		if (cn == "pki_x509"){
+		if (t == typeid(pki_x509)){
 			CertDetail *dlg;
 			dlg = new CertDetail(mainwin);
 			dlg->setCert(static_cast<pki_x509 *>(pki));
 			dlg->exec();
 			delete dlg;
-		} else if (cn == "pki_evp" || cn == "pki_scard") {
+		} else if (t == typeid(pki_evp) || t == typeid(pki_scard)) {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(mainwin);
 			dlg->setKey(static_cast<pki_key *>(pki));
 			dlg->exec();
 			delete dlg;
-		} else if (cn == "pki_x509req") {
+		} else if (t == typeid(pki_x509req)) {
 			CertDetail *dlg;
 			dlg = new CertDetail(mainwin);
 			dlg->setReq(static_cast<pki_x509req *>(pki));
 			dlg->exec();
 			delete dlg;
-		} else if (cn == "pki_crl") {
+		} else if (t == typeid(pki_crl)) {
 			CrlDetail *dlg;
 			dlg = new CrlDetail(mainwin);
 			dlg->setCrl(static_cast<pki_crl *>(pki));
 			dlg->exec();
 			delete dlg;
-		} else if (cn == "pki_temp") {
-			XCA_WARN(tr("Details of the item '%1' cannot be shown").
-				arg(cn));
+		} else if (t == typeid(pki_temp)) {
+			XCA_WARN(tr("Details of the item '%1' cannot be shown")
+				.arg("XCA template"));
 		} else
-			XCA_WARN(tr("The type of the item '%1' is not recognized").arg(cn));
+			XCA_WARN(tr("The type of the item '%1' is not recognized").arg(t.name()));
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);

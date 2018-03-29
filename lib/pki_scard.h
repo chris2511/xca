@@ -38,7 +38,6 @@ class pki_scard: public pki_key
 	public:
 		pki_scard(const QString name);
 		virtual ~pki_scard();
-		const char *getClassName() const;
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		bool prepare_card(slotid *slot, bool verifyPubkey=true) const;

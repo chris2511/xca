@@ -58,7 +58,6 @@ class pki_x509 : public pki_x509super
 		pki_x509(const QString name = "");
 		~pki_x509();
 
-		const char *getClassName() const;
 		void setSigner(pki_x509 *signer)
 		{
 			psigner = signer;

@@ -25,11 +25,6 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
 	openssl_error();
 }
 
-const char *pki_pkcs12::getClassName() const
-{
-	return "pki_pkcs12";
-}
-
 pki_pkcs12::pki_pkcs12(const QString fname)
 	:pki_base(fname)
 {

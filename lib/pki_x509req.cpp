@@ -30,11 +30,6 @@ pki_x509req::pki_x509req(const QString name)
 	done = false;
 }
 
-const char *pki_x509req::getClassName() const
-{
-	return "pki_x509req";
-}
-
 pki_x509req::~pki_x509req()
 {
 	if (request)

@@ -41,11 +41,6 @@ void pki_scard::init(void)
 	card_model = slot_label = "";
 }
 
-const char *pki_scard::getClassName() const
-{
-	return "pki_scard";
-}
-
 pki_scard::pki_scard(const QString name)
 	:pki_key(name)
 {
