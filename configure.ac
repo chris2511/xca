@@ -13,14 +13,14 @@ AC_CHECK_TOOL(STRIP, [strip], [:])
 
 DVERSION="`${CXX} --version | grep apple-darwin || :`"
 case "$DVERSION" in
-  *-apple-darwin17*) DARWIN="High Sierra" ;;
+  *-apple-darwin17*) DARWIN="High-Sierra" ;;
   *-apple-darwin16*) DARWIN="Sierra" ;;
-  *-apple-darwin15*) DARWIN="El Capitan" ;;
+  *-apple-darwin15*) DARWIN="El-Capitan" ;;
   *-apple-darwin14*) DARWIN="Yosemite" ;;
   *-apple-darwin13*) DARWIN="Mavericks" ;;
-  *-apple-darwin12*) DARWIN="Mountain Lion" ;;
+  *-apple-darwin12*) DARWIN="Mountain-Lion" ;;
   *-apple-darwin11*) DARWIN="Lion" ;;
-  *-apple-darwin10*) DARWIN="SnowLeopard" ;;
+  *-apple-darwin10*) DARWIN="Snow-Leopard" ;;
   *-apple-darwin9*) DARWIN="Leopard" ;;
   *-apple-darwin?)
     AC_MSG_ERROR([echo Unsupported Mac OSX version $DVERSION])
