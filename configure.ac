@@ -154,7 +154,7 @@ fi
 AC_SUBST([QT_CFLAGS])
 AC_SUBST([QT_LIBS])
 
-# Setup MOC UIC RCC LRELEASE with absolute PATH
+# Setup MOC UIC RCC LRELEASE LCONVERT with absolute PATH
 if test "x${QT_MOC}" = "x"; then
   QT_MOC="`which moc-qt${QT_VERSION} || which moc`"
 fi
@@ -169,6 +169,13 @@ if test "x${QT_LRELEASEQT}" = "x"; then
   AC_PATH_PROG([QT_LRELEASE], [lrelease], [lrelease], [$QT_BIN_PATH])
 else
   QT_LRELEASE="$QT_LRELEASEQT"
+fi
+
+AC_PATH_PROG([QT_LCONVERTQT], [lconvert-qt${QT_VERSION}], , [$QT_BIN_PATH])
+if test "x${QT_LCONVERTQT}" = "x"; then
+  AC_PATH_PROG([QT_LCONVERT], [lconvert], [lconvert], [$QT_BIN_PATH])
+else
+  QT_LCONVERT="$QT_LCONVERTQT"
 fi
 
 AC_PATH_PROG([QT_RCCQT], [rcc-qt${QT_VERSION}], , [$QT_BIN_PATH])
@@ -186,6 +193,7 @@ fi
 AC_SUBST([QT_MOC])
 AC_SUBST([QT_UIC])
 AC_SUBST([QT_LRELEASE])
+AC_SUBST([QT_LCONVERT])
 AC_SUBST([QT_RCC])
 
 # The dyn_loader library libltdl

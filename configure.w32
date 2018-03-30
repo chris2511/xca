@@ -69,11 +69,13 @@ MOC=wine \$(QTDIR)/bin/moc
 UIC=wine \$(QTDIR)/bin/uic
 RCC=wine \$(QTDIR)/bin/rcc
 LRELEASE=wine \$(QTDIR)/bin/lrelease
+LCONVERT=wine \$(QTDIR)/bin/lconvert
 else
 MOC=moc
 UIC=uic
 RCC=rcc
 LRELEASE=lrelease
+LCONVERT=lconvert
 endif
 
 CC=\$(CROSS)g++
