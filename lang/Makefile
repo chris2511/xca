@@ -31,8 +31,8 @@ app:
 
 po2ts: $(TS_XCA)
 xca_%.ts: %.po
-	lconvert -if po -i $< -of ts -o $(@)
+	$(LCONVERT) -if po -i $< -of ts -o $(@)
 
 xca.pot: xca.ts
-	lconvert -if ts -of po -i $< -o $@
+	$(LCONVERT) -if ts -of po -i $< -o $@
 
