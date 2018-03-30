@@ -15,17 +15,17 @@
 /* SHA 1 and below are insecure */
 #define INSECURE_MD 2
 
-static struct {
+static const struct {
 	const char *name;
-	const EVP_MD *md;
+	int nid;
 } hashalgos[] = {
-	{ "MD 5", EVP_md5() },
-	{ "RIPEMD 160", EVP_ripemd160() },
-	{ "SHA 1", EVP_sha1() },
-	{ "SHA 224", EVP_sha224() },
-	{ "SHA 256", EVP_sha256() },
-	{ "SHA 384", EVP_sha384() },
-	{ "SHA 512", EVP_sha512() },
+	{ "MD 5", NID_md5 },
+	{ "RIPEMD 160", NID_ripemd160 },
+	{ "SHA 1", NID_sha1 },
+	{ "SHA 224", NID_sha224 },
+	{ "SHA 256", NID_sha256 },
+	{ "SHA 384", NID_sha384 },
+	{ "SHA 512", NID_sha512 },
 };
 
 int hashBox::default_md = DEFAULT_MD_IDX;
@@ -72,7 +72,7 @@ const EVP_MD *hashBox::currentHash() const
 	unsigned i= hashBox::currentHashIdx();
 	if (i >= ARRAY_SIZE(hashalgos))
 		i = DEFAULT_MD_IDX;
-	return hashalgos[i].md;
+	return EVP_get_digestbynid(hashalgos[i].nid);
 }
 
 void hashBox::setCurrentString(QString md)
@@ -155,7 +155,7 @@ void hashBox::setCurrentMD(const EVP_MD *md)
 	if (!OBJ_find_sigid_algs(EVP_MD_type(md), &hash_nid, NULL))
 		hash_nid = EVP_MD_type(md);
 	for (idx = 0; idx<ARRAY_SIZE(hashalgos); idx++) {
-		if (hash_nid == EVP_MD_type(hashalgos[idx].md)) {
+		if (hash_nid == hashalgos[idx].nid) {
 			setCurrentIndex(idx);
 			return;
 		}
@@ -165,18 +165,12 @@ void hashBox::setCurrentMD(const EVP_MD *md)
 void hashBox::setupHashes(QList<int> nids)
 {
 	QString md = currentText();
-	int mdtype;
 
 	if (!wanted_md.isEmpty())
 		md = wanted_md;
 	clear();
 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		mdtype = EVP_MD_type(hashalgos[i].md);
-#else
-		mdtype = hashalgos[i].md->type;
-#endif
-		if (nids.contains(mdtype)) {
+		if (nids.contains(hashalgos[i].nid)) {
 			addItem(QString(hashalgos[i].name));
 		}
 	}
