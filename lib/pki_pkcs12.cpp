@@ -22,7 +22,7 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
 	key = new pki_evp(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
-	openssl_error();
+	pki_openssl_error();
 }
 
 pki_pkcs12::pki_pkcs12(const QString fname)
@@ -39,7 +39,7 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 	if (fp) {
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
-		if (ign_openssl_error()) {
+		if (pki_ign_openssl_error()) {
 			if (pkcs12)
 				PKCS12_free(pkcs12);
 			throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.").arg(fname));
@@ -54,11 +54,11 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 		PKCS12_parse(pkcs12, pass.constData(), &mykey, &mycert, &certstack);
 		int error = ERR_peek_error();
 		if (ERR_GET_REASON(error) == PKCS12_R_MAC_VERIFY_FAILURE) {
-			ign_openssl_error();
+			pki_ign_openssl_error();
 			PKCS12_free(pkcs12);
 			throw errorEx(getClassName(), tr("The supplied password was wrong (%1)").arg(ERR_reason_error_string(error)), E_PASSWD);
 		}
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		if (mycert) {
 			unsigned char *str = X509_alias_get0(mycert, NULL);
 			if (str)
@@ -71,11 +71,12 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 				cert->setIntName(alias);
 			}
 			alias = cert->getIntName();
+			cert->pkiSource = imported;
 		}
 		if (mykey) {
 			key = new pki_evp(mykey);
 			key->setIntName(alias + "_key");
-			key->bogusEncryptKey();
+			key->pkiSource = imported;
 		}
 		PKCS12_free(pkcs12);
 	} else
@@ -84,25 +85,24 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 
 pki_pkcs12::~pki_pkcs12()
 {
-	if (sk_X509_num(certstack)>0) {
+	if (sk_X509_num(certstack) > 0) {
 		// free the certs itself, because we own a copy of them
 		sk_X509_pop_free(certstack, X509_free);
 	}
-	if (key) {
-		delete(key);
-	}
-	if (cert) {
-		delete(cert);
-	}
-	openssl_error();
+	if (key)
+		delete key;
+	if (cert)
+		delete cert;
+	pki_openssl_error();
 }
 
 
 void pki_pkcs12::addCaCert(pki_x509 *ca)
 {
-	if (!ca) return;
+	if (!ca)
+		return;
 	sk_X509_push(certstack, X509_dup(ca->getCert()));
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_pkcs12::writePKCS12(const QString fname)
@@ -125,34 +125,31 @@ void pki_pkcs12::writePKCS12(const QString fname)
 			cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		i2d_PKCS12_fp(fp, pkcs12);
 		fclose (fp);
-		openssl_error();
+		pki_openssl_error();
 		PKCS12_free(pkcs12);
 	}
 	else fopen_error(fname);
 }
 
-int pki_pkcs12::numCa() {
+int pki_pkcs12::numCa()
+{
 	int n= sk_X509_num(certstack);
-	openssl_error();
+	pki_openssl_error();
 	return n;
 }
 
-
 pki_key *pki_pkcs12::getKey()
 {
-	if (!key)
-		return NULL;
-	return new pki_evp(key);
+	return key ? new pki_evp(key) : NULL;
 }
 
-
-pki_x509 *pki_pkcs12::getCert() {
-	if (!cert)
-		return NULL;
-	return new pki_x509(cert);
+pki_x509 *pki_pkcs12::getCert()
+{
+	return cert ? new pki_x509(cert) : NULL;
 }
 
-pki_x509 *pki_pkcs12::getCa(int x) {
+pki_x509 *pki_pkcs12::getCa(int x)
+{
 	pki_x509 *cert = NULL;
 	X509 *crt = X509_dup(sk_X509_value(certstack, x));
 	if (crt) {
@@ -162,8 +159,9 @@ pki_x509 *pki_pkcs12::getCa(int x) {
 		} else {
 			cert->setIntName(QString(alias + "_ca_%1").arg(x));
 		}
+		cert->pkiSource = imported;
 	}
-	openssl_error();
+	pki_openssl_error();
 	return cert;
 }
 

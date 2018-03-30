@@ -73,6 +73,9 @@ void ImportMulti::addItem(pki_base *pki)
 	if (!pki)
 		return;
 
+	if (pki->pkiSource == unknown)
+		pki->pkiSource = imported;
+
 	const std::type_info &t = typeid(*pki);
 
 	qDebug() << "TYPEID" << t.name() << typeid(pki_x509).name();

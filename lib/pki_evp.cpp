@@ -225,17 +225,7 @@ pki_evp::pki_evp(EVP_PKEY *pkey)
 	:pki_key()
 {
 	init();
-	if (key) {
-		EVP_PKEY_free(key);
-	}
-	key = pkey;
-	isPub = true;
-	if (EVP_PKEY_isPrivKey(key)) {
-		isPub = false;
-		ownPass = ptPrivate;
-		encryptKey();
-		pki_openssl_error();
-	}
+	set_EVP_PKEY(pkey);
 }
 
 void pki_evp::openssl_pw_error(QString fname)
@@ -248,6 +238,20 @@ void pki_evp::openssl_pw_error(QString fname)
 		throw errorEx(tr("Failed to decrypt the key (bad password) ")+
 				fname, getClassName(), E_PASSWD);
 	}
+}
+
+void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey)
+{
+	if (!pkey)
+		return;
+	if (key)
+		EVP_PKEY_free(key);
+	key = pkey;
+	isPub = !EVP_PKEY_isPrivKey(key);
+	if (!isPub) {
+		bogusEncryptKey();
+	}
+	pki_openssl_error();
 }
 
 void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
@@ -266,15 +270,9 @@ void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
 	}
 	BIO_free(bio);
-	if (pkey){
-		if (key)
-			EVP_PKEY_free(key);
-		key = pkey;
-		if (EVP_PKEY_isPrivKey(key))
-			bogusEncryptKey();
-		setIntName(rmslashdot(name));
-	}
-	openssl_error(name);
+
+	setIntName(rmslashdot(name));
+	set_EVP_PKEY(pkey);
 }
 
 static void search_ec_oid(EVP_PKEY *pkey)
@@ -559,6 +557,7 @@ void pki_evp::encryptKey(const char *password)
 {
 	Passwd ownPassBuf;
 
+	pki_openssl_error();
 	/* This key has its own, private password */
 	if (ownPass == ptPrivate) {
 		int ret;
@@ -567,13 +566,16 @@ void pki_evp::encryptKey(const char *password)
 		ret = PwDialog::execute(&p, &ownPassBuf, true);
 		if (ret != 1)
 			throw errorEx("Password input aborted", getClassName());
+	pki_openssl_error();
 	} else if (ownPass == ptBogus) { // BOGUS password
 		ownPassBuf = "Bogus";
+	pki_openssl_error();
 	} else {
 		if (password) {
 			/* use the password parameter
 			 * if this is a common password */
 			ownPassBuf = password;
+	pki_openssl_error();
 		} else {
 			int ret = 0;
 			ownPassBuf = passwd;
@@ -594,7 +596,7 @@ void pki_evp::encryptKey(const char *password)
 	BIO *bio = BIO_new(BIO_s_mem());
 	i2d_PKCS8PrivateKey_bio(bio, key, EVP_aes_256_cbc(),
 		ownPassBuf.data(), ownPassBuf.size(), NULL, 0);
-	openssl_error();
+	pki_openssl_error();
 	int l = BIO_get_mem_data(bio, &p);
 	encKey = QByteArray(p, l);
 	BIO_free(bio);

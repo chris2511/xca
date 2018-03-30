@@ -119,6 +119,7 @@ pki_x509 *pki_pkcs7::getCert(int x)
 	cert = new pki_x509(X509_dup(sk_X509_value(getCertStack(), x)));
 	openssl_error();
 	cert->autoIntName();
+	cert->pkiSource = imported;
 	return cert;
 }
 

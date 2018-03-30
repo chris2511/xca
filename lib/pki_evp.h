@@ -31,6 +31,8 @@ class pki_evp: public pki_key
 		}
 		static QString _sha512passwd(QByteArray pass, QString salt,
 						int size, int repeat);
+		void set_EVP_PKEY(EVP_PKEY *pkey);
+
 	protected:
 		void openssl_pw_error(QString fname);
 	public:
