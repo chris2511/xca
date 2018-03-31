@@ -935,6 +935,7 @@ void MainWindow::changeEvent(QEvent *event)
 		}
 		if (!currentDB.isEmpty())
 			dbindex->setText(tr("Database") + ": " + currentDB);
+		searchEdit->setPlaceholderText(tr("Search"));
 	}
 	QMainWindow::changeEvent(event);
 }
