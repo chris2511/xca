@@ -78,8 +78,6 @@ void ImportMulti::addItem(pki_base *pki)
 
 	const std::type_info &t = typeid(*pki);
 
-	qDebug() << "TYPEID" << t.name() << typeid(pki_x509).name();
-
 	if (t == typeid(pki_x509)    || t == typeid(pki_evp) ||
 	    t == typeid(pki_x509req) || t == typeid(pki_crl) ||
 	    t == typeid(pki_temp)    || t == typeid(pki_scard))
@@ -115,6 +113,12 @@ void ImportMulti::addItem(pki_base *pki)
 	}
 	if (t == typeid(pki_scard))
 		mcont->rename_token_in_database(dynamic_cast<pki_scard*>(pki));
+}
+
+void ImportMulti::openDB()
+{
+	if (!mainwin->keys)
+		mainwin->load_database();
 }
 
 void ImportMulti::dragEnterEvent(QDragEnterEvent *event)
@@ -160,6 +164,8 @@ void ImportMulti::on_butRemove_clicked()
 
 void ImportMulti::on_butOk_clicked()
 {
+	openDB();
+
 	Transaction;
 	if (!TransBegin())
 		return;
@@ -175,6 +181,8 @@ void ImportMulti::on_butImport_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndexList indexes = selectionModel->selectedIndexes();
+
+	openDB();
 
 	Transaction;
 	if (!TransBegin())
@@ -239,11 +247,8 @@ pki_base *ImportMulti::import(QModelIndex &idx)
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	db_base *db;
 
-	if (!pki)
+	if (!pki || !mainwin->keys)
 		return NULL;
-	if (!mainwin->keys) {
-		mainwin->load_database();
-	}
 
 	const std::type_info &t = typeid(*pki);
 
@@ -358,6 +363,7 @@ void ImportMulti::execute(int force, QStringList failed)
 	}
 	/* if there is only 1 item and force is 0 import it silently */
 	if (entries() == 1 && force == 0) {
+		openDB();
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
 		pki_base *pki = import(idx);
 		if (pki && !Settings["suppress_messages"])
