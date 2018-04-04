@@ -1,3 +1,11 @@
+ * Open database before starting a transaction
+ * Fix default hash during startup
+ * Fix Importing PKCS#12 and PKCS#7 files
+ * Improve automatic setting of the certificate internal name
+ * Don't use remote DB descriptor as local database filename proposal
+ * Usability: Preset remote database input values with previous ones
+ * Add another missing windows postgres library
+
 xca 2.0.0-pre04 Thu Mar 22 2018
 
  * Accept drivers that don't support transactions
