@@ -721,12 +721,24 @@ void pki_evp::writeDefault(const QString fname)
 		mycb, true);
 }
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
+                                         const EVP_CIPHER *enc,
+                                         unsigned char *kstr, int klen,
+                                         pem_password_cb *cb, void *u)
+{
+    char pem_str[80];
+    BIO_snprintf(pem_str, 80, "%s PRIVATE KEY", x->ameth->pem_str);
+    return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
+                              pem_str, bp, x, enc, kstr, klen, cb, u);
+}
+#endif
+
 void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem)
 {
-	EVP_PKEY *pkey;
-	int keytype;
 	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key '%1'").arg(getIntName()));
+
 	if (isPubKey()) {
 		writePublic(fname, pem);
 		return;
@@ -736,42 +748,28 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		fopen_error(fname);
 		return;
 	}
-	if (key){
-		pkey = decryptKey();
-		if (pkey) {
-			if (pem) {
-				keytype = EVP_PKEY_id(pkey);
-				switch (keytype) {
-				case EVP_PKEY_RSA:
-					PEM_write_RSAPrivateKey(fp,
-						EVP_PKEY_get0_RSA(pkey),
-						enc, NULL, 0, cb, &p);
-					break;
-				case EVP_PKEY_DSA:
-					PEM_write_DSAPrivateKey(fp,
-						EVP_PKEY_get0_DSA(pkey),
-						enc, NULL, 0, cb, &p);
-					break;
-#ifndef OPENSSL_NO_EC
-				case EVP_PKEY_EC:
-					PEM_write_ECPrivateKey(fp,
-						EVP_PKEY_get0_EC_KEY(pkey),
-						enc, NULL, 0, cb, &p);
-					break;
-#endif
-				default:
-					PEM_write_PrivateKey(fp,
-						pkey,
-						enc, NULL, 0, cb, &p);
-				}
-			} else {
-				i2d_PrivateKey_fp(fp, pkey);
-			}
+	EVP_PKEY *pkey = key ? decryptKey() : NULL;
+	if (!pkey) {
+		fclose(fp);
+	        pki_openssl_error();
+		return;
+	}
+	if (pem) {
+		BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
+		if (!b) {
 			EVP_PKEY_free(pkey);
+			fclose(fp);
+			return;
 		}
+		PEM_write_bio_PrivateKey_traditional(b, pkey, enc,
+						NULL, 0, cb, &p);
+		BIO_free(b);
+	} else {
+		i2d_PrivateKey_fp(fp, pkey);
 	}
 	fclose(fp);
 	pki_openssl_error();
+	EVP_PKEY_free(pkey);
 }
 
 int pki_evp::verify()
