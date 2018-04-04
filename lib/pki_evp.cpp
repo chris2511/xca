@@ -727,10 +727,21 @@ int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
                                          unsigned char *kstr, int klen,
                                          pem_password_cb *cb, void *u)
 {
-    char pem_str[80];
-    BIO_snprintf(pem_str, 80, "%s PRIVATE KEY", x->ameth->pem_str);
-    return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
-                              pem_str, bp, x, enc, kstr, klen, cb, u);
+	const char *t = "";
+	char pem_str[80];
+	int keytype = EVP_PKEY_id(x);
+
+	switch (keytype) {
+		case EVP_PKEY_RSA: t = "RSA";
+		case EVP_PKEY_DSA: t = "DSA";
+#ifndef OPENSSL_NO_EC
+		case EVP_PKEY_EC: t = "EC";
+#endif
+	}
+
+	BIO_snprintf(pem_str, 80, "%s PRIVATE KEY", t);
+	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
+				pem_str, bp, x, enc, kstr, klen, cb, u);
 }
 #endif
 
