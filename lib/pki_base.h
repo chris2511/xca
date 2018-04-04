@@ -19,7 +19,10 @@
 #include "settings.h"
 #include "sql.h"
 
-#define __ME QString("(%1:%2)").arg(getClassName()).arg(getIntName())
+#define __ME QString("(%1[%2]:%3)") \
+		.arg(getClassName()) \
+		.arg(getSqlItemId().toString()) \
+		.arg(getIntName())
 #define pki_openssl_error() _openssl_error(__ME, C_FILE, __LINE__)
 #define pki_ign_openssl_error() _ign_openssl_error(__ME, C_FILE, __LINE__)
 
