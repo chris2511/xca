@@ -167,6 +167,7 @@ pki_evp::pki_evp(const pki_evp *pk)
 	pki_openssl_error();
 	ownPass = pk->ownPass;
 	isPub = pk->isPub;
+	encKey = pk->getEncKey();
 }
 
 pki_evp::pki_evp(const QString name, int type)
@@ -449,11 +450,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 						getClassName());
 		}
 	}
-	QByteArray myencKey;
-	if (encKey.count() == 0)
-		myencKey = getEncKey();
-	else
-		myencKey = encKey;
+	QByteArray myencKey = getEncKey();
 	qDebug() << "myencKey.count()"<<myencKey.count();
 	if (myencKey.count() == 0)
 		return NULL;
@@ -664,6 +661,9 @@ QByteArray pki_evp::getEncKey() const
 	QSqlError e;
 	QByteArray ba;
 
+	if (encKey.count() > 0 || !sqlItemId.isValid())
+		return encKey;
+
 	SQL_PREPARE(q, "SELECT private FROM private_keys WHERE item=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
@@ -741,7 +741,7 @@ int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
 
 	BIO_snprintf(pem_str, 80, "%s PRIVATE KEY", t);
 	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
-				pem_str, bp, x, enc, kstr, klen, cb, u);
+				pem_str, bp, (char*)x, enc, kstr, klen, cb, u);
 }
 #endif
 
