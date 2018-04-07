@@ -124,7 +124,7 @@ Q_DECLARE_METATYPE(keyListItem);
 NewKey::NewKey(QWidget *parent, QString name)
 	:QDialog(parent)
 {
-	static const char* const sizeList[] = { "1024", "2048", "4096" };
+	static const char* const sizeList[] = { "1024", "2048", "4096", "8192" };
 	size_t i;
 	slotidList p11_slots;
 	QList<keyListItem> keytypes;
