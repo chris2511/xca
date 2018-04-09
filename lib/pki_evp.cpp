@@ -732,10 +732,10 @@ int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
 	int keytype = EVP_PKEY_id(x);
 
 	switch (keytype) {
-		case EVP_PKEY_RSA: t = "RSA";
-		case EVP_PKEY_DSA: t = "DSA";
+		case EVP_PKEY_RSA: t = "RSA"; break;
+		case EVP_PKEY_DSA: t = "DSA"; break;
 #ifndef OPENSSL_NO_EC
-		case EVP_PKEY_EC: t = "EC";
+		case EVP_PKEY_EC: t = "EC"; break;
 #endif
 	}
 
