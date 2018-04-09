@@ -89,8 +89,12 @@ void MainWindow::about()
 	"<p>Version: %4<p>%1<p>%2" /* commithash, Brainpool, OpenSSL & Qt Version */
 	"<p>http://hohnstaedt.de/xca"
 	"<p>Entropy strength: %3"
-	"<p>Installation path: <i>%5</i><br/>User settings path: <i>%6</i>"
-	"<hr><table border=0>"
+	"<p><table border=\"0\">"
+	"<tr><td>Installation path:</td><td>%5</td></tr>"
+	"<tr><td>User settings path:</td><td>%6</td></tr>"
+	"<tr><td>Working directory:</td><td>%7</td></tr>"
+	"</table>"
+	"<hr><table border=\"0\">"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
 	"<tr><th align=left>Kerstin Steinhauff</th><td><u>&lt;tine@kerstine.de&gt;</td></u></tr>"
@@ -103,7 +107,8 @@ void MainWindow::about()
 	"<tr><td><b>Slovak</b></td><td>Slavko &lt;linux@slavino.sk&gt;</td></tr>"
 	"</table>").arg(brainpool).arg(version).arg(Entropy::strength())
 			.arg(version_str(true)).arg(getPrefix())
-			.arg(getUserSettingsDir());
+			.arg(getUserSettingsDir())
+			.arg(QString(Settings["workingdir"]));
 
 	textbox->setHtml(cont);
 	about->exec();

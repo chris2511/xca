@@ -77,7 +77,7 @@ QString settings::defaults(const QString &key)
 
 void settings::load_settings()
 {
-	if (loaded)
+	if (loaded || !QSqlDatabase::database().isOpen())
 		return;
 	XSqlQuery q("SELECT key_, value FROM settings");
 	while (q.next()) {
