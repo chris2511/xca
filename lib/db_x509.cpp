@@ -761,7 +761,7 @@ void db_x509::store(QModelIndexList list)
 void db_x509::writeIndex(const QString fname, QList<pki_x509*> items)
 {
 	QFile file(fname);
-	file.open(QFile::ReadWrite);
+	file.open(QFile::ReadWrite | QFile::Truncate);
 	if (file.error()) {
 		throw errorEx(tr("Error opening file: '%1': %2")
 			.arg(fname).arg(strerror(errno)));
