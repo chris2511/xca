@@ -61,6 +61,10 @@ class pki_key: public pki_base
 		int getKeyType() const;
 		bool isPrivKey() const;
 		int getUcount() const;
+		void setUcount(int c)
+		{
+			useCount = c;
+		}
 		enum passType getOwnPass(void)
 		{
 			return ownPass;

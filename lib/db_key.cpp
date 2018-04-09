@@ -38,6 +38,27 @@ db_key::db_key(MainWindow *mw)
 	loadContainer();
 }
 
+void db_key::loadContainer()
+{
+	XSqlQuery q;
+
+	db_base::loadContainer();
+	FOR_ALL_pki(key, pki_key)
+		key->setUcount(0);
+
+	SQL_PREPARE(q, "SELECT pkey, COUNT(*) FROM x509super WHERE pkey IS NOT NULL GROUP by pkey");
+	q.exec();
+	while (q.next()) {
+		pki_key *key = lookupPki<pki_key>(q.value(0));
+		if (!key) {
+			qDebug() << "Unknown key" << q.value(0).toULongLong();
+			continue;
+		}
+		key->setUcount(q.value(1).toInt());
+	}
+	MainWindow::dbSqlError(q.lastError());
+}
+
 dbheaderList db_key::getHeaders()
 {
 	dbheaderList h = db_base::getHeaders();
