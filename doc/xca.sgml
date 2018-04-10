@@ -11,12 +11,12 @@
 
 <abstract>
 
-This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys, Smartcards and CRLs.
+This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys, Smart-cards and CRLs.
 Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
-For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
-All crypto data is stored in a SQL database.
-SQLite, MySQL and PostgreSQL databases are supported.
+For an easy company-wide use there are customisable templates that can be used for certificate or request generation.
+All cryptographic data is stored in a SQL database.
+SQLite, MySQL (MariaDB) and PostgreSQL databases are supported.
 
 </abstract>
 
@@ -41,7 +41,7 @@ private keys in the database. This is the default password. Every time this
 database is opened the application asks for the password. This input dialog
 may be canceled and the database is still opened successfully.
 However, the access to the keys is not possible without supplying the
-correct database password everytime a key is used.
+correct database password every time a key is used.
 
 <p>
 When setting an empty password, XCA will never ask again for a password
@@ -153,14 +153,14 @@ Thank you very much.
 <p>
 
 Older versions of XCA used a simple serial
-proprietary database for storing the crypto items.
+proprietary database for storing the cryptographic items.
 Starting with version 2.0.0 this has changed to SQL.
 For file based databases the SQLite database format is used.
 Since XCA uses SQL, it can also be connected to a network database.
 The databases <em>mySQL</em> and <em>PostgreSQL</em> are tested.
 Please use the <em>Open Remote DataBase</em> menu item to connect to a remote host.
 The main disadvantage of the old format leading to the switch to SQL
-was the inaccessability by external tools. Since years users ask for
+was the inaccessibility by external tools. Since years users ask for
 command-line access to the database.
 The new database can be queried
 by external tools like <em>sqlite3</em> or <em>sqlitebrowser</em>
@@ -170,7 +170,7 @@ Please see <ref id="extract" name="Extracting items">
 <p>
 
 When opening a legacy database, it will be converted to the new format after
-backiing up the original database.
+backing up the original database.
 
 Please be careful with older XCA versions.
 XCA before 1.4.0 will overwrite the new SQLite database during database open.
@@ -216,8 +216,8 @@ XCA seeds it very thoroughly.
       <item>A <tt>.rnd</tt> state file in the XCA application directory is
             read on startup and erased afterwards to avoid replays.
     </itemize>
-  <item>Before any key or parameter generation a "reseeding"
-    is done. Some say reseeding is not neccessary, but
+  <item>Before any key or parameter generation a "re-seeding"
+    is done. Some say re-seeding is not necessary, but
     all say it does not harm.
     <itemize>
       <item>XCA collects entropy by mouse and keyboard events and its timing.
@@ -254,21 +254,21 @@ Next to the usual X command line options. There are the following
 	<item>-d set the database filename (only needed to create a new db)
 	<item>-x exit after processing all command line options
 	<item>-i creates an OpenSSL index file containing all certificates
-	<item>-I creates an OpenSSL index file for each ca in the given,
-		existing directory containing all issued certitifactes.
+	<item>-I creates an OpenSSL index file for each CA in the given,
+		existing directory containing all issued certificates.
 </itemize>
 
 There are some deprecated legacy options: [ -k ] [ -r ] [ -c ] [ -p ] [ -7 ] [ -l ] [ -t ] [ -P ]
 
 Before XCA 0.9.0, the type of the items had to be given. This was removed since.
-Just put all keys, certs, requests and the database unsorted on the commandline.
+Just put all keys, certificates, requests and the database unsorted on the command-line.
 For backwards compatibility those options are ignored when found.
 
 <p>
 
-Usually after importing the items from commandline
+Usually after importing the items from command-line
 the application will startup as usual. With the -x
-option given it will exit after finishing the import dialog. This is useful if xca is used as default application for viewing certificates, keys or requests.
+option given it will exit after finishing the import dialog. This is useful if XCA is used as default application for viewing certificates, keys or requests.
 
 <p>
 
@@ -279,11 +279,11 @@ option given it will exit after finishing the import dialog. This is useful if x
 The sqlitebrowser may be used to examine the elements of the database.
 
 The database schema is documented <url url="database_schema.html" name="here">.
-All crypto items are stored as base64 der format and must be
-decoded before feeding openssl: <em>| base64 -d | openssl &lt;x509|req|crl|pkcs8&gt; -inform DER ...</em>
+All cryptographic items are stored as base64 DER format and must be
+decoded before feeding them to OpenSSL: <em>| base64 -d | openssl &lt;x509|req|crl|pkcs8&gt; -inform DER ...</em>
 
 <p>
-Extract a private key from the database
+Extract the private key with internal name 'pk8key' from the database
 <code>
 sqlite3 ~/xca.xdb "SELECT private FROM view_private WHERE name='pk8key'" | base64 -d | openssl pkcs8 -inform DER
 </code>
@@ -310,7 +310,7 @@ column "Primary key" that may be shown to get the ID of the item in the database
 
 <p>
 
-Many actions are common to all crypto parts and are mentioned here once for all.
+Many actions are common to all cryptographic parts and are mentioned here once for all.
 The goal of this application is to provide an easy to use signing-tool and
 also a common place for all selected PKI items like requests or certificates.
 
@@ -319,15 +319,19 @@ also a common place for all selected PKI items like requests or certificates.
 <p>
 
 Column visibility can be changed by the context menu of the table header
-or the "columns" submenu of the table context menu.
-It shows all available columns with checkboxes to show or hide them.
+or the "columns" sub menu of the table context menu.
+It shows all available columns with check-boxes to show or hide them.
 
 <enum>
-  <item>Common columns:
+  <item>Column actions:
     <itemize>
       <item><em>Reset:</em> Reset column order and visibility to the default.
       <item><em>Hide Column:</em> Hide the current column.
 		Only shown in the context menu of the column header
+    </itemize>
+
+  <item>Common columns:
+    <itemize>
       <item><em>Internal name:</em> Name of the item in the database.
       <item><em>No.:</em> A simple counter to easily count the items.
       <item><em>Primary key:</em> Unique number to identify an item in the
@@ -336,7 +340,7 @@ It shows all available columns with checkboxes to show or hide them.
 		See <ref id="date_and_source" name="Date and Source">
       <item><em>Source:</em> Origin of this item.
 		See <ref id="date_and_source" name="Date and Source">.
-      <item><em>Comment:</em> A multiline free text input, see <ref id="comment" name="Comment">.
+      <item><em>Comment:</em> A multi-line free text input, see <ref id="comment" name="Comment">.
     </itemize>
 
   <item>Private Key columns:
@@ -417,10 +421,10 @@ After selecting the filename XCA will probe for the known formats of that item
 and in case of an error it prompts the <tt>last</tt> OpenSSL error message.
 It is possible to select more than one file by selecting them with SHIFT click.
 
-Also the <tt>Import</tt> menu may be used to load items. Next to the filetypes
+Also the <tt>Import</tt> menu may be used to load items. Next to the file-types
 above, it also supports <tt>PEM</tt> import. PEM describes the encoding
-instead of the filetype. So a PEM file can be any type of private key, crl
-certificate or csr. This import facility discovers the type and loads it.
+instead of the file-type. So a PEM file can be any type of private key, CRL
+certificate or CSR. This import facility discovers the type and loads it.
 
 <p>
 
@@ -441,7 +445,7 @@ containing the internal name of this item in the database.
 
 The details dialog can be accessed by double clicking the item, by the context menu or by
 the button on the right.
-The names of the issuers certificate and the corresponding key are clickable and their
+The names of the issuers certificate and the corresponding key are click-able and their
 content will be shown on "double-click"
 
 <sect1>Renaming an Item
@@ -517,7 +521,7 @@ When inserting an item into the database a new, unique id
 will be generated and used as primary key in the database.
 If the item shall be found in the database by external tools,
 the <tt>items.id</tt> can be used to uniquely identify the item.
-The internal name cannot be used, since it is not neccessarily unique anymore.
+The internal name cannot be used, since it is not necessarily unique anymore.
 
 This ID will never be used outside the database.
 
@@ -735,14 +739,14 @@ be translated to OpenSSL config file format.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Smartcards (Security Tokens)
+<sect>Smart-cards (Security Tokens)
 
 <p>
 
-Since XCA 0.8.0 the use of Smartcards (Security tokens) is supported.
+Since XCA 0.8.0 the use of Smart-cards (Security tokens) is supported.
 It is based on the PKCS#11 standard. The Options dialog contains a list
 to add one or more PKCS#11 providers (libraries).
-This is not restricted to Smartcards but includes all type of security tokens like USB tokens.
+This is not restricted to Smart-cards but includes all type of security tokens like USB tokens.
 
 Up to version 1.0.0 only RSA keys on security tokens were supported.
 Since version 1.1.0 XCA also supports EC and DSA private keys on security tokens.
@@ -755,7 +759,7 @@ For me everything worked fine and I tested it thoroughly.
 
 On Linux the package <tt>opensc</tt> should be installed.
 Please read the opensc documentation for more details.
-Generally: if the opensc commandline-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
+Generally: if the opensc command-line-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
 Otherwise fix the opensc setup.
 I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
 I also used Aladdin Etoken very successfully (Thanks for support!). The Aladdin PKCS#11 library supports all needed features very well.
@@ -770,16 +774,16 @@ Before the keys of a token can be used, they must be imported into XCA.
 This means that XCA reads the token and shows the keys and certificates on the token.
 They can then be imported partially or completely
 via the Multi-import dialog to be used by XCA.
-It is not unusal that a token contains more than one key or certificate.
+It is not unusual that a token contains more than one key or certificate.
 It is of course possible to create your own keys on the token.
 When selecting a token-key for signing, XCA verifies that the
 corresponding token is available.
 
-If the Card reader supports a secure PIN input by a builtin keyboard,
+If the Card reader supports a secure PIN input by a built-in keyboard,
 it will be used by XCA and it will not ask for the PIN but waits for the Pin-pad
 input.
 
-The following actions with smartcards are supported:
+The following actions with smart-cards are supported:
 
 <itemize>
 	<item>Import keys and certificates from the token.
@@ -812,14 +816,14 @@ the corresponding private key on the card is selected and a PIN must be entered.
 <p>
 
 Accordingly, every time a key is generated on the card,
-a public/private keypair is generated.
+a public/private key-pair is generated.
 Every time a key is stored on the card, XCA creates a public
 and a private key object.
 
 <p>
 
 Firefox always only looks for private keys on the card.
-If XCA does not show a key, which is however recognized by firefox
+If XCA does not show a key, which is however recognized by Firefox
 a missing public-key object is the cause.
 
 <sect1>The Token Menu
@@ -828,7 +832,7 @@ a missing public-key object is the cause.
 
 The menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
 
-<sect2>Managing Smartcards
+<sect2>Managing Smart-cards
 
 <p>
 
@@ -875,7 +879,7 @@ The following providers were used for testing:
 
 <itemize>
 	<item>OpenSC: default provider for a lot of different cards and
-		readers. Deleting keys or certs is currently not supported.
+		readers. Deleting keys or certificates is currently not supported.
 		<itemize>
 		<item>The support of Netkey 4E cards is currently restricted.
 			Only import and using the keys and certificates
@@ -933,9 +937,9 @@ I initialized the token as follows:
 <p>
 
 <itemize>
-	<item>Enable PKCS#11 token in firefox:
+	<item>Enable PKCS#11 token in Firefox:
 		Edit-&gt;Preferences-&gt;Advanced:
-		(SecurityDevices): (Load) Load PKCS#11 Device:
+		(Security Devices): (Load) Load PKCS#11 Device:
 		/usr/lib/libeTPkcs11.so
 	<item>Import CA certificate: Edit-&gt;Preferences-&gt;Advanced:
 		(View Certificates) (Authorities): (Import)
@@ -951,7 +955,7 @@ SSLVerifyClient         require
 SSLVerifyDepth          10
 </verb></tscreen>
 
-	<item>Connect with firefox to the server. Firefox will prompt you
+	<item>Connect with Firefox to the server. Firefox will prompt you
 		to select one of the 2 client certificates. Both work.
 </itemize>
 
@@ -997,7 +1001,7 @@ The password can be changed for each key. The password type means:
 All keys carry a use counter which counts the times it is used.
 When creating new
 requests or certificates the list of available keys is reduced to
-the keys with a use counter of 0. This can be overridden by the checkbox
+the keys with a use counter of 0. This can be overridden by the check-box
 next to the key list.
 
 <p>
@@ -1014,7 +1018,7 @@ password type is <tt>private</tt>.
 
 <p>
 
-The dialog asks for the internal name of the key and the keysize in bits.
+The dialog asks for the internal name of the key and the key-size in bits.
 For EC keys, a list of curves is shown. It contains all X9.62 curves and many others.
 
 <p>
@@ -1038,7 +1042,7 @@ when generating token keys.
 <p>
 
 For every connected token providing the Key-generate facility an entry in the
-drop-down menu of the keytypes will be shown.
+drop-down menu of the key-types will be shown.
 It contains the name of the token and the valid key-sizes.
 
 <p>
@@ -1046,7 +1050,7 @@ It contains the name of the token and the valid key-sizes.
 In case of EC keys generated on a token, the list of possible curves
 is restricted based on informations provided by the token (Key size and FP/F2M).
 The token may support even less ECParameters / OIDs. When selecting an EC curve
-not supported by the token an error will occure.
+not supported by the token an error will occur.
 Please consult the documentation of the provider of the PKCS#11 library.
 
 <sect1>Key Export
@@ -1057,7 +1061,7 @@ Keys can be exported by either selecting the key and pressing <em>Export</em>
 or by using the context-menu.
 It may be chosen to export the key to the clipboard as PEM public, SSH2 public
 or unencrypted PEM private format.
-In case of a file export a dialogbox opens where next to the filename one of the
+In case of a file export a dialog-box opens where next to the filename one of the
 following formats may be selected:
 
 <itemize>
@@ -1073,7 +1077,7 @@ following formats may be selected:
 </itemize>
 
 The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt>, <tt>pk8</tt> or <tt>pub</tt> suffix.
-When changing the fileformat, the suffix of the filename changes accordingly.
+When changing the file-format, the suffix of the filename changes accordingly.
 Only PKCS&num;8 or PEM files can be encrypted, because
 the DER format (although it could be encrypted)
 does not support a way to supply the encryption algorithm
@@ -1094,7 +1098,7 @@ includes personal information, they public key and additional extensions.
 
 <p>
 
-It is not neccessary to generate a request prior to signing it by your CA
+It is not necessary to generate a request prior to signing it by your CA
 or before self-signing it. Simply start generating the certificate directly.
 People using the OpenSSL command line tools, are used to generate a request
 with "openssl req -new ..." and then signing it . This is not necessary with XCA.
@@ -1122,7 +1126,7 @@ Requests can be exported by the context-menu or by the button on the right.
 <itemize>
 <item><bf>Clipboard</bf> Writes all selected requests in PEM format to the Clipboard.
 <item><bf>File</bf> Write the request into a file in PEM or DER format.
-<item><bf>OpenSSL config</bf> Create and store an OpenSSL config file which can be used to generate a similar request with openssl (openssl req -new -config &lt;file&gt;)
+<item><bf>OpenSSL config</bf> Create and store an OpenSSL configuration file which can be used to generate a similar request with openssl (openssl req -new -config &lt;file&gt;)
 </itemize>
 
 <sect1>Request Transformation
@@ -1141,7 +1145,7 @@ A request transformation creates a new database entry based on the selected requ
 
 <p>
 
-All information contained in the request are shown. If the keystore contains
+All information contained in the request are shown. If the key-store contains
 the private key corresponding to the request the keys internal name is shown
 in the <tt>Key</tt> field.
 
@@ -1163,13 +1167,13 @@ the client certificates can be shown by clicking on the plus sign of the CA cert
 XCA will recognize CA certificates if the CA flag in the <tt>Basic Constraints</tt>
 is set to true.
 If there is a corresponding private key, the <tt>CA</tt>
-submenu in the context-menu will be enabled.
+sub-menu in the context-menu will be enabled.
 
 <p>
 
 For building the chains the CA flag is disregarded, because there are some
 CAs without this flag.
-Instead it consideres the issuer name and the signature to decide which certificate is the issuer.
+Instead it considers the issuer name and the signature to decide which certificate is the issuer.
 In case of more than one possible issuer, the one with the latest
 expiry date will be used as issuer to collect all issued certificates.
  
@@ -1219,9 +1223,9 @@ The filename can be selected in the export dialog and the Export format:
 	<item><bf>PEM with Certificate chain</bf> - PEM encoded certificate
 		and all issuers up to the root certificate in one file
 	<item><bf>PEM all trusted Certificates</bf> - List of all PEM encoded
-		certificates that are marked als <em>Always trusted</em>
+		certificates that are marked as <em>Always trusted</em>
 		(usually all self-signed certificates) in one file for e.g.
-		apache as trusted cert store.
+		apache as trusted certificate store.
 	<item><bf>PEM all Certificates</bf> - All PEM encoded certificates
 		in one file.
 	<item><bf>DER</bf> - DER encoded certificate.
@@ -1232,7 +1236,7 @@ The filename can be selected in the export dialog and the Export format:
 		certificate and all issuers up to the root certificate.
 	<item><bf>PKCS#7 all trusted Certificates</bf> - DER encoded
 		PKCS#7 structure containing all
-		certificates that are marked als <em>Always trusted</em>
+		certificates that are marked as <em>Always trusted</em>
 	<item><bf>PKCS#7 all Certificates</bf> - DER encoded PKCS#7 structure
 		containing all certificates.
 	<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate
@@ -1284,7 +1288,7 @@ the number of selected certificates in squared brackets.
 
 <p>
 
-To generate a CRL, revoke the appropriate certificates and select CA->GenerateCRL in the context-menu of the signing certificate.
+To generate a CRL, revoke the appropriate certificates and select CA->Generate CRL in the context-menu of the signing certificate.
 
 <sect1>Certificate renewal
 
@@ -1294,7 +1298,7 @@ Certificates can only be renewed, if the private key of the issuer's certificate
 is available. Renewal is done by creating a new certificate as a copy of the original one
 with adjusted validity dates.
 
-Use the <tt>Revoke old certificate</tt> checkbox to automatically revoke the old
+Use the <tt>Revoke old certificate</tt> check-box to automatically revoke the old
 certificate.
 
 If more than one certificate of the same issuer is selected, all of them will be renewed
@@ -1305,7 +1309,7 @@ the number of selected certificates in squared brackets.
 
 <p>
 
-The context menu of CA certificates contains the <em>CA</em> submenu,
+The context menu of CA certificates contains the <em>CA</em> sub-menu,
 which makes the following functions available:
 
 <itemize>
@@ -1453,9 +1457,9 @@ The CRL expiration date will be marked red 2 days before expiration.
 <p>
 
 It is usually more clear to read "commonName" instead of e.g (german) "Allgemeine Bezeichnung". Same is true for "Extended key usage" or "Basic constraints".
-With this setting the translated terms are shown and the ToolTip of the
+With this setting the translated terms are shown and the Tool-Tip of the
 entry shows the established term. If not set, the established term will be displayed
-and the ToolTip contains the translation.
+and the Tool-Tip contains the translation.
 
 <p>
 
@@ -1485,7 +1489,7 @@ will be suppressed. The certificate input dialog has no Netscape tab,
 the request and certificate columns don't show the Netscape extensions
 and when applying a template or converting certificates, the Netscape extensions
 are removed.
-However, the details of certificates and requests still show the netscape extensions if they exist.
+However, the details of certificates and requests still show the Netscape extensions if they exist.
 
 <p>
 
@@ -1528,7 +1532,7 @@ usage can be added in files listed below.
 The files are:
 
 <itemize>
-	<item><bf>oids.txt</bf> addidtional Object IDs
+	<item><bf>oids.txt</bf> additional Object IDs
 	<item><bf>eku.txt</bf> Content of <tt>ExtendedKeyUsage</tt>
 	<item><bf>dn.txt</bf> Content of <tt>DistinguishedName</tt>
 </itemize>
@@ -1596,7 +1600,7 @@ The format of this files is one entry per line. The entry can be either the
 numerical OID like <tt>1.3.6.1.5.5.8.2.2</tt>, the short name like
 <tt>iKEIntermediate</tt> or the long name <tt>IP security end entity</tt>.
 Lines starting with a <bf>#</bf> are ignored.
-If this files shall contain new inofficial OIDs, they must be also mentioned
+If this files shall contain new in-official OIDs, they must be also mentioned
 in one of the <tt>oids.txt</tt> files.
 
 <p>
@@ -1613,7 +1617,7 @@ entry to your certificate it can be done without recompiling XCA.
         of the <tt>oids.txt</tt> file listed in <ref id="new_oids" name="New OIDs"> like:<newline>
         <tt>1.3.6.1.4.1.12345.1: zodiacSign: Zodiac Sign</tt>
   <item>Add the OID, short name or long name to the first read <tt>dn.txt</tt>
-        On linux: <tt>cp /usr/share/xca/dn.txt ~/.xca/dn.txt && echo "zodiacSign" >> ~/.xca/dn.txt</tt>
+        On Linux: <tt>cp /usr/share/xca/dn.txt ~/.xca/dn.txt && echo "zodiacSign" >> ~/.xca/dn.txt</tt>
   <item>Start XCA, open your database and goto <tt>Options->Distinguished name</tt>. In the <tt>Explicit subject entries</tt> select <tt>Zodiac Sign</tt>, click <tt>Add</tt>, move it by dragging it in the list and click OK when satisfied.
   <item>Create a new certificate and see.
 </enum>
@@ -1658,7 +1662,7 @@ the applicable standards.
       <item>The Time Range is probably fine (10 years). If you want
 	    to change the duration, then change it and click <bf>Apply</bf>.
     </itemize>
-    <item>The CRL distribtion point will be part of the issued certificates.
+    <item>The CRL distribution point will be part of the issued certificates.
           It should however be thought about a common URL for all of them like
           <tt>http://www.example.com/crl/crl.der</tt>
     <item>Click the <bf>OK</bf> button at the bottom.
@@ -1738,7 +1742,7 @@ certificate.
 
 <p>
 This procedure is almost identical to that of creating a CA-Signed
-certficate with the following exceptions:
+certificate with the following exceptions:
 
 <enum>
   <item>When creating certificate, select "Create a self signed certificate"
