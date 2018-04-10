@@ -111,6 +111,7 @@ void MainWindow::about()
 			.arg(QString(Settings["workingdir"]));
 
 	textbox->setHtml(cont);
+	textbox->setReadOnly(true);
 	about->exec();
 	delete about;
 }
