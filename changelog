@@ -1,3 +1,5 @@
+xca 2.0.0 Tue Apr 10 2018
+
  * Open database before starting a transaction
  * Fix default hash during startup
  * Fix Importing PKCS#12 and PKCS#7 files
