@@ -1,7 +1,5 @@
 # XCA -- X Certificate and Key Management
 
-### This is a pre-release. Please test it and report any issues here - Thanks!
-
 ## __Release Notes__
 
  * Make a backup copy of your database!
