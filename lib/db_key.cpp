@@ -177,7 +177,10 @@ void db_key::newItem(QString name)
 		return;
 	}
 	int ksize = dlg->getKeysize();
-	if (ksize > 0) {
+#ifndef OPENSSL_NO_EC
+	if (dlg->getKeytype() != EVP_PKEY_EC)
+#endif
+	{
 		if (ksize < 32) {
 			XCA_WARN(tr("Key size too small !"));
 			delete dlg;
