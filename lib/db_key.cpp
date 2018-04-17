@@ -296,7 +296,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 
 void db_key::store(QModelIndex index)
 {
-	const EVP_CIPHER *enc = NULL;
+	const EVP_CIPHER *algo = NULL, *encrypt = EVP_aes_256_cbc();
 	QString title = tr("Export public key [%1]");
 	QList<exportType> types;
 
@@ -355,17 +355,17 @@ void db_key::store(QModelIndex index)
 			key->writePublic(fname, true);
 			break;
 		case exportType::PEM_private_encrypt:
-			enc = EVP_des_ede3_cbc();
+			algo = encrypt;
 			/* fallthrough */
 		case exportType::PEM_private:
-			privkey->writeKey(fname, enc,
+			privkey->writeKey(fname, algo,
 				PwDialog::pwCallback, true);
 			break;
 		case exportType::PKCS8_encrypt:
-			enc = EVP_des_ede3_cbc();
+			algo = encrypt;
 			/* fallthrough */
 		case exportType::PKCS8:
-			privkey->writePKCS8(fname, enc,
+			privkey->writePKCS8(fname, algo,
 				PwDialog::pwCallback, true);
 			break;
 		case exportType::SSH2_public:
