@@ -76,24 +76,12 @@ bool OpenDb::isRemoteDB(QString db)
 	return remote_param.size() == NUM_PARAM;
 }
 
-void OpenDb::setupDatabaseName(QString db)
+void OpenDb::fillDbDropDown(QString current)
 {
-	if (!isRemoteDB(db))
-		return;
-
-	DbMap databases, remote_param = splitRemoteDbName(db);
-	QString dbTypeName;
-
-	userName->setText(remote_param["user"]);
-	hostName->setText(remote_param["host"]);
-	dbName->setText(remote_param["dbname"]);
-	prefix->setText(remote_param["prefix"]);
-
-	dbTypeName = remote_param["type"];
-	databases = getDatabases();
-	foreach (QString driver, databases.keys()) {
+	DbMap databases = getDatabases();
+	foreach(QString driver, databases.keys()) {
 		dbType->insertItem(0, databases[driver], driver);
-		if (driver == dbTypeName)
+		if (driver == current)
 			dbType->setCurrentIndex(0);
 	}
 	if (dbType->count() == 1) {
@@ -102,11 +90,26 @@ void OpenDb::setupDatabaseName(QString db)
 	}
 }
 
+void OpenDb::setupDatabaseName(QString db)
+{
+	if (!isRemoteDB(db))
+		return;
+
+	DbMap remote_param = splitRemoteDbName(db);
+
+	userName->setText(remote_param["user"]);
+	hostName->setText(remote_param["host"]);
+	dbName->setText(remote_param["dbname"]);
+	prefix->setText(remote_param["prefix"]);
+	fillDbDropDown(remote_param["type"]);
+}
+
 OpenDb::OpenDb(QWidget *parent, QString db)
 	:QDialog(parent)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
+	fillDbDropDown();
 
 	if (isRemoteDB(db)) {
 		setupDatabaseName(db);

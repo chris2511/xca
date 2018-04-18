@@ -24,6 +24,7 @@ class OpenDb: public QDialog, public Ui::OpenDb
 	bool _openDatabase(QString connName, QString pass) const;
 	void setupDatabaseName(QString db);
 	QString getDbType() const;
+	void fillDbDropDown(QString current = QString());
 
     public:
 	OpenDb(QWidget *parent, QString db);
