@@ -282,13 +282,15 @@ void db_base::deletePKI(QModelIndex idx)
 
 void db_base::showItem(const QModelIndex &index)
 {
-	showPki(static_cast<pki_base*>(index.internalPointer()));
+	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+	if (pki->isVisible() == 1)
+		showPki(pki);
 }
 
 void db_base::showItem(const QString name)
 {
 	pki_base *pki = lookupPki<pki_base>(name.toULongLong());
-	if (pki)
+	if (pki && pki->isVisible() == 1)
 		showPki(pki);
 }
 
@@ -433,7 +435,8 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	switch (role) {
 		case Qt::EditRole:
 		case Qt::DisplayRole:
-			return item->column_data(hd);
+			if (hd->id == HD_internal_name || item->isVisible() == 1)
+				return item->column_data(hd);
 		case Qt::DecorationRole:
 			return item->getIcon(hd);
 		case Qt::TextAlignmentRole:
@@ -443,7 +446,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:
-			return item->visible();
+			return item->isVisible();
 	}
 	return QVariant();
 }
@@ -479,14 +482,16 @@ QVariant db_base::headerData(int section, Qt::Orientation orientation,
 Qt::ItemFlags db_base::flags(const QModelIndex &index) const
 {
 	if (!index.isValid())
-		return Qt::ItemIsEnabled;
+		return Qt::NoItemFlags;
 
-	Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
-	defaultFlags |= Qt::ItemIsDragEnabled;
-
-	if (index.column() == 0)
-		return defaultFlags |= Qt::ItemIsEditable;
-	return defaultFlags;
+	Qt::ItemFlags flags = QAbstractItemModel::flags(index) |
+				Qt::ItemIsDragEnabled;
+	pki_base *item = static_cast<pki_base*>(index.internalPointer());
+	if (item->isVisible() == 2)
+		flags &= ~Qt::ItemIsEnabled;
+	else if (index.column() == 0)
+		flags |= Qt::ItemIsEditable;
+	return flags;
 }
 
 bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)

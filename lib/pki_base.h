@@ -153,6 +153,8 @@ class pki_base : public QObject
 		virtual QVariant column_data(dbheader *hd) const;
 		virtual QVariant getIcon(dbheader *hd) const;
 		virtual bool visible() const;
+		int isVisible();
+		bool childVisible() const;
 
 		/* SQL management methods */
 		QSqlError insertSql();

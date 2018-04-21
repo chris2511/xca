@@ -53,6 +53,21 @@ bool pki_base::visible() const
 		comment.contains(limitPattern);
 }
 
+bool pki_base::childVisible() const
+{
+	foreach(pki_base *child, childItems)
+		if (child->isVisible())
+			return true;
+	return false;
+}
+
+int pki_base::isVisible()
+{
+	if (limitPattern.isEmpty())
+		return 1;
+	return visible() ? 1 : childVisible() ? 2 : 0;
+}
+
 QString pki_base::getMsg(msg_type msg) const
 {
 	return tr("Internal error: Unexpected message: %1 %2")
