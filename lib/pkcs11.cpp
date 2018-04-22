@@ -660,8 +660,8 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	return size;
 }
 
-#if OPENSSL_VERSION_NUMBER < 0x10000000L ||								\
-	OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0x10000000L || \
+    OPENSSL_VERSION_NUMBER >= 0x10100000L && ! defined LIBRESSL_VERSION_NUMBER
 static int rsa_privdata_free(RSA *rsa)
 {
 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);

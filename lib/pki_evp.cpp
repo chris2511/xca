@@ -510,7 +510,8 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 		(const unsigned char*)myencKey.constData() +8,
 		myencKey.count() -8);
 	decsize = outl;
-	EVP_DecryptFinal(ctx, p + decsize , &outl);
+	EVP_DecryptFinal_ex(ctx, p + decsize , &outl);
+	EVP_CIPHER_CTX_cleanup(ctx);
 	decsize += outl;
 	pki_openssl_error();
 	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
@@ -721,27 +722,24 @@ void pki_evp::writeDefault(const QString fname)
 		mycb, true);
 }
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0x10100000L || defined LIBRESSL_VERSION_NUMBER
 int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
                                          const EVP_CIPHER *enc,
                                          unsigned char *kstr, int klen,
                                          pem_password_cb *cb, void *u)
 {
 	const char *t = "";
-	char pem_str[80];
 	int keytype = EVP_PKEY_id(x);
 
 	switch (keytype) {
-		case EVP_PKEY_RSA: t = "RSA"; break;
-		case EVP_PKEY_DSA: t = "DSA"; break;
+		case EVP_PKEY_RSA: t = "RSA PRIVATE KEY"; break;
+		case EVP_PKEY_DSA: t = "DSA PRIVATE KEY"; break;
 #ifndef OPENSSL_NO_EC
-		case EVP_PKEY_EC: t = "EC"; break;
+		case EVP_PKEY_EC: t = "EC PRIVATE KEY"; break;
 #endif
 	}
-
-	BIO_snprintf(pem_str, 80, "%s PRIVATE KEY", t);
 	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
-				pem_str, bp, (char*)x, enc, kstr, klen, cb, u);
+				t, bp, (char*)x, enc, kstr, klen, cb, u);
 }
 #endif
 

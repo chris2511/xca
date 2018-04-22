@@ -14,6 +14,8 @@
 #ifndef __OPENSS_COMPAT_XCA_H
 #define __OPENSS_COMPAT_XCA_H
 
+#include <openssl/opensslv.h>
+
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
 #include <openssl/rsa.h>
 #include <openssl/dsa.h>
@@ -75,7 +77,7 @@ RSA_get0_factors(const RSA *r, const BIGNUM **p, const BIGNUM **q)
 }
 static inline void
 RSA_get0_crt_params(const RSA *r, const BIGNUM **dmp1, const BIGNUM **dmq1,
-								const BIGNUM **iqmp)
+							const BIGNUM **iqmp)
 {
 	if (dmp1) *dmp1=r->dmp1;
 	if (dmq1) *dmq1=r->dmq1;
