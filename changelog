@@ -1,3 +1,8 @@
+ * Close #24: Add LibreSSL support. Tested with LibreSSL 2.7.2
+ * Close #23: Improve limiting to pattern in certificate tree view
+ * Close #20: Unable to chose remote database type (dropdown empty)
+ * Close #19: Replace 3DES encryption by AES-256 during key export
+
 xca 2.0.0 Tue Apr 10 2018
 
  * Open database before starting a transaction
