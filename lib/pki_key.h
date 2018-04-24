@@ -96,7 +96,7 @@ class pki_key: public pki_base
 		}
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 Q_DECLARE_METATYPE(pki_key *);

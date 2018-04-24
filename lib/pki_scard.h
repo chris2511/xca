@@ -96,7 +96,7 @@ class pki_scard: public pki_key
 		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 #endif

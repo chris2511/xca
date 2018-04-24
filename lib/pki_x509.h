@@ -162,7 +162,7 @@ class pki_x509 : public pki_x509super
 		}
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 Q_DECLARE_METATYPE(pki_x509 *);

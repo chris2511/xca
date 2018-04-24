@@ -109,7 +109,7 @@ QSqlError pki_x509::insertSqlData()
 	return q.lastError();
 }
 
-void pki_x509::restoreSql(QSqlRecord &rec)
+void pki_x509::restoreSql(const QSqlRecord &rec)
 {
 	pki_x509super::restoreSql(rec);
 	QByteArray ba = QByteArray::fromBase64(

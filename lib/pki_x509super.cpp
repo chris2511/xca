@@ -54,7 +54,7 @@ QSqlError pki_x509super::insertSqlData()
 	return q.lastError();
 }
 
-void pki_x509super::restoreSql(QSqlRecord &rec)
+void pki_x509super::restoreSql(const QSqlRecord &rec)
 {
 	pki_base::restoreSql(rec);
 	keySqlId = rec.value(VIEW_x509super_keyid);

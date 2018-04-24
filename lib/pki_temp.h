@@ -94,7 +94,7 @@ class pki_temp: public pki_x509name
 		extList fromCert(pki_x509super *cert_or_req);
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 Q_DECLARE_METATYPE(pki_temp *);

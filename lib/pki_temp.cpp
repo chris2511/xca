@@ -90,7 +90,7 @@ QSqlError pki_temp::insertSqlData()
 	return q.lastError();
 }
 
-void pki_temp::restoreSql(QSqlRecord &rec)
+void pki_temp::restoreSql(const QSqlRecord &rec)
 {
 	pki_base::restoreSql(rec);
 	int version = rec.value(VIEW_temp_version).toInt();

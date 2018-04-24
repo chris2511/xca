@@ -162,7 +162,7 @@ QSqlError pki_base::insertSql()
 	return e;
 }
 
-void pki_base::restoreSql(QSqlRecord &rec)
+void pki_base::restoreSql(const QSqlRecord &rec)
 {
 	sqlItemId = rec.value(VIEW_item_id);
 	desc = rec.value(VIEW_item_name).toString();

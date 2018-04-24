@@ -86,7 +86,7 @@ QSqlError pki_crl::insertSqlData()
 	return q.lastError();
 }
 
-void pki_crl::restoreSql(QSqlRecord &rec)
+void pki_crl::restoreSql(const QSqlRecord &rec)
 {
 	pki_base::restoreSql(rec);
 	QByteArray ba = QByteArray::fromBase64(

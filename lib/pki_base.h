@@ -167,7 +167,7 @@ class pki_base : public QObject
 		{
 			return QSqlError();
 		}
-		virtual void restoreSql(QSqlRecord &rec);
+		virtual void restoreSql(const QSqlRecord &rec);
 		QSqlError sqlItemNotFound(QVariant sqlId) const;
 		unsigned hash();
 		QString pki_source_name() const;

@@ -97,7 +97,7 @@ QSqlError pki_scard::insertSqlData()
 	return q.lastError();
 }
 
-void pki_scard::restoreSql(QSqlRecord &rec)
+void pki_scard::restoreSql(const QSqlRecord &rec)
 {
 	pki_key::restoreSql(rec);
 	card_manufacturer = rec.value(VIEW_tokens_card_manufacturer).toString();

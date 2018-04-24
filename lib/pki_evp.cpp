@@ -648,7 +648,7 @@ QSqlError pki_evp::insertSqlData()
 	return q.lastError();
 }
 
-void pki_evp::restoreSql(QSqlRecord &rec)
+void pki_evp::restoreSql(const QSqlRecord &rec)
 {
 	pki_key::restoreSql(rec);
 	isPub = rec.isNull(VIEW_private_ownpass);

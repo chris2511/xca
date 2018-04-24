@@ -74,7 +74,7 @@ class pki_evp: public pki_key
 		bool sqlUpdatePrivateKey();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 #endif

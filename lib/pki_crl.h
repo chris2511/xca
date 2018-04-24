@@ -79,7 +79,7 @@ class pki_crl: public pki_x509name
 		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 #endif

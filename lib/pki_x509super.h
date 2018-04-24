@@ -54,7 +54,7 @@ class pki_x509super : public pki_x509name
 		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
-		void restoreSql(QSqlRecord &rec);
+		void restoreSql(const QSqlRecord &rec);
 };
 
 #endif
