@@ -30,7 +30,7 @@ class db_key: public db_base
 		QList<pki_key*> getAllKeys();
 		pki_base *newPKI(enum pki_type type = none);
 		void inToCont(pki_base *pki);
-		void remFromCont(QModelIndex &idx);
+		void remFromCont(const QModelIndex &idx);
 		pki_base* insert(pki_base *item);
 		void writeAll();
 		void setOwnPass(QModelIndex idx, enum pki_key::passType);

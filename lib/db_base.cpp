@@ -56,7 +56,7 @@ void db_base::createSuccess(pki_base *pki)
 	XCA_INFO(pki->getMsg(pki_base::msg_create).arg(pki->getIntName()));
 }
 
-void db_base::remFromCont(QModelIndex &idx)
+void db_base::remFromCont(const QModelIndex &idx)
 {
 	if (!idx.isValid())
 		return;

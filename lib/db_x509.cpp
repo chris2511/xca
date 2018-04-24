@@ -95,7 +95,7 @@ QList<pki_x509 *> db_x509::getAllIssuers()
 		"WHERE certs.ca=1");
 }
 
-void db_x509::remFromCont(QModelIndex &idx)
+void db_x509::remFromCont(const QModelIndex &idx)
 {
 	db_x509super::remFromCont(idx);
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());

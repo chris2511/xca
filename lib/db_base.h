@@ -115,7 +115,7 @@ class db_base: public QAbstractItemModel
 		}
 		virtual pki_base* insert(pki_base *item);
 		virtual void inToCont(pki_base *pki);
-		virtual void remFromCont(QModelIndex &idx);
+		virtual void remFromCont(const QModelIndex &idx);
 
 		QPixmap *loadImg(const char *name);
 		void writeAll(void);

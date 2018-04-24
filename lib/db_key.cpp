@@ -91,7 +91,7 @@ QList<pki_key *> db_key::getUnusedKeys()
 		"WHERE x509super.item IS NULL");
 }
 
-void db_key::remFromCont(QModelIndex &idx)
+void db_key::remFromCont(const QModelIndex &idx)
 {
 	db_base::remFromCont(idx);
 	XSqlQuery q;
