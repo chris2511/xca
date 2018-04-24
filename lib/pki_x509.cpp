@@ -1010,7 +1010,7 @@ bool pki_x509::visible() const
 	return false;
 }
 
-QVariant pki_x509::bg_color(dbheader *hd) const
+QVariant pki_x509::bg_color(const dbheader *hd) const
 {
 #define BG_RED     QBrush(QColor(255,  0,  0))
 #define BG_YELLOW  QBrush(QColor(255,255,  0))

@@ -144,7 +144,7 @@ class pki_base : public QObject
 		/* Old database management methods */
 		virtual void fromData(const unsigned char *, db_header_t *) {};
 		/* Qt Model-View methods */
-		virtual QVariant bg_color(dbheader *hd)
+		virtual QVariant bg_color(const dbheader *hd) const
 		{
 			(void)hd;
 			return QVariant();

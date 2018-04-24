@@ -151,7 +151,7 @@ class pki_x509 : public pki_x509super
 		QString getMsg(msg_type msg) const;
 		int renameOnToken(slotid slot, QString name);
 		BIO *pem(BIO *, int);
-		QVariant bg_color(dbheader *hd) const;
+		QVariant bg_color(const dbheader *hd) const;
 		void mergeRevList(x509revList &l);
 		void setRevocations(const x509revList &rl);
 		x509revList getRevList() const;

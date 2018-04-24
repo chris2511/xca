@@ -1,3 +1,4 @@
+ * Close #25: Certificates are no longer coloured
  * Close #24: Add LibreSSL support. Tested with LibreSSL 2.7.2
  * Close #23: Improve limiting to pattern in certificate tree view
  * Close #20: Unable to chose remote database type (dropdown empty)
