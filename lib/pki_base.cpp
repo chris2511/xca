@@ -278,7 +278,7 @@ QString pki_base::pki_source_name() const
 	return QString("???");
 }
 
-QVariant pki_base::column_data(dbheader *hd) const
+QVariant pki_base::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
 	case HD_internal_name:
@@ -295,7 +295,7 @@ QVariant pki_base::column_data(dbheader *hd) const
 	return QVariant();
 }
 
-QVariant pki_base::getIcon(dbheader *hd) const
+QVariant pki_base::getIcon(const dbheader *hd) const
 {
 	(void)hd;
 	return QVariant();

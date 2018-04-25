@@ -142,8 +142,8 @@ class pki_x509 : public pki_x509super
 		bool visible() const;
 		void updateView();
 		x509v3ext getExtByNid(int nid) const;
-		QVariant column_data(dbheader *hd) const;
-		QVariant getIcon(dbheader *hd) const;
+		QVariant column_data(const dbheader *hd) const;
+		QVariant getIcon(const dbheader *hd) const;
 		QByteArray i2d() const;
 		void d2i(QByteArray &ba);
 		void deleteFromToken();

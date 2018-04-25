@@ -381,7 +381,7 @@ QString pki_crl::printV3ext()
 	return text;
 }
 
-QVariant pki_crl::column_data(dbheader *hd) const
+QVariant pki_crl::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_crl_signer:
@@ -404,7 +404,7 @@ QVariant pki_crl::column_data(dbheader *hd) const
 	return pki_x509name::column_data(hd);
 }
 
-QVariant pki_crl::getIcon(dbheader *hd) const
+QVariant pki_crl::getIcon(const dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }

@@ -412,7 +412,7 @@ QString pki_key::BN2QString(const BIGNUM *bn) const
 	return x;
 }
 
-QVariant pki_key::column_data(dbheader *hd) const
+QVariant pki_key::column_data(const dbheader *hd) const
 {
 	QStringList sl;
 	sl << tr("Common") << tr("Private") << tr("Bogus") << tr("PIN");

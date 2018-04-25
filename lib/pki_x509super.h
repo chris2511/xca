@@ -22,7 +22,7 @@ class pki_x509name : public pki_base
 	pki_x509name(const QString name = "");
 	virtual x509name getSubject() const = 0;
 	void autoIntName();
-	QVariant column_data(dbheader *hd) const;
+	QVariant column_data(const dbheader *hd) const;
 	bool visible() const;
 };
 
@@ -49,7 +49,7 @@ class pki_x509super : public pki_x509name
 		bool compareRefKey(pki_key* ref) const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);
-		QVariant column_data(dbheader *hd) const;
+		QVariant column_data(const dbheader *hd) const;
 		void opensslConf(QString fname);
 		bool visible() const;
 		QSqlError insertSqlData();

@@ -836,7 +836,7 @@ bool pki_scard::isToken()
 	return true;
 }
 
-QVariant pki_scard::getIcon(dbheader *hd) const
+QVariant pki_scard::getIcon(const dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
 }

@@ -121,7 +121,7 @@ const EVP_MD *pki_x509super::getDigest()
 	return EVP_get_digestbynid(sigAlg());
 }
 
-QVariant pki_x509super::column_data(dbheader *hd) const
+QVariant pki_x509super::column_data(const dbheader *hd) const
 {
 	if (hd->id == HD_x509key_name) {
 		if (!privkey)
@@ -218,7 +218,7 @@ void pki_x509name::autoIntName()
 	setIntName(subject.getMostPopular());
 }
 
-QVariant pki_x509name::column_data(dbheader *hd) const
+QVariant pki_x509name::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
 	case HD_subject_name:

@@ -315,7 +315,7 @@ QString pki_x509req::getAttribute(int nid) const
 	return ret.join(", ");
 }
 
-QVariant pki_x509req::column_data(dbheader *hd) const
+QVariant pki_x509req::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
 	case HD_req_signed:
@@ -328,7 +328,7 @@ QVariant pki_x509req::column_data(dbheader *hd) const
 	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509req::getIcon(dbheader *hd) const
+QVariant pki_x509req::getIcon(const dbheader *hd) const
 {
 	int pixnum = -1;
 	pki_key *k;

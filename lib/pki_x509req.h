@@ -52,8 +52,8 @@ class pki_x509req : public pki_x509super
 		void createReq(pki_key *key, const x509name &dn,
 				const EVP_MD *md, extList el);
 		void setSubject(const x509name &n);
-		QVariant column_data(dbheader *hd) const;
-		QVariant getIcon(dbheader *hd) const;
+		QVariant column_data(const dbheader *hd) const;
+		QVariant getIcon(const dbheader *hd) const;
 		void setDone(bool d = true)
 		{
 			done = d;

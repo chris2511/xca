@@ -70,7 +70,7 @@ class pki_evp: public pki_key
 		void writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
 		int verify();
-		QVariant getIcon(dbheader *hd) const;
+		QVariant getIcon(const dbheader *hd) const;
 		bool sqlUpdatePrivateKey();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();

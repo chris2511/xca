@@ -924,7 +924,7 @@ bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen) const
 	return true;
 }
 
-QVariant pki_x509::column_data(dbheader *hd) const
+QVariant pki_x509::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_cert_serial:
@@ -964,7 +964,7 @@ QVariant pki_x509::column_data(dbheader *hd) const
 	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509::getIcon(dbheader *hd) const
+QVariant pki_x509::getIcon(const dbheader *hd) const
 {
 	int pixnum = 0;
 	bool ca;

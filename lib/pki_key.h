@@ -78,7 +78,7 @@ class pki_key: public pki_base
 			return isPub;
 		}
 		BIO *pem(BIO *, int);
-		QVariant column_data(dbheader *hd) const;
+		QVariant column_data(const dbheader *hd) const;
 		QString modulus() const;
 		QString pubEx() const;
 		QString subprime() const;
