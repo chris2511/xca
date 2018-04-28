@@ -964,6 +964,41 @@ QVariant pki_x509::column_data(const dbheader *hd) const
 	return pki_x509super::column_data(hd);
 }
 
+QStringList pki_x509::icsVEVENT() const
+{
+	return pki_base::icsVEVENT(getNotAfter(),
+		tr("Renew certificate: %1").arg(getIntName()),
+		tr("The XCA certificate '%1', issued on %2 "
+		   "will expire on %3.\n"
+		   "It is stored in the XCA database '%4'")
+			.arg(getIntName())
+			.arg(getNotBefore().toPretty())
+			.arg(getNotAfter().toPretty())
+			.arg(currentDB)
+	);
+}
+
+QStringList pki_x509::icsVEVENT_ca() const
+{
+	QStringList ics;
+	ics << icsVEVENT();
+	foreach(pki_base *p, childItems) {
+		pki_x509 *pki = static_cast<pki_x509 *>(p);
+		if (pki->getNotAfter() > a1time() && !isRevoked())
+			ics << pki->icsVEVENT();
+	}
+
+	ics << pki_base::icsVEVENT(crlExpire,
+		tr("CRL Renewal of CA '%1' due").arg(getIntName()),
+		tr("The latest CRL issued by the CA '%1' will expire on %2.\n"
+		  "It is stored in the XCA database '%3'")
+			.arg(getIntName())
+			.arg(crlExpire.toPretty())
+			.arg(currentDB)
+	);
+	return ics;
+}
+
 QVariant pki_x509::getIcon(const dbheader *hd) const
 {
 	int pixnum = 0;

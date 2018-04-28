@@ -86,6 +86,8 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 		tr("Encrypted private key in PKCS#8 text format");
 	help[exportType::SSH2_public] = tr("The public key encoded in SSH2 format");
 	help[exportType::Index] = tr("OpenSSL specific Certificate Index file as created by the 'ca' command and required by the OCSP tool");
+	help[exportType::vcalendar] = tr("vCalendar expiry reminder for the selected items");
+	help[exportType::vcalendar_ca] = tr("vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL");
 
 	on_exportFormat_highlighted(0);
 }

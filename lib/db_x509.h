@@ -41,9 +41,9 @@ class db_x509: public db_x509super
 		void remFromCont(const QModelIndex &idx);
 		QList<pki_x509*> getAllIssuers();
 		QList<pki_x509*> getCerts(bool unrevoked);
-		void writeIndex(const QString fname, bool hierarchy);
-		void writeIndex(const QString fname, QList<pki_x509*> items);
-		void writeAllCerts(const QString fname, bool unrevoked);
+		void writeIndex(const QString &fname, bool hierarchy);
+		void writeIndex(const QString &fname, QList<pki_x509*> items);
+		void writeAllCerts(const QString &fname, bool unrevoked);
 		pki_base *insert(pki_base *item);
 		void markRequestSigned(pki_x509req *req, pki_x509 *cert);
 		pki_x509 *newCert(NewX509 *dlg);

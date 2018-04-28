@@ -270,7 +270,7 @@ void db_x509::inToCont(pki_base *pki)
 	}
 }
 
-void db_x509::writeAllCerts(const QString fname, bool unrevoked)
+void db_x509::writeAllCerts(const QString &fname, bool unrevoked)
 {
 	bool append = false;
 	FOR_ALL_pki(pki, pki_x509) {
@@ -293,7 +293,7 @@ QList<pki_x509*> db_x509::getCerts(bool unrevoked)
 	return c;
 }
 
-void db_x509::writeIndex(const QString fname, bool hierarchy)
+void db_x509::writeIndex(const QString &fname, bool hierarchy)
 {
 	if (hierarchy) {
 		QString dir = fname + "/";
@@ -664,6 +664,13 @@ void db_x509::store(QModelIndexList list)
 			tr("PEM all")) <<
 		exportType(exportType::Index, "txt",
 			tr("Certificate Index file"));
+	if (crt->getNotAfter() < a1time())
+		types << exportType(exportType::vcalendar, "ics",
+			tr("vCalendar"));
+
+	if (crt->isCA())
+		types << exportType(exportType::vcalendar_ca, "ics",
+			tr("CA vCalendar"));
 
 	types = usual << exportType() << types;
 	ExportDialog *dlg = new ExportDialog(mainwin, tr("Certificate export"),
@@ -674,7 +681,9 @@ void db_x509::store(QModelIndexList list)
 		return;
 	}
 	QString fname = dlg->filename->text();
+	QStringList vcal;
 	QList<pki_x509*> certs;
+	QList<pki_base*> items;
 	enum exportType::etype type = dlg->type();
 	delete dlg;
 	try {
@@ -749,6 +758,20 @@ void db_x509::store(QModelIndexList list)
 					(idx.internalPointer());
 			writeIndex(fname, certs);
 			break;
+		case exportType::vcalendar:
+			foreach(QModelIndex idx, list) {
+				crt = static_cast<pki_x509*>(idx.internalPointer());
+				vcal += crt->icsVEVENT();
+			}
+			writeVcalendar(fname, vcal);
+			break;
+		case exportType::vcalendar_ca:
+			foreach(QModelIndex idx, list) {
+				crt = static_cast<pki_x509*>(idx.internalPointer());
+				vcal += crt->icsVEVENT_ca();
+			}
+			writeVcalendar(fname, vcal);
+			break;
 		default:
 			exit(1);
 		}
@@ -758,7 +781,7 @@ void db_x509::store(QModelIndexList list)
 	}
 }
 
-void db_x509::writeIndex(const QString fname, QList<pki_x509*> items)
+void db_x509::writeIndex(const QString &fname, QList<pki_x509*> items)
 {
 	QFile file(fname);
 	file.open(QFile::ReadWrite | QFile::Truncate);

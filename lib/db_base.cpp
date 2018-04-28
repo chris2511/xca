@@ -671,3 +671,22 @@ QMimeData *db_base::mimeData(const QModelIndexList &indexes) const
 	mimeData->setData(X_XCA_DRAG_DATA, QByteArray());
 	return mimeData;
 }
+
+void db_base::writeVcalendar(const QString &fname, QStringList vcal)
+{
+	QFile file(fname);
+	file.open(QFile::ReadWrite | QFile::Truncate);
+	if (file.error()) {
+		throw errorEx(tr("Error opening file: '%1': %2")
+			.arg(fname).arg(strerror(errno)));
+		return;
+	}
+
+	QStringList ics; ics <<
+	"BEGIN:VCALENDAR" <<
+	"VERSION:2.0" <<
+	"PRODID:-//" XCA_TITLE "//" PACKAGE_VERSION "//" <<
+	vcal <<
+	"END:VCALENDAR";
+	file.write(ics.join("\r\n").toUtf8());
+}

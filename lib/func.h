@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 
 class Validity;
+extern QString currentDB;
 
 QPixmap *loadImg(const char *name);
 QString getPrefix();

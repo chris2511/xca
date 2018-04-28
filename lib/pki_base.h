@@ -173,6 +173,8 @@ class pki_base : public QObject
 		QString pki_source_name() const;
 		QString get_dump_filename(const QString &dir, QString ext);
 		void selfComment(QString msg);
+		QStringList icsVEVENT(const a1time &expires,
+		    const QString &summary, const QString &description) const;
 };
 
 Q_DECLARE_METATYPE(pki_base *);

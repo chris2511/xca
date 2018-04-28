@@ -151,8 +151,10 @@ void db_crl::store(QModelIndex index)
 	if (!crl)
 		return;
 
-	types << exportType(exportType::PEM, "pem", "PEM") <<
-			exportType(exportType::DER, "der", "DER");
+	types <<
+		exportType(exportType::PEM, "pem", "PEM") <<
+		exportType(exportType::DER, "der", "DER") <<
+		exportType(exportType::vcalendar, "ics", "vCalendar");
 	ExportDialog *dlg = new ExportDialog(mainwin,
 			tr("Revocation list export"),
 			tr("CRL ( *.pem *.der *.crl )"), crl,
@@ -164,7 +166,11 @@ void db_crl::store(QModelIndex index)
 	QString fname = dlg->filename->text();
 
 	try {
-		crl->writeCrl(fname, dlg->type() == exportType::PEM);
+		if (dlg->type() == exportType::vcalendar) {
+			writeVcalendar(fname, crl->icsVEVENT());
+		} else {
+			crl->writeCrl(fname, dlg->type() == exportType::PEM);
+		}
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);

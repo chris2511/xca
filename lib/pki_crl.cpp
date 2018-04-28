@@ -408,3 +408,17 @@ QVariant pki_crl::getIcon(const dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
+
+QStringList pki_crl::icsVEVENT() const
+{
+	return pki_base::icsVEVENT(getNextUpdate(),
+		tr("Renew CRL: %1").arg(getIntName()),
+		tr("The XCA CRL '%1', issued by the CA '%2' on %3 will expire on %4.\n"
+		  "It is stored in the XCA database '%5'")
+			.arg(getIntName())
+			.arg(issuer ? getIssuerName() : QString())
+			.arg(getLastUpdate().toPretty())
+			.arg(getNextUpdate().toPretty())
+			.arg(currentDB)
+	);
+}

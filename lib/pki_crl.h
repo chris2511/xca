@@ -80,6 +80,7 @@ class pki_crl: public pki_x509name
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(const QSqlRecord &rec);
+		QStringList icsVEVENT() const;
 };
 
 #endif

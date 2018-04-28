@@ -7,6 +7,7 @@
 
 #include "base.h"
 #include "func.h"
+#include "main.h"
 #include "exception.h"
 #include <time.h>
 #include "asn1time.h"
@@ -50,7 +51,7 @@ int a1time::from_asn1(const ASN1_TIME *a)
 	return fromPlain(t);
 }
 
-int a1time::fromPlain(QString plain)
+int a1time::fromPlain(const QString &plain)
 {
 	setTimeSpec(Qt::LocalTime);
 	if (plain == UNDEFINED_DATE)
@@ -61,7 +62,7 @@ int a1time::fromPlain(QString plain)
 	return isValid() ? 0 : -1;
 }
 
-int a1time::set_asn1(QString str, int type)
+int a1time::set_asn1(const QString &str, int type)
 {
 	if (!atime)
 		atime = ASN1_TIME_new();
@@ -106,7 +107,7 @@ a1time::a1time(const ASN1_TIME *a)
 	from_asn1(a);
 }
 
-a1time::a1time(QString plain)
+a1time::a1time(const QString &plain)
 {
 	atime = NULL;
 	fromPlain(plain);
@@ -147,57 +148,48 @@ a1time &a1time::set(const ASN1_TIME *a)
 	return *this;
 }
 
-QString a1time::toPretty() const
+QString a1time::toString(QString fmt, Qt::TimeSpec spec) const
 {
 	if (isUndefined())
 		return QObject::tr("Undefined");
 	if (!isValid())
-		 return QObject::tr("Broken / Invalid");
+		return QObject::tr("Broken / Invalid");
+	return (spec == Qt::UTC ? toUTC() : toLocalTime()).toString(fmt);
+}
 
-	return toLocalTime().toString(Qt::DefaultLocaleLongDate);
+QString a1time::toPretty() const
+{
+	QString fmt = XCA_application::language().dateTimeFormat();
+	return toString(fmt, Qt::LocalTime);
 }
 
 QString a1time::toPrettyGMT() const
 {
-	if (isUndefined())
-		return QObject::tr("Undefined");
-	if (!isValid())
-		 return QObject::tr("Broken / Invalid");
-
-	return toUTC().toString(Qt::ISODate) + " GMT";
-}
-
-QString a1time::toPlain() const
-{
-	if (isUndefined())
-		return QString(UNDEFINED_DATE);
-	if (!isValid())
-		 return QString("Broken-InvalidZ");
-	return toUTC().toString(GEN_FORMAT);
-}
-
-QString a1time::toPlainUTC() const
-{
-	if (isUndefined())
-		return QString(UNDEFINED_DATE);
-	if (!isValid())
-		 return QString("Broken-InvalidZ");
-	return toUTC().toString(UTC_FORMAT);
+	return toString("yyyy-MM-dd'T'HH:mm:ss' GMT'");
 }
 
 QString a1time::toSortable() const
 {
+	return toString("yyyy-MM-dd");
+}
+
+QString a1time::toPlain(const QString &fmt) const
+{
 	if (isUndefined())
-		return QObject::tr("Undefined");
+		return QString(UNDEFINED_DATE);
 	if (!isValid())
-		 return QObject::tr("Broken / Invalid");
-	return toUTC().toString("yyyy-MM-dd");
+		return QString("Broken-InvalidZ");
+	return toString(fmt.isEmpty() ? GEN_FORMAT : fmt);
+}
+
+QString a1time::toPlainUTC() const
+{
+	return toPlain(UTC_FORMAT);
 }
 
 QDateTime a1time::now(int delta)
 {
-	QDateTime dt = QDateTime::currentDateTime().toUTC().addSecs(delta);
-	return dt;
+	return QDateTime::currentDateTime().toUTC().addSecs(delta);
 }
 
 void a1time::d2i(QByteArray &ba)

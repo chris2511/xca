@@ -41,6 +41,8 @@
 #include <shlobj.h>
 #endif
 
+QString currentDB;
+
 QPixmap *loadImg(const char *name )
 {
 	return new QPixmap(QString(":") + name);

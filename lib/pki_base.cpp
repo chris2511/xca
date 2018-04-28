@@ -12,6 +12,7 @@
 #include <QString>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
+#include <openssl/md5.h>
 #include <typeinfo>
 
 QRegExp pki_base::limitPattern;
@@ -341,4 +342,51 @@ QString pki_base::get_dump_filename(const QString &dir, QString ext)
 void pki_base::selfComment(QString msg)
 {
 	setComment(appendXcaComment(getComment(), msg));
+}
+
+static QString icsValue(QString s)
+{
+	int n = 60;
+	QStringList lines;
+
+	QString t = s.replace(QRegExp("([,;\\\\])"), "\\\\1")
+			.replace("\n", "\\n")
+			.replace("\r", "\\r");
+	qDebug() << "S:" << s;
+	for (int j = n; !s.isEmpty(); j--) {
+		QString sub = s.left(j);
+		if (sub.endsWith("\\") || sub.toUtf8().length() > n)
+			continue;
+		s.remove(0, j);
+		lines << sub;
+		j = n = 74;
+	}
+	return lines.join("\r\n ");
+}
+
+QStringList pki_base::icsVEVENT(const a1time &expires,
+	const QString &summary, const QString &description) const
+{
+	QByteArray ba = i2d();
+	unsigned char md[MD5_DIGEST_LENGTH];
+	MD5((const unsigned char *)ba.constData(), ba.length(), md);
+	QString uniqueid = formatHash(md, MD5_DIGEST_LENGTH, false);
+	QString desc = icsValue(description + "\n----------\n" + comment);
+	return QStringList() <<
+
+	"BEGIN:VEVENT" <<
+	QString("DTSTAMP:%1").arg(a1time().toString("yyyyMMdd'T'HHmmss'Z'")) <<
+	QString("UID:EXP-%1@xca.ovh").arg(uniqueid) <<
+	"STATUS:NEEDS-ACTION" <<
+	QString("DTSTART:%1").arg(expires.toString("yyyyMMdd")) <<
+	"DURATION:P1D" <<
+	QString("SUMMARY:%1").arg(icsValue(summary)) <<
+	QString("DESCRIPTION:%1").arg(desc) <<
+	"BEGIN:VALARM" <<
+	"ACTION:EMAIL" <<
+	QString("SUMMARY:%1").arg(icsValue(summary)) <<
+	QString("DESCRIPTION:%1").arg(desc) <<
+	"TRIGGER:-P1W" <<
+	"END:VALARM" <<
+	"END:VEVENT";
 }
