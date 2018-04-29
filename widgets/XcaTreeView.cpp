@@ -49,6 +49,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	connect(&throttle, SIGNAL(timeout()), this, SLOT(columnsResize()));
 	connect(&throttle, SIGNAL(timeout()), proxy, SLOT(invalidate()));
 	setFocusPolicy(Qt::StrongFocus);
+	setExpandsOnDoubleClick(false);
 }
 
 XcaTreeView::~XcaTreeView()
