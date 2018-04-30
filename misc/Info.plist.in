@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>xca</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2018, Christian Hohnstädt</string>
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
+	<key>CFBundleShortVersionString</key>
+	<string>@PACKAGE_VERSION@</string>
+	<key>CFBundleVersion</key>
+	<string>@PACKAGE_VERSION@</string>
+	<key>CFBundleIconFile</key>
+	<string>xca-mac-icon.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>de.hohnstaedt.xca</string>
+	<key>CFBundleName</key>
+	<string>xca</string>
+	<key>CFBundleDisplayName</key>
+	<string>X Certificate and Key management</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>cxca</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xdb</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>xca-mac-icon.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-xca-database</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>XCA Database</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		        <key>LSIsAppleDefaultForType</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xca</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>xca-mac-icon.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-xca-template</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>XCA Template</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		        <key>LSIsAppleDefaultForType</key>
+			<true/>
+		</dict>
+	</array>
+
+</dict>
+</plist>

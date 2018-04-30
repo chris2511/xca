@@ -252,3 +252,4 @@ fi
 AC_CONFIG_HEADERS(local.h)
 AC_CONFIG_LINKS(Makefile:Makefile)
 AC_OUTPUT([Local.mak])
+AC_OUTPUT([misc/Info.plist])
