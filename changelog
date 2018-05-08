@@ -1,3 +1,5 @@
+xca 2.0.1 Tue May 08 2018
+
  * Close #32: Version field contains "Created by Qt/QMake" on MacOSX
  * Review and update russian ltranslation
  * Close #31: Closing certificate details window toggles tree folding
