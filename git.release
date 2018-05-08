@@ -20,9 +20,30 @@ if ! git diff-index --quiet HEAD --; then
   exit 1
 fi
 
-! git grep -q "^xca $TVERSION " changelog
-! git grep -q "$TVERSION" VERSION
+lasttag=$(git describe --abbrev=0 HEAD)
+unset unchanged
+for i in changelog doc/xca.sgml README.md; do
+  if ! git diff --quiet "$lasttag" -- $i; then
+    echo "File $i untouched since $lasttag"
+    unchanged="x"
+  fi
+done
 
+if test -n "$unchanged"; then
+  echo "Are you sure to not change the file(s) above?"
+  read a
+fi
+
+x=$(git grep "^xca $TVERSION " changelog ||
+  git grep "$TVERSION" VERSION || :)
+
+if test -n "$x"; then
+  echo "$x"
+  echo Release $TVERSIO already exists
+  exit 1
+fi
+
+exit 0
 echo "$TVERSION" > VERSION
 (
  LANG=C date +"xca $TVERSION %a %b %d %Y"
