@@ -37,8 +37,8 @@ install:
 	  update-desktop-database || :; \
 	fi
 
-app:
+app: Info.plist
 	mkdir -p $(APPDIR)/Resources
-	install -m 644 $(SRCPATH)Info.plist $(SRCPATH)PkgInfo $(APPDIR)
+	install -m 644 $^ $(SRCPATH)PkgInfo $(APPDIR)
 	install -m 644 $(CONFIG_OBJ) $(SRCPATH)*.xca $(APPDIR)/Resources
 
