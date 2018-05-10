@@ -372,6 +372,7 @@ QStringList pki_base::icsVEVENT(const a1time &expires,
 	MD5((const unsigned char *)ba.constData(), ba.length(), md);
 	QString uniqueid = formatHash(md, MD5_DIGEST_LENGTH, false);
 	QString desc = icsValue(description + "\n----------\n" + comment);
+	QString alarm = Settings["ical_expiry"];
 	return QStringList() <<
 
 	"BEGIN:VEVENT" <<
@@ -386,7 +387,7 @@ QStringList pki_base::icsVEVENT(const a1time &expires,
 	"ACTION:EMAIL" <<
 	QString("SUMMARY:%1").arg(icsValue(summary)) <<
 	QString("DESCRIPTION:%1").arg(desc) <<
-	"TRIGGER:-P1W" <<
+	QString("TRIGGER:-P%1").arg(alarm) <<
 	"END:VALARM" <<
 	"END:VEVENT";
 }

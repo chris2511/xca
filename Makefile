@@ -28,7 +28,7 @@ INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
 APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
-MACTARGET=$(DMGSTAGE)-$(DARWIN)${EXTRA_VERSION}
+MACTARGET=$(DMGSTAGE)-${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
 OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \

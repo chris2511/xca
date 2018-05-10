@@ -51,6 +51,20 @@ Options::Options(MainWindow *parent)
 	transDnEntries->setCheckState(Settings["translate_dn"]);
 	onlyTokenHashes->setCheckState(Settings["only_token_hashes"]);
 	disableNetscape->setCheckState(Settings["disable_netscape"]);
+
+	QStringList units;
+	QString x = Settings["ical_expiry"];
+
+	units << tr("Days") << "D" << tr("Weeks") << "W";
+	ical_expiry_unit->addItemsData(units, x.right(1));
+	x.chop(1);
+	ical_expiry_num->setText(x);
+
+	units << "%" << "%";
+	x = QString(Settings["cert_expiry"]);
+	cert_expiry_unit->addItemsData(units, x.right(1));
+	x.chop(1);
+	cert_expiry_num->setText(x);
 }
 
 Options::~Options()
@@ -128,6 +142,11 @@ int Options::exec()
 	Settings["explicit_dn"] = getDnString(expDNlist);
 	Settings["string_opt"] = string_opts[mbstring->currentIndex()];
 	Settings["pkcs11path"] = getPkcs11Provider();
+
+	Settings["cert_expiry"] = cert_expiry_num->text() +
+				cert_expiry_unit->currentItemData().toString();
+	Settings["ical_expiry"] = ical_expiry_num->text() +
+				ical_expiry_unit->currentItemData().toString();
 
 	return TransCommit() ? QDialog::Accepted : QDialog::Rejected;
 }

@@ -1054,17 +1054,25 @@ QVariant pki_x509::bg_color(const dbheader *hd) const
 	if (Settings["no_expire_colors"])
 		return QVariant();
 
+	QString unit, cert_expiry_num = Settings["cert_expiry"];
+	unit = cert_expiry_num.right(1);
+	cert_expiry_num.chop(1);
+	int n = cert_expiry_num.toInt();
+
 	a1time nb, na, now, certwarn;
 
 	nb = getNotBefore();
 	na = getNotAfter();
 	now = a1time::now();
 
-	int lifetime = nb.secsTo(na);
-
-	/* warn after 4/5 certificate lifetime */
-	certwarn = na.addSecs(- lifetime /5);
-
+	if (unit == "%") {
+		quint64 lifetime = nb.secsTo(na);
+		certwarn = nb.addSecs(lifetime *n /100);
+	} else if (unit == "D") {
+		certwarn = na.addDays(-n);
+	} else if (unit == "W") {
+		certwarn = na.addDays(-n*7);
+	}
 	switch (hd->id) {
 		case HD_cert_notBefore:
 			if (nb > now || !nb.isValid() || nb.isUndefined())

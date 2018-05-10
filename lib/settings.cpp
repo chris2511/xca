@@ -31,6 +31,8 @@ settings::settings()
 	defaul["string_opt"] = "MASK:0x2002";
 	defaul["workingdir"] = QDir::currentPath();
 	defaul["default_hash"] = hashBox::getDefault();
+	defaul["ical_expiry"] = "1W";
+	defaul["cert_expiry"] = "80%";
 
 	clear();
 }
