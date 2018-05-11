@@ -2,62 +2,13 @@
 This is a short overview of how to build
 XCA for MAC OSX
 
-Please drop me a mail if you experience problems..
-There are 2 ways to compile XCA on MAC:
+Please drop me a mail if you experience problems.
 
-1) Simple local not very but a little portable build.
-   Use the locally installed OpenSSL library
-
-2) Use an up-to-date OpenSSL library 1.0.Xy and build
-   a 32 bit binary that should run even on "Leopard"
-   This is what I do for the official XCA .dmg releases
-   It is more complicated than 1)
-
-Required tools for 1) and 2):
-  a) XCODE
-     Only the < 200MB "Command Line Tools for Xcode" are required
-     to build XCA, not the complete 2GB Xcode binary.
-  b) Qt Framework 4 (Qt 5 does not work with XCA, yet)
-     For 1) install the qt-mac-carbon-opensource-4.x.y.dmg
-     For 2) we need to compile Qt from source, see below
-
-1) Simple local not very but a little portable build
-   Run
-      $ ./configure && make -j4
-   which should result in an xca-1.x.y-<darwin>.dmg
-
-2) More portable 32 bit app with an up-to-date OpenSSL
-   Read below for using the misc/mac-build.sh script
-   Define an installation directory
-   export INSTALL_DIR="$HOME/src/install"
-
-   a) Compile qt-everywhere-opensource-src-4.8.x
-      with the following command:
-      ./configure -no-qt3support -no-xmlpatterns -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-svg -no-webkit -no-javascript-jit -no-script -no-scripttools -no-declarative -arch x86 -opensource -release -prefix $INSTALL_DIR/Qt485
-
-   b) Compile OpenSSL 1.0.Xy
-
-      # define the installation dir and the path to the new library
-      # it will be installed locally in you home directory
-      export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
-
-      # configure openssl
-      ./config shared --prefix=$INSTALL_DIR
-
-      # build and install OpenSSL
-      make && make install
-
-      # IMPORTANT: you need to change access type of the libs to be writable
-      chmod 755 $OPENSSLINSTALLDIR/lib/*.dylib
-
-   c) Compile ibtool-2.2.6b
-      ./configure --prefix ${INSTALL_DIR} && make -j5 && make install
-
-   d) Compile XCA:
-
-      # configure XCA and build the DMG file
-      export CXXFLAGS="-arch i386 -I${INSTALL_DIR}/include -L${INSTALL_DIR}/lib"
-      ./configure --with-openssl="$INSTALL_DIR" --with-qt="$INSTALL_DIR/Qt485"
-      make -j5 
-
-    I do the steps b) - d) with the misc/build-mac.sh script
+ - Create a base directory "xca" and change into it
+ - unpack xca here
+ - download and install Qt5 in your home directory
+ - edit xca-2.0.1/misc/build-mac.sh and adapt the QTDIR path
+   to point to your Qt5 installation path
+ - create an empty file "build-libs"
+ - execute xca-2.0.1/misc/build-mac.sh
+   This will download and compile openssl and libltdl and then compile xca

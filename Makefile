@@ -159,7 +159,7 @@ $(DMGSTAGE): xca$(SUFFIX)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
+	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
 
 xca.dmg: $(MACTARGET).dmg
 
