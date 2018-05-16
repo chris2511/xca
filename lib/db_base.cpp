@@ -437,6 +437,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::DisplayRole:
 			if (hd->id == HD_internal_name || item->isVisible() == 1)
 				return item->column_data(hd);
+			break;
 		case Qt::DecorationRole:
 			return item->getIcon(hd);
 		case Qt::TextAlignmentRole:
