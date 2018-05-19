@@ -53,7 +53,17 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		ext = NULL;
 	}
 	if (!et.isEmpty()) {
-		QByteArray ba = et.toLocal8Bit();
+		QString etext = et;
+		if (et.contains("DNS:copycn") && ctx && ctx->subject_cert &&
+		    nid == NID_subject_alt_name)
+		{
+			x509name xn(X509_get_subject_name(ctx->subject_cert));
+			QString cn = xn.getEntryByNid(NID_commonName);
+			if (!cn.isEmpty())
+				etext.replace(QString("DNS:copycn"),
+						QString("DNS:%1").arg(cn));
+		}
+		QByteArray ba = etext.toLocal8Bit();
 		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
 	}
 	if (!ext)

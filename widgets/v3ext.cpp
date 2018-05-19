@@ -41,6 +41,8 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 		this, SLOT(setupLineEdit(const QString &, QLineEdit *)));
 	if (le && !le->text().trimmed().isEmpty())
 		addItem(le->text());
+	if (n != NID_subject_alt_name)
+		copy_cn->hide();
 }
 
 void v3ext::addItem(QString list)
@@ -52,8 +54,12 @@ void v3ext::addItem(QString list)
 		sl.takeFirst();
 		critical->setChecked(true);
 	}
-	for (i=0; i< sl.count(); i++)
-		addEntry(sl[i]);
+	for (i=0; i< sl.count(); i++) {
+		if (sl[i] == "DNS:copycn" && nid == NID_subject_alt_name)
+			copy_cn->setChecked(true);
+		else
+			addEntry(sl[i]);
+	}
 }
 
 void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
@@ -67,17 +73,20 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 		else
 			tt = tr("An email address");
 	} else if (s == "RID") {
-		tt = tr("a registered ID: OBJECT IDENTIFIER");
+		tt = tr("A registered ID: OBJECT IDENTIFIER");
 		QRegExp rx("[a-zA-Z0-9.]+");
 		v = new QRegExpValidator(rx, this);
 	} else if (s == "URI") {
-		tt = tr("a uniform resource indicator");
+		tt = tr("A uniform resource indicator");
 		QRegExp rx("[a-z]+://.*");
                 v = new QRegExpValidator(rx, this);
 	} else if (s == "DNS") {
-		tt = tr("a DNS domain name");
+		if (nid == NID_subject_alt_name)
+			tt = tr("A DNS domain name or 'copycn'");
+		else
+			tt = tr("A DNS domain name");
 	} else if (s == "IP") {
-		tt = tr("an IP address");
+		tt = tr("An IP address");
 		v = new ipValidator();
 	} else if (s == "otherName") {
 		tt = tr("Syntax: <OID>;TYPE:text like '1.2.3.4:UTF8:name'");
@@ -123,6 +132,8 @@ QString v3ext::toString()
 
 	if (critical->isChecked())
 		str << "critical";
+	if (copy_cn->isChecked())
+		str << "DNS:copycn";
 
 	for (i=0; i<row; i++) {
 		QStringList s = tab->getRow(i);

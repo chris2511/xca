@@ -474,7 +474,6 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *clientkey = NULL, *tempkey = NULL;
 	a1int serial;
-	x509name subject;
 	QString intname;
 
     try {
@@ -484,7 +483,6 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 		clientkey = dlg->getSelectedKey();
 		if (!clientkey)
 			return NULL;
-		subject = dlg->getX509name();
 		intname = dlg->description->text();
 	} else {
 		// A PKCS#10 Request was selected
@@ -496,10 +494,6 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 			clientkey = req->getPubKey();
 			tempkey = clientkey;
 		}
-		if (dlg->reqSubChange->isChecked())
-			subject = dlg->getX509name();
-		else
-			subject = req->getSubject();
 		intname = req->getIntName();
 	}
 	TransThrow();
@@ -509,7 +503,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 	// initially create cert
 	cert = new pki_x509();
 	cert->setIntName(intname);
-	cert->setSubject(subject);
+	cert->setSubject(dlg->getX509name());
 	cert->setPubKey(clientkey);
 
 	// Step 2 - select Signing

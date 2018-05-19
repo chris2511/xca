@@ -797,6 +797,9 @@ x509name NewX509::getX509name(int _throw)
 	x509name x;
 	int j, row, nid;
 
+	if (fromReqCB->isChecked() && !reqSubChange->isChecked())
+		return getSelectedReq()->getSubject();
+
 	try {
 		foreach(nameEdit ne, nameEdits) {
 			x.addEntryByNid(ne.nid, ne.edit->text());
@@ -857,15 +860,14 @@ void NewX509::setupTmpCtx()
 
 	// initially create temporary ctx cert
 	if (ctx_cert)
-		delete(ctx_cert);
+		delete ctx_cert;
 	ctx_cert = new pki_x509();
+	ctx_cert->setSubject(getX509name());
 	if (fromReqCB->isChecked()) {
 		req = getSelectedReq();
-		ctx_cert->setSubject(req->getSubject());
 		if (req)
 			key = req->getRefKey();
 	} else {
-		ctx_cert->setSubject(getX509name());
 		key = getSelectedKey();
 	}
 	if (key)
@@ -1097,10 +1099,7 @@ QString NewX509::mandatoryDnRemain()
 	if (QString(Settings["mandatory_dn"]).isEmpty())
 		return QString();
 
-	if (fromReqCB->isChecked() && !reqSubChange->isChecked())
-		n = getSelectedReq()->getSubject();
-	else
-		n = getX509name();
+	n = getX509name();
 
 	for (i=0; i< n.entryCount(); i++) {
 		int j = dnl.indexOf(QString(OBJ_nid2sn(n.nid(i))));
@@ -1330,6 +1329,26 @@ void NewX509::accept()
 			gotoTab(0);
 		}
 		xcaWarning msg(this, text);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		switch (msg.exec())
+		{
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
+				return;
+			case QMessageBox::Close:
+				reject();
+				return;
+			case QMessageBox::Apply:
+				break;
+		}
+	}
+	QString cn = xn.getEntryByNid(NID_commonName);
+	QStringList san = subAltName->text().split(QRegExp(" *, *"));
+	if (cn.isEmpty() && san.contains("DNS:copycn") && pt != tmpl) {
+		gotoTab(2);
+		xcaWarning msg(this, tr("The subject alternative name shall contain a copy of the common name. However, the common name is empty."));
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
