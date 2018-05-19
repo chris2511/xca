@@ -65,6 +65,8 @@ Options::Options(MainWindow *parent)
 	cert_expiry_unit->addItemsData(units, x.right(1));
 	x.chop(1);
 	cert_expiry_num->setText(x);
+
+	serial_len->setValue(Settings["serial_len"]);
 }
 
 Options::~Options()
@@ -147,6 +149,7 @@ int Options::exec()
 				cert_expiry_unit->currentItemData().toString();
 	Settings["ical_expiry"] = ical_expiry_num->text() +
 				ical_expiry_unit->currentItemData().toString();
+	Settings["serial_len"] = serial_len->value();
 
 	return TransCommit() ? QDialog::Accepted : QDialog::Rejected;
 }

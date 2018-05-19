@@ -35,12 +35,12 @@ class svalue
 	}
 	int operator = (int val)
 	{
-		set(QString(val));
+		set(QString("%1").arg(val));
 		return val;
 	}
 	unsigned operator = (unsigned val)
 	{
-		set(QString(val));
+		set(QString("%1").arg(val));
 		return val;
 	}
 	bool operator = (bool val)

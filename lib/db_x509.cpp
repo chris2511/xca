@@ -313,13 +313,17 @@ void db_x509::writeIndex(const QString &fname, bool hierarchy)
 	}
 }
 
-#define SERIAL_LEN 8
 static a1int randomSerial()
 {
-	unsigned char buf[SERIAL_LEN];
-	RAND_bytes(buf, SERIAL_LEN);
+	unsigned char buf[SHA512_DIGEST_LENGTH];
+	unsigned char md[SHA512_DIGEST_LENGTH];
+
+	Entropy::seed_rng();
+
+	RAND_bytes(buf, SHA512_DIGEST_LENGTH);
+	SHA512(buf, SHA512_DIGEST_LENGTH, md);
 	a1int serial;
-	serial.setRaw(buf, SERIAL_LEN);
+	serial.setRaw(md, (int)Settings["serial_len"] / 8);
 	return serial;
 }
 
@@ -333,8 +337,12 @@ a1int db_x509::getUniqueSerial(pki_x509 *signer)
 		signer_serial = signer->getSerial();
 		revList = signer->getRevList();
 	}
-	while (true) {
+	for (int i=0; ; i++) {
+		if (i > 100)
+			throw errorEx(tr("Failed to retrieve unique random serial"));
 		serial = randomSerial();
+		if (serial == a1int(0L))
+			continue;
 		if (!signer)
 			break;
 		if (signer_serial == serial)
