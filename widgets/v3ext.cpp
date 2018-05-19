@@ -13,38 +13,11 @@
 #include <QHeaderView>
 #include <QStringList>
 #include <QMessageBox>
+#include <QValidator>
 #include "MainWindow.h"
 #include "lib/exception.h"
+#include "lib/ipvalidator.h"
 
-
-//	Complex regular expressions.
-
-#define BYTE_DEC	"(?:25[0-5]|2[0-4]\\d|1\\d\\d|\\d{1,2})"
-#define IPV4_ADDR	"(?:(?:" BYTE_DEC "\\.){3}" BYTE_DEC ")"
-#define SHORT_HEX	"[0-9a-fA-F]{1,4}"
-#define IPV6_FORM0	"(?:(?:" SHORT_HEX ":){7}" SHORT_HEX ")"
-#define IPV6_FORM1	"(?::(?::" SHORT_HEX "){1,7})"
-#define IPV6_FORM2	"(?:" SHORT_HEX ":(?::" SHORT_HEX "){1,6})"
-#define IPV6_FORM3	"(?:(?:" SHORT_HEX ":){2}(?::" SHORT_HEX "){1,5})"
-#define IPV6_FORM4	"(?:(?:" SHORT_HEX ":){3}(?::" SHORT_HEX "){1,4})"
-#define IPV6_FORM5	"(?:(?:" SHORT_HEX ":){4}(?::" SHORT_HEX "){1,3})"
-#define IPV6_FORM6	"(?:(?:" SHORT_HEX ":){5}(?::" SHORT_HEX "){1,2})"
-#define IPV6_FORM7	"(?:(?:" SHORT_HEX ":){6}:" SHORT_HEX ")"
-#define IPV6_FORM8	"(?:(?:" SHORT_HEX ":){7}:)"
-#define IPV6_FORM9	"(?:::)"
-#define IPV6_V4_0	"(?:(?:" SHORT_HEX ":){6}" IPV4_ADDR ")"
-#define IPV6_V4_1	"(?::(?::" SHORT_HEX "){0,5}:" IPV4_ADDR ")"
-#define IPV6_V4_2	"(?:" SHORT_HEX ":(?::" SHORT_HEX "){0,4}:" IPV4_ADDR ")"
-#define IPV6_V4_3	"(?:(?:" SHORT_HEX ":){2}(?::" SHORT_HEX "){0,3}:" IPV4_ADDR ")"
-#define IPV6_V4_4	"(?:(?:" SHORT_HEX ":){3}(?::" SHORT_HEX "){0,2}:" IPV4_ADDR ")"
-#define IPV6_V4_5	"(?:(?:" SHORT_HEX ":){4}(?::" SHORT_HEX ")?:" IPV4_ADDR ")"
-#define IPV6_V4_6	"(?:(?:" SHORT_HEX ":){5}:" IPV4_ADDR ")"
-#define IPV6_ADDR	"(?:" IPV6_FORM0 "|" IPV6_FORM1 "|" IPV6_FORM2 "|"	\
-						IPV6_FORM3 "|" IPV6_FORM4 "|" IPV6_FORM5 "|"	\
-						IPV6_FORM6 "|" IPV6_FORM7 "|" IPV6_FORM8 "|"	\
-						IPV6_FORM9 "|" IPV6_V4_0 "|" IPV6_V4_1 "|"		\
-						IPV6_V4_2 "|" IPV6_V4_3 "|" IPV6_V4_4 "|"		\
-						IPV6_V4_5 "|" IPV6_V4_6 ")"
 
 v3ext::v3ext(QWidget *parent)
 	:QDialog(parent)
@@ -105,8 +78,7 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 		tt = tr("a DNS domain name");
 	} else if (s == "IP") {
 		tt = tr("an IP address");
-		QRegExp rx(IPV4_ADDR "|" IPV6_ADDR);
-		v = new QRegExpValidator(rx, this);
+		v = new ipValidator();
 	} else if (s == "otherName") {
 		tt = tr("Syntax: <OID>;TYPE:text like '1.2.3.4:UTF8:name'");
 		QRegExp rx("[a-zA-Z0-9.]+;.*");
