@@ -35,10 +35,12 @@ void NewX509::setupExplicitDN(NIDlist my_dn_nid)
 	NIDlist expl_dn_nid;
 
 	/* Create configured explicit_dn list */
-	foreach(QString dn, Settings["explicit_dn"].split(",")) {
-		int nid = OBJ_sn2nid(CCHAR(dn));
-		if (!my_dn_nid.contains(nid))
-			expl_dn_nid << nid;
+	if (!Settings["explicit_dn"].empty()) {
+		foreach(QString dn, Settings["explicit_dn"].split(",")) {
+			int nid = OBJ_sn2nid(CCHAR(dn));
+			if (!my_dn_nid.contains(nid))
+				expl_dn_nid << nid;
+		}
 	}
 
 	nameEdits.clear();
@@ -855,11 +857,12 @@ void NewX509::setX509name(const x509name &n)
 		ne.edit->setText("");
 	}
 
-	NIDlist mydn;
-	for (int i=0; i< n.entryCount(); i++)
-		mydn << n.nid(i);
-	setupExplicitDN(mydn);
-
+	if (Settings["adapt_explicit_subject"]) {
+		NIDlist mydn;
+		for (int i=0; i< n.entryCount(); i++)
+			mydn << n.nid(i);
+		setupExplicitDN(mydn);
+	}
 	for (int i=0, j=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		bool done = false;

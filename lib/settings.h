@@ -28,6 +28,10 @@ class svalue
 	{
 		return get().split(sep);
 	}
+	bool empty()
+	{
+		return get().isEmpty();
+	}
 	const QString &operator = (const QString &val)
 	{
 		set(val);

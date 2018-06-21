@@ -51,6 +51,7 @@ Options::Options(MainWindow *parent)
 	transDnEntries->setCheckState(Settings["translate_dn"]);
 	onlyTokenHashes->setCheckState(Settings["only_token_hashes"]);
 	disableNetscape->setCheckState(Settings["disable_netscape"]);
+	adapt_explicit_subject->setCheckState(Settings["adapt_explicit_subject"]);
 
 	QStringList units;
 	QString x = Settings["ical_expiry"];
@@ -150,6 +151,7 @@ int Options::exec()
 	Settings["ical_expiry"] = ical_expiry_num->text() +
 				ical_expiry_unit->currentItemData().toString();
 	Settings["serial_len"] = serial_len->value();
+	Settings["adapt_explicit_subject"] = adapt_explicit_subject->checkState();
 
 	return TransCommit() ? QDialog::Accepted : QDialog::Rejected;
 }

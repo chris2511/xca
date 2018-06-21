@@ -267,6 +267,13 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QCheckBox" name="adapt_explicit_subject">
+              <property name="text">
+               <string>Dynamically arrange explicit subject entries</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
