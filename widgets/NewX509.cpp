@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <QLineEdit>
 #include <QLabel>
+#include <QPushButton>
 #include <QPixmap>
 #include <QPushButton>
 #include <QValidator>
@@ -28,6 +29,82 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
+
+void NewX509::setupExplicitDN(NIDlist my_dn_nid)
+{
+	NIDlist expl_dn_nid;
+
+	/* Create configured explicit_dn list */
+	foreach(QString dn, Settings["explicit_dn"].split(",")) {
+		int nid = OBJ_sn2nid(CCHAR(dn));
+		if (!my_dn_nid.contains(nid))
+			expl_dn_nid << nid;
+	}
+
+	nameEdits.clear();
+	QGridLayout *dnLayout = dynamic_cast<QGridLayout *>(dnWidget->layout());
+	if (dnLayout) {
+		QLayoutItem *child;
+		dnLayout->removeWidget(description);
+		while ((child = dnLayout->takeAt(0))) {
+			delete child->widget();
+			delete child;
+		}
+	} else {
+		dnLayout = new QGridLayout(dnWidget);
+		dnLayout->setAlignment(Qt::AlignTop);
+		dnLayout->setSpacing(6);
+		dnLayout->setMargin(0);
+		description = new QLineEdit(dnWidget);
+		description->setToolTip(tr("This name is only used internally and does not appear in the resulting certificate"));
+	}
+	int n = 1, col = 0;
+	QLabel *label = new QLabel(dnWidget);
+	label->setText(tr("Internal name"));
+
+	dnLayout->addWidget(label, 0, 0);
+	dnLayout->addWidget(description, 0, 1);
+
+	QWidget::setTabOrder(description, extDNlist);
+	QWidget *old = description;
+
+	expl_dn_nid = my_dn_nid + expl_dn_nid;
+
+	foreach(int nid, expl_dn_nid) {
+		DoubleClickLabel *label;
+		QLineEdit *edit;
+		QString trans = dn_translations[nid];
+
+		label = new DoubleClickLabel(dnWidget);
+		if (Settings["translate_dn"] && !trans.isEmpty()) {
+			label->setText(trans);
+			label->setToolTip(QString("[%1] %2")
+				.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid)));
+		} else {
+			label->setText(OBJ_nid2ln(nid));
+			label->setToolTip(QString("[%1] %2")
+				.arg(OBJ_nid2sn(nid)).arg(trans));
+		}
+		label->setClickText(OBJ_nid2sn(nid));
+		connect(label, SIGNAL(doubleClicked(QString)),
+                        MainWindow::getResolver(), SLOT(searchOid(QString)));
+		edit = new QLineEdit(dnWidget);
+		setupLineEditByNid(nid, edit);
+		nameEdits << nameEdit(nid, edit, label);
+
+		dnLayout->addWidget(label, n, col);
+		dnLayout->addWidget(edit, n, col +1);
+		qDebug() << "addWidget" << OBJ_nid2sn(nid) << n << col;
+		n++;
+		if (n > expl_dn_nid.size()/2 && col == 0) {
+			col = 2;
+			n = expl_dn_nid.size() & 1 ? 0 : 1;
+		}
+		QWidget::setTabOrder(old, edit);
+		old = edit;
+	}
+}
+
 NewX509::NewX509(QWidget *parent)
 	:QDialog(parent)
 {
@@ -36,9 +113,6 @@ NewX509::NewX509(QWidget *parent)
 	dn_nid = *MainWindow::dn_nid;
 	aia_nid << OBJ_sn2nid("OCSP") << OBJ_sn2nid("caIssuers");
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
-	foreach(QString dn, Settings["explicit_dn"].split(","))
-		expl_dn_nid << OBJ_sn2nid(CCHAR(dn));
-
 	QStringList keys;
 
 	setupUi(this);
@@ -114,55 +188,8 @@ NewX509::NewX509(QWidget *parent)
 	X509V3_set_ctx_nodb(&ext_ctx);
 
 	// Setup dnWidget
-	if (dnWidget->layout())
-		delete dnWidget->layout();
-	QGridLayout *dnLayout = new QGridLayout(dnWidget);
-	dnLayout->setAlignment(Qt::AlignTop);
-	dnLayout->setSpacing(6);
-	dnLayout->setMargin(0);
-	int n = 1, col = 0;
-
-	description = new QLineEdit(this);
-	description->setToolTip(tr("This name is only used internally and does not appear in the resulting certificate"));
-	QLabel *label = new QLabel(this);
-	label->setText(tr("Internal name"));
-	dnLayout->addWidget(label, 0, 0);
-	dnLayout->addWidget(description, 0, 1);
-
-	QWidget::setTabOrder(description, extDNlist);
-	QWidget *old = description;
-	foreach(int nid, expl_dn_nid) {
-		DoubleClickLabel *label;
-		QLineEdit *edit;
-		QString trans = dn_translations[nid];
-
-		label = new DoubleClickLabel(this);
-		if (Settings["translate_dn"] && !trans.isEmpty()) {
-			label->setText(trans);
-			label->setToolTip(QString("[%1] %2")
-				.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid)));
-		} else {
-			label->setText(OBJ_nid2ln(nid));
-			label->setToolTip(QString("[%1] %2")
-				.arg(OBJ_nid2sn(nid)).arg(trans));
-		}
-		label->setClickText(OBJ_nid2sn(nid));
-		connect(label, SIGNAL(doubleClicked(QString)),
-                        MainWindow::getResolver(), SLOT(searchOid(QString)));
-		edit = new QLineEdit(this);
-		setupLineEditByNid(nid, edit);
-		nameEdits << nameEdit(nid, edit, label);
-
-		dnLayout->addWidget(label, n, col);
-		dnLayout->addWidget(edit, n, col +1);
-		n++;
-		if (n > expl_dn_nid.size()/2 && col == 0) {
-			col = 2;
-			n = expl_dn_nid.size() & 1 ? 0 : 1;
-		}
-		QWidget::setTabOrder(old, edit);
-		old = edit;
-	}
+	description = NULL;
+	setupExplicitDN(NIDlist());
 
 	// Setup Request Attributes
 	if (attrWidget->layout())
@@ -171,8 +198,8 @@ NewX509::NewX509(QWidget *parent)
 	attrLayout->setAlignment(Qt::AlignTop);
 	attrLayout->setSpacing(6);
 	attrLayout->setMargin(0);
-	old = reqSubChange;
-	n = 0;
+	QWidget *old = reqSubChange;
+	int n = 0;
 	foreach(int nid, attr_nid) {
 		DoubleClickLabel *label;
 		QLineEdit *edit;
@@ -827,6 +854,12 @@ void NewX509::setX509name(const x509name &n)
 	foreach(nameEdit ne, nameEdits) {
 		ne.edit->setText("");
 	}
+
+	NIDlist mydn;
+	for (int i=0; i< n.entryCount(); i++)
+		mydn << n.nid(i);
+	setupExplicitDN(mydn);
+
 	for (int i=0, j=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		bool done = false;

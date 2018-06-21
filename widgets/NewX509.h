@@ -47,7 +47,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		NIDlist dn_nid;
 		NIDlist aia_nid;
 		NIDlist attr_nid;
-		NIDlist expl_dn_nid;
 		QList<nameEdit> attrEdits;
 		QList<nameEdit> nameEdits;
 		X509V3_CTX ext_ctx;
@@ -67,6 +66,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		QMap<QString, QLineEdit*> templateLineEdits;
 		QMap<QString, QCheckBox*> templateCheckBoxes;
 		pki_temp *caTemplate(pki_x509 *ca) const;
+		void setupExplicitDN(NIDlist my_dn_nid);
+
 	public:
 		QLineEdit *description;
 		NewX509(QWidget *parent);
