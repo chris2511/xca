@@ -827,11 +827,12 @@ void NewX509::setX509name(const x509name &n)
 	foreach(nameEdit ne, nameEdits) {
 		ne.edit->setText("");
 	}
-	for (int i=0; i< n.entryCount(); i++) {
+	for (int i=0, j=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		bool done = false;
 		QStringList sl = n.entryList(i);
-		foreach(nameEdit ne, nameEdits) {
+		for ( ; j < nameEdits.size(); j++) {
+			nameEdit ne(nameEdits[j]);
 			if (nid == ne.nid && ne.edit->text().isEmpty()) {
 				ne.edit->setText(sl[2]);
 				done = true;
