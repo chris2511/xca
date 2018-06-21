@@ -67,6 +67,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		QMap<QString, QCheckBox*> templateCheckBoxes;
 		pki_temp *caTemplate(pki_x509 *ca) const;
 		void setupExplicitDN(NIDlist my_dn_nid);
+		QList<nameEdit> setupExplicitInputs(NIDlist nid_list,
+                        QWidget *parent, QWidget *old, int columns);
+
 
 	public:
 		NewX509(QWidget *parent);

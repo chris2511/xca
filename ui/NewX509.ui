@@ -142,11 +142,6 @@
           </item>
           <item>
            <widget class="QWidget" name="attrWidget" native="true">
-            <layout class="QHBoxLayout">
-             <property name="margin">
-              <number>0</number>
-             </property>
-            </layout>
            </widget>
           </item>
          </layout>

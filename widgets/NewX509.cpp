@@ -29,8 +29,7 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
-
-void NewX509::setupExplicitDN(NIDlist my_dn_nid)
+void NewX509::setupExplicitDN(NIDlist my_dn_nid = NIDlist())
 {
 	NIDlist expl_dn_nid;
 
@@ -42,60 +41,64 @@ void NewX509::setupExplicitDN(NIDlist my_dn_nid)
 				expl_dn_nid << nid;
 		}
 	}
+	nameEdits = setupExplicitInputs(my_dn_nid + expl_dn_nid,
+					dnWidget, description, 2);
+}
 
-	nameEdits.clear();
-	QGridLayout *dnLayout = dynamic_cast<QGridLayout *>(dnWidget->layout());
-	if (dnLayout) {
+QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
+			QWidget *parent, QWidget *old, int columns)
+{
+	QList<nameEdit> edits;
+	QGridLayout *layout = dynamic_cast<QGridLayout *>(parent->layout());
+	if (layout) {
 		QLayoutItem *child;
-		while ((child = dnLayout->takeAt(0))) {
+		while ((child = layout->takeAt(0))) {
 			delete child->widget();
 			delete child;
 		}
 	} else {
-		dnLayout = new QGridLayout(dnWidget);
-		dnLayout->setAlignment(Qt::AlignTop);
-		dnLayout->setSpacing(6);
-		dnLayout->setMargin(0);
+		layout = new QGridLayout(parent);
+		layout->setAlignment(Qt::AlignTop);
+		layout->setSpacing(6);
+		layout->setMargin(0);
 	}
 	int n = 0, col = 0;
 
-	QWidget *old = description;
-
-	expl_dn_nid = my_dn_nid + expl_dn_nid;
-
-	foreach(int nid, expl_dn_nid) {
+	foreach(int nid, nid_list) {
 		DoubleClickLabel *label;
 		QLineEdit *edit;
 		QString trans = dn_translations[nid];
-
-		label = new DoubleClickLabel(dnWidget);
+		QString ln = OBJ_nid2ln(nid), sn = OBJ_nid2sn(nid);
+		label = new DoubleClickLabel(parent);
 		if (Settings["translate_dn"] && !trans.isEmpty()) {
 			label->setText(trans);
-			label->setToolTip(QString("[%1] %2")
-				.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid)));
+			label->setToolTip(QString("[%1] %2").arg(sn, ln));
+			if (sn == ln)
+				label->setToolTip(ln);
 		} else {
-			label->setText(OBJ_nid2ln(nid));
-			label->setToolTip(QString("[%1] %2")
-				.arg(OBJ_nid2sn(nid)).arg(trans));
+			label->setText(ln);
+			label->setToolTip(QString("[%1] %2").arg(sn, trans));
+			if (trans == sn)
+				label->setToolTip(trans);
 		}
 		label->setClickText(OBJ_nid2sn(nid));
 		connect(label, SIGNAL(doubleClicked(QString)),
                         MainWindow::getResolver(), SLOT(searchOid(QString)));
-		edit = new QLineEdit(dnWidget);
+		edit = new QLineEdit(parent);
 		setupLineEditByNid(nid, edit);
-		nameEdits << nameEdit(nid, edit, label);
+		edits << nameEdit(nid, edit, label);
 
-		dnLayout->addWidget(label, n, col);
-		dnLayout->addWidget(edit, n, col +1);
-		qDebug() << "addWidget" << OBJ_nid2sn(nid) << n << col;
+		layout->addWidget(label, n, col);
+		layout->addWidget(edit, n, col +1);
 		n++;
-		if (n > expl_dn_nid.size()/2 && col == 0) {
+		if (n > (nid_list.size()-1)/columns) {
 			col += 2;
 			n = 0;
 		}
 		QWidget::setTabOrder(old, edit);
 		old = edit;
 	}
+	return edits;
 }
 
 NewX509::NewX509(QWidget *parent)
@@ -181,44 +184,11 @@ NewX509::NewX509(QWidget *parent)
 	X509V3_set_ctx_nodb(&ext_ctx);
 
 	// Setup dnWidget
-	setupExplicitDN(NIDlist());
+	setupExplicitDN();
 
 	// Setup Request Attributes
-	if (attrWidget->layout())
-		delete attrWidget->layout();
-	QGridLayout *attrLayout = new QGridLayout(attrWidget);
-	attrLayout->setAlignment(Qt::AlignTop);
-	attrLayout->setSpacing(6);
-	attrLayout->setMargin(0);
-	QWidget *old = reqSubChange;
-	int n = 0;
-	foreach(int nid, attr_nid) {
-		DoubleClickLabel *label;
-		QLineEdit *edit;
-		QString trans = dn_translations[nid];
+	attrEdits = setupExplicitInputs(attr_nid, attrWidget, reqSubChange, 1);
 
-		label = new DoubleClickLabel(this);
-		if (Settings["translate_dn"] && !trans.isEmpty()) {
-			label->setText(trans);
-			label->setToolTip(QString(OBJ_nid2sn(nid)));
-		} else {
-			label->setText(QString(OBJ_nid2ln(nid)));
-			label->setToolTip(trans);
-		}
-		label->setClickText(OBJ_nid2sn(nid));
-		connect(label, SIGNAL(doubleClicked(QString)),
-                        MainWindow::getResolver(), SLOT(searchOid(QString)));
-		edit = new QLineEdit(this);
-		attrEdits << nameEdit(nid, edit, label);
-		setupLineEditByNid(nid, edit);
-
-		attrLayout->addWidget(label, n, 0);
-		attrLayout->addWidget(edit, n, 1);
-
-		QWidget::setTabOrder(old, edit);
-		old = edit;
-		n++;
-	}
 	// last polish
 	on_certList_currentIndexChanged(0);
 	certList->setDisabled(true);
