@@ -47,7 +47,6 @@ void NewX509::setupExplicitDN(NIDlist my_dn_nid)
 	QGridLayout *dnLayout = dynamic_cast<QGridLayout *>(dnWidget->layout());
 	if (dnLayout) {
 		QLayoutItem *child;
-		dnLayout->removeWidget(description);
 		while ((child = dnLayout->takeAt(0))) {
 			delete child->widget();
 			delete child;
@@ -57,17 +56,9 @@ void NewX509::setupExplicitDN(NIDlist my_dn_nid)
 		dnLayout->setAlignment(Qt::AlignTop);
 		dnLayout->setSpacing(6);
 		dnLayout->setMargin(0);
-		description = new QLineEdit(dnWidget);
-		description->setToolTip(tr("This name is only used internally and does not appear in the resulting certificate"));
 	}
-	int n = 1, col = 0;
-	QLabel *label = new QLabel(dnWidget);
-	label->setText(tr("Internal name"));
+	int n = 0, col = 0;
 
-	dnLayout->addWidget(label, 0, 0);
-	dnLayout->addWidget(description, 0, 1);
-
-	QWidget::setTabOrder(description, extDNlist);
 	QWidget *old = description;
 
 	expl_dn_nid = my_dn_nid + expl_dn_nid;
@@ -99,8 +90,8 @@ void NewX509::setupExplicitDN(NIDlist my_dn_nid)
 		qDebug() << "addWidget" << OBJ_nid2sn(nid) << n << col;
 		n++;
 		if (n > expl_dn_nid.size()/2 && col == 0) {
-			col = 2;
-			n = expl_dn_nid.size() & 1 ? 0 : 1;
+			col += 2;
+			n = 0;
 		}
 		QWidget::setTabOrder(old, edit);
 		old = edit;
@@ -190,7 +181,6 @@ NewX509::NewX509(QWidget *parent)
 	X509V3_set_ctx_nodb(&ext_ctx);
 
 	// Setup dnWidget
-	description = NULL;
 	setupExplicitDN(NIDlist());
 
 	// Setup Request Attributes

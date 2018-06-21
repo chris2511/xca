@@ -69,7 +69,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		void setupExplicitDN(NIDlist my_dn_nid);
 
 	public:
-		QLineEdit *description;
 		NewX509(QWidget *parent);
 		virtual ~NewX509();
 		void initCtx();
