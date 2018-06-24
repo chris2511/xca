@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>354</width>
-    <height>369</height>
+    <height>428</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -217,6 +217,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>hashBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/hashBox.h</header>
+  </customwidget>
+  <customwidget>
    <class>Validity</class>
    <extends>QDateTimeEdit</extends>
    <header>widgets/validity.h</header>
@@ -225,11 +230,6 @@
     <slot>hideTimeCheck(int)</slot>
     <slot>localTime(int)</slot>
    </slots>
-  </customwidget>
-  <customwidget>
-   <class>hashBox</class>
-   <extends>QComboBox</extends>
-   <header>widgets/hashBox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -241,12 +241,92 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>198</x>
-     <y>326</y>
+     <x>204</x>
+     <y>369</y>
     </hint>
     <hint type="destinationlabel">
-     <x>225</x>
-     <y>326</y>
+     <x>325</x>
+     <y>370</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>nextUpdate</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>lastUpdate</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>161</x>
+     <y>51</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>106</x>
+     <y>176</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>nextUpdate</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>164</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>170</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>lastUpdate</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>197</x>
+     <y>175</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
