@@ -27,6 +27,7 @@ DbMap OpenDb::getDatabases()
 
 	databases["QPSQL7"]   = "PostgreSQL version 6 and 7";
 	databases["QMYSQL3"]  = "MySQL 3.x and 4.x";
+	//databases["QODBC3"]   = "Open Database Connectivity (ODBC)";
 
 	foreach (QString driver, databases.keys()) {
 		if (!list.contains(driver))
@@ -79,6 +80,7 @@ bool OpenDb::isRemoteDB(QString db)
 void OpenDb::fillDbDropDown(QString current)
 {
 	DbMap databases = getDatabases();
+	dbType->clear();
 	foreach(QString driver, databases.keys()) {
 		dbType->insertItem(0, databases[driver], driver);
 		if (driver == current)
