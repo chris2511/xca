@@ -156,6 +156,7 @@ class pki_x509 : public pki_x509super
 		void setRevocations(const x509revList &rl);
 		x509revList getRevList() const;
 		bool compareNameAndKey(pki_x509 *other);
+		QVariant column_tooltip(const dbheader *hd) const;
 		void setCrlExpire(a1time a)
 		{
 			crlExpire = a;

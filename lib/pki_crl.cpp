@@ -404,6 +404,17 @@ QVariant pki_crl::column_data(const dbheader *hd) const
 	return pki_x509name::column_data(hd);
 }
 
+QVariant pki_crl::column_tooltip(const dbheader *hd) const
+{
+	switch (hd->id) {
+		case HD_crl_lastUpdate:
+			return QVariant(getLastUpdate().toPretty());
+		case HD_crl_nextUpdate:
+			return QVariant(getNextUpdate().toPretty());
+	}
+	return pki_x509name::column_tooltip(hd);
+}
+
 QVariant pki_crl::getIcon(const dbheader *hd) const
 {
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();

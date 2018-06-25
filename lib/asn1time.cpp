@@ -22,6 +22,8 @@
 #define UTC_FORMAT     "yyMMddHHmmss'Z'"
 #define GEN_FORMAT     "yy" UTC_FORMAT
 
+#define TR QObject::tr
+
 bool a1time::isUndefined() const
 {
 	return toTime_t() == 0;
@@ -151,9 +153,9 @@ a1time &a1time::set(const ASN1_TIME *a)
 QString a1time::toString(QString fmt, Qt::TimeSpec spec) const
 {
 	if (isUndefined())
-		return QObject::tr("Undefined");
+		return TR("Undefined");
 	if (!isValid())
-		return QObject::tr("Broken / Invalid");
+		return TR("Broken / Invalid");
 	return (spec == Qt::UTC ? toUTC() : toLocalTime()).toString(fmt);
 }
 
@@ -180,6 +182,41 @@ QString a1time::toPlain(const QString &fmt) const
 	if (!isValid())
 		return QString("Broken-InvalidZ");
 	return toString(fmt.isEmpty() ? GEN_FORMAT : fmt);
+}
+
+qint64 a1time::age() const
+{
+	return secsTo(now());
+}
+
+QString a1time::toFancy() const
+{
+	QString fmt("Dunno");
+	qint64 diff = age();
+	bool future = false;
+	if (diff < 0) {
+		future = true;
+		diff *= -1;
+	}
+	if (diff < 2 * SECS_PER_MINUTE) {
+		fmt = future ? TR("in %1 seconds") : TR("%1 seconds ago");
+	} else if (diff < 2 *SECS_PER_HOUR) {
+		diff /= SECS_PER_MINUTE;
+		fmt = future ? TR("in %1 minutes") : TR("%1 minutes ago");
+	} else if (diff < 2 *SECS_PER_DAY) {
+		diff /= SECS_PER_HOUR;
+		fmt = future ? TR("in %1 hours") : TR("%1 hours ago");
+	} else if (diff < 2 *SECS_PER_WEEK) {
+		diff /= SECS_PER_DAY;
+		fmt = future ? TR("in %1 days") : TR("%1 days ago");
+	} else if (diff < 2 *SECS_PER_MONTH) {
+		diff /= SECS_PER_WEEK;
+		fmt = future ? TR("in %1 weeks") : TR("%1 weeks ago");
+	} else {
+		diff /= SECS_PER_MONTH;
+		fmt = future ? TR("in %1 months") : TR("%1 months ago");
+	}
+	return fmt.arg(diff);
 }
 
 QString a1time::toPlainUTC() const

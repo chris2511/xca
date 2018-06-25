@@ -939,8 +939,7 @@ QVariant pki_x509::column_data(const dbheader *hd) const
 		case HD_cert_crl_expire:
 			if (canSign() && !crlExpire.isUndefined())
 				return QVariant(crlExpire.toSortable());
-			else
-				return QVariant();
+			break;
 		case HD_cert_md5fp:
 			return QVariant(fingerprint(EVP_md5()));
 		case HD_cert_sha1fp:
@@ -958,10 +957,28 @@ QVariant pki_x509::column_data(const dbheader *hd) const
 				else
 					return QVariant(tr("Yes"));
 			}
-			return QVariant("");
+			break;
 		}
 	}
 	return pki_x509super::column_data(hd);
+}
+
+QVariant pki_x509::column_tooltip(const dbheader *hd) const
+{
+	switch (hd->id) {
+		case HD_cert_notBefore:
+			return QVariant(getNotBefore().toPretty());
+		case HD_cert_notAfter:
+			return QVariant(getNotAfter().toPretty());
+		case HD_cert_revocation:
+			return QVariant(isRevoked() ?
+				revocation.getDate().toPretty() : "");
+		case HD_cert_crl_expire:
+			if (canSign() && !crlExpire.isUndefined())
+				return QVariant(crlExpire.toPretty());
+			break;
+	}
+	return pki_x509super::column_tooltip(hd);
 }
 
 QStringList pki_x509::icsVEVENT() const

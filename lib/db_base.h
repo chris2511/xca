@@ -39,6 +39,7 @@ class db_base: public QAbstractItemModel
 	protected:
 		static QHash<quint64, pki_base*> lookup;
 		QModelIndex currentIdx;
+		int secondsTimer, minutesTimer, hoursTimer;
 		void _writePKI(pki_base *pki, bool overwrite);
 		void _removePKI(pki_base *pki );
 		void removeItem(QString k);
@@ -59,6 +60,8 @@ class db_base: public QAbstractItemModel
 		bool isValidCol(int col) const;
 		static XSqlQuery sqlSELECTpki(QString query,
 				QList<QVariant> values = QList<QVariant>());
+		void timerEvent(QTimerEvent * event);
+		void restart_timer();
 
 	public:
 		template <class T> static T *lookupPki(quint64 i)

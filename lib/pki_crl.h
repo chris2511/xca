@@ -77,6 +77,7 @@ class pki_crl: public pki_x509name
 		a1int getCrlNumber() const;
 		BIO *pem(BIO *, int);
 		bool visible() const;
+		QVariant column_tooltip(const dbheader *hd) const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(const QSqlRecord &rec);

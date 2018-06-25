@@ -250,5 +250,12 @@ class dbheaderList: public QList<dbheader*>
 			}
 		}
 	}
+	int column(int type) // HD_...
+	{
+		for (int i=0; i<count(); i++)
+			if (at(i)->id == type)
+				return i;
+		return -1;
+	}
 };
 #endif

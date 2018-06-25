@@ -22,6 +22,17 @@
 
 QHash<quint64, pki_base*> db_base::lookup;
 
+void db_base::restart_timer()
+{
+	killTimer(secondsTimer);
+	killTimer(minutesTimer);
+	killTimer(hoursTimer);
+
+	secondsTimer = startTimer(1000);
+	minutesTimer = startTimer(MSECS_PER_MINUTE);
+	hoursTimer = startTimer(MSECS_PER_HOUR);
+}
+
 db_base::db_base(MainWindow *mw)
 	:QAbstractItemModel(NULL)
 {
@@ -31,6 +42,7 @@ db_base::db_base(MainWindow *mw)
 	colResizing = 0;
 	currentIdx = QModelIndex();
 	class_name = "base";
+	restart_timer();
 }
 
 db_base::~db_base()
@@ -124,6 +136,7 @@ void db_base::loadContainer()
 	} else {
 		allHeaders.fromData(view);
 	}
+	restart_timer();
 	emit columnsContentChanged();
 }
 
@@ -221,6 +234,7 @@ void db_base::insertPKI(pki_base *pki)
 	lookup[pki->getSqlItemId().toULongLong()] = pki;
 	inToCont(pki);
 	TransCommit();
+	restart_timer();
 	emit columnsContentChanged();
 }
 
@@ -435,7 +449,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	switch (role) {
 		case Qt::EditRole:
 		case Qt::DisplayRole:
-			if (hd->id == HD_internal_name || item->isVisible() == 1)
+			if (hd->id==HD_internal_name || item->isVisible()==1)
 				return item->column_data(hd);
 			break;
 		case Qt::DecorationRole:
@@ -448,6 +462,10 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 			return item->bg_color(hd);
 		case Qt::UserRole:
 			return item->isVisible();
+		case Qt::ToolTipRole:
+			if (hd->id==HD_internal_name || item->isVisible()==1)
+				return item->column_tooltip(hd);
+			break;
 	}
 	return QVariant();
 }
@@ -538,6 +556,41 @@ void db_base::updateItem(pki_base *pki, QString name, QString comment)
 	j = index(i.row(), allHeaders.size(), i.parent());
 	emit dataChanged(i, j);
 	emit pkiChanged(pki);
+	restart_timer();
+}
+
+void db_base::timerEvent(QTimerEvent *event)
+{
+	int youngest = SECS_PER_DAY;
+	int id = event->timerId();
+	int idx = allHeaders.column(HD_creation);
+
+	FOR_ALL_pki(pki, pki_base) {
+		int age = pki->getInsertionDate().age();
+		bool do_emit = false;
+		if (age < youngest)
+			youngest = age;
+
+		if (id == secondsTimer &&
+		    (age < SECS_PER_MINUTE *2 || age % SECS_PER_MINUTE < 2))
+			do_emit = true;
+		if (id == minutesTimer && (age % SECS_PER_HOUR < 60))
+			do_emit = true;
+		if (id == hoursTimer && (age % SECS_PER_DAY < SECS_PER_HOUR))
+			do_emit = true;
+		if (do_emit) {
+			QModelIndex i = createIndex(pki->row(), idx, pki);
+			emit dataChanged(i, i);
+		}
+	}
+	if (secondsTimer && youngest > SECS_PER_HOUR *2) {
+		killTimer(secondsTimer);
+		secondsTimer = 0;
+	}
+	if (minutesTimer && youngest > SECS_PER_DAY *2) {
+		killTimer(minutesTimer);
+		minutesTimer = 0;
+	}
 }
 
 void db_base::editComment(const QModelIndex &index)

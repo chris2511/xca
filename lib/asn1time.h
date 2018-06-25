@@ -12,7 +12,14 @@
 #include <QDateTime>
 #include <openssl/asn1.h>
 
-#define SECONDS_PER_DAY (60*60*24)
+#define SECS_PER_MINUTE (60)
+#define SECS_PER_HOUR (SECS_PER_MINUTE *60)
+#define SECS_PER_DAY (SECS_PER_HOUR*24)
+#define SECS_PER_WEEK (SECS_PER_DAY*7)
+#define SECS_PER_MONTH (SECS_PER_DAY*30)
+
+#define MSECS_PER_MINUTE (SECS_PER_MINUTE*1000)
+#define MSECS_PER_HOUR (SECS_PER_HOUR*1000)
 
 class a1time : public QDateTime
 {
@@ -39,13 +46,14 @@ class a1time : public QDateTime
 	QString toPlain(const QString &fmt = QString()) const;
 	QString toPlainUTC() const;
 	QString toSortable() const;
-	QString toISO8601() const;
+	QString toFancy() const;
 	QString isoLocalDate() const;
 	ASN1_TIME *get();
 	ASN1_TIME *get_utc();
 	static QDateTime now(int delta = 0);
 	QByteArray i2d();
 	void d2i(QByteArray &ba);
+	qint64 age() const;
 };
 
 #endif

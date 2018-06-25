@@ -285,7 +285,7 @@ QVariant pki_base::column_data(const dbheader *hd) const
 	case HD_internal_name:
 		return QVariant(getIntName());
 	case HD_creation:
-		return QVariant(insertion_date.toSortable());
+		return QVariant(insertion_date.toFancy());
 	case HD_comment:
 		return QVariant(comment.section('\n', 0, 0));
 	case HD_source:
@@ -299,6 +299,17 @@ QVariant pki_base::column_data(const dbheader *hd) const
 QVariant pki_base::getIcon(const dbheader *hd) const
 {
 	(void)hd;
+	return QVariant();
+}
+
+QVariant pki_base::column_tooltip(const dbheader *hd) const
+{
+	switch (hd->id) {
+	case HD_creation:
+		return QVariant(insertion_date.toPretty());
+	case HD_comment:
+		return QVariant(comment);
+	}
 	return QVariant();
 }
 

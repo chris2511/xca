@@ -15,7 +15,10 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 	if (!db)
 		return QSortFilterProxyModel::lessThan(left, right);
 
-	if (left.column() < 0 || right.column() < 0) {
+	dbheaderList headers = db->getAllHeaders();
+	if (left.column() < 0 || left.column() >= headers.size() ||
+	    right.column() < 0 || right.column() >= headers.size())
+	{
 		qDebug("BAD COLUMN: %d %d\n", left.column(), right.column());
 		return true;
 	}
@@ -32,6 +35,15 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 			return false;
 		else
 			return l < r;
+	}
+	if (headers[left.column()]->id == HD_creation &&
+	    headers[right.column()]->id == HD_creation)
+	{
+		pki_base *l = static_cast<pki_base*>(left.internalPointer());
+		pki_base *r = static_cast<pki_base*>(right.internalPointer());
+		if (l && r) {
+			return l->getInsertionDate() < r->getInsertionDate();
+		}
 	}
 	return QSortFilterProxyModel::lessThan(left, right);
 }

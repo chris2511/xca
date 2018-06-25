@@ -152,6 +152,7 @@ class pki_base : public QObject
 		int row() const;
 		virtual QVariant column_data(const dbheader *hd) const;
 		virtual QVariant getIcon(const dbheader *hd) const;
+		virtual QVariant column_tooltip(const dbheader *hd) const;
 		virtual bool visible() const;
 		int isVisible();
 		bool childVisible() const;
