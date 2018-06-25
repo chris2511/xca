@@ -1,3 +1,5 @@
+ * Related to #39: Dynamically adjust explicit DN entries
+ * Close #39: Subject entries shuffled
  * Close #36: Support adding CN to X509v3 SAN automatically
  * Close #35: Configurable size of serial number.
  * Close #34: Improve Mac OSX installation

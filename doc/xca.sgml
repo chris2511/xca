@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>May 2018 - Version 2.0.1
+<date>July 2018 - Version 2.1.0
 
 <abstract>
 
@@ -1512,6 +1512,13 @@ the rollout of the certificate.
 This list may be used to change the list of the usual 7 distinguished name entries
 shown in the subject tab of the Certificate / Request / Template generation dialog
 to better fit ones needs.
+
+When activating the <em>Dynamically arrange explicit subject entries</em> option,
+the explicit entries are rearranged by the name to be edited.
+
+If the name is empty, the entries are unchanged. Otherwise, the entries of
+the name to be edited are displayed first, followed by the entries of the
+list above not mentioned in the name to be edited.
 
 <p>
 
