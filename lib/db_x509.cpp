@@ -61,18 +61,18 @@ void db_x509::dereferenceIssuer()
 dbheaderList db_x509::getHeaders()
 {
 	dbheaderList h = db_x509super::getHeaders();
-	h <<	new dbheader(HD_cert_ca,	true, tr("CA"),
+	h <<	new dbheader(HD_cert_ca, true, tr("CA"),
 			tr("reflects the basic Constraints extension")) <<
-		new dbheader(HD_cert_serial,	true, tr("Serial")) <<
-		new dbheader(HD_cert_md5fp,	false,tr("MD5 fingerprint")) <<
-		new dbheader(HD_cert_sha1fp,	false,tr("SHA1 fingerprint")) <<
-		new dbheader(HD_cert_sha256fp,	false,tr("SHA256 fingerprint")) <<
-		new dbheader(HD_cert_notBefore, false,tr("Start date"),
+		new num_dbheader(HD_cert_serial, true, tr("Serial")) <<
+		new num_dbheader(HD_cert_md5fp, false,tr("MD5 fingerprint")) <<
+		new num_dbheader(HD_cert_sha1fp,false,tr("SHA1 fingerprint")) <<
+		new num_dbheader(HD_cert_sha256fp,false,tr("SHA256 fingerprint")) <<
+		new date_dbheader(HD_cert_notBefore, false,tr("Start date"),
 				tr("Not before")) <<
-		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),
+		new date_dbheader(HD_cert_notAfter, true, tr("Expiry date"),
 				tr("Not after")) <<
-		new dbheader(HD_cert_revocation,false, tr("Revocation")) <<
-		new dbheader(HD_cert_crl_expire,true, tr("CRL Expiration"));
+		new date_dbheader(HD_cert_revocation,false, tr("Revocation")) <<
+		new date_dbheader(HD_cert_crl_expire,true, tr("CRL Expiration"));
 	return h;
 }
 
@@ -666,7 +666,7 @@ void db_x509::store(QModelIndexList list)
 			tr("PEM all")) <<
 		exportType(exportType::Index, "txt",
 			tr("Certificate Index file"));
-	if (crt->getNotAfter() < a1time())
+	if (crt->getNotAfter() > a1time())
 		types << exportType(exportType::vcalendar, "ics",
 			tr("vCalendar"));
 

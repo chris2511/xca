@@ -391,10 +391,6 @@ QVariant pki_crl::column_data(const dbheader *hd) const
 				return QVariant(tr("unknown"));
 		case HD_crl_revoked:
 			return QVariant(numRev());
-		case HD_crl_lastUpdate:
-			return QVariant(getLastUpdate().toSortable());
-		case HD_crl_nextUpdate:
-			return QVariant(getNextUpdate().toSortable());
 		case HD_crl_crlnumber:
 			a1int a;
 			if (getCrlNumber(&a))
@@ -404,15 +400,15 @@ QVariant pki_crl::column_data(const dbheader *hd) const
 	return pki_x509name::column_data(hd);
 }
 
-QVariant pki_crl::column_tooltip(const dbheader *hd) const
+a1time pki_crl::column_a1time(const dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_crl_lastUpdate:
-			return QVariant(getLastUpdate().toPretty());
+			return getLastUpdate();
 		case HD_crl_nextUpdate:
-			return QVariant(getNextUpdate().toPretty());
+			return getNextUpdate();
 	}
-	return pki_x509name::column_tooltip(hd);
+	return pki_base::column_a1time(hd);
 }
 
 QVariant pki_crl::getIcon(const dbheader *hd) const

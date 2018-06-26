@@ -62,12 +62,12 @@ void db_key::loadContainer()
 dbheaderList db_key::getHeaders()
 {
 	dbheaderList h = db_base::getHeaders();
-	h <<	new dbheader(HD_key_type,   true, tr("Type")) <<
-		new dbheader(HD_key_size,   true, tr("Size")) <<
+	h <<	new dbheader(HD_key_type, true, tr("Type")) <<
+		new num_dbheader(HD_key_size, true, tr("Size")) <<
 #ifndef OPENSSL_NO_EC
-		new dbheader(HD_key_curve,  false,tr("EC Group")) <<
+		new dbheader(HD_key_curve, false,tr("EC Group")) <<
 #endif
-		new dbheader(HD_key_use,    true, tr("Use")) <<
+		new num_dbheader(HD_key_use, true, tr("Use")) <<
 		new dbheader(HD_key_passwd, true, tr("Password"));
 	return h;
 }

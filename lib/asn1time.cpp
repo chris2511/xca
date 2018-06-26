@@ -29,12 +29,13 @@ bool a1time::isUndefined() const
 	return toTime_t() == 0;
 }
 
-void a1time::setUndefined()
+a1time &a1time::setUndefined()
 {
 	/* This way we handle "Jan 01, 1970 00:00:00"
 	 * like RFC-5280 undefined date. I dare it */
 	setTimeSpec(Qt::UTC);
 	setTime_t(0);
+	return *this;
 }
 
 int a1time::from_asn1(const ASN1_TIME *a)

@@ -293,7 +293,21 @@ QVariant pki_base::column_data(const dbheader *hd) const
 	case HD_primary_key:
 		return sqlItemId;
 	}
+	if (hd->type == dbheader::hd_asn1time) {
+		a1time t = column_a1time(hd);
+		if (!t.isUndefined())
+			return QVariant(t.toSortable());
+	}
 	return QVariant();
+}
+
+a1time pki_base::column_a1time(const dbheader *hd) const
+{
+	switch (hd->id) {
+	case HD_creation:
+		return insertion_date;
+	}
+	return a1time().setUndefined();
 }
 
 QVariant pki_base::getIcon(const dbheader *hd) const
@@ -305,10 +319,13 @@ QVariant pki_base::getIcon(const dbheader *hd) const
 QVariant pki_base::column_tooltip(const dbheader *hd) const
 {
 	switch (hd->id) {
-	case HD_creation:
-		return QVariant(insertion_date.toPretty());
 	case HD_comment:
 		return QVariant(comment);
+	}
+	if (hd->type == dbheader::hd_asn1time) {
+		a1time t = column_a1time(hd);
+		if (!t.isUndefined())
+			return QVariant(t.toPretty());
 	}
 	return QVariant();
 }

@@ -69,6 +69,7 @@ class pki_crl: public pki_x509name
 		a1int getVersion();
 		QVariant column_data(const dbheader *hd) const;
 		QVariant getIcon(const dbheader *hd) const;
+		a1time column_a1time(const dbheader *hd) const;
 		QString getMsg(msg_type msg) const;
 		void d2i(QByteArray &ba);
 		QByteArray i2d() const;
@@ -77,7 +78,6 @@ class pki_crl: public pki_x509name
 		a1int getCrlNumber() const;
 		BIO *pem(BIO *, int);
 		bool visible() const;
-		QVariant column_tooltip(const dbheader *hd) const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(const QSqlRecord &rec);

@@ -22,9 +22,9 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 		qDebug("BAD COLUMN: %d %d\n", left.column(), right.column());
 		return true;
 	}
-	if (db->isNumericCol(left.column()) &&
-	    db->isNumericCol(right.column()))
-	{
+	dbheader *hd_left = headers[left.column()];
+	dbheader *hd_right = headers[right.column()];
+	if (hd_left->isNumeric() && hd_right->isNumeric()) {
 		int diff;
 		QString l = sourceModel()->data(left).toString();
 		QString r = sourceModel()->data(right).toString();
@@ -36,14 +36,14 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 		else
 			return l < r;
 	}
-	if (headers[left.column()]->id == HD_creation &&
-	    headers[right.column()]->id == HD_creation)
+	if (hd_left->type == dbheader::hd_asn1time &&
+	    hd_right->type == dbheader::hd_asn1time)
 	{
 		pki_base *l = static_cast<pki_base*>(left.internalPointer());
 		pki_base *r = static_cast<pki_base*>(right.internalPointer());
-		if (l && r) {
-			return l->getInsertionDate() < r->getInsertionDate();
-		}
+		if (l && r)
+			return  l->column_a1time(hd_left) <
+				r->column_a1time(hd_right);
 	}
 	return QSortFilterProxyModel::lessThan(left, right);
 }

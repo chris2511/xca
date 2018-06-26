@@ -30,13 +30,13 @@ db_crl::db_crl(MainWindow *mw)
 dbheaderList db_crl::getHeaders()
 {
 	dbheaderList h = db_x509name::getHeaders();
-	h <<	new dbheader(HD_crl_signer,	true, tr("Signer"),
+	h <<	new dbheader(HD_crl_signer, true, tr("Signer"),
 			tr("Internal name of the signer")) <<
-		new dbheader(HD_crl_revoked,	true, tr("No. revoked"),
+		new num_dbheader(HD_crl_revoked, true, tr("No. revoked"),
 			tr("Number of revoked certificates")) <<
-		new dbheader(HD_crl_lastUpdate, false,tr("Last update")) <<
-		new dbheader(HD_crl_nextUpdate,	true, tr("Next update")) <<
-		new dbheader(HD_crl_crlnumber,	false,tr("CRL number"));
+		new date_dbheader(HD_crl_lastUpdate,false, tr("Last update")) <<
+		new date_dbheader(HD_crl_nextUpdate, true, tr("Next update")) <<
+		new num_dbheader(HD_crl_crlnumber, false, tr("CRL number"));
 	return h;
 }
 

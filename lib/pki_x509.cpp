@@ -929,17 +929,6 @@ QVariant pki_x509::column_data(const dbheader *hd) const
 	switch (hd->id) {
 		case HD_cert_serial:
 			return QVariant(getSerial().toHex());
-		case HD_cert_notBefore:
-			return QVariant(getNotBefore().toSortable());
-		case HD_cert_notAfter:
-			return QVariant(getNotAfter().toSortable());
-		case HD_cert_revocation:
-			return QVariant(isRevoked() ?
-				revocation.getDate().toSortable() : "");
-		case HD_cert_crl_expire:
-			if (canSign() && !crlExpire.isUndefined())
-				return QVariant(crlExpire.toSortable());
-			break;
 		case HD_cert_md5fp:
 			return QVariant(fingerprint(EVP_md5()));
 		case HD_cert_sha1fp:
@@ -963,22 +952,23 @@ QVariant pki_x509::column_data(const dbheader *hd) const
 	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509::column_tooltip(const dbheader *hd) const
+a1time pki_x509::column_a1time(const dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_cert_notBefore:
-			return QVariant(getNotBefore().toPretty());
+			return getNotBefore();
 		case HD_cert_notAfter:
-			return QVariant(getNotAfter().toPretty());
+			return getNotAfter();
 		case HD_cert_revocation:
-			return QVariant(isRevoked() ?
-				revocation.getDate().toPretty() : "");
+			if (isRevoked())
+				return revocation.getDate();
+			break;
 		case HD_cert_crl_expire:
-			if (canSign() && !crlExpire.isUndefined())
-				return QVariant(crlExpire.toPretty());
+			if (canSign())
+				return crlExpire;
 			break;
 	}
-	return pki_x509super::column_tooltip(hd);
+	return pki_base::column_a1time(hd);
 }
 
 QStringList pki_x509::icsVEVENT() const

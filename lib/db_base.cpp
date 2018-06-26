@@ -154,10 +154,10 @@ dbheaderList db_base::getHeaders()
 	dbheaderList h;
 	/* "No." handled in XcaProxyModel */
 	h << new dbheader(HD_internal_name, true, tr("Internal name"))
-	  << new dbheader(HD_counter, false, tr("No."))
-	  << new dbheader(HD_primary_key, false, tr("Primary key"),
+	  << new num_dbheader(HD_counter, false, tr("No."))
+	  << new num_dbheader(HD_primary_key, false, tr("Primary key"),
 			tr("Database unique number"))
-	  << new dbheader(HD_creation, false, tr("Date"),
+	  << new date_dbheader(HD_creation, false, tr("Date"),
 			tr("Date of creation or insertion"))
 	  << new dbheader(HD_source, false, tr("Source"),
 			tr("Generated, Imported, Transformed"))
@@ -701,11 +701,6 @@ void db_base::columnResetDefaults()
 		hd->reset();
 	}
 	emit resetHeader();
-}
-
-bool db_base::isNumericCol(int col) const
-{
-	return isValidCol(col) ? allHeaders[col]->isNumeric() : false;
 }
 
 bool db_base::isValidCol(int col) const

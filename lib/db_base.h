@@ -138,7 +138,6 @@ class db_base: public QAbstractItemModel
 		void insertChild(pki_base *parent, pki_base *child);
 		void createSuccess(pki_base *pki);
 		bool columnHidden(int col) const;
-		bool isNumericCol(int col) const;
 		virtual void saveHeaderState();
 		void initHeaderView(QHeaderView *hv);
 		void setVisualIndex(int i, int visualIndex);

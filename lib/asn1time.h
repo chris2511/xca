@@ -38,7 +38,7 @@ class a1time : public QDateTime
 	~a1time();
 	a1time &set(const ASN1_TIME *a);
 	int fromPlain(const QString &plain);
-	void setUndefined();
+	a1time &setUndefined();
 	bool isUndefined() const;
 	QString toString(QString fmt, Qt::TimeSpec spec = Qt::UTC) const;
 	QString toPretty() const;

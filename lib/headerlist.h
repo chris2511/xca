@@ -78,6 +78,8 @@ class dbheader
 		hd_x509name,
 		hd_v3ext,
 		hd_v3ext_ns,
+		hd_number,
+		hd_asn1time,
 	};
 	int id;
 	bool show;
@@ -90,13 +92,11 @@ class dbheader
 	int sortIndicator;
 	enum hdr_type type;
 
-#if 1
 	dbheader(QString aname = QString())
 	{
 		init();
 		name = aname;
 	}
-#endif
 	dbheader(int aid, bool ashow = false,
 		QString aname = QString(), QString atip = QString())
 	{
@@ -124,22 +124,11 @@ class dbheader
 	bool isNumeric()
 	{
 		switch (id) {
-		case HD_counter:
-		case HD_primary_key:
-		case HD_key_size:
-		case HD_key_use:
-		case HD_cert_serial:
-		case HD_crl_revoked:
-		case HD_crl_crlnumber:
-		case HD_subject_hash:
-		case HD_cert_md5fp:
-		case HD_cert_sha1fp:
-		case HD_cert_sha256fp:
 		case NID_subject_key_identifier:
 		case NID_authority_key_identifier:
 			return true;
 		}
-		return false;
+		return type == hd_number;
 	}
 	QString toData()
 	{
@@ -202,6 +191,28 @@ class nid_dbheader : public dbheader
 	{
 		return QString("[%1] %2").arg(sn)
 			.arg(Settings["translate_dn"] ? name : tooltip);
+	}
+};
+
+class num_dbheader : public dbheader
+{
+    public:
+	num_dbheader(int aid, bool ashow = false,
+		QString aname = QString(), QString atip = QString())
+		: dbheader(aid, ashow, aname, atip)
+	{
+		type = hd_number;
+	}
+};
+
+class date_dbheader : public dbheader
+{
+    public:
+	date_dbheader(int aid, bool ashow = false,
+		QString aname = QString(), QString atip = QString())
+		: dbheader(aid, ashow, aname, atip)
+	{
+		type = hd_asn1time;
 	}
 };
 

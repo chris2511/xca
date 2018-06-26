@@ -144,6 +144,7 @@ class pki_x509 : public pki_x509super
 		x509v3ext getExtByNid(int nid) const;
 		QVariant column_data(const dbheader *hd) const;
 		QVariant getIcon(const dbheader *hd) const;
+		a1time column_a1time(const dbheader *hd) const;
 		QByteArray i2d() const;
 		void d2i(QByteArray &ba);
 		void deleteFromToken();
@@ -156,7 +157,6 @@ class pki_x509 : public pki_x509super
 		void setRevocations(const x509revList &rl);
 		x509revList getRevList() const;
 		bool compareNameAndKey(pki_x509 *other);
-		QVariant column_tooltip(const dbheader *hd) const;
 		void setCrlExpire(a1time a)
 		{
 			crlExpire = a;

@@ -76,7 +76,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void checkDB();
 		QSqlError initSqlDB();
 		QString openSqlDB(QString dbName);
-		QString currentDB;
 		QTimer *eachSecond;
 
 	protected:

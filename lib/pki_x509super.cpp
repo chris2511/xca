@@ -131,7 +131,9 @@ QVariant pki_x509super::column_data(const dbheader *hd) const
 	if (hd->id == HD_x509_sigalg) {
 		return QVariant(getSigAlg());
 	}
-	if (hd->type == dbheader::hd_v3ext || hd->type == dbheader::hd_v3ext_ns) {
+	if (hd->type == dbheader::hd_v3ext ||
+	    hd->type == dbheader::hd_v3ext_ns)
+	{
 		extList el = getV3ext();
 		int idx = el.idxByNid(hd->id);
 		if (idx == -1)
