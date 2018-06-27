@@ -284,8 +284,6 @@ QVariant pki_base::column_data(const dbheader *hd) const
 	switch (hd->id) {
 	case HD_internal_name:
 		return QVariant(getIntName());
-	case HD_creation:
-		return QVariant(insertion_date.toFancy());
 	case HD_comment:
 		return QVariant(comment.section('\n', 0, 0));
 	case HD_source:
@@ -296,7 +294,7 @@ QVariant pki_base::column_data(const dbheader *hd) const
 	if (hd->type == dbheader::hd_asn1time) {
 		a1time t = column_a1time(hd);
 		if (!t.isUndefined())
-			return QVariant(t.toSortable());
+			return QVariant(t.toFancy());
 	}
 	return QVariant();
 }

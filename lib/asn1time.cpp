@@ -195,6 +195,7 @@ QString a1time::toFancy() const
 {
 	QString fmt("Dunno");
 	qint64 diff = age();
+	int dtn = toLocalTime().daysTo(now().toLocalTime());
 	bool future = false;
 	if (diff < 0) {
 		future = true;
@@ -205,18 +206,16 @@ QString a1time::toFancy() const
 	} else if (diff < 2 *SECS_PER_HOUR) {
 		diff /= SECS_PER_MINUTE;
 		fmt = future ? TR("in %1 minutes") : TR("%1 minutes ago");
-	} else if (diff < 2 *SECS_PER_DAY) {
+	} else if (dtn == 1) {
+		return TR("Yesterday");
+	} else if (dtn == -1) {
+		return TR("Tomorrow");
+	} else if (diff < SECS_PER_DAY) {
 		diff /= SECS_PER_HOUR;
 		fmt = future ? TR("in %1 hours") : TR("%1 hours ago");
-	} else if (diff < 2 *SECS_PER_WEEK) {
-		diff /= SECS_PER_DAY;
-		fmt = future ? TR("in %1 days") : TR("%1 days ago");
-	} else if (diff < 2 *SECS_PER_MONTH) {
-		diff /= SECS_PER_WEEK;
-		fmt = future ? TR("in %1 weeks") : TR("%1 weeks ago");
 	} else {
-		diff /= SECS_PER_MONTH;
-		fmt = future ? TR("in %1 months") : TR("%1 months ago");
+		return XCA_application::language().toString(date(),
+			QLocale::ShortFormat);
 	}
 	return fmt.arg(diff);
 }
