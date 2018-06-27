@@ -22,8 +22,6 @@
 #define UTC_FORMAT     "yyMMddHHmmss'Z'"
 #define GEN_FORMAT     "yy" UTC_FORMAT
 
-#define TR QObject::tr
-
 bool a1time::isUndefined() const
 {
 	return toTime_t() == 0;
@@ -154,9 +152,9 @@ a1time &a1time::set(const ASN1_TIME *a)
 QString a1time::toString(QString fmt, Qt::TimeSpec spec) const
 {
 	if (isUndefined())
-		return TR("Undefined");
+		return QObject::tr("Undefined");
 	if (!isValid())
-		return TR("Broken / Invalid");
+		return QObject::tr("Broken / Invalid");
 	return XCA_application::language().toString(
 		spec == Qt::UTC ? toUTC() : toLocalTime(), fmt);
 }
@@ -202,17 +200,20 @@ QString a1time::toFancy() const
 		diff *= -1;
 	}
 	if (diff < 2 * SECS_PER_MINUTE) {
-		fmt = future ? TR("in %1 seconds") : TR("%1 seconds ago");
+		fmt = future ? QObject::tr("in %1 seconds") :
+				QObject::tr("%1 seconds ago");
 	} else if (diff < 2 *SECS_PER_HOUR) {
 		diff /= SECS_PER_MINUTE;
-		fmt = future ? TR("in %1 minutes") : TR("%1 minutes ago");
+		fmt = future ? QObject::tr("in %1 minutes") :
+				QObject::tr("%1 minutes ago");
 	} else if (dtn == 1) {
-		return TR("Yesterday");
+		return QObject::tr("Yesterday");
 	} else if (dtn == -1) {
-		return TR("Tomorrow");
+		return QObject::tr("Tomorrow");
 	} else if (diff < SECS_PER_DAY) {
 		diff /= SECS_PER_HOUR;
-		fmt = future ? TR("in %1 hours") : TR("%1 hours ago");
+		fmt = future ? QObject::tr("in %1 hours") :
+				QObject::tr("%1 hours ago");
 	} else {
 		return XCA_application::language().toString(date(),
 			QLocale::ShortFormat);
