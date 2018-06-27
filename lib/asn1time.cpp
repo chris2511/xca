@@ -157,7 +157,8 @@ QString a1time::toString(QString fmt, Qt::TimeSpec spec) const
 		return TR("Undefined");
 	if (!isValid())
 		return TR("Broken / Invalid");
-	return (spec == Qt::UTC ? toUTC() : toLocalTime()).toString(fmt);
+	return XCA_application::language().toString(
+		spec == Qt::UTC ? toUTC() : toLocalTime(), fmt);
 }
 
 QString a1time::toPretty() const
