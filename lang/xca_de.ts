@@ -767,12 +767,12 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+1"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Fälligkeitserinnerung fü alle ausgewählten Elemente im vCalendar Format</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>Fälligkeitserinnerung für alle ausgestellten Zertifikate, der CA und der letzten CRL im vCalendar Format</translation>
     </message>
     <message>
         <source>Certificate Index file</source>
@@ -1982,7 +1982,7 @@ Bitte die DH Parameter bits angeben</translation>
     <message>
         <location line="+79"/>
         <source>Internal Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Interner Name</translation>
     </message>
     <message>
         <location line="+320"/>
@@ -2465,7 +2465,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="-1"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der &apos;subject alternative name&apos; (SAN) soll vom &apos;common name&apos; kopiert werden. Dieser ist allerdings leer.</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="-401"/>
@@ -2700,7 +2700,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+44"/>
         <source>Certificate expiry warning threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeitpunkt der Zertifikatsablauferinnerung</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2710,12 +2710,12 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+11"/>
         <source>Serial number length</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge der Seriennummer</translation>
     </message>
     <message>
         <location line="+7"/>
         <source> bit</source>
-        <translation type="unfinished"></translation>
+        <translation> bit</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -2730,7 +2730,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+18"/>
         <source>Dynamically arrange explicit subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Besondere Namensteile dynamisch anordnen</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2780,12 +2780,12 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+23"/>
         <source>Days</source>
-        <translation type="unfinished">Tage</translation>
+        <translation>Tage</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>Wochen</translation>
     </message>
     <message>
         <location line="+180"/>
@@ -2977,42 +2977,42 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+46"/>
         <source>in %1 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>In %1 Sekunden</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 seconds ago</source>
-        <translation type="unfinished"></translation>
+        <translation>Vor %1 Sekunden</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>in %1 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>In %1 Minuten</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"></translation>
+        <translation>Vor %1 Minuten</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Yesterday</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestern</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Tomorrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Morgen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>in %1 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>In %1 Stunden</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"></translation>
+        <translation>Vor %1 Stunden</translation>
     </message>
     <message>
         <location filename="../lib/db.cpp" line="+222"/>
@@ -4273,7 +4273,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     <message>
         <location line="+190"/>
         <source>Failed to retrieve unique random serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Generieren einer eindeutigen zufälligen Seriennummer</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4303,12 +4303,12 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     <message>
         <location line="+7"/>
         <source>vCalendar</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished"></translation>
+        <translation>CA vCalendar</translation>
     </message>
     <message>
         <location line="+435"/>
@@ -5020,13 +5020,14 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+31"/>
         <source>Renew CRL: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL %1 erneuern</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Die XCA CRL &apos;%1&apos;, ausgestellt von der CA &apos;%2&apos; am %3 wird am %4 ablaufen.
+Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     </message>
     <message>
         <location line="-299"/>
@@ -5461,24 +5462,26 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+528"/>
         <source>Renew certificate: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikat %1 erneuern</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The XCA certificate &apos;%1&apos;, issued on %2 will expire on %3.
 It is stored in the XCA database &apos;%4&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Das XCA Zertifikat &apos;%1&apos;, ausgestellt am %2 wird am %3 ablaufen.
+Es ist in der XCA Datenbank &apos;%4&apos; gespeichert</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL erneuerung der CA &apos;%1&apos; fällig</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Die neueste von CA &apos;%1&apos; ausgestellte CRL wird am %2 ablaufen.
+Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     </message>
     <message>
         <source>CRL expires: %1</source>
@@ -5558,7 +5561,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location filename="../ui/v3ext.ui" line="+26"/>
         <source>Copy Common Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Den allgemeinen Bezeichner (common Name) kopieren</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -5630,27 +5633,27 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location line="-16"/>
         <source>A registered ID: OBJECT IDENTIFIER</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine OID numerisch oder als Text</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>A uniform resource indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Uniform Resource Identifier</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>A DNS domain name or &apos;copycn&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein DNS domain Name oder &apos;copycn&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>A DNS domain name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein DNS domain Name</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>An IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine IP Adresse</translation>
     </message>
     <message>
         <location line="+76"/>
