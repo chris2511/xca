@@ -564,24 +564,37 @@ void db_base::timerEvent(QTimerEvent *event)
 {
 	int youngest = SECS_PER_DAY;
 	int id = event->timerId();
-	int idx = allHeaders.column(HD_creation);
 
 	FOR_ALL_pki(pki, pki_base) {
-		int age = pki->getInsertionDate().age();
-		bool do_emit = false;
-		if (age < youngest)
-			youngest = age;
-
-		if (id == secondsTimer &&
-		    (age < SECS_PER_MINUTE *2 || age % SECS_PER_MINUTE < 2))
-			do_emit = true;
-		if (id == minutesTimer && (age % SECS_PER_HOUR < 60))
-			do_emit = true;
-		if (id == hoursTimer && (age % SECS_PER_DAY < SECS_PER_HOUR))
-			do_emit = true;
-		if (do_emit) {
-			QModelIndex i = createIndex(pki->row(), idx, pki);
-			emit dataChanged(i, i);
+		for (int idx=0; idx < allHeaders.count(); idx++) {
+			dbheader *hd = allHeaders[idx];
+			if (hd->type != dbheader::hd_asn1time)
+				continue;
+			a1time t = pki->column_a1time(hd);
+			if (t.isUndefined())
+				continue;
+			int age = t.age();
+			if (age < 0)
+				age *= -1;
+			bool do_emit = false;
+			if (age < youngest)
+				youngest = age;
+			if (!hd->show)
+				continue;
+			if (id == secondsTimer && (age < SECS_PER_MINUTE *2 ||
+						   age % SECS_PER_MINUTE < 2))
+				do_emit = true;
+			if (id == minutesTimer && (age % SECS_PER_HOUR < 60))
+				do_emit = true;
+			if (id == hoursTimer &&
+					 (age % SECS_PER_DAY < SECS_PER_HOUR))
+				do_emit = true;
+			if (do_emit) {
+				qDebug() << "Date changed for" << pki->getIntName() << ":" << hd->getName() << "Col:" << idx << t.toSortable();
+				QModelIndex i;
+				i = createIndex(pki->row(), idx, pki);
+				emit dataChanged(i, i);
+			}
 		}
 	}
 	if (secondsTimer && youngest > SECS_PER_HOUR *2) {
