@@ -1,3 +1,7 @@
+ * Fix translation of dates
+ * Inspired by #42: display dates relative (seconds ago, yesterday, ...)
+   while column ordering is still strict by age.
+   The ToolTip shows date and time.
  * Related to #39: Dynamically adjust explicit DN entries
  * Close #39: Subject entries shuffled
  * Close #36: Support adding CN to X509v3 SAN automatically
