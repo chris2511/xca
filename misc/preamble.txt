@@ -1,0 +1,5 @@
+# The path of the user settings directory depends on the
+# operating system and version.
+# The path where XCA looks for this file is shown in the
+# "About" dialog of XCA as "User settings path"
+
