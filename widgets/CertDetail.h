@@ -23,15 +23,18 @@ class CertDetail: public QDialog, public Ui::CertDetail
 		QString conf, exts;
 		QLabel *labelFromAsn1String(ASN1_STRING *s);
 		void setX509super(pki_x509super *x);
+		pki_key *myPubKey;
 
 	public:
-		CertDetail( QWidget *parent);
+		CertDetail(QWidget *parent);
+		~CertDetail();
 		void setCert(pki_x509 *cert);
 		void setReq(pki_x509req *req);
 
 	private slots:
 		void on_showExt_clicked();
 		void itemChanged(pki_base *pki);
+		void showPubKey();
 };
 
 #endif

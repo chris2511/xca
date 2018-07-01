@@ -7,6 +7,7 @@
 
 
 #include "CertDetail.h"
+#include "KeyDetail.h"
 #include "MainWindow.h"
 #include "distname.h"
 #include "clicklabel.h"
@@ -24,6 +25,7 @@ CertDetail::CertDetail(QWidget *parent)
 	showConf = false;
 	keySqlId = QVariant();
 	issuerSqlId = QVariant();
+	myPubKey = NULL;
 }
 
 void CertDetail::on_showExt_clicked()
@@ -46,6 +48,7 @@ void CertDetail::setX509super(pki_x509super *x)
 
 	// examine the key
 	pki_key *key= x->getRefKey();
+	myPubKey = x->getPubKey();
 	if (key) {
 		privKey->setText(key->getIntName());
 		privKey->setClickText(key->getSqlItemId().toString());
@@ -55,6 +58,13 @@ void CertDetail::setX509super(pki_x509super *x)
 			privKey->setRed();
 		}
 		keySqlId = key->getSqlItemId();
+	} else if (myPubKey) {
+		privKey->setText(tr("Show public key"));
+		privKey->setRed();
+		connect(privKey, SIGNAL(doubleClicked(QString)),
+			this,    SLOT(showPubKey()));
+		myPubKey->setIntName(x->getIntName());
+		myPubKey->setComment(tr("This key is not in the database."));
 	} else {
 		privKey->setText(tr("Not available"));
 		privKey->setDisabled(true);
@@ -94,11 +104,11 @@ void CertDetail::setCert(pki_x509 *cert)
 		tabwidget->removeTab(3);
 
 		// examine the signature
-		if ( cert->getSigner() == NULL) {
+		if (cert->getSigner() == NULL) {
 			signature->setText(tr("Signer unknown"));
 			signature->setDisabled(true);
 			signature->disableToolTip();
-		} else if ( cert == cert->getSigner())  {
+		} else if (cert == cert->getSigner())  {
 			signature->setText(tr("Self signed"));
 			signature->setGreen();
 			signature->disableToolTip();
@@ -242,4 +252,24 @@ void CertDetail::itemChanged(pki_base *pki)
 
 	if (pki->getSqlItemId() == issuerSqlId)
 		signature->setText(pki->getIntName());
+}
+
+void CertDetail::showPubKey()
+{
+	if (!myPubKey)
+		return;
+	KeyDetail *dlg = new KeyDetail(this);
+	if (!dlg)
+		return;
+	dlg->setKey(myPubKey);
+	dlg->keyDesc->setReadOnly(true);
+	dlg->comment->setReadOnly(true);
+	dlg->exec();
+	delete dlg;
+}
+
+CertDetail::~CertDetail()
+{
+	if (myPubKey)
+		delete myPubKey;
 }

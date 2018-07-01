@@ -206,16 +206,13 @@ pki_x509 *pki_x509::findIssuer()
 	return NULL;
 }
 
-void pki_x509::fromPEM_BIO(BIO *bio, QString name)
+void pki_x509::fromPEM_BIO(BIO *bio, QString)
 {
 	X509 *_cert;
 	_cert = PEM_read_bio_X509(bio, NULL, NULL, NULL);
 	pki_openssl_error();
 	X509_free(cert);
 	cert = _cert;
-	autoIntName();
-	if (getIntName().isEmpty())
-		setIntName(rmslashdot(name));
 }
 
 void pki_x509::fload(const QString fname)
@@ -738,7 +735,9 @@ bool pki_x509::verify(pki_x509 *signer)
 		return true;
 	if ((psigner != NULL) || (signer == NULL))
 		return false;
-	if (signer == this && signerSqlId == sqlItemId)
+	if (signer == this &&
+	    signerSqlId == sqlItemId &&
+	    signerSqlId != QVariant())
 		return true;
 
 	if (verify_only(signer)) {
@@ -894,7 +893,7 @@ int pki_x509::sigAlg() const
 
 pki_x509 *pki_x509::getSigner()
 {
-	return static_cast<pki_x509 *>(psigner);
+	return psigner;
 }
 
 bool pki_x509::isRevoked() const

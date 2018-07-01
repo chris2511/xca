@@ -274,6 +274,9 @@ void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 
 	setIntName(rmslashdot(name));
 	set_EVP_PKEY(pkey);
+	autoIntName();
+	if (getIntName().isEmpty())
+		setIntName(rmslashdot(name));
 }
 
 static void search_ec_oid(EVP_PKEY *pkey)

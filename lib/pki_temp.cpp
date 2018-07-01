@@ -435,6 +435,7 @@ void pki_temp::try_fload(QString fname, const char *mode)
 	try {
 		fromPEM_BIO(b, fname);
 		BIO_free(b);
+		setIntName(rmslashdot(fname));
 		return;
 	} catch (errorEx &err) {
 		BIO_free(b);

@@ -88,6 +88,7 @@ class pki_base : public QObject
 		{
 			desc = d;
 		}
+		virtual void autoIntName();
 		QString getComment() const
 		{
 			return comment;

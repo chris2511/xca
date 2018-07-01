@@ -77,10 +77,24 @@ void ImportMulti::addItem(pki_base *pki)
 		pki->pkiSource = imported;
 
 	const std::type_info &t = typeid(*pki);
-
-	if (t == typeid(pki_x509)    || t == typeid(pki_evp) ||
-	    t == typeid(pki_x509req) || t == typeid(pki_crl) ||
-	    t == typeid(pki_temp)    || t == typeid(pki_scard))
+	if (t == typeid(pki_x509)) {
+		pki_x509 *x = static_cast<pki_x509 *>(pki);
+		x->setSigner(x->findIssuer());
+		x->lookupKey();
+		mcont->inToCont(pki);
+	}
+	else if (t == typeid(pki_x509req)) {
+		pki_x509req *x = static_cast<pki_x509req *>(pki);
+		x->lookupKey();
+		mcont->inToCont(pki);
+	}
+	else if (t == typeid(pki_crl)) {
+		pki_crl *x = static_cast<pki_crl *>(pki);
+		x->lookupIssuer();
+		mcont->inToCont(pki);
+	}
+	else if (t == typeid(pki_evp) || t == typeid(pki_temp) ||
+		 t == typeid(pki_scard))
 	{
 		mcont->inToCont(pki);
 	}
@@ -287,28 +301,38 @@ void ImportMulti::on_butDetails_clicked()
 	const std::type_info &t = typeid(*pki);
 	try {
 		if (t == typeid(pki_x509)){
-			CertDetail *dlg;
-			dlg = new CertDetail(mainwin);
+			CertDetail *dlg = new CertDetail(mainwin);
 			dlg->setCert(static_cast<pki_x509 *>(pki));
-			dlg->exec();
+			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
+				mainwin->keys, SLOT(showItem(QString)));
+			connect(dlg->signature,
+				SIGNAL(doubleClicked(QString)),
+				mainwin->certs, SLOT(showItem(QString)));
+			if (dlg->exec())
+				pki->setIntName(dlg->descr->text());
 			delete dlg;
 		} else if (t == typeid(pki_evp) || t == typeid(pki_scard)) {
-			KeyDetail *dlg;
-			dlg = new KeyDetail(mainwin);
+			KeyDetail *dlg = new KeyDetail(mainwin);
 			dlg->setKey(static_cast<pki_key *>(pki));
-			dlg->exec();
+			if (dlg->exec())
+				pki->setIntName(dlg->keyDesc->text());
 			delete dlg;
 		} else if (t == typeid(pki_x509req)) {
-			CertDetail *dlg;
-			dlg = new CertDetail(mainwin);
+			CertDetail *dlg = new CertDetail(mainwin);
 			dlg->setReq(static_cast<pki_x509req *>(pki));
-			dlg->exec();
+			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
+				mainwin->keys, SLOT(showItem(QString)));
+			if (dlg->exec())
+				pki->setIntName(dlg->descr->text());
 			delete dlg;
 		} else if (t == typeid(pki_crl)) {
-			CrlDetail *dlg;
-			dlg = new CrlDetail(mainwin);
+			CrlDetail *dlg = new CrlDetail(mainwin);
 			dlg->setCrl(static_cast<pki_crl *>(pki));
-			dlg->exec();
+			connect(dlg->issuerIntName,
+				SIGNAL(doubleClicked(QString)),
+				mainwin->certs, SLOT(showItem(QString)));
+			if (dlg->exec())
+				pki->setIntName(dlg->descr->text());
 			delete dlg;
 		} else if (t == typeid(pki_temp)) {
 			XCA_WARN(tr("Details of the item '%1' cannot be shown")
@@ -319,7 +343,6 @@ void ImportMulti::on_butDetails_clicked()
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
-
 }
 
 ImportMulti::~ImportMulti()

@@ -50,6 +50,12 @@ pki_key::~pki_key()
 		EVP_PKEY_free(key);
 }
 
+void pki_key::autoIntName()
+{
+	setIntName(QString("%1 %2%3").arg(length(), getTypeString(),
+		isPubKey() ? QString(" ") + tr("Public key") : QString("")));
+}
+
 void pki_key::d2i(QByteArray &ba)
 {
 	EVP_PKEY *k = (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);

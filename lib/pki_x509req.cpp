@@ -138,9 +138,6 @@ void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
 	openssl_error(name);
 	X509_REQ_free(request);
 	request = req;
-	autoIntName();
-	if (getIntName().isEmpty())
-		setIntName(rmslashdot(name));
 }
 
 void pki_x509req::fload(const QString fname)

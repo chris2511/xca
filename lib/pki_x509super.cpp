@@ -20,7 +20,7 @@ pki_x509super::~pki_x509super()
 {
 }
 
-QSqlError pki_x509super::insertSqlData()
+QSqlError pki_x509super::lookupKey()
 {
 	XSqlQuery q;
 	unsigned hash = pubHash();
@@ -43,13 +43,22 @@ QSqlError pki_x509super::insertSqlData()
 			break;
 		}
 	}
+	return q.lastError();
+}
 
+QSqlError pki_x509super::insertSqlData()
+{
+	QSqlError e = lookupKey();
+	if (e.isValid())
+		return e;
+
+	XSqlQuery q;
 	SQL_PREPARE(q, "INSERT INTO x509super (item, subj_hash, pkey, key_hash) "
 		  "VALUES (?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, (uint)getSubject().hashNum());
 	q.bindValue(2, privkey ? privkey->getSqlItemId() : QVariant());
-	q.bindValue(3, hash);
+	q.bindValue(3, pubHash());
 	q.exec();
 	return q.lastError();
 }

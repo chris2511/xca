@@ -32,7 +32,6 @@ void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 	openssl_error(name);
 	X509_CRL_free(crl);
 	crl = _crl;
-	setIntName(rmslashdot(name));
 }
 
 QString pki_crl::getMsg(msg_type msg) const
@@ -53,7 +52,7 @@ QString pki_crl::getMsg(msg_type msg) const
 	return pki_base::getMsg(msg);
 }
 
-QSqlError pki_crl::insertSqlData()
+QSqlError pki_crl::lookupIssuer()
 {
 	XSqlQuery q;
 	unsigned name_hash = getSubject().hashNum();
@@ -74,12 +73,23 @@ QSqlError pki_crl::insertSqlData()
 		}
 		verify(x);
 	}
+	return q.lastError();
+}
+
+QSqlError pki_crl::insertSqlData()
+{
+	QSqlError e = lookupIssuer();
+
+	if (e.isValid())
+		return e;
+
+	XSqlQuery q;
 	SQL_PREPARE(q, "INSERT INTO crls (item, hash, num, iss_hash, issuer, crl) "
 		  "VALUES (?, ?, ?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, hash());
 	q.bindValue(2, numRev());
-	q.bindValue(3, name_hash);
+	q.bindValue(3, (uint)getSubject().hashNum());
 	q.bindValue(4, issuer ? issuer->getSqlItemId() : QVariant());
 	q.bindValue(5, i2d_b64());
 	q.exec();

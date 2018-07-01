@@ -52,6 +52,7 @@ class pki_x509super : public pki_x509name
 		QVariant column_data(const dbheader *hd) const;
 		void opensslConf(QString fname);
 		bool visible() const;
+		QSqlError lookupKey();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(const QSqlRecord &rec);
