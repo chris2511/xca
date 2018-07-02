@@ -128,34 +128,28 @@ void initOIDs()
 
 NIDlist readNIDlist(QString fname)
 {
-	char buff[128];
-	const char *pb, *userdefined;
-	char *pbe;
-	FILE *fp;
 	int line = 0, nid;
 	NIDlist nl;
-	nl.clear();
-	fp = fopen_read(fname);
-	if (fp == NULL) return nl;
-	while (fgets(buff, 127, fp)) {
-		line++;
-		pb = buff;
-		while (*pb==' ' || *pb=='\t' ) pb++;
-		if (*pb == '#' ) continue;
-		pbe = buff + strlen(buff) -1;
-		while (*pbe == ' ' || *pbe == '\t' || *pbe == '\r' || *pbe == '\n')
-			*pbe-- = '\0';
+	QFile file(fname);
+	if (!file.open(QIODevice::ReadOnly))
+                return nl;
 
-		userdefined = oid_name_clash[QString(pb)];
+	QTextStream in(&file);
+	while (!in.atEnd()) {
+		const char *userdefined;
+		QString entry = in.readLine().trimmed();
+		line++;
+		if (entry.startsWith('#') || entry.isEmpty())
+			continue;
+		userdefined = oid_name_clash[entry];
 		if (userdefined)
-			pb = userdefined;
-		nid = OBJ_txt2nid((char *)pb);
+			entry = userdefined;
+		nid = OBJ_txt2nid(CCHAR(entry));
 		if (nid == NID_undef)
 			XCA_WARN(QObject::tr("Unknown object '%1' in file %2 line %3")
-				.arg(pb).arg(fname).arg(line));
+				.arg(entry).arg(fname).arg(line));
 		else
 			nl += nid;
 	}
-	fclose(fp);
 	return nl;
 }
