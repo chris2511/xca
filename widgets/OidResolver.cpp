@@ -35,6 +35,11 @@ void OidResolver::searchOid(QString s)
 		if (clash)
 			n = OBJ_txt2nid(clash);
 	}
+	QString lo = s.toLower();
+	if (n == NID_undef && s != lo)
+		n = OBJ_txt2nid(CCHAR(lo));
+	if (n == NID_undef && oid_lower_map.contains(lo))
+		n = oid_lower_map[lo];
 	ign_openssl_error();
 	if (n == NID_undef) {
 		ln->clear();

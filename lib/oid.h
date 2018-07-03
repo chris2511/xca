@@ -14,6 +14,7 @@ class QString;
 
 extern int first_additional_oid;
 extern QMap<QString,const char*> oid_name_clash;
+extern QMap<QString,int> oid_lower_map;
 
 typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */
