@@ -97,6 +97,7 @@ clean:
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt misc/oids.txt
 	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg
 	rm -rf xca-$(VERSION)*
+	rm -f misc/Info.plist
 
 distclean: clean
 	rm -f local.h Local.mak config.log config.status commithash.h
