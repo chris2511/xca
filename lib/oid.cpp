@@ -16,6 +16,7 @@
 #include "func.h"
 #include "oid.h"
 #include "widgets/XcaWarning.h"
+#include "widgets/MainWindow.h"
 
 int first_additional_oid = 0;
 
@@ -86,6 +87,8 @@ static void insert_new_oid(const QStringList &sl, QString fname, int line)
 			.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid))
 		);
 	} else if (!in_use.isEmpty()) {
+		/* OID does not exist, but SN or LN however do.
+		 * Do NOT create OID and tell the user about */
 		nid = OBJ_txt2nid(in_use.constData());
 		XCA_WARN(QObject::tr("The identifier '%1' for OID %2 from file %3 line %4 is already used for a different OID as '%5:%6:%7' and should be changed to avoid conflicts.")
 			.arg(in_use.constData())
@@ -94,9 +97,19 @@ static void insert_new_oid(const QStringList &sl, QString fname, int line)
 			.arg(OBJ_obj2QString(OBJ_nid2obj(nid), 1))
 			.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid))
 		);
-	} else {
+	} else if (nid == NID_undef) {
 		nid=OBJ_create(oid.constData(), sn.constData(), ln.constData());
-		addToLowerMap(nid);
+		qDebug() << "Creating OID:" << fname << line <<
+						nid << oid << sn << ln;
+		try {
+			openssl_error();
+			addToLowerMap(nid);
+		} catch (errorEx &e) {
+			errorEx err(errorEx(e.getString() +
+				QString("%1:%2 OID: %3")
+				.arg(fname).arg(line).arg(oid.constData())));
+			MainWindow::Error(err);
+		}
 	}
 }
 
