@@ -10,6 +10,8 @@
 #include "pki_x509super.h"
 #include "db_base.h"
 
+QPixmap *pki_x509super::icon[1];
+
 pki_x509super::pki_x509super(const QString name)
 	: pki_x509name(name)
 {
@@ -128,6 +130,20 @@ QString pki_x509super::getSigAlg() const
 const EVP_MD *pki_x509super::getDigest()
 {
 	return EVP_get_digestbynid(sigAlg());
+}
+
+bool pki_x509super::hasPrivKey() const
+{
+	pki_key *k = getRefKey();
+	return k && k->isPrivKey();
+}
+
+QVariant pki_x509super::getIcon(const dbheader *hd) const
+{
+	if (hd->id == HD_x509key_name)
+		return hasPrivKey() ? QVariant(*icon[0]) : QVariant();
+
+	return pki_base::getIcon(hd);
 }
 
 QVariant pki_x509super::column_data(const dbheader *hd) const

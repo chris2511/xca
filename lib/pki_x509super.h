@@ -41,6 +41,7 @@ class pki_x509super : public pki_x509name
 		virtual extList getV3ext() const = 0;
 		virtual QString getSigAlg() const;
 		virtual const EVP_MD *getDigest();
+		static QPixmap *icon[1];
 		QVariant getKeySqlId()
 		{
 			return keySqlId;
@@ -52,6 +53,8 @@ class pki_x509super : public pki_x509name
 		QVariant column_data(const dbheader *hd) const;
 		void opensslConf(QString fname);
 		bool visible() const;
+		bool hasPrivKey() const;
+		QVariant getIcon(const dbheader *hd) const;
 		QSqlError lookupKey();
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();

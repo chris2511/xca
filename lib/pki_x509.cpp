@@ -1009,7 +1009,6 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 {
 	int pixnum = 0;
 	bool ca;
-	pki_key *k;
 
 	switch (hd->id) {
 	case HD_cert_ca:
@@ -1020,16 +1019,13 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 		pixnum = 4;
 		break;
 	case HD_internal_name:
-		k = getRefKey();
-		if (k && k->isPrivKey()) {
+		if (hasPrivKey())
 			pixnum += 1;
-		}
-		if (isRevoked()){
+		if (isRevoked())
 			pixnum += 2;
-		}
 		break;
 	default:
-		return QVariant();
+		return pki_x509super::getIcon(hd);
 	}
 	return QVariant(*icon[pixnum]);
 }

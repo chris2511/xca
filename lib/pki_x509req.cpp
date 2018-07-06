@@ -328,19 +328,17 @@ QVariant pki_x509req::column_data(const dbheader *hd) const
 QVariant pki_x509req::getIcon(const dbheader *hd) const
 {
 	int pixnum = -1;
-	pki_key *k;
 
 	switch (hd->id) {
 	case HD_internal_name:
-		pixnum = 0;
-		k = getRefKey();
-		if (k && k->isPrivKey())
-			pixnum = 1;
+		pixnum = hasPrivKey() ? 0 : 1;
 		break;
 	case HD_req_signed:
 		if (done)
 			pixnum = 2;
 		break;
+	default:
+		return pki_x509super::getIcon(hd);
 	}
 	if (pixnum == -1)
 		return QVariant();
