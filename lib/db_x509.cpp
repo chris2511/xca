@@ -323,7 +323,8 @@ static a1int randomSerial()
 	RAND_bytes(buf, SHA512_DIGEST_LENGTH);
 	SHA512(buf, SHA512_DIGEST_LENGTH, md);
 	a1int serial;
-	serial.setRaw(md, (int)Settings["serial_len"] / 8);
+	if (md[0] && md[0] < 0x80)
+		serial.setRaw(md, (int)Settings["serial_len"] / 8);
 	return serial;
 }
 
