@@ -872,6 +872,7 @@ void NewX509::setupTmpCtx()
 	// Step 2 - select Signing
 	if (foreignSignRB->isChecked()) {
 		signcert = getSelectedSigner();
+		ctx_cert->setIssuer(signcert->getSubject());
 	} else {
 		signcert = ctx_cert;
 		ctx_cert->setIssuer(ctx_cert->getSubject());

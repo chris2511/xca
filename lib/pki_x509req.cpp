@@ -74,8 +74,8 @@ QSqlError pki_x509req::deleteSqlData()
 
 void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, extList el)
 {
-	int bad_nids[] = { NID_subject_key_identifier, NID_authority_key_identifier,
-		NID_issuer_alt_name, NID_undef };
+	QList<int> bad_nids; bad_nids << NID_authority_key_identifier <<
+		NID_issuer_alt_name << NID_undef;
 
 	EVP_PKEY *privkey = NULL;
 
@@ -89,8 +89,8 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	setSubject(dn);
 	pki_openssl_error();
 
-	for(int i=0; bad_nids[i] != NID_undef; i++)
-		el.delByNid(bad_nids[i]);
+	foreach(int nid , bad_nids)
+		el.delByNid(nid);
 
 	el.delInvalid();
 
