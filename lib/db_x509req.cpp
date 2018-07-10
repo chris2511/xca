@@ -84,7 +84,6 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		req->pkiSource = dlg->getPkiSource();
 
 		req->setIntName(dlg->description->text());
-		req->setSubject(xn);
 
 		dlg->initCtx(NULL, NULL, req);
 		dlg->getReqAttributes(req);
