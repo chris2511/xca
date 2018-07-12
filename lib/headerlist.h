@@ -12,6 +12,7 @@
 #include <QList>
 #include <QAction>
 #include <QHeaderView>
+#include <QDebug>
 #include <openssl/objects.h>
 #include "db.h"
 #include "settings.h"
@@ -142,9 +143,21 @@ class dbheader
 	void fromData(QString s)
 	{
 		QStringList sl = s.split(" ");
+		if (sl.count() != 4) {
+			qCritical() << "Invalid header data for" <<
+					id << name << s;
+			return;
+		}
 		visualIndex = sl[0].toInt();
+		if (visualIndex < -1)
+			visualIndex = -1;
 		sortIndicator = sl[1].toInt();
+		if (sortIndicator != Qt::AscendingOrder &&
+		    sortIndicator != Qt::DescendingOrder)
+			sortIndicator = -1;
 		size = sl[2].toInt();
+		if (size == 0)
+			size = -1;
 		show = sl[3].toInt();
 	}
 	void setupHeaderView(int sect, QHeaderView *hv)
