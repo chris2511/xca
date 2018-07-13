@@ -8,6 +8,7 @@ HOST=i686-w64-mingw32
 export CROSS="${HOST}-"
 TARGET=mingw
 LIBTOOL_DIR="libtool-2.2.6b"
+read LIBTOOL_DIR < "`dirname $0`/../Libtool.version"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
 LIBTOOL_DL="http://ftp.gnu.org/gnu/libtool/${LIBTOOL_GZ}"
 

@@ -16,7 +16,7 @@ chmod 755 $INSTALL_DIR/lib/*.dylib
 
 do_libtool()
 {(
-libtool="libtool-2.2.6b"
+read libtool < "`dirname $0`/../Libtool.version"
 test -f "$libtool".tar.gz || curl http://ftp.gnu.org/gnu/libtool/"$libtool".tar.gz > "$libtool".tar.gz
 tar zxf "$libtool".tar.gz
 cd "$libtool"
