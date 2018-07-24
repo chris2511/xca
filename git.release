@@ -23,7 +23,7 @@ fi
 lasttag=$(git describe --abbrev=0 HEAD)
 unset unchanged
 for i in changelog doc/xca.sgml README.md; do
-  if ! git diff --quiet "$lasttag" -- $i; then
+  if git diff --quiet "$lasttag" -- $i; then
     echo "File $i untouched since $lasttag"
     unchanged="x"
   fi
@@ -35,7 +35,7 @@ if test -n "$unchanged"; then
 fi
 
 x=$(git grep "^xca $TVERSION " changelog ||
-  git grep "$TVERSION" VERSION || :)
+  git grep "^$TVERSION\$" VERSION || :)
 
 if test -n "$x"; then
   echo "$x"
@@ -43,7 +43,6 @@ if test -n "$x"; then
   exit 1
 fi
 
-exit 0
 echo "$TVERSION" > VERSION
 (
  LANG=C date +"xca $TVERSION %a %b %d %Y"
