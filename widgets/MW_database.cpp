@@ -25,7 +25,7 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList schemas[5];
+	QStringList schemas[6];
 
 #include "database_schema.cpp"
 

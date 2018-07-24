@@ -295,6 +295,21 @@
 << "UPDATE settings SET value='5' WHERE key_='schema'"
 	;
 
+/* Extend settings value size from 1024 to B64_BLOB
+ * SQLite does not support "ALTER TABLE settings MODIFY ..."
+ */
+	schemas[5]
+<< "ALTER TABLE settings RENAME TO __settings"
+<< "CREATE TABLE settings ("
+	"key_ CHAR(20) UNIQUE, " /* mySql does not like "key" or "option" */
+	"value " B64_BLOB ")"
+<< "INSERT INTO settings(key_, value) "
+	"SELECT key_, value "
+	"FROM __settings"
+<< "DROP TABLE __settings"
+<< "UPDATE settings SET value='6' WHERE key_='schema'"
+	;
+
 /* When adding new tables or views, also add them to the list
  * in XSqlQuery::rewriteQuery(QString) in lib/sql.cpp
  */
