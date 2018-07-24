@@ -1,3 +1,5 @@
+xca 2.1.0 Tue Jul 24 2018
+
 
  * Close #48: The SKI tickbox isn't generating an SKI extension for CSRs
  * Fix translation of dates
