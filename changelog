@@ -1,4 +1,7 @@
+
+ * Close #48: The SKI tickbox isn't generating an SKI extension for CSRs
  * Fix translation of dates
+ * Add private key icon to the key name
  * Inspired by #42: display dates relative (seconds ago, yesterday, ...)
    while column ordering is still strict by age.
    The ToolTip shows date and time.

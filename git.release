@@ -39,7 +39,7 @@ x=$(git grep "^xca $TVERSION " changelog ||
 
 if test -n "$x"; then
   echo "$x"
-  echo Release $TVERSIO already exists
+  echo Release $TVERSION already exists
   exit 1
 fi
 
