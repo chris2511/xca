@@ -277,6 +277,9 @@ int MainWindow::init_database(QString dbName)
 		return ret;
 	}
 
+	if (!oldDbFile.isEmpty())
+		importOldDatabase(oldDbFile);
+
 	searchEdit->setText("");
 	searchEdit->show();
 	statusBar()->addWidget(searchEdit, 1);
@@ -304,9 +307,6 @@ int MainWindow::init_database(QString dbName)
 	certView->setModel(certs);
 	tempView->setModel(temps);
 	crlView->setModel(crls);
-
-	if (!oldDbFile.isEmpty())
-		importOldDatabase(oldDbFile);
 
 	set_geometry(Settings["mw_geometry"]);
 	setWindowTitle(XCA_TITLE);
