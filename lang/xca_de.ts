@@ -767,7 +767,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+1"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation>Fälligkeitserinnerung fü alle ausgewählten Elemente im vCalendar Format</translation>
+        <translation>Fälligkeitserinnerung für alle ausgewählten Elemente im vCalendar Format</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1012,7 +1012,7 @@ Seriennummer: %3</translation>
         <location line="+21"/>
         <location line="+71"/>
         <source>Label</source>
-        <translation>Bazeichnung</translation>
+        <translation>Bezeichnung</translation>
     </message>
     <message>
         <location line="-61"/>
