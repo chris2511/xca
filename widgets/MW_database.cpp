@@ -141,7 +141,7 @@ void MainWindow::importOldDatabase(QString dbname)
 	pki_base *pki;
 	db_base *cont;
 	QList<enum pki_type> pkitype; pkitype <<
-	    smartCard << asym_key << tmpl << x509_req << x509 << revocation;
+	    smartCard << asym_key << tmpl << x509 << x509_req << revocation;
 
 	Settings["pwhash"] = pki_evp::passHash;
 	for (int i=0; i < pkitype.count(); i++) {
@@ -195,6 +195,9 @@ void MainWindow::importOldDatabase(QString dbname)
 			}
 			free(p);
 			if (pki) {
+				pki_x509req *r=dynamic_cast<pki_x509req*>(pki);
+				if (r && r->issuedCerts() > 0)
+					r->setDone();
 				qDebug() << "load old:" << pki->getIntName();
 				cont->insertPKI(pki);
 			}
@@ -258,7 +261,7 @@ int MainWindow::init_database(QString dbName)
 		return 1;
 	}
 	certView->setRootIsDecorated(db_x509::treeview);
-
+	ret = 1;
 	try {
 		if (pki_evp::passwd.isEmpty()) {
 			ret = initPass(dbName);
