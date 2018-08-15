@@ -44,6 +44,7 @@
 #define HD_req_signed -20
 #define HD_req_unstr_name -21
 #define HD_req_chall_pass -22
+#define HD_req_certs -23
 //#define HD_temp_type -30
 
 #define HD_crl_signer -40

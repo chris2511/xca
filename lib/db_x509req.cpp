@@ -32,7 +32,10 @@ dbheaderList db_x509req::getHeaders()
 		new dbheader(HD_req_unstr_name, false, tr("Unstructured name"),
 			QString(OBJ_nid2ln(NID_pkcs9_unstructuredName))) <<
 		new dbheader(HD_req_chall_pass, false, tr("Challenge password"),
-			 QString(OBJ_nid2ln(NID_pkcs9_challengePassword)));
+			 QString(OBJ_nid2ln(NID_pkcs9_challengePassword))) <<
+		new dbheader(HD_req_certs, true, tr("x509 count"),
+			 tr("Number of certificates in the database with the same public key"));
+
 	return h;
 }
 
@@ -147,6 +150,12 @@ void db_x509req::signReq(QModelIndex index)
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 	req->pkiSource = generated;
 	emit newCert(req);
+}
+
+void db_x509req::resetX509count()
+{
+	foreach(pki_x509req *r, getAllRequests())
+		r->resetX509count();
 }
 
 QList<pki_x509req *> db_x509req::getAllRequests()

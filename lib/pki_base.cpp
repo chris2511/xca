@@ -345,7 +345,7 @@ bool pki_base::compare(const pki_base *ref) const
 	return ret;
 }
 
-/* Signed 32 bit interger */
+/* Unsigned 32 bit integer */
 unsigned pki_base::hash(QByteArray ba)
 {
 	unsigned char md[EVP_MAX_MD_SIZE];
@@ -356,7 +356,7 @@ unsigned pki_base::hash(QByteArray ba)
 		((unsigned)md[2]<<16L) | ((unsigned)md[3]<<24L)
 		) & 0x7fffffffL;
 }
-unsigned pki_base::hash()
+unsigned pki_base::hash() const
 {
 	return hash(i2d());
 }

@@ -94,6 +94,7 @@ QSqlError pki_x509::insertSqlData()
 	q.bindValue(5, (int)isCA());
 	q.bindValue(6, i2d_b64());
 	q.exec();
+	MainWindow::reqs->resetX509count();
 	if (!isCA())
 		return q.lastError();
 
@@ -171,6 +172,7 @@ QSqlError pki_x509::deleteSqlData()
 	foreach(pki_base *pki, list)
 		AffectedItems(pki->getSqlItemId());
 
+	MainWindow::reqs->resetX509count();
 	return q.lastError();
 }
 

@@ -6,10 +6,12 @@
  */
 
 
+#include <typeinfo>
 
 #include "pki_x509.h"
 #include "pki_evp.h"
 #include "func.h"
+#include "db_base.h"
 #include "x509name.h"
 #include "exception.h"
 #include <openssl/bio.h>
@@ -28,6 +30,7 @@ pki_x509req::pki_x509req(const QString name)
 	pki_openssl_error();
 	pkiType=x509_req;
 	done = false;
+	resetX509count();
 }
 
 pki_x509req::~pki_x509req()
@@ -312,6 +315,40 @@ QString pki_x509req::getAttribute(int nid) const
 	return ret.join(", ");
 }
 
+int pki_x509req::issuedCerts() const
+{
+	XSqlQuery q;
+	int count = 0;
+
+	if (x509count != -1)
+		return x509count;
+
+	SQL_PREPARE(q, "SELECT item FROM x509super WHERE key_hash=?");
+	q.bindValue(0, pubHash());
+	q.exec();
+	if (q.lastError().isValid())
+		return 0;
+	pki_key *k = getPubKey();
+	if (!k)
+		return 0;
+	while (q.next()) {
+		pki_x509super *x;
+		x = db_base::lookupPki<pki_x509super>(q.value(0));
+		if (!x) {
+			qDebug("x509 with id %d not found",
+				q.value(0).toInt());
+			continue;
+		}
+		if (typeid(*x) == typeid(pki_x509) && x->compareRefKey(k))
+			count++;
+		qDebug() << "Req:" << getIntName() << "Cert with hash"
+			 << x->getIntName() << count;
+	}
+	delete k;
+	x509count = count;
+	return count;
+}
+
 QVariant pki_x509req::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
@@ -321,6 +358,8 @@ QVariant pki_x509req::column_data(const dbheader *hd) const
 		return getAttribute(NID_pkcs9_unstructuredName);
 	case HD_req_chall_pass:
 		return getAttribute(NID_pkcs9_challengePassword);
+	case HD_req_certs:
+		return QVariant(issuedCerts());
 	}
 	return pki_x509super::column_data(hd);
 }

@@ -30,6 +30,7 @@ class db_x509req: public db_x509super
 		void toRequest(QModelIndex index);
 		void load();
 		QList<pki_x509req*> getAllRequests();
+		void resetX509count();
 
 	public slots:
 		void newItem(pki_temp *temp, pki_x509req *orig = NULL);

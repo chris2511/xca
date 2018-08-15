@@ -172,7 +172,7 @@ class pki_base : public QObject
 		}
 		virtual void restoreSql(const QSqlRecord &rec);
 		QSqlError sqlItemNotFound(QVariant sqlId) const;
-		unsigned hash();
+		unsigned hash() const;
 		QString pki_source_name() const;
 		QString get_dump_filename(const QString &dir, QString ext);
 		void selfComment(QString msg);

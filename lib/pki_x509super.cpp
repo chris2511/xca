@@ -88,7 +88,7 @@ pki_key *pki_x509super::getRefKey() const
 	return privkey;
 }
 
-unsigned pki_x509super::pubHash()
+unsigned pki_x509super::pubHash() const
 {
 	unsigned hash = 0;
 	if (privkey) {

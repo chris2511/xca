@@ -24,6 +24,7 @@ class pki_x509req : public pki_x509super
 {
 		Q_OBJECT
 
+		mutable int x509count;
 	protected:
 		X509_REQ *request;
 		bool done;
@@ -46,6 +47,7 @@ class pki_x509req : public pki_x509super
 		}
 		void addAttribute(int nid, QString content);
 		QString getAttribute(int nid) const;
+		int issuedCerts() const;
 
 		int verify() const;
 		pki_key *getPubKey() const;
@@ -58,9 +60,9 @@ class pki_x509req : public pki_x509super
 		{
 			done = d;
 		}
-		bool getDone()
+		void resetX509count() const
 		{
-			return done;
+			x509count = -1;
 		}
 		virtual QString getMsg(msg_type msg) const;
 		void d2i(QByteArray &ba);
