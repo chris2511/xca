@@ -33,7 +33,7 @@ settings::settings()
 	defaul["default_hash"] = hashBox::getDefault();
 	defaul["ical_expiry"] = "1W";
 	defaul["cert_expiry"] = "80%";
-	defaul["serial_len"] = "8";
+	defaul["serial_len"] = "64";
 
 	clear();
 }
