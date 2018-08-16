@@ -21,7 +21,7 @@ class ipValidator : public QValidator
 		QValidator::State state = Invalid;
 		if (QRegExp("[0-9\\.]*").exactMatch(input)) {
 			// IPv4
-			QStringList octets = input.split(":");
+			QStringList octets = input.split(".");
 			bool ok = octets.size() == 4;
 			for (int i=0; ok && i<4; i++) {
 				if (octets[i].toUInt(&ok) > 255)
@@ -41,6 +41,7 @@ class ipValidator : public QValidator
 			}
 			state = ok ? Acceptable : Intermediate;
 		}
+		qDebug() << "IP Valid:" << input << state;
 		return state;
 	}
 	void fixup(QString &input) const
