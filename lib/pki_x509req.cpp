@@ -55,6 +55,24 @@ QSqlError pki_x509req::insertSqlData()
 	return q.lastError();
 }
 
+void pki_x509req::markSigned(bool signe)
+{
+	XSqlQuery q;
+	Transaction;
+	TransThrow();
+
+	SQL_PREPARE(q, "UPDATE requests SET signed=? WHERE item=?");
+	q.bindValue(0, signe);
+	q.bindValue(1, sqlItemId);
+	q.exec();
+
+	if (q.lastError().isValid())
+		return;
+	done = signe;
+	AffectedItems(sqlItemId);
+	TransCommit();
+}
+
 void pki_x509req::restoreSql(const QSqlRecord &rec)
 {
 	pki_x509super::restoreSql(rec);

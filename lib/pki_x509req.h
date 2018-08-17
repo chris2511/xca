@@ -41,6 +41,7 @@ class pki_x509req : public pki_x509super
 		void fromData(const unsigned char *p, db_header_t *head);
 		x509name getSubject() const;
 		void writeReq(const QString fname, bool pem);
+		void markSigned(bool signe);
 		X509_REQ *getReq()
 		{
 			return request;
@@ -59,6 +60,10 @@ class pki_x509req : public pki_x509super
 		void setDone(bool d = true)
 		{
 			done = d;
+		}
+		bool getDone() const
+		{
+			return done;
 		}
 		void resetX509count() const
 		{

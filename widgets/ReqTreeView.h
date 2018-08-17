@@ -32,5 +32,7 @@ class ReqTreeView: public X509SuperTreeView
     public slots:
 	void toRequest();
 	void signReq();
+	void markSigned();
+	void unmarkSigned();
 };
 #endif

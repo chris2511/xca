@@ -152,6 +152,15 @@ void db_x509req::signReq(QModelIndex index)
 	emit newCert(req);
 }
 
+void db_x509req::setSigned(QModelIndex index, bool signe)
+{
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	if (!req)
+		return;
+	req->markSigned(signe);
+	emit columnsContentChanged();
+}
+
 void db_x509req::resetX509count()
 {
 	foreach(pki_x509req *r, getAllRequests())
