@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>July 2018 - Version 2.1.0
+<date>August 2018 - Version 2.1.1
 
 <abstract>
 
@@ -375,8 +375,9 @@ It shows all available columns with check-boxes to show or hide them.
   <item>Request columns:
     <itemize>
       <item><em>Signed:</em> Whether the request is already signed or not.
-      <item><em>Unstructured name</em>
-      <item><em>Challenge password</em>
+      <item><em>Unstructured name:</em> CSR specific attribute.
+      <item><em>Challenge password:</em> CSR specific attribute.
+      <item><em>Certificate count</em> Number of certificates in the database with the same public key.
     </itemize>
 
   <item>Certificate columns:
@@ -1094,14 +1095,26 @@ Certificate signing requests are described in PKCS&num;10 standard.
 They are used to supply a Certification Authority with the
 needed information to issue a valid certificate
 without knowing the private key. This
-includes personal information, they public key and additional extensions.
+includes personal information, the public key and additional extensions.
 
 <p>
 
 It is not necessary to generate a request prior to signing it by your CA
 or before self-signing it. Simply start generating the certificate directly.
-People using the OpenSSL command line tools, are used to generate a request
-with "openssl req -new ..." and then signing it . This is not necessary with XCA.
+People using the OpenSSL command line tools are used to generate a request
+with "openssl req -new ..." and then signing it .
+This is not necessary with XCA.
+
+<p>
+
+Tracking signed CSR with XCA can be done by the <em>Signed</em> and
+<em>Certificate count</em> columns of the certificate signing request
+tab. The <em>Signed</em> column is an information stored in the database
+whenever a CSR was used used issue a certificate. Also an automatic comment
+is left in the comment of the CSR.
+It does not depend on the certificate remaining in XCA.
+The <em>Certificate count</em> column displays the number of certificates
+with the same public key.
 
 <p>
 <sect1>Generating a new Request

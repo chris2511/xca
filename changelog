@@ -1,5 +1,11 @@
-xca 2.1.0 Tue Jul 24 2018
+ * Close #56: Duplicate Serials after Upgrade 2.1.0
+ * Close #57: SAN IP not working in 2.1.0
+ * Close #55: Calculate "CSR signed" information from legacy database
+ * Close #55: Add Certificate counter column for CSR
+ * Fix slovak translation
+ * Close #50: Hang while importing 1.4.1 database into 2.1.0
 
+xca 2.1.0 Tue Jul 24 2018
 
  * Close #48: The SKI tickbox isn't generating an SKI extension for CSRs
  * Fix translation of dates

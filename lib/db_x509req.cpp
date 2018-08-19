@@ -33,7 +33,7 @@ dbheaderList db_x509req::getHeaders()
 			QString(OBJ_nid2ln(NID_pkcs9_unstructuredName))) <<
 		new dbheader(HD_req_chall_pass, false, tr("Challenge password"),
 			 QString(OBJ_nid2ln(NID_pkcs9_challengePassword))) <<
-		new dbheader(HD_req_certs, true, tr("x509 count"),
+		new num_dbheader(HD_req_certs, false, tr("Certificate count"),
 			 tr("Number of certificates in the database with the same public key"));
 
 	return h;
