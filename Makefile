@@ -94,13 +94,13 @@ clean:
 				-o -name ".depend" \
 				-o -name "moc_*.cpp" | xargs rm -f
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
-	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt misc/oids.txt
+	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
+	rm -f commithash.h misc/oids.txt
 	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg
 	rm -rf xca-$(VERSION)*
-	rm -f misc/Info.plist
 
 distclean: clean
-	rm -f local.h Local.mak config.log config.status commithash.h
+	rm -f local.h Local.mak config.log config.status misc/Info.plist
 
 dist: $(TARGET).tar.gz
 $(TARGET).tar:
