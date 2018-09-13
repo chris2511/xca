@@ -1,3 +1,4 @@
+ * Allow manual override of the CSR signed flag
  * Close #56: Duplicate Serials after Upgrade 2.1.0
  * Close #57: SAN IP not working in 2.1.0
  * Close #55: Calculate "CSR signed" information from legacy database
