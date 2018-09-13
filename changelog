@@ -1,3 +1,5 @@
+xca 2.1.1 Thu Sep 13 2018
+
  * Allow manual override of the CSR signed flag
  * Close #56: Duplicate Serials after Upgrade 2.1.0
  * Close #57: SAN IP not working in 2.1.0
