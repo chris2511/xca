@@ -399,20 +399,22 @@ void MainWindow::undelete()
 #endif
 }
 
+static QString defaultdb()
+{
+	return getUserSettingsDir() +QDir::separator() + "defaultdb";
+}
+
 int MainWindow::open_default_db()
 {
 	if (QSqlDatabase::database().isOpen())
 		return 0;
-	FILE *fp = fopen_read(getUserSettingsDir() +
-			QDir::separator() + "defaultdb");
-	if (!fp)
+	QFile inputFile(defaultdb());
+	if (!inputFile.open(QIODevice::ReadOnly))
 		return 0;
+	QTextStream in(&inputFile);
+	QString dbfile = in.readLine();
+	inputFile.close();
 
-	char buff[256];
-	size_t len = fread(buff, 1, 255, fp);
-	fclose(fp);
-	buff[len] = 0;
-	QString dbfile = filename2QString(buff).trimmed();
 	if (QFile::exists(dbfile) || OpenDb::isRemoteDB(dbfile))
 		return init_database(dbfile);
 	return 0;
@@ -514,24 +516,25 @@ void MainWindow::close_database()
 	XSqlQuery::clearTablePrefix();
 }
 
+static QString dbhistory()
+{
+	return getUserSettingsDir() + QDir::separator() + "dbhistory";
+}
+
 void MainWindow::load_history()
 {
-	QFile file;
-	QString name = getUserSettingsDir() + QDir::separator() + "dbhistory";
-
-	file.setFileName(name);
+	QString name;
+	QFile file(dbhistory());
 	if (!file.open(QIODevice::ReadOnly))
 		return;
 
 	history.clear();
 	while (!file.atEnd()) {
-		QString name;
 		char buf[1024];
 		ssize_t size = file.readLine(buf, sizeof buf);
 		if (size <= 0)
 			break;
-		name = filename2QString(buf);
-		name = name.trimmed();
+		name = filename2QString(buf).trimmed();
 		if (name.size() == 0)
 			continue;
 		if (history.indexOf(name) == -1)
@@ -551,14 +554,13 @@ void MainWindow::update_history(QString fname)
 {
 	QFile file;
 	int pos;
-	QString name, dir = getUserSettingsDir();
 	QDir d;
 
 	pos = history.indexOf(fname);
 	if (pos == 0)
 		return; /* no changes */
 
-	d.mkpath(dir);
+	d.mkpath(getUserSettingsDir());
 
 	if (pos > 0)
 		history.removeAt(pos);
@@ -566,8 +568,7 @@ void MainWindow::update_history(QString fname)
 	while (history.size() > 10)
 		history.removeLast();
 
-	name = dir + QDir::separator() + "dbhistory";
-	file.setFileName(name);
+	file.setFileName(dbhistory());
 	if (!file.open(QIODevice::ReadWrite))
 		return;
 
