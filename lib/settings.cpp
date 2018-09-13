@@ -103,6 +103,9 @@ void settings::set(QString key, QString value)
 	XSqlQuery q;
 	load_settings();
 
+	if (key == "workingdir")
+		value = QDir::toNativeSeparators(value);
+
 	if (db_keys.contains(key) && values[key] == value)
 		return;
 
