@@ -34,7 +34,7 @@ export INSTALL_DIR="`pwd`"/install
 export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
 export QTDIR=/Users/chris/Qt/5.9.1/clang_64
 export CFLAGS="-mmacosx-version-min=10.10"
-export EXTRA_VERSION="Yosemite"
+export EXTRA_VERSION="-Yosemite"
 
 if test -f build-libs; then
   do_libtool
