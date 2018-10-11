@@ -71,6 +71,7 @@ void MainWindow::init_menu()
 		myLang("Russian",  tr("Russian"),  QLocale("ru")) <<
 		myLang("Slovak",   tr("Slovak"),   QLocale("sk")) <<
 		myLang("Spanish",  tr("Spanish"),  QLocale("es")) <<
+		myLang("Polish",   tr("Polish"),   QLocale("pl")) <<
 		myLang("Turkish",  tr("Turkish"),  QLocale("tr"));
 
 	languageMenu = new tipMenu(tr("Language"), this);

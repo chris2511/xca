@@ -101,7 +101,6 @@ void db_x509::remFromCont(const QModelIndex &idx)
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	pki_x509 *child;
 	pki_base *new_parent;
-	QModelIndex new_idx;
 	QList<pki_x509 *> childs;
 
 	while (pki->childCount()) {
