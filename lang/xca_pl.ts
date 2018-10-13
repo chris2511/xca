@@ -341,7 +341,7 @@
     <message>
         <location line="+1"/>
         <source>Generate CRL</source>
-        <translation>Generuj listę CRL</translation>
+        <translation>Generuj listę unieważnień</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1181,7 +1181,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="+1"/>
         <source>Requests</source>
-        <translation>Żądania</translation>
+        <translation>Żądania certyfikacyjne</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2941,7 +2941,7 @@ In library %3
     <message>
         <location line="+27"/>
         <source>Generate CRL</source>
-        <translation>Generuj listę CRL</translation>
+        <translation>Generuj listę unieważnień</translation>
     </message>
 </context>
 <context>
@@ -3166,52 +3166,52 @@ In library %3
     <message>
         <location line="-573"/>
         <source>Internal name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa wewnętrzna</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>No.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lp.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Primary key</source>
-        <translation type="unfinished"></translation>
+        <translation>Klucz główny</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Database unique number</source>
-        <translation type="unfinished"></translation>
+        <translation>Unikalny numer w bazie danych</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date of creation or insertion</source>
-        <translation type="unfinished"></translation>
+        <translation>Data dodania</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Źródło</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generated, Imported, Transformed</source>
-        <translation type="unfinished"></translation>
+        <translation>Utworzony, zaimportowany lub  zmodyfikowany</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentarz</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>First line of the comment field</source>
-        <translation type="unfinished"></translation>
+        <translation>Pierwsza linia komentarza</translation>
     </message>
     <message>
         <location line="+445"/>
@@ -3249,59 +3249,61 @@ In library %3
     <message>
         <location filename="../lib/db_crl.cpp" line="+33"/>
         <source>Signer</source>
-        <translation type="unfinished"></translation>
+        <translation>Wystawca</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Internal name of the signer</source>
-        <translation type="unfinished"></translation>
+        <translation>Wewnętrzna nazwa wystawcy</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>No. revoked</source>
-        <translation type="unfinished"></translation>
+        <translation>Unieważnienia</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Liczba unieważnionych certyfikatów</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last update</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatnia aktualizacja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Next update</source>
-        <translation type="unfinished"></translation>
+        <translation>Następna aktualizacja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numer CRL</translation>
     </message>
     <message>
         <location line="+66"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista unieważnień już istnieje w bazie danych jako:
+&apos;%1&apos;
+import został przerwany</translation>
     </message>
     <message>
         <location line="+54"/>
         <source>Revocation list export</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport listy unieważnień</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+64"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished"></translation>
+        <translation>Brakuje certyfikatów urzędów (CA) do wygenerowania listy CRL</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3331,27 +3333,27 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_key.cpp" line="+65"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodzaj</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozmiar</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupa EC</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Use</source>
-        <translation type="unfinished"></translation>
+        <translation>Użycia</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasło</translation>
     </message>
     <message>
         <location line="+72"/>
@@ -3386,7 +3388,7 @@ and will be completed by the new, private part of the key</source>
         <location line="+83"/>
         <location line="+37"/>
         <source>PEM public</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="-34"/>
@@ -3484,72 +3486,72 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="+64"/>
         <source>CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Urząd certyfikacji</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>reflects the basic Constraints extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy jest to urząd certyfikacji bazując na podstawowych ograniczeniach</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Numer seryjny</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Start date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data wydania</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data ważności</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>MD5 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Odcisk palca MD5</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SHA1 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Odcisk palca SHA1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SHA256 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Odcisk palca SHA256</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not before</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieważny przed</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not after</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieważny po</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Revocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Unieważnienie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL Expiration</source>
-        <translation type="unfinished"></translation>
+        <translation>Ważność CRL</translation>
     </message>
     <message>
         <location line="+75"/>
         <source>Plain View</source>
-        <translation type="unfinished"></translation>
+        <translation>Widok płaski</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Tree View</source>
-        <translation type="unfinished"></translation>
+        <translation>Widok struktury</translation>
     </message>
     <message>
         <location line="+190"/>
@@ -3651,7 +3653,7 @@ and so it was not imported</source>
     <message>
         <location line="+10"/>
         <source>Certificate export</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport certyfikatu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3690,22 +3692,22 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509super.cpp" line="+24"/>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Podmiot</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Complete distinguished name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompletna nazwa wyróżniająca</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrót podmiotu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Hash to lookup certs in directories</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrót do wyszukiwania certyfikatów w katalogach</translation>
     </message>
 </context>
 <context>
@@ -3713,12 +3715,12 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509req.cpp" line="+30"/>
         <source>Signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpisany</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>whether the request is already signed or not</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy żądanie zostało już podpisane</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3740,12 +3742,12 @@ and thus was not stored</source>
     <message>
         <location line="+78"/>
         <source>Certificate request export</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport żądania certyfikacjnego</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished"></translation>
+        <translation>Żądanie certyfikacyjne ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
