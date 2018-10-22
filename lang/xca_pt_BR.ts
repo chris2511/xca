@@ -25,52 +25,52 @@
         <location filename="../ui/CertDetail.ui" line="+30"/>
         <location filename="../widgets/CertDetail.cpp" line="+89"/>
         <source>Details of the Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes do certificado</translation>
     </message>
     <message>
         <location line="+135"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>The serial number of the certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>O número de serial do certificado</translation>
     </message>
     <message>
         <location line="-65"/>
         <source>The internal name of the certificate in the database</source>
-        <translation type="unfinished"></translation>
+        <translation>O nome interno do certificado no banco de dados</translation>
     </message>
     <message>
         <location line="-35"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Status</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Internal name</source>
-        <translation type="unfinished"></translation>
+        <translation>nome interno</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Signature</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Key</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Fingerprints</source>
-        <translation type="unfinished"></translation>
+        <translation>Fingerprints</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>MD5</source>
-        <translation type="unfinished"></translation>
+        <translation>MD5</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -331,22 +331,22 @@
     <message>
         <location line="+3"/>
         <source>CA</source>
-        <translation type="unfinished"></translation>
+        <translation>CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriedades</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generate CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerar CRL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Manage revocations</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerenciar revogações</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -643,17 +643,17 @@
     <message>
         <location filename="../ui/Help.ui" line="+36"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Feito</translation>
     </message>
 </context>
 <context>
@@ -930,12 +930,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../ui/MainWindow.ui" line="+22"/>
         <source>Private Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Private Keys</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>&amp;New Key</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nova key</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -944,7 +944,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+138"/>
         <location line="+65"/>
         <source>&amp;Export</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Exportar</translation>
     </message>
     <message>
         <location line="-393"/>
@@ -953,7 +953,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+124"/>
         <location line="+79"/>
         <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importar</translation>
     </message>
     <message>
         <location line="-393"/>
@@ -991,7 +991,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="+123"/>
         <source>Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificados</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1087,42 +1087,42 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+1"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>English</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>French</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>German</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Russian</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovak</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Spanish</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turkish</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Language</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -2346,32 +2346,32 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../ui/PwDialog.ui" line="+118"/>
         <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
-        <translation type="unfinished"></translation>
+        <translation>A senha é analisada como código hexadecimal de 2 dígitos. Deve ter um número par de dígitos (0-9 e a-f)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Take as HEX string</source>
-        <translation type="unfinished"></translation>
+        <translation>string HEX</translation>
     </message>
     <message>
         <location filename="../widgets/PwDialog.cpp" line="+85"/>
         <source>Repeat %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Repetir %1</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 incompatibilidade</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>A senha hexadecimal deve conter apenas os caracteres &apos;0&apos; - &apos;9&apos; e &apos;a&apos; - &apos;f&apos; e deve conter um número par de caracteres</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Saída</translation>
     </message>
 </context>
 <context>
@@ -2936,32 +2936,32 @@ In library %3
     <message>
         <location filename="../ui/Revoke.ui" line="+30"/>
         <source>Certificate revocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Revogação de certificados</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Revocation details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes da revogação</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Revocation reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Motivo da revogação</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <translation>Horário local</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid since</source>
-        <translation type="unfinished"></translation>
+        <translation>Inválido desde</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
 </context>
 <context>
@@ -2974,7 +2974,7 @@ In library %3
     <message>
         <location line="+16"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3795,12 +3795,12 @@ and thus was not stored</source>
     <message>
         <location filename="../widgets/kvView.cpp" line="+164"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Conteúdo</translation>
     </message>
 </context>
 <context>
@@ -3808,12 +3808,12 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pass_info.cpp" line="+21"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Senha</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN</translation>
     </message>
 </context>
 <context>
@@ -3821,17 +3821,17 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pki_base.cpp" line="+96"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro ao abrir o arquivo: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Error writing to file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro ao gravar no arquivo: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+168"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconhecido</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4063,7 +4063,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_multi.cpp" line="+127"/>
         <source>No known PEM encoded items found</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foram encontrados itens codificados PEM conhecidos</translation>
     </message>
 </context>
 <context>
@@ -4100,7 +4100,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível carregar o arquivo PKCS#7 %1. Tentei o formato PEM e DER.</translation>
     </message>
 </context>
 <context>
