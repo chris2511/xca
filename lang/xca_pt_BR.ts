@@ -50,7 +50,7 @@
     <message>
         <location line="+28"/>
         <source>Internal name</source>
-        <translation>nome interno</translation>
+        <translation>Nome interno</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -2178,7 +2178,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../ui/Options.ui" line="+28"/>
         <source>XCA Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opções XCA</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -2245,30 +2245,30 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+7"/>
         <source> bit</source>
-        <translation type="unfinished"></translation>
+        <translation> bit</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Distinguished name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome distinto</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Mandatory subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Inscrições obrigatórias</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+61"/>
         <location line="+57"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Adicionar</translation>
     </message>
     <message>
         <location line="-111"/>
         <location line="+61"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Excluir</translation>
     </message>
     <message>
         <location line="-36"/>
@@ -2351,7 +2351,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+3"/>
         <source>Take as HEX string</source>
-        <translation>string HEX</translation>
+        <translation>String HEX</translation>
     </message>
     <message>
         <location filename="../widgets/PwDialog.cpp" line="+85"/>
@@ -2969,7 +2969,7 @@ In library %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="+41"/>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Diretório</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2979,17 +2979,17 @@ In library %3
     <message>
         <location line="+7"/>
         <source>Include subdirectories</source>
-        <translation type="unfinished"></translation>
+        <translation>Incluir subdiretórios</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Procurar</translation>
     </message>
     <message>
         <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
         <source>The following files are possible PKCS#11 libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Os seguintes arquivos são possíveis bibliotecas PKCS#11</translation>
     </message>
 </context>
 <context>
@@ -3020,12 +3020,12 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Create request</source>
-        <translation type="unfinished">Criar</translation>
+        <translation>Criar requisição</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>copy</source>
-        <translation type="unfinished"></translation>
+        <translation>cópia de</translation>
     </message>
 </context>
 <context>
