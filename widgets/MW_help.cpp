@@ -107,6 +107,7 @@ void MainWindow::about()
 	"<tr><td><b>Slovak</b></td><td>Slavko &lt;linux@slavino.sk&gt;</td></tr>"
 	"<tr><td><b>Polish</b></td><td>Jacek Tyborowski &lt;jacek@tyborowski.pl&gt;</td></tr>"
 	"<tr><td><b>Portugese (Brazil)</b></td><td>Vinicius Ocker &lt;viniciusockerfagundes@yandex.com&gt;</td></tr>"
+	"<tr><td><b>Spanish</b></td><td>Miguel Romera &lt;mrmsoftdonation@gmail.com&gt;</td></tr>"
 	"</table>").arg(brainpool).arg(version).arg(Entropy::strength())
 			.arg(version_str(true)).arg(getPrefix())
 			.arg(getUserSettingsDir())
