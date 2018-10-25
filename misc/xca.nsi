@@ -154,6 +154,9 @@ Section "Translations" SecTrans
   File /nonfatal "${QTDIR}\translations\qt_fr.qm"
   File /nonfatal "${QTDIR}\translations\qt_hr.qm"
   File /nonfatal "${QTDIR}\translations\qt_tr.qm"
+  File /nonfatal "${QTDIR}\translations\qt_pl.qm"
+  File /nonfatal "${QTDIR}\translations\qt_pt.qm"
+  File /nonfatal "${QTDIR}\translations\qt_sk.qm"
 
 SectionEnd
 
