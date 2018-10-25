@@ -422,6 +422,9 @@ int MainWindow::open_default_db()
 
 void MainWindow::default_database()
 {
+	if (portable_app())
+		return;
+
 	QFile file(defaultdb());
 	QFileInfo fi(currentDB);
 
@@ -558,6 +561,11 @@ void MainWindow::update_history(QString fname)
 	while (history.size() > 10)
 		history.removeLast();
 
+	update_history_menu();
+
+	if (portable_app())
+		return;
+
 	file.setFileName(dbhistory());
 	if (!file.open(QIODevice::ReadWrite))
 		return;
@@ -569,5 +577,4 @@ void MainWindow::update_history(QString fname)
 			break;
 	}
 	file.close();
-	update_history_menu();
 }

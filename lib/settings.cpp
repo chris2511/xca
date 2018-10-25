@@ -4,6 +4,7 @@
 #include "widgets/hashBox.h"
 #include "widgets/NewKey.h"
 #include <QDir>
+#include <QFile>
 #include <openssl/asn1.h>
 
 settings Settings;
@@ -69,6 +70,9 @@ void settings::setAction(const QString &key, const QString &value)
 		}
 		TransCommit();
 		return;
+	} else if (key == "workingdir") {
+		if (!QFile::exists(value))
+			return;
 	}
 	values[key] = value;
 }
@@ -103,9 +107,11 @@ void settings::set(QString key, QString value)
 	XSqlQuery q;
 	load_settings();
 
-	if (key == "workingdir")
+	if (key == "workingdir") {
+		if (portable_app())
+			return;
 		value = QDir::toNativeSeparators(value);
-
+	}
 	if (db_keys.contains(key) && values[key] == value)
 		return;
 

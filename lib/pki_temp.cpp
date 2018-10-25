@@ -462,7 +462,7 @@ void pki_temp::fload(QString fname)
 	try {
 		try_fload(fname, "rb");
 	} catch (errorEx &err) {
-#if defined(_WIN32)
+#if defined(Q_OS_WIN32)
 		/* Try again in ascii mode on Windows
 		 * to support pre 1.1.0 template exports */
 		try_fload(fname, "r");

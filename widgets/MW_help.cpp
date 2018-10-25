@@ -84,7 +84,7 @@ void MainWindow::about()
 	}
 	Entropy::seed_rng();
 	cont = QString(
-	"<p><h3><center><u>XCA</u></center></h3>"
+	"<p><h3><center><u>XCA%8</u></center></h3>"
 	"<p>Copyright 2001 - 2018 by Christian Hohnst&auml;dt\n"
 	"<p>Version: %4<p>%1<p>%2" /* commithash, Brainpool, OpenSSL & Qt Version */
 	"<p>http://hohnstaedt.de/xca"
@@ -106,12 +106,13 @@ void MainWindow::about()
 	"<tr><td><b>Croatian</b></td><td>Nevenko Bartolincic &lt;nevenko.bartolincic@gmail.com&gt;</td></tr>"
 	"<tr><td><b>Slovak</b></td><td>Slavko &lt;linux@slavino.sk&gt;</td></tr>"
 	"<tr><td><b>Polish</b></td><td>Jacek Tyborowski &lt;jacek@tyborowski.pl&gt;</td></tr>"
-	"<tr><td><b>Portugese (Brazil)</b></td><td>Vinicius Ocker &lt;viniciusockerfagundes@yandex.com&gt;</td></tr>"
+	"<tr><td><b>Portuguese (Brazil)</b></td><td>Vinicius Ocker &lt;viniciusockerfagundes@yandex.com&gt;</td></tr>"
 	"<tr><td><b>Spanish</b></td><td>Miguel Romera &lt;mrmsoftdonation@gmail.com&gt;</td></tr>"
 	"</table>").arg(brainpool).arg(version).arg(Entropy::strength())
 			.arg(version_str(true)).arg(getPrefix())
 			.arg(getUserSettingsDir())
-			.arg(QString(Settings["workingdir"]));
+			.arg(QString(Settings["workingdir"]))
+			.arg(portable_app() ? " (Portable)" : "");
 
 	textbox->setHtml(cont);
 	textbox->setReadOnly(true);

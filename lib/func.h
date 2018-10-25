@@ -21,6 +21,7 @@ class Validity;
 extern QString currentDB;
 
 QPixmap *loadImg(const char *name);
+int portable_app();
 QString getPrefix();
 QString getHomeDir();
 QString getLibDir();

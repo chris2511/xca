@@ -51,7 +51,7 @@ QPixmap *loadImg(const char *name )
 QStringList getLibExtensions()
 {
 	QStringList l;
-#if defined(_WIN32) || defined(USE_CYGWIN)
+#if defined(Q_OS_WIN32)
 	l << QString("*.dll") << QString("*.DLL");
 #elif defined(Q_OS_MAC)
 	l << QString("*.dylib") << QString("*.so");
@@ -59,6 +59,22 @@ QStringList getLibExtensions()
 	l << QString("*.so");
 #endif
 	return l;
+}
+
+int portable_app()
+{
+	static int portable = -1;
+	if (portable == -1) {
+#if defined(Q_OS_WIN32)
+		HKEY hKey;
+		portable = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",
+					0, KEY_READ, &hKey) != ERROR_SUCCESS;
+#else
+		const char *p = getenv("XCA_PORTABLE");
+		portable = p && *p;
+#endif
+	}
+	return portable;
 }
 
 /* returns e.g. /usr/local/share/xca for unix systems
@@ -86,6 +102,8 @@ QString getPrefix()
 		*p = '\0';
 		return QString(inst_dir);
 	}
+	if (portable_app())
+		return QString(inst_dir);
 	p = inst_dir;
 	*p = '\0';
 	lRc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0, KEY_READ, &hKey);
@@ -150,7 +168,7 @@ QString getLibDir()
 
 QString getDocDir()
 {
-#if defined(WIN32) || defined (Q_OS_MAC)
+#if defined(Q_OS_WIN32) || defined (Q_OS_MAC)
 	return getPrefix();
 #else
 	return QString(DOCDIR);
