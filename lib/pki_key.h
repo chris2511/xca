@@ -58,7 +58,7 @@ class pki_key: public pki_base
 		QString getMsg(msg_type msg) const;
 
 		void writePublic(const QString fname, bool pem);
-		bool compare(pki_base *ref);
+		bool compare(const pki_base *ref) const;
 		int getKeyType() const;
 		bool isPrivKey() const;
 		int getUcount() const;

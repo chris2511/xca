@@ -23,9 +23,9 @@ class ReqTreeView: public X509SuperTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(db_x509req *model=NULL)
+	void setModel(QAbstractItemModel *model=NULL)
 	{
-		reqs = model;
+		reqs = dynamic_cast <db_x509req*> (model);
 		X509SuperTreeView::setModel(model);
 	}
 

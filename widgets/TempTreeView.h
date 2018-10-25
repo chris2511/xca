@@ -23,9 +23,9 @@ class TempTreeView: public XcaTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(db_temp *model=NULL)
+	void setModel(QAbstractItemModel *model=NULL)
 	{
-		temps = model;
+		temps = dynamic_cast <db_temp*> (model);
 		XcaTreeView::setModel(model);
 	}
 

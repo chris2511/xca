@@ -24,9 +24,9 @@ class X509SuperTreeView: public XcaTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(db_x509super *model=NULL)
+	void setModel(QAbstractItemModel *model=NULL)
 	{
-		x509super = model;
+		x509super = dynamic_cast <db_x509super*> (model);
 		XcaTreeView::setModel(model);
 	}
 

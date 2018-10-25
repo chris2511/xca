@@ -201,7 +201,7 @@ AC_CHECK_HEADER(ltdl.h, , [
 # Finally collect the compiler flags
 #####################################
 CXXFLAGS="${CXXFLAGS} ${OPENSSL_CFLAGS} ${QT_CFLAGS}"
-LIBS="${LIBS} ${OPENSSL_LIBS} ${QT_LIBS}"
+LIBS="${LIBS} ${OPENSSL_LIBS} ${QT_LIBS} -lstdc++"
 
 # Just give it a try .....
 ##########################

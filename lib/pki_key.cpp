@@ -356,9 +356,9 @@ QList<int> pki_key::possibleHashNids()
 	return nids;
 };
 
-bool pki_key::compare(pki_base *ref)
+bool pki_key::compare(const pki_base *ref) const
 {
-	pki_key *kref = (pki_key *)ref;
+	const pki_key *kref = (pki_key *)ref;
 
 	if (kref->getKeyType() != getKeyType())
 		return false;

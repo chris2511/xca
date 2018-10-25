@@ -23,9 +23,9 @@ class KeyTreeView: public XcaTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(db_key *model=NULL)
+	void setModel(QAbstractItemModel *model=NULL)
 	{
-		keys = model;
+		keys = dynamic_cast <db_key*> (model);
 		XcaTreeView::setModel(model);
 	}
 
