@@ -40,6 +40,11 @@ bool XCA_application::languageAvailable(QLocale l)
 	return langAvail.contains(l);
 }
 
+static QString defaultlang()
+{
+	return getUserSettingsDir() + QDir::separator() + "defaultlang";
+}
+
 XCA_application::XCA_application(int &argc, char *argv[])
 	:QApplication(argc, argv)
 {
@@ -47,8 +52,7 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	xcaTr = NULL;
 	mainw = NULL;
 
-	QFile file(getUserSettingsDir() +
-			QDir::separator() + "defaultlang");
+	QFile file(defaultlang());
 
 	if (file.open(QIODevice::ReadOnly)) {
 		lang = QLocale(QString(file.read(128)));
@@ -131,16 +135,13 @@ void XCA_application::switchLanguage(QAction* a)
 	QLocale lang = a->data().toLocale();
 	setupLanguage(lang);
 
-	QString dir = getUserSettingsDir();
-	QFile file(dir +QDir::separator() +"defaultlang");
+	QFile file(defaultlang());
 
 	if (lang == QLocale::system()) {
 		file.remove();
 		return;
 	}
 
-	QDir d;
-	d.mkpath(dir);
 	if (file.open(QIODevice::WriteOnly)) {
 		file.write(lang.name().toUtf8());
 	}

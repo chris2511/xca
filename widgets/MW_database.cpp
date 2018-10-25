@@ -422,32 +422,25 @@ int MainWindow::open_default_db()
 
 void MainWindow::default_database()
 {
+	QFile file(defaultdb());
 	QFileInfo fi(currentDB);
-	QString dir = getUserSettingsDir();
-	QString file = dir +QDir::separator() +"defaultdb";
-	FILE *fp;
-	QDir d;
 
 	if (currentDB.isEmpty()) {
-		QFile::remove(file);
+		file.remove();
 		return;
 	}
-	d.mkpath(dir);
 
-	fp = fopen_write(file);
-	if (fp) {
+	if (file.open(QIODevice::ReadWrite)) {
 		QByteArray ba;
 		if (OpenDb::isRemoteDB(currentDB))
 			ba = filename2bytearray(currentDB);
 		else
 			ba = filename2bytearray(fi.canonicalFilePath());
 		ba += '\n';
-		if (fwrite(ba.constData(), ba.size(), 1, fp)) {
-			/* IGNORE_RESULT */
-		}
-		fclose(fp);
+		file.write(ba);
+		/* write() failed? Harmless. Only inconvenient */
 	}
-
+	file.close();
 }
 
 void MainWindow::close_database()
@@ -554,13 +547,10 @@ void MainWindow::update_history(QString fname)
 {
 	QFile file;
 	int pos;
-	QDir d;
 
 	pos = history.indexOf(fname);
 	if (pos == 0)
 		return; /* no changes */
-
-	d.mkpath(getUserSettingsDir());
 
 	if (pos > 0)
 		history.removeAt(pos);
