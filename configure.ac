@@ -18,7 +18,8 @@ esac
 
 if test -n "${DARWIN}"; then
   AC_MSG_NOTICE([Mac OSX detected])
-  CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2 -Wno-overloaded-virtual"
+  CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
+  LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
 fi
 AC_SUBST([DARWIN])
 AC_SUBST([MACDEPLOYQT])

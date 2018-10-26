@@ -36,6 +36,8 @@ settings::settings()
 	defaul["cert_expiry"] = "80%";
 	defaul["serial_len"] = "64";
 
+	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
+
 	clear();
 }
 
@@ -90,8 +92,11 @@ void settings::load_settings()
 	while (q.next()) {
 		QString key = q.value(0).toString().simplified();
 		QString value = q.value(1).toString().simplified();
-		setAction(key, value);
-		db_keys << key;
+		QStringList l = key.split(":");
+		if (l.size() == 2 && l[1] != hostId())
+			continue;	// Skip key with non-matching host ID
+		db_keys << key;		// Key with host ID
+		setAction(l[0], value);	// Key without host ID
 	}
 	loaded = true;
 }
@@ -112,6 +117,8 @@ void settings::set(QString key, QString value)
 			return;
 		value = QDir::toNativeSeparators(value);
 	}
+	if (hostspecific.contains(key))
+		key += QString(":%1").arg(hostId());
 	if (db_keys.contains(key) && values[key] == value)
 		return;
 

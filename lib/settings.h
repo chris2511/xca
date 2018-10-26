@@ -85,7 +85,7 @@ class settings
 
     private:
 	bool loaded;
-	QStringList db_keys;
+	QStringList db_keys, hostspecific;
 	QMap<QString, QString> values;
 	QMap<QString, QString> defaul;
 	void load_settings();

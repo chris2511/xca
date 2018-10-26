@@ -6,18 +6,21 @@
  */
 
 
+#include <unistd.h>
 #include "func.h"
 #include "exception.h"
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
 #include "widgets/XcaWarning.h"
 #include <openssl/objects.h>
+#include <openssl/sha.h>
 #include <openssl/asn1.h>
 #include <openssl/err.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
 
 #if defined(Q_OS_MAC)
+#include <IOKit/IOKitLib.h>
   #if QT_VERSION < 0x050000
 #include <QDesktopServices>
   #else
@@ -240,6 +243,75 @@ QString filename2QString(const char *fname)
 #else
 	return QString::fromUtf8(fname);
 #endif
+}
+
+QString hostId()
+{
+	static QString id;
+	unsigned char guid[100] = "", md[SHA_DIGEST_LENGTH];
+
+	if (!id.isEmpty())
+		return id;
+
+#if defined(Q_OS_WIN32)
+#define REG_CRYPTO "SOFTWARE\\Microsoft\\Cryptography"
+#define REG_GUID "MachineGuid"
+	ULONG dwGuid = sizeof guid;
+	HKEY hKey;
+
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, REG_CRYPTO, 0, KEY_READ, &hKey) !=
+			ERROR_SUCCESS) {
+		XCA_WARN("Registry Key: '" REG_CRYPTO "' not found");
+	} else {
+		if (RegQueryValueEx(hKey, REG_GUID, NULL, NULL,
+			guid, &dwGuid) != ERROR_SUCCESS) {
+			XCA_WARN("Registry Key: '" REG_CRYPTO "\\" REG_GUID
+				"' not found");
+		}
+	}
+	RegCloseKey(hKey);
+
+#elif defined(Q_OS_MAC)
+	io_registry_entry_t ioRegistryRoot = IORegistryEntryFromPath(
+				kIOMasterPortDefault, "IOService:/");
+	CFStringRef uuidCf = (CFStringRef)IORegistryEntryCreateCFProperty(
+				ioRegistryRoot, CFSTR(kIOPlatformUUIDKey),
+				kCFAllocatorDefault, 0);
+
+	snprintf((char*)guid, sizeof guid, "%s", CCHAR(
+		QString::fromUtf16(CFStringGetCharactersPtr(uuidCf))
+	));
+
+	IOObjectRelease(ioRegistryRoot);
+	CFRelease(uuidCf);
+
+#else
+	QString mach_id;
+	QStringList dirs; dirs <<
+			"/etc" << "/var/lib/dbus" << "/var/db/dbus";
+	foreach(QString dir, dirs) {
+		QFile file(dir + "/machine-id");
+		if (file.open(QIODevice::ReadOnly)) {
+			QTextStream in(&file);
+			mach_id = in.readLine().trimmed();
+			file.close();
+		}
+		qDebug() << "ID:" << mach_id;
+		if (!mach_id.isEmpty()) {
+			snprintf((char*)guid, sizeof guid, "%s", CCHAR(mach_id));
+			break;
+		}
+	}
+	if (mach_id.isEmpty())
+		sprintf((char*)guid, "%ld", gethostid());
+#endif
+	guid[sizeof guid -1] = 0;
+	SHA1(guid, strlen((char*)guid), md);
+	id = QByteArray((char*)md, (int)sizeof md).toBase64().mid(0, 8);
+
+	qDebug() << "GUID:" << guid << "ID:" << id;
+
+	return id;
 }
 
 QString compressFilename(QString filename, int maxlen)
