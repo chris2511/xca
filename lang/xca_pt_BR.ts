@@ -75,78 +75,78 @@
     <message>
         <location line="+7"/>
         <source>An md5 hashsum of the certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Um hashsum md5 do certificado</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>SHA1</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA1</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>A SHA-1 hashsum of the certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Um hashsum SHA-1 do certificado</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>SHA256</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA256</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>A SHA-256 hashsum of the certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Um hashsum SHA-256 do certificado</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Validity</source>
-        <translation type="unfinished"></translation>
+        <translation>Validade</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The time since the certificate is valid</source>
-        <translation type="unfinished"></translation>
+        <translation>O tempo desde que o certificado é válido</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The time until the certificate is valid</source>
-        <translation type="unfinished"></translation>
+        <translation>O tempo até que o certificado é válido</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Sujeito</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Emitente</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensões</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>comentário</translation>
     </message>
     <message>
         <location line="-31"/>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Atributos</translation>
     </message>
     <message>
         <location line="+23"/>
         <location filename="../widgets/CertDetail.cpp" line="-55"/>
         <source>Show config</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar configuração</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="+4"/>
         <source>Show extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar extensões</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -377,12 +377,12 @@
     <message>
         <location filename="../ui/CrlDetail.ui" line="+30"/>
         <source>Details of the Revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes da lista de revogação</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>&amp;Status</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Status</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -402,7 +402,7 @@
     <message>
         <location line="+7"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -465,7 +465,7 @@
     <message>
         <location filename="../ui/ExportDialog.ui" line="+76"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -475,7 +475,7 @@
     <message>
         <location line="+30"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -762,7 +762,7 @@ Serial: %3</source>
     <message>
         <location filename="../ui/KeyDetail.ui" line="+88"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -782,13 +782,13 @@ Serial: %3</source>
     <message>
         <location line="+10"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <location line="-194"/>
         <location line="+80"/>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Key</translation>
     </message>
     <message>
         <location line="-72"/>
@@ -884,17 +884,17 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+28"/>
         <source>Change password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudar senha</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
+        <translation>Redefinir senha</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Change PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar PIN</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -909,7 +909,7 @@ Serial: %3</source>
     <message>
         <location line="+3"/>
         <source>Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Token de segurança</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -958,7 +958,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-393"/>
         <source>Import PFX (PKCS#12)</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -966,7 +966,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+92"/>
         <location line="+203"/>
         <source>&amp;Show Details</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mostrar detalhes</translation>
     </message>
     <message>
         <location line="-386"/>
@@ -975,7 +975,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+103"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Excluir</translation>
     </message>
     <message>
         <location line="-353"/>
@@ -1011,7 +1011,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+7"/>
         <source>Plain View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista plana</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1021,12 +1021,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+28"/>
         <source>&amp;New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Novo modelo</translation>
     </message>
     <message>
         <location line="+86"/>
         <source>&amp;New CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nova CRL</translation>
     </message>
     <message>
         <location line="-79"/>
@@ -1077,12 +1077,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+5"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>System</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croatian</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1162,7 +1162,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+8"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Saída</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1402,7 +1402,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+1"/>
         <location line="+69"/>
         <source>All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos os arquivos (*)</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -2125,52 +2125,52 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../ui/OpenDb.ui" line="+36"/>
         <source>Open remote database</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir banco de dados remotamente</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>Database type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de banco de dados</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome de usuário</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Senha</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Database name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome do banco de dados</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Table prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefixo da tabela</translation>
     </message>
     <message>
         <location filename="../widgets/OpenDb.cpp" line="+143"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum driver SqLite3 disponível. Por favor, instale o pacote qt-sqlite de sua distribuição</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, digite a senha para acessar o servidor de banco de dados %2 como usuário &apos;%1&apos;.</translation>
     </message>
     <message>
         <location line="+33"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
-        <translation type="unfinished"></translation>
+        <translation>O driver do banco de dados não suporta transações. Isso pode acontecer se o cliente e o servidor tiverem versões diferentes. Continue com cuidado.</translation>
     </message>
 </context>
 <context>
@@ -2379,7 +2379,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/asn1time.cpp" line="+155"/>
         <source>Undefined</source>
-        <translation type="unfinished"></translation>
+        <translation>Indefinido</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2908,7 +2908,7 @@ In library %3
     <message>
         <location line="+0"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3266,7 +3266,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>CRL number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número CRL</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -3283,7 +3283,7 @@ and so it was not imported</source>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location line="+64"/>
@@ -3443,27 +3443,27 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_temp.cpp" line="+54"/>
         <source>Bad template: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelo ruim: %1</translation>
     </message>
     <message>
         <location line="-17"/>
         <source>Empty template</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelo vazio</translation>
     </message>
     <message>
         <location line="+63"/>
         <source>Preset Template values</source>
-        <translation type="unfinished"></translation>
+        <translation>Valores predefinidos do modelo</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>Save template as</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar modelo como</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA templates ( *.xca );; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelos XCA ( *.xca );; Todos os arquivos ( * )</translation>
     </message>
 </context>
 <context>
@@ -3471,7 +3471,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="+64"/>
         <source>CA</source>
-        <translation type="unfinished"></translation>
+        <translation>CA</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3481,7 +3481,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3669,7 +3669,7 @@ and so it was not imported</source>
     <message>
         <location line="+287"/>
         <source> days</source>
-        <translation type="unfinished"></translation>
+        <translation> dias</translation>
     </message>
 </context>
 <context>
@@ -3677,7 +3677,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509super.cpp" line="+24"/>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Sujeito</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4038,7 +4038,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4330,7 +4330,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location filename="../lib/pki_x509req.cpp" line="+83"/>
         <source>Signing key not valid (public key)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chave de assinatura inválida (oublic key)</translation>
     </message>
     <message>
         <location line="+42"/>
@@ -4398,7 +4398,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location line="+7"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation>Validar</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -4433,7 +4433,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location line="+2"/>
         <source>A DNS domain name</source>
-        <translation type="unfinished"></translation>
+        <translation>Um DNS nome de domínio</translation>
     </message>
     <message>
         <location line="+2"/>
