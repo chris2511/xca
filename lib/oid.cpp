@@ -135,8 +135,10 @@ void initOIDs()
 	QString dir = getPrefix();
 
 	first_additional_oid = OBJ_new_nid(0);
+	openssl_error();
 	for (int i=0; i<first_additional_oid;i++)
 		addToLowerMap(i);
+	ign_openssl_error();
 	readOIDs(dir + oids);
 #if !defined(Q_OS_WIN32)
 #if !defined(Q_OS_MAC)
@@ -144,6 +146,7 @@ void initOIDs()
 #endif
 #endif
 	readOIDs(getUserSettingsDir() + oids);
+	openssl_error();
 }
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList
@@ -176,5 +179,6 @@ NIDlist readNIDlist(QString fname)
 		else
 			nl += nid;
 	}
+	openssl_error();
 	return nl;
 }
