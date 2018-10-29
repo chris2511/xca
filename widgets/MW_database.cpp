@@ -263,7 +263,7 @@ int MainWindow::init_database(QString dbName)
 	certView->setRootIsDecorated(db_x509::treeview);
 	ret = 1;
 	try {
-		if (pki_evp::passwd.isEmpty()) {
+		if (pki_evp::passwd.isEmpty() && oldDbFile.isEmpty()) {
 			ret = initPass(dbName);
 			if (ret == 2)
 				return ret;
