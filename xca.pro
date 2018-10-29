@@ -207,4 +207,13 @@ SOURCES += lib/asn1int.cpp \
            widgets/XcaProxyModel.cpp \
            widgets/OpenDb.cpp
 
-TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts lang/xca_hr.ts lang/xca_sk.ts
+TRANSLATIONS += lang/xca.ts \
+		lang/xca_de.ts \
+		lang/xca_es.ts \
+		lang/xca_fr.ts \
+		lang/xca_hr.ts \
+		lang/xca_pl.ts \
+		lang/xca_pt_BR.ts \
+		lang/xca_ru.ts \
+		lang/xca_sk.ts \
+		lang/xca_tr.ts
