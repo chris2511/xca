@@ -130,6 +130,12 @@ void XCA_application::setupLanguage(QLocale l)
 		mainw->initResolver();
 }
 
+void XCA_application::quit()
+{
+	if (mainw)
+		mainw->close();
+}
+
 void XCA_application::switchLanguage(QAction* a)
 {
 	QLocale lang = a->data().toLocale();

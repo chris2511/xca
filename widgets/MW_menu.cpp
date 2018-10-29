@@ -117,7 +117,8 @@ void MainWindow::init_menu()
 	file->addMenu(languageMenu);
 	file->addSeparator();
 	a = new QAction(tr("Exit"), this);
-	connect(a, SIGNAL(triggered()), qApp, SLOT(quit()));
+	connect(a, SIGNAL(triggered()),
+		qApp, SLOT(quit()), Qt::QueuedConnection);
 	a->setMenuRole(QAction::QuitRole);
 	file->addAction(a);
 

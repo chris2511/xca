@@ -58,5 +58,6 @@ public:
 
 public slots:
 	void switchLanguage(QAction* a);
+	void quit();
 };
 #endif

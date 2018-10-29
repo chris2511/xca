@@ -581,7 +581,6 @@ void MainWindow::manageToken()
 
 MainWindow::~MainWindow()
 {
-	close_database();
 	ERR_free_strings();
 	EVP_cleanup();
 	OBJ_cleanup();
@@ -601,6 +600,7 @@ void MainWindow::closeEvent(QCloseEvent *e)
 	if (resolver) {
 		delete resolver;
 	}
+	close_database();
 	QMainWindow::closeEvent(e);
 }
 
