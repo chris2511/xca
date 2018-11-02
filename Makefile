@@ -35,7 +35,7 @@ OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
 	-t http://timestamp.comodoca.com -h sha2
 
 ifeq ($(SUFFIX), .exe)
-all: setup$(SUFFIX)
+all: setup$(SUFFIX) xca-portable.zip
 export CFLAGS_XCA_DB_STAT=-mconsole
 else
 ifneq ($(MACDEPLOYQT),)
@@ -96,7 +96,7 @@ clean:
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
 	rm -f commithash.h misc/oids.txt
-	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg
+	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg xca-portable.zip
 	rm -rf xca-$(VERSION)*
 
 distclean: clean
@@ -129,23 +129,43 @@ install: xca$(SUFFIX) $(INSTTARGET)
 xca-8859-1.nsi: misc/xca.nsi
 	iconv -f utf8 -t iso-8859-15 -o "$@" "$<"
 
+xca$(SUFFIX).signed: xca$(SUFFIX)
+
+%.signed: %
+	$(STRIP) $<
+	if test -n "$(OSSLSIGN)"; then \
+	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in "$<" -out "$@"; \
+	else \
+	  mv "$<" "$@"; \
+	fi
+
 setup.exe: setup_xca-$(VERSION).exe
-setup_xca-$(VERSION).exe: xca$(SUFFIX) do.doc do.lang do.misc
-setup_xca-$(VERSION).exe: xca-8859-1.nsi
-	for binary in xca$(SUFFIX); do \
-	  $(STRIP) xca$(SUFFIX); \
-	  if test -n "$(OSSLSIGN)"; then \
-	    $(OSSLSIGN) $(OSSLSIGN_OPT) -in $${binary} -out $${binary}.signed && \
-		mv $${binary}.signed $${binary}; \
-	  fi; \
-	done
-	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
+setup_xca-$(VERSION).exe: xca-8859-1.nsi xca-portable-$(VERSION)
+	$(MAKENSIS) -DINSTALLDIR=xca-portable -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
 	if test -n "$(OSSLSIGN)"; then \
 	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in $@ -out setup.tmp && mv setup.tmp $@; \
 	fi
 
+xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
+	rm -rf $@
+	mkdir -p $@/sqldrivers $@/platforms
+	cp xca$(SUFFIX).signed $@/xca$(SUFFIX)
+	cp $(patsubst %,misc/%.txt, dn eku oids) \
+	   "$(TOPDIR)"/misc/*.xca doc/*.html lang/*.qm \
+	   $(patsubst %,"$(QTDIR)/bin/%.dll", Qt5Gui Qt5Core Qt5Widgets \
+		Qt5Sql libwinpthread-1 libstdc++-6 libgcc_s_dw2-1) \
+	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
+	   "$(INSTALL_DIR)/bin/libcrypto-1_1.dll" \
+	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk) \
+	   "$(TOPDIR)"/COPYRIGHT $@
+	cp "$(QTDIR)/plugins/sqldrivers/qsqlite.dll" $@/sqldrivers
+	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
+
+xca-portable.zip: xca-portable-$(VERSION).zip
+xca-portable-$(VERSION).zip: xca-portable-$(VERSION)
+	zip -r $@ $^
 
 $(DMGSTAGE): xca$(SUFFIX)
 	rm -rf $(DMGSTAGE)
@@ -177,7 +197,7 @@ trans:
 	lupdate -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip
 
 do.doc do.lang headers: local.h
 

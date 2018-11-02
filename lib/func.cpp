@@ -70,8 +70,8 @@ int portable_app()
 	if (portable == -1) {
 #if defined(Q_OS_WIN32)
 		HKEY hKey;
-		portable = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",
-					0, KEY_READ, &hKey) != ERROR_SUCCESS;
+		portable = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
+			KEY_WOW64_64KEY|KEY_READ, &hKey) != ERROR_SUCCESS;
 #else
 		const char *p = getenv("XCA_PORTABLE");
 		portable = p && *p;
@@ -91,7 +91,6 @@ QString getPrefix()
 	static char inst_dir[100] = "";
 	char *p;
 	ULONG dwLength = 100;
-	LONG lRc;
 	HKEY hKey;
 
 	if (inst_dir[0] != '\0') {
@@ -109,17 +108,18 @@ QString getPrefix()
 		return QString(inst_dir);
 	p = inst_dir;
 	*p = '\0';
-	lRc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0, KEY_READ, &hKey);
-	if (lRc != ERROR_SUCCESS) {
-		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
+		KEY_WOW64_64KEY|KEY_READ, &hKey) != ERROR_SUCCESS)
+	{
+		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE\\Software\\xca' not found");
 		return QString(inst_dir);
 	}
-	lRc = RegQueryValueEx(hKey, "Install_Dir", NULL, NULL,
-			(unsigned char *)inst_dir, &dwLength);
-	if (lRc != ERROR_SUCCESS){
+	if (RegQueryValueEx(hKey, "Install_Dir", NULL, NULL,
+			(unsigned char *)inst_dir, &dwLength) != ERROR_SUCCESS)
+	{
 		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
 	}
-	lRc = RegCloseKey(hKey);
+	RegCloseKey(hKey);
 	return QString(inst_dir);
 
 #elif defined(Q_OS_MAC)
@@ -259,8 +259,8 @@ QString hostId()
 	ULONG dwGuid = sizeof guid;
 	HKEY hKey;
 
-	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, REG_CRYPTO, 0, KEY_READ, &hKey) !=
-			ERROR_SUCCESS) {
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, REG_CRYPTO, 0,
+			KEY_WOW64_64KEY|KEY_READ, &hKey) != ERROR_SUCCESS) {
 		XCA_WARN("Registry Key: '" REG_CRYPTO "' not found");
 	} else {
 		if (RegQueryValueEx(hKey, REG_GUID, NULL, NULL,

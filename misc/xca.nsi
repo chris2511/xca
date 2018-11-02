@@ -30,7 +30,7 @@ SetCompressor /SOLID lzma
 ;-----------------------------------
 ; Pagelist
 
-!insertmacro MUI_PAGE_LICENSE "${TOPDIR}/COPYRIGHT"
+!insertmacro MUI_PAGE_LICENSE "${INSTALLDIR}/COPYRIGHT"
 
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
@@ -65,27 +65,11 @@ Section "xca (required)" SecMain
 
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
-  ; Put files there
-  File "xca.exe"
-  File "misc\dn.txt"
-  File "misc\eku.txt"
-  File "misc\oids.txt"
-  File "${TOPDIR}/misc\*.xca"
-  File "doc\*.html"
-
-  File "${QTDIR}\bin\Qt5Gui.dll"
-  File "${QTDIR}\bin\Qt5Core.dll"
-  File "${QTDIR}\bin\Qt5Widgets.dll"
-  File "${QTDIR}\bin\Qt5Sql.dll"
-  File "${QTDIR}\bin\libwinpthread-1.dll"
-  File "${QTDIR}\bin\libstdc++-6.dll"
-  File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
-  File "${INSTALLDIR}\bin\libltdl-7.dll"
-  File "${INSTALLDIR}\bin\libcrypto-1_1.dll"
+  File "${INSTALLDIR}\*"
   SetOutPath $INSTDIR\platforms
-  File "${QTDIR}\plugins\platforms\qwindows.dll"
+  File "${INSTALLDIR}\platforms\*"
   SetOutPath $INSTDIR\sqldrivers
-  File "${QTDIR}\plugins\sqldrivers\qsqlite.dll"
+  File "${INSTALLDIR}\sqldrivers\*"
   SetOutPath $INSTDIR
 
   ; delete unneeded files when updating
@@ -152,8 +136,8 @@ Section "Translations" SecTrans
   File /nonfatal "${QTDIR}\translations\qt_es.qm"
   File /nonfatal "${QTDIR}\translations\qt_ru.qm"
   File /nonfatal "${QTDIR}\translations\qt_fr.qm"
-  File /nonfatal "${QTDIR}\translations\qt_hr.qm"
-  File /nonfatal "${QTDIR}\translations\qt_tr.qm"
+;  File /nonfatal "${QTDIR}\translations\qt_hr.qm"
+;  File /nonfatal "${QTDIR}\translations\qt_tr.qm"
   File /nonfatal "${QTDIR}\translations\qt_pl.qm"
   File /nonfatal "${QTDIR}\translations\qt_pt.qm"
   File /nonfatal "${QTDIR}\translations\qt_sk.qm"
