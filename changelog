@@ -1,3 +1,12 @@
+ * Close #40 macOS: Crash after xca v2.0.1 quit
+ * Close #37: XCA 2: EVP_DecryptFinal_ex:bad decrypt
+ * Close #74: Exiting XCA 2.1.1 corrupts database
+ * Make PKCS11 libs, working dir and main-window size host-dependent
+ * Support for XCA as portable App
+ * Close #69 Library not loaded: @rpath/ contains local directory
+ * Close #60: Fix MacOSX 2.1.1 binary
+ * Add new maintained languages: Polish, Spanish, Portuguese
+
 xca 2.1.1 Thu Sep 13 2018
 
  * Allow manual override of the CSR signed flag
