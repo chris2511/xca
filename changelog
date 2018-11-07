@@ -1,3 +1,5 @@
+xca 2.1.2 Wed Nov 07 2018
+
  * Close #40 macOS: Crash after xca v2.0.1 quit
  * Close #37: XCA 2: EVP_DecryptFinal_ex:bad decrypt
  * Close #74: Exiting XCA 2.1.1 corrupts database
