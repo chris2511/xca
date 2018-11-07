@@ -181,7 +181,6 @@ $(DMGSTAGE): xca$(SUFFIX)
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	otool -l $(DMGSTAGE)/xca.app/Contents/MacOS/xca | grep -e "chris\|Users" >&2
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	rpath="`otool -l $(DMGSTAGE)/xca.app/Contents/MacOS/xca | grep -e "chris\|Users"`" && \
 	rpath="`cd $(DMGSTAGE) && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
 	if test -n "$$rpath"; then echo "  ERROR $$rpath"; false; fi
 	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
