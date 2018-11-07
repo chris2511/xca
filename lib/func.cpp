@@ -71,7 +71,7 @@ int portable_app()
 #if defined(Q_OS_WIN32)
 		HKEY hKey;
 		portable = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-			KEY_WOW64_64KEY|KEY_READ, &hKey) != ERROR_SUCCESS;
+			KEY_WOW64_32KEY|KEY_READ, &hKey) != ERROR_SUCCESS;
 #else
 		const char *p = getenv("XCA_PORTABLE");
 		portable = p && *p;
@@ -109,7 +109,7 @@ QString getPrefix()
 	p = inst_dir;
 	*p = '\0';
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-		KEY_WOW64_64KEY|KEY_READ, &hKey) != ERROR_SUCCESS)
+		KEY_WOW64_32KEY|KEY_READ, &hKey) != ERROR_SUCCESS)
 	{
 		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE\\Software\\xca' not found");
 		return QString(inst_dir);

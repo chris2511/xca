@@ -141,7 +141,7 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 
 setup.exe: setup_xca-$(VERSION).exe
 setup_xca-$(VERSION).exe: xca-8859-1.nsi xca-portable-$(VERSION)
-	$(MAKENSIS) -DINSTALLDIR=xca-portable -DQTDIR=$(QTDIR) \
+	$(MAKENSIS) -DINSTALLDIR=xca-portable-$(VERSION) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
 	if test -n "$(OSSLSIGN)"; then \
