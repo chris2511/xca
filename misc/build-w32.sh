@@ -50,7 +50,7 @@ do_XCA()
   cd $XCA_BUILD
   $XCA_DIR/configure.w32
   make -j5 USE_HOSTTOOLS=no
-  cp setup*.exe ..
+  cp setup*.exe xca-portable*.zip ..
 )}
 
 XCA_BUILD="`pwd`"/xca_build
