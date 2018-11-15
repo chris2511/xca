@@ -241,20 +241,6 @@ void pki_evp::openssl_pw_error(QString fname)
 	}
 }
 
-void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey)
-{
-	if (!pkey)
-		return;
-	if (key)
-		EVP_PKEY_free(key);
-	key = pkey;
-	isPub = !EVP_PKEY_isPrivKey(key);
-	if (!isPub) {
-		bogusEncryptKey();
-	}
-	pki_openssl_error();
-}
-
 void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 {
 	BIO *bio = BIO_new_mem_buf(ba.data(), ba.length());
@@ -271,12 +257,7 @@ void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
 	}
 	BIO_free(bio);
-
-	setIntName(rmslashdot(name));
-	set_EVP_PKEY(pkey);
-	autoIntName();
-	if (getIntName().isEmpty())
-		setIntName(rmslashdot(name));
+	set_EVP_PKEY(pkey, name);
 }
 
 static void search_ec_oid(EVP_PKEY *pkey)
@@ -312,6 +293,28 @@ static void search_ec_oid(EVP_PKEY *pkey)
 #else
 	(void)pkey;
 #endif
+}
+
+void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey, QString name)
+{
+	if (!pkey)
+		return;
+	if (!verify(pkey)) {
+		EVP_PKEY_free(pkey);
+		throw errorEx(tr("The key from file '%1' is incomplete or inconsistent.").arg(name));
+	}
+	if (key)
+		EVP_PKEY_free(key);
+	key = pkey;
+	isPub = !EVP_PKEY_isPrivKey(key);
+	if (!isPub)
+		bogusEncryptKey();
+	search_ec_oid(pkey);
+
+	setIntName(rmslashdot(name));
+	if (getIntName().isEmpty())
+		autoIntName();
+	pki_openssl_error();
 }
 
 void pki_evp::fload(const QString fname)
@@ -380,15 +383,7 @@ void pki_evp::fload(const QString fname)
 			EVP_PKEY_free(pkey);
 		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.").arg(fname));
 	}
-	if (pkey){
-		search_ec_oid(pkey);
-		if (key)
-			EVP_PKEY_free(key);
-		key = pkey;
-		if (EVP_PKEY_isPrivKey(key))
-			bogusEncryptKey();
-		setIntName(rmslashdot(fname));
-	}
+	set_EVP_PKEY(pkey, fname);
 }
 
 void pki_evp::fromData(const unsigned char *p, db_header_t *head)
@@ -784,19 +779,49 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 	EVP_PKEY_free(pkey);
 }
 
-int pki_evp::verify()
+bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 {
-	bool veri = false;
-	return true;
-	if (getKeyType() == EVP_PKEY_RSA && isPrivKey()) {
-		RSA *rsa = EVP_PKEY_get0_RSA(key);
-		if (RSA_check_key(rsa) == 1)
-			veri = true;
+	bool verify = true;
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+	unsigned char md[32], sig[1024];
+	size_t mdlen = sizeof md, siglen = sizeof sig;
+	EVP_PKEY_CTX *ctx = NULL;
+
+	if (!EVP_PKEY_isPrivKey(pkey))
+		return true;
+	do {
+		ctx = EVP_PKEY_CTX_new(pkey, NULL);
+		pki_ign_openssl_error();
+		RAND_bytes(md, mdlen);
+		check_oom(ctx);
+		verify = false;
+
+		/* Sign some random data in "md" */
+		if (EVP_PKEY_sign_init(ctx) <= 0)
+			break;
+		if (getKeyType() == EVP_PKEY_RSA)
+			EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING);
+		if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)
+			break;
+		if (EVP_PKEY_sign(ctx, sig, &siglen, md, mdlen) <= 0)
+			break;
+		/* Verify the signature */
+		if (EVP_PKEY_verify_init(ctx) <= 0)
+			break;
+		if (EVP_PKEY_verify(ctx, sig, siglen, md, mdlen) <= 0)
+			break;
+		verify = true;
+	} while (0);
+	if (ctx)
+		EVP_PKEY_CTX_free(ctx);
+#endif
+	if (getKeyType() == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
+		RSA *rsa = EVP_PKEY_get0_RSA(pkey);
+		if (RSA_check_key(rsa) != 1)
+			verify = false;
 	}
-	if (isPrivKey())
-		veri = true;
 	pki_openssl_error();
-	return veri;
+	return verify;
 }
 
 QVariant pki_evp::getIcon(const dbheader *hd) const

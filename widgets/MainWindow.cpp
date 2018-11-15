@@ -380,7 +380,7 @@ bool MainWindow::pastePem(QString text, bool silent)
 	try {
 		pem = new pki_multi();
 		dlgi = new ImportMulti(this);
-		pem->fromPEMbyteArray(pemdata, QString("paste"));
+		pem->fromPEMbyteArray(pemdata, QString());
 		success = pem->count() != 0;
 		dlgi->addItem(pem);
 		pem = NULL;

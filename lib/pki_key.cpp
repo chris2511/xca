@@ -671,3 +671,38 @@ void pki_key::writeSSH2public(QString fname)
 		f.close();
 	}
 }
+
+bool pki_key::verify(EVP_PKEY *pkey) const
+{
+	bool verify = true;
+	const BIGNUM *a = NULL;
+	const BIGNUM *b = NULL;
+	const BIGNUM *c = NULL;
+
+	switch (EVP_PKEY_type(EVP_PKEY_id(pkey))) {
+	case EVP_PKEY_RSA:
+		RSA_get0_key(EVP_PKEY_get0_RSA(pkey), &a, &b, NULL);
+		verify = a && b;
+		break;
+	case EVP_PKEY_DSA:
+		DSA_get0_pqg(EVP_PKEY_get0_DSA(pkey), &a, &b, &c);
+		verify = a && b && c;
+		break;
+#ifndef OPENSSL_NO_EC
+	case EVP_PKEY_EC:
+		verify = EVP_PKEY_get0_EC_KEY(pkey) != NULL;
+		break;
+#endif
+	default:
+		verify = false;
+	}
+	if (verify)
+		verify = verify_priv(pkey);
+	pki_openssl_error();
+	return verify;
+}
+
+bool pki_key::verify_priv(EVP_PKEY *) const
+{
+	return true;
+}

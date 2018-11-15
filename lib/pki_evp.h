@@ -31,7 +31,7 @@ class pki_evp: public pki_key
 		}
 		static QString _sha512passwd(QByteArray pass, QString salt,
 						int size, int repeat);
-		void set_EVP_PKEY(EVP_PKEY *pkey);
+		void set_EVP_PKEY(EVP_PKEY *pkey, QString name = QString());
 
 	protected:
 		void openssl_pw_error(QString fname);
@@ -69,7 +69,7 @@ class pki_evp: public pki_key
 		pem_password_cb *cb, bool pem);
 		void writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
-		int verify();
+		bool verify_priv(EVP_PKEY *pkey) const;
 		QVariant getIcon(const dbheader *hd) const;
 		bool sqlUpdatePrivateKey();
 		QSqlError insertSqlData();

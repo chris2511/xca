@@ -61,6 +61,8 @@ class pki_key: public pki_base
 		bool compare(const pki_base *ref) const;
 		int getKeyType() const;
 		bool isPrivKey() const;
+		bool verify(EVP_PKEY *pkey) const;
+		virtual bool verify_priv(EVP_PKEY *pkey) const;
 		int getUcount() const;
 		void setUcount(int c)
 		{
