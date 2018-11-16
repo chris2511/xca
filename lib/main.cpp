@@ -244,6 +244,52 @@ static void segv_handler_gui(int)
 }
 #endif
 
+#define CYAN  "\x1b[0;36m"
+#define LRED  "\x1b[0;92m"
+#define YELL  "\x1b[0;33m"
+#define RED   "\x1b[0;31m"
+#define RESET "\x1b[0m"
+
+void myMsgOutput(QtMsgType type, const char *msg)
+{
+	static QTime *t;
+	static int debug;
+	if (!t) {
+		char *d = getenv("XCA_DEBUG");
+		t = new QTime();
+		t->start();
+		if (d && *d)
+			debug = 1;
+	}
+	int el = t->elapsed();
+	const char *severity = "Unknown";
+	switch (type) {
+	case QtDebugMsg:
+		if (!debug)
+			return;
+		severity = CYAN "Debug";
+		break;
+	case QtWarningMsg:  severity = LRED "Warning"; break;
+	case QtCriticalMsg: severity = RED "Critical"; break;
+	case QtFatalMsg:    severity = RED "Fatal"; break;
+	default:            severity = CYAN "Default"; break;
+	}
+
+	fprintf(stderr, YELL "% 4d.%02d %s:" RESET " %s\n",
+			 el/1000, (el%1000)/100, severity, msg);
+}
+
+#if QT_VERSION >= 0x050000
+void myMessageOutput(QtMsgType t, const QMessageLogContext &, const QString &m)
+{
+	myMsgOutput(t, CCHAR(m));
+}
+#endif
+
+#if DQT_VERSION >= 0x050000
+	case QtInfoMsg:	    severity = "Info"; break;
+#endif
+
 int main( int argc, char *argv[] )
 {
 	int ret = 0;
@@ -258,6 +304,11 @@ int main( int argc, char *argv[] )
 
 	d.mkpath(getUserSettingsDir());
 
+#if QT_VERSION < 0x050000
+	qInstallMsgHandler(myMsgOutput);
+#else
+	qInstallMessageHandler(myMessageOutput);
+#endif
 	XCA_application a(argc, argv);
 	mw = new MainWindow(NULL);
 	try {
