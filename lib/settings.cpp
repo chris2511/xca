@@ -108,6 +108,7 @@ void settings::set(QString key, QString value)
 {
 	XSqlQuery q;
 	load_settings();
+	QString origkey = key;
 
 	if (key == "workingdir") {
 		if (portable_app() || !QDir(value).exists())
@@ -132,6 +133,6 @@ void settings::set(QString key, QString value)
 	q.bindValue(0, value);
 	q.bindValue(1, key);
 	q.exec();
-	setAction(key, value);
+	setAction(origkey, value);
 	TransCommit();
 }
