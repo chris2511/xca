@@ -3377,7 +3377,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+35"/>
         <source>Key size too small !</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozmiar klucza jest za mały !</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3613,7 +3613,7 @@ and so it was not imported</source>
     <message>
         <location line="+42"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy zapisać certyfikat do klucza na bezpiecznym tokenie &apos;%1 (#%2)&apos; ?</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -3884,27 +3884,27 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pki_crl.cpp" line="+47"/>
         <source>Successfully imported the revocation list &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano listę unieważnień &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć listę unieważnień &apos;%1&apos;?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie utworzono listę unieważnień &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 revocation lists: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć %1 listy unieważnień: %2?</translation>
     </message>
     <message>
         <location line="+73"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować listy unieważnień z pliku %1. Próbowano listy CRL w formacie PEM i DER.</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -3938,23 +3938,24 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd deszyfracji klucza (błędne hasło) </translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Please enter the password to decrypt the private key.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj hasło, aby odszyfrować klucz prywatny.</translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj hasło, aby odszyfrować klucz prywatny z pliku:
+%1</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować klucza prywatnego z pliku %1. Próbowano PEM i DER prywatny, publiczny, klucze w formacie PKCS#8 i SSH2.</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -4003,32 +4004,32 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_key.cpp" line="+194"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano klucz publiczny %1 jako &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć klucz publiczny &apos;%2&apos; typu %1?</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano klucz prywatny %1 jako &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć klucz prywatny &apos;%2&apos; typu %1?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie utworzono klucz prywatny %1 jako &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć %1 klucze: %2?</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -4092,7 +4093,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+8"/>
         <source>Unable to load the PKCS#12 (pfx) file %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować pliku PKCS#12 (pfx): %1.</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4115,7 +4116,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować pliku PKCS#7: %1. Próbowano format PEM i DER.</translation>
     </message>
 </context>
 <context>
@@ -4217,22 +4218,22 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_temp.cpp" line="+123"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano szablon XCA &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć szablon XCA &apos;%1&apos;?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie utworzono szablon XCA &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć %1 szablony XCA: %2?</translation>
     </message>
     <message>
         <location line="+200"/>
@@ -4265,32 +4266,32 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_x509.cpp" line="+68"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano certyfikat &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć certyfikat &apos;%1&apos;?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie utworzono certyfikat &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 certificates: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć %1 certyfikaty: %2?</translation>
     </message>
     <message>
         <location line="+167"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować certyfikatu z pliku %1. Próbowano certyfikaty w formacie PEM i DER.</translation>
     </message>
     <message>
         <location line="+148"/>
         <source>This certificate is already on the security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Ten certyfikat już istnieje na bezpiecznym tokenie</translation>
     </message>
     <message>
         <location line="+62"/>
@@ -4350,27 +4351,27 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano żądanie certyfikacyjne %1 jako &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć żądanie certyfikacyjne &apos;%2&apos; typu %1?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie utworzono żądanie certyfikacyjne %1 jako &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 certificate requests: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy usunąć %1 żądania certyfikacyjne: %2?</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować żądania certyfikacyjnego z pliku %1. Próbowano format PEM, DER i SPKAC.</translation>
     </message>
     <message>
         <location line="+44"/>
