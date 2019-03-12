@@ -431,7 +431,8 @@ void XcaTreeView::keyPressEvent(QKeyEvent *event)
 			return;
 		case Qt::Key_Enter:
 		case Qt::Key_Return:
-			showItems();
+			if (state() != QAbstractItemView::EditingState)
+				showItems();
 			return;
 		case Qt::Key_F2:
 			editIdx();
