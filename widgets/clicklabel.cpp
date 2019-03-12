@@ -68,12 +68,10 @@ void ClickLabel::disableToolTip()
 	setToolTip(QString());
 }
 
-
 CopyLabel::CopyLabel(QWidget *parent)
 	:DoubleClickLabel(parent)
 {
-	setFrameShape(QFrame::Panel);
-	setFrameShadow(QFrame::Sunken);
+	setFrameStyle(QFrame::StyledPanel);
 	setTextFormat(Qt::PlainText);
 
 #if QT_VERSION >= 0x040200

@@ -16,6 +16,7 @@
 #include "base.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <openssl/evp.h>
 
 class Validity;
 extern QString currentDB;
@@ -31,13 +32,16 @@ QString getFullFilename(const QString &filename, const QString &selectedFilter);
 QStringList getLibExtensions();
 QString hostId();
 
-QString formatHash(const unsigned char *md, unsigned size, bool colon = true);
+QString formatHash(const QByteArray &data, QString sep = ":", int width = 2);
 QByteArray filename2bytearray(const QString &fname);
 QString filename2QString(const char *fname);
 QString compressFilename(QString filename, int maxlen = 50);
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote = false);
 ASN1_STRING *QStringToAsn1(QString s, int nid);
+
+QByteArray Digest(const QByteArray &data, const EVP_MD *type);
+QString fingerprint(const QByteArray &data, const EVP_MD *type);
 
 const char *OBJ_ln2sn(const char *ln);
 const char *OBJ_sn2ln(const char *sn);

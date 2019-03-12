@@ -35,7 +35,8 @@ class pki_key: public pki_base
 		EVP_PKEY *key;
 		QString BN2QString(const BIGNUM *bn) const;
 		QString BNoneLine(BIGNUM *bn) const;
-		QByteArray SSH2publicQByteArray();
+		QByteArray SSH2publicQByteArray(bool raw=false);
+		QByteArray X509_PUBKEY_public_key() const;
 
 	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
@@ -93,6 +94,7 @@ class pki_key: public pki_base
 		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(FILE *fp);
 		void writeSSH2public(QString fname);
+		QString fingerprint(const QString format);
 		void resetUcount()
 		{
 			useCount = -1;

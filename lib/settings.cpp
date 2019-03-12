@@ -35,6 +35,8 @@ settings::settings()
 	defaul["ical_expiry"] = "1W";
 	defaul["cert_expiry"] = "80%";
 	defaul["serial_len"] = "64";
+	defaul["fp_separator"] = ":";
+	defaul["fp_digits"] = "2";
 
 	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
 

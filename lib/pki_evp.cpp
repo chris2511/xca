@@ -834,63 +834,21 @@ QVariant pki_evp::getIcon(const dbheader *hd) const
 
 QString pki_evp::md5passwd(QByteArray pass)
 {
-
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	EVP_MD_CTX mdctxbuf;
-#endif
-	EVP_MD_CTX *mdctx;
-	int n;
-	unsigned char m[EVP_MAX_MD_SIZE];
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	mdctx = EVP_MD_CTX_new();
-#else
-	mdctx = &mdctxbuf;
-#endif
-
-	EVP_DigestInit(mdctx, EVP_md5());
-	EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
-	EVP_DigestFinal(mdctx, m, (unsigned*)&n);
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	EVP_MD_CTX_free(mdctx);
-#endif
-	return formatHash(m, n);
+	return formatHash(Digest(pass, EVP_md5()));
 }
 
 QString pki_evp::_sha512passwd(QByteArray pass, QString salt,
 				int size, int repeat)
 {
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	EVP_MD_CTX mdctxbuf;
-#endif
-	EVP_MD_CTX *mdctx;
-	QString str;
-	int n;
-	unsigned char m[EVP_MAX_MD_SIZE];
+	Q_ASSERT(salt.length() >= size);
 
-	if (salt.length() < size) {
-		abort();
-	}
-	str = salt.left(size);
-	pass = str.toLatin1() + pass;
+	salt = salt.left(size);
+	pass = salt.toLatin1() + pass;
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	mdctx = EVP_MD_CTX_new();
-#else
-	mdctx = &mdctxbuf;
-#endif
-	while (repeat--) {
-		EVP_DigestInit(mdctx, EVP_sha512());
-		EVP_DigestUpdate(mdctx, pass.constData(), pass.size());
-		EVP_DigestFinal(mdctx, m, (unsigned*)&n);
-		pass = QByteArray((char*)m, n);
+	while (repeat--)
+		pass = Digest(pass, EVP_sha512());
 
-	}
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	EVP_MD_CTX_free(mdctx);
-#endif
-	return str + formatHash(m, n, false);
+	return salt + formatHash(pass, "");
 }
 
 QString pki_evp::sha512passwd(QByteArray pass, QString salt)

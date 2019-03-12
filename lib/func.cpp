@@ -10,6 +10,7 @@
 #include "func.h"
 #include "exception.h"
 #include "lib/asn1time.h"
+#include "lib/settings.h"
 #include "widgets/validity.h"
 #include "widgets/XcaWarning.h"
 #include <openssl/objects.h>
@@ -485,13 +486,27 @@ bool _ign_openssl_error(const QString txt, const char *file, int line)
 	return !errtxt.isEmpty();
 }
 
-QString formatHash(const unsigned char *md, unsigned size, bool colon)
+QString formatHash(const QByteArray &data, QString sep, int width)
 {
-	QString s, t;
-	for (unsigned j = 0; j < size; j++)
-		s += t.sprintf("%02X%s", md[j],
-				(j+1 == size) || !colon ? "" : ":");
-	return s;
+	return QString(data.toHex()).toUpper()
+			.replace(QRegExp(QString("(.{%1})(?=.)").arg(width)),
+				 QString("\\1") + sep);
+}
+
+QByteArray Digest(const QByteArray &data, const EVP_MD *type)
+{
+	unsigned int n;
+	unsigned char m[EVP_MAX_MD_SIZE];
+
+	EVP_Digest(data.constData(), data.size(), m, &n, type, NULL);
+	openssl_error();
+	return QByteArray((char*)m, (int)n);
+}
+
+QString fingerprint(const QByteArray &data, const EVP_MD *type)
+{
+	return formatHash(Digest(data, type),
+			Settings["fp_separator"], Settings["fp_digits"]);
 }
 
 void inc_progress_bar(int, int, void *p)

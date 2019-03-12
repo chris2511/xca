@@ -622,7 +622,7 @@ void pki_key::ssh_key_bn2data(const BIGNUM *bn, QByteArray *data)
 	ssh_key_QBA2data(big, data);
 }
 
-QByteArray pki_key::SSH2publicQByteArray()
+QByteArray pki_key::SSH2publicQByteArray(bool raw)
 {
 	QByteArray txt, data;
 
@@ -655,6 +655,8 @@ QByteArray pki_key::SSH2publicQByteArray()
 	default:
 		return QByteArray();
 	}
+	if (raw)
+		return data;
 	return txt + " " + data.toBase64() + "\n";
 }
 
@@ -705,4 +707,52 @@ bool pki_key::verify(EVP_PKEY *pkey) const
 bool pki_key::verify_priv(EVP_PKEY *) const
 {
 	return true;
+}
+
+QString pki_key::fingerprint(const QString format)
+{
+	const EVP_MD *md;
+	QByteArray data;
+	QStringList sl = format.toLower().split(" ");
+
+	if (sl.size() < 2)
+		return QString("Invalid format: %1").arg(format);
+	if (sl[0] == "ssh")
+		data = SSH2publicQByteArray(true);
+	else if (sl[0] == "x509")
+		data = X509_PUBKEY_public_key();
+	else if (sl[0] == "der")
+		data = i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
+	else
+		return QString("Invalid format: %1").arg(sl[0]);
+
+	md = EVP_get_digestbyname(CCHAR(sl[1]));
+	if (!md)
+		return QString("Invalid hash: %1").arg(sl[1]);
+
+	if (sl.size() > 2 && sl[2] == "b64") {
+		QString s(Digest(data, md).toBase64());
+		s.chop(1);
+		return s;
+	}
+	return ::fingerprint(data, md);
+}
+
+QByteArray pki_key::X509_PUBKEY_public_key() const
+{
+	X509_PUBKEY *pk = NULL;
+	const unsigned char *p;
+	int len;
+
+	X509_PUBKEY_set(&pk, key);
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
+	p = pk->public_key->data;
+	len = pk->public_key->length;
+#else
+	X509_PUBKEY_get0_param(NULL, &p, &len, NULL, pk);
+#endif
+
+	QByteArray data((const char*)p, len);
+	X509_PUBKEY_free(pk);
+	return data;
 }

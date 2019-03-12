@@ -838,13 +838,7 @@ void pki_x509::setPubKey(pki_key *key)
 
 QString pki_x509::fingerprint(const EVP_MD *digest) const
 {
-	unsigned int n;
-	unsigned char md[EVP_MAX_MD_SIZE];
-
-	pki_openssl_error();
-	X509_digest(cert, digest, md, &n);
-	pki_openssl_error();
-	return formatHash(md, n);
+	return ::fingerprint(i2d_bytearray(I2D_VOID(i2d_X509), cert), digest);
 }
 
 bool pki_x509::checkDate()

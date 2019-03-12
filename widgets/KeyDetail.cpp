@@ -38,6 +38,30 @@ static QString CurveComment(int nid)
 }
 #endif
 
+void KeyDetail::setupFingerprints(pki_key *key)
+{
+	int pos = 0;
+	QGridLayout *g = new QGridLayout(fingerprint);
+	QStringList sl; sl <<
+		"ssh MD5" << "ssh SHA256 B64" <<
+		"x509 SHA1" << "DER SHA256";
+
+	foreach(QString type, sl) {
+		qDebug() << type << key->fingerprint(type);
+
+		QLabel *left = new QLabel(fingerprint);
+		CopyLabel *right = new CopyLabel(fingerprint);
+
+		left->setTextFormat(Qt::PlainText);
+		left->setText(type);
+		right->setText(key->fingerprint(type));
+
+		g->addWidget(left, pos, 0);
+		g->addWidget(right, pos, 1);
+		pos++;
+	}
+}
+
 void KeyDetail::setKey(pki_key *key)
 {
 	keyDesc->setText(key->getIntName());
@@ -48,6 +72,8 @@ void KeyDetail::setKey(pki_key *key)
 		tabWidget->removeTab(1);
 	tlHeader->setText(tr("Details of the %1 key").arg(key->getTypeString()));
 	comment->setPlainText(key->getComment());
+
+	setupFingerprints(key);
 
 	if (key->isPubKey()) {
 		keyPrivEx->setText(tr("Not available"));

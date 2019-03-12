@@ -19,6 +19,8 @@ class KeyDetail: public QDialog, public Ui::KeyDetail
    public:
 	KeyDetail(QWidget *parent);
 	void setKey(pki_key *key);
+	void setupFingerprints(pki_key *key);
+
 
 };
 #endif

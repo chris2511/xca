@@ -403,10 +403,7 @@ static QString icsValue(QString s)
 QStringList pki_base::icsVEVENT(const a1time &expires,
 	const QString &summary, const QString &description) const
 {
-	QByteArray ba = i2d();
-	unsigned char md[MD5_DIGEST_LENGTH];
-	MD5((const unsigned char *)ba.constData(), ba.length(), md);
-	QString uniqueid = formatHash(md, MD5_DIGEST_LENGTH, false);
+	QString uniqueid = formatHash(Digest(i2d(), EVP_sha1()), "");
 	QString desc = icsValue(description + "\n----------\n" + comment);
 	QString alarm = Settings["ical_expiry"];
 	return QStringList() <<
