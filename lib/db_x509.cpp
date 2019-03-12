@@ -911,18 +911,19 @@ void db_x509::certRenewal(QModelIndexList indexes)
 
 	try {
 		oldcert = static_cast<pki_x509*>(idx.internalPointer());
-		if (!oldcert ||
-				!(signer = oldcert->getSigner()) ||
+		if (!oldcert || !(signer = oldcert->getSigner()) ||
 				!(signkey = signer->getRefKey()) ||
 				signkey->isPubKey())
 			return;
-
-		CertExtend *dlg = new CertExtend(mainwin, signer);
+		bool renew_myself = signer == oldcert;
+		CertExtend *dlg = new CertExtend(mainwin,
+					renew_myself ? NULL : signer);
+		dlg->revoke->setEnabled(!renew_myself);
 		if (!dlg->exec()) {
 			delete dlg;
 			return;
 		}
-		if (dlg->revoke->isChecked()) {
+		if (dlg->revoke->isChecked() && !renew_myself) {
 			Revocation *revoke = new Revocation(mainwin, indexes);
 			doRevoke = revoke->exec();
 			r = revoke->getRevocation();
@@ -932,6 +933,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			oldcert = static_cast<pki_x509*>
 					(idx.internalPointer());
 			newcert = new pki_x509(oldcert);
+			newcert->pkiSource = renewed;
 			serial = getUniqueSerial(signer);
 			newcert->setRevoked(x509rev());
 

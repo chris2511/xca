@@ -32,7 +32,8 @@ enum pki_source {
 	generated,
 	transformed,
 	token,
-	legacy_db
+	legacy_db,
+	renewed
 };
 
 #define VIEW_item_id 0

@@ -39,7 +39,7 @@ void CertExtend::on_applyTime_clicked()
 
 void CertExtend::accept()
 {
-	if (notBefore->getDate() < signer->getNotBefore()) {
+	if (signer && notBefore->getDate() < signer->getNotBefore()) {
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
 		xcaWarning msg(this, text);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
@@ -60,7 +60,7 @@ void CertExtend::accept()
 				notBefore->setDate(signer->getNotBefore());
 		}
 	}
-	if (notAfter->getDate() > signer->getNotAfter() &&
+	if (signer && notAfter->getDate() > signer->getNotAfter() &&
 				!noWellDefinedExpDate->isChecked()) {
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
 		xcaWarning msg(this, text);

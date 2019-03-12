@@ -72,6 +72,8 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 			 SLOT(manageRevocations()));
 		subCa->setEnabled(cert->canSign());
 	}
+	if (parent == cert && parent->canSign())
+		menu->addAction(tr("Renewal"), this, SLOT(certRenewal()));
 	if (sameParent && parentCanSign) {
 		QString n = multi ? QString(" [%1]").arg(indexes.size()) : "";
 		menu->addAction(tr("Renewal") +n, this, SLOT(certRenewal()));
