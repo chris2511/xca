@@ -35,13 +35,16 @@ class pki_key: public pki_base
 		EVP_PKEY *key;
 		QString BN2QString(const BIGNUM *bn) const;
 		QString BNoneLine(BIGNUM *bn) const;
-		QByteArray SSH2publicQByteArray(bool raw=false);
+		QByteArray SSH2publicQByteArray(bool raw=false) const;
 		QByteArray X509_PUBKEY_public_key() const;
 
 	private:
-		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
-		void ssh_key_QBA2data(QByteArray &ba, QByteArray *data);
-		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data);
+		BIGNUM *ssh_key_data2bn(QByteArray *ba) const;
+		void ssh_key_check_chunk(QByteArray *ba, const char *expect) const;
+		QByteArray ssh_key_next_chunk(QByteArray *ba) const;
+		void ssh_key_QBA2data(const QByteArray &ba,
+					QByteArray *data) const;
+		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const;
 		mutable int useCount; // usage counter
 	public:
 		pki_key(const QString name = "");
@@ -89,12 +92,14 @@ class pki_key: public pki_base
 		QString pubkey() const;
 		int ecParamNid() const;
 		QString ecPubKey() const;
+		BIGNUM *ecPubKeyBN() const;
 		void d2i(QByteArray &ba);
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(FILE *fp);
 		void writeSSH2public(QString fname);
 		QString fingerprint(const QString format);
+		bool SSH2_compatible() const;
 		void resetUcount()
 		{
 			useCount = -1;

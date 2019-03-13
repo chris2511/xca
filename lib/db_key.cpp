@@ -256,22 +256,21 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 {
 	QList<exportType> types;
 	bool allPriv = true;
-	bool allRSADSA = true;
+	bool ssh2compatible = true;
 
 	foreach(QModelIndex idx, indexes) {
 		pki_key *key = static_cast<pki_key*>
 			(idx.internalPointer());
 		if (key->isPubKey() || key->isToken())
 			allPriv = false;
-		if (key->getKeyType() != EVP_PKEY_RSA &&
-		    key->getKeyType() != EVP_PKEY_DSA)
-			allRSADSA = false;
+		if (!key->SSH2_compatible())
+			ssh2compatible = false;
 	}
-	if (!allPriv && !allRSADSA)
+	if (!allPriv && !ssh2compatible)
 		return exportType::PEM_key;
 
 	types << exportType(exportType::PEM_key, "pem", tr("PEM public"));
-	if (allRSADSA)
+	if (ssh2compatible)
 		types << exportType(exportType::SSH2_public,
 			"pub", tr("SSH2 public"));
 	if (allPriv)
@@ -309,8 +308,7 @@ void db_key::store(QModelIndex index)
 	types <<
 	exportType(exportType::PEM_key, "pem", tr("PEM public")) <<
 	exportType(exportType::DER_key, "der", tr("DER public"));
-	if (key->getKeyType() == EVP_PKEY_RSA ||
-            key->getKeyType() == EVP_PKEY_DSA)
+	if (key->SSH2_compatible())
 		types << exportType(exportType::SSH2_public,
 					"pub", tr("SSH2 public"));
 	if (!key->isPubKey() && !key->isToken()) {
