@@ -59,8 +59,8 @@ class pki_base : public QObject
 		enum pki_type pkiType;
 		/* model data */
 		pki_base *parent;
-		void my_error(const QString myerr) const;
-		void fopen_error(const QString fname);
+		void my_error(const QString &error) const;
+		void fopen_error(const QString &fname) const;
 
 	public:
 		enum msg_type {
@@ -139,7 +139,8 @@ class pki_base : public QObject
 		virtual BIO *pem(BIO *, int format=0);
 		virtual void fromPEM_BIO(BIO *, QString);
 		virtual void fromPEMbyteArray(QByteArray &, QString);
-		void fwrite_ba(FILE *fp, QByteArray ba, QString fname);
+		void fwrite_ba(FILE *fp, const QByteArray &ba,
+					 const QString &fname) const;
 		virtual void fload(const QString);
 		virtual void writeDefault(const QString);
 

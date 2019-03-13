@@ -97,14 +97,15 @@ const char *pki_base::getClassName() const
 	return typeid(*this).name();
 }
 
-void pki_base::fopen_error(const QString fname)
+void pki_base::fopen_error(const QString &fname) const
 {
 	my_error(tr("Error opening file: '%1': %2").
 			arg(fname).
 			arg(strerror(errno)));
 }
 
-void pki_base::fwrite_ba(FILE *fp, QByteArray ba, QString fname)
+void pki_base::fwrite_ba(FILE *fp, const QByteArray &ba,
+					const QString &fname) const
 {
 	if (fwrite(ba.constData(), 1, ba.size(), fp) != (size_t)ba.size()) {
 		my_error(tr("Error writing to file: '%1': %2").
@@ -113,7 +114,7 @@ void pki_base::fwrite_ba(FILE *fp, QByteArray ba, QString fname)
         }
 }
 
-void pki_base::my_error(const QString error) const
+void pki_base::my_error(const QString &error) const
 {
 	if (!error.isEmpty()) {
 		qCritical() << "Error:" << error;

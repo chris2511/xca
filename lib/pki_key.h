@@ -97,8 +97,8 @@ class pki_key: public pki_base
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(FILE *fp);
-		void writeSSH2public(QString fname);
-		QString fingerprint(const QString format);
+		void writeSSH2public(const QString &fname) const;
+		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
 		void resetUcount()
 		{

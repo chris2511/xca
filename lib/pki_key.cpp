@@ -732,7 +732,7 @@ QByteArray pki_key::SSH2publicQByteArray(bool raw) const
 	return txt + "\n";
 }
 
-void pki_key::writeSSH2public(QString fname)
+void pki_key::writeSSH2public(const QString &fname) const
 {
 	QFile f(fname);
 
@@ -781,7 +781,7 @@ bool pki_key::verify_priv(EVP_PKEY *) const
 	return true;
 }
 
-QString pki_key::fingerprint(const QString format)
+QString pki_key::fingerprint(const QString &format) const
 {
 	const EVP_MD *md;
 	QByteArray data;
