@@ -595,6 +595,9 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
 			EVP_PKEY_assign_DSA(pk, dsa);
 		}
 	}
+	if (sl.size() > 2 && pk)
+		setComment(sl[2].section('\n', 0, 0));
+
 	return pk;
 }
 
@@ -657,7 +660,10 @@ QByteArray pki_key::SSH2publicQByteArray(bool raw)
 	}
 	if (raw)
 		return data;
-	return txt + " " + data.toBase64() + "\n";
+	QString comm = comment.section('\n', 0, 0).simplified();
+	if (comm.size() > 0)
+		txt += " " + comm.toUtf8();
+	return txt + "\n";
 }
 
 void pki_key::writeSSH2public(QString fname)
