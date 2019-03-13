@@ -799,7 +799,7 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 		/* Sign some random data in "md" */
 		if (EVP_PKEY_sign_init(ctx) <= 0)
 			break;
-		if (getKeyType() == EVP_PKEY_RSA)
+		if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA)
 			EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING);
 		if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)
 			break;
@@ -815,7 +815,7 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 	if (ctx)
 		EVP_PKEY_CTX_free(ctx);
 #endif
-	if (getKeyType() == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
+	if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
 		RSA *rsa = EVP_PKEY_get0_RSA(pkey);
 		if (RSA_check_key(rsa) != 1)
 			verify = false;
