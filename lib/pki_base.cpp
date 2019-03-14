@@ -7,6 +7,7 @@
 
 
 #include "func.h"
+#include "xfile.h"
 #include "pki_base.h"
 #include "exception.h"
 #include <QString>
@@ -16,6 +17,7 @@
 #include <typeinfo>
 
 QRegExp pki_base::limitPattern;
+bool pki_base::pem_comment;
 
 pki_base::pki_base(const QString name, pki_base *p)
 {
@@ -44,7 +46,7 @@ void pki_base::autoIntName()
 
 void pki_base::deleteFromToken() { };
 void pki_base::deleteFromToken(slotid) { };
-void pki_base::writeDefault(const QString) { }
+void pki_base::writeDefault(const QString&) { }
 void pki_base::fromPEM_BIO(BIO *, QString) { }
 void pki_base::fload(const QString) { }
 int pki_base::renameOnToken(slotid, QString)
@@ -58,6 +60,15 @@ bool pki_base::visible() const
 		return true;
 	return getIntName().contains(limitPattern) ||
 		comment.contains(limitPattern);
+}
+
+void pki_base::PEM_file_comment(XFile &file) const
+{
+	if (!pem_comment)
+		return;
+	file.write(QString("XCA internal name: %1\n%2\n")
+			.arg(getIntName()).arg(getComment())
+				.toUtf8());
 }
 
 bool pki_base::childVisible() const
@@ -100,18 +111,7 @@ const char *pki_base::getClassName() const
 void pki_base::fopen_error(const QString &fname) const
 {
 	my_error(tr("Error opening file: '%1': %2").
-			arg(fname).
-			arg(strerror(errno)));
-}
-
-void pki_base::fwrite_ba(FILE *fp, const QByteArray &ba,
-					const QString &fname) const
-{
-	if (fwrite(ba.constData(), 1, ba.size(), fp) != (size_t)ba.size()) {
-		my_error(tr("Error writing to file: '%1': %2").
-			arg(fname).
-			arg(strerror(errno)));
-        }
+			arg(fname).arg(strerror(errno)));
 }
 
 void pki_base::my_error(const QString &error) const
@@ -363,7 +363,8 @@ unsigned pki_base::hash() const
 	return hash(i2d());
 }
 
-QString pki_base::get_dump_filename(const QString &dir, QString ext)
+QString pki_base::get_dump_filename(const QString &dir,
+				    const QString &ext) const
 {
 	QString ctr = "", fn;
 	int count = 0;

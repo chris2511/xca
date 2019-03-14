@@ -121,8 +121,7 @@ class db_base: public QAbstractItemModel
 		virtual void remFromCont(const QModelIndex &idx);
 
 		QPixmap *loadImg(const char *name);
-		void writeAll(void);
-		void dump(QString dirname);
+		void dump(const QString &dirname) const;
 		QModelIndex index(int row, int column, const QModelIndex &parent)const;
 		QModelIndex index(pki_base *pki)const;
 		QModelIndex parent(const QModelIndex &index) const;
@@ -163,7 +162,7 @@ class db_base: public QAbstractItemModel
 		void editComment(const QModelIndex &index);
 		void emitDataChanged(pki_base *pki);
 		bool containsType(enum pki_type t) const;
-		void writeVcalendar(const QString &fname, QStringList vcal);
+		void writeVcalendar(XFile &file, QStringList vcal) const;
 
 	public slots:
 		virtual void newItem() { }

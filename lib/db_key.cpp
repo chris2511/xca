@@ -339,35 +339,46 @@ void db_key::store(QModelIndex index)
 		delete dlg;
 		return;
 	}
-	QString fname = dlg->filename->text();
 	try {
 		exportType::etype type = dlg->type();
+		pki_base::pem_comment = dlg->pemComment->isChecked();
+		XFile file(dlg->filename->text());
+
 		switch (type) {
 		case exportType::DER_key:
-			key->writePublic(fname, false);
+		case exportType::PEM_key:
+		case exportType::SSH2_public:
+			file.open_write();
+			break;
+		default:
+			file.open_key();
+		}
+		switch (type) {
+		case exportType::DER_key:
+			key->writePublic(file, false);
 			break;
 		case exportType::DER_private:
-			privkey->writeKey(fname, NULL, NULL, false);
+			privkey->writeKey(file, NULL, NULL, false);
 			break;
 		case exportType::PEM_key:
-			key->writePublic(fname, true);
+			key->writePublic(file, true);
 			break;
 		case exportType::PEM_private_encrypt:
 			algo = encrypt;
 			/* fallthrough */
 		case exportType::PEM_private:
-			privkey->writeKey(fname, algo,
+			privkey->writeKey(file, algo,
 				PwDialog::pwCallback, true);
 			break;
 		case exportType::PKCS8_encrypt:
 			algo = encrypt;
 			/* fallthrough */
 		case exportType::PKCS8:
-			privkey->writePKCS8(fname, algo,
+			privkey->writePKCS8(file, algo,
 				PwDialog::pwCallback, true);
 			break;
 		case exportType::SSH2_public:
-			key->writeSSH2public(fname);
+			key->writeSSH2public(file);
 			break;
 		default:
 			exit(1);
@@ -376,6 +387,7 @@ void db_key::store(QModelIndex index)
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
+	pki_base::pem_comment = false;
 	delete dlg;
 }
 

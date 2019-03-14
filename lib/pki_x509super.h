@@ -18,6 +18,9 @@
 
 class pki_x509name : public pki_base
 {
+    protected:
+	virtual void PEM_file_comment(XFile &file) const;
+
     public:
 	pki_x509name(const QString name = "");
 	virtual x509name getSubject() const = 0;

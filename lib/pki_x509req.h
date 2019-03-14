@@ -36,11 +36,11 @@ class pki_x509req : public pki_x509super
 		pki_x509req(QString name = "");
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
-		void writeDefault(const QString fname);
+		void writeDefault(const QString &dirname) const;
 		~pki_x509req();
 		void fromData(const unsigned char *p, db_header_t *head);
 		x509name getSubject() const;
-		void writeReq(const QString fname, bool pem);
+		void writeReq(XFile &file, bool pem) const;
 		void markSigned(bool signe);
 		X509_REQ *getReq()
 		{

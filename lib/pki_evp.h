@@ -63,12 +63,12 @@ class pki_evp: public pki_key
 		static QString removeTypeFromIntName(QString n);
 		void fromPEMbyteArray(QByteArray &ba, QString name);
 		void fload(const QString fname);
-		void writeDefault(const QString fname);
+		void writeDefault(const QString &dirname) const;
 		void fromData(const unsigned char *p, db_header_t *head);
-		void writeKey(const QString fname, const EVP_CIPHER *enc,
-		pem_password_cb *cb, bool pem);
-		void writePKCS8(const QString fname, const EVP_CIPHER *enc,
-		pem_password_cb *cb, bool pem);
+		void writeKey(XFile &file, const EVP_CIPHER *enc,
+				pem_password_cb *cb, bool pem) const;
+		void writePKCS8(XFile &file, const EVP_CIPHER *enc,
+				pem_password_cb *cb, bool pem) const;
 		bool verify_priv(EVP_PKEY *pkey) const;
 		QVariant getIcon(const dbheader *hd) const;
 		bool sqlUpdatePrivateKey();

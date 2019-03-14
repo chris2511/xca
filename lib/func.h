@@ -71,19 +71,6 @@ static inline FILE *fopen_read(QString s)
 	return fopen(QString2filename(s), "rb");
 }
 
-static inline FILE *fopen_write(QString s)
-{
-	return fopen(QString2filename(s), "wb");
-}
-
-static inline FILE *fopen_write_key(QString s)
-{
-	mode_t m = umask(077);
-	FILE *f = fopen_write(s);
-	umask(m);
-	return f;
-}
-
 static inline BIO *BIO_from_QByteArray(QByteArray &ba)
 {
 	return BIO_new_mem_buf(ba.data(), ba.length());

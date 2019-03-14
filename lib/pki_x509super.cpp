@@ -213,14 +213,9 @@ void pki_x509super::opensslConf(QString fname)
 		"%2").arg(name).arg(extensions).
 			arg(ASN1_STRING_get_default_mask(), 0, 16);
 
-	FILE *fp = fopen_write(fname);
-	if (fp == NULL) {
-		fopen_error(fname);
-		return;
-	}
-	QByteArray ba = final.toUtf8();
-	fwrite_ba(fp, ba, fname);
-	fclose(fp);
+	XFile file(fname);
+	file.open_write();
+	file.write(final.toUtf8());
 }
 
 bool pki_x509super::visible() const
@@ -265,4 +260,12 @@ bool pki_x509name::visible() const
 	if (pki_base::visible())
 		return true;
 	return getSubject().search(limitPattern);
+}
+
+void pki_x509name::PEM_file_comment(XFile &file) const
+{
+	if (!pem_comment)
+		return
+	pki_base::PEM_file_comment(file);
+	file.write(getSubject().oneLine(XN_FLAG_RFC2253).toUtf8() + "\n");
 }

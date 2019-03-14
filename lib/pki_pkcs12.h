@@ -19,9 +19,9 @@
 
 class pki_pkcs12: public pki_base
 {
-		Q_OBJECT
+	Q_OBJECT
 	friend class pki_x509;
-	    friend class pki_evp;
+	friend class pki_evp;
 
 	protected:
 		QString alias;
@@ -39,7 +39,7 @@ class pki_pkcs12: public pki_base
 		pki_x509 *getCert();
 		pki_x509 *getCa(int x);
 		int numCa(); // number of ca certs;
-		void writePKCS12(const QString fname);
+		void writePKCS12(XFile &file) const;
 };
 
 #endif

@@ -142,7 +142,9 @@ void db_temp::store(QModelIndex index)
 	s = nativeSeparator(s);
 	Settings["workingdir"] = s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")));
 	try {
-		temp->writeTemp(s);
+		XFile file(s);
+		file.open_key();
+		temp->writeTemp(file);
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);

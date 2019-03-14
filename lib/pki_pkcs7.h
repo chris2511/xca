@@ -26,7 +26,7 @@ class pki_pkcs7: public pki_base
 		void signFile(pki_x509 *crt, QString filename);
 		void signCert(pki_x509 *crt, pki_x509 *contCert);
 		void encryptFile(pki_x509 *crt, QString filename);
-		void writeP7(QString fname,bool PEM);
+		void writeP7(XFile &file, bool PEM) const;
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		pki_x509 *getCert(int x);

@@ -30,6 +30,23 @@ class exportType {
 		type = t; extension = e; desc = d;
 	}
 	exportType() { type = Separator; }
+	bool isPEM() const {
+		switch (type) {
+		case PEM:
+		case PEM_chain:
+		case PEM_unrevoked:
+		case PEM_all:
+		case PEM_cert_key:
+		case PEM_cert_pk8:
+		case PEM_key:
+		case PEM_private:
+		case PEM_private_encrypt:
+		case PEM_selected:
+			return true;
+		default:
+			return false;
+		}
+	}
 };
 Q_DECLARE_METATYPE(exportType);
 

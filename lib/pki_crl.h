@@ -34,15 +34,14 @@ class pki_crl: public pki_x509name
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		QString getSigAlg() const;
-		void writeDefault(const QString fname);
+		void writeDefault(const QString &dirname) const;
 		static QPixmap *icon;
 		void createCrl(const QString d, pki_x509 *iss);
 		void addRev(const x509rev &rev, bool withReason=true);
 		void addExt(int nid, QString value);
-		void write(QString fname);
 		void addV3ext(const x509v3ext &e);
 		void sign(pki_key *key, const EVP_MD *md = EVP_md5());
-		void writeCrl(const QString fname, bool pem = true);
+		void writeCrl(XFile &file, bool pem = true) const;
 		pki_x509 *getIssuer()
 		{
 			return issuer;

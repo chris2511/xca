@@ -684,27 +684,24 @@ QSqlError pki_evp::deleteSqlData()
 	return q.lastError();
 }
 
-void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
-		pem_password_cb *cb, bool pem)
+void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
+		pem_password_cb *cb, bool pem) const
 {
-	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key '%1'").arg(getIntName()));
-	FILE *fp = fopen_write_key(fname);
-	if (fp != NULL) {
-		if (key) {
-			pkey = decryptKey();
-			if (pkey) {
-				if (pem)
-					PEM_write_PKCS8PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
-				else
-					i2d_PKCS8PrivateKey_fp(fp, pkey, enc, NULL, 0, cb, &p);
-				EVP_PKEY_free(pkey);
-			}
-		}
-		fclose(fp);
+	pass_info p(XCA_TITLE,
+		tr("Please enter the password protecting the PKCS#8 key '%1'")
+			.arg(getIntName()));
+	EVP_PKEY *pkey = decryptKey();
+	if (!pkey) {
 		pki_openssl_error();
-	} else
-		fopen_error(fname);
+		return;
+	}
+	if (pem) {
+		PEM_file_comment(file);
+		PEM_write_PKCS8PrivateKey(file.fp(), pkey, enc, NULL, 0,cb,&p);
+	} else {
+		i2d_PKCS8PrivateKey_fp(file.fp(), pkey, enc, NULL, 0, cb, &p);
+	}
+	EVP_PKEY_free(pkey);
 }
 
 static int mycb(char *buf, int size, int, void *)
@@ -713,11 +710,12 @@ static int mycb(char *buf, int size, int, void *)
 	return strlen(pki_evp::passwd);
 }
 
-void pki_evp::writeDefault(const QString fname)
+void pki_evp::writeDefault(const QString &dirname) const
 {
-	writeKey(get_dump_filename(fname, ".pem"),
-		pki_evp::passwd[0] ? EVP_des_ede3_cbc() : NULL,
-		mycb, true);
+	XFile file(get_dump_filename(dirname, ".pem"));
+	file.open_key();
+	writeKey(file, pki_evp::passwd[0] ? EVP_des_ede3_cbc() : NULL,
+			mycb, true);
 }
 
 #if OPENSSL_VERSION_NUMBER < 0x10100000L || defined LIBRESSL_VERSION_NUMBER
@@ -741,42 +739,37 @@ int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
 }
 #endif
 
-void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
-			pem_password_cb *cb, bool pem)
+void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
+			pem_password_cb *cb, bool pem) const
 {
-	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key '%1'").arg(getIntName()));
+	pass_info p(XCA_TITLE,
+		tr("Please enter the export password for the private key '%1'")
+			.arg(getIntName()));
 
 	if (isPubKey()) {
-		writePublic(fname, pem);
-		return;
-	}
-	FILE *fp = fopen_write_key(fname);
-	if (!fp) {
-		fopen_error(fname);
+		writePublic(file, pem);
 		return;
 	}
 	EVP_PKEY *pkey = key ? decryptKey() : NULL;
 	if (!pkey) {
-		fclose(fp);
 	        pki_openssl_error();
 		return;
 	}
 	if (pem) {
-		BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
+		PEM_file_comment(file);
+		BIO *b = BIO_new_fp(file.fp(), BIO_NOCLOSE);
 		if (!b) {
 			EVP_PKEY_free(pkey);
-			fclose(fp);
 			return;
 		}
 		PEM_write_bio_PrivateKey_traditional(b, pkey, enc,
 						NULL, 0, cb, &p);
 		BIO_free(b);
 	} else {
-		i2d_PrivateKey_fp(fp, pkey);
+		i2d_PrivateKey_fp(file.fp(), pkey);
 	}
-	fclose(fp);
-	pki_openssl_error();
 	EVP_PKEY_free(pkey);
+	pki_openssl_error();
 }
 
 bool pki_evp::verify_priv(EVP_PKEY *pkey) const

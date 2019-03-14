@@ -375,19 +375,14 @@ bool pki_key::compare(const pki_base *ref) const
 	return r == 1;
 }
 
-void pki_key::writePublic(const QString fname, bool pem)
+void pki_key::writePublic(XFile &file, bool pem) const
 {
-	FILE *fp = fopen_write(fname);
-	if (fp == NULL) {
-		fopen_error(fname);
-		return;
+	if (pem) {
+		PEM_file_comment(file);
+		PEM_write_PUBKEY(file.fp(), key);
+	} else {
+		i2d_PUBKEY_fp(file.fp(), key);
 	}
-	if (pem)
-		PEM_write_PUBKEY(fp, key);
-	else
-		i2d_PUBKEY_fp(fp, key);
-
-	fclose(fp);
 	pki_openssl_error();
 }
 
@@ -732,18 +727,11 @@ QByteArray pki_key::SSH2publicQByteArray(bool raw) const
 	return txt + "\n";
 }
 
-void pki_key::writeSSH2public(const QString &fname) const
+void pki_key::writeSSH2public(XFile &file) const
 {
-	QFile f(fname);
-
-	if (!f.open(QIODevice::ReadWrite))
-		fopen_error(fname);
-	else {
-		QByteArray txt = SSH2publicQByteArray();
-		if (f.write(txt) != txt.size())
-			throw errorEx(tr("Failed writing to %1").arg(fname));
-		f.close();
-	}
+	QByteArray txt = SSH2publicQByteArray();
+	if (file.write(txt) != txt.size())
+		throw errorEx(tr("Failed writing to %1").arg(file.fileName()));
 }
 
 bool pki_key::verify(EVP_PKEY *pkey) const
@@ -827,4 +815,13 @@ QByteArray pki_key::X509_PUBKEY_public_key() const
 	QByteArray data((const char*)p, len);
 	X509_PUBKEY_free(pk);
 	return data;
+}
+
+void pki_key::PEM_file_comment(XFile &file) const
+{
+	if (!pem_comment)
+		return
+	pki_base::PEM_file_comment(file);
+	file.write(QString("%1 %2\n").arg(length(), getTypeString())
+			.toUtf8());
 }

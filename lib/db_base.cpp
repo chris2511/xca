@@ -362,16 +362,13 @@ pki_base *db_base::insert(pki_base *item)
 	return item;
 }
 
-void db_base::writeAll(void)
+void db_base::dump(const QString &dir) const
 {
-}
-
-void db_base::dump(QString dirname)
-{
-	dirname += QDir::separator() + class_name;
+	QString dirname = dir + QDir::separator() + class_name;
 	QDir d(dirname);
 	if (!d.exists() && !d.mkdir(dirname)) {
-		throw errorEx("Could not create directory '" + dirname + "'");
+		throw errorEx(tr("Could not create directory %1")
+				.arg(dirname));
 	}
 
 	try {
@@ -683,15 +680,9 @@ void db_base::store(QModelIndexList indexes)
 	Settings["workingdir"] = s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")));
 	try {
 		QString pem = pem2QString(indexes);
-		FILE *fp = fopen_write(s);
-		if (!fp) {
-			throw errorEx(tr("Error opening file: '%1': %2").
-				arg(s).arg(strerror(errno)), class_name);
-		}
-		if (fwrite(pem.toLatin1(), pem.size(), 1, fp)) {
-			/* IGNORE_RESULT */
-		}
-		fclose(fp);
+		XFile file(s);
+		file.open_write();
+		file.write(pem.toLatin1());
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
@@ -735,16 +726,8 @@ QMimeData *db_base::mimeData(const QModelIndexList &indexes) const
 	return mimeData;
 }
 
-void db_base::writeVcalendar(const QString &fname, QStringList vcal)
+void db_base::writeVcalendar(XFile &file, QStringList vcal) const
 {
-	QFile file(fname);
-	file.open(QFile::ReadWrite | QFile::Truncate);
-	if (file.error()) {
-		throw errorEx(tr("Error opening file: '%1': %2")
-			.arg(fname).arg(strerror(errno)));
-		return;
-	}
-
 	QStringList ics; ics <<
 	"BEGIN:VCALENDAR" <<
 	"VERSION:2.0" <<

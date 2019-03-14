@@ -62,7 +62,7 @@ class pki_temp: public pki_x509name
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d = QString());
 		void fload(const QString fname);
-		void writeDefault(const QString fname);
+		void writeDefault(const QString &dirname) const ;
 		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
 		void old_fromData(const unsigned char *p, int size, int version);
@@ -73,13 +73,13 @@ class pki_temp: public pki_x509name
 			pre_defined = true;
 		}
 		QString comboText() const;
-		QByteArray toData();
+		QByteArray toData() const;
 		QString toB64Data()
 		{
 			return QString::fromLatin1(toData().toBase64());
 		}
 		bool compare(const pki_base *ref) const;
-		void writeTemp(QString fname);
+		void writeTemp(XFile &file) const;
 		QVariant getIcon(const dbheader *hd) const;
 		QString getMsg(msg_type msg) const;
 		x509name getSubject() const;
@@ -88,7 +88,7 @@ class pki_temp: public pki_x509name
 			xname = n;
 		}
 		BIO *pem(BIO *b, int format);
-		QByteArray toExportData();
+		QByteArray toExportData() const;
 		void fromPEM_BIO(BIO *, QString);
 		void fromExportData(QByteArray data);
 		extList fromCert(pki_x509super *cert_or_req);

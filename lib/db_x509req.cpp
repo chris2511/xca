@@ -135,13 +135,16 @@ void db_x509req::store(QModelIndex index)
 		delete dlg;
 		return;
 	}
-	QString fname = dlg->filename->text();
 	try {
-		req->writeReq(fname, dlg->type() == exportType::PEM);
+		XFile file(dlg->filename->text());
+		pki_base::pem_comment = dlg->pemComment->isChecked();
+		file.open_write();
+		req->writeReq(file, dlg->type() == exportType::PEM);
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
+	pki_base::pem_comment = false;
 	delete dlg;
 }
 

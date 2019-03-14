@@ -269,17 +269,6 @@ void db_x509::inToCont(pki_base *pki)
 	}
 }
 
-void db_x509::writeAllCerts(const QString &fname, bool unrevoked)
-{
-	bool append = false;
-	FOR_ALL_pki(pki, pki_x509) {
-		if (unrevoked && pki->isRevoked())
-			 continue;
-		pki->writeCert(fname.toLatin1(), true, append);
-		append = true;
-	}
-}
-
 QList<pki_x509*> db_x509::getCerts(bool unrevoked)
 {
 	QList<pki_x509*> c;
@@ -292,7 +281,7 @@ QList<pki_x509*> db_x509::getCerts(bool unrevoked)
 	return c;
 }
 
-void db_x509::writeIndex(const QString &fname, bool hierarchy)
+void db_x509::writeIndex(const QString &fname, bool hierarchy) const
 {
 	if (hierarchy) {
 		QString dir = fname + "/";
@@ -300,15 +289,17 @@ void db_x509::writeIndex(const QString &fname, bool hierarchy)
 		QList<pki_x509*> issuers = sqlSELECTpki<pki_x509>(
 			"SELECT DISTINCT issuer FROM certs WHERE issuer != item");
 		foreach(pki_x509 *ca, issuers) {
-			writeIndex(dir + ca->getUnderlinedName() + ".txt",
-				sqlSELECTpki<pki_x509>(
-				  "SELECT item FROM certs WHERE issuer=?",
-				  QList<QVariant>() << QVariant(ca->getSqlItemId())
-				)
+			XFile file(dir + ca->getUnderlinedName() + ".txt");
+			file.open_write();
+			writeIndex(file, sqlSELECTpki<pki_x509>(
+				"SELECT item FROM certs WHERE issuer=?",
+				QList<QVariant>()<<QVariant(ca->getSqlItemId()))
 			);
 		}
 	} else {
-		writeIndex(fname,sqlSELECTpki<pki_x509>("SELECT item FROM certs"));
+		XFile file(fname);
+		file.open_write();
+		writeIndex(file,sqlSELECTpki<pki_x509>("SELECT item FROM certs"));
 	}
 }
 
@@ -603,7 +594,7 @@ void db_x509::store(QModelIndex idx)
 void db_x509::store(QModelIndexList list)
 {
 	QStringList filt;
-	bool append, chain;
+	bool chain;
 	QList<exportType> types, usual;
 
 	if (list.size() == 0)
@@ -682,55 +673,59 @@ void db_x509::store(QModelIndexList list)
 		delete dlg;
 		return;
 	}
-	QString fname = dlg->filename->text();
 	QStringList vcal;
 	QList<pki_x509*> certs;
 	QList<pki_base*> items;
 	enum exportType::etype type = dlg->type();
-	delete dlg;
 	try {
+		XFile file(dlg->filename->text());
+		file.open_write();
+		pki_base::pem_comment = dlg->pemComment->isChecked();
+
 		switch (type) {
 		case exportType::PEM:
-			crt->writeCert(fname, true, false);
+			crt->writeCert(file, true);
 			break;
 		case exportType::PEM_chain:
-			append = false;
-			while(crt && crt != oldcrt) {
-				crt->writeCert(fname, true, append);
-				append = true;
+			while (crt && crt != oldcrt) {
+				crt->writeCert(file, true);
 				oldcrt = crt;
 				crt = crt->getSigner();
 			}
 			break;
 		case exportType::PEM_selected:
-			append = false;
 			foreach(QModelIndex idx, list) {
-				crt = static_cast<pki_x509*>(idx.internalPointer());
-				crt->writeCert(fname, true, append);
-				append = true;
+				crt = static_cast<pki_x509*>
+							(idx.internalPointer());
+				crt->writeCert(file, true);
 			}
 			break;
 		case exportType::PEM_unrevoked:
-			writeAllCerts(fname,true);
+			FOR_ALL_pki(pki, pki_x509) {
+				if (!pki->isRevoked())
+					pki->writeCert(file, true);
+			}
 			break;
 		case exportType::PEM_all:
-			writeAllCerts(fname,false);
+			FOR_ALL_pki(pki, pki_x509) {
+				pki->writeCert(file, true);
+			}
 			break;
 		case exportType::DER:
-			crt->writeCert(fname,false,false);
+			crt->writeCert(file, false);
 			break;
 		case exportType::PKCS7:
 		case exportType::PKCS7_chain:
 		case exportType::PKCS7_unrevoked:
 		case exportType::PKCS7_selected:
 		case exportType::PKCS7_all:
-			writePKCS7(crt, fname, type, list);
+			writePKCS7(crt, file, type, list);
 			break;
 		case exportType::PKCS12:
-			writePKCS12(crt, fname,false);
+			writePKCS12(crt, file, false);
 			break;
 		case exportType::PKCS12_chain:
-			writePKCS12(crt, fname,true);
+			writePKCS12(crt, file, true);
 			break;
 		case exportType::PEM_cert_pk8:
 		case exportType::PEM_cert_key:
@@ -738,41 +733,41 @@ void db_x509::store(QModelIndexList list)
 			if (!pkey || pkey->isPubKey()) {
 				XCA_WARN(tr("There was no key found for the Certificate: '%1'").
 					arg(crt->getIntName()));
-				return;
+				break;
 			}
 			if (pkey->isToken()) {
 				XCA_WARN(tr("Not possible for a token key: '%1'").
 					arg(crt->getIntName()));
-                                return;
-                        }
+				break;
+			}
 
 			if (type == exportType::PEM_cert_pk8) {
-				pkey->writePKCS8(fname, EVP_des_ede3_cbc(),
+				pkey->writePKCS8(file, EVP_des_ede3_cbc(),
 						PwDialog::pwCallback, true);
 			} else {
-				pkey->writeKey(fname, NULL, NULL, true);
+				pkey->writeKey(file, NULL, NULL, true);
 			}
-			crt->writeCert(fname, true, true);
+			crt->writeCert(file, true);
 			break;
 		case exportType::Index:
 			foreach(QModelIndex idx, list)
 				certs << static_cast<pki_x509*>
 					(idx.internalPointer());
-			writeIndex(fname, certs);
+			writeIndex(file, certs);
 			break;
 		case exportType::vcalendar:
 			foreach(QModelIndex idx, list) {
 				crt = static_cast<pki_x509*>(idx.internalPointer());
 				vcal += crt->icsVEVENT();
 			}
-			writeVcalendar(fname, vcal);
+			writeVcalendar(file, vcal);
 			break;
 		case exportType::vcalendar_ca:
 			foreach(QModelIndex idx, list) {
 				crt = static_cast<pki_x509*>(idx.internalPointer());
 				vcal += crt->icsVEVENT_ca();
 			}
-			writeVcalendar(fname, vcal);
+			writeVcalendar(file, vcal);
 			break;
 		default:
 			exit(1);
@@ -781,18 +776,12 @@ void db_x509::store(QModelIndexList list)
 	catch (errorEx &err) {
 		MainWindow::Error(err);
 	}
+	pki_base::pem_comment = false;
+	delete dlg;
 }
 
-void db_x509::writeIndex(const QString &fname, QList<pki_x509*> items)
+void db_x509::writeIndex(XFile &file, QList<pki_x509*> items) const
 {
-	QFile file(fname);
-	file.open(QFile::ReadWrite | QFile::Truncate);
-	if (file.error()) {
-		throw errorEx(tr("Error opening file: '%1': %2")
-			.arg(fname).arg(strerror(errno)));
-		return;
-	}
-
 	QString index;
 	foreach(pki_x509 *cert, items) {
 		if (cert)
@@ -801,40 +790,38 @@ void db_x509::writeIndex(const QString &fname, QList<pki_x509*> items)
 	file.write(index.toUtf8());
 }
 
-void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
+void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 {
 	QStringList filt;
-    try {
+	pki_pkcs12 *p12 = NULL;
+	try {
 		pki_evp *privkey = (pki_evp *)cert->getRefKey();
 		if (!privkey || privkey->isPubKey()) {
 			XCA_WARN(tr("There was no key found for the Certificate: '%1'").arg(cert->getIntName()));
 			return;
 		}
 		if (privkey->isToken()) {
-			XCA_WARN(tr("Not possible for the token-key Certificate '%1'").
-				arg(cert->getIntName()));
+			XCA_WARN(tr("Not possible for the token-key Certificate '%1'").arg(cert->getIntName()));
 			return;
 		}
-		if (s.isEmpty())
-			return;
-		s = nativeSeparator(s);
-		pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey);
+		p12 = new pki_pkcs12(cert->getIntName(), cert, privkey);
 		pki_x509 *signer = cert->getSigner();
 		while ((signer != NULL ) && (signer != cert) && chain) {
 			p12->addCaCert(signer);
 			cert=signer;
 			signer=signer->getSigner();
 		}
-		p12->writePKCS12(s);
-		delete p12;
-    }
-    catch (errorEx &err) {
+		p12->writePKCS12(file);
+	}
+	catch (errorEx &err) {
 		MainWindow::Error(err);
-    }
+	}
+	if (p12)
+		delete p12;
 }
 
-void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
-			QModelIndexList list)
+void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
+			QModelIndexList list) const
 {
 	pki_pkcs7 *p7 = NULL;
 
@@ -870,7 +857,7 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
 		default:
 			exit(1);
 		}
-		p7->writeP7(s, false);
+		p7->writeP7(file, false);
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);

@@ -96,21 +96,15 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 	BIO_free(bio);
 }
 
-void pki_pkcs7::writeP7(QString fname,bool PEM)
+void pki_pkcs7::writeP7(XFile &file, bool PEM) const
 {
-	FILE *fp;
-	fp = fopen_write(fname);
-	if (fp != NULL) {
-		if (p7){
-			if (PEM)
-				PEM_write_PKCS7(fp, p7);
-			else
-				i2d_PKCS7_fp(fp, p7);
-			openssl_error();
-			fclose(fp);
-		}
-	}
-	else fopen_error(fname);
+	if (!p7)
+		return;
+	if (PEM)
+		PEM_write_PKCS7(file.fp(), p7);
+	else
+		i2d_PKCS7_fp(file.fp(), p7);
+	openssl_error();
 }
 
 pki_x509 *pki_pkcs7::getCert(int x)

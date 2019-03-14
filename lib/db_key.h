@@ -32,7 +32,6 @@ class db_key: public db_base
 		void inToCont(pki_base *pki);
 		void remFromCont(const QModelIndex &idx);
 		pki_base* insert(pki_base *item);
-		void writeAll();
 		void setOwnPass(QModelIndex idx, enum pki_key::passType);
 		void loadContainer();
 

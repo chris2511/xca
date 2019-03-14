@@ -854,7 +854,6 @@ int MainWindow::exportIndex(QString fname, bool hierarchy)
 void MainWindow::generateDHparam()
 {
 	DH *dh = NULL;
-	FILE *fp = NULL;
 	QProgressBar *bar = NULL;
 	bool ok;
 	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman parameters are needed for different applications, but not handled by XCA.\nPlease enter the DH parameter bits"),
@@ -899,20 +898,15 @@ void MainWindow::generateDHparam()
 			fname, tr("All files ( * )"), NULL);
 		if (fname == "")
 			throw errorEx("");
-		fp = fopen_write(fname);
-		if (fp == NULL) {
-			throw errorEx(tr("Error opening file: '%1': %2").
-				arg(fname).arg(strerror(errno)));
-		}
-		PEM_write_DHparams(fp, dh);
+		XFile file(fname);
+		file.open_write();
+		PEM_write_DHparams(file.fp(), dh);
 		openssl_error();
 	} catch (errorEx &err) {
 		Error(err);
 	}
 	if (dh)
 		DH_free(dh);
-	if (fp)
-		fclose(fp);
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	if (cb)
 		BN_GENCB_free(cb);

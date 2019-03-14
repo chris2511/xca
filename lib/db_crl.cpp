@@ -147,6 +147,7 @@ void db_crl::store(QModelIndex index)
 
 	if (!index.isValid())
 		return;
+
 	pki_crl *crl = static_cast<pki_crl*>(index.internalPointer());
 	if (!crl)
 		return;
@@ -163,18 +164,20 @@ void db_crl::store(QModelIndex index)
 		delete dlg;
 		return;
 	}
-	QString fname = dlg->filename->text();
-
 	try {
+		XFile file(dlg->filename->text());
+		pki_base::pem_comment = dlg->pemComment->isChecked();
+		file.open_key();
 		if (dlg->type() == exportType::vcalendar) {
-			writeVcalendar(fname, crl->icsVEVENT());
+			writeVcalendar(file, crl->icsVEVENT());
 		} else {
-			crl->writeCrl(fname, dlg->type() == exportType::PEM);
+			crl->writeCrl(file, dlg->type() == exportType::PEM);
 		}
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
+	pki_base::pem_comment = false;
 	delete dlg;
 }
 

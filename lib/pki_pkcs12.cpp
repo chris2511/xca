@@ -105,30 +105,26 @@ void pki_pkcs12::addCaCert(pki_x509 *ca)
 	pki_openssl_error();
 }
 
-void pki_pkcs12::writePKCS12(const QString fname)
+void pki_pkcs12::writePKCS12(XFile &file) const
 {
 	Passwd pass;
-	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
-	if (cert == NULL || key == NULL) {
-		my_error(tr("No key or no Cert and no pkcs12"));
-	}
+	pass_info p(XCA_TITLE,
+		tr("Please enter the password to encrypt the PKCS#12 file"));
 
-	FILE *fp = fopen_write_key(fname);
-	if (fp != NULL) {
-		if (PwDialog::execute(&p, &pass, true) != 1) {
-			fclose(fp);
-			return;
-		}
-		PKCS12 *pkcs12 = PKCS12_create(pass.data(),
-			getIntName().toUtf8().data(),
-			key->decryptKey(),
-			cert->getCert(), certstack, 0, 0, 0, 0, 0);
-		i2d_PKCS12_fp(fp, pkcs12);
-		fclose (fp);
-		pki_openssl_error();
-		PKCS12_free(pkcs12);
-	}
-	else fopen_error(fname);
+	if (cert == NULL || key == NULL)
+		my_error(tr("No key or no Cert and no pkcs12"));
+
+	if (PwDialog::execute(&p, &pass, true) != 1)
+		return;
+
+	PKCS12 *pkcs12 = PKCS12_create(pass.data(),
+					getIntName().toUtf8().data(),
+					key->decryptKey(),
+					cert->getCert(),
+					certstack, 0, 0, 0, 0, 0);
+	i2d_PKCS12_fp(file.fp(), pkcs12);
+	pki_openssl_error();
+	PKCS12_free(pkcs12);
 }
 
 int pki_pkcs12::numCa()

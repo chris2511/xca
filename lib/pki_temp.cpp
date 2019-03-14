@@ -328,7 +328,7 @@ void pki_temp::old_fromData(const unsigned char *p, int size, int version)
 	}
 }
 
-QByteArray pki_temp::toData()
+QByteArray pki_temp::toData() const
 {
 	QByteArray ba;
 
@@ -366,7 +366,7 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	}
 }
 
-QByteArray pki_temp::toExportData()
+QByteArray pki_temp::toExportData() const
 {
 	QByteArray data, header;
 	data = toData();
@@ -376,21 +376,17 @@ QByteArray pki_temp::toExportData()
 	return header;
 }
 
-void pki_temp::writeTemp(QString fname)
+void pki_temp::writeTemp(XFile &file) const
 {
-	FILE *fp = fopen_write(fname);
-
-	if (fp == NULL) {
-		fopen_error(fname);
-		return;
-	}
-	fwrite_ba(fp, toExportData(), fname);
-	fclose(fp);
+	PEM_file_comment(file);
+	file.write(toExportData());
 }
 
-void pki_temp::writeDefault(const QString fname)
+void pki_temp::writeDefault(const QString &dirname) const
 {
-	writeTemp(get_dump_filename(fname, ".xca"));
+	XFile file(get_dump_filename(dirname, ".xca"));
+        file.open_write();
+	writeTemp(file);
 }
 
 BIO *pki_temp::pem(BIO *b, int format)

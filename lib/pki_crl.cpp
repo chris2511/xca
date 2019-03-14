@@ -256,23 +256,22 @@ void pki_crl::sign(pki_key *key, const EVP_MD *md)
 	pki_openssl_error();
 }
 
-void pki_crl::writeDefault(const QString fname)
+void pki_crl::writeDefault(const QString &dirname) const
 {
-	writeCrl(fname + QDir::separator() + getUnderlinedName() + ".crl", true);
+	XFile file(get_dump_filename(dirname, ".crl"));
+	file.open_write();
+	writeCrl(file, true);
 }
 
-void pki_crl::writeCrl(const QString fname, bool pem)
+void pki_crl::writeCrl(XFile &file, bool pem) const
 {
-	FILE *fp = fopen_write(fname);
-	if (fp != NULL) {
-		if (pem)
-			PEM_write_X509_CRL(fp, crl);
-		else
-			i2d_X509_CRL_fp(fp, crl);
-		fclose(fp);
-		pki_openssl_error();
-	} else
-		fopen_error(fname);
+	if (pem) {
+		PEM_file_comment(file);
+		PEM_write_X509_CRL(file.fp(), crl);
+	} else {
+		i2d_X509_CRL_fp(file.fp(), crl);
+	}
+	pki_openssl_error();
 }
 
 BIO *pki_crl::pem(BIO *b, int format)

@@ -652,29 +652,24 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 }
 
 
-void pki_x509::writeDefault(const QString fname)
+void pki_x509::writeDefault(const QString &dirname) const
 {
-	writeCert(get_dump_filename(fname, ".crt"), true, false);
+	XFile file(get_dump_filename(dirname, ".crt"));
+	file.open_write();
+	writeCert(file, true);
 }
 
-void pki_x509::writeCert(const QString fname, bool PEM, bool append)
+void pki_x509::writeCert(XFile &file, bool PEM) const
 {
-	FILE *fp;
-	const char *p = "wb";
-	if (append)
-		p = "ab";
-	fp = fopen(QString2filename(fname), p);
-	if (fp != NULL) {
-		if (cert){
-			if (PEM)
-				PEM_write_X509(fp, cert);
-			else
-				i2d_X509_fp(fp, cert);
-		}
-		fclose(fp);
-		pki_openssl_error();
-	} else
-		fopen_error(fname);
+	if (!cert)
+		return;
+	if (PEM) {
+		PEM_file_comment(file);
+		PEM_write_X509(file.fp(), cert);
+	} else {
+		i2d_X509_fp(file.fp(), cert);
+	}
+	pki_openssl_error();
 }
 
 QString pki_x509::getIndexEntry()

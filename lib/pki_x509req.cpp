@@ -255,25 +255,24 @@ void pki_x509req::setSubject(const x509name &n)
 	X509_REQ_set_subject_name(request, n.get());
 }
 
-void pki_x509req::writeDefault(const QString fname)
+void pki_x509req::writeDefault(const QString &dirname) const
 {
-	writeReq(get_dump_filename(fname, ".csr"), true);
+	XFile file(get_dump_filename(dirname, ".csr"));
+	file.open_write();
+	writeReq(file, true);
 }
 
-void pki_x509req::writeReq(const QString fname, bool pem)
+void pki_x509req::writeReq(XFile &file, bool pem) const
 {
-	FILE *fp = fopen_write(fname);
-	if (fp) {
-		if (request){
-			if (pem)
-				PEM_write_X509_REQ(fp, request);
-			else
-				i2d_X509_REQ_fp(fp, request);
-		}
-		fclose(fp);
-		pki_openssl_error();
-	} else
-		fopen_error(fname);
+	if (!request)
+		return;
+	if (pem) {
+		PEM_file_comment(file);
+		PEM_write_X509_REQ(file.fp(), request);
+	} else {
+		i2d_X509_REQ_fp(file.fp(), request);
+	}
+	pki_openssl_error();
 }
 
 BIO *pki_x509req::pem(BIO *b, int format)

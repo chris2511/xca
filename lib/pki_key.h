@@ -37,6 +37,7 @@ class pki_key: public pki_base
 		QString BNoneLine(BIGNUM *bn) const;
 		QByteArray SSH2publicQByteArray(bool raw=false) const;
 		QByteArray X509_PUBKEY_public_key() const;
+		void PEM_file_comment(XFile &file) const;
 
 	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba) const;
@@ -61,7 +62,7 @@ class pki_key: public pki_base
 		virtual QList<int> possibleHashNids();
 		QString getMsg(msg_type msg) const;
 
-		void writePublic(const QString fname, bool pem);
+		void writePublic(XFile &file, bool pem) const;
 		bool compare(const pki_base *ref) const;
 		int getKeyType() const;
 		bool isPrivKey() const;
@@ -97,7 +98,7 @@ class pki_key: public pki_base
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(FILE *fp);
-		void writeSSH2public(const QString &fname) const;
+		void writeSSH2public(XFile &file) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
 		void resetUcount()

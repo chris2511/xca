@@ -66,7 +66,7 @@ class pki_x509 : public pki_x509super
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		void store_token(bool alwaysSelect);
 		void fromPEM_BIO(BIO *bio, QString name);
-		void writeDefault(const QString fname);
+		void writeDefault(const QString &dirname) const;
 		a1int hashInfo(const EVP_MD *md) const;
 		void setSerial(const a1int &serial);
 		a1int getSerial() const;
@@ -83,7 +83,7 @@ class pki_x509 : public pki_x509super
 		void fromData(const unsigned char *p, db_header_t *head);
 		bool isCA() const;
 		bool canSign() const;
-		void writeCert(const QString fname, bool PEM, bool append = false);
+		void writeCert(XFile &file, bool PEM) const;
 		QString getIndexEntry();
 		bool verify(pki_x509 *signer);
 		bool verify_only(pki_x509 *signer);

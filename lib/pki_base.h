@@ -18,6 +18,7 @@
 #include "headerlist.h"
 #include "settings.h"
 #include "sql.h"
+#include "xfile.h"
 
 #define __ME QString("(%1[%2]:%3)") \
 		.arg(getClassName()) \
@@ -51,6 +52,7 @@ class pki_base : public QObject
 		static QRegExp limitPattern;
 		static QString rmslashdot(const QString &fname);
 		static unsigned hash(QByteArray ba);
+		static bool pem_comment;
 
 	protected:
 		QVariant sqlItemId;
@@ -61,6 +63,7 @@ class pki_base : public QObject
 		pki_base *parent;
 		void my_error(const QString &error) const;
 		void fopen_error(const QString &fname) const;
+		virtual void PEM_file_comment(XFile &file) const;
 
 	public:
 		enum msg_type {
@@ -139,10 +142,8 @@ class pki_base : public QObject
 		virtual BIO *pem(BIO *, int format=0);
 		virtual void fromPEM_BIO(BIO *, QString);
 		virtual void fromPEMbyteArray(QByteArray &, QString);
-		void fwrite_ba(FILE *fp, const QByteArray &ba,
-					 const QString &fname) const;
 		virtual void fload(const QString);
-		virtual void writeDefault(const QString);
+		virtual void writeDefault(const QString&);
 
 		/* Old database management methods */
 		virtual void fromData(const unsigned char *, db_header_t *) {};
@@ -176,7 +177,8 @@ class pki_base : public QObject
 		QSqlError sqlItemNotFound(QVariant sqlId) const;
 		unsigned hash() const;
 		QString pki_source_name() const;
-		QString get_dump_filename(const QString &dir, QString ext);
+		QString get_dump_filename(const QString &dirname,
+					  const QString &ext) const;
 		void selfComment(QString msg);
 		QStringList icsVEVENT(const a1time &expires,
 		    const QString &summary, const QString &description) const;
