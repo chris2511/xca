@@ -41,7 +41,13 @@ static QString CurveComment(int nid)
 void KeyDetail::setupFingerprints(pki_key *key)
 {
 	int pos = 0;
-	QGridLayout *g = new QGridLayout(fingerprint);
+	QWidget *widget = new QWidget(fingerprint);
+	QVBoxLayout *v = new QVBoxLayout(fingerprint);
+	QGridLayout *grid = new QGridLayout(widget);
+	v->addStretch();
+	v->addWidget(widget);
+	v->addStretch();
+	
 	QStringList sl; sl <<
 		"ssh MD5" << "ssh SHA256 B64" <<
 		"x509 SHA1" << "DER SHA256";
@@ -49,15 +55,15 @@ void KeyDetail::setupFingerprints(pki_key *key)
 	foreach(QString type, sl) {
 		qDebug() << type << key->fingerprint(type);
 
-		QLabel *left = new QLabel(fingerprint);
-		CopyLabel *right = new CopyLabel(fingerprint);
+		QLabel *left = new QLabel(widget);
+		CopyLabel *right = new CopyLabel(widget);
 
 		left->setTextFormat(Qt::PlainText);
 		left->setText(type);
 		right->setText(key->fingerprint(type));
 
-		g->addWidget(left, pos, 0);
-		g->addWidget(right, pos, 1);
+		grid->addWidget(left, pos, 0);
+		grid->addWidget(right, pos, 1);
 		pos++;
 	}
 }
