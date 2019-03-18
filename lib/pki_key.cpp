@@ -656,10 +656,12 @@ void pki_key::ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const
 bool pki_key::SSH2_compatible() const
 {
 	switch (getKeyType()) {
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		if (ecParamNid() != NID_X9_62_prime256v1)
 			break;
 		/* fall */
+#endif
 	case EVP_PKEY_RSA:
 	case EVP_PKEY_DSA:
 		return true;
