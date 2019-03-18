@@ -28,7 +28,7 @@ class pki_temp: public pki_x509name
 	protected:
 		static QList<QString> tmpl_keys;
 		int dataSize();
-		void try_fload(QString fname, const char *mode);
+		void try_fload(XFile &file, const char *mode);
 		bool pre_defined;
 		x509name xname;
 		QMap<QString, QString> settings;

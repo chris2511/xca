@@ -12,36 +12,38 @@
 #include <QDebug>
 #include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
 #include "exception.h"
 
 class XFile : public QFile
 {
 	private:
 		FILE *filp;
-		bool _open(QIODevice::OpenMode flags)
+
+	public:
+		bool open(OpenMode flags)
 		{
-			bool o = open(flags);
+			bool o = QFile::open(flags | Unbuffered);
 			if (error()) {
 				throw errorEx(tr("Error opening file: '%1': %2")
 					.arg(fileName()).arg(strerror(errno)));
 			}
 			return o;
 		}
-	public:
 		XFile(const QString &name) : QFile(name)
 		{
 			filp = NULL;
 		}
-		FILE *fp()
+		FILE *fp(const char *mode = NULL)
 		{
-			if (filp) {
-				fseek(filp, 0, SEEK_END);
-			} else {
-				filp = fdopen(dup(handle()),
-					openMode() & QIODevice::WriteOnly ?
-						"ab" : "rb");
+			if (!filp) {
+				if (!mode)
+					mode = openMode() & WriteOnly ?
+							"ab" : "rb";
+				filp = fdopen(dup(handle()), mode);
 				check_oom(filp);
 			}
+			qDebug() << fileName() << "FILE ptr @" << ftell(filp);
 			return filp;
 		}
 		qint64 writeData(const char *data, qint64 maxSize)
@@ -50,8 +52,12 @@ class XFile : public QFile
 				fflush(filp);
 			flush();
 			seek(size());
+			qDebug() << "WriteData to" << fileName() <<
+					maxSize << "@" << size();
 			qint64 r = QFile::writeData(data, maxSize);
 			flush();
+			if (filp)
+				fseek(filp, 0, SEEK_END);
 			return r;
 		}
 		void retry_read()
@@ -75,11 +81,11 @@ class XFile : public QFile
 		}
 		bool open_write()
 		{
-			return _open(QIODevice::ReadWrite|QIODevice::Truncate);
+			return open(ReadWrite | Truncate);
 		}
 		bool open_read()
 		{
-			return _open(QIODevice::ReadOnly);
+			return open(ReadOnly);
 		}
 
 		~XFile() {

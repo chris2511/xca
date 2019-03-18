@@ -414,54 +414,37 @@ void pki_temp::fromExportData(QByteArray data)
 		data.size(), version);
 }
 
-void pki_temp::try_fload(QString fname, const char *mode)
+void pki_temp::try_fload(XFile &file, const char *mode)
 {
-	FILE *fp = fopen(QString2filename(fname), mode);
-	char buf[4096];
-	QByteArray ba;
-	BIO *b;
-
-	if (fp == NULL) {
-		fopen_error(fname);
-		return;
-	}
-	b = BIO_new(BIO_s_file());
+	BIO *b = BIO_new(BIO_s_file());
+	check_oom(b);
 	pki_openssl_error();
-	BIO_set_fp(b,fp,BIO_NOCLOSE);
+	BIO_set_fp(b, file.fp(mode), BIO_NOCLOSE);
 	try {
-		fromPEM_BIO(b, fname);
-		BIO_free(b);
-		setIntName(rmslashdot(fname));
-		return;
+		fromPEM_BIO(b, file.fileName());
 	} catch (errorEx &err) {
-		BIO_free(b);
-		fseek(fp, 0, SEEK_SET);
+		file.retry_read();
+		QByteArray ba = file.read(4096*1024);
+		fromExportData(ba);
 	}
-	while (1) {
-		size_t ret = fread(buf, 1, sizeof buf, fp);
-		ba.append(buf, ret);
-		if (ret < sizeof buf)
-			break;
-	}
-	int err = ferror(fp);
-	fclose(fp);
-	if (err) {
-		my_error(tr("Template file content error (too small): %1").
-			arg(fname));
-	}
-	fromExportData(ba);
-	setIntName(rmslashdot(fname));
+	BIO_free(b);
+	setIntName(rmslashdot(file.fileName()));
+	pki_openssl_error();
 }
 
 void pki_temp::fload(QString fname)
 {
 	try {
-		try_fload(fname, "rb");
+		XFile file(fname);
+		file.open_read();
+		try_fload(file, "rb");
 	} catch (errorEx &err) {
 #if defined(Q_OS_WIN32)
 		/* Try again in ascii mode on Windows
 		 * to support pre 1.1.0 template exports */
-		try_fload(fname, "r");
+		XFile file(fname);
+		file.open(QIODevice::ReadOnly | QIODevice::QIODevice::Text);
+		try_fload(file, "r");
 #else
 		throw err;
 #endif
