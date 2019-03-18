@@ -265,7 +265,7 @@ bool pki_x509name::visible() const
 void pki_x509name::PEM_file_comment(XFile &file) const
 {
 	if (!pem_comment)
-		return
+		return;
 	pki_base::PEM_file_comment(file);
 	file.write(getSubject().oneLine(XN_FLAG_RFC2253).toUtf8() + "\n");
 }

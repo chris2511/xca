@@ -818,7 +818,7 @@ QByteArray pki_key::X509_PUBKEY_public_key() const
 void pki_key::PEM_file_comment(XFile &file) const
 {
 	if (!pem_comment)
-		return
+		return;
 	pki_base::PEM_file_comment(file);
 	file.write(QString("%1 %2\n").arg(length(), getTypeString())
 			.toUtf8());
