@@ -66,11 +66,6 @@ void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 
 #define QString2filename(str) filename2bytearray(str).constData()
 
-static inline FILE *fopen_read(QString s)
-{
-	return fopen(QString2filename(s), "rb");
-}
-
 static inline BIO *BIO_from_QByteArray(QByteArray &ba)
 {
 	return BIO_new_mem_buf(ba.data(), ba.length());

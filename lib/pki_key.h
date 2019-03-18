@@ -97,7 +97,7 @@ class pki_key: public pki_base
 		void d2i(QByteArray &ba);
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d() const;
-		EVP_PKEY *load_ssh2_key(FILE *fp);
+		EVP_PKEY *load_ssh2_key(XFile &file);
 		void writeSSH2public(XFile &file) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;

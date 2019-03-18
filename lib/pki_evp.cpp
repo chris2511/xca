@@ -322,36 +322,27 @@ void pki_evp::fload(const QString fname)
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
 		arg(compressFilename(fname)));
 	pem_password_cb *cb = PwDialog::pwCallback;
-	FILE *fp = fopen_read(fname);
-	EVP_PKEY *pkey;
 
 	pki_ign_openssl_error();
-	if (!fp) {
-		fopen_error(fname);
-		return;
-	}
-	pkey = PEM_read_PrivateKey(fp, NULL, cb, &p);
-	try {
-		openssl_pw_error(fname);
-	} catch (errorEx &err) {
-		fclose(fp);
-		throw err;
+	XFile file(fname);
+	file.open_read();
+	EVP_PKEY *pkey = PEM_read_PrivateKey(file.fp(), NULL, cb, &p);
+	openssl_pw_error(fname);
+	if (!pkey) {
+		pki_ign_openssl_error();
+		file.retry_read();
+		pkey = d2i_PrivateKey_fp(file.fp(), NULL);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		rewind(fp);
-		pkey = d2i_PrivateKey_fp(fp, NULL);
-	}
-	if (!pkey) {
-		pki_ign_openssl_error();
-		rewind(fp);
-		pkey = d2i_PKCS8PrivateKey_fp(fp, NULL, cb, &p);
+		file.retry_read();
+		pkey = d2i_PKCS8PrivateKey_fp(file.fp(), NULL, cb, &p);
 	}
 	if (!pkey) {
 		PKCS8_PRIV_KEY_INFO *p8inf;
 		pki_ign_openssl_error();
-		rewind(fp);
-		p8inf = d2i_PKCS8_PRIV_KEY_INFO_fp(fp, NULL);
+		file.retry_read();
+		p8inf = d2i_PKCS8_PRIV_KEY_INFO_fp(file.fp(), NULL);
 		if (p8inf) {
 			pkey = EVP_PKCS82PKEY(p8inf);
 			PKCS8_PRIV_KEY_INFO_free(p8inf);
@@ -359,25 +350,19 @@ void pki_evp::fload(const QString fname)
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		rewind(fp);
-		pkey = PEM_read_PUBKEY(fp, NULL, cb, &p);
+		file.retry_read();
+		pkey = PEM_read_PUBKEY(file.fp(), NULL, cb, &p);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		rewind(fp);
-		pkey = d2i_PUBKEY_fp(fp, NULL);
+		file.retry_read();
+		pkey = d2i_PUBKEY_fp(file.fp(), NULL);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-                rewind(fp);
-		try {
-			pkey = load_ssh2_key(fp);
-		} catch (errorEx &err) {
-			fclose(fp);
-			throw err;
-		}
+		file.retry_read();
+		pkey = load_ssh2_key(file);
         }
-	fclose(fp);
 	if (!pkey || pki_ign_openssl_error()) {
 		if (pkey)
 			EVP_PKEY_free(pkey);

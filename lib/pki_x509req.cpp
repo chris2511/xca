@@ -164,26 +164,20 @@ void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
 
 void pki_x509req::fload(const QString fname)
 {
-	FILE *fp = fopen_read(fname);
 	X509_REQ *_req;
 	int ret = 0;
-
-	if (fp != NULL) {
-		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
-		if (!_req) {
-			pki_ign_openssl_error();
-			rewind(fp);
-			_req = d2i_X509_REQ_fp(fp, NULL);
-		}
-		fclose(fp);
-		if (ret || pki_ign_openssl_error()) {
-			if (_req)
-				X509_REQ_free(_req);
-			throw errorEx(tr("Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.").arg(fname));
-		}
-	} else {
-		fopen_error(fname);
-		return;
+	XFile file(fname);
+	file.open_read();
+	_req = PEM_read_X509_REQ(file.fp(), NULL, NULL, NULL);
+	if (!_req) {
+		pki_ign_openssl_error();
+		file.retry_read();
+		_req = d2i_X509_REQ_fp(file.fp(), NULL);
+	}
+	if (ret || pki_ign_openssl_error()) {
+		if (_req)
+			X509_REQ_free(_req);
+		throw errorEx(tr("Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.").arg(fname));
 	}
 
 	if (_req) {
@@ -193,7 +187,7 @@ void pki_x509req::fload(const QString fname)
 	autoIntName();
 	if (getIntName().isEmpty())
 		setIntName(rmslashdot(fname));
-	openssl_error(fname);
+	pki_openssl_error();
 }
 
 void pki_x509req::d2i(QByteArray &ba)

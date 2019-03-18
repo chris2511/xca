@@ -118,27 +118,23 @@ QSqlError pki_crl::deleteSqlData()
 
 void pki_crl::fload(const QString fname)
 {
-	FILE *fp = fopen_read(fname);
 	X509_CRL *_crl;
-	if (fp != NULL) {
-		_crl = PEM_read_X509_CRL(fp, NULL, NULL, NULL);
-		if (!_crl) {
-			pki_ign_openssl_error();
-			rewind(fp);
-			_crl = d2i_X509_CRL_fp(fp, NULL);
-		}
-		fclose(fp);
-		if (pki_ign_openssl_error()) {
-			if (_crl)
-				X509_CRL_free(_crl);
-			throw errorEx(tr("Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
-		}
-		X509_CRL_free(crl);
-		crl = _crl;
-		setIntName(rmslashdot(fname));
-		pki_openssl_error();
-	} else
-		fopen_error(fname);
+	XFile file(fname);
+	file.open_read();
+	_crl = PEM_read_X509_CRL(file.fp(), NULL, NULL, NULL);
+	if (!_crl) {
+		pki_ign_openssl_error();
+		file.retry_read();
+		_crl = d2i_X509_CRL_fp(file.fp(), NULL);
+	}
+	if (pki_ign_openssl_error()) {
+		if (_crl)
+			X509_CRL_free(_crl);
+		throw errorEx(tr("Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
+	}
+	X509_CRL_free(crl);
+	crl = _crl;
+	setIntName(rmslashdot(fname));
 }
 
 QString pki_crl::getSigAlg() const

@@ -28,59 +28,59 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
 pki_pkcs12::pki_pkcs12(const QString fname)
 	:pki_base(fname)
 {
-	FILE *fp;
 	Passwd pass;
 	EVP_PKEY *mykey = NULL;
 	X509 *mycert = NULL;
+
 	key=NULL; cert=NULL;
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file:\n%1").arg(compressFilename(fname)));
-	fp = fopen_read(fname);
-	if (fp) {
-		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
-		fclose(fp);
-		if (pki_ign_openssl_error()) {
-			if (pkcs12)
-				PKCS12_free(pkcs12);
-			throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.").arg(fname));
-		}
-		if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
-			pass.clear();
-		else if (PwDialog::execute(&p, &pass) != 1) {
-			/* cancel pressed */
+
+	XFile file(fname);
+	file.open_read();
+	PKCS12 *pkcs12 = d2i_PKCS12_fp(file.fp(), NULL);
+	if (pki_ign_openssl_error()) {
+		if (pkcs12)
 			PKCS12_free(pkcs12);
-			throw errorEx("","", E_PASSWD);
-		}
-		PKCS12_parse(pkcs12, pass.constData(), &mykey, &mycert, &certstack);
-		int error = ERR_peek_error();
-		if (ERR_GET_REASON(error) == PKCS12_R_MAC_VERIFY_FAILURE) {
-			pki_ign_openssl_error();
-			PKCS12_free(pkcs12);
-			throw errorEx(getClassName(), tr("The supplied password was wrong (%1)").arg(ERR_reason_error_string(error)), E_PASSWD);
-		}
-		pki_ign_openssl_error();
-		if (mycert) {
-			unsigned char *str = X509_alias_get0(mycert, NULL);
-			if (str)
-				alias = QString::fromUtf8((const char *)str);
-			alias = QString::fromUtf8(alias.toLatin1());
-			cert = new pki_x509(mycert);
-			if (alias.isEmpty()) {
-				cert->autoIntName();
-			} else {
-				cert->setIntName(alias);
-			}
-			alias = cert->getIntName();
-			cert->pkiSource = imported;
-		}
-		if (mykey) {
-			key = new pki_evp(mykey);
-			key->setIntName(alias + "_key");
-			key->pkiSource = imported;
-		}
+		throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.").arg(fname));
+	}
+	if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
+		pass.clear();
+	else if (PwDialog::execute(&p, &pass) != 1) {
+		/* cancel pressed */
 		PKCS12_free(pkcs12);
-	} else
-		fopen_error(fname);
+		throw errorEx("","", E_PASSWD);
+	}
+	PKCS12_parse(pkcs12, pass.constData(), &mykey, &mycert, &certstack);
+	int error = ERR_peek_error();
+	if (ERR_GET_REASON(error) == PKCS12_R_MAC_VERIFY_FAILURE) {
+		pki_ign_openssl_error();
+		PKCS12_free(pkcs12);
+		throw errorEx(getClassName(),
+			 tr("The supplied password was wrong (%1)")
+				.arg(ERR_reason_error_string(error)), E_PASSWD);
+	}
+	pki_ign_openssl_error();
+	if (mycert) {
+		unsigned char *str = X509_alias_get0(mycert, NULL);
+		if (str)
+			alias = QString::fromUtf8((const char *)str);
+		alias = QString::fromUtf8(alias.toLatin1());
+		cert = new pki_x509(mycert);
+		if (alias.isEmpty()) {
+			cert->autoIntName();
+		} else {
+			cert->setIntName(alias);
+		}
+		alias = cert->getIntName();
+		cert->pkiSource = imported;
+	}
+	if (mykey) {
+		key = new pki_evp(mykey);
+		key->setIntName(alias + "_key");
+		key->pkiSource = imported;
+	}
+	PKCS12_free(pkcs12);
 }
 
 pki_pkcs12::~pki_pkcs12()

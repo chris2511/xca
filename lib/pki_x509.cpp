@@ -219,19 +219,15 @@ void pki_x509::fromPEM_BIO(BIO *bio, QString)
 
 void pki_x509::fload(const QString fname)
 {
-	FILE *fp = fopen_read(fname);
 	X509 *_cert;
-	if (!fp) {
-		fopen_error(fname);
-		return;
-	}
-	_cert = PEM_read_X509(fp, NULL, NULL, NULL);
+	XFile file(fname);
+	file.open_read();
+	_cert = PEM_read_X509(file.fp(), NULL, NULL, NULL);
 	if (!_cert) {
 		pki_ign_openssl_error();
-		rewind(fp);
-		_cert = d2i_X509_fp(fp, NULL);
+		file.retry_read();
+		_cert = d2i_X509_fp(file.fp(), NULL);
 	}
-	fclose(fp);
 	if (pki_ign_openssl_error() ) {
 		if (_cert)
 			X509_free(_cert);

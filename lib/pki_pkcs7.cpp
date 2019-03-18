@@ -37,11 +37,13 @@ void pki_pkcs7::encryptFile(pki_x509 *crt, QString filename)
 void pki_pkcs7::encryptBio(pki_x509 *crt, BIO *bio)
 {
 	STACK_OF(X509) *certstack;
-	if (!crt) return;
+	if (!crt)
+		return;
 	certstack = sk_X509_new_null();
 	sk_X509_push(certstack, crt->getCert());
 	openssl_error();
-	if (p7) PKCS7_free(p7);
+	if (p7)
+		PKCS7_free(p7);
 	p7 = PKCS7_encrypt(certstack, bio, EVP_des_ede3_cbc(), PKCS7_BINARY);
 	openssl_error();
 	sk_X509_free(certstack);
@@ -52,21 +54,26 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	pki_key *privkey;
 	EVP_PKEY *pk;
 	STACK_OF(X509) *certstack;
-	if (!crt) return;
+	if (!crt)
+		return;
 	privkey = crt->getRefKey();
-	if (!privkey) throw errorEx("No private key for signing found",
-					getClassName());
+	if (!privkey)
+		throw errorEx("No private key for signing found", getClassName());
 	certstack = sk_X509_new_null();
 
 	pki_x509 *signer = crt->getSigner();
-	if (signer == crt) signer = NULL;
+	if (signer == crt)
+		signer = NULL;
 	while (signer != NULL ) {
 		sk_X509_push(certstack, signer->getCert());
 	        openssl_error();
-		if (signer == signer->getSigner() ) signer = NULL;
-		else signer = signer->getSigner();
+		if (signer == signer->getSigner() )
+			signer = NULL;
+		else
+			signer = signer->getSigner();
 	}
-	if (p7) PKCS7_free(p7);
+	if (p7)
+		PKCS7_free(p7);
 	pk = privkey->decryptKey();
 	p7 = PKCS7_sign(crt->getCert(), pk, certstack, bio, PKCS7_BINARY);
 	EVP_PKEY_free(pk);
@@ -74,11 +81,11 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	sk_X509_free(certstack);
 }
 
-
 void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
 {
-	BIO *bio = NULL;
-	if (!crt) return;
+	BIO *bio;
+	if (!crt)
+		return;
 	bio = BIO_new_file(QString2filename(filename), "r");
         openssl_error();
 	signBio(crt, bio);
@@ -87,8 +94,9 @@ void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
 
 void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 {
-	BIO *bio = NULL;
-	if (!crt) return;
+	BIO *bio;
+	if (!crt)
+		return;
 	bio = BIO_new(BIO_s_mem());
         openssl_error();
 	i2d_X509_bio(bio, contCert->getCert());
@@ -127,45 +135,42 @@ int pki_pkcs7::numCert()
 
 void pki_pkcs7::fromPEM_BIO(BIO *bio, QString name)
 {
-	PKCS7 *_p7;
-	_p7 = PEM_read_bio_PKCS7(bio, NULL, NULL, NULL);
+	PKCS7 *_p7 = PEM_read_bio_PKCS7(bio, NULL, NULL, NULL);
 	openssl_error(name);
-	PKCS7_free(p7);
+	if (p7)
+		PKCS7_free(p7);
 	p7 = _p7;
 	setIntName(rmslashdot(name));
 }
 
 void pki_pkcs7::fload(const QString fname)
 {
-	FILE *fp;
 	PKCS7 *_p7;
-	fp = fopen_read(fname);
-	if (fp) {
-		_p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);
-		if (!_p7) {
-			ign_openssl_error();
-			rewind(fp);
-			_p7 = d2i_PKCS7_fp(fp, NULL);
-		}
-		fclose(fp);
-		if (ign_openssl_error()) {
-			if (_p7)
-				PKCS7_free(_p7);
-			throw errorEx(tr("Unable to load the PKCS#7 file %1. Tried PEM and DER format.").arg(fname));
-		}
-		if (p7)
-			PKCS7_free(p7);
-		p7 = _p7;
-	} else
-		fopen_error(fname);
+	XFile file(fname);
+	file.open_read();
+	_p7 = PEM_read_PKCS7(file.fp(), NULL, NULL, NULL);
+	if (!_p7) {
+		ign_openssl_error();
+		file.retry_read();
+		_p7 = d2i_PKCS7_fp(file.fp(), NULL);
+	}
+	if (ign_openssl_error()) {
+		if (_p7)
+			PKCS7_free(_p7);
+		throw errorEx(tr("Unable to load the PKCS#7 file %1. Tried PEM and DER format.").arg(fname));
+	}
+	if (p7)
+		PKCS7_free(p7);
+	p7 = _p7;
 }
 
 
 STACK_OF(X509) *pki_pkcs7::getCertStack()
 {
-	STACK_OF(X509) *certstack = NULL;
 	int i;
-        if (p7 == NULL) return NULL;
+	STACK_OF(X509) *certstack = NULL;
+        if (p7 == NULL)
+		return NULL;
 	i = OBJ_obj2nid(p7->type);
 	switch (i) {
 		case NID_pkcs7_signed:
@@ -181,8 +186,10 @@ STACK_OF(X509) *pki_pkcs7::getCertStack()
 	return certstack;
 }
 
-void pki_pkcs7::addCert(pki_x509 *crt) {
-	if (p7 == NULL || crt == NULL) return;
+void pki_pkcs7::addCert(pki_x509 *crt)
+{
+	if (p7 == NULL || crt == NULL)
+		return;
 	PKCS7_add_certificate(p7, crt->getCert());
 	openssl_error();
 }

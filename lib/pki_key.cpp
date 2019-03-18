@@ -559,18 +559,14 @@ QByteArray pki_key::ssh_key_next_chunk(QByteArray *ba) const
 	return chunk;
 }
 
-EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
+EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 {
 	/* See RFC 4253 Section 6.6 */
 	QByteArray ba;
 	QStringList sl;
 	EVP_PKEY *pk = NULL;
 
-	ba.resize(4096);
-
-	if (!fgets(ba.data(), ba.size(), fp)) {
-		return NULL;
-	}
+	ba = file.read(4096);
 	sl = QString(ba).split(" ", QString::SkipEmptyParts);
 	if (sl.size() < 2)
 		return NULL;

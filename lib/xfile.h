@@ -54,6 +54,18 @@ class XFile : public QFile
 			flush();
 			return r;
 		}
+		void retry_read()
+		{
+			seek(0);
+			if (filp)
+				fseek(filp, 0, SEEK_SET);
+			if (error()) {
+				throw errorEx(
+					tr("Error rewinding file: '%1': %2")
+						.arg(fileName())
+						.arg(strerror(errno)));
+			}
+		}
 		bool open_key()
 		{
 			mode_t m = umask(077);
