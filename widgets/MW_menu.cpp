@@ -234,16 +234,12 @@ void MainWindow::setOptions()
 		return;
 
 	Options *opt = new Options(this);
-
-	if (!opt->exec()) {
-		delete opt;
-		enableTokenMenu(pkcs11::loaded());
-		return;
+	if (opt->exec()) {
+		reqView->showHideSections();
+		certView->showHideSections();
 	}
-
-	certView->showHideSections();
-	reqView->showHideSections();
-
-	enableTokenMenu(pkcs11::loaded());
 	delete opt;
+
+	pkcs11::reload_libs(Settings["pkcs11path"]);
+	enableTokenMenu(pkcs11::loaded());
 }

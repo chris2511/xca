@@ -90,7 +90,7 @@ void settings::load_settings()
 	XSqlQuery q("SELECT key_, value FROM settings");
 	while (q.next()) {
 		QString key = q.value(0).toString().simplified();
-		QString value = q.value(1).toString().simplified();
+		QString value = q.value(1).toString();
 		QStringList l = key.split(":");
 		if (l.size() == 2 && l[1] != hostId())
 			continue;	// Skip key with non-matching host ID
@@ -119,7 +119,7 @@ void settings::set(QString key, QString value)
 	}
 	if (hostspecific.contains(key))
 		key += QString(":%1").arg(hostId());
-	if (db_keys.contains(key) && values[key] == value)
+	if (db_keys.contains(key) && values[origkey] == value)
 		return;
 
 	Transaction;

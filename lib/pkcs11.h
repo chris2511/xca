@@ -111,11 +111,16 @@ class pkcs11
 		pkcs11();
 		~pkcs11();
 
-		static bool loaded() {
-			return libs.count() != 0;
+		static bool loaded()
+		{
+			foreach(pkcs11_lib *l, libs) {
+				if (l->isLoaded())
+					return true;
+			}
+			return false;
 		}
-		static pkcs11_lib *load_lib(QString fname, bool silent);
-		static pkcs11_lib *get_lib(QString fname)
+		static pkcs11_lib *load_lib(const QString &fname);
+		static pkcs11_lib *get_lib(const QString &fname)
 		{
 			return libs.get_lib(fname);
 		}
@@ -125,14 +130,15 @@ class pkcs11
 		}
 		static void remove_libs()
 		{
-			while (!libs.isEmpty())
-				delete libs.takeFirst();
+			qDeleteAll(libs.begin(), libs.end());
+			libs.clear();
 		}
-		static void load_libs(QString list, bool silent);
+		static void reload_libs(const QString &libnames);
 		static pkcs11_lib_list get_libs()
 		{
 			return libs;
 		}
+
 		tkInfo tokenInfo(slotid slot);
 		tkInfo tokenInfo()
 		{

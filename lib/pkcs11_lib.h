@@ -21,9 +21,12 @@ class pkcs11_lib
 	lt_dlhandle dl_handle;
 	CK_FUNCTION_LIST *p11;
 	QString file;
+	bool enabled;
+	QString load_error;
 
     public:
-	pkcs11_lib(QString file);
+	static QString name2File(const QString &name, bool *enabled = NULL);
+	pkcs11_lib(const QString &file);
 	~pkcs11_lib();
 
 	QList<unsigned long> getSlotList();
@@ -35,6 +38,18 @@ class pkcs11_lib
 	CK_FUNCTION_LIST *ptr()
 	{
 		return p11;
+	}
+	bool isLoaded() const
+	{
+		return p11 != NULL;
+	}
+	bool isEnabled() const
+	{
+		return enabled;
+	}
+	bool isLib(const QString &name)
+	{
+		return name2File(name) == file;
 	}
 };
 
@@ -75,13 +90,13 @@ typedef QList<slotid> slotidList;
 class pkcs11_lib_list: public QList<pkcs11_lib*>
 {
     public:
-	pkcs11_lib *add_lib(QString fname);
-	pkcs11_lib *get_lib(QString fname);
-	bool remove_lib(QString fname);
+	pkcs11_lib *add_lib(const QString &fname);
+	pkcs11_lib *get_lib(const QString &fname);
+	bool remove_lib(const QString &fname);
 	slotidList getSlotList();
 };
 
-void pk11error(QString fmt, int r);
-void pk11error(slotid slot, QString func, int rv);
+void pk11error(const QString &fmt, int r);
+void pk11error(slotid slot, const QString &func, int rv);
 const char *pk11errorString(unsigned long rv);
 #endif

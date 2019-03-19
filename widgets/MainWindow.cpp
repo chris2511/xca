@@ -68,11 +68,8 @@ void MainWindow::enableTokenMenu(bool enable)
 
 void MainWindow::load_engine()
 {
-	try {
-		pkcs11::load_libs(Settings["pkcs11path"], false);
-	} catch (errorEx &err) {
-		Error(err);
-	}
+	pkcs11::reload_libs(Settings["pkcs11path"]);
+	//	Error(err);
 	enableTokenMenu(pkcs11::loaded());
 }
 

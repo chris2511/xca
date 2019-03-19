@@ -68,6 +68,8 @@ Options::Options(MainWindow *parent)
 	cert_expiry_num->setText(x);
 
 	serial_len->setValue(Settings["serial_len"]);
+	connect(pkcs11List, SIGNAL(itemClicked(QListWidgetItem *)),
+		this, SLOT(Pkcs11ItemChanged(QListWidgetItem *)));
 }
 
 Options::~Options()
@@ -169,30 +171,19 @@ void Options::on_addButton_clicked(void)
 
 void Options::addLib(QString fname)
 {
-	pkcs11_lib *lib;
 	QString status;
 
 	fname = QFileInfo(fname).canonicalFilePath();
 
 	if (fname.isEmpty() || pkcs11::get_lib(fname))
 		return;
-	try {
-		lib = pkcs11::load_lib(fname, false);
-		if (lib)
-			status = lib->driverInfo();
-	} catch (errorEx &ex) {
-		lib = NULL;
-		status = ex.getString();
-	}
-	status = status.trimmed();
-	QListWidgetItem *item = new QListWidgetItem(fname);
-	item->setToolTip(status);
-	if (lib)
-		item->setIcon(*MainWindow::doneIco);
-	pkcs11List->addItem(item);
-	if (searchP11)
+
+	pkcs11_lib *l = pkcs11::load_lib(fname);
+	addLibItem(fname);
+
+	if (searchP11 && l)
 		QToolTip::showText(searchP11->mapToGlobal(
-			QPoint(0,0)), status);
+			QPoint(0,0)), l->driverInfo().trimmed());
 }
 
 void Options::on_removeButton_clicked(void)
@@ -217,36 +208,69 @@ void Options::on_searchPkcs11_clicked(void)
 	searchP11->show();
 }
 
+void Options::Pkcs11ItemChanged(QListWidgetItem *item)
+{
+TRACE
+	pkcs11List->blockSignals(true);
+	pkcs11_lib *l = pkcs11::get_libs().get_lib(item->text());
+	qDebug() << item->text() << item->checkState() << l->isEnabled() << l->isLoaded();
+	if ((item->checkState() == Qt::Checked) != l->isEnabled()) {
+		QString file = listItem2Name(item);
+		pkcs11::remove_lib(file);
+		pkcs11::load_lib(file);
+		updatePkcs11Item(item);
+	}
+	pkcs11List->blockSignals(false);
+}
+
+void Options::updatePkcs11Item(QListWidgetItem *item) const
+{
+	pkcs11_lib *l = pkcs11::get_libs().get_lib(item->text());
+	if (!l)
+		return;
+	if (l->isEnabled()) {
+		item->setIcon(l->isLoaded() ?
+			*MainWindow::doneIco : *MainWindow::warnIco);
+	} else {
+		QPixmap m(QSize(20,20));
+		m.fill(Qt::transparent);
+		item->setIcon(QIcon(m));
+	}
+	item->setToolTip(l->driverInfo().trimmed());
+}
+
+QListWidgetItem *Options::addLibItem(const QString &lib) const
+{
+	pkcs11_lib *l = pkcs11::get_libs().get_lib(lib);
+	if (!l)
+		return NULL;
+	QListWidgetItem *item = new QListWidgetItem(lib);
+	item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+	updatePkcs11Item(item);
+	item->setText(l->filename());
+	item->setCheckState(l->isEnabled() ? Qt::Checked : Qt::Unchecked);
+	pkcs11List->addItem(item);
+	return item;
+}
+
 void Options::setupPkcs11Provider(QString list)
 {
-	pkcs11_lib_list libs = pkcs11::get_libs();
+	foreach(QString libname, list.split('\n')) {
+		addLibItem(libname);
+	}
+}
 
-	foreach(pkcs11_lib *l, libs) {
-		QListWidgetItem *item = new QListWidgetItem(l->filename());
-		try {
-			item->setToolTip(l->driverInfo());
-			item->setIcon(*MainWindow::doneIco);
-		} catch (errorEx &err) {
-			mw->Error(err);
-		}
-		pkcs11List->addItem(item);
-	}
-	if (!list.isEmpty()) {
-		foreach(QString libname, list.split('\n')) {
-			if (libs.get_lib(libname))
-				continue;
-			QListWidgetItem *item = new QListWidgetItem(libname);
-			item->setToolTip(tr("Load failed"));
-			pkcs11List->addItem(item);
-		}
-	}
+QString Options::listItem2Name(const QListWidgetItem *item) const
+{
+	return QString("%1:%2").arg(item->checkState() == Qt::Checked)
+				.arg(item->text());
 }
 
 QString Options::getPkcs11Provider()
 {
 	QStringList prov;
 	for (int j=0; j<pkcs11List->count(); j++) {
-		prov << pkcs11List->item(j)->text();
+		prov << listItem2Name(pkcs11List->item(j));
 	}
 	if (prov.count() == 0)
 		return QString("");

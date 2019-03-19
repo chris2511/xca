@@ -44,35 +44,50 @@ pkcs11::~pkcs11()
 	}
 }
 
-pkcs11_lib *pkcs11::load_lib(QString fname, bool silent)
+pkcs11_lib *pkcs11::load_lib(const QString &fname)
 {
-	pkcs11_lib *l;
 	if (fname.isEmpty())
 		return NULL;
-	try {
-		l = libs.add_lib(fname);
-	} catch (errorEx &ex) {
-		if (silent)
-			return NULL;
-		throw ex;
-	}
-	return l;
+	return libs.add_lib(fname);
 }
 
-void pkcs11::load_libs(QString list, bool silent)
+void pkcs11::reload_libs(const QString &libnames)
 {
-	QStringList errs;
-	if (!list.isEmpty()) {
-		foreach(QString l, list.split('\n')) {
-			try {
-				pkcs11::load_lib(l, silent);
-			} catch (errorEx &err) {
-				errs << err.getString();
+	QMap<QString, pkcs11_lib *> store;
+
+	if (libnames.isEmpty()) {
+		remove_libs();
+		return;
+	}
+
+	for (pkcs11_lib_list::iterator i = libs.begin(); i != libs.end(); ++i)
+		store[(*i)->filename()] = *i;
+	libs.clear();
+
+	foreach(QString name, libnames.split('\n')) {
+		bool enable;
+		QString n = pkcs11_lib::name2File(name, &enable);
+		pkcs11_lib *l = store.take(n);
+		if (l) {
+			if (enable == l->isEnabled()) {
+				libs.append(l);
+			} else {
+				delete l;
+				l = NULL;
 			}
 		}
-		if (errs.count())
-			throw errorEx(errs.join("\n"));
+		// NOT else
+		if (!l)
+			l = load_lib(name);
+
+		qDebug() << "REORDER:" << n << name
+			 << "Enabled:" << l->isEnabled()
+			 << "Loaded:" << l->isLoaded()
+			 << "Should:" << enable;
 	}
+	qDebug() << "Delete remainig Libs start";
+	qDeleteAll(store.begin(), store.end());
+	qDebug() << "Delete remainig Libs done";
 }
 
 void pkcs11::startSession(slotid slot, bool rw)
@@ -88,8 +103,8 @@ void pkcs11::startSession(slotid slot, bool rw)
 	}
 	CALL_P11_C(slot.lib, C_OpenSession,
 			slot.id, flags, NULL, NULL, &session);
-        if (rv != CKR_OK)
-                pk11error(slot, "C_OpenSession", rv);
+	if (rv != CKR_OK)
+		pk11error(slot, "C_OpenSession", rv);
 	p11slot = slot;
 }
 
@@ -160,7 +175,7 @@ bool pkcs11::needsLogin(bool so)
 	p11slot.isValid();
 	CALL_P11_C(p11slot.lib, C_GetSessionInfo, session, &sinfo);
 	if (rv != CKR_OK)
-                pk11error("C_GetSessionInfo", rv);
+		pk11error("C_GetSessionInfo", rv);
 
 	switch (sinfo.state) {
 	case CKS_RO_PUBLIC_SESSION:
@@ -214,7 +229,7 @@ class pinPadLoginThread: public QThread
 		} catch (errorEx &e) {
 			err = e;
 		}
-       }
+	}
 };
 
 static QDialog *newPinPadBox()
@@ -296,7 +311,7 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 		return false;
 	case 1:
 		*slot = p11_slots[slotsWithToken[0]];
-                return true;
+		return true;
 	}
 	Ui::SelectToken ui;
 	QDialog *select_slot = new QDialog(w);
@@ -342,7 +357,7 @@ void pkcs11::changePin(slotid slot, bool so)
 	if (ti.protAuthPath()) {
 		setPin(NULL, 0, NULL, 0);
 		return;
-        }
+	}
 
 	pin = tokenLogin(ti.label(), so, true);
 	if (pin.isNull())
@@ -489,7 +504,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 
 	pk11_attr_data new_id = findUniqueID(CKO_PUBLIC_KEY);
 
-        pub_atts << label << new_id <<
+	pub_atts << label << new_id <<
 		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_bool(CKA_PRIVATE, false) <<

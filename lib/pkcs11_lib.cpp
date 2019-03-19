@@ -17,53 +17,62 @@
 #include <ltdl.h>
 #include "ui_SelectToken.h"
 
-pkcs11_lib::pkcs11_lib(QString f)
+pkcs11_lib::pkcs11_lib(const QString &f)
 {
 	CK_RV (*c_get_function_list)(CK_FUNCTION_LIST_PTR_PTR);
 	CK_RV rv;
-
-	file = f;
-	lt_dlinit();
+	file = name2File(f, &enabled);
 	p11 = NULL;
 
-	dl_handle = lt_dlopen(QString2filename(file));
-	if (dl_handle == NULL)
-		goto how_bad;
+	if (!enabled)
+		return;
 
-	/* Get the list of function pointers */
-	c_get_function_list = (CK_RV (*)(CK_FUNCTION_LIST_PTR_PTR))
+	lt_dlinit();
+
+	try {
+		dl_handle = lt_dlopen(QString2filename(file));
+		if (dl_handle == NULL)
+			throw errorEx(QObject::tr("Failed to open PKCS11 library: %1: %2").arg(file).arg(lt_dlerror()));
+
+		/* Get the list of function pointers */
+		c_get_function_list = (CK_RV (*)(CK_FUNCTION_LIST_PTR_PTR))
 				lt_dlsym(dl_handle, "C_GetFunctionList");
-	if (!c_get_function_list)
-		goto how_bad;
+		if (!c_get_function_list)
+			throw errorEx(QObject::tr("This does not look like a PKCS#11 library. Symbol 'C_GetFunctionList' not found."));
 
-	qDebug("Trying to load PKCS#11 provider %s", QString2filename(file));
-	if (c_get_function_list(&p11) != CKR_OK)
-		goto how_bad;
+		qDebug("Trying to load PKCS#11 provider %s",
+			QString2filename(file));
+		rv = c_get_function_list(&p11);
+		if (rv != CKR_OK)
+			pk11error("C_GetFunctionList", rv);
 
-	CALL_P11_C(this, C_Initialize, NULL);
-	if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
-		pk11error("C_Initialize", rv);
+		CALL_P11_C(this, C_Initialize, NULL);
+		if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
+			pk11error("C_Initialize", rv);
 
-	qDebug("Successfully loaded PKCS#11 provider %s",
-		QString2filename(file));
-	return;
-
-how_bad:
-	WAITCURSOR_END;
-	if (dl_handle)
-		lt_dlclose(dl_handle);
-	lt_dlexit();
-	qDebug("Failed to load PKCS#11 provider %s", QString2filename(file));
-	throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
-			arg(file));
+		qDebug("Successfully loaded PKCS#11 provider %s",
+			QString2filename(file));
+	} catch (errorEx &err) {
+		load_error = err.getString();
+		WAITCURSOR_END;
+		if (p11)
+			p11 = NULL;
+		if (dl_handle)
+			lt_dlclose(dl_handle);
+		lt_dlexit();
+		qDebug("Failed to load PKCS#11 provider %s",
+			QString2filename(file));
+	}
 }
 
 pkcs11_lib::~pkcs11_lib()
 {
 	CK_RV rv;
+	(void)rv;
+	if (!isLoaded())
+		return;
 	qDebug("Unloading PKCS#11 provider %s", QString2filename(file));
 	CALL_P11_C(this, C_Finalize, NULL);
-	(void)rv;
 	lt_dlclose(dl_handle);
 	lt_dlexit();
 	qDebug("Unloaded PKCS#11 provider %s", QString2filename(file));
@@ -75,6 +84,9 @@ QList<unsigned long> pkcs11_lib::getSlotList()
 	CK_SLOT_ID *p11_slots = NULL;
 	QList<unsigned long> sl;
 	unsigned long i, num_slots = 0;
+
+	if (!isLoaded())
+		return sl;
 
 	/* This one helps to avoid errors.
 	 * Fist time it fails, 2nd time it works */
@@ -107,6 +119,15 @@ QString pkcs11_lib::driverInfo()
 	CK_INFO info;
 	CK_RV rv;
 
+	if (!enabled)
+		return QObject::tr("Disabled");
+
+	if (!isLoaded()) {
+		if (load_error.isEmpty())
+			return QObject::tr("Library loading failed");
+		return load_error;
+	}
+
 	CALL_P11_C(this, C_GetInfo, &info);
 	if (rv != CKR_OK) {
 		pk11error("C_GetInfo", rv);
@@ -122,10 +143,23 @@ QString pkcs11_lib::driverInfo()
 	arg(info.libraryVersion.major).arg(info.libraryVersion.minor);
 }
 
-pkcs11_lib *pkcs11_lib_list::add_lib(QString fname)
+QString pkcs11_lib::name2File(const QString &name, bool *enabled)
+{
+	QString libname = name;
+	if (enabled)
+		*enabled = true;
+	if (name.size() > 2 && name[1] == ':') {
+		libname = name.mid(2);
+		if (enabled)
+			*enabled = name[0] != '0';
+	}
+	return libname;
+}
+
+pkcs11_lib *pkcs11_lib_list::add_lib(const QString &fname)
 {
 	foreach(pkcs11_lib *l, *this) {
-		if (l->filename() == fname)
+		if (l->isLib(fname))
 			return l;
 	}
 	pkcs11_lib *l = new pkcs11_lib(fname);
@@ -133,19 +167,19 @@ pkcs11_lib *pkcs11_lib_list::add_lib(QString fname)
 	return l;
 }
 
-pkcs11_lib *pkcs11_lib_list::get_lib(QString fname)
+pkcs11_lib *pkcs11_lib_list::get_lib(const QString &fname)
 {
 	foreach(pkcs11_lib *l, *this) {
-		if (l->filename() == fname)
+		if (l->isLib(fname))
 			return l;
 	}
 	return NULL;
 }
 
-bool pkcs11_lib_list::remove_lib(QString fname)
+bool pkcs11_lib_list::remove_lib(const QString &fname)
 {
 	for(int i=0; i<count(); i++) {
-		if (at(i)->filename() == fname) {
+		if (at(i)->isLib(fname)) {
 			delete takeAt(i);
 			return true;
 		}
@@ -161,6 +195,8 @@ slotidList pkcs11_lib_list::getSlotList()
 
 	for (int i=0; i<count(); i++) {
 		pkcs11_lib *l = at(i);
+		if (!l->isLoaded())
+			continue;
 		try {
 			QList<unsigned long> realids;
 			realids = l->getSlotList();
@@ -270,7 +306,7 @@ const char *pk11errorString(unsigned long rv)
 	return "unknown PKCS11 error";
 }
 
-void pk11error(QString func, int rv)
+void pk11error(const QString &func, int rv)
 {
 	WAITCURSOR_END
 	errorEx err(QObject::tr("PKCS#11 function '%1' failed: %2").arg(func).
@@ -278,7 +314,7 @@ void pk11error(QString func, int rv)
 	throw err;
 }
 
-void pk11error(slotid slot, QString func, int rv)
+void pk11error(slotid slot, const QString &func, int rv)
 {
 	WAITCURSOR_END
 	errorEx err(QObject::tr("PKCS#11 function '%1' failed: %2\nIn library %3\n%4").
