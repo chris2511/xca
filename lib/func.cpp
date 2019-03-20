@@ -165,9 +165,35 @@ QString getLibDir()
 	}
 	hd = buf;
 #else
-	hd = QString("/usr/lib");
+	QString ulib = "/usr/lib/";
+	QString lib = "/lib/";
+	QString multi;
+
+	hd = ulib;
+	QFile f(ulib + "pkg-config.multiarch");
+	if (f.open(QIODevice::ReadOnly)) {
+		QTextStream in(&f);
+		multi = in.readLine();
+		if (!multi.isEmpty())
+			multi += "/";
+	}
+	QStringList dirs; dirs
+		<< ulib + multi + "pkcs11/"
+		<< lib + multi + "pkcs11/"
+		<< ulib + "pkcs11/"
+		<< lib + "pkcs11/"
+		<< ulib + multi
+		<< lib + multi
+		<< ulib
+		<< lib;
+	foreach(QString dir, dirs) {
+		if (QDir(dir).exists()) {
+			hd = dir;
+			break;
+		}
+	}
 #endif
-	return hd;
+	return QDir::toNativeSeparators(hd);
 }
 
 QString getDocDir()
