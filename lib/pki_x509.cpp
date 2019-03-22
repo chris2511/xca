@@ -37,7 +37,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	init();
 	cert = X509_dup(crt->cert);
 	pki_openssl_error();
-	psigner = crt->psigner;
+	issuerSqlId = crt->issuerSqlId;
 	setRefKey(crt->getRefKey());
 	caTemplateSqlId = crt->caTemplateSqlId;
 	revocation = crt->revocation;
@@ -116,7 +116,7 @@ void pki_x509::restoreSql(const QSqlRecord &rec)
 	QByteArray ba = QByteArray::fromBase64(
 				rec.value(VIEW_x509_cert).toByteArray());
 	d2i(ba);
-	signerSqlId = rec.value(VIEW_x509_issuer);
+	issuerSqlId = rec.value(VIEW_x509_issuer);
 	crlNumber.set(rec.value(VIEW_x509_auth_crlNo).toUInt());
 	crlExpire.fromPlain(rec.value(VIEW_x509_auth_crlExpire).toString());
 	caTemplateSqlId = rec.value(VIEW_x509_auth_template);
@@ -250,7 +250,6 @@ pki_x509::~pki_x509()
 
 void pki_x509::init()
 {
-	psigner = NULL;
 	caTemplateSqlId = QVariant();
 	crlDays = 30;
 	crlExpire.setUndefined();
@@ -540,8 +539,8 @@ bool pki_x509::addV3ext(const x509v3ext &e, bool skip_existing)
 
 void pki_x509::delSigner(pki_base *s)
 {
-	if (s == psigner)
-		psigner = NULL;
+	if (s && (s->getSqlItemId() == issuerSqlId))
+		issuerSqlId = QVariant();
 }
 
 bool pki_x509::isCA() const
@@ -727,24 +726,21 @@ bool pki_x509::verify_only(pki_x509 *signer)
 
 bool pki_x509::verify(pki_x509 *signer)
 {
-	if (psigner == signer)
-		return true;
-	if ((psigner != NULL) || (signer == NULL))
+	if ((issuerSqlId != QVariant()) || (signer == NULL))
 		return false;
 	if (signer == this &&
-	    signerSqlId == sqlItemId &&
-	    signerSqlId != QVariant())
+	    issuerSqlId == sqlItemId &&
+	    issuerSqlId != QVariant())
 		return true;
 
-	if (verify_only(signer)) {
+	if (signer && verify_only(signer)) {
 		int idx;
 		x509rev r;
 		x509revList rl(revocation);
 		r.setSerial(getSerial());
-		psigner = signer;
-		signerSqlId = psigner->sqlItemId;
-		psigner->mergeRevList(rl);
-		rl = psigner->getRevList();
+		setSigner(signer);
+		signer->mergeRevList(rl);
+		rl = signer->getRevList();
 		idx = rl.indexOf(r);
 		if (idx != -1)
 			revocation = rl[idx];
@@ -883,7 +879,7 @@ int pki_x509::sigAlg() const
 
 pki_x509 *pki_x509::getSigner()
 {
-	return psigner;
+	return db_base::lookupPki<pki_x509>(issuerSqlId);
 }
 
 bool pki_x509::isRevoked() const

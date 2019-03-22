@@ -37,8 +37,7 @@ class pki_x509 : public pki_x509super
 {
 		Q_OBJECT
 	private:
-		pki_x509 *psigner;
-		QVariant signerSqlId;
+		QVariant issuerSqlId;
 		a1time crlExpire;
 		a1int crlNumber;
 		int crlDays;
@@ -58,9 +57,9 @@ class pki_x509 : public pki_x509super
 		pki_x509(const QString name = "");
 		~pki_x509();
 
-		void setSigner(pki_x509 *signer)
+		void setSigner(pki_x509 *s)
 		{
-			psigner = signer;
+			issuerSqlId = s ? s->getSqlItemId() : QVariant();
 		}
 		void fload(const QString fname);
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
