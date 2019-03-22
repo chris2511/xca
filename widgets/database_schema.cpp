@@ -310,6 +310,12 @@
 << "UPDATE settings SET value='6' WHERE key_='schema'"
 	;
 
+	schemas[6]
+<< "ALTER TABLE items ADD del SMALLINT NOT NULL DEFAULT 0"
+<< "CREATE INDEX i_items_del ON items (del)"
+<< "UPDATE settings SET value='7' WHERE key_='schema'"
+	;
+
 /* When adding new tables or views, also add them to the list
  * in XSqlQuery::rewriteQuery(QString) in lib/sql.cpp
  */

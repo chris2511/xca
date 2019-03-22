@@ -31,13 +31,15 @@ db_x509::db_x509(MainWindow *mw)
 	class_name = "certificates";
 	sqlHashTable = "certs";
 	pkitype << x509;
+	pkitype_depends << x509_req;
 	updateHeaders();
 	loadContainer();
-	dereferenceIssuer();
 }
 
-void db_x509::dereferenceIssuer()
+void db_x509::loadContainer()
 {
+	db_x509super::loadContainer();
+
 	XSqlQuery q("SELECT item, issuer FROM certs WHERE issuer is NOT NULL");
 	while (q.next()) {
 		pki_base *root = rootItem;
@@ -56,6 +58,7 @@ void db_x509::dereferenceIssuer()
 			insertChild(root, cert);
 		}
 	}
+	emit columnsContentChanged();
 }
 
 dbheaderList db_x509::getHeaders()

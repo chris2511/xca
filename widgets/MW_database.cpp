@@ -25,7 +25,7 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList schemas[6];
+	QStringList schemas[7];
 
 #include "database_schema.cpp"
 
@@ -274,6 +274,8 @@ int MainWindow::init_database(QString dbName)
 		certs = new db_x509(this);
 		temps = new db_temp(this);
 		crls = new db_crl(this);
+		check_oom(keys && reqs && certs && temps && crls);
+		models << keys << reqs << certs << temps << crls;
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -325,7 +327,40 @@ int MainWindow::init_database(QString dbName)
 	}
 	dbindex->setText(tr("Database") + ": " + dbName);
 	currentDB = dbName;
+	dbTimer = startTimer(1500);
 	return ret;
+}
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+	quint64 stamp;
+	if (event->timerId() != dbTimer)
+		return;
+	XSqlQuery q;
+	SQL_PREPARE(q, "SELECT MAX(stamp) from items");
+	q.exec();
+	if (!q.first())
+		return;
+	stamp = q.value(0).toULongLong();
+	q.finish();
+	qDebug() << "Stamp" << stamp
+		 << "DatabaseStamp" << DbTransaction::DatabaseStamp;
+
+	if (stamp > DbTransaction::DatabaseStamp) {
+		SQL_PREPARE(q, "SELECT DISTINCT type FROM items WHERE stamp=?");
+		q.bindValue(0, stamp);
+		q.exec();
+
+		QList<enum pki_type> typelist;
+		while (q.next())
+			typelist << (enum pki_type)q.value(0).toInt();
+
+		q.finish();
+		qDebug() << "CHANGED" << typelist;
+		foreach(db_base *model, models)
+			model->reloadContainer(typelist);
+	}
+	DbTransaction::DatabaseStamp = stamp;
 }
 
 void MainWindow::dump_database()
@@ -464,6 +499,7 @@ void MainWindow::close_database()
 		Settings.clear();
 		return;
 	}
+	killTimer(dbTimer);
 	qDebug("Closing database: %s", QString2filename(currentDB));
 	Settings["mw_geometry"] = QString("%1,%2,%3")
 			.arg(size().width())
@@ -480,16 +516,8 @@ void MainWindow::close_database()
 	tempView->setModel();
 	crlView->setModel();
 
-	if (crls)
-		delete(crls);
-	if (reqs)
-		delete(reqs);
-	if (certs)
-		delete(certs);
-	if (temps)
-		delete(temps);
-	if (keys)
-		delete(keys);
+	qDeleteAll(models.begin(), models.end());
+	models.clear();
 
 	db_base::flushLookup();
 	reqs = NULL;

@@ -34,6 +34,7 @@ dbheaderList db_x509name::getHeaders()
 db_x509super::db_x509super(MainWindow *mw)
 	:db_x509name(mw)
 {
+	pkitype_depends << asym_key << smartCard;
 }
 
 void db_x509super::loadContainer()

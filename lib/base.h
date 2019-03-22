@@ -29,7 +29,7 @@
 #endif
 
 #define C_FILE ((strrchr(__FILE__, '/') ? : __FILE__- 1) + 1)
-#define TRACE qDebug("File: %s Func: %s Line: %d\n",C_FILE,__func__,__LINE__);
+#define TRACE qDebug("File: %s Func: %s Line: %d", C_FILE, __func__, __LINE__);
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #define nativeSeparator(s) QDir::toNativeSeparators(s)

@@ -210,7 +210,6 @@ void Options::on_searchPkcs11_clicked(void)
 
 void Options::Pkcs11ItemChanged(QListWidgetItem *item)
 {
-TRACE
 	pkcs11List->blockSignals(true);
 	pkcs11_lib *l = pkcs11::get_libs().get_lib(item->text());
 	qDebug() << item->text() << item->checkState() << l->isEnabled() << l->isLoaded();

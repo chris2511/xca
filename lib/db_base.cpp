@@ -141,6 +141,27 @@ void db_base::loadContainer()
 	emit columnsContentChanged();
 }
 
+void db_base::reloadContainer(const QList<enum pki_type> &typelist)
+{
+	bool match = false;
+	QList<enum pki_type> all_types = pkitype + pkitype_depends;
+	foreach(enum pki_type t, typelist) {
+		if (all_types.contains(t)) {
+			match = true;
+			break;
+		}
+	}
+	if (!match)
+		return;
+	qDebug() << "RELOAD" << class_name << all_types << typelist;
+	beginResetModel();
+	delete rootItem;
+	rootItem = newPKI();
+	endResetModel();
+
+	loadContainer();
+}
+
 void db_base::updateHeaders()
 {
 	QString s = allHeaders.toData();
@@ -288,6 +309,7 @@ void db_base::deletePKI(QModelIndex idx)
 			TransDone(e);
 			if (!e.isValid())
 				remFromCont(idx);
+			AffectedItems(pki->getSqlItemId());
 			mainwin->dbSqlError(e);
 		}
 	} catch (errorEx &err) {
@@ -336,7 +358,7 @@ void db_base::inToCont(pki_base *pki)
 pki_base *db_base::getByName(QString desc)
 {
 	QList<pki_base*> list = sqlSELECTpki<pki_base>(
-		QString("SELECT id FROM items WHERE name=? AND ") +
+		QString("SELECT id FROM items WHERE name=? AND del=0 AND ") +
 			sqlItemSelector(),
 		QList<QVariant>() << QVariant(desc));
 	return list.isEmpty() ? NULL : list[0];

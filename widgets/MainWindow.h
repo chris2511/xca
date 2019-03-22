@@ -76,7 +76,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void checkDB();
 		QSqlError initSqlDB();
 		QString openSqlDB(QString dbName);
-		QTimer *eachSecond;
+		QList<db_base*> models;
 
 	protected:
 		void init_images();
@@ -87,6 +87,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString homedir;
 		int changeDB(QString fname);
 		void keyPressEvent(QKeyEvent *e);
+		int dbTimer;
+		void timerEvent(QTimerEvent *event);
 
 	public:
 		static db_x509 *certs;

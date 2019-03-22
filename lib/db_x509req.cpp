@@ -20,6 +20,7 @@ db_x509req::db_x509req(MainWindow *mw)
 	class_name = "requests";
 	sqlHashTable = "requests";
 	pkitype << x509_req;
+	pkitype_depends << x509;
 	updateHeaders();
 	loadContainer();
 }

@@ -44,6 +44,7 @@ class db_base: public QAbstractItemModel
 		void _removePKI(pki_base *pki );
 		void removeItem(QString k);
 		QList<enum pki_type> pkitype;
+		QList<enum pki_type> pkitype_depends;
 		MainWindow *mainwin;
 		QString class_name;
 		/* Sql table containing the 'hash' of this items */
@@ -60,7 +61,7 @@ class db_base: public QAbstractItemModel
 		bool isValidCol(int col) const;
 		static XSqlQuery sqlSELECTpki(QString query,
 				QList<QVariant> values = QList<QVariant>());
-		void timerEvent(QTimerEvent * event);
+		void timerEvent(QTimerEvent *event);
 		void restart_timer();
 
 	public:
@@ -110,6 +111,7 @@ class db_base: public QAbstractItemModel
 		pki_base *getByReference(pki_base *refpki);
 		pki_base *getByPtr(void *);
 		virtual void loadContainer();
+		void reloadContainer(const QList<enum pki_type> &typelist);
 		template <class T> QList<T *> getAll()
 		{
 			return sqlSELECTpki<T>(

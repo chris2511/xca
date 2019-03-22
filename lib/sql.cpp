@@ -17,7 +17,7 @@ int DbTransaction::error;
 bool DbTransaction::hasTransaction;
 QList<quint64> DbTransaction::items;
 
-quint64 DatabaseStamp;
+quint64 DbTransaction::DatabaseStamp;
 
 void DbTransaction::debug(const char *func, const char *file, int line)
 {

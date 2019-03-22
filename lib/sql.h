@@ -34,6 +34,7 @@ class DbTransaction
 		bool commit(const char *file, int line);
 		bool rollback(const char *file, int line);
 		bool done(QSqlError e, const char *file, int line);
+		static quint64 DatabaseStamp;
 		static bool active()
 		{
 			return mutex > 0;

@@ -23,6 +23,7 @@ db_crl::db_crl(MainWindow *mw)
 	class_name = "crls";
 	sqlHashTable = "crls";
 	pkitype << revocation;
+	pkitype_depends << x509;
 	updateHeaders();
 	loadContainer();
 }

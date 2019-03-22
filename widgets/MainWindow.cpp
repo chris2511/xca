@@ -915,16 +915,13 @@ void MainWindow::generateDHparam()
 void MainWindow::changeEvent(QEvent *event)
 {
 	if (event->type() == QEvent::LanguageChange) {
-		QList<db_base*> models;
 		retranslateUi(this);
 		dn_translations_setup();
 		init_menu();
 		update_history_menu();
-		models << keys << reqs << certs << crls << temps;
-		foreach(db_base *model, models) {
-			if (model)
-				model->updateHeaders();
-		}
+		foreach(db_base *model, models)
+			model->updateHeaders();
+
 		if (!currentDB.isEmpty())
 			dbindex->setText(tr("Database") + ": " + currentDB);
 		searchEdit->setPlaceholderText(tr("Search"));

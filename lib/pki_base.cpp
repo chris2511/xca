@@ -195,7 +195,7 @@ QSqlError pki_base::deleteSql()
 	e = deleteSqlData();
 	if (e.isValid())
 		return e;
-	SQL_PREPARE(q, "DELETE FROM items WHERE id=?");
+	SQL_PREPARE(q, "UPDATE items SET del=1 WHERE id=?");
 	q.bindValue(0, sqlItemId);
 	q.exec();
 	return q.lastError();
