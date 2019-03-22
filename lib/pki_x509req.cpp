@@ -25,7 +25,6 @@ QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
 pki_x509req::pki_x509req(const QString name)
 	: pki_x509super(name)
 {
-	privkey = NULL;
 	request = X509_REQ_new();
 	pki_openssl_error();
 	pkiType=x509_req;
@@ -209,9 +208,7 @@ void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 	int size;
 
 	size = head->len - sizeof(db_header_t);
-
 	QByteArray ba((const char *)p, size);
-	privkey = NULL;
 
 	d2i(ba);
 	pki_openssl_error();

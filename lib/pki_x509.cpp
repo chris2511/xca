@@ -360,6 +360,7 @@ void pki_x509::store_token(bool alwaysSelect)
 
 	pkcs11 p11;
 
+	pki_key *privkey = getRefKey();
 	if (!privkey || !privkey->isToken() || alwaysSelect) {
 		if (!p11.selectToken(&slot, NULL))
 			return;
@@ -400,6 +401,7 @@ void pki_x509::store_token(bool alwaysSelect)
 
 void pki_x509::deleteFromToken()
 {
+	pki_key *privkey = getRefKey();
 	pki_scard *card = dynamic_cast<pki_scard *>(privkey);
 	slotidList p11_slots;
 
@@ -557,6 +559,7 @@ bool pki_x509::isCA() const
 
 bool pki_x509::canSign() const
 {
+	pki_key *privkey = getRefKey();
 	if (!privkey || privkey->isPubKey())
 		return false;
 	if (privkey->isToken() && !pkcs11::loaded())

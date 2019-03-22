@@ -15,7 +15,6 @@ QPixmap *pki_x509super::icon[1];
 pki_x509super::pki_x509super(const QString name)
 	: pki_x509name(name)
 {
-	privkey = NULL;
 }
 
 pki_x509super::~pki_x509super()
@@ -59,7 +58,7 @@ QSqlError pki_x509super::insertSqlData()
 		  "VALUES (?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, (uint)getSubject().hashNum());
-	q.bindValue(2, privkey ? privkey->getSqlItemId() : QVariant());
+	q.bindValue(2, keySqlId);
 	q.bindValue(3, pubHash());
 	q.exec();
 	return q.lastError();
@@ -69,12 +68,12 @@ void pki_x509super::restoreSql(const QSqlRecord &rec)
 {
 	pki_base::restoreSql(rec);
 	keySqlId = rec.value(VIEW_x509super_keyid);
-        privkey = NULL;
 }
 
 QSqlError pki_x509super::deleteSqlData()
 {
 	XSqlQuery q;
+	pki_key *privkey = getRefKey();
 	if (privkey)
 		privkey->resetUcount();
 	SQL_PREPARE(q, "DELETE FROM x509super WHERE item=?");
@@ -85,12 +84,13 @@ QSqlError pki_x509super::deleteSqlData()
 
 pki_key *pki_x509super::getRefKey() const
 {
-	return privkey;
+	return db_base::lookupPki<pki_key>(keySqlId);
 }
 
 unsigned pki_x509super::pubHash() const
 {
 	unsigned hash = 0;
+	pki_key *privkey = getRefKey();
 	if (privkey) {
 		hash = privkey->hash();
 	} else {
@@ -119,7 +119,7 @@ bool pki_x509super::compareRefKey(pki_key *ref) const
 
 void pki_x509super::setRefKey(pki_key *ref)
 {
-	privkey = ref;
+	keySqlId = ref ? ref->getSqlItemId() : QVariant();
 }
 
 QString pki_x509super::getSigAlg() const
@@ -149,6 +149,7 @@ QVariant pki_x509super::getIcon(const dbheader *hd) const
 QVariant pki_x509super::column_data(const dbheader *hd) const
 {
 	if (hd->id == HD_x509key_name) {
+		pki_key *privkey = getRefKey();
 		if (!privkey)
 			return QVariant("");
 		return QVariant(privkey->getIntName());

@@ -34,7 +34,6 @@ class pki_x509super : public pki_x509name
 		Q_OBJECT
 	protected:
 		QVariant keySqlId;
-		pki_key *privkey;
 		virtual int sigAlg() const = 0;
 	public:
 		pki_x509super(const QString name = "");
