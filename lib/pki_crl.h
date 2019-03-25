@@ -25,7 +25,7 @@ class pki_crl: public pki_x509name
 		Q_OBJECT
 	friend class pki_x509;
 	protected:
-		pki_x509 *issuer;
+		QVariant issuerSqlId;
 		X509_CRL *crl;
 		extList extensions() const;
 	public:
@@ -42,18 +42,9 @@ class pki_crl: public pki_x509name
 		void addV3ext(const x509v3ext &e);
 		void sign(pki_key *key, const EVP_MD *md = EVP_md5());
 		void writeCrl(XFile &file, bool pem = true) const;
-		pki_x509 *getIssuer()
-		{
-			return issuer;
-		}
-		QString getIssuerName() const
-		{
-			return issuer->getIntName();
-		}
-		void setIssuer(pki_x509 *iss)
-		{
-			 issuer = iss;
-		}
+		pki_x509 *getIssuer() const;
+		QString getIssuerName() const;
+		void setIssuer(pki_x509 *iss);
 		x509name getSubject() const;
 		void setLastUpdate(const a1time &t);
 		void setNextUpdate(const a1time &t);

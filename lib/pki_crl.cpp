@@ -19,10 +19,25 @@ QPixmap *pki_crl::icon = NULL;
 pki_crl::pki_crl(const QString name )
 	:pki_x509name(name)
 {
-	issuer = NULL;
 	crl = X509_CRL_new();
 	pki_openssl_error();
 	pkiType=revocation;
+}
+
+pki_x509 *pki_crl::getIssuer() const
+{
+	return db_base::lookupPki<pki_x509>(issuerSqlId);
+}
+
+QString pki_crl::getIssuerName() const
+{
+	pki_x509 *issuer = getIssuer();
+	return issuer ? issuer->getIntName() : QString();
+}
+
+void pki_crl::setIssuer(pki_x509 *iss)
+{
+	issuerSqlId = iss ? iss->getSqlItemId() : QVariant();
 }
 
 void pki_crl::fromPEM_BIO(BIO *bio, QString name)
@@ -90,7 +105,7 @@ QSqlError pki_crl::insertSqlData()
 	q.bindValue(1, hash());
 	q.bindValue(2, numRev());
 	q.bindValue(3, (uint)getSubject().hashNum());
-	q.bindValue(4, issuer ? issuer->getSqlItemId() : QVariant());
+	q.bindValue(4, issuerSqlId);
 	q.bindValue(5, i2d_b64());
 	q.exec();
 	return q.lastError();
@@ -142,15 +157,14 @@ QString pki_crl::getSigAlg() const
 	return QString(OBJ_nid2ln(X509_CRL_get_signature_nid(crl)));
 }
 
-void pki_crl::createCrl(const QString d, pki_x509 *iss )
+void pki_crl::createCrl(const QString d, pki_x509 *iss)
 {
 	setIntName(d);
-	issuer = iss;
 	if (!iss)
 		my_error(tr("No issuer given"));
 	X509_CRL_set_version(crl, 1); /* version 2 CRL */
-	X509_CRL_set_issuer_name(crl, (X509_NAME*)issuer->getSubject().get0());
-
+	X509_CRL_set_issuer_name(crl, (X509_NAME*)iss->getSubject().get0());
+	setIssuer(iss);
 	pki_openssl_error();
 }
 
@@ -390,10 +404,7 @@ QVariant pki_crl::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {
 		case HD_crl_signer:
-			if (issuer)
-				return QVariant(getIssuerName());
-			else
-				return QVariant(tr("unknown"));
+			return QVariant(getIssuerName());
 		case HD_crl_revoked:
 			return QVariant(numRev());
 		case HD_crl_crlnumber:
@@ -428,7 +439,7 @@ QStringList pki_crl::icsVEVENT() const
 		tr("The XCA CRL '%1', issued by the CA '%2' on %3 will expire on %4.\n"
 		  "It is stored in the XCA database '%5'")
 			.arg(getIntName())
-			.arg(issuer ? getIssuerName() : QString())
+			.arg(getIssuerName())
 			.arg(getLastUpdate().toPretty())
 			.arg(getNextUpdate().toPretty())
 			.arg(currentDB)
