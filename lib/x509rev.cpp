@@ -167,7 +167,6 @@ x509rev::operator QString() const
 
 x509rev::x509rev(QSqlRecord rec, int offset)
 {
-	qDebug() << "QSqlRecord offset:" << offset;
 	serial.setHex(rec.value(offset).toString());
 	date.fromPlain(rec.value(offset +1).toString());
 	ivalDate.fromPlain(rec.value(offset +2).toString());

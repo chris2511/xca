@@ -40,7 +40,6 @@ db_base::db_base(MainWindow *mw)
 	rootItem->setIntName(rootItem->getClassName());
 	mainwin = mw;
 	colResizing = 0;
-	currentIdx = QModelIndex();
 	class_name = "base";
 	secondsTimer = minutesTimer = hoursTimer = 0;
 	restart_timer();

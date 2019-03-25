@@ -143,7 +143,7 @@ class pki_base : public QObject
 		virtual void fromPEM_BIO(BIO *, QString);
 		virtual void fromPEMbyteArray(QByteArray &, QString);
 		virtual void fload(const QString);
-		virtual void writeDefault(const QString&);
+		virtual void writeDefault(const QString&) const;
 
 		/* Old database management methods */
 		virtual void fromData(const unsigned char *, db_header_t *) {};

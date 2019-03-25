@@ -44,9 +44,9 @@ void pki_base::autoIntName()
 	setIntName("");
 }
 
-void pki_base::deleteFromToken() { };
-void pki_base::deleteFromToken(slotid) { };
-void pki_base::writeDefault(const QString&) { }
+void pki_base::deleteFromToken() { }
+void pki_base::deleteFromToken(slotid) { }
+void pki_base::writeDefault(const QString&) const { }
 void pki_base::fromPEM_BIO(BIO *, QString) { }
 void pki_base::fload(const QString) { }
 int pki_base::renameOnToken(slotid, QString)

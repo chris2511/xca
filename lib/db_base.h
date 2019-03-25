@@ -38,7 +38,6 @@ class db_base: public QAbstractItemModel
 
 	protected:
 		static QHash<quint64, pki_base*> lookup;
-		QModelIndex currentIdx;
 		int secondsTimer, minutesTimer, hoursTimer;
 		void _writePKI(pki_base *pki, bool overwrite);
 		void _removePKI(pki_base *pki );
@@ -109,7 +108,6 @@ class db_base: public QAbstractItemModel
 		virtual void insertPKI(pki_base *pki);
 		pki_base *getByName(QString desc);
 		pki_base *getByReference(pki_base *refpki);
-		pki_base *getByPtr(void *);
 		virtual void loadContainer();
 		void reloadContainer(const QList<enum pki_type> &typelist);
 		template <class T> QList<T *> getAll()
