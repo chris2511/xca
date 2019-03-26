@@ -132,35 +132,21 @@ QSqlError pki_x509::deleteSqlData()
 {
 	XSqlQuery q;
 	QSqlError e = pki_x509super::deleteSqlData();
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "DELETE FROM certs WHERE item=?");
-	q.bindValue(0, sqlItemId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "DELETE FROM authority WHERE item=?");
-	q.bindValue(0, sqlItemId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "UPDATE crls SET issuer=NULL WHERE issuer=?");
-	q.bindValue(0, sqlItemId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "UPDATE certs SET issuer=NULL WHERE issuer=?");
-	q.bindValue(0, sqlItemId);
-	q.exec();
-	e = q.lastError();
-	if (e.isValid())
-		return e;
-	SQL_PREPARE(q, "DELETE FROM revocations WHERE caId=?");
-	q.bindValue(0, sqlItemId);
-	q.exec();
+	QStringList tasks; tasks
+		<< "DELETE FROM certs WHERE item=?"
+		<< "DELETE FROM authority WHERE item=?"
+		<< "UPDATE crls SET issuer=NULL WHERE issuer=?"
+		<< "UPDATE certs SET issuer=NULL WHERE issuer=?"
+		<< "DELETE FROM revocations WHERE caId=?"
+		;
+	foreach(QString task, tasks) {
+		SQL_PREPARE(q, task);
+		q.bindValue(0, sqlItemId);
+		q.exec();
+		e = q.lastError();
+		if (e.isValid())
+			return e;
+	}
 	// Select affected items
 	QList<pki_base*> list = db_base::sqlSELECTpki<pki_base>(
 		"SELECT DISTINCT items.id FROM items, certs, crls "
