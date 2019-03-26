@@ -267,6 +267,8 @@ int MainWindow::init_database(QString dbName)
 			ret = initPass(dbName);
 			if (ret == 2)
 				return ret;
+			if (ret == 0 && Settings["pwhash"].empty())
+				return 2;
 			ret = 0;
 		}
 		keys = new db_key(this);

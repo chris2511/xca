@@ -423,11 +423,13 @@ EVP_PKEY *pki_evp::decryptKey() const
 		ownPassBuf = "Bogus";
 	} else {
 		ownPassBuf = passwd;
-		while (sha512passwT(ownPassBuf, passHash) != passHash &&
-			sha512passwd(ownPassBuf, passHash) != passHash)
+		while (passHash.isEmpty() ||
+			(sha512passwT(ownPassBuf, passHash) != passHash &&
+			 sha512passwd(ownPassBuf, passHash) != passHash))
 		{
 			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key '%1'").arg(getIntName()));
-			ret = PwDialog::execute(&p, &ownPassBuf, false);
+			ret = PwDialog::execute(&p, &ownPassBuf,
+							passHash.isEmpty());
 			if (ret != 1)
 				throw errorEx(tr("Password input aborted"),
 						getClassName());
@@ -561,10 +563,12 @@ void pki_evp::encryptKey(const char *password)
 			int ret = 0;
 			ownPassBuf = passwd;
 			pass_info p(XCA_TITLE, tr("Please enter the database password for encrypting the key"));
-			while (sha512passwT(ownPassBuf, passHash) != passHash &&
-				sha512passwd(ownPassBuf, passHash) != passHash)
+			while (passHash.isEmpty() ||
+				(sha512passwT(ownPassBuf, passHash) != passHash &&
+				 sha512passwd(ownPassBuf, passHash) != passHash))
 			{
-				ret = PwDialog::execute(&p, &ownPassBuf, false);
+				ret = PwDialog::execute(&p, &ownPassBuf,
+							passHash.isEmpty());
 				if (ret != 1)
 					throw errorEx("Password input aborted",
 							getClassName());
@@ -818,7 +822,8 @@ QString pki_evp::md5passwd(QByteArray pass)
 QString pki_evp::_sha512passwd(QByteArray pass, QString salt,
 				int size, int repeat)
 {
-	Q_ASSERT(salt.length() >= size);
+	if (salt.length() < size)
+		return QString();
 
 	salt = salt.left(size);
 	pass = salt.toLatin1() + pass;
