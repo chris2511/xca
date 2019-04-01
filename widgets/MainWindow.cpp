@@ -25,6 +25,7 @@
 #include <QStatusBar>
 #include <QList>
 #include <QTimer>
+#include <QThread>
 #include <QMimeData>
 #include <QInputDialog>
 
@@ -152,6 +153,11 @@ MainWindow::MainWindow(QWidget *parent)
 	tempView->setMainwin(this, searchEdit);
 	crlView->setMainwin(this, searchEdit);
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
+
+	dhgenBar = new QProgressBar();
+	check_oom(dhgenBar);
+	dhgenBar->setMinimum(0);
+	dhgenBar->setMaximum(0);
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -848,19 +854,78 @@ int MainWindow::exportIndex(QString fname, bool hierarchy)
 	return 0;
 }
 
+class DHgen: public QThread
+{
+	QString fname;
+	int bits;
+	DH *dh;
+
+    public:
+	errorEx error;
+	DHgen(const QString &n, int b) : QThread()
+	{
+		fname = n;
+		bits = b;
+	}
+	const QString &filename() const
+	{
+		return fname;
+	}
+    protected:
+	void run()
+	{
+		DH *dh = NULL;
+		try {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+			dh = DH_new();
+			check_oom(dh);
+			DH_generate_parameters_ex(dh, bits, 2, NULL);
+#else
+			dh = DH_generate_parameters(bits, 2, NULL, NULL);
+			check_oom(dh);
+#endif
+			openssl_error();
+
+			XFile file(fname);
+			file.open_write();
+			PEM_write_DHparams(file.fp(), dh);
+			openssl_error();
+		} catch (errorEx &err) {
+			error = err;
+		}
+		if (dh)
+			DH_free(dh);
+	}
+};
+
+static DHgen *dhgen;
+
+void MainWindow::generateDHparamDone()
+{
+	statusBar()->removeWidget(dhgenBar);
+	errorEx e(dhgen->error);
+	if (e.isEmpty())
+		XCA_INFO(tr("Diffie-Hellman parameters saved as: %1")
+			.arg(dhgen->filename()));
+	else
+		Error(e);
+	dhgen->deleteLater();
+	dhgen = NULL;
+}
+
 void MainWindow::generateDHparam()
 {
-	DH *dh = NULL;
-	QProgressBar *bar = NULL;
 	bool ok;
-	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman parameters are needed for different applications, but not handled by XCA.\nPlease enter the DH parameter bits"),
-		1024, 1024, 4096, 0, &ok);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	BN_GENCB *cb = NULL;
-#endif
+	int bits;
 
+	if (dhgen)
+		return;
+
+	bits = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman parameters are needed for different applications, but not handled by XCA.\nPlease enter the DH parameter bits"),
+		1024, 1024, 4096, 0, &ok);
 	if (!ok)
 		return;
+
 	/*
 	 * 1024:   6 sec
 	 * 2048:  38 sec
@@ -869,47 +934,21 @@ void MainWindow::generateDHparam()
 
 	Entropy::seed_rng();
 	try {
-		QStatusBar *status = statusBar();
-		bar = new QProgressBar();
-		check_oom(bar);
-		bar->setMinimum(0);
-		bar->setMaximum(100);
-		status->addPermanentWidget(bar, 1);
-
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-		cb = BN_GENCB_new();
-		if (!cb)
-			throw errorEx("");
-		BN_GENCB_set_old(cb, inc_progress_bar, bar);
-		dh = DH_new();
-		DH_generate_parameters_ex(dh, num, 2, cb);
-#else
-		dh = DH_generate_parameters(num, 2, inc_progress_bar, bar);
-#endif
-
-		status->removeWidget(bar);
-		openssl_error();
-
-		QString fname = QString("%1/dh%2.pem").arg(homedir).arg(num);
+		QString fname = QString("%1/dh%2.pem").arg(homedir).arg(bits);
 		fname = QFileDialog::getSaveFileName(this, QString(),
 			fname, tr("All files ( * )"), NULL);
 		if (fname == "")
 			throw errorEx("");
-		XFile file(fname);
-		file.open_write();
-		PEM_write_DHparams(file.fp(), dh);
-		openssl_error();
+		dhgen = new DHgen(fname, bits);
+		check_oom(dhgen);
+		statusBar()->addPermanentWidget(dhgenBar, 1);
+		dhgenBar->show();
+		dhgen->start(QThread::LowestPriority);
+		connect(dhgen, SIGNAL(finished()),
+			this, SLOT(generateDHparamDone()));
 	} catch (errorEx &err) {
 		Error(err);
 	}
-	if (dh)
-		DH_free(dh);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-	if (cb)
-		BN_GENCB_free(cb);
-#endif
-	if (bar)
-		delete bar;
 }
 
 void MainWindow::changeEvent(QEvent *event)

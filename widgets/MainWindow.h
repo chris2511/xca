@@ -77,6 +77,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QSqlError initSqlDB();
 		QString openSqlDB(QString dbName);
 		QList<db_base*> models;
+		QProgressBar *dhgenBar;
 
 	protected:
 		void init_images();
@@ -158,6 +159,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void exportIndex();
 		void exportIndexHierarchy();
 		void openRemoteSqlDB();
+		void generateDHparamDone();
 
 	protected slots:
 		void closeEvent(QCloseEvent * event);
