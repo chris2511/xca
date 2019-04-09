@@ -9,6 +9,7 @@
 //#define MDEBUG
 #include "MainWindow.h"
 #include "ImportMulti.h"
+#include "dhgen.h"
 #include "lib/Passwd.h"
 #include "lib/entropy.h"
 
@@ -154,6 +155,7 @@ MainWindow::MainWindow(QWidget *parent)
 	crlView->setMainwin(this, searchEdit);
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
+	dhgen = NULL;
 	dhgenBar = new QProgressBar();
 	check_oom(dhgenBar);
 	dhgenBar->setMinimum(0);
@@ -600,6 +602,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
+	if (dhgen) {
+		if (!XCA_YESNO("Abort Diffie-Hellmann parameter generation?")){
+			e->ignore();
+			return;
+		}
+		dhgen->terminate();
+	}
 	if (resolver) {
 		delete resolver;
 	}
@@ -853,52 +862,6 @@ int MainWindow::exportIndex(QString fname, bool hierarchy)
 	certs->writeIndex(fname, hierarchy);
 	return 0;
 }
-
-class DHgen: public QThread
-{
-	QString fname;
-	int bits;
-	DH *dh;
-
-    public:
-	errorEx error;
-	DHgen(const QString &n, int b) : QThread()
-	{
-		fname = n;
-		bits = b;
-	}
-	const QString &filename() const
-	{
-		return fname;
-	}
-    protected:
-	void run()
-	{
-		DH *dh = NULL;
-		try {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-			dh = DH_new();
-			check_oom(dh);
-			DH_generate_parameters_ex(dh, bits, 2, NULL);
-#else
-			dh = DH_generate_parameters(bits, 2, NULL, NULL);
-			check_oom(dh);
-#endif
-			openssl_error();
-
-			XFile file(fname);
-			file.open_write();
-			PEM_write_DHparams(file.fp(), dh);
-			openssl_error();
-		} catch (errorEx &err) {
-			error = err;
-		}
-		if (dh)
-			DH_free(dh);
-	}
-};
-
-static DHgen *dhgen;
 
 void MainWindow::generateDHparamDone()
 {

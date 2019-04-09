@@ -54,6 +54,7 @@ class tipMenu : public QMenu
 	}
 };
 
+class DHgen;
 class MainWindow: public QMainWindow, public Ui::MainWindow
 {
 	Q_OBJECT
@@ -78,6 +79,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString openSqlDB(QString dbName);
 		QList<db_base*> models;
 		QProgressBar *dhgenBar;
+		DHgen *dhgen;
 
 	protected:
 		void init_images();
