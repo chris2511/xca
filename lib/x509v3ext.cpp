@@ -13,6 +13,7 @@
 #include <openssl/x509v3.h>
 #include <openssl/stack.h>
 #include <QStringList>
+#include <QDebug>
 #include "base.h"
 
 x509v3ext::x509v3ext()
@@ -100,7 +101,15 @@ const ASN1_OBJECT *x509v3ext::object() const
 int x509v3ext::nid() const
 {
 	const ASN1_OBJECT *obj = object();
-	return obj ? OBJ_obj2nid(obj) : NID_undef;
+	if (!obj)
+		return NID_undef;
+	int nid = OBJ_obj2nid(obj);
+	if (nid == NID_undef) {
+		QString o = OBJ_obj2QString(obj, 1);
+		if (!o.isEmpty())
+			nid = OBJ_create(CCHAR(o), CCHAR(o), CCHAR(o));
+	}
+	return nid;
 }
 
 void *x509v3ext::d2i() const
