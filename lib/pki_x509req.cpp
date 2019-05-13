@@ -61,7 +61,7 @@ void pki_x509req::markSigned(bool signe)
 	TransThrow();
 
 	SQL_PREPARE(q, "UPDATE requests SET signed=? WHERE item=?");
-	q.bindValue(0, signe);
+	q.bindValue(0, signe ? 1 : 0);
 	q.bindValue(1, sqlItemId);
 	q.exec();
 
