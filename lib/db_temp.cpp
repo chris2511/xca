@@ -100,8 +100,8 @@ void db_temp::newItem()
 				tr("Preset Template values"), QString());
 	if (dlg->exec()) {
 		temp = new pki_temp(ic->currentPkiItem());
-		temp->pkiSource = generated;
 		if (temp) {
+			temp->pkiSource = generated;
 			if (runTempDlg(temp)) {
 				insertPKI(temp);
 				createSuccess(temp);
