@@ -439,7 +439,7 @@ msgstr "&Emetteur"
 #: ../ui/CrlDetail.ui:241
 msgctxt "CrlDetail|"
 msgid "&Extensions"
-msgstr "Extensions"
+msgstr "&Extensions"
 
 #: ../ui/CrlDetail.ui:261
 msgctxt "CrlDetail|"
