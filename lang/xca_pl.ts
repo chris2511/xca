@@ -1014,7 +1014,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+128"/>
+        <location filename="../widgets/MW_menu.cpp" line="+129"/>
         <source>Certificates</source>
         <translation>Certyfikaty</translation>
     </message>
@@ -1095,7 +1095,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
         <translation>Nie znaleziono usuniętych elementów</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-67"/>
+        <location filename="../widgets/MW_menu.cpp" line="-68"/>
         <source>Recent DataBases</source>
         <translation>Ostatnio otwierane bazy</translation>
     </message>
@@ -1142,6 +1142,11 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="+1"/>
         <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

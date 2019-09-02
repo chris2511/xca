@@ -1269,7 +1269,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+128"/>
+        <location filename="../widgets/MW_menu.cpp" line="+129"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -1362,7 +1362,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="vanished">Nije uspjelo uklanjanje obrisanih ili zastarjelih stavki iz baze podataka.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-67"/>
+        <location filename="../widgets/MW_menu.cpp" line="-68"/>
         <source>Recent DataBases</source>
         <translation>Nedavna baza podataka</translation>
     </message>
@@ -1404,6 +1404,11 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+1"/>
         <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1501,12 +1506,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Opcije</translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="-40"/>
         <source>Slovak</source>
         <translation>Slovački</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+48"/>
         <source>Exit</source>
         <translation>Izlaz</translation>
     </message>

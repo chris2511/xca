@@ -72,6 +72,7 @@ void MainWindow::init_menu()
 		myLang("Slovak",   tr("Slovak"),   QLocale("sk")) <<
 		myLang("Spanish",  tr("Spanish"),  QLocale("es")) <<
 		myLang("Polish",   tr("Polish"),   QLocale("pl")) <<
+		myLang("Italian",  tr("Italian"),  QLocale("it")) <<
 		myLang("Portuguese in Brazil",   tr("Portuguese in Brazil"),   QLocale("pt_BR")) <<
 		myLang("Turkish",  tr("Turkish"),  QLocale("tr"));
 

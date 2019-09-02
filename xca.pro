@@ -216,4 +216,5 @@ TRANSLATIONS += lang/xca.ts \
 		lang/xca_pt_BR.ts \
 		lang/xca_ru.ts \
 		lang/xca_sk.ts \
+		lang/xca_it.ts \
 		lang/xca_tr.ts

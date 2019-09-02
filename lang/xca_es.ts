@@ -1547,7 +1547,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+128"/>
+        <location filename="../widgets/MW_menu.cpp" line="+129"/>
         <source>Certificates</source>
         <translation>Certificados</translation>
     </message>
@@ -1628,7 +1628,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>No se han encontrado elementos eliminados</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-67"/>
+        <location filename="../widgets/MW_menu.cpp" line="-68"/>
         <source>Recent DataBases</source>
         <translation>Bases de datos recientes</translation>
     </message>
@@ -1675,6 +1675,11 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     <message>
         <location line="+1"/>
         <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

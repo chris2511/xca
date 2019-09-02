@@ -976,7 +976,7 @@ msgctxt "MainWindow|"
 msgid "&New Request"
 msgstr ""
 
-#: ../ui/MainWindow.ui:222 ../widgets/MW_menu.cpp:128
+#: ../ui/MainWindow.ui:222 ../widgets/MW_menu.cpp:129
 msgctxt "MainWindow|"
 msgid "Certificates"
 msgstr ""
@@ -1116,185 +1116,190 @@ msgstr ""
 
 #: ../widgets/MW_menu.cpp:75
 msgctxt "MainWindow|"
-msgid "Portuguese in Brazil"
+msgid "Italian"
 msgstr ""
 
 #: ../widgets/MW_menu.cpp:76
 msgctxt "MainWindow|"
+msgid "Portuguese in Brazil"
+msgstr ""
+
+#: ../widgets/MW_menu.cpp:77
+msgctxt "MainWindow|"
 msgid "Turkish"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:78
+#: ../widgets/MW_menu.cpp:79
 msgctxt "MainWindow|"
 msgid "Language"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:93
+#: ../widgets/MW_menu.cpp:94
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:94
+#: ../widgets/MW_menu.cpp:95
 msgctxt "MainWindow|"
 msgid "&New DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:97
+#: ../widgets/MW_menu.cpp:98
 msgctxt "MainWindow|"
 msgid "&Open DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:100
+#: ../widgets/MW_menu.cpp:101
 msgctxt "MainWindow|"
 msgid "Open Remote DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:105
+#: ../widgets/MW_menu.cpp:106
 msgctxt "MainWindow|"
 msgid "Set as default DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:108
+#: ../widgets/MW_menu.cpp:109
 msgctxt "MainWindow|"
 msgid "&Close DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:111
+#: ../widgets/MW_menu.cpp:112
 msgctxt "MainWindow|"
 msgid "Options"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:119
+#: ../widgets/MW_menu.cpp:120
 msgctxt "MainWindow|"
 msgid "Exit"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:125
+#: ../widgets/MW_menu.cpp:126
 msgctxt "MainWindow|"
 msgid "I&mport"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:126
+#: ../widgets/MW_menu.cpp:127
 msgctxt "MainWindow|"
 msgid "Keys"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:127
+#: ../widgets/MW_menu.cpp:128
 msgctxt "MainWindow|"
 msgid "Requests"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:129
+#: ../widgets/MW_menu.cpp:130
 msgctxt "MainWindow|"
 msgid "PKCS#12"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:130
+#: ../widgets/MW_menu.cpp:131
 msgctxt "MainWindow|"
 msgid "PKCS#7"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:131
+#: ../widgets/MW_menu.cpp:132
 msgctxt "MainWindow|"
 msgid "Template"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:132
+#: ../widgets/MW_menu.cpp:133
 msgctxt "MainWindow|"
 msgid "Revocation list"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:133
+#: ../widgets/MW_menu.cpp:134
 msgctxt "MainWindow|"
 msgid "PEM file"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:134
+#: ../widgets/MW_menu.cpp:135
 msgctxt "MainWindow|"
 msgid "Paste PEM file"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:136
+#: ../widgets/MW_menu.cpp:137
 msgctxt "MainWindow|"
 msgid "&Token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:137
+#: ../widgets/MW_menu.cpp:138
 msgctxt "MainWindow|"
 msgid "&Manage Security token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:139
+#: ../widgets/MW_menu.cpp:140
 msgctxt "MainWindow|"
 msgid "&Init Security token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:141
+#: ../widgets/MW_menu.cpp:142
 msgctxt "MainWindow|"
 msgid "&Change PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:143
+#: ../widgets/MW_menu.cpp:144
 msgctxt "MainWindow|"
 msgid "Change &SO PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:145
+#: ../widgets/MW_menu.cpp:146
 msgctxt "MainWindow|"
 msgid "Init PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:148
+#: ../widgets/MW_menu.cpp:149
 msgctxt "MainWindow|"
 msgid "Extra"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:149
+#: ../widgets/MW_menu.cpp:150
 msgctxt "MainWindow|"
 msgid "&Dump DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:151
+#: ../widgets/MW_menu.cpp:152
 msgctxt "MainWindow|"
 msgid "&Export Certificate Index"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:153
+#: ../widgets/MW_menu.cpp:154
 msgctxt "MainWindow|"
 msgid "&Export Certificate Index hierarchy"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:155
+#: ../widgets/MW_menu.cpp:156
 msgctxt "MainWindow|"
 msgid "C&hange DataBase password"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:158
+#: ../widgets/MW_menu.cpp:159
 msgctxt "MainWindow|"
 msgid "&Undelete items"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:161
+#: ../widgets/MW_menu.cpp:162
 msgctxt "MainWindow|"
 msgid "Generate DH parameter"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:163
+#: ../widgets/MW_menu.cpp:164
 msgctxt "MainWindow|"
 msgid "OID Resolver"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:165
+#: ../widgets/MW_menu.cpp:166
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:166
+#: ../widgets/MW_menu.cpp:167
 msgctxt "MainWindow|"
 msgid "&Content"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:168
+#: ../widgets/MW_menu.cpp:169
 msgctxt "MainWindow|"
 msgid "About"
 msgstr ""
