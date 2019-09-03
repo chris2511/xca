@@ -1014,7 +1014,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+129"/>
+        <location filename="../widgets/MW_menu.cpp" line="+130"/>
         <source>Certificates</source>
         <translation>Certifikáty</translation>
     </message>
@@ -1095,7 +1095,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Nenájdené žiadne zmazané položky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-69"/>
         <source>Recent DataBases</source>
         <translation>Nedávne databázy</translation>
     </message>
@@ -1147,6 +1147,11 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location line="+1"/>
         <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -1011,7 +1011,7 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+129"/>
+        <location filename="../widgets/MW_menu.cpp" line="+130"/>
         <source>Certificates</source>
         <translation>Certificados</translation>
     </message>
@@ -1092,7 +1092,7 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
         <translation>Nenhum item excluído encontrado</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-69"/>
         <source>Recent DataBases</source>
         <translation>Bancos de Dados Recentes</translation>
     </message>
@@ -1144,6 +1144,11 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
     <message>
         <location line="+1"/>
         <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -443,7 +443,7 @@
     <message>
         <location line="+13"/>
         <source>&amp;Extensions</source>
-        <translation>E%xtensions</translation>
+        <translation>&amp;Extensions</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1014,7 +1014,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+129"/>
+        <location filename="../widgets/MW_menu.cpp" line="+130"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
@@ -1095,7 +1095,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Aucun objet détruit n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-69"/>
         <source>Recent DataBases</source>
         <translation>Bases de données utilisées recemment</translation>
     </message>
@@ -1147,6 +1147,11 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="+1"/>
         <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

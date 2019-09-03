@@ -1243,7 +1243,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+109"/>
+        <location filename="../widgets/MW_menu.cpp" line="+110"/>
         <source>&amp;Close DataBase</source>
         <translation>Datenbank s&amp;chliessen</translation>
     </message>
@@ -1262,7 +1262,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-34"/>
         <source>Recent DataBases</source>
         <translation>Zuletzt geöffnet</translation>
     </message>
@@ -1314,6 +1314,11 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+1"/>
         <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

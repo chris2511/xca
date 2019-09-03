@@ -1010,7 +1010,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+129"/>
+        <location filename="../widgets/MW_menu.cpp" line="+130"/>
         <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1091,7 +1091,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-69"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1143,6 +1143,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+1"/>
         <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
