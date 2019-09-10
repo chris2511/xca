@@ -1,3 +1,19 @@
+ * Add Chinese translation
+ * Add Italian language
+ * CLose #120: Mark signed a request doesn't work
+ * Close #116: Duplicate extensions erroneously shown
+ * Close #114: SAN - IPv6 address input not working
+ * Close #68 Generating large DH params freezes UI
+ * Support concurrent database access.
+ * Close #91: Change order of "PKCS#11 provider"
+ * Extend PEM files by human readable information about the item
+ * Support ecdsa SSH public keys
+ * Close #98 Add comment at import/export RSA keys from/to SSH public key
+ * Close #101: Finish Rename with Enter shows Property Dialog
+ * Close #104: Also show sha256 digests of public keys
+ * Close #82: Renew CA ROOT Cert
+ * Verify imported keys thoroughly
+
 xca 2.1.2 Wed Nov 07 2018
 
  * Close #40 macOS: Crash after xca v2.0.1 quit
