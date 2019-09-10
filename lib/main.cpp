@@ -117,6 +117,7 @@ void XCA_application::setupLanguage(QLocale l)
 #endif
 		;
 
+	qDebug() << "Setup language: " << lang;
 	foreach(QString dir, dirs) {
 		if (qtTr->load(lang, "qt", dir)) {
 			break;
