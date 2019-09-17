@@ -64,19 +64,20 @@ void MainWindow::init_menu()
 
 	languages <<
 		myLang("System",   tr("System"),   QLocale::system()) <<
+		myLang("Chinese",  tr("Chinese"),  QLocale("zh_CN")) <<
 		myLang("Croatian", tr("Croatian"), QLocale("hr")) <<
+		myLang("Dutch",    tr("Dutch"),  QLocale("nl")) <<
 		myLang("English",  tr("English"),  QLocale("en")) <<
 		myLang("French",   tr("French"),   QLocale("fr")) <<
 		myLang("German",   tr("German"),   QLocale("de")) <<
+		myLang("Italian",  tr("Italian"),  QLocale("it")) <<
+		myLang("Polish",   tr("Polish"),   QLocale("pl")) <<
+		myLang("Portuguese in Brazil",     tr("Portuguese in Brazil"),
+		                                   QLocale("pt_BR")) <<
 		myLang("Russian",  tr("Russian"),  QLocale("ru")) <<
 		myLang("Slovak",   tr("Slovak"),   QLocale("sk")) <<
 		myLang("Spanish",  tr("Spanish"),  QLocale("es")) <<
-		myLang("Polish",   tr("Polish"),   QLocale("pl")) <<
-		myLang("Italian",  tr("Italian"),  QLocale("it")) <<
-		myLang("Chinese",  tr("Chinese"),  QLocale("zh_CN")) <<
-		myLang("Portuguese in Brazil",   tr("Portuguese in Brazil"),   QLocale("pt_BR")) <<
-		myLang("Turkish",  tr("Turkish"),  QLocale("tr")) <<
-		myLang("Dutch",  tr("Dutch"),  QLocale("nl"));
+		myLang("Turkish",  tr("Turkish"),  QLocale("tr"));
 
 	languageMenu = new tipMenu(tr("Language"), this);
 	connect(languageMenu, SIGNAL(triggered(QAction*)),
