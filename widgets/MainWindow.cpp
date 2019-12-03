@@ -825,12 +825,12 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 	} catch (errorEx &err) {
 		Error(err);
 	}
-	if (!pki->count()) {
+	if (pki && !pki->count()) {
 		delete pki;
 		pki = NULL;
-		if (ret)
-			*ret = 1;
 	}
+	if (!pki && ret)
+		*ret = 1;
 	return pki;
 }
 
