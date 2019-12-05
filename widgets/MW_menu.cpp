@@ -135,7 +135,8 @@ void MainWindow::init_menu()
 	import->addAction(tr("Template"), tempView, SLOT(load()) );
 	import->addAction(tr("Revocation list"), crlView, SLOT(load()));
 	import->addAction(tr("PEM file"), this, SLOT(loadPem()) );
-	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()));
+	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()),
+			QKeySequence::Paste);
 
 	token = menuBar()->addMenu(tr("&Token"));
 	token->addAction(tr("&Manage Security token"), this,
