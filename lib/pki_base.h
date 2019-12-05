@@ -83,11 +83,7 @@ class pki_base : public QObject
 			return desc;
 		}
 		virtual QString comboText() const;
-		QString getUnderlinedName() const
-		{
-			return getIntName().replace(
-				QRegExp("[ &;`/\\\\]+"), "_");
-		}
+		QString getUnderlinedName() const;
 		void setIntName(const QString &d)
 		{
 			desc = d;

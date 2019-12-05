@@ -374,7 +374,7 @@ void MainWindow::dump_database()
 		return;
 
 	QDir d(dirname);
-	if ( ! d.exists() && !d.mkdir(dirname)) {
+	if (!d.exists() && !d.mkdir(dirname)) {
 		errorEx err("Could not create '" + dirname + "'");
 		MainWindow::Error(err);
 		return;
@@ -382,11 +382,8 @@ void MainWindow::dump_database()
 
 	qDebug() << "Dumping to" << dirname;
 	try {
-		keys->dump(dirname);
-		certs->dump(dirname);
-		temps->dump(dirname);
-		crls->dump(dirname);
-		reqs->dump(dirname);
+		foreach(db_base *model, models)
+			model->dump(dirname);
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
