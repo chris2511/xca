@@ -159,9 +159,10 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1.dll" \
 	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk) \
-	   "$(TOPDIR)"/COPYRIGHT $@
-	cp "$(QTDIR)/plugins/sqldrivers/qsqlite.dll" $@/sqldrivers
+	   "$(TOPDIR)"/COPYRIGHT "${BDIR}/sql/"*.dll $@
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
+	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql) $@/sqldrivers
+
 
 xca-portable.zip: xca-portable-$(VERSION).zip
 xca-portable-$(VERSION).zip: xca-portable-$(VERSION)
