@@ -924,7 +924,8 @@ void db_x509::certRenewal(QModelIndexList indexes)
 					(idx.internalPointer());
 			newcert = new pki_x509(oldcert);
 			newcert->pkiSource = renewed;
-			serial = getUniqueSerial(signer);
+			serial = dlg->keepSerial->isChecked() ?
+				oldcert->getSerial() : getUniqueSerial(signer);
 			newcert->setRevoked(x509rev());
 
 			// change date and serial
