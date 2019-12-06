@@ -411,7 +411,8 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 		menu->addAction(tr("Properties"), this, SLOT(editComment()));
 	}
 	if (indexes.size() > 0) {
-		menu->addAction(tr("Delete"), this, SLOT(deleteItems()));
+		menu->addAction(tr("Delete"), this, SLOT(deleteItems()),
+				QKeySequence::Delete);
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("Clipboard"), this,
 				SLOT(pem2clipboard()));
