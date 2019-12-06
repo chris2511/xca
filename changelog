@@ -1,6 +1,12 @@
+ * Close #144: Database export has issues with wildcards in internal names
+ * Close #143: Hotkey for import
+ * Close #140: Certificate renewal with option to preserved serial number
+ * Fix possible XCA crash
+ * Add Dutch translation
  * Add Chinese translation
  * Add Italian language
  * CLose #120: Mark signed a request doesn't work
+ * Close #119: Rename "PostgreSQL 6 and 7" to just "PostgreSQL"
  * Close #116: Duplicate extensions erroneously shown
  * Close #114: SAN - IPv6 address input not working
  * Close #68 Generating large DH params freezes UI
