@@ -180,17 +180,17 @@ $(DMGSTAGE): xca$(SUFFIX)
 	$(MAKE) $(APPTARGET)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
-	otool -l $(DMGSTAGE)/xca.app/Contents/MacOS/xca | grep -e "chris\|Users" >&2
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	rpath="`cd $(DMGSTAGE) && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
-	if test -n "$$rpath"; then echo "  ERROR $$rpath"; false; fi
-	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
 
 xca.dmg: $(MACTARGET).dmg
 
 xca.app: $(DMGSTAGE)
 
 $(MACTARGET).dmg: $(DMGSTAGE)
+	# Check for "Users" or "chris" in the resulting DMG image
+	rpath="`cd $(DMGSTAGE) && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
+	if test -n "$$rpath"; then echo "  ERROR $$rpath"; false; fi
+	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
 	hdiutil create -ov -fs HFS+ -volname "xca-$(VERSION)" -srcfolder "$<" "$@"
 
 trans:
