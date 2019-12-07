@@ -44,12 +44,12 @@
     <message>
         <location line="+22"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffentlichen Schlüssel anzeigen</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Schlüssel ist nicht in der Datenbank.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -301,7 +301,7 @@
     <message>
         <location line="+10"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Seriennummer übernehmen</translation>
     </message>
     <message>
         <location line="-196"/>
@@ -641,7 +641,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+65"/>
         <source>Export comment into PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar in die PEM Datei übernehmen</translation>
     </message>
     <message>
         <source>Please enter the filename</source>
@@ -1053,7 +1053,7 @@ Seriennummer: %3</translation>
     <message>
         <location line="+48"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Fingerabdruck</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1314,27 +1314,27 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="-5"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polnisch</translation>
     </message>
     <message>
         <location line="-1"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Italienisch</translation>
     </message>
     <message>
         <location line="-6"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinesisch</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Niederländisch</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>Brasilianisches Portugiesisch </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1668,7 +1668,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="-31"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Diffie-Hellmann Parameter gespeichert als: %1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2760,7 +2760,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+19"/>
         <source>Send vCalendar expiry reminder</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikatsablauferinnerung in vCalendar</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -3156,22 +3156,22 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS11 Bibliothek %1 konnte nicht geöffnet werden: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies scheint keine PKCS#11 Bibliothek zu sein. Sie enthält nicht das Symbol &apos;C_GetFunctionList&apos;.</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Deaktiviert</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Library loading failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden der Bibliothek fehlgeschlagen</translation>
     </message>
     <message>
         <location line="+185"/>
@@ -3389,12 +3389,12 @@ in Bibliothek %3
     <message>
         <location line="+2"/>
         <source>Unmark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Markiere als unsigniert</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Markiere als signiert</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3800,7 +3800,7 @@ Grösse %3
     <message>
         <location line="+205"/>
         <source>Could not create directory %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis %1 konnte nicht erstellt werden</translation>
     </message>
     <message>
         <location line="+251"/>
@@ -4880,12 +4880,12 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+2"/>
         <source>Certificate count</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikatszähler</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of certificates in the database with the same public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl an Zertifikaten in der Datenbank mit dem gleichen öffentlichen Schlüssel</translation>
     </message>
     <message>
         <location line="+95"/>
@@ -5039,7 +5039,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+1"/>
         <source>Renewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Erneuert</translation>
     </message>
     <message>
         <source>Error: </source>
@@ -5135,7 +5135,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+55"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Schlüssel aus der Datei &apos;%1&apos; ist unvollständig oder inkonsistent. </translation>
     </message>
     <message>
         <location line="+18"/>
@@ -5258,7 +5258,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <location line="+96"/>
         <location line="+94"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Unerwarteter SSH2 inhalt: &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="-74"/>
