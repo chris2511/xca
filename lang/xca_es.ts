@@ -800,6 +800,11 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Revocar el certificado antiguo</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>El certificado entrará en vigor antes que el certificado firmante. Probablemente no es lo que pretendes.</translation>
@@ -1547,7 +1552,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+130"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation>Certificados</translation>
     </message>
@@ -1623,12 +1628,12 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Base de datos</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+100"/>
         <source>No deleted items found</source>
         <translation>No se han encontrado elementos eliminados</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-69"/>
+        <location filename="../widgets/MW_menu.cpp" line="-71"/>
         <source>Recent DataBases</source>
         <translation>Bases de datos recientes</translation>
     </message>
@@ -1638,12 +1643,12 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Sistema</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Croatian</source>
         <translation>Croatian</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>English</source>
         <translation>English</translation>
     </message>
@@ -1658,7 +1663,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>German</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Russian</source>
         <translation>Russian</translation>
     </message>
@@ -1673,27 +1678,32 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Spanish</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-6"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Turkish</source>
         <translation>Turkish</translation>
     </message>
@@ -1788,7 +1798,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Pegar archivo PEM</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation>&amp;Token</translation>
     </message>
@@ -3714,7 +3724,7 @@ In library %3
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Exportar</translation>
     </message>
@@ -4266,7 +4276,7 @@ Y por lo tanto no será importado</translation>
         <translation>No es posible para un certificado con clave de token &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+287"/>
         <source> days</source>
         <translation> días</translation>
     </message>
@@ -4435,7 +4445,7 @@ y por lo tanto no será almacenada</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+91"/>
+        <location filename="../lib/pki_base.cpp" line="+101"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Error interno: Mensaje inesperado: %1 %2</translation>
     </message>
@@ -4779,17 +4789,16 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>No se puede encontrar la clave copiada en el token</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Por favor, inserte tarjeta: %1 %2 [%3] con Nº de Serie: %4</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Public Key mismatch. Please re-import card</source>
-        <translation>Error de comprobación de Clave Pública. Por favor, reimporte la tarjeta</translation>
+        <translation type="vanished">Error de comprobación de Clave Pública. Por favor, reimporte la tarjeta</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Método de generación de claves ilegal</translation>
     </message>

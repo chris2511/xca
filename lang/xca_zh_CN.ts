@@ -267,6 +267,11 @@
         <translation>吊销旧证书</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>证书的生效时间早于签名者。这可能不是你想要的。</translation>
@@ -1015,7 +1020,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+130"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation>证书</translation>
     </message>
@@ -1091,12 +1096,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>无法重命名数据库文件，因为目标已存在</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>No deleted items found</source>
         <translation>找不到已删除的项目</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-69"/>
+        <location filename="../widgets/MW_menu.cpp" line="-71"/>
         <source>Recent DataBases</source>
         <translation>最近打开的数据库</translation>
     </message>
@@ -1106,12 +1111,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>使用系统语言</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Croatian</source>
         <translation>克罗地亚语</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>English</source>
         <translation>英语</translation>
     </message>
@@ -1126,7 +1131,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>德语</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Russian</source>
         <translation>俄语</translation>
     </message>
@@ -1141,27 +1146,32 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>西班牙语</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-6"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Turkish</source>
         <translation>土耳其语</translation>
     </message>
@@ -1256,7 +1266,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>粘贴PEM文件</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation>令牌</translation>
     </message>
@@ -3134,7 +3144,7 @@ In library %3
         <translation>删除</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation>导出</translation>
     </message>
@@ -3604,12 +3614,12 @@ and so it was not imported</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+433"/>
+        <location line="+434"/>
         <source>No template</source>
         <translation>无模板</translation>
     </message>
     <message>
-        <location line="-580"/>
+        <location line="-581"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>您选择的用于签名的密钥不是私钥。</translation>
     </message>
@@ -3684,7 +3694,7 @@ and so it was not imported</source>
         <translation>令牌证书&apos;%1&apos;不可用</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+287"/>
         <source> days</source>
         <translation>天</translation>
     </message>
@@ -3848,7 +3858,7 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+113"/>
+        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>打开文件错误: &apos;%1&apos;: %2</translation>
     </message>
@@ -4192,17 +4202,16 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>无法在令牌上找到复制的密钥</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>请插入智能卡: %1 %2 [%3] 序列号: %4</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Public Key mismatch. Please re-import card</source>
-        <translation>公钥不匹配。请重新导入智能卡</translation>
+        <translation type="vanished">公钥不匹配。请重新导入智能卡</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>不合法的密钥生成方法</translation>
     </message>

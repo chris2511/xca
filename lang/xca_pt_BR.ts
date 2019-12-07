@@ -267,6 +267,11 @@
         <translation>Revogar certificado antigo</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>O certificado será válido anteriormente do que o assinante. Isso provavelmente não é o que você quer.</translation>
@@ -1011,7 +1016,7 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+130"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation>Certificados</translation>
     </message>
@@ -1087,12 +1092,12 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
         <translation>Falha ao renomear o arquivo de banco de dados, porque o destino já existe</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>No deleted items found</source>
         <translation>Nenhum item excluído encontrado</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-69"/>
+        <location filename="../widgets/MW_menu.cpp" line="-71"/>
         <source>Recent DataBases</source>
         <translation>Bancos de Dados Recentes</translation>
     </message>
@@ -1102,12 +1107,12 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
         <translation>System</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Croatian</source>
         <translation>Croatian</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>English</source>
         <translation>English</translation>
     </message>
@@ -1122,7 +1127,7 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
         <translation>German</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Russian</source>
         <translation>Russian</translation>
     </message>
@@ -1137,27 +1142,32 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
         <translation>Spanish</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-6"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Turkish</source>
         <translation>Turkish</translation>
     </message>
@@ -1252,7 +1262,7 @@ Isso excluirá a chave &apos;%1&apos; e a tornará não exportável</translation
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation>&amp;Token</translation>
     </message>
@@ -3003,7 +3013,7 @@ In library %3
         <translation type="unfinished">Excluir</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3461,12 +3471,12 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+433"/>
+        <location line="+434"/>
         <source>No template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-580"/>
+        <location line="-581"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3537,7 +3547,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+287"/>
         <source> days</source>
         <translation> dias</translation>
     </message>
@@ -3699,7 +3709,7 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+113"/>
+        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Erro ao abrir o arquivo: &apos;%1&apos;: %2</translation>
     </message>
@@ -4037,17 +4047,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
-        <source>Public Key mismatch. Please re-import card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation type="unfinished"></translation>
     </message>

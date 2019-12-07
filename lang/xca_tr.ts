@@ -1127,6 +1127,11 @@ PEM base64 kodlanmış DER dosyası
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation type="unfinished">Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
@@ -1870,7 +1875,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+130"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation type="unfinished">Sertifikalar</translation>
     </message>
@@ -1946,12 +1951,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished">Veri Tabanı</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+100"/>
         <source>No deleted items found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-69"/>
+        <location filename="../widgets/MW_menu.cpp" line="-71"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1961,12 +1966,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Croatian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1981,7 +1986,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1996,27 +2001,32 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-6"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Turkish</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2111,7 +2121,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3882,7 +3892,7 @@ In library %3
         <translation type="unfinished">Sil</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation type="unfinished">Verme biçimi</translation>
     </message>
@@ -4411,7 +4421,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+287"/>
         <source> days</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4578,7 +4588,7 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+91"/>
+        <location filename="../lib/pki_base.cpp" line="+101"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4911,17 +4921,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
-        <source>Public Key mismatch. Please re-import card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation type="unfinished"></translation>
     </message>

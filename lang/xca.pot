@@ -262,6 +262,11 @@ msgctxt "CertExtend|"
 msgid "Revoke old certificate"
 msgstr ""
 
+#: ../ui/CertExtend.ui:226
+msgctxt "CertExtend|"
+msgid "Keep serial number"
+msgstr ""
+
 #: ../widgets/CertExtend.cpp:43
 msgctxt "CertExtend|"
 msgid ""
@@ -976,7 +981,7 @@ msgctxt "MainWindow|"
 msgid "&New Request"
 msgstr ""
 
-#: ../ui/MainWindow.ui:222 ../widgets/MW_menu.cpp:130
+#: ../ui/MainWindow.ui:222 ../widgets/MW_menu.cpp:132
 msgctxt "MainWindow|"
 msgid "Certificates"
 msgstr ""
@@ -1059,7 +1064,7 @@ msgctxt "MainWindow|"
 msgid "Failed to rename the database file, because the target already exists"
 msgstr ""
 
-#: ../widgets/MW_database.cpp:433
+#: ../widgets/MW_database.cpp:430
 msgctxt "MainWindow|"
 msgid "No deleted items found"
 msgstr ""
@@ -1074,37 +1079,37 @@ msgctxt "MainWindow|"
 msgid "System"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:67
+#: ../widgets/MW_menu.cpp:68
 msgctxt "MainWindow|"
 msgid "Croatian"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:68
+#: ../widgets/MW_menu.cpp:70
 msgctxt "MainWindow|"
 msgid "English"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:69
+#: ../widgets/MW_menu.cpp:71
 msgctxt "MainWindow|"
 msgid "French"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:70
+#: ../widgets/MW_menu.cpp:72
 msgctxt "MainWindow|"
 msgid "German"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:71
+#: ../widgets/MW_menu.cpp:77
 msgctxt "MainWindow|"
 msgid "Russian"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:72
+#: ../widgets/MW_menu.cpp:78
 msgctxt "MainWindow|"
 msgid "Slovak"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:73
+#: ../widgets/MW_menu.cpp:79
 msgctxt "MainWindow|"
 msgid "Spanish"
 msgstr ""
@@ -1114,197 +1119,202 @@ msgctxt "MainWindow|"
 msgid "Polish"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:75
+#: ../widgets/MW_menu.cpp:73
 msgctxt "MainWindow|"
 msgid "Italian"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:76
+#: ../widgets/MW_menu.cpp:67
 msgctxt "MainWindow|"
 msgid "Chinese"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:77
+#: ../widgets/MW_menu.cpp:69
+msgctxt "MainWindow|"
+msgid "Dutch"
+msgstr ""
+
+#: ../widgets/MW_menu.cpp:75
 msgctxt "MainWindow|"
 msgid "Portuguese in Brazil"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:78
+#: ../widgets/MW_menu.cpp:80
 msgctxt "MainWindow|"
 msgid "Turkish"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:80
+#: ../widgets/MW_menu.cpp:82
 msgctxt "MainWindow|"
 msgid "Language"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:95
+#: ../widgets/MW_menu.cpp:97
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:96
+#: ../widgets/MW_menu.cpp:98
 msgctxt "MainWindow|"
 msgid "&New DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:99
+#: ../widgets/MW_menu.cpp:101
 msgctxt "MainWindow|"
 msgid "&Open DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:102
+#: ../widgets/MW_menu.cpp:104
 msgctxt "MainWindow|"
 msgid "Open Remote DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:107
+#: ../widgets/MW_menu.cpp:109
 msgctxt "MainWindow|"
 msgid "Set as default DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:110
+#: ../widgets/MW_menu.cpp:112
 msgctxt "MainWindow|"
 msgid "&Close DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:113
+#: ../widgets/MW_menu.cpp:115
 msgctxt "MainWindow|"
 msgid "Options"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:121
+#: ../widgets/MW_menu.cpp:123
 msgctxt "MainWindow|"
 msgid "Exit"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:127
+#: ../widgets/MW_menu.cpp:129
 msgctxt "MainWindow|"
 msgid "I&mport"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:128
+#: ../widgets/MW_menu.cpp:130
 msgctxt "MainWindow|"
 msgid "Keys"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:129
+#: ../widgets/MW_menu.cpp:131
 msgctxt "MainWindow|"
 msgid "Requests"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:131
+#: ../widgets/MW_menu.cpp:133
 msgctxt "MainWindow|"
 msgid "PKCS#12"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:132
+#: ../widgets/MW_menu.cpp:134
 msgctxt "MainWindow|"
 msgid "PKCS#7"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:133
+#: ../widgets/MW_menu.cpp:135
 msgctxt "MainWindow|"
 msgid "Template"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:134
+#: ../widgets/MW_menu.cpp:136
 msgctxt "MainWindow|"
 msgid "Revocation list"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:135
+#: ../widgets/MW_menu.cpp:137
 msgctxt "MainWindow|"
 msgid "PEM file"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:136
+#: ../widgets/MW_menu.cpp:138
 msgctxt "MainWindow|"
 msgid "Paste PEM file"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:138
+#: ../widgets/MW_menu.cpp:141
 msgctxt "MainWindow|"
 msgid "&Token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:139
+#: ../widgets/MW_menu.cpp:142
 msgctxt "MainWindow|"
 msgid "&Manage Security token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:141
+#: ../widgets/MW_menu.cpp:144
 msgctxt "MainWindow|"
 msgid "&Init Security token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:143
+#: ../widgets/MW_menu.cpp:146
 msgctxt "MainWindow|"
 msgid "&Change PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:145
+#: ../widgets/MW_menu.cpp:148
 msgctxt "MainWindow|"
 msgid "Change &SO PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:147
+#: ../widgets/MW_menu.cpp:150
 msgctxt "MainWindow|"
 msgid "Init PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:150
+#: ../widgets/MW_menu.cpp:153
 msgctxt "MainWindow|"
 msgid "Extra"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:151
+#: ../widgets/MW_menu.cpp:154
 msgctxt "MainWindow|"
 msgid "&Dump DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:153
+#: ../widgets/MW_menu.cpp:156
 msgctxt "MainWindow|"
 msgid "&Export Certificate Index"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:155
+#: ../widgets/MW_menu.cpp:158
 msgctxt "MainWindow|"
 msgid "&Export Certificate Index hierarchy"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:157
+#: ../widgets/MW_menu.cpp:160
 msgctxt "MainWindow|"
 msgid "C&hange DataBase password"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:160
+#: ../widgets/MW_menu.cpp:163
 msgctxt "MainWindow|"
 msgid "&Undelete items"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:163
+#: ../widgets/MW_menu.cpp:166
 msgctxt "MainWindow|"
 msgid "Generate DH parameter"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:165
+#: ../widgets/MW_menu.cpp:168
 msgctxt "MainWindow|"
 msgid "OID Resolver"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:167
+#: ../widgets/MW_menu.cpp:170
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:168
+#: ../widgets/MW_menu.cpp:171
 msgctxt "MainWindow|"
 msgid "&Content"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:170
+#: ../widgets/MW_menu.cpp:173
 msgctxt "MainWindow|"
 msgid "About"
 msgstr ""
@@ -2979,17 +2989,17 @@ msgctxt "XcaTreeView|"
 msgid "Delete"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:415
+#: ../widgets/XcaTreeView.cpp:416
 msgctxt "XcaTreeView|"
 msgid "Export"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:416
+#: ../widgets/XcaTreeView.cpp:417
 msgctxt "XcaTreeView|"
 msgid "Clipboard"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:418
+#: ../widgets/XcaTreeView.cpp:419
 msgctxt "XcaTreeView|"
 msgid "File"
 msgstr ""
@@ -3434,7 +3444,7 @@ msgctxt "db_x509|"
 msgid "CA vCalendar"
 msgstr ""
 
-#: ../lib/db_x509.cpp:1102
+#: ../lib/db_x509.cpp:1103
 msgctxt "db_x509|"
 msgid "No template"
 msgstr ""
@@ -3513,7 +3523,7 @@ msgctxt "db_x509|"
 msgid "Not possible for the token-key Certificate '%1'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:1093
+#: ../lib/db_x509.cpp:1094
 msgctxt "db_x509|"
 msgid " days"
 msgstr ""
@@ -3659,48 +3669,48 @@ msgctxt "pass_info|"
 msgid "PIN"
 msgstr ""
 
-#: ../lib/pki_base.cpp:113
+#: ../lib/pki_base.cpp:123
 #, qt-format
 msgctxt "pki_base|"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
-#: ../lib/pki_base.cpp:282
+#: ../lib/pki_base.cpp:292
 msgctxt "pki_base|"
 msgid "Unknown"
 msgstr ""
 
-#: ../lib/pki_base.cpp:283
+#: ../lib/pki_base.cpp:293
 msgctxt "pki_base|"
 msgid "Imported"
 msgstr ""
 
-#: ../lib/pki_base.cpp:284
+#: ../lib/pki_base.cpp:294
 msgctxt "pki_base|"
 msgid "Generated"
 msgstr ""
 
-#: ../lib/pki_base.cpp:285
+#: ../lib/pki_base.cpp:295
 msgctxt "pki_base|"
 msgid "Transformed"
 msgstr ""
 
-#: ../lib/pki_base.cpp:286
+#: ../lib/pki_base.cpp:296
 msgctxt "pki_base|"
 msgid "Token"
 msgstr ""
 
-#: ../lib/pki_base.cpp:287
+#: ../lib/pki_base.cpp:297
 msgctxt "pki_base|"
 msgid "Legacy Database"
 msgstr ""
 
-#: ../lib/pki_base.cpp:288
+#: ../lib/pki_base.cpp:298
 msgctxt "pki_base|"
 msgid "Renewed"
 msgstr ""
 
-#: ../lib/pki_base.cpp:91
+#: ../lib/pki_base.cpp:101
 #, qt-format
 msgctxt "pki_base|"
 msgid "Internal error: Unexpected message: %1 %2"
@@ -4009,55 +4019,50 @@ msgctxt "pki_scard|"
 msgid "Unable to find copied key on the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:614
+#: ../lib/pki_scard.cpp:623
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:642
-msgctxt "pki_scard|"
-msgid "Public Key mismatch. Please re-import card"
-msgstr ""
-
-#: ../lib/pki_scard.cpp:699
+#: ../lib/pki_scard.cpp:691
 msgctxt "pki_scard|"
 msgid "Illegal Key generation method"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:715
+#: ../lib/pki_scard.cpp:707
 msgctxt "pki_scard|"
 msgid "Unable to find generated key on card"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:753
+#: ../lib/pki_scard.cpp:745
 msgctxt "pki_scard|"
 msgid "Ignoring unsupported token key"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:756
+#: ../lib/pki_scard.cpp:748
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Wrong Size %1"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:762
+#: ../lib/pki_scard.cpp:754
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Token %1"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:771 ../lib/pki_scard.cpp:784
+#: ../lib/pki_scard.cpp:763 ../lib/pki_scard.cpp:776
 msgctxt "pki_scard|"
 msgid "Failed to find the key on the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:778
+#: ../lib/pki_scard.cpp:770
 msgctxt "pki_scard|"
 msgid "Invalid Pin for the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:790
+#: ../lib/pki_scard.cpp:782
 msgctxt "pki_scard|"
 msgid "Failed to initialize the key on the token"
 msgstr ""

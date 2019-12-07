@@ -267,6 +267,11 @@
         <translation>Révoquer l&apos;ancien certificat</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
@@ -1014,7 +1019,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+130"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
@@ -1090,12 +1095,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Le changement de nom du fichier de base de données a échoué parce qu&apos;un autre fichier du même nom existe déjà</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>No deleted items found</source>
         <translation>Aucun objet détruit n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-69"/>
+        <location filename="../widgets/MW_menu.cpp" line="-71"/>
         <source>Recent DataBases</source>
         <translation>Bases de données utilisées recemment</translation>
     </message>
@@ -1105,12 +1110,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Système</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Croatian</source>
         <translation>Croate</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>English</source>
         <translation>Anglais</translation>
     </message>
@@ -1125,7 +1130,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Allemand</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Russian</source>
         <translation>Russe</translation>
     </message>
@@ -1140,27 +1145,32 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Espagnol</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-6"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Turkish</source>
         <translation>Turc</translation>
     </message>
@@ -1255,7 +1265,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Coller un fichier PEM</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation>&amp;Jeton</translation>
     </message>
@@ -3178,7 +3188,7 @@ Dans la bibliothèque %3
         <translation>Enlever</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Exporter</translation>
     </message>
@@ -3648,12 +3658,12 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>message vCalendar pour le CA</translation>
     </message>
     <message>
-        <location line="+433"/>
+        <location line="+434"/>
         <source>No template</source>
         <translation>Pas de modèle</translation>
     </message>
     <message>
-        <location line="-580"/>
+        <location line="-581"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>La clé sélectionnée pour la signature n&apos;est pas une clé privée.</translation>
     </message>
@@ -3728,7 +3738,7 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Impossible pour le certificat d&apos;une clé d&apos;un jeton de sécurité: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+287"/>
         <source> days</source>
         <translation> jours</translation>
     </message>
@@ -3892,7 +3902,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+113"/>
+        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
@@ -4236,17 +4246,16 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>Impossible de trouver la clé copiée sur le jeton</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>SVP insérer la carte %1 %2 [%3] avec le numéro de série: %4</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Public Key mismatch. Please re-import card</source>
-        <translation>La clé publique ne correspond pas. Veuillez réimporter la carte</translation>
+        <translation type="vanished">La clé publique ne correspond pas. Veuillez réimporter la carte</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Méthode de génération de clé illégale</translation>
     </message>

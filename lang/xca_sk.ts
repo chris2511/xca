@@ -267,6 +267,11 @@
         <translation>Odvolať starý certifikát</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Certifikát bude platný skôr ako jeho vydavateľ. To asi nie je to, čo chcete.</translation>
@@ -1014,7 +1019,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+130"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation>Certifikáty</translation>
     </message>
@@ -1090,12 +1095,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>No deleted items found</source>
         <translation>Nenájdené žiadne zmazané položky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-69"/>
+        <location filename="../widgets/MW_menu.cpp" line="-71"/>
         <source>Recent DataBases</source>
         <translation>Nedávne databázy</translation>
     </message>
@@ -1105,12 +1110,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>systémový</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Croatian</source>
         <translation>chorvátsky</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>English</source>
         <translation>anglicky</translation>
     </message>
@@ -1125,7 +1130,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>nemecky</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Russian</source>
         <translation>rusky</translation>
     </message>
@@ -1140,27 +1145,32 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>španielsky</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-6"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Turkish</source>
         <translation>turecky</translation>
     </message>
@@ -1255,7 +1265,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Vložiť súbor PEM</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation>&amp;Token</translation>
     </message>
@@ -3178,7 +3188,7 @@ V knižnici %3
         <translation>Odstrániť</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Exportovať</translation>
     </message>
@@ -3648,12 +3658,12 @@ a tak nebol importovaný</translation>
         <translation>CA vCalendar</translation>
     </message>
     <message>
-        <location line="+433"/>
+        <location line="+434"/>
         <source>No template</source>
         <translation>Bez šablóny</translation>
     </message>
     <message>
-        <location line="-580"/>
+        <location line="-581"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Kľúč, zvolený na podpísanie, nie je súkromný.</translation>
     </message>
@@ -3728,7 +3738,7 @@ a tak nebol importovaný</translation>
         <translation>Nie je možné pre Certifikát kľúča tokenu „%1”</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+287"/>
         <source> days</source>
         <translation> dní</translation>
     </message>
@@ -3892,7 +3902,7 @@ a tak nebola uložená</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+113"/>
+        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Chyba otvorenia súboru: „%1”: %2</translation>
     </message>
@@ -4236,17 +4246,16 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Nemožno nájsť kópiu kľúča na tokene</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Prosím, vložte kartu: %1 %2 [%3] so sér. číslom: %4</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Public Key mismatch. Please re-import card</source>
-        <translation>Nezhoda verejného kľúča. Prosím, znova importujte kartu</translation>
+        <translation type="vanished">Nezhoda verejného kľúča. Prosím, znova importujte kartu</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Neprípustná metóda generovania kľúča</translation>
     </message>
