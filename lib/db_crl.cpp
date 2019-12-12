@@ -308,7 +308,7 @@ void db_crl::newItem(pki_x509 *cert)
 		q.exec();
 		QSqlError err = q.lastError();
 		if (err.isValid())
-			throw errorEx(tr("Database error: ").arg(err.text()));
+			throw errorEx(tr("Database error: %1").arg(err.text()));
 		SQL_PREPARE(q, "UPDATE revocations set crlNo=? "
 				"WHERE crlNo IS NULL AND caId=?");
 		q.bindValue(0, (uint)crl->getCrlNumber().getLong());
@@ -316,11 +316,11 @@ void db_crl::newItem(pki_x509 *cert)
 		q.exec();
 		err = q.lastError();
 		if (err.isValid())
-			throw errorEx(tr("Database error: ").arg(err.text()));
+			throw errorEx(tr("Database error: %1").arg(err.text()));
 		insertPKI(crl);
 		err = db.lastError();
 		if (err.isValid())
-			throw errorEx(tr("Database error: ").arg(err.text()));
+			throw errorEx(tr("Database error: %1").arg(err.text()));
 		TransCommit();
 		createSuccess((crl));
 	}

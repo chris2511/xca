@@ -1091,7 +1091,7 @@ void db_x509::caProperties(QModelIndex idx)
 
 	QDialog *dlg = new QDialog(mainwin);
 	ui.setupUi(dlg);
-	ui.days->setSuffix(tr(" days"));
+	ui.days->setSuffix(QString(" ") + tr("days"));
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
 	ui.image->setPixmap(*MainWindow::certImg);
