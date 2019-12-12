@@ -1,3 +1,6 @@
+ * Close #138: Portable Version does not remember paths
+ * Close #83: Token selection should not insist on name or serial of the token
+ * Close #95: Copy mysql and psql windows dll files into portable app
  * Close #144: Database export has issues with wildcards in internal names
  * Close #143: Hotkey for import
  * Close #140: Certificate renewal with option to preserved serial number
