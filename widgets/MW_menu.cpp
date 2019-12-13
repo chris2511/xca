@@ -25,15 +25,34 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
-class myLang
+static QAction *languageMenuEntry(const QStringList &sl)
 {
-public:
-	QString english, native;
+	QString lang, tooltip;
 	QLocale locale;
-	myLang(QString e, QString n, QLocale l) {
-		english = e; native = n, locale = l;
+
+	if (sl[0].isEmpty()) {
+		locale = QLocale::system();
+		lang = MainWindow::tr("System");
+	} else {
+		locale = QLocale(sl[0]);
+		lang = QString("%1 (%2)").arg(sl[1])
+			.arg(QLocale::languageToString(locale.language()));
 	}
-};
+	tooltip = locale.nativeLanguageName();
+
+	if (sl.length() > 2)
+		tooltip += " - " + sl[2];
+
+	QAction *a = new QAction(lang, NULL);
+	a->setToolTip(tooltip);
+	a->setData(QVariant(locale));
+	a->setDisabled(!XCA_application::languageAvailable(locale));
+
+	a->setCheckable(true);
+	if (locale == XCA_application::language())
+		a->setChecked(true);
+	return a;
+}
 
 void MainWindow::init_menu()
 {
@@ -42,7 +61,6 @@ void MainWindow::init_menu()
 	static QActionGroup * langGroup = NULL;
 	QAction *a;
 
-	QList<myLang> languages;
 	if (file) delete file;
 	if (help) delete help;
 	if (import) delete import;
@@ -62,37 +80,14 @@ void MainWindow::init_menu()
 	connect(historyMenu, SIGNAL(triggered(QAction*)),
                 this, SLOT(open_database(QAction*)));
 
-	languages <<
-		myLang("System",   tr("System"),   QLocale::system()) <<
-		myLang("Chinese",  tr("Chinese"),  QLocale("zh_CN")) <<
-		myLang("Croatian", tr("Croatian"), QLocale("hr")) <<
-		myLang("Dutch",    tr("Dutch"),  QLocale("nl")) <<
-		myLang("English",  tr("English"),  QLocale("en")) <<
-		myLang("French",   tr("French"),   QLocale("fr")) <<
-		myLang("German",   tr("German"),   QLocale("de")) <<
-		myLang("Italian",  tr("Italian"),  QLocale("it")) <<
-		myLang("Polish",   tr("Polish"),   QLocale("pl")) <<
-		myLang("Portuguese in Brazil",     tr("Portuguese in Brazil"),
-		                                   QLocale("pt_BR")) <<
-		myLang("Russian",  tr("Russian"),  QLocale("ru")) <<
-		myLang("Slovak",   tr("Slovak"),   QLocale("sk")) <<
-		myLang("Spanish",  tr("Spanish"),  QLocale("es")) <<
-		myLang("Turkish",  tr("Turkish"),  QLocale("tr"));
-
 	languageMenu = new tipMenu(tr("Language"), this);
 	connect(languageMenu, SIGNAL(triggered(QAction*)),
 		qApp, SLOT(switchLanguage(QAction*)));
 
-	foreach(myLang l, languages) {
-		QAction *a = new QAction(l.english, langGroup);
-		a->setToolTip(l.native);
-		a->setData(QVariant(l.locale));
-		a->setDisabled(!XCA_application::languageAvailable(l.locale));
-		a->setCheckable(true);
+	foreach(const QStringList &sl, getTranslators()) {
+		QAction *a = languageMenuEntry(sl);
 		langGroup->addAction(a);
 		languageMenu->addAction(a);
-		if (l.locale == XCA_application::language())
-			a->setChecked(true);
 	}
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
