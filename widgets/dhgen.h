@@ -22,7 +22,6 @@ class DHgen: public QThread
 {
 	QString fname;
 	int bits;
-	DH *dh;
 
     public:
 	errorEx error;
