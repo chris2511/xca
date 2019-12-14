@@ -70,6 +70,11 @@
         <translation>Самозаверенный</translation>
     </message>
     <message>
+        <location line="+27"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Not trusted</source>
         <translation type="vanished">Не доверенный</translation>
     </message>
@@ -78,9 +83,8 @@
         <translation type="vanished">Доверенный</translation>
     </message>
     <message>
-        <location line="+27"/>
         <source>Revoked: </source>
-        <translation>Отозванный: </translation>
+        <translation type="vanished">Отозванный: </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1040,37 +1044,36 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+112"/>
         <source>&amp;Close DataBase</source>
-        <translation>&amp;Закрыть базу данных</translation>
+        <translation type="vanished">&amp;Закрыть базу данных</translation>
     </message>
     <message>
-        <location line="+59"/>
         <source>&amp;Content</source>
-        <translation>&amp;Справка</translation>
+        <translation type="vanished">&amp;Справка</translation>
     </message>
     <message>
-        <location line="-74"/>
+        <location filename="../widgets/MW_menu.cpp" line="+92"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location line="-36"/>
+        <location line="-13"/>
         <source>Recent DataBases</source>
         <translation>Недавно открытые базы данных</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="../widgets/MW_help.cpp" line="+25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>System</source>
         <translation>Язык системы</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Croatian</source>
         <translation>Хорватский</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>English</source>
         <translation>Английский</translation>
     </message>
@@ -1080,12 +1083,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Французский</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>German</source>
         <translation>Немецкий</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
@@ -1095,57 +1098,62 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Словацкий</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>Испанский</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-7"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-2"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-11"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>Turkish</source>
         <translation>Турецкий</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/MW_menu.cpp" line="+48"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Open Remote DataBase</source>
         <translation>Открыть сетевую базу данных</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>Paste PEM file</source>
         <translation>Вставить файл PEM</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+3"/>
+        <source>Token</source>
+        <translation type="unfinished">Модуль защиты</translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Extra</source>
         <translation>Дополнительно</translation>
     </message>
@@ -1155,12 +1163,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Экспортировать &amp;список сертификатов</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation>Экспортировать &amp;иерархию сертификатов</translation>
+        <translation type="vanished">Экспортировать &amp;иерархию сертификатов</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>OID Resolver</source>
         <translation>Поиск OID</translation>
     </message>
@@ -1345,12 +1352,27 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;Восстановить удаленные элементы</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-49"/>
         <source>Options</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-17"/>
+        <source>New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Close DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Keys</source>
         <translation>Ключи</translation>
     </message>
@@ -1410,7 +1432,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>И&amp;мпорт</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+29"/>
+        <source>Export Certificate &amp;Index hierarchy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Content</source>
+        <translation type="unfinished">Содержание</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
@@ -1477,17 +1509,15 @@ Please enter the DH parameter bits</source>
 Пожалуйста, введите желаемую длину параметров</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-75"/>
         <source>&amp;New DataBase</source>
-        <translation>&amp;Новая база данных</translation>
+        <translation type="vanished">&amp;Новая база данных</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Open DataBase</source>
-        <translation>&amp;Открыть базу данных</translation>
+        <translation type="vanished">&amp;Открыть базу данных</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location filename="../widgets/MW_menu.cpp" line="-29"/>
         <source>&amp;Init Security token</source>
         <translation>&amp;Инициализировать модуль защиты</translation>
     </message>
@@ -1497,7 +1527,7 @@ Please enter the DH parameter bits</source>
         <translation>Из&amp;менить пароль базы данных</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-38"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
@@ -1553,23 +1583,22 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">Ошибка при открытии файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+43"/>
+        <location filename="../widgets/MW_menu.cpp" line="+44"/>
         <source>Generate DH parameter</source>
         <translation>Сгенерировать параметры Диффи-Хэллмана</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-58"/>
         <source>Set as default DataBase</source>
         <translation>Установить как базу данных по умолчанию</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>&amp;Token</source>
         <translatorcomment>as translated in firefox for example</translatorcomment>
-        <translation>&amp;Модуль защиты</translation>
+        <translation type="vanished">&amp;Модуль защиты</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+34"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Управление модулями защиты</translation>
     </message>
@@ -3363,7 +3392,7 @@ In library %3
         <translation>Вставить данные PEM</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
     </message>
@@ -3579,8 +3608,12 @@ Size: %3
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
+        <source>Database error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Database error: </source>
-        <translation>Ошибка БД: </translation>
+        <translation type="vanished">Ошибка БД: </translation>
     </message>
     <message>
         <location line="-162"/>
@@ -3844,7 +3877,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+434"/>
+        <location line="+425"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>No template</source>
         <translation>Нет шаблона</translation>
     </message>
@@ -3930,12 +3968,11 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished">Ошибка при открытии файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+352"/>
         <source> days</source>
-        <translation> дней</translation>
+        <translation type="vanished"> дней</translation>
     </message>
     <message>
-        <location line="-735"/>
+        <location line="-383"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -4258,12 +4295,11 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation>Не удалось расшифровать ключ (неверный пароль) </translation>
+        <translation type="vanished">Не удалось расшифровать ключ (неверный пароль) </translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location filename="../lib/pki_evp.cpp" line="+420"/>
         <location line="+14"/>
         <source>Password input aborted</source>
         <translation>Ввод пароля прерван</translation>
@@ -4279,7 +4315,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Пожалуйста, введите пароль для расшифровки закрытого ключа.</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="-10"/>
+        <source>Failed to decrypt the key (bad password) %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+65"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -57,11 +57,16 @@
         <translation>Nicht verfügbar</translation>
     </message>
     <message>
+        <location line="+70"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Details of the certificate</source>
         <translation type="obsolete">Details des Zertifikates</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="-31"/>
         <source>Signer unknown</source>
         <translation>Unterzeichner unbekannt</translation>
     </message>
@@ -79,12 +84,11 @@
         <translation type="vanished">Vertrauenswürdig</translation>
     </message>
     <message>
-        <location line="+27"/>
         <source>Revoked: </source>
-        <translation>Zurückgezogen:</translation>
+        <translation type="vanished">Zurückgezogen:</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+32"/>
         <source>Not valid</source>
         <translation>Nicht gültig</translation>
     </message>
@@ -1248,41 +1252,40 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+112"/>
         <source>&amp;Close DataBase</source>
-        <translation>Datenbank s&amp;chliessen</translation>
+        <translation type="vanished">Datenbank s&amp;chliessen</translation>
     </message>
     <message>
-        <location line="+59"/>
         <source>&amp;Content</source>
-        <translation>&amp;Inhalt</translation>
+        <translation type="vanished">&amp;Inhalt</translation>
     </message>
     <message>
         <source>&amp;About</source>
         <translation type="obsolete">Ü&amp;ber</translation>
     </message>
     <message>
-        <location line="-74"/>
+        <location filename="../widgets/MW_menu.cpp" line="+92"/>
         <source>&amp;File</source>
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="-36"/>
+        <location line="-13"/>
         <source>Recent DataBases</source>
         <translation>Zuletzt geöffnet</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="../widgets/MW_help.cpp" line="+25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Croatian</source>
         <translation>Kroatisch</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>English</source>
         <translation>Englisch</translation>
     </message>
@@ -1292,12 +1295,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Französisch</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>German</source>
         <translation>Deutsch</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>Russisch</translation>
     </message>
@@ -1307,57 +1310,62 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Slowakisch</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>Spanisch</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-7"/>
         <source>Polish</source>
         <translation>Polnisch</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-2"/>
         <source>Italian</source>
         <translation>Italienisch</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-11"/>
         <source>Chinese</source>
         <translation>Chinesisch</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Portuguese in Brazil</source>
         <translation>Brasilianisches Portugiesisch </translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>Turkish</source>
         <translation>Türkisch</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/MW_menu.cpp" line="+48"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Open Remote DataBase</source>
         <translation>Netzwerkdatenbank öffnen</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>Paste PEM file</source>
         <translation>PEM Datei Einfügen</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+3"/>
+        <source>Token</source>
+        <translation type="unfinished">Chipkarte</translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Extra</source>
         <translation>Extra</translation>
     </message>
@@ -1367,12 +1375,11 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Zertifikatsindex exportieren</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation>Zertifikatsindexhierarchie &amp;exportieren</translation>
+        <translation type="vanished">Zertifikatsindexhierarchie &amp;exportieren</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>OID Resolver</source>
         <translation>OID Resolver</translation>
     </message>
@@ -1549,12 +1556,27 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>&amp;Gelöschte Einträge wiederherstellen</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-49"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-17"/>
+        <source>New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Close DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Keys</source>
         <translation>Schlüssel</translation>
     </message>
@@ -1589,6 +1611,11 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>PEM Datei</translation>
     </message>
     <message>
+        <location line="+34"/>
+        <source>Content</source>
+        <translation type="unfinished">Inhalt</translation>
+    </message>
+    <message>
         <source>Donations</source>
         <translation type="obsolete">Spenden</translation>
     </message>
@@ -1609,7 +1636,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation type="vanished">Trotzdem importieren</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="-42"/>
         <source>I&amp;mport</source>
         <translation>I&amp;mport</translation>
     </message>
@@ -1678,27 +1705,30 @@ Please enter the DH parameter bits</source>
 Bitte die DH Parameter bits angeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-75"/>
         <source>&amp;New DataBase</source>
-        <translation>&amp;Neue Datenbank</translation>
+        <translation type="vanished">&amp;Neue Datenbank</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Open DataBase</source>
-        <translation>Datenbank &amp;Öffnen</translation>
+        <translation type="vanished">Datenbank &amp;Öffnen</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location filename="../widgets/MW_menu.cpp" line="-29"/>
         <source>&amp;Init Security token</source>
         <translation>Chipkarte &amp;initialisieren</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+14"/>
+        <source>Export Certificate &amp;Index hierarchy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>C&amp;hange DataBase password</source>
         <translation>Da&amp;tenbankpasswort ändern</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-38"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
@@ -1731,22 +1761,21 @@ Bitte die DH Parameter bits angeben</translation>
         <translation type="vanished">Öffnen der Datei &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+43"/>
+        <location filename="../widgets/MW_menu.cpp" line="+44"/>
         <source>Generate DH parameter</source>
         <translation>DH Parameter erstellen</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-58"/>
         <source>Set as default DataBase</source>
         <translation>Als Standard datenbank</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>&amp;Token</source>
-        <translation>&amp;Chipkarte</translation>
+        <translation type="vanished">&amp;Chipkarte</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+34"/>
         <source>&amp;Manage Security token</source>
         <translation>Chipkarte &amp;verwalten</translation>
     </message>
@@ -3675,7 +3704,7 @@ in Bibliothek %3
         <translation>Einfügen (PEM)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
@@ -3919,8 +3948,12 @@ Grösse %3
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
+        <source>Database error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Database error: </source>
-        <translation>Datenbankfehler:</translation>
+        <translation type="vanished">Datenbankfehler:</translation>
     </message>
     <message>
         <location line="-162"/>
@@ -4359,7 +4392,12 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>CA vCalendar</translation>
     </message>
     <message>
-        <location line="+434"/>
+        <location line="+425"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>No template</source>
         <translation>Keine Vorlage</translation>
     </message>
@@ -4529,9 +4567,8 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Zu verschlüsselnde Datei</translation>
     </message>
     <message>
-        <location line="+352"/>
         <source> days</source>
-        <translation>Tage</translation>
+        <translation type="vanished">Tage</translation>
     </message>
     <message>
         <source>Security token</source>
@@ -4546,7 +4583,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Von der Chipkarte löschen</translation>
     </message>
     <message>
-        <location line="-735"/>
+        <location line="-383"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -5108,12 +5145,11 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
+        <translation type="vanished">Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location filename="../lib/pki_evp.cpp" line="+420"/>
         <location line="+14"/>
         <source>Password input aborted</source>
         <translation>Passworteingabe abgebrochen</translation>
@@ -5128,7 +5164,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <translation type="obsolete">Der Schlüssel aus der Datei %1 konnte nicht geladen werden. Private und öffentliche, sowie PKCS#8 Schlüssel im PEM und DER format wurden versucht.</translation>
     </message>
     <message>
-        <location line="-298"/>
+        <location line="-308"/>
+        <source>Failed to decrypt the key (bad password) %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Please enter the password to decrypt the private key.</source>
         <translation>Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
     </message>

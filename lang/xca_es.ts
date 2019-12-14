@@ -708,8 +708,12 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <location line="+27"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Revoked: </source>
-        <translation>Revocado: </translation>
+        <translation type="vanished">Revocado: </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1552,7 +1556,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+132"/>
+        <location filename="../widgets/MW_menu.cpp" line="+128"/>
         <source>Certificates</source>
         <translation>Certificados</translation>
     </message>
@@ -1633,22 +1637,23 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>No se han encontrado elementos eliminados</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-71"/>
+        <location filename="../widgets/MW_menu.cpp" line="-49"/>
         <source>Recent DataBases</source>
         <translation>Bases de datos recientes</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="../widgets/MW_help.cpp" line="+25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Croatian</source>
         <translation>Croatian</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>English</source>
         <translation>English</translation>
     </message>
@@ -1658,12 +1663,12 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>French</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>German</source>
         <translation>German</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>Russian</translation>
     </message>
@@ -1673,62 +1678,60 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Slovak</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>Spanish</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-7"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-2"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-11"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>Turkish</source>
         <translation>Turkish</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/MW_menu.cpp" line="+48"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+9"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;New DataBase</source>
-        <translation>&amp;Nueva base de datos</translation>
+        <translation type="vanished">&amp;Nueva base de datos</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Open DataBase</source>
-        <translation>&amp;Abrir base de datos</translation>
+        <translation type="vanished">&amp;Abrir base de datos</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>Abrir base de datos remota</translation>
     </message>
@@ -1738,9 +1741,23 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Establecer Base de datos por defecto</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Close DataBase</source>
-        <translation>&amp;Cerrar Base de datos</translation>
+        <translation type="vanished">&amp;Cerrar Base de datos</translation>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Close DataBase</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1753,7 +1770,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Salir</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>I&amp;mport</source>
         <translation>I&amp;mportar</translation>
     </message>
@@ -1799,11 +1816,25 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Token</source>
-        <translation>&amp;Token</translation>
+        <source>Token</source>
+        <translation type="unfinished">Token</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+17"/>
+        <source>Export Certificate &amp;Index hierarchy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Content</source>
+        <translation type="unfinished">Contenido</translation>
+    </message>
+    <message>
+        <source>&amp;Token</source>
+        <translation type="vanished">&amp;Token</translation>
+    </message>
+    <message>
+        <location line="-29"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Gestionar Token de Seguridad</translation>
     </message>
@@ -1843,12 +1874,11 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>&amp;Exportar Índice de Certificados</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation>&amp;Exportar Jerarquía de Índice de Certificados</translation>
+        <translation type="vanished">&amp;Exportar Jerarquía de Índice de Certificados</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>C&amp;hange DataBase password</source>
         <translation>Ca&amp;mbiar contraseñas de Base de datos</translation>
     </message>
@@ -1873,12 +1903,11 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>A&amp;yuda</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Content</source>
-        <translation>&amp;Contenido</translation>
+        <translation type="vanished">&amp;Contenido</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
@@ -3709,7 +3738,7 @@ In library %3
         <translation>Pegar datos PEM</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Rename</source>
         <translation>Renombrar</translation>
     </message>
@@ -3912,8 +3941,12 @@ Y por lo tanto no será importada</translation>
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
+        <source>Database error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Database error: </source>
-        <translation>Error de base de datos: </translation>
+        <translation type="vanished">Error de base de datos: </translation>
     </message>
 </context>
 <context>
@@ -4267,21 +4300,25 @@ Y por lo tanto no será importado</translation>
         <translation>No es posible para una clave de token &apos;%1&apos;</translation>
     </message>
     <message>
+        <location line="+352"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="vanished">Error abriendo archivo: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="-287"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>No es posible para un certificado con clave de token &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+287"/>
         <source> days</source>
-        <translation> días</translation>
+        <translation type="vanished"> días</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+296"/>
         <source>No template</source>
         <translation>Sin plantilla</translation>
     </message>
@@ -4551,9 +4588,13 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation>Error al desencriptar la clave (contraseña incorrecta) </translation>
+        <translation type="vanished">Error al desencriptar la clave (contraseña incorrecta) </translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <source>Failed to decrypt the key (bad password) %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>

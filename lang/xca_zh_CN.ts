@@ -175,8 +175,12 @@
     </message>
     <message>
         <location line="+27"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Revoked: </source>
-        <translation>已吊销: </translation>
+        <translation type="vanished">已吊销: </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1020,7 +1024,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+132"/>
+        <location filename="../widgets/MW_menu.cpp" line="+128"/>
         <source>Certificates</source>
         <translation>证书</translation>
     </message>
@@ -1101,22 +1105,23 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>找不到已删除的项目</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-71"/>
+        <location filename="../widgets/MW_menu.cpp" line="-49"/>
         <source>Recent DataBases</source>
         <translation>最近打开的数据库</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="../widgets/MW_help.cpp" line="+25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>System</source>
         <translation>使用系统语言</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Croatian</source>
         <translation>克罗地亚语</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>English</source>
         <translation>英语</translation>
     </message>
@@ -1126,12 +1131,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>法语</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>German</source>
         <translation>德语</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>俄语</translation>
     </message>
@@ -1141,62 +1146,60 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>斯洛伐克语</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>西班牙语</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-7"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-2"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-11"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>Turkish</source>
         <translation>土耳其语</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/MW_menu.cpp" line="+48"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+9"/>
         <source>&amp;File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;New DataBase</source>
-        <translation>新建数据库</translation>
+        <translation type="vanished">新建数据库</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Open DataBase</source>
-        <translation>打开数据库</translation>
+        <translation type="vanished">打开数据库</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>打开远程数据库</translation>
     </message>
@@ -1206,9 +1209,23 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>设置为默认数据库</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Close DataBase</source>
-        <translation>关闭数据库</translation>
+        <translation type="vanished">关闭数据库</translation>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Close DataBase</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1221,7 +1238,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>I&amp;mport</source>
         <translation>导入</translation>
     </message>
@@ -1267,11 +1284,25 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Token</source>
-        <translation>令牌</translation>
+        <source>Token</source>
+        <translation type="unfinished">令牌</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+17"/>
+        <source>Export Certificate &amp;Index hierarchy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Content</source>
+        <translation type="unfinished">内容</translation>
+    </message>
+    <message>
+        <source>&amp;Token</source>
+        <translation type="vanished">令牌</translation>
+    </message>
+    <message>
+        <location line="-29"/>
         <source>&amp;Manage Security token</source>
         <translation>管理安全令牌</translation>
     </message>
@@ -1311,12 +1342,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>导出所有证书索引（Index）</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation>分CA导出证书索引（Index）</translation>
+        <translation type="vanished">分CA导出证书索引（Index）</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>C&amp;hange DataBase password</source>
         <translation>修改数据库密码</translation>
     </message>
@@ -1341,12 +1371,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Content</source>
-        <translation>帮助</translation>
+        <translation type="vanished">帮助</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -3129,7 +3158,7 @@ In library %3
         <translation>粘贴PEM数据</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
@@ -3331,8 +3360,12 @@ and so it was not imported</source>
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
+        <source>Database error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Database error: </source>
-        <translation>数据库错误: </translation>
+        <translation type="vanished">数据库错误: </translation>
     </message>
 </context>
 <context>
@@ -3614,7 +3647,12 @@ and so it was not imported</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+434"/>
+        <location line="+425"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>No template</source>
         <translation>无模板</translation>
     </message>
@@ -3694,9 +3732,8 @@ and so it was not imported</source>
         <translation>令牌证书&apos;%1&apos;不可用</translation>
     </message>
     <message>
-        <location line="+287"/>
         <source> days</source>
-        <translation>天</translation>
+        <translation type="vanished">天</translation>
     </message>
 </context>
 <context>
@@ -3964,9 +4001,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation>无法解密密钥（密码错误） </translation>
+        <translation type="vanished">无法解密密钥（密码错误） </translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <source>Failed to decrypt the key (bad password) %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
