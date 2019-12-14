@@ -59,7 +59,7 @@
     <message>
         <location line="+70"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurückgezogen am %1</translation>
     </message>
     <message>
         <source>Details of the certificate</source>
@@ -1337,7 +1337,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+11"/>
         <source>Portuguese in Brazil</source>
-        <translation>Brasilianisches Portugiesisch </translation>
+        <translation>Brasilianisches Portugiesisch</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1362,7 +1362,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished">Chipkarte</translation>
+        <translation>Chipkarte</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1372,7 +1372,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+3"/>
         <source>&amp;Export Certificate Index</source>
-        <translation>Zertifikatsindex exportieren</translation>
+        <translation>Zertifikatsindex &amp;exportieren</translation>
     </message>
     <message>
         <source>&amp;Export Certificate Index hierarchy</source>
@@ -1563,17 +1563,17 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="-17"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Datenbank</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenbank Öffnen</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenbank schliessen</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1613,7 +1613,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+34"/>
         <source>Content</source>
-        <translation type="unfinished">Inhalt</translation>
+        <translation>Inhalt</translation>
     </message>
     <message>
         <source>Donations</source>
@@ -1720,7 +1720,7 @@ Bitte die DH Parameter bits angeben</translation>
     <message>
         <location line="+14"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikats&amp;indexhierarchie exportieren</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3949,7 +3949,7 @@ Grösse %3
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenbankfehler: %1</translation>
     </message>
     <message>
         <source>Database error: </source>
@@ -4394,7 +4394,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     <message>
         <location line="+425"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>Tage</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -5166,7 +5166,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="-308"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort) %1</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -5176,7 +5176,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+55"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
-        <translation>Der Schlüssel aus der Datei &apos;%1&apos; ist unvollständig oder inkonsistent. </translation>
+        <translation>Der Schlüssel aus der Datei &apos;%1&apos; ist unvollständig oder inkonsistent.</translation>
     </message>
     <message>
         <location line="+18"/>
