@@ -90,10 +90,10 @@ void MainWindow::init_menu()
 		languageMenu->addAction(a);
 	}
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
+	file->addAction(tr("New DataBase"), this, SLOT(new_database()),
 			QKeySequence::New)
 			->setEnabled(OpenDb::hasSqLite());
-	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
+	file->addAction(tr("Open DataBase"), this, SLOT(load_database()),
 			QKeySequence::Open)
 			->setEnabled(OpenDb::hasSqLite());
 	file->addAction(tr("Open Remote DataBase"),
@@ -104,8 +104,8 @@ void MainWindow::init_menu()
 		file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
 	}
-	acList += file->addAction(tr("&Close DataBase"), this,
-		SLOT(close_database()), QKeySequence(QKeySequence::Close));
+	acList += file->addAction(tr("Close DataBase"), this,
+		SLOT(close_database()), QKeySequence::Close);
 
 	a = new QAction(tr("Options"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(setOptions()));
@@ -119,6 +119,7 @@ void MainWindow::init_menu()
 	connect(a, SIGNAL(triggered()),
 		qApp, SLOT(quit()), Qt::QueuedConnection);
 	a->setMenuRole(QAction::QuitRole);
+	a->setShortcut(QKeySequence::Quit);
 	file->addAction(a);
 
 	import = menuBar()->addMenu(tr("I&mport"));
@@ -133,7 +134,7 @@ void MainWindow::init_menu()
 	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()),
 			QKeySequence::Paste);
 
-	token = menuBar()->addMenu(tr("&Token"));
+	token = menuBar()->addMenu(tr("Token"));
 	token->addAction(tr("&Manage Security token"), this,
 				SLOT(manageToken()));
 	token->addAction(tr("&Init Security token"),  this,
@@ -163,11 +164,12 @@ void MainWindow::init_menu()
 	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));
 
 	help = menuBar()->addMenu(tr("&Help") );
-	help->addAction(tr("&Content"), this, SLOT(help()),
+	help->addAction(tr("Content"), this, SLOT(help()),
 			QKeySequence::HelpContents);
 	a = new QAction(tr("About"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(about()));
 	a->setMenuRole(QAction::AboutRole);
+	a->setShortcut(QKeySequence::WhatsThis);
 	help->addAction(a);
 	wdMenuList += import;
 	scardList += token;

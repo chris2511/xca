@@ -404,7 +404,8 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 	index = idx.isValid() ? idx : currentIndex();
 	menu->addAction(tr("New"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
-	menu->addAction(tr("Paste PEM data"), mainwin, SLOT(pastePem()));
+	menu->addAction(tr("Paste PEM data"), mainwin, SLOT(pastePem()),
+			QKeySequence::Paste);
 
 	if (indexes.size() == 1) {
 		menu->addAction(tr("Rename"), this, SLOT(editIdx()));
@@ -415,8 +416,9 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 				QKeySequence::Delete);
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("Clipboard"), this,
-				SLOT(pem2clipboard()));
-		subExport->addAction(tr("File"), this, SLOT(storeItems()));
+				SLOT(pem2clipboard()), QKeySequence::Copy);
+		subExport->addAction(tr("File"), this, SLOT(storeItems()),
+				QKeySequence::Save);
 	}
 
 	fillContextMenu(menu, subExport, index, indexes);
@@ -441,6 +443,14 @@ void XcaTreeView::keyPressEvent(QKeyEvent *event)
 		case Qt::Key_Escape:
 			clearSelection();
 			return;
+	}
+	if (event->matches(QKeySequence::Save)) {
+		storeItems();
+		return;
+	}
+	if (event->matches(QKeySequence::Copy)) {
+		pem2clipboard();
+		return;
 	}
 	QTreeView::keyPressEvent(event);
 }
