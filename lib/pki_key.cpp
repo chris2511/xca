@@ -719,6 +719,8 @@ QByteArray pki_key::SSH2publicQByteArray(bool raw) const
 	}
 	if (raw)
 		return data;
+
+	txt += " " + data.toBase64();
 	QString comm = comment.section('\n', 0, 0).simplified();
 	if (comm.size() > 0)
 		txt += " " + comm.toUtf8();
