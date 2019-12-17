@@ -151,12 +151,12 @@
     <message>
         <location line="+22"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>显示公钥</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>密钥不在数据库中。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -176,7 +176,7 @@
     <message>
         <location line="+27"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>于%1吊销</translation>
     </message>
     <message>
         <source>Revoked: </source>
@@ -273,7 +273,7 @@
     <message>
         <location line="+10"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>保持序列号不变</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -506,7 +506,7 @@
     <message>
         <location line="+65"/>
         <source>Export comment into PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>导出备注到PEM文件</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -863,7 +863,7 @@ Serial: %3</source>
     <message>
         <location line="+48"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>指纹</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1153,27 +1153,27 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-7"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>波兰语</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>意大利语</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>简体中文</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>荷兰语</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>巴西葡萄牙语</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1215,17 +1215,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-11"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>新建数据库</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>打开数据库</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭数据库</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1285,17 +1285,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished">令牌</translation>
+        <translation>令牌</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>分CA导出证书索引</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Content</source>
-        <translation type="unfinished">内容</translation>
+        <translation>内容</translation>
     </message>
     <message>
         <source>&amp;Token</source>
@@ -1494,7 +1494,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-31"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DH参数保存为：%1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2824,22 +2824,22 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>打开PKCS11动态库失败: %1: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>已禁用</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Library loading failed</source>
-        <translation type="unfinished"></translation>
+        <translation>动态库加载失败</translation>
     </message>
     <message>
         <location line="+185"/>
@@ -3247,7 +3247,7 @@ In library %3
     <message>
         <location line="+205"/>
         <source>Could not create directory %1</source>
-        <translation type="unfinished"></translation>
+        <translation>创建文件夹失败 %1</translation>
     </message>
     <message>
         <location line="+251"/>
@@ -3361,7 +3361,7 @@ and so it was not imported</source>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>数据库错误: %1</translation>
     </message>
     <message>
         <source>Database error: </source>
@@ -3649,7 +3649,7 @@ and so it was not imported</source>
     <message>
         <location line="+425"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>天</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3784,12 +3784,12 @@ and so it was not imported</source>
     <message>
         <location line="+2"/>
         <source>Certificate count</source>
-        <translation type="unfinished"></translation>
+        <translation>证书数量</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of certificates in the database with the same public key</source>
-        <translation type="unfinished"></translation>
+        <translation>数据库中具有相同公钥的证书数量</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -3936,7 +3936,7 @@ and thus was not stored</source>
     <message>
         <location line="+1"/>
         <source>Renewed</source>
-        <translation type="unfinished"></translation>
+        <translation>已续签</translation>
     </message>
     <message>
         <location line="-197"/>
@@ -4007,7 +4007,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="unfinished"></translation>
+        <translation>无法解密密钥（密码错误） %1</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4017,7 +4017,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+55"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
-        <translation type="unfinished"></translation>
+        <translation>文件&apos;%1&apos;中的密钥不完整或不一致。</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4140,7 +4140,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+96"/>
         <location line="+94"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>意料之外的SSH2内容：&apos;%1&apos;</translation>
     </message>
     <message>
         <location line="-74"/>
