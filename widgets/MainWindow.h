@@ -80,6 +80,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QList<db_base*> models;
 		QProgressBar *dhgenBar;
 		DHgen *dhgen;
+		const QList<QStringList> getTranslators() const;
 
 	protected:
 		void init_images();

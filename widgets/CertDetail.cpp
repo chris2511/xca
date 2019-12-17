@@ -136,8 +136,8 @@ void CertDetail::setCert(pki_x509 *cert)
 		dateValid->disableToolTip();
 		if (cert->isRevoked()) {
 			x509rev rev = cert->getRevocation();
-			dateValid->setText(tr("Revoked: ") +
-			rev.getDate().toPretty());
+			dateValid->setText(tr("Revoked at %1")
+				.arg(rev.getDate().toPretty()));
 			dateValid->setRed();
 			dateValid->setToolTip(rev.getDate().toPrettyGMT());
 		} else if (!cert->checkDate()) {

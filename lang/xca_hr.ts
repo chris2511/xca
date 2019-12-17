@@ -208,11 +208,16 @@
         <translation>Nije dostupno</translation>
     </message>
     <message>
+        <location line="+70"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Details of the certificate</source>
         <translation type="obsolete">Detalji potvrde</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="-31"/>
         <source>Signer unknown</source>
         <translation>Potpisnik (izdavač) nepoznat</translation>
     </message>
@@ -231,12 +236,11 @@
         <translation type="vanished">Pouzdan</translation>
     </message>
     <message>
-        <location line="+27"/>
         <source>Revoked: </source>
-        <translation>Opozvan:</translation>
+        <translation type="vanished">Opozvan:</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+32"/>
         <source>Not valid</source>
         <translation>Nevažeći</translation>
     </message>
@@ -313,7 +317,12 @@
         <translation>Opozovi staru potvrdu</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-43"/>
         <source>Midnight</source>
         <translation>Ponoć</translation>
     </message>
@@ -1269,7 +1278,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+129"/>
+        <location filename="../widgets/MW_menu.cpp" line="+128"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -1349,7 +1358,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Nije moguće preimenovati datoteku baze podataka, ciljano ime već postoji</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>No deleted items found</source>
         <translation>Nisu pronađene obrisane stavke</translation>
     </message>
@@ -1362,22 +1371,23 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="vanished">Nije uspjelo uklanjanje obrisanih ili zastarjelih stavki iz baze podataka.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-49"/>
         <source>Recent DataBases</source>
         <translation>Nedavna baza podataka</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="../widgets/MW_help.cpp" line="+25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>System</source>
         <translation>Sustav</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+3"/>
         <source>Croatian</source>
         <translation>Hrvatski</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>English</source>
         <translation>Engleski</translation>
     </message>
@@ -1387,83 +1397,95 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Francuski</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>German</source>
         <translation>Njemački</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>Ruski</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Spanish</source>
         <translation>Španjolski</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-7"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-11"/>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+7"/>
         <source>Turkish</source>
         <translation>Turski</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/MW_menu.cpp" line="+48"/>
         <source>Language</source>
         <translation>Jezik</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+9"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;New DataBase</source>
-        <translation>&amp;Nova baza podataka</translation>
+        <translation type="vanished">&amp;Nova baza podataka</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Open DataBase</source>
-        <translation>&amp;Otvori bazu podataka</translation>
+        <translation type="vanished">&amp;Otvori bazu podataka</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>Otvori udaljenu bazu podataka</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>Paste PEM file</source>
         <translatorcomment>Ubaci, zalijepi</translatorcomment>
         <translation>Zalijepi PEM datoteku</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+3"/>
+        <source>Token</source>
+        <translation type="unfinished">Token</translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>&amp;Export Certificate Index</source>
         <translation>&amp;Izvezi kazalo Potvrda</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation>&amp;Izvezi hijerarhiju kazala Potvrda</translation>
+        <translation type="vanished">&amp;Izvezi hijerarhiju kazala Potvrda</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Generate DH parameter</source>
         <translation>Generiraj DH parametar</translation>
     </message>
@@ -1472,17 +1494,16 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="vanished">Istovar baze podataka ( *dump );; Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location line="-56"/>
+        <location line="-58"/>
         <source>Set as default DataBase</source>
         <translation>Postavi kao osnovnu bazu podataka</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Close DataBase</source>
-        <translation>&amp;Zatvori bazu podataka</translation>
+        <translation type="vanished">&amp;Zatvori bazu podataka</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+46"/>
         <source>&amp;Dump DataBase</source>
         <translation>I&amp;stovari bazu podataka</translation>
     </message>
@@ -1501,22 +1522,37 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>&amp;Vrati obrisane stavke</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location line="-49"/>
         <source>Options</source>
         <translation>Opcije</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location filename="../widgets/MW_help.cpp" line="-4"/>
         <source>Slovak</source>
         <translation>Slovački</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location filename="../widgets/MW_menu.cpp" line="-17"/>
+        <source>New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Close DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Exit</source>
         <translation>Izlaz</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>I&amp;mport</source>
         <translation>U&amp;vezi</translation>
     </message>
@@ -1556,16 +1592,20 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>PEM datoteka</translation>
     </message>
     <message>
+        <location line="+34"/>
+        <source>Content</source>
+        <translation type="unfinished">Sadržaj</translation>
+    </message>
+    <message>
         <source>paste PEM file</source>
         <translation type="obsolete">zalijepi PEM datoteku</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Token</source>
-        <translation>&amp;Token</translation>
+        <translation type="vanished">&amp;Token</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-29"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Upravljaj pametnim tokenom</translation>
     </message>
@@ -1595,7 +1635,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Dodatno</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+5"/>
+        <source>Export Certificate &amp;Index hierarchy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>OID Resolver</source>
         <translation>Prevoditelj OID</translation>
     </message>
@@ -1605,12 +1650,11 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>&amp;Pomoć</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Content</source>
-        <translation>&amp;Sadržaj</translation>
+        <translation type="vanished">&amp;Sadržaj</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>About</source>
         <translation>O</translation>
     </message>
@@ -3717,7 +3761,7 @@ U knjižnici %3
         <translation>Zalijepi PEM podatke</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
@@ -3732,7 +3776,7 @@ U knjižnici %3
         <translation>Obriši</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Izvezi</translation>
     </message>
@@ -3972,8 +4016,12 @@ i zbog toga nije uvezen</translation>
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
+        <source>Database error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Database error: </source>
-        <translation>Greška u bazi podataka:</translation>
+        <translation type="vanished">Greška u bazi podataka:</translation>
     </message>
     <message>
         <location line="-162"/>
@@ -4429,7 +4477,12 @@ i zbog toga nije uvezena</translation>
         <translation>CA vCalendar</translation>
     </message>
     <message>
-        <location line="+433"/>
+        <location line="+425"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>No template</source>
         <translation>Nema predloška</translation>
     </message>
@@ -4443,7 +4496,7 @@ i zbog toga nije uvezena</translation>
         <translation type="vanished">QA proces je prekinut od strane korisnika.</translation>
     </message>
     <message>
-        <location line="-580"/>
+        <location line="-581"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Ključ kojeg ste odabrali za potpisivanje nije privatni ključ.</translation>
     </message>
@@ -4667,9 +4720,8 @@ i zbog toga nije uvezena</translation>
         <translation type="obsolete">Nije pronađen ključ za Potvrdu:</translation>
     </message>
     <message>
-        <location line="+286"/>
         <source> days</source>
-        <translation>ana</translation>
+        <translation type="vanished">ana</translation>
     </message>
 </context>
 <context>
@@ -5053,7 +5105,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+113"/>
+        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
@@ -5163,12 +5215,11 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation>Neuspješno dekriptiran ključ (pogrešna zaporka) </translation>
+        <translation type="vanished">Neuspješno dekriptiran ključ (pogrešna zaporka) </translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../lib/pki_evp.cpp" line="+249"/>
         <source>Please enter the password to decrypt the private key.</source>
         <translation>Unesite zaporku za dekripciju privatnog ključa.</translation>
     </message>
@@ -5189,7 +5240,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="obsolete">Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni i PKCS#8 tip ključeva.</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="-83"/>
+        <source>Failed to decrypt the key (bad password) %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+130"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation>Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni, PKCS#8 tip ključeva i SSH2 format.</translation>
     </message>
@@ -5430,17 +5486,16 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Nije moguće naći kopirani ključ na tokenu</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Umetnite karticu:  %1 %2 [%3] s sa serijskim brojem: %4</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Public Key mismatch. Please re-import card</source>
-        <translation>Neodgovarajući javni ključ. Molimo ponovo umetnite karticu</translation>
+        <translation type="vanished">Neodgovarajući javni ključ. Molimo ponovo umetnite karticu</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Nedozvoljeni način generiranja Ključa</translation>
     </message>

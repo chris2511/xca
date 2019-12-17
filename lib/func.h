@@ -13,6 +13,7 @@
 #include <QPixmap>
 #include <QByteArray>
 #include <QMap>
+#include <QTextDocument>
 #include "base.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -65,6 +66,15 @@ void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 #define D2I_VOID(a) ((void *(*)(void *, unsigned char **, long))(a))
 
 #define QString2filename(str) filename2bytearray(str).constData()
+
+static inline QString htmlEscape(const QString &html)
+{
+#if QT_VERSION < 0x050000
+	return Qt::escape(html);
+#else
+	return html.toHtmlEscaped();
+#endif
+}
 
 static inline BIO *BIO_from_QByteArray(QByteArray &ba)
 {

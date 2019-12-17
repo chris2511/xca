@@ -117,6 +117,7 @@ void XCA_application::setupLanguage(QLocale l)
 #endif
 		;
 
+	qDebug() << "Setup language: " << lang;
 	foreach(QString dir, dirs) {
 		if (qtTr->load(lang, "qt", dir)) {
 			break;
@@ -272,6 +273,9 @@ void myMsgOutput(QtMsgType type, const char *msg)
 	case QtWarningMsg:  severity = LRED "Warning"; break;
 	case QtCriticalMsg: severity = RED "Critical"; break;
 	case QtFatalMsg:    severity = RED "Fatal"; break;
+#if QT_VERSION >= 0x050000
+	case QtInfoMsg:	    severity = CYAN "Info"; break;
+#endif
 	default:            severity = CYAN "Default"; break;
 	}
 
@@ -284,10 +288,6 @@ void myMessageOutput(QtMsgType t, const QMessageLogContext &, const QString &m)
 {
 	myMsgOutput(t, CCHAR(m));
 }
-#endif
-
-#if DQT_VERSION >= 0x050000
-	case QtInfoMsg:	    severity = "Info"; break;
 #endif
 
 int main( int argc, char *argv[] )

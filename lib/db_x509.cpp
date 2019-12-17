@@ -924,7 +924,8 @@ void db_x509::certRenewal(QModelIndexList indexes)
 					(idx.internalPointer());
 			newcert = new pki_x509(oldcert);
 			newcert->pkiSource = renewed;
-			serial = getUniqueSerial(signer);
+			serial = dlg->keepSerial->isChecked() ?
+				oldcert->getSerial() : getUniqueSerial(signer);
 			newcert->setRevoked(x509rev());
 
 			// change date and serial
@@ -1090,7 +1091,7 @@ void db_x509::caProperties(QModelIndex idx)
 
 	QDialog *dlg = new QDialog(mainwin);
 	ui.setupUi(dlg);
-	ui.days->setSuffix(tr(" days"));
+	ui.days->setSuffix(QString(" ") + tr("days"));
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
 	ui.image->setPixmap(*MainWindow::certImg);

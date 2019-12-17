@@ -159,9 +159,10 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1.dll" \
 	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk) \
-	   "$(TOPDIR)"/COPYRIGHT $@
-	cp "$(QTDIR)/plugins/sqldrivers/qsqlite.dll" $@/sqldrivers
+	   "$(TOPDIR)"/COPYRIGHT "${BDIR}/sql/"*.dll $@
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
+	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql) $@/sqldrivers
+
 
 xca-portable.zip: xca-portable-$(VERSION).zip
 xca-portable-$(VERSION).zip: xca-portable-$(VERSION)
@@ -179,17 +180,17 @@ $(DMGSTAGE): xca$(SUFFIX)
 	$(MAKE) $(APPTARGET)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
-	otool -l $(DMGSTAGE)/xca.app/Contents/MacOS/xca | grep -e "chris\|Users" >&2
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	rpath="`cd $(DMGSTAGE) && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
-	if test -n "$$rpath"; then echo "  ERROR $$rpath"; false; fi
-	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
 
 xca.dmg: $(MACTARGET).dmg
 
 xca.app: $(DMGSTAGE)
 
 $(MACTARGET).dmg: $(DMGSTAGE)
+	# Check for "Users" or "chris" in the resulting DMG image
+	rpath="`cd $(DMGSTAGE) && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
+	if test -n "$$rpath"; then echo "  ERROR $$rpath"; false; fi
+	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
 	hdiutil create -ov -fs HFS+ -volname "xca-$(VERSION)" -srcfolder "$<" "$@"
 
 trans:

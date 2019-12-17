@@ -1,3 +1,28 @@
+ * Close #138: Portable Version does not remember paths
+ * Close #83: Token selection should not insist on name or serial of the token
+ * Close #95: Copy mysql and psql windows dll files into portable app
+ * Close #144: Database export has issues with wildcards in internal names
+ * Close #143: Hotkey for import
+ * Close #140: Certificate renewal with option to preserved serial number
+ * Fix possible XCA crash
+ * Add Dutch translation
+ * Add Chinese translation
+ * Add Italian language
+ * CLose #120: Mark signed a request doesn't work
+ * Close #119: Rename "PostgreSQL 6 and 7" to just "PostgreSQL"
+ * Close #116: Duplicate extensions erroneously shown
+ * Close #114: SAN - IPv6 address input not working
+ * Close #68 Generating large DH params freezes UI
+ * Support concurrent database access.
+ * Close #91: Change order of "PKCS#11 provider"
+ * Extend PEM files by human readable information about the item
+ * Support ecdsa SSH public keys
+ * Close #98 Add comment at import/export RSA keys from/to SSH public key
+ * Close #101: Finish Rename with Enter shows Property Dialog
+ * Close #104: Also show sha256 digests of public keys
+ * Close #82: Renew CA ROOT Cert
+ * Verify imported keys thoroughly
+
 xca 2.1.2 Wed Nov 07 2018
 
  * Close #40 macOS: Crash after xca v2.0.1 quit

@@ -236,8 +236,8 @@ void pki_evp::openssl_pw_error(QString fname)
 	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_PASSWORD_READ):
 	case ERR_PACK(ERR_LIB_EVP, 0, EVP_R_BAD_DECRYPT):
 		pki_ign_openssl_error();
-		throw errorEx(tr("Failed to decrypt the key (bad password) ")+
-				fname, getClassName(), E_PASSWD);
+		throw errorEx(tr("Failed to decrypt the key (bad password) %1")
+				.arg(fname), getClassName(), E_PASSWD);
 	}
 }
 

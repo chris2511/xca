@@ -588,59 +588,51 @@ QList<int> pki_scard::possibleHashNids()
 	return nids;
 }
 
-/* Assures the correct card is inserted and
- * returns the slot ID in slot true on success */
-bool pki_scard::prepare_card(slotid *slot, bool verifyPubkey) const
+bool pki_scard::find_key_on_card(slotid *slot) const
 {
 	pkcs11 p11;
-	slotidList p11_slots;
-	int i;
+	slotid sl;
 
-	if (!pkcs11::loaded())
-		return false;
-	while (1) {
-		p11_slots = p11.getSlotList();
-		for (i=0; i<p11_slots.count(); i++) {
-			pkcs11 myp11;
-			tkInfo ti = myp11.tokenInfo(p11_slots[i]);
-			if (ti.label() == card_label &&
-			    ti.serial() == card_serial)
-			{
-				break;
-			}
-		}
-		if (i < p11_slots.count())
-			break;
-		QString msg = tr("Please insert card: %1 %2 [%3] with Serial: %4").
-			arg(card_manufacturer).arg(card_model).
-			arg(card_label).arg(card_serial);
-
-		if (!XCA_OKCANCEL(msg)) {
-			return false;
-		}
-	}
-
-	*slot = p11_slots[i];
-	if (!verifyPubkey)
-		return true;
-
-	QList<CK_OBJECT_HANDLE> objects;
-
-	p11.startSession(p11_slots[i]);
-
-	pk11_attlist cls (pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
+	pk11_attlist cls(pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
 	cls << getIdAttr();
 
-	objects = p11.objectList(cls);
+	foreach(sl, p11.getSlotList()) {
+		p11.startSession(sl);
 
-	for (int j=0; j< objects.count(); j++) {
-		CK_OBJECT_HANDLE object = objects[j];
-		EVP_PKEY *pkey = load_pubkey(p11, object);
-		if (EVP_PKEY_cmp(key, pkey) == 1)
-			return true;
-		if (!object_id.isEmpty())
-			XCA_WARN(tr("Public Key mismatch. Please re-import card"));
+		foreach(CK_OBJECT_HANDLE object, p11.objectList(cls)) {
+			EVP_PKEY *pkey = load_pubkey(p11, object);
+			bool match = EVP_PKEY_cmp(key, pkey) == 1;
+			EVP_PKEY_free(pkey);
+
+			if (match) {
+				*slot = sl;
+				return true;
+			}
+		}
 	}
+	return false;
+}
+
+/* Assures the correct card is inserted and
+ * returns the slot ID in slot true on success */
+bool pki_scard::prepare_card(slotid *slot) const
+{
+	if (!pkcs11::loaded())
+		return false;
+
+	QString msg = tr("Please insert card: %1 %2 [%3] with Serial: %4").
+			arg(card_manufacturer).arg(card_model).
+			arg(card_label).arg(card_serial);
+	do {
+		try {
+			if (find_key_on_card(slot))
+				return true;
+		} catch (errorEx &err) {
+			qDebug() << "find_key_on_card:" << err.getString();
+		} catch (...) {
+			qDebug() << "find_key_on_card exception";
+		}
+	} while (XCA_OKCANCEL(msg));
 	return false;
 }
 

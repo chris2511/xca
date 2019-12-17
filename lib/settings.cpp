@@ -94,6 +94,8 @@ void settings::load_settings()
 		QStringList l = key.split(":");
 		if (l.size() == 2 && l[1] != hostId())
 			continue;	// Skip key with non-matching host ID
+		if (l[0] == "workingdir" && !QDir(value).exists())
+			continue;	// Skip non-existing working-dir
 		db_keys << key;		// Key with host ID
 		setAction(l[0], value);	// Key without host ID
 	}
@@ -113,7 +115,7 @@ void settings::set(QString key, QString value)
 	QString origkey = key;
 
 	if (key == "workingdir") {
-		if (portable_app() || !QDir(value).exists())
+		if (!QDir(value).exists())
 			return;
 		value = QDir::toNativeSeparators(value);
 	}

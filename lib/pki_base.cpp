@@ -54,6 +54,16 @@ int pki_base::renameOnToken(slotid, QString)
 	return 0;
 }
 
+QString pki_base::getUnderlinedName() const
+{
+	QString name = getIntName();
+	QRegExp rx("^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$");
+
+	if (rx.indexIn(name) != -1)
+		name += "_";
+	return name.replace(QRegExp("[ $&;`/\\\\<>:\"/\\|?*]+"), "_");
+}
+
 bool pki_base::visible() const
 {
 	if (limitPattern.isEmpty())

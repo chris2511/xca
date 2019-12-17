@@ -175,8 +175,12 @@
     </message>
     <message>
         <location line="+27"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Revoked: </source>
-        <translation>Revocato: </translation>
+        <translation type="vanished">Revocato: </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -265,6 +269,11 @@
         <location line="+26"/>
         <source>Revoke old certificate</source>
         <translation>Revoca vecchio certificato</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Keep serial number</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -1014,7 +1023,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+129"/>
+        <location filename="../widgets/MW_menu.cpp" line="+128"/>
         <source>Certificates</source>
         <translation>Certificati</translation>
     </message>
@@ -1090,27 +1099,28 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Impossibile rinominare il file database: nome destinazione già esistente</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>No deleted items found</source>
         <translation>Non trovati elementi cancellati</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-49"/>
         <source>Recent DataBases</source>
         <translation>Database recenti</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location filename="../widgets/MW_help.cpp" line="+25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+3"/>
         <source>Croatian</source>
         <translation>Croato</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>English</source>
         <translation>Inglese</translation>
     </message>
@@ -1120,12 +1130,12 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Francese</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>German</source>
         <translation>Tedesco</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>Russo</translation>
     </message>
@@ -1135,52 +1145,60 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Slovacco</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Spanish</source>
         <translation>Spagnolo</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-7"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-11"/>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+7"/>
         <source>Turkish</source>
         <translation>Turco</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/MW_menu.cpp" line="+48"/>
         <source>Language</source>
         <translation>Lingua</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+9"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;New DataBase</source>
-        <translation>&amp;Nuovo database</translation>
+        <translation type="vanished">&amp;Nuovo database</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Open DataBase</source>
-        <translation>&amp;Apri database</translation>
+        <translation type="vanished">&amp;Apri database</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>Apri database remoto</translation>
     </message>
@@ -1190,9 +1208,23 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Imposta come database predefinito</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Close DataBase</source>
-        <translation>&amp;Chiudi database</translation>
+        <translation type="vanished">&amp;Chiudi database</translation>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Close DataBase</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1205,7 +1237,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Esci</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>I&amp;mport</source>
         <translation>I&amp;mporta</translation>
     </message>
@@ -1250,12 +1282,26 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Incolla file PEM</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>&amp;Token</source>
-        <translation>&amp;Token</translation>
+        <location line="+3"/>
+        <source>Token</source>
+        <translation type="unfinished">Token</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+17"/>
+        <source>Export Certificate &amp;Index hierarchy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Content</source>
+        <translation type="unfinished">Contenuto</translation>
+    </message>
+    <message>
+        <source>&amp;Token</source>
+        <translation type="vanished">&amp;Token</translation>
+    </message>
+    <message>
+        <location line="-29"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Gestisci token di sicurezza</translation>
     </message>
@@ -1295,12 +1341,11 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>&amp;Esporta indice certificati</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Export Certificate Index hierarchy</source>
-        <translation>&amp;Esporta gerarchia degli indici certificati</translation>
+        <translation type="vanished">&amp;Esporta gerarchia degli indici certificati</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>C&amp;hange DataBase password</source>
         <translation>C&amp;ambia password del database</translation>
     </message>
@@ -1325,12 +1370,11 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Content</source>
-        <translation>&amp;Contenuti</translation>
+        <translation type="vanished">&amp;Contenuti</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>About</source>
         <translation>A proposito di</translation>
     </message>
@@ -3153,7 +3197,7 @@ nella libreria %3
         <translation>Incolla dati PEM</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Rename</source>
         <translation>Rinomina</translation>
     </message>
@@ -3168,7 +3212,7 @@ nella libreria %3
         <translation>Elimina</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Esporta</translation>
     </message>
@@ -3355,8 +3399,12 @@ quindi non è stata importata</translation>
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
+        <source>Database error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Database error: </source>
-        <translation>Errore database: </translation>
+        <translation type="vanished">Errore database: </translation>
     </message>
 </context>
 <context>
@@ -3636,12 +3684,17 @@ pertanto non è stato importato</translation>
         <translation>CA vCalendar</translation>
     </message>
     <message>
-        <location line="+433"/>
+        <location line="+425"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>No template</source>
         <translation>Nessun modello</translation>
     </message>
     <message>
-        <location line="-580"/>
+        <location line="-581"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>La chiave selezionata per la firma non è una chiave privata.</translation>
     </message>
@@ -3716,9 +3769,8 @@ pertanto non è stato importato</translation>
         <translation>Impossibile per il certificato chiave token: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+286"/>
         <source> days</source>
-        <translation> giorni</translation>
+        <translation type="vanished"> giorni</translation>
     </message>
 </context>
 <context>
@@ -3880,7 +3932,7 @@ pertanto non è stata salvata</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+113"/>
+        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
@@ -3985,9 +4037,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation>Impossibile decrittare la chiave (password errata) </translation>
+        <translation type="vanished">Impossibile decrittare la chiave (password errata) </translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <source>Failed to decrypt the key (bad password) %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4223,17 +4279,16 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Impossibile trovare la chiave copiata sul token</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Prego inserire la card: %1 %2 [%3] con Seriale: %4</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Public Key mismatch. Please re-import card</source>
-        <translation>Differenza di chiave pubblica. Prego re-importare la card</translation>
+        <translation type="vanished">Differenza di chiave pubblica. Prego re-importare la card</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Metodo non previsto per la generazione della chiave</translation>
     </message>

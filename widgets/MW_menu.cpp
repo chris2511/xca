@@ -25,15 +25,34 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
-class myLang
+static QAction *languageMenuEntry(const QStringList &sl)
 {
-public:
-	QString english, native;
+	QString lang, tooltip;
 	QLocale locale;
-	myLang(QString e, QString n, QLocale l) {
-		english = e; native = n, locale = l;
+
+	if (sl[0].isEmpty()) {
+		locale = QLocale::system();
+		lang = MainWindow::tr("System");
+	} else {
+		locale = QLocale(sl[0]);
+		lang = QString("%1 (%2)").arg(sl[1])
+			.arg(QLocale::languageToString(locale.language()));
 	}
-};
+	tooltip = locale.nativeLanguageName();
+
+	if (sl.length() > 2)
+		tooltip += " - " + sl[2];
+
+	QAction *a = new QAction(lang, NULL);
+	a->setToolTip(tooltip);
+	a->setData(QVariant(locale));
+	a->setDisabled(!XCA_application::languageAvailable(locale));
+
+	a->setCheckable(true);
+	if (locale == XCA_application::language())
+		a->setChecked(true);
+	return a;
+}
 
 void MainWindow::init_menu()
 {
@@ -42,7 +61,6 @@ void MainWindow::init_menu()
 	static QActionGroup * langGroup = NULL;
 	QAction *a;
 
-	QList<myLang> languages;
 	if (file) delete file;
 	if (help) delete help;
 	if (import) delete import;
@@ -62,40 +80,20 @@ void MainWindow::init_menu()
 	connect(historyMenu, SIGNAL(triggered(QAction*)),
                 this, SLOT(open_database(QAction*)));
 
-	languages <<
-		myLang("System",   tr("System"),   QLocale::system()) <<
-		myLang("Croatian", tr("Croatian"), QLocale("hr")) <<
-		myLang("English",  tr("English"),  QLocale("en")) <<
-		myLang("French",   tr("French"),   QLocale("fr")) <<
-		myLang("German",   tr("German"),   QLocale("de")) <<
-		myLang("Russian",  tr("Russian"),  QLocale("ru")) <<
-		myLang("Slovak",   tr("Slovak"),   QLocale("sk")) <<
-		myLang("Spanish",  tr("Spanish"),  QLocale("es")) <<
-		myLang("Polish",   tr("Polish"),   QLocale("pl")) <<
-		myLang("Italian",  tr("Italian"),  QLocale("it")) <<
-		myLang("Portuguese in Brazil",   tr("Portuguese in Brazil"),   QLocale("pt_BR")) <<
-		myLang("Turkish",  tr("Turkish"),  QLocale("tr"));
-
 	languageMenu = new tipMenu(tr("Language"), this);
 	connect(languageMenu, SIGNAL(triggered(QAction*)),
 		qApp, SLOT(switchLanguage(QAction*)));
 
-	foreach(myLang l, languages) {
-		QAction *a = new QAction(l.english, langGroup);
-		a->setToolTip(l.native);
-		a->setData(QVariant(l.locale));
-		a->setDisabled(!XCA_application::languageAvailable(l.locale));
-		a->setCheckable(true);
+	foreach(const QStringList &sl, getTranslators()) {
+		QAction *a = languageMenuEntry(sl);
 		langGroup->addAction(a);
 		languageMenu->addAction(a);
-		if (l.locale == XCA_application::language())
-			a->setChecked(true);
 	}
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
+	file->addAction(tr("New DataBase"), this, SLOT(new_database()),
 			QKeySequence::New)
 			->setEnabled(OpenDb::hasSqLite());
-	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
+	file->addAction(tr("Open DataBase"), this, SLOT(load_database()),
 			QKeySequence::Open)
 			->setEnabled(OpenDb::hasSqLite());
 	file->addAction(tr("Open Remote DataBase"),
@@ -106,8 +104,8 @@ void MainWindow::init_menu()
 		file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
 	}
-	acList += file->addAction(tr("&Close DataBase"), this,
-		SLOT(close_database()), QKeySequence(QKeySequence::Close));
+	acList += file->addAction(tr("Close DataBase"), this,
+		SLOT(close_database()), QKeySequence::Close);
 
 	a = new QAction(tr("Options"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(setOptions()));
@@ -121,6 +119,7 @@ void MainWindow::init_menu()
 	connect(a, SIGNAL(triggered()),
 		qApp, SLOT(quit()), Qt::QueuedConnection);
 	a->setMenuRole(QAction::QuitRole);
+	a->setShortcut(QKeySequence::Quit);
 	file->addAction(a);
 
 	import = menuBar()->addMenu(tr("I&mport"));
@@ -132,9 +131,10 @@ void MainWindow::init_menu()
 	import->addAction(tr("Template"), tempView, SLOT(load()) );
 	import->addAction(tr("Revocation list"), crlView, SLOT(load()));
 	import->addAction(tr("PEM file"), this, SLOT(loadPem()) );
-	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()));
+	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()),
+			QKeySequence::Paste);
 
-	token = menuBar()->addMenu(tr("&Token"));
+	token = menuBar()->addMenu(tr("Token"));
 	token->addAction(tr("&Manage Security token"), this,
 				SLOT(manageToken()));
 	token->addAction(tr("&Init Security token"),  this,
@@ -151,7 +151,7 @@ void MainWindow::init_menu()
 				SLOT(dump_database()));
 	acList += extra->addAction(tr("&Export Certificate Index"), this,
 				SLOT(exportIndex()));
-	acList += extra->addAction(tr("&Export Certificate Index hierarchy"), this,
+	acList += extra->addAction(tr("Export Certificate &Index hierarchy"), this,
 				SLOT(exportIndexHierarchy()));
 	acList += extra->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
@@ -164,11 +164,12 @@ void MainWindow::init_menu()
 	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));
 
 	help = menuBar()->addMenu(tr("&Help") );
-	help->addAction(tr("&Content"), this, SLOT(help()),
+	help->addAction(tr("Content"), this, SLOT(help()),
 			QKeySequence::HelpContents);
 	a = new QAction(tr("About"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(about()));
 	a->setMenuRole(QAction::AboutRole);
+	a->setShortcut(QKeySequence::WhatsThis);
 	help->addAction(a);
 	wdMenuList += import;
 	scardList += token;
