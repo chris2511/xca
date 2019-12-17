@@ -151,12 +151,12 @@
     <message>
         <location line="+22"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraziť verejný kľúč</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tento kľúč nie je v databáze.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -176,11 +176,7 @@
     <message>
         <location line="+27"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Revoked: </source>
-        <translation type="vanished">Odvolaný: </translation>
+        <translation>Odvolaný %1: </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -273,7 +269,7 @@
     <message>
         <location line="+10"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachovať sériové číslo</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -315,7 +311,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+25"/>
         <source>Import PKCS#12</source>
-        <translation>Importovať PKCS#12</translation>
+        <translation>Import PKCS#12</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -457,7 +453,7 @@
     <message>
         <location line="+20"/>
         <source>&amp;Revocation list</source>
-        <translation>Zoznam &amp;odvolaní</translation>
+        <translation>Zoznam &amp;odvolaných</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -495,7 +491,7 @@
     <message>
         <location line="+30"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation>…</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -505,7 +501,7 @@
     <message>
         <location line="+65"/>
         <source>Export comment into PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportovať komentáre do súboru PEM</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -540,7 +536,7 @@
     <message>
         <location line="+1"/>
         <source>Binary DER encoded file</source>
-        <translation>Binárne DER kódovaný súbor</translation>
+        <translation>Binárne kódovaný súbor DER</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -852,7 +848,7 @@ Sér. č.: %3</translation>
     <message>
         <location line="+25"/>
         <source>Token information</source>
-        <translation>Informácie otkenu</translation>
+        <translation>Informácie tokenu</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -862,7 +858,7 @@ Sér. č.: %3</translation>
     <message>
         <location line="+48"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Odtlačok</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1152,27 +1148,27 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location line="-7"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>poľsky</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>taliansky</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>čínsky</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>holandsky</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>brazílska portugalčina</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1190,14 +1186,6 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>&amp;Súbor</translation>
     </message>
     <message>
-        <source>&amp;New DataBase</source>
-        <translation type="vanished">&amp;Nová databáza</translation>
-    </message>
-    <message>
-        <source>&amp;Open DataBase</source>
-        <translation type="vanished">&amp;Otvoriť databázu</translation>
-    </message>
-    <message>
         <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>Otvoriť vzdialenú databázu</translation>
@@ -1208,23 +1196,19 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Predvolená databáza</translation>
     </message>
     <message>
-        <source>&amp;Close DataBase</source>
-        <translation type="vanished">&amp;Zatvoriť databázu</translation>
-    </message>
-    <message>
         <location line="-11"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová databáza</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Otvoriť databázu</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatvoriť databázu</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1274,36 +1258,32 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location line="+1"/>
         <source>PEM file</source>
-        <translation>S&amp;Import starého úbor PEM</translation>
+        <translation>Ssúbor PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Paste PEM file</source>
-        <translation>Vložiť súbor PEM</translation>
+        <translation>Vložte súbor PEM</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished">Token</translation>
+        <translation>Token</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportovať hierarchiu &amp;indexu certifikátov</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Content</source>
-        <translation type="unfinished">Obsah</translation>
-    </message>
-    <message>
-        <source>&amp;Token</source>
-        <translation type="vanished">&amp;Token</translation>
+        <translation>Obsah</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>&amp;Manage Security token</source>
-        <translation>&amp;Spravovať bezpečnostný token</translation>
+        <translation>&amp;Spravovať Bezpečnostný token</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1341,10 +1321,6 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>&amp;Exportovať index certifikátov</translation>
     </message>
     <message>
-        <source>&amp;Export Certificate Index hierarchy</source>
-        <translation type="vanished">&amp;Exportovať hierarchiu indexu certifikátov</translation>
-    </message>
-    <message>
         <location line="+4"/>
         <source>C&amp;hange DataBase password</source>
         <translation>Z&amp;meniť heslo databázy</translation>
@@ -1357,7 +1333,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location line="+3"/>
         <source>Generate DH parameter</source>
-        <translation>Generovať parameter DH</translation>
+        <translation>Generovať parametre DH</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1368,10 +1344,6 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <location line="+2"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomocník</translation>
-    </message>
-    <message>
-        <source>&amp;Content</source>
-        <translation type="vanished">&amp;Obsah</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1488,12 +1460,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <location line="+1"/>
         <location line="+60"/>
         <source>All files ( * )</source>
-        <translation>Všetky súbory (*)</translation>
+        <translation>Všetky súbory ( * )</translation>
     </message>
     <message>
         <location line="-31"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametre Diffie-Hellman uložené do: %1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -1501,6 +1473,14 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
 Please enter the DH parameter bits</source>
         <translation>Parametre Diffie-Hellman sú potrebné pre rôzne aplikácie, ale nie sú používané v XCA.
 Prosím, zadajte bity parametra DH</translation>
+    </message>
+    <message>
+        <source>&amp;Token</source>
+        <translation type="vanished">&amp;Token</translation>
+    </message>
+    <message>
+        <source>&amp;Content</source>
+        <translation type="vanished">&amp;Obsah</translation>
     </message>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
@@ -2256,7 +2236,7 @@ hoci ste ich v nastavení definovali ako povinné.</translation>
     <message>
         <location filename="../widgets/OpenDb.cpp" line="+143"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation>Nie je dostupný ovládač SqLite3. Prosím, nainštalujte balík qt-sqlite svojej distribúcie</translation>
+        <translation>Nie je dostupný ovládač SQLite3. Prosím, nainštalujte balík qt-sqlite svojej distribúcie</translation>
     </message>
     <message>
         <location line="+44"/>
@@ -2433,10 +2413,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <source>Weeks</source>
         <translation>Týždne</translation>
     </message>
-    <message>
-        <source>Load failed</source>
-        <translation type="vanished">Načítanie zlyhalo</translation>
-    </message>
 </context>
 <context>
     <name>PwDialog</name>
@@ -2555,6 +2531,240 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Nedostatok pamäte na %1:%2</translation>
     </message>
     <message>
+        <location filename="../lib/load_obj.cpp" line="+20"/>
+        <source>All files ( * )</source>
+        <translation>Všetky súbory ( * )</translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <source>Import RSA key</source>
+        <translation>Importovať kľúč RSA</translation>
+    </message>
+    <message>
+        <location line="-3"/>
+        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
+        <translation>Kľúče PKI ( *.pem *.der *.key );;Kľúče PKCS#8 ( *.p8 *.pk8 );;Verejné kľúče SSH ( *.pub );;</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>PKCS#10 CSR ( *.pem *.der *.csr );; </source>
+        <translation>Žiadosť PKCS#10 ( *.pem *.der *.csr );; </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import Request</source>
+        <translation>Importovať Žiadosť</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Certificates ( *.pem *.der *.crt *.cer );;</source>
+        <translation>Certifikáty ( *.pem *.der *.crt *.cer );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import X.509 Certificate</source>
+        <translation>Importovať Certifikát X.509</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>PKCS#7 data ( *.p7s *.p7m *.p7b );;</source>
+        <translation>Dáta PKCS#7 ( *.p7s *.p7m *.p7b );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import PKCS#7 Certificates</source>
+        <translation>Importovať Certifikáty PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>PKCS#12 Certificates ( *.p12 *.pfx );;</source>
+        <translation>Certifikáty PKCS#12 ( *.p12 *.pfx );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import PKCS#12 Private Certificate</source>
+        <translation>Importovať Súkromný certifikát PKCS#12</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>XCA templates ( *.xca );;</source>
+        <translation>Šablóny XCA ( *.xca );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import XCA Templates</source>
+        <translation>Importovať Šablóny XCA</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Revocation lists ( *.pem *.der *.crl );;</source>
+        <translation>Zoznamy odvolaných ( *.pem *.der *.crl );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import Certificate Revocation List</source>
+        <translation>Importovať Zoznam odvolaných certifikátov</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>XCA Databases ( *.xdb );;</source>
+        <translation>Databázy XCA ( *.xdb );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open XCA Database</source>
+        <translation>Otvoriť databázu XCA</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>PKCS#11 library ( *.dll );;</source>
+        <translation>Knižnica PKCS#11 ( *.dll );;</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>PKCS#11 library ( *.dylib *.so );;</source>
+        <translation>Knižnica PKCS#11 ( *.dylib *.so );;</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>PKCS#11 library ( *.so );;</source>
+        <translation>Knižnica PKCS#11 ( *.so );;</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Open PKCS#11 shared library</source>
+        <translation>Otvoriť zdieľanú knižnicu PKCS#11</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>PEM files ( *.pem );;</source>
+        <translation>Súbory PEM ( *.pem );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Load PEM encoded file</source>
+        <translation>Načítať súbor kódovaný PEM</translation>
+    </message>
+    <message>
+        <location filename="../lib/pkcs11.cpp" line="+245"/>
+        <source>Please enter the PIN on the PinPad</source>
+        <translation>Prosím, zadajte PIN na PinPad-e</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Please enter the SO PIN (PUK) of the token %1</source>
+        <translation>Prosím, zadajte SO PIN (PUK) tokenu %1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter the PIN of the token %1</source>
+        <translation>Prosím, zadajte PIN tokenu %1</translation>
+    </message>
+    <message>
+        <location line="+53"/>
+        <source>No Security token found</source>
+        <translation>Nebol nájdený bezpečnostný token</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Select</source>
+        <translation>Zvoliť</translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
+        <translation>Prosím, zadajte nový SO PIN (PUK) tokenu: „%1”</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Please enter the new PIN for the token: &apos;%1&apos;</source>
+        <translation>Prosím, zadajte nový PIN tokenu: &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <location filename="../lib/pkcs11.h" line="+92"/>
+        <source>Required PIN size: %1 - %2</source>
+        <translation>Požadovaná veľkosť PIN: %1 - %2</translation>
+    </message>
+    <message>
+        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
+        <source>Failed to open PKCS11 library: %1: %2</source>
+        <translation>Zlyhalo otvorenie knižnice PKCS#11: %1: %2</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
+        <translation>Toto nevyzerá ako knižnica PKCS#11. Symbol &apos;C_GetFunctionList&apos; nenájdený.</translation>
+    </message>
+    <message>
+        <location line="+82"/>
+        <source>Disabled</source>
+        <translation>Vypnuté</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Library loading failed</source>
+        <translation>Načítanie knižnice zlyhalo</translation>
+    </message>
+    <message>
+        <location line="+185"/>
+        <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
+        <translation>Funkcia PKCS#11 „%1” zlyhala: %2</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>PKCS#11 function &apos;%1&apos; failed: %2
+In library %3
+%4</source>
+        <translation>Funkcia PKCS#11 „%1” zlyhala: %2
+V knižnici %3
+%4</translation>
+    </message>
+    <message>
+        <location filename="../lib/x509name.cpp" line="+116"/>
+        <source>Invalid</source>
+        <translation>Neplatné</translation>
+    </message>
+    <message>
+        <location line="+124"/>
+        <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
+        <translation>%1 je kratšie ako %2 B: „%3”</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
+        <translation>%1 je dlhšie ako %2 B: „%3”</translation>
+    </message>
+    <message>
+        <location filename="../lib/x509v3ext.cpp" line="+85"/>
+        <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
+        <translation>Reťazec „%1” pre „%2” obsahuje neplatné znaky</translation>
+    </message>
+    <message>
+        <location filename="../lib/oid.cpp" line="+49"/>
+        <source>Error reading config file %1 at line %2</source>
+        <translation>Chyba čítania konfiguračného súboru %1 na riadku %2</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>The Object &apos;%1&apos; from file %2 line %3 is already known as &apos;%4:%5:%6&apos; and should be removed.</source>
+        <translation>Objekt „%1” zo súboru %2 riadok %3 je už známy ako „%4:%5:%6” a mal by byť odstránený.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The identifier &apos;%1&apos; for OID %2 from file %3 line %4 is already used for a different OID as &apos;%5:%6:%7&apos; and should be changed to avoid conflicts.</source>
+        <translation>Identifikátor „%1” pre OID %2 zo súboru %3 riadok %4 je už použitý pre iné OID ako „%5:%6:%7” a treba ho zmeniť, aby ste predišli konfliktom.</translation>
+    </message>
+    <message>
+        <location line="+84"/>
+        <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
+        <translation>Neznámy objekt „%1” v súbore %2 riadok %3</translation>
+    </message>
+    <message>
+        <location filename="../lib/sql.h" line="+55"/>
+        <source>Failed to start a database transaction</source>
+        <translation>Zlyhala inicializácia DB transakcie</translation>
+    </message>
+    <message>
         <source>Country code</source>
         <translation type="vanished">Kód krajiny</translation>
     </message>
@@ -2581,10 +2791,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <source>E-Mail address</source>
         <translation type="vanished">Emailová adresa</translation>
-    </message>
-    <message>
-        <source>Serial number</source>
-        <translation type="vanished">Sériové číslo</translation>
     </message>
     <message>
         <source>Given name</source>
@@ -2706,244 +2912,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <source>Comment</source>
         <translation type="vanished">Komentár</translation>
     </message>
-    <message>
-        <location filename="../lib/load_obj.cpp" line="+20"/>
-        <source>All files ( * )</source>
-        <translation>Všetky súbory (*)</translation>
-    </message>
-    <message>
-        <location line="+37"/>
-        <source>Import RSA key</source>
-        <translation>Importovať kľúč RSA</translation>
-    </message>
-    <message>
-        <location line="-3"/>
-        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
-        <translation>Kľúče PKI (*.pem *.der *.key);;Kľúče PKCS#8 (*.p8 *.pk8);;Verejné kľúče SSH (*.pub);;</translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>PKCS#10 CSR ( *.pem *.der *.csr );; </source>
-        <translation>Žiadosť PKCS#10 ( *.pem *.der *.csr );; </translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import Request</source>
-        <translation>Importovať Žiadosť</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>Certificates ( *.pem *.der *.crt *.cer );;</source>
-        <translation>Certifikáty (*.pem *.der *.crt *.cer);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import X.509 Certificate</source>
-        <translation>Importovať Certifikát X.509</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>PKCS#7 data ( *.p7s *.p7m *.p7b );;</source>
-        <translation>Dáta PKCS#7 (*.p7s *.p7m *.p7b);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import PKCS#7 Certificates</source>
-        <translation>Importovať Certifikáty PKCS#7</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>PKCS#12 Certificates ( *.p12 *.pfx );;</source>
-        <translation>Certifikáty PKCS#12 (*.p12 *.pfx);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import PKCS#12 Private Certificate</source>
-        <translation>Importovať Súkromný certifikát PKCS#12</translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>XCA templates ( *.xca );;</source>
-        <translation>Šablóny XCA (*.xca);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import XCA Templates</source>
-        <translation>Importovať Šablóny XCA</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>Revocation lists ( *.pem *.der *.crl );;</source>
-        <translation>Zoznamy odvolaných (*.pem *.der *.crl);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import Certificate Revocation List</source>
-        <translation>Importovať Zoznam odvolaných certifikátov</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>XCA Databases ( *.xdb );;</source>
-        <translation>Databázy XCA (*.xdb);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Open XCA Database</source>
-        <translation>Otvoriť databázu XCA</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>PKCS#11 library ( *.dll );;</source>
-        <translation>Knižnica PKCS#11 (*.dll);;</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>PKCS#11 library ( *.dylib *.so );;</source>
-        <translation>Knižnica PKCS#11 (*.dylib *.so);;</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>PKCS#11 library ( *.so );;</source>
-        <translation>Knižnica PKCS#11 (*.so);;</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Open PKCS#11 shared library</source>
-        <translation>Otvoriť zdieľanú knižnicu PKCS#11</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>PEM files ( *.pem );;</source>
-        <translation>Súbory PEM (*.pem);;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Load PEM encoded file</source>
-        <translation>Načítať súbor kódovaný PEM</translation>
-    </message>
-    <message>
-        <location filename="../lib/pkcs11.cpp" line="+245"/>
-        <source>Please enter the PIN on the PinPad</source>
-        <translation>Prosím, zadajte PIN na PinPad-e</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Please enter the SO PIN (PUK) of the token %1</source>
-        <translation>Prosím, zadajte SO PIN (PUK) tokenu %1</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Please enter the PIN of the token %1</source>
-        <translation>Prosím, zadajte PIN tokenu %1</translation>
-    </message>
-    <message>
-        <location line="+53"/>
-        <source>No Security token found</source>
-        <translation>Nebol nájdený bezpečnostný token</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Select</source>
-        <translation>Zvoliť</translation>
-    </message>
-    <message>
-        <location line="+23"/>
-        <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
-        <translation>Prosím, zadajte nový SO PIN (PUK) tokenu: „%1”</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Please enter the new PIN for the token: &apos;%1&apos;</source>
-        <translation>Prosím, zadajte nový PIN tokenu: &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <location filename="../lib/pkcs11.h" line="+92"/>
-        <source>Required PIN size: %1 - %2</source>
-        <translation>Požadovaná veľkosť PIN: %1 - %2</translation>
-    </message>
-    <message>
-        <source>Failed to open PKCS11 library: %1</source>
-        <translation type="vanished">Zlyhalo otvorenie knižnice PKCS#11: %1</translation>
-    </message>
-    <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
-        <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+82"/>
-        <source>Disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Library loading failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+185"/>
-        <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
-        <translation>Funkcia PKCS#11 „%1” zlyhala: %2</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>PKCS#11 function &apos;%1&apos; failed: %2
-In library %3
-%4</source>
-        <translation>Funkcia PKCS#11 „%1” zlyhala: %2
-V knižnici %3
-%4</translation>
-    </message>
-    <message>
-        <location filename="../lib/x509name.cpp" line="+116"/>
-        <source>Invalid</source>
-        <translation>Neplatné</translation>
-    </message>
-    <message>
-        <location line="+124"/>
-        <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
-        <translation>%1 je kratšie ako %2 B: „%3”</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
-        <translation>%1 je dlhšie ako %2 B: „%3”</translation>
-    </message>
-    <message>
-        <location filename="../lib/x509v3ext.cpp" line="+85"/>
-        <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
-        <translation>Reťazec „%1” pre „%2” obsahuje neplatné znaky</translation>
-    </message>
-    <message>
-        <location filename="../lib/oid.cpp" line="+49"/>
-        <source>Error reading config file %1 at line %2</source>
-        <translation>Chyba čítania konfiguračného súboru %1 na riadku %2</translation>
-    </message>
-    <message>
-        <location line="+35"/>
-        <source>The Object &apos;%1&apos; from file %2 line %3 is already known as &apos;%4:%5:%6&apos; and should be removed.</source>
-        <translation>Objekt „%1” zo súboru %2 riadok %3 je už známy ako „%4:%5:%6” a mal by byť odstránený.</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>The identifier &apos;%1&apos; for OID %2 from file %3 line %4 is already used for a different OID as &apos;%5:%6:%7&apos; and should be changed to avoid conflicts.</source>
-        <translation>Identifikátor „%1” pre OID %2 zo súboru %3 riadok %4 je už použitý pre iné OID ako „%5:%6:%7” a treba ho zmeniť, aby ste predišli konfliktom.</translation>
-    </message>
-    <message>
-        <location line="+84"/>
-        <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
-        <translation>Neznámy objekt „%1” v súbore %2 riadok %3</translation>
-    </message>
-    <message>
-        <location filename="../lib/sql.h" line="+55"/>
-        <source>Failed to start a database transaction</source>
-        <translation>Zlyhala inicializácia DB transakcie</translation>
-    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -2955,12 +2923,12 @@ V knižnici %3
     <message>
         <location line="+2"/>
         <source>Unmark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušiť označenie podpísané</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Označiť podpísané</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3235,10 +3203,6 @@ V knižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
-    </message>
-    <message>
         <location filename="../lib/db_base.cpp" line="+177"/>
         <source>Internal name</source>
         <translation>Interný názov</translation>
@@ -3291,7 +3255,7 @@ V knižnici %3
     <message>
         <location line="+205"/>
         <source>Could not create directory %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nemožno vytvoriť zložku %1</translation>
     </message>
     <message>
         <location line="+251"/>
@@ -3321,7 +3285,11 @@ V knižnici %3
     <message>
         <location line="+1"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
-        <translation>Súbory PEM (*.pem);; Všetky súbory (*)</translation>
+        <translation>Súbory PEM ( *.pem );; Všetky súbory ( * )</translation>
+    </message>
+    <message>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
     </message>
 </context>
 <context>
@@ -3339,7 +3307,7 @@ V knižnici %3
     <message>
         <location line="+1"/>
         <source>No. revoked</source>
-        <translation>Č. odvolania</translation>
+        <translation>Počet odvolaných</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3378,7 +3346,7 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation>CRL (*.pem *.der *.crl)</translation>
+        <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -3405,11 +3373,7 @@ a tak nebol importovaný</translation>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Database error: </source>
-        <translation type="vanished">Chyba databázy:</translation>
+        <translation>Chyba databázy: %1</translation>
     </message>
 </context>
 <context>
@@ -3533,7 +3497,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
     <message>
         <location line="+5"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation>Súkromné kľúče (*.pem *.der *.pk8);; Verejné kľúče SSH (*.pub)</translation>
+        <translation>Súkromné kľúče ( *.pem *.der *.pk8 );; Verejné kľúče SSH ( *.pub )</translation>
     </message>
     <message>
         <location line="+70"/>
@@ -3566,7 +3530,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
     <message>
         <location line="+1"/>
         <source>XCA templates ( *.xca );; All files ( * )</source>
-        <translation>Šablóny XCA (*.xca);; Všetky súbory (*)</translation>
+        <translation>Šablóny XCA ( *.xca );; Všetky súbory ( * )</translation>
     </message>
 </context>
 <context>
@@ -3693,7 +3657,7 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+425"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>dní</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3753,7 +3717,7 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</source>
-        <translation>Certifikáty X509 (*.pem *.cer *.crt *.p12 *.p7b)</translation>
+        <translation>Certifikáty X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <location line="+64"/>
@@ -3767,17 +3731,13 @@ a tak nebol importovaný</translation>
         <translation>Nie je možné pre kľúč tokenu: „%1”</translation>
     </message>
     <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
-    </message>
-    <message>
         <location line="+65"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Nie je možné pre Certifikát kľúča tokenu „%1”</translation>
     </message>
     <message>
-        <source> days</source>
-        <translation type="vanished"> dní</translation>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
     </message>
 </context>
 <context>
@@ -3828,12 +3788,12 @@ a tak nebol importovaný</translation>
     <message>
         <location line="+2"/>
         <source>Certificate count</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet certifikátov</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of certificates in the database with the same public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet certifikátov s rovnakým verejným kľúčom v databáze</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -3852,7 +3812,7 @@ a tak nebola uložená</translation>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation>Žiadosť o certifikát (*.pem *.der *.csr)</translation>
+        <translation>Žiadosť o certifikát ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
@@ -3897,7 +3857,7 @@ a tak nebola uložená</translation>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation>Konfiguračné súbory (*.conf *.cnf);; Všetky súbory (*)</translation>
+        <translation>Konfiguračné súbory ( *.conf *.cnf );; Všetky súbory ( * )</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -3944,10 +3904,6 @@ a tak nebola uložená</translation>
         <translation>Chyba otvorenia súboru: „%1”: %2</translation>
     </message>
     <message>
-        <source>Error writing to file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Chyba zápisu do súboru „%1”: %2</translation>
-    </message>
-    <message>
         <location line="+169"/>
         <source>Unknown</source>
         <translation>Neznáme</translation>
@@ -3980,12 +3936,16 @@ a tak nebola uložená</translation>
     <message>
         <location line="+1"/>
         <source>Renewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Obnovené</translation>
     </message>
     <message>
         <location line="-197"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interná chyba: Neočakávaná správa: %1 %2</translation>
+    </message>
+    <message>
+        <source>Error writing to file: &apos;%1&apos;: %2</source>
+        <translation type="vanished">Chyba zápisu do súboru „%1”: %2</translation>
     </message>
 </context>
 <context>
@@ -4026,10 +3986,6 @@ a tak nebola uložená</translation>
         <translation>Zlá veľkosť %1</translation>
     </message>
     <message>
-        <source>unknown</source>
-        <translation type="vanished">neznáme</translation>
-    </message>
-    <message>
         <location line="+216"/>
         <source>Renew CRL: %1</source>
         <translation>Obnoviť CRL: %1</translation>
@@ -4041,17 +3997,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>XCA CRL „%1”, vydané CA „%2” %3 vyprší %4.
 Je uložené v databáze XCA „%5”</translation>
     </message>
+    <message>
+        <source>unknown</source>
+        <translation type="vanished">neznáme</translation>
+    </message>
 </context>
 <context>
     <name>pki_evp</name>
     <message>
-        <source>Failed to decrypt the key (bad password) </source>
-        <translation type="vanished">Zlyhalo dešifrovanie kľúča (zlé heslo) </translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlyhalo dešifrovanie kľúča (zlé heslo)  %1</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4061,7 +4017,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location line="+55"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúč zo súboru „%1” je nekompletný ale nekonzistentný.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4184,7 +4140,7 @@ Je uložené v databáze XCA „%5”</translation>
         <location line="+96"/>
         <location line="+94"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Neočakávaný obsah SSH2: „%1”</translation>
     </message>
     <message>
         <location line="-74"/>
@@ -4193,7 +4149,7 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Neplatný verejný kľúč SSH2</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+178"/>
         <source>Failed writing to %1</source>
         <translation>Zlyhal zápis do %1</translation>
     </message>
@@ -4292,10 +4248,6 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Prosím, vložte kartu: %1 %2 [%3] so sér. číslom: %4</translation>
     </message>
     <message>
-        <source>Public Key mismatch. Please re-import card</source>
-        <translation type="vanished">Nezhoda verejného kľúča. Prosím, znova importujte kartu</translation>
-    </message>
-    <message>
         <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Neprípustná metóda generovania kľúča</translation>
@@ -4336,6 +4288,10 @@ Je uložené v databáze XCA „%5”</translation>
         <source>Failed to initialize the key on the token</source>
         <translation>Zlyhal inicializácia kľúča na tokene</translation>
     </message>
+    <message>
+        <source>Public Key mismatch. Please re-import card</source>
+        <translation type="vanished">Nezhoda verejného kľúča. Prosím, znova importujte kartu</translation>
+    </message>
 </context>
 <context>
     <name>pki_temp</name>
@@ -4370,10 +4326,6 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Chyba obsahu súboru šablóny (príliš malá)</translation>
     </message>
     <message>
-        <source>Template file content error (too small): %1</source>
-        <translation type="vanished">Chyba obsahu súboru šablóny (príliš malá): %1</translation>
-    </message>
-    <message>
         <location line="+56"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation>Šablóna XCA nie je vo formáte PEM</translation>
@@ -4382,6 +4334,10 @@ Je uložené v databáze XCA „%5”</translation>
         <location line="+8"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>Nie je šablóna XCA, ale „%1”</translation>
+    </message>
+    <message>
+        <source>Template file content error (too small): %1</source>
+        <translation type="vanished">Chyba obsahu súboru šablóny (príliš malá): %1</translation>
     </message>
 </context>
 <context>

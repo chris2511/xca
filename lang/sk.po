@@ -1,19 +1,19 @@
 # This file is distributed under the same license as the XCA package.
-# Slavko <linux@slavino.sk>, 2016, 2017, 2018.
+# Slavko <linux@slavino.sk>, 2016-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: X Certificate and Key management 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 18:14+0200\n"
-"PO-Revision-Date: 2018-06-29 22:57+0200\n"
+"PO-Revision-Date: 2019-12-16 22:44+0100\n"
 "Last-Translator: Slavko <linux@slavino.sk>\n"
 "Language-Team: slovenčina <linux@slavino.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Gtranslator 3.34.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Qt-Contexts: true\n"
 
@@ -32,7 +32,7 @@ msgctxt "CaProperties|"
 msgid "Default template"
 msgstr "Predvolená šablóna"
 
-#: ../ui/CertDetail.ui:30 ../widgets/CertDetail.cpp:89
+#: ../ui/CertDetail.ui:30 ../widgets/CertDetail.cpp:99
 msgctxt "CertDetail|"
 msgid "Details of the Certificate"
 msgstr "Podrobnosti certifikátu"
@@ -77,117 +77,128 @@ msgctxt "CertDetail|"
 msgid "Fingerprints"
 msgstr "Odtlačky"
 
-#: ../ui/CertDetail.ui:197
+#: ../ui/CertDetail.ui:203
 msgctxt "CertDetail|"
 msgid "MD5"
 msgstr "MD5"
 
-#: ../ui/CertDetail.ui:204
+#: ../ui/CertDetail.ui:216
 msgctxt "CertDetail|"
 msgid "An md5 hashsum of the certificate"
 msgstr "Odtlačok certifikátu MD5"
 
-#: ../ui/CertDetail.ui:211
+#: ../ui/CertDetail.ui:229
 msgctxt "CertDetail|"
 msgid "SHA1"
 msgstr "SHA1"
 
-#: ../ui/CertDetail.ui:218
+#: ../ui/CertDetail.ui:242
 msgctxt "CertDetail|"
 msgid "A SHA-1 hashsum of the certificate"
 msgstr "Odtlačok certifikátu SHA-1"
 
-#: ../ui/CertDetail.ui:225
+#: ../ui/CertDetail.ui:255
 msgctxt "CertDetail|"
 msgid "SHA256"
 msgstr "SHA256"
 
-#: ../ui/CertDetail.ui:232
+#: ../ui/CertDetail.ui:268
 msgctxt "CertDetail|"
 msgid "A SHA-256 hashsum of the certificate"
 msgstr "Odtlačok certifikátu SHA-256"
 
-#: ../ui/CertDetail.ui:242
+#: ../ui/CertDetail.ui:278
 msgctxt "CertDetail|"
 msgid "Validity"
 msgstr "Platnosť"
 
-#: ../ui/CertDetail.ui:251
+#: ../ui/CertDetail.ui:287
 msgctxt "CertDetail|"
 msgid "The time since the certificate is valid"
 msgstr "Čas odkedy je certifikát platný"
 
-#: ../ui/CertDetail.ui:258
+#: ../ui/CertDetail.ui:294
 msgctxt "CertDetail|"
 msgid "The time until the certificate is valid"
 msgstr "Čas dokedy je certifikát platný"
 
-#: ../ui/CertDetail.ui:292
+#: ../ui/CertDetail.ui:328
 msgctxt "CertDetail|"
 msgid "Subject"
 msgstr "Predmet"
 
-#: ../ui/CertDetail.ui:305
+#: ../ui/CertDetail.ui:341
 msgctxt "CertDetail|"
 msgid "Issuer"
 msgstr "Vydavateľ"
 
-#: ../ui/CertDetail.ui:328
+#: ../ui/CertDetail.ui:364
 msgctxt "CertDetail|"
 msgid "Extensions"
 msgstr "Rozšírenia"
 
-#: ../ui/CertDetail.ui:349
+#: ../ui/CertDetail.ui:385
 msgctxt "CertDetail|"
 msgid "Comment"
 msgstr "Komentár"
 
-#: ../ui/CertDetail.ui:318
+#: ../ui/CertDetail.ui:354
 msgctxt "CertDetail|"
 msgid "Attributes"
 msgstr "Atribúty"
 
-#: ../ui/CertDetail.ui:341 ../widgets/CertDetail.cpp:34
+#: ../ui/CertDetail.ui:377 ../widgets/CertDetail.cpp:36
 msgctxt "CertDetail|"
 msgid "Show config"
 msgstr "Zobraziť konfiguráciu"
 
-#: ../widgets/CertDetail.cpp:38
+#: ../widgets/CertDetail.cpp:40
 msgctxt "CertDetail|"
 msgid "Show extensions"
 msgstr "Zobraziť rozšírenia"
 
-#: ../widgets/CertDetail.cpp:59
+#: ../widgets/CertDetail.cpp:62
+msgctxt "CertDetail|"
+msgid "Show public key"
+msgstr "Zobraziť verejný kľúč"
+
+#: ../widgets/CertDetail.cpp:67
+msgctxt "CertDetail|"
+msgid "This key is not in the database."
+msgstr "Tento kľúč nie je v databáze."
+
+#: ../widgets/CertDetail.cpp:69
 msgctxt "CertDetail|"
 msgid "Not available"
 msgstr "Nedostupné"
 
-#: ../widgets/CertDetail.cpp:98
+#: ../widgets/CertDetail.cpp:108
 msgctxt "CertDetail|"
 msgid "Signer unknown"
 msgstr "Neznámy podpis"
 
-#: ../widgets/CertDetail.cpp:102
+#: ../widgets/CertDetail.cpp:112
 msgctxt "CertDetail|"
 msgid "Self signed"
 msgstr "Sebou podpísaný"
 
-#: ../widgets/CertDetail.cpp:129
+#: ../widgets/CertDetail.cpp:139
+#, qt-format
 msgctxt "CertDetail|"
-msgid "Revoked: "
-msgstr "Odvolaný: "
+msgid "Revoked at %1"
+msgstr "Odvolaný %1: "
 
-#: ../widgets/CertDetail.cpp:134
+#: ../widgets/CertDetail.cpp:144
 msgctxt "CertDetail|"
 msgid "Not valid"
 msgstr "Neplatný"
 
-#: ../widgets/CertDetail.cpp:138
+#: ../widgets/CertDetail.cpp:148
 msgctxt "CertDetail|"
 msgid "Valid"
 msgstr "Platný"
 
-#: ../widgets/CertDetail.cpp:157
+#: ../widgets/CertDetail.cpp:167
 msgctxt "CertDetail|"
 msgid "Details of the certificate signing request"
 msgstr "Podrobnosti žiadosti o podpísanie certifikátu"
@@ -266,6 +277,11 @@ msgctxt "CertExtend|"
 msgid "Revoke old certificate"
 msgstr "Odvolať starý certifikát"
 
+#: ../ui/CertExtend.ui:226
+msgctxt "CertExtend|"
+msgid "Keep serial number"
+msgstr "Zachovať sériové číslo"
+
 #: ../widgets/CertExtend.cpp:43
 msgctxt "CertExtend|"
 msgid ""
@@ -306,7 +322,7 @@ msgstr ""
 #: ../widgets/CertTreeView.cpp:25
 msgctxt "CertTreeView|"
 msgid "Import PKCS#12"
-msgstr "Importovať PKCS#12"
+msgstr "Import PKCS#12"
 
 #: ../widgets/CertTreeView.cpp:26
 msgctxt "CertTreeView|"
@@ -358,17 +374,17 @@ msgctxt "CertTreeView|"
 msgid "Manage revocations"
 msgstr "Spravovať odvolania"
 
-#: ../widgets/CertTreeView.cpp:77
+#: ../widgets/CertTreeView.cpp:76 ../widgets/CertTreeView.cpp:79
 msgctxt "CertTreeView|"
 msgid "Renewal"
 msgstr "Obnoviť"
 
-#: ../widgets/CertTreeView.cpp:79
+#: ../widgets/CertTreeView.cpp:81
 msgctxt "CertTreeView|"
 msgid "Revoke"
 msgstr "Odvolať"
 
-#: ../widgets/CertTreeView.cpp:81
+#: ../widgets/CertTreeView.cpp:83
 msgctxt "CertTreeView|"
 msgid "Unrevoke"
 msgstr "Zrušiť odvolanie"
@@ -441,7 +457,7 @@ msgstr "&Rozšírenia"
 #: ../ui/CrlDetail.ui:261
 msgctxt "CrlDetail|"
 msgid "&Revocation list"
-msgstr "Zoznam &odvolaní"
+msgstr "Zoznam &odvolaných"
 
 #: ../ui/CrlDetail.ui:286
 msgctxt "CrlDetail|"
@@ -476,14 +492,19 @@ msgstr "Interný názov CRL v databáze"
 #: ../ui/ExportDialog.ui:113
 msgctxt "ExportDialog|"
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: ../ui/ExportDialog.ui:126
 msgctxt "ExportDialog|"
 msgid "Filename"
 msgstr "Meno súboru"
 
-#: ../ui/ExportDialog.ui:194
+#: ../ui/ExportDialog.ui:191
+msgctxt "ExportDialog|"
+msgid "Export comment into PEM file"
+msgstr "Exportovať komentáre do súboru PEM"
+
+#: ../ui/ExportDialog.ui:213
 msgctxt "ExportDialog|"
 msgid "Export Format"
 msgstr "Formát exportu"
@@ -517,7 +538,7 @@ msgstr "Zlúčený textový formát všetkých certifikátov v jednom súbore PE
 #: ../widgets/ExportDialog.cpp:60
 msgctxt "ExportDialog|"
 msgid "Binary DER encoded file"
-msgstr "Binárne DER kódovaný súbor"
+msgstr "Binárne kódovaný súbor DER"
 
 #: ../widgets/ExportDialog.cpp:61
 msgctxt "ExportDialog|"
@@ -731,26 +752,26 @@ msgctxt "ImportMulti|"
 msgid "Manage security token"
 msgstr "Spravovať bezpečnostný token"
 
-#: ../widgets/ImportMulti.cpp:314
+#: ../widgets/ImportMulti.cpp:338
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "Details of the item '%1' cannot be shown"
 msgstr "Podrobnosti položky „%1” nemožno zobraziť"
 
-#: ../widgets/ImportMulti.cpp:111 ../widgets/ImportMulti.cpp:266
-#: ../widgets/ImportMulti.cpp:317
+#: ../widgets/ImportMulti.cpp:125 ../widgets/ImportMulti.cpp:280
+#: ../widgets/ImportMulti.cpp:341
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "The type of the item '%1' is not recognized"
 msgstr "Typ položky „%1” nie je rozpoznaný"
 
-#: ../widgets/ImportMulti.cpp:346
+#: ../widgets/ImportMulti.cpp:369
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "The file '%1' did not contain PKI data"
 msgstr "Súbor „%1” neobsahuje dáta PKI"
 
-#: ../widgets/ImportMulti.cpp:349
+#: ../widgets/ImportMulti.cpp:372
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "The %1 files: '%2' did not contain PKI data"
@@ -776,118 +797,123 @@ msgctxt "ItemProperties|"
 msgid "Comment"
 msgstr "Komentár"
 
-#: ../ui/KeyDetail.ui:88
+#: ../ui/KeyDetail.ui:82
 msgctxt "KeyDetail|"
 msgid "Name"
 msgstr "Názov"
 
-#: ../ui/KeyDetail.ui:95
+#: ../ui/KeyDetail.ui:89
 msgctxt "KeyDetail|"
 msgid "The internal name of the key used by xca"
 msgstr "Interný názov kľúča používaný v xca"
 
-#: ../widgets/KeyDetail.cpp:64
+#: ../widgets/KeyDetail.cpp:96
 msgctxt "KeyDetail|"
 msgid "Security token"
 msgstr "Bezpečnostný token"
 
-#: ../ui/KeyDetail.ui:292
+#: ../ui/KeyDetail.ui:286
 msgctxt "KeyDetail|"
 msgid "Manufacturer"
 msgstr "Výrobca"
 
-#: ../ui/KeyDetail.ui:302
+#: ../ui/KeyDetail.ui:296
 msgctxt "KeyDetail|"
 msgid "Serial"
 msgstr "Sériové číslo"
 
-#: ../ui/KeyDetail.ui:108 ../ui/KeyDetail.ui:188
+#: ../ui/KeyDetail.ui:102 ../ui/KeyDetail.ui:182
 msgctxt "KeyDetail|"
 msgid "Key"
 msgstr "Kľúč"
 
-#: ../ui/KeyDetail.ui:116
+#: ../ui/KeyDetail.ui:110
 msgctxt "KeyDetail|"
 msgid "Public Exponent"
 msgstr "Verejný exponent"
 
-#: ../ui/KeyDetail.ui:142
+#: ../ui/KeyDetail.ui:136
 msgctxt "KeyDetail|"
 msgid "Keysize"
 msgstr "Veľkosť kľúča"
 
-#: ../ui/KeyDetail.ui:169
+#: ../ui/KeyDetail.ui:163
 msgctxt "KeyDetail|"
 msgid "Private Exponent"
 msgstr "Súkromný exponent"
 
-#: ../ui/KeyDetail.ui:220
+#: ../ui/KeyDetail.ui:214
 msgctxt "KeyDetail|"
 msgid "Security Token"
 msgstr "Bezpečnostný token"
 
-#: ../ui/KeyDetail.ui:241 ../ui/KeyDetail.ui:312
+#: ../ui/KeyDetail.ui:235 ../ui/KeyDetail.ui:306
 msgctxt "KeyDetail|"
 msgid "Label"
 msgstr "Menovka"
 
-#: ../ui/KeyDetail.ui:251
+#: ../ui/KeyDetail.ui:245
 msgctxt "KeyDetail|"
 msgid "PKCS#11 ID"
 msgstr "ID PKCS#11"
 
-#: ../ui/KeyDetail.ui:276
+#: ../ui/KeyDetail.ui:270
 msgctxt "KeyDetail|"
 msgid "Token information"
-msgstr "Informácie otkenu"
+msgstr "Informácie tokenu"
 
-#: ../ui/KeyDetail.ui:282
+#: ../ui/KeyDetail.ui:276
 msgctxt "KeyDetail|"
 msgid "Model"
 msgstr "Model"
 
-#: ../ui/KeyDetail.ui:330
+#: ../ui/KeyDetail.ui:324
+msgctxt "KeyDetail|"
+msgid "Fingerprint"
+msgstr "Odtlačok"
+
+#: ../ui/KeyDetail.ui:329
 msgctxt "KeyDetail|"
 msgid "Comment"
 msgstr "Komentár"
 
-#: ../widgets/KeyDetail.cpp:49
+#: ../widgets/KeyDetail.cpp:79
 #, qt-format
 msgctxt "KeyDetail|"
 msgid "Details of the %1 key"
 msgstr "Podrobnosti kľúča %1"
 
-#: ../widgets/KeyDetail.cpp:53
+#: ../widgets/KeyDetail.cpp:85
 msgctxt "KeyDetail|"
 msgid "Not available"
 msgstr "Nedostupné"
 
-#: ../widgets/KeyDetail.cpp:66
+#: ../widgets/KeyDetail.cpp:98
 msgctxt "KeyDetail|"
 msgid "Available"
 msgstr "Dostupný"
 
-#: ../widgets/KeyDetail.cpp:75
+#: ../widgets/KeyDetail.cpp:107
 msgctxt "KeyDetail|"
 msgid "Sub prime"
 msgstr "Sub prime"
 
-#: ../widgets/KeyDetail.cpp:76 ../widgets/KeyDetail.cpp:85
+#: ../widgets/KeyDetail.cpp:108 ../widgets/KeyDetail.cpp:117
 msgctxt "KeyDetail|"
 msgid "Public key"
 msgstr "Verejný kľúč"
 
-#: ../widgets/KeyDetail.cpp:77 ../widgets/KeyDetail.cpp:86
+#: ../widgets/KeyDetail.cpp:109 ../widgets/KeyDetail.cpp:118
 msgctxt "KeyDetail|"
 msgid "Private key"
 msgstr "Súkromný kľúč"
 
-#: ../widgets/KeyDetail.cpp:87
+#: ../widgets/KeyDetail.cpp:119
 msgctxt "KeyDetail|"
 msgid "Curve name"
 msgstr "Názov krivky"
 
-#: ../widgets/KeyDetail.cpp:97
+#: ../widgets/KeyDetail.cpp:129
 msgctxt "KeyDetail|"
 msgid "Unknown key"
 msgstr "Neznámy kľúč"
@@ -987,7 +1013,7 @@ msgctxt "MainWindow|"
 msgid "&New Request"
 msgstr "&Nová žiadosť"
 
-#: ../ui/MainWindow.ui:222 ../widgets/MW_menu.cpp:123
+#: ../ui/MainWindow.ui:222 ../widgets/MW_menu.cpp:128
 msgctxt "MainWindow|"
 msgid "Certificates"
 msgstr "Certifikáty"
@@ -1037,7 +1063,7 @@ msgctxt "MainWindow|"
 msgid "Revocation lists"
 msgstr "Zoznamy odvolaných"
 
-#: ../widgets/MW_database.cpp:315
+#: ../widgets/MW_database.cpp:322
 msgctxt "MainWindow|"
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
@@ -1046,12 +1072,12 @@ msgstr ""
 "Použitie alebo exportovanie súkromných kľúčov nebude možné bez zadania "
 "správneho hesla"
 
-#: ../widgets/MW_database.cpp:323 ../widgets/MainWindow.cpp:937
+#: ../widgets/MW_database.cpp:330 ../widgets/MainWindow.cpp:928
 msgctxt "MainWindow|"
 msgid "Database"
 msgstr "Databáza"
 
-#: ../widgets/MW_database.cpp:320
+#: ../widgets/MW_database.cpp:327
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1061,7 +1087,7 @@ msgstr ""
 "Aktuálne použitý predvolený odtlačok „%1” nie je bezpečný. Prosím, kvôli "
 "bezpečnosti, zvoľte aspoň „SHA 224”."
 
-#: ../widgets/MW_database.cpp:243
+#: ../widgets/MW_database.cpp:246
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1071,302 +1097,327 @@ msgstr ""
 "Detegovaný starý formát databázy. Vytvorená záložná kópia, nazvaná: „%1” a "
 "databáza konvertovaná do nového formátu"
 
-#: ../widgets/MW_database.cpp:249
+#: ../widgets/MW_database.cpp:252
 msgctxt "MainWindow|"
 msgid "Failed to rename the database file, because the target already exists"
 msgstr "Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje"
 
-#: ../widgets/MW_database.cpp:393
+#: ../widgets/MW_database.cpp:430
 msgctxt "MainWindow|"
 msgid "No deleted items found"
 msgstr "Nenájdené žiadne zmazané položky"
 
-#: ../widgets/MW_menu.cpp:61
+#: ../widgets/MW_menu.cpp:79
 msgctxt "MainWindow|"
 msgid "Recent DataBases"
 msgstr "Nedávne databázy"
 
-#: ../widgets/MW_menu.cpp:66
+#: ../widgets/MW_help.cpp:25 ../widgets/MW_menu.cpp:35
 msgctxt "MainWindow|"
 msgid "System"
 msgstr "systémový"
 
-#: ../widgets/MW_menu.cpp:67
+#: ../widgets/MW_help.cpp:28
 msgctxt "MainWindow|"
 msgid "Croatian"
 msgstr "chorvátsky"
 
-#: ../widgets/MW_menu.cpp:68
+#: ../widgets/MW_help.cpp:32
 msgctxt "MainWindow|"
 msgid "English"
 msgstr "anglicky"
 
-#: ../widgets/MW_menu.cpp:69
+#: ../widgets/MW_help.cpp:33
 msgctxt "MainWindow|"
 msgid "French"
 msgstr "francúzsky"
 
-#: ../widgets/MW_menu.cpp:70
+#: ../widgets/MW_help.cpp:35
 msgctxt "MainWindow|"
 msgid "German"
 msgstr "nemecky"
 
-#: ../widgets/MW_menu.cpp:71
+#: ../widgets/MW_help.cpp:43
 msgctxt "MainWindow|"
 msgid "Russian"
 msgstr "rusky"
 
-#: ../widgets/MW_menu.cpp:72
+#: ../widgets/MW_help.cpp:44
 msgctxt "MainWindow|"
 msgid "Slovak"
 msgstr "slovensky"
 
-#: ../widgets/MW_menu.cpp:73
+#: ../widgets/MW_help.cpp:46
 msgctxt "MainWindow|"
 msgid "Spanish"
 msgstr "španielsky"
 
-#: ../widgets/MW_menu.cpp:74
+#: ../widgets/MW_help.cpp:39
+msgctxt "MainWindow|"
+msgid "Polish"
+msgstr "poľsky"
+
+#: ../widgets/MW_help.cpp:37
+msgctxt "MainWindow|"
+msgid "Italian"
+msgstr "taliansky"
+
+#: ../widgets/MW_help.cpp:26
+msgctxt "MainWindow|"
+msgid "Chinese"
+msgstr "čínsky"
+
+#: ../widgets/MW_help.cpp:30
+msgctxt "MainWindow|"
+msgid "Dutch"
+msgstr "holandsky"
+
+#: ../widgets/MW_help.cpp:41
+msgctxt "MainWindow|"
+msgid "Portuguese in Brazil"
+msgstr "brazílska portugalčina"
+
+#: ../widgets/MW_help.cpp:48
 msgctxt "MainWindow|"
 msgid "Turkish"
 msgstr "turecky"
 
-#: ../widgets/MW_menu.cpp:76
+#: ../widgets/MW_menu.cpp:83
 msgctxt "MainWindow|"
 msgid "Language"
 msgstr "Jazyk"
 
-#: ../widgets/MW_menu.cpp:91
+#: ../widgets/MW_menu.cpp:92
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr "&Súbor"
 
-#: ../widgets/MW_menu.cpp:92
-msgctxt "MainWindow|"
-msgid "&New DataBase"
-msgstr "&Nová databáza"
-
-#: ../widgets/MW_menu.cpp:95
-msgctxt "MainWindow|"
-msgid "&Open DataBase"
-msgstr "&Otvoriť databázu"
-
-#: ../widgets/MW_menu.cpp:98
+#: ../widgets/MW_menu.cpp:99
 msgctxt "MainWindow|"
 msgid "Open Remote DataBase"
 msgstr "Otvoriť vzdialenú databázu"
 
-#: ../widgets/MW_menu.cpp:102
+#: ../widgets/MW_menu.cpp:104
 msgctxt "MainWindow|"
 msgid "Set as default DataBase"
 msgstr "Predvolená databáza"
 
-#: ../widgets/MW_menu.cpp:104
+#: ../widgets/MW_menu.cpp:93
 msgctxt "MainWindow|"
-msgid "&Close DataBase"
-msgstr "&Zatvoriť databázu"
+msgid "New DataBase"
+msgstr "Nová databáza"
+
+#: ../widgets/MW_menu.cpp:96
+msgctxt "MainWindow|"
+msgid "Open DataBase"
+msgstr "Otvoriť databázu"
 
 #: ../widgets/MW_menu.cpp:107
+msgctxt "MainWindow|"
+msgid "Close DataBase"
+msgstr "Zatvoriť databázu"
+
+#: ../widgets/MW_menu.cpp:110
 msgctxt "MainWindow|"
 msgid "Options"
 msgstr "Voľby"
 
-#: ../widgets/MW_menu.cpp:115
+#: ../widgets/MW_menu.cpp:118
 msgctxt "MainWindow|"
 msgid "Exit"
 msgstr "Skončiť"
 
-#: ../widgets/MW_menu.cpp:120
+#: ../widgets/MW_menu.cpp:125
 msgctxt "MainWindow|"
 msgid "I&mport"
 msgstr "&Importovať"
 
-#: ../widgets/MW_menu.cpp:121
+#: ../widgets/MW_menu.cpp:126
 msgctxt "MainWindow|"
 msgid "Keys"
 msgstr "Kľúče"
 
-#: ../widgets/MW_menu.cpp:122
+#: ../widgets/MW_menu.cpp:127
 msgctxt "MainWindow|"
 msgid "Requests"
 msgstr "Žiadosti"
 
-#: ../widgets/MW_menu.cpp:124
+#: ../widgets/MW_menu.cpp:129
 msgctxt "MainWindow|"
 msgid "PKCS#12"
 msgstr "PKCS#12"
 
-#: ../widgets/MW_menu.cpp:125
+#: ../widgets/MW_menu.cpp:130
 msgctxt "MainWindow|"
 msgid "PKCS#7"
 msgstr "PKCS#7"
 
-#: ../widgets/MW_menu.cpp:126
+#: ../widgets/MW_menu.cpp:131
 msgctxt "MainWindow|"
 msgid "Template"
 msgstr "Šablóna"
 
-#: ../widgets/MW_menu.cpp:127
+#: ../widgets/MW_menu.cpp:132
 msgctxt "MainWindow|"
 msgid "Revocation list"
 msgstr "Zoznam odvolaných"
 
-#: ../widgets/MW_menu.cpp:128
+#: ../widgets/MW_menu.cpp:133
 msgctxt "MainWindow|"
 msgid "PEM file"
-msgstr "S&Import starého úbor PEM"
-
-#: ../widgets/MW_menu.cpp:129
-msgctxt "MainWindow|"
-msgid "Paste PEM file"
-msgstr "Vložiť súbor PEM"
-
-#: ../widgets/MW_menu.cpp:131
-msgctxt "MainWindow|"
-msgid "&Token"
-msgstr "&Token"
-
-#: ../widgets/MW_menu.cpp:132
-msgctxt "MainWindow|"
-msgid "&Manage Security token"
-msgstr "&Spravovať bezpečnostný token"
+msgstr "Ssúbor PEM"
 
 #: ../widgets/MW_menu.cpp:134
+msgctxt "MainWindow|"
+msgid "Paste PEM file"
+msgstr "Vložte súbor PEM"
+
+#: ../widgets/MW_menu.cpp:137
+msgctxt "MainWindow|"
+msgid "Token"
+msgstr "Token"
+
+#: ../widgets/MW_menu.cpp:154
+msgctxt "MainWindow|"
+msgid "Export Certificate &Index hierarchy"
+msgstr "Exportovať hierarchiu &indexu certifikátov"
+
+#: ../widgets/MW_menu.cpp:167
+msgctxt "MainWindow|"
+msgid "Content"
+msgstr "Obsah"
+
+#: ../widgets/MW_menu.cpp:138
+msgctxt "MainWindow|"
+msgid "&Manage Security token"
+msgstr "&Spravovať Bezpečnostný token"
+
+#: ../widgets/MW_menu.cpp:140
 msgctxt "MainWindow|"
 msgid "&Init Security token"
 msgstr "&Inicializovať Bezpečnostný token"
 
-#: ../widgets/MW_menu.cpp:136
+#: ../widgets/MW_menu.cpp:142
 msgctxt "MainWindow|"
 msgid "&Change PIN"
 msgstr "Zmeniť @PIN"
 
-#: ../widgets/MW_menu.cpp:138
+#: ../widgets/MW_menu.cpp:144
 msgctxt "MainWindow|"
 msgid "Change &SO PIN"
 msgstr "Zmeniť &SO PIN"
 
-#: ../widgets/MW_menu.cpp:140
+#: ../widgets/MW_menu.cpp:146
 msgctxt "MainWindow|"
 msgid "Init PIN"
 msgstr "Inicializovať PIN"
 
-#: ../widgets/MW_menu.cpp:143
+#: ../widgets/MW_menu.cpp:149
 msgctxt "MainWindow|"
 msgid "Extra"
 msgstr "Extra"
 
-#: ../widgets/MW_menu.cpp:144
+#: ../widgets/MW_menu.cpp:150
 msgctxt "MainWindow|"
 msgid "&Dump DataBase"
 msgstr "Vypísať &databázu"
 
-#: ../widgets/MW_menu.cpp:146
+#: ../widgets/MW_menu.cpp:152
 msgctxt "MainWindow|"
 msgid "&Export Certificate Index"
 msgstr "&Exportovať index certifikátov"
 
-#: ../widgets/MW_menu.cpp:148
-msgctxt "MainWindow|"
-msgid "&Export Certificate Index hierarchy"
-msgstr "&Exportovať hierarchiu indexu certifikátov"
-
-#: ../widgets/MW_menu.cpp:150
+#: ../widgets/MW_menu.cpp:156
 msgctxt "MainWindow|"
 msgid "C&hange DataBase password"
 msgstr "Z&meniť heslo databázy"
 
-#: ../widgets/MW_menu.cpp:153
+#: ../widgets/MW_menu.cpp:159
 msgctxt "MainWindow|"
 msgid "&Undelete items"
 msgstr "O&bnoviť zmazané"
 
-#: ../widgets/MW_menu.cpp:156
+#: ../widgets/MW_menu.cpp:162
 msgctxt "MainWindow|"
 msgid "Generate DH parameter"
-msgstr "Generovať parameter DH"
+msgstr "Generovať parametre DH"
 
-#: ../widgets/MW_menu.cpp:158
+#: ../widgets/MW_menu.cpp:164
 msgctxt "MainWindow|"
 msgid "OID Resolver"
 msgstr "Prekladač OID"
 
-#: ../widgets/MW_menu.cpp:160
+#: ../widgets/MW_menu.cpp:166
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr "&Pomocník"
 
-#: ../widgets/MW_menu.cpp:161
-msgctxt "MainWindow|"
-msgid "&Content"
-msgstr "&Obsah"
-
-#: ../widgets/MW_menu.cpp:163
+#: ../widgets/MW_menu.cpp:169
 msgctxt "MainWindow|"
 msgid "About"
 msgstr "O programe"
 
-#: ../widgets/MainWindow.cpp:326
+#: ../widgets/MainWindow.cpp:332
 #, qt-format
 msgctxt "MainWindow|"
 msgid "no such option: %1"
 msgstr "neznáma voľba: %1"
 
-#: ../widgets/MainWindow.cpp:416
+#: ../widgets/MainWindow.cpp:422
 msgctxt "MainWindow|"
 msgid "Import PEM data"
 msgstr "Importovať dáta PEM"
 
-#: ../widgets/MainWindow.cpp:445
+#: ../widgets/MainWindow.cpp:451
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr "Prosím, zadajte pôvodný SO PIN (PUK) tokenu „%1”"
 
-#: ../widgets/MainWindow.cpp:150 ../widgets/MainWindow.cpp:938
+#: ../widgets/MainWindow.cpp:149 ../widgets/MainWindow.cpp:929
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr "Hľadať"
 
-#: ../widgets/MainWindow.cpp:451
+#: ../widgets/MainWindow.cpp:457
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the new SO PIN (PUK) for the token '%1'"
 msgstr "Prosím, zadajte nový SO PIN (PUK) tokenu „%1”"
 
-#: ../widgets/MainWindow.cpp:458
+#: ../widgets/MainWindow.cpp:464
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The new label of the token '%1'"
 msgstr "Nová menovka tokenu „%1”"
 
-#: ../widgets/MainWindow.cpp:566
+#: ../widgets/MainWindow.cpp:572
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr "Token „%1” neobsahuje žiadne kľúče ani certifikáty"
 
-#: ../widgets/MainWindow.cpp:621
+#: ../widgets/MainWindow.cpp:634
 msgctxt "MainWindow|"
 msgid "Current Password"
 msgstr "Aktuálne heslo"
 
-#: ../widgets/MainWindow.cpp:622
+#: ../widgets/MainWindow.cpp:635
 msgctxt "MainWindow|"
 msgid "Please enter the current database password"
 msgstr "Prosím, zadajte heslo aktuálnej databázy"
 
-#: ../widgets/MainWindow.cpp:632
+#: ../widgets/MainWindow.cpp:645
 msgctxt "MainWindow|"
 msgid "The entered password is wrong"
 msgstr "Zadané heslo je zlé"
 
-#: ../widgets/MainWindow.cpp:637 ../widgets/MainWindow.cpp:715
+#: ../widgets/MainWindow.cpp:650 ../widgets/MainWindow.cpp:728
 msgctxt "MainWindow|"
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: ../widgets/MainWindow.cpp:637
+#: ../widgets/MainWindow.cpp:650
 msgctxt "MainWindow|"
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
@@ -1375,12 +1426,12 @@ msgstr ""
 "Prosím, zadajte nové heslo na šifrovanie svojich súkromných kľúčov v súbore "
 "databázy"
 
-#: ../widgets/MainWindow.cpp:661
+#: ../widgets/MainWindow.cpp:674
 msgctxt "MainWindow|"
 msgid "Transaction start failed"
 msgstr "Spustenie transakcie zlyhalo"
 
-#: ../widgets/MainWindow.cpp:715
+#: ../widgets/MainWindow.cpp:728
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1392,17 +1443,17 @@ msgstr ""
 "databáze:\n"
 "%1"
 
-#: ../widgets/MainWindow.cpp:736
+#: ../widgets/MainWindow.cpp:749
 msgctxt "MainWindow|"
 msgid "Password verify error, please try again"
 msgstr "Chyba overenia hesla, prosím, skúste znova"
 
-#: ../widgets/MainWindow.cpp:737
+#: ../widgets/MainWindow.cpp:750
 msgctxt "MainWindow|"
 msgid "Password"
 msgstr "Heslo"
 
-#: ../widgets/MainWindow.cpp:738
+#: ../widgets/MainWindow.cpp:751
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1412,27 +1463,33 @@ msgstr ""
 "Prosím, zadajte heslo na odomknutie databázy:\n"
 "%1"
 
-#: ../widgets/MainWindow.cpp:757
+#: ../widgets/MainWindow.cpp:770
 msgctxt "MainWindow|"
 msgid "The following error occurred:"
 msgstr "Nastala nasledujúca chyba:"
 
-#: ../widgets/MainWindow.cpp:759
+#: ../widgets/MainWindow.cpp:772
 msgctxt "MainWindow|"
 msgid "Copy to Clipboard"
 msgstr "Kopírovať do schránky"
 
-#: ../widgets/MainWindow.cpp:828
+#: ../widgets/MainWindow.cpp:841
 msgctxt "MainWindow|"
 msgid "Certificate Index ( index.txt )"
 msgstr "Index certifikátov (index.txt)"
 
-#: ../widgets/MainWindow.cpp:829 ../widgets/MainWindow.cpp:898
+#: ../widgets/MainWindow.cpp:842 ../widgets/MainWindow.cpp:902
 msgctxt "MainWindow|"
 msgid "All files ( * )"
-msgstr "Všetky súbory (*)"
+msgstr "Všetky súbory ( * )"
 
-#: ../widgets/MainWindow.cpp:859
+#: ../widgets/MainWindow.cpp:871
+#, qt-format
+msgctxt "MainWindow|"
+msgid "Diffie-Hellman parameters saved as: %1"
+msgstr "Parametre Diffie-Hellman uložené do: %1"
+
+#: ../widgets/MainWindow.cpp:887
 msgctxt "MainWindow|"
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
@@ -1442,12 +1499,6 @@ msgstr ""
 "Parametre Diffie-Hellman sú potrebné pre rôzne aplikácie, ale nie sú "
 "používané v XCA.\n"
 "Prosím, zadajte bity parametra DH"
-
-#: ../widgets/MainWindow.cpp:903
-#, qt-format
-msgctxt "MainWindow|"
-msgid "Error opening file: '%1': %2"
-msgstr "Chyba otvorenia súboru: „%1”: %2"
 
 #: ../ui/NewCrl.ui:32
 msgctxt "NewCrl|"
@@ -1825,7 +1876,7 @@ msgid "DNS: IP: URI: email: RID:"
 msgstr "DNS:, IP:, URI:, email:, RID:"
 
 #: ../ui/NewX509.ui:745 ../ui/NewX509.ui:762 ../ui/NewX509.ui:795
-#: ../ui/NewX509.ui:834 ../widgets/NewX509.cpp:971
+#: ../ui/NewX509.ui:834 ../widgets/NewX509.cpp:972
 msgctxt "NewX509|"
 msgid "Edit"
 msgstr "Upraviť"
@@ -1850,7 +1901,7 @@ msgctxt "NewX509|"
 msgid "Advanced"
 msgstr "Pokročilé"
 
-#: ../ui/NewX509.ui:1159 ../widgets/NewX509.cpp:981
+#: ../ui/NewX509.ui:1159 ../widgets/NewX509.cpp:982
 msgctxt "NewX509|"
 msgid "Validate"
 msgstr "Overiť"
@@ -1934,55 +1985,55 @@ msgctxt "NewX509|"
 msgid "New key '%1' created"
 msgstr "Vytvorený nový kľúč „%1”"
 
-#: ../widgets/NewX509.cpp:1004
+#: ../widgets/NewX509.cpp:1005
 msgctxt "NewX509|"
 msgid "Other Tabs"
 msgstr "Záložka Iné"
 
-#: ../widgets/NewX509.cpp:1018
+#: ../widgets/NewX509.cpp:1019
 msgctxt "NewX509|"
 msgid "Advanced Tab"
 msgstr "Záložka Pokročilé"
 
-#: ../widgets/NewX509.cpp:1025
+#: ../widgets/NewX509.cpp:1026
 msgctxt "NewX509|"
 msgid "Errors"
 msgstr "Chyby"
 
-#: ../widgets/NewX509.cpp:1043
+#: ../widgets/NewX509.cpp:1044
 msgctxt "NewX509|"
 msgid "From PKCS#10 request"
 msgstr "Zo žiadosti PKCS#10"
 
-#: ../widgets/NewX509.cpp:1139 ../widgets/NewX509.cpp:1152
-#: ../widgets/NewX509.cpp:1171 ../widgets/NewX509.cpp:1183
-#: ../widgets/NewX509.cpp:1199 ../widgets/NewX509.cpp:1213
-#: ../widgets/NewX509.cpp:1247 ../widgets/NewX509.cpp:1258
-#: ../widgets/NewX509.cpp:1281 ../widgets/NewX509.cpp:1304
-#: ../widgets/NewX509.cpp:1330 ../widgets/NewX509.cpp:1350
+#: ../widgets/NewX509.cpp:1140 ../widgets/NewX509.cpp:1153
+#: ../widgets/NewX509.cpp:1172 ../widgets/NewX509.cpp:1184
+#: ../widgets/NewX509.cpp:1200 ../widgets/NewX509.cpp:1214
+#: ../widgets/NewX509.cpp:1248 ../widgets/NewX509.cpp:1259
+#: ../widgets/NewX509.cpp:1282 ../widgets/NewX509.cpp:1305
+#: ../widgets/NewX509.cpp:1331 ../widgets/NewX509.cpp:1351
 msgctxt "NewX509|"
 msgid "Abort rollout"
 msgstr "Prerušiť operáciu"
 
-#: ../widgets/NewX509.cpp:1148
+#: ../widgets/NewX509.cpp:1149
 msgctxt "NewX509|"
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr "Nie sú splnené Nasledujúce obmedzenia veľkosti z RFC3280:"
 
-#: ../widgets/NewX509.cpp:1151 ../widgets/NewX509.cpp:1212
+#: ../widgets/NewX509.cpp:1152 ../widgets/NewX509.cpp:1213
 msgctxt "NewX509|"
 msgid "Edit subject"
 msgstr "Upraviť predmet"
 
-#: ../widgets/NewX509.cpp:1153 ../widgets/NewX509.cpp:1214
-#: ../widgets/NewX509.cpp:1259 ../widgets/NewX509.cpp:1282
-#: ../widgets/NewX509.cpp:1305 ../widgets/NewX509.cpp:1331
-#: ../widgets/NewX509.cpp:1351
+#: ../widgets/NewX509.cpp:1154 ../widgets/NewX509.cpp:1215
+#: ../widgets/NewX509.cpp:1260 ../widgets/NewX509.cpp:1283
+#: ../widgets/NewX509.cpp:1306 ../widgets/NewX509.cpp:1332
+#: ../widgets/NewX509.cpp:1352
 msgctxt "NewX509|"
 msgid "Continue rollout"
 msgstr "Pokračovať v operácii"
 
-#: ../widgets/NewX509.cpp:1169
+#: ../widgets/NewX509.cpp:1170
 msgctxt "NewX509|"
 msgid ""
 "The verification of the Certificate request failed.\n"
@@ -1991,12 +2042,12 @@ msgstr ""
 "Overenie žiadosti o certifikát zlyhalo.\n"
 "Operácia by mala byť prerušená."
 
-#: ../widgets/NewX509.cpp:1170
+#: ../widgets/NewX509.cpp:1171
 msgctxt "NewX509|"
 msgid "Continue anyway"
 msgstr "Pokračovať i tak"
 
-#: ../widgets/NewX509.cpp:1181
+#: ../widgets/NewX509.cpp:1182
 msgctxt "NewX509|"
 msgid ""
 "The internal name and the common name are empty.\n"
@@ -2005,22 +2056,22 @@ msgstr ""
 "Interný názov a bežný názov sú prázdne.\n"
 "Prosím, zadajte aspoň interný názov."
 
-#: ../widgets/NewX509.cpp:1182
+#: ../widgets/NewX509.cpp:1183
 msgctxt "NewX509|"
 msgid "Edit name"
 msgstr "Upraviť názov"
 
-#: ../widgets/NewX509.cpp:1197
+#: ../widgets/NewX509.cpp:1198
 msgctxt "NewX509|"
 msgid "There is no Key selected for signing."
 msgstr "Nebol zvolený kľúč na podpísanie."
 
-#: ../widgets/NewX509.cpp:1198
+#: ../widgets/NewX509.cpp:1199
 msgctxt "NewX509|"
 msgid "Select key"
 msgstr "Vybrať kľúč"
 
-#: ../widgets/NewX509.cpp:1210
+#: ../widgets/NewX509.cpp:1211
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -2032,22 +2083,22 @@ msgstr ""
 "%1\n"
 "hoci ste ich v nastavení definovali ako povinné."
 
-#: ../widgets/NewX509.cpp:1244
+#: ../widgets/NewX509.cpp:1245
 msgctxt "NewX509|"
 msgid "The key you selected for signing is not a private one."
 msgstr "Kľúč, zvolený na podpísanie, nie je súkromný."
 
-#: ../widgets/NewX509.cpp:1245
+#: ../widgets/NewX509.cpp:1246
 msgctxt "NewX509|"
 msgid "Select other signer"
 msgstr "Zvoliť iného vydavateľa"
 
-#: ../widgets/NewX509.cpp:1245
+#: ../widgets/NewX509.cpp:1246
 msgctxt "NewX509|"
 msgid "Select other key"
 msgstr "Zvoliť iný kľúč"
 
-#: ../widgets/NewX509.cpp:1255
+#: ../widgets/NewX509.cpp:1256
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
@@ -2055,18 +2106,18 @@ msgid ""
 msgstr ""
 "Certifikát bude platný skôr ako jeho vydavateľ. To asi nie je to, čo chcete."
 
-#: ../widgets/NewX509.cpp:1257 ../widgets/NewX509.cpp:1280
-#: ../widgets/NewX509.cpp:1303
+#: ../widgets/NewX509.cpp:1258 ../widgets/NewX509.cpp:1281
+#: ../widgets/NewX509.cpp:1304
 msgctxt "NewX509|"
 msgid "Edit dates"
 msgstr "Upraviť dátumy"
 
-#: ../widgets/NewX509.cpp:1260 ../widgets/NewX509.cpp:1283
+#: ../widgets/NewX509.cpp:1261 ../widgets/NewX509.cpp:1284
 msgctxt "NewX509|"
 msgid "Adjust date and continue"
 msgstr "Opraviť dátum a pokračovať"
 
-#: ../widgets/NewX509.cpp:1278
+#: ../widgets/NewX509.cpp:1279
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
@@ -2075,7 +2126,7 @@ msgstr ""
 "Certifikát bude platný dlhšie ako jeho vydavateľ. To asi nie je to, čo "
 "chcete."
 
-#: ../widgets/NewX509.cpp:1301
+#: ../widgets/NewX509.cpp:1302
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
@@ -2084,7 +2135,7 @@ msgstr ""
 "Certifikát vyprší ešte pred nadobudnutím platnosti. Pravdepodobne ste "
 "zamenili oba dátumy."
 
-#: ../widgets/NewX509.cpp:1322
+#: ../widgets/NewX509.cpp:1323
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
@@ -2093,7 +2144,7 @@ msgstr ""
 "Certifikát obsahuje neplatné alebo duplicitné rozšírenia. Skontrolujte "
 "platnosť na záložke Pokročilé."
 
-#: ../widgets/NewX509.cpp:1325
+#: ../widgets/NewX509.cpp:1326
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains no extensions. You may apply the extensions of one "
@@ -2102,12 +2153,12 @@ msgstr ""
 "Certifikát neobsahuje rozšírenia. Na definovanie určenia certifikátu môžete "
 "pridať rozšírenia jednej zo šablón."
 
-#: ../widgets/NewX509.cpp:1329 ../widgets/NewX509.cpp:1349
+#: ../widgets/NewX509.cpp:1330 ../widgets/NewX509.cpp:1350
 msgctxt "NewX509|"
 msgid "Edit extensions"
 msgstr "Upraviť rozšírenia"
 
-#: ../widgets/NewX509.cpp:1348
+#: ../widgets/NewX509.cpp:1349
 msgctxt "NewX509|"
 msgid ""
 "The subject alternative name shall contain a copy of the common name. "
@@ -2203,7 +2254,7 @@ msgid ""
 "No SqLite3 driver available. Please install the qt-sqlite package of your "
 "distribution"
 msgstr ""
-"Nie je dostupný ovládač SqLite3. Prosím, nainštalujte balík qt-sqlite svojej "
+"Nie je dostupný ovládač SQLite3. Prosím, nainštalujte balík qt-sqlite svojej "
 "distribúcie"
 
 #: ../widgets/OpenDb.cpp:187
@@ -2314,7 +2365,7 @@ msgctxt "Options|"
 msgid "Mandatory subject entries"
 msgstr "Povinné položky predmetu"
 
-#: ../ui/Options.ui:223 ../ui/Options.ui:284 ../ui/Options.ui:341
+#: ../ui/Options.ui:223 ../ui/Options.ui:284 ../ui/Options.ui:363
 msgctxt "Options|"
 msgid "Add"
 msgstr "Pridať"
@@ -2344,12 +2395,12 @@ msgctxt "Options|"
 msgid "PKCS#11 provider"
 msgstr "Poskytovateľ PKCS#11"
 
-#: ../ui/Options.ui:354
+#: ../ui/Options.ui:376
 msgctxt "Options|"
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: ../ui/Options.ui:361
+#: ../ui/Options.ui:383
 msgctxt "Options|"
 msgid "Search"
 msgstr "Hľadať"
@@ -2388,11 +2439,6 @@ msgstr "Dni"
 msgctxt "Options|"
 msgid "Weeks"
 msgstr "Týždne"
-
-#: ../widgets/Options.cpp:239
-msgctxt "Options|"
-msgid "Load failed"
-msgstr "Načítanie zlyhalo"
 
 #: ../ui/PwDialog.ui:118
 msgctxt "PwDialog|"
@@ -2524,200 +2570,10 @@ msgctxt "QObject|"
 msgid "Out of Memory at %1:%2"
 msgstr "Nedostatok pamäte na %1:%2"
 
-#: ../lib/func.cpp:423
-msgctxt "QObject|"
-msgid "Country code"
-msgstr "Kód krajiny"
-
-#: ../lib/func.cpp:424
-msgctxt "QObject|"
-msgid "State or Province"
-msgstr "Štát alebo provincia"
-
-#: ../lib/func.cpp:425
-msgctxt "QObject|"
-msgid "Locality"
-msgstr "Lokalita"
-
-#: ../lib/func.cpp:426
-msgctxt "QObject|"
-msgid "Organisation"
-msgstr "Organizácia"
-
-#: ../lib/func.cpp:427
-msgctxt "QObject|"
-msgid "Organisational unit"
-msgstr "Organizačná jednotka"
-
-#: ../lib/func.cpp:428
-msgctxt "QObject|"
-msgid "Common name"
-msgstr "Bežný názov"
-
-#: ../lib/func.cpp:429
-msgctxt "QObject|"
-msgid "E-Mail address"
-msgstr "Emailová adresa"
-
-#: ../lib/func.cpp:430
-msgctxt "QObject|"
-msgid "Serial number"
-msgstr "Sériové číslo"
-
-#: ../lib/func.cpp:431
-msgctxt "QObject|"
-msgid "Given name"
-msgstr "Rodné meno"
-
-#: ../lib/func.cpp:432
-msgctxt "QObject|"
-msgid "Surname"
-msgstr "Priezvisko"
-
-#: ../lib/func.cpp:433
-msgctxt "QObject|"
-msgid "Title"
-msgstr "Titul"
-
-#: ../lib/func.cpp:434
-msgctxt "QObject|"
-msgid "Initials"
-msgstr "Iniciály"
-
-#: ../lib/func.cpp:435
-msgctxt "QObject|"
-msgid "Description"
-msgstr "Popis"
-
-#: ../lib/func.cpp:436
-msgctxt "QObject|"
-msgid "Role"
-msgstr "Rola"
-
-#: ../lib/func.cpp:437
-msgctxt "QObject|"
-msgid "Pseudonym"
-msgstr "Pseudonym"
-
-#: ../lib/func.cpp:438
-msgctxt "QObject|"
-msgid "Generation Qualifier"
-msgstr "Prívlastok generácie"
-
-#: ../lib/func.cpp:439
-msgctxt "QObject|"
-msgid "x500 Unique Identifier"
-msgstr "Jedinečný identifikátor x500"
-
-#: ../lib/func.cpp:440
-msgctxt "QObject|"
-msgid "Name"
-msgstr "Názov"
-
-#: ../lib/func.cpp:441
-msgctxt "QObject|"
-msgid "DN Qualifier"
-msgstr "Prívlastok DN"
-
-#: ../lib/func.cpp:442
-msgctxt "QObject|"
-msgid "Unstructured name"
-msgstr "Neštruktúrovaný názov"
-
-#: ../lib/func.cpp:443
-msgctxt "QObject|"
-msgid "Challenge password"
-msgstr "Heslo výzvy"
-
-#: ../lib/func.cpp:445
-msgctxt "QObject|"
-msgid "Basic Constraints"
-msgstr "Základné obmedzenia"
-
-#: ../lib/func.cpp:446
-msgctxt "QObject|"
-msgid "Subject alternative name"
-msgstr "Alternatívne meno predmetu"
-
-#: ../lib/func.cpp:447
-msgctxt "QObject|"
-msgid "issuer alternative name"
-msgstr "Alternatívny názov vydavateľa"
-
-#: ../lib/func.cpp:448
-msgctxt "QObject|"
-msgid "Subject key identifier"
-msgstr "Identifikátor kľúča predmetu"
-
-#: ../lib/func.cpp:449
-msgctxt "QObject|"
-msgid "Authority key identifier"
-msgstr "Identifikátor kľúča autority"
-
-#: ../lib/func.cpp:450
-msgctxt "QObject|"
-msgid "Key usage"
-msgstr "Použitie kľúča"
-
-#: ../lib/func.cpp:451
-msgctxt "QObject|"
-msgid "Extended key usage"
-msgstr "Rozšírené použitie kľúča"
-
-#: ../lib/func.cpp:452
-msgctxt "QObject|"
-msgid "CRL distribution points"
-msgstr "Distribučné body CRL"
-
-#: ../lib/func.cpp:453
-msgctxt "QObject|"
-msgid "Authority information access"
-msgstr "Prístup k informácii CA (AIA)"
-
-#: ../lib/func.cpp:454
-msgctxt "QObject|"
-msgid "Certificate type"
-msgstr "Typ certifikátu"
-
-#: ../lib/func.cpp:455
-msgctxt "QObject|"
-msgid "Base URL"
-msgstr "Základná URL"
-
-#: ../lib/func.cpp:456
-msgctxt "QObject|"
-msgid "Revocation URL"
-msgstr "URL odvolaní"
-
-#: ../lib/func.cpp:457
-msgctxt "QObject|"
-msgid "CA Revocation URL"
-msgstr "URL odvolaní CA"
-
-#: ../lib/func.cpp:458
-msgctxt "QObject|"
-msgid "Certificate renewal URL"
-msgstr "URL obnovenia CRL"
-
-#: ../lib/func.cpp:459
-msgctxt "QObject|"
-msgid "CA policy URL"
-msgstr "URL politiky CA"
-
-#: ../lib/func.cpp:460
-msgctxt "QObject|"
-msgid "SSL server name"
-msgstr "Meno servera SSL"
-
-#: ../lib/func.cpp:461
-msgctxt "QObject|"
-msgid "Comment"
-msgstr "Komentár"
-
 #: ../lib/load_obj.cpp:20
 msgctxt "QObject|"
 msgid "All files ( * )"
-msgstr "Všetky súbory (*)"
+msgstr "Všetky súbory ( * )"
 
 #: ../lib/load_obj.cpp:57
 msgctxt "QObject|"
@@ -2730,8 +2586,8 @@ msgid ""
 "PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public "
 "Keys ( *.pub );;"
 msgstr ""
-"Kľúče PKI (*.pem *.der *.key);;Kľúče PKCS#8 (*.p8 *.pk8);;Verejné kľúče SSH "
-"(*.pub);;"
+"Kľúče PKI ( *.pem *.der *.key );;Kľúče PKCS#8 ( *.p8 *.pk8 );;Verejné kľúče "
+"SSH ( *.pub );;"
 
 #: ../lib/load_obj.cpp:69
 msgctxt "QObject|"
@@ -2746,7 +2602,7 @@ msgstr "Importovať Žiadosť"
 #: ../lib/load_obj.cpp:82
 msgctxt "QObject|"
 msgid "Certificates ( *.pem *.der *.crt *.cer );;"
-msgstr "Certifikáty (*.pem *.der *.crt *.cer);;"
+msgstr "Certifikáty ( *.pem *.der *.crt *.cer );;"
 
 #: ../lib/load_obj.cpp:83
 msgctxt "QObject|"
@@ -2756,7 +2612,7 @@ msgstr "Importovať Certifikát X.509"
 #: ../lib/load_obj.cpp:95
 msgctxt "QObject|"
 msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
-msgstr "Dáta PKCS#7 (*.p7s *.p7m *.p7b);;"
+msgstr "Dáta PKCS#7 ( *.p7s *.p7m *.p7b );;"
 
 #: ../lib/load_obj.cpp:96
 msgctxt "QObject|"
@@ -2766,7 +2622,7 @@ msgstr "Importovať Certifikáty PKCS#7"
 #: ../lib/load_obj.cpp:108
 msgctxt "QObject|"
 msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
-msgstr "Certifikáty PKCS#12 (*.p12 *.pfx);;"
+msgstr "Certifikáty PKCS#12 ( *.p12 *.pfx );;"
 
 #: ../lib/load_obj.cpp:109
 msgctxt "QObject|"
@@ -2776,7 +2632,7 @@ msgstr "Importovať Súkromný certifikát PKCS#12"
 #: ../lib/load_obj.cpp:122
 msgctxt "QObject|"
 msgid "XCA templates ( *.xca );;"
-msgstr "Šablóny XCA (*.xca);;"
+msgstr "Šablóny XCA ( *.xca );;"
 
 #: ../lib/load_obj.cpp:123
 msgctxt "QObject|"
@@ -2786,7 +2642,7 @@ msgstr "Importovať Šablóny XCA"
 #: ../lib/load_obj.cpp:135
 msgctxt "QObject|"
 msgid "Revocation lists ( *.pem *.der *.crl );;"
-msgstr "Zoznamy odvolaných (*.pem *.der *.crl);;"
+msgstr "Zoznamy odvolaných ( *.pem *.der *.crl );;"
 
 #: ../lib/load_obj.cpp:136
 msgctxt "QObject|"
@@ -2796,7 +2652,7 @@ msgstr "Importovať Zoznam odvolaných certifikátov"
 #: ../lib/load_obj.cpp:148
 msgctxt "QObject|"
 msgid "XCA Databases ( *.xdb );;"
-msgstr "Databázy XCA (*.xdb);;"
+msgstr "Databázy XCA ( *.xdb );;"
 
 #: ../lib/load_obj.cpp:149
 msgctxt "QObject|"
@@ -2806,17 +2662,17 @@ msgstr "Otvoriť databázu XCA"
 #: ../lib/load_obj.cpp:157
 msgctxt "QObject|"
 msgid "PKCS#11 library ( *.dll );;"
-msgstr "Knižnica PKCS#11 (*.dll);;"
+msgstr "Knižnica PKCS#11 ( *.dll );;"
 
 #: ../lib/load_obj.cpp:159
 msgctxt "QObject|"
 msgid "PKCS#11 library ( *.dylib *.so );;"
-msgstr "Knižnica PKCS#11 (*.dylib *.so);;"
+msgstr "Knižnica PKCS#11 ( *.dylib *.so );;"
 
 #: ../lib/load_obj.cpp:161
 msgctxt "QObject|"
 msgid "PKCS#11 library ( *.so );;"
-msgstr "Knižnica PKCS#11 (*.so);;"
+msgstr "Knižnica PKCS#11 ( *.so );;"
 
 #: ../lib/load_obj.cpp:163
 msgctxt "QObject|"
@@ -2826,47 +2682,47 @@ msgstr "Otvoriť zdieľanú knižnicu PKCS#11"
 #: ../lib/load_obj.cpp:170
 msgctxt "QObject|"
 msgid "PEM files ( *.pem );;"
-msgstr "Súbory PEM (*.pem);;"
+msgstr "Súbory PEM ( *.pem );;"
 
 #: ../lib/load_obj.cpp:171
 msgctxt "QObject|"
 msgid "Load PEM encoded file"
 msgstr "Načítať súbor kódovaný PEM"
 
-#: ../lib/pkcs11.cpp:230
+#: ../lib/pkcs11.cpp:245
 msgctxt "QObject|"
 msgid "Please enter the PIN on the PinPad"
 msgstr "Prosím, zadajte PIN na PinPad-e"
 
-#: ../lib/pkcs11.cpp:241
+#: ../lib/pkcs11.cpp:256
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the SO PIN (PUK) of the token %1"
 msgstr "Prosím, zadajte SO PIN (PUK) tokenu %1"
 
-#: ../lib/pkcs11.cpp:242
+#: ../lib/pkcs11.cpp:257
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the PIN of the token %1"
 msgstr "Prosím, zadajte PIN tokenu %1"
 
-#: ../lib/pkcs11.cpp:295
+#: ../lib/pkcs11.cpp:310
 msgctxt "QObject|"
 msgid "No Security token found"
 msgstr "Nebol nájdený bezpečnostný token"
 
-#: ../lib/pkcs11.cpp:306
+#: ../lib/pkcs11.cpp:321
 msgctxt "QObject|"
 msgid "Select"
 msgstr "Zvoliť"
 
-#: ../lib/pkcs11.cpp:329
+#: ../lib/pkcs11.cpp:344
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr "Prosím, zadajte nový SO PIN (PUK) tokenu: „%1”"
 
-#: ../lib/pkcs11.cpp:331
+#: ../lib/pkcs11.cpp:346
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the new PIN for the token: '%1'"
@@ -2878,19 +2734,37 @@ msgctxt "QObject|"
 msgid "Required PIN size: %1 - %2"
 msgstr "Požadovaná veľkosť PIN: %1 - %2"
 
-#: ../lib/pkcs11_lib.cpp:57
+#: ../lib/pkcs11_lib.cpp:35
 #, qt-format
 msgctxt "QObject|"
-msgid "Failed to open PKCS11 library: %1"
-msgstr "Zlyhalo otvorenie knižnice PKCS#11: %1"
+msgid "Failed to open PKCS11 library: %1: %2"
+msgstr "Zlyhalo otvorenie knižnice PKCS#11: %1: %2"
 
-#: ../lib/pkcs11_lib.cpp:276
+#: ../lib/pkcs11_lib.cpp:41
+msgctxt "QObject|"
+msgid ""
+"This does not look like a PKCS#11 library. Symbol 'C_GetFunctionList' not "
+"found."
+msgstr ""
+"Toto nevyzerá ako knižnica PKCS#11. Symbol 'C_GetFunctionList' nenájdený."
+
+#: ../lib/pkcs11_lib.cpp:123
+msgctxt "QObject|"
+msgid "Disabled"
+msgstr "Vypnuté"
+
+#: ../lib/pkcs11_lib.cpp:127
+msgctxt "QObject|"
+msgid "Library loading failed"
+msgstr "Načítanie knižnice zlyhalo"
+
+#: ../lib/pkcs11_lib.cpp:312
 #, qt-format
 msgctxt "QObject|"
 msgid "PKCS#11 function '%1' failed: %2"
 msgstr "Funkcia PKCS#11 „%1” zlyhala: %2"
 
-#: ../lib/pkcs11_lib.cpp:284
+#: ../lib/pkcs11_lib.cpp:320
 #, qt-format
 msgctxt "QObject|"
 msgid ""
@@ -2919,19 +2793,19 @@ msgctxt "QObject|"
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr "%1 je dlhšie ako %2 B: „%3”"
 
-#: ../lib/x509v3ext.cpp:84
+#: ../lib/x509v3ext.cpp:85
 #, qt-format
 msgctxt "QObject|"
 msgid "String '%1' for '%2' contains invalid characters"
 msgstr "Reťazec „%1” pre „%2” obsahuje neplatné znaky"
 
-#: ../lib/oid.cpp:46
+#: ../lib/oid.cpp:49
 #, qt-format
 msgctxt "QObject|"
 msgid "Error reading config file %1 at line %2"
 msgstr "Chyba čítania konfiguračného súboru %1 na riadku %2"
 
-#: ../lib/oid.cpp:85
+#: ../lib/oid.cpp:84
 #, qt-format
 msgctxt "QObject|"
 msgid ""
@@ -2941,7 +2815,7 @@ msgstr ""
 "Objekt „%1” zo súboru %2 riadok %3 je už známy ako „%4:%5:%6” a mal by byť "
 "odstránený."
 
-#: ../lib/oid.cpp:92
+#: ../lib/oid.cpp:93
 #, qt-format
 msgctxt "QObject|"
 msgid ""
@@ -2951,23 +2825,33 @@ msgstr ""
 "Identifikátor „%1” pre OID %2 zo súboru %3 riadok %4 je už použitý pre iné "
 "OID ako „%5:%6:%7” a treba ho zmeniť, aby ste predišli konfliktom."
 
-#: ../lib/oid.cpp:154
+#: ../lib/oid.cpp:177
 #, qt-format
 msgctxt "QObject|"
 msgid "Unknown object '%1' in file %2 line %3"
 msgstr "Neznámy objekt „%1” v súbore %2 riadok %3"
 
-#: ../lib/sql.h:54
+#: ../lib/sql.h:55
 msgctxt "QObject|"
 msgid "Failed to start a database transaction"
 msgstr "Zlyhala inicializácia DB transakcie"
 
-#: ../widgets/ReqTreeView.cpp:23
+#: ../widgets/ReqTreeView.cpp:25
 msgctxt "ReqTreeView|"
 msgid "Sign"
 msgstr "Podpísať"
 
-#: ../widgets/ReqTreeView.cpp:25
+#: ../widgets/ReqTreeView.cpp:27
+msgctxt "ReqTreeView|"
+msgid "Unmark signed"
+msgstr "Zrušiť označenie podpísané"
+
+#: ../widgets/ReqTreeView.cpp:30
+msgctxt "ReqTreeView|"
+msgid "Mark signed"
+msgstr "Označiť podpísané"
+
+#: ../widgets/ReqTreeView.cpp:33
 msgctxt "ReqTreeView|"
 msgid "Similar Request"
 msgstr "Podobné žiadosti"
@@ -3182,160 +3066,160 @@ msgctxt "XcaTreeView|"
 msgid "Paste PEM data"
 msgstr "Vložiť dáta PEM"
 
-#: ../widgets/XcaTreeView.cpp:410
+#: ../widgets/XcaTreeView.cpp:411
 msgctxt "XcaTreeView|"
 msgid "Rename"
 msgstr "Premenovať"
 
-#: ../widgets/XcaTreeView.cpp:411
+#: ../widgets/XcaTreeView.cpp:412
 msgctxt "XcaTreeView|"
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: ../widgets/XcaTreeView.cpp:414
+#: ../widgets/XcaTreeView.cpp:415
 msgctxt "XcaTreeView|"
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: ../widgets/XcaTreeView.cpp:415
+#: ../widgets/XcaTreeView.cpp:417
 msgctxt "XcaTreeView|"
 msgid "Export"
 msgstr "Exportovať"
 
-#: ../widgets/XcaTreeView.cpp:416
+#: ../widgets/XcaTreeView.cpp:418
 msgctxt "XcaTreeView|"
 msgid "Clipboard"
 msgstr "Schránka"
 
-#: ../widgets/XcaTreeView.cpp:418
+#: ../widgets/XcaTreeView.cpp:420
 msgctxt "XcaTreeView|"
 msgid "File"
 msgstr "Súbor"
 
-#: ../lib/db_base.cpp:675 ../lib/db_base.cpp:730
-#, qt-format
-msgctxt "db_base|"
-msgid "Error opening file: '%1': %2"
-msgstr "Chyba otvorenia súboru: „%1”: %2"
-
-#: ../lib/db_base.cpp:157
+#: ../lib/db_base.cpp:177
 msgctxt "db_base|"
 msgid "Internal name"
 msgstr "Interný názov"
 
-#: ../lib/db_base.cpp:158
+#: ../lib/db_base.cpp:178
 msgctxt "db_base|"
 msgid "No."
 msgstr "Č."
 
-#: ../lib/db_base.cpp:159
+#: ../lib/db_base.cpp:179
 msgctxt "db_base|"
 msgid "Primary key"
 msgstr "Primárny kľúč"
 
-#: ../lib/db_base.cpp:160
+#: ../lib/db_base.cpp:180
 msgctxt "db_base|"
 msgid "Database unique number"
 msgstr "Jedinečné číslo databázy"
 
-#: ../lib/db_base.cpp:161
+#: ../lib/db_base.cpp:181
 msgctxt "db_base|"
 msgid "Date"
 msgstr "Dátum"
 
-#: ../lib/db_base.cpp:162
+#: ../lib/db_base.cpp:182
 msgctxt "db_base|"
 msgid "Date of creation or insertion"
 msgstr "Dátum vytvorenia alebo vloženia"
 
-#: ../lib/db_base.cpp:163
+#: ../lib/db_base.cpp:183
 msgctxt "db_base|"
 msgid "Source"
 msgstr "Zdroj"
 
-#: ../lib/db_base.cpp:164
+#: ../lib/db_base.cpp:184
 msgctxt "db_base|"
 msgid "Generated, Imported, Transformed"
 msgstr "Generovaný, Importovaný, Transformovaný"
 
-#: ../lib/db_base.cpp:165
+#: ../lib/db_base.cpp:185
 msgctxt "db_base|"
 msgid "Comment"
 msgstr "Komentár"
 
-#: ../lib/db_base.cpp:166
+#: ../lib/db_base.cpp:186
 msgctxt "db_base|"
 msgid "First line of the comment field"
 msgstr "Prvý riadok poľa komentára"
 
-#: ../lib/db_base.cpp:611
+#: ../lib/db_base.cpp:391
+#, qt-format
+msgctxt "db_base|"
+msgid "Could not create directory %1"
+msgstr "Nemožno vytvoriť zložku %1"
+
+#: ../lib/db_base.cpp:642
 msgctxt "db_base|"
 msgid "Item properties"
 msgstr "Vlastnosti položky"
 
-#: ../lib/db_base.cpp:649
+#: ../lib/db_base.cpp:680
 #, qt-format
 msgctxt "db_base|"
 msgid "How to export the %1 selected items"
 msgstr "Ako exportovať %1 zvolených položiek"
 
-#: ../lib/db_base.cpp:651
+#: ../lib/db_base.cpp:682
 msgctxt "db_base|"
 msgid "All in one PEM file"
 msgstr "Všetky v jednom súbore PEM"
 
-#: ../lib/db_base.cpp:652
+#: ../lib/db_base.cpp:683
 msgctxt "db_base|"
 msgid "Each item in one file"
 msgstr "Každá položka v samostatnom súbore"
 
-#: ../lib/db_base.cpp:665
+#: ../lib/db_base.cpp:696
 #, qt-format
 msgctxt "db_base|"
 msgid "Save %1 items in one file as"
 msgstr "Uložiť %1 položiek v jednom súbore ako"
 
-#: ../lib/db_base.cpp:666
+#: ../lib/db_base.cpp:697
 msgctxt "db_base|"
 msgid "PEM files ( *.pem );; All files ( * )"
-msgstr "Súbory PEM (*.pem);; Všetky súbory (*)"
+msgstr "Súbory PEM ( *.pem );; Všetky súbory ( * )"
 
-#: ../lib/db_crl.cpp:33
+#: ../lib/db_crl.cpp:34
 msgctxt "db_crl|"
 msgid "Signer"
 msgstr "Vydavateľ"
 
-#: ../lib/db_crl.cpp:34
+#: ../lib/db_crl.cpp:35
 msgctxt "db_crl|"
 msgid "Internal name of the signer"
 msgstr "Interný názov vydavateľa"
 
-#: ../lib/db_crl.cpp:35
+#: ../lib/db_crl.cpp:36
 msgctxt "db_crl|"
 msgid "No. revoked"
-msgstr "Č. odvolania"
+msgstr "Počet odvolaných"
 
-#: ../lib/db_crl.cpp:36
+#: ../lib/db_crl.cpp:37
 msgctxt "db_crl|"
 msgid "Number of revoked certificates"
 msgstr "Počet odvolaných certifikátov"
 
-#: ../lib/db_crl.cpp:37
+#: ../lib/db_crl.cpp:38
 msgctxt "db_crl|"
 msgid "Last update"
 msgstr "Posledná aktualizácia"
 
-#: ../lib/db_crl.cpp:38
+#: ../lib/db_crl.cpp:39
 msgctxt "db_crl|"
 msgid "Next update"
 msgstr "Nasled. aktualizácia"
 
-#: ../lib/db_crl.cpp:39
+#: ../lib/db_crl.cpp:40
 msgctxt "db_crl|"
 msgid "CRL number"
 msgstr "Číslo CRL"
 
-#: ../lib/db_crl.cpp:105
+#: ../lib/db_crl.cpp:106
 #, qt-format
 msgctxt "db_crl|"
 msgid ""
@@ -3347,40 +3231,41 @@ msgstr ""
 "„%1”,\n"
 "a tak nebol importovaný"
 
-#: ../lib/db_crl.cpp:159
+#: ../lib/db_crl.cpp:161
 msgctxt "db_crl|"
 msgid "Revocation list export"
 msgstr "Export Zoznamu odvolaných"
 
-#: ../lib/db_crl.cpp:160
+#: ../lib/db_crl.cpp:162
 msgctxt "db_crl|"
 msgid "CRL ( *.pem *.der *.crl )"
-msgstr "CRL (*.pem *.der *.crl)"
+msgstr "CRL ( *.pem *.der *.crl )"
 
-#: ../lib/db_crl.cpp:224
+#: ../lib/db_crl.cpp:228
 msgctxt "db_crl|"
 msgid "There are no CA certificates for CRL generation"
 msgstr "Neexistujú certifikáty CA na generovanie CRL"
 
-#: ../lib/db_crl.cpp:232
+#: ../lib/db_crl.cpp:236
 msgctxt "db_crl|"
 msgid "Select CA certificate"
 msgstr "vyberte certifikát CA"
 
-#: ../lib/db_crl.cpp:253
+#: ../lib/db_crl.cpp:257
 msgctxt "db_crl|"
 msgid "Create CRL"
 msgstr "Vytvoriť CRL"
 
-#: ../lib/db_crl.cpp:297
+#: ../lib/db_crl.cpp:301
 msgctxt "db_crl|"
 msgid "Failed to initiate DB transaction"
 msgstr "Zlyhala inicializácia DB transakcie"
 
-#: ../lib/db_crl.cpp:307 ../lib/db_crl.cpp:315 ../lib/db_crl.cpp:319
+#: ../lib/db_crl.cpp:311 ../lib/db_crl.cpp:319 ../lib/db_crl.cpp:323
+#, qt-format
 msgctxt "db_crl|"
-msgid "Database error: "
-msgstr "Chyba databázy:"
+msgid "Database error: %1"
+msgstr "Chyba databázy: %1"
 
 #: ../lib/db_key.cpp:65
 msgctxt "db_key|"
@@ -3448,69 +3333,69 @@ msgctxt "db_key|"
 msgid "You are sure to create a key of the size: %1 ?"
 msgstr "Naozaj chcete vytvoriť kľúč s veľkosťou: %1?"
 
-#: ../lib/db_key.cpp:273 ../lib/db_key.cpp:310
+#: ../lib/db_key.cpp:272 ../lib/db_key.cpp:309
 msgctxt "db_key|"
 msgid "PEM public"
 msgstr "PEM verejný"
 
-#: ../lib/db_key.cpp:276 ../lib/db_key.cpp:315
+#: ../lib/db_key.cpp:275 ../lib/db_key.cpp:313
 msgctxt "db_key|"
 msgid "SSH2 public"
 msgstr "SSH2 verejný"
 
-#: ../lib/db_key.cpp:279 ../lib/db_key.cpp:327
+#: ../lib/db_key.cpp:278 ../lib/db_key.cpp:325
 msgctxt "db_key|"
 msgid "PEM private"
 msgstr "PEM súkromný"
 
-#: ../lib/db_key.cpp:284
+#: ../lib/db_key.cpp:283
 msgctxt "db_key|"
 msgid "Export keys to Clipboard"
 msgstr "Exportovať kľúče do schránky"
 
-#: ../lib/db_key.cpp:287
+#: ../lib/db_key.cpp:286
 msgctxt "db_key|"
 msgid "Clipboard"
 msgstr "Schránka"
 
-#: ../lib/db_key.cpp:300
+#: ../lib/db_key.cpp:299
 #, qt-format
 msgctxt "db_key|"
 msgid "Export public key [%1]"
 msgstr "Exportovať verejný kľúč [%1]"
 
-#: ../lib/db_key.cpp:311
+#: ../lib/db_key.cpp:310
 msgctxt "db_key|"
 msgid "DER public"
 msgstr "DER verejný"
 
-#: ../lib/db_key.cpp:320
+#: ../lib/db_key.cpp:318
 msgctxt "db_key|"
 msgid "DER private"
 msgstr "DER súkromný"
 
-#: ../lib/db_key.cpp:322
+#: ../lib/db_key.cpp:320
 msgctxt "db_key|"
 msgid "PEM encryped"
 msgstr "PEM šifrovaný"
 
-#: ../lib/db_key.cpp:329
+#: ../lib/db_key.cpp:327
 msgctxt "db_key|"
 msgid "PKCS#8 encrypted"
 msgstr "PKCS#8 šifrovaný"
 
-#: ../lib/db_key.cpp:330
+#: ../lib/db_key.cpp:328
 #, qt-format
 msgctxt "db_key|"
 msgid "Export private key [%1]"
 msgstr "Exportovať súkromný kľúč [%1]"
 
-#: ../lib/db_key.cpp:335
+#: ../lib/db_key.cpp:333
 msgctxt "db_key|"
 msgid "Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )"
-msgstr "Súkromné kľúče (*.pem *.der *.pk8);; Verejné kľúče SSH (*.pub)"
+msgstr "Súkromné kľúče ( *.pem *.der *.pk8 );; Verejné kľúče SSH ( *.pub )"
 
-#: ../lib/db_key.cpp:393
+#: ../lib/db_key.cpp:403
 msgctxt "db_key|"
 msgid "Tried to change password of a token"
 msgstr "Vyskúšaná zmena hesla tokenu"
@@ -3539,84 +3424,84 @@ msgstr "Uložiť šablónu ako"
 #: ../lib/db_temp.cpp:139
 msgctxt "db_temp|"
 msgid "XCA templates ( *.xca );; All files ( * )"
-msgstr "Šablóny XCA (*.xca);; Všetky súbory (*)"
+msgstr "Šablóny XCA ( *.xca );; Všetky súbory ( * )"
 
-#: ../lib/db_x509.cpp:64
+#: ../lib/db_x509.cpp:67
 msgctxt "db_x509|"
 msgid "CA"
 msgstr "CA"
 
-#: ../lib/db_x509.cpp:65
+#: ../lib/db_x509.cpp:68
 msgctxt "db_x509|"
 msgid "reflects the basic Constraints extension"
 msgstr "Odráža rozšírenie Základné obmedzenia"
 
-#: ../lib/db_x509.cpp:66
+#: ../lib/db_x509.cpp:69
 msgctxt "db_x509|"
 msgid "Serial"
 msgstr "Sériové číslo"
 
-#: ../lib/db_x509.cpp:70
+#: ../lib/db_x509.cpp:73
 msgctxt "db_x509|"
 msgid "Start date"
 msgstr "Dátum začiatku"
 
-#: ../lib/db_x509.cpp:72
+#: ../lib/db_x509.cpp:75
 msgctxt "db_x509|"
 msgid "Expiry date"
 msgstr "Dátum vypršania"
 
-#: ../lib/db_x509.cpp:67
+#: ../lib/db_x509.cpp:70
 msgctxt "db_x509|"
 msgid "MD5 fingerprint"
 msgstr "Odtlačok MD5"
 
-#: ../lib/db_x509.cpp:68
+#: ../lib/db_x509.cpp:71
 msgctxt "db_x509|"
 msgid "SHA1 fingerprint"
 msgstr "Odtlačok SHA1"
 
-#: ../lib/db_x509.cpp:69
+#: ../lib/db_x509.cpp:72
 msgctxt "db_x509|"
 msgid "SHA256 fingerprint"
 msgstr "Odtlačok SHA256"
 
-#: ../lib/db_x509.cpp:71
+#: ../lib/db_x509.cpp:74
 msgctxt "db_x509|"
 msgid "Not before"
 msgstr "Nie pred"
 
-#: ../lib/db_x509.cpp:73
+#: ../lib/db_x509.cpp:76
 msgctxt "db_x509|"
 msgid "Not after"
 msgstr "Nie po"
 
-#: ../lib/db_x509.cpp:74
+#: ../lib/db_x509.cpp:77
 msgctxt "db_x509|"
 msgid "Revocation"
 msgstr "Odvolanie"
 
-#: ../lib/db_x509.cpp:75
+#: ../lib/db_x509.cpp:78
 msgctxt "db_x509|"
 msgid "CRL Expiration"
 msgstr "CRL vypršania"
 
-#: ../lib/db_x509.cpp:150
+#: ../lib/db_x509.cpp:152
 msgctxt "db_x509|"
 msgid "Plain View"
 msgstr "Prosté zobrazenie"
 
-#: ../lib/db_x509.cpp:152
+#: ../lib/db_x509.cpp:154
 msgctxt "db_x509|"
 msgid "Tree View"
 msgstr "Stromové zobrazenie"
 
-#: ../lib/db_x509.cpp:342
+#: ../lib/db_x509.cpp:336
 msgctxt "db_x509|"
 msgid "Failed to retrieve unique random serial"
 msgstr "Zlyhalo získanie jedinečného náhodného sériového čísla"
 
-#: ../lib/db_x509.cpp:365
+#: ../lib/db_x509.cpp:359
 #, qt-format
 msgctxt "db_x509|"
 msgid ""
@@ -3628,131 +3513,125 @@ msgstr ""
 "„%1”,\n"
 "a tak nebol importovaný"
 
-#: ../lib/db_x509.cpp:409
+#: ../lib/db_x509.cpp:403
 #, qt-format
 msgctxt "db_x509|"
 msgid "Signed on %1 by '%2'"
 msgstr "%1 podpísané „%2”"
 
-#: ../lib/db_x509.cpp:410
+#: ../lib/db_x509.cpp:404
 msgctxt "db_x509|"
 msgid "Unknown"
 msgstr "Neznáme"
 
-#: ../lib/db_x509.cpp:502
+#: ../lib/db_x509.cpp:496
 msgctxt "db_x509|"
 msgid "Invalid public key"
 msgstr "Neplatný verejný kľúč"
 
-#: ../lib/db_x509.cpp:660
+#: ../lib/db_x509.cpp:654
 msgctxt "db_x509|"
 msgid "PKCS#7 unrevoked"
 msgstr "Neodvolané PKCS#7"
 
-#: ../lib/db_x509.cpp:664
+#: ../lib/db_x509.cpp:658
 msgctxt "db_x509|"
 msgid "PEM unrevoked"
 msgstr "Neodvolané PEM"
 
-#: ../lib/db_x509.cpp:671
+#: ../lib/db_x509.cpp:665
 msgctxt "db_x509|"
 msgid "vCalendar"
 msgstr "vCalendar"
 
-#: ../lib/db_x509.cpp:675
+#: ../lib/db_x509.cpp:669
 msgctxt "db_x509|"
 msgid "CA vCalendar"
 msgstr "CA vCalendar"
 
-#: ../lib/db_x509.cpp:1110
+#: ../lib/db_x509.cpp:1094
+msgctxt "db_x509|"
+msgid "days"
+msgstr "dní"
+
+#: ../lib/db_x509.cpp:1103
 msgctxt "db_x509|"
 msgid "No template"
 msgstr "Bez šablóny"
 
-#: ../lib/db_x509.cpp:528
+#: ../lib/db_x509.cpp:522
 msgctxt "db_x509|"
 msgid "The key you selected for signing is not a private one."
 msgstr "Kľúč, zvolený na podpísanie, nie je súkromný."
 
-#: ../lib/db_x509.cpp:570
+#: ../lib/db_x509.cpp:564
 #, qt-format
 msgctxt "db_x509|"
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr "Uložiť certifikát do kľúča na tokene „%1 (#%2)”?"
 
-#: ../lib/db_x509.cpp:637
+#: ../lib/db_x509.cpp:631
 msgctxt "db_x509|"
 msgid "PEM chain"
 msgstr "Reťaz PEM"
 
-#: ../lib/db_x509.cpp:639
+#: ../lib/db_x509.cpp:633
 msgctxt "db_x509|"
 msgid "PKCS#7 chain"
 msgstr "Reťaz PKCS #7"
 
-#: ../lib/db_x509.cpp:645
+#: ../lib/db_x509.cpp:639
 msgctxt "db_x509|"
 msgid "PKCS#12 chain"
 msgstr "Reťaz PKCS#12"
 
-#: ../lib/db_x509.cpp:662
+#: ../lib/db_x509.cpp:656
 msgctxt "db_x509|"
 msgid "PKCS#7 all"
 msgstr "PKCS#7 všetky"
 
-#: ../lib/db_x509.cpp:654
+#: ../lib/db_x509.cpp:648
 msgctxt "db_x509|"
 msgid "PEM + key"
 msgstr "PEM + kľúč"
 
-#: ../lib/db_x509.cpp:666
+#: ../lib/db_x509.cpp:660
 msgctxt "db_x509|"
 msgid "PEM all"
 msgstr "PEM všetky"
 
-#: ../lib/db_x509.cpp:668
+#: ../lib/db_x509.cpp:662
 msgctxt "db_x509|"
 msgid "Certificate Index file"
 msgstr "Súbor indexu certifikátov"
 
-#: ../lib/db_x509.cpp:678
+#: ../lib/db_x509.cpp:672
 msgctxt "db_x509|"
 msgid "Certificate export"
 msgstr "Export certifikátu"
 
-#: ../lib/db_x509.cpp:679
+#: ../lib/db_x509.cpp:673
 msgctxt "db_x509|"
 msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"
-msgstr "Certifikáty X509 (*.pem *.cer *.crt *.p12 *.p7b)"
+msgstr "Certifikáty X509 ( *.pem *.cer *.crt *.p12 *.p7b )"
 
-#: ../lib/db_x509.cpp:739 ../lib/db_x509.cpp:810
+#: ../lib/db_x509.cpp:737 ../lib/db_x509.cpp:803
 #, qt-format
 msgctxt "db_x509|"
 msgid "There was no key found for the Certificate: '%1'"
 msgstr "Nebol nájdený kľúč certifikátu: „%1”"
 
-#: ../lib/db_x509.cpp:744
+#: ../lib/db_x509.cpp:742
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for a token key: '%1'"
 msgstr "Nie je možné pre kľúč tokenu: „%1”"
 
-#: ../lib/db_x509.cpp:791
-#, qt-format
-msgctxt "db_x509|"
-msgid "Error opening file: '%1': %2"
-msgstr "Chyba otvorenia súboru: „%1”: %2"
-
-#: ../lib/db_x509.cpp:814
+#: ../lib/db_x509.cpp:807
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for the token-key Certificate '%1'"
 msgstr "Nie je možné pre Certifikát kľúča tokenu „%1”"
-
-#: ../lib/db_x509.cpp:1101
-msgctxt "db_x509|"
-msgid " days"
-msgstr " dní"
 
 #: ../lib/db_x509super.cpp:24
 msgctxt "db_x509name|"
@@ -3774,27 +3653,37 @@ msgctxt "db_x509name|"
 msgid "Hash to lookup certs in directories"
 msgstr "Odtlačok na hľadanie certifikátov v adresároch"
 
-#: ../lib/db_x509req.cpp:30
+#: ../lib/db_x509req.cpp:31
 msgctxt "db_x509req|"
 msgid "Signed"
 msgstr "Podpísaný"
 
-#: ../lib/db_x509req.cpp:31
+#: ../lib/db_x509req.cpp:32
 msgctxt "db_x509req|"
 msgid "whether the request is already signed or not"
 msgstr "Či už bola žiadosť podpísaná alebo nie"
 
-#: ../lib/db_x509req.cpp:32
+#: ../lib/db_x509req.cpp:33
 msgctxt "db_x509req|"
 msgid "Unstructured name"
 msgstr "Neštruktúrovaný názov"
 
-#: ../lib/db_x509req.cpp:34
+#: ../lib/db_x509req.cpp:35
 msgctxt "db_x509req|"
 msgid "Challenge password"
 msgstr "Heslo výzvy"
 
-#: ../lib/db_x509req.cpp:51
+#: ../lib/db_x509req.cpp:37
+msgctxt "db_x509req|"
+msgid "Certificate count"
+msgstr "Počet certifikátov"
+
+#: ../lib/db_x509req.cpp:38
+msgctxt "db_x509req|"
+msgid "Number of certificates in the database with the same public key"
+msgstr "Počet certifikátov s rovnakým verejným kľúčom v databáze"
+
+#: ../lib/db_x509req.cpp:55
 #, qt-format
 msgctxt "db_x509req|"
 msgid ""
@@ -3806,63 +3695,63 @@ msgstr ""
 "„%1”,\n"
 "a tak nebola uložená"
 
-#: ../lib/db_x509req.cpp:129
+#: ../lib/db_x509req.cpp:132
 msgctxt "db_x509req|"
 msgid "Certificate request export"
 msgstr "Export Žiadosti o certifikát"
 
-#: ../lib/db_x509req.cpp:130
+#: ../lib/db_x509req.cpp:133
 msgctxt "db_x509req|"
 msgid "Certificate request ( *.pem *.der *.csr )"
-msgstr "Žiadosť o certifikát (*.pem *.der *.csr)"
+msgstr "Žiadosť o certifikát ( *.pem *.der *.csr )"
 
-#: ../lib/db_x509super.cpp:77
+#: ../lib/db_x509super.cpp:78
 msgctxt "db_x509super|"
 msgid "Key name"
 msgstr "Názov kľúča"
 
-#: ../lib/db_x509super.cpp:78
+#: ../lib/db_x509super.cpp:79
 msgctxt "db_x509super|"
 msgid "Internal name of the key"
 msgstr "Interný názov kľúča"
 
-#: ../lib/db_x509super.cpp:79
+#: ../lib/db_x509super.cpp:80
 msgctxt "db_x509super|"
 msgid "Signature algorithm"
 msgstr "Algoritmus podpisu"
 
-#: ../lib/db_x509super.cpp:133
+#: ../lib/db_x509super.cpp:134
 #, qt-format
 msgctxt "db_x509super|"
 msgid "Extracted from %1 '%2'"
 msgstr "Vyňaté z %1 „%2”"
 
-#: ../lib/db_x509super.cpp:135 ../lib/db_x509super.cpp:187
+#: ../lib/db_x509super.cpp:136 ../lib/db_x509super.cpp:188
 msgctxt "db_x509super|"
 msgid "Certificate"
 msgstr "Certifikát"
 
-#: ../lib/db_x509super.cpp:135 ../lib/db_x509super.cpp:187
+#: ../lib/db_x509super.cpp:136 ../lib/db_x509super.cpp:188
 msgctxt "db_x509super|"
 msgid "Certificate request"
 msgstr "Žiadosť o certifikát"
 
-#: ../lib/db_x509super.cpp:151
+#: ../lib/db_x509super.cpp:152
 msgctxt "db_x509super|"
 msgid "Save as OpenSSL config"
 msgstr "Uložiť ako konfiguráciu OpenSSL"
 
-#: ../lib/db_x509super.cpp:152
+#: ../lib/db_x509super.cpp:153
 msgctxt "db_x509super|"
 msgid "Config files ( *.conf *.cnf);; All files ( * )"
-msgstr "Konfiguračné súbory (*.conf *.cnf);; Všetky súbory (*)"
+msgstr "Konfiguračné súbory ( *.conf *.cnf );; Všetky súbory ( * )"
 
-#: ../lib/db_x509super.cpp:174
+#: ../lib/db_x509super.cpp:175
 msgctxt "db_x509super|"
 msgid "The following extensions were not ported into the template"
 msgstr "Do šablóny neboli prenesené nasledujúce rozšírenia"
 
-#: ../lib/db_x509super.cpp:185
+#: ../lib/db_x509super.cpp:186
 #, qt-format
 msgctxt "db_x509super|"
 msgid "Transformed from %1 '%2'"
@@ -3888,79 +3777,78 @@ msgctxt "pass_info|"
 msgid "PIN"
 msgstr "PIN"
 
-#: ../lib/pki_base.cpp:96
+#: ../lib/pki_base.cpp:123
 #, qt-format
 msgctxt "pki_base|"
 msgid "Error opening file: '%1': %2"
 msgstr "Chyba otvorenia súboru: „%1”: %2"
 
-#: ../lib/pki_base.cpp:104
-#, qt-format
-msgctxt "pki_base|"
-msgid "Error writing to file: '%1': %2"
-msgstr "Chyba zápisu do súboru „%1”: %2"
-
-#: ../lib/pki_base.cpp:272
+#: ../lib/pki_base.cpp:292
 msgctxt "pki_base|"
 msgid "Unknown"
 msgstr "Neznáme"
 
-#: ../lib/pki_base.cpp:273
+#: ../lib/pki_base.cpp:293
 msgctxt "pki_base|"
 msgid "Imported"
 msgstr "Importovaný"
 
-#: ../lib/pki_base.cpp:274
+#: ../lib/pki_base.cpp:294
 msgctxt "pki_base|"
 msgid "Generated"
 msgstr "Generovaný"
 
-#: ../lib/pki_base.cpp:275
+#: ../lib/pki_base.cpp:295
 msgctxt "pki_base|"
 msgid "Transformed"
 msgstr "Transformovaný"
 
-#: ../lib/pki_base.cpp:276
+#: ../lib/pki_base.cpp:296
 msgctxt "pki_base|"
 msgid "Token"
 msgstr "Token"
 
-#: ../lib/pki_base.cpp:277
+#: ../lib/pki_base.cpp:297
 msgctxt "pki_base|"
 msgid "Legacy Database"
 msgstr "Stará databáza"
 
-#: ../lib/pki_base.cpp:74
+#: ../lib/pki_base.cpp:298
+msgctxt "pki_base|"
+msgid "Renewed"
+msgstr "Obnovené"
+
+#: ../lib/pki_base.cpp:101
 #, qt-format
 msgctxt "pki_base|"
 msgid "Internal error: Unexpected message: %1 %2"
 msgstr "Interná chyba: Neočakávaná správa: %1 %2"
 
-#: ../lib/pki_crl.cpp:47
+#: ../lib/pki_crl.cpp:61
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Successfully imported the revocation list '%1'"
 msgstr "Úspešne importovaný Zoznam odvolaní „%1”"
 
-#: ../lib/pki_crl.cpp:48
+#: ../lib/pki_crl.cpp:62
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Delete the revocation list '%1'?"
 msgstr "Odstrániť Zoznam odvolaní „%1”?"
 
-#: ../lib/pki_crl.cpp:49
+#: ../lib/pki_crl.cpp:63
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Successfully created the revocation list '%1'"
 msgstr "Úspešne vytvorený Zoznam odvolaní „%1”"
 
-#: ../lib/pki_crl.cpp:51
+#: ../lib/pki_crl.cpp:65
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Delete the %1 revocation lists: %2?"
 msgstr "Odstrániť %1 uoznamov odvolaní: %2?"
 
-#: ../lib/pki_crl.cpp:124
+#: ../lib/pki_crl.cpp:148
 #, qt-format
 msgctxt "pki_crl|"
 msgid ""
@@ -3969,29 +3857,24 @@ msgid ""
 msgstr ""
 "Nemožno načítať zoznam odvolaní zo súboru %1. Vyskúšaný formát CRL PEM a DER."
 
-#: ../lib/pki_crl.cpp:144
+#: ../lib/pki_crl.cpp:164
 msgctxt "pki_crl|"
 msgid "No issuer given"
 msgstr "Nebol zadaný vydavateľ"
 
-#: ../lib/pki_crl.cpp:202
+#: ../lib/pki_crl.cpp:222
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Wrong Size %1"
 msgstr "Zlá veľkosť %1"
 
-#: ../lib/pki_crl.cpp:391
-msgctxt "pki_crl|"
-msgid "unknown"
-msgstr "neznáme"
-
-#: ../lib/pki_crl.cpp:422
+#: ../lib/pki_crl.cpp:438
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Renew CRL: %1"
 msgstr "Obnoviť CRL: %1"
 
-#: ../lib/pki_crl.cpp:423
+#: ../lib/pki_crl.cpp:439
 #, qt-format
 msgctxt "pki_crl|"
 msgid ""
@@ -4002,16 +3885,23 @@ msgstr ""
 "Je uložené v databáze XCA „%5”"
 
 #: ../lib/pki_evp.cpp:239
+#, qt-format
 msgctxt "pki_evp|"
-msgid "Failed to decrypt the key (bad password) "
-msgstr "Zlyhalo dešifrovanie kľúča (zlé heslo) "
+msgid "Failed to decrypt the key (bad password) %1"
+msgstr "Zlyhalo dešifrovanie kľúča (zlé heslo)  %1"
 
-#: ../lib/pki_evp.cpp:263
+#: ../lib/pki_evp.cpp:249
 msgctxt "pki_evp|"
 msgid "Please enter the password to decrypt the private key."
 msgstr "Prosím, zadajte heslo na dešifrovanie súkromného kľúča."
 
-#: ../lib/pki_evp.cpp:316
+#: ../lib/pki_evp.cpp:304
+#, qt-format
+msgctxt "pki_evp|"
+msgid "The key from file '%1' is incomplete or inconsistent."
+msgstr "Kľúč zo súboru „%1” je nekompletný ale nekonzistentný."
+
+#: ../lib/pki_evp.cpp:322
 #, qt-format
 msgctxt "pki_evp|"
 msgid ""
@@ -4021,7 +3911,7 @@ msgstr ""
 "Prosím, zadajte heslo na dešifrovanie súkromného kľúča zo súboru:\n"
 "%1"
 
-#: ../lib/pki_evp.cpp:378
+#: ../lib/pki_evp.cpp:369
 #, qt-format
 msgctxt "pki_evp|"
 msgid ""
@@ -4031,123 +3921,129 @@ msgstr ""
 "Nemožno načítať súkromný kľúč zo súboru %1. Vyskúšaný PEM a DER súkromný, "
 "verejný, typy kľúčov PKCS#8 a formát SSH2."
 
-#: ../lib/pki_evp.cpp:417
+#: ../lib/pki_evp.cpp:400
 msgctxt "pki_evp|"
 msgid "Ignoring unsupported private key"
 msgstr "Ignorujem nepodporovaný súkromný kľúč"
 
-#: ../lib/pki_evp.cpp:434
+#: ../lib/pki_evp.cpp:417
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr "Prosím, zadajte heslo na dešifrovanie súkromného kľúča: „%1”"
 
-#: ../lib/pki_evp.cpp:437 ../lib/pki_evp.cpp:449
+#: ../lib/pki_evp.cpp:420 ../lib/pki_evp.cpp:434
 msgctxt "pki_evp|"
 msgid "Password input aborted"
 msgstr "Zadávanie hesla zrušené"
 
-#: ../lib/pki_evp.cpp:446
+#: ../lib/pki_evp.cpp:430
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the database password for decrypting the key '%1'"
 msgstr "Prosím, zadajte heslo databázy na dešifrovanie kľúča „%1”"
 
-#: ../lib/pki_evp.cpp:562
+#: ../lib/pki_evp.cpp:547
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to protect the private key: '%1'"
 msgstr "Prosím, zadajte heslo na ochranu súkromného kľúča: „%1”"
 
-#: ../lib/pki_evp.cpp:580
+#: ../lib/pki_evp.cpp:565
 msgctxt "pki_evp|"
 msgid "Please enter the database password for encrypting the key"
 msgstr "Prosím, zadajte heslo databázy na zašifrovanie kľúča"
 
-#: ../lib/pki_evp.cpp:693
+#: ../lib/pki_evp.cpp:680
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password protecting the PKCS#8 key '%1'"
 msgstr "Prosím, zadajte heslo na ochranu kľúča PKCS#8 „%1”"
 
-#: ../lib/pki_evp.cpp:749
+#: ../lib/pki_evp.cpp:735
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the export password for the private key '%1'"
 msgstr "Prosím, zadajte heslo exportu súkromného kľúča „%1”"
 
-#: ../lib/pki_key.cpp:194
+#: ../lib/pki_key.cpp:200
 #, qt-format
 msgctxt "pki_key|"
 msgid "Successfully imported the %1 public key '%2'"
 msgstr "Úspešne importovaný %1 verejný kľúč „%2”"
 
-#: ../lib/pki_key.cpp:195
+#: ../lib/pki_key.cpp:201
 #, qt-format
 msgctxt "pki_key|"
 msgid "Delete the %1 public key '%2'?"
 msgstr "Odstrániť %1 verejný kľúč „%2”?"
 
-#: ../lib/pki_key.cpp:200
+#: ../lib/pki_key.cpp:206
 #, qt-format
 msgctxt "pki_key|"
 msgid "Successfully imported the %1 private key '%2'"
 msgstr "Úspešne importovaný %1 súkromný kľúč „%2”"
 
-#: ../lib/pki_key.cpp:201
+#: ../lib/pki_key.cpp:207
 #, qt-format
 msgctxt "pki_key|"
 msgid "Delete the %1 private key '%2'?"
 msgstr "Odstrániť %1 súkromný kľúč „%2”?"
 
-#: ../lib/pki_key.cpp:202
+#: ../lib/pki_key.cpp:208
 #, qt-format
 msgctxt "pki_key|"
 msgid "Successfully created the %1 private key '%2'"
 msgstr "Úspešne vytvorený %1 súkromný kľúč „%2”"
 
-#: ../lib/pki_key.cpp:208
+#: ../lib/pki_key.cpp:214
 #, qt-format
 msgctxt "pki_key|"
 msgid "Delete the %1 keys: %2?"
 msgstr "Odstrániť %1 kľúčov: %2?"
 
-#: ../lib/pki_key.cpp:217
+#: ../lib/pki_key.cpp:56 ../lib/pki_key.cpp:223
 msgctxt "pki_key|"
 msgid "Public key"
 msgstr "Verejný kľúč"
 
-#: ../lib/pki_key.cpp:418
+#: ../lib/pki_key.cpp:424
 msgctxt "pki_key|"
 msgid "Common"
 msgstr "Spoločný"
 
-#: ../lib/pki_key.cpp:418
+#: ../lib/pki_key.cpp:424
 msgctxt "pki_key|"
 msgid "Private"
 msgstr "Súkromný"
 
-#: ../lib/pki_key.cpp:418
+#: ../lib/pki_key.cpp:424
 msgctxt "pki_key|"
 msgid "Bogus"
 msgstr "Pododný"
 
-#: ../lib/pki_key.cpp:418
+#: ../lib/pki_key.cpp:424
 msgctxt "pki_key|"
 msgid "PIN"
 msgstr "PIN"
 
-#: ../lib/pki_key.cpp:428
+#: ../lib/pki_key.cpp:434
 msgctxt "pki_key|"
 msgid "No password"
 msgstr "Bez hesla"
 
-#: ../lib/pki_key.cpp:526 ../lib/pki_key.cpp:531 ../lib/pki_key.cpp:534
+#: ../lib/pki_key.cpp:530 ../lib/pki_key.cpp:624
+#, qt-format
+msgctxt "pki_key|"
+msgid "Unexpected SSH2 content: '%1'"
+msgstr "Neočakávaný obsah SSH2: „%1”"
+
+#: ../lib/pki_key.cpp:550 ../lib/pki_key.cpp:556
 msgctxt "pki_key|"
 msgid "Invalid SSH2 public key"
 msgstr "Neplatný verejný kľúč SSH2"
 
-#: ../lib/pki_key.cpp:664
+#: ../lib/pki_key.cpp:732
 #, qt-format
 msgctxt "pki_key|"
 msgid "Failed writing to %1"
@@ -4174,18 +4070,18 @@ msgctxt "pki_pkcs12|"
 msgid "Unable to load the PKCS#12 (pfx) file %1."
 msgstr "Nemožno načítať súbor PKCS#12 (pfx) %1."
 
-#: ../lib/pki_pkcs12.cpp:59
+#: ../lib/pki_pkcs12.cpp:60
 #, qt-format
 msgctxt "pki_pkcs12|"
 msgid "The supplied password was wrong (%1)"
 msgstr "Zadané heslo je zlé (%1)"
 
-#: ../lib/pki_pkcs12.cpp:111
+#: ../lib/pki_pkcs12.cpp:112
 msgctxt "pki_pkcs12|"
 msgid "Please enter the password to encrypt the PKCS#12 file"
 msgstr "Prosím, zadajte heslo na zašifrovanie súboru PKCS#12"
 
-#: ../lib/pki_pkcs12.cpp:113
+#: ../lib/pki_pkcs12.cpp:116
 msgctxt "pki_pkcs12|"
 msgid "No key or no Cert and no pkcs12"
 msgstr "Nie je to kľúč, ani Certifikát a ani PKCS#12"
@@ -4241,55 +4137,50 @@ msgctxt "pki_scard|"
 msgid "Unable to find copied key on the token"
 msgstr "Nemožno nájsť kópiu kľúča na tokene"
 
-#: ../lib/pki_scard.cpp:614
+#: ../lib/pki_scard.cpp:623
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr "Prosím, vložte kartu: %1 %2 [%3] so sér. číslom: %4"
 
-#: ../lib/pki_scard.cpp:642
-msgctxt "pki_scard|"
-msgid "Public Key mismatch. Please re-import card"
-msgstr "Nezhoda verejného kľúča. Prosím, znova importujte kartu"
-
-#: ../lib/pki_scard.cpp:699
+#: ../lib/pki_scard.cpp:691
 msgctxt "pki_scard|"
 msgid "Illegal Key generation method"
 msgstr "Neprípustná metóda generovania kľúča"
 
-#: ../lib/pki_scard.cpp:715
+#: ../lib/pki_scard.cpp:707
 msgctxt "pki_scard|"
 msgid "Unable to find generated key on card"
 msgstr "Nemožno nájsť vygenerovaný kľúč na karte"
 
-#: ../lib/pki_scard.cpp:753
+#: ../lib/pki_scard.cpp:745
 msgctxt "pki_scard|"
 msgid "Ignoring unsupported token key"
 msgstr "Ignorovanie nepodporovaného kľúča tokenu"
 
-#: ../lib/pki_scard.cpp:756
+#: ../lib/pki_scard.cpp:748
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Wrong Size %1"
 msgstr "Zlá veľkosť %1"
 
-#: ../lib/pki_scard.cpp:762
+#: ../lib/pki_scard.cpp:754
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Token %1"
 msgstr "Token %1"
 
-#: ../lib/pki_scard.cpp:771 ../lib/pki_scard.cpp:784
+#: ../lib/pki_scard.cpp:763 ../lib/pki_scard.cpp:776
 msgctxt "pki_scard|"
 msgid "Failed to find the key on the token"
 msgstr "Zlyhalo nájdenie kľúča na tokene"
 
-#: ../lib/pki_scard.cpp:778
+#: ../lib/pki_scard.cpp:770
 msgctxt "pki_scard|"
 msgid "Invalid Pin for the token"
 msgstr "Neplatný PIN tokenu"
 
-#: ../lib/pki_scard.cpp:790
+#: ../lib/pki_scard.cpp:782
 msgctxt "pki_scard|"
 msgid "Failed to initialize the key on the token"
 msgstr "Zlyhal inicializácia kľúča na tokene"
@@ -4324,23 +4215,17 @@ msgctxt "pki_temp|"
 msgid "Wrong Size %1"
 msgstr "Zlá veľkosť %1"
 
-#: ../lib/pki_temp.cpp:413
+#: ../lib/pki_temp.cpp:409
 msgctxt "pki_temp|"
 msgid "Template file content error (too small)"
 msgstr "Chyba obsahu súboru šablóny (príliš malá)"
 
-#: ../lib/pki_temp.cpp:452
-#, qt-format
-msgctxt "pki_temp|"
-msgid "Template file content error (too small): %1"
-msgstr "Chyba obsahu súboru šablóny (príliš malá): %1"
-
-#: ../lib/pki_temp.cpp:485
+#: ../lib/pki_temp.cpp:465
 msgctxt "pki_temp|"
 msgid "Not a PEM encoded XCA Template"
 msgstr "Šablóna XCA nie je vo formáte PEM"
 
-#: ../lib/pki_temp.cpp:493
+#: ../lib/pki_temp.cpp:473
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Not an XCA Template, but '%1'"
@@ -4370,7 +4255,7 @@ msgctxt "pki_x509|"
 msgid "Delete the %1 certificates: %2?"
 msgstr "Odstrániť %1 certifikátov: %2?"
 
-#: ../lib/pki_x509.cpp:239
+#: ../lib/pki_x509.cpp:220
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
@@ -4378,45 +4263,45 @@ msgid ""
 msgstr ""
 "Nemožno načítať certifikát zo súboru %1. Vyskúšaný certifikát PEM a DER."
 
-#: ../lib/pki_x509.cpp:387
+#: ../lib/pki_x509.cpp:368
 msgctxt "pki_x509|"
 msgid "This certificate is already on the security token"
 msgstr "Tento certifikát už je na bezpečnostnom tokene"
 
-#: ../lib/pki_x509.cpp:449
+#: ../lib/pki_x509.cpp:431
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the certificate '%1' from the token '%2 (#%3)'?"
 msgstr "Odstrániť certifikát „%1” z tokenu „%2 (#%3)”?"
 
-#: ../lib/pki_x509.cpp:581
+#: ../lib/pki_x509.cpp:564
 msgctxt "pki_x509|"
 msgid "There is no key for signing !"
 msgstr "Chýba kľúč na podpísanie!"
 
-#: ../lib/pki_x509.cpp:642
+#: ../lib/pki_x509.cpp:625
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Wrong Size %1"
 msgstr "Zlá veľkosť %1"
 
-#: ../lib/pki_x509.cpp:945
+#: ../lib/pki_x509.cpp:916
 msgctxt "pki_x509|"
 msgid "No"
 msgstr "Nie"
 
-#: ../lib/pki_x509.cpp:947
+#: ../lib/pki_x509.cpp:918
 msgctxt "pki_x509|"
 msgid "Yes"
 msgstr "Áno"
 
-#: ../lib/pki_x509.cpp:977
+#: ../lib/pki_x509.cpp:948
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Renew certificate: %1"
 msgstr "Obnoviť certifikát: %1"
 
-#: ../lib/pki_x509.cpp:978
+#: ../lib/pki_x509.cpp:949
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
@@ -4426,13 +4311,13 @@ msgstr ""
 "Certifikát XCA „%1”, vydaný %2 vyprší %3.\n"
 "Je uložený v databáze XCA „%4”"
 
-#: ../lib/pki_x509.cpp:999
+#: ../lib/pki_x509.cpp:970
 #, qt-format
 msgctxt "pki_x509|"
 msgid "CRL Renewal of CA '%1' due"
 msgstr "Termín obnovenia CRL CA „%1”"
 
-#: ../lib/pki_x509.cpp:1000
+#: ../lib/pki_x509.cpp:971
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
@@ -4442,36 +4327,36 @@ msgstr ""
 "Posledné CRL vydané CA „%1” vyprší %2.\n"
 "Je uložené v databáze XCA „%3”"
 
-#: ../lib/pki_x509req.cpp:83
+#: ../lib/pki_x509req.cpp:104
 msgctxt "pki_x509req|"
 msgid "Signing key not valid (public key)"
 msgstr "Podpisujúci kľúč neplatný (verejný kľúč)"
 
-#: ../lib/pki_x509req.cpp:125
+#: ../lib/pki_x509req.cpp:146
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Successfully imported the %1 certificate request '%2'"
 msgstr "úspešne importovaná %1 žiadosť o certifikát „%2”"
 
-#: ../lib/pki_x509req.cpp:126
+#: ../lib/pki_x509req.cpp:147
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Delete the %1 certificate request '%2'?"
 msgstr "Odstrániť %1 žiadosť o certifikát „%2”?"
 
-#: ../lib/pki_x509req.cpp:127
+#: ../lib/pki_x509req.cpp:148
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Successfully created the %1 certificate request '%2'"
 msgstr "Úspešne vytvorená %1 žiadosť o certifikát „%2”"
 
-#: ../lib/pki_x509req.cpp:129
+#: ../lib/pki_x509req.cpp:150
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Delete the %1 certificate requests: %2?"
 msgstr "Odstrániť %1 žiadosť o certifikát: %2?"
 
-#: ../lib/pki_x509req.cpp:163
+#: ../lib/pki_x509req.cpp:179
 #, qt-format
 msgctxt "pki_x509req|"
 msgid ""
@@ -4481,18 +4366,18 @@ msgstr ""
 "Nemožno načítať žiadosť o certifikát zo súboru %1. Vyskúšané formáty PEM, "
 "DER a SPKAC."
 
-#: ../lib/pki_x509req.cpp:207
+#: ../lib/pki_x509req.cpp:217
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Wrong Size %1"
 msgstr "Zlá veľkosť %1"
 
-#: ../lib/pki_x509req.cpp:322
+#: ../lib/pki_x509req.cpp:365
 msgctxt "pki_x509req|"
 msgid "Signed"
 msgstr "Podpísaný"
 
-#: ../lib/pki_x509req.cpp:322
+#: ../lib/pki_x509req.cpp:365
 msgctxt "pki_x509req|"
 msgid "Unhandled"
 msgstr "Nespracované"
@@ -4593,3 +4478,187 @@ msgid ""
 msgstr ""
 "Overenie úspešné:\n"
 "„%1”"
+
+#~ msgctxt "MainWindow|"
+#~ msgid "&Token"
+#~ msgstr "&Token"
+
+#~ msgctxt "MainWindow|"
+#~ msgid "&Content"
+#~ msgstr "&Obsah"
+
+#~ msgctxt "MainWindow|"
+#~ msgid "Error opening file: '%1': %2"
+#~ msgstr "Chyba otvorenia súboru: „%1”: %2"
+
+#~ msgctxt "QObject|"
+#~ msgid "Country code"
+#~ msgstr "Kód krajiny"
+
+#~ msgctxt "QObject|"
+#~ msgid "State or Province"
+#~ msgstr "Štát alebo provincia"
+
+#~ msgctxt "QObject|"
+#~ msgid "Locality"
+#~ msgstr "Lokalita"
+
+#~ msgctxt "QObject|"
+#~ msgid "Organisation"
+#~ msgstr "Organizácia"
+
+#~ msgctxt "QObject|"
+#~ msgid "Organisational unit"
+#~ msgstr "Organizačná jednotka"
+
+#~ msgctxt "QObject|"
+#~ msgid "Common name"
+#~ msgstr "Bežný názov"
+
+#~ msgctxt "QObject|"
+#~ msgid "E-Mail address"
+#~ msgstr "Emailová adresa"
+
+#~ msgctxt "QObject|"
+#~ msgid "Given name"
+#~ msgstr "Rodné meno"
+
+#~ msgctxt "QObject|"
+#~ msgid "Surname"
+#~ msgstr "Priezvisko"
+
+#~ msgctxt "QObject|"
+#~ msgid "Title"
+#~ msgstr "Titul"
+
+#~ msgctxt "QObject|"
+#~ msgid "Initials"
+#~ msgstr "Iniciály"
+
+#~ msgctxt "QObject|"
+#~ msgid "Description"
+#~ msgstr "Popis"
+
+#~ msgctxt "QObject|"
+#~ msgid "Role"
+#~ msgstr "Rola"
+
+#~ msgctxt "QObject|"
+#~ msgid "Pseudonym"
+#~ msgstr "Pseudonym"
+
+#~ msgctxt "QObject|"
+#~ msgid "Generation Qualifier"
+#~ msgstr "Prívlastok generácie"
+
+#~ msgctxt "QObject|"
+#~ msgid "x500 Unique Identifier"
+#~ msgstr "Jedinečný identifikátor x500"
+
+#~ msgctxt "QObject|"
+#~ msgid "Name"
+#~ msgstr "Názov"
+
+#~ msgctxt "QObject|"
+#~ msgid "DN Qualifier"
+#~ msgstr "Prívlastok DN"
+
+#~ msgctxt "QObject|"
+#~ msgid "Unstructured name"
+#~ msgstr "Neštruktúrovaný názov"
+
+#~ msgctxt "QObject|"
+#~ msgid "Challenge password"
+#~ msgstr "Heslo výzvy"
+
+#~ msgctxt "QObject|"
+#~ msgid "Basic Constraints"
+#~ msgstr "Základné obmedzenia"
+
+#~ msgctxt "QObject|"
+#~ msgid "Subject alternative name"
+#~ msgstr "Alternatívne meno predmetu"
+
+#~ msgctxt "QObject|"
+#~ msgid "issuer alternative name"
+#~ msgstr "Alternatívny názov vydavateľa"
+
+#~ msgctxt "QObject|"
+#~ msgid "Subject key identifier"
+#~ msgstr "Identifikátor kľúča predmetu"
+
+#~ msgctxt "QObject|"
+#~ msgid "Authority key identifier"
+#~ msgstr "Identifikátor kľúča autority"
+
+#~ msgctxt "QObject|"
+#~ msgid "Key usage"
+#~ msgstr "Použitie kľúča"
+
+#~ msgctxt "QObject|"
+#~ msgid "Extended key usage"
+#~ msgstr "Rozšírené použitie kľúča"
+
+#~ msgctxt "QObject|"
+#~ msgid "CRL distribution points"
+#~ msgstr "Distribučné body CRL"
+
+#~ msgctxt "QObject|"
+#~ msgid "Authority information access"
+#~ msgstr "Prístup k informácii CA (AIA)"
+
+#~ msgctxt "QObject|"
+#~ msgid "Certificate type"
+#~ msgstr "Typ certifikátu"
+
+#~ msgctxt "QObject|"
+#~ msgid "Base URL"
+#~ msgstr "Základná URL"
+
+#~ msgctxt "QObject|"
+#~ msgid "Revocation URL"
+#~ msgstr "URL odvolaní"
+
+#~ msgctxt "QObject|"
+#~ msgid "CA Revocation URL"
+#~ msgstr "URL odvolaní CA"
+
+#~ msgctxt "QObject|"
+#~ msgid "Certificate renewal URL"
+#~ msgstr "URL obnovenia CRL"
+
+#~ msgctxt "QObject|"
+#~ msgid "CA policy URL"
+#~ msgstr "URL politiky CA"
+
+#~ msgctxt "QObject|"
+#~ msgid "SSL server name"
+#~ msgstr "Meno servera SSL"
+
+#~ msgctxt "QObject|"
+#~ msgid "Comment"
+#~ msgstr "Komentár"
+
+#~ msgctxt "db_base|"
+#~ msgid "Error opening file: '%1': %2"
+#~ msgstr "Chyba otvorenia súboru: „%1”: %2"
+
+#~ msgctxt "db_x509|"
+#~ msgid "Error opening file: '%1': %2"
+#~ msgstr "Chyba otvorenia súboru: „%1”: %2"
+
+#~ msgctxt "pki_base|"
+#~ msgid "Error writing to file: '%1': %2"
+#~ msgstr "Chyba zápisu do súboru „%1”: %2"
+
+#~ msgctxt "pki_crl|"
+#~ msgid "unknown"
+#~ msgstr "neznáme"
+
+#~ msgctxt "pki_scard|"
+#~ msgid "Public Key mismatch. Please re-import card"
+#~ msgstr "Nezhoda verejného kľúča. Prosím, znova importujte kartu"
+
+#~ msgctxt "pki_temp|"
+#~ msgid "Template file content error (too small): %1"
+#~ msgstr "Chyba obsahu súboru šablóny (príliš malá): %1"
