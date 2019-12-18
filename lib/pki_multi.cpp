@@ -17,6 +17,7 @@
 #include "load_obj.h"
 #include "exception.h"
 #include "func.h"
+#include "xfile.h"
 #include "widgets/MainWindow.h"
 #include <QList>
 
@@ -89,14 +90,10 @@ static pki_base *pkiByPEM(QString text, int *skip)
 
 void pki_multi::fload(const QString fname)
 {
-	QFile file(fname);
+	XFile file(fname);
 	QByteArray ba;
 
-	file.open(QFile::ReadOnly);
-	if (file.error()) {
-		fopen_error(fname);
-		return;
-	}
+	file.open_read();
 	ba = file.readAll();
 	fromPEMbyteArray(ba, fname);
 };

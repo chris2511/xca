@@ -62,7 +62,6 @@ class pki_base : public QObject
 		/* model data */
 		pki_base *parent;
 		void my_error(const QString &error) const;
-		void fopen_error(const QString &fname) const;
 		virtual void PEM_file_comment(XFile &file) const;
 
 	public:

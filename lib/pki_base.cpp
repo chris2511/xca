@@ -118,12 +118,6 @@ const char *pki_base::getClassName() const
 	return typeid(*this).name();
 }
 
-void pki_base::fopen_error(const QString &fname) const
-{
-	my_error(tr("Error opening file: '%1': %2").
-			arg(fname).arg(strerror(errno)));
-}
-
 void pki_base::my_error(const QString &error) const
 {
 	if (!error.isEmpty()) {
