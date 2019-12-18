@@ -24,27 +24,26 @@ const QList<QStringList> MainWindow::getTranslators() const
 	return QList<QStringList> {
 	QStringList{ "", tr("System") },
 	QStringList{ "zh_CN", tr("Chinese"),
-		"Xczh", "<xczh.me@foxmail.com>" },
+		"Xczh", "xczh.me", "foxmail.com" },
 	QStringList{ "hr", tr("Croatian"),
-		"Nevenko Bartolincic", "<nevenko.bartolincic@gmail.com>" },
-	QStringList{ "nl", tr("Dutch"),
-		"Guido Pennings", "" },
+		"Nevenko Bartolincic", "nevenko.bartolincic", "gmail.com" },
+	QStringList{ "nl", tr("Dutch"), "Guido Pennings" },
 	QStringList{ "en", tr("English") },
 	QStringList{ "fr", tr("French"),
-		"Patrick Monnerat", "<patrick@monnerat.net>" },
+		"Patrick Monnerat", "patrick", "monnerat.net" },
 	QStringList{ "de", tr("German"),
-		"Christian Hohnstädt", "<christian@hohnstaedt.de>" },
+		"Christian Hohnstädt", "christian", "hohnstaedt.de" },
 	QStringList{ "it", tr("Italian"),
-		"Paolo Basenghi", "<paul69@libero.it>" },
+		"Paolo Basenghi", "paul69", "libero.it" },
 	QStringList{ "pl", tr("Polish"),
-		"Jacek Tyborowski", "<jacek@tyborowski.pl>" },
+		"Jacek Tyborowski", "jacek", "tyborowski.pl" },
 	QStringList{ "pt_BR", tr("Portuguese in Brazil"),
-		"Vinicius Ocker", "<viniciusockerfagundes@yandex.com>" },
+		"Vinicius Ocker", "viniciusockerfagundes", "yandex.com" },
 	QStringList{ "ru", tr("Russian") },
 	QStringList{ "sk", tr("Slovak"),
-		"Slavko", "<linux@slavino.sk>" },
+		"Slavko", "linux", "slavino.sk" },
 	QStringList{ "es", tr("Spanish"),
-		"Miguel Romera", "<mrmsoftdonation@gmail.com>" },
+		"Miguel Romera", "mrmsoftdonation", "gmail.com" },
 	QStringList{ "tr", tr("Turkish") },
 	};
 };
@@ -115,14 +114,17 @@ void MainWindow::about()
 	}
 	QStringList rows;
 	foreach(QStringList sl, getTranslators()) {
+		QString email;
 		QStringList tag { "<td>", "</td>" };
 		if (sl.size() < 3)
 			continue;
+		if (sl.size() > 4)
+			email = QString("<%1@%2>").arg(sl[3]).arg(sl[4]);
 		QString lang(QLocale::languageToString(QLocale(sl[0]).language()));
 		QStringList row {
 			QString("<b>%1</b>").arg(lang),
 			htmlEscape(sl[2]),
-			htmlEscape(sl[3]),
+			htmlEscape(email),
 		};
 		rows << tag[0] + row.join(tag[0] + tag[1]) + tag[1];
 	}
