@@ -151,12 +151,12 @@
     <message>
         <location line="+22"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher la clé publique</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cette clé ne figure pas dans la base de données</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -176,11 +176,7 @@
     <message>
         <location line="+27"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Revoked: </source>
-        <translation type="vanished">Révoqués: </translation>
+        <translation>Révoqué le %1</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -273,7 +269,7 @@
     <message>
         <location line="+10"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Conserver le numéro de série</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -417,7 +413,7 @@
     <message>
         <location line="+7"/>
         <source>Signed by</source>
-        <translation>Signé par</translation>
+        <translation>Signée par</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -505,7 +501,7 @@
     <message>
         <location line="+65"/>
         <source>Export comment into PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter le commentaire dans le fichier PEM</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -862,7 +858,7 @@ Numéro de série: %3</translation>
     <message>
         <location line="+48"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Empreinte</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1120,7 +1116,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Croate</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>English</source>
         <translation>Anglais</translation>
     </message>
@@ -1152,27 +1148,27 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="-7"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polonais</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Italien</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinois</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Néerlandais</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+10"/>
         <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugais du Brésil</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1190,14 +1186,6 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <source>&amp;New DataBase</source>
-        <translation type="vanished">&amp;Nouvelle base de données</translation>
-    </message>
-    <message>
-        <source>&amp;Open DataBase</source>
-        <translation type="vanished">&amp;Ouvrir une base de données</translation>
-    </message>
-    <message>
         <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>Ouvrir une base de données externe</translation>
@@ -1208,23 +1196,19 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Définir comme base de données par défaut</translation>
     </message>
     <message>
-        <source>&amp;Close DataBase</source>
-        <translation type="vanished">&amp;Fermer la base de données</translation>
-    </message>
-    <message>
         <location line="-11"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle base de données</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir une base de données</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer la base de données</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1284,21 +1268,17 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished">Jeton</translation>
+        <translation>Jeton</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la hiérarchie de l&apos;index des certificats</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Content</source>
-        <translation type="unfinished">Contenu</translation>
-    </message>
-    <message>
-        <source>&amp;Token</source>
-        <translation type="vanished">&amp;Jeton</translation>
+        <translation>Contenu</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1341,10 +1321,6 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Exporter l&apos;index des certificats</translation>
     </message>
     <message>
-        <source>&amp;Export Certificate Index hierarchy</source>
-        <translation type="vanished">&amp;Exporter la hiérarchie de l&apos;index des certificats</translation>
-    </message>
-    <message>
         <location line="+4"/>
         <source>C&amp;hange DataBase password</source>
         <translation>C&amp;hanger le mot de passe de la base de données</translation>
@@ -1368,10 +1344,6 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <location line="+2"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
-    </message>
-    <message>
-        <source>&amp;Content</source>
-        <translation type="vanished">&amp;Contenu</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1493,7 +1465,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="-31"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Les paramètres Diffie-Hellman on été sauvegardés dans: %1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -1501,10 +1473,6 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
 Please enter the DH parameter bits</source>
         <translation>Les paramètres de Diffie-Hellman sont nécessaires à certaines applications mais ne sont pas gérés par XCA.
 Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
-    </message>
-    <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -2433,10 +2401,6 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
         <source>Weeks</source>
         <translation>Semaines</translation>
     </message>
-    <message>
-        <source>Load failed</source>
-        <translation type="vanished">Le chargement a échoué</translation>
-    </message>
 </context>
 <context>
     <name>PwDialog</name>
@@ -2553,158 +2517,6 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
         <location filename="../lib/exception.h" line="+55"/>
         <source>Out of Memory at %1:%2</source>
         <translation>A court de mémoire à %1:%2</translation>
-    </message>
-    <message>
-        <source>Country code</source>
-        <translation type="vanished">Code du pays</translation>
-    </message>
-    <message>
-        <source>State or Province</source>
-        <translation type="vanished">Etat ou Province</translation>
-    </message>
-    <message>
-        <source>Locality</source>
-        <translation type="vanished">Ville</translation>
-    </message>
-    <message>
-        <source>Organisation</source>
-        <translation type="vanished">Organisation</translation>
-    </message>
-    <message>
-        <source>Organisational unit</source>
-        <translation type="vanished">Unité organisationnelle</translation>
-    </message>
-    <message>
-        <source>Common name</source>
-        <translation type="vanished">Nom commun</translation>
-    </message>
-    <message>
-        <source>E-Mail address</source>
-        <translation type="vanished">Adresse de courriel</translation>
-    </message>
-    <message>
-        <source>Serial number</source>
-        <translation type="vanished">Numéro de série</translation>
-    </message>
-    <message>
-        <source>Given name</source>
-        <translation type="vanished">Prénom</translation>
-    </message>
-    <message>
-        <source>Surname</source>
-        <translation type="vanished">Nom de famille</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="vanished">Titre</translation>
-    </message>
-    <message>
-        <source>Initials</source>
-        <translation type="vanished">Initiales</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="vanished">Description</translation>
-    </message>
-    <message>
-        <source>Role</source>
-        <translation type="vanished">Rôle</translation>
-    </message>
-    <message>
-        <source>Pseudonym</source>
-        <translation type="vanished">Pseudonyme</translation>
-    </message>
-    <message>
-        <source>Generation Qualifier</source>
-        <translation type="vanished">Qualificatif de génération</translation>
-    </message>
-    <message>
-        <source>x500 Unique Identifier</source>
-        <translation type="vanished">Identifiant unique X500</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Nom</translation>
-    </message>
-    <message>
-        <source>DN Qualifier</source>
-        <translation type="vanished">Qualificatif de DN</translation>
-    </message>
-    <message>
-        <source>Unstructured name</source>
-        <translation type="vanished">Nom non-structuré</translation>
-    </message>
-    <message>
-        <source>Challenge password</source>
-        <translation type="vanished">Mot de passe challenge</translation>
-    </message>
-    <message>
-        <source>Basic Constraints</source>
-        <translation type="vanished">Contraintes basiques</translation>
-    </message>
-    <message>
-        <source>Subject alternative name</source>
-        <translation type="vanished">Nom alternatif du sujet</translation>
-    </message>
-    <message>
-        <source>issuer alternative name</source>
-        <translation type="vanished">Nom alternatif du signataire</translation>
-    </message>
-    <message>
-        <source>Subject key identifier</source>
-        <translation type="vanished">Identifiant de clé du sujet</translation>
-    </message>
-    <message>
-        <source>Authority key identifier</source>
-        <translation type="vanished">Identifiant de clé de l&apos;autorité</translation>
-    </message>
-    <message>
-        <source>Key usage</source>
-        <translation type="vanished">Usage de la clé</translation>
-    </message>
-    <message>
-        <source>Extended key usage</source>
-        <translation type="vanished">Usage étendu de la clé</translation>
-    </message>
-    <message>
-        <source>CRL distribution points</source>
-        <translation type="vanished">Points de distribution de la liste de révocation</translation>
-    </message>
-    <message>
-        <source>Authority information access</source>
-        <translation type="vanished">Accès à l&apos;information de l&apos;autorité</translation>
-    </message>
-    <message>
-        <source>Certificate type</source>
-        <translation type="vanished">Type de certificat</translation>
-    </message>
-    <message>
-        <source>Base URL</source>
-        <translation type="vanished">URL de base</translation>
-    </message>
-    <message>
-        <source>Revocation URL</source>
-        <translation type="vanished">URL de révocation</translation>
-    </message>
-    <message>
-        <source>CA Revocation URL</source>
-        <translation type="vanished">URL de révocation du certificat CA</translation>
-    </message>
-    <message>
-        <source>Certificate renewal URL</source>
-        <translation type="vanished">URL de renouvellement de certificat</translation>
-    </message>
-    <message>
-        <source>CA policy URL</source>
-        <translation type="vanished">URL des conditions générales du CA</translation>
-    </message>
-    <message>
-        <source>SSL server name</source>
-        <translation type="vanished">Nom du serveur SSL</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="vanished">Commentaire</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="+20"/>
@@ -2862,28 +2674,24 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
         <translation>Taille du NIP requise: %1 - %2</translation>
     </message>
     <message>
-        <source>Failed to open PKCS11 library: %1</source>
-        <translation type="vanished">L&apos;ouverture de la bibliothèque PKCS#11 &apos;%1&apos; a échoué</translation>
-    </message>
-    <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;ouverture de la bibliothèque PKCS#11 &apos;%1&apos; a échoué: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela n&apos;a pas l&apos;air d&apos;une bibliothèque PKCS#11. Le symbole &apos;C_GetFunctionList&apos; n&apos;a pas été trouvé.</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactivé</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Library loading failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Le chargement de la bibliothèque a échoué</translation>
     </message>
     <message>
         <location line="+185"/>
@@ -2955,12 +2763,12 @@ Dans la bibliothèque %3
     <message>
         <location line="+2"/>
         <source>Unmark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Marquer comme non-signée</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Marquer comme signée</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3235,10 +3043,6 @@ Dans la bibliothèque %3
 <context>
     <name>db_base</name>
     <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
-    </message>
-    <message>
         <location filename="../lib/db_base.cpp" line="+177"/>
         <source>Internal name</source>
         <translation>Nom interne</translation>
@@ -3291,7 +3095,7 @@ Dans la bibliothèque %3
     <message>
         <location line="+205"/>
         <source>Could not create directory %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de créer le répertoire %1</translation>
     </message>
     <message>
         <location line="+251"/>
@@ -3405,11 +3209,7 @@ En conséquence, elle n&apos;a pas été importée</translation>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Database error: </source>
-        <translation type="vanished">Erreur de la base de données: </translation>
+        <translation>Erreur de la base de données: %1</translation>
     </message>
 </context>
 <context>
@@ -3693,7 +3493,7 @@ En conséquence, il n&apos;a pas été importé</translation>
     <message>
         <location line="+425"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation> jours</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3767,17 +3567,9 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Impossible pour une clé d&apos;un jeton de sécurité: &apos;%1&apos;</translation>
     </message>
     <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
-    </message>
-    <message>
         <location line="+65"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Impossible pour le certificat d&apos;une clé d&apos;un jeton de sécurité: &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <translation type="vanished"> jours</translation>
     </message>
 </context>
 <context>
@@ -3808,7 +3600,7 @@ En conséquence, il n&apos;a pas été importé</translation>
     <message>
         <location filename="../lib/db_x509req.cpp" line="+31"/>
         <source>Signed</source>
-        <translation>Signé</translation>
+        <translation>Signée</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3828,12 +3620,12 @@ En conséquence, il n&apos;a pas été importé</translation>
     <message>
         <location line="+2"/>
         <source>Certificate count</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de certificats</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of certificates in the database with the same public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de certificats dans la base de données avec la même clé</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -3944,10 +3736,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <source>Error writing to file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Erreur à l&apos;écriture du fichier &apos;%1&apos;: %2</translation>
-    </message>
-    <message>
         <location line="+169"/>
         <source>Unknown</source>
         <translation>Inconnu</translation>
@@ -3980,7 +3768,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     <message>
         <location line="+1"/>
         <source>Renewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouvelé</translation>
     </message>
     <message>
         <location line="-197"/>
@@ -4026,10 +3814,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <source>unknown</source>
-        <translation type="vanished">inconnu</translation>
-    </message>
-    <message>
         <location line="+216"/>
         <source>Renew CRL: %1</source>
         <translation>Renouvellement de CRL: %1</translation>
@@ -4045,13 +3829,9 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <source>Failed to decrypt the key (bad password) </source>
-        <translation type="vanished">Le déchiffrage de la clé a échoué (mauvais mot de passe). </translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Le déchiffrage de la clé a échoué (mauvais mot de passe) %1</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4061,7 +3841,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location line="+55"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé dans le fichier &apos;%1&apos; est incomplète ou incorrecte.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4184,7 +3964,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location line="+96"/>
         <location line="+94"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Contenu SSH2 inattendu: &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="-74"/>
@@ -4193,7 +3973,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>Clé publique SSH2 invalide</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+178"/>
         <source>Failed writing to %1</source>
         <translation>Echec d&apos;écriture sur %1</translation>
     </message>
@@ -4292,10 +4072,6 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>SVP insérer la carte %1 %2 [%3] avec le numéro de série: %4</translation>
     </message>
     <message>
-        <source>Public Key mismatch. Please re-import card</source>
-        <translation type="vanished">La clé publique ne correspond pas. Veuillez réimporter la carte</translation>
-    </message>
-    <message>
         <location line="+68"/>
         <source>Illegal Key generation method</source>
         <translation>Méthode de génération de clé illégale</translation>
@@ -4368,10 +4144,6 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location line="+82"/>
         <source>Template file content error (too small)</source>
         <translation>Erreur de contenu du fichier de modèle (trop petit)</translation>
-    </message>
-    <message>
-        <source>Template file content error (too small): %1</source>
-        <translation type="vanished">Erreur de contenu du fichier de modèle (trop petit): %1</translation>
     </message>
     <message>
         <location line="+56"/>
@@ -4506,7 +4278,7 @@ Elle est stockée dans la base de données XCA &apos;%3&apos;</translation>
     <message>
         <location line="+148"/>
         <source>Signed</source>
-        <translation>Signé</translation>
+        <translation>Signée</translation>
     </message>
     <message>
         <location line="+0"/>
