@@ -176,11 +176,7 @@
     <message>
         <location line="+27"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Revoked: </source>
-        <translation type="vanished">Ingetrokken: </translation>
+        <translation>Ingetrokken op %1</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1120,7 +1116,7 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Kroatisch</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>English</source>
         <translation>Engels</translation>
     </message>
@@ -1160,7 +1156,7 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Italiaans</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>Chinese</source>
         <translation>Chinees</translation>
     </message>
@@ -1170,7 +1166,7 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Nederlands</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+10"/>
         <source>Portuguese in Brazil</source>
         <translation>Braziliaans Portugees</translation>
     </message>
@@ -1190,14 +1186,6 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Bestand</translation>
     </message>
     <message>
-        <source>&amp;New DataBase</source>
-        <translation type="vanished">&amp;Nieuwe database</translation>
-    </message>
-    <message>
-        <source>&amp;Open DataBase</source>
-        <translation type="vanished">&amp;Open database</translation>
-    </message>
-    <message>
         <location line="+7"/>
         <source>Open Remote DataBase</source>
         <translation>Open database (op netwerk)</translation>
@@ -1208,23 +1196,19 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Stel in als standaard database</translation>
     </message>
     <message>
-        <source>&amp;Close DataBase</source>
-        <translation type="vanished">Sluit database</translation>
-    </message>
-    <message>
         <location line="-11"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe database</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Open database</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluit database</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1284,21 +1268,17 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished">Token</translation>
+        <translation>Token</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporteer certificaten &amp;index hiërarchie</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Content</source>
-        <translation type="unfinished">Inhoud</translation>
-    </message>
-    <message>
-        <source>&amp;Token</source>
-        <translation type="vanished">&amp;Token</translation>
+        <translation>Inhoud</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1341,10 +1321,6 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>&amp;Exporteer certificaten index</translation>
     </message>
     <message>
-        <source>&amp;Export Certificate Index hierarchy</source>
-        <translation type="vanished">&amp;Exporteer certificaten index hiërarchie</translation>
-    </message>
-    <message>
         <location line="+4"/>
         <source>C&amp;hange DataBase password</source>
         <translation>V&amp;erander database wachtwoord</translation>
@@ -1368,10 +1344,6 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <location line="+2"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
-    </message>
-    <message>
-        <source>&amp;Content</source>
-        <translation type="vanished">Inhoud</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3239,11 +3211,7 @@ en dus werd het niet geïmporteerd</translation>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Database error: </source>
-        <translation type="vanished">Database fout: </translation>
+        <translation>Database fout: %1</translation>
     </message>
 </context>
 <context>
@@ -3527,7 +3495,7 @@ en dus werd het niet geïmporteerd</translation>
     <message>
         <location line="+425"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>dagen</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3604,10 +3572,6 @@ en dus werd het niet geïmporteerd</translation>
         <location line="+65"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Niet mogelijk voor het tokensleutel-certificaat &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <translation type="vanished"> dagen</translation>
     </message>
 </context>
 <context>
@@ -3769,12 +3733,11 @@ en werd dus niet opgeslagen</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation>Fout bij openen van bestand: &apos;%1&apos;:%2</translation>
+        <translation type="vanished">Fout bij openen van bestand: &apos;%1&apos;:%2</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location filename="../lib/pki_base.cpp" line="+286"/>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
@@ -3809,7 +3772,7 @@ en werd dus niet opgeslagen</translation>
         <translation>Vernieuwd</translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-191"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interne fout: Onverwacht bericht: %1 %2</translation>
     </message>
@@ -3867,13 +3830,9 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <source>Failed to decrypt the key (bad password) </source>
-        <translation type="vanished">Kan de sleutel niet decoderen (verkeerde wachtwoord) </translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Decoderen van de sleutel niet gelukt (onjuist wachtwoord) %1</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4015,7 +3974,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Ongeldige openbare SSH2-sleutel</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+178"/>
         <source>Failed writing to %1</source>
         <translation>Schrijven naar %1 is mislukt</translation>
     </message>
@@ -4023,7 +3982,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+127"/>
+        <location filename="../lib/pki_multi.cpp" line="+124"/>
         <source>No known PEM encoded items found</source>
         <translation>Geen bekende PEM gecodeerde items gevonden</translation>
     </message>
