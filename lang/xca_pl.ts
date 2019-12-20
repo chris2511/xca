@@ -151,12 +151,12 @@
     <message>
         <location line="+22"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż klucz publiczny</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tego klucza nie ma w bazie danych.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -176,7 +176,7 @@
     <message>
         <location line="+27"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Unieważniony o %1</translation>
     </message>
     <message>
         <source>Revoked: </source>
@@ -273,7 +273,7 @@
     <message>
         <location line="+10"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowaj numer seryjny</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -862,7 +862,7 @@ Numer seryjny: %3</translation>
     <message>
         <location line="+48"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Odcisk palca</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1120,7 +1120,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
         <translation>Chorwacki</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>English</source>
         <translation>Angielski</translation>
     </message>
@@ -1152,27 +1152,27 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="-7"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polski</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Włoski</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiński</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Holenderski</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+10"/>
         <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>Brazylijski portugalski</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1214,17 +1214,17 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="-11"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowa baza danych</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz bazę danych</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij bazę danych</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1284,17 +1284,17 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Token</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport indeksu certyfikatów wg h&amp;ierarchii</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Content</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawartość</translation>
     </message>
     <message>
         <source>&amp;Token</source>
@@ -1493,7 +1493,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="-31"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametry Diffie-Hellman zapisane jako: %1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2475,7 +2475,7 @@ W szczególności EC i DSA są zdefiniowane tylko z funkcją SHA1 w specyfikacji
     <message>
         <location filename="../lib/asn1time.cpp" line="+155"/>
         <source>Undefined</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieokreślono</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3737,7 +3737,7 @@ and thus was not stored</source>
     <message>
         <location line="+0"/>
         <source>Content</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zawartość</translation>
     </message>
 </context>
 <context>
@@ -3756,12 +3756,11 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished">Nieudane otwarcie pliku: &apos;%1&apos;: %2</translation>
+        <translation type="obsolete">Nieudane otwarcie pliku: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location filename="../lib/pki_base.cpp" line="+286"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3783,7 +3782,7 @@ and thus was not stored</source>
     <message>
         <location line="+1"/>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Token</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3796,7 +3795,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-191"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4001,7 +4000,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+178"/>
         <source>Failed writing to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4009,7 +4008,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+127"/>
+        <location filename="../lib/pki_multi.cpp" line="+124"/>
         <source>No known PEM encoded items found</source>
         <translation type="unfinished"></translation>
     </message>
