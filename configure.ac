@@ -20,6 +20,9 @@ if test -n "${DARWIN}"; then
   AC_MSG_NOTICE([Mac OSX detected])
   CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
   LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
+  for d in $(find /usr/local/Cellar -name 'pkgconfig' -type d); do
+    PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
+  done
 fi
 AC_SUBST([DARWIN])
 AC_SUBST([MACDEPLOYQT])
@@ -100,12 +103,13 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
     QT_UIC="${_QT_HOST_BINS}/uic"
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
-      Qt5_CFLAGS="$Qt5_CFLAGS -std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      Qt5_CFLAGS="$Qt5_CFLAGS -std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
+      Qt5_LDFLAGS=" -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
     WANT_QT_VERSION=5
     QT_VERSION=5
     QT_CFLAGS="${Qt5_CFLAGS} -fPIC"
-    QT_LIBS="${Qt5_LIBS}"
+    QT_LIBS="${Qt5_LIBS}${Qt5_LDFLAGS}"
   ],[ : ])
 fi
 
@@ -118,12 +122,13 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
     fi
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
-      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
+      Qt4_LDFLAGS=" -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
     WANT_QT_VERSION=4
     QT_VERSION=4
     QT_CFLAGS="${Qt4_CFLAGS}"
-    QT_LIBS="${Qt4_LIBS}"
+    QT_LIBS="${Qt4_LIBS}${Qt4_LDFLAGS}"
   ],[ : ])
 fi
 
