@@ -125,14 +125,15 @@ int XSqlQuery::schemaVersion()
 
 QString XSqlQuery::rewriteQuery(QString _q)
 {
-	QStringList tables; tables <<
-		"items" << "crls" << "private_keys" << "public_keys" <<
-		"tokens" << "token_mechanism" << "templates" << "certs" <<
-		"authority" << "revocations" << "requests" << "x509super" <<
-		"settings" <<
+	static const QStringList tables {
+		"items" , "crls" , "private_keys" , "public_keys" ,
+		"tokens" , "token_mechanism" , "templates" , "certs" ,
+		"authority" , "revocations" , "requests" , "x509super" ,
+		"settings" ,
 
-		"view_public_keys" << "view_certs" << "view_requests" <<
-		"view_crls" << "view_templates" << "view_private" ;
+		"view_public_keys" , "view_certs" , "view_requests" ,
+		"view_crls" , "view_templates" , "view_private",
+	};
 
 	lastq = query = _q;
 	if (table_prefix.isEmpty())
