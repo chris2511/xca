@@ -1,14 +1,4 @@
 
-This is a short overview of how to build
-XCA for MAC OSX
+brew install pkg-config autoconf automake openssl qt libtool
 
-Please drop me a mail if you experience problems.
-
- - Create a base directory "xca" and change into it
- - unpack xca here
- - download and install Qt5 in your home directory
- - edit xca-2.0.1/misc/build-mac.sh and adapt the QTDIR path
-   to point to your Qt5 installation path
- - create an empty file "build-libs"
- - execute xca-2.0.1/misc/build-mac.sh
-   This will download and compile openssl and libltdl and then compile xca
+./configure && make

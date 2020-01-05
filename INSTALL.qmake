@@ -14,7 +14,7 @@ and also assures, that it is used instead of the original Makefile.
 
 Now you need to create the file Local.h
 $ cat >local.h <<EOF
-#define PACKAGE_VERSION "1.1.0"
+#define PACKAGE_VERSION "`cat VERSION`"
 EOF
 
 or you call ./configure to create it for you.
@@ -22,7 +22,3 @@ or you call ./configure to create it for you.
 now just build XCA with
 
 $ make
-
-The prefix is fixed to "/usr/local". You may
-change this directly in the "xca.pro" file
-
