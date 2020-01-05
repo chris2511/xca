@@ -212,11 +212,12 @@ TRANSLATIONS += lang/xca.ts \
 		lang/xca_es.ts \
 		lang/xca_fr.ts \
 		lang/xca_hr.ts \
+		lang/xca_it.ts \
+		lang/xca_ja.ts \
+		lang/xca_nl.ts \
 		lang/xca_pl.ts \
 		lang/xca_pt_BR.ts \
 		lang/xca_ru.ts \
 		lang/xca_sk.ts \
-		lang/xca_it.ts \
+		lang/xca_tr.ts \
 		lang/xca_zh_CN.ts \
-		lang/xca_nl.ts \
-		lang/xca_tr.ts
