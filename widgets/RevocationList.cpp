@@ -195,7 +195,7 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 				(idx.internalPointer());
 			serials << cert->getSerial();
 		}
-		qSort(serials.begin(), serials.end());
+		std::sort(serials.begin(), serials.end());
 		foreach(a1int a, serials)
 			sl << a;
 		serial->setToolTip(sl.join("\n"));

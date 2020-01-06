@@ -47,8 +47,8 @@ void pki_base::autoIntName(const QString &file)
 void pki_base::deleteFromToken() { }
 void pki_base::deleteFromToken(slotid) { }
 void pki_base::writeDefault(const QString&) const { }
-void pki_base::fromPEM_BIO(BIO *, QString) { }
-void pki_base::fload(const QString) { }
+void pki_base::fromPEM_BIO(BIO *, const QString &) { }
+void pki_base::fload(const QString &) { }
 int pki_base::renameOnToken(slotid, QString)
 {
 	return 0;
@@ -127,9 +127,9 @@ void pki_base::my_error(const QString &error) const
 }
 
 
-void pki_base::fromPEMbyteArray(QByteArray &ba, QString name)
+void pki_base::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 {
-	BIO *bio = BIO_new_mem_buf(ba.data(), ba.length());
+	BIO *bio = BIO_from_QByteArray(ba);
 	fromPEM_BIO(bio, name);
 	BIO_free(bio);
 	autoIntName(name);

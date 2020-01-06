@@ -152,7 +152,7 @@ QString pki_x509req::getMsg(msg_type msg) const
 	return pki_base::getMsg(msg);
 }
 
-void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
+void pki_x509req::fromPEM_BIO(BIO *bio, const QString &name)
 {
 	X509_REQ *req;
 	req = PEM_read_bio_X509_REQ(bio, NULL, NULL, NULL);
@@ -161,7 +161,7 @@ void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
 	request = req;
 }
 
-void pki_x509req::fload(const QString fname)
+void pki_x509req::fload(const QString &fname)
 {
 	X509_REQ *_req;
 	XFile file(fname);

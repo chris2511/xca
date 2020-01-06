@@ -431,7 +431,7 @@ void pki_temp::try_fload(XFile &file, const char *mode)
 	pki_openssl_error();
 }
 
-void pki_temp::fload(QString fname)
+void pki_temp::fload(const QString &fname)
 {
 	try {
 		XFile file(fname);
@@ -450,7 +450,7 @@ void pki_temp::fload(QString fname)
 	}
 }
 
-void pki_temp::fromPEM_BIO(BIO *bio, QString name)
+void pki_temp::fromPEM_BIO(BIO *bio, const QString &name)
 {
 	QByteArray ba;
 	QString msg;

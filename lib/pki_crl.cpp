@@ -40,7 +40,7 @@ void pki_crl::setIssuer(pki_x509 *iss)
 	issuerSqlId = iss ? iss->getSqlItemId() : QVariant();
 }
 
-void pki_crl::fromPEM_BIO(BIO *bio, QString name)
+void pki_crl::fromPEM_BIO(BIO *bio, const QString &name)
 {
 	X509_CRL *_crl;
 	_crl = PEM_read_bio_X509_CRL(bio, NULL, NULL, NULL);
@@ -131,7 +131,7 @@ QSqlError pki_crl::deleteSqlData()
 	return q.lastError();
 }
 
-void pki_crl::fload(const QString fname)
+void pki_crl::fload(const QString &fname)
 {
 	X509_CRL *_crl;
 	XFile file(fname);

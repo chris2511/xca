@@ -30,8 +30,8 @@ class pki_pkcs12: public pki_base
 		STACK_OF(X509) *certstack;
 	public:
 
-		pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey);
-		pki_pkcs12(const QString fname);
+		pki_pkcs12(const QString &d, pki_x509 *acert, pki_evp *akey);
+		pki_pkcs12(const QString &fname);
 
 		~pki_pkcs12();
 		void addCaCert(pki_x509 *acert);

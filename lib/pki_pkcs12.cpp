@@ -16,7 +16,7 @@
 
 #include "openssl_compat.h"
 
-pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
+pki_pkcs12::pki_pkcs12(const QString &d, pki_x509 *acert, pki_evp *akey)
 	:pki_base(d)
 {
 	key = new pki_evp(akey);
@@ -25,7 +25,7 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
 	pki_openssl_error();
 }
 
-pki_pkcs12::pki_pkcs12(const QString fname)
+pki_pkcs12::pki_pkcs12(const QString &fname)
 	:pki_base(fname)
 {
 	Passwd pass;

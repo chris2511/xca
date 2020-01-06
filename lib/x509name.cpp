@@ -80,7 +80,7 @@ QString x509name::getEntryByNid(int nid) const
 {
 	int i = X509_NAME_get_index_by_NID(xn, nid, -1);
 	if (i < 0)
-		return QString::null;
+		return QString();
 	return getEntry(i);
 }
 
@@ -131,7 +131,7 @@ QString x509name::popEntryByNid(int nid)
 {
 	int i = X509_NAME_get_index_by_NID(xn, nid, -1);
 	if (i < 0)
-		return QString::null;
+		return QString();
 	QString n = getEntry(i);
 	X509_NAME_delete_entry(xn, i);
 	return n;

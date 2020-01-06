@@ -61,7 +61,7 @@ class pki_temp: public pki_x509name
 		}
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d = QString());
-		void fload(const QString fname);
+		void fload(const QString &fname);
 		void writeDefault(const QString &dirname) const ;
 		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
@@ -89,7 +89,7 @@ class pki_temp: public pki_x509name
 		}
 		BIO *pem(BIO *b, int format);
 		QByteArray toExportData() const;
-		void fromPEM_BIO(BIO *, QString);
+		void fromPEM_BIO(BIO *, const QString &);
 		void fromExportData(QByteArray data);
 		extList fromCert(pki_x509super *cert_or_req);
 		QSqlError insertSqlData();

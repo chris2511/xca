@@ -241,9 +241,9 @@ void pki_evp::openssl_pw_error(QString fname)
 	}
 }
 
-void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
+void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 {
-	BIO *bio = BIO_new_mem_buf(ba.data(), ba.length());
+	BIO *bio = BIO_from_QByteArray(ba);
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE,
 		tr("Please enter the password to decrypt the private key.") +
@@ -253,7 +253,7 @@ void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 	if (!pkey) {
 		pki_ign_openssl_error();
 		BIO_free(bio);
-		bio = BIO_new_mem_buf(ba.data(), ba.length());
+		bio = BIO_from_QByteArray(ba);
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
 	}
 	BIO_free(bio);
@@ -317,7 +317,7 @@ void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey, QString name)
 	pki_openssl_error();
 }
 
-void pki_evp::fload(const QString fname)
+void pki_evp::fload(const QString &fname)
 {
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
 		arg(compressFilename(fname)));

@@ -207,7 +207,7 @@ extList NewX509::getAdvanced()
 		return elist;
 
 	QByteArray cs = conf_str.toLatin1();
-	bio = BIO_new_mem_buf(cs.data(), cs.length());
+	bio = BIO_from_QByteArray(cs);
 	if (!bio)
 		return elist;
 	conf = NCONF_new(NULL);

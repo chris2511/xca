@@ -21,7 +21,7 @@ load_base::load_base()
 	caption = "";
 }
 
-pki_base *load_base::loadItem(QString s)
+pki_base *load_base::loadItem(const QString &s)
 {
 	pki_base *pki = newItem();
 	if (!pki)
@@ -110,7 +110,7 @@ load_pkcs12::load_pkcs12()
 	caption = QObject::tr("Import PKCS#12 Private Certificate");
 }
 
-pki_base * load_pkcs12::loadItem(QString s)
+pki_base * load_pkcs12::loadItem(const QString &s)
 {
 	pki_base *p12 = new pki_pkcs12(s);
 	return p12;

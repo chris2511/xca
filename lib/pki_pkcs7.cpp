@@ -133,7 +133,7 @@ int pki_pkcs7::numCert()
 }
 
 
-void pki_pkcs7::fromPEM_BIO(BIO *bio, QString name)
+void pki_pkcs7::fromPEM_BIO(BIO *bio, const QString &name)
 {
 	PKCS7 *_p7 = PEM_read_bio_PKCS7(bio, NULL, NULL, NULL);
 	openssl_error(name);
@@ -143,7 +143,7 @@ void pki_pkcs7::fromPEM_BIO(BIO *bio, QString name)
 	autoIntName(name);
 }
 
-void pki_pkcs7::fload(const QString fname)
+void pki_pkcs7::fload(const QString &fname)
 {
 	PKCS7 *_p7;
 	XFile file(fname);

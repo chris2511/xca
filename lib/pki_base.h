@@ -135,9 +135,9 @@ class pki_base : public QObject
 
 		/* Import / Export management */
 		virtual BIO *pem(BIO *, int format=0);
-		virtual void fromPEM_BIO(BIO *, QString);
-		virtual void fromPEMbyteArray(QByteArray &, QString);
-		virtual void fload(const QString);
+		virtual void fromPEM_BIO(BIO *, const QString &);
+		virtual void fromPEMbyteArray(const QByteArray &, const QString &);
+		virtual void fload(const QString &);
 		virtual void writeDefault(const QString&) const;
 
 		/* Old database management methods */

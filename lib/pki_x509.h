@@ -61,10 +61,10 @@ class pki_x509 : public pki_x509super
 		{
 			issuerSqlId = s ? s->getSqlItemId() : QVariant();
 		}
-		void fload(const QString fname);
+		void fload(const QString &fname);
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		void store_token(bool alwaysSelect);
-		void fromPEM_BIO(BIO *bio, QString name);
+		void fromPEM_BIO(BIO *bio, const QString &name);
 		void writeDefault(const QString &dirname) const;
 		a1int hashInfo(const EVP_MD *md) const;
 		void setSerial(const a1int &serial);

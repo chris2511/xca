@@ -88,7 +88,7 @@ static pki_base *pkiByPEM(QString text, int *skip)
 	return NULL;
 }
 
-void pki_multi::fload(const QString fname)
+void pki_multi::fload(const QString &fname)
 {
 	XFile file(fname);
 	QByteArray ba;
@@ -98,10 +98,11 @@ void pki_multi::fload(const QString fname)
 	fromPEMbyteArray(ba, fname);
 };
 
-void pki_multi::fromPEMbyteArray(QByteArray &ba, QString name)
+void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 {
 	pki_base *item = NULL;
 	int startpos;
+	QByteArray ba = _ba;
 	for (;;) {
 		try {
 			item = pkiByPEM(QString::fromLatin1(ba), &startpos);
@@ -124,7 +125,7 @@ void pki_multi::fromPEMbyteArray(QByteArray &ba, QString name)
 		throw errorEx(tr("No known PEM encoded items found"));
 }
 
-void pki_multi::probeAnything(const QString fname)
+void pki_multi::probeAnything(const QString &fname)
 {
 	pki_base *item = NULL;
 	load_base *lb;

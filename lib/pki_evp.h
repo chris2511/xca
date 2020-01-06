@@ -61,8 +61,8 @@ class pki_evp: public pki_key
 
 		EVP_PKEY *priv2pub(EVP_PKEY* key);
 		static QString removeTypeFromIntName(QString n);
-		void fromPEMbyteArray(QByteArray &ba, QString name);
-		void fload(const QString fname);
+		void fromPEMbyteArray(const QByteArray &ba, const QString &name);
+		void fload(const QString &fname);
 		void writeDefault(const QString &dirname) const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		void writeKey(XFile &file, const EVP_CIPHER *enc,

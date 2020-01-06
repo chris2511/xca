@@ -23,9 +23,9 @@ class pki_multi: public pki_base
 	public:
 		pki_multi(const QString name = "");
 		~pki_multi();
-		void fromPEMbyteArray(QByteArray &ba, QString name);
-		void fload(const QString fname);
-		void probeAnything(const QString fname);
+		void fromPEMbyteArray(const QByteArray &, const QString &);
+		void fload(const QString &fname);
+		void probeAnything(const QString &fname);
 		pki_base *pull();
 		int count() const
 		{

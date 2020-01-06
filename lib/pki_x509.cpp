@@ -194,16 +194,16 @@ pki_x509 *pki_x509::findIssuer()
 	return NULL;
 }
 
-void pki_x509::fromPEM_BIO(BIO *bio, QString)
+void pki_x509::fromPEM_BIO(BIO *bio, const QString &fname)
 {
 	X509 *_cert;
 	_cert = PEM_read_bio_X509(bio, NULL, NULL, NULL);
-	pki_openssl_error();
+	openssl_error(fname);
 	X509_free(cert);
 	cert = _cert;
 }
 
-void pki_x509::fload(const QString fname)
+void pki_x509::fload(const QString &fname)
 {
 	X509 *_cert;
 	XFile file(fname);
