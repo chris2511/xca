@@ -213,12 +213,20 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	settings["nsCertType"] = QString::number(
 				(nsCT & 0xf) | ((nsCT & 0xf0) >> 1));
 
-	bool keyUseCritical;
+	bool kuCritical;
 	settings["keyUse"] = QString::number(
-				bitsToInt(el, NID_key_usage, &keyUseCritical));
+				bitsToInt(el, NID_key_usage, &kuCritical));
 
-	settings["keyUseCritical"] = keyUseCritical ? "1" : "0";
+	settings["kuCritical"] = kuCritical ? "1" : "0";
 	fromExtList(&el, NID_ext_key_usage, "eKeyUse");
+	QStringList eKeyUse = settings["eKeyUse"].split(QRegExp(",\\s*"));
+	settings["ekuCritical"] = "0";
+	if (eKeyUse.contains("critical")) {
+		eKeyUse.removeOne("critical");
+		settings["eKeyUse"] = eKeyUse.join(", ");
+		settings["ekuCritical"] = "1";
+	}
+	qDebug() << "eKeyUse" << settings["kuCritical"] << settings["eKeyUse"];
 
 	el.genGenericConf(&adv_ext);
 	settings["adv_ext"] = adv_ext;
@@ -281,8 +289,8 @@ void pki_temp::old_fromData(const unsigned char *p, int size, int version)
 
 	/* destination = */ db::stringFromData(ba);
 	settings["bcCritical"] = QString::number(db::boolFromData(ba));
-	settings["keyUseCritical"] = QString::number(db::boolFromData(ba));
-	settings["eKyUseCritical"] = QString::number(db::boolFromData(ba));
+	settings["kuCritical"] = QString::number(db::boolFromData(ba));
+	settings["ekuCritical"] = QString::number(db::boolFromData(ba));
 	settings["subKey"] = QString::number(db::boolFromData(ba));
 	settings["authKey"] = QString::number(db::boolFromData(ba));
 	settings["ca"] = QString::number(db::intFromData(ba));
@@ -351,6 +359,14 @@ void pki_temp::fromData(QByteArray &ba, int version)
 	QDataStream in(&buf);
 	in.setVersion(TEMPLATE_DS_VERSION);
 	in >> settings;
+	QMap<QString, QString> translate;
+	translate["eKyUseCritical"] = "ekuCritical";
+	translate["keyUseCritical"] ="kuCritical";
+
+	foreach(QString key, translate.keys()) {
+		if (settings.contains(key))
+			settings[translate[key]] = settings.take(key);
+	}
 	buf.close();
 	(void)version;
 	//if (version < 11) ....

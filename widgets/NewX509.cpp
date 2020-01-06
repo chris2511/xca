@@ -481,11 +481,11 @@ static void int2lb(QListWidget *lb, int x)
 
 static void QString2lb(QListWidget *lb, QString x)
 {
-	QStringList li = x.split(", ");
+	QStringList li = x.split(",");
 	QList<QListWidgetItem *> items;
 
 	for (int i=0; i<li.size(); i++) {
-		QString lname = OBJ_sn2ln(CCHAR(li[i]));
+		QString lname = OBJ_sn2ln(CCHAR(li[i].trimmed()));
 		items = lb->findItems(lname, Qt::MatchExactly);
 		if (items.size() > 0)
 			lb->setItemSelected(items[0], 1);
