@@ -214,16 +214,13 @@ void pki_x509::fload(const QString fname)
 		file.retry_read();
 		_cert = d2i_X509_fp(file.fp(), NULL);
 	}
-	if (pki_ign_openssl_error() ) {
+	if (pki_ign_openssl_error() || !_cert) {
 		if (_cert)
 			X509_free(_cert);
 		throw errorEx(tr("Unable to load the certificate in file %1. Tried PEM and DER certificate.").arg(fname));
 	}
 	X509_free(cert);
 	cert = _cert;
-	autoIntName();
-	if (getIntName().isEmpty())
-		setIntName(rmslashdot(fname));
 }
 
 pki_x509::~pki_x509()

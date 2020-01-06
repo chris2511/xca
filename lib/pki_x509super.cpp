@@ -235,10 +235,12 @@ pki_x509name::pki_x509name(const QString name)
 {
 }
 
-void pki_x509name::autoIntName()
+void pki_x509name::autoIntName(const QString &file)
 {
-	x509name subject = getSubject();
-	setIntName(subject.getMostPopular());
+	QString name = getSubject().getMostPopular();
+	pki_base::autoIntName(file);
+	if (!name.isEmpty())
+		setIntName(name);
 }
 
 QVariant pki_x509name::column_data(const dbheader *hd) const

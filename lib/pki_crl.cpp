@@ -142,14 +142,13 @@ void pki_crl::fload(const QString fname)
 		file.retry_read();
 		_crl = d2i_X509_CRL_fp(file.fp(), NULL);
 	}
-	if (pki_ign_openssl_error()) {
+	if (pki_ign_openssl_error() || !_crl) {
 		if (_crl)
 			X509_CRL_free(_crl);
 		throw errorEx(tr("Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
 	}
 	X509_CRL_free(crl);
 	crl = _crl;
-	setIntName(rmslashdot(fname));
 }
 
 QString pki_crl::getSigAlg() const

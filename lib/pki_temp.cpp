@@ -428,7 +428,6 @@ void pki_temp::try_fload(XFile &file, const char *mode)
 		fromExportData(ba);
 	}
 	BIO_free(b);
-	setIntName(rmslashdot(file.fileName()));
 	pki_openssl_error();
 }
 

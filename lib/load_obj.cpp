@@ -35,6 +35,7 @@ pki_base *load_base::loadItem(QString s)
 		throw err;
 	}
 	pki->pkiSource = imported;
+	pki->autoIntName(s);
 	return pki;
 }
 

@@ -68,7 +68,7 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 		alias = QString::fromUtf8(alias.toLatin1());
 		cert = new pki_x509(mycert);
 		if (alias.isEmpty()) {
-			cert->autoIntName();
+			cert->autoIntName(fname);
 		} else {
 			cert->setIntName(alias);
 		}
@@ -151,7 +151,7 @@ pki_x509 *pki_pkcs12::getCa(int x)
 	if (crt) {
 		cert = new pki_x509(crt);
 		if (alias.isEmpty()) {
-			cert->autoIntName();
+			cert->autoIntName(QString());
 		} else {
 			cert->setIntName(QString(alias + "_ca_%1").arg(x));
 		}

@@ -52,7 +52,7 @@ class pki_key: public pki_base
 		pki_key(const pki_key *pk);
 		virtual ~pki_key();
 		static builtin_curves builtinCurves;
-		void autoIntName();
+		void autoIntName(const QString &file);
 		QString length() const;
 		QString comboText() const;
 		QString getKeyTypeString(void) const;

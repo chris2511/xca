@@ -120,7 +120,7 @@ pki_x509 *pki_pkcs7::getCert(int x)
 	pki_x509 *cert;
 	cert = new pki_x509(X509_dup(sk_X509_value(getCertStack(), x)));
 	openssl_error();
-	cert->autoIntName();
+	cert->autoIntName(getIntName());
 	cert->pkiSource = imported;
 	return cert;
 }
@@ -140,7 +140,7 @@ void pki_pkcs7::fromPEM_BIO(BIO *bio, QString name)
 	if (p7)
 		PKCS7_free(p7);
 	p7 = _p7;
-	setIntName(rmslashdot(name));
+	autoIntName(name);
 }
 
 void pki_pkcs7::fload(const QString fname)

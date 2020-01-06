@@ -39,9 +39,9 @@ QString pki_base::comboText() const
 	return desc;
 }
 
-void pki_base::autoIntName()
+void pki_base::autoIntName(const QString &file)
 {
-	setIntName("");
+	setIntName(rmslashdot(file));
 }
 
 void pki_base::deleteFromToken() { }
@@ -132,9 +132,7 @@ void pki_base::fromPEMbyteArray(QByteArray &ba, QString name)
 	BIO *bio = BIO_new_mem_buf(ba.data(), ba.length());
 	fromPEM_BIO(bio, name);
 	BIO_free(bio);
-	autoIntName();
-	if (getIntName().isEmpty())
-		setIntName(rmslashdot(name));
+	autoIntName(name);
 }
 
 QString pki_base::rmslashdot(const QString &s)

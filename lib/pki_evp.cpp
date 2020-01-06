@@ -250,13 +250,14 @@ void pki_evp::fromPEMbyteArray(QByteArray &ba, QString name)
 		" " + name);
 	pkey = PEM_read_bio_PrivateKey(bio, NULL, PwDialog::pwCallback, &p);
 	openssl_pw_error(name);
-	if (!pkey){
+	if (!pkey) {
 		pki_ign_openssl_error();
 		BIO_free(bio);
 		bio = BIO_new_mem_buf(ba.data(), ba.length());
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
 	}
 	BIO_free(bio);
+	pki_openssl_error();
 	set_EVP_PKEY(pkey, name);
 }
 
@@ -300,6 +301,7 @@ void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey, QString name)
 	if (!pkey)
 		return;
 	if (!verify(pkey)) {
+		pki_ign_openssl_error();
 		EVP_PKEY_free(pkey);
 		throw errorEx(tr("The key from file '%1' is incomplete or inconsistent.").arg(name));
 	}
@@ -311,9 +313,7 @@ void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey, QString name)
 		bogusEncryptKey();
 	search_ec_oid(pkey);
 
-	setIntName(rmslashdot(name));
-	if (getIntName().isEmpty())
-		autoIntName();
+	autoIntName(name);
 	pki_openssl_error();
 }
 
@@ -363,7 +363,7 @@ void pki_evp::fload(const QString fname)
 		file.retry_read();
 		pkey = load_ssh2_key(file);
         }
-	if (!pkey || pki_ign_openssl_error()) {
+	if (pki_ign_openssl_error() || !pkey) {
 		if (pkey)
 			EVP_PKEY_free(pkey);
 		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.").arg(fname));

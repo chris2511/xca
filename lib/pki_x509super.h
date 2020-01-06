@@ -24,7 +24,7 @@ class pki_x509name : public pki_base
     public:
 	pki_x509name(const QString name = "");
 	virtual x509name getSubject() const = 0;
-	void autoIntName();
+	void autoIntName(const QString &file);
 	QVariant column_data(const dbheader *hd) const;
 	bool visible() const;
 };

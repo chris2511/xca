@@ -50,10 +50,13 @@ pki_key::~pki_key()
 		EVP_PKEY_free(key);
 }
 
-void pki_key::autoIntName()
+void pki_key::autoIntName(const QString &file)
 {
+	pki_base::autoIntName(file);
+	if (!getIntName().isEmpty())
+		return;
 	setIntName(QString("%1 %2%3").arg(length(), getTypeString(),
-		isPubKey() ? QString(" ") + tr("Public key") : QString("")));
+		isPubKey() ? QString(" ") + tr("Public key") : QString()));
 }
 
 void pki_key::d2i(QByteArray &ba)
