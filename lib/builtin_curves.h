@@ -14,6 +14,7 @@
 
 #define CURVE_X962  1
 #define CURVE_OTHER 2
+#define CURVE_RFC5480 3
 
 class builtin_curve
 {

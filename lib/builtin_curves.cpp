@@ -1,10 +1,11 @@
 /*
- * Copyright (C) 2014 Christian Hohnstaedt.
+ * Copyright (C) 2019 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 #include <openssl/evp.h>
 #include <QDebug>
+#include <QList>
 
 #include "builtin_curves.h"
 #include "exception.h"
@@ -14,7 +15,20 @@
 #include <openssl/ec.h>
 #include "opensc-pkcs11.h"
 
-static const int x962_curve_nids[] = {
+static const QList<int> rfc5480_curve_nids()
+{
+	return QList<int> {
+	NID_X9_62_prime192v1,
+	NID_secp224r1,
+	NID_X9_62_prime256v1,
+	NID_secp384r1,
+	NID_secp521r1,
+	};
+};
+
+static const QList<int> x962_curve_nids()
+{
+	return QList<int> {
 	NID_X9_62_prime192v1,
 	NID_X9_62_prime192v2,
 	NID_X9_62_prime192v3,
@@ -39,9 +53,12 @@ static const int x962_curve_nids[] = {
 	NID_X9_62_c2tnb359v1,
 	NID_X9_62_c2pnb368w1,
 	NID_X9_62_c2tnb431r1
+	};
 };
 
-static const int other_curve_nids[] = {
+static const QList<int> other_curve_nids()
+{
+	return QList<int> {
 	NID_sect113r1,
 	NID_sect113r2,
 	NID_sect131r1,
@@ -103,6 +120,7 @@ static const int other_curve_nids[] = {
 	NID_brainpoolP512r1,
 	NID_brainpoolP512t1
 #endif
+	};
 };
 
 builtin_curves::builtin_curves()
@@ -118,26 +136,17 @@ builtin_curves::builtin_curves()
 
 	EC_get_builtin_curves(curves, num_curves);
 
-	for (i=0; i< num_curves; i++) {
-		size_t j;
+	for (i=0; i < num_curves; i++) {
 		int flag = 0, nid = curves[i].nid;
 		unsigned long type = 0;
 
-		for (j=0; j<ARRAY_SIZE(x962_curve_nids); j++) {
-			if (x962_curve_nids[j] == nid) {
-				flag = CURVE_X962;
-				break;
-			}
-		}
-		if (!flag) {
-			for (j=0; j<ARRAY_SIZE(other_curve_nids); j++) {
-				if (other_curve_nids[j] == nid) {
-					flag = CURVE_OTHER;
-					break;
-				}
-			}
-		}
-		if (!flag)
+		if (rfc5480_curve_nids().contains(nid))
+			flag = CURVE_RFC5480;
+		else if (x962_curve_nids().contains(nid))
+			flag = CURVE_X962;
+		else if (other_curve_nids().contains(nid))
+			flag = CURVE_OTHER;
+		else
 			continue;
 
 		EC_GROUP *group = EC_GROUP_new_by_curve_name(nid);

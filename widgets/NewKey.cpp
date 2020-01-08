@@ -185,7 +185,7 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 {
 #ifndef OPENSSL_NO_EC
 	QString ec_default;
-	QStringList curve_x962, curve_other;
+	QStringList curve_rfc5480, curve_x962, curve_other;
 	foreach(builtin_curve curve, pki_key::builtinCurves) {
 		const char *sn = OBJ_nid2sn(curve.nid);
 		QString comment = curve.comment;
@@ -202,13 +202,18 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 		if (curve.nid == defaultEcNid)
 			ec_default = p;
 		switch (curve.flags) {
-			case CURVE_X962:  curve_x962  << p; break;
-			case CURVE_OTHER: curve_other << p; break;
+			case CURVE_RFC5480: curve_rfc5480  << p; break;
+			case CURVE_X962:    curve_x962     << p; break;
+			case CURVE_OTHER:   curve_other    << p; break;
 		}
 	}
 	curveBox->clear();
+	curveBox->addItems(curve_rfc5480);
+	curveBox->insertSeparator(curveBox->count());
 	curveBox->addItems(curve_x962);
+	curveBox->insertSeparator(curveBox->count());
 	curveBox->addItems(curve_other);
+
 	curveBox->setCurrentIndex(curveBox->findText(ec_default));
 	if (curveBox->currentIndex() == -1)
 		curveBox->setCurrentIndex(0);
