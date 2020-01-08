@@ -6,10 +6,10 @@ Name "XCA"
 Caption "XCA ${VERSION}${EXTRA_VERSION} Setup"
 OutFile "setup_xca-${VERSION}${EXTRA_VERSION}.exe"
 
-InstallDir $PROGRAMFILES\xca
+InstallDir $PROGRAMFILES64\xca
 ; Registry key to check for directory (so if you install again, it will
 ; overwrite the old one automatically)
-InstallDirRegKey HKLM SOFTWARE\xca "Install_Dir"
+InstallDirRegKey HKLM SOFTWARE\xca "Install_Dir64"
 
 SetCompressor /SOLID lzma
 
@@ -23,14 +23,14 @@ SetCompressor /SOLID lzma
 !define MUI_FINISHPAGE_RUN "$INSTDIR\xca.exe"
 
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "${TOPDIR}/img\bigcert.bmp"
+!define MUI_HEADERIMAGE_BITMAP "${TOPDIR}\img\bigcert.bmp"
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_ICON "${TOPDIR}/img\key.ico"
+!define MUI_ICON "${TOPDIR}\img\key.ico"
 
 ;-----------------------------------
 ; Pagelist
 
-!insertmacro MUI_PAGE_LICENSE "${INSTALLDIR}/COPYRIGHT"
+!insertmacro MUI_PAGE_LICENSE "${INSTALLDIR}\COPYRIGHT"
 
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
@@ -76,14 +76,17 @@ Section "xca (required)" SecMain
   Delete "$INSTDIR\libp11-1.dll"
   Delete "$INSTDIR\engine_pkcs11.dll"
   Delete "$INSTDIR\libeay32.dll"
+  Delete "$INSTDIR\ssleay32.dll"
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\aia.txt"
+  Delete "$INSTDIR\msvcr120.dll"
   Delete "$INSTDIR\xca_db_stat.exe"
+  Delete "$INSTDIR\msvcr120.dll"
 
   ; Write the installation path into the registry
-  WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
+  WriteRegStr HKLM SOFTWARE\xca "Install_Dir64" "$INSTDIR"
 
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "DisplayName" "XCA (X Certificate and Key Management)"
@@ -91,9 +94,9 @@ Section "xca (required)" SecMain
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "UninstallString" "$INSTDIR\uninstall.exe"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "DisplayVersion" "${VERSION}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "Version" "${VERSION}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLUpdateInfo" "http://hohnstaedt.de/xca"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLInfoAbout" "http://hohnstaedt.de/xca"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "HelpLink" "http://hohnstaedt.de/documentation"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLUpdateInfo" "https://hohnstaedt.de/xca"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "URLInfoAbout" "https://hohnstaedt.de/xca"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "HelpLink" "https://hohnstaedt.de/documentation"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "Publisher" "Christian Hohnstaedt <christian@hohnstaedt.de>"
   WriteRegDWord HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "NoModify" '1'
   WriteRegDWord HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "NoRepair" '1'
@@ -101,24 +104,22 @@ Section "xca (required)" SecMain
 SectionEnd
 
 ;----------------------------------------
-Section "Support for MySQL databases" SecMySQL
+Section "Support for MySQL / MariaDB databases" SecMySQL
   SetOutPath $INSTDIR\sqldrivers
-  File "${QTDIR}\plugins\sqldrivers\qsqlmysql.dll"
+  File "${INSTALLDIR}\sqldrivers\qsqlmysql.dll"
   SetOutPath $INSTDIR
-  File "${BDIR}\sql\libmysql.dll"
+  File "${INSTALLDIR}\libmysql.dll"
 SectionEnd
 
 ;----------------------------------------
 Section "Support for PostgreSQL databases" SecPostgreSQL
   SetOutPath $INSTDIR\sqldrivers
-  File "${QTDIR}\plugins\sqldrivers\qsqlpsql.dll"
+  File "${INSTALLDIR}\sqldrivers\qsqlpsql.dll"
   SetOutPath $INSTDIR
-  File "${BDIR}\sql\libeay32.dll"
-  File "${BDIR}\sql\ssleay32.dll"
-  File "${BDIR}\sql\libiconv-2.dll"
-  File "${BDIR}\sql\libintl-8.dll"
-  File "${BDIR}\sql\libpq.dll"
-  File "${BDIR}\sql\msvcr120.dll"
+  File "${INSTALLDIR}\libssl-1_1-x64.dll"
+  File "${INSTALLDIR}\libiconv-2.dll"
+  File "${INSTALLDIR}\libintl-8.dll"
+  File "${INSTALLDIR}\libpq.dll"
 SectionEnd
 
 ;----------------------------------------
@@ -132,17 +133,16 @@ SectionEnd
 Section "Translations" SecTrans
 
   File /nonfatal "lang\*.qm"
-  File /nonfatal "${QTDIR}\translations\qt_de.qm"
-  File /nonfatal "${QTDIR}\translations\qt_es.qm"
-  File /nonfatal "${QTDIR}\translations\qt_ru.qm"
-  File /nonfatal "${QTDIR}\translations\qt_fr.qm"
-;  File /nonfatal "${QTDIR}\translations\qt_hr.qm"
-;  File /nonfatal "${QTDIR}\translations\qt_tr.qm"
-  File /nonfatal "${QTDIR}\translations\qt_pl.qm"
-  File /nonfatal "${QTDIR}\translations\qt_pt.qm"
-  File /nonfatal "${QTDIR}\translations\qt_sk.qm"
-  File /nonfatal "${QTDIR}\translations\qt_it.qm"
-  File /nonfatal "${QTDIR}\translations\qt_zh_CN.qm"
+  File /nonfatal "${INSTALLDIR}\qt_de.qm"
+  File /nonfatal "${INSTALLDIR}\qt_es.qm"
+  File /nonfatal "${INSTALLDIR}\qt_ru.qm"
+  File /nonfatal "${INSTALLDIR}\qt_fr.qm"
+  File /nonfatal "${INSTALLDIR}\qt_pl.qm"
+  File /nonfatal "${INSTALLDIR}\qt_pt.qm"
+  File /nonfatal "${INSTALLDIR}\qt_sk.qm"
+  File /nonfatal "${INSTALLDIR}\qt_it.qm"
+  File /nonfatal "${INSTALLDIR}\qt_ja.qm"
+  File /nonfatal "${INSTALLDIR}\qt_zh_CN.qm"
 
 SectionEnd
 
@@ -231,6 +231,7 @@ Section "Uninstall"
   Delete $INSTDIR\sqldrivers\*.dll
   ; MUST REMOVE UNINSTALLER, too
   Delete $INSTDIR\uninstall.exe
+  Delete $INSTDIR\COPYRIGHT
 
   RMDir $INSTDIR\platforms
   RMDir $INSTDIR\sqldrivers

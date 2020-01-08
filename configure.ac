@@ -10,28 +10,49 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_CXX
 AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
+AC_CHECK_TOOL(WINDRES, [windres], [:])
 
-DVERSION="`${CXX} --version | grep apple-darwin || :`"
-case "$DVERSION" in
-  *-apple-darwin*) DARWIN="true" ;;
+if test -d "$INSTALL_DIR"; then
+  AC_MSG_NOTICE([Using INSTALL_DIR $INSTALL_DIR])
+  test -d "${INSTALL_DIR}/include" && CXXFLAGS="${CXXFLAGS} -I${INSTALL_DIR}/include"
+  test -d "${INSTALL_DIR}/lib" && LIBS="${LIBS} -L${INSTALL_DIR}/lib"
+fi
+
+case "$(${CXX} -dumpmachine)" in
+  *apple-darwin*)
+    HOST=DARWIN
+    CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
+    LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
+    for d in $(find /usr/local/Cellar -name 'pkgconfig' -type d); do
+      PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
+    done
+    export DYLD_LIBRARY_PATH
+    ;;
+  *mingw*)
+    HOST=WINDOWS
+    SUFFIX=".exe"
+    PKG_CONFIG="$(which pkg-config) --define-prefix"
+    PKG_CONFIG_LIBDIR=""
+    CXXFLAGS="${CXXFLAGS} -mthreads -mwindows -mnop-fun-dllimport -Wno-strict-aliasing"
+    LIBS="${LIBS} -Wl,-enable-stdcall-fixup -Wl,-enable-auto-import -Wl,-enable-runtime-pseudo-reloc -static-libgcc"
+    ;;
+  *linux*)
+    HOST=LINUX
+    ;;
+  *)
+    HOST=UNIX
+    ;;
 esac
 
-if test -n "${DARWIN}"; then
-  AC_MSG_NOTICE([Mac OSX detected])
-  CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
-  LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
-  for d in $(find /usr/local/Cellar -name 'pkgconfig' -type d); do
-    PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
-  done
-fi
-AC_SUBST([DARWIN])
+AC_MSG_NOTICE([Compiling for host: $HOST])
+
+AC_SUBST([HOST])
 AC_SUBST([MACDEPLOYQT])
+AC_SUBST([SUFFIX])
+AC_SUBST([INSTALL_DIR])
 
 export PKG_CONFIG_PATH
 export LD_LIBRARY_PATH
-if test -n "$DARWIN"; then
-  export DYLD_LIBRARY_PATH
-fi
 
 if test "$srcdir" != "."; then
   exist=""
@@ -101,7 +122,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
     _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
     QT_MOC="${_QT_HOST_BINS}/moc"
     QT_UIC="${_QT_HOST_BINS}/uic"
-    if test -n "$DARWIN"; then
+    if test "$HOST" = "DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
       Qt5_CFLAGS="$Qt5_CFLAGS -std=c++11 -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
       Qt5_LDFLAGS=" -Xlinker -rpath -Xlinker ${FRAMEDIR}"
@@ -120,7 +141,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
     if test -n "${QT_MOC}"; then
       _QT_HOST_BINS="`dirname ${QT_MOC}`"
     fi
-    if test -n "$DARWIN"; then
+    if test "$HOST" = "DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
       Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
       Qt4_LDFLAGS=" -Xlinker -rpath -Xlinker ${FRAMEDIR}"
@@ -146,14 +167,19 @@ if test -z "${QT_VERSION}"; then
     AC_MSG_WARN([Qt pkg-config failed, using fallback defaults (${QT_LIBS})]);
 fi
 
+QT_DIR="$_QTDIR"
+# Delete trailing d (Debug) from Qt libs (@<:@ == [)  (@:>@ == ])
+QT_LIBS="$(echo " $QT_LIBS " | sed 's/-lQt\(@<:@^ @:>@*\)d\s/-lQt\1 /g')"
+
 AC_SUBST([QT_CFLAGS])
 AC_SUBST([QT_LIBS])
+AC_SUBST([QT_DIR])
 
 # Setup MOC UIC RCC LRELEASE LCONVERT with absolute PATH
-if test "x${QT_MOC}" = "x"; then
+if test ! -x "${QT_MOC}"; then
   QT_MOC="`which moc-qt${QT_VERSION} || which moc`"
 fi
-if test "x${QT_UIC}" = "x"; then
+if test ! -x "${QT_UIC}"; then
   QT_UIC="`which uic-qt${QT_VERSION} || which uic`"
 fi
 
@@ -181,7 +207,7 @@ else
 fi
 
 
-if test -n "$DARWIN"; then
+if test "$HOST" = "DARWIN"; then
   AC_PATH_PROG([MACDEPLOYQT], [macdeployqt], [macdeployqt], [$QT_BIN_PATH])
 fi
 

@@ -5,7 +5,7 @@ BUILD=..
 endif
 
 OBJS=imgres.o
-ifeq ($(HOST),w32)
+ifeq ($(HOST), WINDOWS)
   OBJS += w32res.o
 endif
 

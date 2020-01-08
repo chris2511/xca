@@ -33,6 +33,7 @@ APPDIR=$(DMGSTAGE)/xca.app/Contents
 OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \
 	-t http://timestamp.comodoca.com -h sha2
+MAKENSIS=makensis
 
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX) xca-portable.zip
@@ -141,8 +142,8 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 
 setup.exe: setup_xca-$(VERSION).exe
 setup_xca-$(VERSION).exe: xca-8859-1.nsi xca-portable-$(VERSION)
-	$(MAKENSIS) -DINSTALLDIR=xca-portable-$(VERSION) -DQTDIR=$(QTDIR) \
-		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
+	$(MAKENSIS) -DINSTALLDIR=xca-portable-$(VERSION) \
+		-DVERSION=$(VERSION) -DTOPDIR=$(TOPDIR) \
 		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
 	if test -n "$(OSSLSIGN)"; then \
 	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in $@ -out setup.tmp && mv setup.tmp $@; \
@@ -155,11 +156,11 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	cp $(patsubst %,misc/%.txt, dn eku oids) \
 	   "$(TOPDIR)"/misc/*.xca doc/*.html lang/*.qm \
 	   $(patsubst %,"$(QTDIR)/bin/%.dll", Qt5Gui Qt5Core Qt5Widgets \
-		Qt5Sql libwinpthread-1 libstdc++-6 libgcc_s_dw2-1) \
+		Qt5Sql libwinpthread-1 libstdc++-6 libgcc_s_seh-1) \
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
-	   "$(INSTALL_DIR)/bin/libcrypto-1_1.dll" \
+	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
 	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk) \
-	   "$(TOPDIR)"/COPYRIGHT "${BDIR}/sql/"*.dll $@
+	   "$(TOPDIR)"/COPYRIGHT "${TOPDIR}/../sql/"*.dll $@
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
 	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql) $@/sqldrivers
 

@@ -4,10 +4,9 @@
 XCA_DIR="`dirname $0`"
 XCA_DIR="`cd $XCA_DIR/.. && pwd`"
 
-HOST=i686-w64-mingw32
+HOST=x86_64-w64-mingw32
 export CROSS="${HOST}-"
-TARGET=mingw
-LIBTOOL_DIR="libtool-2.2.6b"
+TARGET=mingw64
 read LIBTOOL_DIR < "`dirname $0`/../Libtool.version"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
 LIBTOOL_DL="http://ftp.gnu.org/gnu/libtool/${LIBTOOL_GZ}"
@@ -48,7 +47,7 @@ do_XCA()
 {(
   mkdir -p $XCA_BUILD
   cd $XCA_BUILD
-  $XCA_DIR/configure.w32
+  $XCA_DIR/configure --host ${HOST} --with-qt=${INSTALL_DIR}/../qt/5.12.0
   make -j5 USE_HOSTTOOLS=no
   cp setup*.exe xca-portable*.zip ..
 )}

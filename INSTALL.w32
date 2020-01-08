@@ -9,56 +9,19 @@ Needed packages:
   makensis cross tool
   wine (to run moc.exe and uic.exe)
 
-# apt-get install mingw32 mingw32-binutils mingw32-runtime nsis wine
+# apt-get install mingw-w64 nsis wine
 
 create a new, empty directory say xca-w32
 $ cd xca-w32
 $ tar zxf xca-0.x.y.tar.gz
 
-Use a W32 host to execute and install the selfextracting QT4....exe
+Use a W32 host to execute and install the QT5 tools
 
 copy the installed tree to ./qt/
 
-Now you can either call xca-x.y.z/misc/build-w32.sh
-and wait until xca_setup.exe is built,
-or follow the steps below by hand:
-
-$ export INSTALL_DIR=`pwd`/install
-
-OpenSSL 0.9.8 - 1.0.2 are supported.
-$ cp openssl-1.0.Xy.tar.gz .
-$ tar zxf openssl-1.0.Xy.tar.gz
-
-apply openssl-cross-patch:
-$ cd openssl-1.0.Xy
-$ patch -p1 < ../xca/misc/openssl-1.0.0-mingw32-cross.patch
-
-compile openssl with:
-$ sh ms/mingw32-cross.sh
-$cd ..
-
-unpack libtool-2.2 and cd in libtool-2.2
-$ ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
-$ make && make install
-$ cd ..
-
-compile xca:
-$ cd xca-1.2.0
-$ ./configure.w32
-Edit Local.mak if needed:
- if your linux-qt is the same version as the w32 one,
- keep USE_HOSTTOOLS at "yes" otherwise set it to "no"
- and say make
-$ make
+Now call xca-x.y.z/misc/build-w32.sh
+and wait until xca_setup.exe is built.
 
 Fix the missing System.dll in /usr/share/nsis/Plugins by
 copying it from an NSIS windows installation.
-Get the mingw runtime lib:
-$ zcat /usr/share/doc/mingw32-runtime/mingwm10.dll.gz >mingwm10.dll
-
-translate the QT language files
-$ lrelease-qt4 ../qt/4.6.2/translations/qt_*.ts
-
-create the setup.exe
-$ make setup.exe
 

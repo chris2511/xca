@@ -4,6 +4,7 @@
 
 export TOPDIR=@abs_srcdir@
 export VERSION=@PACKAGE_VERSION@
+export HOST=@HOST@
 
 CPPFLAGS+=-Wall -Wextra -DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\" @CXXFLAGS@
 CFLAGS+=-O2 -ggdb -std=c++11
@@ -17,13 +18,15 @@ LCONVERT=@QT_LCONVERT@
 
 CC=@CXX@
 STRIP=@STRIP@
+WINDRES=@WINDRES@
 DOCTOOL=@DOCTOOL@
 MACDEPLOYQT=@MACDEPLOYQT@
-DARWIN=@DARWIN@
+SUFFIX=@SUFFIX@
 ENABLE_DOC=@ENABLE_DOC@
 
 PACKAGE_TARNAME=@PACKAGE_TARNAME@
-HOST=linux
+QTDIR=@QT_DIR@
+INSTALL_DIR=@INSTALL_DIR@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 docdir=@docdir@
