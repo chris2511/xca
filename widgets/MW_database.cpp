@@ -25,14 +25,17 @@
 
 QSqlError MainWindow::initSqlDB()
 {
-	QStringList schemas[7];
+#define MAX_SCHEMAS 7
+#define SCHEMA_VERSION "7"
+
+	QStringList schemas[MAX_SCHEMAS];
 
 #include "database_schema.cpp"
 
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
 	QStringList tables;
-	unsigned int i;
+
 	if (!db.isOpen())
 		return QSqlError();
 
@@ -40,7 +43,10 @@ QSqlError MainWindow::initSqlDB()
 	if (!TransBegin())
 		return db.lastError();
 
-	for (i = XSqlQuery::schemaVersion(); i < ARRAY_SIZE(schemas); i++) {
+	for (;;) {
+		unsigned int i = XSqlQuery::schemaVersion();
+		if (i >= ARRAY_SIZE(schemas))
+			break;
 		foreach(QString sql, schemas[i]) {
 			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
 			if (!q.exec(sql) || q.lastError().isValid()) {
@@ -49,6 +55,7 @@ QSqlError MainWindow::initSqlDB()
 			}
 		}
 	}
+
 	TransCommit();
 	return QSqlError();
 }

@@ -27,7 +27,7 @@ DbMap OpenDb::getDatabases()
 
 	databases["QPSQL7"]   = "PostgreSQL";
 	databases["QMYSQL3"]  = "MySQL / MariaDB";
-	//databases["QODBC3"]   = "Open Database Connectivity (ODBC)";
+	databases["QODBC3"]   = "Open Database Connectivity (ODBC)";
 
 	foreach (QString driver, databases.keys()) {
 		if (!list.contains(driver))
@@ -48,6 +48,14 @@ bool OpenDb::hasSqLite()
 bool OpenDb::hasRemoteDrivers()
 {
 	return getDatabases().size() > 0;
+}
+
+void OpenDb::driver_selected()
+{
+	if (getDbType() == "QODBC3")
+		dbName_label->setText("DSN");
+	else
+		dbName_label->setText(tr("Database name"));
 }
 
 DbMap OpenDb::splitRemoteDbName(QString db)
@@ -125,13 +133,13 @@ OpenDb::OpenDb(QWidget *parent, QString db)
 		sqlite = false;
 		show_connection_settings = true;
 	}
+	driver_selected();
+	connect(dbType, SIGNAL(currentIndexChanged(int)),
+		this, SLOT(driver_selected()));
 }
 
 QString OpenDb::getDbType() const
 {
-	qDebug() << "OpenDb::getDbType: "
-		 << dbType->itemData(dbType->currentIndex()).toString();
-
 	return sqlite ? hasSqLite() ? QString("QSQLITE") : QString("") :
 			dbType->itemData(dbType->currentIndex()).toString();
 }
@@ -219,6 +227,10 @@ bool OpenDb::_openDatabase(QString connName, QString pass) const
 		if (!hasTrans) {
 			XCA_WARN(tr("The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care."));
 		}
+		/* This is MySQL specific. Execute it always, because
+		 * dbType() could return "ODBC" but connect to MariaDB
+		 */
+		XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
 		return true;
 	}
 	XSqlQuery::clearTablePrefix();

@@ -4,10 +4,10 @@
  * Collisions are of course possible.
  *
  * All binaries are stored Base64 encoded in a column of type
- * " B64_BLOB " It is defined here as "VARCHAR(10000)"
+ * " B64_BLOB " It is defined here as "VARCHAR(8000)"
  */
 
-#define B64_BLOB "VARCHAR(10000)"
+#define B64_BLOB "VARCHAR(8000)"
 
 /*
  * The B64(DER(something)) function means DER encode something
@@ -30,8 +30,8 @@
 
 << "CREATE TABLE settings ("
 	"key_ CHAR(20) UNIQUE, " /* mySql does not like "key" or "option" */
-	"value VARCHAR(1024))"
-<< "INSERT INTO settings (key_, value) VALUES ('schema', '1')"
+	"value " B64_BLOB ")"
+<< "INSERT INTO settings (key_, value) VALUES ('schema', '" SCHEMA_VERSION "')"
 
 /*
  * All items (keys, tokens, requests, certs, crls, templates)
@@ -45,7 +45,9 @@
 	"type INTEGER, "	/* enum pki_type */
 	"source INTEGER, "	/* enum pki_source */
 	"date " DB_DATE ", "	/* Time of insertion (creation/import) */
-	"comment VARCHAR(2048))"
+	"comment VARCHAR(2048), "
+	"stamp INTEGER NOT NULL DEFAULT 0, " /* indicate concurrent access */
+	"del SMALLINT NOT NULL DEFAULT 0)"
 
 /*
  * Storage of public keys. Private keys and tokens also store
@@ -56,7 +58,7 @@
 	"type CHAR(4), "	/* RSA DSA EC (as text) */
 	"hash INTEGER, "	/* 32 bit hash */
 	"len INTEGER, "		/* key size in bits */
-	"public " B64_BLOB ", "	/* B64(DER(public key)) */
+	"\"public\" " B64_BLOB ", "	/* B64(DER(public key)) */
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
 /*
@@ -185,15 +187,11 @@
 	"template " B64_BLOB ", "	/* The base64 encoded template */
 	"FOREIGN KEY (item) REFERENCES items (id))"
 
-	;
-/* Schema Version 2: Views added to quickly load the data */
-	schemas[1]
-
 /* Views */
 << "CREATE VIEW view_public_keys AS SELECT "
 	"items.id, items.name, items.type AS item_type, items.date, "
 	"items.source, items.comment, "
-	"public_keys.type as key_type, public_keys.len, public_keys.public, "
+	"public_keys.type as key_type, public_keys.len, public_keys.\"public\", "
 	"private_keys.ownPass, "
 	"tokens.card_manufacturer, tokens.card_serial, tokens.card_model, "
 	"tokens.card_label, tokens.slot_label, tokens.object_id "
@@ -236,12 +234,10 @@
 	"templates.version, templates.template "
 	"FROM templates LEFT JOIN items ON templates.item = items.id"
 
+<< "CREATE VIEW view_private AS SELECT "
+	"name, private FROM private_keys JOIN items ON "
+	"items.id = private_keys.item"
 
-<< "UPDATE settings SET value='2' WHERE key_='schema'"
-
-	;
-/* Schema Version 3: Add indexes over hashes and primary, foreign keys */
-	schemas[2]
 
 << "CREATE INDEX i_settings_key_ ON settings (key_)"
 << "CREATE INDEX i_items_id ON items (id)"
@@ -269,9 +265,14 @@
 << "CREATE INDEX i_crls_issuer ON crls (issuer)"
 << "CREATE INDEX i_revocations_caId_serial ON revocations (caId, serial)"
 << "CREATE INDEX i_templates_item ON templates (item)"
-<< "UPDATE settings SET value='3' WHERE key_='schema'"
+<< "CREATE INDEX i_items_stamp ON items (stamp)"
 
 	;
+
+/* Schema Version 2: Views added to quickly load the data */
+
+/* Schema Version 3: Add indexes over hashes and primary, foreign keys */
+
 /* Schema Version 4: Add private key view to extract a private key with:
 	mysql:      mysql -sNp -u xca xca_msq -e
 	or sqlite:  sqlite3 ~/sqlxdb.xdb
@@ -281,21 +282,8 @@
  * First mysql/psql will ask for a password and then OpenSSL will ask for
  * the database password.
  */
-	schemas[3]
 
-<< "CREATE VIEW view_private AS SELECT "
-	"name, private FROM private_keys JOIN items ON "
-	"items.id = private_keys.item"
-<< "UPDATE settings SET value='4' WHERE key_='schema'"
-	;
-
-	schemas[4]
-<< "ALTER TABLE items ADD stamp INTEGER NOT NULL DEFAULT 0"
-<< "CREATE INDEX i_items_stamp ON items (stamp)"
-<< "UPDATE settings SET value='5' WHERE key_='schema'"
-	;
-
-/* Extend settings value size from 1024 to B64_BLOB
+/* Schema Version 5: Extend settings value size from 1024 to B64_BLOB
  * SQLite does not support "ALTER TABLE settings MODIFY ..."
  */
 	schemas[5]

@@ -162,7 +162,7 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
 	   "$(TOPDIR)"/COPYRIGHT "${TOPDIR}/../sql/"*.dll $@
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
-	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql) $@/sqldrivers
+	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql qsqlodbc) $@/sqldrivers
 
 
 xca-portable.zip: xca-portable-$(VERSION).zip

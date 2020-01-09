@@ -39,6 +39,7 @@ class OpenDb: public QDialog, public Ui::OpenDb
 
     public slots:
 	int exec();
+	void driver_selected();
 };
 
 #endif

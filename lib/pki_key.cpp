@@ -487,7 +487,7 @@ QSqlError pki_key::insertSqlData()
 	}
 	q.finish();
 
-	SQL_PREPARE(q, "INSERT INTO public_keys (item, type, hash, len, public) "
+	SQL_PREPARE(q, "INSERT INTO public_keys (item, type, hash, len, \"public\") "
 		  "VALUES (?, ?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, getKeyTypeString());
