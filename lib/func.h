@@ -29,6 +29,7 @@ QString getHomeDir();
 QString getLibDir();
 QString getDocDir();
 QString getUserSettingsDir();
+QString relativePath(QString path);
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
 const QStringList getLibExtensions();
 QString hostId();

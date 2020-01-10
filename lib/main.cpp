@@ -142,9 +142,6 @@ void XCA_application::switchLanguage(QAction* a)
 	QLocale lang = a->data().toLocale();
 	setupLanguage(lang);
 
-	if (portable_app())
-		return;
-
 	QFile file(defaultlang());
 
 	if (lang == QLocale::system()) {

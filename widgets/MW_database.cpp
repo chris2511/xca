@@ -463,11 +463,7 @@ int MainWindow::open_default_db()
 
 void MainWindow::default_database()
 {
-	if (portable_app())
-		return;
-
 	QFile file(defaultdb());
-	QFileInfo fi(currentDB);
 
 	if (currentDB.isEmpty()) {
 		file.remove();
@@ -479,7 +475,7 @@ void MainWindow::default_database()
 		if (OpenDb::isRemoteDB(currentDB))
 			ba = filename2bytearray(currentDB);
 		else
-			ba = filename2bytearray(fi.canonicalFilePath());
+			ba = filename2bytearray(relativePath(currentDB));
 		ba += '\n';
 		file.write(ba);
 		/* write() failed? Harmless. Only inconvenient */
@@ -585,6 +581,9 @@ void MainWindow::update_history(QString fname)
 	QFile file;
 	int pos;
 
+	if (!OpenDb::isRemoteDB(fname))
+		fname = relativePath(fname);
+
 	pos = history.indexOf(fname);
 	if (pos == 0)
 		return; /* no changes */
@@ -596,9 +595,6 @@ void MainWindow::update_history(QString fname)
 		history.removeLast();
 
 	update_history_menu();
-
-	if (portable_app())
-		return;
 
 	file.setFileName(dbhistory());
 	if (!file.open(QIODevice::ReadWrite))

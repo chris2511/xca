@@ -30,6 +30,7 @@
 #endif
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QStringList>
 #include <QLabel>
 #include <QLineEdit>
@@ -89,9 +90,9 @@ int portable_app()
 QString getPrefix()
 {
 #if defined(Q_OS_WIN32)
-	static char inst_dir[100] = "";
+	static char inst_dir[512] = "";
 	char *p;
-	ULONG dwLength = 100;
+	ULONG dwLength = sizeof inst_dir;
 	HKEY hKey;
 
 	if (inst_dir[0] != '\0') {
@@ -115,7 +116,7 @@ QString getPrefix()
 		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE\\Software\\xca' not found");
 		return QString(inst_dir);
 	}
-	if (RegQueryValueEx(hKey, "Install_Dir", NULL, NULL,
+	if (RegQueryValueEx(hKey, "Install_Dir64", NULL, NULL,
 			(unsigned char *)inst_dir, &dwLength) != ERROR_SUCCESS)
 	{
 		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
@@ -138,38 +139,56 @@ QString getPrefix()
 
 }
 
-QString getHomeDir()
-{
-	QString hd;
 #if defined(Q_OS_WIN32)
+static QString specialFolder(int csidl)
+{
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
-	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_PERSONAL, &pidl))) {
+
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, csidl, &pidl)))
 		SHGetPathFromIDList(pidl, buf);
-	}
-	hd = buf;
-#else
-	hd = QDir::homePath();
+
+	return QDir::toNativeSeparators(buf);
+}
 #endif
-	return hd;
+
+QString getHomeDir()
+{
+#if defined(Q_OS_WIN32)
+	return portable_app() ? getPrefix() : specialFolder(CSIDL_PERSONAL);
+#else
+	return QDir::homePath();
+#endif
+}
+
+/* For portable APP remove leading file name if it is
+ * the app directory.
+ */
+QString relativePath(QString path)
+{
+	QFileInfo fi_path(path);
+	QFileInfo fi_home(getHomeDir());
+
+	QString prefix = QDir::toNativeSeparators(fi_home.canonicalFilePath());
+	path = QDir::toNativeSeparators(fi_path.canonicalFilePath());
+
+	if (portable_app()) {
+		if (path.startsWith(prefix))
+			path = path.mid(prefix.length()+1);
+	}
+	return path;
 }
 
 QString getLibDir()
 {
-	QString hd;
 #if defined(Q_OS_WIN32)
-	LPITEMIDLIST pidl = NULL;
-	TCHAR buf[255] = "";
-		if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_SYSTEM, &pidl))) {
-		SHGetPathFromIDList(pidl, buf);
-	}
-	hd = buf;
+	return specialFolder(CSIDL_SYSTEM);
 #else
 	QString ulib = "/usr/lib/";
 	QString lib = "/lib/";
 	QString multi;
+	QString hd = ulib;
 
-	hd = ulib;
 	QFile f(ulib + "pkg-config.multiarch");
 	if (f.open(QIODevice::ReadOnly)) {
 		QTextStream in(&f);
@@ -192,8 +211,8 @@ QString getLibDir()
 			break;
 		}
 	}
-#endif
 	return QDir::toNativeSeparators(hd);
+#endif
 }
 
 QString getDocDir()
@@ -213,14 +232,8 @@ QString getUserSettingsDir()
 {
 	QString rv;
 #if defined(Q_OS_WIN32)
-	LPITEMIDLIST pidl = NULL;
-	TCHAR buf[255] = "";
-	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl))) {
-	SHGetPathFromIDList(pidl, buf);
-	}
-	rv = buf;
-	rv += QDir::separator();
-	rv += "xca";
+	rv = portable_app() ? getPrefix() + "/settings" :
+				specialFolder(CSIDL_APPDATA) + "/xca";
 #elif defined(Q_OS_MAC)
   #if QT_VERSION < 0x050000
 	rv = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
@@ -233,11 +246,9 @@ QString getUserSettingsDir()
 		QCoreApplication::applicationName();
   #endif
 #else
-	rv = QDir::homePath();
-	rv += QDir::separator();
-	rv += ".xca";
+	rv = QDir::homePath() + "/.xca";
 #endif
-	return rv;
+	return QDir::toNativeSeparators(rv);
 }
 
 // Qt's open and save dialogs result in some undesirable quirks.

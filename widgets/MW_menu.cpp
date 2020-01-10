@@ -100,10 +100,8 @@ void MainWindow::init_menu()
 			this, SLOT(openRemoteSqlDB()))
 			->setEnabled(OpenDb::hasRemoteDrivers());
 	file->addMenu(historyMenu);
-	if (!portable_app()) {
-		file->addAction(tr("Set as default DataBase"), this,
+	file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
-	}
 	acList += file->addAction(tr("Close DataBase"), this,
 		SLOT(close_database()), QKeySequence::Close);
 
