@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Christian Hohnstaedt.
+ * Copyright (C) 2014 - 2020 Christian Hohnstaedt.
  *
  * All rights reserved.
  */

@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>December 2019 - Version 2.2.0
+<date>January 2020 - Version 2.2.0
 
 <abstract>
 
@@ -16,7 +16,7 @@ Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
 For an easy company-wide use there are customisable templates that can be used for certificate or request generation.
 All cryptographic data is stored in a SQL database.
-SQLite, MySQL (MariaDB) and PostgreSQL databases are supported.
+SQLite, MySQL (MariaDB), PostgreSQL and MicrosoftSQL (ODBC) databases are supported.
 
 </abstract>
 
