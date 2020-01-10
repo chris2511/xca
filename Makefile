@@ -159,7 +159,7 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 		Qt5Sql libwinpthread-1 libstdc++-6 libgcc_s_seh-1) \
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
-	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk) \
+	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
 	   "$(TOPDIR)"/COPYRIGHT "${TOPDIR}/../sql/"*.dll $@
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
 	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql) $@/sqldrivers
