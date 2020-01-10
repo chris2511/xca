@@ -30,7 +30,7 @@ QString getLibDir();
 QString getDocDir();
 QString getUserSettingsDir();
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
-QStringList getLibExtensions();
+const QStringList getLibExtensions();
 QString hostId();
 
 QString formatHash(const QByteArray &data, QString sep = ":", int width = 2);

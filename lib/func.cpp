@@ -52,17 +52,17 @@ QPixmap *loadImg(const char *name )
 	return new QPixmap(QString(":") + name);
 }
 
-QStringList getLibExtensions()
+const QStringList getLibExtensions()
 {
-	QStringList l;
+	return QStringList {
 #if defined(Q_OS_WIN32)
-	l << QString("*.dll") << QString("*.DLL");
+		QString("*.dll"), QString("*.DLL"),
 #elif defined(Q_OS_MAC)
-	l << QString("*.dylib") << QString("*.so");
+		QString("*.dylib"), QString("*.so"),
 #else
-	l << QString("*.so");
+		QString("*.so"),
 #endif
-	return l;
+	};
 }
 
 int portable_app()

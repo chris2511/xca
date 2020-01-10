@@ -130,7 +130,7 @@ void SearchPkcs11::updateLibs(QString f)
 	liblist->update();
 }
 
-searchThread::searchThread(QString _dir, QStringList _ext, bool _recursive)
+searchThread::searchThread(QString _dir, const QStringList _ext, bool _recursive)
 {
 	dirname = _dir;
 	ext = _ext;
