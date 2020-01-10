@@ -181,42 +181,46 @@ NewKey::NewKey(QWidget *parent, QString name)
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Create"));
 }
 
+void NewKey::addCurveBoxCurves(const QList<builtin_curve> &curves)
+{
+	foreach(builtin_curve curve, curves) {
+		QString sn(OBJ_nid2sn(curve.nid));
+		QString p, comment = curve.comment;
+
+		if (comment.isEmpty())
+			comment = "---";
+		p = sn + ": " + comment;
+		curveBox->addItem(sn + ": " + comment, curve.nid);
+	}
+}
+
 void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 {
 #ifndef OPENSSL_NO_EC
-	QString ec_default;
-	QStringList curve_rfc5480, curve_x962, curve_other;
+	QList<builtin_curve> curve_rfc5480, curve_x962, curve_other;
+
 	foreach(builtin_curve curve, pki_key::builtinCurves) {
 		const char *sn = OBJ_nid2sn(curve.nid);
-		QString comment = curve.comment;
 
 		if (!sn || curve.order_size < min || curve.order_size > max)
 			continue;
-		if (ec_flags) {
-			if ((curve.type & ec_flags) == 0)
-				continue;
-		}
-		if (comment.isEmpty())
-			comment = "---";
-		QString p = QString(sn) + ": " + comment;
-		if (curve.nid == defaultEcNid)
-			ec_default = p;
+		if (ec_flags && (curve.type & ec_flags) == 0)
+			continue;
 		switch (curve.flags) {
-			case CURVE_RFC5480: curve_rfc5480  << p; break;
-			case CURVE_X962:    curve_x962     << p; break;
-			case CURVE_OTHER:   curve_other    << p; break;
+			case CURVE_RFC5480: curve_rfc5480  << curve; break;
+			case CURVE_X962:    curve_x962     << curve; break;
+			case CURVE_OTHER:   curve_other    << curve; break;
 		}
 	}
 	curveBox->clear();
-	curveBox->addItems(curve_rfc5480);
+	addCurveBoxCurves(curve_rfc5480);
 	curveBox->insertSeparator(curveBox->count());
-	curveBox->addItems(curve_x962);
+	addCurveBoxCurves(curve_x962);
 	curveBox->insertSeparator(curveBox->count());
-	curveBox->addItems(curve_other);
+	addCurveBoxCurves(curve_other);
 
-	curveBox->setCurrentIndex(curveBox->findText(ec_default));
-	if (curveBox->currentIndex() == -1)
-		curveBox->setCurrentIndex(0);
+	int default_index = curveBox->findData(QVariant(defaultEcNid));
+	curveBox->setCurrentIndex(default_index == -1 ? 0 : default_index);
 #else
 	(void)min; (void)max; (void)ec_flags;
 #endif
@@ -261,12 +265,10 @@ int NewKey::getKeysize()
 
 int NewKey::getKeyCurve_nid()
 {
-	if (getKeytype() != EVP_PKEY_EC)
-		return NID_undef;
-	QString desc = curveBox->currentText();
-	desc.replace(QRegExp("^(X9.62) "), "");
-	desc.replace(QRegExp(":.*"), "");
-	return OBJ_sn2nid(CCHAR(desc));
+	bool ok;
+	int nid = curveBox->itemData(curveBox->currentIndex()).toInt(&ok);
+
+	return ok && getKeytype() == EVP_PKEY_EC ? nid : NID_undef;
 }
 
 bool NewKey::isToken()

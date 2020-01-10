@@ -10,6 +10,7 @@
 
 #include "ui_NewKey.h"
 #include "lib/pkcs11_lib.h"
+#include "lib/builtin_curves.h"
 #include <QStringList>
 
 class NewKey: public QDialog, public Ui::NewKey
@@ -21,6 +22,7 @@ class NewKey: public QDialog, public Ui::NewKey
 		static int defaultSize;
 		void updateCurves(unsigned min=0, unsigned max=INT_MAX,
 			unsigned long ec_flags=0);
+		void addCurveBoxCurves(const QList<builtin_curve> &curves);
 	public:
 		NewKey(QWidget *parent, QString name);
 		int getKeytype();
