@@ -1,3 +1,11 @@
+ * Close #93 Default output folder / Improve Portable App usability
+ * Improve EC Curve selection for key generation.
+ * Close #21 Support for ODBC (MSSQL)
+ * Close #136 Provide 64bit version of xca
+ * Close #156 secp256k1, secp256r1 and NIST-P256
+ * Transfer Key Usage and Extended Key Usage critical flags
+ * Improve item loading. Inspired by #153
+ * Add japanese translation
  * Close #138: Portable Version does not remember paths
  * Close #83: Token selection should not insist on name or serial of the token
  * Close #95: Copy mysql and psql windows dll files into portable app
