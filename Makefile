@@ -97,7 +97,7 @@ clean:
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
 	rm -f commithash.h misc/oids.txt
-	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg xca-portable.zip
+	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg xca-portable*.zip xca*.msi
 	rm -rf xca-$(VERSION)*
 
 distclean: clean
@@ -140,6 +140,10 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 	  mv "$<" "$@"; \
 	fi
 
+xca.msi: xca-$(VERSION).msi
+xca-$(VERSION).msi: misc/xca.wix xca-portable-$(VERSION)
+	cd xca-portable-$(VERSION) && wixl -v -o $@ $<
+
 setup.exe: setup_xca-$(VERSION).exe
 setup_xca-$(VERSION).exe: xca-8859-1.nsi xca-portable-$(VERSION)
 	$(MAKENSIS) -DINSTALLDIR=xca-portable-$(VERSION) \
@@ -160,7 +164,8 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
 	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
-	   "$(TOPDIR)"/COPYRIGHT "${TOPDIR}/../sql/"*.dll $@
+	   "$(TOPDIR)"/img/xca.ico "${TOPDIR}/../sql/"*.dll $@
+	cp "$(TOPDIR)"/COPYRIGHT $@/copyright.txt
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
 	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql qsqlodbc) $@/sqldrivers
 
