@@ -30,7 +30,7 @@ SetCompressor /SOLID lzma
 ;-----------------------------------
 ; Pagelist
 
-!insertmacro MUI_PAGE_LICENSE "${INSTALLDIR}\COPYRIGHT"
+!insertmacro MUI_PAGE_LICENSE "${INSTALLDIR}\copyright.txt"
 
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
