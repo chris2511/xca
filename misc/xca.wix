@@ -37,8 +37,8 @@
                 <File Id="eku.txt" Source="eku.txt"/>
                 <File Id="oids.txt" Source="oids.txt"/>
                 <File Id="CA.xca" Source="CA.xca"/>
-                <File Id="HTTPS_client.xca" Source="HTTPS_client.xca"/>
-                <File Id="HTTPS_server.xca" Source="HTTPS_server.xca"/>
+                <File Id="TLS_client.xca" Source="TLS_client.xca"/>
+                <File Id="TLS_server.xca" Source="TLS_server.xca"/>
                 <File Id="copyright.txt" Source="copyright.txt"/>
 
             </Component>

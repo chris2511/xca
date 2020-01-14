@@ -1364,7 +1364,7 @@ You may apply the whole template or only the subject or only the extensions.
 
 <p>
 
-Next to the 3 default templates for CA, HTTPS server and client
+Next to the 3 default templates for CA, TLS server and client
 certificates, customized templates may be created. Templates are not signed,
 they are just a collection of common values for different certificates.
 Therefore XCA does not care if any duplicates exist in the list of templates.
@@ -1709,7 +1709,7 @@ certificate.
   <item>Make sure the <bf>Source</bf> tab is showing, clicking it if necessary.
     <itemize>
       <item>At the bottom of the panel, select the template
-            <bf>"&#91;default&#93; HTTPS_server"</bf> (or another suitable
+            <bf>"&#91;default&#93; TLS_server"</bf> (or another suitable
             template, if you have created your own)
             and click the <bf>Apply</bf> button.
 	    This will fill in appropriate values under the <bf>Extensions</bf>,
@@ -1792,7 +1792,7 @@ The values of templates can be applied on the first tab of the
 certificate-generation dialog. It can be selected, whether the subject,
 the extensions or both parts of the template will be applied.
 This way a subject-only template may be defined and later
-applied together with the HTTPS_client or HTTPS_server template.
+applied together with the TLS_client or TLS_server template.
 
 <enum>
   <item>Click on the <bf>Templates</bf> tab.

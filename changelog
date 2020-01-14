@@ -1,3 +1,4 @@
+ * Rename HTTPS templates to TLS and support KU/EKU extensions needed by OpenVPN
  * Close #93 Default output folder / Improve Portable App usability
  * Improve EC Curve selection for key generation.
  * Close #21 Support for ODBC (MSSQL)
