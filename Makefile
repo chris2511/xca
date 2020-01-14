@@ -127,9 +127,6 @@ install: xca$(SUFFIX) $(INSTTARGET)
 	install -m 755 xca $(destdir)$(bindir)
 	$(STRIP) $(destdir)$(bindir)/xca
 
-xca-8859-1.nsi: misc/xca.nsi
-	iconv -f utf8 -t iso-8859-15 -o "$@" "$<"
-
 xca$(SUFFIX).signed: xca$(SUFFIX)
 
 %.signed: %
@@ -141,31 +138,27 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 	fi
 
 xca.msi: xca-$(VERSION).msi
-xca-$(VERSION).msi: misc/xca.wix xca-portable-$(VERSION)
+xca-$(VERSION).msi: xca-portable-$(VERSION).zip msi-installer_dir/xca.bat
 	cd xca-portable-$(VERSION) && wixl -v -o $@ $<
 
-setup.exe: setup_xca-$(VERSION).exe
-setup_xca-$(VERSION).exe: xca-8859-1.nsi xca-portable-$(VERSION)
-	$(MAKENSIS) -DINSTALLDIR=xca-portable-$(VERSION) \
-		-DVERSION=$(VERSION) -DTOPDIR=$(TOPDIR) \
-		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
-	if test -n "$(OSSLSIGN)"; then \
-	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in $@ -out setup.tmp && mv setup.tmp $@; \
-	fi
+
+msi-installer_dir: misc/xca.wxs img/bigcert.bmp img/dialog.bmp misc/copyright.rtf misc/xca.bat
+	rm -f $@/* && mkdir -p $@ && cp -ra $^ $@
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	rm -rf $@
-	mkdir -p $@/sqldrivers $@/platforms
+	mkdir -p $@/sqldrivers $@/platforms $@/html $@/i18n
 	cp xca$(SUFFIX).signed $@/xca$(SUFFIX)
 	cp $(patsubst %,misc/%.txt, dn eku oids) \
-	   "$(TOPDIR)"/misc/*.xca doc/*.html lang/*.qm \
 	   $(patsubst %,"$(QTDIR)/bin/%.dll", Qt5Gui Qt5Core Qt5Widgets \
 		Qt5Sql libwinpthread-1 libstdc++-6 libgcc_s_seh-1) \
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
-	   $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
-	   "$(TOPDIR)"/img/xca.ico "${TOPDIR}/../sql/"*.dll $@
-	cp "$(TOPDIR)"/COPYRIGHT $@/copyright.txt
+	   "$(TOPDIR)"/misc/*.xca "${TOPDIR}/../sql/"*.dll $@
+	cp doc/*.html $@/html
+	cp $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
+		lang/*.qm $@/i18n
+	sed 's/$$/\r/' < "$(TOPDIR)"/COPYRIGHT > $@/copyright.txt
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
 	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql qsqlodbc) $@/sqldrivers
 

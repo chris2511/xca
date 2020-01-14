@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <!--     Note to myself: Version upgrade also needs a new Product ID -->
+    <Product Id="c58b920a-bb90-48b9-b0f8-769e51fdca73" Version="2.2.0"
+             UpgradeCode="23fdacfe-3ef8-45b4-81e8-b0c90244c217"
+             Language="1033" Codepage="1252"
+             Name="XCA"
+             Manufacturer="Christian Hohnstaedt" >
+        <Package InstallerVersion="300" Compressed="yes" Id="*" Platform="x64"
+                 Keywords="Installer" Description="XCA Installer"
+                 Languages="1033" SummaryCodepage="1252"
+                 Comments="XCA - X Certificate and key management"
+                 Manufacturer="Christian Hohnstaedt" />
+
+	<MajorUpgrade Schedule="afterInstallInitialize"
+                      DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
+
+        <Media Id="1" Cabinet="xca.cab" EmbedCab="yes" />
+        <Icon Id="icon.ico" SourceFile="xca.exe"/>
+
+        <Property Id="ARPPRODUCTICON" Value="icon.ico"/>
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+
+        <WixVariable Id="WixUILicenseRtf" Value="copyright.rtf" />
+        <WixVariable Id="WixUIBannerBmp" Value="bigcert.bmp" />
+        <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
+
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFiles64Folder">
+                <Directory Id="INSTALLDIR" Name="xca" >
+                    <Directory Id="platforms" Name="platforms"/>
+                    <Directory Id="sqldrivers" Name="sqldrivers"/>
+                    <Directory Id="html" Name="html"/>
+                    <Directory Id="i18n" Name="i18n"/>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="xca"/>
+            </Directory>
+        </Directory>
+
+        <DirectoryRef Id="INSTALLDIR">
+            <Component Id="Cxca.exe" Guid="af105c5b-0333-4931-819d-ea109af1234b">
+                <File Id="xca.exe" Source="xca.exe" KeyPath="yes">
+                    <Shortcut Id="ApplicationStartMenuShortcut" Advertise="yes"
+                          Name="XCA"
+                          Description="X Certificate and key management"
+                          Directory="ApplicationProgramsFolder"/>
+                </File>
+            </Component>
+            <Component Id="Cextensions" Guid="97df41c4-624f-488b-84b8-7f1cf4018da3" KeyPath="yes">
+                <ProgId Id="XCA.Database" Description="XCA Database" Icon="xca.exe" IconIndex="1">
+                    <Extension Id="xdb" ContentType="application/x-xca-database">
+                        <Verb Id="open" Command="Open" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.Template" Description="XCA Template" Icon="xca.exe" IconIndex="2">
+                    <Extension Id="xca" ContentType="application/x-xca-template">
+                        <Verb Id="open" Command="Open" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.PEM" Description="Privacy Enhanced Mail" Icon="xca.exe" IconIndex="0">
+                    <Extension Id="pem" ContentType="application/x-pem-file">
+                        <Verb Id="openwithxca.pem" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.cer" Description="X.509 Certificate" Icon="xca.exe" IconIndex="0">
+                    <Extension Id="cer" ContentType="application/pkix-cert">
+                        <Verb Id="openwithxca.cer" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.crl" Description="X.509 Certificate Revocation List" Icon="xca.exe" IconIndex="0">
+                    <Extension Id="crl" ContentType="application/pkix-crl">
+                        <Verb Id="openwithxca.crl" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.crt" Description="X.509 Certificate" Icon="xca.exe" IconIndex="0">
+                    <Extension Id="crt" ContentType="application/x-x509-ca-cert">
+                        <Verb Id="openwithxca.crt" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.p12" Description="PKCS#12 Certificate and key" Icon="xca.exe" IconIndex="0">
+                    <Extension Id="p12" ContentType="application/x-pkcs12">
+                        <Verb Id="openwithxca.p12" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                    <Extension Id="pfx" ContentType="application/x-pkcs12">
+                        <Verb Id="openwithxca.pfx" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+                <ProgId Id="XCA.p7b" Description="X.509 Certificate" Icon="xca.exe" IconIndex="0">
+                    <Extension Id="p7b" ContentType="application/x-pkcs7-certificates">
+                        <Verb Id="openwithxca.p7b" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+            </Component>
+            <Component Id="Clibstdcpp6" Guid="0aae1734-4791-4ac1-818a-911dcdacc80f">
+                <File Id="libstdcpp6.dll" Source="libstdc++-6.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibwinpthread1" Guid="37453629-c98f-41a9-b060-fe083a1ce903">
+                <File Id="libwinpthread1.dll" Source="libwinpthread-1.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibgcc_s_seh1" Guid="f5c27ddf-a2e1-49e2-9f24-fbf97bc5cb70">
+                <File Id="libgcc_s_seh1.dll" Source="libgcc_s_seh-1.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibltdl7" Guid="b5d2f228-7605-4007-97f1-754fcf7281b8">
+                <File Id="libltdl7.dll" Source="libltdl-7.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibcrypto11x64" Guid="44133d17-96b5-4aee-8a24-9c722482add5">
+                <File Id="libcrypto11x64.dll" Source="libcrypto-1_1-x64.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQt5Core" Guid="561efd92-0fc8-4e2d-abe8-6ba16fc8bacd">
+                <File Id="Qt5Core.dll" Source="Qt5Core.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQt5Gui" Guid="2f680a70-2b2b-4b6e-9119-f53c8b5e1fe4">
+                <File Id="Qt5Gui.dll" Source="Qt5Gui.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQt5Sql" Guid="df605486-2591-4232-8799-25ad2271e3d4">
+                <File Id="Qt5Sql.dll" Source="Qt5Sql.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQt5Widgets" Guid="eff9bc63-dc01-4f44-ab1f-8447a773817b">
+                <File Id="Qt5Widgets.dll" Source="Qt5Widgets.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CDN.txt" Guid="a9c59dc2-7084-4b06-b3d5-51e3e828d13e">
+                <File Id="dn.txt" Source="dn.txt" KeyPath="yes"/>
+            </Component>
+            <Component Id="Ceku.txt" Guid="f2380e50-c83a-406d-b88f-adb66a7e4884">
+                <File Id="eku.txt" Source="eku.txt" KeyPath="yes"/>
+            </Component>
+            <Component Id="Coids.txt" Guid="d845d867-5375-46fc-b55c-7fc476f657f1">
+                <File Id="oids.txt" Source="oids.txt" KeyPath="yes"/>
+            </Component>
+            <Component Id="CCA.xca" Guid="4b4dba58-fad5-4fca-8583-e260a309b331">
+                <File Id="CA.xca" Source="CA.xca" KeyPath="yes"/>
+            </Component>
+            <Component Id="CTLS_client.xca" Guid="a5ecb91a-47e1-488a-aa3b-896a3c904d69">
+                <File Id="TLS_client.xca" Source="TLS_client.xca" KeyPath="yes"/>
+            </Component>
+            <Component Id="CTLS_server.xca" Guid="0109a989-5cd3-4754-8d13-592e792bee5c">
+                <File Id="TLS_server.xca" Source="TLS_server.xca" KeyPath="yes"/>
+            </Component>
+            <Component Id="Ccopyright.txt" Guid="49f76400-b175-4323-8cf0-fc311bff4bd5">
+                <File Id="copyright.txt" Source="copyright.txt" KeyPath="yes"/>
+            </Component>
+
+            <Component Id="Clibpq" Guid="f243d4ea-d51d-42fc-a3c0-4eb186c55d34">
+                <File Id="libpq.dll" Source="libpq.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibssl11x64" Guid="6b19ce1c-4f7e-447f-8998-9209e642a43b">
+                <File Id="libssl11x64.dll" Source="libssl-1_1-x64.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibiconv2" Guid="6ef1f17c-8771-4ace-84f0-799d53062ec1">
+                <File Id="libiconv2.dll" Source="libiconv-2.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Clibintl8" Guid="64455f86-1d00-4cac-b0ce-f1a8d0f13bce">
+                <File Id="libintl8.dll" Source="libintl-8.dll" KeyPath="yes"/>
+            </Component>
+
+            <Component Id="Clibmysql" Guid="9c9d150d-8a36-4cb7-956e-e70258227b3f">
+                <File Id="libmysql.dll" Source="libmysql.dll" KeyPath="yes"/>
+            </Component>
+
+            <Component Id="RegistryEntries" Guid="61976812-eb40-4133-8ae0-7956e9e67719">
+                <RegistryValue Id="RegInstallDir" Root="HKLM" Key="Software\xca"
+                               Name="Install_Dir64" Type="string" Value="[INSTALLDIR]"
+                               KeyPath="yes"/>
+            </Component>
+
+        </DirectoryRef>
+
+        <DirectoryRef Id="html">
+            <Component Id="Cxca10.html" Guid="503fae53-1a99-416c-94ac-07a05a31ac0a">
+                <File Id="xca10.html" Source="html/xca-10.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca11.html" Guid="d5489662-3fc4-4d65-adaf-2fa8d28c7a3f">
+                <File Id="xca11.html" Source="html/xca-11.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca12.html" Guid="afe6f4a1-997c-4079-99dd-4b631d1c9878">
+                <File Id="xca12.html" Source="html/xca-12.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca13.html" Guid="232f805f-a8fb-4241-b86c-9cb0ef759e3d">
+                <File Id="xca13.html" Source="html/xca-13.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca14.html" Guid="a71f9f28-0622-45b8-adf7-9e3deb927cf0">
+                <File Id="xca14.html" Source="html/xca-14.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca15.html" Guid="8fb1fae5-d358-469f-afa8-348a77ac0c47">
+                <File Id="xca15.html" Source="html/xca-15.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca1.html" Guid="a7c56d1d-d3a7-427f-a00e-b114e0a04cd2">
+                <File Id="xca1.html" Source="html/xca-1.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca2.html" Guid="13f43320-e9f5-4249-8478-6f5b5f3152c3">
+                <File Id="xca2.html" Source="html/xca-2.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca3.html" Guid="c5c52f04-049c-4d5c-887d-ada8afa3f29f">
+                <File Id="xca3.html" Source="html/xca-3.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca4.html" Guid="afe40d81-a77d-48c8-8bae-f6be6b7196cc">
+                <File Id="xca4.html" Source="html/xca-4.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca5.html" Guid="78bdc607-7add-45db-84f4-3e29a4361ba5">
+                <File Id="xca5.html" Source="html/xca-5.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca6.html" Guid="dfd0670c-b0fc-4192-a495-936ccaf2eefe">
+                <File Id="xca6.html" Source="html/xca-6.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca7.html" Guid="8d27dec7-0dee-423c-b4b2-2114cb5224f3">
+                <File Id="xca7.html" Source="html/xca-7.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca8.html" Guid="0b1b1639-4bff-461b-8043-a5921dde8424">
+                <File Id="xca8.html" Source="html/xca-8.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca9.html" Guid="be48562f-b7f2-445c-9778-33c82652c43d">
+                <File Id="xca9.html" Source="html/xca-9.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca.html" Guid="b0e030b5-181a-4bc9-aa3e-365e2297c183">
+                <File Id="xca.html" Source="html/xca.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cchangelog.html" Guid="5446179e-24db-4f3e-8e01-e702afe879ff">
+                <File Id="changelog.html" Source="html/changelog.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cdatabase_schema.html" Guid="70820467-7c0b-4de6-8556-2d6e3aeef14b">
+                <File Id="database_schema.html" Source="html/database_schema.html" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="i18n">
+            <Component Id="Ci18n.de" Guid="422a67f4-c583-4395-892a-ddb259efab94">
+                <File Id="xca_de.qm" Source="i18n/xca_de.qm" KeyPath="yes"/>
+                <File Id="qt_de.qm" Source="i18n/qt_de.qm"/>
+            </Component>
+            <Component Id="Ci18n.es" Guid="93826eab-0890-41f1-8856-a71a73a61480">
+                <File Id="xca_es.qm" Source="i18n/xca_es.qm" KeyPath="yes"/>
+                <File Id="qt_es.qm" Source="i18n/qt_es.qm"/>
+            </Component>
+            <Component Id="Ci18n.fr" Guid="6f7c875d-2459-467a-b03f-32f0d156689b">
+                <File Id="xca_fr.qm" Source="i18n/xca_fr.qm" KeyPath="yes"/>
+                <File Id="qt_fr.qm" Source="i18n/qt_fr.qm"/>
+            </Component>
+            <Component Id="Ci18n.hr" Guid="855d0870-9d56-4f68-8107-ce707777e502">
+                <File Id="xca_hr.qm" Source="i18n/xca_hr.qm" KeyPath="yes"/>
+            </Component>
+            <Component Id="Ci18n.pl" Guid="03434432-a47c-4678-8675-e6b2d3298308">
+                <File Id="xca_pl.qm" Source="i18n/xca_pl.qm" KeyPath="yes"/>
+                <File Id="qt_pl.qm" Source="i18n/qt_pl.qm"/>
+            </Component>
+            <Component Id="Ci18n.pt_BR" Guid="04a9731b-104e-46bf-ac99-294aa5a9e02e">
+                <File Id="xca_pt_BR.qm" Source="i18n/xca_pt_BR.qm" KeyPath="yes"/>
+                <File Id="qt_pt.qm" Source="i18n/qt_pt.qm"/>
+            </Component>
+            <Component Id="Ci18n.it" Guid="b89f1fe5-7bbc-4bbd-8df9-6c07856b609c">
+                <File Id="xca_it.qm" Source="i18n/xca_it.qm" KeyPath="yes"/>
+                <File Id="qt_it.qm" Source="i18n/qt_it.qm"/>
+            </Component>
+            <Component Id="Ci18n.ja" Guid="2aec9324-a5c5-4c4d-ab98-79ebbc94e13b">
+                <File Id="xca_ja.qm" Source="i18n/xca_ja.qm" KeyPath="yes"/>
+                <File Id="qt_ja.qm" Source="i18n/qt_ja.qm"/>
+            </Component>
+
+        </DirectoryRef>
+
+        <DirectoryRef Id="platforms">
+            <Component Id="Cqwindows" Guid="7e67d308-14e7-43ad-bb3a-fa4dad3cc1f1">
+                <File Id="qwindows.dll" Source="platforms/qwindows.dll" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="sqldrivers">
+            <Component Id="Cqsqlite" Guid="6a039415-5278-424a-99b5-fc81b959a829">
+                <File Id="qsqlite.dll" Source="sqldrivers/qsqlite.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cqsqlmysql" Guid="4cf3f2cf-8a22-4479-8ed6-24f96e8f9480">
+                <File Id="qsqlmysql.dll" Source="sqldrivers/qsqlmysql.dll"/>
+            </Component>
+            <Component Id="Cqsqlodbc" Guid="c5dca3b3-d6f1-4012-8108-5c7516bd48a9">
+                <File Id="qsqlodbc.dll" Source="sqldrivers/qsqlodbc.dll"/>
+            </Component>
+            <Component Id="Cqsqlpsql" Guid="526161ae-1023-411e-b7a1-747c93923b31">
+                <File Id="qsqlpsql.dll" Source="sqldrivers/qsqlpsql.dll"/>
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="ApplicationProgramsFolder">
+            <Component Id="ApplicationUninstall"
+                       Guid="ec8d67e2-c5ef-40e1-8bd1-691abaa5e158" KeyPath="no">
+                <Shortcut Id="UninstallXCA"
+                          Name="Uninstall XCA"
+                          Description="Uninstalls XCA"
+                          Target="[System64Folder]msiexec.exe"
+                          Arguments=" /x [ProductCode]"/>
+                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+                <RegistryValue Root="HKCU" Key="Software\xca" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+
+            </Component>
+        </DirectoryRef>
+
+        <UI>
+            <UIRef Id="WixUI_Mondo" />
+            <UIRef Id="WixUI_ErrorProgressText" />
+            <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction"
+                     Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+        </UI>
+	<Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Enjoy XCA and free Software." />
+        <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+        <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Run XCA now" />
+        <CustomAction Id="LaunchApplication"
+                      ExeCommand="[INSTALLDIR]\xca.exe"
+                      Return="asyncNoWait"
+                      Directory="INSTALLDIR"
+                      Impersonate="yes" />
+
+
+        <ComponentGroup Id="GroupBasic">
+            <ComponentRef Id="Cxca.exe" />
+            <ComponentRef Id="Cqwindows" />
+            <ComponentRef Id="Cqsqlite" />
+            <ComponentRef Id="Clibstdcpp6"/>
+            <ComponentRef Id="Clibwinpthread1"/>
+            <ComponentRef Id="Clibgcc_s_seh1"/>
+            <ComponentRef Id="Clibltdl7"/>
+            <ComponentRef Id="Clibcrypto11x64"/>
+            <ComponentRef Id="CQt5Core"/>
+            <ComponentRef Id="CQt5Gui"/>
+            <ComponentRef Id="CQt5Sql"/>
+            <ComponentRef Id="CQt5Widgets"/>
+            <ComponentRef Id="CDN.txt"/>
+            <ComponentRef Id="Ceku.txt"/>
+            <ComponentRef Id="Coids.txt"/>
+            <ComponentRef Id="CCA.xca"/>
+            <ComponentRef Id="CTLS_client.xca"/>
+            <ComponentRef Id="CTLS_server.xca"/>
+            <ComponentRef Id="Ccopyright.txt"/>
+            <ComponentRef Id="ApplicationUninstall" />
+            <ComponentRef Id="RegistryEntries" />
+        </ComponentGroup>
+        <ComponentGroup Id="GroupDocumentation">
+            <ComponentRef Id="Cxca.html"/>
+            <ComponentRef Id="Cxca10.html"/>
+            <ComponentRef Id="Cxca11.html"/>
+            <ComponentRef Id="Cxca12.html"/>
+            <ComponentRef Id="Cxca13.html"/>
+            <ComponentRef Id="Cxca14.html"/>
+            <ComponentRef Id="Cxca15.html"/>
+            <ComponentRef Id="Cxca1.html"/>
+            <ComponentRef Id="Cxca2.html"/>
+            <ComponentRef Id="Cxca3.html"/>
+            <ComponentRef Id="Cxca4.html"/>
+            <ComponentRef Id="Cxca5.html"/>
+            <ComponentRef Id="Cxca6.html"/>
+            <ComponentRef Id="Cxca7.html"/>
+            <ComponentRef Id="Cxca8.html"/>
+            <ComponentRef Id="Cxca9.html"/>
+            <ComponentRef Id="Cchangelog.html"/>
+            <ComponentRef Id="Cdatabase_schema.html"/>
+        </ComponentGroup>
+
+        <ComponentGroup Id="GroupBasicFileAssoc">
+            <ComponentGroupRef Id="GroupBasic" />
+            <ComponentRef Id="Cextensions" />
+        </ComponentGroup>
+
+        <ComponentGroup Id="GroupI18n">
+            <ComponentRef Id="Ci18n.de" />
+            <ComponentRef Id="Ci18n.es" />
+            <ComponentRef Id="Ci18n.fr" />
+            <ComponentRef Id="Ci18n.hr" />
+            <ComponentRef Id="Ci18n.pl" />
+            <ComponentRef Id="Ci18n.pt_BR" />
+            <ComponentRef Id="Ci18n.it" />
+            <ComponentRef Id="Ci18n.ja" />
+        </ComponentGroup>
+
+        <Feature Id='Complete' Title='XCA' Description="Complete Installation"
+                 Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+            <Feature Id="XCA" Title="Main Application" Level="1" Absent="disallow"
+                     Description="Contains the main application, required Qt5 libraries and the SQLite driver.">
+                <ComponentGroupRef Id="GroupBasic" />
+                <ComponentGroupRef Id="GroupI18n" />
+            </Feature>
+            <Feature Id="FileAssociations" Title="File Associations" Level="1"
+                     Description="PKI and XCA file associations like .xdb .pem .pfx .crt .crl .p12">
+                <ComponentGroupRef Id="GroupBasicFileAssoc" />
+            </Feature>
+            <Feature Id="Documentation" Title="Documentation" Level="1"
+                     Description="The HTML documentation and changelog file.">
+                <ComponentGroupRef Id="GroupDocumentation" />
+            </Feature>
+            <Feature Id="Databases" Title="Database Drivers"
+                     Description="All remote database drivers. The file based SQLite driver will be always installed." Level="1">
+                <Feature Id="SqlOdbc" Title="ODBC SQL Driver" Level="1"
+                         Description="Access to ODBC databases like Microsoft SQL Server">
+                    <ComponentGroupRef Id="GroupBasic" />
+                    <ComponentRef Id="Cqsqlodbc" />
+                </Feature>
+                <Feature Id="SqlMariaDB" Title="MySQL / MariaDB SQL Driver" Level="100"
+                         Description="Native support for MySQL and MariaDB databases. Contains 3rd party DLLs">
+                    <ComponentGroupRef Id="GroupBasic" />
+                    <ComponentRef Id="Cqsqlmysql" />
+                    <ComponentRef Id="Clibmysql" />
+                </Feature>
+                <Feature Id="SqlPostgres" Title="PostgreSQL Driver" Level="100"
+                         Description="Native support for PostgreSQL databases. Contains 3rd party DLLs">
+                    <ComponentGroupRef Id="GroupBasic" />
+                    <ComponentRef Id="Cqsqlpsql" />
+                    <ComponentRef Id="Clibpq" />
+                    <ComponentRef Id="Clibssl11x64" />
+                    <ComponentRef Id="Clibiconv2" />
+                    <ComponentRef Id="Clibintl8" />
+                </Feature>
+            </Feature>
+        </Feature>
+
+    </Product>
+</Wix>

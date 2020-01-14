@@ -19,9 +19,7 @@ Use a W32 host to execute and install the QT5 tools
 
 copy the installed tree to ./qt/
 
+Edit the Qt Version in xca-x.y.z/misc/build-w32.sh
 Now call xca-x.y.z/misc/build-w32.sh
 and wait until xca_setup.exe is built.
-
-Fix the missing System.dll in /usr/share/nsis/Plugins by
-copying it from an NSIS windows installation.
 

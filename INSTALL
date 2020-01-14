@@ -63,7 +63,6 @@ headers  :  UICs the headers in ui/ needed by other files.
 clean    :  deletes all builded files
 distclean:  deletes also Local.mak
 xca.exe  :  W32 executable (see INSTALL.w32)
-setup.exe:  W32 installer
 snapshot :  Creates a current snapshot from the local git repository
 xca.app  :  Creates the MacOSX xca.app
 xca.dmg  :  Creates the MacOSX Disk image

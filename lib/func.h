@@ -24,11 +24,13 @@ extern QString currentDB;
 
 QPixmap *loadImg(const char *name);
 int portable_app();
-QString getPrefix();
-QString getHomeDir();
-QString getLibDir();
-QString getDocDir();
-QString getUserSettingsDir();
+const QString getPrefix();
+const QString getHomeDir();
+const QString getLibDir();
+const QString getDocDir();
+const QString getUserSettingsDir();
+const QString getI18nDir();
+
 QString relativePath(QString path);
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
 const QStringList getLibExtensions();

@@ -60,12 +60,12 @@ XCA_application::XCA_application(int &argc, char *argv[])
 
 	langAvail << QLocale::system();
 	langAvail << QString("en");
-	QDirIterator qmIt(getPrefix(), QStringList() << "*.qm", QDir::Files);
+	QDirIterator qmIt(getI18nDir(), QStringList() << "*.qm", QDir::Files);
 	while (qmIt.hasNext()) {
 		XcaTranslator t;
 		qmIt.next();
 		QString language = qmIt.fileInfo().baseName().mid(4, -1);
-		if (t.load(language, "xca", getPrefix()))
+		if (t.load(language, "xca", getI18nDir()))
 			langAvail << QLocale(language);
 	}
 	setupLanguage(lang);
@@ -104,7 +104,7 @@ void XCA_application::setupLanguage(QLocale l)
 #ifdef XCA_DEFAULT_QT_TRANSLATE
 		<< XCA_DEFAULT_QT_TRANSLATE
 #endif
-		<< getPrefix()
+		<< getI18nDir()
 #ifndef WIN32
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 		<< "/usr/local/share/qt5/translations/"
@@ -123,7 +123,7 @@ void XCA_application::setupLanguage(QLocale l)
 			break;
 		}
 	}
-	xcaTr->load(lang, "xca", getPrefix());
+	xcaTr->load(lang, "xca", getI18nDir());
 	QLocale::setDefault(l);
 	installTranslator(qtTr);
 	installTranslator(xcaTr);

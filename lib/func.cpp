@@ -109,7 +109,7 @@ int portable_app()
  * (e.g. c:\Program Files\xca )
  */
 
-QString getPrefix()
+const QString getPrefix()
 {
 #if defined(Q_OS_WIN32)
 	static char inst_dir[512] = "";
@@ -174,7 +174,7 @@ static QString specialFolder(int csidl)
 }
 #endif
 
-QString getHomeDir()
+const QString getHomeDir()
 {
 #if defined(Q_OS_WIN32)
 	return portable_app() ? getPrefix() : specialFolder(CSIDL_PERSONAL);
@@ -201,7 +201,7 @@ QString relativePath(QString path)
 	return path;
 }
 
-QString getLibDir()
+const QString getLibDir()
 {
 #if defined(Q_OS_WIN32)
 	return specialFolder(CSIDL_SYSTEM);
@@ -237,9 +237,11 @@ QString getLibDir()
 #endif
 }
 
-QString getDocDir()
+const QString getDocDir()
 {
-#if defined(Q_OS_WIN32) || defined (Q_OS_MAC)
+#if defined(Q_OS_WIN32)
+	return getPrefix() + "\\html";
+#elif defined (Q_OS_MAC)
 	return getPrefix();
 #else
 	return QString(DOCDIR);
@@ -250,7 +252,7 @@ QString getDocDir()
 // user-controlled settings on the current platform
 // i.e. PROFILE\Application Data\xca on windows, HOME/.xca on UNIX,
 // ~/Library/Preferences/xca on Mac OS X
-QString getUserSettingsDir()
+const QString getUserSettingsDir()
 {
 	QString rv;
 #if defined(Q_OS_WIN32)
@@ -271,6 +273,15 @@ QString getUserSettingsDir()
 	rv = QDir::homePath() + "/.xca";
 #endif
 	return QDir::toNativeSeparators(rv);
+}
+
+const QString getI18nDir()
+{
+#if defined(Q_OS_WIN32)
+	return getPrefix() + "\\i18n";
+#else
+	return getPrefix();
+#endif
 }
 
 // Qt's open and save dialogs result in some undesirable quirks.

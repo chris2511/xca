@@ -1,4 +1,15 @@
 
 brew install pkg-config autoconf automake openssl qt libtool
 
+cd xca-2.2.0
 ./configure && make
+
+
+# Compile SQL Drivers if necessary:
+# Download Qt sources with the same version
+./configure -sql-mysql -sql-odbc -sql-psql -opensource -confirm-license \
+      MYSQL_PREFIX=/usr/local/Cellar/mysql-client/8.0.18/ \
+      MYSQL_INCDIR=/usr/local/Cellar/mysql-client/8.0.18/include/mysql/ \
+      PSQL_PREFIX=/usr/local/Cellar/postgresql/12.1 \
+      ODBC_PREFIX=/usr/local
+make -C qtbase/src/plugins/sqldrivers/
