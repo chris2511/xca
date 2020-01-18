@@ -30,8 +30,7 @@ settings::settings()
 	defaul["mandatory_dn"] = "";
 	defaul["explicit_dn"] = "C,ST,L,O,OU,CN,emailAddress";
 	defaul["string_opt"] = "MASK:0x2002";
-	defaul["workingdir"] = QDir::toNativeSeparators(portable_app() ?
-				getHomeDir() : QDir::currentPath());
+	defaul["workingdir"] = getHomeDir();
 	defaul["default_hash"] = hashBox::getDefault();
 	defaul["ical_expiry"] = "1W";
 	defaul["cert_expiry"] = "80%";

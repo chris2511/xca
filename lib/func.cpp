@@ -69,11 +69,33 @@ const QStringList getLibExtensions()
 int portable_app()
 {
 	static int portable = -1;
+	QString f1, f2;
 	if (portable == -1) {
 #if defined(Q_OS_WIN32)
+		char fname[512];
 		HKEY hKey;
-		portable = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-			KEY_WOW64_32KEY|KEY_READ, &hKey) != ERROR_SUCCESS;
+
+		if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
+		    KEY_WOW64_32KEY|KEY_READ, &hKey) == ERROR_SUCCESS)
+		{
+			unsigned char inst_dir[512];
+			ULONG len = sizeof inst_dir;
+			if (RegQueryValueEx(hKey, "Install_Dir64", NULL, NULL,
+			    inst_dir, &len) == ERROR_SUCCESS)
+			{
+				f1 = QFileInfo(QString("%1\\xca.exe")
+						.arg((char*)inst_dir))
+							.canonicalFilePath();
+			}
+		}
+		if (GetModuleFileName(0, fname, sizeof fname -1) > 0) {
+			f2 = QFileInfo(QString(fname)).canonicalFilePath();
+		}
+		/* f1 == f2 Registry entry of install dir exists and matches
+		 * path of this xca.exe -> Installed. Not the portable app
+		 */
+		portable = QDir::toNativeSeparators(f1) ==
+			   QDir::toNativeSeparators(f2) ? 0 : 1;
 #else
 		const char *p = getenv("XCA_PORTABLE");
 		portable = p && *p;
