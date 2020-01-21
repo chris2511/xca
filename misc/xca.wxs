@@ -22,7 +22,7 @@
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
         <WixVariable Id="WixUILicenseRtf" Value="copyright.rtf" />
-        <WixVariable Id="WixUIBannerBmp" Value="bigcert.bmp" />
+        <WixVariable Id="WixUIBannerBmp" Value="banner.bmp" />
         <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
 
 

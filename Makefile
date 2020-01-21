@@ -142,7 +142,7 @@ xca-$(VERSION).msi: xca-portable-$(VERSION).zip msi-installer_dir/xca.bat
 	cd xca-portable-$(VERSION) && wixl -v -o $@ $<
 
 
-msi-installer_dir: misc/xca.wxs img/bigcert.bmp img/dialog.bmp misc/copyright.rtf misc/xca.bat
+msi-installer_dir: misc/xca.wxs img/banner.bmp img/dialog.bmp misc/copyright.rtf misc/xca.bat
 	rm -f $@/* && mkdir -p $@ && cp -ra $^ $@
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
