@@ -155,6 +155,12 @@
             <Component Id="Clibintl8" Guid="64455f86-1d00-4cac-b0ce-f1a8d0f13bce">
                 <File Id="libintl8.dll" Source="libintl-8.dll" KeyPath="yes"/>
             </Component>
+            <Component Id="Cmsvcp140" Guid="00d0d452-5bd9-41f4-873c-f7e034cc4332">
+                <File Id="msvcp140.dll" Source="msvcp140.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cvcruntime140" Guid="f0b03b2a-14f7-4631-bfe3-d4c6c9b57e1d">
+                <File Id="vcruntime140.dll" Source="vcruntime140.dll" KeyPath="yes"/>
+            </Component>
 
             <Component Id="Clibmysql" Guid="9c9d150d-8a36-4cb7-956e-e70258227b3f">
                 <File Id="libmysql.dll" Source="libmysql.dll" KeyPath="yes"/>
@@ -406,6 +412,8 @@
                     <ComponentRef Id="Clibssl11x64" />
                     <ComponentRef Id="Clibiconv2" />
                     <ComponentRef Id="Clibintl8" />
+                    <ComponentRef Id="Cmsvcp140" />
+                    <ComponentRef Id="Cvcruntime140" />
                 </Feature>
             </Feature>
         </Feature>

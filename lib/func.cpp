@@ -96,6 +96,8 @@ int portable_app()
 		 */
 		portable = QDir::toNativeSeparators(f1) ==
 			   QDir::toNativeSeparators(f2) ? 0 : 1;
+		qDebug() << "Portable:" << QDir::toNativeSeparators(f1) <<
+				" != " << QDir::toNativeSeparators(f2);
 #else
 		const char *p = getenv("XCA_PORTABLE");
 		portable = p && *p;
