@@ -76,7 +76,7 @@ int portable_app()
 		HKEY hKey;
 
 		if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-		    KEY_WOW64_32KEY|KEY_READ, &hKey) == ERROR_SUCCESS)
+		    KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
 			unsigned char inst_dir[512];
 			ULONG len = sizeof inst_dir;
@@ -135,7 +135,7 @@ const QString getPrefix()
 	p = inst_dir;
 	*p = '\0';
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-		KEY_WOW64_32KEY|KEY_READ, &hKey) != ERROR_SUCCESS)
+		KEY_READ, &hKey) != ERROR_SUCCESS)
 	{
 		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE\\Software\\xca' not found");
 		return QString(inst_dir);
@@ -333,7 +333,7 @@ QString hostId()
 	HKEY hKey;
 
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, REG_CRYPTO, 0,
-			KEY_WOW64_64KEY|KEY_READ, &hKey) != ERROR_SUCCESS) {
+			KEY_READ, &hKey) != ERROR_SUCCESS) {
 		XCA_WARN("Registry Key: '" REG_CRYPTO "' not found");
 	} else {
 		if (RegQueryValueEx(hKey, REG_GUID, NULL, NULL,
