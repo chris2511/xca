@@ -377,11 +377,6 @@
             <ComponentRef Id="Cdatabase_schema.html"/>
         </ComponentGroup>
 
-        <ComponentGroup Id="GroupBasicFileAssoc">
-            <ComponentGroupRef Id="GroupBasic" />
-            <ComponentRef Id="Cextensions" />
-        </ComponentGroup>
-
         <ComponentGroup Id="GroupI18n">
             <ComponentRef Id="Ci18n.de" />
             <ComponentRef Id="Ci18n.es" />
@@ -407,7 +402,7 @@
             </Feature>
             <Feature Id="FileAssociations" Title="File Associations" Level="1"
                      Description="PKI and XCA file associations like .xdb .pem .pfx .crt .crl .p12">
-                <ComponentGroupRef Id="GroupBasicFileAssoc" />
+                <ComponentRef Id="Cextensions" />
             </Feature>
             <Feature Id="Documentation" Title="Documentation" Level="1"
                      Description="The HTML documentation and changelog file.">
@@ -417,18 +412,15 @@
                      Description="All remote database drivers. The file based SQLite driver will be always installed." Level="1">
                 <Feature Id="SqlOdbc" Title="ODBC SQL Driver" Level="1"
                          Description="Access to ODBC databases like Microsoft SQL Server">
-                    <ComponentGroupRef Id="GroupBasic" />
                     <ComponentRef Id="Cqsqlodbc" />
                 </Feature>
                 <Feature Id="SqlMariaDB" Title="MySQL / MariaDB SQL Driver" Level="100"
                          Description="Native support for MySQL and MariaDB databases. Contains 3rd party DLLs">
-                    <ComponentGroupRef Id="GroupBasic" />
                     <ComponentRef Id="Cqsqlmysql" />
                     <ComponentRef Id="Clibmysql" />
                 </Feature>
                 <Feature Id="SqlPostgres" Title="PostgreSQL Driver" Level="100"
                          Description="Native support for PostgreSQL databases. Contains 3rd party DLLs">
-                    <ComponentGroupRef Id="GroupBasic" />
                     <ComponentRef Id="Cqsqlpsql" />
                     <ComponentRef Id="Clibpq" />
                     <ComponentRef Id="Clibssl11x64" />
