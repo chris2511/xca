@@ -247,6 +247,17 @@
             <Component Id="Ci18n.hr" Guid="855d0870-9d56-4f68-8107-ce707777e502">
                 <File Id="xca_hr.qm" Source="i18n/xca_hr.qm" KeyPath="yes"/>
             </Component>
+            <Component Id="Ci18n.it" Guid="b89f1fe5-7bbc-4bbd-8df9-6c07856b609c">
+                <File Id="xca_it.qm" Source="i18n/xca_it.qm" KeyPath="yes"/>
+                <File Id="qt_it.qm" Source="i18n/qt_it.qm"/>
+            </Component>
+            <Component Id="Ci18n.ja" Guid="2aec9324-a5c5-4c4d-ab98-79ebbc94e13b">
+                <File Id="xca_ja.qm" Source="i18n/xca_ja.qm" KeyPath="yes"/>
+                <File Id="qt_ja.qm" Source="i18n/qt_ja.qm"/>
+            </Component>
+            <Component Id="Ci18n.nl" Guid="94cb15ae-de05-4de3-9544-62597dca4314">
+                <File Id="xca_nl.qm" Source="i18n/xca_nl.qm" KeyPath="yes"/>
+            </Component>
             <Component Id="Ci18n.pl" Guid="03434432-a47c-4678-8675-e6b2d3298308">
                 <File Id="xca_pl.qm" Source="i18n/xca_pl.qm" KeyPath="yes"/>
                 <File Id="qt_pl.qm" Source="i18n/qt_pl.qm"/>
@@ -255,13 +266,19 @@
                 <File Id="xca_pt_BR.qm" Source="i18n/xca_pt_BR.qm" KeyPath="yes"/>
                 <File Id="qt_pt.qm" Source="i18n/qt_pt.qm"/>
             </Component>
-            <Component Id="Ci18n.it" Guid="b89f1fe5-7bbc-4bbd-8df9-6c07856b609c">
-                <File Id="xca_it.qm" Source="i18n/xca_it.qm" KeyPath="yes"/>
-                <File Id="qt_it.qm" Source="i18n/qt_it.qm"/>
+            <Component Id="Ci18n.ru" Guid="bd5bcb5f-427a-4cb6-97fb-c96e9bbbd393">
+                <File Id="xca_ru.qm" Source="i18n/xca_ru.qm" KeyPath="yes"/>
+                <File Id="qt_ru.qm" Source="i18n/qt_ru.qm"/>
             </Component>
-            <Component Id="Ci18n.ja" Guid="2aec9324-a5c5-4c4d-ab98-79ebbc94e13b">
-                <File Id="xca_ja.qm" Source="i18n/xca_ja.qm" KeyPath="yes"/>
-                <File Id="qt_ja.qm" Source="i18n/qt_ja.qm"/>
+            <Component Id="Ci18n.sk" Guid="4311c226-7b0e-4bc8-bc8f-00366b582c18">
+                <File Id="xca_sk.qm" Source="i18n/xca_sk.qm" KeyPath="yes"/>
+                <File Id="qt_sk.qm" Source="i18n/qt_sk.qm"/>
+            </Component>
+            <Component Id="Ci18n.tr" Guid="8f1511db-618c-4b5a-b21e-ddf02ce75c21">
+                <File Id="xca_tr.qm" Source="i18n/xca_tr.qm" KeyPath="yes"/>
+            </Component>
+            <Component Id="Ci18n.zh_CN" Guid="2e2c0f43-a59e-4b3f-bd18-d13e1622f4a5">
+                <File Id="xca_zh_CN.qm" Source="i18n/xca_zh_CN.qm" KeyPath="yes"/>
             </Component>
 
         </DirectoryRef>
@@ -370,10 +387,15 @@
             <ComponentRef Id="Ci18n.es" />
             <ComponentRef Id="Ci18n.fr" />
             <ComponentRef Id="Ci18n.hr" />
-            <ComponentRef Id="Ci18n.pl" />
-            <ComponentRef Id="Ci18n.pt_BR" />
             <ComponentRef Id="Ci18n.it" />
             <ComponentRef Id="Ci18n.ja" />
+            <ComponentRef Id="Ci18n.nl" />
+            <ComponentRef Id="Ci18n.pl" />
+            <ComponentRef Id="Ci18n.pt_BR" />
+            <ComponentRef Id="Ci18n.ru" />
+            <ComponentRef Id="Ci18n.sk" />
+            <ComponentRef Id="Ci18n.tr" />
+            <ComponentRef Id="Ci18n.zh_CN" />
         </ComponentGroup>
 
         <Feature Id='Complete' Title='XCA' Description="Complete Installation"
