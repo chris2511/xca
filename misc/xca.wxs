@@ -42,12 +42,7 @@
 
         <DirectoryRef Id="INSTALLDIR">
             <Component Id="Cxca.exe" Guid="af105c5b-0333-4931-819d-ea109af1234b">
-                <File Id="xca.exe" Source="xca.exe" KeyPath="yes">
-                    <Shortcut Id="ApplicationStartMenuShortcut" Advertise="yes"
-                          Name="XCA"
-                          Description="X Certificate and key management"
-                          Directory="ApplicationProgramsFolder"/>
-                </File>
+                <File Id="xca.exe" Source="xca.exe" KeyPath="yes"/>
             </Component>
             <Component Id="Cextensions" Guid="97df41c4-624f-488b-84b8-7f1cf4018da3" KeyPath="yes">
                 <ProgId Id="XCA.Database" Description="XCA Database" Icon="xca.exe" IconIndex="1">
@@ -304,6 +299,13 @@
         </DirectoryRef>
 
         <DirectoryRef Id="ApplicationProgramsFolder">
+            <Component Id="ApplicationShortcut" Guid="391c2a6f-bfe2-46e3-bcec-0e9413070696">
+                <Shortcut Id="ApplicationStartMenuShortcut"
+                          Name="XCA"
+                          Description="X Certificate and key management"
+                          Target="[#xca.exe]"
+                          WorkingDirectory="INSTALLDIR"/>
+            </Component>
             <Component Id="ApplicationUninstall"
                        Guid="ec8d67e2-c5ef-40e1-8bd1-691abaa5e158" KeyPath="no">
                 <Shortcut Id="UninstallXCA"
@@ -311,9 +313,8 @@
                           Description="Uninstalls XCA"
                           Target="[System64Folder]msiexec.exe"
                           Arguments=" /x [ProductCode]"/>
-                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+                <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
                 <RegistryValue Root="HKCU" Key="Software\xca" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-
             </Component>
         </DirectoryRef>
 
@@ -354,6 +355,7 @@
             <ComponentRef Id="CTLS_server.xca"/>
             <ComponentRef Id="Ccopyright.txt"/>
             <ComponentRef Id="ApplicationUninstall" />
+            <ComponentRef Id="ApplicationShortcut" />
             <ComponentRef Id="RegistryEntries" />
         </ComponentGroup>
         <ComponentGroup Id="GroupDocumentation">
