@@ -30,14 +30,18 @@ APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
-OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
+OSSLSIGN=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
+
+OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
+	-pkcs11engine /usr/lib/x86_64-linux-gnu/engines-1.1/libpkcs11.so \
+	-pkcs11module /usr/lib/x86_64-linux-gnu/pkcs11-spy.so \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \
 	-t http://timestamp.comodoca.com -h sha2
+
 MAKENSIS=makensis
 
 ifeq ($(SUFFIX), .exe)
-all: setup$(SUFFIX) xca-portable.zip
-export CFLAGS_XCA_DB_STAT=-mconsole
+all: xca-portable.zip
 else
 ifneq ($(MACDEPLOYQT),)
 all: $(MACTARGET).dmg
@@ -130,19 +134,14 @@ install: xca$(SUFFIX) $(INSTTARGET)
 xca$(SUFFIX).signed: xca$(SUFFIX)
 
 %.signed: %
-	$(STRIP) $<
+	$(STRIP) $< || :
 	if test -n "$(OSSLSIGN)"; then \
-	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in "$<" -out "$@"; \
+	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in "$<" -out "$@" 2>/dev/null; \
 	else \
 	  mv "$<" "$@"; \
 	fi
 
-xca.msi: xca-$(VERSION).msi
-xca-$(VERSION).msi: xca-portable-$(VERSION).zip msi-installer_dir/xca.bat
-	cd xca-portable-$(VERSION) && wixl -v -o $@ $<
-
-
-msi-installer_dir: misc/xca.wxs img/banner.bmp img/dialog.bmp misc/copyright.rtf misc/xca.bat
+msi-installer_dir: misc/xca.wxs img/banner.bmp img/dialog.bmp img/key.ico misc/copyright.rtf misc/xca.bat
 	rm -f $@/* && mkdir -p $@ && cp -ra $^ $@
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc

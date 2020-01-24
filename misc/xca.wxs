@@ -16,15 +16,15 @@
                       DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
 
         <Media Id="1" Cabinet="xca.cab" EmbedCab="yes" />
-        <Icon Id="icon.ico" SourceFile="xca.exe"/>
+        <!-- https://docs.microsoft.com/de-de/windows/win32/msi/icon-table?redirectedfrom=MSDN -->
+        <Icon Id="icon.exe" SourceFile="xca.exe"/>
 
-        <Property Id="ARPPRODUCTICON" Value="icon.ico"/>
+        <Property Id="ARPPRODUCTICON" Value="icon.exe"/>
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
         <WixVariable Id="WixUILicenseRtf" Value="copyright.rtf" />
         <WixVariable Id="WixUIBannerBmp" Value="banner.bmp" />
         <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
-
 
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFiles64Folder">
