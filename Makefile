@@ -33,6 +33,7 @@ APPDIR=$(DMGSTAGE)/xca.app/Contents
 OSSLSIGN=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
 
 OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
+	-key "pkcs11:object=Open%20Source%20Developer%2C%20Christian%20Hohnstaedt" \
 	-pkcs11engine /usr/lib/x86_64-linux-gnu/engines-1.1/libpkcs11.so \
 	-pkcs11module /usr/lib/x86_64-linux-gnu/pkcs11-spy.so \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \
