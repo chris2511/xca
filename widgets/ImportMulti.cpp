@@ -129,10 +129,15 @@ void ImportMulti::addItem(pki_base *pki)
 		mcont->rename_token_in_database(dynamic_cast<pki_scard*>(pki));
 }
 
-void ImportMulti::openDB()
+bool ImportMulti::openDB() const
 {
-	if (!mainwin->keys)
-		mainwin->load_database();
+	if (currentDB.isEmpty()) {
+		if (mainwin->open_default_db() == 2)
+			return false;
+		if (currentDB.isEmpty())
+			mainwin->load_database();
+	}
+	return !currentDB.isEmpty();
 }
 
 void ImportMulti::dragEnterEvent(QDragEnterEvent *event)
@@ -178,7 +183,8 @@ void ImportMulti::on_butRemove_clicked()
 
 void ImportMulti::on_butOk_clicked()
 {
-	openDB();
+	if (!openDB())
+		return;
 
 	Transaction;
 	if (!TransBegin())
@@ -196,7 +202,8 @@ void ImportMulti::on_butImport_clicked()
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 
-	openDB();
+	if (!openDB())
+		return;
 
 	Transaction;
 	if (!TransBegin())
@@ -385,8 +392,7 @@ void ImportMulti::execute(int force, QStringList failed)
 		return;
 	}
 	/* if there is only 1 item and force is 0 import it silently */
-	if (entries() == 1 && force == 0) {
-		openDB();
+	if (entries() == 1 && force == 0 && openDB()) {
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
 		pki_base *pki = import(idx);
 		if (pki && !Settings["suppress_messages"])
