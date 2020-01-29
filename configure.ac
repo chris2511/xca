@@ -12,6 +12,9 @@ AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 AC_CHECK_TOOL(WINDRES, [windres], [:])
 
+VERSIONNODOT="$(IFS='.'; for x in $PACKAGE_VERSION; do printf "%02d" ${x%-*}; done)"
+AC_SUBST([VERSIONNODOT])
+
 if test -d "$INSTALL_DIR"; then
   AC_MSG_NOTICE([Using INSTALL_DIR $INSTALL_DIR])
   test -d "${INSTALL_DIR}/include" && CXXFLAGS="${CXXFLAGS} -I${INSTALL_DIR}/include"
@@ -272,5 +275,6 @@ fi
 ############################################
 AC_CONFIG_HEADERS(local.h)
 AC_CONFIG_LINKS(Makefile:Makefile)
-AC_OUTPUT([Local.mak])
-AC_OUTPUT([misc/Info.plist])
+AC_CONFIG_FILES([Local.mak misc/Info.plist misc/variables.wxi])
+
+AC_OUTPUT
