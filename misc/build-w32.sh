@@ -49,7 +49,7 @@ do_XCA()
   cd $XCA_BUILD
   $XCA_DIR/configure --host ${HOST} --with-qt=${INSTALL_DIR}/../qt/5.12.0
   make -j5 USE_HOSTTOOLS=no
-  cp xca-portable*.zip ..
+  cp xca-portable*.zip msi-installer-dir*.zip ..
 )}
 
 XCA_BUILD="`pwd`"/xca_build

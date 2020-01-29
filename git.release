@@ -70,7 +70,7 @@ cp xca-$TVERSION.tar.gz "$releasedir"
 (
   cd ..
   "./xca-$TVERSION/misc/build-w32.sh"
-  cp "xca-portable-${TVERSION}.zip" "$releasedir"
+  cp "xca-portable-${TVERSION}.zip" msi-installer-dir-${TVERSION}.zip "$releasedir"
 )
 
 ls -la  "$releasedir"

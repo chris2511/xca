@@ -42,7 +42,7 @@ OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
 MAKENSIS=makensis
 
 ifeq ($(SUFFIX), .exe)
-all: xca-portable.zip
+all: xca-portable.zip msi-installer-dir.zip
 else
 ifneq ($(MACDEPLOYQT),)
 all: $(MACTARGET).dmg
@@ -102,8 +102,8 @@ clean:
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
 	rm -f commithash.h misc/oids.txt
-	rm -f xca$(SUFFIX) setup_xca*.exe *.dmg xca-portable*.zip xca*.msi
-	rm -rf xca-$(VERSION)*
+	rm -f xca$(SUFFIX) *.dmg xca-portable*.zip msi-installer-dir*.zip xca*.msi
+	rm -rf xca-$(VERSION)* msi-installer-dir-$(VERSION)* xca-portable-$(VERSION)*
 
 distclean: clean
 	rm -f local.h Local.mak config.log config.status misc/Info.plist
@@ -142,7 +142,7 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 	  mv "$<" "$@"; \
 	fi
 
-msi-installer_dir: misc/xca.wxs misc/xca.bat misc/variables.wxi img/banner.bmp img/dialog.bmp img/key.ico misc/copyright.rtf
+msi-installer-dir-$(VERSION): misc/xca.wxs misc/xca.bat misc/variables.wxi img/banner.bmp img/dialog.bmp img/key.ico misc/copyright.rtf
 	rm -f $@/* && mkdir -p $@ && cp -ra $^ $@
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
@@ -164,7 +164,8 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 
 
 xca-portable.zip: xca-portable-$(VERSION).zip
-xca-portable-$(VERSION).zip: xca-portable-$(VERSION)
+msi-installer-dir.zip: msi-installer-dir-$(VERSION).zip
+%-$(VERSION).zip: %-$(VERSION)
 	zip -r $@ $^
 
 $(DMGSTAGE): xca$(SUFFIX)
@@ -197,7 +198,7 @@ trans:
 	lupdate -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip msi-installer-dir.zip
 
 do.doc do.lang headers: local.h
 
