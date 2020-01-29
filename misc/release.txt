@@ -5,25 +5,13 @@ Release schedule cheat sheet
 - Check
    - ign_openssl_error()
    - for TRACE
-   - xca.nsi -> lzma
-
 
 - update translation and xca.pro (qmake-qt4 -o makefile && make)
-- update VERSION, changelog.txt and README.md
-- git tag -a RELEASE.${VERSION}
-- make TVERSION=${VERSION} dist
-- try to compile xca-${VERSION}.tar.gz (again)
-- build windows setup.exe
-- (create releasenotes.txt)
-- git push git.hohnstaedt.de; git push sf.net; git push github
-- upload to sf.net: setup.exe xca.tar.gz changelog.txt releasenotes.txt
+- update changelog.txt doc/xca.sgml and README.md
+- ./git.release VERSION
+- Create xca.dmg
+- Create and sign MSI Installer
+- git push git.hohnstaedt.de
 - update xca.hohnstaedt.de:
-   o md5sums
-   o Current version
-   o changelog
-  scp changelog  git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
-- write release-mail to xca mailinglist
-- update info on freshmeat.net, heise.de
-
-
-
+  scp changelog git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
+- update info on heise.de

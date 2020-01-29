@@ -1,3 +1,5 @@
+ * Switch to MSI installer
+ * Close #129 Unattended Installation
  * Rename HTTPS templates to TLS and support KU/EKU extensions needed by OpenVPN
  * Close #93 Default output folder / Improve Portable App usability
  * Improve EC Curve selection for key generation.

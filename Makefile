@@ -142,7 +142,7 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 	  mv "$<" "$@"; \
 	fi
 
-msi-installer_dir: misc/xca.wxs img/banner.bmp img/dialog.bmp img/key.ico misc/copyright.rtf misc/xca.bat
+msi-installer_dir: misc/xca.wxs misc/xca.bat misc/variables.wxi img/banner.bmp img/dialog.bmp img/key.ico misc/copyright.rtf
 	rm -f $@/* && mkdir -p $@ && cp -ra $^ $@
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
