@@ -119,7 +119,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		{
 			return resolver;
 		}
-		static void Error(errorEx &err);
+		static void Error(const errorEx &err);
 		static void dbSqlError(QSqlError err = QSqlError());
 
 		void cmd_version();

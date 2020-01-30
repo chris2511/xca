@@ -763,7 +763,7 @@ int MainWindow::initPass(QString dbName, QString passhash)
 	return 1;
 }
 
-void MainWindow::Error(errorEx &err)
+void MainWindow::Error(const errorEx &err)
 {
 	if (err.isEmpty())
 		 return;

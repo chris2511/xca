@@ -35,6 +35,7 @@ QSqlError MainWindow::initSqlDB()
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
 	QStringList tables;
+	unsigned int i;
 
 	if (!db.isOpen())
 		return QSqlError();
@@ -44,7 +45,7 @@ QSqlError MainWindow::initSqlDB()
 		return db.lastError();
 
 	for (;;) {
-		unsigned int i = XSqlQuery::schemaVersion();
+		i = XSqlQuery::schemaVersion();
 		if (i >= ARRAY_SIZE(schemas))
 			break;
 		foreach(QString sql, schemas[i]) {
@@ -55,6 +56,9 @@ QSqlError MainWindow::initSqlDB()
 			}
 		}
 	}
+
+	if (i != MAX_SCHEMAS)
+		Error(errorEx(tr("Failed to update the database schema to the current version")));
 
 	TransCommit();
 	return QSqlError();
