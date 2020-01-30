@@ -6,7 +6,7 @@ export dir="$1"
 (
   head -n -2
   test -z "$dir" || cd $dir
-  sha256sum * | while read md file; do
+  sha256sum *xca* | while read md file; do
    echo '  "'$file'":"'$md'",'
   done
   cat <<-EOF

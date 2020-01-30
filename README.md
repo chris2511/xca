@@ -2,11 +2,8 @@
 
 ## __Release Notes__
 
- * This is a minor release, addressing 21 bugs and feature requests
- * Most notable improvements:
-   1. Support concurrent database access
-   2. Support ODBC database driver and Microsoft SQL Server
-   3. Switch to MSI installer on Windows
+ * This is a patch release, fixing *Issue #159: "Opening existing database"*
+   which prevented the current version opening databases of XCA 2.1.2
  * Since version 2 of XCA the database format changed to SQL
    Don't try to open it with older versions of XCA (< 1.4.0).
    They will corrupt the database.

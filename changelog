@@ -1,3 +1,5 @@
+ * Close #159 Opening existing database
+
 xca 2.2.0 Wed Jan 29 2020
 
  * Switch to MSI installer
