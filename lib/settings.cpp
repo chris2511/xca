@@ -54,6 +54,7 @@ void settings::clear()
 
 void settings::setAction(const QString &key, const QString &value)
 {
+	qDebug() << "Settings::setAction(" << key << ", " << value << ")";
 	if (key == "string_opt")
 		ASN1_STRING_set_default_mask_asc((char*)CCHAR(value));
 	else if (key == "default_hash")
@@ -104,7 +105,13 @@ void settings::load_settings()
 
 QString settings::get(QString key)
 {
+//	const QString schema = "schema";
 	load_settings();
+	if (key == "schema" && QSqlDatabase::database().isOpen()) {
+		XSqlQuery q("SELECT value FROM settings WHERE key_='schema'");
+		if (q.first())
+			setAction("schema", q.value(0).toString());
+	}
 	return values.contains(key) ? values[key] : QString();
 }
 
