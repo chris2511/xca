@@ -684,12 +684,12 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     <message>
         <location line="+22"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar clave pública</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>La clave no existe en la base de datos.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -709,7 +709,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     <message>
         <location line="+27"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Revocado el %1</translation>
     </message>
     <message>
         <source>Revoked: </source>
@@ -806,7 +806,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     <message>
         <location line="+10"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantener el número de serie</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -1038,7 +1038,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     <message>
         <location line="+65"/>
         <source>Export comment into PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar comentarios al archivo</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -1390,7 +1390,7 @@ Nº serie: %3</translation>
     <message>
         <location line="+28"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Huella</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1685,27 +1685,27 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     <message>
         <location line="-7"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polaco</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Italiano</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chino</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Holandés</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugués de Brasil</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1747,17 +1747,17 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     <message>
         <location line="-11"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Base de datos</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir Base de datos</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar Base de datos</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1817,17 +1817,17 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     <message>
         <location line="+3"/>
         <source>Token</source>
-        <translation type="unfinished">Token</translation>
+        <translation>Token</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar jerarquía del &amp;Indice de Certificados</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Content</source>
-        <translation type="unfinished">Contenido</translation>
+        <translation>Contenido</translation>
     </message>
     <message>
         <source>&amp;Token</source>
@@ -2026,7 +2026,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     <message>
         <location line="-31"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros Diffie-Hellman guardados como: %1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -3425,22 +3425,22 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al abrir la librería PKCS11: %1 %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>No parece una librería PKCS#11. Símbolo &apos;C_GetFunctionList&apos; no encontrado.</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Deshabilitado</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Library loading failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error cargando librería</translation>
     </message>
     <message>
         <location line="+185"/>
@@ -3490,12 +3490,12 @@ In library %3
     <message>
         <location line="+2"/>
         <source>Unmark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Desmarcar firmado</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcar firmado</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3528,7 +3528,7 @@ In library %3
     <message>
         <location filename="../widgets/RevocationList.cpp" line="+73"/>
         <source>No.</source>
-        <translatorcomment>I understand it as &apos;Number&apos;, right?</translatorcomment>
+        <translatorcomment>I understand it as &apos;Number&apos;, right?  MRM: Right: that&apos;s the spanish &apos;Number&apos; abbreviation</translatorcomment>
         <translation>Nº</translation>
     </message>
     <message>
@@ -3778,7 +3778,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>No.</source>
-        <translatorcomment>I understand it as &apos;Number&apos;, right?</translatorcomment>
+        <translatorcomment>I understand it as &apos;Number&apos;, right?  MRM: Right: that&apos;s the spanish &apos;Number&apos; abbreviation</translatorcomment>
         <translation>Nº</translation>
     </message>
     <message>
@@ -3824,7 +3824,7 @@ In library %3
     <message>
         <location line="+205"/>
         <source>Could not create directory %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo crear el directorio %1</translation>
     </message>
     <message>
         <location line="+251"/>
@@ -3942,7 +3942,7 @@ Y por lo tanto no será importada</translation>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de base de datos: %1</translation>
     </message>
     <message>
         <source>Database error: </source>
@@ -3998,7 +3998,9 @@ Y será completada con la nueva parte privada de la clave</translation>
         <source>The database already contains the public part of the imported key as
 &apos;%1
 and will be completed by the new, private part of the key</source>
-        <translation type="unfinished"></translation>
+        <translation>La base de datos ya contiene la parte pública de la clave importada como
+&apos;%1&apos;
+y será completada con la nueva parte privada de la clave</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4302,7 +4304,7 @@ Y por lo tanto no será importado</translation>
     <message>
         <location line="+352"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>Días</translation>
     </message>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
@@ -4371,12 +4373,12 @@ Y por lo tanto no será importado</translation>
     <message>
         <location line="+2"/>
         <source>Certificate count</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de certificados</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of certificates in the database with the same public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de certificados en base de datos con la misma clave pública</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -4528,7 +4530,7 @@ y por lo tanto no será almacenada</translation>
     <message>
         <location line="+1"/>
         <source>Renewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Renovado</translation>
     </message>
 </context>
 <context>
@@ -4594,7 +4596,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al desencriptar la clave (contraseña erronea) %1</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4604,7 +4606,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
     <message>
         <location line="+55"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
-        <translation type="unfinished"></translation>
+        <translation>La clave del fichero &apos;%1&apos; está incompleta o es inconsistente.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4727,7 +4729,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <location line="+96"/>
         <location line="+94"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Contenido SSH2 inesperado: &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="-74"/>
