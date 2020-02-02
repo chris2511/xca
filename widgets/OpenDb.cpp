@@ -58,7 +58,7 @@ void OpenDb::driver_selected()
 		dbName_label->setText(tr("Database name"));
 }
 
-DbMap OpenDb::splitRemoteDbName(QString db)
+DbMap OpenDb::splitRemoteDbName(const QString &db)
 {
 	static const char * const names[NUM_PARAM] =
 		{ "all", "user", "host", "type", "dbname", "prefix" };
@@ -79,13 +79,13 @@ DbMap OpenDb::splitRemoteDbName(QString db)
 	return map;
 }
 
-bool OpenDb::isRemoteDB(QString db)
+bool OpenDb::isRemoteDB(const QString &db)
 {
 	DbMap remote_param = splitRemoteDbName(db);
 	return remote_param.size() == NUM_PARAM;
 }
 
-void OpenDb::fillDbDropDown(QString current)
+void OpenDb::fillDbDropDown(const QString &current)
 {
 	DbMap databases = getDatabases();
 	dbType->clear();
@@ -100,7 +100,7 @@ void OpenDb::fillDbDropDown(QString current)
 	}
 }
 
-void OpenDb::setupDatabaseName(QString db)
+void OpenDb::setupDatabaseName(const QString &db)
 {
 	if (!isRemoteDB(db))
 		return;
@@ -114,12 +114,12 @@ void OpenDb::setupDatabaseName(QString db)
 	fillDbDropDown(remote_param["type"]);
 }
 
-OpenDb::OpenDb(QWidget *parent, QString db)
+OpenDb::OpenDb(QWidget *parent, const QString &db)
 	:QDialog(parent)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	fillDbDropDown();
+	fillDbDropDown(QString());
 
 	if (isRemoteDB(db)) {
 		setupDatabaseName(db);
@@ -202,7 +202,7 @@ void OpenDb::openDatabase() const
 	}
 }
 
-bool OpenDb::_openDatabase(QString connName, QString pass) const
+bool OpenDb::_openDatabase(const QString &connName, const QString &pass) const
 {
 	QSqlDatabase db = QSqlDatabase::database(connName, false);
 
@@ -253,7 +253,7 @@ QString OpenDb::getDescriptor() const
 			.arg(pref);
 }
 
-void OpenDb::setLastRemote(QString db)
+void OpenDb::setLastRemote(const QString &db)
 {
 	if (isRemoteDB(db))
 		lastRemote = db;

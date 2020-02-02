@@ -21,21 +21,21 @@ class OpenDb: public QDialog, public Ui::OpenDb
 	static DbMap getDatabases();
 	static QString lastRemote;
 	bool sqlite, show_connection_settings;
-	bool _openDatabase(QString connName, QString pass) const;
-	void setupDatabaseName(QString db);
+	bool _openDatabase(const QString &connName, const QString &pass) const;
+	void setupDatabaseName(const QString &db);
 	QString getDbType() const;
-	void fillDbDropDown(QString current = QString());
+	void fillDbDropDown(const QString &current);
 
     public:
-	OpenDb(QWidget *parent, QString db);
+	OpenDb(QWidget *parent, const QString &db);
 	void openDatabase() const;
 	QString getDescriptor() const;
 	static bool hasSqLite();
 	static void checkSqLite();
 	static bool hasRemoteDrivers();
-	static bool isRemoteDB(QString db);
-	static DbMap splitRemoteDbName(QString db);
-	static void setLastRemote(QString db);
+	static bool isRemoteDB(const QString &db);
+	static DbMap splitRemoteDbName(const QString &db);
+	static void setLastRemote(const QString &db);
 
     public slots:
 	int exec();
