@@ -13,11 +13,6 @@
 #include <QString>
 #include <QValidator>
 
-#ifdef __FreeBSD__
-#include <sys/socket.h>
-#include <netinet/in.h>
-#endif
-
 /* Validating IPv4/6 is not as trivial as thought.
  * - The QHostAddress class requires the network library
  *   and i don't want to add many megabytes for this validator
@@ -29,6 +24,9 @@
  *   So we reduce the validation on windows to the RegEx
  */
 #if !defined(Q_OS_WIN32)
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
 unsigned char buf[sizeof(struct in6_addr)];
 #else
