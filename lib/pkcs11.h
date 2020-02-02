@@ -17,18 +17,22 @@
 #include <ltdl.h>
 
 #include "pk11_attribute.h"
+#include "func.h"
 
 #define WAITCURSOR_START do { QApplication::setOverrideCursor(QCursor(Qt::WaitCursor)); ign_openssl_error(); } while(0);
 #define WAITCURSOR_END do { QApplication::restoreOverrideCursor(); ign_openssl_error(); } while(0);
 
+extern char segv_data[1024];
 #define CALL_P11_C(l, func, ...) do { \
 	snprintf(segv_data, sizeof segv_data, "Crashed in %s in %s from %s:%d\n" \
 		"This looks like a bug in the PKC#11 library and not in XCA\n", \
 		#func, CCHAR((l)->filename()), __func__, __LINE__); \
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor)); \
+	if (IS_GUI_APP) \
+		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor)); \
 	rv = l->ptr()->func(__VA_ARGS__); \
 	segv_data[0] = 0; \
-	QApplication::restoreOverrideCursor(); \
+	if (IS_GUI_APP) \
+		QApplication::restoreOverrideCursor(); \
 	ign_openssl_error(); \
 } while(0);
 

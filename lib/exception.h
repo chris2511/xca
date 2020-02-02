@@ -27,6 +27,11 @@ class errorEx
 				msg += " (" + className + ")";
 			info = inf;
 		}
+		errorEx(int inf)
+		{
+			info = inf;
+			msg.clear();
+		}
 		errorEx(const errorEx &e)
 		{
 			msg = e.msg;

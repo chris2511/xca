@@ -432,7 +432,7 @@
        </attribute>
        <layout class="QHBoxLayout">
         <item>
-         <widget class="XcaTreeView" name="crlView"/>
+         <widget class="CrlTreeView" name="crlView"/>
         </item>
         <item>
          <widget class="QFrame" name="crlButtons">
@@ -554,6 +554,11 @@
     <slot>loadPKCS7()</slot>
     <slot>changeView()</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>CrlTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/CrlTreeView.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

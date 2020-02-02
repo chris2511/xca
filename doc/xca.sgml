@@ -221,7 +221,7 @@ XCA seeds it very thoroughly.
     all say it does not harm.
     <itemize>
       <item>XCA collects entropy by mouse and keyboard events and its timing.
-            (See <tt>main.cpp: bool XCA_application::eventFilter()</tt>)
+            (<tt>XcaApplication.cpp: bool XcaApplication::eventFilter()</tt>)
             We are on a desktop host after all.
       <item>256bit from <tt>/dev/urandom</tt> (unix/Mac)
     </itemize>

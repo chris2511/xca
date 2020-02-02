@@ -111,7 +111,7 @@ static void insert_new_oid(const QStringList &sl, QString fname, int line)
 			errorEx err(errorEx(e.getString() +
 				QString("%1:%2 OID: %3")
 				.arg(fname).arg(line).arg(oid.constData())));
-			MainWindow::Error(err);
+			XCA_ERROR(err);
 		}
 	}
 }

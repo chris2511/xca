@@ -41,6 +41,7 @@ class pki_x509req : public pki_x509super
 		x509name getSubject() const;
 		void writeReq(XFile &file, bool pem) const;
 		void markSigned(bool signe);
+		void print(FILE *fp) const;
 		X509_REQ *getReq()
 		{
 			return request;

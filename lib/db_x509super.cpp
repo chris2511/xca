@@ -7,14 +7,15 @@
 
 #include "pki_base.h"
 #include "db_x509super.h"
+#include "database_model.h"
 #include "widgets/MainWindow.h"
 #include "widgets/CertDetail.h"
 #include "widgets/XcaDialog.h"
 #include "oid.h"
 #include <QMessageBox>
 
-db_x509name::db_x509name(MainWindow *mw)
-	:db_base(mw)
+db_x509name::db_x509name(database_model *parent)
+	:db_base(parent)
 {
 }
 
@@ -31,8 +32,8 @@ dbheaderList db_x509name::getHeaders()
 	return h;
 }
 
-db_x509super::db_x509super(MainWindow *mw)
-	:db_x509name(mw)
+db_x509super::db_x509super(database_model *parent)
+	:db_x509name(parent)
 {
 	pkitype_depends << asym_key << smartCard;
 }
@@ -95,6 +96,7 @@ dbheaderList db_x509super::getHeaders()
 
 pki_key *db_x509super::findKey(pki_x509super *ref)
 {
+	db_key *keys = models()->model<db_key>();
 	pki_key *key, *refkey;
 	if (!ref)
 		return NULL;
@@ -103,10 +105,9 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	refkey = ref->getPubKey();
 	if (!refkey)
 		return NULL;
-	key = (pki_key *)mainwin->keys->getByReference(refkey);
+	key = dynamic_cast<pki_key *>(keys->getByReference(refkey));
 	ref->setRefKey(key);
-	delete(refkey);
-
+	delete refkey;
 	return key;
 }
 
@@ -126,6 +127,7 @@ QList<pki_x509super *> db_x509super::findByPubKey(pki_key *refkey)
 
 void db_x509super::extractPubkey(QModelIndex index)
 {
+	db_key *keys = models()->model<db_key>();
 	pki_key *key;
 	pki_x509super *pki = static_cast<pki_x509super*>
 				(index.internalPointer());
@@ -140,7 +142,7 @@ void db_x509super::extractPubkey(QModelIndex index)
 		.arg(pki->getType() == x509 ?
 			tr("Certificate") : tr("Certificate request"))
 		.arg(pki->getIntName()));
-	key = (pki_key*)mainwin->keys->insert(key);
+	key = dynamic_cast<pki_key*>(keys->insert(key));
 	if (!key)
 		return;
 	if (Settings["suppress_messages"])
@@ -165,8 +167,9 @@ void db_x509super::toOpenssl(QModelIndex index) const
 
 void db_x509super::toTemplate(QModelIndex index)
 {
+	db_temp *temps = models()->model<db_temp>();
 	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
-	if (!pki)
+	if (!pki || !temps)
 		return;
 
 	try {
@@ -192,15 +195,16 @@ void db_x509super::toTemplate(QModelIndex index)
 			.arg(pki->getType() == x509 ?
 				tr("Certificate") : tr("Certificate request"))
 			.arg(pki->getIntName()));
-		createSuccess(mainwin->temps->insert(temp));
+		createSuccess(temps->insert(temp));
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 }
 
 void db_x509super::showPki(pki_base *pki)
 {
+	db_key *keys = models()->model<db_key>();
 	pki_x509super *x = dynamic_cast<pki_x509super *>(pki);
 	if (!x)
 		return;
@@ -216,12 +220,12 @@ void db_x509super::showPki(pki_base *pki)
 			return;
 	}
 	connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-		mainwin->keys, SLOT(showItem(QString)));
+		keys, SLOT(showItem(QString)));
 	connect(dlg->signature, SIGNAL(doubleClicked(QString)),
 		this, SLOT(showItem(QString)));
 	connect(this, SIGNAL(pkiChanged(pki_base*)),
 		dlg, SLOT(itemChanged(pki_base*)));
-	connect(mainwin->keys, SIGNAL(pkiChanged(pki_base*)),
+	connect(keys, SIGNAL(pkiChanged(pki_base*)),
 		dlg, SLOT(itemChanged(pki_base*)));
 	if (dlg->exec()) {
 		QString newname = dlg->descr->text();

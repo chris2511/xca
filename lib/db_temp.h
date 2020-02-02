@@ -22,7 +22,7 @@ class db_temp: public db_x509name
 	QList<pki_temp*> predefs;
 
     public:
-	db_temp(MainWindow *mw);
+	db_temp(database_model *parent);
 	~db_temp();
 	pki_base *newPKI(enum pki_type type = none);
 	bool runTempDlg(pki_temp *temp);

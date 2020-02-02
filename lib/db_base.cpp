@@ -8,6 +8,7 @@
 #include "db_base.h"
 #include "func.h"
 #include "exception.h"
+#include "database_model.h"
 #include <QMessageBox>
 #include <QListView>
 #include <QClipboard>
@@ -15,6 +16,7 @@
 #include <QDebug>
 #include <QMimeData>
 #include "widgets/MainWindow.h"
+#include "widgets/XcaApplication.h"
 #include "widgets/ImportMulti.h"
 #include "widgets/XcaDialog.h"
 #include "ui_ItemProperties.h"
@@ -24,6 +26,8 @@ QHash<quint64, pki_base*> db_base::lookup;
 
 void db_base::restart_timer()
 {
+	if (!IS_GUI_APP)
+		return;
 	killTimer(secondsTimer);
 	killTimer(minutesTimer);
 	killTimer(hoursTimer);
@@ -33,12 +37,11 @@ void db_base::restart_timer()
 	hoursTimer = startTimer(MSECS_PER_HOUR);
 }
 
-db_base::db_base(MainWindow *mw)
-	:QAbstractItemModel(NULL)
+db_base::db_base(database_model *parent)
+	:QAbstractItemModel(parent)
 {
 	rootItem = newPKI();
 	rootItem->setIntName(rootItem->getClassName());
-	mainwin = mw;
 	colResizing = 0;
 	class_name = "base";
 	secondsTimer = minutesTimer = hoursTimer = 0;
@@ -49,6 +52,11 @@ db_base::~db_base()
 {
 	saveHeaderState();
 	delete rootItem;
+}
+
+database_model *db_base::models()
+{
+	return dynamic_cast<database_model*>(QObject::parent());
 }
 
 pki_base *db_base::newPKI(enum pki_type type)
@@ -103,7 +111,7 @@ XSqlQuery db_base::sqlSELECTpki(QString query, QList<QVariant> values)
 		q.bindValue(i, values[i]);
 	}
 	q.exec();
-	MainWindow::dbSqlError(q.lastError());
+	XCA_SQLERROR(q.lastError());
 	return q;
 }
 
@@ -116,7 +124,7 @@ void db_base::loadContainer()
 	SQL_PREPARE(q, QString("SELECT * FROM view_") + sqlHashTable);
 	q.exec();
 	e = q.lastError();
-	mainwin->dbSqlError(e);
+	XCA_SQLERROR(e);
 
 	while (q.next()) {
 		enum pki_type t;
@@ -248,7 +256,7 @@ void db_base::insertPKI(pki_base *pki)
 		return;
 	QSqlError e = pki->insertSql();
 	if (e.isValid()) {
-		mainwin->dbSqlError(e);
+		XCA_SQLERROR(e);
 		TransRollback();
 		return;
 	}
@@ -300,7 +308,7 @@ void db_base::deletePKI(QModelIndex idx)
 		try {
 			pki->deleteFromToken();
 		} catch (errorEx &err) {
-			MainWindow::Error(err);
+			emit errorThrown(err);
 		}
 		Transaction;
 		if (TransBegin()) {
@@ -309,10 +317,10 @@ void db_base::deletePKI(QModelIndex idx)
 			if (!e.isValid())
 				remFromCont(idx);
 			AffectedItems(pki->getSqlItemId());
-			mainwin->dbSqlError(e);
+			XCA_SQLERROR(e);
 		}
 	} catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 	}
 }
 
@@ -398,7 +406,7 @@ void db_base::dump(const QString &dir) const
 		}
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 }
 
@@ -476,7 +484,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::TextAlignmentRole:
 			return hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
 		case Qt::FontRole:
-			return QVariant(XCA_application::tableFont);
+			return QVariant(XcaApplication::tableFont);
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:
@@ -563,9 +571,8 @@ void db_base::updateItem(pki_base *pki, QString name, QString comment)
 	q.exec();
 	e = q.lastError();
 	AffectedItems(pki->getSqlItemId());
-	mainwin->dbSqlError(e);
-	if (e.isValid())
-		return;
+
+	XCA_SQLERROR(e);
 	TransDone(e);
 	pki->setIntName(name);
 	pki->setComment(comment);
@@ -665,7 +672,7 @@ void db_base::load_default(load_base &load)
 			dlgi->addItem(item);
 		}
 		catch (errorEx &err) {
-			MainWindow::Error(err);
+			emit errorThrown(err);
 			delete item;
 		}
 	}
@@ -679,8 +686,8 @@ void db_base::store(QModelIndexList indexes)
 
 	xcaWarning msg(mainwin, tr("How to export the %1 selected items").
 				arg(indexes.size()));
-	msg.addButton(QMessageBox::Ok)->setText(tr("All in one PEM file"));
-	msg.addButton(QMessageBox::Apply)->setText(tr("Each item in one file"));
+	msg.addButton(QMessageBox::Ok, tr("All in one PEM file"));
+	msg.addButton(QMessageBox::Apply, tr("Each item in one file"));
 	msg.addButton(QMessageBox::Cancel);
 	ret = msg.exec();
 	if (ret == QMessageBox::Apply) {
@@ -706,7 +713,7 @@ void db_base::store(QModelIndexList indexes)
 		file.write(pem.toLatin1());
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 	}
 }
 

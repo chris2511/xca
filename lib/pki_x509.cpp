@@ -72,6 +72,16 @@ QString pki_x509::getMsg(msg_type msg) const
 	return pki_base::getMsg(msg);
 }
 
+void pki_x509::resetX509ReqCount() const
+{
+	QList<pki_x509req *> reqs = db_base::sqlSELECTpki<pki_x509req>(
+		"SELECT item FROM x509super WHERE key_hash=?",
+		QList<QVariant>() << QVariant(pubHash()));
+
+	foreach(pki_x509req *req, reqs)
+		req->resetX509count();
+}
+
 QSqlError pki_x509::insertSqlData()
 {
 	XSqlQuery q;
@@ -92,7 +102,9 @@ QSqlError pki_x509::insertSqlData()
 	q.bindValue(5, (int)isCA());
 	q.bindValue(6, i2d_b64());
 	q.exec();
-	MainWindow::reqs->resetX509count();
+
+	resetX509ReqCount();
+
 	if (!isCA())
 		return q.lastError();
 
@@ -146,17 +158,17 @@ QSqlError pki_x509::deleteSqlData()
 			return e;
 	}
 	// Select affected items
-	QList<pki_base*> list = db_base::sqlSELECTpki<pki_base>(
+	q = db_base::sqlSELECTpki(
 		"SELECT DISTINCT items.id FROM items, certs, crls "
 		"WHERE (items.id = certs.item OR items.id = crls.item) "
 		"AND crls.issuer = ? AND certs.issuer = ?",
 		QList<QVariant>() << QVariant(sqlItemId)
 				  << QVariant(sqlItemId));
 
-	foreach(pki_base *pki, list)
-		AffectedItems(pki->getSqlItemId());
+	while (q.next())
+		AffectedItems(q.value(0));
 
-	MainWindow::reqs->resetX509count();
+	resetX509ReqCount();
 	return q.lastError();
 }
 
@@ -951,6 +963,12 @@ QStringList pki_x509::icsVEVENT() const
 	);
 }
 
+void pki_x509::print(FILE *fp) const
+{
+	pki_base::print(fp);
+	X509_print_fp(fp, cert);
+}
+
 QStringList pki_x509::icsVEVENT_ca() const
 {
 	QStringList ics;
@@ -986,8 +1004,7 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 			return QVariant();
 		if (!ca)
 			return QVariant();
-		pixnum = 4;
-		break;
+		return QVariant(QPixmap(":doneIco"));
 	case HD_internal_name:
 		if (hasPrivKey())
 			pixnum += 1;

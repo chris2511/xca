@@ -12,7 +12,8 @@
 #include "ui_NewX509.h"
 #include "lib/oid.h"
 #include "lib/db.h"
-#include "widgets/kvView.h"
+#include "kvView.h"
+#include "MainWindow.h"
 #include <openssl/x509v3.h>
 #include <QListWidget>
 
@@ -70,7 +71,7 @@ class NewX509: public QDialog, public Ui::NewX509
 
 
 	public:
-		NewX509(QWidget *parent);
+		NewX509(MainWindow *parent);
 		virtual ~NewX509();
 		void initCtx();
 		void setRequest(); // reduce to request form
@@ -118,6 +119,11 @@ class NewX509: public QDialog, public Ui::NewX509
 		int do_validateExtensions();
 		void undo_validateExtensions();
 		enum pki_source getPkiSource() const;
+		QList<pki_x509req*> getAllRequests() const;
+		QList<pki_x509*> getAllIssuers() const;
+		QList<pki_temp*> getAllTempsAndPredefs() const;
+		QList<pki_key*> getUnusedKeys() const;
+		QList<pki_key*> getAllKeys() const;
 
 	public slots:
 		void on_fromReqCB_clicked();

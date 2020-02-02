@@ -101,14 +101,14 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(QWidget *parent)
+NewX509::NewX509(MainWindow *parent)
 	:QDialog(parent)
 {
 	int i;
+	QStringList keys;
 
 	aia_nid << OBJ_sn2nid("OCSP") << OBJ_sn2nid("caIssuers");
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
-	QStringList keys;
 
 	setupUi(this);
 
@@ -144,18 +144,17 @@ NewX509::NewX509(QWidget *parent)
 	newKeyDone(NULL);
 
 	// any PKCS#10 requests to be used ?
-	QList<pki_x509req *> requests = MainWindow::reqs->getAllRequests();
+	QList<pki_x509req *> requests = getAllRequests();
 	if (requests.isEmpty()) {
 		fromReqCB->setDisabled(true);
 		fromReqCB->setChecked(false);
-	}
-	else {
+	} else {
 		reqList->insertPkiItems(requests);
 	}
 	on_fromReqCB_clicked();
 
 	// How about signing certificates ?
-	QList<pki_x509*> issuers = MainWindow::certs->getAllIssuers();
+	QList<pki_x509*> issuers = getAllIssuers();
 	if (issuers.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 	} else {
@@ -168,7 +167,7 @@ NewX509::NewX509(QWidget *parent)
 	on_applyTime_clicked();
 
 	// settings for the templates ....
-	tempList->insertPkiItems(MainWindow::temps->getAllAndPredefs());
+	tempList->insertPkiItems(getAllTempsAndPredefs());
 
 	// setup Extended keyusage
 	foreach(int nid, extkeyuse_nid)
@@ -428,7 +427,7 @@ pki_temp *NewX509::caTemplate(pki_x509 *ca) const
 	QVariant sqlId = ca->getTemplateSqlId();
 	if (!sqlId.isValid())
 		return NULL;
-	return MainWindow::temps->lookupPki<pki_temp>(sqlId);
+	return db_base::lookupPki<pki_temp>(sqlId);
 }
 
 /* Preset the signing certificate */
@@ -641,9 +640,34 @@ void NewX509::on_showReqBut_clicked()
 	emit showReq(reqList->currentPkiItem());
 }
 
+QList<pki_x509req *> NewX509::getAllRequests() const
+{
+	return mainwin->model<db_x509req>()->getAllRequests();
+}
+
+QList<pki_x509*> NewX509::getAllIssuers() const
+{
+	return mainwin->model<db_x509>()->getAllIssuers();
+}
+
+QList<pki_temp*> NewX509::getAllTempsAndPredefs() const
+{
+	return mainwin->model<db_temp>()->getAllAndPredefs();
+}
+
+QList<pki_key*> NewX509::getAllKeys() const
+{
+	return mainwin->model<db_key>()->getAllKeys();
+}
+
+QList<pki_key*> NewX509::getUnusedKeys() const
+{
+	return mainwin->model<db_key>()->getUnusedKeys();
+}
+
 void NewX509::itemChanged(pki_base* req)
 {
-	reqList->insertPkiItems(MainWindow::reqs->getAllRequests());
+	reqList->insertPkiItems(getAllRequests());
 	reqList->setCurrentPkiItem(dynamic_cast<pki_x509req*>(req));
 }
 
@@ -739,8 +763,8 @@ void NewX509::on_foreignSignRB_toggled(bool)
 
 void NewX509::newKeyDone(pki_key *nkey)
 {
-	allKeys =   MainWindow::keys->getAllKeys();
-	unusedKeys= MainWindow::keys->getUnusedKeys();
+	allKeys =   getAllKeys();
+	unusedKeys = getUnusedKeys();
 	on_usedKeysToo_toggled(true);
 	if (nkey) {
 		selfComment(tr("New key '%1' created")
@@ -1131,7 +1155,7 @@ void NewX509::accept()
 		gotoTab(1);
 		xcaWarning msg(this, err.getString());
 		msg.addButton(QMessageBox::Ok);
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		if (msg.exec() == QMessageBox::Close) {
 			reject();
 		}
@@ -1143,9 +1167,9 @@ void NewX509::accept()
 		lenErr = tr("The following length restrictions of RFC3280 are violated:") +
 			"\n" + lenErr;
 		xcaWarning msg(this, lenErr);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit subject"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Edit subject"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:
@@ -1162,8 +1186,8 @@ void NewX509::accept()
 		gotoTab(0);
 		xcaWarning msg(this,
 			tr("The verification of the Certificate request failed.\nThe rollout should be aborted."));
-		msg.addButton(QMessageBox::Ok)->setText(tr("Continue anyway"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Continue anyway"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		if (msg.exec() == QMessageBox::Close) {
 			reject();
 		}
@@ -1174,8 +1198,8 @@ void NewX509::accept()
 			gotoTab(1);
 			xcaWarning msg(this,
 				tr("The internal name and the common name are empty.\nPlease set at least the internal name."));
-			msg.addButton(QMessageBox::Ok)->setText(tr("Edit name"));
-			msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+			msg.addButton(QMessageBox::Ok, tr("Edit name"));
+			msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 			if (msg.exec() == QMessageBox::Close) {
 				reject();
 			}
@@ -1190,8 +1214,8 @@ void NewX509::accept()
 		gotoTab(1);
 		xcaWarning msg(this,
 			tr("There is no Key selected for signing."));
-		msg.addButton(QMessageBox::Ok)->setText(tr("Select key"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Select key"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		if (msg.exec() == QMessageBox::Close) {
 			reject();
 		}
@@ -1204,9 +1228,9 @@ void NewX509::accept()
 		gotoTab(1);
 		QString text = tr("The following distinguished name entries are empty:\n%1\nthough you have declared them as mandatory in the options menu.").arg(unsetDN);
 		xcaWarning msg(this, text);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit subject"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Edit subject"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:
@@ -1238,8 +1262,8 @@ void NewX509::accept()
 		xcaWarning msg(this,
 			tr("The key you selected for signing is not a private one."));
 		txt = signer ? tr("Select other signer"):tr("Select other key");
-		msg.addButton(QMessageBox::Ok)->setText(txt);
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Ok, txt);
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		if (msg.exec() == QMessageBox::Close) {
 			reject();
 		}
@@ -1249,10 +1273,10 @@ void NewX509::accept()
 		gotoTab(2);
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
 		xcaWarning msg(this, text);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
-		msg.addButton(QMessageBox::Yes)->setText(tr("Adjust date and continue"));
+		msg.addButton(QMessageBox::Ok, tr("Edit dates"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
+		msg.addButton(QMessageBox::Yes, tr("Adjust date and continue"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:
@@ -1272,10 +1296,10 @@ void NewX509::accept()
 		gotoTab(2);
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
 		xcaWarning msg(this, text);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
-		msg.addButton(QMessageBox::Yes)->setText(tr("Adjust date and continue"));
+		msg.addButton(QMessageBox::Ok, tr("Edit dates"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
+		msg.addButton(QMessageBox::Yes, tr("Adjust date and continue"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:
@@ -1295,9 +1319,9 @@ void NewX509::accept()
 		gotoTab(2);
 		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
 		xcaWarning msg(this, text);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Edit dates"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:
@@ -1321,9 +1345,9 @@ void NewX509::accept()
 			gotoTab(0);
 		}
 		xcaWarning msg(this, text);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Edit extensions"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:
@@ -1341,9 +1365,9 @@ void NewX509::accept()
 	if (cn.isEmpty() && san.contains("DNS:copycn") && pt != tmpl) {
 		gotoTab(2);
 		xcaWarning msg(this, tr("The subject alternative name shall contain a copy of the common name. However, the common name is empty."));
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Ok, tr("Edit extensions"));
+		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:

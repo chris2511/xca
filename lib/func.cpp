@@ -388,16 +388,16 @@ QString hostId()
 	return id;
 }
 
-QString compressFilename(QString filename, int maxlen)
+QString compressFilename(const QString &filename, int maxlen)
 {
-	if (filename.length() < maxlen)
-		return filename;
+	QString fn = filename;
+	if (fn.length() < maxlen)
+		return fn;
 
-	QString fn = filename.replace("\\", "/");
+	fn.replace("\\", "/");
 	int len, lastslash = fn.lastIndexOf('/');
 	QString base = filename.mid(lastslash);
-	len = base.length();
-	len = maxlen - len -3;
+	len = maxlen - base.length() - 3;
 	if (len < 0)
 		return QString("...") + base.right(maxlen -3);
 	fn = fn.left(len);

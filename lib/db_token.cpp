@@ -5,8 +5,8 @@
 #include "sql.h"
 #include "widgets/MainWindow.h"
 
-db_token::db_token(MainWindow *mw)
-        :db_base(mw)
+db_token::db_token(database_model *parent)
+        :db_base(parent)
 {
 	class_name = "manageTokens";
 	updateHeaders();
@@ -56,7 +56,7 @@ bool db_token::setData(const QModelIndex &index, const QVariant &value, int role
 				return true;
 			}
 		} catch (errorEx &err) {
-			mainwin->Error(err);
+			emit errorThrown(err);
 		}
 	}
 	return false;

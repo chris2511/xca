@@ -18,10 +18,10 @@
 #include "exception.h"
 #include "func.h"
 #include "xfile.h"
-#include "widgets/MainWindow.h"
+#include "widgets/XcaWarning.h"
 #include <QList>
 
-pki_multi::pki_multi(const QString name)
+pki_multi::pki_multi(const QString &name)
 	:pki_base(name)
 {
 	multi.clear();
@@ -34,6 +34,14 @@ pki_multi::~pki_multi()
 		delete pki;
 }
 
+void pki_multi::append_item(pki_base *pki)
+{
+	pki_multi *m = dynamic_cast<pki_multi*>(pki);
+	if (m)
+		multi += m;
+	else
+		multi << pki;
+}
 pki_base *pki_multi::pull()
 {
 	if (multi.isEmpty())
@@ -112,9 +120,9 @@ void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 			item->fromPEMbyteArray(ba, name);
 			item->pkiSource = imported;
 			openssl_error();
-			multi.append(item);
+			append_item(item);
 		} catch (errorEx &err) {
-			MainWindow::Error(err);
+			XCA_ERROR(err);
 			if (item)
 				delete item;
 			item = NULL;
@@ -129,7 +137,8 @@ void pki_multi::probeAnything(const QString &fname)
 {
 	pki_base *item = NULL;
 	load_base *lb;
-	QList<load_base *> lbs;
+	QList<load_base*> lbs;
+	int old_count = count();
 
 	lbs <<  new load_pem() <<
 		new load_cert() << new load_pkcs7() << new load_pkcs12() <<
@@ -140,16 +149,24 @@ void pki_multi::probeAnything(const QString &fname)
 		try {
 			item = lb->loadItem(fname);
 			if (item) {
-				multi.append(item);
+				append_item(item);
 				break;
 			}
 		} catch (errorEx &err) {
 			if (err.info == E_PASSWD) {
-				MainWindow::Error(err);
+				XCA_ERROR(err);
 				break;
 			}
 		}
 	}
-	while (!lbs.isEmpty())
-		delete lbs.takeFirst();
+	if (count() == old_count && !fname.isEmpty())
+		failed_files << fname;
+
+	qDeleteAll(lbs);
+}
+
+void pki_multi::print(FILE *fp) const
+{
+	foreach(pki_base *pki, multi)
+		pki->print(fp);
 }

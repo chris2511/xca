@@ -10,6 +10,7 @@
 
 #include "XcaTreeView.h"
 #include "lib/db_key.h"
+#include "lib/database_model.h"
 
 class KeyTreeView: public XcaTreeView
 {
@@ -23,10 +24,10 @@ class KeyTreeView: public XcaTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(QAbstractItemModel *model=NULL)
+	void setModels(database_model *models)
 	{
-		keys = dynamic_cast <db_key*> (model);
-		XcaTreeView::setModel(model);
+		keys = models->model<db_key>();
+		XcaTreeView::setModel(keys);
 	}
 
    public slots:

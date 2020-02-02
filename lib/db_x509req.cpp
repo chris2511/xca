@@ -14,8 +14,8 @@
 #include <QAction>
 
 
-db_x509req::db_x509req(MainWindow *mw)
-	:db_x509super(mw)
+db_x509req::db_x509req(database_model *parent)
+	:db_x509super(parent)
 {
 	class_name = "requests";
 	sqlHashTable = "requests";
@@ -97,7 +97,7 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		createSuccess(insert(req));
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 		if (req)
 			delete req;
 	}
@@ -143,7 +143,7 @@ void db_x509req::store(QModelIndex index)
 		req->writeReq(file, dlg->type() == exportType::PEM);
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;

@@ -22,6 +22,9 @@
 #include "lib/Passwd.h"
 #include "lib/settings.h"
 #include "lib/main.h"
+#include "lib/database_model.h"
+#include "lib/dbhistory.h"
+
 #include <QPixmap>
 #include <QFileDialog>
 #include <QMenuBar>
@@ -66,21 +69,19 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QList<QWidget*> wdMenuList;
 		QList<QWidget*> scardList;
 		QList<QAction*> acList;
-		QStringList history;
 		tipMenu *historyMenu;
-		void update_history_menu();
 		void set_geometry(QString geo);
 		QLineEdit *searchEdit;
 		QStringList urlsToOpen;
 		int checkOldGetNewPass(Passwd &pass);
-		int exportIndex(QString fname, bool hierarchy);
 		void checkDB();
-		QSqlError initSqlDB();
-		QString openSqlDB(QString dbName);
-		QList<db_base*> models;
 		QProgressBar *dhgenBar;
 		DHgen *dhgen;
 		const QList<QStringList> getTranslators() const;
+		QList<XcaTreeView *> views;
+		database_model *models;
+		dbhistory history;
+		void exportIndex(const QString &fname, bool hierarchy) const;
 
 	protected:
 		void init_images();
@@ -91,55 +92,42 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString homedir;
 		int changeDB(QString fname);
 		void keyPressEvent(QKeyEvent *e);
-		int dbTimer;
-		void timerEvent(QTimerEvent *event);
+		void update_history_menu();
 
 	public:
-		static db_x509 *certs;
-		static db_x509req *reqs;
-		static db_key *keys;
-		static db_temp *temps;
-		static db_crl *crls;
-		static NIDlist *eku_nid, *dn_nid;
 		int exitApp;
 		QLabel *dbindex;
-
-		MainWindow(QWidget *parent);
+		database_model *getModels()
+		{
+			return models;
+		}
+		template <class T>  T *model() const
+		{
+			return models ? models->model<T>() : NULL;
+		}
+		MainWindow(database_model *m);
 		virtual ~MainWindow();
 		void loadSettings();
 		void saveSettings();
-		int initPass(QString dbName);
-		int initPass(QString dbName, QString passhash);
-		void read_cmdline(int argc, char *argv[]);
 		void load_engine();
 		static OidResolver *getResolver()
 		{
 			return resolver;
 		}
-		static void Error(const errorEx &err);
-		static void dbSqlError(QSqlError err = QSqlError());
-
-		void cmd_version();
-		void cmd_help(const char* msg);
-
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
 		void enableTokenMenu(bool enable);
-		pki_multi *probeAnything(QString file, int *ret = NULL);
 		void importAnything(QString file);
+		void importAnything(const QStringList &files);
+		void importMulti(pki_multi *multi, int force);
 		void dropEvent(QDropEvent *event);
 		void dragEnterEvent(QDragEnterEvent *event);
-		int open_default_db();
-		void load_history();
-		void update_history(QString file);
 		void initResolver();
-		bool checkForOldDbFormat();
-		bool checkForOldDbFormat(QString dbfile);
-		int verifyOldDbPass(QString dbname);
-		void importOldDatabase(QString dbname);
 
 	public slots:
-		int init_database(QString dbName);
+		int init_database(const QString &dbName,
+				const QString &pass = QString());
+		int init_database(database_model *m);
 		void new_database();
 		void load_database();
 		void close_database();
@@ -148,7 +136,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void connNewX509(NewX509 *nx);
 		void about();
 		void help();
-		void undelete();
 		void loadPem();
 		bool pastePem(QString text, bool silent=false);
 		void pastePem();

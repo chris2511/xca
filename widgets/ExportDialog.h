@@ -11,7 +11,6 @@
 #include "ui_ExportDialog.h"
 #include "lib/pki_base.h"
 
-class MainWindow;
 class QPixmap;
 
 class exportType {
@@ -56,7 +55,6 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 
    protected:
 	QString filter;
-	MainWindow *mainwin;
 	QVector<QString> help;
 
    public:

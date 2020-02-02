@@ -5,9 +5,8 @@
  * All rights reserved.
  */
 
-#include "lib/pki_x509.h"
 #include "CertTreeView.h"
-#include "MainWindow.h"
+#include "XcaWarning.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
 #include <QMenu>
@@ -140,7 +139,7 @@ void CertTreeView::genCrl()
 {
 	pki_x509 *cert = static_cast<pki_x509*>
 			(currentIndex().internalPointer());
-	mainwin->crls->newItem(cert);
+	crls->newItem(cert);
 }
 
 void CertTreeView::toCertificate()
@@ -156,7 +155,7 @@ void CertTreeView::deleteFromToken()
 	try {
 		cert->deleteFromToken();
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 

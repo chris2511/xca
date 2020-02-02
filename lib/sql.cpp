@@ -10,7 +10,7 @@
 #include "base.h"
 #include "sql.h"
 #include "settings.h"
-#include "widgets/MainWindow.h"
+#include "widgets/XcaWarning.h"
 
 int DbTransaction::mutex;
 int DbTransaction::error;
@@ -48,7 +48,7 @@ bool DbTransaction::begin(const char *file, int line)
 	QSqlDatabase db = QSqlDatabase::database();
 	bool ret = db.transaction();
 	if (!ret)
-		MainWindow::dbSqlError(db.lastError());
+		XCA_SQLERROR(db.lastError());
 	return ret;
 }
 
@@ -69,7 +69,7 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 	if (error) {
 		error = 0;
 		items.clear();
-		return db.rollback();
+		return hasTransaction ? db.rollback() : true;
 	}
 	mutex++;
 	XSqlQuery q;
@@ -91,9 +91,9 @@ bool DbTransaction::finish(const char *oper, const char *file, int line)
 	mutex--;
 	items.clear();
 
-	bool ret = db.commit();
+	bool ret = hasTransaction ? db.commit() : true;
 	if (!ret)
-		MainWindow::dbSqlError(db.lastError());
+		XCA_SQLERROR(db.lastError());
 	return ret;
 }
 

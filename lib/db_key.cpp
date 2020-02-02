@@ -10,6 +10,7 @@
 #include "pki_evp.h"
 
 #include "pki_scard.h"
+#include "main.h"
 #include <QDialog>
 #include <QLabel>
 #include <QPushButton>
@@ -27,9 +28,10 @@
 #include "widgets/ExportDialog.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/NewKey.h"
+#include "widgets/MainWindow.h"
 
-db_key::db_key(MainWindow *mw)
-	:db_base(mw)
+db_key::db_key(database_model *parent)
+	:db_base(parent)
 {
 	class_name = "keys";
 	sqlHashTable = "public_keys";
@@ -56,7 +58,7 @@ void db_key::loadContainer()
 		}
 		key->setUcount(q.value(1).toInt());
 	}
-	MainWindow::dbSqlError(q.lastError());
+	XCA_SQLERROR(q.lastError());
 }
 
 dbheaderList db_key::getHeaders()
@@ -127,7 +129,7 @@ void db_key::inToCont(pki_base *pki)
 		q.bindValue(1, x509s->getSqlItemId());
 		AffectedItems(x509s->getSqlItemId());
 		q.exec();
-		mainwin->dbSqlError(q.lastError());
+		XCA_SQLERROR(q.lastError());
 	}
 }
 
@@ -213,7 +215,7 @@ void db_key::newItem(QString name)
 
 	} catch (errorEx &err) {
 		delete key;
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 	if (dlg->rememberDefault->isChecked()) {
 		QString def = dlg->getAsString();
@@ -385,7 +387,7 @@ void db_key::store(QModelIndex index)
 		}
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;

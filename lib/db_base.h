@@ -28,9 +28,12 @@
 #define X_XCA_DRAG_DATA "application/x-xca-drag-data"
 
 class MainWindow;
+extern MainWindow *mainwin;
+
 class QContextMenuEvent;
 class XcaTreeView;
 class NewX509;
+class database_model;
 
 class db_base: public QAbstractItemModel
 {
@@ -44,7 +47,6 @@ class db_base: public QAbstractItemModel
 		void removeItem(QString k);
 		QList<enum pki_type> pkitype;
 		QList<enum pki_type> pkitype_depends;
-		MainWindow *mainwin;
 		QString class_name;
 		/* Sql table containing the 'hash' of this items */
 		QString sqlHashTable;
@@ -58,12 +60,11 @@ class db_base: public QAbstractItemModel
 			return exportType::Separator;
 		}
 		bool isValidCol(int col) const;
-		static XSqlQuery sqlSELECTpki(QString query,
-				QList<QVariant> values = QList<QVariant>());
 		void timerEvent(QTimerEvent *event);
-		void restart_timer();
 
 	public:
+		static XSqlQuery sqlSELECTpki(QString query,
+				QList<QVariant> values = QList<QVariant>());
 		template <class T> static T *lookupPki(quint64 i)
 		{
 			T *pki = dynamic_cast<T*>(lookup[i]);
@@ -82,6 +83,8 @@ class db_base: public QAbstractItemModel
 		{
 			return lookupPki<T>(v.toULongLong());
 		}
+		void restart_timer();
+		database_model *models();
 		static void flushLookup()
 		{
 			lookup.clear();
@@ -102,7 +105,7 @@ class db_base: public QAbstractItemModel
 
 		virtual pki_base *newPKI(enum pki_type type = none);
 		pki_base *rootItem;
-		db_base(MainWindow *mw);
+		db_base(database_model *parent);
 		virtual void updateHeaders();
 		virtual ~db_base();
 		virtual void insertPKI(pki_base *pki);
@@ -175,11 +178,12 @@ class db_base: public QAbstractItemModel
 		void sortIndicatorChanged(int, Qt::SortOrder);
 
 	signals:
-		void connNewX509(NewX509 *dlg);
-		void resetHeader();
-		void updateHeader();
-		void columnsContentChanged();
-		void pkiChanged(pki_base *pki);
+		void connNewX509(NewX509 *dlg) const;
+		void resetHeader() const;
+		void updateHeader() const;
+		void columnsContentChanged() const;
+		void pkiChanged(pki_base *pki) const;
+		void errorThrown(errorEx &err) const;
 };
 
 #endif

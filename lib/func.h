@@ -19,6 +19,14 @@
 #include <sys/stat.h>
 #include <openssl/evp.h>
 
+#define COL_CYAN  "\x1b[0;36m"
+#define COL_BLUE  "\x1b[0;94m"
+#define COL_LRED  "\x1b[0;92m"
+#define COL_YELL  "\x1b[0;33m"
+#define COL_RED   "\x1b[0;31m"
+#define COL_RESET "\x1b[0m"
+
+#define IS_GUI_APP (qobject_cast<QApplication*>(QCoreApplication::instance()))
 class Validity;
 extern QString currentDB;
 
@@ -39,7 +47,7 @@ QString hostId();
 QString formatHash(const QByteArray &data, QString sep = ":", int width = 2);
 QByteArray filename2bytearray(const QString &fname);
 QString filename2QString(const char *fname);
-QString compressFilename(QString filename, int maxlen = 50);
+QString compressFilename(const QString &filename, int maxlen = 50);
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote = false);
 ASN1_STRING *QStringToAsn1(QString s, int nid);

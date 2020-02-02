@@ -46,6 +46,7 @@ class pki_x509 : public pki_x509super
 		void init();
 		x509rev revocation;
 		x509revList fromDataRevList;
+		void resetX509ReqCount() const;
 
 	protected:
 		int sigAlg() const;
@@ -139,6 +140,7 @@ class pki_x509 : public pki_x509super
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		bool visible() const;
 		void updateView();
+		void print(FILE *fp) const;
 		x509v3ext getExtByNid(int nid) const;
 		QVariant column_data(const dbheader *hd) const;
 		QVariant getIcon(const dbheader *hd) const;

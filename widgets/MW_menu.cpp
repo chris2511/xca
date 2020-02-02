@@ -7,6 +7,7 @@
 
 
 #include "MainWindow.h"
+#include "XcaApplication.h"
 #include "PwDialog.h"
 #include "Options.h"
 #include "lib/load_obj.h"
@@ -16,6 +17,7 @@
 #include "lib/pki_scard.h"
 #include "lib/func.h"
 #include "lib/db_x509super.h"
+#include "lib/database_model.h"
 #include "ui_Options.h"
 #include "hashBox.h"
 #include "OidResolver.h"
@@ -46,10 +48,10 @@ static QAction *languageMenuEntry(const QStringList &sl)
 	QAction *a = new QAction(lang, NULL);
 	a->setToolTip(tooltip);
 	a->setData(QVariant(locale));
-	a->setDisabled(!XCA_application::languageAvailable(locale));
+	a->setDisabled(!XcaApplication::languageAvailable(locale));
 
 	a->setCheckable(true);
-	if (locale == XCA_application::language())
+	if (locale == XcaApplication::language())
 		a->setChecked(true);
 	return a;
 }
@@ -77,6 +79,8 @@ void MainWindow::init_menu()
 	langGroup = new QActionGroup(this);
 
 	historyMenu = new tipMenu(tr("Recent DataBases") + " ...", this);
+	update_history_menu();
+
 	connect(historyMenu, SIGNAL(triggered(QAction*)),
                 this, SLOT(open_database(QAction*)));
 
@@ -180,25 +184,28 @@ int MainWindow::changeDB(QString fname)
 	if (fname.isEmpty())
 		return 1;
 	close_database();
-	if (!OpenDb::isRemoteDB(fname))
+	if (!database_model::isRemoteDB(fname))
 		homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
 	return init_database(fname);
 }
 
 void MainWindow::update_history_menu()
 {
+	QStringList hist = history.get();
+	if (!historyMenu)
+		return;
 	historyMenu->clear();
-	for (int i = 0, j = 0; i < history.size(); i++) {
+	for (int i = 0, j = 0; i < hist.size(); i++) {
 		QAction *a;
-		QString txt = history[i];
-		if (!QFile::exists(txt) && !OpenDb::isRemoteDB(txt))
+		QString txt = hist[i];
+		if (!QFile::exists(txt) && !database_model::isRemoteDB(txt))
 			continue;
 		txt = txt.remove(0, txt.lastIndexOf(QDir::separator()) +1);
 		if (txt.size() > 20)
 			txt = QString("...") + txt.mid(txt.size() - 20);
 		a = historyMenu->addAction(QString("%1 %2").arg(j++).arg(txt));
-		a->setData(QVariant(history[i]));
-		a->setToolTip(history[i]);
+		a->setData(QVariant(hist[i]));
+		a->setToolTip(hist[i]);
 	}
 }
 

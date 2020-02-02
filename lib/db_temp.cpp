@@ -8,6 +8,7 @@
 
 #include "db_temp.h"
 #include "func.h"
+#include "widgets/XcaWarning.h"
 #include <widgets/NewX509.h>
 #include <widgets/XcaDialog.h>
 #include <widgets/MainWindow.h>
@@ -18,8 +19,8 @@
 #include <QInputDialog>
 #include <QMessageBox>
 
-db_temp::db_temp(MainWindow *mw)
-	:db_x509name(mw)
+db_temp::db_temp(database_model *parent)
+	:db_x509name(parent)
 {
 	class_name = "templates";
 	sqlHashTable = "templates";
@@ -147,7 +148,7 @@ void db_temp::store(QModelIndex index)
 		temp->writeTemp(file);
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 	}
 }
 
@@ -168,7 +169,7 @@ bool db_temp::alterTemp(pki_temp *temp)
 	q.bindValue(2, temp->getSqlItemId());
 	q.exec();
 	e = q.lastError();
-	mainwin->dbSqlError(e);
+	XCA_SQLERROR(e);
 	if (e.isValid()) {
 		TransRollback();
 		return false;

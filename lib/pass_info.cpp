@@ -5,18 +5,13 @@
  * All rights reserved.
  */
 
-#include <QString>
-#include <QApplication>
-
 #include "pass_info.h"
 
-pass_info::pass_info(QString t, QString d, QWidget *w)
+pass_info::pass_info(const QString &t, const QString &d, QWidget *w)
 {
 	title = t;
 	description = d;
 	widget = w;
-	if (!widget)
-		widget = qApp->activeWindow();
 	type = tr("Password");
 	pixmap = QString(":keyImg");
 }

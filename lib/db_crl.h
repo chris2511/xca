@@ -20,7 +20,7 @@ class db_crl: public db_x509name
 	protected:
 		dbheaderList getHeaders();
 	public:
-		db_crl(MainWindow *mw);
+		db_crl(database_model *parent);
 		pki_base *newPKI(enum pki_type type);
 		void revokeCerts(pki_crl *crl);
 		void inToCont(pki_base *pki);

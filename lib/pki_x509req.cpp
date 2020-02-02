@@ -349,6 +349,12 @@ int pki_x509req::issuedCerts() const
 	return count;
 }
 
+void pki_x509req::print(FILE *fp) const
+{
+	pki_base::print(fp);
+	X509_REQ_print_fp(fp, request);
+}
+
 QVariant pki_x509req::column_data(const dbheader *hd) const
 {
 	switch (hd->id) {

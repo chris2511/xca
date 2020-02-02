@@ -26,8 +26,8 @@ class X509SuperTreeView: public XcaTreeView
 			const QModelIndex &index, QModelIndexList indexes);
 	void setModel(QAbstractItemModel *model=NULL)
 	{
-		x509super = dynamic_cast <db_x509super*> (model);
-		XcaTreeView::setModel(model);
+		x509super = dynamic_cast<db_x509super*>(model);
+		XcaTreeView::setModel(x509super);
 	}
 
     public slots:

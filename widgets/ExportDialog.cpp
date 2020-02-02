@@ -126,14 +126,10 @@ bool ExportDialog::mayWriteFile(const QString &fname)
         if (QFile::exists(fname)) {
 		xcaWarning msg(NULL,
 			tr("The file: '%1' already exists!").arg(fname));
-		msg.addButton(QMessageBox::Ok)->setText(
-			tr("Overwrite"));
-		msg.addButton(QMessageBox::Cancel)->setText(
-			tr("Do not overwrite"));
+		msg.addButton(QMessageBox::Ok, tr("Overwrite"));
+		msg.addButton(QMessageBox::Cancel, tr("Do not overwrite"));
 		if (msg.exec() != QMessageBox::Ok)
-	        {
 			return false;
-	        }
 	}
 	return true;
 }

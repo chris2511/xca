@@ -21,7 +21,7 @@ class db_x509name: public db_base
 	protected:
 		dbheaderList getHeaders();
 	public:
-		db_x509name(MainWindow *mw);
+		db_x509name(database_model *parent);
 };
 
 class db_x509super: public db_x509name
@@ -32,7 +32,7 @@ class db_x509super: public db_x509name
 		dbheaderList getHeaders();
 		void loadContainer();
 	public:
-		db_x509super(MainWindow *mw);
+		db_x509super(database_model *parent);
 		pki_key *findKey(pki_x509super *ref);
 		QList<pki_x509super *> findByPubKey(pki_key *refkey);
 		void extractPubkey(QModelIndex index);

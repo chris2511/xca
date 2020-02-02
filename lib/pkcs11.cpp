@@ -18,12 +18,14 @@
 #include <openssl/rand.h>
 #include <openssl/engine.h>
 #include <openssl/evp.h>
+#include <QPushButton>
 #include <QMessageBox>
 #include <QThread>
 
 #include <ltdl.h>
 #include "ui_SelectToken.h"
 #include "widgets/PwDialog.h"
+#include "widgets/XcaWarning.h"
 
 #include "openssl_compat.h"
 

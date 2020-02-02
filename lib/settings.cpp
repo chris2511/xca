@@ -39,8 +39,6 @@ settings::settings()
 	defaul["fp_digits"] = "2";
 
 	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
-
-	clear();
 }
 
 void settings::clear()

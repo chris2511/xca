@@ -25,5 +25,4 @@ class Passwd: public QByteArray
 		return (Passwd&)QByteArray::operator=(other);
 	}
 };
-
 #endif

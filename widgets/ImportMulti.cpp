@@ -7,6 +7,7 @@
 
 
 #include "ImportMulti.h"
+#include "XcaWarning.h"
 #include "MainWindow.h"
 #include "lib/pki_base.h"
 #include "lib/pki_pkcs7.h"
@@ -34,7 +35,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(QPixmap(":certImg"));
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	mcont = new db_token(parent);
+	mcont = new db_token(parent->getModels());
 	listView->setModel(mcont);
 	listView->setIconSize(QPixmap(":key").size());
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -132,7 +133,7 @@ void ImportMulti::addItem(pki_base *pki)
 bool ImportMulti::openDB() const
 {
 	if (currentDB.isEmpty()) {
-		if (mainwin->open_default_db() == 2)
+		if (mainwin->init_database(QString()) == 2)
 			return false;
 		if (currentDB.isEmpty())
 			mainwin->load_database();
@@ -232,7 +233,7 @@ void ImportMulti::on_deleteToken_clicked()
 			mcont->remFromCont(index);
 			delete pki;
 		} catch (errorEx &err) {
-			mainwin->Error(err);
+			XCA_ERROR(err);
 		}
 	}
 }
@@ -251,30 +252,30 @@ void ImportMulti::on_renameToken_clicked()
 	}
 }
 
-static db_base *select_db(const std::type_info &t)
+db_base *ImportMulti::select_db(const std::type_info &t)
 {
-	if (t == typeid(pki_x509))    return MainWindow::certs;
-	if (t == typeid(pki_evp))     return MainWindow::keys;
-	if (t == typeid(pki_scard))   return MainWindow::keys;
-	if (t == typeid(pki_x509req)) return MainWindow::reqs;
-	if (t == typeid(pki_crl))     return MainWindow::crls;
-	if (t == typeid(pki_temp))    return MainWindow::temps;
+	if (t == typeid(pki_x509))    return mainwin->model<db_x509>();
+	if (t == typeid(pki_evp))     return mainwin->model<db_key>();
+	if (t == typeid(pki_scard))   return mainwin->model<db_key>();
+	if (t == typeid(pki_x509req)) return mainwin->model<db_x509req>();
+	if (t == typeid(pki_crl))     return mainwin->model<db_crl>();
+	if (t == typeid(pki_temp))    return mainwin->model<db_temp>();
 	return NULL;
 }
 
 pki_base *ImportMulti::import(QModelIndex &idx)
 {
-
+	database_model *models = mainwin->getModels();
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	db_base *db;
 
-	if (!pki || !mainwin->keys)
+	if (!pki || !models)
 		return NULL;
 
 	const std::type_info &t = typeid(*pki);
 
 	mcont->remFromCont(idx);
-	if (!mainwin->keys) {
+	if (!models) {
 		delete pki;
 		return NULL;
 	}
@@ -296,6 +297,8 @@ void ImportMulti::on_butDetails_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndex index;
+	db_key *keys = mainwin->model<db_key>();
+	db_x509 *certs = mainwin->model<db_x509>();
 
 	if (!selectionModel->selectedIndexes().count())
 	        return;
@@ -311,10 +314,10 @@ void ImportMulti::on_butDetails_clicked()
 			CertDetail *dlg = new CertDetail(mainwin);
 			dlg->setCert(static_cast<pki_x509 *>(pki));
 			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-				mainwin->keys, SLOT(showItem(QString)));
+				keys, SLOT(showItem(QString)));
 			connect(dlg->signature,
 				SIGNAL(doubleClicked(QString)),
-				mainwin->certs, SLOT(showItem(QString)));
+				certs, SLOT(showItem(QString)));
 			if (dlg->exec())
 				pki->setIntName(dlg->descr->text());
 			delete dlg;
@@ -328,7 +331,7 @@ void ImportMulti::on_butDetails_clicked()
 			CertDetail *dlg = new CertDetail(mainwin);
 			dlg->setReq(static_cast<pki_x509req *>(pki));
 			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-				mainwin->keys, SLOT(showItem(QString)));
+				keys, SLOT(showItem(QString)));
 			if (dlg->exec())
 				pki->setIntName(dlg->descr->text());
 			delete dlg;
@@ -337,7 +340,7 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->setCrl(static_cast<pki_crl *>(pki));
 			connect(dlg->issuerIntName,
 				SIGNAL(doubleClicked(QString)),
-				mainwin->certs, SLOT(showItem(QString)));
+				certs, SLOT(showItem(QString)));
 			if (dlg->exec())
 				pki->setIntName(dlg->descr->text());
 			delete dlg;
@@ -348,7 +351,7 @@ void ImportMulti::on_butDetails_clicked()
 			XCA_WARN(tr("The type of the item '%1' is not recognized").arg(t.name()));
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 

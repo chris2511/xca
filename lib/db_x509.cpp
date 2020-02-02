@@ -11,11 +11,16 @@
 #include "pki_evp.h"
 #include "pki_scard.h"
 #include "pass_info.h"
+#include "database_model.h"
+#include "entropy.h"
+
+#include "widgets/XcaWarning.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportDialog.h"
 #include "widgets/MainWindow.h"
 #include "widgets/PwDialog.h"
 #include "widgets/RevocationList.h"
+
 #include "ui_CaProperties.h"
 #include <QMessageBox>
 #include <QContextMenuEvent>
@@ -25,8 +30,8 @@
 
 bool db_x509::treeview = true;
 
-db_x509::db_x509(MainWindow *mw)
-	:db_x509super(mw)
+db_x509::db_x509(database_model *parent)
+	:db_x509super(parent)
 {
 	class_name = "certificates";
 	sqlHashTable = "certs";
@@ -100,6 +105,7 @@ QList<pki_x509 *> db_x509::getAllIssuers()
 
 void db_x509::remFromCont(const QModelIndex &idx)
 {
+	db_crl *crls = models()->model<db_crl>();
 	db_x509super::remFromCont(idx);
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	pki_x509 *child;
@@ -122,7 +128,7 @@ void db_x509::remFromCont(const QModelIndex &idx)
 		AffectedItems(child->getSqlItemId());
 		q.exec();
 	}
-	mainwin->crls->removeSigner(pki);
+	crls->removeSigner(pki);
 }
 
 void db_x509::changeView()
@@ -246,7 +252,7 @@ void db_x509::inToCont(pki_base *pki)
 		q.bindValue(1, child->getSqlItemId());
 		AffectedItems(child->getSqlItemId());
 		q.exec();
-		mainwin->dbSqlError(q.lastError());
+		XCA_SQLERROR(q.lastError());
 		if (child->isRevoked())
 			revokedChilds << child->getRevocation();
 	}
@@ -267,7 +273,7 @@ void db_x509::inToCont(pki_base *pki)
 		q.bindValue(1, crl->getSqlItemId());
 		AffectedItems(crl->getSqlItemId());
 		q.exec();
-		mainwin->dbSqlError(q.lastError());
+		XCA_SQLERROR(q.lastError());
 	}
 }
 
@@ -566,7 +572,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 			try {
 				cert->store_token(false);
 			} catch (errorEx &err) {
-				mainwin->Error(err);
+				emit errorThrown(err);
 			}
 		}
 	}
@@ -577,7 +583,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
     }
 
     catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 		delete cert;
 		if (tempkey != NULL)
 			delete(tempkey);
@@ -776,7 +782,7 @@ void db_x509::store(QModelIndexList list)
 		}
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;
@@ -816,7 +822,7 @@ void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 		p12->writePKCS12(file);
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 	}
 	if (p12)
 		delete p12;
@@ -862,22 +868,22 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 		p7->writeP7(file, false);
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 	}
 	if (p7 != NULL )
 		delete p7;
-
 }
 
 void db_x509::manageRevocations(QModelIndex idx)
 {
+	db_crl *crls = models()->model<db_crl>();
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
-	if (!cert)
+	if (!cert || crls)
 		return;
 	RevocationList *dlg = new RevocationList(mainwin);
 	dlg->setRevList(cert->getRevList(), cert);
 	connect(dlg, SIGNAL(genCRL(pki_x509*)),
-		mainwin->crls, SLOT(newItem(pki_x509*)));
+		crls, SLOT(newItem(pki_x509*)));
 	if (dlg->exec()) {
 		cert->setRevocations(dlg->getRevList());
 		emit columnsContentChanged();
@@ -947,7 +953,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			do_revoke(indexes, r);
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 		if (newcert)
 			delete newcert;
 	}
@@ -1049,6 +1055,7 @@ void db_x509::toCertificate(QModelIndex index)
 
 void db_x509::toRequest(QModelIndex idx)
 {
+	db_x509req *reqs = models()->model<db_x509req>();
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert)
 		return;
@@ -1060,10 +1067,10 @@ void db_x509::toRequest(QModelIndex idx)
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(),
 			cert->getDigest(), cert->getV3ext());
-		createSuccess(mainwin->reqs->insert(req));
+		createSuccess(reqs->insert(req));
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 }
 
@@ -1075,12 +1082,13 @@ void db_x509::toToken(QModelIndex idx, bool alwaysSelect)
 	try {
 		cert->store_token(alwaysSelect);
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
         }
 }
 
 void db_x509::caProperties(QModelIndex idx)
 {
+	db_temp *temps = models()->model<db_temp>();
 	QStringList actions;
 	Ui::CaProperties ui;
 
@@ -1096,9 +1104,9 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.image->setPixmap(QPixmap(":certImg"));
 
 	QVariant tmplId = cert->getTemplateSqlId();
-	pki_temp *templ = mainwin->temps->lookupPki<pki_temp>(tmplId);
+	pki_temp *templ = temps->lookupPki<pki_temp>(tmplId);
 
-	ui.temp->insertPkiItems(mainwin->temps->getAll<pki_temp>());
+	ui.temp->insertPkiItems(temps->getAll<pki_temp>());
         ui.temp->setNullItem(tr("No template"));
 	ui.temp->setCurrentIndex(0);
 	if (templ)
@@ -1127,7 +1135,7 @@ void db_x509::caProperties(QModelIndex idx)
 		AffectedItems(cert->getSqlItemId());
 		q.exec();
 	        TransDone(q.lastError());
-		mainwin->dbSqlError(q.lastError());
+		XCA_SQLERROR(q.lastError());
 	}
 	delete dlg;
 }

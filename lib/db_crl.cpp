@@ -7,7 +7,9 @@
 
 
 #include "db_crl.h"
+#include "main.h"
 #include "exception.h"
+#include "database_model.h"
 #include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
 #include "widgets/NewCrl.h"
@@ -17,8 +19,8 @@
 #include "widgets/ItemCombo.h"
 #include "ui_NewCrl.h"
 
-db_crl::db_crl(MainWindow *mw)
-	:db_x509name(mw)
+db_crl::db_crl(database_model *parent)
+	:db_x509name(parent)
 {
 	class_name = "crls";
 	sqlHashTable = "crls";
@@ -55,13 +57,16 @@ void db_crl::load()
 
 void db_crl::revokeCerts(pki_crl *crl)
 {
+	db_x509 *certs = models()->model<db_x509>();
 	x509revList revlist;
 
-	if (!mainwin->certs)
+	if (!certs)
 		return;
+
 	pki_x509 *signer = crl->getIssuer();
 	if (!signer)
 		return;
+
 	revlist = crl->getRevList();
 	signer->mergeRevList(revlist);
 	foreach(x509rev revok, revlist) {
@@ -118,17 +123,19 @@ pki_base *db_crl::insert(pki_base *item)
 
 void db_crl::showPki(pki_base *pki)
 {
+	db_x509 *certs = models()->model<db_x509>();
 	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
-	if (!crl)
+	if (!crl || !certs)
 		return;
+
 	CrlDetail *dlg = new CrlDetail(mainwin);
 	if (!dlg)
 		return;
 
 	dlg->setCrl(crl);
 	connect(dlg->issuerIntName, SIGNAL(doubleClicked(QString)),
-		mainwin->certs, SLOT(showItem(QString)));
-	connect(mainwin->certs, SIGNAL(pkiChanged(pki_base*)),
+		certs, SLOT(showItem(QString)));
+	connect(certs, SIGNAL(pkiChanged(pki_base*)),
 		dlg, SLOT(itemChanged(pki_base*)));
 	if (dlg->exec()) {
 		QString newname = dlg->descr->text();
@@ -176,51 +183,16 @@ void db_crl::store(QModelIndex index)
 		}
 	}
 	catch (errorEx &err) {
-		mainwin->Error(err);
+		emit errorThrown(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;
 }
 
-#if 0
-void db_crl::updateRevocations(pki_x509 *cert)
-{
-	x509name issname = cert->getSubject();
-	x509revList revlist;
-	pki_crl *latest = NULL;
-
-	FOR_ALL_pki(crl, pki_crl) {
-		if (!(issname == crl->getSubject()))
-			continue;
-		pki_key *key = cert->getPubKey();
-		if (!key)
-			continue;
-		if (!crl->verify(key)) {
-			delete key;
-			continue;
-		}
-		delete key;
-		pki_x509 *old = crl->getIssuer();
-		if (!old) {
-			crl->setIssuer(cert);
-		} else if (old != cert) {
-			if (old->getNotAfter() < cert->getNotAfter())
-				crl->setIssuer(cert);
-		}
-		if (!latest || (latest->getCrlNumber() < crl->getCrlNumber()))
-			latest = crl;
-	}
-	if (latest) {
-		revlist = latest->getRevList();
-		cert->mergeRevList(revlist);
-		cert->setCrlNumber(latest->getCrlNumber());
-	}
-}
-#endif
-
 void db_crl::newItem()
 {
-	QList<pki_x509 *> cas = mainwin->certs->getAllIssuers();
+	db_x509 *certs = models()->model<db_x509>();
+	QList<pki_x509 *> cas = certs->getAllIssuers();
 	pki_x509 *ca = NULL;
 
 	switch (cas.size()) {
@@ -325,7 +297,7 @@ void db_crl::newItem(pki_x509 *cert)
 		createSuccess((crl));
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);
+		emit errorThrown(err);
 		if (crl)
 			delete crl;
 		crl = NULL;

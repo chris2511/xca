@@ -21,4 +21,3 @@ unsigned char *Passwd::constUchar() const
 {
 	return (unsigned char *)(size() ? constData() : "");
 }
-

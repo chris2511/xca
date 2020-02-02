@@ -10,8 +10,7 @@
 
 #include <QString>
 #include <QObject>
-
-#include "widgets/MainWindow.h"
+#include <QApplication>
 
 class QWidget;
 
@@ -26,7 +25,7 @@ class pass_info: public QObject
 	QString pixmap;
 
    public:
-	pass_info(QString t, QString d, QWidget *w = NULL);
+	pass_info(const QString &t, const QString &d, QWidget *w = NULL);
 	QString getTitle()
 	{
 		return title;
@@ -37,13 +36,15 @@ class pass_info: public QObject
 	}
 	QWidget *getWidget()
 	{
+		if (!widget)
+			widget = qApp->activeWindow();
 		return widget;
 	}
 	QString getType()
 	{
 		return type;
 	}
-	QPixmap getImage()
+	QString getImage()
 	{
 		return pixmap;
 	}

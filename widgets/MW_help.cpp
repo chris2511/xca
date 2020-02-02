@@ -50,30 +50,6 @@ const QList<QStringList> MainWindow::getTranslators() const
 	};
 };
 
-
-void MainWindow::cmd_version()
-{
-	fprintf(stderr, XCA_TITLE " Version %s\n", version_str(false));
-	exitApp = 1;
-}
-
-void MainWindow::cmd_help(const char* msg)
-{
-	fprintf(stderr, XCA_TITLE " Version %s\n"
-		"\n"
-		" -v show version information and exit\n"
-		" -h shows this help screen and exit\n"
-		" -d expect the following argument to be the database name to use\n"
-		" -i expect the following argument to be the index file to generate\n"
-		" -I expect the following argument to be the base name the index file hierarchy to generate\n"
-		" -x Exit after processing all commandline options\n\n", version_str(false));
-
-	if (msg) {
-		fprintf(stderr, "Cmdline Error: %s\n", msg);
-	}
-	exitApp = 1;
-}
-
 void MainWindow::about()
 {
 	QTextEdit *textbox = new QTextEdit(NULL);

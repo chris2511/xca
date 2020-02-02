@@ -58,7 +58,7 @@ void KeyTreeView::setOwnPass()
 	try {
 		keys->setOwnPass(currentIndex(), pki_key::ptPrivate);
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -67,7 +67,7 @@ void KeyTreeView::resetOwnPass()
 	try {
 		keys->setOwnPass(currentIndex(), pki_key::ptCommon);
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -85,7 +85,7 @@ void KeyTreeView::changePin()
 		}
 		scard->changePin();
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -103,7 +103,7 @@ void KeyTreeView::initPin()
 		}
 		scard->initPin();
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -121,7 +121,7 @@ void KeyTreeView::changeSoPin()
 		}
 		scard->changeSoPin();
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -154,7 +154,7 @@ void KeyTreeView::toToken()
 			card = NULL;
 		}
 	} catch (errorEx &err) {
-		mainwin->Error(err);
+		XCA_ERROR(err);
         }
 	if (card)
 		delete card;

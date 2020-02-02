@@ -38,6 +38,8 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		void dragEnterEvent(QDragEnterEvent *event);
 		void dropEvent(QDropEvent *event);
 		bool openDB() const;
+		db_base *select_db(const std::type_info &t);
+
 
 	public slots:
 		void on_butRemove_clicked();

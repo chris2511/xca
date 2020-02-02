@@ -1,0 +1,609 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2020 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
+#include <QDir>
+#include <QDebug>
+#include "widgets/XcaWarning.h"
+#include "widgets/OpenDb.h"
+#include "widgets/PwDialog.h"
+
+#include "exception.h"
+#include "database_model.h"
+#include "pki_evp.h"
+#include "pki_scard.h"
+#include "entropy.h"
+#include "db_base.h"
+#include "sql.h"
+#include "func.h"
+#include "db.h"
+#include "settings.h"
+#include "entropy.h"
+#include "pass_info.h"
+
+#include "db_key.h"
+#include "db_x509.h"
+#include "db_crl.h"
+#include "db_x509req.h"
+#include "db_temp.h"
+
+QSqlError database_model::initSqlDB()
+{
+#define MAX_SCHEMAS 7
+#define SCHEMA_VERSION "7"
+
+	QStringList schemas[MAX_SCHEMAS];
+
+#include "widgets/database_schema.cpp"
+
+	XSqlQuery q;
+	QSqlDatabase db = QSqlDatabase::database();
+	QStringList tables;
+	unsigned int i;
+
+	if (!db.isOpen())
+		return QSqlError();
+
+	Transaction;
+	if (!TransBegin())
+		return db.lastError();
+
+	for (;;) {
+		i = XSqlQuery::schemaVersion();
+		if (i >= ARRAY_SIZE(schemas))
+			break;
+		foreach(QString sql, schemas[i]) {
+			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
+			if (!q.exec(sql) || q.lastError().isValid()) {
+				TransRollback();
+				return q.lastError();
+			}
+		}
+	}
+
+	if (i != MAX_SCHEMAS)
+		throw errorEx(tr("Failed to update the database schema to the current version"));
+
+	TransCommit();
+	return QSqlError();
+}
+
+bool database_model::checkForOldDbFormat(const QString &dbfile) const
+{
+	// 0x ca db 19 69
+	static const unsigned char magic[] = { 0xca, 0xdb, 0x19, 0x69 };
+	char head[4];
+
+	XFile file(dbfile);
+	if (!file.open(QIODevice::ReadOnly))
+		return 0;
+	file.read(head, sizeof head);
+	file.close();
+	return !memcmp(head, magic, sizeof head);
+}
+
+int database_model::verifyOldDbPass(const QString &dbname) const
+{
+	// look for the password
+	QString passhash;
+	db_header_t head;
+	class db mydb(dbname);
+	mydb.first();
+	if (!mydb.find(setting, QString("pwhash"))) {
+		QString val;
+		char *p;
+		if ((p = (char *)mydb.load(&head))) {
+			passhash = p;
+			free(p);
+			return initPass(dbname, passhash);
+		}
+	}
+	return 2;
+}
+
+QString database_model::checkPre2Xdatabase() const
+{
+	if (!checkForOldDbFormat(dbName))
+		return QString();
+
+	QString newname = dbName;
+	if (newname.endsWith(".xdb"))
+		newname = newname.left(newname.length() -4);
+	newname += "_backup_" + QDateTime::currentDateTime()
+			.toString("yyyyMMdd_hhmmss") + ".xdb";
+	if (!XCA_OKCANCEL(tr("Legacy database format detected. Creating a backup copy called: '%1' and converting the database to the new format").arg(newname))) {
+		throw 1;
+	}
+	if (verifyOldDbPass(dbName) != 1)
+		throw 1;
+
+	if (!QFile::rename(dbName, newname)) {
+		XCA_WARN(tr("Failed to rename the database file, because the target already exists"));
+		throw 1;
+	}
+	return newname;
+}
+
+void database_model::importOldDatabase(const QString &dbname)
+{
+	class db mydb(dbname);
+	unsigned char *p = NULL;
+	db_header_t head;
+	pki_base *pki;
+	db_base *db;
+	QList<enum pki_type> pkitype {
+		smartCard, asym_key, tmpl, x509, x509_req, revocation
+	};
+
+	Settings["pwhash"] = pki_evp::passHash;
+	for (int i=0; i < pkitype.count(); i++) {
+		mydb.first();
+		while (mydb.find(pkitype[i], QString()) == 0) {
+			QString s;
+			p = mydb.load(&head);
+			enum pki_type type = pkitype[i];
+
+			if (!p) {
+				qWarning("Load was empty !");
+				goto next;
+			}
+			switch (type) {
+			case smartCard:
+				db = model<db_key>();
+				pki = new pki_scard("");
+				break;
+			case asym_key:
+				db = model<db_key>();
+				pki = new pki_evp();
+				break;
+			case x509_req:
+				db = model<db_x509req>();
+				pki = new pki_x509req();
+				break;
+			case x509:
+				db = model<db_x509>();
+				pki = new pki_x509();
+				break;
+			case revocation:
+				db = model<db_crl>();
+				pki = new pki_crl();
+				break;
+			case tmpl:
+				db = model<db_temp>();
+				pki = new pki_temp();
+				break;
+			default:
+				goto next;
+			}
+			pki->setIntName(QString::fromUtf8(head.name));
+
+			try {
+				pki->fromData(p, &head);
+				pki->pkiSource = legacy_db;
+			}
+			catch (errorEx &err) {
+				err.appendString(pki->getIntName());
+				delete pki;
+				throw err;
+			}
+			free(p);
+			if (pki) {
+				pki_x509req *r=dynamic_cast<pki_x509req*>(pki);
+				if (r && r->issuedCerts() > 0)
+					r->setDone();
+				qDebug() << "load old:" << pki->getIntName();
+				db->insertPKI(pki);
+			}
+next:
+			if (mydb.next())
+				break;
+		}
+	}
+	QStringList sl; sl << "workingdir" << "pkcs11path" <<
+		"default_hash" << "mandatory_dn" << "explicit_dn" <<
+		"string_opt" << "optionflags1" << "defaultkey";
+
+	mydb.first();
+	while (!mydb.find(setting, QString())) {
+		QString val;
+		char *p;
+		if ((p = (char *)mydb.load(&head))) {
+			val = p;
+			free(p);
+		}
+		QString set = QString::fromUtf8(head.name);
+		if (sl.contains(set)) {
+			if (set == "optionflags1")
+				set = "optionflags";
+			Settings[set] = val;
+		}
+		if (mydb.next())
+			break;
+	}
+}
+
+database_model::database_model(const QString &name, const QString &pass)
+{
+	int ret = 2;
+	QSqlError err;
+	QString oldDbFile;
+
+	dbName = name;
+	dbTimer = 0;
+
+	if (dbName.isEmpty())
+		dbName = get_default_db();
+
+	if (dbName.isEmpty())
+		throw errorEx(1);
+
+	qDebug("Opening database: %s", QString2filename(dbName));
+
+	if (!isRemoteDB(dbName))
+		oldDbFile = checkPre2Xdatabase();
+
+	openDatabase(dbName, pass);
+	Entropy::seed_rng();
+	initSqlDB();
+
+	if (dbName.isEmpty()) {
+		/* Error already printed */
+		throw errorEx(1);
+	}
+	if (!QSqlDatabase::database().isOpen()) {
+		/* Error already printed */
+		throw errorEx(1);
+	}
+
+	if (oldDbFile.isEmpty()) {
+		ret = initPass(dbName, Settings["pwhash"]);
+		if (ret == 2)
+			throw errorEx(ret);
+		if (ret == 0 && Settings["pwhash"].empty())
+			throw errorEx(2);
+	}
+	/* Assure initialisation order:
+	 * keys first, followed by x509[req], and crls last.
+	 * Templates don't care.
+	 */
+	models << new db_key(this);
+	models << new db_x509req(this);
+	models << new db_x509(this);
+	models << new db_crl(this);
+	models << new db_temp(this);
+
+	foreach(db_base *m, models)
+		check_oom(m);
+
+	if (!oldDbFile.isEmpty())
+		importOldDatabase(oldDbFile);
+
+	pkcs11::reload_libs(Settings["pkcs11path"]);
+}
+
+void database_model::restart_timer()
+{
+	if (!IS_GUI_APP)
+		return;
+	killTimer(dbTimer);
+	dbTimer = startTimer(1500);
+	foreach(db_base *m, models)
+		m->restart_timer();
+}
+
+void database_model::timerEvent(QTimerEvent *event)
+{
+	quint64 stamp;
+	if (event->timerId() != dbTimer)
+		return;
+	XSqlQuery q;
+	SQL_PREPARE(q, "SELECT MAX(stamp) from items");
+	q.exec();
+	if (!q.first())
+		return;
+	stamp = q.value(0).toULongLong();
+	q.finish();
+	qDebug() << "Stamp" << stamp
+		 << "DatabaseStamp" << DbTransaction::DatabaseStamp;
+
+	if (stamp > DbTransaction::DatabaseStamp) {
+		SQL_PREPARE(q, "SELECT DISTINCT type FROM items WHERE stamp=?");
+		q.bindValue(0, stamp);
+		q.exec();
+
+		QList<enum pki_type> typelist;
+		while (q.next())
+			typelist << (enum pki_type)q.value(0).toInt();
+
+		q.finish();
+		qDebug() << "CHANGED" << typelist;
+		foreach(db_base *model, models)
+			model->reloadContainer(typelist);
+	}
+	DbTransaction::DatabaseStamp = stamp;
+}
+
+void database_model::dump_database(const QString &dirname) const
+{
+	if (dirname.isEmpty())
+		return;
+
+	QDir d(dirname);
+	if (!d.exists() && !d.mkdir(dirname)) {
+		throw errorEx(tr("Unable to create '%1': %2").arg(dirname));
+		return;
+	}
+
+	qDebug() << "Dumping to" << dirname;
+	foreach(db_base *model, models)
+		model->dump(dirname);
+}
+
+static QString defaultdb()
+{
+	return getUserSettingsDir() +QDir::separator() + "defaultdb";
+}
+
+QString database_model::get_default_db() const
+{
+	if (QSqlDatabase::database().isOpen())
+		return QString();
+
+	QFile inputFile(defaultdb());
+	if (!inputFile.open(QIODevice::ReadOnly))
+		return QString();
+
+	QTextStream in(&inputFile);
+	QString dbfile = in.readLine();
+	inputFile.close();
+
+	if (QFile::exists(dbfile) || isRemoteDB(dbfile))
+		return dbfile;
+	return QString();
+}
+
+void database_model::as_default_database(const QString &db)
+{
+	QFile file(defaultdb());
+
+	if (db.isEmpty()) {
+		file.remove();
+		return;
+	}
+
+	if (file.open(QIODevice::ReadWrite)) {
+		QByteArray ba;
+		if (isRemoteDB(db))
+			ba = filename2bytearray(db);
+		else
+			ba = filename2bytearray(relativePath(db));
+		ba += '\n';
+		file.write(ba);
+		/* write() failed? Harmless. Only inconvenient */
+	}
+	file.close();
+}
+
+database_model::~database_model()
+{
+	QByteArray ba;
+	QString connName;
+	bool dbopen;
+
+	{
+		/* Destroy "db" at the end of the block */
+		QSqlDatabase db = QSqlDatabase::database();
+		connName= db.connectionName();
+		dbopen = db.isOpen();
+	}
+
+	if (!dbopen) {
+		QSqlDatabase::removeDatabase(connName);
+		Settings.clear();
+		return;
+	}
+	killTimer(dbTimer);
+	qDebug("Closing database: %s", QString2filename(dbName));
+
+	qDeleteAll(models);
+	models.clear();
+
+	db_base::flushLookup();
+
+	QSqlDatabase::database().close();
+	pki_evp::passwd.cleanse();
+	pki_evp::passwd = QByteArray();
+
+	pkcs11::remove_libs();
+	QSqlDatabase::removeDatabase(connName);
+	Settings.clear();
+	XSqlQuery::clearTablePrefix();
+}
+
+#define NUM_PARAM 6
+#define NUM_PARAM_LEAST 5
+
+DbMap database_model::splitRemoteDbName(const QString &db)
+{
+	static const char * const names[NUM_PARAM] =
+		{ "all", "user", "host", "type", "dbname", "prefix" };
+	DbMap map;
+	QRegExp rx("(.*)@(.*)/(.*):([^#]*)#?([^#]*)");
+	int i, pos = rx.indexIn(db);
+	QStringList list = rx.capturedTexts();
+
+	if (pos != -1 && list.size() >= NUM_PARAM_LEAST) {
+		if (list.size() == NUM_PARAM_LEAST)
+			list[NUM_PARAM_LEAST] = "";
+		list[NUM_PARAM_LEAST] = list[NUM_PARAM_LEAST].toLower();
+		for (i=0; i < NUM_PARAM; i++) {
+			map[names[i]] = list[i];
+		}
+		qDebug() << "SPLIT DB:" << map;
+	}
+	return map;
+}
+
+bool database_model::isRemoteDB(const QString &db)
+{
+	DbMap remote_param = splitRemoteDbName(db);
+	return remote_param.size() == NUM_PARAM;
+}
+
+void database_model::openRemoteDatabase(const QString &connName,
+				const DbMap &params, const QString &pass)
+{
+	QSqlDatabase db = QSqlDatabase::database(connName);
+
+	db.setDatabaseName(params["dbname"]);
+	QStringList hostport = params["host"].split(":");
+	if (hostport.size() > 0)
+		db.setHostName(hostport[0]);
+	if (hostport.size() > 1)
+		db.setPort(hostport[1].toInt());
+	db.setUserName(params["user"]);
+	db.setPassword(pass);
+
+	XSqlQuery::setTablePrefix(params["prefix"]);
+
+	db.open();
+	QSqlError e = db.lastError();
+
+#warning HANDLE wrong password
+	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
+		db.isOpen())
+	{
+		/* This is MySQL specific. Execute it always, because
+		 * dbType() could return "ODBC" but connect to MariaDB
+		 */
+		XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
+		return;
+	}
+	XSqlQuery::clearTablePrefix();
+	db.close();
+}
+
+void database_model::openLocalDatabase(const QString &connName,
+					const QString &descriptor)
+{
+	QSqlDatabase db = QSqlDatabase::database(connName);
+	QFile f(descriptor);
+	qDebug() << connName << descriptor;
+	if (!f.exists(descriptor)) {
+		f.open(QIODevice::WriteOnly);
+		f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
+	}
+
+	if (f.size() != 0) {
+		f.open(QIODevice::ReadOnly);
+		QByteArray ba = f.read(6);
+		qDebug() << "FILE:" << f.fileName() << ba;
+		if (ba != "SQLite") {
+			throw errorEx(tr("The file '%1' is not an XCA database")
+					.arg(f.fileName()));
+		}
+	}
+	f.close();
+
+	db.setDatabaseName(descriptor);
+	db.open();
+	QSqlError e = db.lastError();
+	if (e.isValid()) {
+		db.close();
+		throw errorEx(e.text());
+	}
+}
+
+void database_model::openDatabase(const QString &descriptor, const QString &pass)
+{
+	DbMap params = splitRemoteDbName(descriptor);
+	bool isRemote = params.size() == NUM_PARAM;
+	QString connName, type = isRemote ? params["type"] : QString("QSQLITE");
+
+	qDebug() << "IS REMOTE?" << params.size() << NUM_PARAM << type << params;
+	try {
+		QSqlDatabase db = QSqlDatabase::addDatabase(type);
+		connName = db.connectionName();
+		if (!isRemote) {
+			if (!db.isDriverAvailable("QSQLITE"))
+				throw errorEx(tr("No SqLite3 driver available. Please install the qt-sqlite package of your distribution"));
+			openLocalDatabase(connName, descriptor);
+		} else {
+			openRemoteDatabase(connName, params, pass);
+		}
+		DbTransaction::setHasTransaction(
+			db.driver()->hasFeature(QSqlDriver::Transactions));
+	} catch (errorEx &err) {
+		QSqlDatabase::removeDatabase(connName);
+		throw err;
+	}
+}
+
+static void pwhash_upgrade()
+{
+	/* Start automatic update from sha512 to sha512*8000
+	 * if the password is correct. The old sha512 hash does
+	 * start with 'S', while the new hash starts with T. */
+
+	/* Start automatic update from md5 to salted sha512*8000
+	 * if the password is correct. The md5 hash does not
+	 * start with 'S' or 'T, but with a hex-digit */
+	if (pki_evp::passHash.startsWith("T")) {
+		/* Fine, current hash function used. */
+		return;
+	}
+	if (pki_evp::sha512passwd(pki_evp::passwd,
+				pki_evp::passHash) == pki_evp::passHash ||
+	    pki_evp::md5passwd(pki_evp::passwd) == pki_evp::passHash)
+	{
+		QString salt = Entropy::makeSalt();
+		pki_evp::passHash = pki_evp::sha512passwT(
+				pki_evp::passwd, salt);
+	}
+}
+
+int database_model::initPass(const QString &dbName, const QString &passhash) const
+{
+	QString salt, pass;
+	int ret;
+
+	pass_info p(tr("New Password"), tr("Please enter a password, "
+			"that will be used to encrypt your private keys "
+			"in the database:\n%1").
+			arg(compressFilename(dbName)));
+
+	pki_evp::passHash = passhash;
+	if (pki_evp::passHash.isEmpty()) {
+		ret = PwDialog::execute(&p, &pki_evp::passwd, true, true);
+		if (ret != 1)
+			return ret;
+		salt = Entropy::makeSalt();
+		pki_evp::passHash =pki_evp::sha512passwT(pki_evp::passwd,salt);
+		Settings["pwhash"] = pki_evp::passHash;
+	} else {
+		pwhash_upgrade();
+		ret = 0;
+		while (pki_evp::sha512passwT(pki_evp::passwd, pki_evp::passHash)
+				!= pki_evp::passHash)
+		{
+			if (ret)
+				XCA_WARN(
+				tr("Password verify error, please try again"));
+			p.setTitle(tr("Password"));
+			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbName)));
+			ret = PwDialog::execute(&p, &pki_evp::passwd,
+						false, true);
+			if (ret != 1) {
+				pki_evp::passwd = QByteArray();
+				return ret;
+			}
+			pwhash_upgrade();
+		}
+	}
+	if (pki_evp::passwd.isNull())
+		pki_evp::passwd = "";
+	return 1;
+}

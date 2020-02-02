@@ -30,8 +30,7 @@ pki_base::pki_base(const QString name, pki_base *p)
 
 pki_base::~pki_base(void)
 {
-	while (childItems.size() > 0)
-		delete takeFirst();
+	qDeleteAll(childItems);
 }
 
 QString pki_base::comboText() const
@@ -133,6 +132,7 @@ void pki_base::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 	fromPEM_BIO(bio, name);
 	BIO_free(bio);
 	autoIntName(name);
+	setFilename(name);
 }
 
 QString pki_base::rmslashdot(const QString &s)
@@ -382,6 +382,11 @@ QString pki_base::get_dump_filename(const QString &dir,
 void pki_base::selfComment(QString msg)
 {
 	setComment(appendXcaComment(getComment(), msg));
+}
+
+void pki_base::print(FILE *fp) const
+{
+	fprintf(fp, "File: %s\n", CCHAR(getFilename()));
 }
 
 static QString icsValue(QString s)

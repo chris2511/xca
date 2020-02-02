@@ -5,15 +5,17 @@
  * All rights reserved.
  */
 
+#include <time.h>
+
 #include "base.h"
 #include "func.h"
-#include "main.h"
 #include "exception.h"
-#include <time.h>
+#include "widgets/XcaApplication.h"
 #include "asn1time.h"
 #include <openssl/x509.h>
 #include <openssl/err.h>
 #include <openssl/opensslv.h>
+
 #include <QObject>
 
 /* As defined in rfc-5280  4.1.2.5 */
@@ -155,13 +157,13 @@ QString a1time::toString(QString fmt, Qt::TimeSpec spec) const
 		return QObject::tr("Undefined");
 	if (!isValid())
 		return QObject::tr("Broken / Invalid");
-	return XCA_application::language().toString(
+	return XcaApplication::language().toString(
 		spec == Qt::UTC ? toUTC() : toLocalTime(), fmt);
 }
 
 QString a1time::toPretty() const
 {
-	QString fmt = XCA_application::language().dateTimeFormat();
+	QString fmt = XcaApplication::language().dateTimeFormat();
 	return toString(fmt, Qt::LocalTime);
 }
 
@@ -215,7 +217,7 @@ QString a1time::toFancy() const
 		fmt = future ? QObject::tr("in %1 hours") :
 				QObject::tr("%1 hours ago");
 	} else {
-		return XCA_application::language().toString(date(),
+		return XcaApplication::language().toString(date(),
 			QLocale::ShortFormat);
 	}
 	return fmt.arg(diff);

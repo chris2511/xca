@@ -313,6 +313,7 @@ void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey, QString name)
 	search_ec_oid(pkey);
 
 	autoIntName(name);
+	setFilename(name);
 	pki_openssl_error();
 }
 

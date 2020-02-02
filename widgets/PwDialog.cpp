@@ -12,6 +12,7 @@
 #include "widgets/MainWindow.h"
 #include <QLabel>
 #include <QMessageBox>
+#include <QApplication>
 
 static int hex2bin(QString &x, Passwd *final)
 {
@@ -34,29 +35,36 @@ static int hex2bin(QString &x, Passwd *final)
 
 int PwDialog::execute(pass_info *p, Passwd *passwd, bool write, bool abort)
 {
-	PwDialog *dlg;
-	int ret;
-	dlg = new PwDialog(p, write);
-	if (abort)
-		dlg->addAbortButton();
-	ret = dlg->exec();
-	*passwd = dlg->getPass();
-	delete dlg;
-	return ret;
+	char *line = NULL;
+	size_t linecap = 0;
+
+	if (IS_GUI_APP) {
+		PwDialog *dlg = new PwDialog(p, write);
+		if (abort)
+			dlg->addAbortButton();
+		int ret = dlg->exec();
+		*passwd = dlg->getPass();
+		delete dlg;
+		return ret;
+	}
+	printf(COL_CYAN "%s" COL_RESET "\n", CCHAR(p->getDescription()));
+	getline(&line, &linecap, stdin);
+	*passwd = line;
+	*passwd = passwd->trimmed();
+	free(line);
+	return 1;
 }
 
 int PwDialog::pwCallback(char *buf, int size, int rwflag, void *userdata)
 {
-	int ret;
+	Passwd passwd;
+	pass_info *p = static_cast<pass_info *>(userdata);
 
-	pass_info *p = (pass_info *)userdata;
-	PwDialog *dlg = new PwDialog(p, rwflag);
+	int ret = PwDialog::execute(p, &passwd, rwflag, false);
 
-	ret = dlg->exec();
-	QByteArray pw = dlg->getPass();
-	size = MIN(size, pw.size());
-	memcpy(buf, pw.constData(), size);
-	delete dlg;
+	size = MIN(size, passwd.size());
+	memcpy(buf, passwd.constData(), size);
+
 	return ret == 1 ? size : 0;
 }
 
@@ -65,7 +73,7 @@ PwDialog::PwDialog(pass_info *p, bool write)
 {
 	pi = p;
 	setupUi(this);
-	image->setPixmap(pi->getImage());
+	image->setPixmap(QPixmap(pi->getImage()));
 	description->setText(pi->getDescription());
 	title->setText(pi->getType());
 	if (!pi->getTitle().isEmpty())

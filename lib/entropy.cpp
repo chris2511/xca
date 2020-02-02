@@ -41,7 +41,7 @@
  *    all say it does not harm.
  *
  *    Entropy by Mouse and keyboard events
- *    main.cpp: bool XCA_application::eventFilter()
+ *    main.cpp: bool XcaApplication::eventFilter()
  *    256bit from /dev/urandom (unix/Mac)
  *
  * 3) A .rnd state file in the XCA application directory
@@ -60,6 +60,18 @@ unsigned char Entropy::pool[512];
 unsigned Entropy::pool_pos = 0;
 QTime Entropy::timer;
 unsigned Entropy::seed_strength = 0;
+
+QString Entropy::makeSalt(void)
+{
+	QString s = "T";
+	unsigned char rand[8];
+
+	Entropy::get(rand, sizeof rand);
+	for (unsigned i=0; i< sizeof rand; i++)
+		s += QString("%1").arg(rand[i]);
+	return s;
+}
+
 
 void Entropy::add(int rand)
 {

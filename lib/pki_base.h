@@ -62,6 +62,7 @@ class pki_base : public QObject
 		/* model data */
 		pki_base *parent;
 		void my_error(const QString &error) const;
+		QString filename;
 		virtual void PEM_file_comment(XFile &file) const;
 
 	public:
@@ -81,7 +82,16 @@ class pki_base : public QObject
 		{
 			return desc;
 		}
+		void setFilename(const QString &s)
+		{
+			filename = s;
+		}
+		QString getFilename() const
+		{
+			return filename;
+		}
 		virtual QString comboText() const;
+		virtual void print(FILE *fp) const;
 		QString getUnderlinedName() const;
 		void setIntName(const QString &d)
 		{

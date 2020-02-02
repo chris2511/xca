@@ -10,11 +10,15 @@
 
 #include "X509SuperTreeView.h"
 #include "lib/db_x509.h"
+#include "lib/db_crl.h"
+#include "lib/database_model.h"
 
 class CertTreeView: public X509SuperTreeView
 {
 	Q_OBJECT
+
 	db_x509 *certs;
+	db_crl *crls;
 
     public:
 	CertTreeView(QWidget *parent) : X509SuperTreeView(parent)
@@ -23,10 +27,11 @@ class CertTreeView: public X509SuperTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(QAbstractItemModel *model=NULL)
+	void setModels(database_model *models)
 	{
-		certs = dynamic_cast <db_x509*> (model);
-		X509SuperTreeView::setModel(model);
+		certs = models->model<db_x509>();
+		crls = models->model<db_crl>();
+		X509SuperTreeView::setModel(certs);
 	}
 
     public slots:

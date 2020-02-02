@@ -13,7 +13,9 @@
 #include <QItemSelectionModel>
 #include <QSortFilterProxyModel>
 #include <QTimer>
+
 #include "lib/db_base.h"
+#include "lib/database_model.h"
 
 class XcaTreeView: public QTreeView
 {
@@ -31,6 +33,7 @@ class XcaTreeView: public QTreeView
 	XcaTreeView(QWidget *parent = 0);
 	virtual ~XcaTreeView();
 	void contextMenuEvent(QContextMenuEvent *e);
+	virtual void setModels(database_model *);
 	virtual void setModel(QAbstractItemModel *model=NULL);
 	void setMainwin(MainWindow *mw, QLineEdit *filter);
 	QModelIndex getIndex(const QModelIndex &index);

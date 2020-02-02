@@ -10,6 +10,7 @@
 
 #include "XcaTreeView.h"
 #include "lib/db_temp.h"
+#include "lib/database_model.h"
 
 class TempTreeView: public XcaTreeView
 {
@@ -23,10 +24,10 @@ class TempTreeView: public XcaTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(QAbstractItemModel *model=NULL)
+	void setModels(database_model *models)
 	{
-		temps = dynamic_cast <db_temp*> (model);
-		XcaTreeView::setModel(model);
+		temps = models->model<db_temp>();
+		XcaTreeView::setModel(temps);
 	}
 
    public slots:

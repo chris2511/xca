@@ -10,6 +10,7 @@
 
 #include "X509SuperTreeView.h"
 #include "lib/db_x509req.h"
+#include "lib/database_model.h"
 
 class ReqTreeView: public X509SuperTreeView
 {
@@ -23,10 +24,10 @@ class ReqTreeView: public X509SuperTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(QAbstractItemModel *model=NULL)
+	void setModels(database_model *models)
 	{
-		reqs = dynamic_cast <db_x509req*> (model);
-		X509SuperTreeView::setModel(model);
+		reqs = models->model<db_x509req>();
+		X509SuperTreeView::setModel(reqs);
 	}
 
     public slots:

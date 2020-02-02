@@ -6,13 +6,16 @@
  */
 
 
-#include "KeyDetail.h"
-#include "MainWindow.h"
 #include "lib/main.h"
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
-#include "widgets/distname.h"
-#include "widgets/clicklabel.h"
+
+#include "KeyDetail.h"
+#include "MainWindow.h"
+#include "distname.h"
+#include "clicklabel.h"
+#include "XcaApplication.h"
+
 #include <QLabel>
 #include <QPushButton>
 #include <QLineEdit>
@@ -23,7 +26,7 @@ KeyDetail::KeyDetail(QWidget *parent)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(QPixmap(":keyImg"));
-	keyModulus->setFont(XCA_application::tableFont);
+	keyModulus->setFont(XcaApplication::tableFont);
 	tabWidget->setCurrentIndex(0);
 }
 

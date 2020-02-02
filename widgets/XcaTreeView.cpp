@@ -16,6 +16,7 @@
 #include <QMenu>
 #include <QVariant>
 #include <QRegExp>
+#include "lib/database_model.h"
 
 
 XcaTreeView::XcaTreeView(QWidget *parent)
@@ -89,11 +90,16 @@ void XcaTreeView::setMainwin(MainWindow *mw, QLineEdit *filter)
 		this, SLOT(setFilter(const QString&)));
 }
 
+void XcaTreeView::setModels(database_model *)
+{
+	setModel(NULL);
+}
+
 void XcaTreeView::setModel(QAbstractItemModel *model)
 {
 	QByteArray ba;
 
-	basemodel = (db_base *)model;
+	basemodel = dynamic_cast<db_base*>(model);
 	proxy->setSourceModel(model);
 	QTreeView::setModel(proxy);
 
@@ -250,7 +256,7 @@ void XcaTreeView::storeItems(void)
 				return;
 			}
 		} catch (errorEx &err) {
-			MainWindow::Error(err);
+			XCA_ERROR(err);
 		}
 	}
 }

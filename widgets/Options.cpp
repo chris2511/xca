@@ -195,7 +195,7 @@ void Options::on_removeButton_clicked(void)
 	try {
 		pkcs11::remove_lib(item->text());
 	} catch (errorEx &err) {
-		mw->Error(err);
+		XCA_ERROR(err);
 	}
 }
 

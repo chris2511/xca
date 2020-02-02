@@ -9,12 +9,15 @@
 #include "pki_key.h"
 #include "func.h"
 #include "db.h"
+#include "db_base.h"
 #include <openssl/rand.h>
 #include <openssl/pem.h>
 #include <QProgressDialog>
 #include <QApplication>
 #include <QDir>
 #include "widgets/PwDialog.h"
+#include "widgets/ExportDialog.h"
+#include "widgets/XcaWarning.h"
 
 #include "openssl_compat.h"
 
@@ -249,7 +252,7 @@ int pki_key::getUcount() const
 		size = q.value(0).toInt();
 	else
 		qDebug("Failed to get key count for %s", CCHAR(getIntName()));
-	MainWindow::dbSqlError(q.lastError());
+	XCA_SQLERROR(q.lastError());
 	useCount = size;
 	return size;
 }
@@ -825,4 +828,15 @@ void pki_key::PEM_file_comment(XFile &file) const
 	pki_base::PEM_file_comment(file);
 	file.write(QString("%1 %2\n").arg(length(), getTypeString())
 			.toUtf8());
+}
+
+void pki_key::print(FILE *fp) const
+{
+	pki_base::print(fp);
+	BIO *b = BIO_new(BIO_s_file());
+	if (!b)
+		return;
+	BIO_set_fp(b, fp, BIO_NOCLOSE);
+	EVP_PKEY_print_public(b, key, 0, NULL);
+	BIO_free(b);
 }

@@ -15,9 +15,6 @@
 #include "PwDialog.h"
 #include "lib/base.h"
 
-#define NUM_PARAM 6
-#define NUM_PARAM_LEAST 5
-
 QString OpenDb::lastRemote;
 
 DbMap OpenDb::getDatabases()
@@ -45,11 +42,6 @@ bool OpenDb::hasSqLite()
 	return QSqlDatabase::isDriverAvailable("QSQLITE");
 }
 
-bool OpenDb::hasRemoteDrivers()
-{
-	return getDatabases().size() > 0;
-}
-
 void OpenDb::driver_selected()
 {
 	if (getDbType() == "QODBC3")
@@ -58,31 +50,9 @@ void OpenDb::driver_selected()
 		dbName_label->setText(tr("Database name"));
 }
 
-DbMap OpenDb::splitRemoteDbName(const QString &db)
+bool OpenDb::hasRemoteDrivers()
 {
-	static const char * const names[NUM_PARAM] =
-		{ "all", "user", "host", "type", "dbname", "prefix" };
-	DbMap map;
-	QRegExp rx("(.*)@(.*)/(.*):([^#]*)#?([^#]*)");
-	int i, pos = rx.indexIn(db);
-	QStringList list = rx.capturedTexts();
-
-	if (pos != -1 && list.size() >= NUM_PARAM_LEAST) {
-		if (list.size() == NUM_PARAM_LEAST)
-			list[NUM_PARAM_LEAST] = "";
-		list[NUM_PARAM_LEAST] = list[NUM_PARAM_LEAST].toLower();
-		for (i=0; i < NUM_PARAM; i++) {
-			map[names[i]] = list[i];
-		}
-		qDebug() << "SPLIT DB:" << map;
-	}
-	return map;
-}
-
-bool OpenDb::isRemoteDB(const QString &db)
-{
-	DbMap remote_param = splitRemoteDbName(db);
-	return remote_param.size() == NUM_PARAM;
+	return getDatabases().size() > 0;
 }
 
 void OpenDb::fillDbDropDown(const QString &current)
@@ -102,10 +72,10 @@ void OpenDb::fillDbDropDown(const QString &current)
 
 void OpenDb::setupDatabaseName(const QString &db)
 {
-	if (!isRemoteDB(db))
+	if (!database_model::isRemoteDB(db))
 		return;
 
-	DbMap remote_param = splitRemoteDbName(db);
+	DbMap remote_param = database_model::splitRemoteDbName(db);
 
 	userName->setText(remote_param["user"]);
 	hostName->setText(remote_param["host"]);
@@ -121,7 +91,7 @@ OpenDb::OpenDb(QWidget *parent, const QString &db)
 	setWindowTitle(XCA_TITLE);
 	fillDbDropDown(QString());
 
-	if (isRemoteDB(db)) {
+	if (database_model::isRemoteDB(db)) {
 		setupDatabaseName(db);
 		sqlite = false;
 		show_connection_settings = false;
@@ -151,93 +121,6 @@ void OpenDb::checkSqLite()
 	XCA_WARN(tr("No SqLite3 driver available. Please install the qt-sqlite package of your distribution"));
 }
 
-void OpenDb::openDatabase() const
-{
-	QString type = getDbType();
-	QString pass = dbPassword->text();
-	int round = 0;
-
-	if (type.isEmpty()) {
-		checkSqLite();
-		return;
-	}
-	if (sqlite) {
-		QFile f(dbName->text());
-		if (!QFile::exists(dbName->text())) {
-			f.open(QIODevice::WriteOnly);
-			f.setPermissions(QFile::WriteOwner | QFile::ReadOwner);
-			f.close();
-		} else {
-			QString msg = QString(
-					"The file '%1' is not an XCA database")
-					.arg(f.fileName());
-			if (f.size() != 0) {
-				f.open(QIODevice::ReadOnly);
-				QByteArray ba = f.read(6);
-				qDebug() << "FILE:" << f.fileName() << ba;
-				if (ba != "SQLite") {
-					XCA_WARN(msg);
-					return;
-				}
-			}
-		}
-	}
-	while (true) {
-		QString connName = QSqlDatabase::addDatabase(type).connectionName();
-		if (_openDatabase(connName, pass))
-			break;
-
-		if (pass.size() > 0 || round > 0)
-			MainWindow::dbSqlError();
-
-		Passwd pwd;
-		pass_info p(XCA_TITLE,
-			tr("Please enter the password to access the database server %2 as user '%1'.")
-				.arg(userName->text()).arg(hostName->text()));
-		QSqlDatabase::removeDatabase(connName);
-		if (PwDialog::execute(&p, &pwd) != 1)
-			break;
-		pass = QString(pwd);
-		round++;
-	}
-}
-
-bool OpenDb::_openDatabase(const QString &connName, const QString &pass) const
-{
-	QSqlDatabase db = QSqlDatabase::database(connName, false);
-
-	QStringList hostport = hostName->text().split(":");
-	db.setDatabaseName(dbName->text());
-	if (hostport.size() > 0)
-		db.setHostName(hostport[0]);
-	if (hostport.size() > 1)
-		db.setPort(hostport[1].toInt());
-	db.setUserName(userName->text());
-	db.setPassword(pass);
-	XSqlQuery::setTablePrefix(prefix->text().toLower());
-
-	db.open();
-	QSqlError e = db.lastError();
-	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
-			db.isOpen())
-	{
-		bool hasTrans = QSqlDatabase::database()
-			.driver()->hasFeature(QSqlDriver::Transactions);
-		DbTransaction::setHasTransaction(hasTrans);
-		if (!hasTrans) {
-			XCA_WARN(tr("The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care."));
-		}
-		/* This is MySQL specific. Execute it always, because
-		 * dbType() could return "ODBC" but connect to MariaDB
-		 */
-		XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
-		return true;
-	}
-	XSqlQuery::clearTablePrefix();
-	db.close();
-	return false;
-};
-
 QString OpenDb::getDescriptor() const
 {
 	QString pref = prefix->text();
@@ -255,7 +138,7 @@ QString OpenDb::getDescriptor() const
 
 void OpenDb::setLastRemote(const QString &db)
 {
-	if (isRemoteDB(db))
+	if (database_model::isRemoteDB(db))
 		lastRemote = db;
 }
 

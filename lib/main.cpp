@@ -6,220 +6,35 @@
  */
 
 #include <signal.h>
-#include <QApplication>
+
 #include <QClipboard>
-#include <QTranslator>
-#include <QTextCodec>
 #include <QDir>
-#include <QDirIterator>
-#include <QFile>
 #include <QDebug>
-#include <openssl/rand.h>
+//#include <openssl/rand.h>
 #include "widgets/MainWindow.h"
 #include "widgets/OpenDb.h"
-#include "lib/func.h"
-#include "lib/db.h"
-#include "lib/main.h"
-#include "lib/entropy.h"
+#include "widgets/XcaApplication.h"
+#include "func.h"
+#include "xfile.h"
+//#include "db.h"
+#include "main.h"
+#include "entropy.h"
+#include "settings.h"
+#include "database_model.h"
+#include "pki_multi.h"
+#include "pki_evp.h"
+#include "arguments.h"
+#include "db_x509.h"
 #if defined(Q_OS_WIN32)
 //For the segfault handler
 #include <windows.h>
 #endif
 
-QLocale XCA_application::lang = QLocale::system();
-QFont XCA_application::tableFont;
-QList<QLocale> XCA_application::langAvail;
-
-void XCA_application::setMainwin(MainWindow *m)
-{
-	mainw = m;
-}
-
-bool XCA_application::languageAvailable(QLocale l)
-{
-	return langAvail.contains(l);
-}
-
-static QString defaultlang()
-{
-	return getUserSettingsDir() + QDir::separator() + "defaultlang";
-}
-
-XCA_application::XCA_application(int &argc, char *argv[])
-	:QApplication(argc, argv)
-{
-	qtTr = NULL;
-	xcaTr = NULL;
-	mainw = NULL;
-
-	QFile file(defaultlang());
-
-	if (file.open(QIODevice::ReadOnly)) {
-		lang = QLocale(QString(file.read(128)));
-	}
-
-	langAvail << QLocale::system();
-	langAvail << QString("en");
-	QDirIterator qmIt(getI18nDir(), QStringList() << "*.qm", QDir::Files);
-	while (qmIt.hasNext()) {
-		XcaTranslator t;
-		qmIt.next();
-		QString language = qmIt.fileInfo().baseName().mid(4, -1);
-		if (t.load(language, "xca", getI18nDir()))
-			langAvail << QLocale(language);
-	}
-	setupLanguage(lang);
-#ifdef Q_OS_MAC
-	QStringList libp = libraryPaths();
-	libp.prepend(applicationDirPath() + "/../Plugins");
-	setLibraryPaths(libp);
-#endif
-
-	tableFont = QFont("Courier", QApplication::font().pointSize()
-#if defined (Q_OS_WIN32)
-	+1
-#else
-	+2
-#endif
-	);
-	installEventFilter(this);
-}
-
-void XCA_application::setupLanguage(QLocale l)
-{
-	QStringList dirs;
-
-	lang = l;
-	if (qtTr) {
-		removeTranslator(qtTr);
-		delete qtTr;
-	}
-	qtTr = new XcaTranslator();
-	if (xcaTr) {
-		removeTranslator(xcaTr);
-		delete xcaTr;
-	}
-	xcaTr = new XcaTranslator();
-	dirs
-#ifdef XCA_DEFAULT_QT_TRANSLATE
-		<< XCA_DEFAULT_QT_TRANSLATE
-#endif
-		<< getI18nDir()
-#ifndef WIN32
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-		<< "/usr/local/share/qt5/translations/"
-		<< "/usr/share/qt5/translations/"
-#else
-		<< "/usr/local/share/qt4/translations/"
-		<< "/usr/share/qt4/translations/"
-#endif
-		<< "/usr/share/qt/translations/"
-#endif
-		;
-
-	qDebug() << "Setup language: " << lang;
-	foreach(QString dir, dirs) {
-		if (qtTr->load(lang, "qt", dir)) {
-			break;
-		}
-	}
-	xcaTr->load(lang, "xca", getI18nDir());
-	QLocale::setDefault(l);
-	installTranslator(qtTr);
-	installTranslator(xcaTr);
-	if (mainw)
-		mainw->initResolver();
-}
-
-void XCA_application::quit()
-{
-	if (mainw)
-		mainw->close();
-}
-
-void XCA_application::switchLanguage(QAction* a)
-{
-	QLocale lang = a->data().toLocale();
-	setupLanguage(lang);
-
-	QFile file(defaultlang());
-
-	if (lang == QLocale::system()) {
-		file.remove();
-		return;
-	}
-
-	if (file.open(QIODevice::WriteOnly)) {
-		file.write(lang.name().toUtf8());
-	}
-}
-
-bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
-{
-	static int mctr;
-	QMouseEvent *me;
-	QStringList l;
-	XcaTreeView *treeview;
-	int key;
-
-	switch (ev->type()) {
-	case QEvent::FileOpen:
-		l << static_cast<QFileOpenEvent *>(ev)->file();
-		mainw->openURLs(l);
-		return true;
-	case QEvent::MouseMove:
-	case QEvent::NonClientAreaMouseMove:
-		if (mctr++ > 8) {
-			me = static_cast<QMouseEvent *>(ev);
-			entropy.add(me->globalX());
-			entropy.add(me->globalY());
-			mctr = 0;
-		}
-		break;
-	case QEvent::KeyPress:
-		key = static_cast<QKeyEvent *>(ev)->key();
-		if (key < 0x100) {
-			entropy.add(key);
-		}
-		break;
-	case QEvent::MouseButtonPress:
-		me = static_cast<QMouseEvent *>(ev);
-		treeview = watched ?
-			dynamic_cast<XcaTreeView*>(watched->parent()) : NULL;
-
-		if ((watched == mainw || treeview) &&
-		    me->button() == Qt::MidButton &&
-		    QApplication::clipboard()->supportsSelection())
-		{
-			mainw->pastePem();
-			return true;
-		}
-		break;
-	default:
-		break;
-	}
-	return false;
-}
-
-bool XCA_application::notify(QObject* receiver, QEvent* event)
-{
-	try {
-		return QApplication::notify(receiver, event);
-	} catch (errorEx &err) {
-		mainw->Error(err);
-        } catch (...) {
-		qDebug() << QString("Event exception: ")
-			 << receiver << event;
-		abort();
-        }
-	return false;
-}
-
-XCA_application::~XCA_application()
-{
-}
-
 char segv_data[1024];
+bool exitApp;
+MainWindow *mainwin;
+
+static int debug;
 
 #if defined(Q_OS_WIN32)
 static LONG CALLBACK w32_segfault(LPEXCEPTION_POINTERS e)
@@ -242,16 +57,9 @@ static void segv_handler_gui(int)
 }
 #endif
 
-#define CYAN  "\x1b[0;36m"
-#define LRED  "\x1b[0;92m"
-#define YELL  "\x1b[0;33m"
-#define RED   "\x1b[0;31m"
-#define RESET "\x1b[0m"
-
 void myMsgOutput(QtMsgType type, const char *msg)
 {
 	static QTime *t;
-	static int debug;
 	if (!t) {
 		char *d = getenv("XCA_DEBUG");
 		t = new QTime();
@@ -265,18 +73,18 @@ void myMsgOutput(QtMsgType type, const char *msg)
 	case QtDebugMsg:
 		if (!debug)
 			return;
-		severity = CYAN "Debug";
+		severity = COL_CYAN "Debug";
 		break;
-	case QtWarningMsg:  severity = LRED "Warning"; break;
-	case QtCriticalMsg: severity = RED "Critical"; break;
-	case QtFatalMsg:    severity = RED "Fatal"; break;
+	case QtWarningMsg:  severity = COL_LRED "Warning"; break;
+	case QtCriticalMsg: severity = COL_RED "Critical"; break;
+	case QtFatalMsg:    severity = COL_RED "Fatal"; break;
 #if QT_VERSION >= 0x050000
-	case QtInfoMsg:	    severity = CYAN "Info"; break;
+	case QtInfoMsg:	    severity = COL_CYAN "Info"; break;
 #endif
-	default:            severity = CYAN "Default"; break;
+	default:            severity = COL_CYAN "Default"; break;
 	}
 
-	fprintf(stderr, YELL "% 4d.%02d %s:" RESET " %s\n",
+	fprintf(stderr, COL_YELL "% 4d.%02d %s:" COL_RESET " %s\n",
 			 el/1000, (el%1000)/100, severity, msg);
 }
 
@@ -287,10 +95,105 @@ void myMessageOutput(QtMsgType t, const QMessageLogContext &, const QString &m)
 }
 #endif
 
-int main( int argc, char *argv[] )
+QCoreApplication *createApplication(int &argc, char *argv[])
+{
+	if (arguments::is_console(argc, argv))
+		return new QCoreApplication(argc, argv);
+
+	return new XcaApplication(argc, argv);
+}
+
+static void cmd_version(FILE *fp)
+{
+	fprintf(fp, XCA_TITLE " Version %s\n", version_str(false));
+}
+
+static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
+{
+	FILE *fp = exitcode == EXIT_SUCCESS ? stdout : stderr;
+
+	cmd_version(fp);
+	fputs(CCHAR(arguments::help()), fp);
+
+	if (msg)
+		fprintf(stderr, "Cmdline Error: %s\n", msg);
+
+	exit(exitcode);
+}
+
+static Passwd acquire_password(const QString &source)
+{
+	Passwd pass;
+	pass.append(source);
+
+	if (source.startsWith("pass:")) {
+		pass = source.mid(5).toLatin1();
+	} else if (source.startsWith("file:")) {
+		XFile f(source.mid(5));
+		f.open_read();
+		pass = f.readLine(128).trimmed();
+	} else if (source.startsWith("env:")) {
+		pass = getenv(source.mid(4).toLocal8Bit());
+	}
+	return pass;
+}
+
+static pki_multi *imported_items;
+static database_model* read_cmdline(int argc, char *argv[])
+{
+	arguments cmd_opts(argc, argv);
+	database_model *models = NULL;
+	pki_evp::passwd = acquire_password(cmd_opts["password"]);
+
+	if (cmd_opts.has("verbose"))
+		debug = 1;
+
+	if (cmd_opts.getResult() == '?')
+		cmd_help(EXIT_FAILURE);
+
+	if (cmd_opts.has("database"))
+		models = new database_model(cmd_opts["database"],
+						cmd_opts["sqlpass"]);
+
+	imported_items = new pki_multi();
+
+	foreach(QString file, cmd_opts.getFiles())
+		imported_items->probeAnything(file);
+
+	if (((cmd_opts.has("index") || cmd_opts.has("index-hierarchy")) ||
+	    (imported_items->count() > 0 && !cmd_opts.has("print"))) && !models)
+	{
+		/* We need a database for the following operations
+		 * but there is none, yet. Try the default database */
+		models = new database_model(QString());
+		if (!models) {
+			cmd_help(EXIT_FAILURE, "No database given");
+		}
+	}
+	if (!cmd_opts["index"].isEmpty()) {
+		qDebug() << cmd_opts["index"];
+		db_x509 *certs = models->model<db_x509>();
+		certs->writeIndex(cmd_opts["index"], false);
+	}
+	if (!cmd_opts["index-hierarchy"].isEmpty()) {
+		qDebug() << cmd_opts["index-hierarchy"];
+		db_x509 *certs = models->model<db_x509>();
+		certs->writeIndex(cmd_opts["index-hierarchy"], true);
+	}
+	if (cmd_opts.has("help"))
+		cmd_help();
+	if (cmd_opts.has("version"))
+		cmd_version(stdout);
+
+	while (cmd_opts.has("print") && imported_items->count() > 0) {
+		imported_items->pull()->print(stdout);
+	}
+	return models;
+}
+
+int main(int argc, char *argv[])
 {
 	int ret = 0;
-	MainWindow *mw;
 	QDir d;
 
 #if defined(Q_OS_WIN32)
@@ -306,23 +209,30 @@ int main( int argc, char *argv[] )
 #else
 	qInstallMessageHandler(myMessageOutput);
 #endif
-	XCA_application a(argc, argv);
-	mw = new MainWindow(NULL);
+	Entropy entropy;
+
+	Settings.clear();
+
+	QCoreApplication *core = createApplication(argc, argv);
+	XcaApplication *gui = qobject_cast<XcaApplication*>(core);
+
 	try {
-		a.setMainwin(mw);
-		OpenDb::checkSqLite();
-		mw->read_cmdline(argc, argv);
-		if (mw->exitApp == 0) {
-			mw->load_history();
-			if (mw->open_default_db() != 2) {
-				mw->show();
-				ret = a.exec();
-			}
+#warning FIXME cmdline
+		database_model *models = read_cmdline(argc, argv);
+		if (gui) {
+			OpenDb::checkSqLite();
+			mainwin = new MainWindow(models);
+			gui->setMainwin(mainwin);
+			mainwin->importMulti(imported_items, 1);
+			imported_items = NULL;
+			mainwin->show();
+			gui->exec();
 		}
 	} catch (errorEx &ex) {
-		mw->Error(ex);
+		XCA_ERROR(ex);
 	}
+	delete mainwin;
+	delete gui;
 
-	delete mw;
 	return ret;
 }
