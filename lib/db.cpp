@@ -23,7 +23,7 @@
 
 #define XNUM(n) CCHAR(QString::number((n), 16))
 
-db::db(QString filename, QFlags<QFile::Permission> perm)
+db::db(const QString &filename, QFlags<QFile::Permission> perm)
 {
 	name = filename;
 	file.setFileName(filename);
