@@ -35,7 +35,6 @@ class pki_crl: public pki_x509name
 		void fload(const QString &fname);
 		QString getSigAlg() const;
 		void writeDefault(const QString &dirname) const;
-		static QPixmap *icon;
 		void createCrl(const QString d, pki_x509 *iss);
 		void addRev(const x509rev &rev, bool withReason=true);
 		void addExt(int nid, QString value);

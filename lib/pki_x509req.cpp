@@ -20,8 +20,6 @@
 
 #include "openssl_compat.h"
 
-QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
-
 pki_x509req::pki_x509req(const QString name)
 	: pki_x509super(name)
 {
@@ -368,22 +366,17 @@ QVariant pki_x509req::column_data(const dbheader *hd) const
 
 QVariant pki_x509req::getIcon(const dbheader *hd) const
 {
-	int pixnum = -1;
-
 	switch (hd->id) {
 	case HD_internal_name:
-		pixnum = hasPrivKey() ? 0 : 1;
-		break;
+		return QVariant(QPixmap(hasPrivKey() ? ":reqkeyIco" : ":reqIco"));
 	case HD_req_signed:
 		if (done)
-			pixnum = 2;
+			return QVariant(QPixmap(":doneIco"));
 		break;
 	default:
 		return pki_x509super::getIcon(hd);
 	}
-	if (pixnum == -1)
-		return QVariant();
-	return QVariant(*icon[pixnum]);
+	return QVariant();
 }
 
 bool pki_x509req::visible() const

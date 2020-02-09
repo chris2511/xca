@@ -24,7 +24,7 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 
-	image->setPixmap(*MainWindow::revImg);
+	image->setPixmap(QPixmap(":revImg"));
 	issuerSqlId = QVariant();
 }
 

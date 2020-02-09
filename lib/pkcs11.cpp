@@ -238,7 +238,7 @@ static QDialog *newPinPadBox()
 	box->setWindowTitle(XCA_TITLE);
 	QHBoxLayout *h = new QHBoxLayout(box);
 	QLabel *l = new QLabel();
-	l->setPixmap(*MainWindow::scardImg);
+	l->setPixmap(QPixmap(":scardImg"));
 	l->setMaximumSize(QSize(95, 40));
 	l->setScaledContents(true);
 	h->addWidget(l);
@@ -316,7 +316,7 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 	Ui::SelectToken ui;
 	QDialog *select_slot = new QDialog(w);
 	ui.setupUi(select_slot);
-	ui.image->setPixmap(*MainWindow::scardImg);
+	ui.image->setPixmap(QPixmap(":scardImg"));
 	ui.tokenBox->addItems(slotnames);
 	ui.buttonBox->button(QDialogButtonBox::Ok)->setText(QObject::tr("Select"));
 	select_slot->setWindowTitle(XCA_TITLE);

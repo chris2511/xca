@@ -29,8 +29,6 @@
 
 #include "openssl_compat.h"
 
-QPixmap *pki_scard::icon[1] = { NULL };
-
 void pki_scard::init(void)
 {
 	ownPass = ptPin;
@@ -830,7 +828,8 @@ bool pki_scard::isToken()
 
 QVariant pki_scard::getIcon(const dbheader *hd) const
 {
-	return hd->id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
+	return hd->id == HD_internal_name ?
+		QVariant(QPixmap(":scardIco")) : QVariant();
 }
 
 bool pki_scard::visible() const

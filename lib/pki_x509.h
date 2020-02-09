@@ -51,7 +51,6 @@ class pki_x509 : public pki_x509super
 		int sigAlg() const;
 
 	public:
-		static QPixmap *icon[5];
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");

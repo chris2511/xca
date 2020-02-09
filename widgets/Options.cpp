@@ -228,8 +228,7 @@ void Options::updatePkcs11Item(QListWidgetItem *item) const
 	if (!l)
 		return;
 	if (l->isEnabled()) {
-		item->setIcon(l->isLoaded() ?
-			*MainWindow::doneIco : *MainWindow::warnIco);
+		item->setIcon(QPixmap(l->isLoaded() ? ":doneIco" : ":warnIco"));
 	} else {
 		QPixmap m(QSize(20,20));
 		m.fill(Qt::transparent);

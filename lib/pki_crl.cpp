@@ -14,8 +14,6 @@
 
 #include "openssl_compat.h"
 
-QPixmap *pki_crl::icon = NULL;
-
 pki_crl::pki_crl(const QString name )
 	:pki_x509name(name)
 {
@@ -428,7 +426,8 @@ a1time pki_crl::column_a1time(const dbheader *hd) const
 
 QVariant pki_crl::getIcon(const dbheader *hd) const
 {
-	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
+	return hd->id == HD_internal_name ?
+			QVariant(QPixmap(":crlIco")) : QVariant();
 }
 
 QStringList pki_crl::icsVEVENT() const

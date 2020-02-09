@@ -131,7 +131,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	image->setPixmap(*MainWindow::keyImg);
+	image->setPixmap(QPixmap(":keyImg"));
 
 	if (!name.isEmpty())
 		keyDesc->setText(name);

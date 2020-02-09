@@ -19,7 +19,6 @@ class db_temp: public db_x509name
 {
 	Q_OBJECT
     protected:
-	QPixmap *keyicon;
 	QList<pki_temp*> predefs;
 
     public:

@@ -10,9 +10,10 @@
 
 #include <QString>
 #include <QObject>
-#include <QWidget>
 
 #include "widgets/MainWindow.h"
+
+class QWidget;
 
 class pass_info: public QObject
 {
@@ -22,7 +23,7 @@ class pass_info: public QObject
 	QString description;
 	QWidget *widget;
 	QString type;
-	QPixmap *pixmap;
+	QString pixmap;
 
    public:
 	pass_info(QString t, QString d, QWidget *w = NULL);
@@ -44,7 +45,7 @@ class pass_info: public QObject
 	}
 	QPixmap getImage()
 	{
-		return QPixmap(*pixmap);
+		return pixmap;
 	}
 	void setTitle(QString t)
 	{

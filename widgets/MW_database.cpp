@@ -314,11 +314,11 @@ int MainWindow::init_database(QString dbName)
 	connect( tempView, SIGNAL(newReq(pki_temp *)),
 		reqs, SLOT(newItem(pki_temp *)) );
 
-	keyView->setIconSize(pki_evp::icon[0]->size());
-	reqView->setIconSize(pki_x509req::icon[0]->size());
-	certView->setIconSize(pki_x509::icon[0]->size());
-	tempView->setIconSize(pki_temp::icon->size());
-	crlView->setIconSize(pki_crl::icon->size());
+	keyView->setIconSize(QPixmap(":keyIco").size());
+	reqView->setIconSize(QPixmap(":reqIco").size());
+	certView->setIconSize(QPixmap(":validcertIco").size());
+	tempView->setIconSize(QPixmap(":templateIco").size());
+	crlView->setIconSize(QPixmap(":crlIco").size());
 
 	keyView->setModel(keys);
 	reqView->setModel(reqs);

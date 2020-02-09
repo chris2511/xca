@@ -36,7 +36,6 @@ class pki_evp: public pki_key
 	protected:
 		void openssl_pw_error(QString fname);
 	public:
-		static QPixmap *icon[2];
 		static QString passHash;
 		static Passwd passwd;
 		static Passwd oldpasswd;

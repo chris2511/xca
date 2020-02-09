@@ -43,7 +43,6 @@ class pki_x509super : public pki_x509name
 		virtual extList getV3ext() const = 0;
 		virtual QString getSigAlg() const;
 		virtual const EVP_MD *getDigest();
-		static QPixmap *icon[1];
 		QVariant getKeySqlId()
 		{
 			return keySqlId;

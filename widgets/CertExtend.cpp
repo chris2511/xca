@@ -23,7 +23,7 @@ CertExtend::CertExtend(QWidget *parent, pki_x509 *s)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	image->setPixmap(*MainWindow::certImg);
+	image->setPixmap(QPixmap(":certImg"));
 	validNumber->setText("1");
 	validRange->setCurrentIndex(2);
 	on_applyTime_clicked();

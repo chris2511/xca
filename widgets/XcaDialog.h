@@ -23,19 +23,15 @@ class XcaDialog : public QDialog, public Ui::XcaDialog
 	{
 		setupUi(this);
 		setWindowTitle(XCA_TITLE);
-
-		QPixmap *icon = NULL;
-		switch (type) {
-		case asym_key:   icon = MainWindow::keyImg; break;
-		case x509_req:   icon = MainWindow::csrImg; break;
-		case x509:       icon = MainWindow::certImg; break;
-		case revocation: icon = MainWindow::revImg; break;
-		case tmpl:       icon = MainWindow::tempImg; break;
-		case smartCard:  icon = MainWindow::scardImg; break;
-		default: break;
-		}
-		if (icon)
-			image->setPixmap(*icon);
+		QMap<enum pki_type, QString> map {
+			{ asym_key,   ":keyImg" },
+			{ x509_req,   ":csrImg" },
+			{ x509,       ":certImg" },
+			{ revocation, ":revImg" },
+			{ tmpl,       ":tempImg" },
+			{ smartCard,  ":scardImg" },
+		};
+		image->setPixmap(QPixmap(map[type]));
 		content->addWidget(w);
 		widg = w;
 		title->setText(t);
@@ -56,9 +52,8 @@ class XcaDialog : public QDialog, public Ui::XcaDialog
 			widg->setSizePolicy(QSizePolicy::Expanding,
 						QSizePolicy::Expanding);
 	}
-	void aboutDialog(QPixmap *lefticon)
+	void aboutDialog(const QPixmap &left)
 	{
-		QPixmap left = *lefticon;
 		title->setPixmap(left.scaledToHeight(title->height()));
 		noSpacer();
 		resize(560, 400);

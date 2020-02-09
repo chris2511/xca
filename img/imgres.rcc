@@ -1,25 +1,28 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource>
-    <file>bigcert.png</file>
-    <file>bigcrl.png</file>
-    <file>bigcsr.png</file>
-    <file>bigkey.png</file>
-    <file>bigtemp.png</file>
-    <file>bigscard.png</file>
-    <file>crl.png</file>
-    <file>halfkey.png</file>
-    <file>invalidcertkey.png</file>
-    <file>invalidcert.png</file>
-    <file>key.png</file>
-    <file>key.xpm</file>
-    <file>scard.png</file>
-    <file>netscape.png</file>
-    <file>reqkey.png</file>
-    <file>req.png</file>
-    <file>template.png</file>
-    <file>validcertkey.png</file>
-    <file>validcert.png</file>
-    <file>done.png</file>
-    <file>warn.png</file>
+    <file alias="appIco">key.xpm</file>
+
+    <file alias="doneIco">done.png</file>
+    <file alias="warnIco">warn.png</file>
+
+    <file alias="certImg">bigcert.png</file>
+    <file alias="revImg">bigcrl.png</file>
+    <file alias="csrImg">bigcsr.png</file>
+    <file alias="keyImg">bigkey.png</file>
+    <file alias="tempImg">bigtemp.png</file>
+    <file alias="scardImg">bigscard.png</file>
+    <file alias="nsImg">netscape.png</file>
+
+    <file alias="crlIco">crl.png</file>
+    <file alias="pubkeyIco">halfkey.png</file>
+    <file alias="invalidcertkeyIco">invalidcertkey.png</file>
+    <file alias="invalidcertIco">invalidcert.png</file>
+    <file alias="keyIco">key.png</file>
+    <file alias="scardIco">scard.png</file>
+    <file alias="reqkeyIco">reqkey.png</file>
+    <file alias="reqIco">req.png</file>
+    <file alias="templateIco">template.png</file>
+    <file alias="validcertkeyIco">validcertkey.png</file>
+    <file alias="validcertIco">validcert.png</file>
   </qresource>
 </RCC>

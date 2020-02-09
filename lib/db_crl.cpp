@@ -160,7 +160,7 @@ void db_crl::store(QModelIndex index)
 	ExportDialog *dlg = new ExportDialog(mainwin,
 			tr("Revocation list export"),
 			tr("CRL ( *.pem *.der *.crl )"), crl,
-			MainWindow::revImg, types);
+			QPixmap(":revImg"), types);
 	if (!dlg->exec()) {
 		delete dlg;
 		return;

@@ -139,7 +139,7 @@ NewX509::NewX509(QWidget *parent)
 		tabnames << tabWidget->tabText(i);
 	}
 
-	nsImg->setPixmap(*MainWindow::nsImg);
+	nsImg->setPixmap(QPixmap(":nsImg"));
 
 	// are there any useable private keys  ?
 	newKeyDone(NULL);
@@ -290,7 +290,7 @@ void NewX509::setRequest()
 	timewidget->setEnabled(false);
 	capt->setText(tr("Create Certificate signing request"));
 	authKey->setEnabled(false);
-	setImage(MainWindow::csrImg);
+	image->setPixmap(QPixmap(":csrImg"));
 	pt = x509_req;
 }
 
@@ -352,7 +352,7 @@ void NewX509::setTemp(pki_temp *temp)
 	tabWidget->removeTab(0);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
-	setImage(MainWindow::tempImg);
+	image->setPixmap(QPixmap(":tempImg"));
 	pt = tmpl;
 	fromTemplate(temp);
 	comment->setPlainText(temp->getComment());
@@ -362,13 +362,8 @@ void NewX509::setTemp(pki_temp *temp)
 void NewX509::setCert()
 {
 	capt->setText(tr("Create x509 Certificate"));
-	setImage(MainWindow::certImg);
+	image->setPixmap(QPixmap(":certImg"));
 	pt = x509;
-}
-
-void NewX509::setImage(QPixmap *img)
-{
-	image->setPixmap(*img);
 }
 
 /* Select a template and apply it */
@@ -932,10 +927,10 @@ void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
 		break;
 	}
 	if (ign_openssl_error()) {
-		img->setPixmap(*MainWindow::warnIco);
+		img->setPixmap(QPixmap(":warnIco"));
 		return;
 	}
-	img->setPixmap(*MainWindow::doneIco);
+	img->setPixmap(QPixmap(":doneIco"));
 }
 
 void NewX509::checkSubAltName(const QString & text)

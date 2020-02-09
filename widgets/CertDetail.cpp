@@ -95,7 +95,7 @@ void CertDetail::setX509super(pki_x509super *x)
 
 void CertDetail::setCert(pki_x509 *cert)
 {
-	image->setPixmap(*MainWindow::certImg);
+	image->setPixmap(QPixmap(":certImg"));
 	headerLabel->setText(tr("Details of the Certificate"));
 	try {
 		setX509super(cert);
@@ -163,7 +163,7 @@ void CertDetail::setCert(pki_x509 *cert)
 
 void CertDetail::setReq(pki_x509req *req)
 {
-	image->setPixmap(*MainWindow::csrImg);
+	image->setPixmap(QPixmap(":csrImg"));
 	headerLabel->setText(tr("Details of the certificate signing request"));
 	try {
 		setX509super(req);

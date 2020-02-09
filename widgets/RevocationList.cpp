@@ -96,7 +96,7 @@ RevocationList::RevocationList(QWidget *w) : QDialog(w)
 	QPushButton *genCrl;
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	image->setPixmap(*MainWindow::revImg);
+	image->setPixmap(QPixmap(":revImg"));
 
 	genCrl = buttonBox->addButton(tr("Generate CRL"),
 				QDialogButtonBox::ActionRole);

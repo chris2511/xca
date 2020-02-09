@@ -22,7 +22,7 @@ KeyDetail::KeyDetail(QWidget *parent)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	image->setPixmap(*MainWindow::keyImg);
+	image->setPixmap(QPixmap(":keyImg"));
 	keyModulus->setFont(XCA_application::tableFont);
 	tabWidget->setCurrentIndex(0);
 }
@@ -85,7 +85,7 @@ void KeyDetail::setKey(pki_key *key)
 		keyPrivEx->setText(tr("Not available"));
 		keyPrivEx->setRed();
 	} else if (key->isToken()) {
-		image->setPixmap(*MainWindow::scardImg);
+		image->setPixmap(QPixmap(":scardImg"));
 		pki_scard *card = static_cast<pki_scard *>(key);
 		cardLabel->setText(card->getCardLabel());
 		cardModel->setText(card->getModel());

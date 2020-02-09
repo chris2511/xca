@@ -10,8 +10,6 @@
 #include "pki_x509super.h"
 #include "db_base.h"
 
-QPixmap *pki_x509super::icon[1];
-
 pki_x509super::pki_x509super(const QString name)
 	: pki_x509name(name)
 {
@@ -141,7 +139,7 @@ bool pki_x509super::hasPrivKey() const
 QVariant pki_x509super::getIcon(const dbheader *hd) const
 {
 	if (hd->id == HD_x509key_name)
-		return hasPrivKey() ? QVariant(*icon[0]) : QVariant();
+		return hasPrivKey() ? QVariant(QPixmap(":doneIco")) : QVariant();
 
 	return pki_base::getIcon(hd);
 }

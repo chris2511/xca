@@ -32,11 +32,11 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	mainwin = parent;
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	image->setPixmap(*MainWindow::certImg);
+	image->setPixmap(QPixmap(":certImg"));
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	mcont = new db_token(parent);
 	listView->setModel(mcont);
-	listView->setIconSize(pki_evp::icon[0]->size());
+	listView->setIconSize(QPixmap(":key").size());
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
@@ -63,7 +63,7 @@ void ImportMulti::tokenInfo(slotid s)
 		arg(ti.label()).arg(ti.model()).arg(ti.serial());
 
 	slotInfo->setText(info);
-	image->setPixmap(*MainWindow::scardImg);
+	image->setPixmap(QPixmap(":scardImg"));
 	heading->setText(tr("Manage security token"));
 	setAcceptDrops(false);
 }

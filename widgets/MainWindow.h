@@ -100,9 +100,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static db_key *keys;
 		static db_temp *temps;
 		static db_crl *crls;
-		static QPixmap *keyImg, *csrImg, *certImg, *tempImg,
-				*nsImg, *revImg, *appIco, *scardImg,
-				*doneIco, *warnIco;
 		static NIDlist *eku_nid, *dn_nid;
 		int exitApp;
 		QLabel *dbindex;

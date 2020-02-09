@@ -10,7 +10,6 @@
 #define __DB_X509_H
 
 #include <QListView>
-#include <QPixmap>
 #include <QTreeWidget>
 #include "widgets/ExportDialog.h"
 #include "db_key.h"
@@ -24,7 +23,6 @@ class db_x509: public db_x509super
 	Q_OBJECT
 
 	protected:
-		QPixmap *certicon[4];
 		pki_x509 *get1SelectedCert();
 		dbheaderList getHeaders();
 		void dereferenceIssuer();

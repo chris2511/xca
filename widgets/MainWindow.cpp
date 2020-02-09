@@ -44,11 +44,6 @@
 #include "PwDialog.h"
 #include "OpenDb.h"
 
-QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
-	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
-	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
-	*MainWindow::appIco = NULL, *MainWindow::scardImg = NULL,
-	*MainWindow::doneIco = NULL, *MainWindow::warnIco = NULL;
 
 db_key *MainWindow::keys = NULL;
 db_x509req *MainWindow::reqs = NULL;
@@ -155,6 +150,12 @@ MainWindow::MainWindow(QWidget *parent)
 	crlView->setMainwin(this, searchEdit);
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
+	keyView->setIconSize(QPixmap(":keyIco").size());
+	reqView->setIconSize(QPixmap(":reqIco").size());
+	certView->setIconSize(QPixmap(":validcertIco").size());
+	tempView->setIconSize(QPixmap(":templateIco").size());
+	crlView->setIconSize(QPixmap(":crlIco").size());
+
 	dhgen = NULL;
 	dhgenBar = new QProgressBar();
 	check_oom(dhgenBar);
@@ -254,36 +255,12 @@ NIDlist *MainWindow::read_nidlist(QString name)
 
 void MainWindow::init_images()
 {
-	keyImg = loadImg("bigkey.png");
-	csrImg = loadImg("bigcsr.png");
-	certImg = loadImg("bigcert.png");
-	tempImg = loadImg("bigtemp.png");
-	nsImg = loadImg("netscape.png");
-	revImg = loadImg("bigcrl.png");
-	scardImg = loadImg("bigscard.png");
-	appIco = loadImg("key.xpm");
-	doneIco = loadImg("done.png");
-	warnIco = loadImg("warn.png");
-	bigKey->setPixmap(*keyImg);
-	bigCsr->setPixmap(*csrImg);
-	bigCert->setPixmap(*certImg);
-	bigTemp->setPixmap(*tempImg);
-	bigRev->setPixmap(*revImg);
-	setWindowIcon(*appIco);
-	pki_evp::icon[0] = loadImg("key.png");
-	pki_evp::icon[1] = loadImg("halfkey.png");
-	pki_scard::icon[0] = loadImg("scard.png");
-	pki_x509req::icon[0] = loadImg("req.png");
-	pki_x509req::icon[1] = loadImg("reqkey.png");
-	pki_x509req::icon[2] = doneIco;
-	pki_x509::icon[0] = loadImg("validcert.png");
-	pki_x509::icon[1] = loadImg("validcertkey.png");
-	pki_x509::icon[2] = loadImg("invalidcert.png");
-	pki_x509::icon[3] = loadImg("invalidcertkey.png");
-	pki_x509::icon[4] = doneIco;
-	pki_x509super::icon[0] = doneIco;
-	pki_temp::icon = loadImg("template.png");
-	pki_crl::icon = loadImg("crl.png");
+	bigKey->setPixmap(QPixmap(":keyImg"));
+	bigCsr->setPixmap(QPixmap(":csrImg"));
+	bigCert->setPixmap(QPixmap(":certImg"));
+	bigTemp->setPixmap(QPixmap(":tempImg"));
+	bigRev->setPixmap(QPixmap(":revImg"));
+	setWindowIcon(QPixmap(":appIco"));
 }
 
 void MainWindow::read_cmdline(int argc, char *argv[])

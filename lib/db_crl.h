@@ -12,14 +12,12 @@
 #include "pki_crl.h"
 #include "widgets/ExportDialog.h"
 #include <QObject>
-#include <QPixmap>
 #include <QContextMenuEvent>
 
 class db_crl: public db_x509name
 {
 		Q_OBJECT
 	protected:
-		QPixmap *crlicon;
 		dbheaderList getHeaders();
 	public:
 		db_crl(MainWindow *mw);

@@ -131,7 +131,7 @@ void db_x509req::store(QModelIndex index)
 	ExportDialog *dlg = new ExportDialog(mainwin,
 		tr("Certificate request export"),
 		tr("Certificate request ( *.pem *.der *.csr )"), req,
-		MainWindow::csrImg, types);
+		QPixmap(":csrImg"), types);
 	if (!dlg->exec()) {
 		delete dlg;
 		return;

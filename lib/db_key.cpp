@@ -281,7 +281,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 
 	ExportDialog *dlg = new ExportDialog(mainwin,
 		tr("Export keys to Clipboard"), QString(), NULL,
-		MainWindow::keyImg, types);
+		QPixmap(":keyImg"), types);
 
 	dlg->filename->setText(tr("Clipboard"));
 	dlg->filename->setEnabled(false);
@@ -332,7 +332,7 @@ void db_key::store(QModelIndex index)
 		title.arg(key->getTypeString()),
 		tr("Private Keys ( *.pem *.der *.pk8 );; "
 		   "SSH Public Keys ( *.pub )"), key,
-		key->isToken() ? MainWindow::scardImg : MainWindow::keyImg,
+		QPixmap(key->isToken() ? ":scardImg" : ":keyImg"),
 		types);
 
 	if (!dlg->exec()) {

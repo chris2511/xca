@@ -183,7 +183,7 @@ void db_x509super::toTemplate(QModelIndex index)
 			QTextEdit *textbox = new QTextEdit(etext);
 		        XcaDialog *d = new XcaDialog(mainwin, x509, textbox,
 						QString(), QString());
-			d->aboutDialog(MainWindow::tempImg);
+			d->aboutDialog(QPixmap(":tempImg"));
 		        d->exec();
 		        delete d;
 		}

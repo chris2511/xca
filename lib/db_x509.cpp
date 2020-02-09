@@ -670,7 +670,7 @@ void db_x509::store(QModelIndexList list)
 	types = usual << exportType() << types;
 	ExportDialog *dlg = new ExportDialog(mainwin, tr("Certificate export"),
 		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"), crt,
-		MainWindow::certImg, types);
+		QPixmap(":certImg"), types);
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
@@ -1093,7 +1093,7 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.days->setSuffix(QString(" ") + tr("days"));
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
-	ui.image->setPixmap(*MainWindow::certImg);
+	ui.image->setPixmap(QPixmap(":certImg"));
 
 	QVariant tmplId = cert->getTemplateSqlId();
 	pki_temp *templ = mainwin->temps->lookupPki<pki_temp>(tmplId);

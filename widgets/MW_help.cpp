@@ -79,7 +79,7 @@ void MainWindow::about()
 	QTextEdit *textbox = new QTextEdit(NULL);
 	XcaDialog *about = new XcaDialog(this, x509, textbox,
 					QString(), QString());
-	about->aboutDialog(scardImg);
+	about->aboutDialog(QPixmap(":scardImg"));
 	QString openssl, qt, cont, version, brainpool;
 #ifndef OPENSSL_NO_EC
 #ifdef NID_brainpoolP160r1

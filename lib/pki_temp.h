@@ -36,8 +36,6 @@ class pki_temp: public pki_x509name
 		void fromExtList(extList *el, int nid, const char *item);
 
 	public:
-		static QPixmap *icon;
-
 		// methods
 		QString getSetting(QString key)
 		{

@@ -90,7 +90,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		pki_x509req *getSelectedReq();
 		x509name getX509name(int _throw = 0);
 		void setX509name(const x509name &n);
-		void setImage(QPixmap *image);
 		void setAuthInfAcc_string(QString aia_txt);
 		QString getAuthInfAcc_string();
 		x509v3ext getBasicConstraints();

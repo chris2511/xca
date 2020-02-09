@@ -17,17 +17,16 @@
 #include <QMessageBox>
 #include <QStringList>
 
-ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
-			pki_base *pki, QPixmap *img, QList<exportType> types)
-	:QDialog(mw)
+ExportDialog::ExportDialog(QWidget *w, const QString &title, const QString &filt,
+		pki_base *pki, const QPixmap &img, QList<exportType> types)
+	: QDialog(w)
 {
 	setupUi(this);
-	mainwin = mw;
 	setWindowTitle(XCA_TITLE);
 	if (pki)
 		descr->setText(pki->getIntName());
 	descr->setReadOnly(true);
-	image->setPixmap(*img);
+	image->setPixmap(img);
         label->setText(title);
 	if (pki) {
 		QString fn = Settings["workingdir"] + QDir::separator() +

@@ -45,8 +45,6 @@ const QList<QString> pki_temp::tmpl_keys = {
 	"noWellDefinedExpDate",
 };
 
-QPixmap *pki_temp::icon = NULL;
-
 pki_temp::pki_temp(const pki_temp *pk)
 	:pki_x509name(pk->desc)
 {
@@ -508,5 +506,6 @@ bool pki_temp::compare(const pki_base *) const
 
 QVariant pki_temp::getIcon(const dbheader *hd) const
 {
-	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
+	return hd->id == HD_internal_name ?
+			QVariant(QPixmap(":templateIco")) : QVariant();
 }

@@ -21,8 +21,6 @@
 
 #include "openssl_compat.h"
 
-QPixmap *pki_x509::icon[5];
-
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()
 {
@@ -978,7 +976,10 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 {
 	int pixnum = 0;
 	bool ca;
-
+	QStringList icon_names {
+		":validcertIco", ":validcertkeyIco",
+		":invalidcertIco", ":invalidcertkeyIco"
+	};
 	switch (hd->id) {
 	case HD_cert_ca:
 		if (!caAndPathLen(&ca, NULL, NULL))
@@ -996,7 +997,7 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 	default:
 		return pki_x509super::getIcon(hd);
 	}
-	return QVariant(*icon[pixnum]);
+	return QVariant(QPixmap(icon_names[pixnum]));
 }
 
 bool pki_x509::visible() const

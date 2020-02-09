@@ -20,6 +20,7 @@
 
 #include <QProgressDialog>
 #include <QApplication>
+#include <QPixmap>
 #include <QDir>
 
 #include "openssl_compat.h"
@@ -28,8 +29,6 @@ Passwd pki_evp::passwd;
 Passwd pki_evp::oldpasswd;
 
 QString pki_evp::passHash = QString();
-
-QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
 void pki_evp::init()
 {
@@ -810,8 +809,8 @@ QVariant pki_evp::getIcon(const dbheader *hd) const
 {
 	if (hd->id != HD_internal_name)
 		return QVariant();
-	int pixnum= isPubKey() ? 1 : 0;
-	return QVariant(*icon[pixnum]);
+
+	return QVariant(QPixmap(isPubKey() ? ":pubkeyIco" : ":keyIco"));
 }
 
 QString pki_evp::md5passwd(QByteArray pass)
