@@ -32,6 +32,12 @@ class errorEx
 			msg = e.msg;
 			info = e.info;
 		}
+		errorEx &operator = (const errorEx &e)
+		{
+			msg = e.msg;
+			info = e.info;
+			return *this;
+		}
 		void appendString(QString s)
 		{
 			msg = msg + " " + s;

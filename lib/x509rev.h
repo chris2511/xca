@@ -135,6 +135,12 @@ class x509revList : public QList<x509rev>
 				append(r);
 			}
 		}
+		x509revList &operator = (const x509revList &r)
+		{
+			QList<x509rev>::operator=(r);
+			merged = r.merged;
+			return *this;
+		}
 		bool sqlUpdate(QVariant caId);
 };
 #endif

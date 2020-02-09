@@ -661,9 +661,7 @@ bool pki_key::SSH2_compatible() const
 	switch (getKeyType()) {
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
-		if (ecParamNid() != NID_X9_62_prime256v1)
-			break;
-		/* fall */
+		return ecParamNid() == NID_X9_62_prime256v1;
 #endif
 	case EVP_PKEY_RSA:
 	case EVP_PKEY_DSA:

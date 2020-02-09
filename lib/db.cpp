@@ -64,7 +64,7 @@ void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
 	db->type = xhtons(type);
 	db->version = xhtons(ver);
 	db->flags = 0;
-	strncpy(db->name, name.toUtf8(), NAMELEN);
+	strncpy(db->name, name.toUtf8(), NAMELEN-1);
 	db->name[NAMELEN-1] = '\0';
 }
 
@@ -225,7 +225,7 @@ void db::rename(enum pki_type type, QString name, QString n)
 	if (find(type, name) != 0) {
 		throw errorEx(QObject::tr("DB: Entry to rename not found: %1").arg(name));
 	}
-	strncpy(head.name, n.toUtf8(), NAMELEN);
+	strncpy(head.name, n.toUtf8(), NAMELEN-1);
 	head.name[NAMELEN-1] = '\0';
 	file.seek(head_offset);
 	ret = file.write((char*)&head, sizeof(head));
