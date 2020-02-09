@@ -68,6 +68,11 @@ class slotid
 		lib = l;
 		id = i;
 	}
+	slotid(const slotid &other)
+	{
+		lib = other.lib;
+		id = other.id;
+	}
 	slotid &operator = (const slotid &other)
 	{
 		lib = other.lib;
