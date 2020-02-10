@@ -43,6 +43,7 @@ MAKENSIS=makensis
 
 ifeq ($(SUFFIX), .exe)
 all: xca-portable.zip msi-installer-dir.zip
+.PHONY: commithash.h
 else
 ifneq ($(MACDEPLOYQT),)
 all: $(MACTARGET).dmg
@@ -198,7 +199,7 @@ trans:
 	lupdate -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip msi-installer-dir.zip
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app doc lang macdeployqt/macdeployqt $(DMGSTAGE) xca-portable.zip msi-installer-dir.zip
 
 do.doc do.lang headers: local.h
 
