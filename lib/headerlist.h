@@ -82,6 +82,7 @@ class dbheader
 		hd_v3ext_ns,
 		hd_number,
 		hd_asn1time,
+		hd_key,
 	};
 	int id;
 	bool show;
@@ -128,6 +129,7 @@ class dbheader
 		switch (id) {
 		case NID_subject_key_identifier:
 		case NID_authority_key_identifier:
+		case HD_key_size:
 			return true;
 		}
 		return type == hd_number;
@@ -227,6 +229,16 @@ class date_dbheader : public dbheader
 		: dbheader(aid, ashow, aname, atip)
 	{
 		type = hd_asn1time;
+	}
+};
+
+class key_dbheader : public dbheader
+{
+    public:
+	key_dbheader(int aid, QString aname)
+		: dbheader(aid, false, aname)
+	{
+		type = hd_key;
 	}
 };
 

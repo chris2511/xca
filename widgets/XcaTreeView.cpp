@@ -306,11 +306,19 @@ void XcaTreeView::columnRemove(void)
 		curr_hd->action->setChecked(false);
 }
 
+static void addSubmenu(tipMenu *menu, tipMenu *sub)
+{
+	if (sub->isEmpty())
+		delete sub;
+	else
+		menu->addMenu(sub);
+}
+
 void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 {
 	int shown = 0;
-	tipMenu *menu, *dn, *v3ext, *current, *v3ns;
-	QAction *a, *sep;
+	tipMenu *menu, *dn, *v3ext, *current, *v3ns, *keyprop;
+	QAction *a;
 	dbheader *hd;
 	dbheaderList allHeaders = basemodel->getAllHeaders();
 
@@ -318,6 +326,7 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 	dn = new tipMenu(tr("Subject entries"), mainwin);
 	v3ext = new tipMenu(tr("X509v3 Extensions"), mainwin);
 	v3ns = new tipMenu(tr("Netscape extensions"), mainwin);
+	keyprop = new tipMenu(tr("Key properties"), mainwin);
 	menu->addAction(tr("Reset"), basemodel, SLOT(columnResetDefaults()));
 	if (col >= 0 && col < allHeaders.size()) {
 		curr_hd = allHeaders[col];
@@ -328,7 +337,7 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 	} else {
 		curr_hd = NULL;
 	}
-	sep = menu->addSeparator();
+	menu->addSeparator();
 	foreach(hd, allHeaders) {
 		switch (hd->type) {
 			case dbheader::hd_x509name:
@@ -342,6 +351,9 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 					continue;
 				current = v3ns;
 				break;
+			case dbheader::hd_key:
+				current = keyprop;
+				break;
 			default:
 				current = menu;
 				break;
@@ -352,26 +364,15 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 		a->setToolTip(hd->getTooltip());
 		hd->action = a;
 	}
-	if (!dn->isEmpty() || !v3ext->isEmpty())
-		menu->insertSeparator(sep);
 
-	if (!dn->isEmpty())
-		menu->insertMenu(sep, dn);
-	else
-		delete dn;
+	menu->addSeparator();
 
-	if (!v3ext->isEmpty()) {
-		if (!v3ns->isEmpty()) {
-			v3ext->addSeparator();
-			v3ext->addMenu(v3ns);
-		} else {
-			delete v3ns;
-		}
-		menu->insertMenu(sep, v3ext);
-	} else {
-		delete v3ext;
-		delete v3ns;
-	}
+	addSubmenu(menu, dn);
+	addSubmenu(v3ext, v3ns);
+	addSubmenu(menu, v3ext);
+	addSubmenu(menu, keyprop);
+
+
 	if (parent) {
 		parent->addSeparator();
 		parent->addMenu(menu)->setText(tr("Columns"));
