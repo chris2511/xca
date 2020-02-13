@@ -9,6 +9,7 @@
 #include "Options.h"
 #include "SearchPkcs11.h"
 #include "lib/pki_scard.h"
+#include "lib/oid.h"
 #include <openssl/objects.h>
 #include <QMessageBox>
 #include <QToolTip>
@@ -21,7 +22,7 @@ Options::Options(MainWindow *parent)
 	setWindowTitle(XCA_TITLE);
 	setupUi(this);
 
-	foreach(int nid, *MainWindow::dn_nid) {
+	foreach(int nid, distname_nid) {
 		QString n = OBJ_nid2ln(nid);
 		extDNobj->addItem(n);
 		expDNobj->addItem(n);

@@ -43,8 +43,6 @@ class NewX509: public QDialog, public Ui::NewX509
 {
 		Q_OBJECT
 	private:
-		NIDlist eku_nid;
-		NIDlist dn_nid;
 		NIDlist aia_nid;
 		NIDlist attr_nid;
 		QList<nameEdit> attrEdits;

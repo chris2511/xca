@@ -26,7 +26,7 @@ dbheaderList db_x509name::getHeaders()
 		new num_dbheader(HD_subject_hash, false, tr("Subject hash"),
 			tr("Hash to lookup certs in directories"));
 
-	foreach(int nid, *MainWindow::dn_nid)
+	foreach(int nid, distname_nid)
 		h << new nid_dbheader(nid, dbheader::hd_x509name);
 	return h;
 }

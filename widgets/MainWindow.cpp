@@ -44,15 +44,11 @@
 #include "PwDialog.h"
 #include "OpenDb.h"
 
-
 db_key *MainWindow::keys = NULL;
 db_x509req *MainWindow::reqs = NULL;
 db_x509	*MainWindow::certs = NULL;
 db_temp	*MainWindow::temps = NULL;
 db_crl	*MainWindow::crls = NULL;
-
-NIDlist *MainWindow::eku_nid = NULL;
-NIDlist *MainWindow::dn_nid = NULL;
 
 OidResolver *MainWindow::resolver = NULL;
 
@@ -132,11 +128,6 @@ MainWindow::MainWindow(QWidget *parent)
 	EVP_add_digest_alias(SN_sha256,SN_dsa_with_SHA256);
 	EVP_add_digest_alias(SN_sha384,SN_ecdsa_with_SHA384);
 	EVP_add_digest_alias(SN_sha512,SN_ecdsa_with_SHA512);
-	/* read in all our own OIDs */
-	initOIDs();
-
-	eku_nid = read_nidlist("eku.txt");
-	dn_nid = read_nidlist("dn.txt");
 
 	setAcceptDrops(true);
 
@@ -228,29 +219,6 @@ void MainWindow::setItemEnabled(bool enable)
 		a->setEnabled(enable);
 	}
 	enableTokenMenu(pkcs11::loaded());
-}
-
-/* creates a new nid list from the given filename */
-NIDlist *MainWindow::read_nidlist(QString name)
-{
-	NIDlist nl;
-	name = QDir::separator() + name;
-
-	/* first try $HOME/xca/ */
-	nl = readNIDlist(getUserSettingsDir() + name);
-#if !defined(Q_OS_WIN32)
-#if !defined(Q_OS_MAC)
-	if (nl.count() == 0){
-		/* next is /etx/xca/... */
-		nl = readNIDlist(QString(ETC) + name);
-	}
-#endif
-#endif
-	if (nl.count() == 0) {
-		/* look at /usr/(local/)share/xca/ */
-		nl = readNIDlist(getPrefix() + name);
-	}
-	return new NIDlist(nl);
 }
 
 void MainWindow::init_images()
@@ -566,10 +534,6 @@ MainWindow::~MainWindow()
 	ERR_free_strings();
 	EVP_cleanup();
 	OBJ_cleanup();
-	if (eku_nid)
-		delete eku_nid;
-	if (dn_nid)
-		delete dn_nid;
 	delete dbindex;
 #ifdef MDEBUG
 	fprintf(stderr, "Memdebug:\n");

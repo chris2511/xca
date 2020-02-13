@@ -105,8 +105,7 @@ NewX509::NewX509(QWidget *parent)
 	:QDialog(parent)
 {
 	int i;
-	eku_nid = *MainWindow::eku_nid;
-	dn_nid = *MainWindow::dn_nid;
+
 	aia_nid << OBJ_sn2nid("OCSP") << OBJ_sn2nid("caIssuers");
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
 	QStringList keys;
@@ -116,7 +115,7 @@ NewX509::NewX509(QWidget *parent)
 	/* temporary storage for creating temporary X509V3_CTX */
 	ctx_cert = NULL;
 	pkiSource = generated;
-	foreach(int nid, dn_nid)
+	foreach(int nid, distname_nid)
 		keys << QString(OBJ_nid2ln(nid));
 
 	extDNlist->setKeys(keys);
@@ -172,7 +171,7 @@ NewX509::NewX509(QWidget *parent)
 	tempList->insertPkiItems(MainWindow::temps->getAllAndPredefs());
 
 	// setup Extended keyusage
-	foreach(int nid, eku_nid)
+	foreach(int nid, extkeyuse_nid)
 		ekeyUsage->addItem(OBJ_nid2ln(nid));
 
 	// setup Authority Info Access

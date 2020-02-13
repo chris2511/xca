@@ -8,6 +8,7 @@
 #include "pki_temp.h"
 #include "func.h"
 #include "db.h"
+#include "oid.h"
 #include "exception.h"
 #include "widgets/MainWindow.h"
 #include <QDir>
@@ -272,11 +273,10 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 static QString old_eKeyUse2QString(int old)
 {
 	QStringList sl;
-	NIDlist eku_nid = *MainWindow::eku_nid;
 
-        for (int i=0; i<eku_nid.count(); i++) {
+        for (int i = 0; i < extkeyuse_nid.count(); i++) {
 		if (old & (1<<i)) {
-			sl << OBJ_nid2sn(eku_nid[i]);
+			sl << OBJ_nid2sn(extkeyuse_nid[i]);
 		}
 	}
 	return sl.join(", ");
