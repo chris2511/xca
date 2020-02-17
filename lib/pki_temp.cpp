@@ -16,33 +16,34 @@
 
 #define TEMPLATE_DS_VERSION (QDataStream::Qt_4_2)
 
-QList<QString> pki_temp::tmpl_keys = QList<QString>()
-	<< "subAltName"
-	<< "issAltName"
-	<< "crlDist"
-	<< "authInfAcc"
-	<< "nsCertType"
-	<< "nsComment"
-	<< "nsBaseUrl"
-	<< "nsRevocationUrl"
-	<< "nsCARevocationUrl"
-	<< "nsRenewalUrl"
-	<< "nsCaPolicyUrl"
-	<< "nsSslServerName"
-	<< "ca"
-	<< "bcCritical"
-	<< "ekuCritical"
-	<< "kuCritical"
-	<< "subKey"
-	<< "authKey"
-	<< "basicPath"
-	<< "validN"
-	<< "validM"
-	<< "validMidn"
-	<< "keyUse"
-	<< "eKeyUse"
-	<< "adv_ext"
-	<< "noWellDefinedExpDate";
+const QList<QString> pki_temp::tmpl_keys = {
+	"subAltName",
+	"issAltName",
+	"crlDist",
+	"authInfAcc",
+	"nsCertType",
+	"nsComment",
+	"nsBaseUrl",
+	"nsRevocationUrl",
+	"nsCARevocationUrl",
+	"nsRenewalUrl",
+	"nsCaPolicyUrl",
+	"nsSslServerName",
+	"ca",
+	"bcCritical",
+	"ekuCritical",
+	"kuCritical",
+	"subKey",
+	"authKey",
+	"basicPath",
+	"validN",
+	"validM",
+	"validMidn",
+	"keyUse",
+	"eKeyUse",
+	"adv_ext",
+	"noWellDefinedExpDate",
+};
 
 QPixmap *pki_temp::icon = NULL;
 

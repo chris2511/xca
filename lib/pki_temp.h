@@ -17,7 +17,7 @@
 #define PEM_STRING_XCA_TEMPLATE "XCA TEMPLATE"
 #define TMPL_VERSION 10
 
-#define CHECK_TMPL_KEY if (!tmpl_keys.contains(key)) { qDebug("Unknown template key: %s(%s)",  __func__, CCHAR(key)); }
+#define CHECK_TMPL_KEY if (!tmpl_keys.contains(key)) { qFatal("Unknown template key: %s(%s)",  __func__, CCHAR(key)); }
 
 #define VIEW_temp_version 6
 #define VIEW_temp_template 7
@@ -26,7 +26,7 @@ class pki_temp: public pki_x509name
 {
 		Q_OBJECT
 	protected:
-		static QList<QString> tmpl_keys;
+		static const QList<QString> tmpl_keys;
 		int dataSize();
 		void try_fload(XFile &file, const char *mode);
 		bool pre_defined;
