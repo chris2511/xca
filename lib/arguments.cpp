@@ -6,6 +6,9 @@
  */
 
 #include <getopt.h>
+#include <sys/ioctl.h>
+#include <stdio.h>
+
 #include "arguments.h"
 
 #include <QList>
@@ -58,10 +61,34 @@ void arg_option::fillOption(struct option *opt) const
 	opt->val = 0;
 }
 
+static QString splitQstring(int offset, int width, const QString &text)
+{
+	QStringList lines;
+	QString line;
+
+	foreach(const QString &word, text.split(" ")) {
+		if (line.size() + word.size() < width - offset) {
+			line += " " + word;
+			continue;
+		}
+		lines += line;
+		line.clear();
+	}
+	lines += line;
+	return lines.join(QString("\n") +QString().fill(' ', offset));
+}
+
 QString arguments::help()
 {
 	QString s;
 	size_t len = 0;
+	int width = 80, offset;
+	struct winsize w;
+
+	ioctl(0, TIOCGWINSZ, &w);
+	if (w.ws_col > 20)
+		width = w.ws_col;
+
 	foreach(const arg_option &a, opts) {
 		size_t l = strlen(a.long_opt) + 1;
 		if (a.arg)
@@ -69,11 +96,13 @@ QString arguments::help()
 		if (l > len)
 			len = l;
 	}
+	offset = len + 5;
 	for (auto i = opts.begin(); i != opts.end(); ++i) {
 		QString longopt = i->long_opt;
 		if (i->arg)
 			longopt += QString("=%1").arg(i->arg);
-		s += QString("  --%1 %2\n").arg(longopt, len*-1).arg(i->help);
+		QString help = splitQstring(offset, width, i->help);
+		s += QString("  --%1 %2\n").arg(longopt, len*-1).arg(help);
 	}
 	return s;
 }
