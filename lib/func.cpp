@@ -44,9 +44,44 @@
 
 #if defined(Q_OS_WIN32)
 #include <shlobj.h>
+#include <conio.h>
+#else
+#include <termios.h>
+#define getch() getchar()
 #endif
 
+#warning Get rid of currentDB
 QString currentDB;
+
+
+Passwd readPass(bool echo)
+{
+	Passwd pw;
+#if !defined(Q_OS_WIN32)
+	struct termios t, back;
+	if (tcgetattr(0, &t))
+		throw errorEx(strerror(errno));
+	back = t;
+	t.c_lflag &= ~(ECHO | ICANON);
+	if (tcsetattr(0, TCSAFLUSH, &t))
+		throw errorEx(strerror(errno));
+#endif
+	while(1) {
+		char p = getch();
+		if (p == '\n' || p == '\r')
+			break;
+		if (p == 0x7f)
+			pw.chop(1);
+		else
+			pw += p;
+	}
+	fputc('\n', stdout);
+#if !defined(Q_OS_WIN32)
+	if (tcsetattr(0, TCSAFLUSH, &back))
+		throw errorEx(strerror(errno));
+#endif
+	return pw;
+}
 
 QPixmap *loadImg(const char *name )
 {

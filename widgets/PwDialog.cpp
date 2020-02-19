@@ -7,6 +7,7 @@
 
 
 #include "PwDialog.h"
+#include "lib/func.h"
 #include "lib/base.h"
 #include "lib/Passwd.h"
 #include "widgets/MainWindow.h"
@@ -35,9 +36,6 @@ static int hex2bin(QString &x, Passwd *final)
 
 int PwDialog::execute(pass_info *p, Passwd *passwd, bool write, bool abort)
 {
-	char *line = NULL;
-	size_t linecap = 0;
-
 	if (IS_GUI_APP) {
 		PwDialog *dlg = new PwDialog(p, write);
 		if (abort)
@@ -47,11 +45,9 @@ int PwDialog::execute(pass_info *p, Passwd *passwd, bool write, bool abort)
 		delete dlg;
 		return ret;
 	}
-	printf(COL_CYAN "%s" COL_RESET "\n", CCHAR(p->getDescription()));
-	getline(&line, &linecap, stdin);
-	*passwd = line;
-	*passwd = passwd->trimmed();
-	free(line);
+	printf(COL_CYAN "%s" COL_LRED "\n%s:" COL_RESET,
+		 CCHAR(p->getDescription()), CCHAR(tr("Password")));
+	*passwd = readPass();
 	return 1;
 }
 

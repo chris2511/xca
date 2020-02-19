@@ -8,16 +8,20 @@
 #ifndef __FUNC_H
 #define __FUNC_H
 
-#include <stdio.h>
-#include <openssl/asn1.h>
 #include <QPixmap>
 #include <QByteArray>
 #include <QMap>
 #include <QTextDocument>
-#include "base.h"
+
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stdio.h>
+
 #include <openssl/evp.h>
+#include <openssl/asn1.h>
+
+#include "base.h"
+#include "Passwd.h"
 
 #define COL_CYAN  "\x1b[0;36m"
 #define COL_BLUE  "\x1b[0;94m"
@@ -30,6 +34,7 @@
 class Validity;
 extern QString currentDB;
 
+Passwd readPass(bool echo = false);
 QPixmap *loadImg(const char *name);
 int portable_app();
 const QString getPrefix();
