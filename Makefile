@@ -39,8 +39,6 @@ OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \
 	-t http://timestamp.comodoca.com -h sha2
 
-MAKENSIS=makensis
-
 ifeq ($(SUFFIX), .exe)
 all: xca-portable.zip msi-installer-dir.zip
 else
@@ -95,7 +93,7 @@ $(APPTARGET): app.%: %/.build-stamp
 		VPATH=$(TOPDIR)/$* APPDIR=$(APPDIR) app
 
 clean:
-	find lib widgets img misc  -name "*.o" \
+	find lib widgets img misc -name "*.o" \
 				-o -name ".build-stamp" \
 				-o -name ".depend" \
 				-o -name "moc_*.cpp" | xargs rm -f
