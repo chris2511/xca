@@ -15,6 +15,7 @@
 
 #include "sql.h"
 #include "db_base.h"
+#include "lib/Passwd.h"
 
 typedef QMap<QString, QString> DbMap;
 
@@ -38,7 +39,7 @@ class database_model: public QObject
 
 	public:
 		database_model(const QString &dbName,
-				const QString &pass = QString());
+				const Passwd &pass = Passwd());
 		~database_model();
 		void restart_timer();
 		const QString &dbname() const
@@ -65,10 +66,10 @@ class database_model: public QObject
 		static DbMap splitRemoteDbName(const QString &db);
 		static bool isRemoteDB(const QString &db);
 		static void openDatabase(const QString &descriptor,
-					 const QString &pass);
+					 const Passwd &pass);
 		static void openRemoteDatabase(const QString &connName,
 						const DbMap &params,
-						const QString &pass);
+						const Passwd &pass);
 		static void openLocalDatabase(const QString &connName,
 						const QString &descriptor);
 };

@@ -126,7 +126,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	public slots:
 		int init_database(const QString &dbName,
-				const QString &pass = QString());
+				const Passwd &pass = Passwd());
 		int init_database(database_model *m);
 		void new_database();
 		void load_database();

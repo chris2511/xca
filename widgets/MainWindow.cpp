@@ -586,13 +586,13 @@ void MainWindow::importMulti(pki_multi *multi, int force)
 void MainWindow::openRemoteSqlDB()
 {
 	OpenDb *opendb = new OpenDb(this, currentDB);
-	QString descriptor, pass;
-	int round;
+	QString descriptor;
+	Passwd pass;
 	DbMap params;
 
 	if (opendb->exec()) {
 		descriptor = opendb->getDescriptor();
-		pass = opendb->dbPassword->text();
+		pass = opendb->dbPassword->text().toLatin1();
 		params = database_model::splitRemoteDbName(descriptor);
 	}
 	delete opendb;
@@ -600,32 +600,10 @@ void MainWindow::openRemoteSqlDB()
 	if (descriptor.isEmpty())
 		return;
 
-	for (round=0; ; round++) {
-		try {
-			if (init_database(descriptor, pass) == 1)
-				break;
-			if (QSqlDatabase::database().driver()->hasFeature(
-						QSqlDriver::Transactions))
-				XCA_WARN(tr("The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care."));
-			break;
-		} catch (errorEx &err) {
-			if (pass.size() > 0 || round > 0)
-				XCA_ERROR(err);
-		}
-
-		Passwd pwd;
-		pass_info p(XCA_TITLE,
-			tr("Please enter the password to access the database server %2 as user '%1'.")
-				.arg(params["user"]).arg(params["host"]));
-		if (PwDialog::execute(&p, &pwd) != 1)
-			break;
-		pass = QString(pwd);
-
-		qDebug() << "DB-DESC:" << descriptor;
-	}
+	init_database(descriptor, pass);
 }
 
-int MainWindow::init_database(const QString &name, const QString &pass)
+int MainWindow::init_database(const QString &name, const Passwd &pass)
 {
 	try {
 		close_database();

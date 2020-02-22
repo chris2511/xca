@@ -12,7 +12,6 @@
 
 #include "MainWindow.h"
 #include "OpenDb.h"
-#include "PwDialog.h"
 #include "lib/base.h"
 
 QString OpenDb::lastRemote;

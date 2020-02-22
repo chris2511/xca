@@ -225,7 +225,7 @@ next:
 	}
 }
 
-database_model::database_model(const QString &name, const QString &pass)
+database_model::database_model(const QString &name, const Passwd &pass)
 {
 	int ret = 2;
 	QSqlError err;
@@ -245,7 +245,23 @@ database_model::database_model(const QString &name, const QString &pass)
 	if (!isRemoteDB(dbName))
 		oldDbFile = checkPre2Xdatabase();
 
-	openDatabase(dbName, pass);
+	Passwd passwd(pass);
+	do {
+		try {
+			openDatabase(dbName, passwd);
+			break;
+		} catch (errorEx &err) {
+			if (!isRemoteDB(dbName))
+				throw err;
+			XCA_ERROR(err);
+			DbMap params = splitRemoteDbName(dbName);
+			pass_info p(XCA_TITLE, tr("Please enter the password to access the database server %2 as user '%1'.")
+					.arg(params["user"]).arg(params["host"]));
+			if (PwDialog::execute(&p, &passwd) != 1)
+				throw errorEx(1);
+		}
+	} while (1);
+
 	Entropy::seed_rng();
 	initSqlDB();
 
@@ -253,11 +269,6 @@ database_model::database_model(const QString &name, const QString &pass)
 		/* Error already printed */
 		throw errorEx(1);
 	}
-	if (!QSqlDatabase::database().isOpen()) {
-		/* Error already printed */
-		throw errorEx(1);
-	}
-
 	if (oldDbFile.isEmpty()) {
 		ret = initPass(dbName, Settings["pwhash"]);
 		if (ret == 2)
@@ -454,9 +465,9 @@ bool database_model::isRemoteDB(const QString &db)
 }
 
 void database_model::openRemoteDatabase(const QString &connName,
-				const DbMap &params, const QString &pass)
+				const DbMap &params, const Passwd &pass)
 {
-	QSqlDatabase db = QSqlDatabase::database(connName);
+	QSqlDatabase db = QSqlDatabase::database(connName, false);
 
 	db.setDatabaseName(params["dbname"]);
 	QStringList hostport = params["host"].split(":");
@@ -468,22 +479,18 @@ void database_model::openRemoteDatabase(const QString &connName,
 	db.setPassword(pass);
 
 	XSqlQuery::setTablePrefix(params["prefix"]);
-
 	db.open();
 	QSqlError e = db.lastError();
 
-#warning HANDLE wrong password
-	if (!e.isValid() || e.type() != QSqlError::ConnectionError ||
-		db.isOpen())
-	{
-		/* This is MySQL specific. Execute it always, because
-		 * dbType() could return "ODBC" but connect to MariaDB
-		 */
-		XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
-		return;
+	if (e.isValid() || !db.isOpen()) {
+		XSqlQuery::clearTablePrefix();
+		db.close();
+		throw errorEx(e.text());
 	}
-	XSqlQuery::clearTablePrefix();
-	db.close();
+	/* This is MySQL specific. Execute it always, because
+	 * dbType() could return "ODBC" but connect to MariaDB
+	 */
+	XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
 }
 
 void database_model::openLocalDatabase(const QString &connName,
@@ -517,7 +524,7 @@ void database_model::openLocalDatabase(const QString &connName,
 	}
 }
 
-void database_model::openDatabase(const QString &descriptor, const QString &pass)
+void database_model::openDatabase(const QString &descriptor, const Passwd &pass)
 {
 	DbMap params = splitRemoteDbName(descriptor);
 	bool isRemote = params.size() == NUM_PARAM;
@@ -525,6 +532,7 @@ void database_model::openDatabase(const QString &descriptor, const QString &pass
 
 	qDebug() << "IS REMOTE?" << params.size() << NUM_PARAM << type << params;
 	try {
+		Passwd pwd(pass);
 		QSqlDatabase db = QSqlDatabase::addDatabase(type);
 		connName = db.connectionName();
 		if (!isRemote) {
@@ -532,7 +540,7 @@ void database_model::openDatabase(const QString &descriptor, const QString &pass
 				throw errorEx(tr("No SqLite3 driver available. Please install the qt-sqlite package of your distribution"));
 			openLocalDatabase(connName, descriptor);
 		} else {
-			openRemoteDatabase(connName, params, pass);
+			openRemoteDatabase(connName, params, pwd);
 		}
 		DbTransaction::setHasTransaction(
 			db.driver()->hasFeature(QSqlDriver::Transactions));

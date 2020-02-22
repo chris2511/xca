@@ -144,7 +144,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 	arguments cmd_opts(argc, argv);
 	database_model *models = NULL;
 	pki_evp::passwd = acquire_password(cmd_opts["password"]);
-
+	Passwd sqlpw = acquire_password(cmd_opts["sqlpass"]);
 	if (cmd_opts.has("verbose"))
 		debug = 1;
 
@@ -152,8 +152,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 		cmd_help(EXIT_FAILURE);
 
 	if (cmd_opts.has("database"))
-		models = new database_model(cmd_opts["database"],
-						cmd_opts["sqlpass"]);
+		models = new database_model(cmd_opts["database"], sqlpw);
 
 	imported_items = new pki_multi();
 
