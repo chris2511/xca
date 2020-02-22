@@ -143,7 +143,7 @@ QString x509name::hash() const
 }
 
 /* 32 bit signed integer */
-unsigned long x509name::hashNum() const
+unsigned x509name::hashNum() const
 {
 	return X509_NAME_hash(xn) & 0x7fffffffL;
 }

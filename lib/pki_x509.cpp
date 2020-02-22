@@ -96,7 +96,7 @@ QSqlError pki_x509::insertSqlData()
 		  "VALUES (?, ?, ?, ?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
 	q.bindValue(1, hash());
-	q.bindValue(2, (uint)getIssuerName().hashNum());
+	q.bindValue(2, getIssuerName().hashNum());
 	q.bindValue(3, getSerial().toHex());
 	q.bindValue(4, signer ? signer->getSqlItemId() : QVariant());
 	q.bindValue(5, (int)isCA());
