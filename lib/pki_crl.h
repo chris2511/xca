@@ -20,6 +20,35 @@
 #define VIEW_crls_issuer 7
 #define VIEW_crls_crl 8
 
+#include "widgets/hashBox.h"
+class crljob
+{
+    public:
+	pki_x509 *issuer;
+	bool withReason;
+	bool authKeyId;
+	bool subAltName;
+	bool setCrlNumber;
+	a1int crlNumber;
+	int crlDays;
+	const EVP_MD *hashAlgo;
+	a1time lastUpdate;
+	a1time nextUpdate;
+
+	crljob(pki_x509 *x) : issuer(x)
+	{
+		withReason = true;
+		authKeyId = true;
+		subAltName = true;
+		setCrlNumber = issuer->getCrlNumber().getLong() > 0;
+		crlNumber = issuer->getCrlNumber();
+		crlNumber++;
+		crlDays = issuer->getCrlDays();
+		hashAlgo = hashBox::getDefaultMD();
+		nextUpdate = lastUpdate.addDays(crlDays);
+	}
+};
+
 class pki_crl: public pki_x509name
 {
 		Q_OBJECT

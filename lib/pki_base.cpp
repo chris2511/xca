@@ -386,7 +386,8 @@ void pki_base::selfComment(QString msg)
 
 void pki_base::print(FILE *fp) const
 {
-	fprintf(fp, "File: %s\n", CCHAR(getFilename()));
+	fprintf(fp, "File: %s [%s]\n", CCHAR(getFilename()),
+					CCHAR(getIntName()));
 }
 
 static QString icsValue(QString s)

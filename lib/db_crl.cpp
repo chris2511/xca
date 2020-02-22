@@ -220,17 +220,20 @@ void db_crl::newItem()
 
 void db_crl::newItem(pki_x509 *cert)
 {
-	if (!cert)
-		return;
-
-	pki_crl *crl = NULL;
-	NewCrl *widget = new NewCrl(NULL, cert);
+	crljob task(cert);
+	NewCrl *widget = new NewCrl(NULL, task);
 	XcaDialog *dlg = new XcaDialog(mainwin, revocation, widget,
 					tr("Create CRL"), QString());
-	if (!dlg->exec()) {
-		delete dlg;
-		return;
+	if (dlg->exec()) {
+		newItem(widget->getCrlJob());
 	}
+	delete dlg;
+}
+
+void db_crl::newItem(const crljob &task)
+{
+	pki_crl *crl = NULL;
+	pki_x509 *cert = task.issuer;
 	QSqlDatabase db = QSqlDatabase::database();
 	try {
 		x509v3ext e;
@@ -243,38 +246,35 @@ void db_crl::newItem(pki_x509 *cert)
 		crl->createCrl(cert->getIntName(), cert);
 		crl->pkiSource = generated;
 
-		bool withReason = widget->revocationReasons->isChecked();
 		foreach(x509rev rev, cert->getRevList())
-			crl->addRev(rev, withReason);
+			crl->addRev(rev, task.withReason);
 
-		if (widget->authKeyId->isChecked()) {
+		if (task.authKeyId) {
 			crl->addV3ext(e.create(NID_authority_key_identifier,
 				"keyid,issuer", &ext_ctx));
 		}
-		if (widget->subAltName->isChecked()) {
+		if (task.subAltName) {
 			if (cert->hasExtension(NID_subject_alt_name)) {
 				crl->addV3ext(e.create(NID_issuer_alt_name,
 					"issuer:copy", &ext_ctx));
 			}
 		}
-		if (widget->setCrlNumber->isChecked()) {
-			a1int num;
-			num.setDec(widget->crlNumber->text());
-			crl->setCrlNumber(num);
-			cert->setCrlNumber(num);
+		if (task.setCrlNumber) {
+			crl->setCrlNumber(task.crlNumber);
+			cert->setCrlNumber(task.crlNumber);
 		}
 		crl->setIssuer(cert);
-		crl->setLastUpdate(widget->lastUpdate->getDate());
-		crl->setNextUpdate(widget->nextUpdate->getDate());
-		crl->sign(cert->getRefKey(), widget->hashAlgo->currentHash());
+		crl->setLastUpdate(task.lastUpdate);
+		crl->setNextUpdate(task.nextUpdate);
+		crl->sign(cert->getRefKey(), task.hashAlgo);
 
 		Transaction;
 		if (!TransBegin())
 			throw errorEx(tr("Failed to initiate DB transaction"));
-		cert->setCrlExpire(widget->nextUpdate->getDate());
+		cert->setCrlExpire(task.nextUpdate);
 		SQL_PREPARE(q, "UPDATE authority set crlNo=?, crlExpire=? WHERE item=?");
 		q.bindValue(0, (uint)cert->getCrlNumber().getLong());
-		q.bindValue(1, widget->nextUpdate->getDate().toPlain());
+		q.bindValue(1, task.nextUpdate.toPlain());
 		q.bindValue(2, cert->getSqlItemId());
 		AffectedItems(cert->getSqlItemId());
 		q.exec();
@@ -302,6 +302,5 @@ void db_crl::newItem(pki_x509 *cert)
 			delete crl;
 		crl = NULL;
 	}
-	delete dlg;
 	return;
 }

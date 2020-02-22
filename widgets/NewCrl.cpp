@@ -17,27 +17,44 @@
 #include <QCheckBox>
 #include <QMessageBox>
 
-NewCrl::NewCrl(QWidget *parent, pki_x509 *signer)
-	:QWidget(parent)
+NewCrl::NewCrl(QWidget *parent, const crljob &j)
+	:QWidget(parent), task(j)
 {
+	pki_x509 *issuer = task.issuer;
+	pki_key *key = issuer->getRefKey();
+
 	setupUi(this);
-	dateBox->setTitle(signer->getIntName());
-	validNumber->setText(QString::number(signer->getCrlDays()));
+	dateBox->setTitle(issuer->getIntName());
+	validNumber->setText(QString::number(task.crlDays));
 	validRange->setCurrentIndex(0);
 	on_applyTime_clicked();
 	nextUpdate->setEndDate(true);
 
-	pki_key *key = signer->getRefKey();
 	hashAlgo->setKeyType(key->getKeyType());
 	hashAlgo->setupHashes(key->possibleHashNids());
+	hashAlgo->setCurrentMD(task.hashAlgo);
 
-	a1int num = signer->getCrlNumber();
-	num++;
-	crlNumber->setText(num.toDec());
-	if (signer->hasExtension(NID_subject_alt_name))
+	crlNumber->setText(task.crlNumber.toDec());
+	if (issuer->hasExtension(NID_subject_alt_name)) {
 		subAltName->setEnabled(true);
-	else
+		subAltName->setChecked(task.subAltName);
+	} else {
 		subAltName->setEnabled(false);
+	}
+	revocationReasons->setChecked(task.withReason);
+	authKeyId->setChecked(task.authKeyId);
+}
+
+crljob NewCrl::getCrlJob() const
+{
+	crljob t = task;
+	t.withReason = revocationReasons->isChecked();
+	t.authKeyId = authKeyId->isChecked();
+	t.subAltName = subAltName->isChecked();
+	t.setCrlNumber = setCrlNumber->isChecked();
+	t.lastUpdate = lastUpdate->getDate();
+	t.nextUpdate = nextUpdate->getDate();
+	return t;
 }
 
 void NewCrl::on_applyTime_clicked()
@@ -46,3 +63,7 @@ void NewCrl::on_applyTime_clicked()
 					validRange->currentIndex());
 }
 
+NewCrl::~NewCrl()
+{
+	qDebug() << "NewCrl::~NewCrl() -- DELETED";
+}

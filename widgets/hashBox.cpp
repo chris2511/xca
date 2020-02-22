@@ -214,3 +214,8 @@ QString hashBox::getDefault()
 {
 	return QString(hashalgos[default_md].name);
 }
+
+const EVP_MD *hashBox::getDefaultMD()
+{
+	return EVP_get_digestbynid(hashalgos[default_md].nid);
+}

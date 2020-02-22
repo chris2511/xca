@@ -33,6 +33,7 @@ class hashBox: public QComboBox
 		void setCurrentString(QString md);
 		static void setDefault(QString def);
 		static QString getDefault();
+		static const EVP_MD *getDefaultMD();
 };
 
 #endif
