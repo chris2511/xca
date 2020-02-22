@@ -55,7 +55,7 @@ QSqlError pki_x509super::insertSqlData()
 	SQL_PREPARE(q, "INSERT INTO x509super (item, subj_hash, pkey, key_hash) "
 		  "VALUES (?, ?, ?, ?)");
 	q.bindValue(0, sqlItemId);
-	q.bindValue(1, (uint)getSubject().hashNum());
+	q.bindValue(1, getSubject().hashNum());
 	q.bindValue(2, keySqlId);
 	q.bindValue(3, pubHash());
 	q.exec();
