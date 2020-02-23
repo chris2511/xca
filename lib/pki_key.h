@@ -48,10 +48,12 @@ class pki_key: public pki_base
 		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const;
 		mutable int useCount; // usage counter
 	public:
-		pki_key(const QString name = "");
+		static builtin_curves builtinCurves;
+
+		pki_key(const QString &name = QString());
 		pki_key(const pki_key *pk);
 		virtual ~pki_key();
-		static builtin_curves builtinCurves;
+
 		void autoIntName(const QString &file);
 		QString length() const;
 		QString comboText() const;

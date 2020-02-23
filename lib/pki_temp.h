@@ -36,7 +36,10 @@ class pki_temp: public pki_x509name
 		void fromExtList(extList *el, int nid, const char *item);
 
 	public:
-		// methods
+		pki_temp(const pki_temp *pk);
+		pki_temp(const QString &d = QString());
+		~pki_temp();
+
 		QString getSetting(QString key)
 		{
 			CHECK_TMPL_KEY
@@ -57,11 +60,8 @@ class pki_temp: public pki_x509name
 			CHECK_TMPL_KEY
 			settings[key] = QString::number(value);
 		}
-		pki_temp(const pki_temp *pk);
-		pki_temp(const QString d = QString());
 		void fload(const QString &fname);
 		void writeDefault(const QString &dirname) const ;
-		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
 		void old_fromData(const unsigned char *p, int size, int version);
 		void fromData(const unsigned char *p, db_header_t *head );

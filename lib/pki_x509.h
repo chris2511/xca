@@ -54,7 +54,7 @@ class pki_x509 : public pki_x509super
 	public:
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
-		pki_x509(const QString name = "");
+		pki_x509(const QString &name = QString());
 		~pki_x509();
 
 		void setSigner(pki_x509 *s)

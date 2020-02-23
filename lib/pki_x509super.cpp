@@ -10,9 +10,15 @@
 #include "pki_x509super.h"
 #include "db_base.h"
 
-pki_x509super::pki_x509super(const QString name)
+pki_x509super::pki_x509super(const QString &name)
 	: pki_x509name(name)
 {
+}
+
+pki_x509super::pki_x509super(const pki_x509super *x)
+	: pki_x509name(x)
+{
+	keySqlId = x->keySqlId;
 }
 
 pki_x509super::~pki_x509super()
@@ -238,9 +244,13 @@ bool pki_x509super::visible() const
 }
 
 // Start class  pki_x509name
-
-pki_x509name::pki_x509name(const QString name)
+pki_x509name::pki_x509name(const QString &name)
 	: pki_base(name)
+{
+}
+
+pki_x509name::pki_x509name(const pki_x509name *n)
+	: pki_base(n)
 {
 }
 

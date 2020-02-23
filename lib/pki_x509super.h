@@ -22,7 +22,8 @@ class pki_x509name : public pki_base
 	void PEM_file_comment(XFile &file) const;
 
     public:
-	pki_x509name(const QString name = "");
+	pki_x509name(const QString &name = QString());
+	pki_x509name(const pki_x509name *n);
 	virtual x509name getSubject() const = 0;
 	void autoIntName(const QString &file);
 	QVariant column_data(const dbheader *hd) const;
@@ -36,7 +37,8 @@ class pki_x509super : public pki_x509name
 		QVariant keySqlId;
 		virtual int sigAlg() const = 0;
 	public:
-		pki_x509super(const QString name = "");
+		pki_x509super(const QString &name = QString());
+		pki_x509super(const pki_x509super *x);
 		virtual ~pki_x509super();
 		unsigned pubHash() const;
 		virtual pki_key *getPubKey() const = 0;

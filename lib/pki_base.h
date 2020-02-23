@@ -72,11 +72,12 @@ class pki_base : public QObject
 			msg_create,
 		};
 		enum pki_source pkiSource;
-		QList<pki_base*> childItems;
 
-		pki_base(const QString d = "", pki_base *p = NULL);
+		pki_base(const QString &d = QString(), pki_base *p = NULL);
+		pki_base(const pki_base *p);
 		virtual ~pki_base();
 
+		QList<pki_base*> childItems;
 		QString getIntName() const
 		{
 			return desc;

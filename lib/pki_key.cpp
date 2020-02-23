@@ -23,7 +23,7 @@
 
 builtin_curves pki_key::builtinCurves;
 
-pki_key::pki_key(const QString name)
+pki_key::pki_key(const QString &name)
         :pki_base(name)
 {
 	key = EVP_PKEY_new();
@@ -33,7 +33,7 @@ pki_key::pki_key(const QString name)
 }
 
 pki_key::pki_key(const pki_key *pk)
-	:pki_base(pk->desc)
+	:pki_base(pk)
 {
 	if (pk->key) {
 		QByteArray ba = i2d_bytearray(I2D_VOID(i2d_PUBKEY), pk->key);

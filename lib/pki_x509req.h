@@ -31,12 +31,14 @@ class pki_x509req : public pki_x509super
 		int sigAlg() const;
 
 	public:
+		pki_x509req(const QString &name = QString());
+		pki_x509req(const pki_x509req *req);
+		~pki_x509req();
+
 		extList getV3ext() const;
-		pki_x509req(QString name = "");
 		void fromPEM_BIO(BIO *bio, const QString &name);
 		void fload(const QString &fname);
 		void writeDefault(const QString &dirname) const;
-		~pki_x509req();
 		void fromData(const unsigned char *p, db_header_t *head);
 		x509name getSubject() const;
 		void writeReq(XFile &file, bool pem) const;

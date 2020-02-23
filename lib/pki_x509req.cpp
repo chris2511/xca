@@ -20,7 +20,7 @@
 
 #include "openssl_compat.h"
 
-pki_x509req::pki_x509req(const QString name)
+pki_x509req::pki_x509req(const QString &name)
 	: pki_x509super(name)
 {
 	request = X509_REQ_new();
@@ -28,6 +28,15 @@ pki_x509req::pki_x509req(const QString name)
 	pkiType=x509_req;
 	done = false;
 	resetX509count();
+}
+
+pki_x509req::pki_x509req(const pki_x509req *req)
+	: pki_x509super(req)
+{
+	request = X509_REQ_dup(request);
+	done = req->done;
+	resetX509count();
+	pki_openssl_error();
 }
 
 pki_x509req::~pki_x509req()

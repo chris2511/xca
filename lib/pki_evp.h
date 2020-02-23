@@ -42,22 +42,22 @@ class pki_evp: public pki_key
 		static QString md5passwd(QByteArray pass);
 		static QString sha512passwd(QByteArray pass, QString salt);
 		static QString sha512passwT(QByteArray pass, QString salt);
+
+		pki_evp(const QString &n = QString(), int type = EVP_PKEY_RSA);
+		pki_evp(const pki_evp *pkey);
+		pki_evp(EVP_PKEY *pkey);
+		virtual ~pki_evp();
+
 		void generate(int bits, int type, QProgressBar *progress);
 		void generate(int bits, int type, QProgressBar *progress,
 				int curve_nid);
 		void setOwnPass(enum passType);
-		pki_evp(const QString name = "", int type = EVP_PKEY_RSA);
-		pki_evp(EVP_PKEY *pkey);
 		void set_evp_key(EVP_PKEY *pkey);
 		void encryptKey(const char *password = NULL);
 		void bogusEncryptKey();
 		EVP_PKEY *decryptKey() const;
 		EVP_PKEY *legacyDecryptKey(QByteArray &myencKey,
 					   Passwd &ownPassBuf) const;
-		pki_evp(const pki_evp *pk);
-		/* destructor */
-		virtual ~pki_evp();
-
 		EVP_PKEY *priv2pub(EVP_PKEY* key);
 		static QString removeTypeFromIntName(QString n);
 		void fromPEMbyteArray(const QByteArray &ba, const QString &name);

@@ -19,13 +19,23 @@
 QRegExp pki_base::limitPattern;
 bool pki_base::pem_comment;
 
-pki_base::pki_base(const QString name, pki_base *p)
+pki_base::pki_base(const QString &name, pki_base *p)
 {
 	desc = name;
 	parent = p;
 	childItems.clear();
 	pkiType=none;
 	pkiSource=unknown;
+}
+
+pki_base::pki_base(const pki_base *p)
+{
+	desc = p->desc;
+	parent = p->parent;
+	childItems.clear();
+	pkiType = p->pkiType;
+	pkiSource = p->pkiSource;
+	p->inheritFilename(this);
 }
 
 pki_base::~pki_base(void)

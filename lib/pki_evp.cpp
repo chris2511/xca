@@ -170,8 +170,8 @@ pki_evp::pki_evp(const pki_evp *pk)
 	encKey = pk->getEncKey();
 }
 
-pki_evp::pki_evp(const QString name, int type)
-	:pki_key(name)
+pki_evp::pki_evp(const QString &n, int type)
+	:pki_key(n)
 {
 	init();
 	EVP_PKEY_set_type(key, type);

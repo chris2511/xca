@@ -30,7 +30,7 @@ pki_x509::pki_x509(X509 *c)
 }
 
 pki_x509::pki_x509(const pki_x509 *crt)
-	:pki_x509super(crt->desc)
+	:pki_x509super(crt)
 {
 	init();
 	cert = X509_dup(crt->cert);
@@ -44,7 +44,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	pki_openssl_error();
 }
 
-pki_x509::pki_x509(const QString name)
+pki_x509::pki_x509(const QString &name)
 	:pki_x509super(name)
 {
 	init();
