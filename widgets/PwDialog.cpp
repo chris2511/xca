@@ -5,15 +5,15 @@
  * All rights reserved.
  */
 
-
-#include "PwDialog.h"
 #include "lib/func.h"
 #include "lib/base.h"
 #include "lib/Passwd.h"
-#include "widgets/MainWindow.h"
+#include "lib/exception.h"
+#include "XcaWarning.h"
+#include "PwDialog.h"
 #include <QLabel>
 #include <QMessageBox>
-#include <QApplication>
+//#include <QApplication>
 
 static int hex2bin(QString &x, Passwd *final)
 {
@@ -34,34 +34,38 @@ static int hex2bin(QString &x, Passwd *final)
 	return len;
 }
 
-int PwDialog::execute(pass_info *p, Passwd *passwd, bool write, bool abort)
+enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
+					bool write, bool abort)
 {
 	if (IS_GUI_APP) {
 		PwDialog *dlg = new PwDialog(p, write);
 		if (abort)
 			dlg->addAbortButton();
-		int ret = dlg->exec();
+		enum open_result result = (enum open_result)dlg->exec();
 		*passwd = dlg->getPass();
 		delete dlg;
-		return ret;
+		if (result == pw_exit)
+			throw pw_exit;
+		return result;
 	}
 	printf(COL_CYAN "%s" COL_LRED "\n%s:" COL_RESET,
 		 CCHAR(p->getDescription()), CCHAR(tr("Password")));
 	*passwd = readPass();
-	return 1;
+	return pw_ok;
 }
 
 int PwDialog::pwCallback(char *buf, int size, int rwflag, void *userdata)
 {
 	Passwd passwd;
+	enum open_result result;
 	pass_info *p = static_cast<pass_info *>(userdata);
 
-	int ret = PwDialog::execute(p, &passwd, rwflag, false);
+	result = PwDialog::execute(p, &passwd, rwflag, false);
 
 	size = MIN(size, passwd.size());
 	memcpy(buf, passwd.constData(), size);
-
-	return ret == 1 ? size : 0;
+	p->setResult(result);
+	return result == pw_ok ? size : 0;
 }
 
 PwDialog::PwDialog(pass_info *p, bool write)
@@ -117,20 +121,23 @@ void PwDialog::accept()
 
 void PwDialog::buttonPress(QAbstractButton *but)
 {
-	switch (buttonBox->standardButton(but)) {
-	case QDialogButtonBox::Ok:
+	qDebug() << "buttonBox->standardButton(but)" << buttonBox->buttonRole(but) << QDialogButtonBox::DestructiveRole;
+	switch (buttonBox->buttonRole(but)) {
+	case QDialogButtonBox::AcceptRole:
 		accept();
 		break;
-	case QDialogButtonBox::Cancel:
+	case QDialogButtonBox::RejectRole:
 		reject();
 		break;
-	case QDialogButtonBox::Abort:
+	case QDialogButtonBox::ResetRole:
+		done(pw_exit);
+		break;
 	default:
-		done(2);
+		break;
 	}
 }
 
 void PwDialog::addAbortButton()
 {
-	buttonBox->addButton(tr("E&xit"), QDialogButtonBox::ResetRole);
+	buttonBox->addButton(tr("Exit"), QDialogButtonBox::ResetRole);
 }

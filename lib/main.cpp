@@ -7,7 +7,7 @@
 
 #include <signal.h>
 
-#include <QClipboard>
+//#include <QClipboard>
 #include <QDir>
 #include <QDebug>
 //#include <openssl/rand.h>
@@ -105,14 +105,16 @@ QCoreApplication *createApplication(int &argc, char *argv[])
 
 static void cmd_version(FILE *fp)
 {
-	fprintf(fp, XCA_TITLE " Version %s\n", version_str(false));
+	fprintf(fp, XCA_TITLE "\nVersion %s\n", version_str(false));
 }
 
+const char *xca_name = "xca";
 static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 {
 	FILE *fp = exitcode == EXIT_SUCCESS ? stdout : stderr;
 
 	cmd_version(fp);
+	fprintf(fp, "\nUsage %s <options> <file-to-import> ...\n\n", xca_name);
 	fputs(CCHAR(arguments::help()), fp);
 
 	if (msg)
@@ -192,8 +194,8 @@ static database_model* read_cmdline(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	int ret = 0;
-	QDir d;
+	if (argc > 0)
+		xca_name = argv[0];
 
 #if defined(Q_OS_WIN32)
 	SetUnhandledExceptionFilter(w32_segfault);
@@ -201,7 +203,7 @@ int main(int argc, char *argv[])
 	signal(SIGSEGV, segv_handler_gui);
 #endif
 
-	d.mkpath(getUserSettingsDir());
+	QDir().mkpath(getUserSettingsDir());
 
 #if QT_VERSION < 0x050000
 	qInstallMsgHandler(myMsgOutput);
@@ -216,8 +218,8 @@ int main(int argc, char *argv[])
 	XcaApplication *gui = qobject_cast<XcaApplication*>(core);
 
 	try {
-#warning FIXME cmdline
 		database_model *models = read_cmdline(argc, argv);
+		TRACE
 		if (gui) {
 			OpenDb::checkSqLite();
 			mainwin = new MainWindow(models);
@@ -228,10 +230,16 @@ int main(int argc, char *argv[])
 			gui->exec();
 		}
 	} catch (errorEx &ex) {
+		TRACE
 		XCA_ERROR(ex);
+	} catch (enum open_result r) {
+		XCA_ERROR(QObject::tr("DB Open failed: %1").arg(r));
+		TRACE
 	}
 	delete mainwin;
+		TRACE
 	delete gui;
+		TRACE
 
-	return ret;
+	return EXIT_SUCCESS;
 }

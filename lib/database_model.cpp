@@ -85,7 +85,7 @@ bool database_model::checkForOldDbFormat(const QString &dbfile) const
 	return !memcmp(head, magic, sizeof head);
 }
 
-int database_model::verifyOldDbPass(const QString &dbname) const
+enum open_result database_model::verifyOldDbPass(const QString &dbname) const
 {
 	// look for the password
 	QString passhash;
@@ -101,11 +101,12 @@ int database_model::verifyOldDbPass(const QString &dbname) const
 			return initPass(dbname, passhash);
 		}
 	}
-	return 2;
+	return open_abort;
 }
 
 QString database_model::checkPre2Xdatabase() const
 {
+	enum open_result result;
 	if (!checkForOldDbFormat(dbName))
 		return QString();
 
@@ -115,14 +116,16 @@ QString database_model::checkPre2Xdatabase() const
 	newname += "_backup_" + QDateTime::currentDateTime()
 			.toString("yyyyMMdd_hhmmss") + ".xdb";
 	if (!XCA_OKCANCEL(tr("Legacy database format detected. Creating a backup copy called: '%1' and converting the database to the new format").arg(newname))) {
-		throw 1;
+		throw open_abort;
 	}
-	if (verifyOldDbPass(dbName) != 1)
-		throw 1;
+
+	result = verifyOldDbPass(dbName);
+	if (result != pw_ok)
+		throw result;
 
 	if (!QFile::rename(dbName, newname)) {
 		XCA_WARN(tr("Failed to rename the database file, because the target already exists"));
-		throw 1;
+		throw open_abort;
 	}
 	return newname;
 }
@@ -227,7 +230,7 @@ next:
 
 database_model::database_model(const QString &name, const Passwd &pass)
 {
-	int ret = 2;
+	enum open_result result;
 	QSqlError err;
 	QString oldDbFile;
 
@@ -238,7 +241,7 @@ database_model::database_model(const QString &name, const Passwd &pass)
 		dbName = get_default_db();
 
 	if (dbName.isEmpty())
-		throw errorEx(1);
+		throw open_abort;
 
 	qDebug("Opening database: %s", QString2filename(dbName));
 
@@ -257,24 +260,21 @@ database_model::database_model(const QString &name, const Passwd &pass)
 			DbMap params = splitRemoteDbName(dbName);
 			pass_info p(XCA_TITLE, tr("Please enter the password to access the database server %2 as user '%1'.")
 					.arg(params["user"]).arg(params["host"]));
-			if (PwDialog::execute(&p, &passwd) != 1)
-				throw errorEx(1);
+			result = PwDialog::execute(&p, &passwd);
+			if (result != pw_ok)
+				throw result;
 		}
 	} while (1);
 
 	Entropy::seed_rng();
 	initSqlDB();
 
-	if (dbName.isEmpty()) {
-		/* Error already printed */
-		throw errorEx(1);
-	}
 	if (oldDbFile.isEmpty()) {
-		ret = initPass(dbName, Settings["pwhash"]);
-		if (ret == 2)
-			throw errorEx(ret);
-		if (ret == 0 && Settings["pwhash"].empty())
-			throw errorEx(2);
+		result = initPass(dbName, Settings["pwhash"]);
+		if (result == pw_exit)
+			throw pw_exit;
+		if (result != pw_ok && Settings["pwhash"].empty())
+			throw open_abort;
 	}
 	/* Assure initialisation order:
 	 * keys first, followed by x509[req], and crls last.
@@ -485,7 +485,7 @@ void database_model::openRemoteDatabase(const QString &connName,
 	if (e.isValid() || !db.isOpen()) {
 		XSqlQuery::clearTablePrefix();
 		db.close();
-		throw errorEx(e.text());
+		throw errorEx(e);
 	}
 	/* This is MySQL specific. Execute it always, because
 	 * dbType() could return "ODBC" but connect to MariaDB
@@ -520,7 +520,7 @@ void database_model::openLocalDatabase(const QString &connName,
 	QSqlError e = db.lastError();
 	if (e.isValid()) {
 		db.close();
-		throw errorEx(e.text());
+		throw errorEx(e);
 	}
 }
 
@@ -573,10 +573,10 @@ static void pwhash_upgrade()
 	}
 }
 
-int database_model::initPass(const QString &dbName, const QString &passhash) const
+enum open_result database_model::initPass(const QString &dbName, const QString &passhash) const
 {
 	QString salt, pass;
-	int ret;
+	enum open_result result = pw_cancel;
 
 	pass_info p(tr("New Password"), tr("Please enter a password, "
 			"that will be used to encrypt your private keys "
@@ -585,33 +585,31 @@ int database_model::initPass(const QString &dbName, const QString &passhash) con
 
 	pki_evp::passHash = passhash;
 	if (pki_evp::passHash.isEmpty()) {
-		ret = PwDialog::execute(&p, &pki_evp::passwd, true, true);
-		if (ret != 1)
-			return ret;
+		result = PwDialog::execute(&p, &pki_evp::passwd, true, true);
+		if (result != pw_ok)
+			return result;
 		salt = Entropy::makeSalt();
 		pki_evp::passHash =pki_evp::sha512passwT(pki_evp::passwd,salt);
 		Settings["pwhash"] = pki_evp::passHash;
 	} else {
 		pwhash_upgrade();
-		ret = 0;
 		while (pki_evp::sha512passwT(pki_evp::passwd, pki_evp::passHash)
 				!= pki_evp::passHash)
 		{
-			if (ret)
-				XCA_WARN(
-				tr("Password verify error, please try again"));
+			if (result == pw_ok)
+				XCA_PASSWD_ERROR();
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbName)));
-			ret = PwDialog::execute(&p, &pki_evp::passwd,
+			result = PwDialog::execute(&p, &pki_evp::passwd,
 						false, true);
-			if (ret != 1) {
+			if (result != pw_ok) {
 				pki_evp::passwd = QByteArray();
-				return ret;
+				return result;
 			}
 			pwhash_upgrade();
 		}
 	}
 	if (pki_evp::passwd.isNull())
 		pki_evp::passwd = "";
-	return 1;
+	return pw_ok;
 }

@@ -12,6 +12,7 @@
 #include "db.h"
 #include "entropy.h"
 #include "widgets/PwDialog.h"
+#include "widgets/XcaWarning.h"
 
 #include <openssl/rand.h>
 #include <openssl/evp.h>
@@ -228,16 +229,16 @@ pki_evp::pki_evp(EVP_PKEY *pkey)
 	set_EVP_PKEY(pkey);
 }
 
-void pki_evp::openssl_pw_error(QString fname)
+bool pki_evp::openssl_pw_error() const
 {
 	switch (ERR_peek_error() & 0xff000fff) {
 	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_DECRYPT):
 	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_PASSWORD_READ):
 	case ERR_PACK(ERR_LIB_EVP, 0, EVP_R_BAD_DECRYPT):
 		pki_ign_openssl_error();
-		throw errorEx(tr("Failed to decrypt the key (bad password) %1")
-				.arg(fname), getClassName(), E_PASSWD);
+		return true;
 	}
+	return false;
 }
 
 void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
@@ -245,15 +246,24 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 	BIO *bio = BIO_from_QByteArray(ba);
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE,
-		tr("Please enter the password to decrypt the private key.") +
-		" " + name);
-	pkey = PEM_read_bio_PrivateKey(bio, NULL, PwDialog::pwCallback, &p);
-	openssl_pw_error(name);
+		tr("Please enter the password to decrypt the private key %1.")
+			.arg(name));
+	do {
+		pkey = PEM_read_bio_PrivateKey(bio, NULL,
+						PwDialog::pwCallback, &p);
+		if (openssl_pw_error())
+			XCA_PASSWD_ERROR();
+		if (p.getResult() != pw_ok)
+			throw p.getResult();
+		if (pki_ign_openssl_error())
+			break;
+	} while (!pkey);
+
 	if (!pkey) {
 		pki_ign_openssl_error();
 		BIO_free(bio);
 		bio = BIO_from_QByteArray(ba);
-		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
+		pkey = PEM_read_bio_PUBKEY(bio, NULL, NULL, 0);
 	}
 	BIO_free(bio);
 	pki_openssl_error();
@@ -326,8 +336,17 @@ void pki_evp::fload(const QString &fname)
 	pki_ign_openssl_error();
 	XFile file(fname);
 	file.open_read();
-	EVP_PKEY *pkey = PEM_read_PrivateKey(file.fp(), NULL, cb, &p);
-	openssl_pw_error(fname);
+	EVP_PKEY *pkey;
+	do {
+		pkey = PEM_read_PrivateKey(file.fp(), NULL, cb, &p);
+		if (openssl_pw_error())
+			XCA_PASSWD_ERROR();
+		if (p.getResult() != pw_ok)
+			throw p.getResult();
+		if (pki_ign_openssl_error())
+			break;
+		file.retry_read();
+	} while (!pkey);
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();

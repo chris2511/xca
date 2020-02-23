@@ -25,7 +25,8 @@
 
 #define COL_CYAN  "\x1b[0;36m"
 #define COL_BLUE  "\x1b[0;94m"
-#define COL_LRED  "\x1b[0;92m"
+#define COL_GREEN "\x1b[0;92m"
+#define COL_LRED  "\x1b[0;91m"
 #define COL_YELL  "\x1b[0;33m"
 #define COL_RED   "\x1b[0;31m"
 #define COL_RESET "\x1b[0m"

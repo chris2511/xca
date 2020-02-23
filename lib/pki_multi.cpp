@@ -153,10 +153,10 @@ void pki_multi::probeAnything(const QString &fname)
 				break;
 			}
 		} catch (errorEx &err) {
-			if (err.info == E_PASSWD) {
-				XCA_ERROR(err);
+			XCA_ERROR(err);
+		} catch (enum open_result r) {
+			if (r == pw_cancel)
 				break;
-			}
 		}
 	}
 	if (count() == old_count && !fname.isEmpty())

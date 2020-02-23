@@ -125,9 +125,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void initResolver();
 
 	public slots:
-		int init_database(const QString &dbName,
+		enum open_result init_database(const QString &dbName,
 				const Passwd &pass = Passwd());
-		int init_database(database_model *m);
+		enum open_result init_database(database_model *m);
 		void new_database();
 		void load_database();
 		void close_database();

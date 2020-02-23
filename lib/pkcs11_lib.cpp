@@ -319,6 +319,6 @@ void pk11error(slotid slot, const QString &func, int rv)
 	WAITCURSOR_END
 	errorEx err(QObject::tr("PKCS#11 function '%1' failed: %2\nIn library %3\n%4").
 		arg(func).arg(pk11errorString(rv)).arg(slot.lib->filename()).
-		arg(slot.lib->driverInfo()), "", rv);
+		arg(slot.lib->driverInfo()));
 	throw err;
 }

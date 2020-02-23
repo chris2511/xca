@@ -31,7 +31,7 @@ class PwDialog: public QDialog, public Ui::PwDialog
 	void addAbortButton();
 	void setRW(bool write);
 
-	static int execute(pass_info *p, Passwd *passwd,
+	static enum open_result execute(pass_info *p, Passwd *passwd,
 			bool write = false, bool abort = false);
 	static int pwCallback(char *buf, int size, int rwflag, void *userdata);
 

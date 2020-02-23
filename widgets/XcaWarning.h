@@ -20,6 +20,7 @@
 #define XCA_OKCANCEL(msg) xcaWarning::okcancel(msg)
 #define XCA_ERROR(err) xcaWarning::error(err)
 #define XCA_SQLERROR(err) xcaWarning::sqlerror(err)
+#define XCA_PASSWD_ERROR() XCA_WARN(QObject::tr("Password verify error, please try again"))
 
 class xcaWarning: public QObject
 {

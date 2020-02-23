@@ -30,11 +30,11 @@ class database_model: public QObject
 		QSqlError initSqlDB();
 		QString dbName;
 		bool checkForOldDbFormat(const QString &dbfile) const;
-		int verifyOldDbPass(const QString &dbname) const;
+		enum open_result verifyOldDbPass(const QString &dbname) const;
 		void importOldDatabase(const QString &dbfile);
 		QString get_default_db() const;
 		QString checkPre2Xdatabase() const;
-		int initPass(const QString &dbName,
+		enum open_result initPass(const QString &dbName,
 				const QString &passhash) const;
 
 	public:

@@ -34,7 +34,7 @@ class pki_evp: public pki_key
 		void set_EVP_PKEY(EVP_PKEY *pkey, QString name = QString());
 
 	protected:
-		void openssl_pw_error(QString fname);
+		bool openssl_pw_error() const;
 	public:
 		static QString passHash;
 		static Passwd passwd;

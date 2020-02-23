@@ -11,6 +11,7 @@
 #include "exception.h"
 #include "func.h"
 #include "widgets/PwDialog.h"
+#include "widgets/XcaWarning.h"
 #include <openssl/err.h>
 #include <QMessageBox>
 
@@ -42,14 +43,18 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	if (pki_ign_openssl_error()) {
 		if (pkcs12)
 			PKCS12_free(pkcs12);
-		throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.").arg(fname));
+		throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.")
+				.arg(fname));
 	}
-	if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
-		pass.clear();
-	else if (PwDialog::execute(&p, &pass) != 1) {
-		/* cancel pressed */
-		PKCS12_free(pkcs12);
-		throw errorEx("","", E_PASSWD);
+	while (!PKCS12_verify_mac(pkcs12, pass.constData(), 0)) {
+		if (pass.size() > 0)
+			XCA_PASSWD_ERROR();
+		enum open_result result = PwDialog::execute(&p, &pass);
+		if (result != pw_ok) {
+			/* cancel pressed */
+			PKCS12_free(pkcs12);
+			throw result;
+		}
 	}
 	PKCS12_parse(pkcs12, pass.constData(), &mykey, &mycert, &certstack);
 	int error = ERR_peek_error();
@@ -58,7 +63,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 		PKCS12_free(pkcs12);
 		throw errorEx(getClassName(),
 			 tr("The supplied password was wrong (%1)")
-				.arg(ERR_reason_error_string(error)), E_PASSWD);
+				.arg(ERR_reason_error_string(error)));
 	}
 	pki_ign_openssl_error();
 	if (mycert) {

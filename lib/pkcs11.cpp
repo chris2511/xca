@@ -297,14 +297,15 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 
 	for (int i = 0; i < p11_slots.count(); i++) {
 		try {
-			tkInfo info = tokenInfo(p11_slots[i]);
+			tkInfo info;
+			CK_RV rv = tokenInfo(p11_slots[i], &info);
+			if (rv == CKR_TOKEN_NOT_PRESENT)
+				continue;
 			slotsWithToken.append(i);
 			slotnames << QString("%1 (#%2)").
 				arg(info.label()).arg(info.serial());
 		} catch (errorEx &e) {
-			if (e.info != CKR_TOKEN_NOT_PRESENT) {
-				XCA_WARN(QString("Error: %1").arg(e.getString()));
-			}
+			XCA_WARN(QString("Error: %1").arg(e.getString()));
 		}
 	}
 	switch (slotnames.count()) {
@@ -424,14 +425,24 @@ void pkcs11::initToken(slotid slot, unsigned char *pin, int pinlen,
 
 tkInfo pkcs11::tokenInfo(slotid slot)
 {
+	tkInfo ti;
+	CK_RV rv = tokenInfo(slot, &ti);
+
+	if (rv != CKR_OK) {
+		pk11error(slot, "C_GetTokenInfo", rv);
+	}
+	return ti;
+}
+
+CK_RV pkcs11::tokenInfo(slotid slot, tkInfo *tkinfo)
+{
 	CK_TOKEN_INFO token_info;
 	CK_RV rv;
 
 	CALL_P11_C(slot.lib, C_GetTokenInfo, slot.id, &token_info);
-	if (rv != CKR_OK) {
-		pk11error(slot, "C_GetTokenInfo", rv);
-	}
-	return tkInfo(&token_info);
+	if (rv == CKR_OK)
+		tkinfo->set(&token_info);
+	return rv;
 }
 
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)

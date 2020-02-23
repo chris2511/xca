@@ -42,6 +42,10 @@ class tkInfo
 private:
 	CK_TOKEN_INFO token_info;
 public:
+	tkInfo()
+	{
+		memset(&token_info, 0, sizeof token_info);
+	}
 	tkInfo(const CK_TOKEN_INFO *ti)
 	{
 		set(ti);
@@ -143,6 +147,7 @@ class pkcs11
 			return libs;
 		}
 
+		CK_RV tokenInfo(slotid slot, tkInfo *tkinfo);
 		tkInfo tokenInfo(slotid slot);
 		tkInfo tokenInfo()
 		{

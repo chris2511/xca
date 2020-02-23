@@ -141,9 +141,10 @@ MainWindow::MainWindow(database_model *m)
 	dhgenBar->setMaximum(0);
 
 	models = NULL;
-	int ret = m ? init_database(m) : init_database(QString());
-	if (ret == 2)
-		throw errorEx(2);
+	enum open_result result = m ? init_database(m) :
+				      init_database(QString());
+	if (result == pw_exit)
+		throw pw_exit;
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -603,26 +604,28 @@ void MainWindow::openRemoteSqlDB()
 	init_database(descriptor, pass);
 }
 
-int MainWindow::init_database(const QString &name, const Passwd &pass)
+enum open_result MainWindow::init_database(const QString &name,
+					   const Passwd &pass)
 {
 	try {
 		close_database();
+TRACE
 		return init_database(new database_model(name, pass));
 	} catch (errorEx &err) {
-		if (err.info == 0 && !err.isEmpty()) {
-			XCA_ERROR(err);
-			return 1;
-		} else {
-			return err.info;
-		}
+TRACE
+		XCA_ERROR(err);
+		return open_abort;
+	} catch (enum open_result r) {
+TRACE
+		return r;
 	}
-	return 1;
+	return pw_ok;
 }
 
-int MainWindow::init_database(database_model *m)
+enum open_result MainWindow::init_database(database_model *m)
 {
 	if (!m)
-		return 1;
+		return open_abort;
 	models = m;
 	setItemEnabled(true);
 	m->restart_timer();
@@ -664,7 +667,8 @@ int MainWindow::init_database(database_model *m)
 		certs,      SLOT(newCert(pki_temp *)) );
 	connect(tempView, SIGNAL(newReq(pki_temp *)),
 		reqs,       SLOT(newItem(pki_temp *)) );
-	return 0;
+
+	return pw_ok;
 }
 
 void MainWindow::set_geometry(QString geo)

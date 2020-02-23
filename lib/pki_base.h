@@ -10,7 +10,7 @@
 
 #include <openssl/err.h>
 #include <QString>
-#include <QListView>
+//#include <QListView>
 #include "asn1time.h"
 #include "pkcs11_lib.h"
 #include "db.h"
@@ -51,7 +51,7 @@ class pki_base : public QObject
 	public: /* static */
 		static QRegExp limitPattern;
 		static QString rmslashdot(const QString &fname);
-		static unsigned hash(QByteArray ba);
+		static unsigned hash(const QByteArray &ba);
 		static bool pem_comment;
 
 	protected:

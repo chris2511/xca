@@ -350,7 +350,7 @@ bool pki_base::compare(const pki_base *ref) const
 }
 
 /* Unsigned 32 bit integer */
-unsigned pki_base::hash(QByteArray ba)
+unsigned pki_base::hash(const QByteArray &ba)
 {
 	unsigned char md[EVP_MAX_MD_SIZE];
 
