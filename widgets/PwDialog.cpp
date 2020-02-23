@@ -13,7 +13,6 @@
 #include "PwDialog.h"
 #include <QLabel>
 #include <QMessageBox>
-//#include <QApplication>
 
 static int hex2bin(QString &x, Passwd *final)
 {

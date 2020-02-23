@@ -10,7 +10,6 @@
 
 #include <openssl/err.h>
 #include <QString>
-//#include <QListView>
 #include "asn1time.h"
 #include "pkcs11_lib.h"
 #include "db.h"
@@ -89,6 +88,10 @@ class pki_base : public QObject
 		QString getFilename() const
 		{
 			return filename;
+		}
+		void inheritFilename(pki_base *pki) const
+		{
+			pki->setFilename(getFilename());
 		}
 		virtual QString comboText() const;
 		virtual void print(FILE *fp) const;

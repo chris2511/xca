@@ -153,7 +153,7 @@ void pki_multi::probeAnything(const QString &fname)
 				break;
 			}
 		} catch (errorEx &err) {
-			XCA_ERROR(err);
+			continue;
 		} catch (enum open_result r) {
 			if (r == pw_cancel)
 				break;

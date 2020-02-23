@@ -122,6 +122,7 @@ pki_x509 *pki_pkcs7::getCert(int x)
 	openssl_error();
 	cert->autoIntName(getIntName());
 	cert->pkiSource = imported;
+	inheritFilename(cert);
 	return cert;
 }
 
@@ -162,8 +163,8 @@ void pki_pkcs7::fload(const QString &fname)
 	if (p7)
 		PKCS7_free(p7);
 	p7 = _p7;
+	setFilename(fname);
 }
-
 
 STACK_OF(X509) *pki_pkcs7::getCertStack()
 {

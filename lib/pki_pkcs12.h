@@ -35,11 +35,12 @@ class pki_pkcs12: public pki_base
 
 		~pki_pkcs12();
 		void addCaCert(pki_x509 *acert);
-		pki_key *getKey();
-		pki_x509 *getCert();
-		pki_x509 *getCa(int x);
-		int numCa(); // number of ca certs;
+		pki_key *getKey() const;
+		pki_x509 *getCert() const;
+		pki_x509 *getCa(int x) const;
+		int numCa() const;
 		void writePKCS12(XFile &file) const;
+		void print(FILE *fp) const;
 };
 
 #endif

@@ -14,9 +14,6 @@
 #include <QTextCodec>
 #include <QDir>
 #include <QFile>
-
-//#include <openssl/rand.h>
-
 #include <QAction>
 
 QLocale XcaApplication::lang = QLocale::system();

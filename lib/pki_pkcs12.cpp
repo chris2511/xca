@@ -37,6 +37,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file:\n%1").arg(compressFilename(fname)));
 
+	setFilename(fname);
 	XFile file(fname);
 	file.open_read();
 	PKCS12 *pkcs12 = d2i_PKCS12_fp(file.fp(), NULL);
@@ -46,7 +47,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 		throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.")
 				.arg(fname));
 	}
-	while (!PKCS12_verify_mac(pkcs12, pass.constData(), 0)) {
+	while (!PKCS12_verify_mac(pkcs12, pass.constData(), pass.size())) {
 		if (pass.size() > 0)
 			XCA_PASSWD_ERROR();
 		enum open_result result = PwDialog::execute(&p, &pass);
@@ -79,11 +80,13 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 		}
 		alias = cert->getIntName();
 		cert->pkiSource = imported;
+		inheritFilename(cert);
 	}
 	if (mykey) {
 		key = new pki_evp(mykey);
 		key->setIntName(alias + "_key");
 		key->pkiSource = imported;
+		inheritFilename(key);
 	}
 	PKCS12_free(pkcs12);
 }
@@ -132,24 +135,24 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 	PKCS12_free(pkcs12);
 }
 
-int pki_pkcs12::numCa()
+int pki_pkcs12::numCa() const
 {
-	int n= sk_X509_num(certstack);
+	int n = sk_X509_num(certstack);
 	pki_openssl_error();
 	return n;
 }
 
-pki_key *pki_pkcs12::getKey()
+pki_key *pki_pkcs12::getKey() const
 {
 	return key ? new pki_evp(key) : NULL;
 }
 
-pki_x509 *pki_pkcs12::getCert()
+pki_x509 *pki_pkcs12::getCert() const
 {
 	return cert ? new pki_x509(cert) : NULL;
 }
 
-pki_x509 *pki_pkcs12::getCa(int x)
+pki_x509 *pki_pkcs12::getCa(int x) const
 {
 	pki_x509 *cert = NULL;
 	X509 *crt = X509_dup(sk_X509_value(certstack, x));
@@ -161,8 +164,24 @@ pki_x509 *pki_pkcs12::getCa(int x)
 			cert->setIntName(QString(alias + "_ca_%1").arg(x));
 		}
 		cert->pkiSource = imported;
+		cert->setFilename(getFilename());
+		inheritFilename(cert);
 	}
 	pki_openssl_error();
 	return cert;
 }
 
+void pki_pkcs12::print(FILE *fp) const
+{
+	QList<pki_base *> items;
+
+	for (int i=0; i < numCa(); i++)
+		items << getCa(i);
+
+	items << getCert() << getKey();
+
+	foreach(pki_base *pki, items)
+		pki->print(fp);
+
+	qDeleteAll(items);
+}

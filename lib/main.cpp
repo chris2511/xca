@@ -7,16 +7,12 @@
 
 #include <signal.h>
 
-//#include <QClipboard>
 #include <QDir>
 #include <QDebug>
-//#include <openssl/rand.h>
 #include "widgets/MainWindow.h"
-#include "widgets/OpenDb.h"
 #include "widgets/XcaApplication.h"
 #include "func.h"
 #include "xfile.h"
-//#include "db.h"
 #include "main.h"
 #include "entropy.h"
 #include "settings.h"
@@ -219,27 +215,24 @@ int main(int argc, char *argv[])
 
 	try {
 		database_model *models = read_cmdline(argc, argv);
-		TRACE
 		if (gui) {
-			OpenDb::checkSqLite();
 			mainwin = new MainWindow(models);
 			gui->setMainwin(mainwin);
 			mainwin->importMulti(imported_items, 1);
 			imported_items = NULL;
 			mainwin->show();
 			gui->exec();
+		} else {
+			delete models;
 		}
+
 	} catch (errorEx &ex) {
-		TRACE
 		XCA_ERROR(ex);
 	} catch (enum open_result r) {
 		XCA_ERROR(QObject::tr("DB Open failed: %1").arg(r));
-		TRACE
 	}
 	delete mainwin;
-		TRACE
 	delete gui;
-		TRACE
 
 	return EXIT_SUCCESS;
 }

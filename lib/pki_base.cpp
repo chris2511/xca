@@ -30,7 +30,6 @@ pki_base::pki_base(const QString name, pki_base *p)
 
 pki_base::~pki_base(void)
 {
-	qDeleteAll(childItems);
 }
 
 QString pki_base::comboText() const
@@ -386,8 +385,12 @@ void pki_base::selfComment(QString msg)
 
 void pki_base::print(FILE *fp) const
 {
-	fprintf(fp, "File: %s [%s]\n", CCHAR(getFilename()),
-					CCHAR(getIntName()));
+	if (getFilename().size() > 0)
+		fprintf(fp, COL_GREEN "File: %s" COL_RESET "\n",
+			CCHAR(getFilename()));
+	if (getIntName().size() > 0)
+		fprintf(fp, COL_CYAN "Descriptor: %s" COL_RESET "\n",
+			CCHAR(getIntName()));
 }
 
 static QString icsValue(QString s)

@@ -84,6 +84,7 @@ MainWindow::MainWindow(database_model *m)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 
+	OpenDb::checkSqLite();
 	initResolver();
 
 	wdList << keyButtons << reqButtons << certButtons <<
@@ -609,14 +610,11 @@ enum open_result MainWindow::init_database(const QString &name,
 {
 	try {
 		close_database();
-TRACE
 		return init_database(new database_model(name, pass));
 	} catch (errorEx &err) {
-TRACE
 		XCA_ERROR(err);
 		return open_abort;
 	} catch (enum open_result r) {
-TRACE
 		return r;
 	}
 	return pw_ok;

@@ -420,13 +420,11 @@ database_model::~database_model()
 	qDebug("Closing database: %s", QString2filename(dbName));
 
 	qDeleteAll(models);
-	models.clear();
 
 	db_base::flushLookup();
 
 	QSqlDatabase::database().close();
 	pki_evp::passwd.cleanse();
-	pki_evp::passwd = QByteArray();
 
 	pkcs11::remove_libs();
 	QSqlDatabase::removeDatabase(connName);
