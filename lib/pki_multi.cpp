@@ -123,8 +123,7 @@ void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 			append_item(item);
 		} catch (errorEx &err) {
 			XCA_ERROR(err);
-			if (item)
-				delete item;
+			delete item;
 			item = NULL;
 		}
 		ba.remove(0, sizeof BEGIN -1);

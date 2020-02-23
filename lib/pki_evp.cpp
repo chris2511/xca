@@ -19,11 +19,6 @@
 #include <openssl/pem.h>
 #include <openssl/pkcs12.h>
 
-#include <QProgressDialog>
-#include <QApplication>
-#include <QPixmap>
-#include <QDir>
-
 #include "openssl_compat.h"
 
 Passwd pki_evp::passwd;

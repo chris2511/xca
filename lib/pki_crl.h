@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <openssl/pem.h>
+#include <openssl/bio.h>
 #include "pki_x509.h"
 #include "x509name.h"
 #include "asn1time.h"

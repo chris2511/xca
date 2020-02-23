@@ -22,6 +22,8 @@
 #define VIEW_tokens_slot_label 14
 #define VIEW_tokens_object_id  15
 
+class QProgressBar;
+
 class pki_scard: public pki_key
 {
 		Q_OBJECT

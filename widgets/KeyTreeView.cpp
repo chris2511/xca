@@ -156,6 +156,5 @@ void KeyTreeView::toToken()
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
         }
-	if (card)
-		delete card;
+	delete card;
 }

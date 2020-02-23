@@ -33,6 +33,7 @@
 #include <QMenu>
 #include <QToolTip>
 #include <QLocale>
+#include <QProgressBar>
 
 class db_x509;
 class pki_multi;

@@ -10,16 +10,15 @@
 #include "func.h"
 #include "db.h"
 #include "db_base.h"
-#include <openssl/rand.h>
-#include <openssl/pem.h>
-#include <QProgressDialog>
-#include <QApplication>
-#include <QDir>
+#include "openssl_compat.h"
 #include "widgets/PwDialog.h"
 #include "widgets/ExportDialog.h"
 #include "widgets/XcaWarning.h"
 
-#include "openssl_compat.h"
+#include <openssl/rand.h>
+#include <openssl/pem.h>
+
+#include <QDir>
 
 builtin_curves pki_key::builtinCurves;
 

@@ -13,10 +13,9 @@
 class pki_multi;
 
 class MainWindow;
-extern MainWindow *mainwin;
 
 extern char segv_data[1024];
-extern bool exitApp;
+//extern bool exitApp;
 
 pki_multi *probeAnything(const QString &, int *ret = NULL);
 int exportIndex(const QString &fname, bool hierarchy);

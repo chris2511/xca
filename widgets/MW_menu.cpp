@@ -63,14 +63,14 @@ void MainWindow::init_menu()
 	static QActionGroup * langGroup = NULL;
 	QAction *a;
 
-	if (file) delete file;
-	if (help) delete help;
-	if (import) delete import;
-	if (token) delete token;
-	if (extra) delete extra;
-	if (languageMenu) delete languageMenu;
-	if (historyMenu) delete historyMenu;
-	if (langGroup) delete langGroup;
+	delete file;
+	delete help;
+	delete import;
+	delete token;
+	delete extra;
+	delete languageMenu;
+	delete historyMenu;
+	delete langGroup;
 
 	wdMenuList.clear();
 	scardList.clear();

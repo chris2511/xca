@@ -238,7 +238,7 @@ void db_key::showPki(pki_base *pki)
 	pki_key *key = dynamic_cast<pki_key *>(pki);
 	if (!key)
 		return;
-	KeyDetail *dlg = new KeyDetail(mainwin);
+	KeyDetail *dlg = new KeyDetail(NULL);
 	if (!dlg)
 		return;
 	dlg->setKey(key);
@@ -281,7 +281,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 		      << exportType(exportType::PKCS8, "pk8",
 			"PKCS#8");
 
-	ExportDialog *dlg = new ExportDialog(mainwin,
+	ExportDialog *dlg = new ExportDialog(NULL,
 		tr("Export keys to Clipboard"), QString(), NULL,
 		QPixmap(":keyImg"), types);
 
@@ -330,7 +330,7 @@ void db_key::store(QModelIndex index)
 		title = tr("Export private key [%1]");
 		types = usual << exportType() << types;
 	}
-	ExportDialog *dlg = new ExportDialog(mainwin,
+	ExportDialog *dlg = new ExportDialog(NULL,
 		title.arg(key->getTypeString()),
 		tr("Private Keys ( *.pem *.der *.pk8 );; "
 		   "SSH Public Keys ( *.pub )"), key,

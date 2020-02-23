@@ -294,8 +294,7 @@ void NewX509::setRequest()
 
 NewX509::~NewX509()
 {
-	if (ctx_cert)
-		delete(ctx_cert);
+	delete ctx_cert;
 }
 
 void NewX509::setupExtDNwidget(const QString &s, QLineEdit *l)
@@ -874,8 +873,7 @@ void NewX509::setupTmpCtx()
 	QString errtxt;
 
 	// initially create temporary ctx cert
-	if (ctx_cert)
-		delete ctx_cert;
+	delete ctx_cert;
 	ctx_cert = new pki_x509();
 	ctx_cert->setSubject(getX509name());
 	if (fromReqCB->isChecked()) {
@@ -914,7 +912,7 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 	}
 	dlg->addInfo(le, types.split(',' ), n, &ext_ctx);
 	dlg->exec();
-	delete(dlg);
+	delete dlg;
 }
 
 void NewX509::on_adv_validate_clicked()

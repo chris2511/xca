@@ -14,12 +14,10 @@
 #include "base.h"
 #include "exception.h"
 #include "pass_info.h"
-#include "widgets/MainWindow.h"
-#include <QMessageBox>
-#include <QDir>
-#include <openssl/rand.h>
-
 #include "openssl_compat.h"
+#include "widgets/XcaWarning.h"
+
+#include <QDir>
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()

@@ -10,10 +10,13 @@
 
 #include <openssl/err.h>
 #include <QString>
+#include <QRegExp>
+#include <QVariant>
+#include <QByteArray>
 #include "asn1time.h"
 #include "pkcs11_lib.h"
-#include "db.h"
 #include "base.h"
+#include "db.h"
 #include "headerlist.h"
 #include "settings.h"
 #include "sql.h"
@@ -106,7 +109,7 @@ class pki_base : public QObject
 		{
 			return comment;
 		}
-		void setComment(QString c)
+		void setComment(const QString &c)
 		{
 			comment = c;
 		}

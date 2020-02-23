@@ -10,7 +10,6 @@
 #include "main.h"
 #include "exception.h"
 #include "database_model.h"
-#include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
 #include "widgets/NewCrl.h"
 #include <QMessageBox>
@@ -128,7 +127,7 @@ void db_crl::showPki(pki_base *pki)
 	if (!crl || !certs)
 		return;
 
-	CrlDetail *dlg = new CrlDetail(mainwin);
+	CrlDetail *dlg = new CrlDetail(NULL);
 	if (!dlg)
 		return;
 
@@ -164,7 +163,7 @@ void db_crl::store(QModelIndex index)
 		exportType(exportType::PEM, "pem", "PEM") <<
 		exportType(exportType::DER, "der", "DER") <<
 		exportType(exportType::vcalendar, "ics", "vCalendar");
-	ExportDialog *dlg = new ExportDialog(mainwin,
+	ExportDialog *dlg = new ExportDialog(NULL,
 			tr("Revocation list export"),
 			tr("CRL ( *.pem *.der *.crl )"), crl,
 			QPixmap(":revImg"), types);
@@ -298,8 +297,7 @@ void db_crl::newItem(const crljob &task)
 	}
 	catch (errorEx &err) {
 		emit errorThrown(err);
-		if (crl)
-			delete crl;
+		delete crl;
 		crl = NULL;
 	}
 	return;

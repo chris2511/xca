@@ -27,8 +27,7 @@
 #endif
 
 char segv_data[1024];
-bool exitApp;
-MainWindow *mainwin;
+MainWindow *mainwin = NULL;
 
 static int debug;
 

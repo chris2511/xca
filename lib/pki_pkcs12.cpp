@@ -97,10 +97,8 @@ pki_pkcs12::~pki_pkcs12()
 		// free the certs itself, because we own a copy of them
 		sk_X509_pop_free(certstack, X509_free);
 	}
-	if (key)
-		delete key;
-	if (cert)
-		delete cert;
+	delete key;
+	delete cert;
 	pki_openssl_error();
 }
 

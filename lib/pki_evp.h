@@ -10,8 +10,6 @@
 
 #include <QString>
 #include <QProgressBar>
-#include <openssl/rsa.h>
-#include <openssl/bn.h>
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 #include "pki_key.h"

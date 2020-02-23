@@ -16,7 +16,6 @@
 #include "exception.h"
 #include <openssl/bio.h>
 #include <openssl/err.h>
-#include <QDir>
 
 #include "openssl_compat.h"
 

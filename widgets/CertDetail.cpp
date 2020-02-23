@@ -270,6 +270,5 @@ void CertDetail::showPubKey()
 
 CertDetail::~CertDetail()
 {
-	if (myPubKey)
-		delete myPubKey;
+	delete myPubKey;
 }

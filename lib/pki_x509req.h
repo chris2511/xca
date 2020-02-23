@@ -11,8 +11,8 @@
 #include <openssl/x509.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
-#include "x509v3ext.h"
 #include "pki_x509super.h"
+#include "x509v3ext.h"
 #include "x509name.h"
 
 #define VIEW_x509req_request 7

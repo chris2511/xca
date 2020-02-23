@@ -15,16 +15,10 @@
 #include "x509name.h"
 #include "func.h"
 #include "db.h"
-#include "widgets/MainWindow.h"
+#include "widgets/XcaWarning.h"
 
-#include <openssl/rand.h>
-#include <openssl/bn.h>
-
-#include <QProgressDialog>
-#include <QApplication>
-#include <QDir>
-#include <QMessageBox>
 #include <QThread>
+#include <QProgressBar>
 #include <ltdl.h>
 
 #include "openssl_compat.h"

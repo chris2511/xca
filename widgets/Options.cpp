@@ -75,8 +75,7 @@ Options::Options(MainWindow *parent)
 
 Options::~Options()
 {
-	if (searchP11)
-		delete searchP11;
+	delete searchP11;
 }
 
 void Options::on_extDNadd_clicked()

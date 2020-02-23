@@ -8,7 +8,6 @@
 #define __PKI_KEY_H
 
 #include <QString>
-#include <QProgressBar>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>

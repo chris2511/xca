@@ -576,8 +576,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 			}
 		}
 	}
-	if (tempkey != NULL)
-		delete(tempkey);
+	delete tempkey;
 	markRequestSigned(req, cert);
 	TransCommit();
     }
@@ -824,8 +823,7 @@ void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 	catch (errorEx &err) {
 		emit errorThrown(err);
 	}
-	if (p12)
-		delete p12;
+	delete p12;
 }
 
 void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
@@ -834,7 +832,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 	pki_pkcs7 *p7 = NULL;
 
 	try {
-		p7 = new pki_pkcs7("");
+		p7 = new pki_pkcs7(QString());
 		switch (type) {
 		case exportType::PKCS7_chain:
 			while (cert != NULL) {
@@ -870,8 +868,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 	catch (errorEx &err) {
 		emit errorThrown(err);
 	}
-	if (p7 != NULL )
-		delete p7;
+	delete p7;
 }
 
 void db_x509::manageRevocations(QModelIndex idx)
@@ -954,11 +951,9 @@ void db_x509::certRenewal(QModelIndexList indexes)
 	}
 	catch (errorEx &err) {
 		emit errorThrown(err);
-		if (newcert)
-			delete newcert;
+		delete newcert;
 	}
-	if (dlg)
-		delete dlg;
+	delete dlg;
 	emit columnsContentChanged();
 }
 

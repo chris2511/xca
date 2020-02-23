@@ -15,8 +15,6 @@
 #include "lib/entropy.h"
 #include "lib/database_model.h"
 
-#include <openssl/rand.h>
-
 #include <QApplication>
 #include <QClipboard>
 #include <QMessageBox>
@@ -445,12 +443,9 @@ void MainWindow::manageToken()
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
         }
-	if (card)
-		delete card;
-	if (cert)
-		delete cert;
-	if (dlgi)
-		delete dlgi;
+	delete card;
+	delete cert;
+	delete dlgi;
 }
 
 MainWindow::~MainWindow()
@@ -474,9 +469,8 @@ void MainWindow::closeEvent(QCloseEvent *e)
 		}
 		dhgen->terminate();
 	}
-	if (resolver) {
-		delete resolver;
-	}
+	delete resolver;
+
 	close_database();
 	QMainWindow::closeEvent(e);
 }
