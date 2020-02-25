@@ -26,10 +26,11 @@ class arg_option
 	const char *arg;
 	int arg_type;
 	bool no_gui;
+	bool need_db;
 	QString help;
 
 	arg_option(const char *l, const char *a, int has_arg,
-		bool n, const char *h);
+		bool n, bool nd, const char *h);
 	void fillOption(struct option *opt) const;
 };
 
@@ -41,6 +42,7 @@ class arguments
 	QMap<QString, QString> found_options;
 	QStringList files;
 	struct option *long_opts;
+	bool need_db;
 
     public:
 	static bool is_console(int argc, char *argv[]);
@@ -56,5 +58,6 @@ class arguments
 	int parse(int argc, char *argv[]);
 	QStringList getFiles() const;
 	int getResult() const;
+	bool needDb() const;
 };
 #endif

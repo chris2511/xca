@@ -18,36 +18,37 @@
 #include "exception.h"
 
 const QList<arg_option> arguments::opts = {
-	//arg_option("ca",        required_argument, 'c'),
-	arg_option("database",  "<database>", file_argument, false,
+	arg_option("database",  "<database>", file_argument, false, false,
 		"File name (*.xdb) of the SQLite database or a remote database descriptor: [user@host/TYPE:dbname#prefix]"),
-	arg_option("exit",      NULL, no_argument, false,
+	arg_option("exit",      NULL, no_argument, false, false,
 		"Exit after importing items"),
-	arg_option("gencrl",    "<ca identifier>", required_argument, true,
+	arg_option("gencrl",    "<ca identifier>", required_argument, true, true,
 		"Generate CRL for <ca>"),
-	arg_option("help",      NULL, no_argument, true,
+	arg_option("help",      NULL, no_argument, true, false,
 		"Print this help and exit"),
-	arg_option("hierarchy",  "<dir>", file_argument, true,
+	arg_option("hierarchy",  "<dir>", file_argument, true, true,
 		"Save OpenSSL index hierarchy in <dir>"),
-	arg_option("index",     "<file>", file_argument, true,
+	arg_option("index",     "<file>", file_argument, true, true,
 		"Save OpenSSL index in <file>"),
-	arg_option("no-gui",    NULL, no_argument, true,
+	arg_option("no-gui",    NULL, no_argument, true, false,
 		"Do not start the GUI. Alternatively set environment variable XCA_NO_GUI=1 or call xca as 'xca-console' symlink"),
-	arg_option("password",  "<password>", required_argument, false,
+	arg_option("password",  "<password>", required_argument, false, false,
 		"Database password for unlocking the database"),
-	arg_option("print",     NULL, no_argument, true,
-		"Print the content of provided filesin an OpenSSL style"),
-	arg_option("sqlpass",  "<password>", required_argument, false,
+	arg_option("print",     NULL, no_argument, true, false,
+		"Print a synopsis of provided files"),
+	arg_option("sqlpass",  "<password>", required_argument, false, false,
 		"Password to access the remote SQL server"),
-	arg_option("verbose",   NULL, no_argument, false,
+	arg_option("text",      NULL, no_argument, true, false,
+		"Print the content of provided files as OpenSSL does."),
+	arg_option("verbose",   NULL, no_argument, false, false,
 		"Print debug log on stderr. Alternatively set the environment variable XCA_DEBUG=1"),
-	arg_option("version",   NULL, no_argument, true,
+	arg_option("version",   NULL, no_argument, true, false,
 		"Print version information and exit"),
 };
 
 arg_option::arg_option(const char *l, const char *a, int has,
-			bool n, const char *h)
-	: long_opt(l), arg(a), arg_type(has), no_gui(n), help(h)
+			bool n, bool nd, const char *h)
+	: long_opt(l), arg(a), arg_type(has), no_gui(n), need_db(nd), help(h)
 {
 }
 
@@ -102,8 +103,13 @@ QString arguments::help()
 		if (i->arg)
 			longopt += QString("=%1").arg(i->arg);
 		QString help = splitQstring(offset, width, i->help);
-		s += QString("  --%1 %2\n").arg(longopt, len*-1).arg(help);
+		s += QString("  --%1 %2%3\n")
+			.arg(longopt, len*-1).arg(help)
+			.arg(i->need_db ? " [*]" : "");
 	}
+	s += "\n"
+	     " [*] Needs a database. Either from the commandline\n"
+	     "     or as default database\n";
 	return s;
 }
 
@@ -128,6 +134,8 @@ int arguments::parse(int argc, char *argv[])
 		const arg_option i = opts[optind];
 		found_options[i.long_opt] = i.arg_type == file_argument ?
 			filename2QString(optarg) : QString(optarg);
+		if (i.need_db)
+			need_db = true;
 	}
 	for (i = optind; i < argc; ++i) {
 		QString file = filename2QString(argv[i]);
@@ -146,6 +154,7 @@ int arguments::parse(int argc, char *argv[])
 arguments::arguments(int argc, char *argv[])
 {
 	long_opts = NULL;
+	need_db = false;
 	parse(argc, argv);
 }
 
@@ -186,6 +195,11 @@ QStringList arguments::getFiles() const
 int arguments::getResult() const
 {
 	return result;
+}
+
+bool arguments::needDb() const
+{
+	return need_db;
 }
 
 bool arguments::is_console(int argc, char *argv[])

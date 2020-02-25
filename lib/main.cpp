@@ -113,7 +113,7 @@ static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 	fputs(CCHAR(arguments::help()), fp);
 
 	if (msg)
-		fprintf(stderr, "Cmdline Error: %s\n", msg);
+		fprintf(stderr, "\nCmdline Error: %s\n", msg);
 
 	exit(exitcode);
 }
@@ -156,14 +156,21 @@ static database_model* read_cmdline(int argc, char *argv[])
 	foreach(QString file, cmd_opts.getFiles())
 		imported_items->probeAnything(file);
 
-	if (((cmd_opts.has("index") || cmd_opts.has("index-hierarchy")) ||
-	    (imported_items->count() > 0 && !cmd_opts.has("print"))) && !models)
-	{
+	if (cmd_opts.needDb() && !models) {
 		/* We need a database for the following operations
 		 * but there is none, yet. Try the default database */
-		models = new database_model(QString());
-		if (!models) {
-			cmd_help(EXIT_FAILURE, "No database given");
+		try {
+			models = new database_model(QString());
+		} catch (errorEx &err) {
+			cmd_help(EXIT_FAILURE, CCHAR(err.getString()));
+		} catch (enum open_result opt) {
+			const QMap<enum open_result, const char *> msg = {
+				{ pw_cancel, "Password input aborted" },
+				{ pw_ok, "Password accepted??" },
+				{ pw_exit, "Exit selected" },
+				{ open_abort, "No database given" },
+			};
+			cmd_help(EXIT_FAILURE, msg[opt]);
 		}
 	}
 	if (!cmd_opts["index"].isEmpty()) {
