@@ -393,13 +393,13 @@ void pki_base::selfComment(QString msg)
 	setComment(appendXcaComment(getComment(), msg));
 }
 
-void pki_base::print(FILE *fp) const
+void pki_base::print(FILE *fp, enum print_opt opt) const
 {
 	if (getFilename().size() > 0)
-		fprintf(fp, COL_GREEN "File: %s" COL_RESET "\n",
+		fprintf(fp, "\n" COL_GREEN COL_UNDER "File: %s" COL_RESET "\n",
 			CCHAR(getFilename()));
-	if (getIntName().size() > 0)
-		fprintf(fp, COL_CYAN "Descriptor: %s" COL_RESET "\n",
+	if (opt == print_openssl_txt && getIntName().size() > 0)
+		fprintf(fp, COL_YELL "Descriptor: %s" COL_RESET "\n",
 			CCHAR(getIntName()));
 }
 

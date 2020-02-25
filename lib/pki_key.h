@@ -102,7 +102,7 @@ class pki_key: public pki_base
 		void writeSSH2public(XFile &file) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
-		void print(FILE *fp) const;
+		void print(FILE *fp, enum print_opt opt) const;
 		void resetUcount()
 		{
 			useCount = -1;

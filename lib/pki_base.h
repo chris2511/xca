@@ -74,6 +74,11 @@ class pki_base : public QObject
 			msg_delete_multi,
 			msg_create,
 		};
+		enum print_opt {
+			print_none,
+			print_openssl_txt,
+			print_coloured
+		};
 		enum pki_source pkiSource;
 
 		pki_base(const QString &d = QString(), pki_base *p = NULL);
@@ -98,7 +103,7 @@ class pki_base : public QObject
 			pki->setFilename(getFilename());
 		}
 		virtual QString comboText() const;
-		virtual void print(FILE *fp) const;
+		virtual void print(FILE *fp, enum print_opt opt) const;
 		QString getUnderlinedName() const;
 		void setIntName(const QString &d)
 		{

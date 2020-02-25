@@ -16,7 +16,7 @@ class pki_pkcs7: public pki_base
 	friend class pki_x509;
 	protected:
 		PKCS7 *p7;
-		STACK_OF(X509) *getCertStack();
+		const STACK_OF(X509) *getCertStack() const;
 		void signBio(pki_x509 *crt, BIO * bio);
 		void encryptBio(pki_x509 *crt, BIO * bio);
 	public:
@@ -29,10 +29,10 @@ class pki_pkcs7: public pki_base
 		void writeP7(XFile &file, bool PEM) const;
 		void fromPEM_BIO(BIO *bio, const QString &name);
 		void fload(const QString &fname);
-		pki_x509 *getCert(int x);
 		void addCert(pki_x509 *crt);
-		int numCert(); // number of certs;
-
+		pki_x509 *getCert(int x) const;
+		int numCert() const;
+		void print(FILE *fp, enum print_opt opt) const;
 };
 
 #endif

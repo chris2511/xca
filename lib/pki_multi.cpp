@@ -164,8 +164,8 @@ void pki_multi::probeAnything(const QString &fname)
 	qDeleteAll(lbs);
 }
 
-void pki_multi::print(FILE *fp) const
+void pki_multi::print(FILE *fp, enum print_opt opt) const
 {
 	foreach(pki_base *pki, multi)
-		pki->print(fp);
+		pki->print(fp, opt);
 }

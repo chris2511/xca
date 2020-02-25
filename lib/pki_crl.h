@@ -102,6 +102,7 @@ class pki_crl: public pki_x509name
 		QSqlError deleteSqlData();
 		void restoreSql(const QSqlRecord &rec);
 		QStringList icsVEVENT() const;
+		void print(FILE *fp, enum print_opt opt) const;
 };
 
 #endif

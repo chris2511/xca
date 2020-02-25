@@ -829,13 +829,28 @@ void pki_key::PEM_file_comment(XFile &file) const
 			.toUtf8());
 }
 
-void pki_key::print(FILE *fp) const
+void pki_key::print(FILE *fp, enum print_opt opt) const
 {
-	pki_base::print(fp);
-	BIO *b = BIO_new(BIO_s_file());
-	if (!b)
+	pki_base::print(fp, opt);
+	if (opt == print_openssl_txt) {
+		BIO *b = BIO_new(BIO_s_file());
+		if (!b)
+			return;
+		BIO_set_fp(b, fp, BIO_NOCLOSE);
+		EVP_PKEY_print_public(b, key, 0, NULL);
+		BIO_free(b);
 		return;
-	BIO_set_fp(b, fp, BIO_NOCLOSE);
-	EVP_PKEY_print_public(b, key, 0, NULL);
-	BIO_free(b);
+	}
+	if (opt == print_coloured) {
+		QStringList sl;
+		sl << getTypeString() << length();
+		if (isPubKey())
+			sl << tr("Public key");
+#ifndef OPENSSL_NO_EC
+		if (getKeyType() == EVP_PKEY_EC)
+			sl << QString(OBJ_nid2ln(ecParamNid()));
+#endif
+		fprintf(fp, COL_YELL "Type:" COL_RESET " %s\n",
+			CCHAR(sl.join(" ")));
+	}
 }

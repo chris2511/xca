@@ -141,7 +141,7 @@ ASN1_OCTET_STRING *x509v3ext::getData() const
 	return X509_EXTENSION_get_data(ext);
 }
 
-QString x509v3ext::getValue(bool html) const
+QString x509v3ext::getValue() const
 {
 	QString text = "";
 	int ret;
@@ -157,13 +157,24 @@ QString x509v3ext::getValue(bool html) const
 		text = QString::fromLocal8Bit(p, len);
 	}
 	BIO_free(bio);
-	if (html) {
-		text.replace(QRegExp("&"), "&amp;");
-		text.replace(QRegExp("<"), "&lt;");
-		text.replace(QRegExp(">"), "&gt;");
-		text.replace(QRegExp("\n"), "<br>\n");
-	}
 	return text.trimmed();
+}
+
+QString x509v3ext::getHtmlValue() const
+{
+	QString text = getValue();
+	text.replace(QRegExp("&"), "&amp;");
+	text.replace(QRegExp("<"), "&lt;");
+	text.replace(QRegExp(">"), "&gt;");
+	text.replace(QRegExp("\n"), "<br>\n");
+	return text;
+}
+
+QString x509v3ext::getConsoleValue(const QString &indent) const
+{
+	QString text = getValue();
+	text.replace(QRegExp("\n"), QString("\n") + indent);
+	return text;
 }
 
 static QString vlist2Section(QStringList vlist, QString tag, QString *sect)
@@ -975,8 +986,18 @@ QString x509v3ext::getHtml() const
 	html = "<b><u>" + getObject();
 	if (getCritical() != 0)
 		html += " <font color=\"red\">critical</font>";
-	html += ":</u></b><br><tt>" + getValue(true) + "</tt>";
+	html += ":</u></b><br><tt>" + getHtmlValue() + "</tt>";
 	return html;
+}
+
+QString x509v3ext::getConsole(const QString &indent) const
+{
+	QString text, twoind = indent + indent;
+	text = indent + COL_BOLD COL_UNDER + getObject();
+	if (getCritical() != 0)
+		text += " " COL_RED COL_UNDER "[critical]";
+	text += COL_RESET "\n" + twoind + getConsoleValue(twoind);
+	return text;
 }
 
 X509_EXTENSION *x509v3ext::get() const
@@ -1028,18 +1049,16 @@ void extList::setStack(const STACK_OF(X509_EXTENSION) *st, int start)
 
 STACK_OF(X509_EXTENSION) *extList::getStack()
 {
-	STACK_OF(X509_EXTENSION) *sk;
-	sk = sk_X509_EXTENSION_new_null();
-	for (int i=0; i< count(); i++) {
-		sk_X509_EXTENSION_push(sk, operator[](i).get());
-	}
+	STACK_OF(X509_EXTENSION) *sk = sk_X509_EXTENSION_new_null();
+	foreach(const x509v3ext &e, *this)
+		sk_X509_EXTENSION_push(sk, e.get());
 	return sk;
 }
 
 bool extList::search(const QRegExp &pattern)
 {
-	for (int i=0; i < size(); i++)
-		if (at(i).getValue(false).contains(pattern))
+	foreach(const x509v3ext &e, *this)
+		if (e.getValue().contains(pattern))
 			return true;
 	return false;
 }
@@ -1047,11 +1066,22 @@ QString extList::getHtml(const QString &sep)
 {
 	x509v3ext e;
 	QStringList s;
-	for (int i=0; i< size(); i++)
-		s << at(i).getHtml();
+	foreach(const x509v3ext &e, *this)
+		s << e.getHtml();
 	QString a = s.join(sep);
 	return a;
 }
+
+QString extList::getConsole(const QString &indent) const
+{
+	x509v3ext e;
+	QStringList s;
+	foreach(const x509v3ext &e, *this)
+		s << e.getConsole(indent);
+	QString a = "\n" + s.join("\n");
+	return a;
+}
+
 
 bool extList::delByNid(int nid)
 {

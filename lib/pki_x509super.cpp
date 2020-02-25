@@ -179,7 +179,7 @@ QVariant pki_x509super::column_data(const dbheader *hd) const
 		int idx = el.idxByNid(hd->id);
 		if (idx == -1)
 			return QVariant("");
-		return QVariant(el[idx].getValue(false));
+		return QVariant(el[idx].getConsoleValue(""));
 	}
 	return pki_x509name::column_data(hd);
 }

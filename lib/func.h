@@ -30,6 +30,9 @@
 #define COL_YELL  "\x1b[0;33m"
 #define COL_RED   "\x1b[0;31m"
 #define COL_RESET "\x1b[0m"
+#define COL_BOLD  "\x1b[1m"
+#define COL_DIM   "\x1b[2m"
+#define COL_UNDER "\x1b[4m"
 
 #define IS_GUI_APP (qobject_cast<QApplication*>(QCoreApplication::instance()))
 class Validity;

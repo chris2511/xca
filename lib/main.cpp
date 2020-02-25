@@ -188,8 +188,14 @@ static database_model* read_cmdline(int argc, char *argv[])
 	if (cmd_opts.has("version"))
 		cmd_version(stdout);
 
-	while (cmd_opts.has("print") && imported_items->count() > 0) {
-		imported_items->pull()->print(stdout);
+	enum pki_base::print_opt opt = pki_base::print_none;
+	if (cmd_opts.has("text"))
+		opt = pki_base::print_openssl_txt;
+	if (cmd_opts.has("print"))
+		opt = pki_base::print_coloured;
+
+	while (opt != pki_base::print_none && imported_items->count() > 0) {
+		imported_items->pull()->print(stdout, opt);
 	}
 	return models;
 }

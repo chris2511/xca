@@ -169,7 +169,7 @@ pki_x509 *pki_pkcs12::getCa(int x) const
 	return cert;
 }
 
-void pki_pkcs12::print(FILE *fp) const
+void pki_pkcs12::print(FILE *fp, enum print_opt opt) const
 {
 	QList<pki_base *> items;
 
@@ -179,7 +179,7 @@ void pki_pkcs12::print(FILE *fp) const
 	items << getCert() << getKey();
 
 	foreach(pki_base *pki, items)
-		pki->print(fp);
+		pki->print(fp, opt);
 
 	qDeleteAll(items);
 }

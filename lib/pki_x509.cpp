@@ -961,10 +961,28 @@ QStringList pki_x509::icsVEVENT() const
 	);
 }
 
-void pki_x509::print(FILE *fp) const
+void pki_x509::print(FILE *fp, enum print_opt opt) const
 {
-	pki_base::print(fp);
-	X509_print_fp(fp, cert);
+	pki_x509super::print(fp, opt);
+	if (opt == print_openssl_txt)
+		X509_print_fp(fp, cert);
+
+	if (opt == print_coloured) {
+		QStringList prp = {
+			"Subject", getSubject().oneLine(XN_FLAG_RFC2253),
+			"Issuer", getSubject().oneLine(XN_FLAG_RFC2253),
+			"Signature Algorithm", getSigAlg(),
+			"Serial",getSerial().toHex(),
+			"CA", isCA() ? "Yes" : "No",
+			"Extensions", getV3ext().getConsole("    ")
+		};
+		QString s;
+		for (int i = 0; i < prp.size(); i += 2) {
+			s += QString(COL_YELL "%1" COL_RESET " %2\n")
+					.arg(prp[i] + ":", -20).arg(prp[i+1]);
+		}
+		fprintf(fp, "%s", CCHAR(s));
+	}
 }
 
 QStringList pki_x509::icsVEVENT_ca() const

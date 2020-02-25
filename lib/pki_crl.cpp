@@ -443,3 +443,9 @@ QStringList pki_crl::icsVEVENT() const
 			.arg(currentDB)
 	);
 }
+
+void pki_crl::print(FILE *fp, enum print_opt opt) const
+{
+	pki_x509name::print(fp, opt);
+	X509_CRL_print_fp(fp, crl);
+}

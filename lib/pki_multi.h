@@ -31,7 +31,7 @@ class pki_multi: public pki_base
 		void probeAnything(const QString &fname);
 		pki_base *pull();
 		void append_item(pki_base *pki);
-		void print(FILE *fp) const;
+		void print(FILE *fp, enum print_opt opt) const;
 		int count() const
 		{
 			return multi.count();

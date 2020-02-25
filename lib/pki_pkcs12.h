@@ -40,7 +40,7 @@ class pki_pkcs12: public pki_base
 		pki_x509 *getCa(int x) const;
 		int numCa() const;
 		void writePKCS12(XFile &file) const;
-		void print(FILE *fp) const;
+		void print(FILE *fp, enum print_opt opt) const;
 };
 
 #endif

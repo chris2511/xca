@@ -115,7 +115,7 @@ void pki_pkcs7::writeP7(XFile &file, bool PEM) const
 	openssl_error();
 }
 
-pki_x509 *pki_pkcs7::getCert(int x)
+pki_x509 *pki_pkcs7::getCert(int x) const
 {
 	pki_x509 *cert;
 	cert = new pki_x509(X509_dup(sk_X509_value(getCertStack(), x)));
@@ -126,9 +126,9 @@ pki_x509 *pki_pkcs7::getCert(int x)
 	return cert;
 }
 
-int pki_pkcs7::numCert()
+int pki_pkcs7::numCert() const
 {
-	int n= sk_X509_num(getCertStack());
+	int n = sk_X509_num(getCertStack());
 	openssl_error();
 	return n;
 }
@@ -166,10 +166,10 @@ void pki_pkcs7::fload(const QString &fname)
 	setFilename(fname);
 }
 
-STACK_OF(X509) *pki_pkcs7::getCertStack()
+const STACK_OF(X509) *pki_pkcs7::getCertStack() const
 {
 	int i;
-	STACK_OF(X509) *certstack = NULL;
+	const STACK_OF(X509) *certstack = NULL;
         if (p7 == NULL)
 		return NULL;
 	i = OBJ_obj2nid(p7->type);
@@ -195,3 +195,13 @@ void pki_pkcs7::addCert(pki_x509 *crt)
 	openssl_error();
 }
 
+void pki_pkcs7::print(FILE *fp, enum print_opt opt) const
+{
+	for (int i=0; i < numCert(); i++) {
+		pki_x509 *x = getCert(i);
+		if (!x)
+			continue;
+		x->print(fp, opt);
+		delete x;
+	}
+}

@@ -357,9 +357,9 @@ int pki_x509req::issuedCerts() const
 	return count;
 }
 
-void pki_x509req::print(FILE *fp) const
+void pki_x509req::print(FILE *fp, enum print_opt opt) const
 {
-	pki_base::print(fp);
+	pki_x509super::print(fp, opt);
 	X509_REQ_print_fp(fp, request);
 }
 

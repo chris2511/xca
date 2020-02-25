@@ -34,8 +34,11 @@ class x509v3ext
 	QString getObject() const;
 	int getCritical() const;
 	ASN1_OCTET_STRING *getData() const;
-	QString getValue(bool html=false) const;
+	QString getValue() const;
+	QString getHtmlValue() const;
+	QString getConsoleValue(const QString &indent) const;
 	QString getHtml() const;
+	QString getConsole(const QString &indent) const;
 	X509_EXTENSION *get() const;
 	bool isValid() const;
 	int nid() const;
@@ -66,6 +69,7 @@ class extList : public QList<x509v3ext>
 	void setStack(const STACK_OF(X509_EXTENSION) *st, int start=0);
 	STACK_OF(X509_EXTENSION) *getStack();
 	QString getHtml(const QString &sep);
+	QString getConsole(const QString &indent) const;
 	bool delByNid(int nid);
 	int delInvalid();
 	int idxByNid(int nid);
