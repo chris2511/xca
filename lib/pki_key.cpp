@@ -829,28 +829,36 @@ void pki_key::PEM_file_comment(XFile &file) const
 			.toUtf8());
 }
 
+void pki_key::collect_properties(QMap<QString, QString> &prp) const
+{
+	QStringList sl;
+	sl << getTypeString() << length();
+	if (isPubKey())
+		sl << tr("Public key");
+#ifndef OPENSSL_NO_EC
+	if (getKeyType() == EVP_PKEY_EC)
+		sl << QString(OBJ_nid2ln(ecParamNid()));
+#endif
+	prp["Key"] = sl.join(" ");
+	pki_base::collect_properties(prp);
+}
+
 void pki_key::print(FILE *fp, enum print_opt opt) const
 {
 	pki_base::print(fp, opt);
-	if (opt == print_openssl_txt) {
-		BIO *b = BIO_new(BIO_s_file());
-		if (!b)
-			return;
-		BIO_set_fp(b, fp, BIO_NOCLOSE);
+	BIO *b = BIO_new(BIO_s_file());
+	check_oom(b);
+	BIO_set_fp(b, fp, BIO_NOCLOSE);
+
+	switch (opt) {
+	case print_openssl_txt:
 		EVP_PKEY_print_public(b, key, 0, NULL);
-		BIO_free(b);
-		return;
+		break;
+	case print_pem:
+		PEM_write_bio_PUBKEY(b, key);
+		break;
+	case print_coloured:
+		break;
 	}
-	if (opt == print_coloured) {
-		QStringList sl;
-		sl << getTypeString() << length();
-		if (isPubKey())
-			sl << tr("Public key");
-#ifndef OPENSSL_NO_EC
-		if (getKeyType() == EVP_PKEY_EC)
-			sl << QString(OBJ_nid2ln(ecParamNid()));
-#endif
-		fprintf(fp, COL_YELL "Type:" COL_RESET " %s\n",
-			CCHAR(sl.join(" ")));
-	}
+	BIO_free(b);
 }

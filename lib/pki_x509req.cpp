@@ -274,7 +274,7 @@ BIO *pki_x509req::pem(BIO *b, int format)
 	return b;
 }
 
-int pki_x509req::verify() const
+bool pki_x509req::verify() const
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	bool x = X509_REQ_verify(request,pkey) > 0;
@@ -357,10 +357,33 @@ int pki_x509req::issuedCerts() const
 	return count;
 }
 
+void pki_x509req::collect_properties(QMap<QString, QString> &prp) const
+{
+	QString s = getAttribute(NID_pkcs9_unstructuredName);
+	if (!s.isEmpty())
+		prp["Unstructured Name"] = s;
+
+	s = getAttribute(NID_pkcs9_challengePassword);
+	if (!s.isEmpty())
+		prp["Challange Password"] = s;
+
+	pki_x509super::collect_properties(prp);
+	prp["Verify Ok"] = verify() ? "Yes" : "No";
+}
+
 void pki_x509req::print(FILE *fp, enum print_opt opt) const
 {
 	pki_x509super::print(fp, opt);
-	X509_REQ_print_fp(fp, request);
+	switch (opt) {
+	case print_openssl_txt:
+		X509_REQ_print_fp(fp, request);
+		break;
+	case print_pem:
+		PEM_write_X509_REQ(fp, request);
+		break;
+	case print_coloured:
+		break;
+	}
 }
 
 QVariant pki_x509req::column_data(const dbheader *hd) const

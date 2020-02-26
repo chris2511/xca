@@ -23,7 +23,10 @@
 
 class pki_key: public pki_base
 {
+
 		Q_OBJECT
+	friend class pki_x509super;
+
 	public:
 		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
 
@@ -37,6 +40,7 @@ class pki_key: public pki_base
 		QByteArray SSH2publicQByteArray(bool raw=false) const;
 		QByteArray X509_PUBKEY_public_key() const;
 		void PEM_file_comment(XFile &file) const;
+		void collect_properties(QMap<QString, QString> &prp) const;
 
 	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba) const;

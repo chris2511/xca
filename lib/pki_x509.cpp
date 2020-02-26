@@ -697,10 +697,10 @@ bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 
 }
 
-bool pki_x509::verify_only(pki_x509 *signer)
+bool pki_x509::verify_only(const pki_x509 *signer) const
 {
-	X509_NAME *subject = X509_get_subject_name(signer->cert);
-	X509_NAME *issuer = X509_get_issuer_name(cert);
+	const X509_NAME *subject = X509_get_subject_name(signer->cert);
+	const X509_NAME *issuer = X509_get_issuer_name(cert);
 	pki_openssl_error();
 	if (X509_NAME_cmp(subject, issuer)) {
 		return false;
@@ -711,6 +711,7 @@ bool pki_x509::verify_only(pki_x509 *signer)
 		return false;
 	}
 	int i = X509_verify(cert, pub);
+	EVP_PKEY_free(pub);
 	pki_ign_openssl_error();
 	return i>0;
 }
@@ -961,27 +962,29 @@ QStringList pki_x509::icsVEVENT() const
 	);
 }
 
+void pki_x509::collect_properties(QMap<QString, QString> &prp) const
+{
+	prp["Issuer"] = getSubject().oneLine(XN_FLAG_RFC2253);
+	prp["Serial"] = getSerial().toHex();
+	prp["CA"] = isCA() ? "Yes" : "No";
+	prp["Not Before"] = getNotBefore().toPretty();
+	prp["Not After"] = getNotAfter().toPretty();
+	prp["Self signed"] = verify_only(this) ? "Yes" : "No";
+	pki_x509super::collect_properties(prp);
+}
+
 void pki_x509::print(FILE *fp, enum print_opt opt) const
 {
 	pki_x509super::print(fp, opt);
-	if (opt == print_openssl_txt)
+	switch (opt) {
+	case print_openssl_txt:
 		X509_print_fp(fp, cert);
-
-	if (opt == print_coloured) {
-		QStringList prp = {
-			"Subject", getSubject().oneLine(XN_FLAG_RFC2253),
-			"Issuer", getSubject().oneLine(XN_FLAG_RFC2253),
-			"Signature Algorithm", getSigAlg(),
-			"Serial",getSerial().toHex(),
-			"CA", isCA() ? "Yes" : "No",
-			"Extensions", getV3ext().getConsole("    ")
-		};
-		QString s;
-		for (int i = 0; i < prp.size(); i += 2) {
-			s += QString(COL_YELL "%1" COL_RESET " %2\n")
-					.arg(prp[i] + ":", -20).arg(prp[i+1]);
-		}
-		fprintf(fp, "%s", CCHAR(s));
+		break;
+	case print_pem:
+		PEM_write_X509(fp, cert);
+		break;
+	case print_coloured:
+		break;
 	}
 }
 

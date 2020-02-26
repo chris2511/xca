@@ -28,6 +28,7 @@ class pki_x509name : public pki_base
 	void autoIntName(const QString &file);
 	QVariant column_data(const dbheader *hd) const;
 	bool visible() const;
+	void collect_properties(QMap<QString, QString> &prp) const;
 };
 
 class pki_x509super : public pki_x509name
@@ -36,6 +37,7 @@ class pki_x509super : public pki_x509name
 	protected:
 		QVariant keySqlId;
 		virtual int sigAlg() const = 0;
+		void collect_properties(QMap<QString, QString> &prp) const;
 	public:
 		pki_x509super(const QString &name = QString());
 		pki_x509super(const pki_x509super *x);

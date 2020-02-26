@@ -10,6 +10,7 @@
 #include "xfile.h"
 #include "pki_base.h"
 #include "exception.h"
+#include "widgets/XcaWarning.h"
 #include <QString>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
@@ -393,14 +394,63 @@ void pki_base::selfComment(QString msg)
 	setComment(appendXcaComment(getComment(), msg));
 }
 
+void pki_base::collect_properties(QMap<QString, QString> &prp) const
+{
+	QString t;
+	prp["Descriptor"] = getIntName();
+	if (getComment().size() > 0)
+		prp["Comment"] = "\n" + getComment().replace('\n', "\n    ");
+	switch (pkiType) {
+	case asym_key:   t = "Asymetric Key"; break;
+	case x509_req:   t = "PKCS#10 Certificate request"; break;
+	case x509:       t = "x.509 Certificate"; break;
+	case revocation: t = "Certificate revocation list"; break;
+	case tmpl:       t = "XCA Template"; break;
+	default:         t = "Unknown"; break;
+	}
+	prp["Type"] = t;
+}
+
 void pki_base::print(FILE *fp, enum print_opt opt) const
 {
-	if (getFilename().size() > 0)
-		fprintf(fp, "\n" COL_GREEN COL_UNDER "File: %s" COL_RESET "\n",
-			CCHAR(getFilename()));
-	if (opt == print_openssl_txt && getIntName().size() > 0)
-		fprintf(fp, COL_YELL "Descriptor: %s" COL_RESET "\n",
-			CCHAR(getIntName()));
+	static const QStringList order = {
+		"Type", "Descriptor", "Subject", "Issuer", "Serial",
+		"Not Before", "Not After", "Verify Ok",
+		"Unstructured Name", "Challange Password",
+		"Last Update", "Next Update", "CA", "Self signed",
+		"Key", "Signature", "Extensions", "Comment",
+	};
+	if (opt == print_coloured) {
+		QMap<QString, QString> prp;
+		QStringList keys;
+		QString s;
+		int w = 0;
+
+		collect_properties(prp);
+		keys = prp.keys();
+
+		foreach (const QString &key, keys) {
+			if (key.size() > w)
+				w = key.size();
+			if (!order.contains(key))
+				XCA_WARN(tr("Property '%1' not listed in 'pki_base::print'").arg(key));
+		}
+		w = (w + 1) * -1;
+		foreach (const QString &key, order) {
+			if (!prp.contains(key))
+				continue;
+			QString val = prp[key];
+
+			if (val == "Yes")
+				val = COL_GREEN "✓" COL_RESET " Yes";
+			else if (val == "No")
+				val = COL_RED "✗" COL_RESET " No";
+
+			s += QString(COL_YELL "%1" COL_RESET " %2\n")
+					.arg(key + ":", w).arg(val);
+		}
+		fprintf(fp, "%s", CCHAR(s));
+	}
 }
 
 static QString icsValue(QString s)

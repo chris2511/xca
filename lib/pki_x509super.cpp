@@ -243,6 +243,18 @@ bool pki_x509super::visible() const
 	return getV3ext().search(limitPattern);
 }
 
+void pki_x509super::collect_properties(QMap<QString, QString> &prp) const
+{
+	pki_key *key = getPubKey();
+	if (key)
+		key->collect_properties(prp);
+	delete key;
+
+	prp["Signature"] = getSigAlg();
+	prp["Extensions"] = getV3ext().getConsole("    ");
+	pki_x509name::collect_properties(prp);
+}
+
 // Start class  pki_x509name
 pki_x509name::pki_x509name(const QString &name)
 	: pki_base(name)
@@ -290,4 +302,10 @@ void pki_x509name::PEM_file_comment(XFile &file) const
 		return;
 	pki_base::PEM_file_comment(file);
 	file.write(getSubject().oneLine(XN_FLAG_RFC2253).toUtf8() + "\n");
+}
+
+void pki_x509name::collect_properties(QMap<QString, QString> &prp) const
+{
+	prp["Subject"] = getSubject().oneLine(XN_FLAG_RFC2253);
+	pki_base::collect_properties(prp);
 }

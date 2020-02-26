@@ -50,6 +50,7 @@ class pki_x509 : public pki_x509super
 
 	protected:
 		int sigAlg() const;
+		void collect_properties(QMap<QString, QString> &prp) const;
 
 	public:
 		pki_x509(X509 *c);
@@ -85,7 +86,7 @@ class pki_x509 : public pki_x509super
 		void writeCert(XFile &file, bool PEM) const;
 		QString getIndexEntry();
 		bool verify(pki_x509 *signer);
-		bool verify_only(pki_x509 *signer);
+		bool verify_only(const pki_x509 *signer) const;
 		pki_key *getPubKey() const;
 		void setPubKey(pki_key *key);
 		pki_x509 *getSigner();

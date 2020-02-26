@@ -66,6 +66,7 @@ class pki_base : public QObject
 		void my_error(const QString &error) const;
 		QString filename;
 		virtual void PEM_file_comment(XFile &file) const;
+		virtual void collect_properties(QMap<QString, QString> &) const;
 
 	public:
 		enum msg_type {
@@ -75,9 +76,9 @@ class pki_base : public QObject
 			msg_create,
 		};
 		enum print_opt {
-			print_none,
 			print_openssl_txt,
-			print_coloured
+			print_pem,
+			print_coloured,
 		};
 		enum pki_source pkiSource;
 

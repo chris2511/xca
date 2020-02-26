@@ -29,6 +29,7 @@ class pki_x509req : public pki_x509super
 		X509_REQ *request;
 		bool done;
 		int sigAlg() const;
+		void collect_properties(QMap<QString, QString> &prp) const;
 
 	public:
 		pki_x509req(const QString &name = QString());
@@ -52,7 +53,7 @@ class pki_x509req : public pki_x509super
 		QString getAttribute(int nid) const;
 		int issuedCerts() const;
 
-		int verify() const;
+		bool verify() const;
 		pki_key *getPubKey() const;
 		void createReq(pki_key *key, const x509name &dn,
 				const EVP_MD *md, extList el);

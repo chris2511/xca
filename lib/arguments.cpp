@@ -34,6 +34,8 @@ const QList<arg_option> arguments::opts = {
 		"Do not start the GUI. Alternatively set environment variable XCA_NO_GUI=1 or call xca as 'xca-console' symlink"),
 	arg_option("password",  "<password>", required_argument, false, false,
 		"Database password for unlocking the database"),
+	arg_option("pem",       NULL, no_argument, true, false,
+		"Print a synopsis of provided files"),
 	arg_option("print",     NULL, no_argument, true, false,
 		"Print a synopsis of provided files"),
 	arg_option("sqlpass",  "<password>", required_argument, false, false,

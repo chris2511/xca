@@ -58,6 +58,7 @@ class pki_crl: public pki_x509name
 		QVariant issuerSqlId;
 		X509_CRL *crl;
 		extList extensions() const;
+		void collect_properties(QMap<QString, QString> &prp) const;
 	public:
 		pki_crl(const QString name = "");
 		~pki_crl();

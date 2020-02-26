@@ -444,8 +444,24 @@ QStringList pki_crl::icsVEVENT() const
 	);
 }
 
+void pki_crl::collect_properties(QMap<QString, QString> &prp) const
+{
+	prp["Last Update"] = getLastUpdate().toPretty();
+	prp["Next Update"] = getNextUpdate().toPretty();
+	pki_x509name::collect_properties(prp);
+}
+
 void pki_crl::print(FILE *fp, enum print_opt opt) const
 {
 	pki_x509name::print(fp, opt);
-	X509_CRL_print_fp(fp, crl);
+	switch (opt) {
+	case print_openssl_txt:
+		X509_CRL_print_fp(fp, crl);
+		break;
+	case print_pem:
+		PEM_write_X509_CRL(fp, crl);
+		break;
+	case print_coloured:
+		break;
+	}
 }

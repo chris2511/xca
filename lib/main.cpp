@@ -19,6 +19,7 @@
 #include "database_model.h"
 #include "pki_multi.h"
 #include "pki_evp.h"
+#include "pki_base.h"
 #include "arguments.h"
 #include "db_x509.h"
 #if defined(Q_OS_WIN32)
@@ -188,14 +189,22 @@ static database_model* read_cmdline(int argc, char *argv[])
 	if (cmd_opts.has("version"))
 		cmd_version(stdout);
 
-	enum pki_base::print_opt opt = pki_base::print_none;
-	if (cmd_opts.has("text"))
-		opt = pki_base::print_openssl_txt;
-	if (cmd_opts.has("print"))
-		opt = pki_base::print_coloured;
-
-	while (opt != pki_base::print_none && imported_items->count() > 0) {
-		imported_items->pull()->print(stdout, opt);
+	FILE *fp = stdout;
+	pki_base *pki;
+	while ((pki = imported_items->pull())) {
+		QString filename = pki->getFilename();
+		if ((cmd_opts.has("text") || cmd_opts.has("print")) &&
+		    filename.size() > 0)
+		{
+			fprintf(fp, "\n" COL_GREEN COL_UNDER "File: %s"
+				COL_RESET "\n", CCHAR(filename));
+		}
+		if (cmd_opts.has("print"))
+			pki->print(fp, pki_base::print_coloured);
+		if (cmd_opts.has("text"))
+			pki->print(fp, pki_base::print_openssl_txt);
+		if (cmd_opts.has("pem"))
+			pki->print(fp, pki_base::print_pem);
 	}
 	return models;
 }
