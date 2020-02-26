@@ -165,11 +165,11 @@ static database_model* read_cmdline(int argc, char *argv[])
 		} catch (errorEx &err) {
 			cmd_help(EXIT_FAILURE, CCHAR(err.getString()));
 		} catch (enum open_result opt) {
-			const QMap<enum open_result, const char *> msg = {
-				{ pw_cancel, "Password input aborted" },
-				{ pw_ok, "Password accepted??" },
-				{ pw_exit, "Exit selected" },
-				{ open_abort, "No database given" },
+			static const char * const msg[] = {
+				/* pw_cancel */ "Password input aborted",
+				/* pw_ok     */ "Password accepted??",
+				/* pw_exit   */ "Exit selected",
+				/* open_abort*/ "No database given",
 			};
 			cmd_help(EXIT_FAILURE, msg[opt]);
 		}

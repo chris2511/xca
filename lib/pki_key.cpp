@@ -10,7 +10,6 @@
 #include "func.h"
 #include "db.h"
 #include "db_base.h"
-#include "openssl_compat.h"
 #include "widgets/PwDialog.h"
 #include "widgets/ExportDialog.h"
 #include "widgets/XcaWarning.h"
@@ -18,7 +17,7 @@
 #include <openssl/rand.h>
 #include <openssl/pem.h>
 
-#include <QDir>
+#include "openssl_compat.h"
 
 builtin_curves pki_key::builtinCurves;
 
@@ -846,19 +845,23 @@ void pki_key::collect_properties(QMap<QString, QString> &prp) const
 void pki_key::print(FILE *fp, enum print_opt opt) const
 {
 	pki_base::print(fp, opt);
-	BIO *b = BIO_new(BIO_s_file());
-	check_oom(b);
-	BIO_set_fp(b, fp, BIO_NOCLOSE);
-
+	BIO *b;
 	switch (opt) {
 	case print_openssl_txt:
+		b = BIO_new(BIO_s_file());
+		check_oom(b);
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
+		BIO_write(b, "Not supported\n", sizeof "Not supported\n" -1);
+#else
 		EVP_PKEY_print_public(b, key, 0, NULL);
+#endif
+		BIO_set_fp(b, fp, BIO_NOCLOSE);
+		BIO_free(b);
 		break;
 	case print_pem:
-		PEM_write_bio_PUBKEY(b, key);
+		PEM_write_PUBKEY(fp, key);
 		break;
 	case print_coloured:
 		break;
 	}
-	BIO_free(b);
 }

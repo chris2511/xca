@@ -14,6 +14,11 @@
 #include "lib/db.h"
 #include "MainWindow.h"
 
+// index = enum pki_type
+static const char * const PixmapMap[] = {
+  "" ":keyImg", ":csrImg", ":certImg", ":revImg", ":tempImg", "", ":scardImg",
+};
+
 class XcaDialog : public QDialog, public Ui::XcaDialog
 {
 	QWidget *widg;
@@ -23,15 +28,7 @@ class XcaDialog : public QDialog, public Ui::XcaDialog
 	{
 		setupUi(this);
 		setWindowTitle(XCA_TITLE);
-		QMap<enum pki_type, QString> map {
-			{ asym_key,   ":keyImg" },
-			{ x509_req,   ":csrImg" },
-			{ x509,       ":certImg" },
-			{ revocation, ":revImg" },
-			{ tmpl,       ":tempImg" },
-			{ smartCard,  ":scardImg" },
-		};
-		image->setPixmap(QPixmap(map[type]));
+		image->setPixmap(QPixmap(PixmapMap[type]));
 		content->addWidget(w);
 		widg = w;
 		title->setText(t);

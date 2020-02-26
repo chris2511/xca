@@ -25,14 +25,12 @@ xcaWarning::xcaWarning(QWidget *w, const QString &txt, QMessageBox::Icon icn)
 		m->setTextFormat(Qt::PlainText);
 		return;
 	}
-	button_texts = QMap<QMessageBox::StandardButton, QString> {
-		{ QMessageBox::Ok, QMessageBox::tr("Ok") },
-		{ QMessageBox::Close, QMessageBox::tr("Close") },
-		{ QMessageBox::Cancel, QMessageBox::tr("Cancel") },
-		{ QMessageBox::Apply, QMessageBox::tr("Apply") },
-		{ QMessageBox::Yes, QMessageBox::tr("Yes") },
-		{ QMessageBox::No, QMessageBox::tr("No") },
-	};
+	button_texts[QMessageBox::Ok] = QMessageBox::tr("Ok");
+	button_texts[QMessageBox::Close] = QMessageBox::tr("Close");
+	button_texts[QMessageBox::Cancel] = QMessageBox::tr("Cancel");
+	button_texts[QMessageBox::Apply] = QMessageBox::tr("Apply");
+	button_texts[QMessageBox::Yes] = QMessageBox::tr("Yes");
+	button_texts[QMessageBox::No] = QMessageBox::tr("No");
 }
 
 xcaWarning::~xcaWarning()
@@ -52,12 +50,12 @@ int xcaWarning::exec()
 	if (m)
 		return m->exec();
 
-	QMap<QMessageBox::Icon, const char *> colors {
-		{ QMessageBox::Information, COL_CYAN "Information"},
-		{ QMessageBox::Warning, COL_RED "Warning" },
-		{ QMessageBox::Critical, COL_RED "Critical" },
-		{ QMessageBox::Question, COL_BLUE "Question" }
-	};
+	QMap<QMessageBox::Icon, const char *> colors;
+	colors[QMessageBox::Information] = COL_CYAN "Information";
+	colors[QMessageBox::Warning] = COL_RED "Warning";
+	colors[QMessageBox::Critical] = COL_RED "Critical";
+	colors[QMessageBox::Question] = COL_BLUE "Question";
+
 	printf("%s:" COL_RESET " %s\n\n", colors[icon], CCHAR(msg));
 	return QMessageBox::Ok;
 }
