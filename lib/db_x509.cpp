@@ -107,8 +107,8 @@ void db_x509::remFromCont(const QModelIndex &idx)
 	QList<pki_x509 *> childs;
 
 	while (pki->childCount()) {
-		child = (pki_x509*)pki->childItems.takeFirst();
-		child->delSigner((pki_x509*)pki);
+		child = dynamic_cast<pki_x509*>(pki->childItems.takeFirst());
+		child->delSigner(dynamic_cast<pki_x509*>(pki));
 		new_parent = child->findIssuer();
 		insertChild(new_parent, child);
 		if (new_parent)
@@ -352,11 +352,11 @@ a1int db_x509::getUniqueSerial(pki_x509 *signer)
 
 pki_base *db_x509::insert(pki_base *item)
 {
-	pki_x509 *cert = (pki_x509 *)item;
-	pki_x509 *oldcert = (pki_x509 *)getByReference(cert);
+	pki_x509 *cert = dynamic_cast<pki_x509 *>(item);
+	pki_x509 *oldcert = dynamic_cast<pki_x509 *>(getByReference(cert));
 	if (oldcert) {
 		XCA_INFO(tr("The certificate already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcert->getIntName()));
-		delete(cert);
+		delete cert;
 		return NULL;
 	}
 	insertPKI(cert);

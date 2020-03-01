@@ -133,7 +133,7 @@ void db_key::inToCont(pki_base *pki)
 
 pki_base* db_key::insert(pki_base *item)
 {
-	pki_key *lkey = static_cast<pki_key *>(item);
+	pki_key *lkey = dynamic_cast<pki_key *>(item);
 	pki_key *oldkey;
 
 	oldkey = static_cast<pki_key *>(getByReference(lkey));
@@ -141,7 +141,7 @@ pki_base* db_key::insert(pki_base *item)
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) || lkey->isPubKey()){
 			XCA_INFO(
 			tr("The key is already in the database as:\n'%1'\nand is not going to be imported").arg(oldkey->getIntName()));
-			delete(lkey);
+			delete lkey;
 			return NULL;
 		} else {
 			XCA_INFO(

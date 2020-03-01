@@ -130,7 +130,7 @@ class pkcs11
 		}
 		static void remove_libs()
 		{
-			qDeleteAll(libs.begin(), libs.end());
+			qDeleteAll(libs);
 			libs.clear();
 		}
 		static void reload_libs(const QString &libnames);
