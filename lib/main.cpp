@@ -252,6 +252,9 @@ int main(int argc, char *argv[])
 	} catch (enum open_result r) {
 		XCA_ERROR(QObject::tr("DB Open failed: %1").arg(r));
 	}
+	qDebug() << "pki_base::count" << pki_base::allitems.size();
+	foreach(pki_base *pki, pki_base::allitems)
+		qDebug() << "Remaining" << typeid(*pki).name() << pki->getIntName();
 	delete mainwin;
 	delete gui;
 

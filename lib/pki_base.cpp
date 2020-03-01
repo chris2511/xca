@@ -19,6 +19,7 @@
 
 QRegExp pki_base::limitPattern;
 bool pki_base::pem_comment;
+QList<pki_base*> pki_base::allitems;
 
 pki_base::pki_base(const QString &name, pki_base *p)
 {
@@ -27,6 +28,8 @@ pki_base::pki_base(const QString &name, pki_base *p)
 	childItems.clear();
 	pkiType=none;
 	pkiSource=unknown;
+	allitems << this;
+	qDebug() << "NEW pki_base::count" << allitems.count();
 }
 
 pki_base::pki_base(const pki_base *p)
@@ -36,11 +39,16 @@ pki_base::pki_base(const pki_base *p)
 	childItems.clear();
 	pkiType = p->pkiType;
 	pkiSource = p->pkiSource;
+	allitems << this;
+	qDebug() << "COPY pki_base::count" << allitems.count();
 	p->inheritFilename(this);
 }
 
 pki_base::~pki_base(void)
 {
+	if (!allitems.removeOne(this))
+		qDebug() << "DEL" << getIntName() << "NOT FOUND";
+	qDebug() << "DEL pki_base::count" << allitems.count();
 }
 
 QString pki_base::comboText() const

@@ -55,6 +55,8 @@ class pki_base : public QObject
 		static QString rmslashdot(const QString &fname);
 		static unsigned hash(const QByteArray &ba);
 		static bool pem_comment;
+		static int count;
+		static QList<pki_base*> allitems;
 
 	protected:
 		QVariant sqlItemId;
