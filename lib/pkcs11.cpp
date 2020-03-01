@@ -88,7 +88,7 @@ void pkcs11::reload_libs(const QString &libnames)
 			 << "Should:" << enable;
 	}
 	qDebug() << "Delete remainig Libs start";
-	qDeleteAll(store.begin(), store.end());
+	qDeleteAll(store);
 	qDebug() << "Delete remainig Libs done";
 }
 

@@ -420,7 +420,7 @@ database_model::~database_model()
 	qDebug("Closing database: %s", QString2filename(dbName));
 
 	qDeleteAll(models);
-
+	models.clear();
 	db_base::flushLookup();
 
 	QSqlDatabase::database().close();

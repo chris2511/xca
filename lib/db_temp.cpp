@@ -59,9 +59,7 @@ db_temp::db_temp(database_model *parent)
 
 db_temp::~db_temp()
 {
-	return;
-	while (!predefs.isEmpty())
-		delete predefs.takeFirst();
+	qDeleteAll(predefs);
 }
 
 pki_base *db_temp::newPKI(enum pki_type type)

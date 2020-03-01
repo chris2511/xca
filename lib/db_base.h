@@ -89,6 +89,7 @@ class db_base: public QAbstractItemModel
 		static void flushLookup()
 		{
 			qDeleteAll(lookup);
+			lookup.clear();
 		}
 		template <class T> static QList<T *>
 				sqlSELECTpki(QString query,
