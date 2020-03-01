@@ -7,16 +7,17 @@
 
 
 #include "pki_pkcs7.h"
+#include "pki_x509.h"
+#include "pki_key.h"
 #include "func.h"
 #include "exception.h"
 
+#include <openssl/x509.h>
 
-pki_pkcs7::pki_pkcs7(const QString name)
-	:pki_base(name)
+pki_pkcs7::pki_pkcs7(const QString &name)
+	:pki_multi(name)
 {
-	p7 = PKCS7_new();
-	PKCS7_set_type(p7, NID_pkcs7_signed);
-	PKCS7_content_new(p7, NID_pkcs7_data);
+	p7 = NULL;
 }
 
 pki_pkcs7::~pki_pkcs7()
@@ -25,11 +26,10 @@ pki_pkcs7::~pki_pkcs7()
 		PKCS7_free(p7);
 }
 
-void pki_pkcs7::encryptFile(pki_x509 *crt, QString filename)
+void pki_pkcs7::encryptFile(pki_x509 *crt, const QString &filename)
 {
-	BIO *bio = NULL;
-	bio = BIO_new_file(QString2filename(filename), "r");
-        openssl_error();
+	BIO *bio = BIO_new_file(QString2filename(filename), "r");
+	openssl_error();
 	encryptBio(crt, bio);
 	BIO_free(bio);
 }
@@ -81,7 +81,7 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	sk_X509_free(certstack);
 }
 
-void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
+void pki_pkcs7::signFile(pki_x509 *crt, const QString &filename)
 {
 	BIO *bio;
 	if (!crt)
@@ -104,10 +104,19 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 	BIO_free(bio);
 }
 
-void pki_pkcs7::writeP7(XFile &file, bool PEM) const
+void pki_pkcs7::writeP7(XFile &file, bool PEM)
 {
-	if (!p7)
-		return;
+	if (!p7) {
+		p7 = PKCS7_new();
+		PKCS7_set_type(p7, NID_pkcs7_signed);
+		PKCS7_content_new(p7, NID_pkcs7_data);
+		pki_openssl_error();
+	}
+	foreach(pki_base *pki, multi) {
+		pki_x509 *x = dynamic_cast<pki_x509*>(pki);
+		if (x)
+			PKCS7_add_certificate(p7, X509_dup(x->getCert()));
+	}
 	if (PEM)
 		PEM_write_PKCS7(file.fp(), p7);
 	else
@@ -115,93 +124,65 @@ void pki_pkcs7::writeP7(XFile &file, bool PEM) const
 	openssl_error();
 }
 
-pki_x509 *pki_pkcs7::getCert(int x) const
+void pki_pkcs7::append_certs(PKCS7 *myp7, const QString &name)
 {
-	pki_x509 *cert;
-	cert = new pki_x509(X509_dup(sk_X509_value(getCertStack(), x)));
-	openssl_error();
-	cert->autoIntName(getIntName());
-	cert->pkiSource = imported;
-	inheritFilename(cert);
-	return cert;
-}
+	STACK_OF(X509) *certstack = NULL;
 
-int pki_pkcs7::numCert() const
-{
-	int n = sk_X509_num(getCertStack());
-	openssl_error();
-	return n;
-}
+	pki_openssl_error();
 
+        if (myp7 == NULL)
+		return;
+
+	setFilename(name);
+	autoIntName(name);
+
+	switch (OBJ_obj2nid(myp7->type)) {
+		case NID_pkcs7_signed:
+			certstack = myp7->d.sign->cert;
+			myp7->d.sign->cert = NULL;
+			break;
+		case NID_pkcs7_signedAndEnveloped:
+			certstack = myp7->d.signed_and_enveloped->cert;
+			myp7->d.signed_and_enveloped->cert = NULL;
+			break;
+	}
+	if (!certstack)
+		return;
+
+	for (int x = 0; x < sk_X509_num(certstack); x++) {
+		X509 *c = X509_dup(sk_X509_value(certstack, x));
+		pki_x509 *cert = new pki_x509(c);
+		openssl_error();
+		cert->autoIntName(getIntName());
+		cert->pkiSource = imported;
+		inheritFilename(cert);
+		append_item(cert);
+	}
+	sk_X509_free(certstack);
+	PKCS7_free(myp7);
+}
 
 void pki_pkcs7::fromPEM_BIO(BIO *bio, const QString &name)
 {
-	PKCS7 *_p7 = PEM_read_bio_PKCS7(bio, NULL, NULL, NULL);
-	openssl_error(name);
-	if (p7)
-		PKCS7_free(p7);
-	p7 = _p7;
-	autoIntName(name);
+	PKCS7 *myp7 = PEM_read_bio_PKCS7(bio, NULL, NULL, NULL);
+	append_certs(myp7, name);
 }
 
-void pki_pkcs7::fload(const QString &fname)
+void pki_pkcs7::fload(const QString &name)
 {
-	PKCS7 *_p7;
-	XFile file(fname);
+	PKCS7 *myp7;
+	XFile file(name);
 	file.open_read();
-	_p7 = PEM_read_PKCS7(file.fp(), NULL, NULL, NULL);
-	if (!_p7) {
+	myp7 = PEM_read_PKCS7(file.fp(), NULL, NULL, NULL);
+	if (!myp7) {
 		ign_openssl_error();
 		file.retry_read();
-		_p7 = d2i_PKCS7_fp(file.fp(), NULL);
+		myp7 = d2i_PKCS7_fp(file.fp(), NULL);
 	}
 	if (ign_openssl_error()) {
-		if (_p7)
-			PKCS7_free(_p7);
-		throw errorEx(tr("Unable to load the PKCS#7 file %1. Tried PEM and DER format.").arg(fname));
+		if (myp7)
+			PKCS7_free(myp7);
+		throw errorEx(tr("Unable to load the PKCS#7 file %1. Tried PEM and DER format.").arg(name));
 	}
-	if (p7)
-		PKCS7_free(p7);
-	p7 = _p7;
-	setFilename(fname);
-}
-
-const STACK_OF(X509) *pki_pkcs7::getCertStack() const
-{
-	int i;
-	const STACK_OF(X509) *certstack = NULL;
-        if (p7 == NULL)
-		return NULL;
-	i = OBJ_obj2nid(p7->type);
-	switch (i) {
-		case NID_pkcs7_signed:
-			certstack = p7->d.sign->cert;
-			break;
-		case NID_pkcs7_signedAndEnveloped:
-			certstack = p7->d.signed_and_enveloped->cert;
-			break;
-		default:
-			break;
-	}
-	openssl_error();
-	return certstack;
-}
-
-void pki_pkcs7::addCert(pki_x509 *crt)
-{
-	if (p7 == NULL || crt == NULL)
-		return;
-	PKCS7_add_certificate(p7, crt->getCert());
-	openssl_error();
-}
-
-void pki_pkcs7::print(FILE *fp, enum print_opt opt) const
-{
-	for (int i=0; i < numCert(); i++) {
-		pki_x509 *x = getCert(i);
-		if (!x)
-			continue;
-		x->print(fp, opt);
-		delete x;
-	}
+	append_certs(myp7, name);
 }

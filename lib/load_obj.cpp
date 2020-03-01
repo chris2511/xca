@@ -7,7 +7,7 @@
 
 #include "load_obj.h"
 #include "pki_x509.h"
-#include "pki_key.h"
+#include "pki_evp.h"
 #include "pki_x509req.h"
 #include "pki_pkcs7.h"
 #include "pki_pkcs12.h"

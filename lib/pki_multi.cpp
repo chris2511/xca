@@ -14,6 +14,7 @@
 #include "pki_pkcs12.h"
 #include "pki_crl.h"
 #include "pki_temp.h"
+#include "pki_evp.h"
 #include "load_obj.h"
 #include "exception.h"
 #include "func.h"
@@ -29,9 +30,10 @@ pki_multi::pki_multi(const QString &name)
 
 pki_multi::~pki_multi()
 {
-	pki_base *pki;
-	while ((pki = pull()))
-		delete pki;
+	foreach(pki_base *pki, multi) {
+		if (pki->getSqlItemId().toInt() == 0)
+			delete pki;
+	}
 }
 
 void pki_multi::append_item(pki_base *pki)
@@ -41,12 +43,6 @@ void pki_multi::append_item(pki_base *pki)
 		multi += m;
 	else
 		multi << pki;
-}
-pki_base *pki_multi::pull()
-{
-	if (multi.isEmpty())
-		return NULL;
-	return multi.takeFirst();
 }
 
 #define D5 "-----"
@@ -109,7 +105,7 @@ void pki_multi::fload(const QString &fname)
 void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 {
 	pki_base *item = NULL;
-	int startpos;
+	int startpos, old_count = multi.size();
 	QByteArray ba = _ba;
 	for (;;) {
 		try {
@@ -128,7 +124,7 @@ void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 		}
 		ba.remove(0, sizeof BEGIN -1);
 	}
-	if (multi.size() == 0)
+	if (multi.size() == old_count)
 		throw errorEx(tr("No known PEM encoded items found"));
 }
 
@@ -137,7 +133,7 @@ void pki_multi::probeAnything(const QString &fname)
 	pki_base *item = NULL;
 	load_base *lb;
 	QList<load_base*> lbs;
-	int old_count = count();
+	int old_count = multi.size();
 
 	lbs <<  new load_pem() <<
 		new load_cert() << new load_pkcs7() << new load_pkcs12() <<
@@ -158,7 +154,7 @@ void pki_multi::probeAnything(const QString &fname)
 				break;
 		}
 	}
-	if (count() == old_count && !fname.isEmpty())
+	if (multi.count() == old_count && !fname.isEmpty())
 		failed_files << fname;
 
 	qDeleteAll(lbs);
@@ -168,4 +164,16 @@ void pki_multi::print(FILE *fp, enum print_opt opt) const
 {
 	foreach(pki_base *pki, multi)
 		pki->print(fp, opt);
+}
+
+QList<pki_base *> pki_multi::pull()
+{
+	QList<pki_base*> temp = multi;
+	multi.clear();
+	return temp;
+}
+
+QList<pki_base *> pki_multi::get() const
+{
+	return multi;
 }

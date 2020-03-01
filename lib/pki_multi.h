@@ -10,12 +10,7 @@
 #define __PKI_MULTI_H
 
 #include <QStringList>
-
-#include <openssl/pem.h>
-#include "pki_x509.h"
-#include "x509name.h"
-#include "asn1time.h"
-#include "asn1int.h"
+#include "pki_base.h"
 
 class pki_multi: public pki_base
 {
@@ -29,12 +24,9 @@ class pki_multi: public pki_base
 		void fromPEMbyteArray(const QByteArray &, const QString &);
 		void fload(const QString &fname);
 		void probeAnything(const QString &fname);
-		pki_base *pull();
 		void append_item(pki_base *pki);
 		void print(FILE *fp, enum print_opt opt) const;
-		int count() const
-		{
-			return multi.count();
-		}
+		QList<pki_base *> pull();
+		QList<pki_base *> get() const;
 };
 #endif

@@ -814,9 +814,9 @@ void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 		p12 = new pki_pkcs12(cert->getIntName(), cert, privkey);
 		pki_x509 *signer = cert->getSigner();
 		while ((signer != NULL ) && (signer != cert) && chain) {
-			p12->addCaCert(signer);
-			cert=signer;
-			signer=signer->getSigner();
+			p12->append_item(signer);
+			cert = signer;
+			signer = signer->getSigner();
 		}
 		p12->writePKCS12(file);
 	}
@@ -836,7 +836,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 		switch (type) {
 		case exportType::PKCS7_chain:
 			while (cert != NULL) {
-				p7->addCert(cert);
+				p7->append_item(cert);
 				if (cert->getSigner() == cert)
 					cert = NULL;
 				else
@@ -844,12 +844,12 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 			}
 			break;
 		case exportType::PKCS7:
-			p7->addCert(cert);
+			p7->append_item(cert);
 			break;
 		case exportType::PKCS7_selected:
 			foreach(QModelIndex idx, list) {
 				cert = static_cast<pki_x509*>(idx.internalPointer());
-				p7->addCert(cert);
+				p7->append_item(cert);
 			}
 			break;
 		case exportType::PKCS7_unrevoked:
@@ -857,7 +857,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 			FOR_ALL_pki(cer, pki_x509) {
 				if ((type == exportType::PKCS7_all) ||
 				    (!cer->isRevoked()))
-					p7->addCert(cer);
+					p7->append_item(cer);
 			}
 			break;
 		default:

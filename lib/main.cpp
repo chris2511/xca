@@ -190,8 +190,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 		cmd_version(stdout);
 
 	FILE *fp = stdout;
-	pki_base *pki;
-	while ((pki = imported_items->pull())) {
+	foreach(pki_base *pki, imported_items->get()) {
 		QString filename = pki->getFilename();
 		if ((cmd_opts.has("text") || cmd_opts.has("print")) &&
 		    filename.size() > 0)

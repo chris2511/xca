@@ -76,58 +76,36 @@ void ImportMulti::addItem(pki_base *pki)
 
 	if (pki->pkiSource == unknown)
 		pki->pkiSource = imported;
-
-	const std::type_info &t = typeid(*pki);
-	if (t == typeid(pki_x509)) {
-		pki_x509 *x = static_cast<pki_x509 *>(pki);
-		x->setSigner(x->findIssuer());
-		x->lookupKey();
-		mcont->inToCont(pki);
-	}
-	else if (t == typeid(pki_x509req)) {
-		pki_x509req *x = static_cast<pki_x509req *>(pki);
-		x->lookupKey();
-		mcont->inToCont(pki);
-	}
-	else if (t == typeid(pki_crl)) {
-		pki_crl *x = static_cast<pki_crl *>(pki);
-		x->lookupIssuer();
-		mcont->inToCont(pki);
-	}
-	else if (t == typeid(pki_evp) || t == typeid(pki_temp) ||
-		 t == typeid(pki_scard))
-	{
-		mcont->inToCont(pki);
-	}
-	else if (t == typeid(pki_pkcs7)) {
-		pki_pkcs7 *p7 = static_cast<pki_pkcs7 *>(pki);
-		for (int i=0; i<p7->numCert(); i++) {
-			addItem(p7->getCert(i));
-		}
-		delete p7;
-	}
-	else if (t == typeid(pki_pkcs12)) {
-		pki_pkcs12 *p12 = static_cast<pki_pkcs12 *>(pki);
-		addItem(p12->getKey());
-		addItem(p12->getCert());
-		for (int i=0; i<p12->numCa(); i++) {
-			addItem(p12->getCa(i));
-		}
-		delete p12;
-	}
-	else if (t == typeid(pki_multi)) {
-		pki_multi *pm = static_cast<pki_multi*>(pki);
-		pki_base *inner;
-		while ((inner = pm->pull()))
+	pki_multi *pm = dynamic_cast<pki_multi*>(pki);
+	if (pm) {
+		QList<pki_base*> items = pm->pull();
+		foreach(pki_base *inner, items)
 			addItem(inner);
 		delete pm;
+		return;
 	}
-	else  {
+
+	pki_x509 *cert = dynamic_cast<pki_x509 *>(pki);
+	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
+	pki_x509super *cert_or_req = dynamic_cast<pki_x509super *>(pki);
+
+	if (cert)
+		cert->setSigner(cert->findIssuer());
+	if (cert_or_req)
+		cert_or_req->lookupKey();
+	if (crl)
+		crl->lookupIssuer();
+
+	if (!dynamic_cast<pki_key*>(pki) &&
+	    !dynamic_cast<pki_x509name*>(pki))
+	{
 		XCA_WARN(tr("The type of the item '%1' is not recognized").
-			arg(t.name()));
+			arg(typeid(*pki).name()));
+		delete pki;
+		return;
 	}
-	if (t == typeid(pki_scard))
-		mcont->rename_token_in_database(dynamic_cast<pki_scard*>(pki));
+	mcont->inToCont(pki);
+	mcont->rename_token_in_database(dynamic_cast<pki_scard*>(pki));
 }
 
 bool ImportMulti::openDB() const
@@ -154,13 +132,10 @@ void ImportMulti::dropEvent(QDropEvent *event)
 	QStringList failed;
 	pki_multi *pki = new pki_multi();
 
-	foreach(u, urls) {
-		QString s = u.toLocalFile();
-		int count = pki->count();
-		pki->probeAnything(s);
-		if (pki->count() == count)
-			failed << s;
-	}
+	foreach(u, urls)
+		pki->probeAnything(u.toLocalFile());
+
+	failed << pki->failed_files;
 	importError(failed);
 	addItem(pki);
 	event->acceptProposedAction();
@@ -191,6 +166,9 @@ void ImportMulti::on_butOk_clicked()
 	if (!TransBegin())
 		return;
 	while (mcont->rootItem->childCount()) {
+		qDebug() << "childCount" << mcont->rootItem->childCount();
+		foreach(pki_base *p, mcont->rootItem->childItems)
+			qDebug() << "Child" << p->getIntName();
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
 		import(idx);
 	}

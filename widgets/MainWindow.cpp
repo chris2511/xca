@@ -258,7 +258,7 @@ bool MainWindow::pastePem(QString text, bool silent)
 	try {
 		pem = new pki_multi();
 		pem->fromPEMbyteArray(pemdata, QString());
-		success = pem->count() != 0;
+		success = pem->failed_files.count() == 0;
 		importMulti(pem, 1);
 	}
 	catch (errorEx &err) {
