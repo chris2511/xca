@@ -137,6 +137,10 @@ pki_base* db_key::insert(pki_base *item)
 {
 	pki_key *lkey = dynamic_cast<pki_key *>(item);
 	pki_key *oldkey;
+	pki_evp *evp = dynamic_cast<pki_evp*>(lkey);
+
+	if (evp)
+		evp->setOwnPass(pki_evp::ptCommon);
 
 	oldkey = static_cast<pki_key *>(getByReference(lkey));
 	if (oldkey != NULL) {

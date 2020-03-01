@@ -30,12 +30,14 @@ const QList<arg_option> arguments::opts = {
 		"Save OpenSSL index hierarchy in <dir>"),
 	arg_option("index",     "<file>", file_argument, true, true,
 		"Save OpenSSL index in <file>"),
+	arg_option("import",     NULL, no_argument, false, true,
+		"Import all provided items into the database."),
 	arg_option("no-gui",    NULL, no_argument, true, false,
 		"Do not start the GUI. Alternatively set environment variable XCA_NO_GUI=1 or call xca as 'xca-console' symlink"),
 	arg_option("password",  "<password>", required_argument, false, false,
 		"Database password for unlocking the database"),
 	arg_option("pem",       NULL, no_argument, true, false,
-		"Print a synopsis of provided files"),
+		"Print PEM representation of provided files. Prints only the public part of private keys"),
 	arg_option("print",     NULL, no_argument, true, false,
 		"Print a synopsis of provided files"),
 	arg_option("sqlpass",  "<password>", required_argument, false, false,
@@ -75,7 +77,7 @@ static QString splitQstring(int offset, int width, const QString &text)
 			continue;
 		}
 		lines += line;
-		line.clear();
+		line = word;
 	}
 	lines += line;
 	return lines.join(QString("\n") +QString().fill(' ', offset));
@@ -99,7 +101,7 @@ QString arguments::help()
 		if (l > len)
 			len = l;
 	}
-	offset = len + 5;
+	offset = len + 6;
 	for (auto i = opts.begin(); i != opts.end(); ++i) {
 		QString longopt = i->long_opt;
 		if (i->arg)

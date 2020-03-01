@@ -15,6 +15,7 @@
 #include "database_model.h"
 #include "pki_evp.h"
 #include "pki_scard.h"
+#include "pki_multi.h"
 #include "entropy.h"
 #include "db_base.h"
 #include "sql.h"
@@ -78,6 +79,8 @@ bool database_model::checkForOldDbFormat(const QString &dbfile) const
 	char head[4];
 
 	XFile file(dbfile);
+	if (!file.exists())
+		return 0;
 	if (!file.open(QIODevice::ReadOnly))
 		return 0;
 	file.read(head, sizeof head);
@@ -293,6 +296,37 @@ database_model::database_model(const QString &name, const Passwd &pass)
 		importOldDatabase(oldDbFile);
 
 	pkcs11::reload_libs(Settings["pkcs11path"]);
+}
+
+db_base *database_model::modelForPki(const pki_base *pki) const
+{
+	if (dynamic_cast<const pki_x509*>(pki))
+		return model<db_x509>();
+	if (dynamic_cast<const pki_key*>(pki))
+		return model<db_key>();
+	if (dynamic_cast<const pki_x509req*>(pki))
+		return model<db_x509req>();
+	if (dynamic_cast<const pki_crl*>(pki))
+		return model<db_crl>();
+	if (dynamic_cast<const pki_temp*>(pki))
+		return model<db_temp>();
+	return NULL;
+}
+
+pki_base *database_model::insert(pki_base *pki)
+{
+	db_base *db = modelForPki(pki);
+	if (db)
+		return db->insert(pki);
+	pki_multi *multi = dynamic_cast<pki_multi*>(pki);
+	if (multi) {
+		QList<pki_base *> items = multi->pull();
+		foreach(pki_base *i, items)
+			insert(i);
+		return multi;
+	}
+	delete pki;
+	return NULL;
 }
 
 void database_model::restart_timer()

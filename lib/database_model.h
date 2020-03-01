@@ -61,6 +61,8 @@ class database_model: public QObject
 		{
 			return models;
 		}
+		db_base *modelForPki(const pki_base *pki) const;
+		pki_base *insert(pki_base *pki);
 
 		static void as_default_database(const QString &db);
 		static DbMap splitRemoteDbName(const QString &db);

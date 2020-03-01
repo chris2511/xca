@@ -136,7 +136,7 @@ static Passwd acquire_password(const QString &source)
 	return pass;
 }
 
-static pki_multi *imported_items;
+static pki_multi *cmdline_items;
 static database_model* read_cmdline(int argc, char *argv[])
 {
 	arguments cmd_opts(argc, argv);
@@ -152,10 +152,10 @@ static database_model* read_cmdline(int argc, char *argv[])
 	if (cmd_opts.has("database"))
 		models = new database_model(cmd_opts["database"], sqlpw);
 
-	imported_items = new pki_multi();
+	cmdline_items = new pki_multi();
 
 	foreach(QString file, cmd_opts.getFiles())
-		imported_items->probeAnything(file);
+		cmdline_items->probeAnything(file);
 
 	if (cmd_opts.needDb() && !models) {
 		/* We need a database for the following operations
@@ -190,7 +190,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 		cmd_version(stdout);
 
 	FILE *fp = stdout;
-	foreach(pki_base *pki, imported_items->get()) {
+	foreach(pki_base *pki, cmdline_items->get()) {
 		QString filename = pki->getFilename();
 		if ((cmd_opts.has("text") || cmd_opts.has("print")) &&
 		    filename.size() > 0)
@@ -204,6 +204,11 @@ static database_model* read_cmdline(int argc, char *argv[])
 			pki->print(fp, pki_base::print_openssl_txt);
 		if (cmd_opts.has("pem"))
 			pki->print(fp, pki_base::print_pem);
+	}
+	if (cmd_opts.has("import")) {
+		models->insert(cmdline_items);
+		delete cmdline_items;
+		cmdline_items = NULL;
 	}
 	return models;
 }
@@ -238,8 +243,8 @@ int main(int argc, char *argv[])
 		if (gui) {
 			mainwin = new MainWindow(models);
 			gui->setMainwin(mainwin);
-			mainwin->importMulti(imported_items, 1);
-			imported_items = NULL;
+			mainwin->importMulti(cmdline_items, 1);
+			cmdline_items = NULL;
 			mainwin->show();
 			gui->exec();
 		} else {

@@ -230,45 +230,21 @@ void ImportMulti::on_renameToken_clicked()
 	}
 }
 
-db_base *ImportMulti::select_db(const std::type_info &t)
-{
-	if (t == typeid(pki_x509))    return mainwin->model<db_x509>();
-	if (t == typeid(pki_evp))     return mainwin->model<db_key>();
-	if (t == typeid(pki_scard))   return mainwin->model<db_key>();
-	if (t == typeid(pki_x509req)) return mainwin->model<db_x509req>();
-	if (t == typeid(pki_crl))     return mainwin->model<db_crl>();
-	if (t == typeid(pki_temp))    return mainwin->model<db_temp>();
-	return NULL;
-}
-
 pki_base *ImportMulti::import(QModelIndex &idx)
 {
 	database_model *models = mainwin->getModels();
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-	db_base *db;
 
-	if (!pki || !models)
+	if (!pki)
 		return NULL;
 
-	const std::type_info &t = typeid(*pki);
-
 	mcont->remFromCont(idx);
+
 	if (!models) {
 		delete pki;
 		return NULL;
 	}
-
-	if (t == typeid(pki_evp))
-		static_cast<pki_evp*>(pki)->setOwnPass(pki_evp::ptCommon);
-
-	db = select_db(t);
-	if (!db) {
-		XCA_WARN(tr("The type of the item '%1' is not recognized").
-			arg(t.name()));
-		delete pki;
-		return NULL;
-	}
-	return db->insert(pki);
+	return models->insert(pki);
 }
 
 void ImportMulti::on_butDetails_clicked()
