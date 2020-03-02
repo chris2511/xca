@@ -38,7 +38,7 @@
 class Validity;
 extern QString currentDB;
 
-Passwd readPass(bool echo = false);
+Passwd readPass();
 QPixmap *loadImg(const char *name);
 int portable_app();
 const QString getPrefix();

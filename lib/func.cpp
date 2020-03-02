@@ -54,7 +54,7 @@
 QString currentDB;
 
 
-Passwd readPass(bool echo)
+Passwd readPass()
 {
 	Passwd pw;
 #if !defined(Q_OS_WIN32)
