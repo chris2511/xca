@@ -250,12 +250,13 @@ int main(int argc, char *argv[])
 		} else {
 			delete models;
 		}
-
 	} catch (errorEx &ex) {
 		XCA_ERROR(ex);
 	} catch (enum open_result r) {
-		XCA_ERROR(QObject::tr("DB Open failed: %1").arg(r));
+		qDebug() << "DB open failed: " << r;
 	}
+	delete cmdline_items;
+
 	qDebug() << "pki_base::count" << pki_base::allitems.size();
 	foreach(pki_base *pki, pki_base::allitems)
 		qDebug() << "Remaining" << typeid(*pki).name() << pki->getIntName();
