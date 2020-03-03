@@ -572,7 +572,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 			try {
 				cert->store_token(false);
 			} catch (errorEx &err) {
-				emit errorThrown(err);
+				XCA_ERROR(err);
 			}
 		}
 	}
@@ -582,7 +582,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
     }
 
     catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 		delete cert;
 		if (tempkey != NULL)
 			delete(tempkey);
@@ -781,7 +781,7 @@ void db_x509::store(QModelIndexList list)
 		}
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;
@@ -821,7 +821,7 @@ void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 		p12->writePKCS12(file);
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	delete p12;
 }
@@ -866,7 +866,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 		p7->writeP7(file, false);
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	delete p7;
 }
@@ -950,7 +950,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			do_revoke(indexes, r);
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 		delete newcert;
 	}
 	delete dlg;
@@ -1065,7 +1065,7 @@ void db_x509::toRequest(QModelIndex idx)
 		createSuccess(reqs->insert(req));
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -1077,7 +1077,7 @@ void db_x509::toToken(QModelIndex idx, bool alwaysSelect)
 	try {
 		cert->store_token(alwaysSelect);
 	} catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
         }
 }
 

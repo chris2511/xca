@@ -219,7 +219,7 @@ void db_key::newItem(QString name)
 
 	} catch (errorEx &err) {
 		delete key;
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	if (dlg->rememberDefault->isChecked()) {
 		QString def = dlg->getAsString();
@@ -391,7 +391,7 @@ void db_key::store(QModelIndex index)
 		}
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;

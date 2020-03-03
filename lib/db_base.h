@@ -185,7 +185,6 @@ class db_base: public QAbstractItemModel
 		void updateHeader() const;
 		void columnsContentChanged() const;
 		void pkiChanged(pki_base *pki) const;
-		void errorThrown(errorEx &err) const;
 };
 
 #endif

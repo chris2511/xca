@@ -56,7 +56,7 @@ bool db_token::setData(const QModelIndex &index, const QVariant &value, int role
 				return true;
 			}
 		} catch (errorEx &err) {
-			emit errorThrown(err);
+			XCA_ERROR(err);
 		}
 	}
 	return false;

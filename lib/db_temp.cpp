@@ -146,7 +146,7 @@ void db_temp::store(QModelIndex index)
 		temp->writeTemp(file);
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 }
 

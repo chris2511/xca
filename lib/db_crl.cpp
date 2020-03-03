@@ -182,7 +182,7 @@ void db_crl::store(QModelIndex index)
 		}
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;
@@ -296,7 +296,7 @@ void db_crl::newItem(const crljob &task)
 		createSuccess((crl));
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 		delete crl;
 		crl = NULL;
 	}

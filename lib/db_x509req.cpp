@@ -97,7 +97,7 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		createSuccess(insert(req));
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 		delete req;
 	}
 }
@@ -142,7 +142,7 @@ void db_x509req::store(QModelIndex index)
 		req->writeReq(file, dlg->type() == exportType::PEM);
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 	pki_base::pem_comment = false;
 	delete dlg;

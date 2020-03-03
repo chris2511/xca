@@ -198,7 +198,7 @@ void db_x509super::toTemplate(QModelIndex index)
 		createSuccess(temps->insert(temp));
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 }
 

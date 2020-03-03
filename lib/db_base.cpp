@@ -308,7 +308,7 @@ void db_base::deletePKI(QModelIndex idx)
 		try {
 			pki->deleteFromToken();
 		} catch (errorEx &err) {
-			emit errorThrown(err);
+			XCA_ERROR(err);
 		}
 		Transaction;
 		if (TransBegin()) {
@@ -320,7 +320,7 @@ void db_base::deletePKI(QModelIndex idx)
 			XCA_SQLERROR(e);
 		}
 	} catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -406,7 +406,7 @@ void db_base::dump(const QString &dir) const
 		}
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 }
 
@@ -672,7 +672,7 @@ void db_base::load_default(load_base &load)
 			dlgi->addItem(item);
 		}
 		catch (errorEx &err) {
-			emit errorThrown(err);
+			XCA_ERROR(err);
 			delete item;
 		}
 	}
@@ -713,7 +713,7 @@ void db_base::store(QModelIndexList indexes)
 		file.write(pem.toLatin1());
 	}
 	catch (errorEx &err) {
-		emit errorThrown(err);
+		XCA_ERROR(err);
 	}
 }
 
