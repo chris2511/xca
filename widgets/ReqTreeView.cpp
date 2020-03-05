@@ -37,24 +37,24 @@ void ReqTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 void ReqTreeView::toRequest()
 {
-	if (reqs)
-		reqs->toRequest(currentIndex());
+	if (basemodel)
+		reqs()->toRequest(currentIndex());
 }
 
 void ReqTreeView::signReq()
 {
-	if (reqs)
-		reqs->signReq(currentIndex());
+	if (basemodel)
+		reqs()->signReq(currentIndex());
 }
 
 void ReqTreeView::markSigned()
 {
-	if (reqs)
-		reqs->setSigned(currentIndex(), true);
+	if (basemodel)
+		reqs()->setSigned(currentIndex(), true);
 }
 
 void ReqTreeView::unmarkSigned()
 {
-	if (reqs)
-		reqs->setSigned(currentIndex(), false);
+	if (basemodel)
+		reqs()->setSigned(currentIndex(), false);
 }

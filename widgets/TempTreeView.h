@@ -10,30 +10,27 @@
 
 #include "XcaTreeView.h"
 #include "lib/db_temp.h"
-#include "lib/database_model.h"
 
 class TempTreeView: public XcaTreeView
 {
 	Q_OBJECT
-	db_temp *temps;
+
+	db_temp *temps() const
+	{
+		return dynamic_cast<db_temp*>(basemodel);
+	}
 
     public:
-	TempTreeView(QWidget *parent) : XcaTreeView(parent)
-	{
-		temps = NULL;
-	}
+	TempTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModels(database_model *models)
-	{
-		temps = models->model<db_temp>();
-		XcaTreeView::setModel(temps);
-	}
+	void showPki(pki_base *pki) const;
 
    public slots:
 	void certFromTemp();
 	void reqFromTemp();
 	void duplicateTemp();
+
     signals:
 	void newReq(pki_temp *);
 	void newCert(pki_temp *);

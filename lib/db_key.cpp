@@ -237,27 +237,6 @@ void db_key::load(void)
 	load_default(l);
 }
 
-void db_key::showPki(pki_base *pki)
-{
-	pki_key *key = dynamic_cast<pki_key *>(pki);
-	if (!key)
-		return;
-	KeyDetail *dlg = new KeyDetail(NULL);
-	if (!dlg)
-		return;
-	dlg->setKey(key);
-
-	if (dlg->exec()) {
-		QString newname = dlg->keyDesc->text();
-		QString newcomment = dlg->comment->toPlainText();
-		if (newname != pki->getIntName() ||
-		    newcomment != pki->getComment())
-		{
-			updateItem(pki, newname, newcomment);
-		}
-	}
-	delete dlg;
-}
 exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 {
 	QList<exportType> types;

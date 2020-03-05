@@ -9,14 +9,13 @@
 #define __CRLTREEVIEW_H
 
 #include "XcaTreeView.h"
-#include "lib/database_model.h"
 
 class CrlTreeView: public XcaTreeView
 {
 	Q_OBJECT
 
     public:
-	CrlTreeView(QWidget *parent);
-	void setModels(database_model *models);
+	CrlTreeView(QWidget *parent) : XcaTreeView(parent) { }
+	void showPki(pki_base *pki) const;
 };
 #endif

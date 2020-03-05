@@ -120,34 +120,6 @@ pki_base *db_crl::insert(pki_base *item)
 	return crl;
 }
 
-void db_crl::showPki(pki_base *pki)
-{
-	db_x509 *certs = models()->model<db_x509>();
-	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
-	if (!crl || !certs)
-		return;
-
-	CrlDetail *dlg = new CrlDetail(NULL);
-	if (!dlg)
-		return;
-
-	dlg->setCrl(crl);
-	connect(dlg->issuerIntName, SIGNAL(doubleClicked(QString)),
-		certs, SLOT(showItem(QString)));
-	connect(certs, SIGNAL(pkiChanged(pki_base*)),
-		dlg, SLOT(itemChanged(pki_base*)));
-	if (dlg->exec()) {
-		QString newname = dlg->descr->text();
-		QString newcomment = dlg->comment->toPlainText();
-		if (newname != pki->getIntName() ||
-		    newcomment != pki->getComment())
-		{
-			updateItem(pki, newname, newcomment);
-		}
-	}
-	delete dlg;
-}
-
 void db_crl::store(QModelIndex index)
 {
 	QList<exportType> types;

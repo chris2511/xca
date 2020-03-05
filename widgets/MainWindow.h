@@ -98,7 +98,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	public:
 		int exitApp;
 		QLabel *dbindex;
-		database_model *getModels()
+		database_model *getModels() const
 		{
 			return models;
 		}

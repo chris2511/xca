@@ -10,25 +10,20 @@
 
 #include "X509SuperTreeView.h"
 #include "lib/db_x509req.h"
-#include "lib/database_model.h"
 
 class ReqTreeView: public X509SuperTreeView
 {
 	Q_OBJECT
-	db_x509req *reqs;
+
+	db_x509req *reqs() const
+	{
+		return dynamic_cast<db_x509req*>(basemodel);
+	}
 
     public:
-	ReqTreeView(QWidget *parent) : X509SuperTreeView(parent)
-	{
-		reqs = NULL;
-	}
+	ReqTreeView(QWidget *parent) : X509SuperTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModels(database_model *models)
-	{
-		reqs = models->model<db_x509req>();
-		X509SuperTreeView::setModel(reqs);
-	}
 
     public slots:
 	void toRequest();

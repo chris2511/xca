@@ -40,7 +40,6 @@ class db_key: public db_base
 		void newItem(QString name);
 		void load();
 		void store(QModelIndex index);
-		void showPki(pki_base *pki);
 
 	signals:
 		void delKey(pki_key *delkey);

@@ -111,12 +111,6 @@ void db_temp::newItem()
 	}
 	delete dlg;
 }
-void db_temp::showPki(pki_base *pki)
-{
-	pki_temp *t = dynamic_cast<pki_temp *>(pki);
-	if (t)
-		alterTemp(t);
-}
 
 void db_temp::load()
 {

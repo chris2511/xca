@@ -22,14 +22,14 @@ class CertDetail: public QDialog, public Ui::CertDetail
 		QVariant keySqlId, issuerSqlId;
 		QString conf, exts;
 		QLabel *labelFromAsn1String(ASN1_STRING *s);
-		void setX509super(pki_x509super *x);
 		pki_key *myPubKey;
+		void setCert(pki_x509 *cert);
+		void setReq(pki_x509req *req);
 
 	public:
 		CertDetail(QWidget *parent);
 		~CertDetail();
-		void setCert(pki_x509 *cert);
-		void setReq(pki_x509req *req);
+		void setX509super(pki_x509super *x);
 
 	private slots:
 		void on_showExt_clicked();

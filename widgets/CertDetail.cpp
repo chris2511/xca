@@ -91,15 +91,18 @@ void CertDetail::setX509super(pki_x509super *x)
 
 	// Comment
 	comment->setPlainText(x->getComment());
+
+	setCert(dynamic_cast<pki_x509*>(x));
+	setReq(dynamic_cast<pki_x509req*>(x));
 }
 
 void CertDetail::setCert(pki_x509 *cert)
 {
+	if (!cert)
+		return;
 	image->setPixmap(QPixmap(":certImg"));
 	headerLabel->setText(tr("Details of the Certificate"));
 	try {
-		setX509super(cert);
-
 		// No attributes
 		tabwidget->removeTab(3);
 
@@ -163,11 +166,11 @@ void CertDetail::setCert(pki_x509 *cert)
 
 void CertDetail::setReq(pki_x509req *req)
 {
+	if (!req)
+		return;
 	image->setPixmap(QPixmap(":csrImg"));
 	headerLabel->setText(tr("Details of the certificate signing request"));
 	try {
-		setX509super(req);
-
 		// No issuer
 		tabwidget->removeTab(2);
 

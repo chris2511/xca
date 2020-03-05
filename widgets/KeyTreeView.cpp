@@ -8,6 +8,7 @@
 #include "lib/pki_scard.h"
 #include "KeyTreeView.h"
 #include "MainWindow.h"
+#include "KeyDetail.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
 #include <QMenu>
@@ -55,8 +56,10 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 void KeyTreeView::setOwnPass()
 {
+	if (!basemodel)
+		return;
 	try {
-		keys->setOwnPass(currentIndex(), pki_key::ptPrivate);
+		keys()->setOwnPass(currentIndex(), pki_key::ptPrivate);
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
 	}
@@ -64,8 +67,10 @@ void KeyTreeView::setOwnPass()
 
 void KeyTreeView::resetOwnPass()
 {
+	if (!basemodel)
+		return;
 	try {
-		keys->setOwnPass(currentIndex(), pki_key::ptCommon);
+		keys()->setOwnPass(currentIndex(), pki_key::ptCommon);
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
 	}
@@ -129,7 +134,7 @@ void KeyTreeView::toToken()
 {
 	QModelIndex currentIdx = currentIndex();
 
-	if (!currentIdx.isValid())
+	if (!currentIdx.isValid() || !basemodel)
 		return;
 
 	pki_key *key = static_cast<pki_scard*>(currentIdx.internalPointer());
@@ -149,12 +154,30 @@ void KeyTreeView::toToken()
 		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").
 			arg(key->getIntName());
 		if (XCA_YESNO(msg)) {
-			keys->deletePKI(currentIdx);
-			keys->insertPKI(card);
+			keys()->deletePKI(currentIdx);
+			keys()->insertPKI(card);
 			card = NULL;
 		}
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
         }
 	delete card;
+}
+
+void KeyTreeView::showPki(pki_base *pki) const
+{
+	pki_key *key = dynamic_cast<pki_key *>(pki);
+	if (!key || !basemodel)
+		return;
+
+	KeyDetail *dlg = new KeyDetail(mainwin);
+	if (!dlg)
+		return;
+	dlg->setKey(key);
+
+	if (dlg->exec() && basemodel) {
+		keys()->updateItem(pki, dlg->keyDesc->text(),
+					dlg->comment->toPlainText());
+	}
+	delete dlg;
 }

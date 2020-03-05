@@ -262,11 +262,13 @@ void ImportMulti::on_butDetails_clicked()
 
 	if (!pki)
 		return;
+#warning Get rid of the typeid()
 	const std::type_info &t = typeid(*pki);
 	try {
-		if (t == typeid(pki_x509)){
+		if (t == typeid(pki_x509) ||
+		    t == typeid(pki_x509req)) {
 			CertDetail *dlg = new CertDetail(mainwin);
-			dlg->setCert(static_cast<pki_x509 *>(pki));
+			dlg->setX509super(dynamic_cast<pki_x509super*>(pki));
 			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
 				keys, SLOT(showItem(QString)));
 			connect(dlg->signature,
@@ -280,14 +282,6 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->setKey(static_cast<pki_key *>(pki));
 			if (dlg->exec())
 				pki->setIntName(dlg->keyDesc->text());
-			delete dlg;
-		} else if (t == typeid(pki_x509req)) {
-			CertDetail *dlg = new CertDetail(mainwin);
-			dlg->setReq(static_cast<pki_x509req *>(pki));
-			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-				keys, SLOT(showItem(QString)));
-			if (dlg->exec())
-				pki->setIntName(dlg->descr->text());
 			delete dlg;
 		} else if (t == typeid(pki_crl)) {
 			CrlDetail *dlg = new CrlDetail(mainwin);

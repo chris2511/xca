@@ -7,6 +7,9 @@
 
 #include "CertTreeView.h"
 #include "XcaWarning.h"
+#include "lib/database_model.h"
+#include "lib/db_crl.h"
+
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
 #include <QMenu>
@@ -86,52 +89,50 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 void CertTreeView::changeView()
 {
-	if (!certs)
+	if (!basemodel)
 		return;
 
-	db_x509 *c = certs;
-
 	hide();
-	setModel();
+	setModel(NULL);
 
-	c->changeView();
+	certs()->changeView();
 
-	setModel(c);
+	setModel(certs());
 	show();
 	setRootIsDecorated(db_x509::treeview);
 }
 
 void CertTreeView::toRequest()
 {
-	if (certs)
-		certs->toRequest(currentIndex());
+	if (basemodel)
+		certs()->toRequest(currentIndex());
 }
 
 void CertTreeView::toToken()
 {
-	if (certs)
-		certs->toToken(currentIndex(), false);
+	if (basemodel)
+		certs()->toToken(currentIndex(), false);
 }
 
 void CertTreeView::toOtherToken()
 {
-	if (certs)
-		certs->toToken(currentIndex(), true);
+	if (basemodel)
+		certs()->toToken(currentIndex(), true);
 }
 
 void CertTreeView::loadPKCS12()
 {
-	if (certs) {
+	if (basemodel) {
 		load_pkcs12 l;
-		certs->load_default(l);
+		certs()->load_default(l);
 	}
 }
 
 void CertTreeView::loadPKCS7()
 {
-	if (certs) {
+	if (basemodel) {
 		load_pkcs7 l;
-		certs->load_default(l);
+		certs()->load_default(l);
 	}
 }
 
@@ -139,13 +140,16 @@ void CertTreeView::genCrl()
 {
 	pki_x509 *cert = static_cast<pki_x509*>
 			(currentIndex().internalPointer());
-	crls->newItem(cert);
+
+	db_crl *crls = models()->model<db_crl>();
+	if (crls)
+		crls->newItem(cert);
 }
 
 void CertTreeView::toCertificate()
 {
-	if (certs)
-		certs->toCertificate(currentIndex());
+	if (basemodel)
+		certs()->toCertificate(currentIndex());
 }
 
 void CertTreeView::deleteFromToken()
@@ -161,30 +165,30 @@ void CertTreeView::deleteFromToken()
 
 void CertTreeView::manageRevocations()
 {
-	if (certs)
-		certs->manageRevocations(currentIndex());
+	if (basemodel)
+		certs()->manageRevocations(currentIndex());
 }
 
 void CertTreeView::caProperties()
 {
-	if (certs)
-		certs->caProperties(currentIndex());
+	if (basemodel)
+		certs()->caProperties(currentIndex());
 }
 
 void CertTreeView::certRenewal()
 {
-	if (certs)
-		certs->certRenewal(getSelectedIndexes());
+	if (basemodel)
+		certs()->certRenewal(getSelectedIndexes());
 }
 
 void CertTreeView::revoke()
 {
-	if (certs)
-		certs->revoke(getSelectedIndexes());
+	if (basemodel)
+		certs()->revoke(getSelectedIndexes());
 }
 
 void CertTreeView::unRevoke()
 {
-	if (certs)
-		certs->unRevoke(getSelectedIndexes());
+	if (basemodel)
+		certs()->unRevoke(getSelectedIndexes());
 }

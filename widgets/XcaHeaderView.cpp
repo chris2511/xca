@@ -8,6 +8,8 @@
 #include "XcaHeaderView.h"
 #include "XcaTreeView.h"
 
+#include <QContextMenuEvent>
+
 XcaHeaderView::XcaHeaderView()
 	:QHeaderView(Qt::Horizontal)
 {

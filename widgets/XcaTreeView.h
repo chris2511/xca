@@ -14,8 +14,14 @@
 #include <QSortFilterProxyModel>
 #include <QTimer>
 
-#include "lib/db_base.h"
-#include "lib/database_model.h"
+class database_model;
+class MainWindow;
+class db_base;
+class dbheader;
+class pki_base;
+class QKeyEvent;
+class QContextMenuEvent;
+class QMenu;
 
 class XcaTreeView: public QTreeView
 {
@@ -28,13 +34,13 @@ class XcaTreeView: public QTreeView
 	db_base *basemodel;
 	QSortFilterProxyModel *proxy;
 	MainWindow *mainwin;
+	database_model *models() const;
 
    public:
 	XcaTreeView(QWidget *parent = 0);
 	virtual ~XcaTreeView();
 	void contextMenuEvent(QContextMenuEvent *e);
-	virtual void setModels(database_model *);
-	virtual void setModel(QAbstractItemModel *model=NULL);
+	void setModel(QAbstractItemModel *model);
 	void setMainwin(MainWindow *mw, QLineEdit *filter);
 	QModelIndex getIndex(const QModelIndex &index);
 	QModelIndex getProxyIndex(const QModelIndex &index);
@@ -51,6 +57,7 @@ class XcaTreeView: public QTreeView
 	void contextMenu(QContextMenuEvent *e,
 			QMenu *parent = NULL, int sect = -1);
 	void keyPressEvent(QKeyEvent *event);
+	virtual void showPki(pki_base *) const {};
 
    public slots:
 	void showHideSections();
@@ -69,5 +76,8 @@ class XcaTreeView: public QTreeView
 	void columnRemove(void);
 	void columnsChanged(void);
 	void editComment(void);
+	void showItem(pki_base *);
+	void showItem(const QModelIndex &index);
+	void showItem(const QString &name);
 };
 #endif

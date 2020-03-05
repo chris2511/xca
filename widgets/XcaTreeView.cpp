@@ -5,19 +5,23 @@
  * All rights reserved.
  */
 
-
-#include "XcaHeaderView.h"
-#include "XcaTreeView.h"
-#include "XcaProxyModel.h"
-#include "MainWindow.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QVariant>
 #include <QRegExp>
+
+#include "XcaHeaderView.h"
+#include "XcaTreeView.h"
+#include "XcaProxyModel.h"
+#include "MainWindow.h"
 #include "lib/database_model.h"
 
+database_model *XcaTreeView::models() const
+{
+	return mainwin ? mainwin->getModels() : NULL;
+}
 
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
@@ -88,11 +92,6 @@ void XcaTreeView::setMainwin(MainWindow *mw, QLineEdit *filter)
 	mainwin = mw;
 	connect(filter, SIGNAL(textChanged(const QString &)),
 		this, SLOT(setFilter(const QString&)));
-}
-
-void XcaTreeView::setModels(database_model *)
-{
-	setModel(NULL);
 }
 
 void XcaTreeView::setModel(QAbstractItemModel *model)
@@ -263,11 +262,9 @@ void XcaTreeView::storeItems(void)
 
 void XcaTreeView::showItems(void)
 {
-	if (basemodel) {
-		QModelIndexList indexes = getSelectedIndexes();
-		foreach(QModelIndex index, indexes)
-			basemodel->showItem(index);
-	}
+	QModelIndexList indexes = getSelectedIndexes();
+	foreach(QModelIndex index, indexes)
+		showItem(index);
 }
 
 void XcaTreeView::newItem(void)
@@ -284,8 +281,7 @@ void XcaTreeView::load(void)
 
 void XcaTreeView::doubleClick(const QModelIndex &m)
 {
-	if (basemodel)
-		basemodel->showItem(getIndex(m));
+	showItem(getIndex(m));
 }
 
 void XcaTreeView::editComment(void)
@@ -310,6 +306,24 @@ void XcaTreeView::columnRemove(void)
 {
 	if (curr_hd->action)
 		curr_hd->action->setChecked(false);
+}
+
+void XcaTreeView::showItem(const QModelIndex &index)
+{
+	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+	showItem(pki);
+}
+
+void XcaTreeView::showItem(const QString &name)
+{
+	pki_base *pki = db_base::lookupPki<pki_base>(name.toULongLong());
+	showItem(pki);
+}
+
+void XcaTreeView::showItem(pki_base *pki)
+{
+	if (pki && pki->isVisible() == 1)
+		showPki(pki);
 }
 
 static void addSubmenu(tipMenu *menu, tipMenu *sub)
@@ -431,6 +445,7 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 
 	contextMenu(e, menu, -1);
 }
+
 void XcaTreeView::keyPressEvent(QKeyEvent *event)
 {
 	switch (event->key()) {

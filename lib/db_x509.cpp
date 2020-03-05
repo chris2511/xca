@@ -143,6 +143,7 @@ void db_x509::changeView()
 	beginRemoveRows(QModelIndex(), 0, rows -1);
 	pki_base *pki = rootItem;
 	pki_base *parent;
+#warning refactor child management from pointer to sqlItemId
 	while (pki->childCount()) {
 		pki = pki->takeFirst();
 		while (pki != rootItem && !pki->childCount()) {

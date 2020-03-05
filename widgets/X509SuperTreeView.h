@@ -14,21 +14,23 @@
 class X509SuperTreeView: public XcaTreeView
 {
 	Q_OBJECT
-	db_x509super *x509super;
+
+	db_x509super *x509super() const
+	{
+		return dynamic_cast<db_x509super*>(basemodel);
+	}
+
+    protected:
+	QMenu *transform;
 
     public:
-	QMenu *transform;
 	X509SuperTreeView(QWidget *parent) : XcaTreeView(parent)
 	{
-		x509super = NULL;
+		transform = NULL;
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModel(QAbstractItemModel *model=NULL)
-	{
-		x509super = dynamic_cast<db_x509super*>(model);
-		XcaTreeView::setModel(x509super);
-	}
+	void showPki(pki_base *pki) const;
 
     public slots:
 	void extractPubkey();

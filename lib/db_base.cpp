@@ -324,20 +324,6 @@ void db_base::deletePKI(QModelIndex idx)
 	}
 }
 
-void db_base::showItem(const QModelIndex &index)
-{
-	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
-	if (pki->isVisible() == 1)
-		showPki(pki);
-}
-
-void db_base::showItem(const QString name)
-{
-	pki_base *pki = lookupPki<pki_base>(name.toULongLong());
-	if (pki && pki->isVisible() == 1)
-		showPki(pki);
-}
-
 void db_base::insertChild(pki_base *parent, pki_base *child)
 {
 	QModelIndex idx = QModelIndex();
@@ -556,10 +542,14 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 	return false;
 }
 
-void db_base::updateItem(pki_base *pki, QString name, QString comment)
+void db_base::updateItem(pki_base *pki, const QString &name,
+			 const QString &comment)
 {
 	XSqlQuery q;
 	QSqlError e;
+
+	if (name == pki->getIntName() && comment == pki->getComment())
+		return;
 
 	Transaction;
 	TransThrow();

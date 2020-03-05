@@ -38,7 +38,6 @@ class db_x509super: public db_x509name
 		void extractPubkey(QModelIndex index);
 		void toTemplate(QModelIndex index);
 		void toOpenssl(QModelIndex index) const;
-		void showPki(pki_base *pki);
 };
 
 #endif

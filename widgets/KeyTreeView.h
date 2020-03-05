@@ -10,25 +10,21 @@
 
 #include "XcaTreeView.h"
 #include "lib/db_key.h"
-#include "lib/database_model.h"
 
 class KeyTreeView: public XcaTreeView
 {
 	Q_OBJECT
-	db_key *keys;
+
+	db_key *keys() const
+	{
+		return dynamic_cast<db_key*>(basemodel);
+	}
 
     public:
-	KeyTreeView(QWidget *parent) : XcaTreeView(parent)
-	{
-		keys = NULL;
-	}
+	KeyTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void setModels(database_model *models)
-	{
-		keys = models->model<db_key>();
-		XcaTreeView::setModel(keys);
-	}
+	void showPki(pki_base *pki) const;
 
    public slots:
 	void resetOwnPass();

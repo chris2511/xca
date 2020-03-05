@@ -28,7 +28,6 @@ class db_crl: public db_x509name
 		void removeSigner(pki_base *signer);
 		void store(QModelIndex index);
 		void load();
-		void showPki(pki_base *pki);
 		void updateCertView();
 		void newItem(const crljob &crljob);
 

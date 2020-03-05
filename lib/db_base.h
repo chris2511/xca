@@ -55,7 +55,6 @@ class db_base: public QAbstractItemModel
 		virtual dbheaderList getHeaders();
 		int colResizing;
 		QString sqlItemSelector();
-		void updateItem(pki_base *pki, QString name, QString comment);
 		virtual exportType::etype clipboardFormat(QModelIndexList) const
 		{
 			return exportType::Separator;
@@ -104,6 +103,8 @@ class db_base: public QAbstractItemModel
 			}
 			return x;
 		}
+		void updateItem(pki_base *pki, const QString &name,
+				const QString &comment);
 
 		virtual pki_base *newPKI(enum pki_type type = none);
 		pki_base *rootItem;
@@ -173,9 +174,6 @@ class db_base: public QAbstractItemModel
 		virtual void newItem() { }
 		virtual void load() { }
 		void columnResetDefaults();
-		virtual void showPki(pki_base *) {};
-		virtual void showItem(const QModelIndex &index);
-		virtual void showItem(const QString keyname);
 		void sectionResized(int i, int, int newSize);
 		void sortIndicatorChanged(int, Qt::SortOrder);
 

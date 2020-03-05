@@ -209,35 +209,6 @@ void MainWindow::init_images()
 	bigRev->setPixmap(QPixmap(":revImg"));
 	setWindowIcon(QPixmap(":appIco"));
 }
-#if 0
-
-		QString file = filename2QString(arg);
-		if (force_load) {
-			if (changeDB(file) == 2)
-				exitApp = 1;
-			force_load = 0;
-		} else if (export_index) {
-			if (exportIndex(file, (export_index == 2)) == 2)
-				exitApp = 1;
-			export_index = 0;
-		} else {
-			int ret;
-			pki_multi *pki = probeAnything(file, &ret);
-			if (!pki) {
-				if (ret == 2)
-					exitApp = 1;
-				else if (ret == 1)
-					failed << file;
-			}
-			dlgi->addItem(pki);
-		}
-		cnt++;
-	}
-	dlgi->execute(1, failed); /* force showing of import dialog */
-	if (dlgi->result() == QDialog::Rejected)
-		exitApp = 1;
-	delete dlgi;
-#endif
 
 void MainWindow::loadPem()
 {
@@ -539,17 +510,18 @@ void MainWindow::changeDbPass()
 	}
 }
 
+#warning This connNewX509() is very ugly and can be replaced by something smarter
 void MainWindow::connNewX509(NewX509 *nx)
 {
-	db_x509req *reqs = models->model<db_x509req>();
 	db_key *keys = models->model<db_key>();
+	db_x509req *reqs = models->model<db_x509req>();
 
 	connect(nx, SIGNAL(genKey(QString)),
 		keys, SLOT(newItem(QString)));
 	connect(keys, SIGNAL(keyDone(pki_key*)),
 		nx, SLOT(newKeyDone(pki_key*)));
 	connect(nx, SIGNAL(showReq(pki_base*)),
-		reqs, SLOT(showPki(pki_base*)));
+		reqView, SLOT(showPki(pki_base*)));
 	connect(reqs, SIGNAL(pkiChanged(pki_base*)),
 		nx, SLOT(itemChanged(pki_base*)));
 }
@@ -637,8 +609,11 @@ enum open_result MainWindow::init_database(database_model *m)
 		setOptions();
 	}
 
-	foreach(XcaTreeView *v, views)
-		v->setModels(models);
+	keyView->setModel(models->model<db_key>());
+	reqView->setModel(models->model<db_x509req>());
+	certView->setModel(models->model<db_x509>());
+	tempView->setModel(models->model<db_temp>());
+	crlView->setModel(models->model<db_crl>());
 
 	searchEdit->setText("");
 	searchEdit->show();
@@ -694,7 +669,7 @@ void MainWindow::close_database()
 	update_history_menu();
 	currentDB.clear();
 	foreach(XcaTreeView *v, views)
-		v->setModel();
+		v->setModel(NULL);
 	enableTokenMenu(pkcs11::loaded());
 }
 

@@ -28,12 +28,12 @@ void TempTreeView::duplicateTemp()
 {
 	QModelIndex currentIdx = currentIndex();
 
-	if (!currentIdx.isValid())
+	if (!currentIdx.isValid() || !basemodel)
 		return;
 	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 	pki_temp *newtemp = new pki_temp(temp);
 	newtemp->setIntName(newtemp->getIntName() + " " + tr("copy"));
-	temps->insertPKI(newtemp);
+	temps()->insertPKI(newtemp);
 }
 
 void TempTreeView::certFromTemp()
@@ -54,4 +54,11 @@ void TempTreeView::reqFromTemp()
 		return;
 	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 	emit newReq(temp);
+}
+
+void TempTreeView::showPki(pki_base *pki) const
+{
+	pki_temp *t = dynamic_cast<pki_temp *>(pki);
+	if (t && basemodel)
+		temps()->alterTemp(t);
 }
