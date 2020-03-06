@@ -441,7 +441,7 @@ void MainWindow::closeEvent(QCloseEvent *e)
 		dhgen->terminate();
 	}
 	delete resolver;
-
+	resolver = NULL;
 	close_database();
 	QMainWindow::closeEvent(e);
 }

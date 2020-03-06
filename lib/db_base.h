@@ -116,7 +116,7 @@ class db_base: public QAbstractItemModel
 		pki_base *getByReference(pki_base *refpki);
 		virtual void loadContainer();
 		void reloadContainer(const QList<enum pki_type> &typelist);
-		template <class T> QList<T *> getAll()
+		template <class T> QList<T *> getAll() const
 		{
 			return sqlSELECTpki<T>(
 		                QString("SELECT item FROM %1")

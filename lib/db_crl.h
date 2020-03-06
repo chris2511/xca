@@ -30,10 +30,5 @@ class db_crl: public db_x509name
 		void load();
 		void updateCertView();
 		void newItem(const crljob &crljob);
-
-	public slots:
-		void newItem();
-		void newItem(pki_x509 *cert);
 };
-
 #endif

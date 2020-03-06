@@ -16,12 +16,11 @@
 #include "lib/pki_x509req.h"
 #include "lib/pki_temp.h"
 
-template <class T>
-class itemCombo : public QComboBox
+template <class T> class itemCombo : public QComboBox
 {
     public:
 	itemCombo(QWidget *parent) : QComboBox(parent) { }
- 	void insertPkiItems(QList<T*> items) {
+	void insertPkiItems(QList<T*> items) {
 		clear();
 		foreach(T *p, items) {
 			addItem(p->comboText(), QVariant::fromValue(p));

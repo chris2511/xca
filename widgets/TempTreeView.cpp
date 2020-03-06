@@ -1,12 +1,14 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2015 Christian Hohnstaedt.
+ * Copyright (C) 2015 - 2020 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
 #include "lib/pki_temp.h"
 #include "TempTreeView.h"
+#include "NewX509.h"
+#include "XcaDialog.h"
 #include "MainWindow.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
@@ -61,4 +63,60 @@ void TempTreeView::showPki(pki_base *pki) const
 	pki_temp *t = dynamic_cast<pki_temp *>(pki);
 	if (t && basemodel)
 		temps()->alterTemp(t);
+}
+
+bool TempTreeView::runTempDlg(pki_temp *temp)
+{
+	NewX509 *dlg = new NewX509(mainwin);
+
+	dlg->setTemp(temp);
+	if (!dlg->exec()) {
+		delete dlg;
+		return false;
+	}
+	dlg->toTemplate(temp);
+	delete dlg;
+	return true;
+}
+
+void TempTreeView::newItem()
+{
+	pki_temp *temp = NULL;
+	QString type;
+
+	if (!basemodel)
+		return;
+
+	itemComboTemp *ic = new itemComboTemp(NULL);
+	ic->insertPkiItems(temps()->getPredefs());
+	XcaDialog *dlg = new XcaDialog(mainwin, tmpl, ic,
+				tr("Preset Template values"), QString());
+	if (dlg->exec()) {
+		temp = new pki_temp(ic->currentPkiItem());
+		if (temp) {
+			temp->pkiSource = generated;
+			if (runTempDlg(temp)) {
+				temps()->insertPKI(temp);
+				temps()->createSuccess(temp);
+			} else {
+				delete temp;
+			}
+		}
+	}
+	delete dlg;
+}
+
+bool TempTreeView::alterTemp(pki_temp *temp)
+{
+	XSqlQuery q;
+	QSqlError e;
+
+	if (!basemodel)
+		return false;
+
+	if (!runTempDlg(temp))
+		return false;
+
+	temps()->alterTemp(temp);
+	return true;
 }

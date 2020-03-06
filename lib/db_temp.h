@@ -25,12 +25,11 @@ class db_temp: public db_x509name
 	db_temp(database_model *parent);
 	~db_temp();
 	pki_base *newPKI(enum pki_type type = none);
-	bool runTempDlg(pki_temp *temp);
-	bool alterTemp(pki_temp *temp);
 	void fillContextMenu(QMenu *menu, const QModelIndex &index);
-	QList<pki_temp*> getAllAndPredefs();
-	void newItem();
+	QList<pki_temp*> getAllAndPredefs() const;
+	QList<pki_temp*> getPredefs() const;
 	void load();
 	void store(QModelIndex index);
+	bool alterTemp(pki_temp *temp);
 };
 #endif

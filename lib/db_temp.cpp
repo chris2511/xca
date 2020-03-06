@@ -68,48 +68,38 @@ pki_base *db_temp::newPKI(enum pki_type type)
 	return new pki_temp("");
 }
 
-QList<pki_temp *> db_temp::getAllAndPredefs()
+QList<pki_temp *> db_temp::getAllAndPredefs() const
 {
 	return predefs + getAll<pki_temp>();
 }
 
-bool db_temp::runTempDlg(pki_temp *temp)
+QList<pki_temp *> db_temp::getPredefs() const
 {
-	NewX509 *dlg = new NewX509(mainwin);
-	emit connNewX509(dlg);
-
-	dlg->setTemp(temp);
-	if (!dlg->exec()) {
-		delete dlg;
-		return false;
-	}
-	dlg->toTemplate(temp);
-	delete dlg;
-	return true;
+	return predefs;
 }
 
-void db_temp::newItem()
+bool db_temp::alterTemp(pki_temp *temp)
 {
-	pki_temp *temp = NULL;
-	QString type;
+	XSqlQuery q;
+	QSqlError e;
 
-	itemComboTemp *ic = new itemComboTemp(NULL);
-	ic->insertPkiItems(predefs);
-	XcaDialog *dlg = new XcaDialog(mainwin, tmpl, ic,
-				tr("Preset Template values"), QString());
-	if (dlg->exec()) {
-		temp = new pki_temp(ic->currentPkiItem());
-		if (temp) {
-			temp->pkiSource = generated;
-			if (runTempDlg(temp)) {
-				insertPKI(temp);
-				createSuccess(temp);
-			} else {
-				delete temp;
-			}
-		}
+	Transaction;
+	if (!TransBegin())
+		return false;
+	SQL_PREPARE(q, "UPDATE templates SET version=?, template=? WHERE item=?");
+	q.bindValue(0, TMPL_VERSION);
+	q.bindValue(1, temp->toB64Data());
+	q.bindValue(2, temp->getSqlItemId());
+	q.exec();
+	e = q.lastError();
+	XCA_SQLERROR(e);
+	if (e.isValid()) {
+		TransRollback();
+		return false;
 	}
-	delete dlg;
+	updateItem(temp, temp->getIntName(), temp->getComment());
+	TransCommit();
+	return true;
 }
 
 void db_temp::load()
@@ -142,31 +132,4 @@ void db_temp::store(QModelIndex index)
 	catch (errorEx &err) {
 		XCA_ERROR(err);
 	}
-}
-
-bool db_temp::alterTemp(pki_temp *temp)
-{
-	XSqlQuery q;
-	QSqlError e;
-
-	if (!runTempDlg(temp))
-		return false;
-
-	Transaction;
-	if (!TransBegin())
-		return false;
-	SQL_PREPARE(q, "UPDATE templates SET version=?, template=? WHERE item=?");
-	q.bindValue(0, TMPL_VERSION);
-	q.bindValue(1, temp->toB64Data());
-	q.bindValue(2, temp->getSqlItemId());
-	q.exec();
-	e = q.lastError();
-	XCA_SQLERROR(e);
-	if (e.isValid()) {
-		TransRollback();
-		return false;
-	}
-	updateItem(temp, temp->getIntName(), temp->getComment());
-	TransCommit();
-	return true;
 }

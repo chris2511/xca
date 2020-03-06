@@ -7,18 +7,19 @@
 
 #include "CrlTreeView.h"
 #include "CrlDetail.h"
-#include "CrlDetail.h"
+#include "NewCrl.h"
+#include "XcaDialog.h"
 #include "MainWindow.h"
 #include "lib/db_crl.h"
+#include "lib/pki_x509.h"
 #include "lib/database_model.h"
 
 void CrlTreeView::showPki(pki_base *pki) const
 {
 	db_x509 *certs = models()->model<db_x509>();
-	db_crl *crls = dynamic_cast<db_crl*>(basemodel);
 	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
 
-	if (!crl || !crls || !certs)
+	if (!crl || !basemodel || !certs)
 		return;
 
 	CrlDetail *dlg = new CrlDetail(NULL);
@@ -31,8 +32,50 @@ void CrlTreeView::showPki(pki_base *pki) const
 	connect(certs, SIGNAL(pkiChanged(pki_base*)),
 		dlg, SLOT(itemChanged(pki_base*)));
 	if (dlg->exec()) {
-		crls->updateItem(pki, dlg->descr->text(),
+		crls()->updateItem(pki, dlg->descr->text(),
 					dlg->comment->toPlainText());
 	}
 	delete dlg;
 }
+
+void CrlTreeView::newItem(pki_x509 *cert)
+{
+	crljob task(cert);
+	NewCrl *widget = new NewCrl(NULL, task);
+	XcaDialog *dlg = new XcaDialog(mainwin, revocation, widget,
+					tr("Create CRL"), QString());
+	if (dlg->exec() && basemodel) {
+		crls()->newItem(widget->getCrlJob());
+	}
+	delete dlg;
+}
+
+void CrlTreeView::newItem()
+{
+	db_x509 *certs = models()->model<db_x509>();
+	QList<pki_x509 *> cas = certs->getAllIssuers();
+	pki_x509 *ca = NULL;
+
+	switch (cas.size()) {
+	case 0:
+		XCA_INFO(tr("There are no CA certificates for CRL generation"));
+		return;
+	case 1:
+		ca = cas[0];
+		break;
+	default: {
+		itemComboCert *c = new itemComboCert(NULL);
+		XcaDialog *d = new XcaDialog(mainwin, revocation, c,
+			tr("Select CA certificate"), QString());
+		c->insertPkiItems(cas);
+		if (!d->exec()) {
+			delete d;
+			return;
+		}
+		ca = c->currentPkiItem();
+		delete d;
+		}
+	}
+	newItem(ca);
+}
+
