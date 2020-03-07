@@ -67,6 +67,48 @@ class keytype
 	}
 };
 
+class keyjob
+{
+	void defaultjob()
+	{
+		size = 2048;
+		ktype = keytype::byName("RSA");
+		ec_nid = NID_undef;
+	}
+
+    public:
+	keytype ktype;
+	int size;
+	int ec_nid;
+	slotid slot;
+	keyjob() {
+		defaultjob();
+	}
+	keyjob(const QString &desc)
+	{
+		defaultjob();
+		QStringList sl = desc.split(':');
+		if (sl.size() != 2)
+			return;
+		ktype = keytype::byName(sl[0]);
+		if (ktype.type == EVP_PKEY_EC)
+			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
+		else
+			size = sl[1].toInt();
+	}
+	QString toString()
+	{
+		return QString("%1:%2").arg(ktype.name)
+				.arg(ktype.type == EVP_PKEY_EC ?
+					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
+					QString::number(size));
+	}
+	bool tokenJob() const
+	{
+		return slot.lib != NULL;
+	}
+};
+
 class pki_key: public pki_base
 {
 

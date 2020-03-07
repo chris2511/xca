@@ -18,9 +18,7 @@
 #include <QLineEdit>
 #include <QStringList>
 
-int NewKey::defaultType = EVP_PKEY_RSA;
-int NewKey::defaultEcNid = NID_undef;
-int NewKey::defaultSize = 2048;
+keyjob NewKey::defaultjob("RSA:2048");
 
 class keyListItem
 {
@@ -108,7 +106,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 		keytypes << keyListItem(t);
 
 	updateCurves();
-	keyLength->setEditText(QString("%1 bit").arg(defaultSize));
+	keyLength->setEditText(QString("%1 bit").arg(defaultjob.size));
 	keyDesc->setFocus();
 	if (pkcs11::loaded()) try {
 		pkcs11 p11;
@@ -128,8 +126,11 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 		QVariant q;
 		q.setValue(keytypes[i]);
 		keyType->addItem(keytypes[i].printname, q);
-		if (!keytypes[i].card && keytypes[i].type() == defaultType)
+		if (!keytypes[i].card &&
+		    keytypes[i].type() == defaultjob.ktype.type)
+		{
 			keyType->setCurrentIndex(i);
+		}
 	}
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Create"));
 }
@@ -172,7 +173,7 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 	curveBox->insertSeparator(curveBox->count());
 	addCurveBoxCurves(curve_other);
 
-	int default_index = curveBox->findData(QVariant(defaultEcNid));
+	int default_index = curveBox->findData(QVariant(defaultjob.ec_nid));
 	curveBox->setCurrentIndex(default_index == -1 ? 0 : default_index);
 #else
 	(void)min; (void)max; (void)ec_flags;
@@ -202,76 +203,28 @@ static keyListItem currentKey(QComboBox *keyType)
 	return q.value<keyListItem>();
 }
 
-int NewKey::getKeytype()
+keyjob getKeyJob() const
 {
-	return currentKey(keyType).type();
-}
+	keyListItem selected = currentKey(keyType)
+	keyjob job;
 
-int NewKey::getKeysize()
-{
-	if (getKeytype() == EVP_PKEY_EC)
-		return -1;
-	QString size = keyLength->currentText();
-	size.replace(QRegExp("[^0-9]"), "");
-	return size.toInt();
-}
-
-int NewKey::getKeyCurve_nid()
-{
-	bool ok;
-	int nid = curveBox->itemData(curveBox->currentIndex()).toInt(&ok);
-
-	return ok && getKeytype() == EVP_PKEY_EC ? nid : NID_undef;
-}
-
-bool NewKey::isToken()
-{
-	keyListItem k = currentKey(keyType);
-	return k.card;
-}
-
-slotid NewKey::getKeyCardSlot()
-{
-	keyListItem k = currentKey(keyType);
-	return k.slot;
-}
-
-QString NewKey::getAsString()
-{
-	keyListItem k = currentKey(keyType);
-	QString data;
-
-	if (k.card)
-		return QString();
-	if (k.type() == EVP_PKEY_EC) {
-		data = OBJ_obj2QString(OBJ_nid2obj(getKeyCurve_nid()), 1);
+	job.ktype = selected.ktype;
+	if (job.ktype.type == EVP_PKEY_EC) {
+		int idx = curveBox->currentIndex();
+		ktype.ec_nid = curveBox->itemData(idx).toInt();
 	} else {
-		data = QString::number(getKeysize());
+		QString size = keyLength->currentText();
+		size.replace(QRegExp("[^0-9]"), "");
+		job.size = size.toInt();
 	}
-	return QString("%1:%2").arg(k.ktype.name).arg(data);
+	job.slot = selected.slot;
+	return job;
 }
 
-int NewKey::setDefault(QString def)
+void accept()
 {
-	int type, size = 0, nid = NID_undef;
-	QStringList sl = def.split(':');
-
-	if (sl.size() != 2)
-		return -1;
-	type = keytype::byName(sl[0]).type;
-	if (type == -1)
-		return -2;
-	if (type == EVP_PKEY_EC) {
-		nid = OBJ_txt2nid(sl[1].toLatin1());
-		if (nid == NID_undef)
-			return -3;
-		defaultEcNid = nid;
-	} else {
-		size = sl[1].toInt();
-		if (size <= 0)
-			return -4;
-		defaultSize = size;
+	if (rememberDefault->isChecked()) {
+		defaultjob = getKeyJob();
+		Settings["defaultkey"] = defaultjob.toString();
 	}
-	defaultType = type;
-	return 0;
 }

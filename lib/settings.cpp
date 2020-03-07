@@ -58,7 +58,7 @@ void settings::setAction(const QString &key, const QString &value)
 	else if (key == "default_hash")
 		hashBox::setDefault(value);
 	else if (key == "defaultkey")
-		NewKey::setDefault(value);
+		NewKey::defaultjob = keyjob(value);
 	else if (key == "optionflags") {
 		XSqlQuery q;
 		Transaction;
