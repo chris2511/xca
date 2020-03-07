@@ -1,0 +1,30 @@
+
+This is a short overview of how to build
+XCA for windows 64-bit.
+
+This is for debian hosts, cross-compiling a windows binary.
+
+Needed packages:
+  mingw cross compiler
+  wine (to run moc.exe and uic.exe)
+
+# apt-get install mingw-w64 wine
+
+create a new, empty directory say xca-w64
+$ cd xca-w64
+$ tar zxf xca-0.x.y.tar.gz
+
+Use a Windows host to execute and install the QT5 tools
+The required component is: Qt5 / MinGW 64-bit
+https://www.qt.io/download
+
+./bootstrap
+touch build-libs
+
+comment out OSSLSIGN line in Makefile
+
+copy the installed Qt tree from windows host to ./qt/
+
+Edit the Qt path in xca-x.y.z/misc/build-w64.sh
+Now call xca-x.y.z/misc/build-w64.sh
+and wait until xca_setup.exe is built.
