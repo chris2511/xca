@@ -7,11 +7,11 @@
 
 
 #include "pki_key.h"
+#include "pki_x509super.h"
 #include "func.h"
 #include "db.h"
 #include "db_base.h"
-#include "widgets/PwDialog.h"
-#include "widgets/ExportDialog.h"
+#include "pkcs11.h"
 #include "widgets/XcaWarning.h"
 
 #include <openssl/rand.h>
@@ -20,6 +20,14 @@
 #include "openssl_compat.h"
 
 builtin_curves pki_key::builtinCurves;
+
+QList<keytype> keytype::types = {
+	keytype(EVP_PKEY_RSA, "RSA", CKM_RSA_PKCS_KEY_PAIR_GEN),
+	keytype(EVP_PKEY_DSA, "DSA", CKM_DSA_KEY_PAIR_GEN),
+#ifndef OPENSSL_NO_EC
+	keytype(EVP_PKEY_EC, "EC", CKM_EC_KEY_PAIR_GEN),
+#endif
+};
 
 pki_key::pki_key(const QString &name)
         :pki_base(name)
@@ -165,22 +173,7 @@ QString pki_key::length() const
  */
 QString pki_key::getKeyTypeString() const
 {
-	QString type;
-
-	switch (EVP_PKEY_type(getKeyType())) {
-		case EVP_PKEY_RSA:
-			type = "RSA";
-			break;
-		case EVP_PKEY_DSA:
-			type = "DSA";
-			break;
-		case EVP_PKEY_EC:
-			type = "EC";
-			break;
-		default:
-			type = "---";
-	}
-	return type;
+	return keytype::byPKEY(key).name;
 }
 
 QString pki_key::getTypeString() const
@@ -462,6 +455,7 @@ QSqlError pki_key::insertSqlData()
 	q.exec();
 	if (q.lastError().isValid())
 		return q.lastError();
+
 	while (q.next()) {
 		pki_x509super *x;
 		x = db_base::lookupPki<pki_x509super>(q.value(0));

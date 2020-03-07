@@ -24,7 +24,7 @@ class NewKey: public QDialog, public Ui::NewKey
 			unsigned long ec_flags=0);
 		void addCurveBoxCurves(const QList<builtin_curve> &curves);
 	public:
-		NewKey(QWidget *parent, QString name);
+		NewKey(QWidget *parent, const QString &name);
 		int getKeytype();
 		int getKeysize();
 		int getKeyCurve_nid();

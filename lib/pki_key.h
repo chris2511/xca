@@ -21,6 +21,52 @@
 #define VIEW_public_keys_len 7
 #define VIEW_public_keys_public 8
 
+class keytype
+{
+    public:
+	static QList<keytype> types;
+	int type;
+	QString name;
+	CK_MECHANISM_TYPE mech;
+
+	keytype(int t, const QString &n, CK_MECHANISM_TYPE m)
+			 : type(t), name(n), mech(m) { }
+	keytype() : type(-1), name(QString()), mech(0) { }
+
+	QString traditionalPemName() const
+	{
+		return name + " PRIVATE KEY";
+	}
+	static const keytype byType(int type)
+	{
+		foreach(const keytype t, types) {
+			if (t.type == type)
+				return t;
+		}
+		return keytype();
+	}
+	static const keytype byMech(CK_MECHANISM_TYPE mech)
+	{
+		foreach(const keytype t, types) {
+			if (t.mech == mech)
+				return t;
+		}
+		return keytype();
+	}
+	static const keytype byName(const QString &name)
+	{
+		foreach(const keytype t, types) {
+			if (t.name == name)
+				return t;
+		}
+		return keytype();
+	}
+	static const keytype byPKEY(EVP_PKEY *pkey)
+	{
+		return byType(EVP_PKEY_type(EVP_PKEY_id(pkey)));
+	}
+};
+
 class pki_key: public pki_base
 {
 

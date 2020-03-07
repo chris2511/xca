@@ -727,18 +727,10 @@ int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
                                          unsigned char *kstr, int klen,
                                          pem_password_cb *cb, void *u)
 {
-	const char *t = "";
-	int keytype = EVP_PKEY_id(x);
+	QString pem = keytype::byPKEY(x).traditionalPemName();
 
-	switch (keytype) {
-		case EVP_PKEY_RSA: t = "RSA PRIVATE KEY"; break;
-		case EVP_PKEY_DSA: t = "DSA PRIVATE KEY"; break;
-#ifndef OPENSSL_NO_EC
-		case EVP_PKEY_EC: t = "EC PRIVATE KEY"; break;
-#endif
-	}
 	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
-				t, bp, (char*)x, enc, kstr, klen, cb, u);
+			pem.toLatin1(), bp, (char*)x, enc, kstr, klen, cb, u);
 }
 #endif
 
