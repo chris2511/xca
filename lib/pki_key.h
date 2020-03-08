@@ -30,7 +30,7 @@ class keytype
 	CK_MECHANISM_TYPE mech;
 
 	keytype(int t, const QString &n, CK_MECHANISM_TYPE m)
-			 : type(t), name(n), mech(m) { }
+			: type(t), name(n), mech(m) { }
 	keytype() : type(-1), name(QString()), mech(0) { }
 
 	QString traditionalPemName() const
@@ -91,7 +91,7 @@ class keyjob
 		if (sl.size() != 2)
 			return;
 		ktype = keytype::byName(sl[0]);
-		if (ktype.type == EVP_PKEY_EC)
+		if (isEC())
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
 		else
 			size = sl[1].toInt();
@@ -99,13 +99,17 @@ class keyjob
 	QString toString()
 	{
 		return QString("%1:%2").arg(ktype.name)
-				.arg(ktype.type == EVP_PKEY_EC ?
+				.arg(isEC() ?
 					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
 					QString::number(size));
 	}
-	bool tokenJob() const
+	bool isToken() const
 	{
 		return slot.lib != NULL;
+	}
+	bool isEC() const
+	{
+		return ktype.type == EVP_PKEY_EC;
 	}
 };
 
@@ -177,6 +181,10 @@ class pki_key: public pki_base
 		bool isPubKey() const
 		{
 			return isPub;
+		}
+		virtual void generate(const keyjob &)
+		{
+			qFatal("generate in pki_key");
 		}
 		BIO *pem(BIO *, int);
 		QVariant column_data(const dbheader *hd) const;

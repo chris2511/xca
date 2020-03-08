@@ -18,11 +18,11 @@ class NewKey: public QDialog, public Ui::NewKey
 {
 	Q_OBJECT
 	private:
-		static keyjob defaultjob;
 		void updateCurves(unsigned min=0, unsigned max=INT_MAX,
 			unsigned long ec_flags=0);
 		void addCurveBoxCurves(const QList<builtin_curve> &curves);
 	public:
+		static keyjob defaultjob;
 		NewKey(QWidget *parent, const QString &name);
 		keyjob getKeyJob() const;
 

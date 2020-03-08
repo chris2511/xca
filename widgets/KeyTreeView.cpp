@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2015 Christian Hohnstaedt.
+ * Copyright (C) 2020 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -9,7 +9,7 @@
 #include "KeyTreeView.h"
 #include "MainWindow.h"
 #include "KeyDetail.h"
-#include <QAbstractItemModel>
+#include "NewKey.h"
 #include <QAbstractItemView>
 #include <QMenu>
 
@@ -179,5 +179,21 @@ void KeyTreeView::showPki(pki_base *pki) const
 		keys()->updateItem(pki, dlg->keyDesc->text(),
 					dlg->comment->toPlainText());
 	}
+	delete dlg;
+}
+
+void KeyTreeView::newItem() {
+	newItem("");
+}
+
+void KeyTreeView::newItem(const QString &name)
+{
+	if (!basemodel)
+		return;
+
+	NewKey *dlg = new NewKey(mainwin, name);
+
+	if (dlg->exec())
+		keys()->newItem(dlg->getKeyJob(), dlg->keyDesc->text());
 	delete dlg;
 }

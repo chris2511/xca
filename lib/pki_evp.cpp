@@ -13,6 +13,7 @@
 #include "entropy.h"
 #include "widgets/PwDialog.h"
 #include "widgets/XcaWarning.h"
+#include "widgets/XcaProgress.h"
 
 #include <openssl/rand.h>
 #include <openssl/evp.h>
@@ -82,30 +83,24 @@ bool pki_evp::sqlUpdatePrivateKey()
 	return false;
 }
 
-void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
+void pki_evp::generate(const keyjob &task)
 {
 	Entropy::seed_rng();
-
-#ifdef OPENSSL_NO_EC
-	(void)curve_nid;
-#endif
-	progress->setMinimum(0);
-	progress->setMaximum(100);
-	progress->setValue(50);
+	XcaProgress progress;
 
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
 	BN_GENCB _bar, *bar = &_bar;
 #else
 	BN_GENCB *bar = BN_GENCB_new();
 #endif
-	BN_GENCB_set_old(bar, inc_progress_bar, progress);
+	BN_GENCB_set_old(bar, XcaProgress::inc, &progress);
 
-	switch (type) {
+	switch (task.ktype.type) {
 	case EVP_PKEY_RSA: {
 		RSA *rsakey = RSA_new();
 		BIGNUM *e = BN_new();
 		BN_set_word(e, 0x10001);
-		if (RSA_generate_key_ex(rsakey, bits, e, bar))
+		if (RSA_generate_key_ex(rsakey, task.size, e, bar))
 			EVP_PKEY_assign_RSA(key, rsakey);
 		else
 			RSA_free(rsakey);
@@ -114,9 +109,8 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 	}
 	case EVP_PKEY_DSA: {
 		DSA *dsakey = DSA_new();
-		progress->setMaximum(500);
-		if (DSA_generate_parameters_ex(dsakey, bits, NULL, 0, NULL,
-		    NULL, bar) && DSA_generate_key(dsakey))
+		if (DSA_generate_parameters_ex(dsakey, task.size, NULL, 0,
+			 NULL, NULL, bar) && DSA_generate_key(dsakey))
 				EVP_PKEY_assign_DSA(key, dsakey);
 		else
 			DSA_free(dsakey);
@@ -125,7 +119,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		EC_KEY *eckey;
-		EC_GROUP *group = EC_GROUP_new_by_curve_name(curve_nid);
+		EC_GROUP *group = EC_GROUP_new_by_curve_name(task.ec_nid);
 		if (!group)
 			break;
 		eckey = EC_KEY_new();

@@ -15,19 +15,13 @@
 #include <QLabel>
 #include <QPushButton>
 
-#include <QMessageBox>
-#include <QProgressBar>
-#include <QStatusBar>
-#include <QContextMenuEvent>
-
 #include "exception.h"
 #include "ui_NewKey.h"
 #include "pkcs11.h"
 
 #include "widgets/PwDialog.h"
 #include "widgets/ExportDialog.h"
-#include "widgets/KeyDetail.h"
-#include "widgets/NewKey.h"
+#include "widgets/XcaProgress.h"
 #include "widgets/MainWindow.h"
 
 db_key::db_key(database_model *parent)
@@ -165,55 +159,29 @@ pki_base* db_key::insert(pki_base *item)
 	return lkey;
 }
 
-void db_key::newItem() {
-	newItem("");
-}
-
-void db_key::newItem(QString name)
+void db_key::newItem(const keyjob &task, const QString &name)
 {
-	NewKey *dlg = new NewKey(qApp->activeWindow(), name);
-	QProgressBar *bar;
-	QStatusBar *status = mainwin->statusBar();
-	pki_evp *nkey = NULL;
-	pki_scard *cardkey = NULL;
 	pki_key *key = NULL;
 
-	if (!dlg->exec()) {
-		delete dlg;
-		return;
-	}
-	int ksize = dlg->getKeysize();
-#ifndef OPENSSL_NO_EC
-	if (dlg->getKeytype() != EVP_PKEY_EC)
-#endif
-	{
-		if (ksize < 32) {
+	if (!task.isEC()) {
+		if (task.size < 32) {
 			XCA_WARN(tr("Key size too small !"));
-			delete dlg;
 			return;
 		}
-		if (ksize < 1024 || ksize > 8192)
-			if (!XCA_YESNO(tr("You are sure to create a key of the size: %1 ?").arg(ksize))) {
-				delete dlg;
+		if (task.size < 1024 || task.size > 8192)
+			if (!XCA_YESNO(tr("You are sure to create a key of the size: %1 ?").arg(task.size))) {
 				return;
 			}
 	}
-	mainwin->repaint();
-	bar = new QProgressBar();
-	status->addPermanentWidget(bar, 1);
 	try {
-		if (dlg->isToken()) {
-			key = cardkey = new pki_scard(dlg->keyDesc->text());
-			cardkey->generateKey_card(dlg->getKeytype(),
-				dlg->getKeyCardSlot(), ksize,
-				dlg->getKeyCurve_nid(), bar);
+		if (task.isToken()) {
+			key = new pki_scard(name);
 		} else {
-			key = nkey = new pki_evp(dlg->keyDesc->text());
-			nkey->generate(ksize, dlg->getKeytype(), bar,
-				dlg->getKeyCurve_nid());
+			key = new pki_evp(name);
 		}
+		key->generate(task);
 		key->pkiSource = generated;
-		key = (pki_key*)insert(key);
+		key = dynamic_cast<pki_key*>(insert(key));
 		emit keyDone(key);
 		createSuccess(key);
 
@@ -221,14 +189,6 @@ void db_key::newItem(QString name)
 		delete key;
 		XCA_ERROR(err);
 	}
-	if (dlg->rememberDefault->isChecked()) {
-		QString def = dlg->getAsString();
-		if (dlg->setDefault(def) == 0)
-			Settings["defaultkey"] = def;
-	}
-	status->removeWidget(bar);
-	delete bar;
-	delete dlg;
 }
 
 void db_key::load(void)

@@ -33,5 +33,7 @@ class KeyTreeView: public XcaTreeView
 	void initPin();
 	void changeSoPin();
 	void toToken();
+	void newItem();
+	void newItem(const QString &name);
 };
 #endif

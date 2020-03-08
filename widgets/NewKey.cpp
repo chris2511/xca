@@ -197,21 +197,15 @@ void NewKey::on_keyType_currentIndexChanged(int idx)
 	}
 }
 
-static keyListItem currentKey(QComboBox *keyType)
+keyjob NewKey::getKeyJob() const
 {
-	QVariant q = keyType->itemData(keyType->currentIndex());
-	return q.value<keyListItem>();
-}
-
-keyjob getKeyJob() const
-{
-	keyListItem selected = currentKey(keyType)
 	keyjob job;
-
+	keyListItem selected = keyType->itemData(keyType->currentIndex())
+						.value<keyListItem>();
 	job.ktype = selected.ktype;
-	if (job.ktype.type == EVP_PKEY_EC) {
+	if (job.isEC()) {
 		int idx = curveBox->currentIndex();
-		ktype.ec_nid = curveBox->itemData(idx).toInt();
+		job.ec_nid = curveBox->itemData(idx).toInt();
 	} else {
 		QString size = keyLength->currentText();
 		size.replace(QRegExp("[^0-9]"), "");
@@ -221,10 +215,11 @@ keyjob getKeyJob() const
 	return job;
 }
 
-void accept()
+void NewKey::accept()
 {
 	if (rememberDefault->isChecked()) {
 		defaultjob = getKeyJob();
 		Settings["defaultkey"] = defaultjob.toString();
 	}
+	QDialog::accept();
 }

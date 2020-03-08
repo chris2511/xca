@@ -46,9 +46,7 @@ class pki_evp: public pki_key
 		pki_evp(EVP_PKEY *pkey);
 		virtual ~pki_evp();
 
-		void generate(int bits, int type, QProgressBar *progress);
-		void generate(int bits, int type, QProgressBar *progress,
-				int curve_nid);
+		void generate(const keyjob &task);
 		void setOwnPass(enum passType);
 		void set_evp_key(EVP_PKEY *pkey);
 		void encryptKey(const char *password = NULL);

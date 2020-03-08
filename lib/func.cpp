@@ -617,18 +617,6 @@ QString fingerprint(const QByteArray &data, const EVP_MD *type)
 			Settings["fp_separator"], Settings["fp_digits"]);
 }
 
-void inc_progress_bar(int, int, void *p)
-{
-	QProgressBar *bar = (QProgressBar *)p;
-	int value = bar->value();
-
-	if (value == bar->maximum()) {
-		bar->reset();
-	} else {
-		bar->setValue(value +1);
-	}
-}
-
 QMap<int, QString> dn_translations;
 
 void dn_translations_setup()

@@ -16,6 +16,7 @@
 #include "func.h"
 #include "db.h"
 #include "widgets/XcaWarning.h"
+#include "widgets/XcaProgress.h"
 
 #include <QThread>
 #include <QProgressBar>
@@ -633,59 +634,41 @@ class keygenThread: public QThread
 public:
 	errorEx err;
 	pk11_attr_data id;
+	const keyjob task;
 	QString name;
-	int size;
-	int curve_nid;
-	int method;
 	pkcs11 *p11;
+
+	keygenThread(const keyjob &t, const QString &n, pkcs11 *_p11)
+		: QThread(), task(t), name(n), p11(_p11) { }
 
 	void run()
 	{
 		try {
-			id = p11->generateKey(name, method, size, curve_nid);
+			id = p11->generateKey(name, task.ktype.mech, task.size,
+						task.ec_nid);
 		} catch (errorEx &e) {
 			err = e;
 		}
 	}
 };
 
-void pki_scard::generateKey_card(int type, slotid slot, int size,
-		int curve_nid, QProgressBar *bar)
+void pki_scard::generate(const keyjob &task)
 {
 	pk11_attlist atts;
 
 	pkcs11 p11;
-	p11.startSession(slot, true);
+	p11.startSession(task.slot, true);
 	p11.getRandom();
-
 	tkInfo ti = p11.tokenInfo();
 
 	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
-	keygenThread kt;
-	kt.name = getIntName();
-	kt.size = size;
-	kt.curve_nid = curve_nid;
-	switch (type) {
-	case EVP_PKEY_RSA:
-		kt.method = CKM_RSA_PKCS_KEY_PAIR_GEN;
-		break;
-	case EVP_PKEY_DSA:
-		kt.method = CKM_DSA_KEY_PAIR_GEN;
-		break;
-#ifndef OPENSSL_NO_EC
-	case EVP_PKEY_EC:
-		kt.method = CKM_EC_KEY_PAIR_GEN;
-		break;
-#endif
-	default:
-		throw errorEx(tr("Illegal Key generation method"));
-	}
-	kt.p11 = &p11;
+	XcaProgress progress;
+	keygenThread kt(task, getIntName(), &p11);
 	kt.start();
 	while (!kt.wait(20)) {
-		inc_progress_bar(0, 0, bar);
+		progress.increment();
 	}
 	if (!kt.err.isEmpty())
 		throw errorEx(kt.err);
