@@ -28,6 +28,6 @@ class CrlTreeView: public XcaTreeView
 
     public slots:
 	void newItem(pki_x509 *cert);
-	void newItem(void);
+	void newItem();
 };
 #endif

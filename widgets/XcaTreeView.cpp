@@ -207,7 +207,7 @@ void XcaTreeView::setFilter(const QString &pattern)
 	proxy->setFilterFixedString(pattern);
 }
 
-void XcaTreeView::deleteItems(void)
+void XcaTreeView::deleteItems()
 {
 	QModelIndex index;
 	QModelIndexList indexes = getSelectedIndexes();
@@ -243,7 +243,7 @@ void XcaTreeView::deleteItems(void)
 	TransCommit();
 }
 
-void XcaTreeView::storeItems(void)
+void XcaTreeView::storeItems()
 {
 	QModelIndexList indexes = getSelectedIndexes();
 	if (basemodel) {
@@ -260,20 +260,20 @@ void XcaTreeView::storeItems(void)
 	}
 }
 
-void XcaTreeView::showItems(void)
+void XcaTreeView::showItems()
 {
 	QModelIndexList indexes = getSelectedIndexes();
 	foreach(QModelIndex index, indexes)
 		showItem(index);
 }
 
-void XcaTreeView::newItem(void)
+void XcaTreeView::newItem()
 {
 	if (basemodel)
 		basemodel->newItem();
 }
 
-void XcaTreeView::load(void)
+void XcaTreeView::load()
 {
 	if (basemodel)
 		basemodel->load();
@@ -284,19 +284,19 @@ void XcaTreeView::doubleClick(const QModelIndex &m)
 	showItem(getIndex(m));
 }
 
-void XcaTreeView::editComment(void)
+void XcaTreeView::editComment()
 {
 	if (basemodel)
 		basemodel->editComment(currentIndex());
 }
 
-void XcaTreeView::pem2clipboard(void)
+void XcaTreeView::pem2clipboard()
 {
 	if (basemodel)
 		basemodel->pem2clipboard(getSelectedIndexes());
 }
 
-void XcaTreeView::headerDetails(void)
+void XcaTreeView::headerDetails()
 {
 	if (curr_hd && curr_hd->id > 0 && mainwin)
 		mainwin->getResolver()->searchOid(QString::number(curr_hd->id));

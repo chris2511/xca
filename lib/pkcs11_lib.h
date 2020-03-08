@@ -58,26 +58,11 @@ class slotid
     public:
 	CK_ULONG id;
 	pkcs11_lib *lib;
-	slotid()
-	{
-		lib = NULL;
-		id = 0;
-	}
+	slotid() = default;
 	slotid(pkcs11_lib *l, CK_ULONG i)
 	{
 		lib = l;
 		id = i;
-	}
-	slotid(const slotid &other)
-	{
-		lib = other.lib;
-		id = other.id;
-	}
-	slotid &operator = (const slotid &other)
-	{
-		lib = other.lib;
-		id = other.id;
-		return *this;
 	}
 	void isValid()
 	{
