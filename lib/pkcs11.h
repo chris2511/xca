@@ -19,8 +19,9 @@
 #include "pk11_attribute.h"
 #include "func.h"
 
-#define WAITCURSOR_START do { QApplication::setOverrideCursor(QCursor(Qt::WaitCursor)); ign_openssl_error(); } while(0);
-#define WAITCURSOR_END do { QApplication::restoreOverrideCursor(); ign_openssl_error(); } while(0);
+void waitcursor(int start, int line);
+#define WAITCURSOR_START waitcursor(1, __LINE__);
+#define WAITCURSOR_END waitcursor(0, __LINE__);
 
 extern char segv_data[1024];
 #define CALL_P11_C(l, func, ...) do { \

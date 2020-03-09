@@ -29,6 +29,18 @@
 
 #include "openssl_compat.h"
 
+void waitcursor(int start, int line)
+{
+	qDebug() << "Waitcursor" << (start ? "start" : "end") << line;
+	ign_openssl_error();
+	if (!IS_GUI_APP)
+		return;
+	if (start)
+		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	else
+		QApplication::restoreOverrideCursor();
+}
+
 pkcs11_lib_list pkcs11::libs;
 
 pkcs11::pkcs11()
