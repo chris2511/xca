@@ -9,10 +9,10 @@
 #ifndef __DB_X509REQ_H
 #define __DB_X509REQ_H
 
-#include "db_key.h"
 #include "db_x509super.h"
-#include "pki_temp.h"
-#include "pki_x509req.h"
+
+class pki_temp;
+class pki_x509req;
 
 class db_x509req: public db_x509super
 {

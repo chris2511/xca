@@ -12,6 +12,7 @@
 #include "clicklabel.h"
 #include "RevocationList.h"
 #include "OpenDb.h"
+#include "OidResolver.h"
 #include "lib/pki_crl.h"
 #include <QLabel>
 #include <QTextEdit>

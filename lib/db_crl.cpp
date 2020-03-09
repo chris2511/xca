@@ -15,6 +15,7 @@
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include "widgets/XcaDialog.h"
+#include "widgets/XcaWarning.h"
 #include "widgets/ItemCombo.h"
 #include "ui_NewCrl.h"
 

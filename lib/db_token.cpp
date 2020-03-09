@@ -3,7 +3,7 @@
 #include "exception.h"
 #include "pki_scard.h"
 #include "sql.h"
-#include "widgets/MainWindow.h"
+#include "widgets/XcaWarning.h"
 
 db_token::db_token(database_model *parent)
         :db_base(parent)

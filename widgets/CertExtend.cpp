@@ -10,7 +10,7 @@
 #include "lib/base.h"
 #include "lib/func.h"
 #include "widgets/validity.h"
-#include "widgets/MainWindow.h"
+#include "widgets/XcaWarning.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>

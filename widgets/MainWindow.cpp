@@ -11,16 +11,11 @@
 #include "XcaApplication.h"
 #include "ImportMulti.h"
 #include "dhgen.h"
-#include "lib/Passwd.h"
-#include "lib/entropy.h"
-#include "lib/database_model.h"
 
 #include <QApplication>
 #include <QClipboard>
-#include <QMessageBox>
+#include <QFileDialog>
 #include <QLabel>
-#include <QPushButton>
-#include <QListView>
 #include <QLineEdit>
 #include <QTextBrowser>
 #include <QStatusBar>
@@ -30,19 +25,19 @@
 #include <QMimeData>
 #include <QInputDialog>
 
+#include <openssl/err.h>
+
+#include "lib/Passwd.h"
+#include "lib/database_model.h"
 #include "lib/exception.h"
 #include "lib/pki_evp.h"
-#include "lib/pki_scard.h"
-#include "lib/pki_pkcs12.h"
 #include "lib/pki_multi.h"
-#include "lib/load_obj.h"
-#include "lib/pass_info.h"
-#include "lib/func.h"
-#include "lib/pkcs11.h"
-#include "lib/builtin_curves.h"
+#include "lib/pki_scard.h"
 #include "XcaDialog.h"
+#include "XcaWarning.h"
 #include "PwDialog.h"
 #include "OpenDb.h"
+#include "OidResolver.h"
 
 OidResolver *MainWindow::resolver = NULL;
 
@@ -513,6 +508,7 @@ void MainWindow::changeDbPass()
 #warning This connNewX509() is very ugly and can be replaced by something smarter
 void MainWindow::connNewX509(NewX509 *nx)
 {
+#if 0
 	db_key *keys = models->model<db_key>();
 	db_x509req *reqs = models->model<db_x509req>();
 
@@ -524,6 +520,7 @@ void MainWindow::connNewX509(NewX509 *nx)
 		reqView, SLOT(showPki(pki_base*)));
 	connect(reqs, SIGNAL(pkiChanged(pki_base*)),
 		nx, SLOT(itemChanged(pki_base*)));
+#endif
 }
 
 void MainWindow::importAnything(QString file)

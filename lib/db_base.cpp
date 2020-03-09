@@ -15,6 +15,8 @@
 #include <QDir>
 #include <QDebug>
 #include <QMimeData>
+#include <QFileDialog>
+#include "widgets/XcaWarning.h"
 #include "widgets/MainWindow.h"
 #include "widgets/XcaApplication.h"
 #include "widgets/ImportMulti.h"

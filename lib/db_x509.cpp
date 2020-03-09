@@ -6,6 +6,9 @@
  */
 
 #include "db_x509.h"
+#include "pki_x509.h"
+#include "pki_crl.h"
+#include "pki_temp.h"
 #include "pki_pkcs12.h"
 #include "pki_pkcs7.h"
 #include "pki_evp.h"
@@ -20,6 +23,7 @@
 #include "widgets/MainWindow.h"
 #include "widgets/PwDialog.h"
 #include "widgets/RevocationList.h"
+#include "widgets/NewX509.h"
 
 #include "ui_CaProperties.h"
 #include <QMessageBox>

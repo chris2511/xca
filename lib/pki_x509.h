@@ -8,16 +8,10 @@
 #ifndef __PKI_X509_H
 #define __PKI_X509_H
 
-#include <stdio.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 #include <openssl/pem.h>
-#include "pki_temp.h"
-#include "pki_key.h"
-#include "pki_x509req.h"
 #include "pki_x509super.h"
-#include "asn1time.h"
-#include "asn1int.h"
 #include "x509rev.h"
 #include "x509v3ext.h"
 #include "pkcs11.h"
@@ -32,6 +26,8 @@
 #define VIEW_x509_auth_crlDays 14
 #define VIEW_x509_auth_dnPolicy_UNUSED 15
 #define VIEW_x509_revocation 16
+
+class pki_key;
 
 class pki_x509 : public pki_x509super
 {

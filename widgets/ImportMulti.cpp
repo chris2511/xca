@@ -16,9 +16,11 @@
 #include "lib/pki_multi.h"
 #include "lib/pki_scard.h"
 #include "lib/pki_evp.h"
-#include "widgets/CrlDetail.h"
-#include "widgets/CertDetail.h"
-#include "widgets/KeyDetail.h"
+#include "lib/pki_temp.h"
+#include "CrlDetail.h"
+#include "CertDetail.h"
+#include "KeyDetail.h"
+
 #include <QPushButton>
 #include <QMessageBox>
 #include <QLabel>

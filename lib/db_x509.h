@@ -9,14 +9,14 @@
 #ifndef __DB_X509_H
 #define __DB_X509_H
 
-#include <QListView>
-#include <QTreeWidget>
-#include "widgets/ExportDialog.h"
-#include "db_key.h"
 #include "db_x509super.h"
-#include "pki_x509.h"
-#include "pki_crl.h"
-#include "pki_temp.h"
+#include "asn1int.h"
+#include "x509rev.h"
+
+class pki_x509req;
+class pki_x509;
+class pki_temp;
+class pki_crl;
 
 class db_x509: public db_x509super
 {

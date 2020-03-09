@@ -19,6 +19,9 @@
 #include <QValidator>
 #include <QMap>
 #include <QPair>
+
+#include "XcaWarning.h"
+#include "OidResolver.h"
 #include "MainWindow.h"
 #include "v3ext.h"
 #include "lib/x509name.h"

@@ -11,6 +11,8 @@
 #include "MainWindow.h"
 #include "distname.h"
 #include "clicklabel.h"
+#include "XcaWarning.h"
+#include "OidResolver.h"
 #include "lib/func.h"
 #include <QLabel>
 #include <QPushButton>

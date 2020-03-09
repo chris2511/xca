@@ -9,15 +9,14 @@
 #include "db_temp.h"
 #include "func.h"
 #include "widgets/XcaWarning.h"
-#include <widgets/NewX509.h>
-#include <widgets/XcaDialog.h>
-#include <widgets/MainWindow.h>
+#include "widgets/NewX509.h"
+#include "widgets/XcaDialog.h"
+#include "widgets/MainWindow.h"
 #include <QFileDialog>
 #include <QDir>
 #include <QContextMenuEvent>
 #include <QAction>
 #include <QInputDialog>
-#include <QMessageBox>
 
 db_temp::db_temp(database_model *parent)
 	:db_x509name(parent)

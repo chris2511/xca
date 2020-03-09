@@ -10,6 +10,8 @@
 #include "NewCrl.h"
 #include "XcaDialog.h"
 #include "MainWindow.h"
+#include "ItemCombo.h"
+#include "XcaWarning.h"
 #include "lib/db_crl.h"
 #include "lib/pki_x509.h"
 #include "lib/database_model.h"

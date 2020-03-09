@@ -14,9 +14,12 @@
 #include <QStringList>
 #include <QMessageBox>
 #include <QValidator>
-#include "MainWindow.h"
+#include "XcaWarning.h"
 #include "lib/exception.h"
 #include "lib/ipvalidator.h"
+#include "lib/x509v3ext.h"
+
+#include <openssl/err.h>
 
 
 v3ext::v3ext(QWidget *parent)

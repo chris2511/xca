@@ -7,6 +7,7 @@
 
 
 #include "pki_x509.h"
+#include "pki_x509req.h"
 #include "pki_evp.h"
 #include "pki_scard.h"
 #include "db_base.h"
@@ -16,8 +17,6 @@
 #include "pass_info.h"
 #include "openssl_compat.h"
 #include "widgets/XcaWarning.h"
-
-#include <QDir>
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()

@@ -8,11 +8,8 @@
 #ifndef __DB_CRL_H
 #define __DB_CRL_H
 
-#include "db_x509.h"
+#include "db_x509super.h"
 #include "pki_crl.h"
-#include "widgets/ExportDialog.h"
-#include <QObject>
-#include <QContextMenuEvent>
 
 class db_crl: public db_x509name
 {

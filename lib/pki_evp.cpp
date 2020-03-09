@@ -19,6 +19,7 @@
 #include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/pkcs12.h>
+#include <openssl/err.h>
 
 #include "openssl_compat.h"
 

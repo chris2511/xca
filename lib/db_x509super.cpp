@@ -6,13 +6,17 @@
  */
 
 #include "pki_base.h"
+#include "pki_temp.h"
 #include "db_x509super.h"
 #include "database_model.h"
+#include "oid.h"
+
 #include "widgets/MainWindow.h"
 #include "widgets/CertDetail.h"
 #include "widgets/XcaDialog.h"
-#include "oid.h"
-#include <QMessageBox>
+#include "widgets/XcaWarning.h"
+
+#include <QFileDialog>
 
 db_x509name::db_x509name(database_model *parent)
 	:db_base(parent)

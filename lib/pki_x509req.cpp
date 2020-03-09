@@ -9,13 +9,13 @@
 #include <typeinfo>
 
 #include "pki_x509.h"
+#include "pki_x509req.h"
 #include "pki_evp.h"
 #include "func.h"
 #include "db_base.h"
 #include "x509name.h"
 #include "exception.h"
 #include <openssl/bio.h>
-#include <openssl/err.h>
 
 #include "openssl_compat.h"
 

@@ -15,6 +15,7 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include "XcaApplication.h"
+#include "OidResolver.h"
 
 #include <QLabel>
 #include <QPushButton>

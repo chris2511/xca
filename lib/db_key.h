@@ -10,8 +10,6 @@
 
 #include "db_base.h"
 #include "pki_key.h"
-#include <QStringList>
-#include <QObject>
 
 class MainWindow;
 class QModelIndex;

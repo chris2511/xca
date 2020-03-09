@@ -8,10 +8,11 @@
 #include "lib/func.h"
 #include "Options.h"
 #include "SearchPkcs11.h"
+#include "XcaWarning.h"
 #include "lib/pki_scard.h"
 #include "lib/oid.h"
 #include <openssl/objects.h>
-#include <QMessageBox>
+#include <QFileDialog>
 #include <QToolTip>
 
 Options::Options(MainWindow *parent)

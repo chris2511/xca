@@ -8,6 +8,7 @@
 
 #include "ExportDialog.h"
 #include "MainWindow.h"
+#include "XcaWarning.h"
 #include "lib/base.h"
 
 #include <QComboBox>

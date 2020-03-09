@@ -9,13 +9,9 @@
 #ifndef __PKI_CRL_H
 #define __PKI_CRL_H
 
-#include <iostream>
-#include <openssl/pem.h>
 #include <openssl/bio.h>
 #include "pki_x509.h"
 #include "x509name.h"
-#include "asn1time.h"
-#include "asn1int.h"
 
 #define VIEW_crls_num 6
 #define VIEW_crls_issuer 7

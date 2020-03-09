@@ -8,35 +8,24 @@
 #ifndef __MAINWINDOW_H
 #define __MAINWINDOW_H
 
-#include "NewX509.h"
-#include "XcaWarning.h"
-#include "OidResolver.h"
 #include "ui_MainWindow.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
-#include "lib/db_crl.h"
-#include "lib/exception.h"
+
 #include "lib/oid.h"
 #include "lib/Passwd.h"
-#include "lib/settings.h"
 #include "lib/main.h"
 #include "lib/database_model.h"
 #include "lib/dbhistory.h"
 
-#include <QPixmap>
-#include <QFileDialog>
-#include <QMenuBar>
 #include <QList>
-#include <QtSql>
 #include <QMenu>
 #include <QToolTip>
-#include <QLocale>
 #include <QProgressBar>
 
 class db_x509;
 class pki_multi;
+class NewX509;
+class OidResolver;
+class QProgressBar;
 
 class tipMenu : public QMenu
 {

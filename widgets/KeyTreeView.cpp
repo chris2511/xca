@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "KeyDetail.h"
 #include "NewKey.h"
+#include "XcaWarning.h"
 #include <QAbstractItemView>
 #include <QMenu>
 

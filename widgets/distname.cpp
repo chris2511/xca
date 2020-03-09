@@ -14,6 +14,7 @@
 #include "lib/db_x509super.h"
 #include "lib/base.h"
 #include "clicklabel.h"
+#include "OidResolver.h"
 #include "MainWindow.h"
 
 DistName::DistName(QWidget* parent)

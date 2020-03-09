@@ -12,10 +12,12 @@
 #include <QVariant>
 #include <QRegExp>
 
+#include "OidResolver.h"
 #include "XcaHeaderView.h"
 #include "XcaTreeView.h"
 #include "XcaProxyModel.h"
 #include "MainWindow.h"
+#include "XcaWarning.h"
 #include "lib/database_model.h"
 
 database_model *XcaTreeView::models() const

@@ -12,6 +12,7 @@
 
 #include "MainWindow.h"
 #include "OpenDb.h"
+#include "XcaWarning.h"
 #include "lib/base.h"
 
 QString OpenDb::lastRemote;

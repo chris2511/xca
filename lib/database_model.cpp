@@ -13,6 +13,8 @@
 
 #include "exception.h"
 #include "database_model.h"
+#include "pki_temp.h"
+#include "pki_x509req.h"
 #include "pki_evp.h"
 #include "pki_scard.h"
 #include "pki_multi.h"

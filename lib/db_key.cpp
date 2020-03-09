@@ -19,10 +19,9 @@
 #include "ui_NewKey.h"
 #include "pkcs11.h"
 
+#include "widgets/XcaWarning.h"
 #include "widgets/PwDialog.h"
 #include "widgets/ExportDialog.h"
-#include "widgets/XcaProgress.h"
-#include "widgets/MainWindow.h"
 
 db_key::db_key(database_model *parent)
 	:db_base(parent)

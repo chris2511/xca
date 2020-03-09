@@ -8,7 +8,6 @@
 #ifndef __PKI_BASE_H
 #define __PKI_BASE_H
 
-#include <openssl/err.h>
 #include <QString>
 #include <QRegExp>
 #include <QVariant>
@@ -18,7 +17,6 @@
 #include "base.h"
 #include "db.h"
 #include "headerlist.h"
-#include "settings.h"
 #include "sql.h"
 #include "xfile.h"
 

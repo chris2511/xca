@@ -11,6 +11,7 @@
 #include <QDebug>
 #include "widgets/MainWindow.h"
 #include "widgets/XcaApplication.h"
+#include "widgets/XcaWarning.h"
 #include "func.h"
 #include "xfile.h"
 #include "main.h"
@@ -204,7 +205,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 		foreach(pki_x509 *iss, issuers) {
 			pki_key *key = iss->getRefKey();
 			QString keytype = key ? key->getTypeString() : "";
-			printf("% 4llu '%s' %s\n",
+			printf("%4llu '%s' %s\n",
 					iss->getSqlItemId().toULongLong(),
 					CCHAR(iss->getIntName()),
 					CCHAR(keytype));

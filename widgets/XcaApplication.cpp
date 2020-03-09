@@ -7,6 +7,7 @@
 
 #include "XcaApplication.h"
 #include "MainWindow.h"
+#include "XcaWarning.h"
 
 #include "lib/entropy.h"
 

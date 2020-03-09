@@ -8,10 +8,6 @@
 #ifndef __DB_TOKEN_H
 #define __DB_TOKEN_H
 
-#include <QObject>
-#include <QPixmap>
-#include <QEvent>
-
 #include "pkcs11_lib.h"
 #include "db_base.h"
 
