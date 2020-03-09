@@ -159,18 +159,18 @@ pki_base* db_key::insert(pki_base *item)
 	return lkey;
 }
 
-void db_key::newItem(const keyjob &task, const QString &name)
+pki_key *db_key::newItem(const keyjob &task, const QString &name)
 {
 	pki_key *key = NULL;
 
 	if (!task.isEC()) {
 		if (task.size < 32) {
 			XCA_WARN(tr("Key size too small !"));
-			return;
+			return NULL;
 		}
 		if (task.size < 1024 || task.size > 8192)
 			if (!XCA_YESNO(tr("You are sure to create a key of the size: %1 ?").arg(task.size))) {
-				return;
+				return NULL;
 			}
 	}
 	try {
@@ -187,8 +187,10 @@ void db_key::newItem(const keyjob &task, const QString &name)
 
 	} catch (errorEx &err) {
 		delete key;
+		key = NULL;
 		XCA_ERROR(err);
 	}
+	return key;
 }
 
 void db_key::load(void)

@@ -143,6 +143,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 	database_model *models = NULL;
 	pki_evp::passwd = acquire_password(cmd_opts["password"]);
 	Passwd sqlpw = acquire_password(cmd_opts["sqlpass"]);
+
 	if (cmd_opts.has("verbose"))
 		debug = 1;
 
@@ -186,9 +187,53 @@ static database_model* read_cmdline(int argc, char *argv[])
 	}
 	if (cmd_opts.has("help"))
 		cmd_help();
+
 	if (cmd_opts.has("version"))
 		cmd_version(stdout);
 
+	if (cmd_opts.has("keygen")) {
+		keyjob task(cmd_opts["keygen"]);
+		db_key *keys = models->model<db_key>();
+		pki_key *pki = keys->newItem(task, cmd_opts["name"]);
+		if (pki)
+			cmdline_items->append_item(pki);
+	}
+	if (cmd_opts.has("issuers")) {
+		db_x509 *certs = models->model<db_x509>();
+		QList<pki_x509*>issuers = certs->getAllIssuers();
+		foreach(pki_x509 *iss, issuers) {
+			pki_key *key = iss->getRefKey();
+			QString keytype = key ? key->getTypeString() : "";
+			printf("% 4llu '%s' %s\n",
+					iss->getSqlItemId().toULongLong(),
+					CCHAR(iss->getIntName()),
+					CCHAR(keytype));
+		}
+	}
+	if (cmd_opts.has("crlgen")) {
+		db_crl *crls = models->model<db_crl>();
+		db_x509 *certs = models->model<db_x509>();
+		QList<pki_x509*>issuers = certs->getAllIssuers();
+		pki_x509 *issuer = NULL;
+		QString ca = cmd_opts["crlgen"];
+		foreach(pki_x509 *iss, issuers) {
+			if (iss->getIntName() == ca ||
+			    iss->getSqlItemId().toString() == ca)
+			{
+				issuer = iss;
+				break;
+			}
+		}
+		if (!issuer) {
+			XCA_ERROR(QString("Issuer '%1' not found")
+					.arg(cmd_opts["crlgen"]));
+		} else {
+			crljob task(issuer);
+			pki_crl *crl = crls->newItem(task);
+			if (crl)
+				cmdline_items->append_item(crl);
+		}
+	}
 	FILE *fp = stdout;
 	foreach(pki_base *pki, cmdline_items->get()) {
 		QString filename = pki->getFilename();
@@ -248,6 +293,7 @@ int main(int argc, char *argv[])
 			mainwin->show();
 			gui->exec();
 		} else {
+			delete cmdline_items;
 			delete models;
 		}
 	} catch (errorEx &ex) {
@@ -255,7 +301,6 @@ int main(int argc, char *argv[])
 	} catch (enum open_result r) {
 		qDebug() << "DB open failed: " << r;
 	}
-	delete cmdline_items;
 
 	qDebug() << "pki_base::count" << pki_base::allitems.size();
 	foreach(pki_base *pki, pki_base::allitems)

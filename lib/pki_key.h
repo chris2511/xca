@@ -74,6 +74,7 @@ class keyjob
 		size = 2048;
 		ktype = keytype::byName("RSA");
 		ec_nid = NID_undef;
+		slot = slotid();
 	}
 
     public:

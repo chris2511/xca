@@ -7,6 +7,7 @@
 
 #include "CertTreeView.h"
 #include "XcaWarning.h"
+#include "MainWindow.h"
 #include "lib/database_model.h"
 #include "lib/db_crl.h"
 
@@ -138,12 +139,11 @@ void CertTreeView::loadPKCS7()
 
 void CertTreeView::genCrl()
 {
-	pki_x509 *cert = static_cast<pki_x509*>
+	pki_x509 *ca = static_cast<pki_x509*>
 			(currentIndex().internalPointer());
 
-	db_crl *crls = models()->model<db_crl>();
-	if (crls)
-		crls->newItem(cert);
+	if (mainwin && ca)
+		mainwin->crlView->newItem(ca);
 }
 
 void CertTreeView::toCertificate()

@@ -34,7 +34,7 @@ class db_key: public db_base
 		pki_base* insert(pki_base *item);
 		void setOwnPass(QModelIndex idx, enum pki_key::passType);
 		void loadContainer();
-		void newItem(const keyjob &task, const QString &name);
+		pki_key *newItem(const keyjob &task, const QString &name);
 
 	public slots:
 		void load();
