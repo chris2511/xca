@@ -66,38 +66,53 @@ const QStringList getLibExtensions()
 	};
 }
 
+#if defined(Q_OS_WIN32)
+static QString xcaExeDir()
+{
+	QString dir;
+	wchar_t inst_dir[2048];
+	ULONG dwLength = ARRAY_SIZE(inst_dir);
+
+	dwLength = GetModuleFileNameW(0, inst_dir, dwLength - 1);
+	dir = QString::fromWCharArray(inst_dir, dwLength);
+	int bslash = dir.lastIndexOf("\\");
+	if (bslash > 0)
+		dir = dir.mid(0, bslash);
+	return QDir::toNativeSeparators(QFileInfo(dir).canonicalFilePath());
+}
+
+static QString registryInstallDir()
+{
+	QString dir;
+	wchar_t inst_dir[2048] = L"";
+	ULONG len = sizeof inst_dir;
+
+	if (RegGetValueW(HKEY_LOCAL_MACHINE, L"Software\\xca",
+			L"Install_Dir64", RRF_RT_REG_SZ, NULL,
+			inst_dir, &len) != ERROR_SUCCESS)
+		return dir;
+
+	/* "len" is in octets */
+	len /= sizeof inst_dir[0];
+	/* "len" includes the trailing \0\0 */
+	dir = QString::fromWCharArray(inst_dir, len -1);
+	return QDir::toNativeSeparators(QFileInfo(dir).canonicalFilePath());
+}
+#endif
+
 int portable_app()
 {
 	static int portable = -1;
 	QString f1, f2;
 	if (portable == -1) {
 #if defined(Q_OS_WIN32)
-		char fname[512];
-		HKEY hKey;
-
-		if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-		    KEY_READ, &hKey) == ERROR_SUCCESS)
-		{
-			unsigned char inst_dir[512];
-			ULONG len = sizeof inst_dir;
-			if (RegQueryValueEx(hKey, "Install_Dir64", NULL, NULL,
-			    inst_dir, &len) == ERROR_SUCCESS)
-			{
-				f1 = QFileInfo(QString("%1\\xca.exe")
-						.arg((char*)inst_dir))
-							.canonicalFilePath();
-			}
-		}
-		if (GetModuleFileName(0, fname, sizeof fname -1) > 0) {
-			f2 = QFileInfo(QString(fname)).canonicalFilePath();
-		}
+		f1 = registryInstallDir();
+		f2 = xcaExeDir();
 		/* f1 == f2 Registry entry of install dir exists and matches
 		 * path of this xca.exe -> Installed. Not the portable app
 		 */
-		portable = QDir::toNativeSeparators(f1) ==
-			   QDir::toNativeSeparators(f2) ? 0 : 1;
-		qDebug() << "Portable:" << QDir::toNativeSeparators(f1) <<
-				" != " << QDir::toNativeSeparators(f2);
+		portable = f1 == f2 ? 0 : 1;
+		qDebug() << "Portable:" << f1 << " != " << f2;
 #else
 		const char *p = getenv("XCA_PORTABLE");
 		portable = p && *p;
@@ -114,39 +129,24 @@ int portable_app()
 const QString getPrefix()
 {
 #if defined(Q_OS_WIN32)
-	static char inst_dir[512] = "";
-	char *p;
-	ULONG dwLength = sizeof inst_dir;
-	HKEY hKey;
+	static QString inst_dir;
+	QString reg_dir;
 
-	if (inst_dir[0] != '\0') {
+	if (!inst_dir.isEmpty()) {
 		/* if we already once discovered the directory just return it */
-		return QString(inst_dir);
+		return inst_dir;
 	}
-	// fallback: directory of xca.exe
-	GetModuleFileName(0, inst_dir, dwLength - 1);
-	p = strrchr(inst_dir, '\\');
-	if (p) {
-		*p = '\0';
-		return QString(inst_dir);
-	}
+	inst_dir = xcaExeDir();
+
 	if (portable_app())
 		return QString(inst_dir);
-	p = inst_dir;
-	*p = '\0';
-	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0,
-		KEY_READ, &hKey) != ERROR_SUCCESS)
-	{
-		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE\\Software\\xca' not found");
-		return QString(inst_dir);
-	}
-	if (RegQueryValueEx(hKey, "Install_Dir64", NULL, NULL,
-			(unsigned char *)inst_dir, &dwLength) != ERROR_SUCCESS)
-	{
+
+	reg_dir = registryInstallDir();
+	if (reg_dir.isEmpty())
 		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
-	}
-	RegCloseKey(hKey);
-	return QString(inst_dir);
+	else
+		inst_dir = reg_dir;
+	return inst_dir;
 
 #elif defined(Q_OS_MAC)
 	// since this is platform-specific anyway,
@@ -172,6 +172,7 @@ static QString specialFolder(int csidl)
 	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, csidl, &pidl)))
 		SHGetPathFromIDList(pidl, buf);
 
+	qDebug() << "Special Folder" << csidl << QDir::toNativeSeparators(buf);
 	return QDir::toNativeSeparators(buf);
 }
 #endif
