@@ -102,7 +102,7 @@ void ImportMulti::addItem(pki_base *pki)
 	    !dynamic_cast<pki_x509name*>(pki))
 	{
 		XCA_WARN(tr("The type of the item '%1' is not recognized").
-			arg(typeid(*pki).name()));
+			arg(pki->getClassName()));
 		delete pki;
 		return;
 	}
@@ -264,13 +264,11 @@ void ImportMulti::on_butDetails_clicked()
 
 	if (!pki)
 		return;
-#warning Get rid of the typeid()
-	const std::type_info &t = typeid(*pki);
 	try {
-		if (t == typeid(pki_x509) ||
-		    t == typeid(pki_x509req)) {
+		pki_x509super *pki_super = dynamic_cast<pki_x509super*>(pki);
+		if (pki_super) {
 			CertDetail *dlg = new CertDetail(mainwin);
-			dlg->setX509super(dynamic_cast<pki_x509super*>(pki));
+			dlg->setX509super(pki_super);
 			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
 				keys, SLOT(showItem(QString)));
 			connect(dlg->signature,
@@ -279,26 +277,37 @@ void ImportMulti::on_butDetails_clicked()
 			if (dlg->exec())
 				pki->setIntName(dlg->descr->text());
 			delete dlg;
-		} else if (t == typeid(pki_evp) || t == typeid(pki_scard)) {
+			return;
+		}
+		pki_key *key = dynamic_cast<pki_key*>(pki);
+		if (key) {
 			KeyDetail *dlg = new KeyDetail(mainwin);
-			dlg->setKey(static_cast<pki_key *>(pki));
+			dlg->setKey(key);
 			if (dlg->exec())
 				pki->setIntName(dlg->keyDesc->text());
 			delete dlg;
-		} else if (t == typeid(pki_crl)) {
+			return;
+		}
+		pki_crl *crl = dynamic_cast<pki_crl*>(pki);
+		if (crl) {
 			CrlDetail *dlg = new CrlDetail(mainwin);
-			dlg->setCrl(static_cast<pki_crl *>(pki));
+			dlg->setCrl(crl);
 			connect(dlg->issuerIntName,
 				SIGNAL(doubleClicked(QString)),
 				certs, SLOT(showItem(QString)));
 			if (dlg->exec())
 				pki->setIntName(dlg->descr->text());
 			delete dlg;
-		} else if (t == typeid(pki_temp)) {
+			return;
+		}
+		pki_temp *temp = dynamic_cast<pki_temp*>(pki);
+		if (temp) {
 			XCA_WARN(tr("Details of the item '%1' cannot be shown")
 				.arg("XCA template"));
-		} else
-			XCA_WARN(tr("The type of the item '%1' is not recognized").arg(t.name()));
+			return;
+		}
+		XCA_WARN(tr("The type of the item '%1' is not recognized").
+			arg(pki->getClassName()));
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);

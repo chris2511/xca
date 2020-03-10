@@ -305,7 +305,8 @@ int main(int argc, char *argv[])
 
 	qDebug() << "pki_base::count" << pki_base::allitems.size();
 	foreach(pki_base *pki, pki_base::allitems)
-		qDebug() << "Remaining" << typeid(*pki).name() << pki->getIntName();
+		qDebug() << "Remaining" << pki->getClassName()
+			 << pki->getIntName();
 	delete mainwin;
 	delete gui;
 

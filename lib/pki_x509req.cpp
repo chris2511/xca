@@ -340,15 +340,15 @@ int pki_x509req::issuedCerts() const
 	if (!k)
 		return 0;
 	while (q.next()) {
-		pki_x509super *x;
-		x = db_base::lookupPki<pki_x509super>(q.value(0));
+		pki_x509 *x = db_base::lookupPki<pki_x509>(q.value(0));
 		if (!x) {
 			qDebug("x509 with id %d not found",
 				q.value(0).toInt());
 			continue;
 		}
-		if (typeid(*x) == typeid(pki_x509) && x->compareRefKey(k))
+		if (x->compareRefKey(k))
 			count++;
+
 		qDebug() << "Req:" << getIntName() << "Cert with hash"
 			 << x->getIntName() << count;
 	}
