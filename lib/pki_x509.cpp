@@ -709,7 +709,7 @@ bool pki_x509::verify_only(pki_x509 *signer)
 
 bool pki_x509::verify(pki_x509 *signer)
 {
-	if ((issuerSqlId != QVariant()) || (signer == NULL))
+	if (getSigner() || !signer)
 		return false;
 	if (signer == this &&
 	    issuerSqlId == sqlItemId &&

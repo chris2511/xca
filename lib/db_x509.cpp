@@ -199,7 +199,6 @@ void db_x509::inToCont(pki_base *pki)
 	 * and use its childs if we are newer */
 	items = sqlSELECTpki<pki_x509>(
 		"SELECT x509super.item FROM x509super "
-		"JOIN public_keys ON x509super.pkey = public_keys.item "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1 AND x509super.subj_hash=? "
 		"AND x509super.key_hash=?",
