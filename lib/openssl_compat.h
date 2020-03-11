@@ -19,6 +19,7 @@
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
 #include <openssl/rsa.h>
 #include <openssl/dsa.h>
+#include <openssl/rand.h>
 
 #define RAND_bytes(buf, size) RAND_pseudo_bytes((buf), (size))
 

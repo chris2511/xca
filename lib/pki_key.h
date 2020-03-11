@@ -15,6 +15,8 @@
 #include "pki_base.h"
 #include "builtin_curves.h"
 
+#include "openssl_compat.h"
+
 #define MAX_KEY_LENGTH 4096
 
 #define VIEW_public_keys_type 6
