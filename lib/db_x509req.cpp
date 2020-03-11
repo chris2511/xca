@@ -69,7 +69,6 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 {
 	pki_x509req *req = NULL;
 	NewX509 *dlg = new NewX509(mainwin);
-	emit connNewX509(dlg);
 
 	if (temp) {
 		dlg->defineTemplate(temp);
@@ -100,14 +99,6 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		XCA_ERROR(err);
 		delete req;
 	}
-}
-
-void db_x509req::toRequest(QModelIndex index)
-{
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
-	if (!req)
-		return;
-	newItem(NULL, req);
 }
 
 void db_x509req::load(void)
@@ -146,13 +137,6 @@ void db_x509req::store(QModelIndex index)
 	}
 	pki_base::pem_comment = false;
 	delete dlg;
-}
-
-void db_x509req::signReq(QModelIndex index)
-{
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
-	req->pkiSource = generated;
-	emit newCert(req);
 }
 
 void db_x509req::setSigned(QModelIndex index, bool signe)

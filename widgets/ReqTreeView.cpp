@@ -37,14 +37,18 @@ void ReqTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 void ReqTreeView::toRequest()
 {
-	if (basemodel)
-		reqs()->toRequest(currentIndex());
+	pki_x509req *req = static_cast<pki_x509req*>(currentIndex()
+							.internalPointer());
+	db_x509 *certs = models()->model<db_x509>();
+	certs->newCert(req);
 }
 
 void ReqTreeView::signReq()
 {
+	pki_x509req *req = static_cast<pki_x509req*>(currentIndex()
+							.internalPointer());
 	if (basemodel)
-		reqs()->signReq(currentIndex());
+		reqs()->newItem(NULL, req);
 }
 
 void ReqTreeView::markSigned()

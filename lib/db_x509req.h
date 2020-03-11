@@ -26,8 +26,6 @@ class db_x509req: public db_x509super
 		pki_base *newPKI(enum pki_type type = none);
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
 		void store(QModelIndex index);
-		void signReq(QModelIndex index);
-		void toRequest(QModelIndex index);
 		void load();
 		QList<pki_x509req*> getAllRequests();
 		void resetX509count();
@@ -36,9 +34,6 @@ class db_x509req: public db_x509super
 	public slots:
 		void newItem(pki_temp *temp, pki_x509req *orig = NULL);
 		void newItem();
-
-	signals:
-		void newCert(pki_x509req *req);
 };
 
 #endif

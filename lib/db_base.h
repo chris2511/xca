@@ -178,7 +178,6 @@ class db_base: public QAbstractItemModel
 		void sortIndicatorChanged(int, Qt::SortOrder);
 
 	signals:
-		void connNewX509(NewX509 *dlg) const;
 		void resetHeader() const;
 		void updateHeader() const;
 		void columnsContentChanged() const;

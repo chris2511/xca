@@ -104,11 +104,13 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(MainWindow *parent)
-	:QDialog(parent)
+NewX509::NewX509(MainWindow *mainwin)
+	:QDialog(mainwin)
 {
 	int i;
 	QStringList keys;
+	db_key *keymodel = mainwin->model<db_key>();
+	db_x509req *reqmodel = mainwin->model<db_x509req>();
 
 	aia_nid << OBJ_sn2nid("OCSP") << OBJ_sn2nid("caIssuers");
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
@@ -134,6 +136,16 @@ NewX509::NewX509(MainWindow *parent)
                 this, SLOT(checkCrlDist(const QString &)));
 	connect(authInfAcc, SIGNAL(textChanged(const QString &)),
                 this, SLOT(checkAuthInfAcc(const QString &)));
+	connect(this, SIGNAL(genKey(QString)),
+		keymodel, SLOT(newItem(QString)));
+	connect(keymodel, SIGNAL(keyDone(pki_key*)),
+		this, SLOT(newKeyDone(pki_key*)));
+	connect(this, SIGNAL(showReq(pki_base*)),
+		mainwin->reqView, SLOT(showPki(pki_base*)));
+	connect(reqmodel, SIGNAL(pkiChanged(pki_base*)),
+		this, SLOT(itemChanged(pki_base*)));
+
+
 
 	setWindowTitle(XCA_TITLE);
 

@@ -123,7 +123,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void close_database();
 		void dump_database();
 		void default_database();
-		void connNewX509(NewX509 *nx);
 		void about();
 		void help();
 		void loadPem();

@@ -208,7 +208,7 @@ void MainWindow::init_images()
 void MainWindow::loadPem()
 {
 	load_pem l;
-	db_key *keys = models->model<db_key>();
+	db_key *keys = model<db_key>();
 	if (keys)
 		keys->load_default(l);
 }
@@ -473,7 +473,7 @@ void MainWindow::changeDbPass()
 	Passwd pass;
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
-	db_key *keys = models->model<db_key>();
+	db_key *keys = model<db_key>();
 
 	if (!checkOldGetNewPass(pass))
 		return;
@@ -503,24 +503,6 @@ void MainWindow::changeDbPass()
 	} catch (errorEx &e) {
 		XCA_ERROR(e);
 	}
-}
-
-#warning This connNewX509() is very ugly and can be replaced by something smarter
-void MainWindow::connNewX509(NewX509 *nx)
-{
-#if 0
-	db_key *keys = models->model<db_key>();
-	db_x509req *reqs = models->model<db_x509req>();
-
-	connect(nx, SIGNAL(genKey(QString)),
-		keys, SLOT(newItem(QString)));
-	connect(keys, SIGNAL(keyDone(pki_key*)),
-		nx, SLOT(newKeyDone(pki_key*)));
-	connect(nx, SIGNAL(showReq(pki_base*)),
-		reqView, SLOT(showPki(pki_base*)));
-	connect(reqs, SIGNAL(pkiChanged(pki_base*)),
-		nx, SLOT(itemChanged(pki_base*)));
-#endif
 }
 
 void MainWindow::importAnything(QString file)
@@ -606,26 +588,18 @@ enum open_result MainWindow::init_database(database_model *m)
 		setOptions();
 	}
 
-	keyView->setModel(models->model<db_key>());
-	reqView->setModel(models->model<db_x509req>());
-	certView->setModel(models->model<db_x509>());
-	tempView->setModel(models->model<db_temp>());
-	crlView->setModel(models->model<db_crl>());
+	keyView->setModel(model<db_key>());
+	reqView->setModel(model<db_x509req>());
+	certView->setModel(model<db_x509>());
+	tempView->setModel(model<db_temp>());
+	crlView->setModel(model<db_crl>());
 
 	searchEdit->setText("");
 	searchEdit->show();
 	statusBar()->addWidget(searchEdit, 1);
 
-	db_x509 *certs = models->model<db_x509>();
-	db_x509req *reqs = models->model<db_x509req>();
-
-	connect(certs, SIGNAL(connNewX509(NewX509 *)),
-		this,    SLOT(connNewX509(NewX509 *)));
-	connect(reqs, SIGNAL(connNewX509(NewX509 *)),
-		this,   SLOT(connNewX509(NewX509 *)));
-
-	connect(reqs, SIGNAL(newCert(pki_x509req *)),
-		certs,  SLOT(newCert(pki_x509req *)));
+	db_x509 *certs = model<db_x509>();
+	db_x509req *reqs = model<db_x509req>();
 
 	connect(tempView, SIGNAL(newCert(pki_temp *)),
 		certs,      SLOT(newCert(pki_temp *)) );
@@ -690,7 +664,7 @@ void MainWindow::exportIndex(const QString &fname, bool hierarchy) const
 	qDebug() << fname << hierarchy;
 	if (fname.isEmpty() || !models)
 		return;
-	db_x509 *certs = models->model<db_x509>();
+	db_x509 *certs = model<db_x509>();
 	certs->writeIndex(fname, hierarchy);
 }
 
