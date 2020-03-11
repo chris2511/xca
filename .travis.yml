@@ -11,13 +11,14 @@ env:
         - OPENSSL_VERSION=1.0.2u  OPENSSL_SHA1=740916d79ab0d209d2775277b1c6c3ec2f6502b2
         - OPENSSL_VERSION=1.1.0l  OPENSSL_SHA1=6e3507b29e2630f56023887d1f7d7ba1f584819b
         - OPENSSL_VERSION=1.1.1d  OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
+        - OPENSSL_VERSION=1.1.1d  OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4 OPENSSL_FLAGS=no-ec
 
 script:
-    - docker build --rm 
-        --build-arg USER_ID=`id -u` 
+    - docker build --rm
+        --build-arg USER_ID=`id -u`
         --build-arg PARALLELMFLAGS=$PARALLELMFLAGS
         --build-arg OPENSSL_VERSION=$OPENSSL_VERSION
         --build-arg OPENSSL_SHA1=$OPENSSL_SHA1
         --build-arg OPENSSL_BUILD_PARALLEL=$OPENSSL_BUILD_PARALLEL
+        --build-arg OPENSSL_FLAGS=$OPENSSL_FLAGS
         --tag xca .
-
