@@ -80,10 +80,11 @@ dbheaderList db_x509super::getHeaders()
 		new dbheader(HD_x509_sigalg, false,
 			tr("Signature algorithm")) <<
 		new key_dbheader(HD_key_type, tr("Key type")) <<
-		new key_dbheader(HD_key_size, tr("Key size")) <<
+		new key_dbheader(HD_key_size, tr("Key size"))
 #ifndef OPENSSL_NO_EC
-		new key_dbheader(HD_key_curve, tr("EC Group"));
+	  <<	new key_dbheader(HD_key_curve, tr("EC Group"))
 #endif
+		;
 	foreach(int nid, v3nid)
 		h << new nid_dbheader(nid, dbheader::hd_v3ext);
 
