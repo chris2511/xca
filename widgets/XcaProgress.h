@@ -15,58 +15,94 @@
 #include <QProgressBar>
 #include <QStatusBar>
 
-class XcaProgress
+class XcaProgressBase
+{
+    public:
+	virtual void increment() = 0;
+	virtual ~XcaProgressBase() = default;
+};
+
+class XcaProgressGui : public XcaProgressBase
 {
     private:
 	QProgressBar *bar;
 	QStatusBar *status;
+
+    public:
+	XcaProgressGui() : XcaProgressBase()
+	{
+		status = mainwin->statusBar();
+		bar = new QProgressBar();
+		bar->setMinimum(0);
+		bar->setMaximum(100);
+		bar->setValue(50);
+
+		mainwin->repaint();
+		status->addPermanentWidget(bar, 1);
+	}
+	~XcaProgressGui()
+	{
+		status->removeWidget(bar);
+		delete bar;
+	}
+	void increment()
+	{
+		int value = bar->value();
+		if (value == bar->maximum()) {
+			bar->reset();
+		} else {
+			bar->setValue(value +1);
+		}
+	}
+};
+
+class XcaProgressCmd : public XcaProgressBase
+{
+    private:
 	int i;
+
+    public:
+	XcaProgressCmd() : XcaProgressBase(), i(0)
+	{
+	}
+	~XcaProgressCmd()
+	{
+		puts(" finished.");
+	}
+	void increment()
+	{
+		static const char *spinner = "|/-\\";
+		printf("\rGenerating %c ...", spinner[i++%4]);
+		fflush(stdout);
+	}
+};
+
+class XcaProgress
+{
+    private:
+	XcaProgressBase *progress;
 
     public:
 	XcaProgress()
 	{
-		if (!IS_GUI_APP) {
-			i = 0;
-		} else {
-			status = mainwin->statusBar();
-			bar = new QProgressBar();
-			bar->setMinimum(0);
-			bar->setMaximum(100);
-			bar->setValue(50);
-
-			mainwin->repaint();
-			status->addPermanentWidget(bar, 1);
-		}
+		if (IS_GUI_APP)
+			progress = new XcaProgressGui();
+		else
+			progress = new XcaProgressCmd();
 	}
 	~XcaProgress()
 	{
-		if (!IS_GUI_APP) {
-			printf(" finished.\n");
-		} else {
-			status->removeWidget(bar);
-			delete bar;
-		}
+		delete progress;
 	}
 	void increment()
 	{
-		if (!IS_GUI_APP) {
-			static const char *spinner = "|/-\\";
-			printf("\rGenerating %c ...", spinner[i%4]);
-			fflush(stdout);
-			i++;
-		} else {
-			int value = bar->value();
-			if (value == bar->maximum()) {
-				bar->reset();
-			} else {
-				bar->setValue(value +1);
-			}
-		}
+		progress->increment();
 	}
 	static void inc(int, int, void *p)
 	{
 		XcaProgress *prog = static_cast<XcaProgress*>(p);
-		prog->increment();
+		if (prog)
+			prog->increment();
 	}
 };
 #endif
