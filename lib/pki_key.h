@@ -26,7 +26,16 @@
 class keytype
 {
     public:
-	static QList<keytype> types;
+	static QList<keytype> types()
+	{
+		return QList<keytype> {
+			keytype(EVP_PKEY_RSA, "RSA", CKM_RSA_PKCS_KEY_PAIR_GEN),
+			keytype(EVP_PKEY_DSA, "DSA", CKM_DSA_KEY_PAIR_GEN),
+#ifndef OPENSSL_NO_EC
+			keytype(EVP_PKEY_EC, "EC", CKM_EC_KEY_PAIR_GEN),
+#endif
+		};
+	}
 	int type;
 	QString name;
 	CK_MECHANISM_TYPE mech;
@@ -41,7 +50,7 @@ class keytype
 	}
 	static const keytype byType(int type)
 	{
-		foreach(const keytype t, types) {
+		foreach(const keytype t, types()) {
 			if (t.type == type)
 				return t;
 		}
@@ -49,7 +58,7 @@ class keytype
 	}
 	static const keytype byMech(CK_MECHANISM_TYPE mech)
 	{
-		foreach(const keytype t, types) {
+		foreach(const keytype t, types()) {
 			if (t.mech == mech)
 				return t;
 		}
@@ -57,7 +66,7 @@ class keytype
 	}
 	static const keytype byName(const QString &name)
 	{
-		foreach(const keytype t, types) {
+		foreach(const keytype t, types()) {
 			if (t.name == name)
 				return t;
 		}

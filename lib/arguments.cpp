@@ -1,21 +1,24 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2015 Christian Hohnstaedt.
+ * Copyright (C) 2020 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
-
-#include <getopt.h>
-#include <sys/ioctl.h>
-#include <stdio.h>
-
-#include "arguments.h"
 
 #include <QList>
 #include <QDebug>
 
 #include "func.h"
 #include "exception.h"
+#include "arguments.h"
+
+#include <getopt.h>
+#include <stdio.h>
+
+#if !defined(Q_OS_WIN32)
+#include <sys/ioctl.h>
+#endif
+
 
 const QList<arg_option> arguments::opts = {
 	arg_option("database", "<database>", file_argument, false, false,
@@ -96,12 +99,13 @@ QString arguments::help()
 	QString s;
 	size_t len = 0;
 	int width = 80, offset;
+#if !defined(Q_OS_WIN32)
 	struct winsize w;
 
 	ioctl(0, TIOCGWINSZ, &w);
 	if (w.ws_col > 20)
 		width = w.ws_col;
-
+#endif
 	foreach(const arg_option &a, opts) {
 		size_t l = strlen(a.long_opt) + 1;
 		if (a.arg)

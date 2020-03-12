@@ -21,14 +21,6 @@
 
 builtin_curves pki_key::builtinCurves;
 
-QList<keytype> keytype::types = {
-	keytype(EVP_PKEY_RSA, "RSA", CKM_RSA_PKCS_KEY_PAIR_GEN),
-	keytype(EVP_PKEY_DSA, "DSA", CKM_DSA_KEY_PAIR_GEN),
-#ifndef OPENSSL_NO_EC
-	keytype(EVP_PKEY_EC, "EC", CKM_EC_KEY_PAIR_GEN),
-#endif
-};
-
 pki_key::pki_key(const QString &name)
         :pki_base(name)
 {

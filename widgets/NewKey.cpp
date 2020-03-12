@@ -102,7 +102,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 	foreach (int size, sizeList)
 		keyLength->addItem(QString("%1 bit").arg(size));
 
-	foreach (const keytype t, keytype::types)
+	foreach (const keytype t, keytype::types())
 		keytypes << keyListItem(t);
 
 	updateCurves();
@@ -114,7 +114,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 
 		foreach(slotid slot, p11_slots) {
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
-			foreach(keytype t, keytype::types)
+			foreach(keytype t, keytype::types())
 				if (ml.contains(t.mech))
 					keytypes << keyListItem(&p11, slot,
 								t.type);
