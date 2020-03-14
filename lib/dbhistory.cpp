@@ -33,7 +33,7 @@ dbhistory::dbhistory()
 		ssize_t size = file.readLine(buf, sizeof buf);
 		if (size <= 0)
 			break;
-		name = filename2QString(buf).trimmed();
+		name = QString::fromUtf8(buf).trimmed();
 		if (name.size() == 0)
 			continue;
 		if (history.indexOf(name) == -1)
@@ -72,12 +72,10 @@ void dbhistory::addEntry(const QString &name)
 	if (!file.open_write())
 		return;
 
-	for (pos = 0; pos < history.size(); pos++) {
-		QByteArray ba = filename2bytearray(history[pos]);
-		ba.append('\n');
-		if (file.write(ba) <= 0)
-			break;
-	}
+	QString all = history.join("\n");
+	if (file.write(all.toUtf8()) <= 0)
+		qDebug() << "Error writing history" << file.fileName()
+			 << file.errorString();
 	file.close();
 }
 

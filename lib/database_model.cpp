@@ -422,13 +422,9 @@ void database_model::as_default_database(const QString &db)
 	}
 
 	if (file.open(QIODevice::ReadWrite)) {
-		QByteArray ba;
-		if (isRemoteDB(db))
-			ba = filename2bytearray(db);
-		else
-			ba = filename2bytearray(relativePath(db));
-		ba += '\n';
-		file.write(ba);
+		QByteArray ba = isRemoteDB(db) ?
+			db.toUtf8() : relativePath(db).toUtf8();
+		file.write(ba + '\n');
 		/* write() failed? Harmless. Only inconvenient */
 	}
 	file.close();
