@@ -337,7 +337,7 @@ void db_base::insertChild(pki_base *parent, pki_base *child)
 		idx = index(parent);
 
 	beginInsertRows(idx, 0, 0);
-	parent->insert(0,child);
+	parent->append(child);
 	endInsertRows();
 }
 
