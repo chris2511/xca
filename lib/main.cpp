@@ -194,6 +194,11 @@ static database_model* read_cmdline(int argc, char *argv[])
 
 	if (cmd_opts.has("keygen")) {
 		keyjob task(cmd_opts["keygen"]);
+		if (!task.isValid()) {
+			delete models;
+			throw errorEx(QObject::tr("Unknown key type %1")
+					.arg(cmd_opts["keygen"]));
+		}
 		db_key *keys = models->model<db_key>();
 		pki_key *pki = keys->newItem(task, cmd_opts["name"]);
 		if (pki)

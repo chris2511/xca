@@ -153,7 +153,7 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 #ifndef OPENSSL_NO_EC
 	QList<builtin_curve> curve_rfc5480, curve_x962, curve_other;
 
-	foreach(builtin_curve curve, pki_key::builtinCurves) {
+	foreach(builtin_curve curve, builtinCurves) {
 		const char *sn = OBJ_nid2sn(curve.nid);
 
 		if (!sn || curve.order_size < min || curve.order_size > max)

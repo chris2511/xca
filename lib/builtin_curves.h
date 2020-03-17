@@ -38,6 +38,13 @@ class builtin_curves: public QList<builtin_curve>
 {
     public:
 	builtin_curves();
+	bool containNid(int nid)
+	{
+		foreach(const builtin_curve &c, *this)
+			if (c.nid == nid)
+				return true;
+		return false;
+	}
 };
 
 #endif

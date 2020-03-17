@@ -280,7 +280,7 @@ static void search_ec_oid(EVP_PKEY *pkey)
 		return;
 	/* There is an EC_GROUP with a missing OID
 	 * because of explicit parameters */
-	foreach(builtin_curve curve, pki_key::builtinCurves) {
+	foreach(builtin_curve curve, builtinCurves) {
 		builtin = EC_GROUP_new_by_curve_name(curve.nid);
 		if (EC_GROUP_cmp(builtin, ec_group, NULL) == 0) {
 			EC_GROUP_set_curve_name((EC_GROUP *)ec_group, curve.nid);

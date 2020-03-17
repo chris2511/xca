@@ -23,6 +23,8 @@
 #define VIEW_public_keys_len 7
 #define VIEW_public_keys_public 8
 
+extern builtin_curves builtinCurves;
+
 class keytype
 {
     public:
@@ -44,6 +46,10 @@ class keytype
 			: type(t), name(n), mech(m) { }
 	keytype() : type(-1), name(QString()), mech(0) { }
 
+	bool isValid()
+	{
+		return type != -1;
+	}
 	QString traditionalPemName() const
 	{
 		return name + " PRIVATE KEY";
@@ -80,25 +86,19 @@ class keytype
 
 class keyjob
 {
-	void defaultjob()
-	{
-		size = 2048;
-		ktype = keytype::byName("RSA");
-		ec_nid = NID_undef;
-		slot = slotid();
-	}
-
     public:
 	keytype ktype;
 	int size;
 	int ec_nid;
 	slotid slot;
 	keyjob() {
-		defaultjob();
+		size = 2048;
+		ktype = keytype::byName("RSA");
+		ec_nid = NID_undef;
+		slot = slotid();
 	}
 	keyjob(const QString &desc)
 	{
-		defaultjob();
 		QStringList sl = desc.split(':');
 		if (sl.size() != 2)
 			return;
@@ -107,6 +107,7 @@ class keyjob
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
 		else
 			size = sl[1].toInt();
+		slot = slotid();
 	}
 	QString toString()
 	{
@@ -122,6 +123,16 @@ class keyjob
 	bool isEC() const
 	{
 		return ktype.type == EVP_PKEY_EC;
+	}
+	bool isValid()
+	{
+		if (!ktype.isValid())
+			return false;
+		if (isEC() && builtinCurves.containNid(ec_nid))
+			return true;
+		if (!isEC() && size > 0)
+			return true;
+		return false;
 	}
 };
 
@@ -155,7 +166,6 @@ class pki_key: public pki_base
 		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const;
 		mutable int useCount; // usage counter
 	public:
-		static builtin_curves builtinCurves;
 
 		pki_key(const QString &name = QString());
 		pki_key(const pki_key *pk);

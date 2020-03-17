@@ -34,7 +34,7 @@ KeyDetail::KeyDetail(QWidget *parent)
 #ifndef OPENSSL_NO_EC
 static QString CurveComment(int nid)
 {
-	foreach(builtin_curve curve, pki_key::builtinCurves) {
+	foreach(builtin_curve curve, builtinCurves) {
 		if (curve.nid == nid)
 			return curve.comment;
 	}
@@ -51,7 +51,7 @@ void KeyDetail::setupFingerprints(pki_key *key)
 	v->addStretch();
 	v->addWidget(widget);
 	v->addStretch();
-	
+
 	QStringList sl; sl <<
 		"ssh MD5" << "ssh SHA256 B64" <<
 		"x509 SHA1" << "DER SHA256";

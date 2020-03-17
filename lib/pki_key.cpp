@@ -19,7 +19,7 @@
 
 #include "openssl_compat.h"
 
-builtin_curves pki_key::builtinCurves;
+builtin_curves builtinCurves;
 
 pki_key::pki_key(const QString &name)
         :pki_base(name)
