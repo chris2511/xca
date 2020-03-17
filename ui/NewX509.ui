@@ -732,14 +732,14 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="2" colspan="2">
+         <item row="0" column="2">
           <widget class="QLineEdit" name="subAltName">
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="4">
+         <item row="0" column="3">
           <widget class="QPushButton" name="editSubAlt">
            <property name="text">
             <string>Edit</string>
@@ -749,14 +749,14 @@
          <item row="1" column="0">
           <widget class="DoubleClickLabel" name="ianLbl"/>
          </item>
-         <item row="1" column="2" colspan="2">
+         <item row="1" column="2">
           <widget class="QLineEdit" name="issAltName">
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="4">
+         <item row="1" column="3">
           <widget class="QPushButton" name="editIssAlt">
            <property name="text">
             <string>Edit</string>
@@ -782,14 +782,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2" colspan="2">
+         <item row="2" column="2">
           <widget class="QLineEdit" name="crlDist">
            <property name="toolTip">
             <string>URI:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="4">
+         <item row="2" column="3">
           <widget class="QPushButton" name="editCrlDist">
            <property name="text">
             <string>Edit</string>
@@ -819,16 +819,13 @@
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QComboBox" name="aiaOid"/>
-         </item>
-         <item row="3" column="3">
           <widget class="QLineEdit" name="authInfAcc">
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="4">
+         <item row="3" column="3">
           <widget class="QPushButton" name="editAuthInfAcc">
            <property name="text">
             <string>Edit</string>
@@ -1288,7 +1285,6 @@
   <tabstop>editIssAlt</tabstop>
   <tabstop>crlDist</tabstop>
   <tabstop>editCrlDist</tabstop>
-  <tabstop>aiaOid</tabstop>
   <tabstop>authInfAcc</tabstop>
   <tabstop>editAuthInfAcc</tabstop>
   <tabstop>kuCritical</tabstop>
