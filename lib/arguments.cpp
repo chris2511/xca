@@ -113,19 +113,20 @@ QString arguments::help()
 		if (l > len)
 			len = l;
 	}
-	offset = len + 6;
+	offset = len + 7;
 	for (auto i = opts.begin(); i != opts.end(); ++i) {
 		QString longopt = i->long_opt;
 		if (i->arg)
 			longopt += QString("=%1").arg(i->arg);
 		QString help = splitQstring(offset, width, i->help);
-		s += QString("  --%1 %2%3\n")
-			.arg(longopt, len*-1).arg(help)
-			.arg(i->need_db ? " [*]" : "");
+		s += QString(" %3 --%1 %2\n")
+			.arg(longopt, len*-1)
+			.arg(help)
+			.arg(i->need_db ? "*" : " ");
 	}
 	s += "\n"
-	     " [*] Needs a database. Either from the commandline\n"
-	     "     or as default database\n";
+	     "[*] Needs a database. Either from the commandline\n"
+	     "    or as default database\n";
 	return s;
 }
 
