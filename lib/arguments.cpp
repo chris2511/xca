@@ -136,8 +136,8 @@ int arguments::parse(int argc, char *argv[])
 
 	/* Setup "struct option" */
 	if (!long_opts)
-		long_opts = (struct option*)calloc(cnt +1,
-							sizeof(*long_opts));
+		long_opts = new struct option[cnt];
+
 	check_oom(long_opts);
 	for (i = 0; i < cnt; ++i)
 		opts[i].fillOption(long_opts +i);
@@ -190,8 +190,7 @@ arguments &arguments::operator = (const arguments &a)
 
 arguments::~arguments()
 {
-	if (long_opts)
-		free(long_opts);
+	delete long_opts;
 }
 
 QString arguments::operator [] (const QString &key) const

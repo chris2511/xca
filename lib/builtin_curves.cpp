@@ -126,8 +126,7 @@ static const QList<int> other_curve_nids()
 builtin_curves::builtin_curves()
 {
 	int i, num_curves = EC_get_builtin_curves(NULL, 0);
-	EC_builtin_curve *curves = (EC_builtin_curve*)OPENSSL_malloc(
-		(int)(sizeof(EC_builtin_curve) *num_curves));
+	EC_builtin_curve *curves = new EC_builtin_curve[num_curves];
 
 	check_oom(curves);
 
@@ -174,6 +173,7 @@ builtin_curves::builtin_curves()
                 EC_GROUP_free(group);
 	}
 	BN_free(order);
+	delete curves;
 }
 #else
 builtin_curves::builtin_curves() { }
