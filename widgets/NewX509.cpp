@@ -106,7 +106,6 @@ NewX509::NewX509(QWidget *parent)
 {
 	int i;
 
-	aia_nid << OBJ_sn2nid("OCSP") << OBJ_sn2nid("caIssuers");
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
 	QStringList keys;
 
@@ -173,10 +172,6 @@ NewX509::NewX509(QWidget *parent)
 	// setup Extended keyusage
 	foreach(int nid, extkeyuse_nid)
 		ekeyUsage->addItem(OBJ_nid2ln(nid));
-
-	// setup Authority Info Access
-	foreach(int nid, aia_nid)
-		aiaOid->addItem(OBJ_nid2ln(nid));
 
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
@@ -260,6 +255,7 @@ NewX509::NewX509(QWidget *parent)
 	MAP_LE(subAltName);
 	MAP_LE(issAltName);
 	MAP_LE(crlDist);
+	MAP_LE(authInfAcc);
 	MAP_LE(nsComment);
 	MAP_LE(nsBaseUrl);
 	MAP_LE(nsRevocationUrl);
@@ -527,7 +523,6 @@ void NewX509::extensionsFromTemplate(pki_temp *temp)
 	QString2lb(ekeyUsage, temp->getSetting("eKeyUse"));
 	validRange->setCurrentIndex(temp->getSettingInt("validM"));
 	nconf_data->document()->setPlainText(temp->getSetting("adv_ext"));
-	setAuthInfAcc_string(temp->getSetting("authInfAcc"));
 
 	on_applyTime_clicked();
 }
@@ -554,7 +549,6 @@ void NewX509::toTemplate(pki_temp *temp)
 		temp->setSetting(i.key(), i.value()->isChecked());
 	}
 
-	temp->setSetting("authInfAcc", getAuthInfAcc_string());
 	temp->setSetting("nsCertType", lb2int(nsCertType));
 	temp->setSetting("ca", basicCA->currentIndex());
 	temp->setSetting("keyUse", lb2int(keyUsage));
@@ -881,14 +875,7 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 
 	dlg = new v3ext(this);
 	setupTmpCtx();
-	if (n == NID_info_access) {
-		int nid, idx = aiaOid->currentIndex();
-		if (idx >= 0 && idx < aia_nid.size()) {
-			nid = aia_nid[idx];
-			dlg->setPrefix(QString(OBJ_nid2sn(nid)) + ";");
-		}
-	}
-	dlg->addInfo(le, types.split(',' ), n, &ext_ctx);
+	dlg->addInfo(le, types.split(','), n, &ext_ctx);
 	dlg->exec();
 	delete(dlg);
 }
@@ -1073,7 +1060,14 @@ void NewX509::on_editCrlDist_clicked()
 
 void NewX509::on_editAuthInfAcc_clicked()
 {
-	editV3ext(authInfAcc, "URI,email,RID,DNS,IP", NID_info_access);
+	QStringList permut, groups { "OCSP", "caIssuers" },
+			types{ "URI", "email", "RID", "DNS", "IP" };
+	foreach(QString group, groups) {
+		foreach(QString type, types) {
+			permut << QString("%1;%2").arg(group).arg(type);
+		}
+	}
+	editV3ext(authInfAcc, permut.join(","), NID_info_access);
 }
 
 void NewX509::on_tabWidget_currentChanged(int tab)

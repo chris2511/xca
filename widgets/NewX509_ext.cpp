@@ -141,45 +141,11 @@ x509v3ext NewX509::getCrlDist()
 	return ext;
 }
 
-QString NewX509::getAuthInfAcc_string()
-{
-	QString rval="";
-	QString aia_txt	= authInfAcc->text();
-	aia_txt = aia_txt.trimmed();
-
-	if (!aia_txt.isEmpty()) {
-		rval = OBJ_nid2sn(aia_nid[aiaOid->currentIndex()]);
-		rval += ";" + aia_txt;
-	}
-	openssl_error();
-	return rval;
-}
-
-void NewX509::setAuthInfAcc_string(QString aia_txt)
-{
-	int nid, idx;
-
-	idx = aia_txt.indexOf(';');
-	if (idx == -1)
-		return;
-
-	nid = OBJ_txt2nid(CCHAR(aia_txt.left(idx)));
-
-	for (int i=0; i < aia_nid.count(); i++) {
-		if (aia_nid[i] == nid) {
-			aiaOid->setCurrentIndex(i);
-		}
-	}
-	authInfAcc->setText(aia_txt.mid(idx +1));
-}
-
 x509v3ext NewX509::getAuthInfAcc()
 {
 	x509v3ext ext;
-	QString aia_txt = getAuthInfAcc_string();
-
-	if (!aia_txt.isEmpty()) {
-		ext.create(NID_info_access, aia_txt, &ext_ctx);
+	if (!authInfAcc->text().isEmpty()) {
+		ext.create(NID_info_access, authInfAcc->text(), &ext_ctx);
 	}
 	return ext;
 }
