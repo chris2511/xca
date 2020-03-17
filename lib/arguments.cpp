@@ -238,8 +238,10 @@ bool arguments::is_console(int argc, char *argv[])
 		QString arg = QString(argv[i]);
 		if (arg.startsWith("--"))
 			arg = arg.mid(1);
-		if (console_opts.contains(arg))
-			return true;
+		foreach(QString opt, console_opts) {
+			if (opt.startsWith(arg))
+				return true;
+		}
 	}
 	return false;
 }
