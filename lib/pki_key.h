@@ -67,7 +67,7 @@ class keytype
 	static const keytype byName(const QString &name)
 	{
 		foreach(const keytype t, types()) {
-			if (t.name == name)
+			if (t.name == name.toUpper())
 				return t;
 		}
 		return keytype();
