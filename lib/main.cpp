@@ -181,10 +181,10 @@ static database_model* read_cmdline(int argc, char *argv[])
 		db_x509 *certs = models->model<db_x509>();
 		certs->writeIndex(cmd_opts["index"], false);
 	}
-	if (!cmd_opts["index-hierarchy"].isEmpty()) {
-		qDebug() << cmd_opts["index-hierarchy"];
+	if (!cmd_opts["hierarchy"].isEmpty()) {
+		qDebug() << cmd_opts["hierarchy"];
 		db_x509 *certs = models->model<db_x509>();
-		certs->writeIndex(cmd_opts["index-hierarchy"], true);
+		certs->writeIndex(cmd_opts["hierarchy"], true);
 	}
 	if (cmd_opts.has("help"))
 		cmd_help();
