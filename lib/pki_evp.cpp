@@ -347,6 +347,14 @@ void pki_evp::fload(const QString &fname)
 			PKCS8_PRIV_KEY_INFO_free(p8inf);
 		}
 	}
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+	if (!pkey) {
+		pki_ign_openssl_error();
+		file.retry_read();
+		pkey = b2i_PVK_bio(file.bio(), cb, &p);
+		pki_openssl_error();
+        }
+#endif
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();
@@ -362,6 +370,13 @@ void pki_evp::fload(const QString &fname)
 		file.retry_read();
 		pkey = load_ssh2_key(file);
         }
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+	if (!pkey) {
+		pki_ign_openssl_error();
+		file.retry_read();
+		pkey = b2i_PublicKey_bio(file.bio());
+        }
+#endif
 	if (pki_ign_openssl_error() || !pkey) {
 		if (pkey)
 			EVP_PKEY_free(pkey);
@@ -692,6 +707,31 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 	EVP_PKEY_free(pkey);
 }
 
+void pki_evp::writePVKprivate(XFile &file, pem_password_cb *cb) const
+{
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+	pass_info p(XCA_TITLE, tr("Please enter the password protecting the Microsoft PVK key '%1'").arg(getIntName()));
+
+	int enc = cb ? 2 /* pvk-strong */ : 0 /* pvk-none */;
+	EVP_PKEY *pkey = decryptKey();
+	if (!pkey) {
+		pki_openssl_error();
+		return;
+	}
+	/* In case of success! the error
+	 *   PEMerr(PEM_F_I2B_PVK_BIO, PEM_R_BIO_WRITE_FAILURE)
+	 * is set. Workaround this behavior */
+	if (i2b_PVK_bio(file.bio(), pkey, enc, cb, &p) == -1) {
+		pki_openssl_error();
+		PEMerr(PEM_F_I2B_PVK_BIO, PEM_R_BIO_WRITE_FAILURE);
+		pki_openssl_error();
+	}
+	ign_openssl_error();
+	EVP_PKEY_free(pkey);
+#else
+	throw errorEx("Internal Error");
+#endif
+}
 static int mycb(char *buf, int size, int, void *)
 {
 	strncpy(buf, pki_evp::passwd, size);
@@ -745,14 +785,8 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 	}
 	if (pem) {
 		PEM_file_comment(file);
-		BIO *b = BIO_new_fp(file.fp(), BIO_NOCLOSE);
-		if (!b) {
-			EVP_PKEY_free(pkey);
-			return;
-		}
-		PEM_write_bio_PrivateKey_traditional(b, pkey, enc,
+		PEM_write_bio_PrivateKey_traditional(file.bio(), pkey, enc,
 						NULL, 0, cb, &p);
-		BIO_free(b);
 	} else {
 		i2d_PrivateKey_fp(file.fp(), pkey);
 	}

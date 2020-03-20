@@ -298,16 +298,24 @@ void db_key::store(QModelIndex index)
 	const EVP_CIPHER *algo = NULL, *encrypt = EVP_aes_256_cbc();
 	QString title = tr("Export public key [%1]");
 	QList<exportType> types;
+	bool pvk = false;
 
 	if (!index.isValid())
 		return;
 
 	pki_key *key =static_cast<pki_evp*>(index.internalPointer());
-	pki_evp *privkey = (pki_evp *)key;
+	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
+
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+	int keytype = key->getKeyType();
+	if (keytype == EVP_PKEY_RSA || keytype == EVP_PKEY_DSA)
+		pvk = true;
+#endif
 
 	types <<
 	exportType(exportType::PEM_key, "pem", tr("PEM public")) <<
 	exportType(exportType::DER_key, "der", tr("DER public"));
+
 	if (key->SSH2_compatible())
 		types << exportType(exportType::SSH2_public,
 					"pub", tr("SSH2 public"));
@@ -318,8 +326,15 @@ void db_key::store(QModelIndex index)
 			tr("DER private")) <<
 		exportType(exportType::PEM_private_encrypt, "pem",
 			tr("PEM encryped")) <<
-		exportType(exportType::PKCS8, "pk8",
-			"PKCS#8");
+		exportType(exportType::PKCS8, "pk8", "PKCS#8");
+
+		if (pvk) {
+			types <<
+			exportType(exportType::PVK_private, "pvk",
+				tr("PVK private")) <<
+			exportType(exportType::PVK_encrypt, "pvk",
+				tr("PVK encrypted"));
+		}
 		usual <<
 		exportType(exportType::PEM_private, "pem",
 			tr("PEM private")) <<
@@ -380,8 +395,14 @@ void db_key::store(QModelIndex index)
 		case exportType::SSH2_public:
 			key->writeSSH2public(file);
 			break;
+		case exportType::PVK_private:
+			privkey->writePVKprivate(file, NULL);
+			break;
+		case exportType::PVK_encrypt:
+			privkey->writePVKprivate(file, PwDialog::pwCallback);
+			break;
 		default:
-			exit(1);
+			throw errorEx(tr("Internal error"));
 		}
 	}
 	catch (errorEx &err) {

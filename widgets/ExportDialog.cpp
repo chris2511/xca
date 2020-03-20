@@ -87,6 +87,8 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title, const QString &filt
 	help[exportType::Index] = tr("OpenSSL specific Certificate Index file as created by the 'ca' command and required by the OCSP tool");
 	help[exportType::vcalendar] = tr("vCalendar expiry reminder for the selected items");
 	help[exportType::vcalendar_ca] = tr("vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL");
+	help[exportType::PVK_private] = tr("Private key in Microsoft PVK format not encrypted");
+	help[exportType::PVK_encrypt] = tr("Encrypted private key in Microsoft PVK format");
 
 	on_exportFormat_highlighted(0);
 }
