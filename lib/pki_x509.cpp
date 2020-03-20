@@ -986,8 +986,7 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 			return QVariant();
 		if (!ca)
 			return QVariant();
-		pixnum = 4;
-		break;
+		return QVariant(QPixmap(":doneIco"));
 	case HD_internal_name:
 		if (hasPrivKey())
 			pixnum += 1;
