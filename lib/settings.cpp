@@ -54,7 +54,6 @@ void settings::clear()
 
 void settings::setAction(const QString &key, const QString &value)
 {
-	qDebug() << "Settings::setAction(" << key << ", " << value << ")";
 	if (key == "string_opt")
 		ASN1_STRING_set_default_mask_asc((char*)CCHAR(value));
 	else if (key == "default_hash")
