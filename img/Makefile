@@ -13,7 +13,7 @@ include $(TOPDIR)/Rules.mak
 sinclude .depend
 
 install: xca-32x32.xpm
-	install -D -m 644 $^ $(DESTDIR)$(prefix)/share/pixmaps/xca-32x32.xpm
+	install -D -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/xca-32x32.xpm
 
 imgres.cpp: imgres.rcc
 	@$(PRINT) "  RCC    [$(BASENAME)] $@"
