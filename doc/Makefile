@@ -20,10 +20,10 @@ xca.html: xca.sgml
 	$(ENABLE_DOC)$(DOCTOOL) $< >/dev/null
 
 install: $(doc)
-	$(ENABLE_DOC)install -m 755 -d $(destdir)$(htmldir)
-	$(ENABLE_DOC)install -m 644 xca*.html $(destdir)$(htmldir)
-	install -m 755 -d $(destdir)$(mandir)/man1
-	install -m 644 *.1.gz $(destdir)/$(mandir)/man1
+	$(ENABLE_DOC)install -m 755 -d $(DESTDIR)$(htmldir)
+	$(ENABLE_DOC)install -m 644 xca*.html $(DESTDIR)$(htmldir)
+	install -m 755 -d $(DESTDIR)$(mandir)/man1
+	install -m 644 *.1.gz $(DESTDIR)/$(mandir)/man1
 
 app: xca.html
 	mkdir -p $(APPDIR)/Resources
