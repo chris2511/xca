@@ -12,8 +12,26 @@ endif
 include $(TOPDIR)/Rules.mak
 sinclude .depend
 
-install: xca-32x32.xpm
-	install -D -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/xca-32x32.xpm
+ICONS = \
+		xca-16x16.png \
+		xca-32x32.png \
+		xca-64x64.png
+PIXMAPS = \
+		  xca-32x32.xpm
+ICON_NAME = xca
+ICONDIR = $(datadir)/icons/hicolor
+
+install: install-pixmaps install-icons
+
+install-pixmaps: $(PIXMAPS)
+	install -D -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/$(ICON_NAME).xpm
+
+install-icons: $(ICONS)
+	for SZ in 16 32 64; do \
+		if [ -f xca-$${SZ}x$${SZ}.png ]; then \
+			install -D -m 0644 xca-$${SZ}x$${SZ}.png $(DESTDIR)$(ICONDIR)/$${SZ}x$${SZ}/apps/$(ICON_NAME).png ; \
+		fi ; \
+	done
 
 imgres.cpp: imgres.rcc
 	@$(PRINT) "  RCC    [$(BASENAME)] $@"
