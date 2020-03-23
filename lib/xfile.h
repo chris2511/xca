@@ -18,10 +18,13 @@
 #include <errno.h>
 #include "exception.h"
 
+#include <openssl/bio.h>
+
 class XFile : public QFile
 {
 	private:
 		FILE *filp;
+		BIO *b;
 
 	public:
 		bool open(OpenMode flags)
@@ -33,9 +36,15 @@ class XFile : public QFile
 			}
 			return o;
 		}
-		XFile(const QString &name) : QFile(name)
+		XFile(const QString &name) : QFile(name), filp(NULL), b(NULL)
 		{
-			filp = NULL;
+		}
+		BIO *bio()
+		{
+			if (b)
+				BIO_free(b);
+			b = BIO_new_fp(fp(), BIO_NOCLOSE);
+			return b;
 		}
 		FILE *fp(const char *mode = NULL)
 		{
@@ -94,6 +103,8 @@ class XFile : public QFile
 		~XFile() {
 			if (filp)
 				fclose(filp);
+			if (b)
+				BIO_free(b);
 		}
 };
 

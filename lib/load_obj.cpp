@@ -55,6 +55,7 @@ load_key::load_key()
 {
 	filter = QObject::tr("PKI Keys ( *.pem *.der *.key );; "
 			"PKCS#8 Keys ( *.p8 *.pk8 );; "
+			"Microsoft PVK Keys ( *.pvk );; "
 			"SSH Public Keys ( *.pub );;") + filter;
 	caption = QObject::tr("Import RSA key");
 }

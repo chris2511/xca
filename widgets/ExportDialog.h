@@ -21,7 +21,7 @@ class exportType {
 		PEM_key, PEM_private, PEM_private_encrypt, DER_private,
 		DER_key, PKCS8, PKCS8_encrypt, SSH2_public,
 		PEM_selected, PKCS7_selected, Index, vcalendar, vcalendar_ca,
-		ETYPE_max };
+		PVK_private, PVK_encrypt, ETYPE_max };
 	enum etype type;
 	QString desc;
 	QString extension;
