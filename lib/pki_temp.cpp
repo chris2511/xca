@@ -44,6 +44,7 @@ const QList<QString> pki_temp::tmpl_keys = {
 	"eKeyUse",
 	"adv_ext",
 	"noWellDefinedExpDate",
+	"OCSPstaple",
 };
 
 pki_temp::pki_temp(const pki_temp *pk)
@@ -207,6 +208,7 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	}
 	settings["authKey"] = el.delByNid(NID_authority_key_identifier) ? "1" : "0";
 	settings["subKey"] =  el.delByNid(NID_subject_key_identifier) ? "1" : "0";
+	settings["OCSPstaple"] = el.delByNid(NID_tlsfeature) ? "1" : "0";
 
 	int nsCT = bitsToInt(el, NID_netscape_cert_type, NULL);
 	/* bit 4 is unused. Move higher bits down. */

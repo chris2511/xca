@@ -272,6 +272,7 @@ NewX509::NewX509(QWidget *parent)
 	MAP_CB(ekuCritical);
 	MAP_CB(subKey);
 	MAP_CB(authKey);
+	MAP_CB(OCSPstaple);
 	MAP_CB(validMidn);
 	MAP_CB(noWellDefinedExpDate);
 }

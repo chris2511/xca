@@ -91,6 +91,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		x509v3ext getBasicConstraints();
 		x509v3ext getSubKeyIdent();
 		x509v3ext getAuthKeyIdent();
+		x509v3ext getOCSPstaple();
 		x509v3ext getKeyUsage();
 		x509v3ext getEkeyUsage();
 		x509v3ext getSubAltName();

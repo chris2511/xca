@@ -18,6 +18,10 @@
 #include "widgets/XcaWarning.h"
 #include "widgets/MainWindow.h"
 
+#ifndef NID_tlsfeature
+int NID_tlsfeature = NID_undef;
+#endif
+
 int first_additional_oid = 0;
 
 NIDlist extkeyuse_nid;
@@ -194,6 +198,10 @@ void initOIDs()
 	QString dir = getPrefix();
 
 	first_additional_oid = OBJ_new_nid(0);
+#ifndef NID_tlsfeature
+	NID_tlsfeature = OBJ_create("1.3.6.1.5.5.7.1.24", "tlsfeature",
+							"TLS Feature");
+#endif
 	openssl_error();
 	for (int i=0; i<first_additional_oid;i++)
 		addToLowerMap(i);
