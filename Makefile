@@ -126,9 +126,9 @@ snapshot:
 		gzip -9 > xca-$${HASH}.tar.gz
 
 install: xca$(SUFFIX) $(INSTTARGET)
-	install -m 755 -d $(destdir)$(bindir)
-	install -m 755 xca $(destdir)$(bindir)
-	$(STRIP) $(destdir)$(bindir)/xca
+	install -m 755 -d $(DESTDIR)$(bindir)
+	install -m 755 xca $(DESTDIR)$(bindir)
+	$(STRIP) $(DESTDIR)$(bindir)/xca
 
 xca$(SUFFIX).signed: xca$(SUFFIX)
 

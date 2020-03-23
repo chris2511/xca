@@ -69,7 +69,7 @@ xca.dmg  :  Creates the MacOSX Disk image
 
 Installing:
 ------------
-make destdir=/my/virtual/root
+make DESTDIR=/my/virtual/root
 provides /my/virtual/root/ as root-directory for installation
 to be mounted by others as root or as installdir for
 package builders.
