@@ -33,5 +33,6 @@ docdir=@docdir@
 htmldir=@htmldir@
 mandir=@mandir@
 bindir=@bindir@
+datadir=@datadir@
 datarootdir=@datarootdir@
 xca_prefix=${datarootdir}/${PACKAGE_TARNAME}

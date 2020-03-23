@@ -18,8 +18,8 @@ lang all: $(QM_XCA)
 	$(LRELEASE) -silent $< -qm $@
 
 install: $(QM_XCA)
-	install -m 755 -d $(destdir)$(xca_prefix)
-	install -m 644 $(QM_XCA) $(destdir)$(xca_prefix)
+	install -m 755 -d $(DESTDIR)$(xca_prefix)
+	install -m 644 $(QM_XCA) $(DESTDIR)$(xca_prefix)
 
 app:
 	mkdir -p $(APPDIR)/Resources
