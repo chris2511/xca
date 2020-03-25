@@ -191,58 +191,65 @@ NewX509::NewX509(QWidget *parent)
 	pt = none;
 	notAfter->setEndDate(true);
 
-	QMap<int, DoubleClickLabel*> nidLabel;
-	nidLabel[NID_subject_alt_name] = sanLbl;
-	nidLabel[NID_issuer_alt_name] = ianLbl;
-	nidLabel[NID_crl_distribution_points] = crldpLbl;
-	nidLabel[NID_info_access] = aiaLbl;
-	nidLabel[NID_netscape_base_url] = nsBaseLbl;
-	nidLabel[NID_netscape_revocation_url] = nsRevLbl;
-	nidLabel[NID_netscape_ca_revocation_url] = nsCaRevLbl;
-	nidLabel[NID_netscape_renewal_url] = nsRenewLbl;
-	nidLabel[NID_netscape_ca_policy_url] = nsCaPolicyLbl;
-	nidLabel[NID_netscape_ssl_server_name] = nsSslServerLbl;
-	nidLabel[NID_netscape_comment] = nsCommentLbl;
+	QMap<int, QWidget*> nidWidget;
+	nidWidget[NID_subject_alt_name] = sanLbl;
+	nidWidget[NID_issuer_alt_name] = ianLbl;
+	nidWidget[NID_crl_distribution_points] = crldpLbl;
+	nidWidget[NID_info_access] = aiaLbl;
+	nidWidget[NID_netscape_base_url] = nsBaseLbl;
+	nidWidget[NID_netscape_revocation_url] = nsRevLbl;
+	nidWidget[NID_netscape_ca_revocation_url] = nsCaRevLbl;
+	nidWidget[NID_netscape_renewal_url] = nsRenewLbl;
+	nidWidget[NID_netscape_ca_policy_url] = nsCaPolicyLbl;
+	nidWidget[NID_netscape_ssl_server_name] = nsSslServerLbl;
+	nidWidget[NID_netscape_comment] = nsCommentLbl;
 
-	foreach(int nid, nidLabel.keys()) {
-		DoubleClickLabel *l = nidLabel[nid];
-		l->setText(Settings["translate_dn"] ?
-			dn_translations[nid] : OBJ_nid2ln(nid));
-		if (l->toolTip().isEmpty()) {
-			l->setToolTip(Settings["translate_dn"] ?
-				OBJ_nid2ln(nid) : dn_translations[nid]);
-		}
-		l->setClickText(OBJ_nid2sn(nid));
-		connect(l, SIGNAL(doubleClicked(QString)),
-                        MainWindow::getResolver(), SLOT(searchOid(QString)));
-	}
+	nidWidget[NID_basic_constraints] = bcBox;
+	nidWidget[NID_key_usage] = kuBox;
+	nidWidget[NID_ext_key_usage] = ekuBox;
+	nidWidget[NID_netscape_cert_type] = nsCertTypeBox;
 
-	QMap<int, QGroupBox*> nidGroupBox;
-	nidGroupBox[NID_basic_constraints] = bcBox;
-	nidGroupBox[NID_key_usage] = kuBox;
-	nidGroupBox[NID_ext_key_usage] = ekuBox;
-	nidGroupBox[NID_netscape_cert_type] = nsCertTypeBox;
+	nidWidget[NID_subject_key_identifier] = subKey;
+	nidWidget[NID_authority_key_identifier] = authKey;
 
-	foreach(int nid, nidGroupBox.keys()) {
-		QGroupBox *g = nidGroupBox[nid];
-		g->setTitle(Settings["translate_dn"] ?
-			dn_translations[nid] : OBJ_nid2ln(nid));
-		if (g->toolTip().isEmpty()) {
-			g->setToolTip(Settings["translate_dn"] ?
-				OBJ_nid2ln(nid) : dn_translations[nid]);
+	foreach(int nid, nidWidget.keys()) {
+		QString text = OBJ_nid2ln(nid);
+		QString tooltip = dn_translations[nid];
+		QWidget *w = nidWidget[nid];
+		QString tt = w->toolTip();
+
+		if (Settings["translate_dn"])
+                        text.swap(tooltip);
+
+		if (!tt.isEmpty())
+			tooltip = QString("%1 (%2)").arg(tt).arg(tooltip);
+
+		w->setToolTip(tooltip);
+
+		DoubleClickLabel *l = dynamic_cast<DoubleClickLabel*>(w);
+		QGroupBox *g = dynamic_cast<QGroupBox*>(w);
+		QCheckBox *c = dynamic_cast<QCheckBox*>(w);
+		if (l) {
+			l->setText(text);
+			l->setClickText(OBJ_nid2sn(nid));
+			connect(l, SIGNAL(doubleClicked(QString)),
+				MainWindow::getResolver(),
+				SLOT(searchOid(QString)));
+		} else if (g) {
+			g->setTitle(text);
+		} else if (c) {
+			c->setText(text);
 		}
 	}
 
 	if (Settings["translate_dn"]) {
-		QList<QGroupBox*> gb;
-		gb << distNameBox << keyIdentBox;
+		QList<QGroupBox*> gb { distNameBox, keyIdentBox };
 		foreach(QGroupBox *g, gb) {
 			QString tt = g->toolTip();
 			g->setToolTip(g->title());
 			g->setTitle(tt);
 		}
-		QList<QCheckBox*> cbList;
-		cbList << bcCritical << kuCritical << ekuCritical;
+		QList<QCheckBox*> cbList { bcCritical,kuCritical,ekuCritical };
 		foreach(QCheckBox* cb, cbList) {
 			cb->setText(tr("Critical"));
 		}
