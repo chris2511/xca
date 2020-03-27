@@ -598,46 +598,48 @@ QMap<int, QString> dn_translations;
 
 void dn_translations_setup()
 {
-#define TRANS(nid, text) dn_translations[(nid)] = QObject::tr(text)
-	TRANS(NID_countryName, "Country code");
-	TRANS(NID_stateOrProvinceName, "State or Province");
-	TRANS(NID_localityName, "Locality");
-	TRANS(NID_organizationName, "Organisation");
-	TRANS(NID_organizationalUnitName, "Organisational unit");
-	TRANS(NID_commonName, "Common name");
-	TRANS(NID_pkcs9_emailAddress, "E-Mail address");
-	TRANS(NID_serialNumber, "Serial number");
-	TRANS(NID_givenName, "Given name");
-	TRANS(NID_surname, "Surname");
-	TRANS(NID_title, "Title");
-	TRANS(NID_initials, "Initials");
-	TRANS(NID_description, "Description");
-	TRANS(NID_role, "Role");
-	TRANS(NID_pseudonym, "Pseudonym");
-	TRANS(NID_generationQualifier, "Generation Qualifier");
-	TRANS(NID_x500UniqueIdentifier, "x500 Unique Identifier");
-	TRANS(NID_name, "Name");
-	TRANS(NID_dnQualifier, "DN Qualifier");
-	TRANS(NID_pkcs9_unstructuredName, "Unstructured name");
-	TRANS(NID_pkcs9_challengePassword, "Challenge password");
+QMap<int, QString> D;
+D[NID_countryName] = QObject::tr("Country code");
+D[NID_stateOrProvinceName] = QObject::tr("State or Province");
+D[NID_localityName] = QObject::tr("Locality");
+D[NID_organizationName] = QObject::tr("Organisation");
+D[NID_organizationalUnitName] = QObject::tr("Organisational unit");
+D[NID_commonName] = QObject::tr("Common name");
+D[NID_pkcs9_emailAddress] = QObject::tr("E-Mail address");
+D[NID_serialNumber] = QObject::tr("Serial number");
+D[NID_givenName] = QObject::tr("Given name");
+D[NID_surname] = QObject::tr("Surname");
+D[NID_title] = QObject::tr("Title");
+D[NID_initials] = QObject::tr("Initials");
+D[NID_description] = QObject::tr("Description");
+D[NID_role] = QObject::tr("Role");
+D[NID_pseudonym] = QObject::tr("Pseudonym");
+D[NID_generationQualifier] = QObject::tr("Generation Qualifier");
+D[NID_x500UniqueIdentifier] = QObject::tr("x500 Unique Identifier");
+D[NID_name] = QObject::tr("Name");
+D[NID_dnQualifier] = QObject::tr("DN Qualifier");
+D[NID_pkcs9_unstructuredName] = QObject::tr("Unstructured name");
+D[NID_pkcs9_challengePassword] = QObject::tr("Challenge password");
 
-	TRANS(NID_basic_constraints, "Basic Constraints");
-	TRANS(NID_subject_alt_name, "Subject alternative name");
-	TRANS(NID_issuer_alt_name, "issuer alternative name");
-	TRANS(NID_subject_key_identifier, "Subject key identifier");
-	TRANS(NID_authority_key_identifier, "Authority key identifier");
-	TRANS(NID_key_usage, "Key usage");
-	TRANS(NID_ext_key_usage, "Extended key usage");
-	TRANS(NID_crl_distribution_points, "CRL distribution points");
-	TRANS(NID_info_access, "Authority information access");
-	TRANS(NID_netscape_cert_type, "Certificate type");
-	TRANS(NID_netscape_base_url, "Base URL");
-	TRANS(NID_netscape_revocation_url, "Revocation URL");
-	TRANS(NID_netscape_ca_revocation_url, "CA Revocation URL");
-	TRANS(NID_netscape_renewal_url, "Certificate renewal URL");
-	TRANS(NID_netscape_ca_policy_url, "CA policy URL");
-	TRANS(NID_netscape_ssl_server_name, "SSL server name");
-	TRANS(NID_netscape_comment, "Comment");
+D[NID_basic_constraints] = QObject::tr("Basic Constraints");
+D[NID_subject_alt_name] = QObject::tr("Subject alternative name");
+D[NID_issuer_alt_name] = QObject::tr("issuer alternative name");
+D[NID_subject_key_identifier] = QObject::tr("Subject key identifier");
+D[NID_authority_key_identifier] = QObject::tr("Authority key identifier");
+D[NID_key_usage] = QObject::tr("Key usage");
+D[NID_ext_key_usage] = QObject::tr("Extended key usage");
+D[NID_crl_distribution_points] = QObject::tr("CRL distribution points");
+D[NID_info_access] = QObject::tr("Authority information access");
+D[NID_netscape_cert_type] = QObject::tr("Certificate type");
+D[NID_netscape_base_url] = QObject::tr("Base URL");
+D[NID_netscape_revocation_url] = QObject::tr("Revocation URL");
+D[NID_netscape_ca_revocation_url] = QObject::tr("CA Revocation URL");
+D[NID_netscape_renewal_url] = QObject::tr("Certificate renewal URL");
+D[NID_netscape_ca_policy_url] = QObject::tr("CA policy URL");
+D[NID_netscape_ssl_server_name] = QObject::tr("SSL server name");
+D[NID_netscape_comment] = QObject::tr("Comment");
+
+dn_translations = D;
 }
 
 QString appendXcaComment(QString current, QString msg)

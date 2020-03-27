@@ -509,7 +509,7 @@
         <translation>エクスポートフォーマット</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+37"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+36"/>
         <source>All files ( * )</source>
         <translation>All files ( * )</translation>
     </message>
@@ -645,6 +645,16 @@
 </translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>Private key in Microsoft PVK format not encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Encrypted private key in Microsoft PVK format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+39"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>ファイル「%1 」はすでに存在します!</translation>
@@ -737,13 +747,13 @@ Serial: %3</source>
         <translation>セキュリティトークンを管理</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+278"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>アイテム「%1 」の詳細を表示できません</translation>
     </message>
     <message>
-        <location line="-213"/>
-        <location line="+155"/>
+        <location line="-220"/>
+        <location line="+162"/>
         <location line="+61"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>アイテムのタイプ「%1 」が認識されません</translation>
@@ -1020,7 +1030,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+128"/>
+        <location filename="../widgets/MW_menu.cpp" line="+126"/>
         <source>Certificates</source>
         <translation>署名済証明書</translation>
     </message>
@@ -1070,13 +1080,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>失効リスト</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+322"/>
+        <location filename="../widgets/MW_database.cpp" line="+333"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>正しいパスワードを入力しないと、秘密キーの使用またはエクスポートはできません。</translation>
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../widgets/MainWindow.cpp" line="+928"/>
+        <location filename="../widgets/MainWindow.cpp" line="+869"/>
         <source>Database</source>
         <translation>データベース</translation>
     </message>
@@ -1101,7 +1111,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>削除されたアイテムは見つかりませんでした</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-49"/>
+        <location filename="../widgets/MW_menu.cpp" line="-47"/>
         <source>Recent DataBases</source>
         <translation>最近使用したデータベース</translation>
     </message>
@@ -1117,7 +1127,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>クロアチア語</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>English</source>
         <translation>英語</translation>
     </message>
@@ -1132,7 +1142,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>ドイツ語</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Russian</source>
         <translation>ロシア語</translation>
     </message>
@@ -1152,12 +1167,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>ポーランド語</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-4"/>
         <source>Italian</source>
         <translation>イタリア語</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>Chinese</source>
         <translation>中国語</translation>
     </message>
@@ -1167,7 +1182,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>オランダ語</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Portuguese in Brazil</source>
         <translation>ポルトガル語(ブラジル)</translation>
     </message>
@@ -1192,12 +1207,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>リモートデータベースを開く</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Set as default DataBase</source>
         <translation>デフォルトデータベースに指定する</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>New DataBase</source>
         <translation>新しいデータベース</translation>
     </message>
@@ -1207,7 +1222,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>データベースを開く</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+9"/>
         <source>Close DataBase</source>
         <translation>データベースを閉じる</translation>
     </message>
@@ -1352,7 +1367,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>XCAについて</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-596"/>
+        <location filename="../widgets/MainWindow.cpp" line="-592"/>
         <source>no such option: %1</source>
         <translation>そのようなオプションはありません:%1</translation>
     </message>
@@ -1367,13 +1382,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>トークン&apos;%1&apos;の元のSO PIN(PUK)を入力してください</translation>
     </message>
     <message>
-        <location line="-302"/>
-        <location line="+780"/>
+        <location line="-261"/>
+        <location line="+735"/>
         <source>Search</source>
         <translation>検索</translation>
     </message>
     <message>
-        <location line="-472"/>
+        <location line="-468"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>トークン&apos;%1&apos;の新しいSO PIN(PUK)を入力してください</translation>
     </message>
@@ -1388,7 +1403,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>トークン「%1」にキーまたは証明書が含まれていませんでした</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+58"/>
         <source>Current Password</source>
         <translation>現在のパスワード</translation>
     </message>
@@ -1692,7 +1707,7 @@ DHパラメータビットを入力してください</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+590"/>
+        <location filename="../widgets/NewX509.cpp" line="+584"/>
         <source>Subject</source>
         <translation>サブジェクト</translation>
     </message>
@@ -1859,26 +1874,31 @@ DHパラメータビットを入力してください</translation>
     <message>
         <location line="+50"/>
         <location line="+17"/>
-        <location line="+72"/>
+        <location line="+69"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-82"/>
+        <location line="-79"/>
         <location line="+17"/>
         <location line="+33"/>
-        <location line="+39"/>
-        <location filename="../widgets/NewX509.cpp" line="+382"/>
+        <location line="+36"/>
+        <location filename="../widgets/NewX509.cpp" line="+375"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-43"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+72"/>
+        <source>OCSP Must Staple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Key usage</source>
         <translation>キー使用法</translation>
     </message>
@@ -1904,17 +1924,17 @@ DHパラメータビットを入力してください</translation>
         <translation>コメント</translation>
     </message>
     <message>
-        <location line="-831"/>
+        <location line="-835"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>この名前は内部でのみ使用され、結果の証明書には表示されません。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-729"/>
+        <location filename="../widgets/NewX509.cpp" line="-717"/>
         <source>Critical</source>
         <translation>重要</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+40"/>
         <source>Create Certificate signing request</source>
         <translation>証明書署名要求の作成</translation>
     </message>
@@ -1949,7 +1969,7 @@ DHパラメータビットを入力してください</translation>
         <translation>x509証明書の作成</translation>
     </message>
     <message>
-        <location line="+358"/>
+        <location line="+351"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>テンプレート「%1 」が適用されました</translation>
     </message>
@@ -1969,7 +1989,7 @@ DHパラメータビットを入力してください</translation>
         <translation>新しい秘密キー「%1」が作成されました</translation>
     </message>
     <message>
-        <location line="+253"/>
+        <location line="+246"/>
         <source>Other Tabs</source>
         <translation>その他のタブ</translation>
     </message>
@@ -1989,7 +2009,7 @@ DHパラメータビットを入力してください</translation>
         <translation>PKCS#10要求</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+103"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2134,7 +2154,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>サブジェクト代替名は、コモンネームのコピーを含む。ただし、コモンネームは空です。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+217"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
         <source>Configfile error on line %1
 </source>
         <translation>%1行目のコンフィグエラー</translation>
@@ -2213,6 +2233,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
+        <location filename="../widgets/OpenDb.cpp" line="+58"/>
         <source>Database name</source>
         <translation>データベース名</translation>
     </message>
@@ -2222,7 +2243,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>テーブルプレフィクス</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+143"/>
+        <location filename="../widgets/OpenDb.cpp" line="+93"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>SQLite3ドライバがありません。お使いのディストリビューションのqt-sqliteパッケージをインストールしてください。</translation>
     </message>
@@ -2367,7 +2388,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+32"/>
+        <location filename="../widgets/Options.cpp" line="+33"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>印刷可能な文字列またはUTF8(デフォルト)</translation>
     </message>
@@ -2488,22 +2509,19 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>%1時間前</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+222"/>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
-        <translation>DB:名前変更:「%1 」はすでに使用されています</translation>
+        <translation type="vanished">DB:名前変更:「%1 」はすでに使用されています</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>DB: Entry to rename not found: %1</source>
-        <translation>DB:名前を変更するエントリが見つかりません:%1</translation>
+        <translation type="vanished">DB:名前を変更するエントリが見つかりません:%1</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>DB: Write error %1 - %2</source>
-        <translation>DB:書き込みエラー%1-%2</translation>
+        <translation type="vanished">DB:書き込みエラー%1-%2</translation>
     </message>
     <message>
-        <location line="+329"/>
+        <location filename="../lib/db.cpp" line="+280"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation>データがありません</translation>
@@ -2514,7 +2532,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>文字列のエンドマーカーの検索中にエラーが発生しました</translation>
     </message>
     <message>
-        <location filename="../lib/exception.h" line="+55"/>
+        <location filename="../lib/exception.h" line="+61"/>
         <source>Out of Memory at %1:%2</source>
         <translation>%1のメモリ不足:%2</translation>
     </message>
@@ -2524,17 +2542,21 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>All files ( * )</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+35"/>
+        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Import RSA key</source>
         <translation>キーをインポート</translation>
     </message>
     <message>
-        <location line="-3"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
-        <translation>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</translation>
+        <translation type="vanished">PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+12"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );; </source>
         <translation>PKCS#10 CSR ( *.pem *.der *.csr );; </translation>
     </message>
@@ -2728,7 +2750,7 @@ In library %3
         <translation>「%2 」の文字列「%1 」に無効な文字が含まれています</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+49"/>
+        <location filename="../lib/oid.cpp" line="+52"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>%2行目の構成ファイル%1の読み取り中にエラーが発生しました</translation>
     </message>
@@ -2743,7 +2765,7 @@ In library %3
         <translation>ファイル%3行%4のOID%2の識別子「%1 」は、別のOIDで「%5:%6:%7 」としてすでに使用されています。競合を避けるために変更する必要があります。</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+63"/>
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
         <translation>ファイル%2の%3行目に不明なオブジェクト「%1 」があります</translation>
     </message>
@@ -2751,6 +2773,201 @@ In library %3
         <location filename="../lib/sql.h" line="+55"/>
         <source>Failed to start a database transaction</source>
         <translation>データベーストランザクションを開始できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/func.cpp" line="+602"/>
+        <source>Country code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>State or Province</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Locality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisational unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Common name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>E-Mail address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Given name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Surname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Initials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Role</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pseudonym</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generation Qualifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>x500 Unique Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Name</source>
+        <translation type="unfinished">名前</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DN Qualifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unstructured name</source>
+        <translation type="unfinished">構造化されていない名前</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Challenge password</source>
+        <translation type="unfinished">チャレンジパスワード</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Subject alternative name</source>
+        <translation type="unfinished">サブジェクト代替名</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>issuer alternative name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Subject key identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority key identifier</source>
+        <translation type="unfinished">機関キー識別子</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key usage</source>
+        <translation type="unfinished">キー使用法</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Extended key usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL distribution points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority information access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Base URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Revocation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA Revocation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate renewal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA policy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SSL server name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Comment</source>
+        <translation type="unfinished">コメント</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OCSP Must Staple</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2960,7 +3177,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+318"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+326"/>
         <source>Subject entries</source>
         <translation>サブジェクトエンティティ</translation>
     </message>
@@ -2973,6 +3190,11 @@ In library %3
         <location line="+1"/>
         <source>Netscape extensions</source>
         <translation>Netscape 拡張キー</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key properties</source>
+        <translation type="unfinished">秘密キーのプロパティ</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2990,7 +3212,7 @@ In library %3
         <translation>詳細</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+43"/>
         <source>Columns</source>
         <translation>項目</translation>
     </message>
@@ -3274,24 +3496,24 @@ and will be completed by the new, private part of the key</source>
     </message>
     <message>
         <location line="+82"/>
-        <location line="+37"/>
+        <location line="+44"/>
         <source>PEM public</source>
         <translation>PEM public</translation>
     </message>
     <message>
-        <location line="-34"/>
-        <location line="+38"/>
+        <location line="-41"/>
+        <location line="+46"/>
         <source>SSH2 public</source>
         <translation>SSH2 public</translation>
     </message>
     <message>
-        <location line="-35"/>
-        <location line="+47"/>
+        <location line="-43"/>
+        <location line="+62"/>
         <source>PEM private</source>
         <translation>PEM private</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-57"/>
         <source>Export keys to Clipboard</source>
         <translation>キーをクリップボードにエクスポート</translation>
     </message>
@@ -3306,12 +3528,12 @@ and will be completed by the new, private part of the key</source>
         <translation>公開キーのエクスポート[%1]</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+18"/>
         <source>DER public</source>
         <translation>DER public</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>DER private</source>
         <translation>DER private</translation>
     </message>
@@ -3321,7 +3543,17 @@ and will be completed by the new, private part of the key</source>
         <translation>PEM encryped</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+6"/>
+        <source>PVK private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>PVK encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>PKCS#8 encrypted</source>
         <translation>PKCS#8 encrypted</translation>
     </message>
@@ -3336,7 +3568,12 @@ and will be completed by the new, private part of the key</source>
         <translation>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+57"/>
+        <source>Internal error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Tried to change password of a token</source>
         <translation>トークンのパスワードを変更しようとしました</translation>
     </message>
@@ -3354,7 +3591,7 @@ and will be completed by the new, private part of the key</source>
         <translation>空のテンプレート</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+61"/>
         <source>Preset Template values</source>
         <translation>プリセットテンプレートの値</translation>
     </message>
@@ -3442,7 +3679,7 @@ and will be completed by the new, private part of the key</source>
         <translation>ツリービュー</translation>
     </message>
     <message>
-        <location line="+182"/>
+        <location line="+181"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>一意のランダムシリアルの取得に失敗しました</translation>
     </message>
@@ -3660,9 +3897,24 @@ and thus was not stored</source>
         <translation>秘密キーの内部名</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Signature algorithm</source>
         <translation>署名アルゴリズム</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>EC Group</source>
+        <translation type="unfinished">EC グループ</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -3718,7 +3970,7 @@ and thus was not stored</source>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="+21"/>
+        <location filename="../lib/pass_info.cpp" line="+20"/>
         <source>Password</source>
         <translation>パスワード</translation>
     </message>
@@ -3731,12 +3983,11 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+123"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation>ファイル%1を開くときにエラーが発生しました:%2</translation>
+        <translation type="vanished">ファイル%1を開くときにエラーが発生しました:%2</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location filename="../lib/pki_base.cpp" line="+284"/>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
@@ -3771,7 +4022,7 @@ and thus was not stored</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-189"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>内部エラー:予期しないメッセージ:%1% 2</translation>
     </message>
@@ -3779,7 +4030,7 @@ and thus was not stored</source>
 <context>
     <name>pki_crl</name>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="+61"/>
+        <location filename="../lib/pki_crl.cpp" line="+59"/>
         <source>Successfully imported the revocation list &apos;%1&apos;</source>
         <translation>失効リスト&apos;%1&apos;が正常にインポートされました</translation>
     </message>
@@ -3804,7 +4055,7 @@ and thus was not stored</source>
         <translation>ファイル%1の失効リストを読み込めません。PEMおよびDER形式のCRLを試しました。</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <source>No issuer given</source>
         <translation>発行者が指定されていません</translation>
     </message>
@@ -3814,7 +4065,7 @@ and thus was not stored</source>
         <translation>サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Renew CRL: %1</source>
         <translation>CRLの更新:%1</translation>
     </message>
@@ -3829,7 +4080,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <location filename="../lib/pki_evp.cpp" line="+238"/>
         <source>Failed to decrypt the key (bad password) %1</source>
         <translation>キー(パスワードが間違っています)%1の暗号化を解除できませんでした</translation>
     </message>
@@ -3839,19 +4090,19 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>秘密キーを解読するためのパスワードを入力してください。</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+57"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation>ファイル「%1 」のキーが不完全または矛盾しています。</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation>ファイルから秘密キーを復号化するためのパスワードを入力してください:
 %1</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+62"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation>ファイル%1の秘密キーを読み込めません。PEMおよびDERの秘密キー、公開キー、PKCS#8キーの種類、およびSSH2形式を試しました。</translation>
     </message>
@@ -3892,7 +4143,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>PKCS#8キー&apos;%1&apos;を保護するパスワードを入力してください</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+19"/>
+        <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+61"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation type="unfinished">秘密キー&apos;%1&apos;のエクスポートパスワードを入力してください。</translation>
     </message>
@@ -3900,7 +4156,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+200"/>
+        <location filename="../lib/pki_key.cpp" line="+203"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>%1公開キー&apos;%2&apos;のインポートに成功しました</translation>
     </message>
@@ -3981,7 +4237,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+127"/>
+        <location filename="../lib/pki_multi.cpp" line="+125"/>
         <source>No known PEM encoded items found</source>
         <translation>既知のPEMエンコードされた項目が見つかりません</translation>
     </message>
@@ -4027,7 +4283,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+59"/>
+        <location filename="../lib/pki_scard.cpp" line="+57"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>トークンキー&apos;%1&apos;が正常にインポートされました</translation>
     </message>
@@ -4116,7 +4372,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+123"/>
+        <location filename="../lib/pki_temp.cpp" line="+124"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>XCAテンプレート&apos;%1&apos;が正常にインポートされました</translation>
     </message>
@@ -4136,17 +4392,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>%1XCAテンプレートを削除しますか:%2?</translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+208"/>
         <source>Wrong Size %1</source>
         <translation>サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+90"/>
         <source>Template file content error (too small)</source>
         <translation>テンプレートファイルのコンテンツエラー(小さすぎる)</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+55"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation>PEMエンコードされたXCAテンプレートではありません</translation>
     </message>
@@ -4159,7 +4415,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+68"/>
+        <location filename="../lib/pki_x509.cpp" line="+66"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>証明書&apos;%1&apos;が正常にインポートされました。</translation>
     </message>
@@ -4184,7 +4440,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>ファイル%1の証明書を読み込めません。PEMおよびDER証明書を試しました。</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+145"/>
         <source>This certificate is already on the security token</source>
         <translation>この証明書は既にセキュリティトークンにあります</translation>
     </message>
@@ -4241,7 +4497,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+104"/>
+        <location filename="../lib/pki_x509req.cpp" line="+102"/>
         <source>Signing key not valid (public key)</source>
         <translation>署名キーが無効です(公開キー)</translation>
     </message>
@@ -4266,12 +4522,12 @@ It is stored in the XCA database &apos;%3&apos;</source>
         <translation>%1証明書要求を削除しますか:%2?</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>ファイル%1の証明書要求を読み込めません。PEM、DER、およびSPKAC形式を試しました。</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+32"/>
         <source>Wrong Size %1</source>
         <translation>サイズ%1が間違っています</translation>
     </message>
