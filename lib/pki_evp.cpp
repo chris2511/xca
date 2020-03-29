@@ -729,6 +729,8 @@ void pki_evp::writePVKprivate(XFile &file, pem_password_cb *cb) const
 	ign_openssl_error();
 	EVP_PKEY_free(pkey);
 #else
+	(void)file;
+	(void)cb;
 	throw errorEx("Internal Error");
 #endif
 }
