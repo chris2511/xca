@@ -12,7 +12,7 @@ AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 AC_CHECK_TOOL(WINDRES, [windres], [:])
 
-VERSIONNODOT="$(IFS='.'; for x in $PACKAGE_VERSION; do printf "%02d" ${x%-*}; done)"
+VERSIONNODOT="$(IFS='.'; for x in ${PACKAGE_VERSION%+}; do printf "%02d" ${x%-*}; done)"
 AC_SUBST([VERSIONNODOT])
 
 if test -d "$INSTALL_DIR"; then
