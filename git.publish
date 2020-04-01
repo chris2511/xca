@@ -11,7 +11,6 @@ export TVERSION
 releasedir="$HOME/xca-$TVERSION"
 
 ./misc/gen-binary-hash "$releasedir"
-echo "$TVERSION""+" > VERSION
 git commit -a -m "Release XCA $TVERSION done"
 
 ./github.release.py "$TVERSION" "${releasedir}/"*xca*"$TVERSION"*

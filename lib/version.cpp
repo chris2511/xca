@@ -17,15 +17,14 @@
 #define COMMITHASH ""
 #endif
 
+#define VERSION PACKAGE_VERSION VERSION_ITERATION
+
 const char *version_str(bool html)
 {
-	if (!COMMITHASH[0]) {
-		return html ? "<b>" PACKAGE_VERSION "</b>" :
-				PACKAGE_VERSION;
-	}
+	if (!COMMITHASH[0])
+		return html ? "<b>" VERSION "</b>" : VERSION;
+
 	return html ?
-		"<b>" PACKAGE_VERSION "+dev</b><br/>"
-			"commit: <b>" COMMITHASH "</b>" :
-		PACKAGE_VERSION "+dev\n"
-			"commit: " COMMITHASH;
+		"<b>" VERSION "-dev</b><br/>commit: <b>" COMMITHASH "</b>" :
+		VERSION "-dev\ncommit: " COMMITHASH;
 }

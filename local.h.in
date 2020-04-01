@@ -1,6 +1,9 @@
 /* Filled in version number from the VERSION file */
 #undef PACKAGE_VERSION
 
+/* Development iteration */
+#undef VERSION_ITERATION
+
 /* usually "xca" */
 #undef PACKAGE_TARNAME
 
