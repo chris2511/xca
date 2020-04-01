@@ -173,28 +173,27 @@ static NIDlist readNIDlist(const QString &fname)
 static NIDlist read_nidlist(const QString &name)
 {
 	NIDlist nl;
-	QString sep = QDir::separator();
 
 	/* first try $HOME/xca/ */
-	nl = readNIDlist(getUserSettingsDir() + sep + name);
+	nl = readNIDlist(getUserSettingsDir() + "/" + name);
 #if !defined(Q_OS_WIN32)
 #if !defined(Q_OS_MAC)
 	if (nl.count() == 0){
 		/* next is /etx/xca/... */
-		nl = readNIDlist(QString(ETC) + sep + name);
+		nl = readNIDlist(QString(ETC) + "/" + name);
 	}
 #endif
 #endif
 	if (nl.count() == 0) {
 		/* look at /usr/(local/)share/xca/ */
-		nl = readNIDlist(getPrefix() + sep + name);
+		nl = readNIDlist(getPrefix() + "/" + name);
 	}
 	return nl;
 }
 
 void initOIDs()
 {
-	QString oids = QString(QDir::separator()) + "oids.txt";
+	QString oids("/oids.txt");
 	QString dir = getPrefix();
 
 	first_additional_oid = OBJ_new_nid(0);

@@ -202,7 +202,7 @@ void Options::on_removeButton_clicked(void)
 void Options::on_searchPkcs11_clicked(void)
 {
 	if (!searchP11) {
-		searchP11 = new SearchPkcs11(this, QString());
+		searchP11 = new SearchPkcs11(this, getLibDir());
 		connect(searchP11, SIGNAL(addLib(QString)),
 			this, SLOT(addLib(QString)));
 	}

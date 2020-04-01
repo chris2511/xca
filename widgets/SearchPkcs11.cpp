@@ -19,14 +19,13 @@
 #include <QStringList>
 #include <QFile>
 
-SearchPkcs11::SearchPkcs11(QWidget *parent, QString fname)
+SearchPkcs11::SearchPkcs11(QWidget *parent, const QString &fname)
 	:QDialog(parent)
 {
 	setupUi(this);
-	filename->setText(fname);
+	filename->setText(nativeSeparator(fname));
 	setWindowTitle(XCA_TITLE);
 
-	filename->setText(getLibDir());
 	searching = NULL;
 }
 
@@ -41,10 +40,8 @@ void SearchPkcs11::on_fileBut_clicked()
 	QString s = QFileDialog::getExistingDirectory(this, QString(XCA_TITLE),
 		filename->text());
 
-	if (!s.isEmpty()) {
-		nativeSeparator(s);
-		filename->setText(s);
-	}
+	if (!s.isEmpty())
+		filename->setText(nativeSeparator(s));
 }
 
 void SearchPkcs11::on_search_clicked()
@@ -111,6 +108,7 @@ void SearchPkcs11::loadItem(QListWidgetItem *lib)
 
 void SearchPkcs11::updateCurrFile(QString f)
 {
+	f = nativeSeparator(f);
 	int len = f.length();
 	QString reduced = f;
 	QFontMetrics fm(currFile->font());
@@ -171,7 +169,7 @@ void searchThread::search(QString mydir)
 		QString file = files.takeFirst();
 		if (file.isEmpty())
 			continue;
-		file = mydir + QDir::separator() + file;
+		file = mydir + "/" + file;
 		emit updateCurrFile(file);
 		if (checkLib(file))
 			emit updateLibs(file);
@@ -184,7 +182,7 @@ void searchThread::search(QString mydir)
 		foreach(d, dirs) {
 			if (!keepOnRunning)
 				break;
-			QString s = mydir +QDir::separator() +d;
+			QString s = mydir + "/" + d;
 			emit updateCurrFile(s);
 			search(s);
 		}

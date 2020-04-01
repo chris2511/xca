@@ -446,7 +446,7 @@ void MainWindow::undelete()
 
 static QString defaultdb()
 {
-	return getUserSettingsDir() +QDir::separator() + "defaultdb";
+	return getUserSettingsDir() + "/defaultdb";
 }
 
 int MainWindow::open_default_db()
@@ -548,7 +548,7 @@ void MainWindow::close_database()
 
 static QString dbhistory()
 {
-	return getUserSettingsDir() + QDir::separator() + "dbhistory";
+	return getUserSettingsDir() + "/dbhistory";
 }
 
 void MainWindow::load_history()

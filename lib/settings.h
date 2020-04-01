@@ -77,6 +77,14 @@ class svalue
 	{
 		return get() == "yes" ? Qt::Checked : Qt::Unchecked;
 	}
+	QString operator +(const QString &other)
+	{
+		return get() + other;
+	}
+	QString operator +(const char *other)
+	{
+		return get() + other;
+	}
 };
 
 class settings

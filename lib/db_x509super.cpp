@@ -12,6 +12,7 @@
 #include "widgets/XcaDialog.h"
 #include "oid.h"
 #include <QMessageBox>
+#include <QFileInfo>
 
 db_x509name::db_x509name(MainWindow *mw)
 	:db_base(mw)
@@ -151,15 +152,14 @@ void db_x509super::extractPubkey(QModelIndex index)
 void db_x509super::toOpenssl(QModelIndex index) const
 {
 	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
-	QString fn = Settings["workingdir"] + QDir::separator() +
-		pki->getUnderlinedName() + ".conf";
+	QString fn = Settings["workingdir"] + pki->getUnderlinedName() + ".conf";
 	QString fname = QFileDialog::getSaveFileName(mainwin,
 		tr("Save as OpenSSL config"),	fn,
 		tr("Config files ( *.conf *.cnf);; All files ( * )"));
 	if (fname.isEmpty())
 		return;
-	fname = nativeSeparator(fname);
-	Settings["workingdir"] = fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")));
+
+	update_workingdir(fname);
 	pki->opensslConf(fname);
 }
 

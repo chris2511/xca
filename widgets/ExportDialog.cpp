@@ -29,9 +29,9 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title, const QString &filt
 	image->setPixmap(img);
         label->setText(title);
 	if (pki) {
-		QString fn = Settings["workingdir"] + QDir::separator() +
+		QString fn = Settings["workingdir"] +
 			pki->getUnderlinedName() + "." + types[0].extension;
-		filename->setText(fn);
+		filename->setText(nativeSeparator(fn));
 	}
 	filter = filt + ";;" + tr("All files ( * )");
 
@@ -99,10 +99,8 @@ void ExportDialog::on_fileBut_clicked()
 		filename->text(), filter, NULL,
 		QFileDialog::DontConfirmOverwrite);
 
-	if (!s.isEmpty()) {
-		nativeSeparator(s);
-		filename->setText(s);
-	}
+	if (!s.isEmpty())
+		filename->setText(nativeSeparator(s));
 }
 
 void ExportDialog::on_exportFormat_activated(int selected)
@@ -153,8 +151,7 @@ void ExportDialog::accept()
 		return;
 	}
 	if (mayWriteFile(fn)) {
-		Settings["workingdir"] = fn.mid(0, fn.lastIndexOf(
-							QRegExp("[/\\\\]")));
+		update_workingdir(fn);
 		QDialog::accept();
 	}
 }

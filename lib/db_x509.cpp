@@ -287,7 +287,6 @@ void db_x509::writeIndex(const QString &fname, bool hierarchy) const
 {
 	if (hierarchy) {
 		QString dir = fname + "/";
-		dir = nativeSeparator(dir);
 		QList<pki_x509*> issuers = sqlSELECTpki<pki_x509>(
 			"SELECT DISTINCT issuer FROM certs WHERE issuer != item");
 		foreach(pki_x509 *ca, issuers) {

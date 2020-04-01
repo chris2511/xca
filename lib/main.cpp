@@ -42,7 +42,7 @@ bool XCA_application::languageAvailable(QLocale l)
 
 static QString defaultlang()
 {
-	return getUserSettingsDir() + QDir::separator() + "defaultlang";
+	return getUserSettingsDir() + "/defaultlang";
 }
 
 XCA_application::XCA_application(int &argc, char *argv[])

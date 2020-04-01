@@ -78,7 +78,7 @@ static QString xcaExeDir()
 	int bslash = dir.lastIndexOf("\\");
 	if (bslash > 0)
 		dir = dir.mid(0, bslash);
-	return QDir::toNativeSeparators(QFileInfo(dir).canonicalFilePath());
+	return QFileInfo(dir).canonicalFilePath();
 }
 
 static QString registryInstallDir()
@@ -96,7 +96,7 @@ static QString registryInstallDir()
 	len /= sizeof inst_dir[0];
 	/* "len" includes the trailing \0\0 */
 	dir = QString::fromWCharArray(inst_dir, len -1);
-	return QDir::toNativeSeparators(QFileInfo(dir).canonicalFilePath());
+	return QFileInfo(dir).canonicalFilePath();
 }
 #endif
 
@@ -172,8 +172,8 @@ static QString specialFolder(int csidl)
 	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, csidl, &pidl)))
 		SHGetPathFromIDList(pidl, buf);
 
-	qDebug() << "Special Folder" << csidl << QDir::toNativeSeparators(buf);
-	return QDir::toNativeSeparators(buf);
+	qDebug() << "Special Folder" << csidl << buf;
+	return QFileInfo(buf).canonicalFilePath();
 }
 #endif
 
@@ -194,8 +194,8 @@ QString relativePath(QString path)
 	QFileInfo fi_path(path);
 	QFileInfo fi_home(getHomeDir());
 
-	QString prefix = QDir::toNativeSeparators(fi_home.canonicalFilePath());
-	path = QDir::toNativeSeparators(fi_path.canonicalFilePath());
+	QString prefix = fi_home.canonicalFilePath();
+	path = fi_path.canonicalFilePath();
 
 	if (portable_app()) {
 		if (path.startsWith(prefix))
@@ -236,7 +236,7 @@ const QString getLibDir()
 			break;
 		}
 	}
-	return QDir::toNativeSeparators(hd);
+	return QFileInfo(hd).canonicalFilePath();
 #endif
 }
 
@@ -275,7 +275,7 @@ const QString getUserSettingsDir()
 #else
 	rv = QDir::homePath() + "/.xca";
 #endif
-	return QDir::toNativeSeparators(rv);
+	return rv;
 }
 
 const QString getI18nDir()
@@ -580,6 +580,11 @@ QString fingerprint(const QByteArray &data, const EVP_MD *type)
 {
 	return formatHash(Digest(data, type),
 			Settings["fp_separator"], Settings["fp_digits"]);
+}
+
+void update_workingdir(const QString &file)
+{
+	Settings["workingdir"] = QFileInfo(file).absolutePath();
 }
 
 void inc_progress_bar(int, int, void *p)
