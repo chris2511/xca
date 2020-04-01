@@ -415,13 +415,13 @@ QStringList pki_base::icsVEVENT(const a1time &expires,
 	"BEGIN:VEVENT" <<
 	QString("DTSTAMP:%1").arg(a1time().toString("yyyyMMdd'T'HHmmss'Z'")) <<
 	QString("UID:EXP-%1@xca.ovh").arg(uniqueid) <<
-	"STATUS:NEEDS-ACTION" <<
+	"STATUS:CONFIRMED" <<
 	QString("DTSTART:%1").arg(expires.toString("yyyyMMdd")) <<
 	"DURATION:P1D" <<
 	QString("SUMMARY:%1").arg(icsValue(summary)) <<
 	QString("DESCRIPTION:%1").arg(desc) <<
 	"BEGIN:VALARM" <<
-	"ACTION:EMAIL" <<
+	"ACTION:DISPLAY" <<
 	QString("SUMMARY:%1").arg(icsValue(summary)) <<
 	QString("DESCRIPTION:%1").arg(desc) <<
 	QString("TRIGGER:-P%1").arg(alarm) <<
