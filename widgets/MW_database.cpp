@@ -453,12 +453,18 @@ int MainWindow::open_default_db()
 {
 	if (QSqlDatabase::database().isOpen())
 		return 0;
+
 	QFile inputFile(defaultdb());
 	if (!inputFile.open(QIODevice::ReadOnly))
 		return 0;
-	QTextStream in(&inputFile);
-	QString dbfile = in.readLine();
+
+	char buf[2048];
+	int ret = inputFile.readLine(buf, sizeof buf);
+	if (ret < 1)
+		return 0;
 	inputFile.close();
+
+	QString dbfile = QString::fromUtf8(QByteArray(buf, ret)).trimmed();
 
 	if (QFile::exists(dbfile) || OpenDb::isRemoteDB(dbfile))
 		return init_database(dbfile);
@@ -474,12 +480,12 @@ void MainWindow::default_database()
 		return;
 	}
 
-	if (file.open(QIODevice::ReadWrite)) {
+	if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 		QByteArray ba;
 		if (OpenDb::isRemoteDB(currentDB))
-			ba = filename2bytearray(currentDB);
+			ba = currentDB.toUtf8();
 		else
-			ba = filename2bytearray(relativePath(currentDB));
+			ba = relativePath(currentDB).toUtf8();
 		ba += '\n';
 		file.write(ba);
 		/* write() failed? Harmless. Only inconvenient */
@@ -564,7 +570,7 @@ void MainWindow::load_history()
 		ssize_t size = file.readLine(buf, sizeof buf);
 		if (size <= 0)
 			break;
-		name = filename2QString(buf).trimmed();
+		name = QString::fromUtf8(buf).trimmed();
 		if (name.size() == 0)
 			continue;
 		if (history.indexOf(name) == -1)
@@ -605,7 +611,7 @@ void MainWindow::update_history(QString fname)
 		return;
 
 	for (pos = 0; pos < history.size(); pos++) {
-		QByteArray ba = filename2bytearray(history[pos]);
+		QByteArray ba = history[pos].toUtf8();
 		ba.append('\n');
 		if (file.write(ba) <= 0)
 			break;
