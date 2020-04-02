@@ -92,8 +92,12 @@ void settings::load_settings()
 		QStringList l = key.split(":");
 		if (l.size() == 2 && l[1] != hostId())
 			continue;	// Skip key with non-matching host ID
-		if (l[0] == "workingdir" && !QDir(value).exists())
-			continue;	// Skip non-existing working-dir
+		if (l[0] == "workingdir") {
+			if (!QDir(value).exists())
+				continue; // Skip non-existing working-dir
+			if (!value.isEmpty() && !value.endsWith("/"))
+				value += "/";
+		}
 		db_keys << key;		// Key with host ID
 		setAction(l[0], value);	// Key without host ID
 	}
@@ -102,7 +106,6 @@ void settings::load_settings()
 
 QString settings::get(QString key)
 {
-//	const QString schema = "schema";
 	load_settings();
 	if (key == "schema" && QSqlDatabase::database().isOpen()) {
 		XSqlQuery q("SELECT value FROM settings WHERE key_='schema'");
@@ -122,6 +125,8 @@ void settings::set(QString key, QString value)
 		if (!QDir(value).exists())
 			return;
 		value = relativePath(value);
+		if (!value.isEmpty() && !value.endsWith("/"))
+			value += "/";
 	}
 	if (hostspecific.contains(key))
 		key += QString(":%1").arg(hostId());

@@ -391,7 +391,7 @@ void database_model::dump_database(const QString &dirname) const
 
 static QString defaultdb()
 {
-	return getUserSettingsDir() +QDir::separator() + "defaultdb";
+	return getUserSettingsDir() + "/defaultdb";
 }
 
 QString database_model::get_default_db() const
@@ -403,9 +403,14 @@ QString database_model::get_default_db() const
 	if (!inputFile.open(QIODevice::ReadOnly))
 		return QString();
 
-	QTextStream in(&inputFile);
-	QString dbfile = in.readLine();
+	char buf[2048];
+	int ret = inputFile.readLine(buf, sizeof buf);
+	if (ret < 1)
+		return 0;
+
 	inputFile.close();
+
+	QString dbfile = QString::fromUtf8(QByteArray(buf, ret)).trimmed();
 
 	if (QFile::exists(dbfile) || isRemoteDB(dbfile))
 		return dbfile;
@@ -421,7 +426,7 @@ void database_model::as_default_database(const QString &db)
 		return;
 	}
 
-	if (file.open(QIODevice::ReadWrite)) {
+	if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
 		QByteArray ba = isRemoteDB(db) ?
 			db.toUtf8() : relativePath(db).toUtf8();
 		file.write(ba + '\n');

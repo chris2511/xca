@@ -16,7 +16,7 @@
 
 static QString dbhistory_file()
 {
-	return getUserSettingsDir() + QDir::separator() + "dbhistory";
+	return getUserSettingsDir() +  "/dbhistory";
 }
 
 dbhistory::dbhistory()

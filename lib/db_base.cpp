@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <QMimeData>
 #include <QFileDialog>
+#include <QFileInfo>
 #include "widgets/XcaWarning.h"
 #include "widgets/MainWindow.h"
 #include "widgets/XcaApplication.h"
@@ -381,11 +382,11 @@ pki_base *db_base::insert(pki_base *item)
 
 void db_base::dump(const QString &dir) const
 {
-	QString dirname = dir + QDir::separator() + class_name;
+	QString dirname = dir + "/" + class_name;
 	QDir d(dirname);
 	if (!d.exists() && !d.mkdir(dirname)) {
 		throw errorEx(tr("Could not create directory %1")
-				.arg(dirname));
+				.arg(nativeSeparator(dirname)));
 	}
 
 	try {
@@ -653,8 +654,7 @@ void db_base::load_default(load_base &load)
 	if (!slist.count())
 		return;
 
-	QString fn = slist[0];
-	Settings["workingdir"] = fn.mid(0, fn.lastIndexOf("/"));
+	update_workingdir(slist[0]);
 
 	ImportMulti *dlgi = new ImportMulti(mainwin);
 	foreach(s, slist) {
@@ -690,14 +690,14 @@ void db_base::store(QModelIndexList indexes)
 		return;
 	}
 
-	QString fn = Settings["workingdir"] + QDir::separator() + "export.pem";
 	QString s = QFileDialog::getSaveFileName(mainwin,
-		tr("Save %1 items in one file as").arg(indexes.size()), fn,
+		tr("Save %1 items in one file as").arg(indexes.size()),
+		Settings["workingdir"] + "export.pem",
 		tr("PEM files ( *.pem );; All files ( * )"));
 	if (s.isEmpty())
 		return;
-	s = nativeSeparator(s);
-	Settings["workingdir"] = s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")));
+
+	update_workingdir(s);
 	try {
 		QString pem = pem2QString(indexes);
 		XFile file(s);

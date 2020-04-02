@@ -18,6 +18,10 @@
 #include "widgets/XcaWarning.h"
 #include "widgets/MainWindow.h"
 
+#ifndef NID_tlsfeature
+int NID_tlsfeature = NID_undef;
+#endif
+
 int first_additional_oid = 0;
 
 NIDlist extkeyuse_nid;
@@ -169,31 +173,34 @@ static NIDlist readNIDlist(const QString &fname)
 static NIDlist read_nidlist(const QString &name)
 {
 	NIDlist nl;
-	QString sep = QDir::separator();
 
 	/* first try $HOME/xca/ */
-	nl = readNIDlist(getUserSettingsDir() + sep + name);
+	nl = readNIDlist(getUserSettingsDir() + "/" + name);
 #if !defined(Q_OS_WIN32)
 #if !defined(Q_OS_MAC)
 	if (nl.count() == 0){
 		/* next is /etx/xca/... */
-		nl = readNIDlist(QString(ETC) + sep + name);
+		nl = readNIDlist(QString(ETC) + "/" + name);
 	}
 #endif
 #endif
 	if (nl.count() == 0) {
 		/* look at /usr/(local/)share/xca/ */
-		nl = readNIDlist(getPrefix() + sep + name);
+		nl = readNIDlist(getPrefix() + "/" + name);
 	}
 	return nl;
 }
 
 void initOIDs()
 {
-	QString oids = QString(QDir::separator()) + "oids.txt";
+	QString oids("/oids.txt");
 	QString dir = getPrefix();
 
 	first_additional_oid = OBJ_new_nid(0);
+#ifndef NID_tlsfeature
+	NID_tlsfeature = OBJ_create("1.3.6.1.5.5.7.1.24", "tlsfeature",
+							"TLS Feature");
+#endif
 	openssl_error();
 	for (int i=0; i<first_additional_oid;i++)
 		addToLowerMap(i);

@@ -169,7 +169,7 @@ Entropy::Entropy()
 {
 	timer.start();
 
-	rnd = getUserSettingsDir() + QDir::separator() + ".rnd";
+	rnd = getUserSettingsDir() + "/.rnd";
 	random_from_file(rnd, 1024, 128);
 	QFile::remove(rnd); // don't use it again
 

@@ -10,6 +10,7 @@
 #include "pki_x509req.h"
 #include "pki_evp.h"
 #include "pki_scard.h"
+#include "pki_crl.h"
 #include "db_base.h"
 #include "func.h"
 #include "base.h"
@@ -990,6 +991,8 @@ void pki_x509::print(FILE *fp, enum print_opt opt) const
 QStringList pki_x509::icsVEVENT_ca() const
 {
 	QStringList ics;
+	pki_crl *crl = NULL;
+
 	ics << icsVEVENT();
 	foreach(pki_base *p, childItems) {
 		pki_x509 *pki = static_cast<pki_x509 *>(p);
@@ -997,14 +1000,18 @@ QStringList pki_x509::icsVEVENT_ca() const
 			ics << pki->icsVEVENT();
 	}
 
-	ics << pki_base::icsVEVENT(crlExpire,
-		tr("CRL Renewal of CA '%1' due").arg(getIntName()),
-		tr("The latest CRL issued by the CA '%1' will expire on %2.\n"
-		  "It is stored in the XCA database '%3'")
-			.arg(getIntName())
-			.arg(crlExpire.toPretty())
-			.arg(currentDB)
-	);
+	QList<pki_crl*> list = db_base::sqlSELECTpki<pki_crl>(
+		"SELECT item FROM crls WHERE issuer = ?",
+		QList<QVariant>() << QVariant(sqlItemId));
+
+	/* Get latest CRL */
+	foreach(pki_crl *pki, list) {
+		if (!crl || crl->getNextUpdate() < pki->getNextUpdate())
+			crl = pki;
+	}
+	if (crl)
+		ics << crl->icsVEVENT();
+
 	return ics;
 }
 

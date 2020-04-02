@@ -3,8 +3,11 @@ AC_INIT([X Certificate and Key management],
 	[christian@hohnstaedt.de],
 	[xca],
 	[http://xca.hohnstaedt.de])
+ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@\+\)-g.*/.\1/p')"
+AC_SUBST([ITERATION])
+AC_DEFINE_UNQUOTED([VERSION_ITERATION], ["${ITERATION}"])
 AC_MSG_NOTICE([     ***************************************************])
-AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${PACKAGE_VERSION}])
+AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${PACKAGE_VERSION}${ITERATION}])
 AC_MSG_NOTICE([     ***************************************************])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_CXX
@@ -12,7 +15,7 @@ AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 AC_CHECK_TOOL(WINDRES, [windres], [:])
 
-VERSIONNODOT="$(IFS='.'; for x in $PACKAGE_VERSION; do printf "%02d" ${x%-*}; done)"
+VERSIONNODOT="$(IFS='.'; for x in ${PACKAGE_VERSION}; do printf "%02x" ${x%-*}; done)"
 AC_SUBST([VERSIONNODOT])
 
 if test -d "$INSTALL_DIR"; then

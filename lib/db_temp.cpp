@@ -17,6 +17,7 @@
 #include <QContextMenuEvent>
 #include <QAction>
 #include <QInputDialog>
+#include <QFileInfo>
 
 db_temp::db_temp(database_model *parent)
 	:db_x509name(parent)
@@ -40,8 +41,7 @@ db_temp::db_temp(database_model *parent)
 
 	for (int i = 0; i < list.size(); ++i) {
 		QFileInfo fileInfo = list.at(i);
-		QString name = getPrefix() + QDir::separator() +
-				fileInfo.fileName();
+		QString name = getPrefix() + "/" + fileInfo.fileName();
 		if (!name.endsWith(".xca", Qt::CaseInsensitive))
 			continue;
 		try {
@@ -51,7 +51,8 @@ db_temp::db_temp(database_model *parent)
 				predefs << tmpl;
 			}
 		} catch(errorEx &err) {
-			XCA_WARN(tr("Bad template: %1").arg(name));
+			XCA_WARN(tr("Bad template: %1")
+				.arg(nativeSeparator(name)));
 		}
 	}
 }
@@ -114,15 +115,15 @@ void db_temp::store(QModelIndex index)
 
 	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());
 
-	QString fn = Settings["workingdir"] + QDir::separator() +
+	QString fn = Settings["workingdir"] +
 		temp->getUnderlinedName() + ".xca";
 	QString s = QFileDialog::getSaveFileName(mainwin,
 		tr("Save template as"),	fn,
 		tr("XCA templates ( *.xca );; All files ( * )"));
 	if (s.isEmpty())
 		return;
-	s = nativeSeparator(s);
-	Settings["workingdir"] = s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")));
+
+	update_workingdir(s);
 	try {
 		XFile file(s);
 		file.open_key();

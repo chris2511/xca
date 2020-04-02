@@ -1,3 +1,10 @@
+ * Close #72: Add checkbox for OCSP staple feature
+ * Use DESTDIR instead of destdir when installing. Follows autotools convention.
+ * Close #172 #46: Multiple OCSP Responders
+ * Close #170 xca-portable-2.2.1 cannot change language
+ * Fix certificate assignment when importing a CA certificate
+ * Close #163: Show key type/size on column of Certificates tab
+
 xca 2.2.1 Thu Jan 30 2020
 
  * Close #159 Opening existing database

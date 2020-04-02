@@ -145,7 +145,7 @@ msi-installer-dir-$(VERSION): misc/xca.wxs misc/xca.bat misc/variables.wxi img/b
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	rm -rf $@
-	mkdir -p $@/sqldrivers $@/platforms $@/html $@/i18n
+	mkdir -p $@/sqldrivers $@/platforms $@/html $@/i18n $@/styles
 	cp xca$(SUFFIX).signed $@/xca$(SUFFIX)
 	cp $(patsubst %,misc/%.txt, dn eku oids) \
 	   $(patsubst %,"$(QTDIR)/bin/%.dll", Qt5Gui Qt5Core Qt5Widgets \
@@ -159,6 +159,7 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	sed 's/$$/\r/' < "$(TOPDIR)"/COPYRIGHT > $@/copyright.txt
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
 	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql qsqlodbc) $@/sqldrivers
+	cp -ra $(patsubst %,"$(QTDIR)/plugins/styles/%.dll", qwindowsvistastyle qwindowsvistastyled) $@/styles
 
 
 xca-portable.zip: xca-portable-$(VERSION).zip

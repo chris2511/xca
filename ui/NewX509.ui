@@ -854,6 +854,13 @@
          <item row="2" column="0">
           <widget class="DoubleClickLabel" name="crldpLbl"/>
          </item>
+         <item row="4" column="2">
+          <widget class="QCheckBox" name="OCSPstaple">
+           <property name="text">
+            <string notr="true">OCSP Must Staple</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>

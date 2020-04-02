@@ -63,6 +63,7 @@ ASN1_STRING *QStringToAsn1(QString s, int nid);
 
 QByteArray Digest(const QByteArray &data, const EVP_MD *type);
 QString fingerprint(const QByteArray &data, const EVP_MD *type);
+void update_workingdir(const QString &file);
 
 const char *OBJ_ln2sn(const char *ln);
 const char *OBJ_sn2ln(const char *sn);

@@ -186,7 +186,7 @@ int MainWindow::changeDB(QString fname)
 		return 1;
 	close_database();
 	if (!database_model::isRemoteDB(fname))
-		homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
+		homedir = QFileInfo(fname).canonicalPath();
 	return init_database(fname);
 }
 
@@ -201,7 +201,7 @@ void MainWindow::update_history_menu()
 		QString txt = hist[i];
 		if (!QFile::exists(txt) && !database_model::isRemoteDB(txt))
 			continue;
-		txt = txt.remove(0, txt.lastIndexOf(QDir::separator()) +1);
+		txt = QFileInfo(txt).fileName();
 		if (txt.size() > 20)
 			txt = QString("...") + txt.mid(txt.size() - 20);
 		a = historyMenu->addAction(QString("%1 %2").arg(j++).arg(txt));
