@@ -147,7 +147,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 	updateCurves();
 	keyLength->setEditText(QString::number(defaultSize) + " bit");
 	keyDesc->setFocus();
-	if (pkcs11::loaded()) try {
+	if (pkcs11::libraries.loaded()) try {
 		pkcs11 p11;
 		p11_slots = p11.getSlotList();
 

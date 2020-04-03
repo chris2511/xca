@@ -26,6 +26,7 @@ SearchPkcs11::SearchPkcs11(QWidget *parent, const QString &fname)
 	filename->setText(nativeSeparator(fname));
 	setWindowTitle(XCA_TITLE);
 
+	liblist->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	searching = NULL;
 }
 

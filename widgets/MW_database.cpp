@@ -356,8 +356,6 @@ void MainWindow::timerEvent(QTimerEvent *event)
 		return;
 	stamp = q.value(0).toULongLong();
 	q.finish();
-	qDebug() << "Stamp" << stamp
-		 << "DatabaseStamp" << DbTransaction::DatabaseStamp;
 
 	if (stamp > DbTransaction::DatabaseStamp) {
 		SQL_PREPARE(q, "SELECT DISTINCT type FROM items WHERE stamp=?");
@@ -544,8 +542,8 @@ void MainWindow::close_database()
 
 
 	update_history(currentDB);
-	pkcs11::remove_libs();
-	enableTokenMenu(pkcs11::loaded());
+	pkcs11::libraries.remove_libs();
+	enableTokenMenu(pkcs11::libraries.loaded());
 	QSqlDatabase::removeDatabase(connName);
 	currentDB.clear();
 	Settings.clear();

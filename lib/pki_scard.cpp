@@ -615,7 +615,7 @@ bool pki_scard::find_key_on_card(slotid *slot) const
  * returns the slot ID in slot true on success */
 bool pki_scard::prepare_card(slotid *slot) const
 {
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return false;
 
 	QString msg = tr("Please insert card: %1 %2 [%3] with Serial: %4").

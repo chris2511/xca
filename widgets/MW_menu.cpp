@@ -240,6 +240,5 @@ void MainWindow::setOptions()
 	}
 	delete opt;
 
-	pkcs11::reload_libs(Settings["pkcs11path"]);
-	enableTokenMenu(pkcs11::loaded());
+	load_engine();
 }

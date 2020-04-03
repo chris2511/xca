@@ -61,9 +61,8 @@ void MainWindow::enableTokenMenu(bool enable)
 
 void MainWindow::load_engine()
 {
-	pkcs11::reload_libs(Settings["pkcs11path"]);
-	//	Error(err);
-	enableTokenMenu(pkcs11::loaded());
+	pkcs11::libraries.load(Settings["pkcs11path"]);
+	enableTokenMenu(pkcs11::libraries.loaded());
 }
 
 void MainWindow::initResolver()
@@ -218,7 +217,7 @@ void MainWindow::setItemEnabled(bool enable)
 	foreach(QAction *a, acList) {
 		a->setEnabled(enable);
 	}
-	enableTokenMenu(pkcs11::loaded());
+	enableTokenMenu(pkcs11::libraries.loaded());
 }
 
 void MainWindow::init_images()
@@ -377,7 +376,7 @@ void MainWindow::pastePem()
 void MainWindow::initToken()
 {
 	bool ok;
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 	try {
 		pkcs11 p11;
@@ -418,7 +417,7 @@ void MainWindow::initToken()
 
 void MainWindow::changePin(bool so)
 {
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 	try {
 		pkcs11 p11;
@@ -439,7 +438,7 @@ void MainWindow::changeSoPin()
 
 void MainWindow::initPin()
 {
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 	try {
 		pkcs11 p11;
@@ -462,7 +461,7 @@ void MainWindow::manageToken()
 	pki_x509 *cert = NULL;
 	ImportMulti *dlgi = NULL;
 
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 
 	try {

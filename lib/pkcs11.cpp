@@ -27,7 +27,7 @@
 
 #include "openssl_compat.h"
 
-pkcs11_lib_list pkcs11::libs;
+pkcs11_lib_list pkcs11::libraries;
 
 pkcs11::pkcs11()
 {
@@ -42,52 +42,6 @@ pkcs11::~pkcs11()
 		CALL_P11_C(p11slot.lib, C_CloseSession, session);
 		(void)rv;
 	}
-}
-
-pkcs11_lib *pkcs11::load_lib(const QString &fname)
-{
-	if (fname.isEmpty())
-		return NULL;
-	return libs.add_lib(fname);
-}
-
-void pkcs11::reload_libs(const QString &libnames)
-{
-	QMap<QString, pkcs11_lib *> store;
-
-	if (libnames.isEmpty()) {
-		remove_libs();
-		return;
-	}
-
-	for (pkcs11_lib_list::iterator i = libs.begin(); i != libs.end(); ++i)
-		store[(*i)->filename()] = *i;
-	libs.clear();
-
-	foreach(QString name, libnames.split('\n')) {
-		bool enable;
-		QString n = pkcs11_lib::name2File(name, &enable);
-		pkcs11_lib *l = store.take(n);
-		if (l) {
-			if (enable == l->isEnabled()) {
-				libs.append(l);
-			} else {
-				delete l;
-				l = NULL;
-			}
-		}
-		// NOT else
-		if (!l)
-			l = load_lib(name);
-
-		qDebug() << "REORDER:" << n << name
-			 << "Enabled:" << l->isEnabled()
-			 << "Loaded:" << l->isLoaded()
-			 << "Should:" << enable;
-	}
-	qDebug() << "Delete remainig Libs start";
-	qDeleteAll(store);
-	qDebug() << "Delete remainig Libs done";
 }
 
 void pkcs11::startSession(slotid slot, bool rw)

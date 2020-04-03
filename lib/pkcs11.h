@@ -102,42 +102,14 @@ class pkcs11
 	friend class pk11_attr_data;
 
 	private:
-		static pkcs11_lib_list libs;
 		slotid p11slot;
 		CK_SESSION_HANDLE session;
 		CK_OBJECT_HANDLE p11obj;
 
 	public:
+		static pkcs11_lib_list libraries;
 		pkcs11();
 		~pkcs11();
-
-		static bool loaded()
-		{
-			foreach(pkcs11_lib *l, libs) {
-				if (l->isLoaded())
-					return true;
-			}
-			return false;
-		}
-		static pkcs11_lib *load_lib(const QString &fname);
-		static pkcs11_lib *get_lib(const QString &fname)
-		{
-			return libs.get_lib(fname);
-		}
-		static bool remove_lib(QString fname)
-		{
-			return libs.remove_lib(fname);
-		}
-		static void remove_libs()
-		{
-			qDeleteAll(libs);
-			libs.clear();
-		}
-		static void reload_libs(const QString &libnames);
-		static pkcs11_lib_list get_libs()
-		{
-			return libs;
-		}
 
 		tkInfo tokenInfo(slotid slot);
 		tkInfo tokenInfo()
@@ -150,7 +122,7 @@ class pkcs11
 		}
 		slotidList getSlotList()
 		{
-			return libs.getSlotList();
+			return libraries.getSlotList();
 		}
 
 		bool selectToken(slotid *slot, QWidget *w);

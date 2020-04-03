@@ -385,7 +385,7 @@ void pki_x509::deleteFromToken()
 	pki_scard *card = dynamic_cast<pki_scard *>(privkey);
 	slotidList p11_slots;
 
-	if (!card || !pkcs11::loaded())
+	if (!card || !pkcs11::libraries.loaded())
 		return;
 
 	if (privkey && privkey->isToken()) {
@@ -542,7 +542,7 @@ bool pki_x509::canSign() const
 	pki_key *privkey = getRefKey();
 	if (!privkey || privkey->isPubKey())
 		return false;
-	if (privkey->isToken() && !pkcs11::loaded())
+	if (privkey->isToken() && !pkcs11::libraries.loaded())
 		return false;
 	return isCA();
 }

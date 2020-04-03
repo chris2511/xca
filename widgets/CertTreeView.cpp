@@ -34,7 +34,7 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	privkey = cert->getRefKey();
 	parent = cert->getSigner();
 	parentCanSign = parent && parent->canSign() && (parent != cert);
-	hasScard = pkcs11::loaded();
+	hasScard = pkcs11::libraries.loaded();
 
 	multi = indexes.size() > 1;
 

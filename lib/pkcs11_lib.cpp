@@ -114,7 +114,7 @@ QList<unsigned long> pkcs11_lib::getSlotList()
 	return sl;
 }
 
-QString pkcs11_lib::driverInfo()
+QString pkcs11_lib::driverInfo() const
 {
 	CK_INFO info;
 	CK_RV rv;
@@ -154,48 +154,75 @@ QString pkcs11_lib::name2File(const QString &name, bool *enabled)
 		if (enabled)
 			*enabled = ena[0] != '0';
 	}
-	return libname;
+	return relativePath(libname);
 }
 
 pkcs11_lib *pkcs11_lib_list::add_lib(const QString &fname)
 {
-	foreach(pkcs11_lib *l, *this) {
-		if (l->isLib(fname))
+	int idx = -1;
+	pkcs11_lib *l = NULL;
+
+	if (fname.isEmpty())
+		return NULL;
+
+	for (int i = 0; i < libs.size(); i++) {
+		l = libs[i];
+		if (!l->isLib(fname))
+			continue;
+		if (model_data.contains(i))
 			return l;
+		idx = i;
+		break;
 	}
-	pkcs11_lib *l = new pkcs11_lib(fname);
-	append(l);
+	if (idx == -1) {
+		pkcs11_lib *l = new pkcs11_lib(fname);
+		idx = libs.size();
+		libs << l;
+	}
+	beginInsertRows(QModelIndex(), model_data.size(), model_data.size());
+	model_data << idx;
+	endInsertRows();
 	return l;
 }
 
-pkcs11_lib *pkcs11_lib_list::get_lib(const QString &fname)
+void pkcs11_lib_list::load(const QString &list)
 {
-	foreach(pkcs11_lib *l, *this) {
-		if (l->isLib(fname))
-			return l;
-	}
-	return NULL;
-}
-
-bool pkcs11_lib_list::remove_lib(const QString &fname)
-{
-	for(int i=0; i<count(); i++) {
-		if (at(i)->isLib(fname)) {
-			delete takeAt(i);
-			return true;
+	beginResetModel();
+	QString orig = getPkcs11Provider();
+	QList<pkcs11_lib*> newlist;
+	foreach(QString name, list.split('\n')) {
+		pkcs11_lib *newitem = NULL;
+		name = name.trimmed();
+		if (name.isEmpty())
+			continue;
+		for (int i = 0; i < libs.size(); i++) {
+			if (name == libs[i]->toData()) {
+				newitem = libs.takeAt(i);
+				break;
+			}
 		}
+		if (!newitem) {
+			newitem = new pkcs11_lib(name);
+		}
+		newlist << newitem;
 	}
-	return false;
+	qDeleteAll(libs);
+	libs = newlist;
+	model_data.clear();
+	for (int i = 0; i < libs.size(); i++)
+		model_data << i;
+
+	endResetModel();
+	qDebug() << "Libs reloaded from" << orig << "to" << getPkcs11Provider();
 }
 
-slotidList pkcs11_lib_list::getSlotList()
+slotidList pkcs11_lib_list::getSlotList() const
 {
 	slotidList list;
 	QString ex;
 	bool success = false;
 
-	for (int i=0; i<count(); i++) {
-		pkcs11_lib *l = at(i);
+	foreach(pkcs11_lib *l, libs) {
 		if (!l->isLoaded())
 			continue;
 		try {
@@ -211,6 +238,147 @@ slotidList pkcs11_lib_list::getSlotList()
 	if (success || ex.isEmpty())
 		return list;
 	throw errorEx(ex);
+}
+
+QString pkcs11_lib_list::getPkcs11Provider() const
+{
+	QStringList prov;
+	foreach(int i, model_data)
+		prov << libs[i]->toData();
+	return prov.size() == 0 ? QString() : prov.join("\n");
+}
+
+void pkcs11_lib_list::remove_libs()
+{
+	beginRemoveRows(QModelIndex(), 0, libs.size() -1);
+	qDeleteAll(libs);
+	libs.clear();
+	model_data.clear();
+	endRemoveRows();
+}
+
+bool pkcs11_lib_list::loaded() const
+{
+	foreach(pkcs11_lib *l, libs)
+		if (l->isLoaded())
+			return true;
+	return false;
+}
+
+int pkcs11_lib_list::rowCount(const QModelIndex &) const
+{
+	return model_data.size();
+}
+
+pkcs11_lib *pkcs11_lib_list::libByModelIndex(const QModelIndex &index) const
+{
+	if (!index.isValid())
+		return NULL;
+	int idx = model_data[index.row()];
+	return (idx >= 0 && idx < libs.size()) ? libs[idx] : NULL;
+}
+
+QVariant pkcs11_lib_list::data(const QModelIndex &index, int role) const
+{
+	pkcs11_lib *l = libByModelIndex(index);
+	if (!l)
+		return QVariant();
+
+	QString pixmap;
+
+	switch (role) {
+	case Qt::DisplayRole:
+		return QVariant(nativeSeparator(l->filename()));
+	case Qt::DecorationRole:
+		pixmap = l->pixmap();
+		if (pixmap.isEmpty()) {
+			QPixmap p(QSize(20, 20));
+			p.fill(Qt::transparent);
+			return QVariant(p);
+		}
+		return QVariant(QPixmap(pixmap));
+	case Qt::ToolTipRole:
+		return QVariant(l->driverInfo().trimmed());
+	case Qt::CheckStateRole:
+		return l->checked();
+	}
+	return QVariant();
+}
+
+QMap<int, QVariant> pkcs11_lib_list::itemData(const QModelIndex &index) const
+{
+	QMap<int, QVariant> map;
+	if (index.isValid())
+		map[Qt::UserRole] = QVariant(model_data[index.row()]);
+	return map;
+}
+
+bool pkcs11_lib_list::setItemData(const QModelIndex &index,
+				const QMap<int, QVariant> &roles)
+{
+	if (index.isValid() && roles[Qt::UserRole].isValid()) {
+		model_data[index.row()] = roles[Qt::UserRole].toInt();
+		return true;
+	}
+	return false;
+}
+
+bool pkcs11_lib_list::setData(const QModelIndex &index,
+				const QVariant &value, int role)
+{
+	pkcs11_lib *l = libByModelIndex(index);
+	if (!l || role != Qt::CheckStateRole)
+		return false;
+
+	if (value == l->checked()) {
+		/* No changes */
+		return true;
+	}
+	QString file = l->toData(value == Qt::Checked);
+
+	delete l;
+	int idx = model_data[index.row()];
+	libs[idx] = new pkcs11_lib(file);
+
+	emit dataChanged(index, index);
+	return true;
+}
+
+Qt::ItemFlags pkcs11_lib_list::flags(const QModelIndex & index) const
+{
+	if (index.isValid())
+		return Qt::ItemIsEnabled | Qt::ItemIsSelectable |
+			Qt::ItemIsDragEnabled | Qt::ItemIsUserCheckable;
+	return QAbstractListModel::flags(index) | Qt::ItemIsDropEnabled;
+}
+
+Qt::DropActions pkcs11_lib_list::supportedDropActions() const
+{
+	return Qt::MoveAction;
+}
+
+bool pkcs11_lib_list::removeRows(int row, int count, const QModelIndex &parent)
+{
+	if (parent.isValid() || row < 0 || row + count > model_data.size())
+		return false;
+
+	beginRemoveRows(parent, row, row + count - 1);
+	while (count-- > 0 && row < model_data.size())
+		model_data.removeAt(row);
+	endRemoveRows();
+	return true;
+}
+
+bool pkcs11_lib_list::insertRows(int row, int count, const QModelIndex &parent)
+{
+	if (parent.isValid())
+		return false;
+
+	beginInsertRows(parent, row, row +count -1);
+	for (int i = 0; i < count; i++)
+		model_data.insert(row +i, 0);
+	endInsertRows();
+	return true;
 }
 
 const char *pk11errorString(unsigned long rv)
