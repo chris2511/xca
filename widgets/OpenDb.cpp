@@ -214,7 +214,12 @@ bool OpenDb::_openDatabase(const QString &connName, const QString &pass) const
 		db.setPort(hostport[1].toInt());
 	db.setUserName(userName->text());
 	db.setPassword(pass);
-	db.setConnectOptions("requiressl=1;CLIENT_SSL=1");
+
+	QString envvar(db.driverName()+ "_OPTIONS");
+	const char *opts = getenv(envvar.toLatin1());
+	if (opts)
+		db.setConnectOptions(opts);
+
 	XSqlQuery::setTablePrefix(prefix->text().toLower());
 
 	db.open();
