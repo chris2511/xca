@@ -146,12 +146,13 @@ QString pkcs11_lib::driverInfo()
 QString pkcs11_lib::name2File(const QString &name, bool *enabled)
 {
 	QString libname = name;
+	QString ena = name.mid(0,2);
 	if (enabled)
 		*enabled = true;
-	if (name.size() > 2 && name[1] == ':') {
+	if (ena == "0:" || ena == "1:") {
 		libname = name.mid(2);
 		if (enabled)
-			*enabled = name[0] != '0';
+			*enabled = ena[0] != '0';
 	}
 	return libname;
 }
