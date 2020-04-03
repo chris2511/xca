@@ -3,7 +3,7 @@ AC_INIT([X Certificate and Key management],
 	[christian@hohnstaedt.de],
 	[xca],
 	[http://xca.hohnstaedt.de])
-ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@\+\)-g.*/.\1/p')"
+ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@*\)-g.*/.\1/p')"
 AC_SUBST([ITERATION])
 AC_DEFINE_UNQUOTED([VERSION_ITERATION], ["${ITERATION}"])
 AC_MSG_NOTICE([     ***************************************************])
