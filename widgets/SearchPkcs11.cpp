@@ -102,7 +102,7 @@ void SearchPkcs11::buttonPress(QAbstractButton *but)
 
 void SearchPkcs11::loadItem(QListWidgetItem *lib)
 {
-	emit addLib(lib->text());
+	emit addLib(lib->whatsThis());
 	delete lib;
 }
 
@@ -124,7 +124,9 @@ void SearchPkcs11::updateCurrFile(QString f)
 
 void SearchPkcs11::updateLibs(QString f)
 {
-	liblist->addItem(new QListWidgetItem(f));
+	QListWidgetItem *i = new QListWidgetItem(nativeSeparator(f));
+	i->setWhatsThis(f);
+	liblist->addItem(i);
 	liblist->update();
 }
 
