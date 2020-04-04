@@ -25,13 +25,9 @@ pki_pkcs7::~pki_pkcs7()
 		PKCS7_free(p7);
 }
 
-void pki_pkcs7::encryptFile(pki_x509 *crt, QString filename)
+void pki_pkcs7::encryptFile(pki_x509 *crt, const QString &filename)
 {
-	BIO *bio = NULL;
-	bio = BIO_new_file(QString2filename(filename), "r");
-        openssl_error();
-	encryptBio(crt, bio);
-	BIO_free(bio);
+	encryptBio(crt, XFile(filename).bio());
 }
 
 void pki_pkcs7::encryptBio(pki_x509 *crt, BIO *bio)
@@ -81,15 +77,10 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	sk_X509_free(certstack);
 }
 
-void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
+void pki_pkcs7::signFile(pki_x509 *crt, const QString &filename)
 {
-	BIO *bio;
-	if (!crt)
-		return;
-	bio = BIO_new_file(QString2filename(filename), "r");
-        openssl_error();
-	signBio(crt, bio);
-	BIO_free(bio);
+	if (crt)
+		signBio(crt, XFile(filename).bio());
 }
 
 void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)

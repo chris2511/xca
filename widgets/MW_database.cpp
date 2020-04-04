@@ -246,7 +246,7 @@ int MainWindow::init_database(QString dbName)
 	QSqlError err;
 	QString oldDbFile;
 
-	qDebug("Opening database: %s", QString2filename(dbName));
+	qDebug() << "Opening database:" << dbName;
 
 	if (checkForOldDbFormat(dbName)) {
 		QString newname = dbName;
@@ -510,7 +510,7 @@ void MainWindow::close_database()
 		return;
 	}
 	killTimer(dbTimer);
-	qDebug("Closing database: %s", QString2filename(currentDB));
+	qDebug() << "Closing database:" << currentDB;
 	Settings["mw_geometry"] = QString("%1,%2,%3")
 			.arg(size().width())
 			.arg(size().height())
