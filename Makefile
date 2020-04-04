@@ -159,7 +159,7 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	sed 's/$$/\r/' < "$(TOPDIR)"/COPYRIGHT > $@/copyright.txt
 	cp "$(QTDIR)/plugins/platforms/qwindows.dll" $@/platforms
 	cp $(patsubst %,"$(QTDIR)/plugins/sqldrivers/%.dll", qsqlite qsqlmysql qsqlpsql qsqlodbc) $@/sqldrivers
-	cp -ra $(patsubst %,"$(QTDIR)/plugins/styles/%.dll", qwindowsvistastyle qwindowsvistastyled) $@/styles
+	cp -a "$(QTDIR)/plugins/styles/qwindowsvistastyle.dll" "$@/styles"
 
 
 xca-portable.zip: xca-portable-$(VERSION).zip
