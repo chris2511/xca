@@ -248,7 +248,7 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	if (dbName.isEmpty())
 		throw open_abort;
 
-	qDebug("Opening database: %s", QString2filename(dbName));
+	qDebug() << "Opening database:" << dbName;
 
 	if (!isRemoteDB(dbName))
 		oldDbFile = checkPre2Xdatabase();
@@ -297,7 +297,7 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	if (!oldDbFile.isEmpty())
 		importOldDatabase(oldDbFile);
 
-	pkcs11::reload_libs(Settings["pkcs11path"]);
+	pkcs11::libraries.load(Settings["pkcs11path"]);
 }
 
 db_base *database_model::modelForPki(const pki_base *pki) const
@@ -353,8 +353,6 @@ void database_model::timerEvent(QTimerEvent *event)
 		return;
 	stamp = q.value(0).toULongLong();
 	q.finish();
-	qDebug() << "Stamp" << stamp
-		 << "DatabaseStamp" << DbTransaction::DatabaseStamp;
 
 	if (stamp > DbTransaction::DatabaseStamp) {
 		SQL_PREPARE(q, "SELECT DISTINCT type FROM items WHERE stamp=?");
@@ -454,7 +452,7 @@ database_model::~database_model()
 		return;
 	}
 	killTimer(dbTimer);
-	qDebug("Closing database: %s", QString2filename(dbName));
+	qDebug() << "Closing database:" << dbName;
 
 	qDeleteAll(models);
 	models.clear();
@@ -463,7 +461,7 @@ database_model::~database_model()
 	QSqlDatabase::database().close();
 	pki_evp::passwd.cleanse();
 
-	pkcs11::remove_libs();
+	pkcs11::libraries.remove_libs();
 	QSqlDatabase::removeDatabase(connName);
 	Settings.clear();
 	XSqlQuery::clearTablePrefix();
@@ -512,6 +510,11 @@ void database_model::openRemoteDatabase(const QString &connName,
 		db.setPort(hostport[1].toInt());
 	db.setUserName(params["user"]);
 	db.setPassword(pass);
+
+	QString envvar(db.driverName()+ "_OPTIONS");
+	const char *opts = getenv(envvar.toLatin1());
+	if (opts)
+		db.setConnectOptions(opts);
 
 	XSqlQuery::setTablePrefix(params["prefix"]);
 	db.open();

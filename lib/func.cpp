@@ -336,15 +336,6 @@ QString getFullFilename(const QString & filename, const QString & selectedFilter
 	return rv;
 }
 
-QByteArray filename2bytearray(const QString &fname)
-{
-#if defined(Q_OS_WIN32)
-	return fname.toLocal8Bit();
-#else
-	return fname.toUtf8();
-#endif
-}
-
 QString filename2QString(const char *fname)
 {
 #if defined(Q_OS_WIN32)

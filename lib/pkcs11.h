@@ -111,67 +111,39 @@ class pkcs11
 	friend class pk11_attr_data;
 
 	private:
-		static pkcs11_lib_list libs;
 		slotid p11slot;
 		CK_SESSION_HANDLE session;
 		CK_OBJECT_HANDLE p11obj;
 
 	public:
+		static pkcs11_lib_list libraries;
 		pkcs11();
 		~pkcs11();
 
-		static bool loaded()
-		{
-			foreach(pkcs11_lib *l, libs) {
-				if (l->isLoaded())
-					return true;
-			}
-			return false;
-		}
-		static pkcs11_lib *load_lib(const QString &fname);
-		static pkcs11_lib *get_lib(const QString &fname)
-		{
-			return libs.get_lib(fname);
-		}
-		static bool remove_lib(QString fname)
-		{
-			return libs.remove_lib(fname);
-		}
-		static void remove_libs()
-		{
-			qDeleteAll(libs);
-			libs.clear();
-		}
-		static void reload_libs(const QString &libnames);
-		static pkcs11_lib_list get_libs()
-		{
-			return libs;
-		}
-
-		CK_RV tokenInfo(slotid slot, tkInfo *tkinfo);
-		tkInfo tokenInfo(slotid slot);
+		CK_RV tokenInfo(const slotid &slot, tkInfo *tkinfo);
+		tkInfo tokenInfo(const slotid &slot);
 		tkInfo tokenInfo()
 		{
 			return tokenInfo(p11slot);
 		}
-		QString driverInfo(slotid slot)
+		QString driverInfo(const slotid &slot) const
 		{
 			return slot.lib->driverInfo();
 		}
-		slotidList getSlotList()
+		static slotidList getSlotList()
 		{
-			return libs.getSlotList();
+			return libraries.getSlotList();
 		}
 
 		bool selectToken(slotid *slot, QWidget *w);
-		void changePin(slotid slot, bool so);
-		void initPin(slotid slot);
-		void initToken(slotid slot, unsigned char *pin,
+		void changePin(const slotid &slot, bool so);
+		void initPin(const slotid &slot);
+		void initToken(const slotid &slot, unsigned char *pin,
 			int pinlen, QString label);
-		QList<CK_MECHANISM_TYPE> mechanismList(slotid slot);
-		void mechanismInfo(slotid slot, CK_MECHANISM_TYPE m,
+		QList<CK_MECHANISM_TYPE> mechanismList(const slotid &slot);
+		void mechanismInfo(const slotid &slot, CK_MECHANISM_TYPE m,
 			CK_MECHANISM_INFO *info);
-		void startSession(slotid slot, bool rw = false);
+		void startSession(const slotid &slot, bool rw = false);
 
 		/* Session based functions */
 		void loadAttribute(pk11_attribute &attribute,

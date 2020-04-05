@@ -22,17 +22,11 @@ class Options: public QDialog, public Ui::Options
 		QStringList string_opts;
 		QString getDnString(QListWidget *w);
 		void setDnString(QString dn, QListWidget *w);
-		void setupPkcs11Provider(QString list);
-		QString getPkcs11Provider();
-		MainWindow *mw;
-		QString listItem2Name(const QListWidgetItem *item) const;
-		void updatePkcs11Item(QListWidgetItem *item) const;
 
 	public:
-		Options(MainWindow *parent);
+		Options(QWidget *parent);
 		~Options();
 		int exec();
-		QListWidgetItem *addLibItem(const QString &) const;
 
 	public slots:
 		void on_extDNadd_clicked();
@@ -44,7 +38,6 @@ class Options: public QDialog, public Ui::Options
 		void on_removeButton_clicked(void);
 		void on_searchPkcs11_clicked(void);
 		void addLib(QString);
-		void Pkcs11ItemChanged(QListWidgetItem *);
 };
 
 #endif

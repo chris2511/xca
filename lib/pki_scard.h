@@ -88,9 +88,9 @@ class pki_scard: public pki_key
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;
 		void generate(const keyjob &task);
 		void deleteFromToken();
-		void deleteFromToken(slotid slot);
-		void store_token(slotid slot, EVP_PKEY *pkey);
-		int renameOnToken(slotid slot, QString name);
+		void deleteFromToken(const slotid &slot);
+		void store_token(const slotid &slot, EVP_PKEY *pkey);
+		int renameOnToken(const slotid &slot, const QString &name);
 		QString getMsg(msg_type msg) const;
 		bool visible() const;
 		QSqlError insertSqlData();

@@ -15,11 +15,9 @@
 #include <QFileDialog>
 #include <QToolTip>
 
-Options::Options(MainWindow *parent)
+Options::Options(QWidget *parent)
 	:QDialog(parent)
 {
-	mw = parent;
-
 	setWindowTitle(XCA_TITLE);
 	setupUi(this);
 
@@ -46,14 +44,13 @@ Options::Options(MainWindow *parent)
 
 	setDnString(Settings["mandatory_dn"], extDNlist);
 	setDnString(Settings["explicit_dn"], expDNlist);
-	setupPkcs11Provider(Settings["pkcs11path"]);
 
 	suppress->setCheckState(Settings["suppress_messages"]);
 	noColorize->setCheckState(Settings["no_expire_colors"]);
 	transDnEntries->setCheckState(Settings["translate_dn"]);
 	onlyTokenHashes->setCheckState(Settings["only_token_hashes"]);
 	disableNetscape->setCheckState(Settings["disable_netscape"]);
-	adapt_explicit_subject->setCheckState(Settings["adapt_explicit_subject"]);
+	adapt_explicit_subj->setCheckState(Settings["adapt_explicit_subj"]);
 
 	QStringList units;
 	QString x = Settings["ical_expiry"];
@@ -70,8 +67,10 @@ Options::Options(MainWindow *parent)
 	cert_expiry_num->setText(x);
 
 	serial_len->setValue(Settings["serial_len"]);
-	connect(pkcs11List, SIGNAL(itemClicked(QListWidgetItem *)),
-		this, SLOT(Pkcs11ItemChanged(QListWidgetItem *)));
+
+	pkcs11List->setModel(&pkcs11::libraries);
+	pkcs11List->showDropIndicator();
+	pkcs11List->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 Options::~Options()
@@ -147,14 +146,14 @@ int Options::exec()
 	Settings["mandatory_dn"] = getDnString(extDNlist);
 	Settings["explicit_dn"] = getDnString(expDNlist);
 	Settings["string_opt"] = string_opts[mbstring->currentIndex()];
-	Settings["pkcs11path"] = getPkcs11Provider();
+	Settings["pkcs11path"] = pkcs11::libraries.getPkcs11Provider();
 
 	Settings["cert_expiry"] = cert_expiry_num->text() +
 				cert_expiry_unit->currentItemData().toString();
 	Settings["ical_expiry"] = ical_expiry_num->text() +
 				ical_expiry_unit->currentItemData().toString();
 	Settings["serial_len"] = serial_len->value();
-	Settings["adapt_explicit_subject"] = adapt_explicit_subject->checkState();
+	Settings["adapt_explicit_subj"] = adapt_explicit_subj->checkState();
 
 	return TransCommit() ? QDialog::Accepted : QDialog::Rejected;
 }
@@ -172,15 +171,8 @@ void Options::on_addButton_clicked(void)
 
 void Options::addLib(QString fname)
 {
-	QString status;
-
 	fname = QFileInfo(fname).canonicalFilePath();
-
-	if (fname.isEmpty() || pkcs11::get_lib(fname))
-		return;
-
-	pkcs11_lib *l = pkcs11::load_lib(fname);
-	addLibItem(fname);
+	pkcs11_lib *l = pkcs11::libraries.add_lib(fname);
 
 	if (searchP11 && l)
 		QToolTip::showText(searchP11->mapToGlobal(
@@ -189,14 +181,14 @@ void Options::addLib(QString fname)
 
 void Options::on_removeButton_clicked(void)
 {
-	QListWidgetItem *item = pkcs11List->takeItem(pkcs11List->currentRow());
-	if (!item)
-		return;
-	try {
-		pkcs11::remove_lib(item->text());
-	} catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
+	QList<int> indexes;
+	foreach(QModelIndex i, pkcs11List->selectionModel()->selectedIndexes())
+		indexes << i.row();
+
+	/* Delete from highest to lowest index */
+	qSort(indexes.begin(), indexes.end(), qGreater<int>());
+	foreach(int i, indexes)
+		pkcs11List->model()->removeRow(i);
 }
 
 void Options::on_searchPkcs11_clicked(void)
@@ -207,71 +199,4 @@ void Options::on_searchPkcs11_clicked(void)
 			this, SLOT(addLib(QString)));
 	}
 	searchP11->show();
-}
-
-void Options::Pkcs11ItemChanged(QListWidgetItem *item)
-{
-	pkcs11List->blockSignals(true);
-	pkcs11_lib *l = pkcs11::get_libs().get_lib(item->text());
-	qDebug() << item->text() << item->checkState() << l->isEnabled() << l->isLoaded();
-	if ((item->checkState() == Qt::Checked) != l->isEnabled()) {
-		QString file = listItem2Name(item);
-		pkcs11::remove_lib(file);
-		pkcs11::load_lib(file);
-		updatePkcs11Item(item);
-	}
-	pkcs11List->blockSignals(false);
-}
-
-void Options::updatePkcs11Item(QListWidgetItem *item) const
-{
-	pkcs11_lib *l = pkcs11::get_libs().get_lib(item->text());
-	if (!l)
-		return;
-	if (l->isEnabled()) {
-		item->setIcon(QPixmap(l->isLoaded() ? ":doneIco" : ":warnIco"));
-	} else {
-		QPixmap m(QSize(20,20));
-		m.fill(Qt::transparent);
-		item->setIcon(QIcon(m));
-	}
-	item->setToolTip(l->driverInfo().trimmed());
-}
-
-QListWidgetItem *Options::addLibItem(const QString &lib) const
-{
-	pkcs11_lib *l = pkcs11::get_libs().get_lib(lib);
-	if (!l)
-		return NULL;
-	QListWidgetItem *item = new QListWidgetItem(lib);
-	item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-	updatePkcs11Item(item);
-	item->setText(l->filename());
-	item->setCheckState(l->isEnabled() ? Qt::Checked : Qt::Unchecked);
-	pkcs11List->addItem(item);
-	return item;
-}
-
-void Options::setupPkcs11Provider(QString list)
-{
-	foreach(QString libname, list.split('\n')) {
-		addLibItem(libname);
-	}
-}
-
-QString Options::listItem2Name(const QListWidgetItem *item) const
-{
-	return QString("%1:%2").arg(item->checkState() == Qt::Checked)
-				.arg(item->text());
-}
-
-QString Options::getPkcs11Provider()
-{
-	QStringList prov;
-	for (int j=0; j<pkcs11List->count(); j++) {
-		prov << listItem2Name(pkcs11List->item(j));
-	}
-	if (prov.count() == 0)
-		return QString("");
-	return prov.join("\n");
 }

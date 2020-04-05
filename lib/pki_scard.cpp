@@ -349,7 +349,7 @@ pk11_attlist pki_scard::objectAttributes(bool priv) const
 	return attrs;
 }
 
-void pki_scard::deleteFromToken(slotid slot)
+void pki_scard::deleteFromToken(const slotid &slot)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -371,7 +371,7 @@ void pki_scard::deleteFromToken(slotid slot)
 	p11.deleteObjects(pub_objects);
 }
 
-int pki_scard::renameOnToken(slotid slot, QString name)
+int pki_scard::renameOnToken(const slotid &slot, const QString &name)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -398,7 +398,7 @@ int pki_scard::renameOnToken(slotid slot, QString name)
 	return 1;
 }
 
-void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
+void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 {
 	QByteArray ba;
 	RSA *rsa;
@@ -610,7 +610,7 @@ bool pki_scard::find_key_on_card(slotid *slot) const
  * returns the slot ID in slot true on success */
 bool pki_scard::prepare_card(slotid *slot) const
 {
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return false;
 
 	QString msg = tr("Please insert card: %1 %2 [%3] with Serial: %4").

@@ -310,9 +310,6 @@
             <Component Id="Cqwindowsvistastyle" Guid="8e3dfb18-9a16-4b94-a5a5-90d9c4cc0038">
                 <File Id="qwindowsvistastyle.dll" Source="styles/qwindowsvistastyle.dll" KeyPath="yes"/>
             </Component>
-            <Component Id="Cqwindowsvistastyled" Guid="32017441-2a0e-4811-ac78-acc58f6087c1">
-                <File Id="qwindowsvistastyled.dll" Source="styles/qwindowsvistastyled.dll"/>
-            </Component>
         </DirectoryRef>
 
         <DirectoryRef Id="ApplicationProgramsFolder">
@@ -356,7 +353,6 @@
             <ComponentRef Id="Cqwindows" />
             <ComponentRef Id="Cqsqlite" />
             <ComponentRef Id="Cqwindowsvistastyle" />
-            <ComponentRef Id="Cqwindowsvistastyled" />
             <ComponentRef Id="Clibstdcpp6"/>
             <ComponentRef Id="Clibwinpthread1"/>
             <ComponentRef Id="Clibgcc_s_seh1"/>

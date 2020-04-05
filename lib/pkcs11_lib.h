@@ -10,8 +10,11 @@
 
 #include "lib/exception.h"
 #include "opensc-pkcs11.h"
+#include <QAbstractListModel>
 #include <QString>
+#include <QObject>
 #include <QList>
+#include <Qt>
 
 #include <ltdl.h>
 
@@ -30,12 +33,12 @@ class pkcs11_lib
 	~pkcs11_lib();
 
 	QList<unsigned long> getSlotList();
-	QString driverInfo();
-	QString filename()
+	QString driverInfo() const;
+	QString filename() const
 	{
 		return file;
 	}
-	CK_FUNCTION_LIST *ptr()
+	CK_FUNCTION_LIST *ptr() const
 	{
 		return p11;
 	}
@@ -43,13 +46,27 @@ class pkcs11_lib
 	{
 		return p11 != NULL;
 	}
-	bool isEnabled() const
+	enum Qt::CheckState checked() const
 	{
-		return enabled;
+		return enabled ? Qt::Checked : Qt::Unchecked;
 	}
-	bool isLib(const QString &name)
+	bool isLib(const QString &name) const
 	{
 		return name2File(name) == file;
+	}
+	QString toData(int enabled) const
+	{
+		return QString("%1:%2").arg(enabled).arg(file);
+	}
+	QString toData() const
+	{
+		return toData(enabled);
+	}
+	QString pixmap() const
+	{
+		if (!enabled)
+			return QString();
+                return isLoaded() ? ":doneIco" : ":warnIco";
 	}
 };
 
@@ -64,12 +81,12 @@ class slotid
 		lib = l;
 		id = i;
 	}
-	void isValid()
+	void isValid() const
 	{
 		if (!lib)
 			throw errorEx("InternalError: slotid is invalid");
 	}
-	CK_FUNCTION_LIST *p11()
+	CK_FUNCTION_LIST *p11() const
 	{
 		return lib->ptr();
 	}
@@ -77,16 +94,39 @@ class slotid
 
 typedef QList<slotid> slotidList;
 
-class pkcs11_lib_list: public QList<pkcs11_lib*>
+class pkcs11_lib_list: public QAbstractListModel
 {
+	QList<pkcs11_lib*> libs;
+	QList<int> model_data;
+
     public:
 	pkcs11_lib *add_lib(const QString &fname);
-	pkcs11_lib *get_lib(const QString &fname);
-	bool remove_lib(const QString &fname);
-	slotidList getSlotList();
+	void load(const QString &list);
+	slotidList getSlotList() const;
+	QString getPkcs11Provider() const;
+	void remove_libs();
+	bool loaded() const;
+
+	/* Helper for QAbstractListModel */
+	pkcs11_lib *libByModelIndex(const QModelIndex &index) const;
+
+	/* Reimplementation from QAbstractListModel */
+	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	QVariant data(const QModelIndex &index,
+			int role = Qt::DisplayRole) const;
+	bool setData(const QModelIndex &index, const QVariant &value, int role);
+
+	QMap<int, QVariant> itemData(const QModelIndex &index) const;
+	bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
+
+	Qt::ItemFlags flags(const QModelIndex& index) const;
+	Qt::DropActions supportedDropActions() const;
+
+	bool removeRows(int row, int count, const QModelIndex &p = QModelIndex());
+	bool insertRows(int row, int count, const QModelIndex &p = QModelIndex());
 };
 
 void pk11error(const QString &fmt, int r);
-void pk11error(slotid slot, const QString &func, int rv);
+void pk11error(const slotid &slot, const QString &func, int rv);
 const char *pk11errorString(unsigned long rv);
 #endif

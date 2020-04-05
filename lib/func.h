@@ -54,7 +54,6 @@ const QStringList getLibExtensions();
 QString hostId();
 
 QString formatHash(const QByteArray &data, QString sep = ":", int width = 2);
-QByteArray filename2bytearray(const QString &fname);
 QString filename2QString(const char *fname);
 QString compressFilename(const QString &filename, int maxlen = 50);
 
@@ -83,8 +82,6 @@ void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 
 #define I2D_VOID(a) ((int (*)(const void *, unsigned char **))(a))
 #define D2I_VOID(a) ((void *(*)(void *, unsigned char **, long))(a))
-
-#define QString2filename(str) filename2bytearray(str).constData()
 
 static inline QString htmlEscape(const QString &html)
 {

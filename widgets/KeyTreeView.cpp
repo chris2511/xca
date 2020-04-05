@@ -39,7 +39,7 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		}
 	}
 
-	if (!pkcs11::loaded() || multi)
+	if (!pkcs11::libraries.loaded() || multi)
 		return;
 
 	if (key->isToken()) {
@@ -139,7 +139,7 @@ void KeyTreeView::toToken()
 		return;
 
 	pki_key *key = static_cast<pki_scard*>(currentIdx.internalPointer());
-	if (!key || !pkcs11::loaded() || key->isToken())
+	if (!key || !pkcs11::libraries.loaded() || key->isToken())
 		return;
 
 	pki_scard *card = NULL;

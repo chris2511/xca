@@ -44,9 +44,9 @@ public:
 	{
 		return QByteArray((char*)attr.pValue, attr.ulValueLen);
 	}
-	virtual void store(slotid slot,
+	virtual void store(const slotid &slot,
 			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
-	virtual void load(slotid slot,
+	virtual void load(const slotid &slot,
 			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	bool cmp(const pk11_attribute &other) const
 	{
@@ -195,7 +195,7 @@ public:
 	}
 	void setBignum(BIGNUM *bn, bool consume=true);
 	void setConstBignum(const BIGNUM *bn);
-	void load(slotid slot,
+	void load(const slotid &slot,
 		CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	void setValue(const unsigned char *ptr, unsigned long len);
 	pk11_attr_data &operator = (const pk11_attr_data &p)

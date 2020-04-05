@@ -192,7 +192,7 @@ void MainWindow::setItemEnabled(bool enable)
 	foreach(QAction *a, acList) {
 		a->setEnabled(enable);
 	}
-	enableTokenMenu(pkcs11::loaded());
+	enableTokenMenu(pkcs11::libraries.loaded());
 }
 
 void MainWindow::init_images()
@@ -265,7 +265,7 @@ void MainWindow::pastePem()
 void MainWindow::initToken()
 {
 	bool ok;
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 	try {
 		pkcs11 p11;
@@ -306,7 +306,7 @@ void MainWindow::initToken()
 
 void MainWindow::changePin(bool so)
 {
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 	try {
 		pkcs11 p11;
@@ -327,7 +327,7 @@ void MainWindow::changeSoPin()
 
 void MainWindow::initPin()
 {
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 	try {
 		pkcs11 p11;
@@ -350,7 +350,7 @@ void MainWindow::manageToken()
 	pki_x509 *cert = NULL;
 	ImportMulti *dlgi = NULL;
 
-	if (!pkcs11::loaded())
+	if (!pkcs11::libraries.loaded())
 		return;
 
 	try {
@@ -580,7 +580,7 @@ enum open_result MainWindow::init_database(database_model *m)
 	if (pki_evp::passwd.isNull())
 		XCA_INFO(tr("Using or exporting private keys will not be possible without providing the correct password"));
 
-	enableTokenMenu(pkcs11::loaded());
+	enableTokenMenu(pkcs11::libraries.loaded());
 
 	hashBox hb(this);
 	if (hb.isInsecure()) {
@@ -641,7 +641,7 @@ void MainWindow::close_database()
 	currentDB.clear();
 	foreach(XcaTreeView *v, views)
 		v->setModel(NULL);
-	enableTokenMenu(pkcs11::loaded());
+	enableTokenMenu(pkcs11::libraries.loaded());
 }
 
 void MainWindow::exportIndex()

@@ -395,7 +395,7 @@ void pki_x509::deleteFromToken()
 	pki_scard *card = dynamic_cast<pki_scard *>(privkey);
 	slotidList p11_slots;
 
-	if (!card || !pkcs11::loaded())
+	if (!card || !pkcs11::libraries.loaded())
 		return;
 
 	if (privkey && privkey->isToken()) {
@@ -422,7 +422,7 @@ pk11_attlist pki_x509::objectAttributes()
 	return attrs;
 }
 
-void pki_x509::deleteFromToken(slotid slot)
+void pki_x509::deleteFromToken(const slotid &slot)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -444,7 +444,7 @@ void pki_x509::deleteFromToken(slotid slot)
 	p11.deleteObjects(objs);
 }
 
-int pki_x509::renameOnToken(slotid slot, QString name)
+int pki_x509::renameOnToken(const slotid &slot, const QString &name)
 {
 
 	pkcs11 p11;
@@ -552,7 +552,7 @@ bool pki_x509::canSign() const
 	pki_key *privkey = getRefKey();
 	if (!privkey || privkey->isPubKey())
 		return false;
-	if (privkey->isToken() && !pkcs11::loaded())
+	if (privkey->isToken() && !pkcs11::libraries.loaded())
 		return false;
 	return isCA();
 }
