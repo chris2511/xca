@@ -34,7 +34,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		pki_base *import(QModelIndex &idx);
 		void execute(int force=0, QStringList failed = QStringList());
 		int entries();
-		void tokenInfo(slotid s);
+		void tokenInfo(const slotid &s);
 		void dragEnterEvent(QDragEnterEvent *event);
 		void dropEvent(QDropEvent *event);
 		bool openDB() const;

@@ -509,7 +509,7 @@ void pk11error(const QString &func, int rv)
 	throw err;
 }
 
-void pk11error(slotid slot, const QString &func, int rv)
+void pk11error(const slotid &slot, const QString &func, int rv)
 {
 	WAITCURSOR_END
 	errorEx err(QObject::tr("PKCS#11 function '%1' failed: %2\nIn library %3\n%4").

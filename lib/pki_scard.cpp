@@ -354,7 +354,7 @@ pk11_attlist pki_scard::objectAttributes(bool priv) const
 	return attrs;
 }
 
-void pki_scard::deleteFromToken(slotid slot)
+void pki_scard::deleteFromToken(const slotid &slot)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -376,7 +376,7 @@ void pki_scard::deleteFromToken(slotid slot)
 	p11.deleteObjects(pub_objects);
 }
 
-int pki_scard::renameOnToken(slotid slot, QString name)
+int pki_scard::renameOnToken(const slotid &slot, const QString &name)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -403,7 +403,7 @@ int pki_scard::renameOnToken(slotid slot, QString name)
 	return 1;
 }
 
-void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
+void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 {
 	QByteArray ba;
 	RSA *rsa;
@@ -655,7 +655,7 @@ public:
 	}
 };
 
-void pki_scard::generateKey_card(int type, slotid slot, int size,
+void pki_scard::generateKey_card(int type, const slotid &slot, int size,
 		int curve_nid, QProgressBar *bar)
 {
 	pk11_attlist atts;

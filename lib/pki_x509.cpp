@@ -412,7 +412,7 @@ pk11_attlist pki_x509::objectAttributes()
 	return attrs;
 }
 
-void pki_x509::deleteFromToken(slotid slot)
+void pki_x509::deleteFromToken(const slotid &slot)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -434,7 +434,7 @@ void pki_x509::deleteFromToken(slotid slot)
 	p11.deleteObjects(objs);
 }
 
-int pki_x509::renameOnToken(slotid slot, QString name)
+int pki_x509::renameOnToken(const slotid &slot, const QString &name)
 {
 
 	pkcs11 p11;

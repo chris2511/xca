@@ -46,7 +46,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	setAcceptDrops(true);
 }
 
-void ImportMulti::tokenInfo(slotid s)
+void ImportMulti::tokenInfo(const slotid &s)
 {
 	slot = s;
 	mcont->setSlot(slot);

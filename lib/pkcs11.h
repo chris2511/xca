@@ -111,29 +111,29 @@ class pkcs11
 		pkcs11();
 		~pkcs11();
 
-		tkInfo tokenInfo(slotid slot);
+		tkInfo tokenInfo(const slotid &slot);
 		tkInfo tokenInfo()
 		{
 			return tokenInfo(p11slot);
 		}
-		QString driverInfo(slotid slot)
+		QString driverInfo(const slotid &slot) const
 		{
 			return slot.lib->driverInfo();
 		}
-		slotidList getSlotList()
+		static slotidList getSlotList()
 		{
 			return libraries.getSlotList();
 		}
 
 		bool selectToken(slotid *slot, QWidget *w);
-		void changePin(slotid slot, bool so);
-		void initPin(slotid slot);
-		void initToken(slotid slot, unsigned char *pin,
+		void changePin(const slotid &slot, bool so);
+		void initPin(const slotid &slot);
+		void initToken(const slotid &slot, unsigned char *pin,
 			int pinlen, QString label);
-		QList<CK_MECHANISM_TYPE> mechanismList(slotid slot);
-		void mechanismInfo(slotid slot, CK_MECHANISM_TYPE m,
+		QList<CK_MECHANISM_TYPE> mechanismList(const slotid &slot);
+		void mechanismInfo(const slotid &slot, CK_MECHANISM_TYPE m,
 			CK_MECHANISM_INFO *info);
-		void startSession(slotid slot, bool rw = false);
+		void startSession(const slotid &slot, bool rw = false);
 
 		/* Session based functions */
 		void loadAttribute(pk11_attribute &attribute,

@@ -44,7 +44,7 @@ pkcs11::~pkcs11()
 	}
 }
 
-void pkcs11::startSession(slotid slot, bool rw)
+void pkcs11::startSession(const slotid &slot, bool rw)
 {
 	CK_RV rv;
 	unsigned long flags = CKF_SERIAL_SESSION | (rw ? CKF_RW_SESSION : 0);
@@ -78,7 +78,7 @@ void pkcs11::getRandom()
 		qDebug("C_GenerateRandom: %s", pk11errorString(rv));
 }
 
-QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(slotid slot)
+QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(const slotid &slot)
 {
 	CK_RV rv;
 	CK_MECHANISM_TYPE *m;
@@ -103,7 +103,8 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(slotid slot)
 	return ml;
 }
 
-void pkcs11::mechanismInfo(slotid slot, CK_MECHANISM_TYPE m, CK_MECHANISM_INFO *info)
+void pkcs11::mechanismInfo(const slotid &slot, CK_MECHANISM_TYPE m,
+						CK_MECHANISM_INFO *info)
 {
 	CK_RV rv;
 	CALL_P11_C(slot.lib, C_GetMechanismInfo, slot.id, m, info);
@@ -300,7 +301,7 @@ static QString newSoPinTxt = QObject::tr(
 static QString newPinTxt = QObject::tr(
 		"Please enter the new PIN for the token: '%1'");
 
-void pkcs11::changePin(slotid slot, bool so)
+void pkcs11::changePin(const slotid &slot, bool so)
 {
 	Passwd newPin, pinp;
 	QString pin;
@@ -329,7 +330,7 @@ void pkcs11::changePin(slotid slot, bool so)
 	logout();
 }
 
-void pkcs11::initPin(slotid slot)
+void pkcs11::initPin(const slotid &slot)
 {
 	Passwd newPin, pinp;
 	int ret = 1;
@@ -360,7 +361,7 @@ void pkcs11::initPin(slotid slot)
 	logout();
 }
 
-void pkcs11::initToken(slotid slot, unsigned char *pin, int pinlen,
+void pkcs11::initToken(const slotid &slot, unsigned char *pin, int pinlen,
 		QString label)
 {
 	CK_RV rv;
@@ -374,7 +375,7 @@ void pkcs11::initToken(slotid slot, unsigned char *pin, int pinlen,
 		pk11error(slot, "C_InitToken", rv);
 }
 
-tkInfo pkcs11::tokenInfo(slotid slot)
+tkInfo pkcs11::tokenInfo(const slotid &slot)
 {
 	CK_TOKEN_INFO token_info;
 	CK_RV rv;

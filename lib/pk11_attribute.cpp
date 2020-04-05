@@ -10,7 +10,7 @@
 #include "exception.h"
 #include <QObject>
 
-void pk11_attribute::load(slotid slot,
+void pk11_attribute::load(const slotid &slot,
 			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;
@@ -19,7 +19,7 @@ void pk11_attribute::load(slotid slot,
 		pk11error("C_GetAttribute()", rv);
 }
 
-void pk11_attr_data::load(slotid slot,
+void pk11_attr_data::load(const slotid &slot,
 			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;
@@ -72,7 +72,7 @@ void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
 		BN_free(bn);
 }
 
-void pk11_attribute::store(slotid slot,
+void pk11_attribute::store(const slotid &slot,
 			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;

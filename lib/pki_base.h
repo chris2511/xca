@@ -130,8 +130,8 @@ class pki_base : public QObject
 
 		/* Token handling */
 		virtual void deleteFromToken();
-		virtual void deleteFromToken(slotid);
-		virtual int renameOnToken(slotid, QString);
+		virtual void deleteFromToken(const slotid &);
+		virtual int renameOnToken(const slotid &, const QString &);
 
 		/* Import / Export management */
 		virtual BIO *pem(BIO *, int format=0);

@@ -96,7 +96,7 @@ class slotid
 		id = other.id;
 		return *this;
 	}
-	void isValid()
+	void isValid() const
 	{
 		if (!lib)
 			throw errorEx("InternalError: slotid is invalid");
@@ -142,6 +142,6 @@ class pkcs11_lib_list: public QAbstractListModel
 };
 
 void pk11error(const QString &fmt, int r);
-void pk11error(slotid slot, const QString &func, int rv);
+void pk11error(const slotid &slot, const QString &func, int rv);
 const char *pk11errorString(unsigned long rv);
 #endif
