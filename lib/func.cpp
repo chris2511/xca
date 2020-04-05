@@ -194,8 +194,8 @@ QString relativePath(QString path)
 	QFileInfo fi_path(path);
 	QFileInfo fi_home(getHomeDir());
 
-	QString prefix = fi_home.canonicalFilePath();
-	path = fi_path.canonicalFilePath();
+	QString prefix = fi_home.absoluteFilePath();
+	path = fi_path.absoluteFilePath();
 
 	if (portable_app()) {
 		if (path.startsWith(prefix))

@@ -52,6 +52,7 @@ pkcs11_lib::pkcs11_lib(const QString &f)
 	CK_RV rv;
 	file = name2File(f, &enabled);
 	p11 = NULL;
+	dl_handle = NULL;
 
 	if (!enabled)
 		return;
@@ -59,7 +60,14 @@ pkcs11_lib::pkcs11_lib(const QString &f)
 	lt_dlinit();
 
 	try {
-		dl_handle = lt_dlopen(find_filecodec(file));
+		/* PKCS11 libs without path should be looked up locally */
+		QString realfile = file;
+		if (!realfile.contains("/") && !realfile.isEmpty())
+			realfile.prepend("./");
+		QByteArray localfn = find_filecodec(realfile);
+		if (localfn.isEmpty())
+			throw errorEx(QObject::tr("Invalid filename: %1").arg(file));
+		dl_handle = lt_dlopen(localfn);
 		if (dl_handle == NULL)
 			throw errorEx(QObject::tr("Failed to open PKCS11 library: %1: %2").arg(file).arg(lt_dlerror()));
 
