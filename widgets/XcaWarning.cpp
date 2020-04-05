@@ -56,7 +56,8 @@ int xcaWarning::exec()
 	colors[QMessageBox::Critical] = COL_RED "Critical";
 	colors[QMessageBox::Question] = COL_BLUE "Question";
 
-	printf("%s:" COL_RESET " %s\n\n", colors[icon], CCHAR(msg));
+	console_write(stdout, "%s:" COL_RESET " %s\n\n",
+				colors[icon], CCHAR(msg));
 	return QMessageBox::Ok;
 }
 

@@ -47,7 +47,7 @@ enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
 			throw pw_exit;
 		return result;
 	}
-	printf(COL_CYAN "%s" COL_LRED "\n%s:" COL_RESET,
+	console_write(stdout, COL_CYAN "%s" COL_LRED "\n%s:" COL_RESET,
 		 CCHAR(p->getDescription()), CCHAR(tr("Password")));
 	*passwd = readPass();
 	return pw_ok;

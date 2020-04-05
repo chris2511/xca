@@ -41,6 +41,7 @@
 #include <QProgressBar>
 #include <QTextEdit>
 #include <QDebug>
+#include <stdarg.h>
 
 #if defined(Q_OS_WIN32)
 #include <shlobj.h>
@@ -53,6 +54,31 @@
 #warning Get rid of currentDB
 QString currentDB;
 
+int console_write(FILE *fp, const char *fmt, ...)
+{
+	va_list ap;
+	char buf[2048];
+	int ret;
+
+	va_start(ap, fmt);
+	ret = vsnprintf(buf, sizeof buf, fmt, ap);
+	va_end(ap);
+
+	if (ret > (int)sizeof buf -1)
+		ret = sizeof buf -1;
+
+#if defined(Q_OS_WIN32)
+	HANDLE out = GetStdHandle(fp == stderr ?
+			STD_ERROR_HANDLE : STD_OUTPUT_HANDLE);
+
+	if (out != INVALID_HANDLE_VALUE)
+		WriteConsole(out, buf, ret, NULL, NULL);
+#endif
+	fwrite(buf, ret, 1, fp);
+	fflush(fp);
+
+	return ret;
+}
 
 Passwd readPass()
 {

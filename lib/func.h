@@ -23,6 +23,18 @@
 #include "base.h"
 #include "Passwd.h"
 
+#if defined(Q_OS_WIN32)
+#define COL_CYAN  ""
+#define COL_BLUE  ""
+#define COL_GREEN ""
+#define COL_LRED  ""
+#define COL_YELL  ""
+#define COL_RED   ""
+#define COL_RESET ""
+#define COL_BOLD  ""
+#define COL_DIM   ""
+#define COL_UNDER ""
+#else
 #define COL_CYAN  "\x1b[0;36m"
 #define COL_BLUE  "\x1b[0;94m"
 #define COL_GREEN "\x1b[0;92m"
@@ -33,11 +45,14 @@
 #define COL_BOLD  "\x1b[1m"
 #define COL_DIM   "\x1b[2m"
 #define COL_UNDER "\x1b[4m"
+#endif
 
 #define IS_GUI_APP (qobject_cast<QApplication*>(QCoreApplication::instance()))
 class Validity;
 extern QString currentDB;
 
+int console_write(FILE *fp, const char *fmt, ...)
+		__attribute__ ((format (printf, 2, 3)));
 Passwd readPass();
 QPixmap *loadImg(const char *name);
 int portable_app();

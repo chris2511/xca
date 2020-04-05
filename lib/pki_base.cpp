@@ -451,7 +451,7 @@ void pki_base::print(FILE *fp, enum print_opt opt) const
 			s += QString(COL_YELL "%1" COL_RESET " %2\n")
 					.arg(key + ":", w).arg(val);
 		}
-		fprintf(fp, "%s", CCHAR(s));
+		console_write(fp, "%s", CCHAR(s));
 	}
 }
 
