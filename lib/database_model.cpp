@@ -261,7 +261,8 @@ database_model::database_model(const QString &name, const Passwd &pass)
 		} catch (errorEx &err) {
 			if (!isRemoteDB(dbName))
 				throw err;
-			XCA_ERROR(err);
+			if (!passwd.isEmpty())
+				XCA_ERROR(err);
 			DbMap params = splitRemoteDbName(dbName);
 			pass_info p(XCA_TITLE, tr("Please enter the password to access the database server %2 as user '%1'.")
 					.arg(params["user"]).arg(params["host"]));
