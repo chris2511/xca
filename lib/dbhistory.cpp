@@ -24,8 +24,11 @@ dbhistory::dbhistory()
 	QString name;
 	XFile file(dbhistory_file());
 
-	if (!file.open_read())
+	try {
+		file.open_read();
+	} catch (...) {
 		return;
+	}
 
 	history.clear();
 	while (!file.atEnd()) {
