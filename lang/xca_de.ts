@@ -802,12 +802,12 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+1"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht verschlüsselter privater Schlüssel im Microsoft PVK Format</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschlüsselter privater Schlüssel in einer Microsoft PVK-Datei</translation>
     </message>
     <message>
         <source>Certificate Index file</source>
@@ -1312,7 +1312,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+4"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japanisch</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2425,7 +2425,8 @@ Bitte mindestens den internen Namen setzen.</translation>
     <message>
         <location line="+724"/>
         <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>OCSP Stapeling erforderlich</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location line="+279"/>
@@ -3005,7 +3006,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="-83"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI Schlüssel ( *.pem *.der *.key );; PKCS#8 Schlüssel ( *.p8 *.pk8 );; Microsoft PVK Schlüssel ( *.pvk );; Öffentliche SSH Schlüssel ( *.pub );;</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -3361,7 +3362,7 @@ in Bibliothek %3
     <message>
         <location line="+16"/>
         <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
+        <translation>OCSP Stapeling erforderlich</translation>
     </message>
     <message>
         <source>subject alternative name</source>
@@ -3732,7 +3733,7 @@ in Bibliothek %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">Schlüsseleigenschaften</translation>
+        <translation>Schlüsseleigenschaften</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4214,12 +4215,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+51"/>
         <source>PVK private</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK privat</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK verschlüsselt</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4239,7 +4240,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+57"/>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>Interner Fehler</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -5056,17 +5057,17 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+1"/>
         <source>Key type</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsseltyp</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key size</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsselgröße</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">EC Gruppe</translation>
+        <translation>EC Gruppe</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -5312,7 +5313,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+19"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte das Passwort zum Schutz des Microsoft PVK Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
     <message>
         <location line="+61"/>
