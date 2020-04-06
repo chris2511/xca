@@ -54,30 +54,21 @@
 #warning Get rid of currentDB
 QString currentDB;
 
-int console_write(FILE *fp, const char *fmt, ...)
+int console_write(FILE *fp, const QByteArray &ba)
 {
-	va_list ap;
-	char buf[2048];
-	int ret;
-
-	va_start(ap, fmt);
-	ret = vsnprintf(buf, sizeof buf, fmt, ap);
-	va_end(ap);
-
-	if (ret > (int)sizeof buf -1)
-		ret = sizeof buf -1;
-
 #if defined(Q_OS_WIN32)
 	HANDLE out = GetStdHandle(fp == stderr ?
 			STD_ERROR_HANDLE : STD_OUTPUT_HANDLE);
 
-	if (out != INVALID_HANDLE_VALUE)
-		WriteConsole(out, buf, ret, NULL, NULL);
+	if (out != INVALID_HANDLE_VALUE) {
+		QString string = QString::fromUtf8(ba) + "\n";
+		WriteConsoleW(out, string.utf16(), string.size(), NULL, NULL);
+	}
 #endif
-	fwrite(buf, ret, 1, fp);
+	fprintf(fp, "%s\n", ba.constData());
 	fflush(fp);
 
-	return ret;
+	return 0;
 }
 
 Passwd readPass()

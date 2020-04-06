@@ -47,8 +47,8 @@ enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
 			throw pw_exit;
 		return result;
 	}
-	console_write(stdout, COL_CYAN "%s" COL_LRED "\n%s:" COL_RESET,
-		 CCHAR(p->getDescription()), CCHAR(tr("Password")));
+	console_write(stdout, QString(COL_CYAN "%1" COL_LRED "\n%2:" COL_RESET)
+		 .arg(p->getDescription()).arg(tr("Password")).toUtf8());
 	*passwd = readPass();
 	return pw_ok;
 }

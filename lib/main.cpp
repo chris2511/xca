@@ -80,9 +80,10 @@ void myMsgOutput(QtMsgType type, const char *msg)
 #endif
 	default:            severity = COL_CYAN "Default"; break;
 	}
-
-	console_write(stderr, COL_YELL "% 4d.%02d %s:" COL_RESET " %s\n",
-			 el/1000, (el%1000)/100, severity, msg);
+	console_write(stderr, QString(COL_YELL "%1%2 %3:" COL_RESET " %4")
+			.arg(el/1000, 4)
+			.arg((el%1000)/100, 2, 10, QChar('0'))
+			.arg(severity).arg(msg).toUtf8());
 }
 
 #if QT_VERSION >= 0x050000
@@ -106,22 +107,23 @@ QCoreApplication *createApplication(int &argc, char *argv[])
 
 static void cmd_version(FILE *fp)
 {
-	console_write(fp, XCA_TITLE "\nVersion %s\n", version_str(false));
+	console_write(fp, QString(XCA_TITLE "\nVersion %1")
+				.arg(version_str(false)).toUtf8());
 }
 
 const char *xca_name = "xca";
 static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 {
 	FILE *fp = exitcode == EXIT_SUCCESS ? stdout : stderr;
+	QString s;
 
 	cmd_version(fp);
-	console_write(fp, "\nUsage %s <options> <file-to-import> ...\n\n",
-			xca_name);
-	console_write(fp, "%s\n", CCHAR(arguments::help()));
-
+	s = QString("\nUsage %1 <options> <file-to-import> ...\n\n%2")
+				.arg(xca_name).arg(arguments::help());
 	if (msg)
-		console_write(stderr, "\nCmdline Error: %s\n", msg);
+		s += QString("\n\nCmdline Error: %1").arg(msg);
 
+	console_write(fp, s.toUtf8());
 	exit(exitcode);
 }
 
@@ -144,7 +146,8 @@ static Passwd acquire_password(const QString &source)
 
 static void success(const QString &msg)
 {
-	console_write(stdout, COL_CYAN "Success" COL_RESET ": %s", CCHAR(msg));
+	console_write(stdout, QString(COL_CYAN "Success" COL_RESET ": %1")
+				.arg(msg).toUtf8());
 }
 
 static pki_multi *cmdline_items;
@@ -219,16 +222,18 @@ static database_model* read_cmdline(int argc, char *argv[])
 			cmdline_items->append_item(pki);
 	}
 	if (cmd_opts.has("issuers")) {
+		QStringList out;
 		db_x509 *certs = models->model<db_x509>();
 		QList<pki_x509*>issuers = certs->getAllIssuers();
 		foreach(pki_x509 *iss, issuers) {
 			pki_key *key = iss->getRefKey();
 			QString keytype = key ? key->getTypeString() : "";
-			console_write(stdout, "%4llu '%s' %s\n",
-					iss->getSqlItemId().toULongLong(),
-					CCHAR(iss->getIntName()),
-					CCHAR(keytype));
+			out << QString("%1 '%2' %3")
+				.arg(iss->getSqlItemId().toULongLong(), 4)
+				.arg(iss->getIntName())
+				.arg(keytype);
 		}
+		console_write(stdout, out.join("\n").toUtf8());
 	}
 	if (cmd_opts.has("crlgen")) {
 		db_crl *crls = models->model<db_crl>();
@@ -271,6 +276,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 		if (cmd_opts.has("pem"))
 			pki->print(bba, pki_base::print_pem);
 	}
+	console_write(fp, bba);
 	if (cmd_opts.has("import")) {
 		models->insert(cmdline_items);
 		delete cmdline_items;
