@@ -960,7 +960,7 @@ QStringList pki_x509::icsVEVENT() const
 
 void pki_x509::collect_properties(QMap<QString, QString> &prp) const
 {
-	prp["Issuer"] = getSubject().oneLine(XN_FLAG_RFC2253);
+	prp["Issuer"] = getIssuerName().oneLine(XN_FLAG_RFC2253);
 	prp["Serial"] = getSerial().toHex();
 	prp["CA"] = isCA() ? "Yes" : "No";
 	prp["Not Before"] = getNotBefore().toPretty();
