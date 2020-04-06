@@ -124,10 +124,9 @@ QByteArray pki_base::i2d() const
 	return QByteArray();
 }
 
-BIO *pki_base::pem(BIO *, int format)
+bool pki_base::pem(BioByteArray &, int)
 {
-	(void)format;
-	return NULL;
+	return false;
 }
 
 const char *pki_base::getClassName() const
@@ -146,9 +145,7 @@ void pki_base::my_error(const QString &error) const
 
 void pki_base::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 {
-	BIO *bio = BIO_from_QByteArray(ba);
-	fromPEM_BIO(bio, name);
-	BIO_free(bio);
+	fromPEM_BIO(BioByteArray(ba).ro(), name);
 	autoIntName(name);
 	setFilename(name);
 }
@@ -413,7 +410,7 @@ void pki_base::collect_properties(QMap<QString, QString> &prp) const
 	prp["Type"] = t;
 }
 
-void pki_base::print(FILE *fp, enum print_opt opt) const
+void pki_base::print(BioByteArray &bba, enum print_opt opt) const
 {
 	static const QStringList order = {
 		"Type", "Descriptor", "Subject", "Issuer", "Serial",
@@ -425,7 +422,6 @@ void pki_base::print(FILE *fp, enum print_opt opt) const
 	if (opt == print_coloured) {
 		QMap<QString, QString> prp;
 		QStringList keys;
-		QString s;
 		int w = 0;
 
 		collect_properties(prp);
@@ -441,17 +437,10 @@ void pki_base::print(FILE *fp, enum print_opt opt) const
 		foreach (const QString &key, order) {
 			if (!prp.contains(key))
 				continue;
-			QString val = prp[key];
 
-			if (val == "Yes")
-				val = COL_GREEN "✓" COL_RESET " Yes";
-			else if (val == "No")
-				val = COL_RED "✗" COL_RESET " No";
-
-			s += QString(COL_YELL "%1" COL_RESET " %2\n")
-					.arg(key + ":", w).arg(val);
+			bba += QString(COL_YELL "%1" COL_RESET " %2\n")
+				.arg(key + ":", w).arg(prp[key]).toUtf8();
 		}
-		console_write(fp, "%s", CCHAR(s));
 	}
 }
 

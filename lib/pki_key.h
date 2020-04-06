@@ -208,7 +208,7 @@ class pki_key: public pki_base
 		{
 			qFatal("generate in pki_key");
 		}
-		BIO *pem(BIO *, int);
+		bool pem(BioByteArray &, int);
 		QVariant column_data(const dbheader *hd) const;
 		QString modulus() const;
 		QString pubEx() const;
@@ -224,7 +224,7 @@ class pki_key: public pki_base
 		void writeSSH2public(XFile &file) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
-		void print(FILE *fp, enum print_opt opt) const;
+		void print(BioByteArray &b, enum print_opt opt) const;
 		void resetUcount()
 		{
 			useCount = -1;

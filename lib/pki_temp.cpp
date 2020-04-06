@@ -405,16 +405,11 @@ void pki_temp::writeDefault(const QString &dirname) const
 	writeTemp(file);
 }
 
-BIO *pki_temp::pem(BIO *b, int format)
+bool pki_temp::pem(BioByteArray &b, int)
 {
-	(void)format;
 	QByteArray ba = toExportData();
-        if (!b)
-		b = BIO_new(BIO_s_mem());
-	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, (char*)"",
+	return PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, (char*)"",
 		(unsigned char*)(ba.data()), ba.size());
-	pki_openssl_error();
-	return b;
 }
 
 void pki_temp::fromExportData(QByteArray data)
@@ -430,20 +425,14 @@ void pki_temp::fromExportData(QByteArray data)
 		data.size(), version);
 }
 
-void pki_temp::try_fload(XFile &file, const char *mode)
+void pki_temp::try_fload(XFile &file)
 {
-	BIO *b = BIO_new(BIO_s_file());
-	check_oom(b);
-	pki_openssl_error();
-	BIO_set_fp(b, file.fp(mode), BIO_NOCLOSE);
+	QByteArray ba = file.read(4096*1024);
 	try {
-		fromPEM_BIO(b, file.fileName());
+		fromPEM_BIO(BioByteArray(ba).ro(), file.fileName());
 	} catch (errorEx &err) {
-		file.retry_read();
-		QByteArray ba = file.read(4096*1024);
 		fromExportData(ba);
 	}
-	BIO_free(b);
 	pki_openssl_error();
 }
 
@@ -452,14 +441,14 @@ void pki_temp::fload(const QString &fname)
 	try {
 		XFile file(fname);
 		file.open_read();
-		try_fload(file, "rb");
+		try_fload(file);
 	} catch (errorEx &err) {
 #if defined(Q_OS_WIN32)
 		/* Try again in ascii mode on Windows
 		 * to support pre 1.1.0 template exports */
 		XFile file(fname);
 		file.open(QIODevice::ReadOnly | QIODevice::QIODevice::Text);
-		try_fload(file, "r");
+		try_fload(file);
 #else
 		throw err;
 #endif

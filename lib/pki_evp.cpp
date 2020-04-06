@@ -11,6 +11,7 @@
 #include "func.h"
 #include "db.h"
 #include "entropy.h"
+#include "BioByteArray.h"
 #include "widgets/PwDialog.h"
 #include "widgets/XcaWarning.h"
 #include "widgets/XcaProgress.h"
@@ -233,13 +234,12 @@ bool pki_evp::openssl_pw_error() const
 
 void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 {
-	BIO *bio = BIO_from_QByteArray(ba);
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE,
 		tr("Please enter the password to decrypt the private key %1.")
 			.arg(name));
 	do {
-		pkey = PEM_read_bio_PrivateKey(bio, NULL,
+		pkey = PEM_read_bio_PrivateKey(BioByteArray(ba).ro(), NULL,
 						PwDialog::pwCallback, &p);
 		if (openssl_pw_error())
 			XCA_PASSWD_ERROR();
@@ -251,11 +251,8 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 
 	if (!pkey) {
 		pki_ign_openssl_error();
-		BIO_free(bio);
-		bio = BIO_from_QByteArray(ba);
-		pkey = PEM_read_bio_PUBKEY(bio, NULL, NULL, 0);
+		pkey = PEM_read_bio_PUBKEY(BioByteArray(ba).ro(), NULL, NULL, 0);
 	}
-	BIO_free(bio);
 	pki_openssl_error();
 	set_EVP_PKEY(pkey, name);
 }
@@ -463,10 +460,8 @@ EVP_PKEY *pki_evp::decryptKey() const
 	qDebug() << "myencKey.count()"<<myencKey.count();
 	if (myencKey.count() == 0)
 		return NULL;
-	BIO *b = BIO_from_QByteArray(myencKey);
-	check_oom(b);
 	EVP_PKEY *priv = NULL;
-	X509_SIG *p8 = d2i_PKCS8_bio(b, NULL);
+	X509_SIG *p8 = d2i_PKCS8_bio(BioByteArray(myencKey).ro(), NULL);
 	if (p8) {
 		PKCS8_PRIV_KEY_INFO *p8inf = PKCS8_decrypt(p8,
 				ownPassBuf.constData(), ownPassBuf.size());
@@ -476,7 +471,6 @@ EVP_PKEY *pki_evp::decryptKey() const
 		}
 		X509_SIG_free(p8);
 	}
-	BIO_free(b);
 	if (priv)
 		return priv;
 	pki_ign_openssl_error();
@@ -601,14 +595,11 @@ void pki_evp::encryptKey(const char *password)
 	}
 
 	/* Convert private key to DER(PKCS8-aes) */
-	const char *p;
-	BIO *bio = BIO_new(BIO_s_mem());
-	i2d_PKCS8PrivateKey_bio(bio, key, EVP_aes_256_cbc(),
+	BioByteArray bba;
+	i2d_PKCS8PrivateKey_bio(bba, key, EVP_aes_256_cbc(),
 		ownPassBuf.data(), ownPassBuf.size(), NULL, 0);
 	pki_openssl_error();
-	int l = BIO_get_mem_data(bio, &p);
-	encKey = QByteArray(p, l);
-	BIO_free(bio);
+	encKey = bba;
 
 	/* Replace private key by public key and
 	   have the encrypted private in "encKey"

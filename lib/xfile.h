@@ -41,9 +41,8 @@ class XFile : public QFile
 		}
 		BIO *bio()
 		{
-			if (b)
-				BIO_free(b);
-			b = BIO_new_fp(fp(), BIO_NOCLOSE);
+			if (!b)
+				b = BIO_new_fp(fp(), BIO_NOCLOSE);
 			return b;
 		}
 		FILE *fp(const char *mode = NULL)

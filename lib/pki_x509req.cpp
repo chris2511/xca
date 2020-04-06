@@ -265,13 +265,9 @@ void pki_x509req::writeReq(XFile &file, bool pem) const
 	pki_openssl_error();
 }
 
-BIO *pki_x509req::pem(BIO *b, int format)
+bool pki_x509req::pem(BioByteArray &b, int)
 {
-	(void)format;
-	if (!b)
-		b = BIO_new(BIO_s_mem());
-	PEM_write_bio_X509_REQ(b, request);
-	return b;
+	return PEM_write_bio_X509_REQ(b, request);
 }
 
 bool pki_x509req::verify() const
@@ -371,15 +367,15 @@ void pki_x509req::collect_properties(QMap<QString, QString> &prp) const
 	prp["Verify Ok"] = verify() ? "Yes" : "No";
 }
 
-void pki_x509req::print(FILE *fp, enum print_opt opt) const
+void pki_x509req::print(BioByteArray &bba, enum print_opt opt) const
 {
-	pki_x509super::print(fp, opt);
+	pki_x509super::print(bba, opt);
 	switch (opt) {
 	case print_openssl_txt:
-		X509_REQ_print_fp(fp, request);
+		X509_REQ_print(bba, request);
 		break;
 	case print_pem:
-		PEM_write_X509_REQ(fp, request);
+		PEM_write_bio_X509_REQ(bba, request);
 		break;
 	case print_coloured:
 		break;

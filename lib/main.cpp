@@ -255,20 +255,21 @@ static database_model* read_cmdline(int argc, char *argv[])
 		}
 	}
 	FILE *fp = stdout;
+	BioByteArray bba;
 	foreach(pki_base *pki, cmdline_items->get()) {
 		QString filename = pki->getFilename();
 		if ((cmd_opts.has("text") || cmd_opts.has("print")) &&
 		    filename.size() > 0)
 		{
-			console_write(fp, "\n" COL_GREEN COL_UNDER "File: %s"
-				COL_RESET "\n", CCHAR(filename));
+			bba += QString("\n" COL_GREEN COL_UNDER "File: %1"
+				COL_RESET "\n").arg(filename).toUtf8();
 		}
 		if (cmd_opts.has("print"))
-			pki->print(fp, pki_base::print_coloured);
+			pki->print(bba, pki_base::print_coloured);
 		if (cmd_opts.has("text"))
-			pki->print(fp, pki_base::print_openssl_txt);
+			pki->print(bba, pki_base::print_openssl_txt);
 		if (cmd_opts.has("pem"))
-			pki->print(fp, pki_base::print_pem);
+			pki->print(bba, pki_base::print_pem);
 	}
 	if (cmd_opts.has("import")) {
 		models->insert(cmdline_items);

@@ -16,6 +16,7 @@
 
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
+#include "lib/BioByteArray.h"
 #include "lib/func.h"
 
 #include "lib/openssl_compat.h"
@@ -168,7 +169,6 @@ extList NewX509::getAdvanced()
 {
 	QString conf_str;
 	CONF *conf;
-	BIO *bio;
 	extList elist;
 	long err_line=0;
 	STACK_OF(X509_EXTENSION) **sk, *sk_tmp = NULL;
@@ -184,14 +184,10 @@ extList NewX509::getAdvanced()
 	if (conf_str.isEmpty())
 		return elist;
 
-	QByteArray cs = conf_str.toLatin1();
-	bio = BIO_from_QByteArray(cs);
-	if (!bio)
-		return elist;
 	conf = NCONF_new(NULL);
-	ret = NCONF_load_bio(conf, bio, &err_line);
+	ret = NCONF_load_bio(conf, BioByteArray(conf_str.toLatin1()).ro(),
+				&err_line);
 	if (ret != 1) {
-		BIO_free(bio);
 		openssl_error(tr("Configfile error on line %1\n").
 				arg(err_line));
 		return elist;
@@ -224,7 +220,6 @@ extList NewX509::getAdvanced()
 
 	X509V3_set_nconf(&ext_ctx, NULL);
 	NCONF_free(conf);
-	BIO_free(bio);
 	openssl_error();
 	return elist;
 }

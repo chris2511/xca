@@ -160,10 +160,10 @@ void pki_multi::probeAnything(const QString &fname)
 	qDeleteAll(lbs);
 }
 
-void pki_multi::print(FILE *fp, enum print_opt opt) const
+void pki_multi::print(BioByteArray &bba, enum print_opt opt) const
 {
 	foreach(pki_base *pki, multi)
-		pki->print(fp, opt);
+		pki->print(bba, opt);
 }
 
 QList<pki_base *> pki_multi::pull()

@@ -25,7 +25,7 @@ class pki_multi: public pki_base
 		void fload(const QString &fname);
 		void probeAnything(const QString &fname);
 		void append_item(pki_base *pki);
-		void print(FILE *fp, enum print_opt opt) const;
+		void print(BioByteArray &b, enum print_opt opt) const;
 		QList<pki_base *> pull();
 		QList<pki_base *> get() const;
 };

@@ -11,7 +11,7 @@ MOCNAMES=db_crl db_key db_temp db_x509 db_x509req db_x509super db_base db_token\
 NAMES=$(MOCNAMES) asn1int oid x509rev asn1time version \
 	x509v3ext func load_obj x509name db settings \
 	pk11_attribute pkcs11 pkcs11_lib Passwd builtin_curves entropy sql \
-	dbhistory main arguments
+	dbhistory main arguments BioByteArray
 
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
 

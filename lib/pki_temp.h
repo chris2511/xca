@@ -28,7 +28,7 @@ class pki_temp: public pki_x509name
 	protected:
 		static const QList<QString> tmpl_keys;
 		int dataSize();
-		void try_fload(XFile &file, const char *mode);
+		void try_fload(XFile &file);
 		bool pre_defined;
 		x509name xname;
 		QMap<QString, QString> settings;
@@ -85,7 +85,7 @@ class pki_temp: public pki_x509name
 		{
 			xname = n;
 		}
-		BIO *pem(BIO *b, int format);
+		bool pem(BioByteArray &, int);
 		QByteArray toExportData() const;
 		void fromPEM_BIO(BIO *, const QString &);
 		void fromExportData(QByteArray data);

@@ -44,7 +44,7 @@ class pki_x509req : public pki_x509super
 		x509name getSubject() const;
 		void writeReq(XFile &file, bool pem) const;
 		void markSigned(bool signe);
-		void print(FILE *fp, enum print_opt opt) const;
+		void print(BioByteArray &b, enum print_opt opt) const;
 		X509_REQ *getReq()
 		{
 			return request;
@@ -75,7 +75,7 @@ class pki_x509req : public pki_x509super
 		virtual QString getMsg(msg_type msg) const;
 		void d2i(QByteArray &ba);
 		QByteArray i2d() const;
-		BIO *pem(BIO *, int);
+		bool pem(BioByteArray &, int);
 		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();

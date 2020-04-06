@@ -137,7 +137,7 @@ class pki_x509 : public pki_x509super
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		bool visible() const;
 		void updateView();
-		void print(FILE *fp, enum print_opt opt) const;
+		void print(BioByteArray &b, enum print_opt opt) const;
 		x509v3ext getExtByNid(int nid) const;
 		QVariant column_data(const dbheader *hd) const;
 		QVariant getIcon(const dbheader *hd) const;
@@ -148,7 +148,7 @@ class pki_x509 : public pki_x509super
 		void deleteFromToken(const slotid &slot);
 		QString getMsg(msg_type msg) const;
 		int renameOnToken(const slotid &slot, const QString &name);
-		BIO *pem(BIO *, int);
+		bool pem(BioByteArray &, int);
 		QVariant bg_color(const dbheader *hd) const;
 		void mergeRevList(x509revList &l);
 		void setRevocations(const x509revList &rl);

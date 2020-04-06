@@ -281,13 +281,9 @@ void pki_crl::writeCrl(XFile &file, bool pem) const
 	pki_openssl_error();
 }
 
-BIO *pki_crl::pem(BIO *b, int format)
+bool pki_crl::pem(BioByteArray &b, int)
 {
-	(void)format;
-	if (!b)
-		b = BIO_new(BIO_s_mem());
-	PEM_write_bio_X509_CRL(b, crl);
-	return b;
+	return PEM_write_bio_X509_CRL(b, crl);
 }
 
 a1time pki_crl::getLastUpdate() const
@@ -461,15 +457,15 @@ void pki_crl::collect_properties(QMap<QString, QString> &prp) const
 	pki_x509name::collect_properties(prp);
 }
 
-void pki_crl::print(FILE *fp, enum print_opt opt) const
+void pki_crl::print(BioByteArray &bba, enum print_opt opt) const
 {
-	pki_x509name::print(fp, opt);
+	pki_x509name::print(bba, opt);
 	switch (opt) {
 	case print_openssl_txt:
-		X509_CRL_print_fp(fp, crl);
+		X509_CRL_print(bba, crl);
 		break;
 	case print_pem:
-		PEM_write_X509_CRL(fp, crl);
+		PEM_write_bio_X509_CRL(bba, crl);
 		break;
 	case print_coloured:
 		break;

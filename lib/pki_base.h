@@ -12,6 +12,7 @@
 #include <QRegExp>
 #include <QVariant>
 #include <QByteArray>
+#include "BioByteArray.h"
 #include "asn1time.h"
 #include "pkcs11_lib.h"
 #include "base.h"
@@ -104,7 +105,7 @@ class pki_base : public QObject
 			pki->setFilename(getFilename());
 		}
 		virtual QString comboText() const;
-		virtual void print(FILE *fp, enum print_opt opt) const;
+		virtual void print(BioByteArray &b, enum print_opt opt) const;
 		QString getUnderlinedName() const;
 		void setIntName(const QString &d)
 		{
@@ -156,7 +157,7 @@ class pki_base : public QObject
 		virtual int renameOnToken(const slotid &, const QString &);
 
 		/* Import / Export management */
-		virtual BIO *pem(BIO *, int format=0);
+		virtual bool pem(BioByteArray &b, int format=0);
 		virtual void fromPEM_BIO(BIO *, const QString &);
 		virtual void fromPEMbyteArray(const QByteArray &, const QString &);
 		virtual void fload(const QString &);

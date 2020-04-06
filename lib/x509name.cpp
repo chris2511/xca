@@ -9,6 +9,7 @@
 #include "x509name.h"
 #include "base.h"
 #include "func.h"
+#include "BioByteArray.h"
 #include <openssl/asn1.h>
 #include <openssl/err.h>
 #include "exception.h"
@@ -65,15 +66,9 @@ x509name &x509name::set(const STACK_OF(X509_NAME_ENTRY) *entries)
 
 QString x509name::oneLine(unsigned long flags) const
 {
-	QString ret;
-	long l;
-	const char *p;
-	BIO *mem = BIO_new(BIO_s_mem());
-	X509_NAME_print_ex(mem, xn, 0, flags);
-	l = BIO_get_mem_data(mem, &p);
-	ret = ret.fromUtf8(p,l);
-	BIO_free(mem);
-	return ret;
+	BioByteArray bba;
+	X509_NAME_print_ex(bba, xn, 0, flags);
+	return QString::fromUtf8(bba);
 }
 
 QString x509name::getEntryByNid(int nid) const

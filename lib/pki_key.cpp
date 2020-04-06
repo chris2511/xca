@@ -92,19 +92,15 @@ QByteArray pki_key::i2d() const
         return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
 
-BIO *pki_key::pem(BIO *b, int format)
+bool pki_key::pem(BioByteArray &b, int format)
 {
 	EVP_PKEY *pkey;
 	QByteArray ba;
 	int keytype;
 
-	if (!b)
-		b = BIO_new(BIO_s_mem());
-
 	switch (format) {
 	case exportType::SSH2_public:
-		ba = SSH2publicQByteArray();
-		BIO_write(b, ba.data(), ba.size());
+		b += SSH2publicQByteArray();
 		break;
 	case exportType::PEM_private:
 		pkey = decryptKey();
@@ -138,8 +134,10 @@ BIO *pki_key::pem(BIO *b, int format)
 	case exportType::PEM_key:
 		PEM_write_bio_PUBKEY(b, key);
 		break;
+	default:
+		return false;
 	}
-	return b;
+	return true;
 }
 
 QString pki_key::length() const
@@ -828,24 +826,19 @@ void pki_key::collect_properties(QMap<QString, QString> &prp) const
 	pki_base::collect_properties(prp);
 }
 
-void pki_key::print(FILE *fp, enum print_opt opt) const
+void pki_key::print(BioByteArray &bba, enum print_opt opt) const
 {
-	pki_base::print(fp, opt);
-	BIO *b;
+	pki_base::print(bba, opt);
 	switch (opt) {
 	case print_openssl_txt:
-		b = BIO_new(BIO_s_file());
-		check_oom(b);
 #if OPENSSL_VERSION_NUMBER < 0x10000000L
-		BIO_write(b, "Not supported\n", sizeof "Not supported\n" -1);
+		bba += "Not supported\n";
 #else
-		EVP_PKEY_print_public(b, key, 0, NULL);
+		EVP_PKEY_print_public(bba, key, 0, NULL);
 #endif
-		BIO_set_fp(b, fp, BIO_NOCLOSE);
-		BIO_free(b);
 		break;
 	case print_pem:
-		PEM_write_PUBKEY(fp, key);
+		PEM_write_bio_PUBKEY(bba, key);
 		break;
 	case print_coloured:
 		break;

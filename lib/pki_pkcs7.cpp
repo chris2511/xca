@@ -86,14 +86,10 @@ void pki_pkcs7::signFile(pki_x509 *crt, const QString &filename)
 
 void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 {
-	BIO *bio;
-	if (!crt)
-		return;
-	bio = BIO_new(BIO_s_mem());
+	BioByteArray bba;
+	i2d_X509_bio(bba, contCert->getCert());
+	signBio(crt, bba);
         openssl_error();
-	i2d_X509_bio(bio, contCert->getCert());
-	signBio(crt, bio);
-	BIO_free(bio);
 }
 
 void pki_pkcs7::writeP7(XFile &file, bool PEM)

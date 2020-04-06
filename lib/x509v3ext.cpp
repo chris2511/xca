@@ -15,6 +15,7 @@
 #include <QStringList>
 #include <QDebug>
 #include "base.h"
+#include "BioByteArray.h"
 
 x509v3ext::x509v3ext()
 {
@@ -143,21 +144,13 @@ ASN1_OCTET_STRING *x509v3ext::getData() const
 
 QString x509v3ext::getValue() const
 {
-	QString text = "";
-	int ret;
-	char *p = NULL;
-	BIO *bio = BIO_new(BIO_s_mem());
-
-	ret = X509V3_EXT_print(bio, ext, X509V3_EXT_DEFAULT, 0);
-	if (ign_openssl_error() || !ret) {
-		ret = ASN1_STRING_print(bio, (ASN1_STRING *) getData());
-	}
-	if (!ign_openssl_error() && ret) {
-		long len = BIO_get_mem_data(bio, &p);
-		text = QString::fromLocal8Bit(p, len);
-	}
-	BIO_free(bio);
-	return text.trimmed();
+	BioByteArray bba;
+	int ret = X509V3_EXT_print(bba, ext, X509V3_EXT_DEFAULT, 0);
+	if (ign_openssl_error() || !ret)
+		ret = ASN1_STRING_print(bba, (ASN1_STRING *)getData());
+	if (ign_openssl_error() || !ret)
+		return QString();
+	return QString::fromLocal8Bit(bba).trimmed();
 }
 
 QString x509v3ext::getHtmlValue() const

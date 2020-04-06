@@ -273,24 +273,18 @@ void db_base::insertPKI(pki_base *pki)
 QString db_base::pem2QString(QModelIndexList indexes) const
 {
 	exportType::etype format;
-	QString msg;
+	BioByteArray bba;
 
 	format = clipboardFormat(indexes);
 	foreach(QModelIndex idx, indexes) {
-		long l;
-		const char *p;
 		if (idx.column() != 0)
 			continue;
-		BIO *bio = BIO_new(BIO_s_mem());
 		pki_base *pki = static_cast<pki_base*>
 				(idx.internalPointer());
-		pki->pem(bio, format);
+		pki->pem(bba, format);
 		openssl_error();
-		l = BIO_get_mem_data(bio, &p);
-		msg += QString::fromUtf8(p, l);
-		BIO_free(bio);
 	}
-	return msg;
+	return QString::fromUtf8(bba);
 }
 
 void db_base::pem2clipboard(QModelIndexList indexes) const

@@ -107,11 +107,6 @@ static inline QString htmlEscape(const QString &html)
 #endif
 }
 
-static inline BIO *BIO_from_QByteArray(const QByteArray &ba)
-{
-	return BIO_new_mem_buf((void*)ba.constData(), ba.length());
-}
-
 QString appendXcaComment(QString current, QString msg);
 
 /* from version.cpp */

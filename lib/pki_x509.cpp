@@ -680,13 +680,9 @@ QString pki_x509::getIndexEntry()
 		QString(X509_NAME_oneline(getSubject().get(), NULL, 0)));
 }
 
-BIO *pki_x509::pem(BIO *b, int format)
+bool pki_x509::pem(BioByteArray &b, int)
 {
-	(void)format;
-	if (!b)
-		b = BIO_new(BIO_s_mem());
-	PEM_write_bio_X509(b, cert);
-	return b;
+	return PEM_write_bio_X509(b, cert);
 }
 
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
@@ -973,15 +969,15 @@ void pki_x509::collect_properties(QMap<QString, QString> &prp) const
 	pki_x509super::collect_properties(prp);
 }
 
-void pki_x509::print(FILE *fp, enum print_opt opt) const
+void pki_x509::print(BioByteArray &bba, enum print_opt opt) const
 {
-	pki_x509super::print(fp, opt);
+	pki_x509super::print(bba, opt);
 	switch (opt) {
 	case print_openssl_txt:
-		X509_print_fp(fp, cert);
+		X509_print(bba, cert);
 		break;
 	case print_pem:
-		PEM_write_X509(fp, cert);
+		PEM_write_bio_X509(bba, cert);
 		break;
 	case print_coloured:
 		break;
