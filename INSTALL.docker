@@ -28,7 +28,8 @@ USER_ID               : id of user "user" inside of container
                         example: --build-arg USER_ID=`id -u`
 PARALLELMFLAGS        : make flags for parralel build
                         example: --build-arg PARALLELMFLAGS=-j2
-OPENSSL_VERSION       : version of OpenSSL
+OPENSSL_UPSTREAM      : Updtream URL (variable path after
+                                       https://www.openssl.org/source/ )
 		        example: --build-arg OPENSSL_VERIONS=1.1.1d
 OPENSSL_SHA1          : sha1 checksum of OpenSSL package
                         example: --build-arg OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4

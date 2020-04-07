@@ -7,7 +7,7 @@ env:
     global:
         - PARALLELMFLAGS="-j4"
     matrix:
-        - OPENSSL_UPSTREAM=old/1.1.1/openssl-1.1.1d.tar.gz0.9.8zh
+        - OPENSSL_UPSTREAM=old/0.9.x/openssl-0.9.8zh.tar.gz
           OPENSSL_SHA1=3ff71636bea85a99f4d76a10d119c09bda0421e3
           OPENSSL_BUILD_PARALLEL=NO
 
