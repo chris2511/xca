@@ -479,7 +479,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+76"/>
+        <location filename="../ui/ExportDialog.ui" line="+79"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
@@ -489,22 +489,22 @@
         <translation>データベース内のCRL内部名</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+29"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-16"/>
         <source>Filename</source>
         <translation>ファイル名</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+52"/>
         <source>Export comment into PEM file</source>
         <translation>コメントをPEMファイルにエクスポート</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+20"/>
         <source>Export Format</source>
         <translation>エクスポートフォーマット</translation>
     </message>
@@ -655,7 +655,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>ファイル「%1 」はすでに存在します!</translation>
     </message>
@@ -1086,7 +1086,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../widgets/MainWindow.cpp" line="+869"/>
+        <location filename="../widgets/MainWindow.cpp" line="+868"/>
         <source>Database</source>
         <translation>データベース</translation>
     </message>
@@ -1106,7 +1106,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>ターゲットがすでに存在するため、データベースファイルの名前を変更できませんでした</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+176"/>
         <source>No deleted items found</source>
         <translation>削除されたアイテムは見つかりませんでした</translation>
     </message>
@@ -1707,7 +1707,7 @@ DHパラメータビットを入力してください</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+584"/>
+        <location filename="../widgets/NewX509.cpp" line="+586"/>
         <source>Subject</source>
         <translation>サブジェクト</translation>
     </message>
@@ -1893,12 +1893,7 @@ DHパラメータビットを入力してください</translation>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+72"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+82"/>
         <source>Key usage</source>
         <translation>キー使用法</translation>
     </message>
@@ -2154,7 +2149,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>サブジェクト代替名は、コモンネームのコピーを含む。ただし、コモンネームは空です。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+195"/>
         <source>Configfile error on line %1
 </source>
         <translation>%1行目のコンフィグエラー</translation>
@@ -2253,7 +2248,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>ユーザ&apos;%1&apos;としてデータベースサーバ%2にアクセスするためのパスワードを入力してください。</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+39"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
         <translation>データベースドライバはトランザクションをサポートしていません。これは、クライアントとサーバーのバージョンが異なる場合に発生することがあります。注意して続けてください。</translation>
     </message>
@@ -2347,12 +2342,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+18"/>
         <location line="+61"/>
-        <location line="+79"/>
+        <location line="+82"/>
         <source>Add</source>
         <translation>追加</translation>
     </message>
     <message>
-        <location line="-133"/>
+        <location line="-136"/>
         <location line="+61"/>
         <source>Delete</source>
         <translation>削除</translation>
@@ -2378,7 +2373,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>PKCS#11 プロバイダ</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+55"/>
         <source>Remove</source>
         <translation>削除</translation>
     </message>
@@ -2388,7 +2383,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+33"/>
+        <location filename="../widgets/Options.cpp" line="+31"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>印刷可能な文字列またはUTF8(デフォルト)</translation>
     </message>
@@ -2413,7 +2408,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>すべての文字列</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation>日</translation>
     </message>
@@ -2656,7 +2651,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>PEMエンコードファイルを読み込み</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+245"/>
+        <location filename="../lib/pkcs11.cpp" line="+200"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>ピンパッドにPINを入力してください</translation>
     </message>
@@ -2696,7 +2691,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>必要なPINのサイズ:%1-%2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
+        <source>Invalid filename: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>PKCS11ライブラリ%1を開けませんでした:%2</translation>
     </message>
@@ -2706,7 +2706,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>これはPKCS#11ライブラリとして認識できません。シンボル「C_GetFunctionList」が見つかりません。</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+79"/>
         <source>Disabled</source>
         <translation>無効</translation>
     </message>
@@ -2716,7 +2716,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>ライブラリのロードに失敗しました</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+354"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>PKCS#11関数「%1 」が失敗しました:%2</translation>
     </message>
@@ -2750,7 +2750,7 @@ In library %3
         <translation>「%2 」の文字列「%1 」に無効な文字が含まれています</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+52"/>
+        <location filename="../lib/oid.cpp" line="+56"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>%2行目の構成ファイル%1の読み取り中にエラーが発生しました</translation>
     </message>
@@ -2775,7 +2775,7 @@ In library %3
         <translation>データベーストランザクションを開始できませんでした</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+602"/>
+        <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2964,11 +2964,6 @@ In library %3
         <source>Comment</source>
         <translation type="unfinished">コメント</translation>
     </message>
-    <message>
-        <location line="+1"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -3102,7 +3097,7 @@ In library %3
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>PKCS#11ライブラリには、次のファイルがあります。</translation>
     </message>
@@ -3265,7 +3260,7 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+177"/>
+        <location filename="../lib/db_base.cpp" line="+178"/>
         <source>Internal name</source>
         <translation>内部名</translation>
     </message>
@@ -3325,7 +3320,7 @@ In library %3
         <translation>アイテムのプロパティ</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+37"/>
         <source>How to export the %1 selected items</source>
         <translation>%1個の選択したアイテムをエクスポートする方法</translation>
     </message>
@@ -3340,12 +3335,12 @@ In library %3
         <translation>1つのファイル内の各アイテム</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Save %1 items in one file as</source>
         <translation>%1アイテムを1つのファイルに次の名前で保存する:</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
         <translation>PEM files ( *.pem );; All files ( * )</translation>
     </message>
@@ -3586,7 +3581,7 @@ and will be completed by the new, private part of the key</source>
         <translation>不正なテンプレート:%1</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-16"/>
         <source>Empty template</source>
         <translation>空のテンプレート</translation>
     </message>
@@ -3679,7 +3674,7 @@ and will be completed by the new, private part of the key</source>
         <translation>ツリービュー</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+180"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>一意のランダムシリアルの取得に失敗しました</translation>
     </message>
@@ -3812,7 +3807,7 @@ and so it was not imported</source>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+24"/>
+        <location filename="../lib/db_x509super.cpp" line="+25"/>
         <source>Subject</source>
         <translation>サブジェクト</translation>
     </message>
@@ -3923,13 +3918,13 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+52"/>
+        <location line="+51"/>
         <source>Certificate</source>
         <translation>証明書</translation>
     </message>
     <message>
-        <location line="-52"/>
-        <location line="+52"/>
+        <location line="-51"/>
+        <location line="+51"/>
         <source>Certificate request</source>
         <translation>証明書リクエスト</translation>
     </message>
@@ -4065,15 +4060,32 @@ and thus was not stored</source>
         <translation>サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+217"/>
+        <location line="+219"/>
+        <source>CRL Renewal of CA &apos;%1&apos; due</source>
+        <translation type="unfinished">CRL CA「%1 」の更新期限</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
+It is stored in the XCA database &apos;%3&apos;</source>
+        <translation type="unfinished">CAによって発行された最新のCRL「%1 」は%2に有効期限が切れます。
+これはXCAデータベース&apos;%3&apos;に保管されています。</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Renew CRL: %1</source>
         <translation>CRLの更新:%1</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
+It is stored in the XCA database &apos;%5&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation>%3のCA「%2 」によって発行されたXCA CRL「%1 」は%4に有効期限が切れます。
+        <translation type="vanished">%3のCA「%2 」によって発行されたXCA CRL「%1 」は%4に有効期限が切れます。
 これはXCAデータベース&apos;%5&apos;に保管されています。</translation>
     </message>
 </context>
@@ -4148,7 +4160,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation type="unfinished">秘密キー&apos;%1&apos;のエクスポートパスワードを入力してください。</translation>
     </message>
@@ -4275,7 +4287,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+151"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>PKCS#7ファイル%1を読み込めません。PEMおよびDER形式を試しました。</translation>
     </message>
@@ -4482,15 +4494,13 @@ It is stored in the XCA database &apos;%4&apos;</source>
 これはXCAデータベース&apos;%4&apos;に保存されています。</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation>CRL CA「%1 」の更新期限</translation>
+        <translation type="vanished">CRL CA「%1 」の更新期限</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation>CAによって発行された最新のCRL「%1 」は%2に有効期限が切れます。
+        <translation type="vanished">CAによって発行された最新のCRL「%1 」は%2に有効期限が切れます。
 これはXCAデータベース&apos;%3&apos;に保管されています。</translation>
     </message>
 </context>
