@@ -1,3 +1,7 @@
+ * Refactor native separators / and \ on windows.
+ * Support TLS encrypted MariaDB and PostgreSQL connection
+ * Close #182: UI not using Windows native theme in 2.2.1 portable
+ * Close #70: cant open ics file in ical on macos mojave
  * Close #72: Add checkbox for OCSP staple feature
  * Use DESTDIR instead of destdir when installing. Follows autotools convention.
  * Close #172 #46: Multiple OCSP Responders
