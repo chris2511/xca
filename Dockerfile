@@ -36,17 +36,17 @@ RUN set -x \
 	&& cd \
 	&& rm -rf ${BUILD_DIR}
 
-ARG OPENSSL_VERSION=1.1.1d
+ARG OPENSSL_UPSTREAM=old/1.1.1/openssl-1.1.1d.tar.gz
 ARG OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
 ARG OPENSSL_BUILD_PARALLEL=YES
 ARG OPENSSL_FLAGS=
 RUN set -x \
 	&& mkdir -p ${BUILD_DIR} \
 	&& cd ${BUILD_DIR} \
-	&& curl -fSL -s -o openssl-${OPENSSL_VERSION}.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
-	&& echo "${OPENSSL_SHA1} openssl-${OPENSSL_VERSION}.tar.gz" | sha1sum -c - \
-	&& tar -xf openssl-${OPENSSL_VERSION}.tar.gz \
-	&& cd openssl-${OPENSSL_VERSION} \
+	&& curl -fSL -s -o openssl.tar.gz https://www.openssl.org/source/${OPENSSL_UPSTREAM} \
+	&& echo "${OPENSSL_SHA1} openssl.tar.gz" | sha1sum -c - \
+	&& tar -xf openssl.tar.gz \
+	&& cd openssl-* \
 	&& ./config shared --prefix=/usr/local --openssldir=/usr/local ${OPENSSL_FLAGS} \
 	&& if [ "${OPENSSL_BUILD_PARALLEL}" == "YES" ] ; then make "$PARALLELMFLAGS" ; else make ; fi \
 	&& make install \

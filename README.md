@@ -1,5 +1,7 @@
 # XCA -- X Certificate and Key Management
 
+[![Build Status](https://www.travis-ci.org/chris2511/xca.svg?branch=master)](https://www.travis-ci.org/chris2511/xca)
+
 ## __Release Notes__
 
  * This is a patch release, fixing *Issue #159: "Opening existing database"*
