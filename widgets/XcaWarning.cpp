@@ -56,7 +56,7 @@ int xcaWarning::exec()
 	colors[QMessageBox::Critical] = COL_RED "Critical";
 	colors[QMessageBox::Question] = COL_BLUE "Question";
 
-	console_write(stdout, QString("%1:" COL_RESET " %2\n\n")
+	console_write(stdout, QString("%1:" COL_RESET " %2\n")
 				.arg(colors[icon]).arg(msg).toUtf8());
 	return QMessageBox::Ok;
 }

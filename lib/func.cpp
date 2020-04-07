@@ -57,17 +57,21 @@ QString currentDB;
 int console_write(FILE *fp, const QByteArray &ba)
 {
 #if defined(Q_OS_WIN32)
+	static int got_console;
+	if (!got_console) {
+		if (AttachConsole(-1) || AllocConsole())
+			got_console = 1;
+	}
 	HANDLE out = GetStdHandle(fp == stderr ?
 			STD_ERROR_HANDLE : STD_OUTPUT_HANDLE);
 
 	if (out != INVALID_HANDLE_VALUE) {
-		QString string = QString::fromUtf8(ba) + "\n";
+		QString string = QString::fromUtf8(ba);
 		WriteConsoleW(out, string.utf16(), string.size(), NULL, NULL);
 	}
 #endif
-	fprintf(fp, "%s\n", ba.constData());
+	fputs(ba.constData(), fp);
 	fflush(fp);
-
 	return 0;
 }
 

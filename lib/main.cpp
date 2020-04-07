@@ -80,7 +80,7 @@ void myMsgOutput(QtMsgType type, const char *msg)
 #endif
 	default:            severity = COL_CYAN "Default"; break;
 	}
-	console_write(stderr, QString(COL_YELL "%1%2 %3:" COL_RESET " %4")
+	console_write(stderr, QString(COL_YELL "%1%2 %3:" COL_RESET " %4\n")
 			.arg(el/1000, 4)
 			.arg((el%1000)/100, 2, 10, QChar('0'))
 			.arg(severity).arg(msg).toUtf8());
@@ -96,10 +96,6 @@ void myMessageOutput(QtMsgType t, const QMessageLogContext &, const QString &m)
 QCoreApplication *createApplication(int &argc, char *argv[])
 {
 	if (arguments::is_console(argc, argv)) {
-#if defined(Q_OS_WIN32)
-		if (!AttachConsole(-1))
-			AllocConsole();
-#endif
 		return new QCoreApplication(argc, argv);
 	}
 	return new XcaApplication(argc, argv);
@@ -107,7 +103,7 @@ QCoreApplication *createApplication(int &argc, char *argv[])
 
 static void cmd_version(FILE *fp)
 {
-	console_write(fp, QString(XCA_TITLE "\nVersion %1")
+	console_write(fp, QString(XCA_TITLE "\nVersion %1\n")
 				.arg(version_str(false)).toUtf8());
 }
 
@@ -121,7 +117,7 @@ static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 	s = QString("\nUsage %1 <options> <file-to-import> ...\n\n%2")
 				.arg(xca_name).arg(arguments::help());
 	if (msg)
-		s += QString("\n\nCmdline Error: %1").arg(msg);
+		s += QString("\nCmdline Error: %1\n").arg(msg);
 
 	console_write(fp, s.toUtf8());
 	exit(exitcode);
@@ -142,12 +138,6 @@ static Passwd acquire_password(const QString &source)
 		pass = getenv(source.mid(4).toLocal8Bit());
 	}
 	return pass;
-}
-
-static void success(const QString &msg)
-{
-	console_write(stdout, QString(COL_CYAN "Success" COL_RESET ": %1")
-				.arg(msg).toUtf8());
 }
 
 static pki_multi *cmdline_items;
@@ -193,14 +183,14 @@ static database_model* read_cmdline(int argc, char *argv[])
 		qDebug() << cmd_opts["index"];
 		db_x509 *certs = models->model<db_x509>();
 		certs->writeIndex(cmd_opts["index"], false);
-		success(QObject::tr("Index file written to '%1'")
+		XCA_INFO(QObject::tr("Index file written to '%1'")
 					.arg(cmd_opts["index"]));
 	}
 	if (!cmd_opts["hierarchy"].isEmpty()) {
 		qDebug() << cmd_opts["hierarchy"];
 		db_x509 *certs = models->model<db_x509>();
 		certs->writeIndex(cmd_opts["hierarchy"], true);
-		success(QObject::tr("Index hierarchy written to '%1'")
+		XCA_INFO(QObject::tr("Index hierarchy written to '%1'")
 					.arg(cmd_opts["hierarchy"]));
 	}
 	if (cmd_opts.has("help"))
@@ -233,7 +223,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 				.arg(iss->getIntName())
 				.arg(keytype);
 		}
-		console_write(stdout, out.join("\n").toUtf8());
+		console_write(stdout, out.join("\n").toUtf8() + '\n');
 	}
 	if (cmd_opts.has("crlgen")) {
 		db_crl *crls = models->model<db_crl>();
