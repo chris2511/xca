@@ -483,7 +483,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+76"/>
+        <location filename="../ui/ExportDialog.ui" line="+79"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
@@ -493,22 +493,22 @@
         <translation>Nome interno della CRL nel database</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+29"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-16"/>
         <source>Filename</source>
         <translation>Nome File</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+52"/>
         <source>Export comment into PEM file</source>
         <translation>Esporta commento nel file PEM</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+20"/>
         <source>Export Format</source>
         <translation>Formato di esportazione</translation>
     </message>
@@ -658,7 +658,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Il file: &apos;%1&apos; esiste già!</translation>
     </message>
@@ -1089,7 +1089,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../widgets/MainWindow.cpp" line="+869"/>
+        <location filename="../widgets/MainWindow.cpp" line="+868"/>
         <source>Database</source>
         <translation>Database</translation>
     </message>
@@ -1109,7 +1109,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Impossibile rinominare il file database: nome destinazione già esistente</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+176"/>
         <source>No deleted items found</source>
         <translation>Non trovati elementi cancellati</translation>
     </message>
@@ -1738,7 +1738,7 @@ Prego inserire i bit dei parametri DH</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+584"/>
+        <location filename="../widgets/NewX509.cpp" line="+586"/>
         <source>Subject</source>
         <translation>Soggetto</translation>
     </message>
@@ -1924,12 +1924,7 @@ Prego inserire i bit dei parametri DH</translation>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+72"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+82"/>
         <source>Key usage</source>
         <translation>Utilizzo chiave</translation>
     </message>
@@ -2184,7 +2179,7 @@ nonostante siano stati dichiarati come obbligatori nel menu opzioni.</translatio
         <translation>Il nome alternativo del soggetto sarà copiato dal nome comune. Tuttavia, il campo nome comune è vuoto.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+195"/>
         <source>Configfile error on line %1
 </source>
         <translation>Errore nella linea %1 del file di configurazione
@@ -2284,7 +2279,7 @@ nonostante siano stati dichiarati come obbligatori nel menu opzioni.</translatio
         <translation>Prego inserire la password di accesso al database server %2 come utente: &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+39"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
         <translation>Il driver database non supporta le transazioni. Questo può succedere se il client e il server hanno versioni differenti. Continuare con attenzione.</translation>
     </message>
@@ -2378,12 +2373,12 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location line="+18"/>
         <location line="+61"/>
-        <location line="+79"/>
+        <location line="+82"/>
         <source>Add</source>
         <translation>Aggiungi</translation>
     </message>
     <message>
-        <location line="-133"/>
+        <location line="-136"/>
         <location line="+61"/>
         <source>Delete</source>
         <translation>Elimina</translation>
@@ -2409,7 +2404,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Provider PKCS#11</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+55"/>
         <source>Remove</source>
         <translation>Rimuovi</translation>
     </message>
@@ -2419,7 +2414,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Ricerca</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+33"/>
+        <location filename="../widgets/Options.cpp" line="+31"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>Stringa stampabile o UTF8 (predefinito)</translation>
     </message>
@@ -2444,7 +2439,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Tutte le stringhe</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation>Giorni</translation>
     </message>
@@ -2572,7 +2567,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Memoria esaurita a %1:%2</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+602"/>
+        <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
         <translation>Codice paese</translation>
     </message>
@@ -2762,11 +2757,6 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Commento</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/load_obj.cpp" line="+20"/>
         <source>All files ( * )</source>
         <translation>Tutti i file (*)</translation>
@@ -2886,7 +2876,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Carica file codificato PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+245"/>
+        <location filename="../lib/pkcs11.cpp" line="+200"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Prego inserire il PIN nella PinPad</translation>
     </message>
@@ -2930,7 +2920,12 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation type="vanished">Impossibile aprire libreria PKCS#11: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
+        <source>Invalid filename: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>Impossibile aprire libreria PKCS#11: %1: %2</translation>
     </message>
@@ -2940,7 +2935,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Questo non sembra essere una libreria PKCS#11. Simbolo &apos;C_GetFunctionList&apos; non trovato.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+79"/>
         <source>Disabled</source>
         <translation>Disabilitato</translation>
     </message>
@@ -2950,7 +2945,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
         <translation>Impossibile caricare libreria</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+354"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>Funzione PKCS#11 &apos;%1&apos; fallita: %2</translation>
     </message>
@@ -2984,7 +2979,7 @@ nella libreria %3
         <translation>La stringa &apos;%1&apos; per &apos;%2&apos; contiene caratteri non validi</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+52"/>
+        <location filename="../lib/oid.cpp" line="+56"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>Errore nella lettura del file di configurazione %1 alla linea %2</translation>
     </message>
@@ -3141,7 +3136,7 @@ nella libreria %3
         <translation>Ricerca</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>I seguenti file potrebbero essere librerie PKCS#11</translation>
     </message>
@@ -3308,7 +3303,7 @@ nella libreria %3
         <translation type="vanished">Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="+177"/>
+        <location filename="../lib/db_base.cpp" line="+178"/>
         <source>Internal name</source>
         <translation>Nome interno</translation>
     </message>
@@ -3368,7 +3363,7 @@ nella libreria %3
         <translation>Proprietà elemento</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+37"/>
         <source>How to export the %1 selected items</source>
         <translation>Come esportare l&apos;elemento selezionato %1</translation>
     </message>
@@ -3383,12 +3378,12 @@ nella libreria %3
         <translation>Ciascun elemento in un singolo file</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Save %1 items in one file as</source>
         <translation>Salva gli elementi %1 in un singolo file come</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
         <translation>File PEM ( *.pem );; Tutti i file ( * )</translation>
     </message>
@@ -3631,7 +3626,7 @@ e sarà completata con la nuova parte privata della chiave</translation>
         <translation>Modello errato: %1</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-16"/>
         <source>Empty template</source>
         <translation>Modello vuoto</translation>
     </message>
@@ -3724,7 +3719,7 @@ e sarà completata con la nuova parte privata della chiave</translation>
         <translation>Visualizzazione ad albero</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+180"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>Impossibile reperire un seriale univoco casuale</translation>
     </message>
@@ -3865,7 +3860,7 @@ pertanto non è stato importato</translation>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+24"/>
+        <location filename="../lib/db_x509super.cpp" line="+25"/>
         <source>Subject</source>
         <translation>Soggetto</translation>
     </message>
@@ -3976,13 +3971,13 @@ pertanto non è stata salvata</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+52"/>
+        <location line="+51"/>
         <source>Certificate</source>
         <translation>Certificato</translation>
     </message>
     <message>
-        <location line="-52"/>
-        <location line="+52"/>
+        <location line="-51"/>
+        <location line="+51"/>
         <source>Certificate request</source>
         <translation>Richiesta certificato</translation>
     </message>
@@ -4122,19 +4117,36 @@ pertanto non è stata salvata</translation>
         <translation>Dimensione non corretta %1</translation>
     </message>
     <message>
+        <location line="+219"/>
+        <source>CRL Renewal of CA &apos;%1&apos; due</source>
+        <translation type="unfinished">Rinnovo CRL della CA &apos;%1&apos; scaduto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
+It is stored in the XCA database &apos;%3&apos;</source>
+        <translation type="unfinished">L&apos;ultima CRL rilasciata dalla CA &apos;%1&apos; scadrà il %2.
+E&apos; mantenuta nel database XCA &apos;%3&apos;</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
+It is stored in the XCA database &apos;%5&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>unknown</source>
         <translation type="vanished">Sconosciuto</translation>
     </message>
     <message>
-        <location line="+217"/>
+        <location line="-1"/>
         <source>Renew CRL: %1</source>
         <translation>Rinnova CRL: %1</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation>La CRL XCA &apos;%1&apos;, rilasciata dalla CA &apos;%2&apos; il %3, scadrà il %4. E&apos; mantenuta nel database XCA &apos;%5&apos;</translation>
+        <translation type="vanished">La CRL XCA &apos;%1&apos;, rilasciata dalla CA &apos;%2&apos; il %3, scadrà il %4. E&apos; mantenuta nel database XCA &apos;%5&apos;</translation>
     </message>
 </context>
 <context>
@@ -4212,7 +4224,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Prego inserire la password per esportare la chiave privata: &apos;%1&apos;</translation>
     </message>
@@ -4339,7 +4351,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+151"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>Impossibile caricare il file PKCS#7 %1. Tentati i formati PEM e DER.</translation>
     </message>
@@ -4554,15 +4566,13 @@ It is stored in the XCA database &apos;%4&apos;</source>
 E&apos; mantenuto nel database XCA &apos;%4&apos;</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation>Rinnovo CRL della CA &apos;%1&apos; scaduto</translation>
+        <translation type="vanished">Rinnovo CRL della CA &apos;%1&apos; scaduto</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation>L&apos;ultima CRL rilasciata dalla CA &apos;%1&apos; scadrà il %2.
+        <translation type="vanished">L&apos;ultima CRL rilasciata dalla CA &apos;%1&apos; scadrà il %2.
 E&apos; mantenuta nel database XCA &apos;%3&apos;</translation>
     </message>
 </context>

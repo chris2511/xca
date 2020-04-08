@@ -484,7 +484,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+76"/>
+        <location filename="../ui/ExportDialog.ui" line="+79"/>
         <source>Name</source>
         <translation>内部名称</translation>
     </message>
@@ -494,22 +494,22 @@
         <translation>CRL的内部名称</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+29"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-16"/>
         <source>Filename</source>
         <translation>文件名</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+52"/>
         <source>Export comment into PEM file</source>
         <translation>导出备注到PEM文件</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+20"/>
         <source>Export Format</source>
         <translation>导出格式</translation>
     </message>
@@ -659,7 +659,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>文件: &apos;%1&apos;已存在!</translation>
     </message>
@@ -1090,7 +1090,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../widgets/MainWindow.cpp" line="+869"/>
+        <location filename="../widgets/MainWindow.cpp" line="+868"/>
         <source>Database</source>
         <translation>数据库</translation>
     </message>
@@ -1110,7 +1110,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>无法重命名数据库文件，因为目标已存在</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+176"/>
         <source>No deleted items found</source>
         <translation>找不到已删除的项目</translation>
     </message>
@@ -1739,7 +1739,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+584"/>
+        <location filename="../widgets/NewX509.cpp" line="+586"/>
         <source>Subject</source>
         <translation>主体</translation>
     </message>
@@ -1925,12 +1925,7 @@ Please enter the DH parameter bits</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+72"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+82"/>
         <source>Key usage</source>
         <translation>密钥用法</translation>
     </message>
@@ -2186,7 +2181,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>主体可选名称应包含通用名称（CN）。但是，通用名称为空。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+195"/>
         <source>Configfile error on line %1
 </source>
         <translation>配置文件错误位于行%1</translation>
@@ -2285,7 +2280,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>请输入密码，用于以用户身份&apos;%1&apos;访问数据库服务器%2。</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+39"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
         <translation>数据库驱动不支持事务。 这通常是客户端和服务器版本不一致导致的。请谨慎操作。</translation>
     </message>
@@ -2379,12 +2374,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+18"/>
         <location line="+61"/>
-        <location line="+79"/>
+        <location line="+82"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location line="-133"/>
+        <location line="-136"/>
         <location line="+61"/>
         <source>Delete</source>
         <translation>删除</translation>
@@ -2410,7 +2405,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>PKCS#11 provider</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+55"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
@@ -2420,7 +2415,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+33"/>
+        <location filename="../widgets/Options.cpp" line="+31"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>可打印字符串或UTF8（默认）</translation>
     </message>
@@ -2445,7 +2440,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>所有字符串</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation>天</translation>
     </message>
@@ -2573,7 +2568,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>内存不足 %1:%2</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+602"/>
+        <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
         <translation>国家代码</translation>
     </message>
@@ -2763,11 +2758,6 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>备注</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/load_obj.cpp" line="+20"/>
         <source>All files ( * )</source>
         <translation>All files ( * )</translation>
@@ -2883,7 +2873,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>加载PEM文件</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+245"/>
+        <location filename="../lib/pkcs11.cpp" line="+200"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>请输入PIN</translation>
     </message>
@@ -2927,7 +2917,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">打开PKCS11动态库失败: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
+        <source>Invalid filename: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>打开PKCS11动态库失败: %1: %2</translation>
     </message>
@@ -2937,7 +2932,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+79"/>
         <source>Disabled</source>
         <translation>已禁用</translation>
     </message>
@@ -2947,7 +2942,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>动态库加载失败</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+354"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>PKCS#11函数 &apos;%1&apos;失败: %2</translation>
     </message>
@@ -2981,7 +2976,7 @@ In library %3
         <translation>字符串 &apos;%2&apos;中的 &apos;%1&apos;包含无效字符</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+52"/>
+        <location filename="../lib/oid.cpp" line="+56"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>读取配置文件%1（行%2）错误</translation>
     </message>
@@ -3138,7 +3133,7 @@ In library %3
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>下列文件是可能的PKCS#11动态库</translation>
     </message>
@@ -3305,7 +3300,7 @@ In library %3
         <translation type="vanished">打开文件错误: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="+177"/>
+        <location filename="../lib/db_base.cpp" line="+178"/>
         <source>Internal name</source>
         <translation>内部名称</translation>
     </message>
@@ -3365,7 +3360,7 @@ In library %3
         <translation>条目属性</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+37"/>
         <source>How to export the %1 selected items</source>
         <translation>如何导出选定的%1个条目</translation>
     </message>
@@ -3380,12 +3375,12 @@ In library %3
         <translation>每个条目导出到单个文件</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Save %1 items in one file as</source>
         <translation>保存%1个条目到单个文件</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
         <translation></translation>
     </message>
@@ -3630,7 +3625,7 @@ and will be completed by the new, private part of the key</source>
         <translation>损坏的模板: %1</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-16"/>
         <source>Empty template</source>
         <translation>空模板</translation>
     </message>
@@ -3723,7 +3718,7 @@ and will be completed by the new, private part of the key</source>
         <translation>层次视图</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+180"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>获取唯一随机序号失败</translation>
     </message>
@@ -3864,7 +3859,7 @@ and so it was not imported</source>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+24"/>
+        <location filename="../lib/db_x509super.cpp" line="+25"/>
         <source>Subject</source>
         <translation>主体</translation>
     </message>
@@ -3975,13 +3970,13 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+52"/>
+        <location line="+51"/>
         <source>Certificate</source>
         <translation>证书</translation>
     </message>
     <message>
-        <location line="-52"/>
-        <location line="+52"/>
+        <location line="-51"/>
+        <location line="+51"/>
         <source>Certificate request</source>
         <translation>证书请求</translation>
     </message>
@@ -4121,19 +4116,36 @@ and thus was not stored</source>
         <translation>错误的大小%1</translation>
     </message>
     <message>
+        <location line="+219"/>
+        <source>CRL Renewal of CA &apos;%1&apos; due</source>
+        <translation type="unfinished">CA &apos;%1&apos;的CRL更新时间到了</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
+It is stored in the XCA database &apos;%3&apos;</source>
+        <translation type="unfinished">由CA &apos;%1&apos;签发的最新CRL将在%2到期。
+它存储在XCA数据库&apos;%3&apos;中</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
+It is stored in the XCA database &apos;%5&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>unknown</source>
         <translation type="vanished">未知</translation>
     </message>
     <message>
-        <location line="+217"/>
+        <location line="-1"/>
         <source>Renew CRL: %1</source>
         <translation>更新CRL: %1</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation>由%3上的CA &apos;%2&apos;发布的XCA CRL &apos;%1&apos;将在&apos;%4&apos;到期。
+        <translation type="vanished">由%3上的CA &apos;%2&apos;发布的XCA CRL &apos;%1&apos;将在&apos;%4&apos;到期。
 它存储在XCA数据库&apos;%5&apos;中</translation>
     </message>
 </context>
@@ -4212,7 +4224,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>请输入私钥&apos;%1&apos;的导出密码</translation>
     </message>
@@ -4339,7 +4351,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+151"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>无法加载PKCS#7文件 %1。尝试使用PEM或DER格式。</translation>
     </message>
@@ -4554,15 +4566,13 @@ It is stored in the XCA database &apos;%4&apos;</source>
 它存储在XCA数据库&apos;%4&apos;中</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation>CA &apos;%1&apos;的CRL更新时间到了</translation>
+        <translation type="vanished">CA &apos;%1&apos;的CRL更新时间到了</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation>由CA &apos;%1&apos;签发的最新CRL将在%2到期。
+        <translation type="vanished">由CA &apos;%1&apos;签发的最新CRL将在%2到期。
 它存储在XCA数据库&apos;%3&apos;中</translation>
     </message>
 </context>

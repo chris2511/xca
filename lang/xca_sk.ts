@@ -479,7 +479,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+76"/>
+        <location filename="../ui/ExportDialog.ui" line="+79"/>
         <source>Name</source>
         <translation>Názov</translation>
     </message>
@@ -489,22 +489,22 @@
         <translation>Interný názov CRL v databáze</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+29"/>
         <source>...</source>
         <translation>…</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-16"/>
         <source>Filename</source>
         <translation>Meno súboru</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+52"/>
         <source>Export comment into PEM file</source>
         <translation>Exportovať komentáre do súboru PEM</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+20"/>
         <source>Export Format</source>
         <translation>Formát exportu</translation>
     </message>
@@ -654,7 +654,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Súbor: „%1” už existuje!</translation>
     </message>
@@ -1085,7 +1085,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../widgets/MainWindow.cpp" line="+869"/>
+        <location filename="../widgets/MainWindow.cpp" line="+868"/>
         <source>Database</source>
         <translation>Databáza</translation>
     </message>
@@ -1105,7 +1105,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+176"/>
         <source>No deleted items found</source>
         <translation>Nenájdené žiadne zmazané položky</translation>
     </message>
@@ -1718,7 +1718,7 @@ Prosím, zadajte bity parametra DH</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+584"/>
+        <location filename="../widgets/NewX509.cpp" line="+586"/>
         <source>Subject</source>
         <translation>Predmet</translation>
     </message>
@@ -1904,12 +1904,7 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+72"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+82"/>
         <source>Key usage</source>
         <translation>Použitie kľúča</translation>
     </message>
@@ -2165,7 +2160,7 @@ hoci ste ich v nastavení definovali ako povinné.</translation>
         <translation>Alternatívne meno predmetu má obsahovať kópiu bežného mena. Avšak, bežné meno je prázdne.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+195"/>
         <source>Configfile error on line %1
 </source>
         <translation>Chyba konfiguračného súboru v riadku %1
@@ -2265,7 +2260,7 @@ hoci ste ich v nastavení definovali ako povinné.</translation>
         <translation>Prosím, zadajte heslo na prístup k databázovému serveru %2 ako používateľ „%1”.</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+39"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
         <translation>Ovládač databázy nepodporuje transakcie. Toto môže nastať, ak majú kleint a server rôzne verzie. Pokračujte s opatrnosťou.</translation>
     </message>
@@ -2359,12 +2354,12 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <location line="+18"/>
         <location line="+61"/>
-        <location line="+79"/>
+        <location line="+82"/>
         <source>Add</source>
         <translation>Pridať</translation>
     </message>
     <message>
-        <location line="-133"/>
+        <location line="-136"/>
         <location line="+61"/>
         <source>Delete</source>
         <translation>Odstrániť</translation>
@@ -2390,7 +2385,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Poskytovateľ PKCS#11</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+55"/>
         <source>Remove</source>
         <translation>Odstrániť</translation>
     </message>
@@ -2400,7 +2395,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Hľadať</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+33"/>
+        <location filename="../widgets/Options.cpp" line="+31"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>Tlačiteľné znaky alebo UTF-8 (predvolené)</translation>
     </message>
@@ -2425,7 +2420,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Všetky reťazce</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation>Dni</translation>
     </message>
@@ -2668,7 +2663,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Načítať súbor kódovaný PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+245"/>
+        <location filename="../lib/pkcs11.cpp" line="+200"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Prosím, zadajte PIN na PinPad-e</translation>
     </message>
@@ -2708,7 +2703,12 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Požadovaná veľkosť PIN: %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
+        <source>Invalid filename: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>Zlyhalo otvorenie knižnice PKCS#11: %1: %2</translation>
     </message>
@@ -2718,7 +2718,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Toto nevyzerá ako knižnica PKCS#11. Symbol &apos;C_GetFunctionList&apos; nenájdený.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+79"/>
         <source>Disabled</source>
         <translation>Vypnuté</translation>
     </message>
@@ -2728,7 +2728,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Načítanie knižnice zlyhalo</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+354"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>Funkcia PKCS#11 „%1” zlyhala: %2</translation>
     </message>
@@ -2762,7 +2762,7 @@ V knižnici %3
         <translation>Reťazec „%1” pre „%2” obsahuje neplatné znaky</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+52"/>
+        <location filename="../lib/oid.cpp" line="+56"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>Chyba čítania konfiguračného súboru %1 na riadku %2</translation>
     </message>
@@ -2787,7 +2787,7 @@ V knižnici %3
         <translation>Zlyhala inicializácia DB transakcie</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+602"/>
+        <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
         <translation>Kód krajiny</translation>
     </message>
@@ -2976,11 +2976,6 @@ V knižnici %3
         <source>Comment</source>
         <translation>Komentár</translation>
     </message>
-    <message>
-        <location line="+1"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -3114,7 +3109,7 @@ V knižnici %3
         <translation>Hľadať</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>nasledujúce súbory sú možné knižnice PKCS#11</translation>
     </message>
@@ -3277,7 +3272,7 @@ V knižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+177"/>
+        <location filename="../lib/db_base.cpp" line="+178"/>
         <source>Internal name</source>
         <translation>Interný názov</translation>
     </message>
@@ -3337,7 +3332,7 @@ V knižnici %3
         <translation>Vlastnosti položky</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+37"/>
         <source>How to export the %1 selected items</source>
         <translation>Ako exportovať %1 zvolených položiek</translation>
     </message>
@@ -3352,12 +3347,12 @@ V knižnici %3
         <translation>Každá položka v samostatnom súbore</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Save %1 items in one file as</source>
         <translation>Uložiť %1 položiek v jednom súbore ako</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
         <translation>Súbory PEM ( *.pem );; Všetky súbory ( * )</translation>
     </message>
@@ -3602,7 +3597,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation>Zlá šablóna: %1</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-16"/>
         <source>Empty template</source>
         <translation>Prázdna šablóna</translation>
     </message>
@@ -3695,7 +3690,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation>Stromové zobrazenie</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+180"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>Zlyhalo získanie jedinečného náhodného sériového čísla</translation>
     </message>
@@ -3832,7 +3827,7 @@ a tak nebol importovaný</translation>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+24"/>
+        <location filename="../lib/db_x509super.cpp" line="+25"/>
         <source>Subject</source>
         <translation>Predmet</translation>
     </message>
@@ -3943,13 +3938,13 @@ a tak nebola uložená</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+52"/>
+        <location line="+51"/>
         <source>Certificate</source>
         <translation>Certifikát</translation>
     </message>
     <message>
-        <location line="-52"/>
-        <location line="+52"/>
+        <location line="-51"/>
+        <location line="+51"/>
         <source>Certificate request</source>
         <translation>Žiadosť o certifikát</translation>
     </message>
@@ -4089,15 +4084,32 @@ a tak nebola uložená</translation>
         <translation>Zlá veľkosť %1</translation>
     </message>
     <message>
-        <location line="+217"/>
+        <location line="+219"/>
+        <source>CRL Renewal of CA &apos;%1&apos; due</source>
+        <translation type="unfinished">Termín obnovenia CRL CA „%1”</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
+It is stored in the XCA database &apos;%3&apos;</source>
+        <translation type="unfinished">Posledné CRL vydané CA „%1” vyprší %2.
+Je uložené v databáze XCA „%3”</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Renew CRL: %1</source>
         <translation>Obnoviť CRL: %1</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
+It is stored in the XCA database &apos;%5&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation>XCA CRL „%1”, vydané CA „%2” %3 vyprší %4.
+        <translation type="vanished">XCA CRL „%1”, vydané CA „%2” %3 vyprší %4.
 Je uložené v databáze XCA „%5”</translation>
     </message>
     <message>
@@ -4176,7 +4188,7 @@ Je uložené v databáze XCA „%5”</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo exportu súkromného kľúča „%1”</translation>
     </message>
@@ -4303,7 +4315,7 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+151"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>Nemožno načítať súbor PKCS#7 %1. Vyskúšaný formát PEM a DER.</translation>
     </message>
@@ -4518,15 +4530,13 @@ It is stored in the XCA database &apos;%4&apos;</source>
 Je uložený v databáze XCA „%4”</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation>Termín obnovenia CRL CA „%1”</translation>
+        <translation type="vanished">Termín obnovenia CRL CA „%1”</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation>Posledné CRL vydané CA „%1” vyprší %2.
+        <translation type="vanished">Posledné CRL vydané CA „%1” vyprší %2.
 Je uložené v databáze XCA „%3”</translation>
     </message>
 </context>

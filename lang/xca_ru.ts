@@ -535,7 +535,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+76"/>
+        <location filename="../ui/ExportDialog.ui" line="+79"/>
         <source>Name</source>
         <translation>Внутреннее имя</translation>
     </message>
@@ -545,22 +545,22 @@
         <translation>Внутреннее имя CRL</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+29"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-16"/>
         <source>Filename</source>
         <translation>Имя файла</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+52"/>
         <source>Export comment into PEM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+20"/>
         <source>Export Format</source>
         <translation>Формат для экспорта</translation>
     </message>
@@ -718,7 +718,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Файл &apos;%1&apos; уже существует!</translation>
     </message>
@@ -1044,7 +1044,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+691"/>
+        <location filename="../widgets/MainWindow.cpp" line="+690"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -1340,7 +1340,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Не удалось переименовать файл базы данных, потому что файл с таким именем уже существует</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+176"/>
         <source>No deleted items found</source>
         <translation>Нет удаленных записей</translation>
     </message>
@@ -1552,7 +1552,7 @@ Please enter the DH parameter bits</source>
         <translation>нет таких параметров: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="-108"/>
+        <location filename="../widgets/MW_database.cpp" line="-106"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Использование или экспорт закрытых ключей будет невозможен без ввода правильного пароля</translation>
     </message>
@@ -1845,7 +1845,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="-328"/>
-        <location filename="../widgets/NewX509.cpp" line="+584"/>
+        <location filename="../widgets/NewX509.cpp" line="+586"/>
         <source>Subject</source>
         <translation>Субъект</translation>
     </message>
@@ -2020,12 +2020,7 @@ Please enter the DH parameter bits</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+72"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+326"/>
+        <location line="+398"/>
         <source>Comment</source>
         <translation>Комментарий</translation>
     </message>
@@ -2329,7 +2324,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Ошибки</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+195"/>
         <source>Configfile error on line %1
 </source>
         <translation>Ошибкав  кофигурационном файле в строке %1
@@ -2433,7 +2428,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Пожалуйста, введите пароль для доступа к серверу баз данных %2 от имени пользователя &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+39"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
         <translation>Драйвер сервера баз данных не поддерживает транзакции. Это может произойти, если сервер и клиент разных версий. Продолжайте с осторожностью.</translation>
     </message>
@@ -2448,12 +2443,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+18"/>
         <location line="+61"/>
-        <location line="+79"/>
+        <location line="+82"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location line="-133"/>
+        <location line="-136"/>
         <location line="+61"/>
         <source>Delete</source>
         <translation>Удалить</translation>
@@ -2553,7 +2548,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Провайдер PKCS#11</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+55"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
@@ -2563,7 +2558,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+36"/>
+        <location filename="../widgets/Options.cpp" line="+34"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation>Только строки UTF8 (RFC2459)</translation>
     </message>
@@ -2588,7 +2583,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Все строки</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation type="unfinished">Дней</translation>
     </message>
@@ -2602,7 +2597,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">Ошибка при загрузке</translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-355"/>
+        <location filename="../ui/Options.ui" line="-358"/>
         <source>XCA Options</source>
         <translation>Параметры XCA</translation>
     </message>
@@ -2843,7 +2838,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">DB: Ошибка записи %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+245"/>
+        <location filename="../lib/pkcs11.cpp" line="+200"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Пожалуйста, введите PIN-код</translation>
     </message>
@@ -2903,7 +2898,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">Невозможно открыть библиотеку PKCS#11: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+35"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
+        <source>Invalid filename: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2913,7 +2913,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+79"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2923,7 +2923,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+354"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>PKCS#11 функция &apos;%1&apos; завершилась ошибкой: %2</translation>
     </message>
@@ -2937,7 +2937,7 @@ In library %3
 %4</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+602"/>
+        <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
         <translation>Код страны</translation>
     </message>
@@ -3130,17 +3130,12 @@ In library %3
         <translation>Комментарий</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>OCSP Must Staple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/x509v3ext.cpp" line="+85"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>Строка &apos;%1&apos; содержит неподходящие символы для &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+52"/>
+        <location filename="../lib/oid.cpp" line="+56"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>Ошибка чтения файла настроек %1 в строке %2</translation>
     </message>
@@ -3301,7 +3296,7 @@ In library %3
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>Ниже приведён список файлов, которые могут быть библиотеками провайдеров PKCS#11</translation>
     </message>
@@ -3495,7 +3490,7 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+177"/>
+        <location filename="../lib/db_base.cpp" line="+178"/>
         <source>Internal name</source>
         <translation>Внутреннее имя</translation>
     </message>
@@ -3587,7 +3582,7 @@ Size: %3
         <translation>Свойства элемента</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+37"/>
         <source>How to export the %1 selected items</source>
         <translation>Как экспортировать %1 выбранных элементов</translation>
     </message>
@@ -3602,12 +3597,12 @@ Size: %3
         <translation>Каждый в свой файл</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Save %1 items in one file as</source>
         <translation>Сохранить %1 элементов в одном файле как</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>PEM files ( *.pem );; All files ( * )</source>
         <translation>Файлы PEM ( *.pem );; Все файлы ( * )</translation>
     </message>
@@ -3855,7 +3850,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished">Ничего</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="+37"/>
+        <location filename="../lib/db_temp.cpp" line="+38"/>
         <source>Empty template</source>
         <translation>Пустой шаблон</translation>
     </message>
@@ -3875,7 +3870,7 @@ and will be completed by the new, private part of the key</source>
         <translation>XCA шаблоны ( *.xca );; Все файлы ( * )</translation>
     </message>
     <message>
-        <location line="-83"/>
+        <location line="-84"/>
         <source>Bad template: %1</source>
         <translation>Неправильный шаблон: %1</translation>
     </message>
@@ -3927,7 +3922,7 @@ and will be completed by the new, private part of the key</source>
         <translation>В виде дерева</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+180"/>
         <source>Failed to retrieve unique random serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3985,7 +3980,7 @@ and will be completed by the new, private part of the key</source>
         <translation>Выбранный для подписи ключ не закрытый.</translation>
     </message>
     <message>
-        <location line="-454"/>
+        <location line="-453"/>
         <source>CA</source>
         <translation>ЦС</translation>
     </message>
@@ -4005,7 +4000,7 @@ and will be completed by the new, private part of the key</source>
         <translation>Отпечаток SHA256</translation>
     </message>
     <message>
-        <location line="+560"/>
+        <location line="+559"/>
         <source>PKCS#7 chain</source>
         <translation>Цепочка PKCS#7</translation>
     </message>
@@ -4066,7 +4061,7 @@ and so it was not imported</source>
 и поэтому не был импортирован</translation>
     </message>
     <message>
-        <location line="-284"/>
+        <location line="-283"/>
         <source>Not before</source>
         <translation>Сертификат действителен с</translation>
     </message>
@@ -4076,7 +4071,7 @@ and so it was not imported</source>
         <translation>Сертификат действителен по</translation>
     </message>
     <message>
-        <location line="+554"/>
+        <location line="+553"/>
         <source>PEM chain</source>
         <translation>Цепочка PEM</translation>
     </message>
@@ -4114,7 +4109,7 @@ and so it was not imported</source>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+24"/>
+        <location filename="../lib/db_x509super.cpp" line="+25"/>
         <source>Subject</source>
         <translation>Субъект</translation>
     </message>
@@ -4225,13 +4220,13 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+52"/>
+        <location line="+51"/>
         <source>Certificate</source>
         <translation>Сертификат</translation>
     </message>
     <message>
-        <location line="-52"/>
-        <location line="+52"/>
+        <location line="-51"/>
+        <location line="+51"/>
         <source>Certificate request</source>
         <translation>Запрос на сертификат</translation>
     </message>
@@ -4380,13 +4375,24 @@ and thus was not stored</source>
         <translation>Неправильный размер %1</translation>
     </message>
     <message>
-        <location line="+217"/>
+        <location line="+219"/>
+        <source>CRL Renewal of CA &apos;%1&apos; due</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
+It is stored in the XCA database &apos;%3&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Renew CRL: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
+        <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4461,12 +4467,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль для экспорта закрытого ключа &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-330"/>
+        <location line="-332"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль к базе данных для расшифровки ключа  &apos;%1&apos;</translation>
     </message>
@@ -4597,7 +4603,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+160"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+151"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>Не удалось загрузить PKCS#7 файл %1. Формат файла должен быть PEM или DER.</translation>
     </message>
@@ -4785,17 +4791,6 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
-        <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
-It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not trusted</source>
         <translation type="vanished">Не доверенный</translation>
     </message>
@@ -4808,7 +4803,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
         <translation type="vanished">Всегда доверять</translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location line="-33"/>
         <source>No</source>
         <translation>Нет</translation>
     </message>
