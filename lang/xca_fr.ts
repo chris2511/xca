@@ -646,12 +646,12 @@
     <message>
         <location line="+1"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé privée en format Microsoft PVK n&apos;est pas chiffrée</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé privée chiffrée en format Microsoft PVK</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1143,7 +1143,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="+4"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japonais</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1894,7 +1894,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location line="+82"/>
         <source>Key usage</source>
-        <translation>Utilisation de la clé</translation>
+        <translation>Usage de la clé</translation>
     </message>
     <message>
         <location line="+111"/>
@@ -2504,18 +2504,6 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
         <translation>il y a %1 heures</translation>
     </message>
     <message>
-        <source>DB: Rename: &apos;%1&apos; already in use</source>
-        <translation type="vanished">DB: Renommer: &apos;%1&apos; déjà en utilisation</translation>
-    </message>
-    <message>
-        <source>DB: Entry to rename not found: %1</source>
-        <translation type="vanished">DB: l&apos;inscription à renommer n&apos;a pas été trouvée: &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>DB: Write error %1 - %2</source>
-        <translation type="vanished">DB: Erreur d&apos;écriture %1 - %2</translation>
-    </message>
-    <message>
         <location filename="../lib/db.cpp" line="+280"/>
         <location line="+17"/>
         <source>Out of data</source>
@@ -2539,16 +2527,12 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
     <message>
         <location line="+35"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Clés PKI ( *.pem *.der *.key );; Clés PKCS#8 ( *.p8 *.pk8 );; Clés Microsoft PVK ( *.pvk );; Clés publiques SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Import RSA key</source>
         <translation>Importer une clé RSA</translation>
-    </message>
-    <message>
-        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
-        <translation type="vanished">Clés PKI ( *.pem *.der *.key );;Clés PKCS#8 ( *.p8 *.pk8 );;Clés publiques SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -2693,7 +2677,7 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
         <source>Invalid filename: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de fichier invalide: %1</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2777,192 +2761,192 @@ Dans la bibliothèque %3
     <message>
         <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
-        <translation type="unfinished"></translation>
+        <translation>Code de pays</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>State or Province</source>
-        <translation type="unfinished"></translation>
+        <translation>Etat ou province</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Locality</source>
-        <translation type="unfinished"></translation>
+        <translation>Localité</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisation</source>
-        <translation type="unfinished"></translation>
+        <translation>Organisation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisational unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Unité d&apos;organisation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Common name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom commun</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>E-Mail address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse de courriel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numéro de série</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Given name</source>
-        <translation type="unfinished"></translation>
+        <translation>Prénom</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Surname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de famille</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Initials</source>
-        <translation type="unfinished"></translation>
+        <translation>Initiales</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Description</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rôle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pseudonym</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudonyme</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generation Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualifiant de génération</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>x500 Unique Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifiant Unique X500</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualifiant de DN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unstructured name</source>
-        <translation type="unfinished">Nom non-structuré</translation>
+        <translation>Nom non-structuré</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Mot de passe challenge</translation>
+        <translation>Mot de passe challenge</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Basic Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraintes de base</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject alternative name</source>
-        <translation type="unfinished">Nom alternatif du sujet</translation>
+        <translation>Nom alternatif du sujet</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom alternatif de l&apos;émetteur</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé d&apos;identification du sujet</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished">Identifiant de clé de l&apos;autorité</translation>
+        <translation>Clé d&apos;identification de l&apos;autorité</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key usage</source>
-        <translation type="unfinished">Utilisation de la clé</translation>
+        <translation>Usage de la clé</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Extended key usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Usage étendu de la clé</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL distribution points</source>
-        <translation type="unfinished"></translation>
+        <translation>Points de distribution de la CRL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority information access</source>
-        <translation type="unfinished"></translation>
+        <translation>Accès à l&apos;information de l&apos;autorité</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de certificat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de base</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Revocation URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de révocation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA Revocation URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de révocation du CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate renewal URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de renouvellement du certificat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA policy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de la politique du CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSL server name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du serveur SSL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished">Commentaire</translation>
+        <translation>Commentaire</translation>
     </message>
 </context>
 <context>
@@ -3189,7 +3173,7 @@ Dans la bibliothèque %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">Propriétés de la clé</translation>
+        <translation>Propriétés de la clé</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3540,12 +3524,12 @@ En conséquence, cette dernière sera complétée par la partie privée de la cl
     <message>
         <location line="+6"/>
         <source>PVK private</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé privée PVK</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiffrée en PVK</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3565,7 +3549,7 @@ En conséquence, cette dernière sera complétée par la partie privée de la cl
     <message>
         <location line="+57"/>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur interne</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -3899,17 +3883,17 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     <message>
         <location line="+1"/>
         <source>Key type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de clé</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key size</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de la clé</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">Groupe EC</translation>
+        <translation>Groupe EC</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -3977,10 +3961,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 </context>
 <context>
     <name>pki_base</name>
-    <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
-    </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="+284"/>
         <source>Unknown</source>
@@ -4062,13 +4042,13 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     <message>
         <location line="+219"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished">Le renouvellement de la liste de révocation du CA &apos;%1&apos; arrive à échéance</translation>
+        <translation>Le renouvellement de la liste de révocation du CA &apos;%1&apos; est nécessaire</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished">La dernière liste de révocation générée par le CA &apos;%1&apos; expirera le %2.
+        <translation>La dernière liste de révocation générée par le CA &apos;%1&apos; expirera le %2.
 Elle est stockée dans la base de données XCA &apos;%3&apos;</translation>
     </message>
     <message>
@@ -4080,12 +4060,7 @@ Elle est stockée dans la base de données XCA &apos;%3&apos;</translation>
         <location line="+1"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
-It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="vanished">La liste de révocation XCA &apos;%1&apos; émise par le CA &apos;%2&apos; le %3 expirera le %4.
+        <translation>La liste de révocation XCA &apos;%1&apos;, émise le %3 expirera le %4.
 Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     </message>
 </context>
@@ -4157,7 +4132,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location line="+19"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>SVP saisir le mot de passe protégeant la clé en format Microsoft PVK &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -4492,16 +4467,6 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Le certificat XCA &apos;%1&apos; émis le %2 expirera le %3.
 Il est stocké dans la base de données XCA &apos;%4&apos;</translation>
-    </message>
-    <message>
-        <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="vanished">Le renouvellement de la liste de révocation du CA &apos;%1&apos; arrive à échéance</translation>
-    </message>
-    <message>
-        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
-It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="vanished">La dernière liste de révocation générée par le CA &apos;%1&apos; expirera le %2.
-Elle est stockée dans la base de données XCA &apos;%3&apos;</translation>
     </message>
 </context>
 <context>
