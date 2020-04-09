@@ -1,4 +1,4 @@
-[Desktop Entry]
+	[Desktop Entry]
 Encoding=UTF-8
 Name=XCA
 Type=Application
@@ -7,6 +7,7 @@ Comment[de]=Eine graphische Oberfläche zur Erstellung von X.509 konformen Zerti
 Comment[fi]=Graafinen X.509-varmenteiden hallintatyökalu
 Comment[fr]=Création et gestion de certificats conformes à la norme X.509
 Comment[hr]=Grafičko korisničko sučelje za upravljanje životnim ciklusom X.509 sukladnih potvrda
+Comment[nl]=Een grafische gebruikers interface voor behandeling en uitgifte van X.509 conforme certificaten
 Exec=xca %F
 Icon=xca
 Terminal=false
