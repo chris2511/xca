@@ -72,7 +72,7 @@ QString pki_x509::getMsg(msg_type msg) const
 
 void pki_x509::resetX509ReqCount() const
 {
-	QList<pki_x509req *> reqs = db_base::sqlSELECTpki<pki_x509req>(
+	QList<pki_x509req *> reqs = Store.sqlSELECTpki<pki_x509req>(
 		"SELECT item FROM x509super WHERE key_hash=?",
 		QList<QVariant>() << QVariant(pubHash()));
 
@@ -156,7 +156,7 @@ QSqlError pki_x509::deleteSqlData()
 			return e;
 	}
 	// Select affected items
-	q = db_base::sqlSELECTpki(
+	q = Store.sqlSELECTpki(
 		"SELECT DISTINCT items.id FROM items, certs, crls "
 		"WHERE (items.id = certs.item OR items.id = crls.item) "
 		"AND crls.issuer = ? AND certs.issuer = ?",
@@ -190,7 +190,7 @@ pki_x509 *pki_x509::findIssuer()
 	q.bindValue(0, hash);
 	q.exec();
 	while (q.next()) {
-		issuer = db_base::lookupPki<pki_x509>(q.value(0));
+		issuer = Store.lookupPki<pki_x509>(q.value(0));
 		if (!issuer) {
 			qDebug("Certificate with id %d not found",
                                 q.value(0).toInt());
@@ -867,7 +867,7 @@ int pki_x509::sigAlg() const
 
 pki_x509 *pki_x509::getSigner()
 {
-	return db_base::lookupPki<pki_x509>(issuerSqlId);
+	return Store.lookupPki<pki_x509>(issuerSqlId);
 }
 
 bool pki_x509::isRevoked() const
@@ -996,7 +996,7 @@ QStringList pki_x509::icsVEVENT_ca() const
 			ics << pki->icsVEVENT();
 	}
 
-	QList<pki_crl*> list = db_base::sqlSELECTpki<pki_crl>(
+	QList<pki_crl*> list = Store.sqlSELECTpki<pki_crl>(
 		"SELECT item FROM crls WHERE issuer = ?",
 		QList<QVariant>() << QVariant(sqlItemId));
 

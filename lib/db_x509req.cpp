@@ -156,5 +156,5 @@ void db_x509req::resetX509count()
 
 QList<pki_x509req *> db_x509req::getAllRequests()
 {
-	return sqlSELECTpki<pki_x509req>("SELECT item FROM requests");
+	return Store.sqlSELECTpki<pki_x509req>("SELECT item FROM requests");
 }

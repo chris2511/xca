@@ -473,14 +473,13 @@ void MainWindow::changeDbPass()
 	Passwd pass;
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();
-	db_key *keys = model<db_key>();
 
 	if (!checkOldGetNewPass(pass))
 		return;
 
 	QString salt = Entropy::makeSalt();
 	QString passhash = pki_evp::sha512passwT(pass, salt);
-	QList<pki_evp*> key_list = keys->sqlSELECTpki<pki_evp>(
+	QList<pki_evp*> key_list = Store.sqlSELECTpki<pki_evp>(
 		"SELECT item FROM private_keys WHERE ownPass=0");
 
 	try {

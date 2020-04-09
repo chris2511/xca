@@ -68,11 +68,6 @@ pki_base *db_temp::newPKI(enum pki_type type)
 	return new pki_temp("");
 }
 
-QList<pki_temp *> db_temp::getAllAndPredefs() const
-{
-	return predefs + getAll<pki_temp>();
-}
-
 QList<pki_temp *> db_temp::getPredefs() const
 {
 	return predefs;

@@ -9,7 +9,6 @@
 #include "pki_crl.h"
 #include "func.h"
 #include "exception.h"
-#include "db_base.h"
 #include <QDir>
 
 #include "openssl_compat.h"
@@ -24,7 +23,7 @@ pki_crl::pki_crl(const QString name )
 
 pki_x509 *pki_crl::getIssuer() const
 {
-	return db_base::lookupPki<pki_x509>(issuerSqlId);
+	return Store.lookupPki<pki_x509>(issuerSqlId);
 }
 
 QString pki_crl::getIssuerName() const
@@ -78,7 +77,7 @@ QSqlError pki_crl::lookupIssuer()
 	if (q.lastError().isValid())
 		return q.lastError();
 	while (q.next()) {
-		pki_x509 *x = db_base::lookupPki<pki_x509>(q.value(0));
+		pki_x509 *x = Store.lookupPki<pki_x509>(q.value(0));
 		if (!x) {
 			qDebug("CA certificate with id %d not found",
 				q.value(0).toInt());
@@ -115,7 +114,7 @@ void pki_crl::restoreSql(const QSqlRecord &rec)
 	QByteArray ba = QByteArray::fromBase64(
 				rec.value(VIEW_crls_crl).toByteArray());
 	d2i(ba);
-	setIssuer(db_base::lookupPki<pki_x509>(rec.value(VIEW_crls_issuer)));
+	setIssuer(Store.lookupPki<pki_x509>(rec.value(VIEW_crls_issuer)));
 }
 
 QSqlError pki_crl::deleteSqlData()

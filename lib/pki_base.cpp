@@ -17,6 +17,8 @@
 #include <openssl/md5.h>
 #include <typeinfo>
 
+pki_lookup Store;
+
 QRegExp pki_base::limitPattern;
 bool pki_base::pem_comment;
 QList<pki_base*> pki_base::allitems;

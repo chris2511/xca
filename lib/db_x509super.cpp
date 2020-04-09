@@ -51,10 +51,7 @@ void db_x509super::loadContainer()
 		QVariant keySqlId = pki->getKeySqlId();
 		if (!keySqlId.isValid())
 			continue;
-		quint64 id = keySqlId.toULongLong();
-		if (!lookup.contains(id))
-			continue;
-		pki->setRefKey(static_cast<pki_key*>(lookup[id]));
+		pki->setRefKey(Store.lookupPki<pki_key>(keySqlId));
 	}
 }
 

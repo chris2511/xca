@@ -10,9 +10,9 @@
 #include "pki_x509super.h"
 #include "func.h"
 #include "db.h"
-#include "db_base.h"
 #include "pkcs11.h"
 #include "widgets/XcaWarning.h"
+#include "widgets/ExportDialog.h"
 
 #include <openssl/rand.h>
 #include <openssl/pem.h>
@@ -448,7 +448,7 @@ QSqlError pki_key::insertSqlData()
 
 	while (q.next()) {
 		pki_x509super *x;
-		x = db_base::lookupPki<pki_x509super>(q.value(0));
+		x = Store.lookupPki<pki_x509super>(q.value(0));
 		if (!x) {
 			qDebug("X509 Super class with id %d not found",
 				q.value(0).toInt());

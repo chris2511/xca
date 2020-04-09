@@ -41,7 +41,6 @@ class db_base: public QAbstractItemModel
 	Q_OBJECT
 
 	protected:
-		static QHash<quint64, pki_base*> lookup;
 		int secondsTimer, minutesTimer, hoursTimer;
 		void _writePKI(pki_base *pki, bool overwrite);
 		void _removePKI(pki_base *pki );
@@ -63,46 +62,8 @@ class db_base: public QAbstractItemModel
 		void timerEvent(QTimerEvent *event);
 
 	public:
-		static XSqlQuery sqlSELECTpki(QString query,
-				QList<QVariant> values = QList<QVariant>());
-		template <class T> static T *lookupPki(quint64 i)
-		{
-			T *pki = dynamic_cast<T*>(lookup[i]);
-			if (!pki && i > 0) {
-				pki_base *p = lookup[i];
-				QString f = QString("Invalid Type of ItemId(%1) %2 %3."
-						" Expected to be %4.")
-						.arg(i).arg(typeid(p).name())
-						.arg(p?p->getIntName() : "<NULL item>")
-						.arg(typeid(T*).name());
-				qCritical("%s", CCHAR(f));
-			}
-			return pki;
-		}
-		template <class T> static T *lookupPki(QVariant v)
-		{
-			return lookupPki<T>(v.toULongLong());
-		}
 		void restart_timer();
 		database_model *models();
-		static void flushLookup()
-		{
-			qDeleteAll(lookup);
-			lookup.clear();
-		}
-		template <class T> static QList<T *>
-				sqlSELECTpki(QString query,
-				QList<QVariant> values = QList<QVariant>())
-		{
-			XSqlQuery q = sqlSELECTpki(query, values);
-			QList<T *> x;
-			while (q.next()) {
-				T *pki = lookupPki<T>(q.value(0));
-				if (pki)
-					x << pki;
-			}
-			return x;
-		}
 		void updateItem(pki_base *pki, const QString &name,
 				const QString &comment);
 
@@ -116,12 +77,6 @@ class db_base: public QAbstractItemModel
 		pki_base *getByReference(pki_base *refpki);
 		virtual void loadContainer();
 		void reloadContainer(const QList<enum pki_type> &typelist);
-		template <class T> QList<T *> getAll() const
-		{
-			return sqlSELECTpki<T>(
-		                QString("SELECT item FROM %1")
-					.arg(sqlHashTable));
-		}
 		virtual pki_base* insert(pki_base *item);
 		virtual void inToCont(pki_base *pki);
 		virtual void remFromCont(const QModelIndex &idx);

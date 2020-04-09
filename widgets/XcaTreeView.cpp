@@ -318,7 +318,7 @@ void XcaTreeView::showItem(const QModelIndex &index)
 
 void XcaTreeView::showItem(const QString &name)
 {
-	pki_base *pki = db_base::lookupPki<pki_base>(name.toULongLong());
+	pki_base *pki = Store.lookupPki<pki_base>(name.toULongLong());
 	showItem(pki);
 }
 

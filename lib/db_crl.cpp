@@ -91,7 +91,7 @@ void db_crl::inToCont(pki_base *pki)
 	unsigned hash = crl->getSubject().hashNum();
 	QList<pki_x509 *> items;
 
-	items = sqlSELECTpki<pki_x509>(
+	items = Store.sqlSELECTpki<pki_x509>(
 		"SELECT x509super.item FROM x509super "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE x509super.subj_hash=? AND certs.ca=1",

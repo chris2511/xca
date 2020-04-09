@@ -52,8 +52,8 @@ void db_x509::loadContainer()
 	XSqlQuery q("SELECT item, issuer FROM certs WHERE issuer is NOT NULL");
 	while (q.next()) {
 		pki_base *root = rootItem;
-		pki_x509 *cert = lookupPki<pki_x509>(q.value(0));
-		pki_x509 *issuer = lookupPki<pki_x509>(q.value(1));
+		pki_x509 *cert = Store.lookupPki<pki_x509>(q.value(0));
+		pki_x509 *issuer = Store.lookupPki<pki_x509>(q.value(1));
 		if (cert && issuer) {
 			cert->setSigner(issuer);
 			if (cert != issuer)
@@ -97,11 +97,13 @@ pki_base *db_x509::newPKI(enum pki_type type)
 QList<pki_x509 *> db_x509::getAllIssuers()
 {
 	/* Select X509 CA certificates with available private key */
-	return sqlSELECTpki<pki_x509>("SELECT x509super.item FROM x509super "
+	return Store.sqlSELECTpki<pki_x509>(
+		"SELECT x509super.item FROM x509super "
 		"JOIN private_keys ON x509super.pkey = private_keys.item "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1") +
-		sqlSELECTpki<pki_x509>("SELECT x509super.item FROM x509super "
+		Store.sqlSELECTpki<pki_x509>(
+		"SELECT x509super.item FROM x509super "
 		"JOIN tokens ON x509super.pkey = tokens.item "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1");
@@ -208,7 +210,7 @@ void db_x509::inToCont(pki_base *pki)
 
 	/* Search for another certificate (name and key)
 	 * and use its childs if we are newer */
-	items = sqlSELECTpki<pki_x509>(
+	items = Store.sqlSELECTpki<pki_x509>(
 		"SELECT x509super.item FROM x509super "
 		"JOIN certs ON certs.item = x509super.item "
 		"WHERE certs.ca=1 AND x509super.subj_hash=? "
@@ -266,7 +268,7 @@ void db_x509::inToCont(pki_base *pki)
 	cert->setRevocations(revList);
 
 	/* Update CRLs */
-	QList<pki_crl *> crls = sqlSELECTpki<pki_crl>(
+	QList<pki_crl *> crls = Store.sqlSELECTpki<pki_crl>(
 			"SELECT item FROM crls WHERE iss_hash=?",
 			QList<QVariant>() << namehash);
 	SQL_PREPARE(q, "UPDATE crls SET issuer=? WHERE item=?");
@@ -302,12 +304,12 @@ void db_x509::writeIndex(const QString &fname, bool hierarchy) const
 			throw errorEx(tr("Failed to create directory '%1'")
 				.arg(fname));
 		}
-		QList<pki_x509*> issuers = sqlSELECTpki<pki_x509>(
+		QList<pki_x509*> issuers = Store.sqlSELECTpki<pki_x509>(
 			"SELECT DISTINCT issuer FROM certs WHERE issuer != item");
 		foreach(pki_x509 *ca, issuers) {
 			XFile file(dir + ca->getUnderlinedName() + ".txt");
 			file.open_write();
-			writeIndex(file, sqlSELECTpki<pki_x509>(
+			writeIndex(file, Store.sqlSELECTpki<pki_x509>(
 				"SELECT item FROM certs WHERE issuer=?",
 				QList<QVariant>()<<QVariant(ca->getSqlItemId()))
 			);
@@ -315,7 +317,8 @@ void db_x509::writeIndex(const QString &fname, bool hierarchy) const
 	} else {
 		XFile file(fname);
 		file.open_write();
-		writeIndex(file,sqlSELECTpki<pki_x509>("SELECT item FROM certs"));
+		writeIndex(file, Store.sqlSELECTpki<pki_x509>(
+					"SELECT item FROM certs"));
 	}
 }
 
@@ -1087,7 +1090,6 @@ void db_x509::toToken(QModelIndex idx, bool alwaysSelect)
 
 void db_x509::caProperties(QModelIndex idx)
 {
-	db_temp *temps = models()->model<db_temp>();
 	QStringList actions;
 	Ui::CaProperties ui;
 
@@ -1103,9 +1105,9 @@ void db_x509::caProperties(QModelIndex idx)
 	ui.image->setPixmap(QPixmap(":certImg"));
 
 	QVariant tmplId = cert->getTemplateSqlId();
-	pki_temp *templ = temps->lookupPki<pki_temp>(tmplId);
+	pki_temp *templ = Store.lookupPki<pki_temp>(tmplId);
 
-	ui.temp->insertPkiItems(temps->getAll<pki_temp>());
+	ui.temp->insertPkiItems(Store.getAll<pki_temp>());
         ui.temp->setNullItem(tr("No template"));
 	ui.temp->setCurrentIndex(0);
 	if (templ)

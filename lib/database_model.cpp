@@ -457,7 +457,8 @@ database_model::~database_model()
 
 	qDeleteAll(models);
 	models.clear();
-	db_base::flushLookup();
+	Store.flush();
+
 	XSqlQuery q("VACUUM");
 
 	QSqlDatabase::database().close();

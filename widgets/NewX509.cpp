@@ -445,7 +445,7 @@ pki_temp *NewX509::caTemplate(pki_x509 *ca) const
 	QVariant sqlId = ca->getTemplateSqlId();
 	if (!sqlId.isValid())
 		return NULL;
-	return db_base::lookupPki<pki_temp>(sqlId);
+	return Store.lookupPki<pki_temp>(sqlId);
 }
 
 /* Preset the signing certificate */
@@ -668,7 +668,8 @@ QList<pki_x509*> NewX509::getAllIssuers() const
 
 QList<pki_temp*> NewX509::getAllTempsAndPredefs() const
 {
-	return mainwin->model<db_temp>()->getAllAndPredefs();
+	return mainwin->model<db_temp>()->getPredefs() +
+			Store.getAll<pki_temp>();
 }
 
 QList<pki_key*> NewX509::getAllKeys() const

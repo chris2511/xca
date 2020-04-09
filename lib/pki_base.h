@@ -17,6 +17,7 @@
 #include "pkcs11_lib.h"
 #include "base.h"
 #include "db.h"
+#include "pki_lookup.h"
 #include "headerlist.h"
 #include "sql.h"
 #include "xfile.h"
@@ -44,6 +45,8 @@ enum pki_source {
 #define VIEW_item_date 3
 #define VIEW_item_source 4
 #define VIEW_item_comment 5
+
+extern pki_lookup Store;
 
 class pki_base : public QObject
 {

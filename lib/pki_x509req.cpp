@@ -336,7 +336,7 @@ int pki_x509req::issuedCerts() const
 	if (!k)
 		return 0;
 	while (q.next()) {
-		pki_x509 *x = db_base::lookupPki<pki_x509>(q.value(0));
+		pki_x509 *x = Store.lookupPki<pki_x509>(q.value(0));
 		if (!x) {
 			qDebug("x509 with id %d not found",
 				q.value(0).toInt());

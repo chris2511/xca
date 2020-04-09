@@ -36,7 +36,7 @@ QSqlError pki_x509super::lookupKey()
 	if (q.lastError().isValid())
 		return q.lastError();
 	while (q.next()) {
-		pki_key *x = db_base::lookupPki<pki_key>(q.value(0));
+		pki_key *x = Store.lookupPki<pki_key>(q.value(0));
 		if (!x) {
 			qDebug("Public key with id %d not found",
 				q.value(0).toInt());
@@ -71,7 +71,7 @@ QSqlError pki_x509super::insertSqlData()
 void pki_x509super::restoreSql(const QSqlRecord &rec)
 {
 	pki_base::restoreSql(rec);
-	keySqlId = rec.value(VIEW_x509super_keyid);
+	keySqlId = rec.value(VIEW_x509super_keyid).toULongLong();
 }
 
 QSqlError pki_x509super::deleteSqlData()
@@ -88,7 +88,7 @@ QSqlError pki_x509super::deleteSqlData()
 
 pki_key *pki_x509super::getRefKey() const
 {
-	return db_base::lookupPki<pki_key>(keySqlId);
+	return Store.lookupPki<pki_key>(keySqlId);
 }
 
 unsigned pki_x509super::pubHash() const
@@ -123,7 +123,7 @@ bool pki_x509super::compareRefKey(pki_key *ref) const
 
 void pki_x509super::setRefKey(pki_key *ref)
 {
-	keySqlId = ref ? ref->getSqlItemId() : QVariant();
+	keySqlId = ref ? ref->sqlItemId : QVariant();
 }
 
 QString pki_x509super::getSigAlg() const

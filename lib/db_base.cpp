@@ -24,9 +24,6 @@
 #include "widgets/XcaDialog.h"
 #include "ui_ItemProperties.h"
 
-
-QHash<quint64, pki_base*> db_base::lookup;
-
 void db_base::restart_timer()
 {
 	if (!IS_GUI_APP)
@@ -104,20 +101,6 @@ QString db_base::sqlItemSelector()
 	return sl.join(" OR ");
 }
 
-XSqlQuery db_base::sqlSELECTpki(QString query, QList<QVariant> values)
-{
-	XSqlQuery q;
-	int i, num_values = values.size();
-
-	SQL_PREPARE(q, query);
-	for (i=0; i < num_values; i++) {
-		q.bindValue(i, values[i]);
-	}
-	q.exec();
-	XCA_SQLERROR(q.lastError());
-	return q;
-}
-
 void db_base::loadContainer()
 {
 	XSqlQuery q;
@@ -136,7 +119,7 @@ void db_base::loadContainer()
 		pki_base *pki = newPKI(t);
 		pki->restoreSql(rec);
 		insertChild(rootItem, pki);
-		lookup[q.value(VIEW_item_id).toULongLong()] = pki;
+		Store.add(q.value(VIEW_item_id), pki);
 	}
 
 	QString view = Settings[class_name + "_hdView"];
@@ -263,7 +246,7 @@ void db_base::insertPKI(pki_base *pki)
 		TransRollback();
 		return;
 	}
-	lookup[pki->getSqlItemId().toULongLong()] = pki;
+	Store.add(pki->getSqlItemId(), pki);
 	inToCont(pki);
 	TransCommit();
 	restart_timer();
@@ -347,7 +330,7 @@ void db_base::inToCont(pki_base *pki)
 
 pki_base *db_base::getByName(QString desc)
 {
-	QList<pki_base*> list = sqlSELECTpki<pki_base>(
+	QList<pki_base*> list = Store.sqlSELECTpki<pki_base>(
 		QString("SELECT id FROM items WHERE name=? AND del=0 AND ") +
 			sqlItemSelector(),
 		QList<QVariant>() << QVariant(desc));
@@ -358,7 +341,7 @@ pki_base *db_base::getByReference(pki_base *refpki)
 {
 	if (refpki == NULL)
 		return NULL;
-	QList<pki_base*> list = sqlSELECTpki<pki_base>(
+	QList<pki_base*> list = Store.sqlSELECTpki<pki_base>(
 		QString("SELECT item FROM %1 WHERE hash=?").arg(sqlHashTable),
 		QList<QVariant>() << QVariant(refpki->hash()));
 	foreach(pki_base *pki, list) {

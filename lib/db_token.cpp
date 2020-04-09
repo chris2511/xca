@@ -23,7 +23,7 @@ void db_token::rename_token_in_database(pki_scard *token)
 	Transaction;
 	if (!TransBegin())
 		return;
-	QList<pki_scard*> list = sqlSELECTpki<pki_scard>(
+	QList<pki_scard*> list = Store.sqlSELECTpki<pki_scard>(
                 QString("SELECT item FROM tokens "
 			"WHERE card_serial=? AND card_model=? and object_id=?"),
                 QList<QVariant>() << QVariant(token->getSerial())

@@ -44,7 +44,7 @@ void db_key::loadContainer()
 	SQL_PREPARE(q, "SELECT pkey, COUNT(*) FROM x509super WHERE pkey IS NOT NULL GROUP by pkey");
 	q.exec();
 	while (q.next()) {
-		pki_key *key = lookupPki<pki_key>(q.value(0));
+		pki_key *key = Store.lookupPki<pki_key>(q.value(0));
 		if (!key) {
 			qDebug() << "Unknown key" << q.value(0).toULongLong();
 			continue;
@@ -76,12 +76,13 @@ pki_base *db_key::newPKI(enum pki_type type)
 
 QList<pki_key *> db_key::getAllKeys()
 {
-	return sqlSELECTpki<pki_key>("SELECT item from public_keys");
+	return Store.sqlSELECTpki<pki_key>("SELECT item from public_keys");
 }
 
 QList<pki_key *> db_key::getUnusedKeys()
 {
-	return sqlSELECTpki<pki_key>("SELECT public_keys.item FROM public_keys "
+	return Store.sqlSELECTpki<pki_key>(
+		"SELECT public_keys.item FROM public_keys "
 		"LEFT OUTER JOIN x509super ON x509super.pkey= public_keys.item "
 		"WHERE x509super.item IS NULL");
 }
@@ -91,10 +92,7 @@ void db_key::remFromCont(const QModelIndex &idx)
 	db_base::remFromCont(idx);
 	XSqlQuery q;
 
-	/* "pkey" column in "x509super" table already updated
-	 * in deleteSql()
-	 */
-	QList<pki_x509super*> items = sqlSELECTpki<pki_x509super>(
+	QList<pki_x509super*> items = Store.sqlSELECTpki<pki_x509super>(
 		"SELECT item FROM x509super WHERE pkey is NULL");
 	foreach(pki_x509super *x509s, items) {
 		x509s->setRefKey(NULL);
@@ -108,7 +106,7 @@ void db_key::inToCont(pki_base *pki)
 	db_base::inToCont(pki);
 	pki_key *key = static_cast<pki_key*>(pki);
 	unsigned hash = key->hash();
-	QList<pki_x509super*> items = sqlSELECTpki<pki_x509super>(
+	QList<pki_x509super*> items = Store.sqlSELECTpki<pki_x509super>(
 		"SELECT item FROM x509super WHERE pkey IS NULL AND key_hash=?",
 		QList<QVariant>() << QVariant(hash));
 	XSqlQuery q;
