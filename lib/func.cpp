@@ -565,7 +565,7 @@ void *d2i_bytearray(void *(*d2i)(void *, unsigned char **, long),
 	return ret;
 }
 
-void _openssl_error(const QString txt, const char *file, int line)
+void _openssl_error(const QString &txt, const char *file, int line)
 {
 	QString error;
 
@@ -584,7 +584,7 @@ void _openssl_error(const QString txt, const char *file, int line)
 }
 
 #undef PRINT_IGNORED_ANYWAY
-bool _ign_openssl_error(const QString txt, const char *file, int line)
+bool _ign_openssl_error(const QString &txt, const char *file, int line)
 {
 	// ignore openssl errors
 	QString errtxt;

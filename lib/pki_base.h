@@ -22,12 +22,8 @@
 #include "sql.h"
 #include "xfile.h"
 
-#define __ME QString("(%1[%2]:%3)") \
-		.arg(getClassName()) \
-		.arg(getSqlItemId().toString()) \
-		.arg(getIntName())
-#define pki_openssl_error() _openssl_error(__ME, C_FILE, __LINE__)
-#define pki_ign_openssl_error() _ign_openssl_error(__ME, C_FILE, __LINE__)
+#define pki_openssl_error() _openssl_error(*this, C_FILE, __LINE__)
+#define pki_ign_openssl_error() _ign_openssl_error(*this, C_FILE, __LINE__)
 
 enum pki_source {
 	unknown,
@@ -203,6 +199,11 @@ class pki_base : public QObject
 		void selfComment(QString msg);
 		QStringList icsVEVENT(const a1time &expires,
 		    const QString &summary, const QString &description) const;
+		operator QString() const
+		{
+			return QString("(%1[%2]:%3)").arg(getClassName())
+				.arg(getSqlItemId().toString()).arg(getIntName());
+		}
 };
 
 Q_DECLARE_METATYPE(pki_base *);
