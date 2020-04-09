@@ -288,7 +288,7 @@ QList<pki_x509*> db_x509::getCerts(bool unrevoked)
 {
 	QList<pki_x509*> c;
 	c.clear();
-	FOR_ALL_pki(pki, pki_x509) {
+	foreach(pki_x509 *pki, Store.getAll<pki_x509>()) {
 		if (unrevoked && pki->isRevoked())
 			continue;
 		c.append(pki);
@@ -715,13 +715,13 @@ void db_x509::store(QModelIndexList list)
 			}
 			break;
 		case exportType::PEM_unrevoked:
-			FOR_ALL_pki(pki, pki_x509) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>()) {
 				if (!pki->isRevoked())
 					pki->writeCert(file, true);
 			}
 			break;
 		case exportType::PEM_all:
-			FOR_ALL_pki(pki, pki_x509) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>()) {
 				pki->writeCert(file, true);
 			}
 			break;
@@ -861,7 +861,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 			break;
 		case exportType::PKCS7_unrevoked:
 		case exportType::PKCS7_all:
-			FOR_ALL_pki(cer, pki_x509) {
+			foreach(pki_x509 *cer, Store.getAll<pki_x509>()) {
 				if ((type == exportType::PKCS7_all) ||
 				    (!cer->isRevoked()))
 					p7->append_item(cer);

@@ -47,7 +47,7 @@ void db_x509super::loadContainer()
 {
 	db_x509name::loadContainer();
 	/* Resolve Key references */
-	FOR_ALL_pki(pki, pki_x509super) {
+	foreach(pki_x509super *pki, Store.getAll<pki_x509super>()) {
 		QVariant keySqlId = pki->getKeySqlId();
 		if (!keySqlId.isValid())
 			continue;
@@ -116,7 +116,7 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 QList<pki_x509super *> db_x509super::findByPubKey(pki_key *refkey)
 {
 	QList<pki_x509super *> list;
-	FOR_ALL_pki(pki, pki_x509super) {
+	foreach(pki_x509super *pki, Store.getAll<pki_x509super>()) {
 		pki_key *key = pki->getPubKey();
 		if (!key)
 			continue;

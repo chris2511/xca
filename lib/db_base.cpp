@@ -367,9 +367,8 @@ void db_base::dump(const QString &dir) const
 	}
 
 	try {
-		FOR_ALL_pki(pki, pki_base) {
+		foreach(pki_base *pki, Store.getAll<pki_base>())
 			pki->writeDefault(dirname);
-		}
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);
@@ -560,7 +559,7 @@ void db_base::timerEvent(QTimerEvent *event)
 	int youngest = SECS_PER_DAY;
 	int id = event->timerId();
 
-	FOR_ALL_pki(pki, pki_base) {
+	foreach(pki_base *pki, Store.getAll<pki_base>()) {
 		for (int idx=0; idx < allHeaders.count(); idx++) {
 			dbheader *hd = allHeaders[idx];
 			if (hd->type != dbheader::hd_asn1time)

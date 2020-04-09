@@ -23,9 +23,6 @@
 #include <QAbstractItemModel>
 #include <QHash>
 
-#define FOR_ALL_pki(pki, pki_type) \
-	for(pki_type *pki=(pki_type*)rootItem->iterate(); pki; pki=(pki_type*)pki->iterate())
-
 #define X_XCA_DRAG_DATA "application/x-xca-drag-data"
 
 class MainWindow;

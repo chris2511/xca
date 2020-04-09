@@ -38,7 +38,7 @@ void db_key::loadContainer()
 	XSqlQuery q;
 
 	db_base::loadContainer();
-	FOR_ALL_pki(key, pki_key)
+	foreach(pki_key *key, Store.getAll<pki_key>())
 		key->setUcount(0);
 
 	SQL_PREPARE(q, "SELECT pkey, COUNT(*) FROM x509super WHERE pkey IS NOT NULL GROUP by pkey");

@@ -78,7 +78,7 @@ void db_crl::revokeCerts(pki_crl *crl)
 
 void db_crl::removeSigner(pki_base *signer)
 {
-	FOR_ALL_pki(crl, pki_crl) {
+	foreach(pki_crl *crl, Store.getAll<pki_crl>()) {
 		if (crl->getIssuer() == signer) {
 			crl->setIssuer(NULL);
 		}

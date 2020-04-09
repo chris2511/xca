@@ -146,7 +146,6 @@ class pki_base : public QObject
 		pki_base *child(int row);
 		void append(pki_base *item);
 		int childCount() const;
-		pki_base *iterate(pki_base *pki = NULL);
 		void takeChild(pki_base *pki);
 		pki_base *takeFirst();
 

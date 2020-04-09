@@ -262,22 +262,6 @@ int pki_base::row(void) const
 	return 0;
 }
 
-pki_base *pki_base::iterate(pki_base *pki)
-{
-	if (pki == NULL)
-		pki = (childItems.isEmpty()) ? NULL : childItems.first();
-	else
-		pki = childItems.value(pki->row()+1);
-
-	if (pki) {
-		return pki;
-	}
-	if (!parent) {
-		return NULL;
-	}
-	return parent->iterate(this);
-}
-
 void pki_base::takeChild(pki_base *pki)
 {
 	childItems.takeAt(pki->row());
