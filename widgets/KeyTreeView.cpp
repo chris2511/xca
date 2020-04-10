@@ -19,9 +19,9 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 {
 	bool multi = indexes.size() > 1;
 
-	pki_key *key = static_cast<pki_key*>(index.internalPointer());
+	pki_key *key = dynamic_cast<pki_key*>(db_base::fromIndex(index));
 
-	if (indexes.size() == 0)
+	if (indexes.size() == 0 || !key)
 		return;
 
 	if (!multi && key && key->isPrivKey() && !key->isToken()) {

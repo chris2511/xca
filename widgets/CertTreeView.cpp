@@ -28,11 +28,11 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 
-	if (indexes.size() == 0)
-		return;
-
-	pki_x509 *cert = static_cast<pki_x509*>(index.internalPointer());
+	pki_x509 *cert = dynamic_cast<pki_x509*>(db_base::fromIndex(index));
 	pki_x509 *parent;
+
+	if (indexes.size() == 0 || !cert)
+		return;
 
 	privkey = cert->getRefKey();
 	parent = cert->getSigner();

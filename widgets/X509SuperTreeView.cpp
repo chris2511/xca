@@ -18,11 +18,11 @@
 void X509SuperTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		const QModelIndex &index, QModelIndexList indexes)
 {
-	pki_x509super *x = static_cast<pki_x509super *>
-				(index.internalPointer());
+	pki_x509super *x = dynamic_cast<pki_x509super*>(
+					db_base::fromIndex(index));
 	transform = NULL;
 
-	if (indexes.size() != 1)
+	if (indexes.size() != 1 || !x)
 		return;
 
 	subExport->addAction(tr("OpenSSL config"), this, SLOT(toOpenssl()));

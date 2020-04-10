@@ -14,13 +14,12 @@
 #include <QAbstractItemView>
 #include <QMenu>
 
-void TempTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
-		const QModelIndex &index, QModelIndexList indexes)
+void TempTreeView::fillContextMenu(QMenu *menu, QMenu *,
+		const QModelIndex &, QModelIndexList indexes)
 {
-	(void)subExport;
-	(void)index;
 	if (indexes.size() != 1)
 		return;
+
 	menu->addAction(tr("Duplicate"), this, SLOT(duplicateTemp()));
 	menu->addAction(tr("Create certificate"), this, SLOT(certFromTemp()));
 	menu->addAction(tr("Create request"), this, SLOT(reqFromTemp()));

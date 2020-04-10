@@ -17,10 +17,10 @@ void ReqTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 {
 	X509SuperTreeView::fillContextMenu(menu, subExport, index, indexes);
 
-	if (indexes.size() != 1)
-		return;
+	pki_x509req *req = dynamic_cast<pki_x509req*>(db_base::fromIndex(index));
 
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	if (indexes.size() != 1 || !req)
+		return;
 
 	menu->addAction(tr("Sign"), this, SLOT(signReq()));
 	if (req->getDone())

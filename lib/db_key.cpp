@@ -201,8 +201,9 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 	bool ssh2compatible = true;
 
 	foreach(QModelIndex idx, indexes) {
-		pki_key *key = static_cast<pki_key*>
-			(idx.internalPointer());
+		pki_key *key = dynamic_cast<pki_key*>(fromIndex(idx));
+		if (!key)
+			continue;
 		if (key->isPubKey() || key->isToken())
 			allPriv = false;
 		if (!key->SSH2_compatible())
@@ -242,11 +243,11 @@ void db_key::store(QModelIndex index)
 	QList<exportType> types;
 	bool pvk = false;
 
-	if (!index.isValid())
-		return;
-
-	pki_key *key =static_cast<pki_evp*>(index.internalPointer());
+	pki_key *key = dynamic_cast<pki_key*>(fromIndex(index));
 	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
+
+	if (!index.isValid() || !key)
+		return;
 
 #if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	int keytype = key->getKeyType();
@@ -359,9 +360,9 @@ void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)
 	pki_evp *targetKey;
 	enum pki_key::passType old_type;
 
-	if (!idx.isValid())
+	targetKey = dynamic_cast<pki_evp*>(fromIndex(idx));
+	if (!idx.isValid() || !targetKey)
 		return;
-	targetKey = static_cast<pki_evp*>(idx.internalPointer());
 	if (targetKey->isToken()) {
 		throw errorEx(tr("Tried to change password of a token"));
 	}

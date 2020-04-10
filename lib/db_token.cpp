@@ -41,7 +41,7 @@ bool db_token::setData(const QModelIndex &index, const QVariant &value, int role
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
 		nn = value.toString();
-		item = static_cast<pki_base*>(index.internalPointer());
+		item = fromIndex(index);
 		on = item->getIntName();
 		if (on == nn)
 			return true;

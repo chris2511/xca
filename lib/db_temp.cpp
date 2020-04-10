@@ -102,10 +102,10 @@ void db_temp::load()
 
 void db_temp::store(QModelIndex index)
 {
-	if (!index.isValid())
-		return;
+	pki_temp *temp = dynamic_cast<pki_temp*>(fromIndex(index));
 
-	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());
+	if (!index.isValid() || !temp)
+		return;
 
 	QString fn = Settings["workingdir"] +
 		temp->getUnderlinedName() + ".xca";

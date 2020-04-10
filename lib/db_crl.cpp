@@ -85,7 +85,7 @@ void db_crl::removeSigner(pki_base *signer)
 
 void db_crl::inToCont(pki_base *pki)
 {
-	pki_crl *crl = static_cast<pki_crl *>(pki);
+	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
 	unsigned hash = crl->getSubject().hashNum();
 	QList<pki_x509 *> items;
 
@@ -103,7 +103,7 @@ void db_crl::inToCont(pki_base *pki)
 
 pki_base *db_crl::insert(pki_base *item)
 {
-	pki_crl *crl = static_cast<pki_crl *>(item);
+	pki_crl *crl = dynamic_cast<pki_crl *>(item);
 	pki_crl *oldcrl = dynamic_cast<pki_crl *>(getByReference(crl));
 	if (oldcrl) {
 		XCA_INFO(tr("The revocation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
@@ -121,16 +121,12 @@ pki_base *db_crl::insert(pki_base *item)
 
 void db_crl::store(QModelIndex index)
 {
-	QList<exportType> types;
+	pki_crl *crl = dynamic_cast<pki_crl*>(fromIndex(index));
 
-	if (!index.isValid())
+	if (!index.isValid() || !crl)
 		return;
 
-	pki_crl *crl = static_cast<pki_crl*>(index.internalPointer());
-	if (!crl)
-		return;
-
-	types <<
+	QList<exportType> types; types <<
 		exportType(exportType::PEM, "pem", "PEM") <<
 		exportType(exportType::DER, "der", "DER") <<
 		exportType(exportType::vcalendar, "ics", "vCalendar");
