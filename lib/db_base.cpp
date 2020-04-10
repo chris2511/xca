@@ -80,7 +80,7 @@ void db_base::remFromCont(const QModelIndex &idx)
 {
 	if (!idx.isValid())
 		return;
-	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	pki_base *pki = fromIndex(idx);
 	pki_base *parent_pki = pki->getParent();
 	int row = pki->row();
 
@@ -262,8 +262,7 @@ QString db_base::pem2QString(QModelIndexList indexes) const
 	foreach(QModelIndex idx, indexes) {
 		if (idx.column() != 0)
 			continue;
-		pki_base *pki = static_cast<pki_base*>
-				(idx.internalPointer());
+		pki_base *pki = fromIndex(idx);
 		pki->pem(bba, format);
 		openssl_error();
 	}
@@ -282,7 +281,7 @@ void db_base::pem2clipboard(QModelIndexList indexes) const
 
 void db_base::deletePKI(QModelIndex idx)
 {
-	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	pki_base *pki = fromIndex(idx);
 	QSqlDatabase db = QSqlDatabase::database();
 	try {
 		try {
@@ -406,7 +405,7 @@ QModelIndex db_base::parent(const QModelIndex &idx) const
 	if (!idx.isValid())
 		return QModelIndex();
 
-	pki_base *childItem = static_cast<pki_base*>(idx.internalPointer());
+	pki_base *childItem = fromIndex(idx);
 	pki_base *parentItem = childItem->getParent();
 
 	if (parentItem == rootItem || parentItem == NULL)
@@ -437,7 +436,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	if (!index.isValid())
 		return QVariant();
 	dbheader *hd = allHeaders[index.column()];
-	pki_base *item = static_cast<pki_base*>(index.internalPointer());
+	pki_base *item = fromIndex(index);
 	switch (role) {
 		case Qt::EditRole:
 		case Qt::DisplayRole:
@@ -497,7 +496,7 @@ Qt::ItemFlags db_base::flags(const QModelIndex &index) const
 
 	Qt::ItemFlags flags = QAbstractItemModel::flags(index) |
 				Qt::ItemIsDragEnabled;
-	pki_base *item = static_cast<pki_base*>(index.internalPointer());
+	pki_base *item = fromIndex(index);
 	if (item->isVisible() == 2)
 		flags &= ~Qt::ItemIsEnabled;
 	else if (index.column() == 0)
@@ -511,7 +510,7 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
 		nn = value.toString();
-		item = static_cast<pki_base*>(index.internalPointer());
+		item = fromIndex(index);
 		on = item->getIntName();
 		if (nn == on)
 			return true;
@@ -603,7 +602,7 @@ void db_base::timerEvent(QTimerEvent *event)
 
 void db_base::editComment(const QModelIndex &index)
 {
-	pki_base *item = static_cast<pki_base*>(index.internalPointer());
+	pki_base *item = fromIndex(index);
 	if (!index.isValid() || !item)
 		return;
 

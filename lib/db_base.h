@@ -91,6 +91,12 @@ class db_base: public QAbstractItemModel
 		Qt::ItemFlags flags(const QModelIndex &index) const;
 		bool setData(const QModelIndex &index, const QVariant &value, int role);
 		void deleteSelectedItems(QModelIndexList indexes);
+		static pki_base *fromIndex(const QModelIndex &index)
+		{
+			if (!index.isValid())
+				return NULL;
+			return static_cast<pki_base*>(index.internalPointer());
+		}
 		void load_default(load_base &load);
 		void insertChild(pki_base *parent, pki_base *child);
 		void createSuccess(pki_base *pki);
