@@ -6,9 +6,8 @@
 #include "widgets/XcaWarning.h"
 
 db_token::db_token(database_model *parent)
-        :db_base(parent)
+        :db_base(parent, "manageTokens")
 {
-	class_name = "manageTokens";
 	updateHeaders();
 }
 

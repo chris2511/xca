@@ -66,7 +66,7 @@ class db_base: public QAbstractItemModel
 
 		virtual pki_base *newPKI(enum pki_type type = none);
 		pki_base *rootItem;
-		db_base(database_model *parent);
+		db_base(database_model *parent, const char *classname);
 		virtual void updateHeaders();
 		virtual ~db_base();
 		virtual void insertPKI(pki_base *pki);

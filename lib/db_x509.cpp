@@ -35,9 +35,8 @@
 bool db_x509::treeview = true;
 
 db_x509::db_x509(database_model *parent)
-	:db_x509super(parent)
+	:db_x509super(parent, "certificates")
 {
-	class_name = "certificates";
 	sqlHashTable = "certs";
 	pkitype << x509;
 	pkitype_depends << x509_req;

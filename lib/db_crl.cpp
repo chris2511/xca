@@ -20,9 +20,8 @@
 #include "ui_NewCrl.h"
 
 db_crl::db_crl(database_model *parent)
-	:db_x509name(parent)
+	:db_x509name(parent, "crls")
 {
-	class_name = "crls";
 	sqlHashTable = "crls";
 	pkitype << revocation;
 	pkitype_depends << x509;

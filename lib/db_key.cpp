@@ -24,9 +24,8 @@
 #include "widgets/ExportDialog.h"
 
 db_key::db_key(database_model *parent)
-	:db_base(parent)
+	:db_base(parent, "keys")
 {
-	class_name = "keys";
 	sqlHashTable = "public_keys";
 	pkitype << asym_key << smartCard;
 	updateHeaders();

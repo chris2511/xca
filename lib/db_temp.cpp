@@ -20,9 +20,8 @@
 #include <QFileInfo>
 
 db_temp::db_temp(database_model *parent)
-	:db_x509name(parent)
+	:db_x509name(parent, "templates")
 {
-	class_name = "templates";
 	sqlHashTable = "templates";
 	pkitype << tmpl;
 

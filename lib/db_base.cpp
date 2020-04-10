@@ -37,13 +37,13 @@ void db_base::restart_timer()
 	hoursTimer = startTimer(MSECS_PER_HOUR);
 }
 
-db_base::db_base(database_model *parent)
+db_base::db_base(database_model *parent, const char *classname)
 	:QAbstractItemModel(parent)
 {
 	rootItem = newPKI();
 	rootItem->setIntName(rootItem->getClassName());
 	colResizing = 0;
-	class_name = "base";
+	class_name = classname;
 	secondsTimer = minutesTimer = hoursTimer = 0;
 	restart_timer();
 }
@@ -62,7 +62,7 @@ database_model *db_base::models()
 pki_base *db_base::newPKI(enum pki_type type)
 {
 	(void)type;
-	return new pki_base("rootItem");
+	return new pki_base();
 }
 
 void db_base::createSuccess(pki_base *pki)

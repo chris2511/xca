@@ -15,9 +15,8 @@
 
 
 db_x509req::db_x509req(database_model *parent)
-	:db_x509super(parent)
+	:db_x509super(parent, "requests")
 {
-	class_name = "requests";
 	sqlHashTable = "requests";
 	pkitype << x509_req;
 	pkitype_depends << x509;

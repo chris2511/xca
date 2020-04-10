@@ -19,8 +19,8 @@
 #include <QFileDialog>
 #include <QFileInfo>
 
-db_x509name::db_x509name(database_model *parent)
-	:db_base(parent)
+db_x509name::db_x509name(database_model *parent, const char *classname)
+	:db_base(parent, classname)
 {
 }
 
@@ -37,8 +37,8 @@ dbheaderList db_x509name::getHeaders()
 	return h;
 }
 
-db_x509super::db_x509super(database_model *parent)
-	:db_x509name(parent)
+db_x509super::db_x509super(database_model *parent, const char *classname)
+	:db_x509name(parent, classname)
 {
 	pkitype_depends << asym_key << smartCard;
 }
