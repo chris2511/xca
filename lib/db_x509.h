@@ -28,7 +28,6 @@ class db_x509: public db_x509super
 		void dereferenceIssuer();
 
 	public:
-		static bool treeview;
 		db_x509();
 		pki_base *newPKI(enum pki_type type = none);
 		pki_x509 *findIssuer(pki_x509 *client);
@@ -51,7 +50,6 @@ class db_x509: public db_x509super
 			exportType::etype type, QModelIndexList list) const;
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
 		void inToCont(pki_base *pki);
-		void changeView();
 		a1int getUniqueSerial(pki_x509 *signer);
 		void toToken(QModelIndex idx, bool alwaysSelect);
 		void toRequest(QModelIndex idx);

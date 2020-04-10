@@ -32,8 +32,6 @@
 
 #include <openssl/rand.h>
 
-bool db_x509::treeview = true;
-
 db_x509::db_x509() : db_x509super("certificates")
 {
 	sqlHashTable = "certs";
@@ -49,7 +47,7 @@ void db_x509::loadContainer()
 
 	XSqlQuery q("SELECT item, issuer FROM certs WHERE issuer is NOT NULL");
 	while (q.next()) {
-		pki_base *root = rootItem;
+		pki_base *root = treeItem;
 		pki_x509 *cert = Store.lookupPki<pki_x509>(q.value(0));
 		pki_x509 *issuer = Store.lookupPki<pki_x509>(q.value(1));
 		if (cert && issuer) {
@@ -61,8 +59,7 @@ void db_x509::loadContainer()
 			qDebug() << "MOVE" << cert->getIntName()
 				<< "from" << cert->getParent()->getIntName()
 				<< "to" << root->getIntName();
-			cert->getParent()->takeChild(cert);
-			insertChild(root, cert);
+			insertChild(cert, root);
 		}
 	}
 	emit columnsContentChanged();
@@ -117,10 +114,10 @@ void db_x509::remFromCont(const QModelIndex &idx)
 	QList<pki_x509 *> childs;
 
 	while (pki->childCount()) {
-		child = dynamic_cast<pki_x509*>(pki->childItems.takeFirst());
+		child = dynamic_cast<pki_x509*>(pki->takeFirst());
 		child->delSigner(dynamic_cast<pki_x509*>(pki));
 		new_parent = child->findIssuer();
-		insertChild(new_parent, child);
+		insertChild(child);
 		if (new_parent)
 			childs << child;
 	}
@@ -133,45 +130,6 @@ void db_x509::remFromCont(const QModelIndex &idx)
 		q.exec();
 	}
 	crls->removeSigner(pki);
-}
-
-void db_x509::changeView()
-{
-	pki_base *temproot;
-	int rows = rowCount(QModelIndex());
-
-	if (!rows)
-		return;
-
-	temproot = new pki_base();
-	beginRemoveRows(QModelIndex(), 0, rows -1);
-	pki_base *pki = rootItem;
-	pki_base *parent;
-#warning refactor child management from pointer to sqlItemId
-	while (pki->childCount()) {
-		pki = pki->takeFirst();
-		while (pki != rootItem && !pki->childCount()) {
-			parent = pki->getParent();
-			temproot->append(pki);
-			pki = parent;
-		}
-	}
-	endRemoveRows();
-
-	treeview = !treeview;
-	if (treeview)
-		mainwin->BNviewState->setText(tr("Plain View"));
-	else
-		mainwin->BNviewState->setText(tr("Tree View"));
-
-	while ((temproot->childCount())) {
-		pki_base *parent = rootItem;
-		pki = temproot->takeFirst();
-		if (treeview)
-			parent = static_cast<pki_x509*>(pki)->getSigner();
-		insertChild(parent, pki);
-	}
-	delete temproot;
 }
 
 static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
@@ -195,10 +153,8 @@ void db_x509::inToCont(pki_base *pki)
 	pki_x509 *cert = dynamic_cast<pki_x509*>(pki);
 	cert->setParent(NULL);
 	pki_base *root = cert->getSigner();
-	if (!treeview || root == cert || root == NULL)
-		root = rootItem;
 
-	insertChild(root, cert);
+	insertChild(cert, root);
 
 	QList<pki_x509 *> childs;
 	QList<pki_x509 *> items;
@@ -221,17 +177,19 @@ void db_x509::inToCont(pki_base *pki)
 			continue;
 		if (cert->getNotAfter() < other->getNotAfter())
 			continue;
-		foreach(pki_base *b, other->childItems) {
-			pki_x509 *child = static_cast<pki_x509*>(b);
+		foreach(pki_base *b, other->getChildItems()) {
+			pki_x509 *child = dynamic_cast<pki_x509*>(b);
+			if (!child)
+				continue;
 			child->delSigner(other);
 			childs << child;
 		}
 		revList.merge(other->getRevList());
 	}
 	/* Search rootItem childs, whether they are ours */
-	foreach(pki_base *b, rootItem->childItems) {
-		pki_x509 *child = static_cast<pki_x509*>(b);
-		if (child == cert || child->getSigner() == child)
+	foreach(pki_base *b, rootItem->getChildItems()) {
+		pki_x509 *child = dynamic_cast<pki_x509*>(b);
+		if (!child || child == cert || child->getSigner() == child)
 			continue;
 		if (child->verify_only(cert))
 			childs << child;
@@ -242,18 +200,11 @@ void db_x509::inToCont(pki_base *pki)
 	SQL_PREPARE(q, "UPDATE certs SET issuer=? WHERE item=?");
 	q.bindValue(0, cert->getSqlItemId());
 	foreach(pki_x509 *child, childs) {
-		int row;
 		if (recursiveSigning(cert, child))
 			continue;
 		if (!child->verify(cert))
 			continue;
-		row = child->row();
-		if (treeview) {
-			beginRemoveRows(index(child->getParent()), row, row);
-			child->getParent()->takeChild(child);
-			endRemoveRows();
-			insertChild(cert, child);
-		}
+		insertChild(child, cert);
 		q.bindValue(1, child->getSqlItemId());
 		AffectedItems(child->getSqlItemId());
 		q.exec();

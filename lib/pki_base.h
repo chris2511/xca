@@ -67,6 +67,7 @@ class pki_base : public QObject
 		QString filename;
 		virtual void PEM_file_comment(XFile &file) const;
 		virtual void collect_properties(QMap<QString, QString> &) const;
+		QList<pki_base*> childItems;
 
 	public:
 		enum msg_type {
@@ -86,7 +87,8 @@ class pki_base : public QObject
 		pki_base(const pki_base *p);
 		virtual ~pki_base();
 
-		QList<pki_base*> childItems;
+		QList<pki_base*> getChildItems() const;
+		void clear();
 		QString getIntName() const
 		{
 			return desc;
@@ -144,10 +146,11 @@ class pki_base : public QObject
 		void setParent(pki_base *p);
 		pki_base *getParent() const;
 		pki_base *child(int row);
-		void append(pki_base *item);
+		void insert(pki_base *item);
 		int childCount() const;
 		void takeChild(pki_base *pki);
 		pki_base *takeFirst();
+		int indexOf(const pki_base *child) const;
 
 		/* Token handling */
 		virtual void deleteFromToken();
@@ -169,7 +172,6 @@ class pki_base : public QObject
 			(void)hd;
 			return QVariant();
 		}
-		int row() const;
 		virtual QVariant column_data(const dbheader *hd) const;
 		virtual QVariant getIcon(const dbheader *hd) const;
 		virtual QVariant column_tooltip(const dbheader *hd) const;

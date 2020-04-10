@@ -165,13 +165,10 @@ void ImportMulti::on_butOk_clicked()
 	Transaction;
 	if (!TransBegin())
 		return;
-	while (mcont->rootItem->childCount()) {
-		qDebug() << "childCount" << mcont->rootItem->childCount();
-		foreach(pki_base *p, mcont->rootItem->childItems)
-			qDebug() << "Child" << p->getIntName();
-		QModelIndex idx = mcont->index(0, 0, QModelIndex());
-		import(idx);
-	}
+
+	while (mcont->rowCount(QModelIndex()))
+		import(mcont->index(0, 0, QModelIndex()));
+
 	TransCommit();
 	accept();
 }
@@ -232,7 +229,10 @@ void ImportMulti::on_renameToken_clicked()
 
 pki_base *ImportMulti::import(const QModelIndex &idx)
 {
-	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	pki_base *pki = mcont->fromIndex(idx);
+
+	for (int i = 0; i < mcont->rowCount(idx); i++)
+		import(mcont->index(i, 0, idx));
 
 	if (!pki)
 		return NULL;
@@ -326,8 +326,10 @@ ImportMulti::~ImportMulti()
 
 int ImportMulti::entries()
 {
-	return mcont->rootItem->childCount();
+	return mcont->rowCount(QModelIndex());
 }
+#warning better mcont->rootItems().count() via accessor. rowCount()
+#warning is only toplevel
 
 void ImportMulti::importError(QStringList failed)
 {

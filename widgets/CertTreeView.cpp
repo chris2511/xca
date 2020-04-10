@@ -88,21 +88,6 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	}
 }
 
-void CertTreeView::changeView()
-{
-	if (!basemodel)
-		return;
-
-	hide();
-	setModel(NULL);
-
-	certs()->changeView();
-
-	setModel(certs());
-	show();
-	setRootIsDecorated(db_x509::treeview);
-}
-
 void CertTreeView::toRequest()
 {
 	if (basemodel)
@@ -161,6 +146,15 @@ void CertTreeView::deleteFromToken()
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
 	}
+}
+
+void CertTreeView::changeView()
+{
+	if (!basemodel)
+		return;
+	XcaTreeView::changeView();
+	mainwin->BNviewState->setText(basemodel->treeViewMode() ?
+		tr("Plain View") : tr("Tree View"));
 }
 
 void CertTreeView::manageRevocations()

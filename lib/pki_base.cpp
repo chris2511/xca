@@ -100,6 +100,11 @@ void pki_base::PEM_file_comment(XFile &file) const
 				.toUtf8());
 }
 
+void pki_base::clear()
+{
+	childItems.clear();
+}
+
 bool pki_base::childVisible() const
 {
 	foreach(pki_base *child, childItems)
@@ -244,10 +249,10 @@ pki_base *pki_base::child(int row)
 	return childItems.value(row);
 }
 
-void pki_base::append(pki_base *item)
+void pki_base::insert(pki_base *item)
 {
-	childItems.append(item);
-	item->setParent(this);
+	if (!childItems.contains(item))
+		childItems.prepend(item);
 }
 
 int pki_base::childCount() const
@@ -255,16 +260,21 @@ int pki_base::childCount() const
 	return childItems.size();
 }
 
-int pki_base::row(void) const
+int pki_base::indexOf(const pki_base *child) const
 {
-	if (parent)
-		return parent->childItems.indexOf(const_cast<pki_base*>(this));
-	return 0;
+	int ret = childItems.indexOf(const_cast<pki_base *>(child));
+	return ret >= 0 ? ret : 0;
 }
 
 void pki_base::takeChild(pki_base *pki)
 {
-	childItems.takeAt(pki->row());
+	childItems.removeOne(pki);
+}
+
+QList<pki_base*> pki_base::getChildItems() const
+{
+	#warning need to collect all children below folders (later)
+	return childItems;
 }
 
 pki_base *pki_base::takeFirst()

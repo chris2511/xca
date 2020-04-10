@@ -26,6 +26,7 @@ pki_multi::pki_multi(const QString &name)
 	:pki_base(name)
 {
 	multi.clear();
+	failed_files.clear();
 }
 
 pki_multi::~pki_multi()

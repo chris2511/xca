@@ -146,7 +146,7 @@ pki_base* db_key::insert(pki_base *item)
 				.arg(oldkey->getInsertionDate().toPretty())
 				.arg(lkey->getIntName()));
 			lkey->setIntName(oldkey->getIntName());
-			deletePKI(index(oldkey->row(), 0, QModelIndex()));
+			deletePKI(index(oldkey));
 		}
 	}
 	insertPKI(lkey);

@@ -570,7 +570,6 @@ enum open_result MainWindow::init_database()
 	setItemEnabled(true);
 	dbindex->setText(tr("Database") + ": " +
 			 compressFilename(Database.name()));
-	certView->setRootIsDecorated(db_x509::treeview);
 	set_geometry(Settings["mw_geometry"]);
 
 	if (pki_evp::passwd.isNull())

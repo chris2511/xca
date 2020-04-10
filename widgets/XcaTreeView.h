@@ -59,6 +59,7 @@ class XcaTreeView: public QTreeView
 	virtual void showPki(pki_base *) const {};
 
    public slots:
+	void changeView();
 	void showHideSections();
 	void sectionMoved(int idx, int oldI, int newI);
 	void columnsResize();

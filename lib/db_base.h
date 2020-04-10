@@ -53,6 +53,9 @@ class db_base: public QAbstractItemModel
 		}
 		bool isValidCol(int col) const;
 		void timerEvent(QTimerEvent *event);
+		bool treeview;
+		pki_base *rootItem;
+		pki_base *treeItem;
 
 	public:
 		void restart_timer();
@@ -60,7 +63,6 @@ class db_base: public QAbstractItemModel
 				const QString &comment);
 
 		virtual pki_base *newPKI(enum pki_type type = none);
-		pki_base *rootItem;
 		db_base(const char *classname);
 		virtual void updateHeaders();
 		virtual ~db_base();
@@ -72,6 +74,7 @@ class db_base: public QAbstractItemModel
 		virtual pki_base* insert(pki_base *item);
 		virtual void inToCont(pki_base *pki);
 		virtual void remFromCont(const QModelIndex &idx);
+		void changeView();
 
 		QPixmap *loadImg(const char *name);
 		void dump(const QString &dirname) const;
@@ -93,13 +96,18 @@ class db_base: public QAbstractItemModel
 			return static_cast<pki_base*>(index.internalPointer());
 		}
 		void load_default(load_base &load);
-		void insertChild(pki_base *parent, pki_base *child);
+		void insertChild(pki_base *child, pki_base *parent = NULL);
+		int rownumber(const pki_base *child) const;
 		void createSuccess(const pki_base *pki) const;
 		bool columnHidden(int col) const;
 		virtual void saveHeaderState();
 		void initHeaderView(QHeaderView *hv);
 		void setVisualIndex(int i, int visualIndex);
 		bool fixedHeaderSize(int sect);
+		bool treeViewMode()
+		{
+			return treeview;
+		}
 		void colResizeStart()
 		{
 			colResizing++;

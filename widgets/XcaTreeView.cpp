@@ -99,6 +99,7 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 	QTreeView::setModel(proxy);
 
 	if (basemodel) {
+		setRootIsDecorated(basemodel->treeViewMode());
 		connect(basemodel, SIGNAL(resetHeader()),
 			header(), SLOT(resetMoves()));
 		connect(basemodel, SIGNAL(resetHeader()),
@@ -407,6 +408,15 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
         delete menu;
 	delete parent;
 	showHideSections();
+}
+
+void XcaTreeView::changeView()
+{
+	if (!basemodel)
+		return;
+	hide();
+	basemodel->changeView();
+	show();
 }
 
 void XcaTreeView::showContextMenu(QContextMenuEvent *e,

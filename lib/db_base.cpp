@@ -39,11 +39,12 @@ void db_base::restart_timer()
 db_base::db_base(const char *classname)
 	:QAbstractItemModel()
 {
-	rootItem = newPKI();
-	rootItem->setIntName(rootItem->getClassName());
+	rootItem = new pki_base(QString("ROOTitem(%1)").arg(classname));
+	treeItem = new pki_base(QString("TREEitem(%1)").arg(classname));
 	colResizing = 0;
 	class_name = classname;
 	secondsTimer = minutesTimer = hoursTimer = 0;
+	treeview = true;
 	restart_timer();
 }
 
@@ -51,6 +52,7 @@ db_base::~db_base()
 {
 	saveHeaderState();
 	delete rootItem;
+	delete treeItem;
 }
 
 pki_base *db_base::newPKI(enum pki_type type)
@@ -76,10 +78,11 @@ void db_base::remFromCont(const QModelIndex &idx)
 		return;
 	pki_base *pki = fromIndex(idx);
 	pki_base *parent_pki = pki->getParent();
-	int row = pki->row();
+	int row = rownumber(pki);
 
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
+	rootItem->takeChild(pki);
 	endRemoveRows();
 	emit columnsContentChanged();
 }
@@ -112,7 +115,7 @@ void db_base::loadContainer()
 		t = (enum pki_type)q.value(VIEW_item_type).toInt();
 		pki_base *pki = newPKI(t);
 		pki->restoreSql(rec);
-		insertChild(rootItem, pki);
+		insertChild(pki);
 		Store.add(q.value(VIEW_item_id), pki);
 	}
 
@@ -142,8 +145,8 @@ void db_base::reloadContainer(const QList<enum pki_type> &typelist)
 		return;
 	qDebug() << "RELOAD" << class_name << all_types << typelist;
 	beginResetModel();
-	delete rootItem;
-	rootItem = newPKI();
+	rootItem->clear();
+	treeItem->clear();
 	endResetModel();
 
 	loadContainer();
@@ -297,19 +300,43 @@ void db_base::deletePKI(QModelIndex idx)
 	}
 }
 
-void db_base::insertChild(pki_base *parent, pki_base *child)
+void db_base::insertChild(pki_base *child, pki_base *parent)
 {
 	QModelIndex idx = QModelIndex();
+	pki_base *curr_parent = child->getParent();
 
-	if (parent == child || parent == NULL)
-		parent = rootItem;
+	if (!parent || parent == child)
+		parent = treeItem;
 
-	if (parent != rootItem)
+	if (curr_parent) {
+		/* Need to take it */
+		if (curr_parent != treeItem && treeview)
+			idx = index(curr_parent);
+		int row = rownumber(child);
+		beginRemoveRows(idx, row, row);
+		curr_parent->takeChild(child);
+		endRemoveRows();
+	}
+
+	if (parent != treeItem && treeview)
 		idx = index(parent);
 
 	beginInsertRows(idx, 0, 0);
-	parent->append(child);
+	parent->insert(child);
+	child->setParent(parent);
+	rootItem->insert(child);
 	endInsertRows();
+
+	qDebug() << "insertChild" << *child << "To parent" << *parent
+		 << "From" << (curr_parent ? QString(*curr_parent) : "NEW")
+		 << "COUNT root" << rootItem->childCount()
+		 << "Count tree" << treeItem->childCount();
+}
+
+int db_base::rownumber(const pki_base *child) const
+{
+	pki_base *parent = treeview ? child->getParent() : rootItem;
+	return parent ? parent->indexOf(child) : 0;
 }
 
 /* Does all the linking from existing keys, crls, certs
@@ -318,7 +345,7 @@ void db_base::insertChild(pki_base *parent, pki_base *child)
  */
 void db_base::inToCont(pki_base *pki)
 {
-	insertChild(rootItem, pki);
+	insertChild(pki);
 }
 
 pki_base *db_base::getByName(QString desc)
@@ -368,30 +395,23 @@ void db_base::dump(const QString &dir) const
 	}
 }
 
-QModelIndex db_base::index(int row, int column, const QModelIndex &parent)
-	                const
+QModelIndex db_base::index(int row, int column,
+			const QModelIndex &parent) const
 {
-	pki_base *parentItem;
+	pki_base *parentItem = treeview ? treeItem : rootItem;
 
-	if(column <0)
-		abort();
-	if (!parent.isValid())
-		parentItem = rootItem;
-	else
-		parentItem = static_cast<pki_base*>(parent.internalPointer());
+	if (parent.isValid() && treeview)
+		parentItem = fromIndex(parent);
 
 	pki_base *childItem = parentItem->child(row);
-	if (childItem)
-		return createIndex(row, column, childItem);
-	else
-		return QModelIndex();
+	return childItem ? createIndex(row, column, childItem) : QModelIndex();
 }
 
 QModelIndex db_base::index(pki_base *pki) const
 {
 	if (!pki)
 		return QModelIndex();
-	return createIndex(pki->row(), 0, pki);
+	return createIndex(rownumber(pki), 0, pki);
 }
 
 QModelIndex db_base::parent(const QModelIndex &idx) const
@@ -402,22 +422,20 @@ QModelIndex db_base::parent(const QModelIndex &idx) const
 	pki_base *childItem = fromIndex(idx);
 	pki_base *parentItem = childItem->getParent();
 
-	if (parentItem == rootItem || parentItem == NULL)
-		return QModelIndex();
+	if (parentItem == treeItem || !treeview)
+		parentItem = NULL;
 
 	return index(parentItem);
 }
 
 int db_base::rowCount(const QModelIndex &parent) const
 {
-	pki_base *parentItem;
+	pki_base *parentItem = treeview ? treeItem : rootItem;
 
-	if (!parent.isValid())
-		parentItem = rootItem;
-	else
-		parentItem = static_cast<pki_base*>(parent.internalPointer());
+	if (parent.isValid())
+		parentItem = treeview ? fromIndex(parent) : NULL;
 
-	return parentItem->childCount();
+	return parentItem ? parentItem->childCount() : 0;
 }
 
 int db_base::columnCount(const QModelIndex &) const
@@ -465,6 +483,13 @@ static QVariant getHeaderViewInfo(dbheader *h)
 	h->getTooltip()
 #endif
 	);
+}
+
+void db_base::changeView()
+{
+	beginResetModel();
+	treeview = !treeview;
+	endResetModel();
 }
 
 QVariant db_base::headerData(int section, Qt::Orientation orientation,
@@ -579,7 +604,7 @@ void db_base::timerEvent(QTimerEvent *event)
 			if (do_emit) {
 				qDebug() << "Date changed for" << pki->getIntName() << ":" << hd->getName() << "Col:" << idx << t.toSortable();
 				QModelIndex i;
-				i = createIndex(pki->row(), idx, pki);
+				i = createIndex(rownumber(pki), idx, pki);
 				emit dataChanged(i, i);
 			}
 		}
