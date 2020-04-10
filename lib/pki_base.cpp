@@ -229,7 +229,7 @@ QSqlError pki_base::sqlItemNotFound(QVariant sqlId) const
 			QSqlError::UnknownError);
 }
 
-pki_base *pki_base::getParent()
+pki_base *pki_base::getParent() const
 {
 	return parent;
 }

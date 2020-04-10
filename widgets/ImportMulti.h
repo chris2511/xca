@@ -31,7 +31,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		~ImportMulti();
 		void addItem(pki_base *pki);
 		pki_base *getSelected();
-		pki_base *import(QModelIndex &idx);
+		pki_base *import(const QModelIndex &idx);
 		void execute(int force=0, QStringList failed = QStringList());
 		int entries();
 		void tokenInfo(const slotid &s);

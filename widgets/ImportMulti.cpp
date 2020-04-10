@@ -83,7 +83,6 @@ void ImportMulti::addItem(pki_base *pki)
 		QList<pki_base*> items = pm->pull();
 		foreach(pki_base *inner, items)
 			addItem(inner);
-		delete pm;
 		return;
 	}
 
@@ -232,7 +231,7 @@ void ImportMulti::on_renameToken_clicked()
 	}
 }
 
-pki_base *ImportMulti::import(QModelIndex &idx)
+pki_base *ImportMulti::import(const QModelIndex &idx)
 {
 	database_model *models = mainwin->getModels();
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());

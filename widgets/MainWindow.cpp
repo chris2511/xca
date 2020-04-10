@@ -526,6 +526,7 @@ void MainWindow::importMulti(pki_multi *multi, int force)
 	ImportMulti *dlgi = new ImportMulti(this);
 	dlgi->addItem(multi);
 	dlgi->execute(force, multi->failed_files);
+	delete multi;
 	delete dlgi;
 }
 

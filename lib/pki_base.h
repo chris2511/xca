@@ -142,7 +142,7 @@ class pki_base : public QObject
 
 		/* Tree View management */
 		void setParent(pki_base *p);
-		virtual pki_base *getParent();
+		pki_base *getParent() const;
 		pki_base *child(int row);
 		void append(pki_base *item);
 		int childCount() const;

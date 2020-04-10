@@ -40,8 +40,6 @@ class db_base: public QAbstractItemModel
 	protected:
 		int secondsTimer, minutesTimer, hoursTimer;
 		void _writePKI(pki_base *pki, bool overwrite);
-		void _removePKI(pki_base *pki );
-		void removeItem(QString k);
 		QList<enum pki_type> pkitype;
 		QList<enum pki_type> pkitype_depends;
 		QString class_name;
@@ -99,7 +97,7 @@ class db_base: public QAbstractItemModel
 		}
 		void load_default(load_base &load);
 		void insertChild(pki_base *parent, pki_base *child);
-		void createSuccess(pki_base *pki);
+		void createSuccess(const pki_base *pki) const;
 		bool columnHidden(int col) const;
 		virtual void saveHeaderState();
 		void initHeaderView(QHeaderView *hv);

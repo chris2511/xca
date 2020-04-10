@@ -193,7 +193,7 @@ static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
 
 void db_x509::inToCont(pki_base *pki)
 {
-	pki_x509 *cert = static_cast<pki_x509*>(pki);
+	pki_x509 *cert = dynamic_cast<pki_x509*>(pki);
 	cert->setParent(NULL);
 	pki_base *root = cert->getSigner();
 	if (!treeview || root == cert || root == NULL)
