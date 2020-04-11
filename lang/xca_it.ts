@@ -650,12 +650,12 @@
     <message>
         <location line="+1"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiave privata non crittata in formato Microsoft PVK</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiave privata crittata in formato Microsoft PVK</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1147,7 +1147,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     <message>
         <location line="+4"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Giapponese</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2669,7 +2669,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location line="+1"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Challenge password</translation>
+        <translation>Challenge password</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2764,7 +2764,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location line="+35"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiavi PKI ( *.pem *.der *.key );; Chiavi PKCS#8 ( *.p8 *.pk8 );; Chiavi Microsoft PVK ( *.pvk );; Chiavi pubbliche SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2922,7 +2922,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
         <source>Invalid filename: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome file non valido: %1</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3228,7 +3228,7 @@ nella libreria %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">Proprietà della chiave</translation>
+        <translation>Proprietà della chiave</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3585,12 +3585,12 @@ e sarà completata con la nuova parte privata della chiave</translation>
     <message>
         <location line="+6"/>
         <source>PVK private</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK privata</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK crittata</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3610,7 +3610,7 @@ e sarà completata con la nuova parte privata della chiave</translation>
     <message>
         <location line="+57"/>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore interno</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -3952,17 +3952,17 @@ pertanto non è stata salvata</translation>
     <message>
         <location line="+1"/>
         <source>Key type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di chiave</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key size</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione della chiave</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">Gruppo EC</translation>
+        <translation>Gruppo EC</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -4119,20 +4119,21 @@ pertanto non è stata salvata</translation>
     <message>
         <location line="+219"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished">Rinnovo CRL della CA &apos;%1&apos; scaduto</translation>
+        <translation>Rinnovo CRL della CA &apos;%1&apos; scaduto</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished">L&apos;ultima CRL rilasciata dalla CA &apos;%1&apos; scadrà il %2.
-E&apos; mantenuta nel database XCA &apos;%3&apos;</translation>
+        <translation>L&apos;ultima CRL rilasciata dalla CA &apos;%1&apos; scadrà il %2.
+Si trova nel database XCA &apos;%3&apos;</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>La CRL XCA &apos;%1&apos;, rilasciata il %3 scadrà il %4.
+Si trova nel database XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -4221,7 +4222,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+19"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Prego inserire la password che protegge la chiave Microsoft PVK &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+63"/>
