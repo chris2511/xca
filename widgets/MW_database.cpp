@@ -536,6 +536,7 @@ void MainWindow::close_database()
 	keys = NULL;
 	crls = NULL;
 
+	XSqlQuery q("VACUUM");
 	QSqlDatabase::database().close();
 	pki_evp::passwd.cleanse();
 	pki_evp::passwd = QByteArray();

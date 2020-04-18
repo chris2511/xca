@@ -237,6 +237,7 @@ bool OpenDb::_openDatabase(const QString &connName, const QString &pass) const
 		 * dbType() could return "ODBC" but connect to MariaDB
 		 */
 		XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
+		q.exec("PRAGMA secure_delete = 'true'");
 		return true;
 	}
 	XSqlQuery::clearTablePrefix();
