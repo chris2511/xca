@@ -1147,7 +1147,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="+4"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japośnki</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1664,7 +1664,7 @@ Podaj liczbę bitów parametru DH</translation>
     <message>
         <location line="+22"/>
         <source>Signing request</source>
-        <translation>Żądanie certyfikacyjne</translation>
+        <translation>Opcjonalne atrybuty dla wystawcy</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -2191,43 +2191,43 @@ podczas, gdy ustawiono je jako obowiązkowe w menu opcji.</translation>
     <message>
         <location filename="../ui/OidResolver.ui" line="+28"/>
         <source>OID Resolver</source>
-        <translation type="unfinished">Rozpoznawanie OID</translation>
+        <translation>Rozpoznawanie obiektów OID</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Enter the OID, the Nid, or one of the textual representations</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj OID, Nid lub jeden z tekstowych opisów</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Search</source>
-        <translation type="unfinished">Szukaj</translation>
+        <translation>Szukaj</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>OID</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+45"/>
         <source>Long name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa pełna</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+22"/>
         <source>OpenSSL internal ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Wewnętrzny identyfikator OpenSSL</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Nid</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Short name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa skrócona</translation>
     </message>
 </context>
 <context>
@@ -2557,87 +2557,87 @@ W szczególności EC i DSA są zdefiniowane tylko z funkcją SHA1 w specyfikacji
     <message>
         <location filename="../lib/load_obj.cpp" line="+20"/>
         <source>All files ( * )</source>
-        <translation type="unfinished">Wszystkie pliki ( * )</translation>
+        <translation>Wszystkie pliki ( * )</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Klucze PKI ( *.pem *.der *.key );; Klucze PKCS#8 ( *.p8 *.pk8 );; Klucze Microsoft PVK ( *.pvk );; Klucze publiczne SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Import RSA key</source>
-        <translation type="unfinished"></translation>
+        <translation>Import klucza RSA</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );; </source>
-        <translation type="unfinished"></translation>
+        <translation>Żądania PKCS#10 ( *.pem *.der *.csr );; </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import Request</source>
-        <translation type="unfinished"></translation>
+        <translation>Import żądania certyfikacyjnego</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Certificates ( *.pem *.der *.crt *.cer );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Certyfikaty ( *.pem *.der *.crt *.cer );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import X.509 Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Import certyfikatu X.509</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>PKCS#7 data ( *.p7s *.p7m *.p7b );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Certyfikaty PKCS#7 ( *.p7s *.p7m *.p7b );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import PKCS#7 Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Import certyfikatów PKCS#7</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>PKCS#12 Certificates ( *.p12 *.pfx );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontenery PKCS#12 ( *.p12 *.pfx );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import PKCS#12 Private Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Import kontenera PKCS#12</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>XCA templates ( *.xca );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Szablony XCA ( *.xca );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import XCA Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Import szablonów XCA</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Revocation lists ( *.pem *.der *.crl );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Listy unieważnień ( *.pem *.der *.crl );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import Certificate Revocation List</source>
-        <translation type="unfinished"></translation>
+        <translation>Import listy unieważnień</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>XCA Databases ( *.xdb );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazy danych XCA ( *.xdb );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Open XCA Database</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwieranie bazy danych XCA</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2979,7 +2979,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished">Komentarz</translation>
+        <translation>Komentarz</translation>
     </message>
 </context>
 <context>
@@ -2992,12 +2992,12 @@ In library %3
     <message>
         <location line="+2"/>
         <source>Unmark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznacz jako niepodpisany</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Mark signed</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznacz jako podpisany</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3096,27 +3096,27 @@ In library %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="+41"/>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Folder</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Include subdirectories</source>
-        <translation type="unfinished"></translation>
+        <translation>Dołącz podfoldery</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Search</source>
-        <translation type="unfinished">Szukaj</translation>
+        <translation>Szukaj</translation>
     </message>
     <message>
         <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
         <source>The following files are possible PKCS#11 libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Poniższe pliki to potencjalne biblioteki PKCS#11</translation>
     </message>
 </context>
 <context>
@@ -3206,7 +3206,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">Parametry klucza</translation>
+        <translation>Parametry klucza</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3329,7 +3329,7 @@ In library %3
     <message>
         <location line="+205"/>
         <source>Could not create directory %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można utworzyć folderu %1</translation>
     </message>
     <message>
         <location line="+251"/>
@@ -3436,14 +3436,14 @@ import został przerwany</translation>
     <message>
         <location line="+44"/>
         <source>Failed to initiate DB transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieudane rozpoczęcie transakcji w bazie danych</translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+8"/>
         <location line="+4"/>
         <source>Database error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd bazy danych: %1</translation>
     </message>
 </context>
 <context>
@@ -3863,19 +3863,21 @@ and so it was not imported</source>
     <message>
         <location line="+2"/>
         <source>Certificate count</source>
-        <translation type="unfinished"></translation>
+        <translation>Liczba certyfikatów</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of certificates in the database with the same public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Liczba certyfikatów w bazie danych z tym samym kluczem publicznym</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
-        <translation type="unfinished"></translation>
+        <translation>Żądanie certyfikacyjne już istnieje w bazie danych jako
+&apos;%1&apos;
+i nie zostało ponowanie zapisane</translation>
     </message>
     <message>
         <location line="+77"/>
