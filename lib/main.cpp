@@ -306,9 +306,10 @@ int main( int argc, char *argv[] )
 #else
 	qInstallMessageHandler(myMessageOutput);
 #endif
-	initOIDs();
 
 	XCA_application a(argc, argv);
+
+	initOIDs();
 	mw = new MainWindow(NULL);
 	try {
 		a.setMainwin(mw);
