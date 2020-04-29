@@ -116,7 +116,7 @@ int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 		qDebug() << "random_from_file" << fname << e.getString();
 		return 0;
 	}
-	fd = dup(file.handle());
+	fd = file.handle();
 	if (fd == -1)
 		return 0;
 #if !defined(Q_OS_WIN32)
@@ -141,7 +141,6 @@ int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 		if (len == 0)
 			break;
 	}
-	close(fd);
 #ifdef DEBUG_ENTROPY
 	qDebug("Entropy from file '%s' = %d bytes", CCHAR(fname), sum);
 #endif
