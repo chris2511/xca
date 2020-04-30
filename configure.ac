@@ -15,8 +15,8 @@ AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 AC_CHECK_TOOL(WINDRES, [windres], [:])
 
-VERSIONNODOT="$(IFS='.'; for x in ${PACKAGE_VERSION}; do printf "%02x" ${x%-*}; done)"
-AC_SUBST([VERSIONNODOT])
+VERSIONHASH="$(echo "${PACKAGE_VERSION}${ITERATION}" | shasum | cut -b -12)"
+AC_SUBST([VERSIONHASH])
 
 if test -d "$INSTALL_DIR"; then
   AC_MSG_NOTICE([Using INSTALL_DIR $INSTALL_DIR])

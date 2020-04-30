@@ -293,11 +293,13 @@ int main(int argc, char *argv[])
 #else
 	qInstallMessageHandler(myMessageOutput);
 #endif
+
 	Entropy entropy;
 	Settings.clear();
-	initOIDs();
 
 	QCoreApplication *core = createApplication(argc, argv);
+
+	initOIDs();
 	XcaApplication *gui = qobject_cast<XcaApplication*>(core);
 
 	try {

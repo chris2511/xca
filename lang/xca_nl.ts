@@ -646,12 +646,12 @@
     <message>
         <location line="+1"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet-versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished"></translation>
+        <translation>Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1143,7 +1143,7 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+4"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japans</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2506,18 +2506,6 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <translation>%1 uur/uren geleden</translation>
     </message>
     <message>
-        <source>DB: Rename: &apos;%1&apos; already in use</source>
-        <translation type="vanished">DB: Hernoemen: &apos;%1&apos; al in gebruik</translation>
-    </message>
-    <message>
-        <source>DB: Entry to rename not found: %1</source>
-        <translation type="vanished">DB: toegang tot naam niet gevonden:%1</translation>
-    </message>
-    <message>
-        <source>DB: Write error %1 - %2</source>
-        <translation type="vanished">DB: schrijffout %1 - %2</translation>
-    </message>
-    <message>
         <location filename="../lib/db.cpp" line="+280"/>
         <location line="+17"/>
         <source>Out of data</source>
@@ -2541,16 +2529,12 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
     <message>
         <location line="+35"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI Sleutels ( *.pem *.der *.key );; PKCS#8 Sleutels ( *.p8 *.pk8 );; Microsoft PVK Sleutels ( *.pvk );; SSH Publieke Sleutels ( *.pub );;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Import RSA key</source>
         <translation>RSA-sleutel importeren</translation>
-    </message>
-    <message>
-        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
-        <translation type="vanished">PKI Sleutels ( *.pem *.der *.key );; PKCS#8 Sleutels ( *.p8 *.pk8 );; SSH Openbare Sleutels ( *.pub );;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -2695,7 +2679,7 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
         <source>Invalid filename: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldige bestandsnaam: %1</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2779,192 +2763,192 @@ In bibliotheek bestand %3
     <message>
         <location filename="../lib/func.cpp" line="+598"/>
         <source>Country code</source>
-        <translation type="unfinished"></translation>
+        <translation>Landcode</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>State or Province</source>
-        <translation type="unfinished"></translation>
+        <translation>Staat of Provincie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Locality</source>
-        <translation type="unfinished"></translation>
+        <translation>Stad</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisation</source>
-        <translation type="unfinished"></translation>
+        <translation>Organisatie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisational unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Organisatie-eenheid</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Common name</source>
-        <translation type="unfinished"></translation>
+        <translation>CommonName</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>E-Mail address</source>
-        <translation type="unfinished"></translation>
+        <translation>E-Mail adres</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Serienummer</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Given name</source>
-        <translation type="unfinished"></translation>
+        <translation>Voornaam</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Surname</source>
-        <translation type="unfinished"></translation>
+        <translation>Achternaam</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Initials</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Omschrijving</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rol</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pseudonym</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudoniem</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generation Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Generation Qualifier</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>x500 Unique Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>X.500 Unieke IDentificatie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>DN kwalificatie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unstructured name</source>
-        <translation type="unfinished">Ongestructureerde naam</translation>
+        <translation>Ongestructureerde naam</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Challenge wachtwoord</translation>
+        <translation>Challenge wachtwoord</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Basic Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Basis beperkingen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject alternative name</source>
-        <translation type="unfinished">Alternatieve naam van het onderwerp</translation>
+        <translation>Alternatieve naam van het onderwerp</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternatieve naam van de uitgever</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>ID van onderwerp-sleutel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished">Autoriteit sleutel-ID</translation>
+        <translation>Autoriteit sleutel-ID</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key usage</source>
-        <translation type="unfinished">Sleutelgebruik</translation>
+        <translation>Sleutelgebruik</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Extended key usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitgebreid sleutelgebruik</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL distribution points</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL-distributiepunten</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority information access</source>
-        <translation type="unfinished"></translation>
+        <translation>Authoriteit Informatie toegang (AIA)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate type</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificaattype</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Basis URL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Revocation URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Intrekkings URL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA Revocation URL</source>
-        <translation type="unfinished"></translation>
+        <translation>CA-Intrekkings URL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate renewal URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL voor certificaatvernieuwing</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA policy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>CA-beleid URL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSL server name</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL server naam</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished">Commentaar</translation>
+        <translation>Commentaar</translation>
     </message>
 </context>
 <context>
@@ -3191,7 +3175,7 @@ In bibliotheek bestand %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">Sleutel eigenschappen</translation>
+        <translation>Sleutel eigenschappen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3542,12 +3526,12 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
     <message>
         <location line="+6"/>
         <source>PVK private</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK privé</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK versleuteld</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3567,7 +3551,7 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
     <message>
         <location line="+57"/>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne fout</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -3901,17 +3885,17 @@ en werd dus niet opgeslagen</translation>
     <message>
         <location line="+1"/>
         <source>Key type</source>
-        <translation type="unfinished"></translation>
+        <translation>Sleutel type</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key size</source>
-        <translation type="unfinished"></translation>
+        <translation>Sleutel grootte</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">EC Groep</translation>
+        <translation>EC Groep</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -3979,10 +3963,6 @@ en werd dus niet opgeslagen</translation>
 </context>
 <context>
     <name>pki_base</name>
-    <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Fout bij openen van bestand: &apos;%1&apos;:%2</translation>
-    </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="+284"/>
         <source>Unknown</source>
@@ -4064,13 +4044,13 @@ en werd dus niet opgeslagen</translation>
     <message>
         <location line="+219"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished">CRL Vernieuwing van CA nodig op &apos;%1&apos;</translation>
+        <translation>CRL Vernieuwing van CA nodig op &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished">De laatste CRL uitgegeven door CA &apos;%1&apos; vervalt op %2.
+        <translation>De laatste CRL uitgegeven door CA &apos;%1&apos; vervalt op %2.
 Het is opgeslagen in de XCA database &apos;%3&apos;</translation>
     </message>
     <message>
@@ -4082,12 +4062,7 @@ Het is opgeslagen in de XCA database &apos;%3&apos;</translation>
         <location line="+1"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
-It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="vanished">De XCA CRL &apos;%1&apos;, uitgegeven door CA &apos;%2&apos; op %3, en vervalt op %4.
+        <translation>De XCA CRL &apos;%1&apos; uitgegeven op %3 zal verlopen op %4.
 De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
 </context>
@@ -4159,7 +4134,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+19"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer het wachtwoord in dat de Microsoft PVK-sleutel &apos;%1&apos; beschermt</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -4494,16 +4469,6 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Het XCA certificaat &apos;%1&apos;, uitgegeven op %2, vervalt op %3.
 Het certificaat is opgeslagen in de XCA database &apos;%4&apos;</translation>
-    </message>
-    <message>
-        <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="vanished">CRL Vernieuwing van CA nodig op &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
-It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="vanished">De laatste CRL uitgegeven door CA &apos;%1&apos; vervalt op %2.
-Het is opgeslagen in de XCA database &apos;%3&apos;</translation>
     </message>
 </context>
 <context>

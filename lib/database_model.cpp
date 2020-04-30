@@ -458,6 +458,7 @@ database_model::~database_model()
 	qDeleteAll(models);
 	models.clear();
 	db_base::flushLookup();
+	XSqlQuery q("VACUUM");
 
 	QSqlDatabase::database().close();
 	pki_evp::passwd.cleanse();
@@ -530,6 +531,7 @@ void database_model::openRemoteDatabase(const QString &connName,
 	 * dbType() could return "ODBC" but connect to MariaDB
 	 */
 	XSqlQuery q("SET SESSION SQL_MODE='ANSI'");
+	q.exec("PRAGMA secure_delete = 'true'");
 }
 
 void database_model::openLocalDatabase(const QString &connName,

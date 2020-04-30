@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   <?define Version="2.2.0"?>
-  <?define VersionNoDot="020200"?>
+  <?define VersionHash="6f5b5f3152c3"?>
   <?define PackageName="X Certificate and Key management"?>
 -->
 <?include variables.wxi ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <!--     Note to myself: Version upgrade also needs a new Product ID -->
-    <Product Id="c58b920a-bb90-48b9-b0f8-769e51$(var.VersionNoDot)" Version="$(var.Version)"
+    <Product Id="c58b920a-bb90-48b9-b0f8-$(var.VersionHash)" Version="$(var.Version)"
              UpgradeCode="23fdacfe-3ef8-45b4-81e8-b0c90244c217"
              Language="1033" Codepage="1252"
              Name="XCA"

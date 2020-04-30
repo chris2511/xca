@@ -646,12 +646,12 @@
     <message>
         <location line="+1"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Súkromný kľúč vo formáte Microsoft PVK, nešifrovaný</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished"></translation>
+        <translation>Šifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1143,7 +1143,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location line="+4"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>japonsky</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2516,18 +2516,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>pred %1 hodinami</translation>
     </message>
     <message>
-        <source>DB: Rename: &apos;%1&apos; already in use</source>
-        <translation type="vanished">Premenovanie DB: „%1” už je použité</translation>
-    </message>
-    <message>
-        <source>DB: Entry to rename not found: %1</source>
-        <translation type="vanished">DB: Položka na premenovanie nenájdená: %1</translation>
-    </message>
-    <message>
-        <source>DB: Write error %1 - %2</source>
-        <translation type="vanished">DB: Chyba zápisu %1 – %2</translation>
-    </message>
-    <message>
         <location filename="../lib/db.cpp" line="+280"/>
         <location line="+17"/>
         <source>Out of data</source>
@@ -2551,16 +2539,12 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <location line="+35"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúče PKI ( *.pem *.der *.key );; Kľúče PKCS#8 ( *.p8 *.pk8 );; Kľúče Microsoft PVK ( *.pvk );; Verejné kľúče SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Import RSA key</source>
         <translation>Importovať kľúč RSA</translation>
-    </message>
-    <message>
-        <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; SSH Public Keys ( *.pub );;</source>
-        <translation type="vanished">Kľúče PKI ( *.pem *.der *.key );;Kľúče PKCS#8 ( *.p8 *.pk8 );;Verejné kľúče SSH ( *.pub );;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -2705,7 +2689,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
         <source>Invalid filename: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neplatné meno súboru: %1</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2824,7 +2808,7 @@ V knižnici %3
     <message>
         <location line="+1"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Sériové číslo</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2975,6 +2959,18 @@ V knižnici %3
         <location line="+1"/>
         <source>Comment</source>
         <translation>Komentár</translation>
+    </message>
+    <message>
+        <source>DB: Rename: &apos;%1&apos; already in use</source>
+        <translation type="vanished">Premenovanie DB: „%1” už je použité</translation>
+    </message>
+    <message>
+        <source>DB: Entry to rename not found: %1</source>
+        <translation type="vanished">DB: Položka na premenovanie nenájdená: %1</translation>
+    </message>
+    <message>
+        <source>DB: Write error %1 - %2</source>
+        <translation type="vanished">DB: Chyba zápisu %1 – %2</translation>
     </message>
 </context>
 <context>
@@ -3201,7 +3197,7 @@ V knižnici %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">Vlastnosti kľúča</translation>
+        <translation>Vlastnosti kľúča</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3556,12 +3552,12 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
     <message>
         <location line="+6"/>
         <source>PVK private</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK súkromný</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PVK šifrovaný</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3581,7 +3577,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
     <message>
         <location line="+57"/>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>Interná chyba</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -3919,17 +3915,17 @@ a tak nebola uložená</translation>
     <message>
         <location line="+1"/>
         <source>Key type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ kľúča</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key size</source>
-        <translation type="unfinished"></translation>
+        <translation>Veľkosť kľúča</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">Skupina EC</translation>
+        <translation>Skupina EC</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -3998,10 +3994,6 @@ a tak nebola uložená</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_base.cpp" line="+284"/>
         <source>Unknown</source>
         <translation>Neznáme</translation>
@@ -4040,6 +4032,10 @@ a tak nebola uložená</translation>
         <location line="-189"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interná chyba: Neočakávaná správa: %1 %2</translation>
+    </message>
+    <message>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
     </message>
     <message>
         <source>Error writing to file: &apos;%1&apos;: %2</source>
@@ -4086,13 +4082,13 @@ a tak nebola uložená</translation>
     <message>
         <location line="+219"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished">Termín obnovenia CRL CA „%1”</translation>
+        <translation>Termín obnovenia CRL CA „%1”</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished">Posledné CRL vydané CA „%1” vyprší %2.
+        <translation>Posledné CRL vydané CA „%1” vyprší %2.
 Je uložené v databáze XCA „%3”</translation>
     </message>
     <message>
@@ -4104,12 +4100,7 @@ Je uložené v databáze XCA „%3”</translation>
         <location line="+1"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
-It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="vanished">XCA CRL „%1”, vydané CA „%2” %3 vyprší %4.
+        <translation>XCA CRL „%1”, vydané %3 vyprší %4.
 Je uložené v databáze XCA „%5”</translation>
     </message>
     <message>
@@ -4185,7 +4176,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location line="+19"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosím, zadajte heslo na ochranu kľúča Microsoft PVK „%1”</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -4528,16 +4519,6 @@ Je uložené v databáze XCA „%5”</translation>
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Certifikát XCA „%1”, vydaný %2 vyprší %3.
 Je uložený v databáze XCA „%4”</translation>
-    </message>
-    <message>
-        <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="vanished">Termín obnovenia CRL CA „%1”</translation>
-    </message>
-    <message>
-        <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
-It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="vanished">Posledné CRL vydané CA „%1” vyprší %2.
-Je uložené v databáze XCA „%3”</translation>
     </message>
 </context>
 <context>

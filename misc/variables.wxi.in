@@ -1,5 +1,5 @@
 <Include>
     <?define Version="@PACKAGE_VERSION@@ITERATION@"?>
-    <?define VersionNoDot="@VERSIONNODOT@"?>
+    <?define VersionHash="@VERSIONHASH@"?>
     <?define PackageName="@PACKAGE_NAME@"?>
 </Include>

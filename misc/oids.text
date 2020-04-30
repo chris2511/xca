@@ -1,16 +1,9 @@
 
-# OID  			short name      long name
+# OID			short name      long name
 1.3.6.1.4.1.311.20.2:	dom:		Domain Controller
 1.3.6.1.4.1.311.21.1:	MsCaV:		Microsoft CA Version
-1.3.6.1.4.1.311.20.2.3:	msUPN:		Microsoft Universal Principal Name
 1.3.6.1.4.1.311.10.3.4.1:msEFSFR:	Microsoft EFS File Recovery
 1.3.6.1.5.5.8.2.2:	iKEIntermediate: IP security end entity
-1.3.6.1.5.5.7.3.1:      serverAuth:	TLS Web Server Authentication
-1.3.6.1.5.5.7.3.2:      clientAuth:	TLS Web Client Authentication
-1.3.6.1.4.1.311.20.2.2:	msSmartcardLogin: Microsoft Smartcardlogin
-2.5.4.44:		generationQualifier: generationQualifier
-2.5.4.45:		x500UniqueIdentifier: x500UniqueIdentifier
-2.5.4.65:		pseudonym:	pseudonym
 0.2.262.1.10.7.20:	nameDistinguisher: Name distinguisher
 # RFC 4334
 1.3.6.1.5.5.7.3.13:     id-kp-eapOverPPP:       EAP over PPP

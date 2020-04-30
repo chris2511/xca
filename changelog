@@ -1,3 +1,8 @@
+xca 2.3.0 Wed Apr 29 2020
+
+ * Close #191 OID LN differs warning popups at startup
+ * Close #189 Database compaction #189
+ * Improve PKCS11 library loading for portable app
  * Refactor native separators / and \ on windows.
  * Support TLS encrypted MariaDB and PostgreSQL connection
  * Close #182: UI not using Windows native theme in 2.2.1 portable
