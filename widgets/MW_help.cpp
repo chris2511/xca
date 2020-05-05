@@ -129,9 +129,9 @@ void MainWindow::about()
 			.arg(version)
 			.arg(Entropy::strength())
 			.arg(version_str(true))
-			.arg(getPrefix())
-			.arg(getUserSettingsDir())
-			.arg(QString(Settings["workingdir"]))
+			.arg(nativeSeparator(getPrefix()))
+			.arg(nativeSeparator(getUserSettingsDir()))
+			.arg(nativeSeparator(QString(Settings["workingdir"])))
 			.arg(portable_app() ? " (Portable)" : "")
 			.arg(rows.join("</tr><tr>"));
 

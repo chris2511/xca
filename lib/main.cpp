@@ -249,7 +249,7 @@ static database_model* read_cmdline(int argc, char *argv[])
 				cmdline_items->append_item(crl);
 		}
 	}
-	FILE *fp = stdout;
+
 	BioByteArray bba;
 	foreach(pki_base *pki, cmdline_items->get()) {
 		QString filename = pki->getFilename();

@@ -573,7 +573,8 @@ enum open_result MainWindow::init_database(database_model *m)
 	setItemEnabled(true);
 	m->restart_timer();
 	currentDB = models->dbname();
-	dbindex->setText(tr("Database") + ": " + currentDB);
+	dbindex->setText(tr("Database") + ": " +
+			 compressFilename(Database.name()));
 	certView->setRootIsDecorated(db_x509::treeview);
 	set_geometry(Settings["mw_geometry"]);
 

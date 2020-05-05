@@ -438,19 +438,20 @@ QString hostId()
 QString compressFilename(const QString &filename, int maxlen)
 {
 	QString fn = filename;
-	if (fn.length() < maxlen)
-		return fn;
-
-	fn.replace("\\", "/");
-	int len, lastslash = fn.lastIndexOf('/');
-	QString base = filename.mid(lastslash);
-	len = maxlen - base.length() - 3;
-	if (len < 0)
-		return QString("...") + base.right(maxlen -3);
-	fn = fn.left(len);
-	lastslash = fn.lastIndexOf('/');
-
-	return filename.left(lastslash+1) + "..." + base;
+	if (fn.length() >= maxlen) {
+		fn.replace("\\", "/");
+		int len, lastslash = fn.lastIndexOf('/');
+		QString base = filename.mid(lastslash);
+		len = maxlen - base.length() - 3;
+		if (len < 0) {
+			fn = "..." + base.right(maxlen -3);
+		} else {
+			fn = fn.left(len);
+			lastslash = fn.lastIndexOf('/');
+			fn = filename.left(lastslash + 1) + "..." + base;
+		}
+	}
+	return nativeSeparator(fn);
 }
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote)
