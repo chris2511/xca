@@ -31,6 +31,7 @@ class BioByteArray
 	BioByteArray() :
 		 read_write(NULL), read_only(NULL), store() { }
 	~BioByteArray();
+	int size() const;
 	BIO *bio();
 	BIO *ro();
 	QByteArray byteArray() const;

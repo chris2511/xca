@@ -84,6 +84,15 @@ QByteArray BioByteArray::byteArray() const
 	return QByteArray(p, l);
 }
 
+int BioByteArray::size() const
+{
+	if (read_only || !read_write)
+		return store.size();
+	/* "read_write" Bio may differ from "store" */
+	const char *p;
+	return BIO_get_mem_data(read_write, &p);
+}
+
 BioByteArray::operator BIO*()
 {
 	return bio();

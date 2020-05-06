@@ -266,7 +266,8 @@ static database_model* read_cmdline(int argc, char *argv[])
 		if (cmd_opts.has("pem"))
 			pki->print(bba, pki_base::print_pem);
 	}
-	console_write(fp, bba);
+	if (bba.size() > 0)
+		console_write(stdout, bba);
 	if (cmd_opts.has("import")) {
 		models->insert(cmdline_items);
 		delete cmdline_items;
