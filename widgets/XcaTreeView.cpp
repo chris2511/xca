@@ -18,12 +18,6 @@
 #include "XcaProxyModel.h"
 #include "MainWindow.h"
 #include "XcaWarning.h"
-#include "lib/database_model.h"
-
-database_model *XcaTreeView::models() const
-{
-	return mainwin ? mainwin->getModels() : NULL;
-}
 
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)

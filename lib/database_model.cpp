@@ -33,6 +33,8 @@
 #include "db_x509req.h"
 #include "db_temp.h"
 
+xca_db Database;
+
 QSqlError database_model::initSqlDB()
 {
 #define MAX_SCHEMAS 7
@@ -286,11 +288,11 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	 * keys first, followed by x509[req], and crls last.
 	 * Templates don't care.
 	 */
-	models << new db_key(this);
-	models << new db_x509req(this);
-	models << new db_x509(this);
-	models << new db_crl(this);
-	models << new db_temp(this);
+	models << new db_key();
+	models << new db_x509req();
+	models << new db_x509();
+	models << new db_crl();
+	models << new db_temp();
 
 	foreach(db_base *m, models)
 		check_oom(m);
@@ -299,6 +301,7 @@ database_model::database_model(const QString &name, const Passwd &pass)
 		importOldDatabase(oldDbFile);
 
 	pkcs11::libraries.load(Settings["pkcs11path"]);
+	restart_timer();
 }
 
 db_base *database_model::modelForPki(const pki_base *pki) const
@@ -453,7 +456,6 @@ database_model::~database_model()
 		return;
 	}
 	killTimer(dbTimer);
-	qDebug() << "Closing database:" << dbName;
 
 	qDeleteAll(models);
 	models.clear();

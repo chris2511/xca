@@ -34,8 +34,7 @@
 
 bool db_x509::treeview = true;
 
-db_x509::db_x509(database_model *parent)
-	:db_x509super(parent, "certificates")
+db_x509::db_x509() : db_x509super("certificates")
 {
 	sqlHashTable = "certs";
 	pkitype << x509;
@@ -110,7 +109,7 @@ QList<pki_x509 *> db_x509::getAllIssuers()
 
 void db_x509::remFromCont(const QModelIndex &idx)
 {
-	db_crl *crls = models()->model<db_crl>();
+	db_crl *crls = Database.model<db_crl>();
 	db_x509super::remFromCont(idx);
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	pki_x509 *child;
@@ -879,7 +878,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 
 void db_x509::manageRevocations(QModelIndex idx)
 {
-	db_crl *crls = models()->model<db_crl>();
+	db_crl *crls = Database.model<db_crl>();
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert || crls)
 		return;
@@ -1056,7 +1055,7 @@ void db_x509::toCertificate(QModelIndex index)
 
 void db_x509::toRequest(QModelIndex idx)
 {
-	db_x509req *reqs = models()->model<db_x509req>();
+	db_x509req *reqs = Database.model<db_x509req>();
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert)
 		return;

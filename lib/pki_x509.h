@@ -11,6 +11,7 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 #include <openssl/pem.h>
+#include "database_model.h"
 #include "pki_x509super.h"
 #include "x509rev.h"
 #include "x509v3ext.h"

@@ -177,7 +177,7 @@ void MainWindow::init_menu()
 	wdMenuList += import;
 	scardList += token;
 
-	setItemEnabled(!currentDB.isEmpty());
+	setItemEnabled(Database.isOpen());
 }
 
 int MainWindow::changeDB(QString fname)

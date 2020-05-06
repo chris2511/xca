@@ -133,10 +133,9 @@ static Passwd acquire_password(const QString &source)
 }
 
 static pki_multi *cmdline_items;
-static database_model* read_cmdline(int argc, char *argv[])
+static void read_cmdline(int argc, char *argv[])
 {
 	arguments cmd_opts(argc, argv);
-	database_model *models = NULL;
 	pki_evp::passwd = acquire_password(cmd_opts["password"]);
 	Passwd sqlpw = acquire_password(cmd_opts["sqlpass"]);
 
@@ -147,19 +146,23 @@ static database_model* read_cmdline(int argc, char *argv[])
 		cmd_help(EXIT_FAILURE, cmd_opts.resultString().toUtf8());
 
 	if (cmd_opts.has("database"))
-		models = new database_model(cmd_opts["database"], sqlpw);
+		Database.open(cmd_opts["database"], sqlpw);
 
 	cmdline_items = new pki_multi();
 
 	foreach(QString file, cmd_opts.getFiles()) {
 		qDebug() << "Probe" << file;
 		cmdline_items->probeAnything(file);
-
-	if (cmd_opts.needDb() && !models) {
+	}
+	if (cmdline_items->failed_files.size() > 0) {
+		XCA_WARN(QString("Failed to import from '%1'")
+			.arg(cmdline_items->failed_files.join("' '")));
+	}
+	if (cmd_opts.needDb() && !Database.isOpen()) {
 		/* We need a database for the following operations
 		 * but there is none, yet. Try the default database */
 		try {
-			models = new database_model(QString());
+			Database.open(QString());
 		} catch (errorEx &err) {
 			cmd_help(EXIT_FAILURE, CCHAR(err.getString()));
 		} catch (enum open_result opt) {
@@ -183,14 +186,14 @@ static database_model* read_cmdline(int argc, char *argv[])
 	}
 	if (!cmd_opts["index"].isEmpty()) {
 		qDebug() << cmd_opts["index"];
-		db_x509 *certs = models->model<db_x509>();
+		db_x509 *certs = Database.model<db_x509>();
 		certs->writeIndex(cmd_opts["index"], false);
 		XCA_INFO(QObject::tr("Index file written to '%1'")
 					.arg(cmd_opts["index"]));
 	}
 	if (!cmd_opts["hierarchy"].isEmpty()) {
 		qDebug() << cmd_opts["hierarchy"];
-		db_x509 *certs = models->model<db_x509>();
+		db_x509 *certs = Database.model<db_x509>();
 		certs->writeIndex(cmd_opts["hierarchy"], true);
 		XCA_INFO(QObject::tr("Index hierarchy written to '%1'")
 					.arg(cmd_opts["hierarchy"]));
@@ -204,18 +207,18 @@ static database_model* read_cmdline(int argc, char *argv[])
 	if (cmd_opts.has("keygen")) {
 		keyjob task(cmd_opts["keygen"]);
 		if (!task.isValid()) {
-			delete models;
+			Database.close();
 			throw errorEx(QObject::tr("Unknown key type %1")
 					.arg(cmd_opts["keygen"]));
 		}
-		db_key *keys = models->model<db_key>();
+		db_key *keys = Database.model<db_key>();
 		pki_key *pki = keys->newItem(task, cmd_opts["name"]);
 		if (pki)
 			cmdline_items->append_item(pki);
 	}
 	if (cmd_opts.has("issuers")) {
 		QStringList out;
-		db_x509 *certs = models->model<db_x509>();
+		db_x509 *certs = Database.model<db_x509>();
 		QList<pki_x509*>issuers = certs->getAllIssuers();
 		foreach(pki_x509 *iss, issuers) {
 			pki_key *key = iss->getRefKey();
@@ -228,8 +231,8 @@ static database_model* read_cmdline(int argc, char *argv[])
 		console_write(stdout, out.join("\n").toUtf8() + '\n');
 	}
 	if (cmd_opts.has("crlgen")) {
-		db_crl *crls = models->model<db_crl>();
-		db_x509 *certs = models->model<db_x509>();
+		db_crl *crls = Database.model<db_crl>();
+		db_x509 *certs = Database.model<db_x509>();
 		QList<pki_x509*>issuers = certs->getAllIssuers();
 		pki_x509 *issuer = NULL;
 		QString ca = cmd_opts["crlgen"];
@@ -271,11 +274,10 @@ static database_model* read_cmdline(int argc, char *argv[])
 	if (bba.size() > 0)
 		console_write(stdout, bba);
 	if (cmd_opts.has("import")) {
-		models->insert(cmdline_items);
+		Database.insert(cmdline_items);
 		delete cmdline_items;
 		cmdline_items = NULL;
 	}
-	return models;
 }
 
 int main(int argc, char *argv[])
@@ -336,9 +338,9 @@ int main(int argc, char *argv[])
 	for (int i=0; i < argc; i++)
 		qDebug() << "wargv" << argc << i << argv[i];
 	try {
-		database_model *models = read_cmdline(argc, argv);
-			mainwin = new MainWindow(models);
+		read_cmdline(argc, argv);
 		if (gui && !console_only) {
+			mainwin = new MainWindow();
 			gui->setMainwin(mainwin);
 			mainwin->importMulti(cmdline_items, 1);
 			cmdline_items = NULL;
@@ -346,7 +348,7 @@ int main(int argc, char *argv[])
 			gui->exec();
 		} else {
 			delete cmdline_items;
-			delete models;
+			Database.close();
 		}
 	} catch (errorEx &ex) {
 		XCA_ERROR(ex);

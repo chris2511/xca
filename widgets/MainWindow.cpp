@@ -64,8 +64,7 @@ void MainWindow::initResolver()
 		resolver->searchOid(search);
 }
 
-MainWindow::MainWindow(database_model *m)
-	:QMainWindow(NULL)
+MainWindow::MainWindow() : QMainWindow()
 {
 	dbindex = new QLabel();
 	dbindex->setFrameStyle(QFrame::Plain | QFrame::NoFrame);
@@ -134,8 +133,7 @@ MainWindow::MainWindow(database_model *m)
 	dhgenBar->setMinimum(0);
 	dhgenBar->setMaximum(0);
 
-	models = NULL;
-	enum open_result result = m ? init_database(m) :
+	enum open_result result = Database.isOpen() ? init_database() :
 				      init_database(QString());
 	if (result == pw_exit)
 		throw pw_exit;
@@ -208,7 +206,7 @@ void MainWindow::init_images()
 void MainWindow::loadPem()
 {
 	load_pem l;
-	db_key *keys = model<db_key>();
+	db_key *keys = Database.model<db_key>();
 	if (keys)
 		keys->load_default(l);
 }
@@ -532,7 +530,7 @@ void MainWindow::importMulti(pki_multi *multi, int force)
 
 void MainWindow::openRemoteSqlDB()
 {
-	OpenDb *opendb = new OpenDb(this, currentDB);
+	OpenDb *opendb = new OpenDb(this, Database.name());
 	QString descriptor;
 	Passwd pass;
 	DbMap params;
@@ -554,8 +552,8 @@ enum open_result MainWindow::init_database(const QString &name,
 					   const Passwd &pass)
 {
 	try {
-		close_database();
-		return init_database(new database_model(name, pass));
+		Database.open(name, pass);
+		return init_database();
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
 		return open_abort;
@@ -565,14 +563,11 @@ enum open_result MainWindow::init_database(const QString &name,
 	return pw_ok;
 }
 
-enum open_result MainWindow::init_database(database_model *m)
+enum open_result MainWindow::init_database()
 {
-	if (!m)
+	if (!Database.isOpen())
 		return open_abort;
-	models = m;
 	setItemEnabled(true);
-	m->restart_timer();
-	currentDB = models->dbname();
 	dbindex->setText(tr("Database") + ": " +
 			 compressFilename(Database.name()));
 	certView->setRootIsDecorated(db_x509::treeview);
@@ -589,23 +584,20 @@ enum open_result MainWindow::init_database(database_model *m)
 		setOptions();
 	}
 
-	keyView->setModel(model<db_key>());
-	reqView->setModel(model<db_x509req>());
-	certView->setModel(model<db_x509>());
-	tempView->setModel(model<db_temp>());
-	crlView->setModel(model<db_crl>());
+	keyView->setModel(Database.model<db_key>());
+	reqView->setModel(Database.model<db_x509req>());
+	certView->setModel(Database.model<db_x509>());
+	tempView->setModel(Database.model<db_temp>());
+	crlView->setModel(Database.model<db_crl>());
 
 	searchEdit->setText("");
 	searchEdit->show();
 	statusBar()->addWidget(searchEdit, 1);
 
-	db_x509 *certs = model<db_x509>();
-	db_x509req *reqs = model<db_x509req>();
-
 	connect(tempView, SIGNAL(newCert(pki_temp *)),
-		certs,      SLOT(newCert(pki_temp *)) );
+		Database.model<db_x509>(), SLOT(newCert(pki_temp *)));
 	connect(tempView, SIGNAL(newReq(pki_temp *)),
-		reqs,       SLOT(newItem(pki_temp *)) );
+		Database.model<db_x509req>(), SLOT(newItem(pki_temp *)));
 
 	return pw_ok;
 }
@@ -623,23 +615,20 @@ void MainWindow::set_geometry(QString geo)
 
 void MainWindow::close_database()
 {
-	if (!models)
+	if (!Database.isOpen())
 		return;
 
-	qDebug("Closing database: %s", CCHAR(currentDB));
 	Settings["mw_geometry"] = QString("%1,%2,%3")
 			.arg(size().width())
 			.arg(size().height())
 			.arg(tabView->currentIndex());
 
-	delete models;
-	models = NULL;
+	history.addEntry(Database.name());
+	Database.close();
 
 	setItemEnabled(false);
 	dbindex->clear();
-	history.addEntry(currentDB);
 	update_history_menu();
-	currentDB.clear();
 	foreach(XcaTreeView *v, views)
 		v->setModel(NULL);
 	enableTokenMenu(pkcs11::libraries.loaded());
@@ -663,9 +652,9 @@ void MainWindow::exportIndexHierarchy()
 void MainWindow::exportIndex(const QString &fname, bool hierarchy) const
 {
 	qDebug() << fname << hierarchy;
-	if (fname.isEmpty() || !models)
+	if (fname.isEmpty() || !Database.isOpen())
 		return;
-	db_x509 *certs = model<db_x509>();
+	db_x509 *certs = Database.model<db_x509>();
 	certs->writeIndex(fname, hierarchy);
 }
 
@@ -726,11 +715,12 @@ void MainWindow::changeEvent(QEvent *event)
 		retranslateUi(this);
 		dn_translations_setup();
 		init_menu();
-		foreach(db_base *model, models->getModels())
+		foreach(db_base *model, Database.getModels())
 			model->updateHeaders();
 
-		if (!currentDB.isEmpty())
-			dbindex->setText(tr("Database") + ": " + currentDB);
+		if (Database.isOpen())
+			dbindex->setText(tr("Database") + ": " +
+					Database.name());
 		searchEdit->setPlaceholderText(tr("Search"));
 	}
 	QMainWindow::changeEvent(event);
@@ -778,8 +768,7 @@ void MainWindow::dump_database()
 	QString dirname = QFileDialog::getExistingDirectory(
 				NULL, XCA_TITLE, Settings["workingdir"]);
 	try {
-		if (models)
-			models->dump_database(dirname);
+		Database.dump(dirname);
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
 	}
@@ -787,5 +776,5 @@ void MainWindow::dump_database()
 
 void MainWindow::default_database()
 {
-	database_model::as_default_database(currentDB);
+	Database.as_default();
 }

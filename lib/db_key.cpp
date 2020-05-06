@@ -23,8 +23,7 @@
 #include "widgets/PwDialog.h"
 #include "widgets/ExportDialog.h"
 
-db_key::db_key(database_model *parent)
-	:db_base(parent, "keys")
+db_key::db_key() : db_base("keys")
 {
 	sqlHashTable = "public_keys";
 	pkitype << asym_key << smartCard;

@@ -37,7 +37,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(QPixmap(":certImg"));
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	mcont = new db_token(parent->getModels());
+	mcont = new db_token();
 	listView->setModel(mcont);
 	listView->setIconSize(QPixmap(":key").size());
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -111,13 +111,13 @@ void ImportMulti::addItem(pki_base *pki)
 
 bool ImportMulti::openDB() const
 {
-	if (currentDB.isEmpty()) {
+	if (!Database.isOpen()) {
 		if (mainwin->init_database(QString()) == 2)
 			return false;
-		if (currentDB.isEmpty())
+		if (!Database.isOpen())
 			mainwin->load_database();
 	}
-	return !currentDB.isEmpty();
+	return Database.isOpen();
 }
 
 void ImportMulti::dragEnterEvent(QDragEnterEvent *event)
@@ -233,7 +233,6 @@ void ImportMulti::on_renameToken_clicked()
 
 pki_base *ImportMulti::import(const QModelIndex &idx)
 {
-	database_model *models = mainwin->getModels();
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 
 	if (!pki)
@@ -241,19 +240,19 @@ pki_base *ImportMulti::import(const QModelIndex &idx)
 
 	mcont->remFromCont(idx);
 
-	if (!models) {
+	if (!Database.isOpen()) {
 		delete pki;
 		return NULL;
 	}
-	return models->insert(pki);
+	return Database.insert(pki);
 }
 
 void ImportMulti::on_butDetails_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndex index;
-	db_key *keys = mainwin->model<db_key>();
-	db_x509 *certs = mainwin->model<db_x509>();
+	db_key *keys = Database.model<db_key>();
+	db_x509 *certs = Database.model<db_x509>();
 
 	if (!selectionModel->selectedIndexes().count())
 	        return;

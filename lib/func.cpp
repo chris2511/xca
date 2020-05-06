@@ -54,9 +54,6 @@
 #define getch() getchar()
 #endif
 
-#warning Get rid of currentDB
-QString currentDB;
-
 int console_write(FILE *fp, const QByteArray &ba)
 {
 	if (ba.size() == 0)

@@ -8,7 +8,6 @@
 #include "db_base.h"
 #include "func.h"
 #include "exception.h"
-#include "database_model.h"
 #include <QMessageBox>
 #include <QListView>
 #include <QClipboard>
@@ -37,8 +36,8 @@ void db_base::restart_timer()
 	hoursTimer = startTimer(MSECS_PER_HOUR);
 }
 
-db_base::db_base(database_model *parent, const char *classname)
-	:QAbstractItemModel(parent)
+db_base::db_base(const char *classname)
+	:QAbstractItemModel()
 {
 	rootItem = newPKI();
 	rootItem->setIntName(rootItem->getClassName());
@@ -52,11 +51,6 @@ db_base::~db_base()
 {
 	saveHeaderState();
 	delete rootItem;
-}
-
-database_model *db_base::models()
-{
-	return dynamic_cast<database_model*>(QObject::parent());
 }
 
 pki_base *db_base::newPKI(enum pki_type type)

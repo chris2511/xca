@@ -23,7 +23,7 @@ class db_key: public db_base
 		virtual dbheaderList getHeaders();
 		exportType::etype clipboardFormat(QModelIndexList indexes) const;
 	public:
-		db_key(database_model *parent);
+		db_key();
 		QList<pki_key*> getUnusedKeys();
 		QList<pki_key*> getAllKeys();
 		pki_base *newPKI(enum pki_type type = none);

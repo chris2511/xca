@@ -19,8 +19,8 @@
 #include <QFileDialog>
 #include <QFileInfo>
 
-db_x509name::db_x509name(database_model *parent, const char *classname)
-	:db_base(parent, classname)
+db_x509name::db_x509name(const char *classname)
+	:db_base(classname)
 {
 }
 
@@ -37,8 +37,8 @@ dbheaderList db_x509name::getHeaders()
 	return h;
 }
 
-db_x509super::db_x509super(database_model *parent, const char *classname)
-	:db_x509name(parent, classname)
+db_x509super::db_x509super(const char *classname)
+	:db_x509name(classname)
 {
 	pkitype_depends << asym_key << smartCard;
 }
@@ -98,7 +98,7 @@ dbheaderList db_x509super::getHeaders()
 
 pki_key *db_x509super::findKey(pki_x509super *ref)
 {
-	db_key *keys = models()->model<db_key>();
+	db_key *keys = Database.model<db_key>();
 	pki_key *key, *refkey;
 	if (!ref)
 		return NULL;
@@ -129,7 +129,7 @@ QList<pki_x509super *> db_x509super::findByPubKey(pki_key *refkey)
 
 void db_x509super::extractPubkey(QModelIndex index)
 {
-	db_key *keys = models()->model<db_key>();
+	db_key *keys = Database.model<db_key>();
 	pki_key *key;
 	pki_x509super *pki = static_cast<pki_x509super*>
 				(index.internalPointer());
@@ -168,7 +168,7 @@ void db_x509super::toOpenssl(QModelIndex index) const
 
 void db_x509super::toTemplate(QModelIndex index)
 {
-	db_temp *temps = models()->model<db_temp>();
+	db_temp *temps = Database.model<db_temp>();
 	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
 	if (!pki || !temps)
 		return;

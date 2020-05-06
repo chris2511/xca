@@ -9,13 +9,11 @@
 #include "db_x509req.h"
 #include "pki_x509req.h"
 #include "pki_temp.h"
-#include "widgets/MainWindow.h"
 #include "widgets/NewX509.h"
 #include "widgets/XcaWarning.h"
 
 
-db_x509req::db_x509req(database_model *parent)
-	:db_x509super(parent, "requests")
+db_x509req::db_x509req() : db_x509super("requests")
 {
 	sqlHashTable = "requests";
 	pkitype << x509_req;

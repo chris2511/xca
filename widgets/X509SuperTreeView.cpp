@@ -59,7 +59,6 @@ void X509SuperTreeView::toOpenssl()
 
 void X509SuperTreeView::showPki(pki_base *pki) const
 {
-	db_key *keys = models()->model<db_key>();
 	pki_x509super *x = dynamic_cast<pki_x509super *>(pki);
 	if (!x)
 		return;
@@ -75,7 +74,7 @@ void X509SuperTreeView::showPki(pki_base *pki) const
 		this, SLOT(showItem(QString)));
 	connect(basemodel, SIGNAL(pkiChanged(pki_base*)),
 		dlg, SLOT(itemChanged(pki_base*)));
-	connect(keys, SIGNAL(pkiChanged(pki_base*)),
+	connect(Database.model<db_key>(), SIGNAL(pkiChanged(pki_base*)),
 		dlg, SLOT(itemChanged(pki_base*)));
 
 	if (dlg->exec() && basemodel) {

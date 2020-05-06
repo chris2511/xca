@@ -39,7 +39,7 @@ void ReqTreeView::toRequest()
 {
 	pki_x509req *req = static_cast<pki_x509req*>(currentIndex()
 							.internalPointer());
-	db_x509 *certs = models()->model<db_x509>();
+	db_x509 *certs = Database.model<db_x509>();
 	certs->newCert(req);
 }
 

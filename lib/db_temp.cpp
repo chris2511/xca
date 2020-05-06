@@ -11,7 +11,6 @@
 #include "widgets/XcaWarning.h"
 #include "widgets/NewX509.h"
 #include "widgets/XcaDialog.h"
-#include "widgets/MainWindow.h"
 #include <QFileDialog>
 #include <QDir>
 #include <QContextMenuEvent>
@@ -19,8 +18,7 @@
 #include <QInputDialog>
 #include <QFileInfo>
 
-db_temp::db_temp(database_model *parent)
-	:db_x509name(parent, "templates")
+db_temp::db_temp() : db_x509name("templates")
 {
 	sqlHashTable = "templates";
 	pkitype << tmpl;

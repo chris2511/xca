@@ -5,8 +5,7 @@
 #include "sql.h"
 #include "widgets/XcaWarning.h"
 
-db_token::db_token(database_model *parent)
-        :db_base(parent, "manageTokens")
+db_token::db_token() : db_base("manageTokens")
 {
 	updateHeaders();
 }

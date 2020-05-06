@@ -31,7 +31,6 @@ extern MainWindow *mainwin;
 class QContextMenuEvent;
 class XcaTreeView;
 class NewX509;
-class database_model;
 
 class db_base: public QAbstractItemModel
 {
@@ -58,13 +57,12 @@ class db_base: public QAbstractItemModel
 
 	public:
 		void restart_timer();
-		database_model *models();
 		void updateItem(pki_base *pki, const QString &name,
 				const QString &comment);
 
 		virtual pki_base *newPKI(enum pki_type type = none);
 		pki_base *rootItem;
-		db_base(database_model *parent, const char *classname);
+		db_base(const char *classname);
 		virtual void updateHeaders();
 		virtual ~db_base();
 		virtual void insertPKI(pki_base *pki);

@@ -21,7 +21,7 @@ class db_x509req: public db_x509super
 	protected:
 		dbheaderList getHeaders();
 	public:
-		db_x509req(database_model *parent);
+		db_x509req();
 		pki_base* insert(pki_base *item);
 		pki_base *newPKI(enum pki_type type = none);
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);

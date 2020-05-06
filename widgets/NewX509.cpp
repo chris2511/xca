@@ -109,8 +109,8 @@ NewX509::NewX509(MainWindow *mainwin)
 {
 	int i;
 	QStringList keys;
-	db_key *keymodel = mainwin->model<db_key>();
-	db_x509req *reqmodel = mainwin->model<db_x509req>();
+	db_key *keymodel = Database.model<db_key>();
+	db_x509req *reqmodel = Database.model<db_x509req>();
 
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
 
@@ -658,28 +658,28 @@ void NewX509::on_showReqBut_clicked()
 
 QList<pki_x509req *> NewX509::getAllRequests() const
 {
-	return mainwin->model<db_x509req>()->getAllRequests();
+	return Database.model<db_x509req>()->getAllRequests();
 }
 
 QList<pki_x509*> NewX509::getAllIssuers() const
 {
-	return mainwin->model<db_x509>()->getAllIssuers();
+	return Database.model<db_x509>()->getAllIssuers();
 }
 
 QList<pki_temp*> NewX509::getAllTempsAndPredefs() const
 {
-	return mainwin->model<db_temp>()->getPredefs() +
+	return Database.model<db_temp>()->getPredefs() +
 			Store.getAll<pki_temp>();
 }
 
 QList<pki_key*> NewX509::getAllKeys() const
 {
-	return mainwin->model<db_key>()->getAllKeys();
+	return Database.model<db_key>()->getAllKeys();
 }
 
 QList<pki_key*> NewX509::getUnusedKeys() const
 {
-	return mainwin->model<db_key>()->getUnusedKeys();
+	return Database.model<db_key>()->getUnusedKeys();
 }
 
 void NewX509::itemChanged(pki_base* req)

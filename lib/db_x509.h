@@ -29,7 +29,7 @@ class db_x509: public db_x509super
 
 	public:
 		static bool treeview;
-		db_x509(database_model *parent);
+		db_x509();
 		pki_base *newPKI(enum pki_type type = none);
 		pki_x509 *findIssuer(pki_x509 *client);
 		virtual void loadContainer();

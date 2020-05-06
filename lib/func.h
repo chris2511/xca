@@ -36,7 +36,6 @@
 
 #define IS_GUI_APP (qobject_cast<QApplication*>(QCoreApplication::instance()))
 class Validity;
-extern QString currentDB;
 
 int console_write(FILE *fp, const QByteArray &ba);
 Passwd readPass();

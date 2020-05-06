@@ -18,7 +18,7 @@
 
 void CrlTreeView::showPki(pki_base *pki) const
 {
-	db_x509 *certs = models()->model<db_x509>();
+	db_x509 *certs = Database.model<db_x509>();
 	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
 
 	if (!crl || !basemodel || !certs)
@@ -54,7 +54,7 @@ void CrlTreeView::newItem(pki_x509 *cert)
 
 void CrlTreeView::newItem()
 {
-	db_x509 *certs = models()->model<db_x509>();
+	db_x509 *certs = Database.model<db_x509>();
 	QList<pki_x509 *> cas = certs->getAllIssuers();
 	pki_x509 *ca = NULL;
 

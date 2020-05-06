@@ -9,6 +9,7 @@
 #include "pki_crl.h"
 #include "func.h"
 #include "exception.h"
+#include "database_model.h"
 #include <QDir>
 
 #include "openssl_compat.h"
@@ -435,7 +436,7 @@ QStringList pki_crl::icsVEVENT() const
 		  "It is stored in the XCA database '%3'")
 			.arg(ca->getIntName())
 			.arg(getNextUpdate().toPretty())
-			.arg(currentDB)
+			.arg(Database.name())
 		);
 	}
 	return pki_base::icsVEVENT(getNextUpdate(),
@@ -445,7 +446,7 @@ QStringList pki_crl::icsVEVENT() const
 			.arg(getIntName())
 			.arg(getLastUpdate().toPretty())
 			.arg(getNextUpdate().toPretty())
-			.arg(currentDB)
+			.arg(Database.name())
 	);
 }
 

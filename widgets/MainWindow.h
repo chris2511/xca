@@ -69,7 +69,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		DHgen *dhgen;
 		const QList<QStringList> getTranslators() const;
 		QList<XcaTreeView *> views;
-		database_model *models;
 		dbhistory history;
 		void exportIndex(const QString &fname, bool hierarchy) const;
 
@@ -87,15 +86,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	public:
 		int exitApp;
 		QLabel *dbindex;
-		database_model *getModels() const
-		{
-			return models;
-		}
-		template <class T>  T *model() const
-		{
-			return models ? models->model<T>() : NULL;
-		}
-		MainWindow(database_model *m);
+		MainWindow();
 		virtual ~MainWindow();
 		void loadSettings();
 		void saveSettings();
@@ -117,7 +108,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	public slots:
 		enum open_result init_database(const QString &dbName,
 				const Passwd &pass = Passwd());
-		enum open_result init_database(database_model *m);
+		enum open_result init_database();
 		void new_database();
 		void load_database();
 		void close_database();

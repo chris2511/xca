@@ -19,8 +19,7 @@
 #include "widgets/ItemCombo.h"
 #include "ui_NewCrl.h"
 
-db_crl::db_crl(database_model *parent)
-	:db_x509name(parent, "crls")
+db_crl::db_crl() : db_x509name("crls")
 {
 	sqlHashTable = "crls";
 	pkitype << revocation;
@@ -56,7 +55,7 @@ void db_crl::load()
 
 void db_crl::revokeCerts(pki_crl *crl)
 {
-	db_x509 *certs = models()->model<db_x509>();
+	db_x509 *certs = Database.model<db_x509>();
 	x509revList revlist;
 
 	if (!certs)

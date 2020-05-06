@@ -34,7 +34,6 @@ class XcaTreeView: public QTreeView
 	db_base *basemodel;
 	QSortFilterProxyModel *proxy;
 	MainWindow *mainwin;
-	database_model *models() const;
 
    public:
 	XcaTreeView(QWidget *parent = 0);

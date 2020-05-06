@@ -18,7 +18,7 @@ class db_token: public db_base
 	private:
 		slotid slot;
 	public:
-		db_token(database_model *parent);
+		db_token();
 		bool setData(const QModelIndex &index,
 			const QVariant &value, int role);
 		void setSlot(const slotid &s)
