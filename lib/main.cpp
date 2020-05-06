@@ -172,6 +172,15 @@ static database_model* read_cmdline(int argc, char *argv[])
 			cmd_help(EXIT_FAILURE, msg[opt]);
 		}
 	}
+	if (cmd_opts.has("list-curves")) {
+		QStringList list;
+		foreach(const builtin_curve &c, builtinCurves) {
+			list << QString(COL_YELL "%1" COL_RESET "%2")
+					.arg(OBJ_nid2sn(c.nid), -26)
+					.arg(c.comment);
+		}
+		console_write(stdout, list.join("\n").toUtf8() + '\n');
+	}
 	if (!cmd_opts["index"].isEmpty()) {
 		qDebug() << cmd_opts["index"];
 		db_x509 *certs = models->model<db_x509>();
