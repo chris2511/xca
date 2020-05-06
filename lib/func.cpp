@@ -46,6 +46,9 @@
 #if defined(Q_OS_WIN32)
 #include <shlobj.h>
 #include <conio.h>
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x04
+#endif
 #else
 #include <termios.h>
 #define getch() getchar()
@@ -56,18 +59,15 @@ QString currentDB;
 
 int console_write(FILE *fp, const QByteArray &ba)
 {
+	if (ba.size() == 0)
+		return 0;
 #if defined(Q_OS_WIN32)
-	static int got_console;
-	if (!got_console) {
-		if (AttachConsole(-1) || AllocConsole())
-			got_console = 1;
-	}
-	HANDLE out = GetStdHandle(fp == stderr ?
-			STD_ERROR_HANDLE : STD_OUTPUT_HANDLE);
-
-	if (out != INVALID_HANDLE_VALUE) {
+	HANDLE con = GetStdHandle(fp == stderr ? STD_ERROR_HANDLE :
+						 STD_OUTPUT_HANDLE);
+	if (con != INVALID_HANDLE_VALUE) {
 		QString string = QString::fromUtf8(ba);
-		WriteConsoleW(out, string.utf16(), string.size(), NULL, NULL);
+		WriteConsoleW(con, string.utf16(), string.size(), NULL, NULL);
+		//return 0;
 	}
 #endif
 	fputs(ba.constData(), fp);
@@ -86,6 +86,8 @@ Passwd readPass()
 	t.c_lflag &= ~(ECHO | ICANON);
 	if (tcsetattr(0, TCSAFLUSH, &t))
 		throw errorEx(strerror(errno));
+#else
+	qFatal("Password input not supported");
 #endif
 	while(1) {
 		char p = getch();
@@ -223,13 +225,14 @@ const QString getPrefix()
 static QString specialFolder(int csidl)
 {
 	LPITEMIDLIST pidl = NULL;
-	TCHAR buf[255] = "";
+	wchar_t buf[MAX_PATH] = L"";
 
 	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, csidl, &pidl)))
-		SHGetPathFromIDList(pidl, buf);
+		SHGetPathFromIDListW(pidl, buf);
 
-	qDebug() << "Special Folder" << csidl << buf;
-	return QFileInfo(buf).canonicalFilePath();
+	QString f = QString::fromWCharArray(buf);
+	qDebug() << "Special Folder" << csidl << f;
+	return QFileInfo(f).canonicalFilePath();
 }
 #endif
 
@@ -357,15 +360,6 @@ QString getFullFilename(const QString & filename, const QString & selectedFilter
 	return rv;
 }
 
-QString filename2QString(const char *fname)
-{
-#if defined(Q_OS_WIN32)
-	return QString::fromLocal8Bit(fname);
-#else
-	return QString::fromUtf8(fname);
-#endif
-}
-
 QString hostId()
 {
 	static QString id;
@@ -380,14 +374,14 @@ QString hostId()
 	ULONG dwGuid = sizeof guid;
 	HKEY hKey;
 
-	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, REG_CRYPTO, 0,
+	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, REG_CRYPTO, 0,
 			KEY_READ, &hKey) != ERROR_SUCCESS) {
 		XCA_WARN("Registry Key: '" REG_CRYPTO "' not found");
 	} else {
-		if (RegQueryValueEx(hKey, REG_GUID, NULL, NULL,
+		if (RegQueryValueExA(hKey, REG_GUID, NULL, NULL,
 			guid, &dwGuid) != ERROR_SUCCESS) {
 			XCA_WARN("Registry Key: '" REG_CRYPTO "\\" REG_GUID
-				"' not found");
+				 "' not found");
 		}
 	}
 	RegCloseKey(hKey);

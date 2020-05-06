@@ -83,23 +83,15 @@ void myMsgOutput(QtMsgType type, const char *msg)
 	console_write(stderr, QString(COL_YELL "%1%2 %3:" COL_RESET " %4\n")
 			.arg(el/1000, 4)
 			.arg((el%1000)/100, 2, 10, QChar('0'))
-			.arg(severity).arg(msg).toUtf8());
+			.arg(severity).arg(QString::fromUtf8(msg)).toUtf8());
 }
 
 #if QT_VERSION >= 0x050000
 void myMessageOutput(QtMsgType t, const QMessageLogContext &, const QString &m)
 {
-	myMsgOutput(t, CCHAR(m));
+	myMsgOutput(t, m.toUtf8().constData());
 }
 #endif
-
-QCoreApplication *createApplication(int &argc, char *argv[])
-{
-	if (arguments::is_console(argc, argv)) {
-		return new QCoreApplication(argc, argv);
-	}
-	return new XcaApplication(argc, argv);
-}
 
 static void cmd_version(FILE *fp)
 {
@@ -114,10 +106,10 @@ static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 	QString s;
 
 	cmd_version(fp);
-	s = QString("\nUsage %1 <options> <file-to-import> ...\n\n%2")
+	s = QString("\nUsage %1 <options> <file-to-import> ...\n\n%2\n")
 				.arg(xca_name).arg(arguments::help());
 	if (msg)
-		s += QString("\nCmdline Error: %1\n").arg(msg);
+		s += QString("\nError: %1\n").arg(msg);
 
 	console_write(fp, s.toUtf8());
 	exit(exitcode);
@@ -151,15 +143,16 @@ static database_model* read_cmdline(int argc, char *argv[])
 	if (cmd_opts.has("verbose"))
 		debug = 1;
 
-	if (cmd_opts.getResult() == '?')
-		cmd_help(EXIT_FAILURE);
+	if (cmd_opts.getResult() != 0)
+		cmd_help(EXIT_FAILURE, cmd_opts.resultString().toUtf8());
 
 	if (cmd_opts.has("database"))
 		models = new database_model(cmd_opts["database"], sqlpw);
 
 	cmdline_items = new pki_multi();
 
-	foreach(QString file, cmd_opts.getFiles())
+	foreach(QString file, cmd_opts.getFiles()) {
+		qDebug() << "Probe" << file;
 		cmdline_items->probeAnything(file);
 
 	if (cmd_opts.needDb() && !models) {
@@ -278,35 +271,65 @@ static database_model* read_cmdline(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	if (argc > 0)
-		xca_name = argv[0];
-
-#if defined(Q_OS_WIN32)
-	SetUnhandledExceptionFilter(w32_segfault);
-#else
-	signal(SIGSEGV, segv_handler_gui);
-#endif
-
-	QDir().mkpath(getUserSettingsDir());
-
 #if QT_VERSION < 0x050000
 	qInstallMsgHandler(myMsgOutput);
 #else
 	qInstallMessageHandler(myMessageOutput);
 #endif
+#if defined(Q_OS_WIN32)
+	AttachConsole(-1);
+
+	int wargc;
+	wchar_t **wargv = CommandLineToArgvW(GetCommandLineW(), &wargc);
+	if (wargv && wargc) {
+		int i;
+		if (argc != wargc)
+			qWarning() << "argc != wargc" << argc << wargc;
+		if (argc > wargc)
+			argc = wargc;
+		qDebug() << "wargc" << wargc << argc;
+		for (i = 0; i < argc; i++) {
+			QString s = QString::fromWCharArray(wargv[i]);
+			QByteArray ba = s.toUtf8();
+			argv[i] = strdup(ba.constData());
+			qDebug() << "wargv" << i << argv[i] << s;
+		}
+		argv[i] = NULL;
+		LocalFree(wargv);
+	}
+	SetUnhandledExceptionFilter(w32_segfault);
+#else
+	signal(SIGSEGV, segv_handler_gui);
+#endif
+	if (argc > 0)
+		xca_name = argv[0];
 
 	Entropy entropy;
 	Settings.clear();
 
-	QCoreApplication *core = createApplication(argc, argv);
+	bool console_only = arguments::is_console(argc, argv);
+	XcaApplication *gui;
 
+#if !defined(Q_OS_WIN32)
+	if (console_only) {
+		new QCoreApplication(argc, argv);
+		gui = NULL;
+	} else
+#endif
+	{
+		/* On windows, always instantiate a GUI app */
+		gui = new XcaApplication(argc, argv);
+	}
+
+	QDir().mkpath(getUserSettingsDir());
 	initOIDs();
-	XcaApplication *gui = qobject_cast<XcaApplication*>(core);
 
+	for (int i=0; i < argc; i++)
+		qDebug() << "wargv" << argc << i << argv[i];
 	try {
 		database_model *models = read_cmdline(argc, argv);
-		if (gui) {
 			mainwin = new MainWindow(models);
+		if (gui && !console_only) {
 			gui->setMainwin(mainwin);
 			mainwin->importMulti(cmdline_items, 1);
 			cmdline_items = NULL;
@@ -328,6 +351,8 @@ int main(int argc, char *argv[])
 			 << pki->getIntName();
 	delete mainwin;
 	delete gui;
-
+#if defined(Q_OS_WIN32)
+	FreeConsole();
+#endif
 	return EXIT_SUCCESS;
 }

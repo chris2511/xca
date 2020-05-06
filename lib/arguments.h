@@ -43,6 +43,7 @@ class arguments
 	QStringList files;
 	struct option *long_opts;
 	bool need_db;
+	QString result_string;
 
     public:
 	static bool is_console(int argc, char *argv[]);
@@ -58,6 +59,7 @@ class arguments
 	int parse(int argc, char *argv[]);
 	QStringList getFiles() const;
 	int getResult() const;
+	QString resultString() const;
 	bool needDb() const;
 };
 #endif

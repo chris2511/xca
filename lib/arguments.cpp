@@ -124,9 +124,8 @@ QString arguments::help()
 			.arg(help)
 			.arg(i->need_db ? "*" : " ");
 	}
-	s += "\n"
-	     "[*] Needs a database. Either from the commandline\n"
-	     "    or as default database\n";
+	s += "\n[*]" + splitQstring(sizeof("[*] ") -1, width,
+	     QString("Needs a database. Either from the commandline or as default database")) + "\n";
 	return s;
 }
 
@@ -142,20 +141,20 @@ int arguments::parse(int argc, char *argv[])
 	for (i = 0; i < cnt; ++i)
 		opts[i].fillOption(long_opts +i);
 
+	opterr = 0;
 	/* Parse cmdline options argv */
 	while (true) {
 		int optind = 0;
-		result = getopt_long_only(argc, argv, "", long_opts, &optind);
+		result = getopt_long_only(argc, argv, ":", long_opts, &optind);
 		if (result)
 			break;
 		const arg_option i = opts[optind];
-		found_options[i.long_opt] = i.arg_type == file_argument ?
-			filename2QString(optarg) : QString(optarg);
+		found_options[i.long_opt] = QString::fromUtf8(optarg);
 		if (i.need_db)
 			need_db = true;
 	}
 	for (i = optind; i < argc; ++i) {
-		QString file = filename2QString(argv[i]);
+		QString file = QString::fromUtf8(argv[i]);
 		if (!has("database") && file.endsWith(".xdb")) {
 			/* No database given, but here is an xdb file
 			 * Try to be clever.
@@ -165,7 +164,23 @@ int arguments::parse(int argc, char *argv[])
 			files << file;
 		}
 	}
+	if (result == ':') {
+		result_string = QString("Missing option argument for '%1'")
+					.arg(argv[optind-1]);
+	}
+	if (result == '?') {
+		result_string = QString("Invalid option: '%1'")
+					.arg(argv[optind-1]);
+	}
+	if (result == -1)
+		result = 0;
+
 	return result;
+}
+
+QString arguments::resultString() const
+{
+	return result_string;
 }
 
 arguments::arguments(int argc, char *argv[])

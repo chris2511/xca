@@ -36,7 +36,11 @@ static int hex2bin(QString &x, Passwd *final)
 enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
 					bool write, bool abort)
 {
-	if (IS_GUI_APP) {
+#warning merge ifdefs
+#if !defined(Q_OS_WIN32)
+	if (IS_GUI_APP)
+#endif
+	{
 		PwDialog *dlg = new PwDialog(p, write);
 		if (abort)
 			dlg->addAbortButton();
@@ -47,9 +51,11 @@ enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
 			throw pw_exit;
 		return result;
 	}
-	console_write(stdout, QString(COL_CYAN "%1" COL_LRED "\n%2:" COL_RESET)
+#if !defined(Q_OS_WIN32)
+	console_write(stdout, QString(COL_CYAN "%1\n" COL_LRED "%2:" COL_RESET)
 		 .arg(p->getDescription()).arg(tr("Password")).toUtf8());
 	*passwd = readPass();
+#endif
 	return pw_ok;
 }
 

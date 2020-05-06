@@ -55,7 +55,6 @@ const QStringList getLibExtensions();
 QString hostId();
 
 QString formatHash(const QByteArray &data, QString sep = ":", int width = 2);
-QString filename2QString(const char *fname);
 QString compressFilename(const QString &filename, int maxlen = 50);
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote = false);
