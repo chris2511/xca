@@ -62,7 +62,7 @@ void X509SuperTreeView::showPki(pki_base *pki) const
 	pki_x509super *x = dynamic_cast<pki_x509super *>(pki);
 	if (!x)
 		return;
-	CertDetail *dlg = new CertDetail(mainwin);
+	CertDetail *dlg = new CertDetail(NULL);
 	if (!dlg)
 		return;
 

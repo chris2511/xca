@@ -29,10 +29,9 @@
 #include <QMimeData>
 #include <typeinfo>
 
-ImportMulti::ImportMulti(MainWindow *parent)
+ImportMulti::ImportMulti(QWidget *parent)
 	:QDialog(parent)
 {
-	mainwin = parent;
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(QPixmap(":certImg"));
@@ -265,7 +264,7 @@ void ImportMulti::on_butDetails_clicked()
 	try {
 		pki_x509super *pki_super = dynamic_cast<pki_x509super*>(pki);
 		if (pki_super) {
-			CertDetail *dlg = new CertDetail(mainwin);
+			CertDetail *dlg = new CertDetail(NULL);
 			dlg->setX509super(pki_super);
 			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
 				keys, SLOT(showItem(QString)));
@@ -279,7 +278,7 @@ void ImportMulti::on_butDetails_clicked()
 		}
 		pki_key *key = dynamic_cast<pki_key*>(pki);
 		if (key) {
-			KeyDetail *dlg = new KeyDetail(mainwin);
+			KeyDetail *dlg = new KeyDetail(NULL);
 			dlg->setKey(key);
 			if (dlg->exec())
 				pki->setIntName(dlg->keyDesc->text());
@@ -288,7 +287,7 @@ void ImportMulti::on_butDetails_clicked()
 		}
 		pki_crl *crl = dynamic_cast<pki_crl*>(pki);
 		if (crl) {
-			CrlDetail *dlg = new CrlDetail(mainwin);
+			CrlDetail *dlg = new CrlDetail(NULL);
 			dlg->setCrl(crl);
 			connect(dlg->issuerIntName,
 				SIGNAL(doubleClicked(QString)),

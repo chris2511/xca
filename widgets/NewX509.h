@@ -69,9 +69,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		QList<nameEdit> setupExplicitInputs(NIDlist nid_list,
                         QWidget *parent, QWidget *old, int columns);
 
-
 	public:
-		NewX509(MainWindow *parent);
+		NewX509(QWidget *parent);
 		virtual ~NewX509();
 		void initCtx();
 		void setRequest(); // reduce to request form

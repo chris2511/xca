@@ -104,8 +104,8 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(MainWindow *mainwin)
-	:QDialog(mainwin)
+NewX509::NewX509(QWidget *parent)
+	:QDialog(parent)
 {
 	int i;
 	QStringList keys;
@@ -136,7 +136,7 @@ NewX509::NewX509(MainWindow *mainwin)
 	connect(authInfAcc, SIGNAL(textChanged(const QString &)),
                 this, SLOT(checkAuthInfAcc(const QString &)));
 	connect(this, SIGNAL(genKey(QString)),
-		keymodel, SLOT(newItem(QString)));
+		mainwin->keyView, SLOT(newItem(QString)));
 	connect(keymodel, SIGNAL(keyDone(pki_key*)),
 		this, SLOT(newKeyDone(pki_key*)));
 	connect(this, SIGNAL(showReq(pki_base*)),

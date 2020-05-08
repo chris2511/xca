@@ -156,7 +156,7 @@ void db_x509super::toOpenssl(QModelIndex index) const
 {
 	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
 	QString fn = Settings["workingdir"] + pki->getUnderlinedName() + ".conf";
-	QString fname = QFileDialog::getSaveFileName(mainwin,
+	QString fname = QFileDialog::getSaveFileName(NULL,
 		tr("Save as OpenSSL config"),	fn,
 		tr("Config files ( *.conf *.cnf);; All files ( * )"));
 	if (fname.isEmpty())
@@ -185,7 +185,7 @@ void db_x509super::toTemplate(QModelIndex index)
 				QString("</h3><hr>") +
 				el.getHtml("<br>");
 			QTextEdit *textbox = new QTextEdit(etext);
-		        XcaDialog *d = new XcaDialog(mainwin, x509, textbox,
+		        XcaDialog *d = new XcaDialog(NULL, x509, textbox,
 						QString(), QString());
 			d->aboutDialog(QPixmap(":tempImg"));
 		        d->exec();

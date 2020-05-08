@@ -607,7 +607,7 @@ void db_base::editComment(const QModelIndex &index)
 	prop->name->setText(item->getIntName());
 	prop->source->setText(item->pki_source_name());
 	prop->insertionDate->setText(item->getInsertionDate().toPretty());
-	XcaDialog *d = new XcaDialog(mainwin, item->getType(), w,
+	XcaDialog *d = new XcaDialog(NULL, item->getType(), w,
 		tr("Item properties"), QString());
 	if (d->exec())
 		updateItem(item, prop->name->text(), prop->comment->toPlainText());
@@ -617,7 +617,7 @@ void db_base::editComment(const QModelIndex &index)
 void db_base::load_default(load_base &load)
 {
 	QString s;
-	QStringList slist = QFileDialog::getOpenFileNames(mainwin, load.caption,
+	QStringList slist = QFileDialog::getOpenFileNames(NULL, load.caption,
 				Settings["workingdir"], load.filter);
 
 	if (!slist.count())
@@ -625,7 +625,7 @@ void db_base::load_default(load_base &load)
 
 	update_workingdir(slist[0]);
 
-	ImportMulti *dlgi = new ImportMulti(mainwin);
+	ImportMulti *dlgi = new ImportMulti(NULL);
 	foreach(s, slist) {
 		pki_base *item = NULL;
 		try {
@@ -645,7 +645,7 @@ void db_base::store(QModelIndexList indexes)
 {
 	int ret;
 
-	xcaWarning msg(mainwin, tr("How to export the %1 selected items").
+	xcaWarning msg(NULL, tr("How to export the %1 selected items").
 				arg(indexes.size()));
 	msg.addButton(QMessageBox::Ok, tr("All in one PEM file"));
 	msg.addButton(QMessageBox::Apply, tr("Each item in one file"));
@@ -659,7 +659,7 @@ void db_base::store(QModelIndexList indexes)
 		return;
 	}
 
-	QString s = QFileDialog::getSaveFileName(mainwin,
+	QString s = QFileDialog::getSaveFileName(NULL,
 		tr("Save %1 items in one file as").arg(indexes.size()),
 		Settings["workingdir"] + "export.pem",
 		tr("PEM files ( *.pem );; All files ( * )"));

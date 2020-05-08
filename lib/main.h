@@ -13,6 +13,7 @@
 class pki_multi;
 
 class MainWindow;
+extern MainWindow *mainwin;
 
 extern char segv_data[1024];
 //extern bool exitApp;

@@ -109,7 +109,7 @@ void db_temp::store(QModelIndex index)
 
 	QString fn = Settings["workingdir"] +
 		temp->getUnderlinedName() + ".xca";
-	QString s = QFileDialog::getSaveFileName(mainwin,
+	QString s = QFileDialog::getSaveFileName(NULL,
 		tr("Save template as"),	fn,
 		tr("XCA templates ( *.xca );; All files ( * )"));
 	if (s.isEmpty())

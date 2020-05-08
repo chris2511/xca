@@ -23,11 +23,10 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 	private:
 		slotid slot;
 		db_token *mcont;
-		MainWindow *mainwin;
 		void importError(QStringList failed);
 
 	public:
-		ImportMulti(MainWindow *parent);
+		ImportMulti(QWidget *parent);
 		~ImportMulti();
 		void addItem(pki_base *pki);
 		pki_base *getSelected();

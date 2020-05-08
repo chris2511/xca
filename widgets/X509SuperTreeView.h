@@ -30,9 +30,9 @@ class X509SuperTreeView: public XcaTreeView
 	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void showPki(pki_base *pki) const;
 
     public slots:
+	void showPki(pki_base *pki) const;
 	void extractPubkey();
 	void toTemplate();
 	void toOpenssl();

@@ -36,27 +36,25 @@ static int hex2bin(QString &x, Passwd *final)
 enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
 					bool write, bool abort)
 {
-#warning merge ifdefs
 #if !defined(Q_OS_WIN32)
-	if (IS_GUI_APP)
-#endif
-	{
-		PwDialog *dlg = new PwDialog(p, write);
-		if (abort)
-			dlg->addAbortButton();
-		enum open_result result = (enum open_result)dlg->exec();
-		*passwd = dlg->getPass();
-		delete dlg;
-		if (result == pw_exit)
-			throw pw_exit;
-		return result;
+	if (!IS_GUI_APP) {
+		console_write(stdout,
+			QString(COL_CYAN "%1\n" COL_LRED "%2:" COL_RESET)
+				.arg(p->getDescription())
+				.arg(tr("Password")).toUtf8());
+		*passwd = readPass();
+		return pw_ok;
 	}
-#if !defined(Q_OS_WIN32)
-	console_write(stdout, QString(COL_CYAN "%1\n" COL_LRED "%2:" COL_RESET)
-		 .arg(p->getDescription()).arg(tr("Password")).toUtf8());
-	*passwd = readPass();
 #endif
-	return pw_ok;
+	PwDialog *dlg = new PwDialog(p, write);
+	if (abort)
+		dlg->addAbortButton();
+	enum open_result result = (enum open_result)dlg->exec();
+	*passwd = dlg->getPass();
+	delete dlg;
+	if (result == pw_exit)
+		throw pw_exit;
+	return result;
 }
 
 int PwDialog::pwCallback(char *buf, int size, int rwflag, void *userdata)

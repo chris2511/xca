@@ -426,7 +426,7 @@ void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
 
 void db_x509::newItem()
 {
-	NewX509 *dlg = new NewX509(mainwin);
+	NewX509 *dlg = new NewX509(NULL);
 	dlg->setCert();
 	pki_x509 *sigcert = get1SelectedCert();
 	dlg->defineSigner((pki_x509*)sigcert, true);
@@ -438,7 +438,7 @@ void db_x509::newItem()
 
 void db_x509::newCert(pki_x509req *req)
 {
-	NewX509 *dlg = new NewX509(mainwin);
+	NewX509 *dlg = new NewX509(NULL);
 	pki_x509 *sigcert = get1SelectedCert();
 	dlg->setCert();
 	dlg->defineRequest(req);
@@ -451,7 +451,7 @@ void db_x509::newCert(pki_x509req *req)
 
 void db_x509::newCert(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(mainwin);
+	NewX509 *dlg = new NewX509(NULL);
 	dlg->setCert();
 	dlg->defineTemplate(temp);
 	if (dlg->exec()) {
@@ -462,7 +462,7 @@ void db_x509::newCert(pki_temp *temp)
 
 void db_x509::newCert(pki_x509 *cert)
 {
-	NewX509 *dlg = new NewX509(mainwin);
+	NewX509 *dlg = new NewX509(NULL);
 	dlg->setCert();
 	dlg->fromX509super(cert, false);
 	if (dlg->exec()) {
@@ -678,7 +678,7 @@ void db_x509::store(QModelIndexList list)
 			tr("CA vCalendar"));
 
 	types = usual << exportType() << types;
-	ExportDialog *dlg = new ExportDialog(mainwin, tr("Certificate export"),
+	ExportDialog *dlg = new ExportDialog(NULL, tr("Certificate export"),
 		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"), crt,
 		QPixmap(":certImg"), types);
 	if (!dlg->exec()) {
@@ -882,7 +882,7 @@ void db_x509::manageRevocations(QModelIndex idx)
 	pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
 	if (!cert || crls)
 		return;
-	RevocationList *dlg = new RevocationList(mainwin);
+	RevocationList *dlg = new RevocationList(NULL);
 	dlg->setRevList(cert->getRevList(), cert);
 	connect(dlg, SIGNAL(genCRL(pki_x509*)),
 		crls, SLOT(newItem(pki_x509*)));
@@ -913,7 +913,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 				signkey->isPubKey())
 			return;
 		bool renew_myself = signer == oldcert;
-		CertExtend *dlg = new CertExtend(mainwin,
+		CertExtend *dlg = new CertExtend(NULL,
 					renew_myself ? NULL : signer);
 		dlg->revoke->setEnabled(!renew_myself);
 		if (!dlg->exec()) {
@@ -921,7 +921,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			return;
 		}
 		if (dlg->revoke->isChecked() && !renew_myself) {
-			Revocation *revoke = new Revocation(mainwin, indexes);
+			Revocation *revoke = new Revocation(NULL, indexes);
 			doRevoke = revoke->exec();
 			r = revoke->getRevocation();
 			delete revoke;
@@ -967,7 +967,7 @@ void db_x509::revoke(QModelIndexList indexes)
 {
 	if (indexes.size() == 0)
 		return;
-	Revocation *revoke = new Revocation(mainwin, indexes);
+	Revocation *revoke = new Revocation(NULL, indexes);
 	if (revoke->exec()) {
 		do_revoke(indexes, revoke->getRevocation());
 	}
@@ -1095,7 +1095,7 @@ void db_x509::caProperties(QModelIndex idx)
 	if (!cert)
 		return;
 
-	QDialog *dlg = new QDialog(mainwin);
+	QDialog *dlg = new QDialog(NULL);
 	ui.setupUi(dlg);
 	ui.days->setSuffix(QString(" ") + tr("days"));
 	ui.days->setMaximum(1000000);
