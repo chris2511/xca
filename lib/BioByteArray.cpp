@@ -52,7 +52,8 @@ BioByteArray::~BioByteArray()
 	store.fill(0);
 	store.clear();
 	cleanse_and_free(read_write);
-	cleanse_and_free(read_only);
+	if (read_only)
+		BIO_free(read_only);
 }
 
 BIO *BioByteArray::bio()
