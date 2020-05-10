@@ -95,6 +95,11 @@ class db_base: public QAbstractItemModel
 				return NULL;
 			return static_cast<pki_base*>(index.internalPointer());
 		}
+		template <class T>
+		static T *fromIndex(const QModelIndex &index)
+		{
+			return dynamic_cast<T*>(fromIndex(index));
+		}
 		void load_default(load_base &load);
 		void insertChild(pki_base *child, pki_base *parent = NULL);
 		int rownumber(const pki_base *child) const;

@@ -28,7 +28,7 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 
-	pki_x509 *cert = dynamic_cast<pki_x509*>(db_base::fromIndex(index));
+	pki_x509 *cert = db_base::fromIndex<pki_x509>(index);
 	pki_x509 *parent;
 
 	if (indexes.size() == 0 || !cert)
@@ -43,8 +43,9 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 	allUnrevoked = allRevoked = sameParent = true;
 	foreach(QModelIndex i, indexes) {
-		pki_x509 *c = static_cast<pki_x509*>
-				(i.internalPointer());
+		pki_x509 *c = db_base::fromIndex<pki_x509>(i);
+		if (!c)
+			continue;
 		if (c->getSigner() != parent)
 			sameParent = false;
 		if (c->isRevoked())
@@ -124,8 +125,7 @@ void CertTreeView::loadPKCS7()
 
 void CertTreeView::genCrl()
 {
-	pki_x509 *ca = static_cast<pki_x509*>
-			(currentIndex().internalPointer());
+	pki_x509 *ca = db_base::fromIndex<pki_x509>(currentIndex());
 
 	if (mainwin && ca)
 		mainwin->crlView->newItem(ca);
@@ -139,8 +139,7 @@ void CertTreeView::toCertificate()
 
 void CertTreeView::deleteFromToken()
 {
-	pki_x509 *cert = static_cast<pki_x509*>
-			(currentIndex().internalPointer());
+	pki_x509 *cert = db_base::fromIndex<pki_x509>(currentIndex());
 	try {
 		cert->deleteFromToken();
 	} catch (errorEx &err) {

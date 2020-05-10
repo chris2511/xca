@@ -63,7 +63,6 @@ class db_x509: public db_x509super
 		void revoke(QModelIndexList indexes);
 		void do_revoke(QModelIndexList indexes, const x509rev &r);
 		void unRevoke(QModelIndexList indexes);
-		pki_x509 *certFromIndex(const QModelIndex &index) const;
 
 	public slots:
 		void newItem();

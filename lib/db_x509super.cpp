@@ -131,8 +131,7 @@ void db_x509super::extractPubkey(QModelIndex index)
 {
 	db_key *keys = Database.model<db_key>();
 	pki_key *key;
-	pki_x509super *pki = static_cast<pki_x509super*>
-				(index.internalPointer());
+	pki_x509super *pki = fromIndex<pki_x509super>(index);
 	if (!pki)
 		return;
 	key = pki->getPubKey();
@@ -154,7 +153,7 @@ void db_x509super::extractPubkey(QModelIndex index)
 
 void db_x509super::toOpenssl(QModelIndex index) const
 {
-	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
+	pki_x509super *pki = fromIndex<pki_x509super>(index);
 	QString fn = Settings["workingdir"] + pki->getUnderlinedName() + ".conf";
 	QString fname = QFileDialog::getSaveFileName(NULL,
 		tr("Save as OpenSSL config"),	fn,
@@ -169,7 +168,7 @@ void db_x509super::toOpenssl(QModelIndex index) const
 void db_x509super::toTemplate(QModelIndex index)
 {
 	db_temp *temps = Database.model<db_temp>();
-	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
+	pki_x509super *pki = fromIndex<pki_x509super>(index);
 	if (!pki || !temps)
 		return;
 

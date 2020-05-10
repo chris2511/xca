@@ -201,7 +201,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 	bool ssh2compatible = true;
 
 	foreach(QModelIndex idx, indexes) {
-		pki_key *key = dynamic_cast<pki_key*>(fromIndex(idx));
+		pki_key *key = fromIndex<pki_key>(idx);
 		if (!key)
 			continue;
 		if (key->isPubKey() || key->isToken())
@@ -243,7 +243,7 @@ void db_key::store(QModelIndex index)
 	QList<exportType> types;
 	bool pvk = false;
 
-	pki_key *key = dynamic_cast<pki_key*>(fromIndex(index));
+	pki_key *key = fromIndex<pki_key>(index);
 	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
 
 	if (!index.isValid() || !key)
@@ -357,10 +357,9 @@ void db_key::store(QModelIndex index)
 
 void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)
 {
-	pki_evp *targetKey;
+	pki_evp *targetKey = fromIndex<pki_evp>(idx);
 	enum pki_key::passType old_type;
 
-	targetKey = dynamic_cast<pki_evp*>(fromIndex(idx));
 	if (!idx.isValid() || !targetKey)
 		return;
 	if (targetKey->isToken()) {

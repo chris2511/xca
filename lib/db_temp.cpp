@@ -102,7 +102,7 @@ void db_temp::load()
 
 void db_temp::store(QModelIndex index)
 {
-	pki_temp *temp = dynamic_cast<pki_temp*>(fromIndex(index));
+	pki_temp *temp = fromIndex<pki_temp>(index);
 
 	if (!index.isValid() || !temp)
 		return;

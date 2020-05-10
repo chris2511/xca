@@ -191,9 +191,9 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 		serial->setText(QString("Batch revocation of %1 Certificates").
 				arg(indexes.size()));
 		foreach(QModelIndex idx, indexes) {
-			pki_x509 *cert = static_cast<pki_x509*>
-				(idx.internalPointer());
-			serials << cert->getSerial();
+			pki_x509 *cert = db_base::fromIndex<pki_x509>(idx);
+			if (cert)
+				serials << cert->getSerial();
 		}
 		std::sort(serials.begin(), serials.end());
 		foreach(a1int a, serials)
@@ -201,8 +201,7 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 		serial->setToolTip(sl.join("\n"));
 		serial->setEnabled(false);
 	} else if (indexes.size() == 1) {
-		pki_x509 *cert = static_cast<pki_x509*>
-				(indexes[0].internalPointer());
+		pki_x509 *cert = db_base::fromIndex<pki_x509>(indexes[0]);
 		serial->setText(cert->getSerial());
 		serial->setEnabled(false);
 	} else {

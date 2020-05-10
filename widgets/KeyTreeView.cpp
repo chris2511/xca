@@ -19,7 +19,7 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 {
 	bool multi = indexes.size() > 1;
 
-	pki_key *key = dynamic_cast<pki_key*>(db_base::fromIndex(index));
+	pki_key *key = db_base::fromIndex<pki_key>(index);
 
 	if (indexes.size() == 0 || !key)
 		return;
@@ -84,7 +84,7 @@ void KeyTreeView::changePin()
 
 	if (!currentIdx.isValid())
 		return;
-	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
+	scard = db_base::fromIndex<pki_scard>(currentIdx);
 	try {
 		if (!scard->isToken()) {
 			throw errorEx(tr("This is not a token"));
@@ -102,7 +102,7 @@ void KeyTreeView::initPin()
 
 	if (!currentIdx.isValid())
 		return;
-	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
+	scard = db_base::fromIndex<pki_scard>(currentIdx);
 	try {
 		if (!scard->isToken()) {
 			throw errorEx(tr("This is not a token"));
@@ -120,7 +120,7 @@ void KeyTreeView::changeSoPin()
 
 	if (!currentIdx.isValid())
 		return;
-	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
+	scard = db_base::fromIndex<pki_scard>(currentIdx);
 	try {
 		if (!scard->isToken()) {
 			throw errorEx(tr("This is not a token"));
@@ -138,7 +138,7 @@ void KeyTreeView::toToken()
 	if (!currentIdx.isValid() || !basemodel)
 		return;
 
-	pki_key *key = static_cast<pki_scard*>(currentIdx.internalPointer());
+	pki_key *key = db_base::fromIndex<pki_key>(currentIdx);
 	if (!key || !pkcs11::libraries.loaded() || key->isToken())
 		return;
 

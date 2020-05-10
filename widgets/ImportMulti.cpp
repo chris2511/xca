@@ -152,7 +152,7 @@ void ImportMulti::on_butRemove_clicked()
 		if (index.column() != 0)
 			continue;
 		mcont->remFromCont(index);
-		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+		pki_base *pki = db_base::fromIndex(index);
 		delete pki;
 	}
 }
@@ -202,7 +202,7 @@ void ImportMulti::on_deleteToken_clicked()
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
-		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+		pki_base *pki = db_base::fromIndex(index);
 		try {
 			pki->deleteFromToken(slot);
 			mcont->remFromCont(index);
@@ -257,7 +257,7 @@ void ImportMulti::on_butDetails_clicked()
 	        return;
 
 	index = selectionModel->selectedIndexes().first();
-	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+	pki_base *pki = db_base::fromIndex(index);
 
 	if (!pki)
 		return;
@@ -316,8 +316,7 @@ ImportMulti::~ImportMulti()
 	QModelIndex idx = listView->currentIndex();
 	while (idx != QModelIndex()) {
 		mcont->remFromCont(idx);
-		pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-		delete pki;
+		delete db_base::fromIndex(idx);
 		idx = listView->currentIndex();
 	}
 	listView->setModel(NULL);

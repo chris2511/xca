@@ -216,7 +216,7 @@ void XcaTreeView::deleteItems()
 		return;
 
 	foreach(index, indexes) {
-		pki = static_cast<pki_base*>(index.internalPointer());
+		pki = db_base::fromIndex(index);
 		items += "'" + pki->getIntName() + "' ";
 		count++;
 	}
@@ -307,7 +307,7 @@ void XcaTreeView::columnRemove(void)
 
 void XcaTreeView::showItem(const QModelIndex &index)
 {
-	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+	pki_base *pki = db_base::fromIndex(index);
 	showItem(pki);
 }
 

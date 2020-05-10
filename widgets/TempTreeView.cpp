@@ -27,11 +27,9 @@ void TempTreeView::fillContextMenu(QMenu *menu, QMenu *,
 
 void TempTreeView::duplicateTemp()
 {
-	QModelIndex currentIdx = currentIndex();
-
-	if (!currentIdx.isValid() || !basemodel)
+	pki_temp *temp = db_base::fromIndex<pki_temp>(currentIndex());
+	if (!temp || !basemodel)
 		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 	pki_temp *newtemp = new pki_temp(temp);
 	newtemp->setIntName(newtemp->getIntName() + " " + tr("copy"));
 	temps()->insertPKI(newtemp);
@@ -39,22 +37,16 @@ void TempTreeView::duplicateTemp()
 
 void TempTreeView::certFromTemp()
 {
-	QModelIndex currentIdx = currentIndex();
-
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	emit newCert(temp);
+	pki_temp *temp = db_base::fromIndex<pki_temp>(currentIndex());
+	if (temp)
+		emit newCert(temp);
 }
 
 void TempTreeView::reqFromTemp()
 {
-	QModelIndex currentIdx = currentIndex();
-
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	emit newReq(temp);
+	pki_temp *temp = db_base::fromIndex<pki_temp>(currentIndex());
+	if (temp)
+		emit newReq(temp);
 }
 
 void TempTreeView::showPki(pki_base *pki) const

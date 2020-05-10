@@ -108,7 +108,7 @@ void db_x509req::store(QModelIndex index)
 {
 	QList<exportType> types;
 
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	pki_x509req *req = fromIndex<pki_x509req>(index);
 	if (!req)
 		return;
 
@@ -138,7 +138,7 @@ void db_x509req::store(QModelIndex index)
 
 void db_x509req::setSigned(QModelIndex index, bool signe)
 {
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	pki_x509req *req = fromIndex<pki_x509req>(index);
 	if (!req)
 		return;
 	req->markSigned(signe);

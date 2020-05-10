@@ -335,18 +335,13 @@ void db_x509::load(void)
 	load_default(c);
 }
 
-pki_x509 *db_x509::certFromIndex(const QModelIndex &index) const
-{
-	return dynamic_cast<pki_x509*>(fromIndex(index));
-}
-
 pki_x509 *db_x509::get1SelectedCert()
 {
 	QModelIndexList indexes = mainwin->certView->getSelectedIndexes();
 	QModelIndex index;
 	if (indexes.count())
 		index = indexes[0];
-	return certFromIndex(index);
+	return fromIndex<pki_x509>(index);
 }
 
 void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
@@ -566,7 +561,7 @@ void db_x509::store(QModelIndexList list)
 	if (list.size() == 0)
 		return;
 
-	pki_x509 *oldcrt, *crt = certFromIndex(list[0]);
+	pki_x509 *oldcrt, *crt = fromIndex<pki_x509>(list[0]);
 	if (!crt)
 		return;
 
@@ -660,7 +655,7 @@ void db_x509::store(QModelIndexList list)
 			break;
 		case exportType::PEM_selected:
 			foreach(QModelIndex idx, list) {
-				crt = certFromIndex(idx);
+				crt = fromIndex<pki_x509>(idx);
 				if (crt)
 					crt->writeCert(file, true);
 			}
@@ -716,7 +711,7 @@ void db_x509::store(QModelIndexList list)
 			break;
 		case exportType::Index:
 			foreach(QModelIndex idx, list) {
-				crt = certFromIndex(idx);
+				crt = fromIndex<pki_x509>(idx);
 				if (crt)
 					certs << crt;
 			}
@@ -724,7 +719,7 @@ void db_x509::store(QModelIndexList list)
 			break;
 		case exportType::vcalendar:
 			foreach(QModelIndex idx, list) {
-				crt = certFromIndex(idx);
+				crt = fromIndex<pki_x509>(idx);
 				if (crt)
 					vcal += crt->icsVEVENT();
 			}
@@ -732,7 +727,7 @@ void db_x509::store(QModelIndexList list)
 			break;
 		case exportType::vcalendar_ca:
 			foreach(QModelIndex idx, list) {
-				crt = certFromIndex(idx);
+				crt = fromIndex<pki_x509>(idx);
 				if (crt)
 					vcal += crt->icsVEVENT_ca();
 			}
@@ -810,7 +805,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 			break;
 		case exportType::PKCS7_selected:
 			foreach(QModelIndex idx, list) {
-				cert = certFromIndex(idx);
+				cert = fromIndex<pki_x509>(idx);
 				if (cert)
 					p7->append_item(cert);
 			}
@@ -837,7 +832,7 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 void db_x509::manageRevocations(QModelIndex idx)
 {
 	db_crl *crls = Database.model<db_crl>();
-	pki_x509 *cert = certFromIndex(idx);
+	pki_x509 *cert = fromIndex<pki_x509>(idx);
 	if (!cert || crls)
 		return;
 	RevocationList *dlg = new RevocationList(NULL);
@@ -865,7 +860,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 	QModelIndex idx = indexes[0];
 
 	try {
-		oldcert = certFromIndex(idx);
+		oldcert = fromIndex<pki_x509>(idx);
 		if (!oldcert || !(signer = oldcert->getSigner()) ||
 				!(signkey = signer->getRefKey()) ||
 				signkey->isPubKey())
@@ -885,7 +880,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			delete revoke;
 		}
 		foreach(idx, indexes) {
-			oldcert = certFromIndex(idx);
+			oldcert = fromIndex<pki_x509>(idx);
 			if (!oldcert)
 				continue;
 			newcert = new pki_x509(oldcert);
@@ -939,7 +934,7 @@ void db_x509::do_revoke(QModelIndexList indexes, const x509rev &r)
 	x509revList revlist;
 
 	foreach(QModelIndex idx, indexes) {
-		cert = certFromIndex(idx);
+		cert = fromIndex<pki_x509>(idx);
 		if (!cert)
 			continue;
 		iss = cert->getSigner();
@@ -955,7 +950,7 @@ void db_x509::do_revoke(QModelIndexList indexes, const x509rev &r)
 			 __func__, __LINE__);
 	}
 	foreach(QModelIndex idx, indexes) {
-		cert = certFromIndex(idx);
+		cert = fromIndex<pki_x509>(idx);
 		if (!cert)
 			continue;
 		x509rev rev(r);
@@ -972,7 +967,7 @@ void db_x509::unRevoke(QModelIndexList indexes)
 	x509revList revList;
 
 	foreach(QModelIndex idx, indexes) {
-		pki_x509 *cert = certFromIndex(idx);
+		pki_x509 *cert = fromIndex<pki_x509>(idx);
 		if (!cert)
 			continue;
 		pki_x509 *iss = cert->getSigner();
@@ -993,7 +988,7 @@ void db_x509::unRevoke(QModelIndexList indexes)
 	foreach(QModelIndex idx, indexes) {
 		int i;
 		x509rev rev;
-		pki_x509 *cert = certFromIndex(idx);
+		pki_x509 *cert = fromIndex<pki_x509>(idx);
 
 		if (!cert)
 			continue;
@@ -1010,7 +1005,7 @@ void db_x509::unRevoke(QModelIndexList indexes)
 
 void db_x509::toCertificate(QModelIndex index)
 {
-	pki_x509 *cert = certFromIndex(index);
+	pki_x509 *cert = fromIndex<pki_x509>(index);
 	if (!cert)
 		return;
 	if (!cert->getRefKey() && cert->getSigner() != cert)
@@ -1022,7 +1017,7 @@ void db_x509::toCertificate(QModelIndex index)
 void db_x509::toRequest(QModelIndex idx)
 {
 	db_x509req *reqs = Database.model<db_x509req>();
-	pki_x509 *cert = certFromIndex(idx);
+	pki_x509 *cert = fromIndex<pki_x509>(idx);
 	if (!cert)
 		return;
 
@@ -1042,7 +1037,7 @@ void db_x509::toRequest(QModelIndex idx)
 
 void db_x509::toToken(QModelIndex idx, bool alwaysSelect)
 {
-	pki_x509 *cert = certFromIndex(idx);
+	pki_x509 *cert = fromIndex<pki_x509>(idx);
 	if (!cert)
 		return;
 	try {
@@ -1057,7 +1052,7 @@ void db_x509::caProperties(QModelIndex idx)
 	QStringList actions;
 	Ui::CaProperties ui;
 
-	pki_x509 *cert = certFromIndex(idx);
+	pki_x509 *cert = fromIndex<pki_x509>(idx);
 	if (!cert)
 		return;
 

@@ -121,7 +121,7 @@ pki_base *db_crl::insert(pki_base *item)
 
 void db_crl::store(QModelIndex index)
 {
-	pki_crl *crl = dynamic_cast<pki_crl*>(fromIndex(index));
+	pki_crl *crl = fromIndex<pki_crl>(index);
 
 	if (!index.isValid() || !crl)
 		return;

@@ -39,8 +39,8 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 	if (hd_left->type == dbheader::hd_asn1time &&
 	    hd_right->type == dbheader::hd_asn1time)
 	{
-		pki_base *l = static_cast<pki_base*>(left.internalPointer());
-		pki_base *r = static_cast<pki_base*>(right.internalPointer());
+		pki_base *l = db_base::fromIndex(left);
+		pki_base *r = db_base::fromIndex(right);
 		if (l && r)
 			return  l->column_a1time(hd_left) <
 				r->column_a1time(hd_right);
