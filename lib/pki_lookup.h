@@ -8,6 +8,7 @@
 #ifndef __PKI_LOOKUP_H
 #define __PKI_LOOKUP_H
 
+#include <typeinfo>
 #include <QString>
 #include <QVariant>
 #include <QHash>

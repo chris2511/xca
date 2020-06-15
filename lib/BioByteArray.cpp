@@ -94,6 +94,11 @@ int BioByteArray::size() const
 	return BIO_get_mem_data(read_write, &p);
 }
 
+QString BioByteArray::qstring() const
+{
+	return QString::fromUtf8(byteArray().constData());
+}
+
 BioByteArray::operator BIO*()
 {
 	return bio();

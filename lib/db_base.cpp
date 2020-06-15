@@ -263,7 +263,7 @@ QString db_base::pem2QString(QModelIndexList indexes) const
 		pki->pem(bba, format);
 		openssl_error();
 	}
-	return QString::fromUtf8(bba);
+	return bba.qstring();
 }
 
 void db_base::pem2clipboard(QModelIndexList indexes) const

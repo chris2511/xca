@@ -38,7 +38,7 @@ const QList<arg_option> arguments::opts = {
 	arg_option("issuers", NULL, no_argument, true, true,
 		"Print all known issuer certificates that have an associated private key and the CA basic constraints set to 'true'."),
 	arg_option("keygen", "<type>", required_argument, true, true,
-		"Generate a new key and import it into the database. Use the 'name' option to set the intenral name of the new key. The <type> parameter has the format: '[RSA|DSA|EC]:[<size>|<curve>]."),
+		"Generate a new key and import it into the database. Use the 'name' option to set the internal name of the new key. The <type> parameter has the format: '[RSA|DSA|EC]:[<size>|<curve>]."),
 	arg_option("list-curves", NULL, no_argument, true, false,
 		"Prints all known Elliptic Curves."),
 	arg_option("name", "<internal name>", required_argument, false, true,

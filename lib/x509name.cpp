@@ -68,7 +68,7 @@ QString x509name::oneLine(unsigned long flags) const
 {
 	BioByteArray bba;
 	X509_NAME_print_ex(bba, xn, 0, flags);
-	return QString::fromUtf8(bba);
+	return bba.qstring();
 }
 
 QString x509name::getEntryByNid(int nid) const

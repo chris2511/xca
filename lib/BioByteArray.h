@@ -9,6 +9,7 @@
 #define __BIOBYTEARRAY_H
 
 #include <QByteArray>
+#include <QString>
 #include <openssl/bio.h>
 
 class BioByteArray
@@ -35,6 +36,7 @@ class BioByteArray
 	BIO *bio();
 	BIO *ro();
 	QByteArray byteArray() const;
+	QString qstring() const;
 	operator BIO*();
 	operator QByteArray();
 	BioByteArray &operator = (const BioByteArray &other);

@@ -150,7 +150,7 @@ QString x509v3ext::getValue() const
 		ret = ASN1_STRING_print(bba, (ASN1_STRING *)getData());
 	if (ign_openssl_error() || !ret)
 		return QString();
-	return QString::fromLocal8Bit(bba).trimmed();
+	return bba.qstring().trimmed();
 }
 
 QString x509v3ext::getHtmlValue() const

@@ -325,10 +325,8 @@ ImportMulti::~ImportMulti()
 
 int ImportMulti::entries()
 {
-	return mcont->rowCount(QModelIndex());
+	return mcont->allItemsCount();
 }
-#warning better mcont->rootItems().count() via accessor. rowCount()
-#warning is only toplevel
 
 void ImportMulti::importError(QStringList failed)
 {

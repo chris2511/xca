@@ -273,7 +273,7 @@ void pki_base::takeChild(pki_base *pki)
 
 QList<pki_base*> pki_base::getChildItems() const
 {
-	#warning need to collect all children below folders (later)
+	//#warning need to collect all children below folders (later)
 	return childItems;
 }
 
