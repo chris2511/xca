@@ -1,15 +1,22 @@
 
 brew install pkg-config autoconf automake openssl qt libtool
 
-cd xca-2.2.0
+cd xca-2.3.0
 ./configure && make
 
 
 # Compile SQL Drivers if necessary:
-# Download Qt sources with the same version
-./configure -sql-mysql -sql-odbc -sql-psql -opensource -confirm-license \
-      MYSQL_PREFIX=/usr/local/Cellar/mysql-client/8.0.18/ \
-      MYSQL_INCDIR=/usr/local/Cellar/mysql-client/8.0.18/include/mysql/ \
-      PSQL_PREFIX=/usr/local/Cellar/postgresql/12.1 \
-      ODBC_PREFIX=/usr/local
-make -C qtbase/src/plugins/sqldrivers/
+
+brew install mariadb-connector-c postgresql unixodbc
+
+# Download Qt sources with the same version, currently:
+#   qtbase-everywhere-src-5.15.1
+
+./configure -recheck -sql-mysql -sql-odbc -sql-psql -opensource -confirm-license -feature-datestring \
+      MYSQL_LIBDIR=$(pkg-config --variable=prefix libmariadb)/lib/mariadb \
+      MYSQL_INCDIR=$(pkg-config --variable=prefix libmariadb)/include/mariadb/ \
+      MYSQL_LIBS="-lmariadb" \
+      PSQL_PREFIX=/usr/local/Cellar/postgresql/12.4/
+      ODBC_PREFIX=$(pkg-config --variable=prefix odbc)
+
+make sub-plugins
