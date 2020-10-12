@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource>
-    <file alias="appIco">key.xpm</file>
+    <file alias="appIco">key.png</file>
 
     <file alias="doneIco">done.png</file>
     <file alias="warnIco">warn.png</file>
