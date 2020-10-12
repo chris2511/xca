@@ -26,6 +26,6 @@ class db_crl: public db_x509name
 		void store(QModelIndex index);
 		void load();
 		void updateCertView();
-		pki_crl *newItem(const crljob &crljob);
+		pki_crl *newCrl(const crljob &crljob);
 };
 #endif

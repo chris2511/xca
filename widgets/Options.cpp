@@ -186,7 +186,7 @@ void Options::on_removeButton_clicked(void)
 		indexes << i.row();
 
 	/* Delete from highest to lowest index */
-	qSort(indexes.begin(), indexes.end(), qGreater<int>());
+	std::sort(indexes.begin(), indexes.end(), std::greater<int>());
 	foreach(int i, indexes)
 		pkcs11List->model()->removeRow(i);
 }

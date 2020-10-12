@@ -195,6 +195,6 @@ void KeyTreeView::newItem(const QString &name)
 	NewKey *dlg = new NewKey(mainwin, name);
 
 	if (dlg->exec())
-		keys()->newItem(dlg->getKeyJob(), dlg->keyDesc->text());
+		keys()->newKey(dlg->getKeyJob(), dlg->keyDesc->text());
 	delete dlg;
 }

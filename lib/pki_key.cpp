@@ -555,7 +555,11 @@ EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 	EVP_PKEY *pk = NULL;
 
 	ba = file.read(4096);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+	sl = QString(ba).split(" ", Qt::SkipEmptyParts);
+#else
 	sl = QString(ba).split(" ", QString::SkipEmptyParts);
+#endif
 	if (sl.size() < 2)
 		return NULL;
 

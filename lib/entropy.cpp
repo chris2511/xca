@@ -58,7 +58,7 @@
 #define pool_siz (sizeof(pool)/sizeof(pool[0]))
 unsigned char Entropy::pool[512];
 unsigned Entropy::pool_pos = 0;
-QTime Entropy::timer;
+QElapsedTimer Entropy::timer;
 unsigned Entropy::seed_strength = 0;
 
 QString Entropy::makeSalt(void)

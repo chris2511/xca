@@ -168,9 +168,15 @@ QSqlError XSqlQuery::lastError()
 	QSqlError e = QSqlQuery::lastError();
 	if (!e.isValid())
 		return e;
-	QString dt = e.driverText();
-	e.setDriverText(QString("%1 - %2").arg(dt).arg(query_details()));
-	return e;
+	return QSqlError(QString("%1 - %2").arg(e.driverText())
+					.arg(query_details()),
+			 e.databaseText(), e.type(),
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+			 e.nativeErrorCode()
+#else
+			 e.number()
+#endif
+			);
 }
 
 XSqlQuery::XSqlQuery() : QSqlQuery()

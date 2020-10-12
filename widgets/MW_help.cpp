@@ -143,7 +143,7 @@ void MainWindow::about()
 
 void MainWindow::help()
 {
-	QDialog *h = new QDialog(this, 0);
+	QDialog *h = new QDialog(this);
 	QString path, uri;
 	Ui::Help ui;
 	ui.setupUi(h);

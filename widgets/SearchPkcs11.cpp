@@ -115,7 +115,12 @@ void SearchPkcs11::updateCurrFile(QString f)
 	QFontMetrics fm(currFile->font());
 
 	currFile->setToolTip(f);
-	while ((currFile->width() < (fm.width(reduced) -10)) && (len > 0)) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
+	while ((currFile->width() < (fm.horizontalAdvance(reduced) -10)) &&
+#else
+	while ((currFile->width() < (fm.width(reduced) -10)) &&
+#endif
+					(len > 0)) {
 		len -= 10;
 		reduced = compressFilename(f, len);
 	}

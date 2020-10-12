@@ -47,7 +47,7 @@ void CrlTreeView::newItem(pki_x509 *cert)
 	XcaDialog *dlg = new XcaDialog(mainwin, revocation, widget,
 					tr("Create CRL"), QString());
 	if (dlg->exec() && basemodel) {
-		crls()->newItem(widget->getCrlJob());
+		crls()->newCrl(widget->getCrlJob());
 	}
 	delete dlg;
 }

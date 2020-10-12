@@ -56,10 +56,10 @@ static void segv_handler_gui(int)
 
 void myMsgOutput(QtMsgType type, const char *msg)
 {
-	static QTime *t;
+	static QElapsedTimer *t;
 	if (!t) {
 		char *d = getenv("XCA_DEBUG");
-		t = new QTime();
+		t = new QElapsedTimer();
 		t->start();
 		if (d && *d)
 			debug = 1;
@@ -118,7 +118,7 @@ static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 static Passwd acquire_password(const QString &source)
 {
 	Passwd pass;
-	pass.append(source);
+	pass.append(source.toUtf8());
 
 	if (source.startsWith("pass:")) {
 		pass = source.mid(5).toLatin1();
@@ -212,7 +212,7 @@ static void read_cmdline(int argc, char *argv[])
 					.arg(cmd_opts["keygen"]));
 		}
 		db_key *keys = Database.model<db_key>();
-		pki_key *pki = keys->newItem(task, cmd_opts["name"]);
+		pki_key *pki = keys->newKey(task, cmd_opts["name"]);
 		if (pki)
 			cmdline_items->append_item(pki);
 	}
@@ -249,7 +249,7 @@ static void read_cmdline(int argc, char *argv[])
 					.arg(cmd_opts["crlgen"]));
 		} else {
 			crljob task(issuer);
-			pki_crl *crl = crls->newItem(task);
+			pki_crl *crl = crls->newCrl(task);
 			if (crl)
 				cmdline_items->append_item(crl);
 		}

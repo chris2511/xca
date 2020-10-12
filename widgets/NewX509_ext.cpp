@@ -88,9 +88,8 @@ x509v3ext NewX509::getKeyUsage()
 
 	int rows = keyUsage->count();
 	for (int i=0; i<rows; i++) {
-		if (keyUsage->isItemSelected(keyUsage->item(i))) {
+		if (keyUsage->item(i)->isSelected())
 			cont << keyusage[i];
-		}
 	}
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
@@ -105,9 +104,8 @@ x509v3ext NewX509::getEkeyUsage()
 
 	int rows = ekeyUsage->count();
 	for (int i=0; i<rows; i++) {
-		if (ekeyUsage->isItemSelected(ekeyUsage->item(i))) {
+		if (ekeyUsage->item(i)->isSelected())
 			cont << QString(OBJ_nid2sn(extkeyuse_nid[i]));
-		}
 	}
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
@@ -265,9 +263,8 @@ extList NewX509::getNetscapeExt()
 
 	int rows = nsCertType->count();
 	for (int i=0; i<rows; i++) {
-		if (nsCertType->isItemSelected(nsCertType->item(i))) {
-			cont <<  certTypeList[i];
-		}
+		if (nsCertType->item(i)->isSelected())
+			cont << certTypeList[i];
 	}
 
 	el << ext.create(NID_netscape_cert_type, cont.join(", "), &ext_ctx);

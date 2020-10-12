@@ -468,26 +468,18 @@ void NewX509::defineSigner(pki_x509 *defcert, bool applyTemp)
 static int lb2int(QListWidget *lb)
 {
 	int i, x=0, c=lb->count();
-	QListWidgetItem *item;
 
 	for (i=0; i<c; i++) {
-		item = lb->item(i);
-		if (lb->isItemSelected(item)){
+		if (lb->item(i)->isSelected())
 			x |= 1<<i;
-		}
 	}
 	return x;
 }
 
 static void int2lb(QListWidget *lb, int x)
 {
-	int i, c=lb->count();
-	QListWidgetItem *item;
-
-	for (i=0; i<c; i++) {
-		item = lb->item(i);
-		lb->setItemSelected(item, (1<<i) & x);
-	}
+	for (int i=0; i<lb->count(); i++)
+		lb->item(i)->setSelected((1<<i) & x);
 }
 
 static void QString2lb(QListWidget *lb, QString x)
@@ -499,7 +491,7 @@ static void QString2lb(QListWidget *lb, QString x)
 		QString lname = OBJ_sn2ln(CCHAR(li[i].trimmed()));
 		items = lb->findItems(lname, Qt::MatchExactly);
 		if (items.size() > 0)
-			lb->setItemSelected(items[0], 1);
+			items[0]->setSelected(true);
 	}
 }
 
@@ -509,9 +501,8 @@ static QString lb2QString(QListWidget *lb)
 
 	for (int i=0; i<lb->count(); i++) {
 		QListWidgetItem *item = lb->item(i);
-		if (lb->isItemSelected(item)) {
+		if (item->isSelected())
 			sl << QString(OBJ_ln2sn(CCHAR(item->text())));
-		}
 	}
 	return sl.join(", ");
 }

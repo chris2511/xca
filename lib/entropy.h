@@ -10,13 +10,13 @@
 
 #include <QString>
 #include <QByteArray>
-#include <QTime>
+#include <QElapsedTimer>
 
 class Entropy
 {
     protected:
 	QString rnd;
-	static QTime timer;
+	static QElapsedTimer timer;
 	static unsigned char pool[512];
 	static unsigned pool_pos;
 	static unsigned seed_strength;

@@ -154,7 +154,7 @@ pki_base* db_key::insert(pki_base *item)
 	return lkey;
 }
 
-pki_key *db_key::newItem(const keyjob &task, const QString &name)
+pki_key *db_key::newKey(const keyjob &task, const QString &name)
 {
 	pki_key *key = NULL;
 

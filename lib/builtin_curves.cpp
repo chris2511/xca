@@ -173,7 +173,7 @@ builtin_curves::builtin_curves()
                 EC_GROUP_free(group);
 	}
 	BN_free(order);
-	delete curves;
+	delete[] curves;
 }
 #else
 builtin_curves::builtin_curves() { }

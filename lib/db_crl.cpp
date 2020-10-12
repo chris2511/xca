@@ -155,7 +155,7 @@ void db_crl::store(QModelIndex index)
 	delete dlg;
 }
 
-pki_crl *db_crl::newItem(const crljob &task)
+pki_crl *db_crl::newCrl(const crljob &task)
 {
 	pki_crl *crl = NULL;
 	pki_x509 *cert = task.issuer;
