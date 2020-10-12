@@ -73,8 +73,9 @@ QString pki_x509::getMsg(msg_type msg) const
 void pki_x509::resetX509ReqCount() const
 {
 	QList<pki_x509req *> reqs = Store.sqlSELECTpki<pki_x509req>(
-		"SELECT item FROM x509super WHERE key_hash=?",
-		QList<QVariant>() << QVariant(pubHash()));
+		"SELECT item FROM x509super LEFT JOIN items ON items.id = x509super.item "
+		"WHERE key_hash=? AND items.type=?",
+		QList<QVariant>() << QVariant(pubHash()) << QVariant(x509_req));
 
 	foreach(pki_x509req *req, reqs)
 		req->resetX509count();

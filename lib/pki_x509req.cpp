@@ -327,21 +327,15 @@ int pki_x509req::issuedCerts() const
 	if (x509count != -1)
 		return x509count;
 
-	SQL_PREPARE(q, "SELECT item FROM x509super WHERE key_hash=?");
-	q.bindValue(0, pubHash());
-	q.exec();
-	if (q.lastError().isValid())
-		return 0;
 	pki_key *k = getPubKey();
 	if (!k)
 		return 0;
-	while (q.next()) {
-		pki_x509 *x = Store.lookupPki<pki_x509>(q.value(0));
-		if (!x) {
-			qDebug("x509 with id %d not found",
-				q.value(0).toInt());
-			continue;
-		}
+	QList<pki_x509 *> certs = Store.sqlSELECTpki<pki_x509>(
+		"SELECT item FROM x509super LEFT JOIN items ON items.id = x509super.item "
+		"WHERE key_hash=? AND items.type=?",
+		QList<QVariant>() << QVariant(pubHash()) << QVariant(x509));
+
+	foreach(pki_x509 *x, certs) {
 		if (x->compareRefKey(k))
 			count++;
 
