@@ -57,6 +57,10 @@ static void segv_handler_gui(int)
 void myMsgOutput(QtMsgType type, const char *msg)
 {
 	static QElapsedTimer *t;
+	static int abort_on_warning = -1;
+	const char *severity = "Unknown", *warn_msg = NULL;
+	int el;
+
 	if (!t) {
 		char *d = getenv("XCA_DEBUG");
 		t = new QElapsedTimer();
@@ -64,17 +68,20 @@ void myMsgOutput(QtMsgType type, const char *msg)
 		if (d && *d)
 			debug = 1;
 	}
-	int el = t->elapsed();
-	const char *severity = "Unknown";
+	if (abort_on_warning == -1) {
+		char *a = getenv("XCA_ABORT_ON_WARNING");
+		abort_on_warning = a && *a;
+	}
+	el = t->elapsed();
 	switch (type) {
 	case QtDebugMsg:
 		if (!debug)
 			return;
 		severity = COL_CYAN "Debug";
 		break;
-	case QtWarningMsg:  severity = COL_LRED "Warning"; break;
-	case QtCriticalMsg: severity = COL_RED "Critical"; break;
-	case QtFatalMsg:    severity = COL_RED "Fatal"; break;
+	case QtWarningMsg:  warn_msg = "WARNING";  severity = COL_LRED "Warning"; break;
+	case QtCriticalMsg: warn_msg = "CRITICAL"; severity = COL_RED "Critical"; break;
+	case QtFatalMsg:    warn_msg = "FATAL";    severity = COL_RED "Fatal"; break;
 #if QT_VERSION >= 0x050000
 	case QtInfoMsg:	    severity = COL_CYAN "Info"; break;
 #endif
@@ -84,6 +91,10 @@ void myMsgOutput(QtMsgType type, const char *msg)
 			.arg(el/1000, 4)
 			.arg((el%1000)/100, 2, 10, QChar('0'))
 			.arg(severity).arg(QString::fromUtf8(msg)).toUtf8());
+
+	if (abort_on_warning == 1 && warn_msg) {
+		qFatal("Abort on %s", warn_msg);
+	}
 }
 
 #if QT_VERSION >= 0x050000
