@@ -135,12 +135,13 @@ int arguments::parse(int argc, char *argv[])
 
 	/* Setup "struct option" */
 	if (!long_opts)
-		long_opts = new struct option[cnt];
+		long_opts = new struct option[cnt+1];
 
 	check_oom(long_opts);
 	for (i = 0; i < cnt; ++i)
 		opts[i].fillOption(long_opts +i);
-
+	long_opts[cnt].name = NULL;
+	long_opts[cnt].flag = NULL;
 	opterr = 0;
 	/* Parse cmdline options argv */
 	while (true) {
