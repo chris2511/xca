@@ -35,14 +35,14 @@ void ReqTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	}
 }
 
-void ReqTreeView::toRequest()
+void ReqTreeView::signReq()
 {
 	pki_x509req *req = db_base::fromIndex<pki_x509req>(currentIndex());
 	db_x509 *certs = Database.model<db_x509>();
 	certs->newCert(req);
 }
 
-void ReqTreeView::signReq()
+void ReqTreeView::toRequest()
 {
 	pki_x509req *req = db_base::fromIndex<pki_x509req>(currentIndex());
 	if (basemodel)
