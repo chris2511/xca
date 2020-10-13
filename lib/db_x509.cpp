@@ -833,7 +833,7 @@ void db_x509::manageRevocations(QModelIndex idx)
 {
 	db_crl *crls = Database.model<db_crl>();
 	pki_x509 *cert = fromIndex<pki_x509>(idx);
-	if (!cert || crls)
+	if (!cert || !crls)
 		return;
 	RevocationList *dlg = new RevocationList(NULL);
 	dlg->setRevList(cert->getRevList(), cert);
