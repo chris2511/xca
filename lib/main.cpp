@@ -326,9 +326,6 @@ int main(int argc, char *argv[])
 	if (argc > 0)
 		xca_name = argv[0];
 
-	Entropy entropy;
-	Settings.clear();
-
 	bool console_only = arguments::is_console(argc, argv);
 	XcaApplication *gui;
 
@@ -343,7 +340,11 @@ int main(int argc, char *argv[])
 		gui = new XcaApplication(argc, argv);
 	}
 
-	QDir().mkpath(getUserSettingsDir());
+	if (!QDir().mkpath(getUserSettingsDir()))
+		qCritical("Failed to create Path: '%s'", CCHAR(getUserSettingsDir()));
+
+	Entropy entropy;
+	Settings.clear();
 	initOIDs();
 
 	for (int i=0; i < argc; i++)
