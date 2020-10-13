@@ -102,8 +102,8 @@ RevocationList::RevocationList(QWidget *w) : QDialog(w)
 				QDialogButtonBox::ActionRole);
 	connect(genCrl, SIGNAL(clicked()), this, SLOT(gencrl()));
 
-	connect(certList, SIGNAL(doubleClicked(const QModelIndex &)),
-		this, SLOT(on_editRev_clicked(const QModelIndex &)));
+	connect(certList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
+		this, SLOT(do_editRev(QTreeWidgetItem *)));
 }
 
 void RevocationList::gencrl()
@@ -152,7 +152,11 @@ void RevocationList::on_delRev_clicked()
 
 void RevocationList::on_editRev_clicked()
 {
-	QTreeWidgetItem *current = certList->currentItem();
+	do_editRev(certList->currentItem());
+}
+
+void RevocationList::do_editRev(QTreeWidgetItem *current)
+{
 	x509rev rev;
 	int idx;
 

@@ -33,6 +33,7 @@ class RevocationList: public QDialog, public Ui::RevocationList
 		void on_addRev_clicked();
 		void on_delRev_clicked();
 		void on_editRev_clicked();
+		void do_editRev(QTreeWidgetItem *current);
 		void gencrl();
 
 	signals:
