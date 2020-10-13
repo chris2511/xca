@@ -1,0 +1,26 @@
+.TH XCA 1
+.SH NAME
+.B xca
+\- X Certificate and key management
+.br
+
+A GUI for handling X509 certificates, RSA/DSA/EC keys, PKCS#10 Requests and
+CRLs in Software and on Smartcards.
+.SH SYNOPSIS
+.B xca
+.RI [ OPTIONS ]
+.br
+.SH "DESCRIPTION"
+This application is intended as CA, certificate- and Key store.
+It uses a SQL database to store the items. By default this is SQLite3,
+but MySQL and PostrgreSQL are also tested and supported.
+Known types are Certificate signing requests (PKCS#10), Certificates (X509v3),
+RSA, DSA and EC keys and Certificate revocation lists.
+The signing of requests, and the creation of self-signed certificates
+is supported. Both can use templates for simplicity.
+The PKI structures can be imported and exported in several formats
+like PKCS#12, PEM, DER, PKCS#8, PKCS#7.
+.br
+XCA enables users to manage smartcards via the PKCS#11 interface
+
+.SH OPTIONS

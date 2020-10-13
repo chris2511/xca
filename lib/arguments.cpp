@@ -21,12 +21,12 @@
 
 
 const QList<arg_option> arguments::opts = {
+	arg_option("crlgen", "<ca identifier>", required_argument, true, true,
+		"Generate CRL for <ca>. Use the 'name' option to set the internal name of the new CRL."),
 	arg_option("database", "<database>", file_argument, false, false,
 		"File name (*.xdb) of the SQLite database or a remote database descriptor: [user@host/TYPE:dbname#prefix]."),
 	arg_option("exit", NULL, no_argument, false, false,
 		"Exit after importing items."),
-	arg_option("crlgen", "<ca identifier>", required_argument, true, true,
-		"Generate CRL for <ca>. Use the 'name' option to set the internal name of the new CRL."),
 	arg_option("help", NULL, no_argument, true, false,
 		"Print this help and exit."),
 	arg_option("hierarchy", "<dir>", file_argument, true, true,
@@ -61,6 +61,18 @@ const QList<arg_option> arguments::opts = {
 		"Print version information and exit."),
 };
 
+static QMap<QString, QString> getPassDoc()
+{
+	QMap<QString, QString> passdoc;
+	passdoc["pass:password"] = "The actual password is password. Since the password is visible to utilities (like 'ps' under Unix) this form should only be used where security is not important.";
+	passdoc["env:var"] = "Obtain the password from the environment variable var. Since the environment of other processes is visible on certain platforms (e.g. ps under certain Unix OSes) this option should be used with caution.";
+	passdoc["file:pathname"] = "The first line of pathname is the password. If the same pathname argument is supplied to password and sqlpassword arguments then the first line will be used for both passwords. pathname need not refer to a regular file: it could for example refer to a device or named pipe.";
+	passdoc["fd:number"] = "Read the password from the file descriptor number. This can be used to send the data via a pipe for example.";
+	passdoc["stdin"] = "Read the password from standard input.";
+
+	return passdoc;
+}
+
 arg_option::arg_option(const char *l, const char *a, int has,
 			bool n, bool nd, const char *h)
 	: long_opt(l), arg(a), arg_type(has), no_gui(n), need_db(nd), help(h)
@@ -94,6 +106,29 @@ static QString splitQstring(int offset, int width, const QString &text)
 	return lines.join(QString("\n") +QString().fill(' ', offset));
 }
 
+QString arguments::man()
+{
+	QString s;
+	QMap<QString, QString> passdoc = getPassDoc();
+
+	for (auto i = opts.begin(); i != opts.end(); ++i) {
+		QString longopt = i->long_opt;
+		if (i->arg)
+			longopt += QString("=%1").arg(i->arg);
+		s += QString(".TP\n.B \\-\\-%1%3\n%2\n")
+			.arg(longopt)
+			.arg(i->help)
+			.arg(i->need_db ? " *" : "");
+	}
+	s += ".br\n.TP\n"
+"Options marked with an asterisk need a database. Either from the commandline or as default database.\n"
+"\n.SH PASS PHRASE ARGUMENTS\n"
+"The password options accept the same syntax as openssl does:\n";
+	foreach(QString key, passdoc.keys())
+		s += QString(".TP\n.B %1\n%2\n").arg(key).arg(passdoc[key]);
+	return s;
+}
+
 QString arguments::help()
 {
 	QString s;
@@ -106,6 +141,8 @@ QString arguments::help()
 	if (w.ws_col > 20)
 		width = w.ws_col;
 #endif
+	QMap<QString, QString> passdoc = getPassDoc();
+
 	foreach(const arg_option &a, opts) {
 		size_t l = strlen(a.long_opt) + 1;
 		if (a.arg)
@@ -119,13 +156,18 @@ QString arguments::help()
 		if (i->arg)
 			longopt += QString("=%1").arg(i->arg);
 		QString help = splitQstring(offset, width, i->help);
-		s += QString(" %3 --%1 %2\n")
+		s += QString(" " COL_CYAN "%3 " COL_RESET
+				 COL_BOLD "--%1" COL_RESET " %2\n")
 			.arg(longopt, len*-1)
 			.arg(help)
 			.arg(i->need_db ? "*" : " ");
 	}
-	s += "\n[*]" + splitQstring(sizeof("[*] ") -1, width,
+	s += "\n[" COL_CYAN "*" COL_RESET "]" + splitQstring(sizeof("[*] ") -1, width,
 	     QString("Needs a database. Either from the commandline or as default database")) + "\n";
+	s += "\n" + splitQstring(0, width, QString("The password options accept the same syntax as openssl does:\n"));
+	foreach(QString key, passdoc.keys())
+		s += QString("\n   " COL_BOLD "%1" COL_RESET).arg(key, -14) +
+			splitQstring(18, width, passdoc[key]);
 	return s;
 }
 

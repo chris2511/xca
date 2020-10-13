@@ -1,0 +1,79 @@
+.TP
+.B \-\-crlgen=<ca identifier> *
+Generate CRL for <ca>. Use the 'name' option to set the internal name of the new CRL.
+.TP
+.B \-\-database=<database>
+File name (*.xdb) of the SQLite database or a remote database descriptor: [user@host/TYPE:dbname#prefix].
+.TP
+.B \-\-exit
+Exit after importing items.
+.TP
+.B \-\-help
+Print this help and exit.
+.TP
+.B \-\-hierarchy=<dir> *
+Save OpenSSL index hierarchy in <dir>.
+.TP
+.B \-\-index=<file> *
+Save OpenSSL index in <file>.
+.TP
+.B \-\-import *
+Import all provided items into the database.
+.TP
+.B \-\-issuers *
+Print all known issuer certificates that have an associated private key and the CA basic constraints set to 'true'.
+.TP
+.B \-\-keygen=<type> *
+Generate a new key and import it into the database. Use the 'name' option to set the internal name of the new key. The <type> parameter has the format: '[RSA|DSA|EC]:[<size>|<curve>].
+.TP
+.B \-\-list-curves
+Prints all known Elliptic Curves.
+.TP
+.B \-\-name=<internal name> *
+Provides the name of new generated items. An automatic name will be generated if omitted.
+.TP
+.B \-\-no-gui
+Do not start the GUI. Alternatively set environment variable XCA_NO_GUI=1 or call xca as 'xca-console' symlink.
+.TP
+.B \-\-password=<password>
+Database password for unlocking the database.
+.TP
+.B \-\-pem
+Print PEM representation of provided files. Prints only the public part of private keys.
+.TP
+.B \-\-print
+Print a synopsis of provided files.
+.TP
+.B \-\-sqlpass=<password>
+Password to access the remote SQL server.
+.TP
+.B \-\-text
+Print the content of provided files as OpenSSL does.
+.TP
+.B \-\-verbose
+Print debug log on stderr. Alternatively set the environment variable XCA_DEBUG=1.
+.TP
+.B \-\-version
+Print version information and exit.
+.br
+.TP
+Options marked with an asterisk need a database. Either from the commandline or as default database.
+
+.SH PASS PHRASE ARGUMENTS
+The password options accept the same syntax as openssl does:
+.TP
+.B env:var
+Obtain the password from the environment variable var. Since the environment of other processes is visible on certain platforms (e.g. ps under certain Unix OSes) this option should be used with caution.
+.TP
+.B fd:number
+Read the password from the file descriptor number. This can be used to send the data via a pipe for example.
+.TP
+.B file:pathname
+The first line of pathname is the password. If the same pathname argument is supplied to password and sqlpassword arguments then the first line will be used for both passwords. pathname need not refer to a regular file: it could for example refer to a device or named pipe.
+.TP
+.B pass:password
+The actual password is password. Since the password is visible to utilities (like 'ps' under Unix) this form should only be used where security is not important.
+.TP
+.B stdin
+Read the password from standard input.
+

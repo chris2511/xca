@@ -12,6 +12,9 @@ include $(TOPDIR)/Rules.mak
 	@$(PRINT) "  MAN    [$(BASENAME)] $@"
 	gzip -9 <$^ >$@
 
+xca.1: xca.1.head xca.1.options xca.1.tail
+	cat $^ > $@
+
 xca.html: xca.sgml
 	rm -f xca*.html
 	echo 'The documentation for XCA can be viewed online at: <a href="http://hohnstaedt.de/documentation">http://hohnstaedt.de/documentation</a>.' > $@

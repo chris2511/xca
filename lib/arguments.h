@@ -48,6 +48,7 @@ class arguments
     public:
 	static bool is_console(int argc, char *argv[]);
 	static QString help();
+	static QString man();
 
 	arguments(int argc, char *argv[]);
 	arguments(const arguments &a);

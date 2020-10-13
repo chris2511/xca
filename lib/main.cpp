@@ -126,11 +126,13 @@ static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 	exit(exitcode);
 }
 
-static Passwd acquire_password(const QString &source)
+static Passwd acquire_password(QString source)
 {
 	Passwd pass;
 	pass.append(source.toUtf8());
 
+	if (source == "stdin")
+		source = "fd:0";
 	if (source.startsWith("pass:")) {
 		pass = source.mid(5).toLatin1();
 	} else if (source.startsWith("file:")) {
@@ -139,6 +141,11 @@ static Passwd acquire_password(const QString &source)
 		pass = f.readLine(128).trimmed();
 	} else if (source.startsWith("env:")) {
 		pass = getenv(source.mid(4).toLocal8Bit());
+	} else if (source.startsWith("fd:")) {
+		int fd = source.mid(3).toInt();
+		QFile f;
+		f.open(fd, QIODevice::ReadOnly);
+		pass = f.readLine(128).trimmed();
 	}
 	return pass;
 }
@@ -293,6 +300,11 @@ static void read_cmdline(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
+	const char *xca_man = getenv("XCA_MAN");
+	if (xca_man && *xca_man) {
+		puts(CCHAR(arguments::man()));
+		return 0;
+	}
 #if QT_VERSION < 0x050000
 	qInstallMsgHandler(myMsgOutput);
 #else
