@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QFormLayout" name="formLayout">
+    <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -26,25 +26,25 @@
      <item row="0" column="1">
       <widget class="QLineEdit" name="name"/>
      </item>
-     <item row="2" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>Source</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="1" column="1">
+      <widget class="CopyLabel" name="source"/>
+     </item>
+     <item row="2" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Insertion date</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="CopyLabel" name="insertionDate"/>
-     </item>
      <item row="2" column="1">
-      <widget class="CopyLabel" name="source"/>
+      <widget class="CopyLabel" name="insertionDate"/>
      </item>
     </layout>
    </item>
