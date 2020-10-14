@@ -180,16 +180,6 @@ void MainWindow::init_menu()
 	setItemEnabled(Database.isOpen());
 }
 
-int MainWindow::changeDB(QString fname)
-{
-	if (fname.isEmpty())
-		return 1;
-	close_database();
-	if (!database_model::isRemoteDB(fname))
-		homedir = QFileInfo(fname).canonicalPath();
-	return init_database(fname);
-}
-
 void MainWindow::update_history_menu()
 {
 	QStringList hist = history.get();
@@ -212,7 +202,7 @@ void MainWindow::update_history_menu()
 
 void MainWindow::open_database(QAction* a)
 {
-	changeDB(a->data().toString());
+	init_database(a->data().toString());
 }
 
 void MainWindow::new_database()
@@ -225,7 +215,7 @@ void MainWindow::new_database()
 	// in Qt's OS X file open dialog,
 	// the filename actually ends with that extension.
 	// Otherwise usability breaks in jarring ways.
-	changeDB(getFullFilename(fname, selectedFilter));
+	init_database(getFullFilename(fname, selectedFilter));
 }
 
 void MainWindow::load_database()
@@ -233,7 +223,7 @@ void MainWindow::load_database()
 	load_db l;
 	QString fname = QFileDialog::getOpenFileName(this, l.caption, homedir,
 			l.filter);
-	changeDB(fname);
+	init_database(fname);
 }
 
 void MainWindow::setOptions()

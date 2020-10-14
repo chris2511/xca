@@ -94,7 +94,7 @@ OpenDb::OpenDb(QWidget *parent, const QString &db)
 	if (database_model::isRemoteDB(db)) {
 		setupDatabaseName(db);
 		sqlite = false;
-		show_connection_settings = false;
+		show_connection_settings = true;
 	} else if (hasSqLite() && !db.isEmpty()) {
 		dbName->setText(db);
 		sqlite = true;

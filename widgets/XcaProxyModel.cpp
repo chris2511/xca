@@ -11,7 +11,7 @@
 bool XcaProxyModel::lessThan(const QModelIndex &left,
 		const QModelIndex &right) const
 {
-	db_base *db = (db_base *)sourceModel();
+	db_base *db = dynamic_cast<db_base *>(sourceModel());
 	if (!db)
 		return QSortFilterProxyModel::lessThan(left, right);
 
@@ -51,6 +51,8 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 bool XcaProxyModel::filterAcceptsRow(int sourceRow,
          const QModelIndex &sourceParent) const
 {
+	if (!sourceModel())
+		return false;
 	QModelIndex idx = sourceModel()->index(sourceRow, 0, sourceParent);
 	return sourceModel()->data(idx, Qt::UserRole).toBool();
 }

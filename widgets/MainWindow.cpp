@@ -551,6 +551,7 @@ void MainWindow::openRemoteSqlDB()
 enum open_result MainWindow::init_database(const QString &name,
 					   const Passwd &pass)
 {
+	close_database();
 	try {
 		Database.open(name, pass);
 		return init_database();
@@ -567,6 +568,10 @@ enum open_result MainWindow::init_database()
 {
 	if (!Database.isOpen())
 		return open_abort;
+
+	if (!database_model::isRemoteDB(Database.name()))
+		homedir = QFileInfo(Database.name()).canonicalPath();
+
 	setItemEnabled(true);
 	dbindex->setText(tr("Database") + ": " +
 			 compressFilename(Database.name()));
@@ -623,13 +628,13 @@ void MainWindow::close_database()
 			.arg(tabView->currentIndex());
 
 	history.addEntry(Database.name());
+	foreach(XcaTreeView *v, views)
+		v->setModel(NULL);
 	Database.close();
 
 	setItemEnabled(false);
 	dbindex->clear();
 	update_history_menu();
-	foreach(XcaTreeView *v, views)
-		v->setModel(NULL);
 	enableTokenMenu(pkcs11::libraries.loaded());
 }
 

@@ -79,7 +79,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		NIDlist *read_nidlist(QString name);
 		QLabel *statusLabel;
 		QString homedir;
-		int changeDB(QString fname);
 		void keyPressEvent(QKeyEvent *e);
 		void update_history_menu();
 

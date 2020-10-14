@@ -96,7 +96,7 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 
 	basemodel = dynamic_cast<db_base*>(model);
 	proxy->setSourceModel(model);
-	QTreeView::setModel(proxy);
+	QTreeView::setModel(model ? proxy : NULL);
 
 	if (basemodel) {
 		setRootIsDecorated(basemodel->treeViewMode());
