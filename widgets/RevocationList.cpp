@@ -100,10 +100,8 @@ RevocationList::RevocationList(QWidget *w) : QDialog(w)
 
 	genCrl = buttonBox->addButton(tr("Generate CRL"),
 				QDialogButtonBox::ActionRole);
-	connect(genCrl, SIGNAL(clicked()), this, SLOT(gencrl()));
 
-	connect(certList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
-		this, SLOT(do_editRev(QTreeWidgetItem *)));
+	connect(genCrl, SIGNAL(clicked()), this, SLOT(gencrl()));
 }
 
 void RevocationList::gencrl()
@@ -152,10 +150,10 @@ void RevocationList::on_delRev_clicked()
 
 void RevocationList::on_editRev_clicked()
 {
-	do_editRev(certList->currentItem());
+	on_certList_itemDoubleClicked(certList->currentItem());
 }
 
-void RevocationList::do_editRev(QTreeWidgetItem *current)
+void RevocationList::on_certList_itemDoubleClicked(QTreeWidgetItem *current)
 {
 	x509rev rev;
 	int idx;

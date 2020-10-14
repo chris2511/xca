@@ -831,14 +831,14 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 
 void db_x509::manageRevocations(QModelIndex idx)
 {
-	db_crl *crls = Database.model<db_crl>();
 	pki_x509 *cert = fromIndex<pki_x509>(idx);
-	if (!cert || !crls)
+	if (!cert)
 		return;
+
 	RevocationList *dlg = new RevocationList(NULL);
 	dlg->setRevList(cert->getRevList(), cert);
 	connect(dlg, SIGNAL(genCRL(pki_x509*)),
-		crls, SLOT(newItem(pki_x509*)));
+		mainwin->crlView, SLOT(newItem(pki_x509*)));
 	if (dlg->exec()) {
 		cert->setRevocations(dlg->getRevList());
 		emit columnsContentChanged();
