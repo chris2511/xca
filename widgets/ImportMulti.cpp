@@ -82,6 +82,7 @@ void ImportMulti::addItem(pki_base *pki)
 		QList<pki_base*> items = pm->pull();
 		foreach(pki_base *inner, items)
 			addItem(inner);
+		delete pm;
 		return;
 	}
 

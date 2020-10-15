@@ -293,7 +293,6 @@ static void read_cmdline(int argc, char *argv[])
 		console_write(stdout, bba);
 	if (cmd_opts.has("import")) {
 		Database.insert(cmdline_items);
-		delete cmdline_items;
 		cmdline_items = NULL;
 	}
 }

@@ -329,7 +329,6 @@ pki_base *database_model::insert(pki_base *pki)
 		QList<pki_base *> items = multi->pull();
 		foreach(pki_base *i, items)
 			insert(i);
-		return multi;
 	}
 	delete pki;
 	return NULL;
