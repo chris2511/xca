@@ -54,7 +54,7 @@ void TempTreeView::showPki(pki_base *pki) const
 	alterTemp(dynamic_cast<pki_temp *>(pki));
 }
 
-bool TempTreeView::runTempDlg(pki_temp *temp)
+bool TempTreeView::runTempDlg(pki_temp *temp) const
 {
 	NewX509 *dlg = new NewX509(mainwin);
 
@@ -95,7 +95,7 @@ void TempTreeView::newItem()
 	delete dlg;
 }
 
-bool TempTreeView::alterTemp(pki_temp *temp)
+bool TempTreeView::alterTemp(pki_temp *temp) const
 {
 	if (!basemodel || !temp)
 		return false;

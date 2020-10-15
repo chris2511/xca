@@ -20,14 +20,14 @@ class TempTreeView: public XcaTreeView
 		return dynamic_cast<db_temp*>(basemodel);
 	}
 
-	bool runTempDlg(pki_temp *temp);
+	bool runTempDlg(pki_temp *temp) const;
 
     public:
 	TempTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
 	void showPki(pki_base *pki) const;
-	bool alterTemp(pki_temp *temp);
+	bool alterTemp(pki_temp *temp) const;
 
    public slots:
 	void certFromTemp();
