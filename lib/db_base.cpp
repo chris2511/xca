@@ -234,6 +234,11 @@ void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 
 void db_base::insertPKI(pki_base *pki)
 {
+	QString filename = pki->getFilename();
+	if (!filename.isEmpty()) {
+		pki->selfComment(tr("Import from: %1").arg(filename));
+		pki->setFilename(QString());
+	}
 	Transaction;
 	if (!TransBegin())
 		return;
