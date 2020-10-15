@@ -51,9 +51,7 @@ void TempTreeView::reqFromTemp()
 
 void TempTreeView::showPki(pki_base *pki) const
 {
-	pki_temp *t = dynamic_cast<pki_temp *>(pki);
-	if (t && basemodel)
-		temps()->alterTemp(t);
+	alterTemp(dynamic_cast<pki_temp *>(pki));
 }
 
 bool TempTreeView::runTempDlg(pki_temp *temp)
@@ -99,10 +97,7 @@ void TempTreeView::newItem()
 
 bool TempTreeView::alterTemp(pki_temp *temp)
 {
-	XSqlQuery q;
-	QSqlError e;
-
-	if (!basemodel)
+	if (!basemodel || !temp)
 		return false;
 
 	if (!runTempDlg(temp))
