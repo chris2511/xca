@@ -81,7 +81,7 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 		v = new QRegExpValidator(rx, this);
 	} else if (s == "URI") {
 		tt = tr("A uniform resource indicator");
-		QRegExp rx("[a-z]+://.*");
+		QRegExp rx("[a-z][a-z0-9\\.\\+\\-]*://.*");
                 v = new QRegExpValidator(rx, this);
 	} else if (s == "DNS") {
 		if (nid == NID_subject_alt_name)
