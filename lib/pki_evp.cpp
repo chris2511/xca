@@ -261,16 +261,19 @@ static void search_ec_oid(EVP_PKEY *pkey)
 {
 #ifndef OPENSSL_NO_EC
 	EC_KEY *ec;
+	EC_GROUP *builtin;
+	const EC_GROUP *ec_group;
+
 	int keytype = EVP_PKEY_id(pkey);
 
 	if (keytype != EVP_PKEY_EC)
 		return;
 
 	ec = EVP_PKEY_get0_EC_KEY(pkey);
+	if (!ec)
+		return;
 
-	const EC_GROUP *ec_group = EC_KEY_get0_group(ec);
-	EC_GROUP *builtin;
-
+	ec_group = EC_KEY_get0_group(ec);
 	if (!ec_group)
 		return;
 	if (EC_GROUP_get_curve_name(ec_group))
