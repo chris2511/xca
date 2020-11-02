@@ -19,3 +19,5 @@ OCSPSigning
 id-kp-eapOverPPP
 id-kp-eapOverLAN
 pkInitKDC
+pkInitClientAuth
+secureShellClient
