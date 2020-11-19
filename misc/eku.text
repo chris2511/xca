@@ -21,3 +21,5 @@ id-kp-eapOverLAN
 pkInitKDC
 pkInitClientAuth
 secureShellClient
+adobePDFSigning
+msofficeSigning
