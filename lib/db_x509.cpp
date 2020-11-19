@@ -592,12 +592,12 @@ void db_x509::store(QModelIndexList list)
 
 	if (privkey && privkey->isPrivKey() && !privkey->isToken()) {
 		if (chain) {
-			usual << exportType(exportType::PKCS12_chain, "p12",
+			usual << exportType(exportType::PKCS12_chain, "pfx",
 				tr("PKCS#12 chain"));
-			types << exportType(exportType::PKCS12, "p12",
+			types << exportType(exportType::PKCS12, "pfx",
 				"PKCS #12");
 		} else {
-			usual << exportType(exportType::PKCS12, "p12",
+			usual << exportType(exportType::PKCS12, "pfx",
 				"PKCS #12");
 		}
 		types <<
@@ -627,7 +627,7 @@ void db_x509::store(QModelIndexList list)
 
 	types = usual << exportType() << types;
 	ExportDialog *dlg = new ExportDialog(NULL, tr("Certificate export"),
-		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"), crt,
+		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"), crt,
 		QPixmap(":certImg"), types);
 	if (!dlg->exec()) {
 		delete dlg;
