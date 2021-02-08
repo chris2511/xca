@@ -781,7 +781,7 @@ bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 	if (akeyid->keyid)
 		ret << "keyid";
 	if (akeyid->issuer)
-		ret << "issuer";
+		ret << "issuer:always";
 	if (adv)
 		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).
 			arg(ret.join(", ")) + *adv;
