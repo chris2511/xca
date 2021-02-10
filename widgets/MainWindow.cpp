@@ -529,7 +529,7 @@ void MainWindow::importMulti(pki_multi *multi, int force)
 
 void MainWindow::openRemoteSqlDB()
 {
-	OpenDb *opendb = new OpenDb(this, Database.name());
+	OpenDb *opendb = new OpenDb(this, QString());
 	QString descriptor;
 	Passwd pass;
 	DbMap params;
