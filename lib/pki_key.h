@@ -17,6 +17,7 @@
 
 #include "openssl_compat.h"
 
+#define PEM_STRING_OPENSSH_KEY "OPENSSH PRIVATE KEY"
 #define MAX_KEY_LENGTH 4096
 #define ED25519_KEYLEN 32
 
@@ -165,13 +166,13 @@ class pki_key: public pki_base
 		void PEM_file_comment(XFile &file) const;
 		void collect_properties(QMap<QString, QString> &prp) const;
 
-	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba) const;
 		void ssh_key_check_chunk(QByteArray *ba, const char *expect) const;
 		QByteArray ssh_key_next_chunk(QByteArray *ba) const;
 		void ssh_key_QBA2data(const QByteArray &ba,
 					QByteArray *data) const;
 		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const;
+	private:
 		mutable int useCount; // usage counter
 	public:
 

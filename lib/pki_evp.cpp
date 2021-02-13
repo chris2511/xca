@@ -259,7 +259,9 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 	pass_info p(XCA_TITLE,
 		tr("Please enter the password to decrypt the private key %1.")
 			.arg(name));
-	do {
+	pkey = load_ssh_ed25519_privatekey(ba, p);
+
+	while (!pkey) {
 		pkey = PEM_read_bio_PrivateKey(BioByteArray(ba).ro(), NULL,
 						PwDialog::pwCallback, &p);
 		if (openssl_pw_error())
@@ -268,11 +270,10 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 			throw p.getResult();
 		if (pki_ign_openssl_error())
 			break;
-	} while (!pkey);
-
+	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		pkey = PEM_read_bio_PUBKEY(BioByteArray(ba).ro(), NULL, NULL, 0);
+		pkey = PEM_read_bio_PUBKEY(BioByteArray(ba).ro(), NULL, NULL,0);
 	}
 	pki_openssl_error();
 	set_EVP_PKEY(pkey, name);
@@ -338,6 +339,78 @@ void pki_evp::set_EVP_PKEY(EVP_PKEY *pkey, QString name)
 	pki_openssl_error();
 }
 
+EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
+						const pass_info &p)
+{
+	EVP_PKEY *pkey = NULL;
+	unsigned char *pdata;
+	long plen;
+	QByteArray chunk, enc_algo, kdfname, kdf, pub, priv;
+
+	(void)p; // Will be used later for decryption
+	if (!PEM_bytes_read_bio(&pdata, &plen, NULL, PEM_STRING_OPENSSH_KEY,
+				BioByteArray(ba).ro(), NULL, NULL))
+		return NULL;
+
+	QByteArray content((const char*)pdata, plen);
+	OPENSSL_free(pdata);
+
+	if (!content.startsWith("openssh-key-v1") ||
+	     // also check trailing \0
+	     content.constData()[sizeof "openssh-key-v1" -1])
+		return NULL;
+
+	content.remove(0, sizeof "openssh-key-v1");
+	// encryption: "none", "aes256-ctr"
+	enc_algo = ssh_key_next_chunk(&content);
+	// KDFName "bcrypt"
+	kdfname = ssh_key_next_chunk(&content);
+	kdf = ssh_key_next_chunk(&content);
+
+	if (enc_algo != "none" || kdfname != "none") {
+		qCritical("Encrypted SSH ED25519 keys not supported, yet");
+		return NULL;
+	}
+	// check bytes 00 00 00 01
+	const char *d = content.constData();
+	if (d[0] || d[1] || d[2] || d[3] != 1)
+		return NULL;
+	content.remove(0, 4);
+	// Handle first occurance of the public key
+	pub = ssh_key_next_chunk(&content);
+	ssh_key_check_chunk(&pub, "ssh-ed25519");
+	pub = ssh_key_next_chunk(&pub);
+	if (pub.count() != ED25519_KEYLEN)
+		return NULL;
+
+	// Followed by the private key
+	priv = ssh_key_next_chunk(&content);
+	// Drop 64bit random nonce
+	priv.remove(0, 8);
+
+	ssh_key_check_chunk(&priv, "ssh-ed25519");
+	// The first pubkey must match the second occurance
+	// in front of the private one
+	if (pub != ssh_key_next_chunk(&priv))
+		return NULL;
+	priv = ssh_key_next_chunk(&priv);
+	// The private key is concatenated by the public key in one chunk
+	if (priv.count() != 2 * ED25519_KEYLEN)
+		return NULL;
+	// The last ED25519_KEYLEN bytes must match the public key
+	if (pub != priv.mid(ED25519_KEYLEN))
+		return NULL;
+	// The first ED25519_KEYLEN octets are the private key
+#ifndef OPENSSL_NO_EC
+#ifdef EVP_PKEY_ED25519
+	pkey = EVP_PKEY_new_raw_private_key(EVP_PKEY_ED25519, NULL,
+		(const unsigned char *)priv.constData(), ED25519_KEYLEN);
+#endif
+#endif
+	pki_openssl_error();
+	return pkey;
+}
+
 void pki_evp::fload(const QString &fname)
 {
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
@@ -348,6 +421,7 @@ void pki_evp::fload(const QString &fname)
 	XFile file(fname);
 	file.open_read();
 	EVP_PKEY *pkey;
+
 	do {
 		pkey = PEM_read_PrivateKey(file.fp(), NULL, cb, &p);
 		if (openssl_pw_error())
@@ -358,6 +432,7 @@ void pki_evp::fload(const QString &fname)
 			break;
 		file.retry_read();
 	} while (!pkey);
+
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();
@@ -383,8 +458,12 @@ void pki_evp::fload(const QString &fname)
 		pki_ign_openssl_error();
 		file.retry_read();
 		pkey = b2i_PVK_bio(file.bio(), cb, &p);
-		pki_openssl_error();
-        }
+	}
+	if (!pkey) {
+		pki_ign_openssl_error();
+		file.retry_read();
+		pkey = load_ssh_ed25519_privatekey(file.read(10000), p);
+	}
 #endif
 	if (!pkey) {
 		pki_ign_openssl_error();
@@ -400,13 +479,13 @@ void pki_evp::fload(const QString &fname)
 		pki_ign_openssl_error();
 		file.retry_read();
 		pkey = load_ssh2_key(file);
-        }
+	}
 #if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();
 		pkey = b2i_PublicKey_bio(file.bio());
-        }
+	}
 #endif
 	if (pki_ign_openssl_error() || !pkey) {
 		if (pkey)
@@ -808,37 +887,47 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 {
 	bool verify = true;
 #if OPENSSL_VERSION_NUMBER >= 0x10000000L
-	unsigned char md[32], sig[1024];
-	size_t mdlen = sizeof md, siglen = sizeof sig;
-	EVP_PKEY_CTX *ctx = NULL;
+	unsigned char data[32], sig[1024];
+	size_t datalen = sizeof data, siglen = sizeof sig;
+	EVP_MD_CTX *ctx = NULL;
+	const EVP_MD *md = EVP_sha256();
+	EVP_PKEY_CTX *pkctx = NULL;
 
 	if (!EVP_PKEY_isPrivKey(pkey))
 		return true;
 	do {
-		ctx = EVP_PKEY_CTX_new(pkey, NULL);
+		ctx = EVP_MD_CTX_new();
 		pki_ign_openssl_error();
-		RAND_bytes(md, mdlen);
+		RAND_bytes(data, datalen);
 		check_oom(ctx);
 		verify = false;
 
-		/* Sign some random data in "md" */
-		if (EVP_PKEY_sign_init(ctx) <= 0)
+		/* Sign some random data in "data" */
+#ifdef EVP_PKEY_ED25519
+		if (EVP_PKEY_id(pkey) == EVP_PKEY_ED25519)
+			md = NULL;
+#endif
+		if (!EVP_DigestSignInit(ctx, &pkctx, md, NULL, pkey))
 			break;
+
 		if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA)
-			EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING);
-		if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) <= 0)
+			EVP_PKEY_CTX_set_rsa_padding(pkctx, RSA_PKCS1_PADDING);
+
+		if (!EVP_DigestSign(ctx, sig, &siglen, data, datalen))
 			break;
-		if (EVP_PKEY_sign(ctx, sig, &siglen, md, mdlen) <= 0)
-			break;
+
 		/* Verify the signature */
-		if (EVP_PKEY_verify_init(ctx) <= 0)
+		if (!EVP_DigestVerifyInit(ctx, NULL, md, NULL, pkey))
 			break;
-		if (EVP_PKEY_verify(ctx, sig, siglen, md, mdlen) <= 0)
+
+		if (EVP_DigestVerify(ctx, sig, siglen, data, datalen) != 1)
 			break;
+
 		verify = true;
 	} while (0);
+
 	if (ctx)
-		EVP_PKEY_CTX_free(ctx);
+		EVP_MD_CTX_free(ctx);
 #endif
 	if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
 		RSA *rsa = EVP_PKEY_get0_RSA(pkey);

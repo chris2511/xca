@@ -118,4 +118,23 @@ static inline void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *ctx)
 
 #endif
 
+#if OPENSSL_VERSION_NUMBER < 0x10101000L
+
+static inline int
+EVP_DigestSign(EVP_MD_CTX *ctx, unsigned char *sigret,
+		size_t *siglen, const unsigned char *tbs, size_t tbslen)
+{
+	return EVP_DigestSignUpdate(ctx, tbs, tbslen) &&
+		EVP_DigestSignFinal(ctx, sigret, siglen);
+}
+
+static inline int
+EVP_DigestVerify(EVP_MD_CTX *ctx, const unsigned char *sigret,
+		size_t siglen, const unsigned char *tbs, size_t tbslen)
+{
+	return EVP_DigestVerifyUpdate(ctx, tbs, tbslen) &&
+		EVP_DigestVerifyFinal(ctx, (unsigned char *)sigret, siglen);
+}
+#endif
+
 #endif

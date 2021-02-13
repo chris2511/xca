@@ -17,6 +17,8 @@
 
 #define VIEW_private_ownpass 9
 
+class pass_info;
+
 class pki_evp: public pki_key
 {
 		Q_OBJECT
@@ -58,6 +60,8 @@ class pki_evp: public pki_key
 		static QString removeTypeFromIntName(QString n);
 		void fromPEMbyteArray(const QByteArray &ba, const QString &name);
 		void fload(const QString &fname);
+		EVP_PKEY *load_ssh_ed25519_privatekey(const QByteArray &ba,
+						const pass_info &p);
 		void writeDefault(const QString &dirname) const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		void writeKey(XFile &file, const EVP_CIPHER *enc,
