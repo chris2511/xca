@@ -198,6 +198,15 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 		case EVP_PKEY_EC:
 			return EC_KEY_get0_private_key(
 				EVP_PKEY_get0_EC_KEY(key)) ? true: false;
+#ifdef EVP_PKEY_ED25519
+		case EVP_PKEY_ED25519: {
+			unsigned char buf[ED25519_KEYLEN];
+			size_t len = sizeof buf;
+			int ret = EVP_PKEY_get_raw_private_key(key, buf, &len);
+			ign_openssl_error();
+			return ret && len == ED25519_KEYLEN;
+		}
+#endif
 #endif
 	}
 	return false;

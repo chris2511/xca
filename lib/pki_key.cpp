@@ -321,6 +321,19 @@ QString pki_key::ecPubKey() const
 	}
 	return pub;
 }
+
+QByteArray pki_key::ed25519PubKey() const
+{
+#ifdef EVP_PKEY_ED25519
+	unsigned char pub[ED25519_KEYLEN];
+	size_t len = sizeof pub;
+
+	if (getKeyType() == EVP_PKEY_ED25519 &&
+	    EVP_PKEY_get_raw_public_key(key, pub, &len))
+		return QByteArray((char*)pub, len);
+#endif
+	return QByteArray();
+}
 #endif
 
 QList<int> pki_key::possibleHashNids()
@@ -651,6 +664,9 @@ bool pki_key::SSH2_compatible() const
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		return ecParamNid() == NID_X9_62_prime256v1;
+#ifdef EVP_PKEY_ED25519
+	case EVP_PKEY_ED25519:
+#endif
 #endif
 	case EVP_PKEY_RSA:
 	case EVP_PKEY_DSA:
@@ -703,6 +719,13 @@ QByteArray pki_key::SSH2publicQByteArray(bool raw) const
 		}
 		pki_openssl_error();
 		break;
+#ifdef EVP_PKEY_ED25519
+	case EVP_PKEY_ED25519:
+		txt = "ssh-ed25519";
+		ssh_key_QBA2data(txt, &data);
+		ssh_key_QBA2data(ed25519PubKey(), &data);
+		break;
+#endif
 #endif
 	default:
 		return QByteArray();
@@ -744,6 +767,14 @@ bool pki_key::verify(EVP_PKEY *pkey) const
 	case EVP_PKEY_EC:
 		verify = EC_KEY_check_key(EVP_PKEY_get0_EC_KEY(pkey)) == 1;
 		break;
+#ifdef EVP_PKEY_ED25519
+	case EVP_PKEY_ED25519: {
+		size_t len;
+		verify = EVP_PKEY_get_raw_private_key(pkey, NULL, &len) == 1 &&
+				len == ED25519_KEYLEN;
+		break;
+	}
+#endif
 #endif
 	default:
 		verify = false;

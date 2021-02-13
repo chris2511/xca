@@ -128,6 +128,15 @@ void KeyDetail::setKey(pki_key *key)
 			keyPubEx->setToolTip(CurveComment(nid));
 			keyModulus->setText(key->ecPubKey());
 			break;
+#ifdef EVP_PKEY_ED25519
+		case EVP_PKEY_ED25519:
+			tlModulus->setTitle(tr("Public key"));
+			tlPrivEx->setText(tr("Private key"));
+			tlPubEx->setText(tr("Curve name"));
+			keyPubEx->setText("ed25519");
+			keyModulus->setText(key->ed25519PubKey().toHex());
+			break;
+#endif
 #endif
 		default:
 			tlHeader->setText(tr("Unknown key"));

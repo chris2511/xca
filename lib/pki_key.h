@@ -18,6 +18,7 @@
 #include "openssl_compat.h"
 
 #define MAX_KEY_LENGTH 4096
+#define ED25519_KEYLEN 32
 
 #define VIEW_public_keys_type 6
 #define VIEW_public_keys_len 7
@@ -223,6 +224,7 @@ class pki_key: public pki_base
 		QString pubkey() const;
 		int ecParamNid() const;
 		QString ecPubKey() const;
+		QByteArray ed25519PubKey() const;
 		BIGNUM *ecPubKeyBN() const;
 		void d2i(QByteArray &ba);
 		void d2i_old(QByteArray &ba, int type);
