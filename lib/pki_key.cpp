@@ -624,6 +624,14 @@ EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 		pk = EVP_PKEY_new();
 		check_oom(pk);
 		EVP_PKEY_assign_EC_KEY(pk, ec);
+#ifdef EVP_PKEY_ED25519
+	} else if (sl[0].startsWith("ssh-ed25519")) {
+		ssh_key_check_chunk(&ba, "ssh-ed25519");
+		QByteArray pub = ssh_key_next_chunk(&ba);
+		pk = EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, NULL,
+			(const unsigned char *)pub.constData(), pub.count());
+		pki_openssl_error();
+#endif
 #endif
 	} else {
 		throw errorEx(tr("Unexpected SSH2 content: '%1'").arg(sl[0]));
