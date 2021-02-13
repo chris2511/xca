@@ -119,7 +119,7 @@ void pki_evp::generate(const keyjob &task)
 		break;
 	}
 #ifndef OPENSSL_NO_EC
-	case EVP_PKEY_EC:
+	case EVP_PKEY_EC: {
 		EC_KEY *eckey;
 		EC_GROUP *group = EC_GROUP_new_by_curve_name(task.ec_nid);
 		if (!group)
@@ -140,6 +140,18 @@ void pki_evp::generate(const keyjob &task)
 		EC_KEY_free(eckey);
 		EC_GROUP_free(group);
 		break;
+	}
+#ifdef EVP_PKEY_ED25519
+	case EVP_PKEY_ED25519: {
+		EVP_PKEY *pkey = NULL;
+		EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_ED25519, NULL);
+		EVP_PKEY_keygen_init(pctx);
+		EVP_PKEY_keygen(pctx, &pkey);
+		EVP_PKEY_CTX_free(pctx);
+		EVP_PKEY_free(key);
+		key = pkey;
+	}
+#endif
 #endif
 	}
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L

@@ -182,17 +182,15 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 
 void NewKey::on_keyType_currentIndexChanged(int idx)
 {
-	bool curve_enabled;
 	keyListItem ki = keyType->itemData(idx).value<keyListItem>();
 
-	curve_enabled = ki.type() == EVP_PKEY_EC;
-	curveBox->setVisible(curve_enabled);
-	curveLabel->setVisible(curve_enabled);
-	keySizeLabel->setVisible(!curve_enabled);
-	keyLength->setVisible(!curve_enabled);
+	curveBox->setVisible(ki.ktype.curve);
+	curveLabel->setVisible(ki.ktype.curve);
+	keySizeLabel->setVisible(ki.ktype.length);
+	keyLength->setVisible(ki.ktype.length);
 
 	rememberDefault->setEnabled(!ki.card);
-	if (curve_enabled && ki.card) {
+	if (ki.ktype.curve && ki.card) {
 		updateCurves(ki.minKeySize, ki.maxKeySize, ki.ec_flags);
 	}
 }

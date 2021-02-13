@@ -31,21 +31,28 @@ class keytype
 	static QList<keytype> types()
 	{
 		return QList<keytype> {
-			keytype(EVP_PKEY_RSA, "RSA", CKM_RSA_PKCS_KEY_PAIR_GEN),
-			keytype(EVP_PKEY_DSA, "DSA", CKM_DSA_KEY_PAIR_GEN),
+			keytype(EVP_PKEY_RSA, "RSA", CKM_RSA_PKCS_KEY_PAIR_GEN,
+				false, true),
+			keytype(EVP_PKEY_DSA, "DSA", CKM_DSA_KEY_PAIR_GEN,
+				false, true),
 #ifndef OPENSSL_NO_EC
-			keytype(EVP_PKEY_EC, "EC", CKM_EC_KEY_PAIR_GEN),
+			keytype(EVP_PKEY_EC, "EC", CKM_EC_KEY_PAIR_GEN,
+				true, false),
+#ifdef EVP_PKEY_ED25519
+			keytype(EVP_PKEY_ED25519, "ED25519", 0, false, false),
+#endif
 #endif
 		};
 	}
 	int type;
 	QString name;
 	CK_MECHANISM_TYPE mech;
+	bool curve, length;
 
-	keytype(int t, const QString &n, CK_MECHANISM_TYPE m)
-			: type(t), name(n), mech(m) { }
-	keytype() : type(-1), name(QString()), mech(0) { }
-
+	keytype(int t, const QString &n, CK_MECHANISM_TYPE m, bool c, bool l)
+			: type(t), name(n), mech(m), curve(c), length(l) { }
+	keytype() : type(-1), name(QString()), mech(0),
+			curve(false), length(true) { }
 	bool isValid()
 	{
 		return type != -1;
