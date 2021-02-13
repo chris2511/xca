@@ -570,16 +570,16 @@ void pki_evp::encryptKey(const char *password)
 		ret = PwDialog::execute(&p, &ownPassBuf, true);
 		if (ret != 1)
 			throw errorEx("Password input aborted", getClassName());
-	pki_openssl_error();
+		pki_openssl_error();
 	} else if (ownPass == ptBogus) { // BOGUS password
 		ownPassBuf = "Bogus";
-	pki_openssl_error();
+		pki_openssl_error();
 	} else {
 		if (password) {
 			/* use the password parameter
 			 * if this is a common password */
 			ownPassBuf = password;
-	pki_openssl_error();
+			pki_openssl_error();
 		} else {
 			int ret = 0;
 			ownPassBuf = passwd;
