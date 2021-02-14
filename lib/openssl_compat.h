@@ -85,6 +85,37 @@ RSA_get0_crt_params(const RSA *r, const BIGNUM **dmp1, const BIGNUM **dmq1,
 	if (iqmp) *iqmp=r->iqmp;
 }
 
+static inline void *OPENSSL_zalloc(size_t num)
+{
+	void *ret = OPENSSL_malloc(num);
+
+	if (ret)
+		memset(ret, 0, num);
+	return ret;
+}
+
+static inline EVP_MD_CTX *EVP_MD_CTX_new(void)
+{
+	return (EVP_MD_CTX*)OPENSSL_zalloc(sizeof(EVP_MD_CTX));
+}
+
+static inline void EVP_MD_CTX_free(EVP_MD_CTX *ctx)
+{
+	EVP_MD_CTX_cleanup(ctx);
+	OPENSSL_free(ctx);
+}
+
+static inline EVP_CIPHER_CTX *EVP_CIPHER_CTX_new()
+{
+	return (EVP_CIPHER_CTX*)OPENSSL_zalloc(sizeof(EVP_CIPHER_CTX));
+}
+
+static inline void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *ctx)
+{
+	EVP_CIPHER_CTX_cleanup(ctx);
+	OPENSSL_free(ctx);
+}
+
 #endif
 
 #endif

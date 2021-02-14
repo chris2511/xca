@@ -490,9 +490,6 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 
 	EVP_PKEY *tmpkey;
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	EVP_CIPHER_CTX ctxbuf;
-#endif
 	EVP_CIPHER_CTX *ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	p = (unsigned char *)OPENSSL_malloc(myencKey.count());
@@ -505,18 +502,14 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	/* generate the key */
 	EVP_BytesToKey(cipher, EVP_sha1(), iv,
 		ownPassBuf.constUchar(), ownPassBuf.size(), 1, ckey, NULL);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	ctx = EVP_CIPHER_CTX_new();
-#else
-	ctx = &ctxbuf;
-#endif
-	EVP_CIPHER_CTX_init(ctx);
 	EVP_DecryptInit(ctx, cipher, ckey, iv);
 	EVP_DecryptUpdate(ctx, p , &outl,
 		(const unsigned char*)myencKey.constData() +8,
 		myencKey.count() -8);
 	decsize = outl;
 	EVP_DecryptFinal_ex(ctx, p + decsize , &outl);
+
 	EVP_CIPHER_CTX_cleanup(ctx);
 	decsize += outl;
 	pki_openssl_error();
@@ -524,10 +517,8 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	pki_openssl_error();
 	OPENSSL_cleanse(p, myencKey.count());
 	OPENSSL_free(p);
-	EVP_CIPHER_CTX_cleanup(ctx);
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	EVP_CIPHER_CTX_free(ctx);
-#endif
+
 	pki_openssl_error();
 	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
 		RSA *rsa = EVP_PKEY_get0_RSA(tmpkey);
