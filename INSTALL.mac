@@ -16,7 +16,7 @@ brew install mariadb-connector-c postgresql unixodbc
       MYSQL_LIBDIR=$(pkg-config --variable=prefix libmariadb)/lib/mariadb \
       MYSQL_INCDIR=$(pkg-config --variable=prefix libmariadb)/include/mariadb/ \
       MYSQL_LIBS="-lmariadb" \
-      PSQL_PREFIX=/usr/local/Cellar/postgresql/12.4/
+      PSQL_PREFIX=/usr/local/Cellar/postgresql/12.4/ \
       ODBC_PREFIX=$(pkg-config --variable=prefix odbc)
 
 make sub-plugins
