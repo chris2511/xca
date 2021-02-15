@@ -223,10 +223,14 @@ class pki_key: public pki_base
 		QString pubEx() const;
 		QString subprime() const;
 		QString pubkey() const;
+
+#ifndef OPENSSL_NO_EC
 		int ecParamNid() const;
 		QString ecPubKey() const;
 		QByteArray ed25519PubKey() const;
+		QByteArray ed25519PrivKey(const EVP_PKEY *pkey) const;
 		BIGNUM *ecPubKeyBN() const;
+#endif
 		void d2i(QByteArray &ba);
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d() const;
@@ -234,6 +238,8 @@ class pki_key: public pki_base
 		void writeSSH2public(XFile &file) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
+		void write_SSH2_ed25519_private(BioByteArray &b,
+			const EVP_PKEY *pkey, const EVP_CIPHER *enc) const;
 		void print(BioByteArray &b, enum print_opt opt) const;
 		void resetUcount()
 		{
