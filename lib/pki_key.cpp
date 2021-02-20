@@ -92,9 +92,10 @@ QByteArray pki_key::i2d() const
         return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
 
-void pki_key::write_SSH2_ed25519_private(BioByteArray &b,
+void pki_key::write_SSH2_ed25519_private(BIO *b,
 			 const EVP_PKEY *pkey, const EVP_CIPHER *enc) const
 {
+#ifndef OPENSSL_NO_EC
 	static const char data0001[] = { 0, 0, 0, 1};
 	char buf_nonce[8];
 	QByteArray data, priv, pubfull;
@@ -118,6 +119,7 @@ void pki_key::write_SSH2_ed25519_private(BioByteArray &b,
 	PEM_write_bio(b, PEM_STRING_OPENSSH_KEY, (char*)"",
 		(unsigned char*)(data.data()), data.size());
 	pki_openssl_error();
+#endif
 }
 
 bool pki_key::pem(BioByteArray &b, int format)
@@ -131,6 +133,7 @@ bool pki_key::pem(BioByteArray &b, int format)
 		b += SSH2publicQByteArray();
 		break;
 	case exportType::PEM_private:
+	case exportType::SSH2_private:
 		pkey = decryptKey();
 		keytype = EVP_PKEY_id(pkey);
 		switch (keytype) {
@@ -152,6 +155,8 @@ bool pki_key::pem(BioByteArray &b, int format)
 			break;
 #ifdef EVP_PKEY_ED25519
 		case EVP_PKEY_ED25519:
+			if (format == exportType::PEM_private)
+				return false;
 			write_SSH2_ed25519_private(b, pkey, NULL);
 			break;
 #endif
@@ -171,6 +176,19 @@ bool pki_key::pem(BioByteArray &b, int format)
 		return false;
 	}
 	return true;
+}
+
+void pki_key::writeSSH2private(XFile &file, pem_password_cb *cb) const
+{
+	(void)cb;
+//	pass_info p(XCA_TITLE, tr("Please enter the password protecting the SSH2 private key '%1'").arg(getIntName()));
+
+	EVP_PKEY *pkey = decryptKey();
+	if (!pkey) {
+		pki_openssl_error();
+		return;
+	}
+	write_SSH2_ed25519_private(file.bio(), pkey, NULL);
 }
 
 QString pki_key::length() const
@@ -355,18 +373,17 @@ QString pki_key::ecPubKey() const
 	return pub;
 }
 
+#ifdef EVP_PKEY_ED25519
 static QByteArray ed25519Key(int(*EVP_PKEY_get_raw)
 			(const EVP_PKEY*, unsigned char *, size_t *),
 			const EVP_PKEY *pkey)
 {
-#ifdef EVP_PKEY_ED25519
 	unsigned char k[ED25519_KEYLEN];
 	size_t len = sizeof k;
 
 	if (EVP_PKEY_id(pkey) == EVP_PKEY_ED25519 &&
 	    EVP_PKEY_get_raw(pkey, k, &len))
 		return QByteArray((char*)k, len);
-#endif
 	return QByteArray();
 }
 
@@ -379,6 +396,19 @@ QByteArray pki_key::ed25519PrivKey(const EVP_PKEY *pkey) const
 {
 	return ed25519Key(EVP_PKEY_get_raw_private_key, pkey);
 }
+#else
+
+QByteArray pki_key::ed25519PubKey() const
+{
+	return QByteArray();
+}
+
+QByteArray pki_key::ed25519PrivKey(const EVP_PKEY *) const
+{
+	return QByteArray();
+}
+
+#endif
 #endif
 
 QList<int> pki_key::possibleHashNids()

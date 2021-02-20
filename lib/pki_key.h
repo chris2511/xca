@@ -236,9 +236,10 @@ class pki_key: public pki_base
 		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(XFile &file);
 		void writeSSH2public(XFile &file) const;
+		void writeSSH2private(XFile &file, pem_password_cb *cb) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
-		void write_SSH2_ed25519_private(BioByteArray &b,
+		void write_SSH2_ed25519_private(BIO *b,
 			const EVP_PKEY *pkey, const EVP_CIPHER *enc) const;
 		void print(BioByteArray &b, enum print_opt opt) const;
 		void resetUcount()

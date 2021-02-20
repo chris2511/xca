@@ -216,12 +216,15 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 	if (ssh2compatible)
 		types << exportType(exportType::SSH2_public,
 			"pub", tr("SSH2 public"));
-	if (allPriv)
+	if (allPriv) {
 		types << exportType(exportType::PEM_private, "pem",
 			tr("PEM private"))
 		      << exportType(exportType::PKCS8, "pk8",
 			"PKCS#8");
-
+		if (ssh2compatible)
+			types << exportType(exportType::SSH2_private,
+				"", tr("SSH2 private"));
+	}
 	ExportDialog *dlg = new ExportDialog(NULL,
 		tr("Export keys to Clipboard"), QString(), NULL,
 		QPixmap(":keyImg"), types);
@@ -241,7 +244,7 @@ void db_key::store(QModelIndex index)
 	const EVP_CIPHER *algo = NULL, *encrypt = EVP_aes_256_cbc();
 	QString title = tr("Export public key [%1]");
 	QList<exportType> types;
-	bool pvk = false;
+	bool pvk = false, ed25519 = false;
 
 	pki_key *key = fromIndex<pki_key>(index);
 	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
@@ -253,6 +256,10 @@ void db_key::store(QModelIndex index)
 	int keytype = key->getKeyType();
 	if (keytype == EVP_PKEY_RSA || keytype == EVP_PKEY_DSA)
 		pvk = true;
+#ifdef EVP_PKEY_ED25519
+	if (keytype == EVP_PKEY_ED25519)
+		ed25519 = true;
+#endif
 #endif
 
 	types <<
@@ -264,12 +271,13 @@ void db_key::store(QModelIndex index)
 					"pub", tr("SSH2 public"));
 	if (!key->isPubKey() && !key->isToken()) {
 		QList<exportType> usual;
+		if (!ed25519)
+			types << exportType(exportType::PEM_private_encrypt,
+				"pem", tr("PEM encryped"));
 		types <<
-		exportType(exportType::DER_private, "der",
-			tr("DER private")) <<
-		exportType(exportType::PEM_private_encrypt, "pem",
-			tr("PEM encryped")) <<
-		exportType(exportType::PKCS8, "pk8", "PKCS#8");
+			exportType(exportType::DER_private, "der",
+				tr("DER private")) <<
+			exportType(exportType::PKCS8, "pk8", "PKCS#8");
 
 		if (pvk) {
 			types <<
@@ -278,11 +286,14 @@ void db_key::store(QModelIndex index)
 			exportType(exportType::PVK_encrypt, "pvk",
 				tr("PVK encrypted"));
 		}
-		usual <<
-		exportType(exportType::PEM_private, "pem",
-			tr("PEM private")) <<
-		exportType(exportType::PKCS8_encrypt, "pk8",
+		if (!ed25519)
+			usual << exportType(exportType::PEM_private, "pem",
+				tr("PEM private"));
+		usual << exportType(exportType::PKCS8_encrypt, "pk8",
 			tr("PKCS#8 encrypted"));
+		if (key->SSH2_compatible())
+			usual << exportType(exportType::SSH2_private, "",
+				tr("SSH2 private"));
 		title = tr("Export private key [%1]");
 		types = usual << exportType() << types;
 	}
@@ -337,6 +348,9 @@ void db_key::store(QModelIndex index)
 			break;
 		case exportType::SSH2_public:
 			key->writeSSH2public(file);
+			break;
+		case exportType::SSH2_private:
+			key->writeSSH2private(file, PwDialog::pwCallback);
 			break;
 		case exportType::PVK_private:
 			privkey->writePVKprivate(file, NULL);

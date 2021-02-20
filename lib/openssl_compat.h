@@ -105,6 +105,7 @@ static inline void EVP_MD_CTX_free(EVP_MD_CTX *ctx)
 	OPENSSL_free(ctx);
 }
 
+#if 0
 static inline EVP_CIPHER_CTX *EVP_CIPHER_CTX_new()
 {
 	return (EVP_CIPHER_CTX*)OPENSSL_zalloc(sizeof(EVP_CIPHER_CTX));
@@ -115,6 +116,7 @@ static inline void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *ctx)
 	EVP_CIPHER_CTX_cleanup(ctx);
 	OPENSSL_free(ctx);
 }
+#endif
 
 #endif
 
