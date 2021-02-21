@@ -284,6 +284,8 @@ QString pkcs11_lib_list::getPkcs11Provider() const
 
 void pkcs11_lib_list::remove_libs()
 {
+	if (libs.isEmpty() == 0)
+		return;
 	beginRemoveRows(QModelIndex(), 0, libs.size() -1);
 	qDeleteAll(libs);
 	libs.clear();
@@ -393,7 +395,8 @@ Qt::DropActions pkcs11_lib_list::supportedDropActions() const
 
 bool pkcs11_lib_list::removeRows(int row, int count, const QModelIndex &parent)
 {
-	if (parent.isValid() || row < 0 || row + count > model_data.size())
+	if (parent.isValid() || row < 0 || count == 0 ||
+	    row + count > model_data.size())
 		return false;
 
 	beginRemoveRows(parent, row, row + count - 1);
@@ -405,7 +408,7 @@ bool pkcs11_lib_list::removeRows(int row, int count, const QModelIndex &parent)
 
 bool pkcs11_lib_list::insertRows(int row, int count, const QModelIndex &parent)
 {
-	if (parent.isValid())
+	if (parent.isValid() || row < 0 || count == 0)
 		return false;
 
 	beginInsertRows(parent, row, row +count -1);
