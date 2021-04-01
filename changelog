@@ -1,4 +1,6 @@
 
+ * Add context sensitive help
+ * Convert documentation from linuxdoc/SGML to sphinxdoc
  * Close #258: xca aborts on exit and on access to own templates
  * Close #142: Support Ed25519 Import / Export private SSH2 key
  * Close #142: Support Ed25519: Key-generation, import, export
