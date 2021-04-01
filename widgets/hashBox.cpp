@@ -59,16 +59,21 @@ bool hashBox::isInsecure() const
 
 const EVP_MD *hashBox::currentHash() const
 {
-#if OPENSSL_VERSION_NUMBER < 0x10000000L
 	switch(key_type) {
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
 	case EVP_PKEY_DSA:
 		return EVP_dss1();
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		return EVP_ecdsa();
 #endif
-	}
 #endif
+#ifdef EVP_PKEY_ED25519
+        case EVP_PKEY_ED25519:
+TRACE
+                return NULL;
+#endif
+	}
 	unsigned i= hashBox::currentHashIdx();
 	if (i >= ARRAY_SIZE(hashalgos))
 		i = DEFAULT_MD_IDX;
@@ -174,6 +179,7 @@ void hashBox::setupHashes(QList<int> nids)
 			addItem(QString(hashalgos[i].name));
 		}
 	}
+	setEnabled(count() > 0);
 	setDefaultHash();
 	setCurrentString(md);
 }
