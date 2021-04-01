@@ -1276,6 +1276,14 @@ void NewX509::accept()
 		}
 		return;
         }
+	if (hashAlgo->count() > 0 && hashAlgo->isInsecure()) {
+		gotoTab(0);
+		xcaWarning msg(this, tr("The currently selected hash algorithm '%1' is insecure and should not be used.").arg(hashAlgo->currentHashName()));
+		msg.addButton(QMessageBox::Ok, tr("Select other algorithm"));
+		msg.addButton(QMessageBox::Yes, tr("Use algorithm anyway"));
+		if (msg.exec() == QMessageBox::Ok)
+			return;
+	}
 	if (signer && notBefore->getDate() < signer->getNotBefore()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
