@@ -11,7 +11,7 @@ Exit after importing items.
 .B \-\-help
 Print this help and exit.
 .TP
-.B \-\-hierarchy=<dir> *
+.B \-\-hierarchy=<directory> *
 Save OpenSSL index hierarchy in <dir>.
 .TP
 .B \-\-index=<file> *

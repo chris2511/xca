@@ -9,6 +9,7 @@
 
 #include <QDir>
 #include <QDebug>
+
 #include "widgets/MainWindow.h"
 #include "widgets/XcaApplication.h"
 #include "widgets/XcaWarning.h"
@@ -301,7 +302,7 @@ int main(int argc, char *argv[])
 {
 	const char *xca_man = getenv("XCA_MAN");
 	if (xca_man && *xca_man) {
-		puts(CCHAR(arguments::man()));
+		puts(CCHAR(arguments::doc(xca_man)));
 		return 0;
 	}
 #if QT_VERSION < 0x050000

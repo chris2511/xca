@@ -5,6 +5,7 @@ DEPENDPATH += . lang lib ui widgets
 INCLUDEPATH += . lib widgets
 QMAKE_MAKEFILE = makefile
 QT = gui core sql widgets
+QT += help
 
 RESOURCES = img/imgres.rcc
 RC_FILE = img/w32res.rc
@@ -79,6 +80,8 @@ HEADERS += lib/asn1int.h \
            lib/entropy.h \
            lib/settings.h \
            lib/sql.h \
+           lib/database_model.h \
+           lib/arguments.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
            widgets/clicklabel.h \
@@ -176,6 +179,8 @@ SOURCES += lib/asn1int.cpp \
            lib/settings.cpp \
            lib/version.cpp \
            lib/sql.cpp \
+           lib/database_model.cpp \
+           lib/arguments.cpp \
            widgets/CertDetail.cpp \
            widgets/CertExtend.cpp \
            widgets/clicklabel.cpp \
@@ -187,7 +192,6 @@ SOURCES += lib/asn1int.cpp \
            widgets/KeyDetail.cpp \
            widgets/kvView.cpp \
            widgets/MainWindow.cpp \
-           widgets/MW_database.cpp \
            widgets/MW_help.cpp \
            widgets/MW_menu.cpp \
            widgets/NewCrl.cpp \

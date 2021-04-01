@@ -21,37 +21,37 @@
 
 
 const QList<arg_option> arguments::opts = {
-	arg_option("crlgen", "<ca identifier>", required_argument, true, true,
+	arg_option("crlgen", "ca-identifier", required_argument, true, true,
 		"Generate CRL for <ca>. Use the 'name' option to set the internal name of the new CRL."),
-	arg_option("database", "<database>", file_argument, false, false,
+	arg_option("database", "database", file_argument, false, false,
 		"File name (*.xdb) of the SQLite database or a remote database descriptor: [user@host/TYPE:dbname#prefix]."),
 	arg_option("exit", NULL, no_argument, false, false,
 		"Exit after importing items."),
 	arg_option("help", NULL, no_argument, true, false,
 		"Print this help and exit."),
-	arg_option("hierarchy", "<dir>", file_argument, true, true,
+	arg_option("hierarchy", "directory", file_argument, true, true,
 		"Save OpenSSL index hierarchy in <dir>."),
-	arg_option("index", "<file>", file_argument, true, true,
+	arg_option("index", "file", file_argument, true, true,
 		"Save OpenSSL index in <file>."),
 	arg_option("import", NULL, no_argument, false, true,
 		"Import all provided items into the database."),
 	arg_option("issuers", NULL, no_argument, true, true,
 		"Print all known issuer certificates that have an associated private key and the CA basic constraints set to 'true'."),
-	arg_option("keygen", "<type>", required_argument, true, true,
+	arg_option("keygen", "type", required_argument, true, true,
 		"Generate a new key and import it into the database. Use the 'name' option to set the internal name of the new key. The <type> parameter has the format: '[RSA|DSA|EC]:[<size>|<curve>]."),
 	arg_option("list-curves", NULL, no_argument, true, false,
 		"Prints all known Elliptic Curves."),
-	arg_option("name", "<internal name>", required_argument, false, true,
+	arg_option("name", "internal-name", required_argument, false, true,
 		"Provides the name of new generated items. An automatic name will be generated if omitted."),
 	arg_option("no-gui", NULL, no_argument, true, false,
 		"Do not start the GUI. Alternatively set environment variable XCA_NO_GUI=1 or call xca as 'xca-console' symlink."),
-	arg_option("password", "<password>", required_argument, false, false,
+	arg_option("password", "password", required_argument, false, false,
 		"Database password for unlocking the database."),
 	arg_option("pem", NULL, no_argument, true, false,
 		"Print PEM representation of provided files. Prints only the public part of private keys."),
 	arg_option("print", NULL, no_argument, true, false,
 		"Print a synopsis of provided files."),
-	arg_option("sqlpass", "<password>", required_argument, false, false,
+	arg_option("sqlpass", "password", required_argument, false, false,
 		"Password to access the remote SQL server."),
 	arg_option("text", NULL, no_argument, true, false,
 		"Print the content of provided files as OpenSSL does."),
@@ -114,7 +114,7 @@ QString arguments::man()
 	for (auto i = opts.begin(); i != opts.end(); ++i) {
 		QString longopt = i->long_opt;
 		if (i->arg)
-			longopt += QString("=%1").arg(i->arg);
+			longopt += QString("=<%1>").arg(i->arg);
 		s += QString(".TP\n.B \\-\\-%1%3\n%2\n")
 			.arg(longopt)
 			.arg(i->help)
@@ -129,10 +129,60 @@ QString arguments::man()
 	return s;
 }
 
+static QString esc(QString msg)
+{
+	return msg.replace(QRegExp("([\\*@:'_])"), "\\\\1");
+}
+
+QString arguments::rst()
+{
+	QString s = "\n";
+	QMap<QString, QString> passdoc = getPassDoc();
+	int space = (maxOptWidth() + 4) * -1;
+
+	for (auto i = opts.begin(); i != opts.end(); ++i) {
+		QString longopt = i->long_opt;
+		if (i->arg)
+			longopt += QString("=%1").arg(esc(i->arg));
+		s += QString("--%1 %2%3\n")
+			.arg(esc(longopt), space)
+			.arg(esc(i->help))
+			.arg(i->need_db ? " [#need-db]_" : "");
+	}
+	s += "\n\n"
+".. [#need-db] Requires a database. Either from the commandline or as default database.\n\n"
+"Passphrase arguments\n"
+".....................\n"
+"The password options accept the same syntax as openssl does:\n\n";
+	foreach(QString key, passdoc.keys())
+		s += QString("%1\n  %2\n").arg(esc(key)).arg(esc(passdoc[key]));
+	return s;
+}
+
+QString arguments::doc(const QString &which)
+{
+	if (which == "rst")
+		return rst();
+	return man();
+}
+
+size_t arguments::maxOptWidth()
+{
+	size_t len = 0;
+	foreach(const arg_option &a, opts) {
+		size_t l = strlen(a.long_opt);
+		if (a.arg)
+			l += strlen(a.arg);
+		if (l > len)
+			len = l;
+	}
+	return len;
+}
+
 QString arguments::help()
 {
 	QString s;
-	size_t len = 0;
+	size_t len;
 	int width = 80, offset;
 #if !defined(Q_OS_WIN32)
 	struct winsize w;
@@ -143,18 +193,12 @@ QString arguments::help()
 #endif
 	QMap<QString, QString> passdoc = getPassDoc();
 
-	foreach(const arg_option &a, opts) {
-		size_t l = strlen(a.long_opt) + 1;
-		if (a.arg)
-			l += strlen(a.arg) + 1;
-		if (l > len)
-			len = l;
-	}
+	len = maxOptWidth() +4;
 	offset = len + 7;
 	for (auto i = opts.begin(); i != opts.end(); ++i) {
 		QString longopt = i->long_opt;
 		if (i->arg)
-			longopt += QString("=%1").arg(i->arg);
+			longopt += QString("=<%1>").arg(i->arg);
 		QString help = splitQstring(offset, width, i->help);
 		s += QString(" " COL_CYAN "%3 " COL_RESET
 				 COL_BOLD "--%1" COL_RESET " %2\n")

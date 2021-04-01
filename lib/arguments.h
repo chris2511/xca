@@ -49,6 +49,9 @@ class arguments
 	static bool is_console(int argc, char *argv[]);
 	static QString help();
 	static QString man();
+	static QString rst();
+	static size_t maxOptWidth();
+	static QString doc(const QString &which);
 
 	arguments(int argc, char *argv[]);
 	arguments(const arguments &a);

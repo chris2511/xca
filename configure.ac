@@ -124,7 +124,7 @@ AC_ARG_WITH([qt-version],
   [WANT_QT_VERSION=detect])
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
-  PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0 Qt5Widgets >= 5.0 Qt5Sql >= 5.0], [
+  PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0 Qt5Widgets >= 5.0 Qt5Sql >= 5.0 Qt5Help >= 5.0], [
     _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
     QT_MOC="${_QT_HOST_BINS}/moc"
     QT_UIC="${_QT_HOST_BINS}/uic"
@@ -141,7 +141,7 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
 fi
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
-  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.7 QtCore < 5.0 QtGui >= 4.7 QtGui < 5.0 QtSql >= 4.7 QtSql < 5.0], [
+  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.7 QtCore < 5.0 QtGui >= 4.7 QtGui < 5.0 QtSql >= 4.7 QtSql < 5.0 QtHelp < 5.0], [
     QT_MOC="`pkg-config --variable=moc_location QtCore`"
     QT_UIC="`pkg-config --variable=uic_location QtCore`"
     if test -n "${QT_MOC}"; then
@@ -212,6 +212,13 @@ else
   QT_RCC="$QT_RCCQT"
 fi
 
+AC_PATH_PROG([QT_HELPCOLL], [qcollectiongenerator${QT_VERSION}], , [$QT_BIN_PATH])
+if test "x${QT_HELPCOLL}" = "x"; then
+  AC_PATH_PROG([QT_HELPCOLL], [qcollectiongenerator], [qcollectiongenerator], [$QT_BIN_PATH])
+else
+  QT_HELPCOLL="$QT_HELPCOLL"
+fi
+
 
 if test "$HOST" = "DARWIN"; then
   AC_PATH_PROG([MACDEPLOYQT], [macdeployqt], [macdeployqt], [$QT_BIN_PATH])
@@ -258,26 +265,14 @@ test "${enable_doc}" = "yes" && ENABLE_DOC= || ENABLE_DOC='\#'
 AC_SUBST([ENABLE_DOC])
 
 if test "${enable_doc}"; then
-  AC_CHECK_PROGS([DOCTOOL], [linuxdoc sgml2html], [":"])
+  AC_CHECK_PROGS([DOCTOOL], [sphinx-build], [":"])
   AC_SUBST([DOCTOOL])
-
-  case "$DOCTOOL" in
-   linuxdoc) DOCTOOL="linuxdoc -B html -H \$(TOPDIR)/doc/html.header";;
-   sgml2html) DOCTOOL="sgml2html -s 1 -H \$(TOPDIR)/doc/html.header";;
-   :)
-    if test "${srcdir}" != "."; then
-      mkdir -p doc
-      cp ${srcdir}/doc/xca-doc.tgz doc/
-    fi
-    AC_MSG_WARN(['linuxdoc' or 'sgml2html' not found, using pre-compiled documentation])
-    ;;
-  esac
 fi
 
 # Setup done. Write local.h and Local.mak
 ############################################
 AC_CONFIG_HEADERS(local.h)
 AC_CONFIG_LINKS(Makefile:Makefile)
-AC_CONFIG_FILES([Local.mak misc/Info.plist misc/variables.wxi])
+AC_CONFIG_FILES([Local.mak misc/Info.plist misc/variables.wxi doc/conf.py])
 
 AC_OUTPUT

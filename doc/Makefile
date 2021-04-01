@@ -3,9 +3,9 @@ TOPDIR=..
 BUILD=..
 endif
 
-DELFILES=xca*.html xca.1.gz changelog.html database_schema.html
+DELFILES=xca*.html xca.1.gz
 
-doc: xca.1.gz xca.html changelog.html database_schema.html
+doc: xca.1.gz html/index.html qthelp/xca.qhc
 include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1
@@ -15,16 +15,25 @@ include $(TOPDIR)/Rules.mak
 xca.1: xca.1.head xca.1.options xca.1.tail
 	cat $^ > $@
 
-xca.html: xca.sgml
-	rm -f xca*.html
-	echo 'The documentation for XCA can be viewed online at: <a href="http://hohnstaedt.de/documentation">http://hohnstaedt.de/documentation</a>.' > $@
-	test ! -f xca-doc.tgz || tar zxf xca-doc.tgz
-	@$(PRINT) "  DOC    [$(BASENAME)] $@"
-	$(ENABLE_DOC)$(DOCTOOL) $< >/dev/null
+html/index.html: static/bigcert.png conf.py
+	@$(PRINT) "  HTML   [$(BASENAME)] $@"
+	$(DOCTOOL) $(DOCTOOLFLAGS) -b html -a -E -c . $(TOPDIR)/doc/rst html
+
+qthelp/xca.qhcp: static/bigcert.png conf.py
+	@$(PRINT) "  QTHELP [$(BASENAME)] $@"
+	$(DOCTOOL) $(DOCTOOLFLAGS) -b qthelp -a -E -c . $(TOPDIR)/doc/rst qthelp
+
+qthelp/xca.qhc: qthelp/xca.qhcp
+	@$(PRINT) "  QTHGEN [$(BASENAME)] $@"
+	$(HELPCOLL) $< -o $@
+
+static/bigcert.png: ../img/bigcert.png
+	mkdir -p static
+	cp $^ $@
 
 install: $(doc)
 	$(ENABLE_DOC)install -m 755 -d $(DESTDIR)$(htmldir)
-	$(ENABLE_DOC)install -m 644 xca*.html $(DESTDIR)$(htmldir)
+	$(ENABLE_DOC)install -m 644 qthelp/*.html qthelp/xca.q* $(DESTDIR)$(htmldir)
 	install -m 755 -d $(DESTDIR)$(mandir)/man1
 	install -m 644 *.1.gz $(DESTDIR)/$(mandir)/man1
 
@@ -32,15 +41,6 @@ app: xca.html
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 xca*.html $(APPDIR)/Resources
 
-changelog.html: $(TOPDIR)/changelog $(TOPDIR)/doc/html.header
-	( cat $(TOPDIR)/doc/html.header; \
-	  echo '</head><body><h2>Changelog</h2><div><ul>'; \
-	  sed  's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; 2,$$ s/^xca.*-pre[0-9][0-9] .*/ <\/li><li class="prerelease">&/; s/^xca \([^ ]*\) *\(.*\)/<\/ul><\/div><div id="changelog_\1"><h3>xca \1 \2<\/h3><ul>/; s/\*/<\/li><li>/'; \
-	  echo '</body></html>' \
-	) < $< > $@
+database_schema.sql: ../widgets/database_schema.cpp
+	sed 's/<<//; s/\\"/'"'"'/g; s,//,--,; s/"/ /g; s/\tschemas\[\(.*\)\].*/  -- Schema Version \1/; /^\t;$$/d' < $^ > $@
 
-database_schema.html: ../widgets/database_schema.cpp
-	$(TOPDIR)/doc/code2html -lcxx -ohtml $< $@
-
-upload: database_schema.html changelog.html xca.html
-	scp *.html hohnstaedt.de:xca-doc/
