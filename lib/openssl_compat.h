@@ -120,7 +120,7 @@ static inline void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *ctx)
 
 #endif
 
-#if OPENSSL_VERSION_NUMBER < 0x10101000L
+#if OPENSSL_VERSION_NUMBER < 0x10101000L || defined LIBRESSL_VERSION_NUMBER
 
 static inline int
 EVP_DigestSign(EVP_MD_CTX *ctx, unsigned char *sigret,
