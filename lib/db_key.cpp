@@ -223,7 +223,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
 			"PKCS#8");
 		if (ssh2compatible)
 			types << exportType(exportType::SSH2_private,
-				"", tr("SSH2 private"));
+				"priv", tr("SSH2 private"));
 	}
 	ExportDialog *dlg = new ExportDialog(NULL,
 		tr("Export keys to Clipboard"), QString(), NULL,
@@ -292,7 +292,7 @@ void db_key::store(QModelIndex index)
 		usual << exportType(exportType::PKCS8_encrypt, "pk8",
 			tr("PKCS#8 encrypted"));
 		if (key->SSH2_compatible())
-			usual << exportType(exportType::SSH2_private, "",
+			usual << exportType(exportType::SSH2_private, "priv",
 				tr("SSH2 private"));
 		title = tr("Export private key [%1]");
 		types = usual << exportType() << types;
