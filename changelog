@@ -1,3 +1,19 @@
+
+ * Close #258: xca aborts on exit and on access to own templates
+ * Close #142: Support Ed25519 Import / Export private SSH2 key
+ * Close #142: Support Ed25519: Key-generation, import, export
+ * Close #251: AuthorityKeyIdentifier: use issuer:always
+ * Change language maintainer of brazilian portuguese
+ * Close #230: Change PKCS12 export extension from .p12 to .pfx
+ * Close #208: XCA hung when importing EC keys. For example prime256v1
+ * Close #210: Make dialog to edit SAN less strict
+ * Close #224: Store original path/filename on import
+ * Close #213: configure.ac: add description to AC_DEFINE_UNQUOTED
+ * Close #172 #46: Multiple OCSP Responders
+ * Store default database and recently opened file as UTF8
+ * Close #157 Generate and export CRLs from commandline
+ * Add command line support for creating CRLs, keys and analyzing items
+
 xca 2.3.0 Wed Apr 29 2020
 
  * Close #191 OID LN differs warning popups at startup
