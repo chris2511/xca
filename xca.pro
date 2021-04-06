@@ -82,6 +82,8 @@ HEADERS += lib/asn1int.h \
            lib/sql.h \
            lib/database_model.h \
            lib/arguments.h \
+           lib/BioByteArray.h \
+           lib/dbhistory.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
            widgets/clicklabel.h \
@@ -107,12 +109,15 @@ HEADERS += lib/asn1int.h \
            widgets/KeyTreeView.h \
            widgets/ReqTreeView.h \
            widgets/TempTreeView.h \
+           widgets/CrlTreeView.h \
            widgets/X509SuperTreeView.h \
            widgets/XcaHeaderView.h \
            widgets/OidResolver.h \
            widgets/ItemCombo.h \
            widgets/XcaDialog.h \
            widgets/XcaProxyModel.h \
+           widgets/XcaApplication.h \
+           widgets/XcaWarning.h \
            widgets/OpenDb.h
 
 FORMS += ui/CaProperties.ui \
@@ -181,6 +186,8 @@ SOURCES += lib/asn1int.cpp \
            lib/sql.cpp \
            lib/database_model.cpp \
            lib/arguments.cpp \
+           lib/BioByteArray.cpp \
+           lib/dbhistory.cpp \
            widgets/CertDetail.cpp \
            widgets/CertExtend.cpp \
            widgets/clicklabel.cpp \
@@ -209,10 +216,13 @@ SOURCES += lib/asn1int.cpp \
            widgets/KeyTreeView.cpp \
            widgets/ReqTreeView.cpp \
            widgets/TempTreeView.cpp \
+           widgets/CrlTreeView.cpp \
            widgets/X509SuperTreeView.cpp \
            widgets/XcaHeaderView.cpp \
            widgets/OidResolver.cpp \
            widgets/XcaProxyModel.cpp \
+           widgets/XcaApplication.cpp \
+           widgets/XcaWarning.cpp \
            widgets/OpenDb.cpp
 
 TRANSLATIONS += lang/xca.ts \
