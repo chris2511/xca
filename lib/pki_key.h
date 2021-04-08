@@ -109,17 +109,23 @@ class keyjob
 	keyjob(const QString &desc)
 	{
 		QStringList sl = desc.split(':');
+		if (sl.size() == 1)
+			sl += "";
 		if (sl.size() != 2)
 			return;
 		ktype = keytype::byName(sl[0]);
+		size = 0;
+		ec_nid = NID_undef;
 		if (isEC())
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
-		else
+		else if (!isED25519())
 			size = sl[1].toInt();
 		slot = slotid();
 	}
 	QString toString()
 	{
+		if (isED25519())
+			return ktype.name;
 		return QString("%1:%2").arg(ktype.name)
 				.arg(isEC() ?
 					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
@@ -133,10 +139,20 @@ class keyjob
 	{
 		return ktype.type == EVP_PKEY_EC;
 	}
+	bool isED25519() const
+	{
+#ifdef EVP_PKEY_ED25519
+		return ktype.type == EVP_PKEY_ED25519;
+#else
+		return false;
+#endif
+	}
 	bool isValid()
 	{
 		if (!ktype.isValid())
 			return false;
+		if (isED25519())
+			return true;
 		if (isEC() && builtinCurves.containNid(ec_nid))
 			return true;
 		if (!isEC() && size > 0)

@@ -158,7 +158,7 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 {
 	pki_key *key = NULL;
 
-	if (!task.isEC()) {
+	if (!task.isEC() && !task.isED25519()) {
 		if (task.size < 32) {
 			XCA_WARN(tr("Key size too small !"));
 			return NULL;
@@ -176,6 +176,8 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 		}
 		key->generate(task);
 		key->pkiSource = generated;
+		if (key->getIntName().isEmpty())
+			key->autoIntName(name);
 		key = dynamic_cast<pki_key*>(insert(key));
 		emit keyDone(key);
 		createSuccess(key);
