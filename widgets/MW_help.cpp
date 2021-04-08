@@ -140,27 +140,3 @@ void MainWindow::about()
 	about->exec();
 	delete about;
 }
-
-void MainWindow::help()
-{
-	QDialog *h = new QDialog(this);
-	QString path, uri;
-	Ui::Help ui;
-	ui.setupUi(h);
-
-	path = QString("file://");
-#if defined(Q_OS_WIN32)
-	path += "/";
-#endif
-	path += getDocDir() + "/";
-#if defined(Q_OS_WIN32)
-	path = path.replace("\\","/");
-#endif
-	uri = path + "xca.html";
-
-	ui.textbox->setSource(QUrl(uri));
-	ui.textbox->setSearchPaths(QStringList(path));
-	h->setWindowTitle(XCA_TITLE);
-	h->show();
-}
-

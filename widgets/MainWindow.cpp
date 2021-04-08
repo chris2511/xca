@@ -89,6 +89,7 @@ MainWindow::MainWindow() : QMainWindow()
 	}
 
 	historyMenu = NULL;
+	helpdlg = new Help();
 	init_menu();
 	setItemEnabled(false);
 
@@ -418,6 +419,7 @@ MainWindow::~MainWindow()
 	EVP_cleanup();
 	OBJ_cleanup();
 	delete dbindex;
+	delete helpdlg;
 #ifdef MDEBUG
 	fprintf(stderr, "Memdebug:\n");
 	CRYPTO_mem_leaks_fp(stderr);

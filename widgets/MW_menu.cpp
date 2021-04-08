@@ -22,6 +22,7 @@
 #include "hashBox.h"
 #include "OidResolver.h"
 #include "OpenDb.h"
+#include "Help.h"
 #include <QApplication>
 #include <QClipboard>
 #include <QMenuBar>
@@ -167,7 +168,7 @@ void MainWindow::init_menu()
 	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));
 
 	help = menuBar()->addMenu(tr("&Help") );
-	help->addAction(tr("Content"), this, SLOT(help()),
+	help->addAction(tr("Content"), helpdlg, SLOT(content()),
 			QKeySequence::HelpContents);
 	a = new QAction(tr("About"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(about()));

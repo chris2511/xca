@@ -118,6 +118,7 @@ HEADERS += lib/asn1int.h \
            widgets/XcaProxyModel.h \
            widgets/XcaApplication.h \
            widgets/XcaWarning.h \
+           widgets/Help.h \
            widgets/OpenDb.h
 
 FORMS += ui/CaProperties.ui \
@@ -223,6 +224,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/XcaProxyModel.cpp \
            widgets/XcaApplication.cpp \
            widgets/XcaWarning.cpp \
+           widgets/Help.cpp \
            widgets/OpenDb.cpp
 
 TRANSLATIONS += lang/xca.ts \

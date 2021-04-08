@@ -9,6 +9,7 @@
 #define __MAINWINDOW_H
 
 #include "ui_MainWindow.h"
+#include "Help.h"
 
 #include "lib/oid.h"
 #include "lib/Passwd.h"
@@ -85,6 +86,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	public:
 		int exitApp;
 		QLabel *dbindex;
+		Help *helpdlg;
 		MainWindow();
 		virtual ~MainWindow();
 		void loadSettings();
@@ -114,7 +116,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void dump_database();
 		void default_database();
 		void about();
-		void help();
 		void loadPem();
 		bool pastePem(QString text, bool silent=false);
 		void pastePem();

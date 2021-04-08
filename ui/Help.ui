@@ -3,7 +3,7 @@
  <comment></comment>
  <exportmacro></exportmacro>
  <class>Help</class>
- <widget class="QDialog" name="Help" >
+ <widget class="QWidget" name="Help" >
   <property name="geometry" >
    <rect>
     <x>0</x>
