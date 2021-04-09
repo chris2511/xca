@@ -57,29 +57,8 @@ void X509SuperTreeView::toOpenssl()
 }
 
 
-void X509SuperTreeView::showPki(pki_base *pki) const
+void X509SuperTreeView::showPki(pki_base *pki)
 {
 	pki_x509super *x = dynamic_cast<pki_x509super *>(pki);
-	if (!x)
-		return;
-	CertDetail *dlg = new CertDetail(NULL);
-	if (!dlg)
-		return;
-
-	dlg->setX509super(x);
-
-	connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-		mainwin->keyView, SLOT(showItem(QString)));
-	connect(dlg->signature, SIGNAL(doubleClicked(QString)),
-		this, SLOT(showItem(QString)));
-	connect(basemodel, SIGNAL(pkiChanged(pki_base*)),
-		dlg, SLOT(itemChanged(pki_base*)));
-	connect(Database.model<db_key>(), SIGNAL(pkiChanged(pki_base*)),
-		dlg, SLOT(itemChanged(pki_base*)));
-
-	if (dlg->exec() && basemodel) {
-		x509super()->updateItem(pki, dlg->descr->text(),
-					dlg->comment->toPlainText());
-	}
-	delete dlg;
+	CertDetail::showCert(this, x);
 }

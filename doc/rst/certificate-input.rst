@@ -1,4 +1,6 @@
 
+.. index:: wizard (wizard)
+
 .. _wizard:
 
 Certificate Input Dialog
@@ -7,6 +9,8 @@ Certificate Input Dialog
 This input dialog is the central part for collecting all data regarding certificates,
 requests and templates. It will be invoked whenever such an item is going
 to be created or, in case of a template, is altered.
+
+.. index:: wizard_src (wizard_src)
 
 Source
 ------
@@ -44,6 +48,8 @@ by selecting it and clicking *Apply all*.
 Templates can be mixed by applying the subject of one template and then
 applying the extensions of an other by using the
 buttons *Apply subject* and *Apply extensions*
+
+.. index:: wizard_subject (wizard_subject)
 
 Personal Settings
 -----------------
@@ -97,6 +103,10 @@ Select "Modify subject of the request", if you want to modify it anyway.
 The content of the subject Tab will then be preset with the content of the
 request.
 
+.. index:: wizard_extensions (wizard_extensions)
+.. index:: wizard_keyusage (wizard_keyusage)
+.. index:: wizard_netcape (wizard_netcape)
+
 X509v3 Extensions
 -----------------
 
@@ -133,6 +143,8 @@ Rather the time range is stored and automatically applied when selecting this
 template. Applying the time range means to set notBefore to "now" and notAfter
 to "now + time range". If the *midnight* button is set both dates will be
 rounded down and up to midnight.
+
+.. index:: wizard_advanced (wizard_advanced)
 
 Advanced
 ........

@@ -8,6 +8,7 @@
 
 #include "NewKey.h"
 #include "MainWindow.h"
+#include "Help.h"
 #include "lib/pki_evp.h"
 #include "lib/pkcs11.h"
 #include "distname.h"
@@ -85,7 +86,7 @@ class keyListItem
 Q_DECLARE_METATYPE(keyListItem);
 
 NewKey::NewKey(QWidget *parent, const QString &name)
-	:QDialog(parent)
+	:QDialog(parent ?: mainwin)
 {
 	static const QList<int> sizeList = { 1024, 2048, 4096, 8192 };
 	slotidList p11_slots;
@@ -94,6 +95,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(QPixmap(":keyImg"));
+	mainwin->helpdlg->register_ctxhelp_button(this, "keygen");
 
 	if (!name.isEmpty())
 		keyDesc->setText(name);

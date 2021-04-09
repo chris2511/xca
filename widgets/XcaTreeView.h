@@ -56,7 +56,7 @@ class XcaTreeView: public QTreeView
 	void contextMenu(QContextMenuEvent *e,
 			QMenu *parent = NULL, int sect = -1);
 	void keyPressEvent(QKeyEvent *event);
-	virtual void showPki(pki_base *) const {};
+	virtual void showPki(pki_base *) {};
 
    public slots:
 	void changeView();

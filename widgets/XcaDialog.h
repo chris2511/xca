@@ -13,6 +13,7 @@
 #include "ui_XcaDialog.h"
 #include "lib/db.h"
 #include "MainWindow.h"
+#include "Help.h"
 
 // index = enum pki_type
 static const char * const PixmapMap[] = {
@@ -23,13 +24,16 @@ class XcaDialog : public QDialog, public Ui::XcaDialog
 {
 	QWidget *widg;
     public:
-	XcaDialog(QWidget *parent, enum pki_type type, QWidget *w,
-		QString t, QString desc) : QDialog(parent)
+	XcaDialog(QWidget *parent, enum pki_type type, QWidget *w, QString t,
+		 QString desc, QString help_ctx = QString())
+	 : QDialog(parent ?: mainwin)
 	{
 		setupUi(this);
 		setWindowTitle(XCA_TITLE);
 		image->setPixmap(QPixmap(PixmapMap[type]));
 		content->addWidget(w);
+		mainwin->helpdlg->register_ctxhelp_button(this, help_ctx);
+
 		widg = w;
 		title->setText(t);
 		if (desc.isEmpty()) {

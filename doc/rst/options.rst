@@ -1,4 +1,5 @@
 
+.. index:: options (options)
 .. _options:
 
 Options

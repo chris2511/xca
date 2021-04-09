@@ -70,7 +70,7 @@ class NewX509: public QDialog, public Ui::NewX509
                         QWidget *parent, QWidget *old, int columns);
 
 	public:
-		NewX509(QWidget *parent);
+		NewX509(QWidget *w = nullptr);
 		virtual ~NewX509();
 		void initCtx();
 		void setRequest(); // reduce to request form

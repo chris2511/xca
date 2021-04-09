@@ -1,4 +1,5 @@
 
+.. index:: certdetail (certdetail)
 .. _certificates:
 
 Certificates
@@ -31,6 +32,8 @@ This usually happens if a CA certificate got renewed.
 In this case XCA selects the certificate with the later expiry date as
 anchor for the issued certificates.
 
+.. index:: certgen (certgen)
+
 Generating certificates
 -----------------------
 
@@ -59,6 +62,8 @@ If the certificate is revoked, the revocation date will be shown instead.
 
 On the *Subject* and *Issuer* tab the distinguished name is
 also displayed in a format defined in RFC2253 for copy&paste.
+
+.. index:: certexport (certexport)
 
 Certificate Export
 ------------------

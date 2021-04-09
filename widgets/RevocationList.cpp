@@ -7,6 +7,8 @@
 
 #include "RevocationList.h"
 #include "MainWindow.h"
+#include "NewCrl.h"
+#include "Help.h"
 #include "lib/asn1int.h"
 #include "lib/pki_x509.h"
 
@@ -91,12 +93,13 @@ void RevocationList::setupRevocationView(QTreeWidget *certList,
 	certList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
-RevocationList::RevocationList(QWidget *w) : QDialog(w)
+RevocationList::RevocationList(QWidget *w) : QDialog(w ?: mainwin)
 {
 	QPushButton *genCrl;
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(QPixmap(":revImg"));
+	mainwin->helpdlg->register_ctxhelp_button(this, "crlmanage");
 
 	genCrl = buttonBox->addButton(tr("Generate CRL"),
 				QDialogButtonBox::ActionRole);
@@ -107,7 +110,7 @@ RevocationList::RevocationList(QWidget *w) : QDialog(w)
 void RevocationList::gencrl()
 {
 	issuer->setRevocations(getRevList());
-	emit genCRL(issuer);
+	NewCrl::newCrl(this, issuer);
 }
 
 void RevocationList::setRevList(const x509revList &rl, pki_x509 *iss)
@@ -124,7 +127,7 @@ const x509revList &RevocationList::getRevList()
 
 void RevocationList::on_addRev_clicked()
 {
-	Revocation *revoke = new Revocation(this, QModelIndexList());
+	Revocation *revoke = new Revocation(QModelIndexList(), this);
         if (revoke->exec()) {
 		x509rev revit = revoke->getRevocation();
 		revList << revit;
@@ -168,7 +171,7 @@ void RevocationList::on_certList_itemDoubleClicked(QTreeWidgetItem *current)
 
 	rev = revList[idx];
 
-	Revocation *revoke = new Revocation(this, QModelIndexList());
+	Revocation *revoke = new Revocation(QModelIndexList(), this);
 	revoke->setRevocation(rev);
         if (revoke->exec()) {
 		a1time a1 = rev.getDate();
@@ -180,10 +183,12 @@ void RevocationList::on_certList_itemDoubleClicked(QTreeWidgetItem *current)
 	delete revoke;
 }
 
-Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
+Revocation::Revocation(QModelIndexList indexes, QWidget *w) : QDialog(w ?: mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
+	mainwin->helpdlg->register_ctxhelp_button(this, "crlrevocation");
+
 	reason->addItems(x509rev::crlreasons());
 	invalid->setNow();
 

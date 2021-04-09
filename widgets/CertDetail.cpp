@@ -12,6 +12,7 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include "XcaWarning.h"
+#include "Help.h"
 #include "OidResolver.h"
 #include "lib/func.h"
 #include <QLabel>
@@ -19,15 +20,16 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
-CertDetail::CertDetail(QWidget *parent)
-	:QDialog(parent)
+CertDetail::CertDetail(QWidget *w)
+	: QDialog(w ?: mainwin), keySqlId(), issuerSqlId(), thisSqlId()
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	showConf = false;
-	keySqlId = QVariant();
-	issuerSqlId = QVariant();
 	myPubKey = NULL;
+	tmpPubKey = NULL;
+
+	Database.connectToDbChangeEvt(this, SLOT(itemChanged(pki_base*)));
 }
 
 void CertDetail::on_showExt_clicked()
@@ -47,31 +49,35 @@ void CertDetail::on_showExt_clicked()
 void CertDetail::setX509super(pki_x509super *x)
 {
 	descr->setText(x->getIntName());
+	thisSqlId = x->getSqlItemId();
 
 	// examine the key
-	pki_key *key= x->getRefKey();
-	myPubKey = x->getPubKey();
-	if (key) {
-		privKey->setText(key->getIntName());
-		privKey->setClickText(key->getSqlItemId().toString());
-		if (key->isPrivKey()) {
+	myPubKey = x->getRefKey();
+	if (myPubKey) {
+		privKey->setText(myPubKey->getIntName());
+		privKey->setClickText(myPubKey->getSqlItemId().toString());
+		if (myPubKey->isPrivKey()) {
 			privKey->setGreen();
 		} else {
 			privKey->setRed();
 		}
-		keySqlId = key->getSqlItemId();
-	} else if (myPubKey) {
+	} else {
+		tmpPubKey = myPubKey = x->getPubKey();
 		privKey->setText(tr("Show public key"));
 		privKey->setRed();
-		connect(privKey, SIGNAL(doubleClicked(QString)),
-			this,    SLOT(showPubKey()));
 		myPubKey->setIntName(x->getIntName());
 		myPubKey->setComment(tr("This key is not in the database."));
-	} else {
+	}
+
+	if (!myPubKey) {
 		privKey->setText(tr("Not available"));
 		privKey->setDisabled(true);
 		privKey->disableToolTip();
+	} else {
+		keySqlId = myPubKey->getSqlItemId();
 	}
+	connect(privKey, SIGNAL(doubleClicked(QString)),
+		this, SLOT(showPubKey()));
 
 	// details of the subject
 	subject->setX509name(x->getSubject());
@@ -104,6 +110,7 @@ void CertDetail::setCert(pki_x509 *cert)
 		return;
 	image->setPixmap(QPixmap(":certImg"));
 	headerLabel->setText(tr("Details of the Certificate"));
+	mainwin->helpdlg->register_ctxhelp_button(this, "certdetail");
 	try {
 		// No attributes
 		tabwidget->removeTab(3);
@@ -123,6 +130,9 @@ void CertDetail::setCert(pki_x509 *cert)
 			signature->setClickText(issuer->getSqlItemId().toString());
 			signature->setGreen();
 			issuerSqlId = issuer->getSqlItemId();
+
+			connect(signature, SIGNAL(doubleClicked(QString)),
+				this, SLOT(showIssuer()));
 		}
 
 		// the serial
@@ -172,6 +182,7 @@ void CertDetail::setReq(pki_x509req *req)
 		return;
 	image->setPixmap(QPixmap(":csrImg"));
 	headerLabel->setText(tr("Details of the certificate signing request"));
+	mainwin->helpdlg->register_ctxhelp_button(this, "csrdetail");
 	try {
 		// No issuer
 		tabwidget->removeTab(2);
@@ -252,28 +263,48 @@ QLabel *CertDetail::labelFromAsn1String(ASN1_STRING *s)
 
 void CertDetail::itemChanged(pki_base *pki)
 {
-	if (pki->getSqlItemId() == keySqlId)
-		privKey->setText(pki->getIntName());
+	QVariant pkiSqlId = pki->getSqlItemId();
 
-	if (pki->getSqlItemId() == issuerSqlId)
+	if (pkiSqlId == keySqlId)
+		privKey->setText(pki->getIntName());
+	if (pkiSqlId == issuerSqlId)
 		signature->setText(pki->getIntName());
+	if (pkiSqlId == thisSqlId)
+		descr->setText(pki->getIntName());
 }
 
 void CertDetail::showPubKey()
 {
-	if (!myPubKey)
+	KeyDetail::showKey(this, myPubKey);
+}
+
+void CertDetail::showIssuer()
+{
+	showCert(this, Store.lookupPki<pki_x509>(issuerSqlId));
+}
+
+void CertDetail::showCert(QWidget *parent, pki_x509super *x)
+{
+	if (!x)
 		return;
-	KeyDetail *dlg = new KeyDetail(this);
+	CertDetail *dlg = new CertDetail(parent);
 	if (!dlg)
-		return;
-	dlg->setKey(myPubKey);
-	dlg->keyDesc->setReadOnly(true);
-	dlg->comment->setReadOnly(true);
-	dlg->exec();
-	delete dlg;
+                return;
+	dlg->setX509super(x);
+	if (dlg->exec()) {
+		db_base *db = Database.modelForPki(x);
+		if (!db) {
+			x->setIntName(dlg->descr->text());
+			x->setComment(dlg->comment->toPlainText());
+		} else {
+			db->updateItem(x, dlg->descr->text(),
+					dlg->comment->toPlainText());
+		}
+        }
+        delete dlg;
 }
 
 CertDetail::~CertDetail()
 {
-	delete myPubKey;
+	delete tmpPubKey;
 }

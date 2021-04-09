@@ -11,16 +11,21 @@
 #include "ui_KeyDetail.h"
 
 class pki_key;
+class pki_base;
 
 class KeyDetail: public QDialog, public Ui::KeyDetail
 {
 	Q_OBJECT
 
-   public:
-	KeyDetail(QWidget *parent);
+	QVariant keySqlId;
+
+    public:
+	KeyDetail(QWidget *w = nullptr);
 	void setKey(pki_key *key);
 	void setupFingerprints(pki_key *key);
+	static void showKey(QWidget *parent, pki_key *key);
 
-
+    public slots:
+	void itemChanged(pki_base *pki);
 };
 #endif

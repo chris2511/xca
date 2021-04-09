@@ -24,7 +24,7 @@ class CrlTreeView: public XcaTreeView
 
     public:
 	CrlTreeView(QWidget *parent) : XcaTreeView(parent) { }
-	void showPki(pki_base *pki) const;
+	void showPki(pki_base *pki);
 
     public slots:
 	void newItem(pki_x509 *cert);

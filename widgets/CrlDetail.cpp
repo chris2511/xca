@@ -7,7 +7,9 @@
 
 
 #include "CrlDetail.h"
+#include "CertDetail.h"
 #include "MainWindow.h"
+#include "Help.h"
 #include "distname.h"
 #include "clicklabel.h"
 #include "RevocationList.h"
@@ -18,15 +20,15 @@
 #include <QTextEdit>
 #include <QLineEdit>
 
-CrlDetail::CrlDetail(MainWindow *mainwin)
-	:QDialog(mainwin)
+CrlDetail::CrlDetail(QWidget *w)
+	: QDialog(w ?: mainwin), issuerSqlId(), crlSqlId()
 {
-	mw = mainwin;
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
+	mainwin->helpdlg->register_ctxhelp_button(this, "crldetail");
 
 	image->setPixmap(QPixmap(":revImg"));
-	issuerSqlId = QVariant();
+	Database.connectToDbChangeEvt(this, SLOT(itemChanged(pki_base*)));
 }
 
 void CrlDetail::setCrl(pki_crl *crl)
@@ -35,6 +37,8 @@ void CrlDetail::setCrl(pki_crl *crl)
 	x509v3ext e1, e2;
 
 	iss = crl->getIssuer();
+	crlSqlId = crl->getSqlItemId();
+
 	signCheck->disableToolTip();
 	signCheck->setClickText(crl->getSigAlg());
 	if (iss != NULL) {
@@ -59,6 +63,8 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 	connect(signCheck, SIGNAL(doubleClicked(QString)),
 		MainWindow::getResolver(), SLOT(searchOid(QString)));
+	connect(issuerIntName, SIGNAL(doubleClicked(QString)),
+		this, SLOT(showIssuer()));
 
 	descr->setText(crl->getIntName());
 	lUpdate->setText(crl->getLastUpdate().toPretty());
@@ -78,6 +84,35 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 void CrlDetail::itemChanged(pki_base *pki)
 {
-	if (pki->getSqlItemId() == issuerSqlId)
+	QVariant pkiSqlId = pki->getSqlItemId();
+
+	if (pkiSqlId == issuerSqlId)
 		issuerIntName->setText(pki->getIntName());
+	if (pkiSqlId == crlSqlId)
+		descr->setText(pki->getIntName());
+}
+
+void CrlDetail::showIssuer()
+{
+	CertDetail::showCert(this, Store.lookupPki<pki_x509>(issuerSqlId));
+}
+
+void CrlDetail::showCrl(QWidget *parent, pki_crl *crl)
+{
+	CrlDetail *dlg = new CrlDetail(parent);
+	if (!dlg)
+		return;
+
+	dlg->setCrl(crl);
+	if (dlg->exec()) {
+		db_base *db = Database.modelForPki(crl);
+		if (!db) {
+			crl->setIntName(dlg->descr->text());
+			crl->setComment(dlg->comment->toPlainText());
+		} else {
+			db->updateItem(crl, dlg->descr->text(),
+					dlg->comment->toPlainText());
+		}
+        }
+	delete dlg;
 }

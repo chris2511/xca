@@ -25,7 +25,7 @@ class RevocationList: public QDialog, public Ui::RevocationList
 	public:
 		static void setupRevocationView(QTreeWidget *certList,
 			const x509revList &revList, const pki_x509 *iss);
-		RevocationList(QWidget *w);
+		RevocationList(QWidget *w = nullptr);
 		void setRevList(const x509revList &rl, pki_x509 *issuer);
 		const x509revList &getRevList();
 
@@ -35,9 +35,6 @@ class RevocationList: public QDialog, public Ui::RevocationList
 		void on_editRev_clicked();
 		void gencrl();
 		void on_certList_itemDoubleClicked(QTreeWidgetItem *);
-
-	signals:
-		void genCRL(pki_x509 *);
 };
 
 class Revocation: public QDialog, public Ui::Revoke
@@ -45,7 +42,7 @@ class Revocation: public QDialog, public Ui::Revoke
 	Q_OBJECT
 
 	public:
-		Revocation(QWidget *w, QModelIndexList indexes);
+		Revocation(QModelIndexList indexes, QWidget *w = nullptr);
 		x509rev getRevocation();
 		void setRevocation(x509rev r);
 };

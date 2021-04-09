@@ -8,6 +8,7 @@
 
 #include "ExportDialog.h"
 #include "MainWindow.h"
+#include "Help.h"
 #include "XcaWarning.h"
 #include "lib/base.h"
 
@@ -18,9 +19,10 @@
 #include <QMessageBox>
 #include <QStringList>
 
-ExportDialog::ExportDialog(QWidget *w, const QString &title, const QString &filt,
-		pki_base *pki, const QPixmap &img, QList<exportType> types)
-	: QDialog(w)
+ExportDialog::ExportDialog(QWidget *w, const QString &title,
+			const QString &filt, pki_base *pki, const QPixmap &img,
+			QList<exportType> types, const QString &help_ctx)
+	: QDialog(w ?: mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
@@ -28,7 +30,9 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title, const QString &filt
 		descr->setText(pki->getIntName());
 	descr->setReadOnly(true);
 	image->setPixmap(img);
-        label->setText(title);
+	label->setText(title);
+	mainwin->helpdlg->register_ctxhelp_button(this, help_ctx);
+
 	if (pki) {
 		QString fn = Settings["workingdir"] +
 			pki->getUnderlinedName() + "." + types[0].extension;

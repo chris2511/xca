@@ -637,8 +637,8 @@ void db_base::editComment(const QModelIndex &index)
 	prop->name->setText(item->getIntName());
 	prop->source->setText(item->pki_source_name());
 	prop->insertionDate->setText(item->getInsertionDate().toPretty());
-	XcaDialog *d = new XcaDialog(NULL, item->getType(), w,
-		tr("Item properties"), QString());
+	XcaDialog *d = new XcaDialog(nullptr, item->getType(), w,
+		tr("Item properties"), QString(), "itemproperties");
 	if (d->exec())
 		updateItem(item, prop->name->text(), prop->comment->toPlainText());
 	delete d;

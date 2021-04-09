@@ -7,17 +7,13 @@
 
 
 #include "db_crl.h"
+#include "db_x509.h"
 #include "main.h"
 #include "exception.h"
 #include "database_model.h"
-#include "widgets/CrlDetail.h"
-#include "widgets/NewCrl.h"
 #include <QMessageBox>
 #include <QContextMenuEvent>
-#include "widgets/XcaDialog.h"
-#include "widgets/XcaWarning.h"
 #include "widgets/ItemCombo.h"
-#include "ui_NewCrl.h"
 
 db_crl::db_crl() : db_x509name("crls")
 {

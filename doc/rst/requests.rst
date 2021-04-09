@@ -1,4 +1,5 @@
 
+.. index:: csrdetail (csrdetail)
 .. _csr:
 
 Certificate Signing Requests
@@ -25,6 +26,8 @@ It does not depend on the certificate remaining in the XCA database.
 The *Certificate count* column on the other hand displays the number of
 currently available certificates with the same public key in the database.
 
+.. index:: csrgen (csrgen)
+
 Generating a new Request
 ------------------------
 
@@ -38,6 +41,8 @@ if the private key of the certificate is available.
 
 In this case all needed data is copied from the certificate and the
 Certificate dialog is not invoked.
+
+.. index:: csrexport (csrexport)
 
 Request Export
 --------------

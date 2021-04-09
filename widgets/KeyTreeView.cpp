@@ -165,22 +165,10 @@ void KeyTreeView::toToken()
 	delete card;
 }
 
-void KeyTreeView::showPki(pki_base *pki) const
+void KeyTreeView::showPki(pki_base *pki)
 {
 	pki_key *key = dynamic_cast<pki_key *>(pki);
-	if (!key || !basemodel)
-		return;
-
-	KeyDetail *dlg = new KeyDetail(mainwin);
-	if (!dlg)
-		return;
-	dlg->setKey(key);
-
-	if (dlg->exec() && basemodel) {
-		keys()->updateItem(pki, dlg->keyDesc->text(),
-					dlg->comment->toPlainText());
-	}
-	delete dlg;
+	KeyDetail::showKey(this, key);
 }
 
 void KeyTreeView::newItem() {

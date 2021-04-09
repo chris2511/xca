@@ -8,6 +8,8 @@
 #include "CertTreeView.h"
 #include "XcaWarning.h"
 #include "MainWindow.h"
+#include "RevocationList.h"
+#include "NewCrl.h"
 #include "lib/database_model.h"
 #include "lib/db_crl.h"
 
@@ -127,8 +129,7 @@ void CertTreeView::genCrl()
 {
 	pki_x509 *ca = db_base::fromIndex<pki_x509>(currentIndex());
 
-	if (mainwin && ca)
-		mainwin->crlView->newItem(ca);
+	NewCrl::newCrl(this, ca);
 }
 
 void CertTreeView::toCertificate()
@@ -158,8 +159,16 @@ void CertTreeView::changeView()
 
 void CertTreeView::manageRevocations()
 {
-	if (basemodel)
-		certs()->manageRevocations(currentIndex());
+	pki_x509 *cert = db_base::fromIndex<pki_x509>(currentIndex());
+	if (!cert)
+		return;
+
+	RevocationList *dlg = new RevocationList();
+	dlg->setRevList(cert->getRevList(), cert);
+	if (dlg->exec()) {
+		cert->setRevocations(dlg->getRevList());
+		columnsChanged();
+	}
 }
 
 void CertTreeView::caProperties()

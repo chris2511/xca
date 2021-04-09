@@ -65,7 +65,7 @@ void db_x509req::newItem()
 void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 {
 	pki_x509req *req = NULL;
-	NewX509 *dlg = new NewX509(NULL);
+	NewX509 *dlg = new NewX509();
 
 	if (temp) {
 		dlg->defineTemplate(temp);
@@ -118,7 +118,7 @@ void db_x509req::store(QModelIndex index)
 	ExportDialog *dlg = new ExportDialog(NULL,
 		tr("Certificate request export"),
 		tr("Certificate request ( *.pem *.der *.csr )"), req,
-		QPixmap(":csrImg"), types);
+		QPixmap(":csrImg"), types, "csrexport");
 	if (!dlg->exec()) {
 		delete dlg;
 		return;

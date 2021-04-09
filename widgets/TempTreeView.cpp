@@ -49,14 +49,14 @@ void TempTreeView::reqFromTemp()
 		emit newReq(temp);
 }
 
-void TempTreeView::showPki(pki_base *pki) const
+void TempTreeView::showPki(pki_base *pki)
 {
 	alterTemp(dynamic_cast<pki_temp *>(pki));
 }
 
-bool TempTreeView::runTempDlg(pki_temp *temp) const
+bool TempTreeView::runTempDlg(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(mainwin);
+	NewX509 *dlg = new NewX509(this);
 
 	dlg->setTemp(temp);
 	if (!dlg->exec()) {
@@ -78,7 +78,7 @@ void TempTreeView::newItem()
 
 	itemComboTemp *ic = new itemComboTemp(NULL);
 	ic->insertPkiItems(temps()->getPredefs());
-	XcaDialog *dlg = new XcaDialog(mainwin, tmpl, ic,
+	XcaDialog *dlg = new XcaDialog(this, tmpl, ic,
 				tr("Preset Template values"), QString());
 	if (dlg->exec()) {
 		temp = new pki_temp(ic->currentPkiItem());
@@ -95,7 +95,7 @@ void TempTreeView::newItem()
 	delete dlg;
 }
 
-bool TempTreeView::alterTemp(pki_temp *temp) const
+bool TempTreeView::alterTemp(pki_temp *temp)
 {
 	if (!basemodel || !temp)
 		return false;

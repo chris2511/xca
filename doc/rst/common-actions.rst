@@ -7,6 +7,9 @@ here once for all.
 The goal of this application is to provide an easy to use signing-tool and
 also a common place for all selected PKI items like requests or certificates.
 
+.. _columns:
+.. index:: columns (columns)
+
 Column Handling
 ---------------
 
@@ -38,19 +41,6 @@ It shows all available columns with check-boxes to show or hide them.
     Origin of this item, See :ref:`date_and_source`.
   - **Comment**
     A multi-line free text input, see :ref:`comment`.
-
-- Private Key columns
-
-  - **Type**
-    One of *RSA*, *DSA*, *EC*, *ED25519*.
-  - **Size**
-    Key size in bits.
-  - **EC Group**
-    Curve name of the EC key.
-  - **Use**
-    Number of certificates and requests using this key.
-  - **Password**
-    Protection of the key. See :ref:`keys`
 
 - Certificate and request columns
 
@@ -92,6 +82,8 @@ It shows all available columns with check-boxes to show or hide them.
 Columns can be resized and rearranged.
 This configuration is stored in the database and will be reassigned next time
 this database is opened.
+
+.. index:: import (import)
 
 Importing items
 ---------------
@@ -163,6 +155,15 @@ The displayed list of items can be reduced by the search-input at the
 bottom right. It affects all tabs. It does not only search inside the displayed columns but the whole content of the items. It searches the internal name,
 issuer, subject, extensions, PKCS#10 attributes and token provider.
 
+.. _internal_name:
+
+Internal name
+-------------
+
+The internal name is only used inside the database and is intended
+to uniquely identify the items. In earlier versions of XCA this name
+had to be unique. This is not a requirement anymore.
+
 .. _date_and_source:
 
 Date and source of appearance
@@ -175,19 +176,27 @@ context menu of an item, or by enabling the *Source* or
 
 The source may be one of the following
 
-- Imported
+- Imported:
+    From a file or by pasting PEM data
 - Generated
+    Created by XCA
 - Transformed
+    Converted from an other item by the "transform" context menu
 - Token
+    The device has been initiall read from a hardware token
 - Legacy Database
+    The item was already present in a legacy XCA database that
+    did not track the Source information.
 
 The content of the date and source fields will never be
 part of an exported item.
 
+.. index:: comment (comment)
+
 .. _comment:
 
-Comments
---------
+Comment
+-------
 
 XCA allows to insert multi-line comments for all items. They can be edited
 by the properties dialog. When showing the *Comment*
@@ -200,6 +209,7 @@ to leave a note during important operations:
 - Generated keys during certificate or request generation
 - Signing date, time and internal name of the issuing CA when
   a request gets signed.
+- File name when the item got imported from a file.
 
 The content of the comment field will never be part of an exported item.
 
@@ -216,3 +226,13 @@ The internal name cannot be used, since it is not necessarily unique anymore.
 
 This ID will never be used outside the database.
 
+.. index:: itemproperties (itemproperties)
+
+Item properties
+---------------
+
+Common properties can be displayed and edited for all items:
+
+- Internal name :ref:`internal_name`
+- Comment :ref:`comment`
+- Date and source :ref:`date_and_source`

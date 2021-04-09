@@ -59,8 +59,9 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 	QVector<QString> help;
 
    public:
-	ExportDialog(QWidget *mw, const QString &title, const QString &filt,
-		     pki_base *pki, const QPixmap &img, QList<exportType> types);
+	ExportDialog(QWidget *w, const QString &title, const QString &filt,
+		     pki_base *pki, const QPixmap &img, QList<exportType> types,
+		     const QString &help_ctx = QString());
 	static bool mayWriteFile(const QString &fname);
 	enum exportType::etype type();
 

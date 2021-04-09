@@ -24,7 +24,7 @@ class KeyTreeView: public XcaTreeView
 	KeyTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
-	void showPki(pki_base *pki) const;
+	void showPki(pki_base *pki);
 
    public slots:
 	void resetOwnPass();

@@ -1,4 +1,6 @@
 
+.. index:: keydetail (keydetail)
+
 .. _keys:
 
 RSA, DSA and EC Keys
@@ -6,9 +8,11 @@ RSA, DSA and EC Keys
 
 For creating certificates, keys are needed.
 All keys are stored encrypted in the database using the PKCS#8 AES algorithm.
-The password can be changed for each key. The password type means:
+The password can be changed for each key.
 
-.. index:: keytype (ktid)
+.. index:: keytab (keytab)
+
+The password type means:
 
 common:
   The database password provided during database load.
@@ -20,8 +24,6 @@ PIN:
 No password:
   Public keys don't need a password.
 
-.. index:: usecounter (ucid)
-
 All keys carry a use counter which counts the times it is used in requests
 or certificates. When creating new requests or certificates the list of
 available keys is reduced to the keys with a use counter of 0.
@@ -30,6 +32,23 @@ Keys should *never* be used multiple times.
 
 When importing an EC key with explicit curve parameters,
 the corresponding curve OID is searched and set if found.
+
+- Private Key columns
+
+  - **Type**
+    One of *RSA*, *DSA*, *EC*, *ED25519*.
+  - **Size**
+    Key size in bits.
+  - **EC Group**
+    Curve name of the EC key.
+  - **Use**
+    Number of certificates and requests in the database using this key.
+    For new certificates and requests only unused or newly generated keys
+    should be used.
+  - **Password**
+    Protection of the key. See :ref:`keys`
+
+.. index:: keygen (keygen)
 
 Generating Keys
 ---------------
@@ -45,14 +64,10 @@ While searching for random prime numbers a progress bar is shown in the
 bottom of the base application.
 After the key generation is done the key will be stored in the database.
 
-.. index:: keygen_default
-
 When checking the *Remember as default* box, the settings
 (Key-type, key-size or EC curve) will be remembered and preset for the
 next key generation dialog. This option is not available
 when generating keys on 'ref'`token`.
-
-.. index:: keygen_token
 
 For every connected token providing the Key-Generate facility, an entry in the
 drop-down menu of the key-types will be shown.
@@ -64,7 +79,7 @@ The token may support even less ECParameters / OIDs. When selecting an
 unsupported EC curve an error will occur.
 Please consult the documentation of the provider of the PKCS#11 library.
 
-.. index:: key_export
+.. index:: keyexport (keyexport)
 
 Key Export
 ----------

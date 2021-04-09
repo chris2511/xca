@@ -9,7 +9,6 @@
 #define __MAINWINDOW_H
 
 #include "ui_MainWindow.h"
-#include "Help.h"
 
 #include "lib/oid.h"
 #include "lib/Passwd.h"
@@ -27,6 +26,8 @@ class pki_multi;
 class NewX509;
 class OidResolver;
 class QProgressBar;
+class DHgen;
+class Help;
 
 class tipMenu : public QMenu
 {
@@ -48,7 +49,6 @@ class tipMenu : public QMenu
 	}
 };
 
-class DHgen;
 class MainWindow: public QMainWindow, public Ui::MainWindow
 {
 	Q_OBJECT

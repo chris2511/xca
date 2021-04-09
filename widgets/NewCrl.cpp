@@ -7,18 +7,19 @@
 
 
 #include "NewCrl.h"
+#include "XcaDialog.h"
+#include "validity.h"
+#include "MainWindow.h"
 #include "lib/base.h"
 #include "lib/func.h"
-#include "widgets/validity.h"
-#include "widgets/MainWindow.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QMessageBox>
 
-NewCrl::NewCrl(QWidget *parent, const crljob &j)
-	:QWidget(parent), task(j)
+NewCrl::NewCrl(const crljob &j, QWidget *w)
+	: QWidget(w ?: mainwin), task(j)
 {
 	pki_x509 *issuer = task.issuer;
 	pki_key *key = issuer->getRefKey();
@@ -66,4 +67,18 @@ void NewCrl::on_applyTime_clicked()
 NewCrl::~NewCrl()
 {
 	qDebug() << "NewCrl::~NewCrl() -- DELETED";
+}
+
+void NewCrl::newCrl(QWidget *parent, pki_x509 *issuer)
+{
+	crljob task(issuer);
+	NewCrl *widget = new NewCrl(task);
+	XcaDialog *dlg = new XcaDialog(parent, revocation, widget,
+				tr("Create CRL"), QString(), "crlgenerate");
+	if (dlg->exec()) {
+		db_crl *db = Database.model<db_crl>();
+		if (db)
+			db->newCrl(widget->getCrlJob());
+	}
+	delete dlg;
 }

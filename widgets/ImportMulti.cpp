@@ -251,8 +251,6 @@ void ImportMulti::on_butDetails_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndex index;
-	db_key *keys = Database.model<db_key>();
-	db_x509 *certs = Database.model<db_x509>();
 
 	if (!selectionModel->selectedIndexes().count())
 	        return;
@@ -265,37 +263,17 @@ void ImportMulti::on_butDetails_clicked()
 	try {
 		pki_x509super *pki_super = dynamic_cast<pki_x509super*>(pki);
 		if (pki_super) {
-			CertDetail *dlg = new CertDetail(NULL);
-			dlg->setX509super(pki_super);
-			connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-				keys, SLOT(showItem(QString)));
-			connect(dlg->signature,
-				SIGNAL(doubleClicked(QString)),
-				certs, SLOT(showItem(QString)));
-			if (dlg->exec())
-				pki->setIntName(dlg->descr->text());
-			delete dlg;
+			CertDetail::showCert(this, pki_super);
 			return;
 		}
 		pki_key *key = dynamic_cast<pki_key*>(pki);
 		if (key) {
-			KeyDetail *dlg = new KeyDetail(NULL);
-			dlg->setKey(key);
-			if (dlg->exec())
-				pki->setIntName(dlg->keyDesc->text());
-			delete dlg;
+			KeyDetail::showKey(this, key);
 			return;
 		}
 		pki_crl *crl = dynamic_cast<pki_crl*>(pki);
 		if (crl) {
-			CrlDetail *dlg = new CrlDetail(NULL);
-			dlg->setCrl(crl);
-			connect(dlg->issuerIntName,
-				SIGNAL(doubleClicked(QString)),
-				certs, SLOT(showItem(QString)));
-			if (dlg->exec())
-				pki->setIntName(dlg->descr->text());
-			delete dlg;
+			CrlDetail::showCrl(this, crl);
 			return;
 		}
 		pki_temp *temp = dynamic_cast<pki_temp*>(pki);

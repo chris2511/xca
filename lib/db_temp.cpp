@@ -10,7 +10,6 @@
 #include "func.h"
 #include "widgets/XcaWarning.h"
 #include "widgets/NewX509.h"
-#include "widgets/XcaDialog.h"
 #include <QFileDialog>
 #include <QDir>
 #include <QContextMenuEvent>

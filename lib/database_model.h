@@ -38,7 +38,6 @@ class database_model: public QObject
 		enum open_result initPass(const QString &dbName,
 				const QString &passhash) const;
 		void restart_timer();
-		db_base *modelForPki(const pki_base *pki) const;
 		static void openDatabase(const QString &descriptor,
 					 const Passwd &pass);
 		static void openRemoteDatabase(const QString &connName,
@@ -46,12 +45,15 @@ class database_model: public QObject
 						const Passwd &pass);
 		static void openLocalDatabase(const QString &connName,
 						const QString &descriptor);
+	private slots:
+		void pkiChangedSlot(pki_base *pki);
 
 	public:
 		database_model(const QString &dbName,
 				const Passwd &pass = Passwd());
 		~database_model();
 		void timerEvent(QTimerEvent *event);
+		db_base *modelForPki(const pki_base *pki) const;
 
 		QString dbname() const
 		{
@@ -76,14 +78,18 @@ class database_model: public QObject
 		static DbMap splitRemoteDbName(const QString &db);
 		static bool isRemoteDB(const QString &db);
 		static void as_default_database(const QString &db);
+
+	signals:
+		void pkiChanged(pki_base *pki) const;
 };
 
-class xca_db {
-
+class xca_db
+{
 	private:
 		database_model *db;
 
 	public:
+		xca_db() : db(nullptr) { }
 		~xca_db()
 		{
 			close();
@@ -134,6 +140,17 @@ class xca_db {
 		pki_base *insert(pki_base *pki)
 		{
 			return db ? db->insert(pki) : NULL;
+		}
+		db_base *modelForPki(const pki_base *pki) const
+		{
+			return db ? db->modelForPki(pki) : NULL;
+		}
+		void connectToDbChangeEvt(QObject *o, const char *slot)
+		{
+			if (db)
+				QObject::connect(
+					db, SIGNAL(pkiChanged(pki_base*)),
+					o, slot);
 		}
 };
 

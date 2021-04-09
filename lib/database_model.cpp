@@ -294,9 +294,11 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	models << new db_crl();
 	models << new db_temp();
 
-	foreach(db_base *m, models)
+	foreach(db_base *m, models) {
 		check_oom(m);
-
+		connect(m, SIGNAL(pkiChanged(pki_base*)),
+			this, SLOT(pkiChangedSlot(pki_base*)));
+	}
 	if (!oldDbFile.isEmpty())
 		importOldDatabase(oldDbFile);
 
@@ -655,4 +657,9 @@ enum open_result database_model::initPass(const QString &dbName, const QString &
 	if (pki_evp::passwd.isNull())
 		pki_evp::passwd = "";
 	return pw_ok;
+}
+
+void database_model::pkiChangedSlot(pki_base *pki)
+{
+	emit pkiChanged(pki);
 }

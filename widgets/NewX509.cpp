@@ -23,6 +23,7 @@
 #include "XcaWarning.h"
 #include "OidResolver.h"
 #include "MainWindow.h"
+#include "Help.h"
 #include "v3ext.h"
 #include "lib/x509name.h"
 #include "lib/db_key.h"
@@ -104,8 +105,7 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(QWidget *parent)
-	:QDialog(parent)
+NewX509::NewX509(QWidget *w) : QDialog(w ?: mainwin)
 {
 	int i;
 	QStringList keys;
@@ -115,6 +115,7 @@ NewX509::NewX509(QWidget *parent)
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
 
 	setupUi(this);
+	mainwin->helpdlg->register_ctxhelp_button(this, "wizard");
 
 	/* temporary storage for creating temporary X509V3_CTX */
 	ctx_cert = NULL;
@@ -150,6 +151,7 @@ NewX509::NewX509(QWidget *parent)
 
 	for (i=0; i<tabWidget->count(); i++) {
 		tabnames << tabWidget->tabText(i);
+		qDebug() << "TAB:" << i << " " << tabWidget->tabText(i);
 	}
 
 	nsImg->setPixmap(QPixmap(":nsImg"));
@@ -1109,8 +1111,13 @@ void NewX509::on_editAuthInfAcc_clicked()
 
 void NewX509::on_tabWidget_currentChanged(int tab)
 {
+	QStringList helpctx({
+		"wizard_src", "wizard_subject", "wizard_extensions",
+		"wizard_keyusage", "wizard_netscape", "wizard_advanced",
+		"comment"});
 	if (tabWidget->tabText(tab) == tabnames[5])
 		do_validateExtensions();
+	buttonBox->setProperty("help_ctx", QVariant(helpctx[tab]));
 }
 
 QString NewX509::mandatoryDnRemain()

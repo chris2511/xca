@@ -21,7 +21,8 @@ XCA - X Certificate and Key management
    privatekey
    requests
    certificates
-   template-crl
+   template
+   revocationlist
    options
    object-ids
    step-by-step

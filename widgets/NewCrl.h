@@ -19,9 +19,10 @@ class NewCrl: public QWidget, public Ui::NewCrl
 
 	crljob task;
    public:
-	NewCrl(QWidget *parent, const crljob &task);
+	NewCrl(const crljob &task, QWidget *w = nullptr);
 	~NewCrl();
 	crljob getCrlJob() const;
+	static void newCrl(QWidget *parent, pki_x509 *issuer);
 
    public slots:
 	void on_applyTime_clicked();

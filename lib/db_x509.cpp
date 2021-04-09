@@ -375,7 +375,7 @@ void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
 
 void db_x509::newItem()
 {
-	NewX509 *dlg = new NewX509(NULL);
+	NewX509 *dlg = new NewX509();
 	dlg->setCert();
 	pki_x509 *sigcert = get1SelectedCert();
 	dlg->defineSigner((pki_x509*)sigcert, true);
@@ -387,7 +387,7 @@ void db_x509::newItem()
 
 void db_x509::newCert(pki_x509req *req)
 {
-	NewX509 *dlg = new NewX509(NULL);
+	NewX509 *dlg = new NewX509();
 	pki_x509 *sigcert = get1SelectedCert();
 	dlg->setCert();
 	dlg->defineRequest(req);
@@ -400,7 +400,7 @@ void db_x509::newCert(pki_x509req *req)
 
 void db_x509::newCert(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(NULL);
+	NewX509 *dlg = new NewX509();
 	dlg->setCert();
 	dlg->defineTemplate(temp);
 	if (dlg->exec()) {
@@ -411,7 +411,7 @@ void db_x509::newCert(pki_temp *temp)
 
 void db_x509::newCert(pki_x509 *cert)
 {
-	NewX509 *dlg = new NewX509(NULL);
+	NewX509 *dlg = new NewX509();
 	dlg->setCert();
 	dlg->fromX509super(cert, false);
 	if (dlg->exec()) {
@@ -628,7 +628,7 @@ void db_x509::store(QModelIndexList list)
 	types = usual << exportType() << types;
 	ExportDialog *dlg = new ExportDialog(NULL, tr("Certificate export"),
 		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"), crt,
-		QPixmap(":certImg"), types);
+		QPixmap(":certImg"), types, "certexport");
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
@@ -829,22 +829,6 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
 	delete p7;
 }
 
-void db_x509::manageRevocations(QModelIndex idx)
-{
-	pki_x509 *cert = fromIndex<pki_x509>(idx);
-	if (!cert)
-		return;
-
-	RevocationList *dlg = new RevocationList(NULL);
-	dlg->setRevList(cert->getRevList(), cert);
-	connect(dlg, SIGNAL(genCRL(pki_x509*)),
-		mainwin->crlView, SLOT(newItem(pki_x509*)));
-	if (dlg->exec()) {
-		cert->setRevocations(dlg->getRevList());
-		emit columnsContentChanged();
-	}
-}
-
 void db_x509::certRenewal(QModelIndexList indexes)
 {
 	pki_x509 *oldcert = NULL, *signer = NULL, *newcert =NULL;
@@ -874,7 +858,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			return;
 		}
 		if (dlg->revoke->isChecked() && !renew_myself) {
-			Revocation *revoke = new Revocation(NULL, indexes);
+			Revocation *revoke = new Revocation(indexes);
 			doRevoke = revoke->exec();
 			r = revoke->getRevocation();
 			delete revoke;
@@ -921,7 +905,7 @@ void db_x509::revoke(QModelIndexList indexes)
 {
 	if (indexes.size() == 0)
 		return;
-	Revocation *revoke = new Revocation(NULL, indexes);
+	Revocation *revoke = new Revocation(indexes);
 	if (revoke->exec()) {
 		do_revoke(indexes, revoke->getRevocation());
 	}

@@ -92,7 +92,7 @@
    <sender>buttonOk</sender>
    <signal>clicked()</signal>
    <receiver>Help</receiver>
-   <slot>accept()</slot>
+   <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>668</x>
@@ -135,6 +135,18 @@
      <y>254</y>
     </hint>
    </hints>
+  </connection>
+  <connection>
+   <sender>textbox</sender>
+   <signal>backwardAvailable(bool)</signal>
+   <receiver>back</receiver>
+   <slot>setEnabled(bool)</slot>
+  </connection>
+  <connection>
+   <sender>textbox</sender>
+   <signal>forwardAvailable(bool)</signal>
+   <receiver>forward</receiver>
+   <slot>setEnabled(bool)</slot>
   </connection>
  </connections>
 </ui>

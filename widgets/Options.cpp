@@ -9,6 +9,7 @@
 #include "Options.h"
 #include "SearchPkcs11.h"
 #include "XcaWarning.h"
+#include "Help.h"
 #include "lib/pki_scard.h"
 #include "lib/oid.h"
 #include <openssl/objects.h>
@@ -20,6 +21,7 @@ Options::Options(QWidget *parent)
 {
 	setWindowTitle(XCA_TITLE);
 	setupUi(this);
+	mainwin->helpdlg->register_ctxhelp_button(this, "options");
 
 	foreach(int nid, distname_nid) {
 		QString n = OBJ_nid2ln(nid);

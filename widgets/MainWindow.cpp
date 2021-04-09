@@ -437,6 +437,8 @@ void MainWindow::closeEvent(QCloseEvent *e)
 	}
 	delete resolver;
 	resolver = NULL;
+	delete helpdlg;
+	helpdlg = NULL;
 	close_database();
 	QMainWindow::closeEvent(e);
 }
