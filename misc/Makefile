@@ -27,11 +27,13 @@ endif
 install:
 	install -m 755 -d $(DESTDIR)$(xca_prefix) \
 		$(DESTDIR)$(datarootdir)/applications \
-		$(DESTDIR)$(datarootdir)/mime/packages
+		$(DESTDIR)$(datarootdir)/mime/packages \
+		$(DESTDIR)$(datarootdir)/bash-completion/completions
 	install -m 644 $(CONFIG_OBJ) $(SRCPATH)*.xca \
 			$(DESTDIR)$(xca_prefix)
 	install -m 644 $(SRCPATH)xca.desktop $(DESTDIR)$(datarootdir)/applications
 	install -m 644 $(SRCPATH)xca.xml $(DESTDIR)$(datarootdir)/mime/packages
+	install -m 644 $(SRCPATH)xca.completion $(DESTDIR)$(datarootdir)/bash-completion/completions/xca
 	if test -z "$(DESTDIR)"; then \
 	  update-mime-database $(datarootdir)/mime || :; \
 	  update-desktop-database || :; \

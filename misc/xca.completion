@@ -1,0 +1,6 @@
+
+_XCA_WORDS="$(XCA_SPECIAL=completion xca)"
+_xca() {
+  COMPREPLY=($(compgen -o bashdefault -W "$_XCA_WORDS" -- "${COMP_WORDS[COMP_CWORD]}"))
+}
+complete -F _xca xca

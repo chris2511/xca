@@ -159,11 +159,23 @@ QString arguments::rst()
 	return s;
 }
 
+QString arguments::completion()
+{
+	QStringList sl;
+	for (auto i = opts.begin(); i != opts.end(); ++i)
+		sl << QString("--%1").arg(i->long_opt);
+	return sl.join(" ");
+}
+
 QString arguments::doc(const QString &which)
 {
 	if (which == "rst")
 		return rst();
-	return man();
+	if (which == "man")
+		return man();
+	if (which == "completion")
+		return completion();
+	return QString();
 }
 
 size_t arguments::maxOptWidth()

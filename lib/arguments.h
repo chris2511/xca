@@ -50,6 +50,7 @@ class arguments
 	static QString help();
 	static QString man();
 	static QString rst();
+	static QString completion();
 	static size_t maxOptWidth();
 	static QString doc(const QString &which);
 

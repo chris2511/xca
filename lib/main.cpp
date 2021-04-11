@@ -300,9 +300,9 @@ static void read_cmdline(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	const char *xca_man = getenv("XCA_MAN");
-	if (xca_man && *xca_man) {
-		puts(CCHAR(arguments::doc(xca_man)));
+	const char *xca_special = getenv("XCA_SPECIAL");
+	if (xca_special && *xca_special) {
+		puts(CCHAR(arguments::doc(xca_special)));
 		return 0;
 	}
 #if QT_VERSION < 0x050000
