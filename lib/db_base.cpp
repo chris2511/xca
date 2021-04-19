@@ -109,7 +109,7 @@ void db_base::loadContainer()
 	e = q.lastError();
 	XCA_SQLERROR(e);
 
-	while (q.next()) {
+	while (q.next()) try {
 		enum pki_type t;
 		QSqlRecord rec = q.record();
 		t = (enum pki_type)q.value(VIEW_item_type).toInt();
@@ -117,6 +117,8 @@ void db_base::loadContainer()
 		pki->restoreSql(rec);
 		insertChild(pki);
 		Store.add(q.value(VIEW_item_id), pki);
+	} catch (errorEx &ex) {
+		XCA_ERROR(ex);
 	}
 
 	QString view = Settings[class_name + "_hdView"];
