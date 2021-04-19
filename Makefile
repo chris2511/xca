@@ -172,14 +172,14 @@ $(DMGSTAGE): xca$(SUFFIX)
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
-	mkdir -p $(DMGSTAGE)/manual
 	ln -s /Applications $(DMGSTAGE)
 	install -m 644 $(TOPDIR)/COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
 	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
 	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
 	$(MAKE) $(APPTARGET)
-	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
-	ln -s xca.html $(DMGSTAGE)/manual/index.html
+	$(ENABLE_DOC)mkdir -p $(DMGSTAGE)/manual
+	$(ENABLE_DOC)cp -r doc/html $(DMGSTAGE)/manual/
+	$(ENABLE_DOC)ln -sf html/index.html $(DMGSTAGE)/manual/
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
 
 xca.dmg: $(MACTARGET).dmg

@@ -257,17 +257,22 @@ AX_CHECK_GNU_MAKE()
 
 # linuxdoc application detection
 ##################################
+AC_CHECK_PROGS([DOCTOOL], [sphinx-build])
+AC_SUBST([DOCTOOL])
+
 AC_ARG_ENABLE([doc],
   AS_HELP_STRING([--disable-doc], [Disable documentation installation]),
   ,
   [enable_doc=yes])
-test "${enable_doc}" = "yes" && ENABLE_DOC= || ENABLE_DOC='\#'
-AC_SUBST([ENABLE_DOC])
-
-if test "${enable_doc}"; then
-  AC_CHECK_PROGS([DOCTOOL], [sphinx-build], [":"])
-  AC_SUBST([DOCTOOL])
+if test "${enable_doc}" = "yes" &&
+   test "${DOCTOOL}" &&
+   test "${QT_HELPCOLL}"
+then
+  ENABLE_DOC=
+else
+  ENABLE_DOC='\#'
 fi
+AC_SUBST([ENABLE_DOC])
 
 # Setup done. Write local.h and Local.mak
 ############################################
