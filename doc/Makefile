@@ -3,9 +3,18 @@ TOPDIR=..
 BUILD=..
 endif
 
-DELFILES=xca*.html xca.1.gz
+DELFILES=xca*.html xca.1.gz conf.py
+RST_FILES=arguments common-actions object-ids smartcard \
+	certificate-input database options step-by-step \
+	certificates index privatekey template changelog \
+	introduction requests commandline miscellaneous \
+	revocationlist
+
+SPHINX_FILES=$(patsubst %,sphinx/%.rst,$(RST_FILES))
 
 doc: xca.1.gz html/index.html qthelp/xca.qhc
+qthelpfiles=qthelp/*.html qthelp/xca.qhc qthelp/xca.qch
+
 include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1
@@ -15,32 +24,43 @@ include $(TOPDIR)/Rules.mak
 xca.1: xca.1.head xca.1.options xca.1.tail
 	cat $^ > $@
 
-html/index.html: static/bigcert.png conf.py
+html/index.html: sphinx/conf.py
 	@$(PRINT) "  HTML   [$(BASENAME)] $@"
-	$(DOCTOOL) $(DOCTOOLFLAGS) -b html -a -E -c . $(TOPDIR)/doc/rst html
+	$(ENABLE_DOC)$(DOCTOOL) -b html $(DOCTOOLFLAGS) sphinx html
 
-qthelp/xca.qhcp: static/bigcert.png conf.py
+qthelp/xca.qhcp: sphinx/conf.py
 	@$(PRINT) "  QTHELP [$(BASENAME)] $@"
-	$(DOCTOOL) $(DOCTOOLFLAGS) -b qthelp -a -E -c . $(TOPDIR)/doc/rst qthelp
+	$(ENABLE_DOC)$(DOCTOOL) -b qthelp $(DOCTOOLFLAGS) sphinx qthelp
 
 qthelp/xca.qhc: qthelp/xca.qhcp
 	@$(PRINT) "  QTHGEN [$(BASENAME)] $@"
-	$(HELPCOLL) $< -o $@
-
-static/bigcert.png: ../img/bigcert.png
-	mkdir -p static
-	cp $^ $@
+	$(ENABLE_DOC)$(HELPCOLL) $< -o $@
 
 install: $(doc)
 	$(ENABLE_DOC)install -m 755 -d $(DESTDIR)$(htmldir)
-	$(ENABLE_DOC)install -m 644 qthelp/*.html qthelp/xca.q* $(DESTDIR)$(htmldir)
+	$(ENABLE_DOC)install -m 644 $(qthelpfiles) $(DESTDIR)$(htmldir)
 	install -m 755 -d $(DESTDIR)$(mandir)/man1
 	install -m 644 *.1.gz $(DESTDIR)/$(mandir)/man1
 
-app: xca.html
+app: html/index.html
 	mkdir -p $(APPDIR)/Resources
-	install -m 644 xca*.html $(APPDIR)/Resources
+	$(ENABLE_DOC)install -m 644 $(qthelpfiles) $(APPDIR)/Resources
 
-database_schema.sql: ../widgets/database_schema.cpp
-	sed 's/<<//; s/\\"/'"'"'/g; s,//,--,; s/"/ /g; s/\tschemas\[\(.*\)\].*/  -- Schema Version \1/; /^\t;$$/d' < $^ > $@
-
+sphinx/conf.py: conf.py sphinx/database_schema.sql sphinx/changelog sphinx/COPYRIGHT sphinx/_static/bigcert.png $(SPHINX_FILES)
+	mkdir -p sphinx
+	cp $< $@
+sphinx/database_schema.sql: ../widgets/database_schema.cpp
+	mkdir -p sphinx
+	sed 's/<<//; s/\\"/'"'"'/g; s,//,--,; s/"/ /g; s/^[[:space:]]\+schemas\[\(.*\)\].*/  -- Schema Version \1/; /^\t$$/d' < $^ > $@
+sphinx/changelog: ../changelog
+	mkdir -p sphinx
+	cp $^ $@
+sphinx/COPYRIGHT: ../COPYRIGHT
+	@mkdir -p sphinx
+	cp $^ $@
+sphinx/_static/bigcert.png: ../img/bigcert.png
+	@mkdir -p sphinx/_static
+	cp $^ $@
+sphinx/%.rst: rst/%.rst
+	@mkdir -p sphinx
+	cp $^ $@

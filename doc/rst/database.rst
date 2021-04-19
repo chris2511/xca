@@ -39,6 +39,6 @@ shown to get the ID of the item in the database.
 Schema
 ------
 
-.. literalinclude:: ../database_schema.sql
+.. literalinclude:: database_schema.sql
    :language: sql
 

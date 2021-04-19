@@ -65,5 +65,5 @@ PKCS#X : Public Key Cryptography Standards
 Copyright
 ---------
 
-  .. include:: ../../COPYRIGHT
+.. include:: COPYRIGHT
 

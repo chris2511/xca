@@ -2,5 +2,4 @@
 Changelog
 =========
 
-.. .. literalinclude:: ../../changelog
-.. include:: ../../changelog
+.. include:: changelog
