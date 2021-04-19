@@ -362,15 +362,16 @@ int main(int argc, char *argv[])
 	for (int i=0; i < argc; i++)
 		qDebug() << "wargv" << argc << i << argv[i];
 	try {
-		read_cmdline(argc, argv);
 		if (gui && !console_only) {
 			mainwin = new MainWindow();
 			gui->setMainwin(mainwin);
+			read_cmdline(argc, argv);
 			mainwin->importMulti(cmdline_items, 1);
 			cmdline_items = NULL;
 			mainwin->show();
 			gui->exec();
 		} else {
+			read_cmdline(argc, argv);
 			delete cmdline_items;
 			Database.close();
 		}
