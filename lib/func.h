@@ -35,7 +35,10 @@
 #define COL_UNDER "\x1b[4m"
 
 #define IS_GUI_APP (qobject_cast<QApplication*>(QCoreApplication::instance()))
+
 class Validity;
+class MainWindow;
+extern MainWindow *mainwin;
 
 int console_write(FILE *fp, const QByteArray &ba);
 Passwd readPass();
