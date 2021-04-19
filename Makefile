@@ -30,7 +30,7 @@ APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
-OSSLSIGN=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
+OSSLSIGN_=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
 
 OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
 	-key "pkcs11:object=Open%20Source%20Developer%2C%20Christian%20Hohnstaedt" \
@@ -102,7 +102,7 @@ clean:
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
 	rm -f commithash.h misc/oids.txt misc/variables.wxi doc/xca.1
 	rm -f xca$(SUFFIX) *.dmg xca-portable*.zip msi-installer-dir*.zip xca*.msi
-	rm -rf xca-$(VERSION)* msi-installer-dir-$(VERSION)* xca-portable-$(VERSION)* doc/html/ doc/qthelp/
+	rm -rf xca-$(VERSION)* msi-installer-dir-$(VERSION)* xca-portable-$(VERSION)* doc/html/ doc/qthelp/ doc/sphinx
 
 distclean: clean
 	rm -f local.h Local.mak config.log config.status misc/Info.plist
@@ -142,7 +142,7 @@ xca$(SUFFIX).signed: xca$(SUFFIX)
 	fi
 
 msi-installer-dir-$(VERSION): misc/xca.wxs misc/xca.bat misc/variables.wxi img/banner.bmp img/dialog.bmp img/key.ico misc/copyright.rtf
-	rm -f $@/* && mkdir -p $@ && cp -ra $^ $@
+	rm -f $@/* && mkdir -p $@ && cp -a $^ $@
 
 xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	rm -rf $@
@@ -150,11 +150,11 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	cp xca$(SUFFIX).signed $@/xca$(SUFFIX)
 	cp $(patsubst %,misc/%.txt, dn eku oids) \
 	   $(patsubst %,"$(QTDIR)/bin/%.dll", Qt5Gui Qt5Core Qt5Widgets \
-		Qt5Sql libwinpthread-1 libstdc++-6 libgcc_s_seh-1) \
+		Qt5Sql Qt5Help libwinpthread-1 libstdc++-6 libgcc_s_seh-1) \
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
 	   "$(TOPDIR)"/misc/*.xca "${TOPDIR}/../sql/"*.dll $@
-	cp doc/*.html $@/html
+	cp -a doc/qthelp/* $@/html
 	cp $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
 		lang/*.qm $@/i18n
 	sed 's/$$/\r/' < "$(TOPDIR)"/COPYRIGHT > $@/copyright.txt

@@ -124,6 +124,9 @@
             <Component Id="CQt5Widgets" Guid="eff9bc63-dc01-4f44-ab1f-8447a773817b">
                 <File Id="Qt5Widgets.dll" Source="Qt5Widgets.dll" KeyPath="yes"/>
             </Component>
+            <Component Id="CQt5Help" Guid="83c15eef-0d1a-43a4-a0f7-1b90d0788705">
+                <File Id="Qt5Help.dll" Source="Qt5Help.dll" KeyPath="yes"/>
+            </Component>
             <Component Id="CDN.txt" Guid="a9c59dc2-7084-4b06-b3d5-51e3e828d13e">
                 <File Id="dn.txt" Source="dn.txt" KeyPath="yes"/>
             </Component>
@@ -178,59 +181,74 @@
         </DirectoryRef>
 
         <DirectoryRef Id="html">
-            <Component Id="Cxca10.html" Guid="503fae53-1a99-416c-94ac-07a05a31ac0a">
-                <File Id="xca10.html" Source="html/xca-10.html" KeyPath="yes"/>
+            <Component Id="Carguments.html" Guid="00fcacb9-9eb1-4e12-b195-fa44e2b95eb7">
+                <File Id="arguments.html" Source="html/arguments.html" KeyPath="yes"/>
             </Component>
-            <Component Id="Cxca11.html" Guid="d5489662-3fc4-4d65-adaf-2fa8d28c7a3f">
-                <File Id="xca11.html" Source="html/xca-11.html" KeyPath="yes"/>
+            <Component Id="Ccertificateinput.html" Guid="fd7cd699-8966-4a31-ab2f-ac7195ec482f">
+                <File Id="certificateinput.html" Source="html/certificate-input.html" KeyPath="yes"/>
             </Component>
-            <Component Id="Cxca12.html" Guid="afe6f4a1-997c-4079-99dd-4b631d1c9878">
-                <File Id="xca12.html" Source="html/xca-12.html" KeyPath="yes"/>
+            <Component Id="Ccertificates.html" Guid="b382825a-ea46-4536-a8f9-c8af4c827cc6">
+                <File Id="certificates.html" Source="html/certificates.html" KeyPath="yes"/>
             </Component>
-            <Component Id="Cxca13.html" Guid="232f805f-a8fb-4241-b86c-9cb0ef759e3d">
-                <File Id="xca13.html" Source="html/xca-13.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca14.html" Guid="a71f9f28-0622-45b8-adf7-9e3deb927cf0">
-                <File Id="xca14.html" Source="html/xca-14.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca15.html" Guid="8fb1fae5-d358-469f-afa8-348a77ac0c47">
-                <File Id="xca15.html" Source="html/xca-15.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca1.html" Guid="a7c56d1d-d3a7-427f-a00e-b114e0a04cd2">
-                <File Id="xca1.html" Source="html/xca-1.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca2.html" Guid="13f43320-e9f5-4249-8478-6f5b5f3152c3">
-                <File Id="xca2.html" Source="html/xca-2.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca3.html" Guid="c5c52f04-049c-4d5c-887d-ada8afa3f29f">
-                <File Id="xca3.html" Source="html/xca-3.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca4.html" Guid="afe40d81-a77d-48c8-8bae-f6be6b7196cc">
-                <File Id="xca4.html" Source="html/xca-4.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca5.html" Guid="78bdc607-7add-45db-84f4-3e29a4361ba5">
-                <File Id="xca5.html" Source="html/xca-5.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca6.html" Guid="dfd0670c-b0fc-4192-a495-936ccaf2eefe">
-                <File Id="xca6.html" Source="html/xca-6.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca7.html" Guid="8d27dec7-0dee-423c-b4b2-2114cb5224f3">
-                <File Id="xca7.html" Source="html/xca-7.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca8.html" Guid="0b1b1639-4bff-461b-8043-a5921dde8424">
-                <File Id="xca8.html" Source="html/xca-8.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca9.html" Guid="be48562f-b7f2-445c-9778-33c82652c43d">
-                <File Id="xca9.html" Source="html/xca-9.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca.html" Guid="b0e030b5-181a-4bc9-aa3e-365e2297c183">
-                <File Id="xca.html" Source="html/xca.html" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cchangelog.html" Guid="5446179e-24db-4f3e-8e01-e702afe879ff">
+            <Component Id="Cchangelog.html" Guid="59e0fb23-21f0-4c68-854c-39daed9abd89">
                 <File Id="changelog.html" Source="html/changelog.html" KeyPath="yes"/>
             </Component>
-            <Component Id="Cdatabase_schema.html" Guid="70820467-7c0b-4de6-8556-2d6e3aeef14b">
-                <File Id="database_schema.html" Source="html/database_schema.html" KeyPath="yes"/>
+            <Component Id="Ccommandline.html" Guid="1d02abb1-f93f-4b44-b6c1-e7d96c4586d3">
+                <File Id="commandline.html" Source="html/commandline.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Ccommonactions.html" Guid="82f58472-a87e-4d1f-a3e5-ecf371c64fa9">
+                <File Id="commonactions.html" Source="html/common-actions.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cdatabase.html" Guid="cbf85744-2116-4624-bf45-5281f1c656f3">
+                <File Id="database.html" Source="html/database.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cgenindex.html" Guid="350015ee-824d-4e27-8fc0-d0e28ce341ed">
+                <File Id="genindex.html" Source="html/genindex.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cindex.html" Guid="51261a67-18c3-46dd-a323-a8e3ceac9477">
+                <File Id="index.html" Source="html/index.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cintroduction.html" Guid="9bc11e89-3c93-4d6e-8022-8d00f82bdfc7">
+                <File Id="introduction.html" Source="html/introduction.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cmiscellaneous.html" Guid="49dff404-3ce6-4d7a-97da-b60eeef7c65a">
+                <File Id="miscellaneous.html" Source="html/miscellaneous.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cobjectids.html" Guid="f9d8e496-a169-43fa-bcdc-cac2950189a1">
+                <File Id="objectids.html" Source="html/object-ids.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Coptions.html" Guid="35846c03-cd87-4c59-98bd-dc2e08cdcd57">
+                <File Id="options.html" Source="html/options.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cprivatekey.html" Guid="922fd405-95f2-475f-a596-6abc048a2e57">
+                <File Id="privatekey.html" Source="html/privatekey.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Crequests.html" Guid="f37e661f-33ef-4b87-ad46-5f1213dcafe5">
+                <File Id="requests.html" Source="html/requests.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Crevocationlist.html" Guid="4c0dd769-71f7-457e-b214-261d5ee1db12">
+                <File Id="revocationlist.html" Source="html/revocationlist.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Csmartcard.html" Guid="80a7cf0d-d1c5-43e0-b7bd-fad3d65db4bd">
+                <File Id="smartcard.html" Source="html/smartcard.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cstepbystep.html" Guid="fc1ecb46-1ba3-4346-9a41-a205a281398b">
+                <File Id="stepbystep.html" Source="html/step-by-step.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Ctemplate.html" Guid="5e67d62f-6ff7-4511-942f-c5e07d8107f8">
+                <File Id="template.html" Source="html/template.html" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca.qch" Guid="4a28c574-4dc3-405e-afc0-8d1b90b302d0">
+                <File Id="xca.qch" Source="html/xca.qch" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca.qhc" Guid="4e19aeb1-5c08-4242-9b4b-dccec72f325c">
+                <File Id="xca.qhc" Source="html/xca.qhc" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca.qhcp" Guid="47e53de5-3f5b-492c-a605-4c40e82bb339">
+                <File Id="xca.qhcp" Source="html/xca.qhcp" KeyPath="yes"/>
+            </Component>
+            <Component Id="Cxca.qhp" Guid="48e55359-da55-44d2-b54c-fd7a49094a73">
+                <File Id="xca.qhp" Source="html/xca.qhp" KeyPath="yes"/>
             </Component>
         </DirectoryRef>
 
@@ -362,6 +380,7 @@
             <ComponentRef Id="CQt5Gui"/>
             <ComponentRef Id="CQt5Sql"/>
             <ComponentRef Id="CQt5Widgets"/>
+            <ComponentRef Id="CQt5Help"/>
             <ComponentRef Id="CDN.txt"/>
             <ComponentRef Id="Ceku.txt"/>
             <ComponentRef Id="Coids.txt"/>
@@ -374,24 +393,29 @@
             <ComponentRef Id="RegistryEntries" />
         </ComponentGroup>
         <ComponentGroup Id="GroupDocumentation">
-            <ComponentRef Id="Cxca.html"/>
-            <ComponentRef Id="Cxca10.html"/>
-            <ComponentRef Id="Cxca11.html"/>
-            <ComponentRef Id="Cxca12.html"/>
-            <ComponentRef Id="Cxca13.html"/>
-            <ComponentRef Id="Cxca14.html"/>
-            <ComponentRef Id="Cxca15.html"/>
-            <ComponentRef Id="Cxca1.html"/>
-            <ComponentRef Id="Cxca2.html"/>
-            <ComponentRef Id="Cxca3.html"/>
-            <ComponentRef Id="Cxca4.html"/>
-            <ComponentRef Id="Cxca5.html"/>
-            <ComponentRef Id="Cxca6.html"/>
-            <ComponentRef Id="Cxca7.html"/>
-            <ComponentRef Id="Cxca8.html"/>
-            <ComponentRef Id="Cxca9.html"/>
+            <ComponentRef Id="Carguments.html"/>
+            <ComponentRef Id="Ccertificateinput.html"/>
+            <ComponentRef Id="Ccertificates.html"/>
             <ComponentRef Id="Cchangelog.html"/>
-            <ComponentRef Id="Cdatabase_schema.html"/>
+            <ComponentRef Id="Ccommandline.html"/>
+            <ComponentRef Id="Ccommonactions.html"/>
+            <ComponentRef Id="Cdatabase.html"/>
+            <ComponentRef Id="Cgenindex.html"/>
+            <ComponentRef Id="Cindex.html"/>
+            <ComponentRef Id="Cintroduction.html"/>
+            <ComponentRef Id="Cmiscellaneous.html"/>
+            <ComponentRef Id="Cobjectids.html"/>
+            <ComponentRef Id="Coptions.html"/>
+            <ComponentRef Id="Cprivatekey.html"/>
+            <ComponentRef Id="Crequests.html"/>
+            <ComponentRef Id="Crevocationlist.html"/>
+            <ComponentRef Id="Csmartcard.html"/>
+            <ComponentRef Id="Cstepbystep.html"/>
+            <ComponentRef Id="Ctemplate.html"/>
+            <ComponentRef Id="Cxca.qch"/>
+            <ComponentRef Id="Cxca.qhc"/>
+            <ComponentRef Id="Cxca.qhcp"/>
+            <ComponentRef Id="Cxca.qhp"/>
         </ComponentGroup>
 
         <ComponentGroup Id="GroupI18n">
