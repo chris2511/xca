@@ -155,7 +155,7 @@ void KeyDetail::itemChanged(pki_base *pki)
 		keyDesc->setText(pki->getIntName());
 }
 
-void KeyDetail::showKey(QWidget *parent, pki_key *key)
+void KeyDetail::showKey(QWidget *parent, pki_key *key, bool ro)
 {
 	if (!key)
 		return;
@@ -163,6 +163,8 @@ void KeyDetail::showKey(QWidget *parent, pki_key *key)
 	if (!dlg)
 		return;
 	dlg->setKey(key);
+	dlg->keyDesc->setReadOnly(ro);
+	dlg->comment->setReadOnly(ro);
 	if (dlg->exec()) {
 		db_base *db = Database.modelForPki(key);
 		if (!db) {

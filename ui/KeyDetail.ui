@@ -350,7 +350,7 @@ p, li { white-space: pre-wrap; }
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -383,6 +383,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>258</x>
      <y>379</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>KeyDetail</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>485</x>
+     <y>475</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>428</y>
     </hint>
    </hints>
   </connection>

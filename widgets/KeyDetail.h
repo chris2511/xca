@@ -23,7 +23,7 @@ class KeyDetail: public QDialog, public Ui::KeyDetail
 	KeyDetail(QWidget *w = nullptr);
 	void setKey(pki_key *key);
 	void setupFingerprints(pki_key *key);
-	static void showKey(QWidget *parent, pki_key *key);
+	static void showKey(QWidget *parent, pki_key *keyi, bool ro = false);
 
     public slots:
 	void itemChanged(pki_base *pki);
