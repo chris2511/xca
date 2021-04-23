@@ -17,11 +17,7 @@
 #define COMMITHASH ""
 #endif
 
-#ifndef VERSION_ITERATION
 #define VERSION PACKAGE_VERSION
-#else
-#define VERSION PACKAGE_VERSION VERSION_ITERATION
-#endif
 
 const char *version_str(bool html)
 {

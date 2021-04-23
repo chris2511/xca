@@ -3,11 +3,12 @@ AC_INIT([X Certificate and Key management],
 	[christian@hohnstaedt.de],
 	[xca],
 	[http://xca.hohnstaedt.de])
-ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@*\)-g.*/.\1/p')"
-AC_SUBST([ITERATION])
-AC_DEFINE_UNQUOTED([VERSION_ITERATION], ["${ITERATION}"], [Development iteration])
+
+ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@*\)-g.*/\1/p')"
+PACKAGE_VERSION=$(IFS='.'; set - $PACKAGE_VERSION; echo $1.$2.$(($ITERATION+$3)))
+
 AC_MSG_NOTICE([     ***************************************************])
-AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${PACKAGE_VERSION}${ITERATION}])
+AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${PACKAGE_VERSION}])
 AC_MSG_NOTICE([     ***************************************************])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_CXX
@@ -15,7 +16,7 @@ AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 AC_CHECK_TOOL(WINDRES, [windres], [:])
 
-VERSIONHASH="$(echo "${PACKAGE_VERSION}${ITERATION}" | shasum | cut -b -12)"
+VERSIONHASH="$(echo "${PACKAGE_VERSION}" | shasum | cut -b -12)"
 AC_SUBST([VERSIONHASH])
 
 if test -d "$INSTALL_DIR"; then

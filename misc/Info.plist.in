@@ -11,7 +11,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>@PACKAGE_VERSION@</string>
 	<key>CFBundleVersion</key>
-	<string>@PACKAGE_VERSION@@ITERATION@</string>
+	<string>@PACKAGE_VERSION@</string>
 	<key>CFBundleIconFile</key>
 	<string>xca-mac-icon.icns</string>
 	<key>CFBundleIdentifier</key>
