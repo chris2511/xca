@@ -6,8 +6,8 @@ export TOPDIR=@abs_srcdir@
 export VERSION=@PACKAGE_VERSION@@ITERATION@
 export HOST=@HOST@
 
-CPPFLAGS+=-Wall -Wextra -DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\" @CXXFLAGS@
-CFLAGS+=-O2 -ggdb -std=c++11
+CPPFLAGS+=-Wall -Wextra -DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\"
+CFLAGS+=-O2 -ggdb -std=c++11 @CXXFLAGS@
 LIBS=@LIBS@
 
 MOC=@QT_MOC@

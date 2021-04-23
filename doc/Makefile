@@ -42,7 +42,7 @@ install: $(doc)
 	install -m 755 -d $(DESTDIR)$(mandir)/man1
 	install -m 644 *.1.gz $(DESTDIR)/$(mandir)/man1
 
-app: html/index.html
+app: $(doc)
 	mkdir -p $(APPDIR)/Resources
 	$(ENABLE_DOC)install -m 644 $(qthelpfiles) $(APPDIR)/Resources
 

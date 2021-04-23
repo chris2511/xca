@@ -29,7 +29,7 @@ APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)${EXTRA_VERSION}
-APPDIR=$(DMGSTAGE)/xca.app/Contents
+APPDIR=$(BUILD)/xca.app/Contents
 OSSLSIGN_=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
 
 OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
@@ -43,7 +43,13 @@ ifeq ($(SUFFIX), .exe)
 all: xca-portable.zip msi-installer-dir.zip
 else
 ifneq ($(MACDEPLOYQT),)
-all: $(MACTARGET).dmg
+all: xca.dmg
+ifneq ($(APPLE_DEVELOPER),)
+APPLE_CERT_ID_APP=Developer ID Application: $(APPLE_DEVELOPER)
+APPLE_CERT_3PARTY_INST=3rd Party Mac Developer Installer: $(APPLE_DEVELOPER)
+APPLE_CERT_3PARTY_APP=3rd Party Mac Developer Application: $(APPLE_DEVELOPER)
+all: xca.pkg
+endif
 else
 all: xca$(SUFFIX) do.doc do.lang
 	@echo
@@ -168,37 +174,66 @@ msi-installer-dir.zip: msi-installer-dir-$(VERSION).zip
 %-$(VERSION).zip: %-$(VERSION)
 	zip -r $@ $^
 
-$(DMGSTAGE): xca$(SUFFIX)
+$(DMGSTAGE): xca.app
+	@$(PRINT) "  DMGDIR $@"
 	rm -rf $(DMGSTAGE)
-	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
-	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
+	mkdir -p $(DMGSTAGE)
+	cp -a xca.app $(DMGSTAGE)
 	ln -s /Applications $(DMGSTAGE)
 	install -m 644 $(TOPDIR)/COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
-	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
-	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
-	$(MAKE) $(APPTARGET)
 	$(ENABLE_DOC)mkdir -p $(DMGSTAGE)/manual
-	$(ENABLE_DOC)cp -r doc/html $(DMGSTAGE)/manual/
+	$(ENABLE_DOC)cp -a doc/html $(DMGSTAGE)/manual/
 	$(ENABLE_DOC)ln -sf html/index.html $(DMGSTAGE)/manual/
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
 
+xca.app: xca$(SUFFIX)
+	@$(PRINT) "  APP    $@"
+	rm -rf $@
+	mkdir -p $@/Contents/MacOS
+	install -m 755 $< $@/Contents/MacOS
+	$(MAKE) $(APPTARGET)
+
 xca.dmg: $(MACTARGET).dmg
 
-xca.app: $(DMGSTAGE)
+CODESIGN=codesign --deep --signature-size=96000 --options=runtime --timestamp  --entitlements $(TOPDIR)/misc/entitlement.plist
 
 $(MACTARGET).dmg: $(DMGSTAGE)
+	@$(PRINT) "  DMG    $@"
 	# Check for "Users" or "chris" in the resulting DMG image
-	rpath="`cd $(DMGSTAGE) && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
+	rpath="`cd $^ && otool -l xca.app/Contents/MacOS/xca | grep -e "chris\|Users" ||:`" && \
 	if test -n "$$rpath"; then echo "  ERROR $$rpath"; false; fi
-	-codesign --force --deep --signature-size=96000 -s "Christian Hohnstaedt" $(DMGSTAGE)/xca.app --timestamp
+	test -z "$(APPLE_CERT_ID_APP)" || \
+		$(CODESIGN) -s "$(APPLE_CERT_ID_APP)" $(DMGSTAGE)/xca.app
 	hdiutil create -ov -fs HFS+ -volname "xca-$(VERSION)" -srcfolder "$<" "$@"
+
+xca.pkg: $(MACTARGET).pkg
+
+APPSTORE_DIR=AppStore
+xca.app.dSYM: xca$(SUFFIX)
+	@$(PRINT) "  SYM    $@"
+	dsymutil $^ -o $@
+
+$(MACTARGET).pkg: xca.app xca.app.dSYM
+	@$(PRINT) "  PKG    $@"
+	rm -rf $(APPSTORE_DIR)
+	mkdir -p $(APPSTORE_DIR)/dSYM
+	cp -a $^ $(APPSTORE_DIR)
+	$(MACDEPLOYQT) $(APPSTORE_DIR)/xca.app -appstore-compliant
+	$(CODESIGN) -s "$(APPLE_CERT_3PARTY_APP)" $(APPSTORE_DIR)/xca.app
+	# Having the xca.app.dSYM around is apparently not sufficient
+	symbols -noTextInSOD -noDaemon -arch all \
+		-symbolsPackageDir $(APPSTORE_DIR)/dSYM \
+		xca.app.dSYM/Contents/Resources/DWARF/xca
+	productbuild --symbolication $(APPSTORE_DIR)/dSYM \
+		--component $(APPSTORE_DIR)/xca.app /Applications \
+		--sign "$(APPLE_CERT_3PARTY_INST)" $@
 
 trans:
 	$(MAKE) -C lang po2ts
 	lupdate -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip msi-installer-dir.zip
+.PHONY: $(SUBDIRS) $(INSTDIR) doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip msi-installer-dir.zip
 
 do.doc do.lang headers: local.h
 
