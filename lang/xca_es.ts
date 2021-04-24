@@ -556,7 +556,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     <name>CertDetail</name>
     <message>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+99"/>
+        <location filename="../widgets/CertDetail.cpp" line="+112"/>
         <source>Details of the Certificate</source>
         <translation>Detalles del Certificado</translation>
     </message>
@@ -667,7 +667,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-63"/>
+        <location filename="../widgets/CertDetail.cpp" line="-72"/>
         <source>Show config</source>
         <translation>Mostrar configuración</translation>
     </message>
@@ -687,17 +687,17 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Mostrar clave pública</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+3"/>
         <source>This key is not in the database.</source>
         <translation>La clave no existe en la base de datos.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Not available</source>
         <translation>No disponible</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+47"/>
         <source>Signer unknown</source>
         <translation>Firmante desconocido</translation>
     </message>
@@ -707,7 +707,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Autofirmado</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+30"/>
         <source>Revoked at %1</source>
         <translation>Revocado el %1</translation>
     </message>
@@ -726,7 +726,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Válido</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>Details of the certificate signing request</source>
         <translation>Detalles de la solicitud de certificado</translation>
     </message>
@@ -846,7 +846,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
 <context>
     <name>CertTreeView</name>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="+25"/>
+        <location filename="../widgets/CertTreeView.cpp" line="+30"/>
         <source>Import PKCS#12</source>
         <translation>Importar PKCS#12</translation>
     </message>
@@ -856,7 +856,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Importar desde PKCS#7</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+29"/>
         <source>Request</source>
         <translation>Solicitud</translation>
     </message>
@@ -916,6 +916,16 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <source>Unrevoke</source>
         <translation>Deshacer revocación</translation>
     </message>
+    <message>
+        <location line="+68"/>
+        <source>Plain View</source>
+        <translation type="unfinished">Vista Plana</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Tree View</source>
+        <translation type="unfinished">Vista de árbol</translation>
+    </message>
 </context>
 <context>
     <name>ClickLabel</name>
@@ -938,7 +948,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>E&amp;stado</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+66"/>
         <source>Version</source>
         <translation>Versión</translation>
     </message>
@@ -968,7 +978,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Fechas de emisión</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>Next update</source>
         <translation>Siguiente actualización</translation>
     </message>
@@ -983,22 +993,22 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Em&amp;isor</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+22"/>
         <source>&amp;Extensions</source>
         <translation>&amp;Extensiones</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+29"/>
         <source>&amp;Revocation list</source>
         <translation>Lista de &amp;Revocación</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+34"/>
         <source>Comment</source>
         <translation>Comentarios</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="+47"/>
+        <location filename="../widgets/CrlDetail.cpp" line="+52"/>
         <source>Failed</source>
         <translation>Error</translation>
     </message>
@@ -1011,6 +1021,19 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <location line="+3"/>
         <source>Verification not possible</source>
         <translation>Verificación imposible</translation>
+    </message>
+</context>
+<context>
+    <name>CrlTreeView</name>
+    <message>
+        <location filename="../widgets/CrlTreeView.cpp" line="+37"/>
+        <source>There are no CA certificates for CRL generation</source>
+        <translation type="unfinished">No hay certificados de CA para generar la CRL</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Select CA certificate</source>
+        <translation type="unfinished">Seleccione certificado de CA</translation>
     </message>
 </context>
 <context>
@@ -1046,7 +1069,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Formato</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+36"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+41"/>
         <source>All files ( * )</source>
         <translation>Todos los archivos ( * )</translation>
     </message>
@@ -1196,12 +1219,12 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>¡El archivo &apos;%1&apos; ya existe!</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Overwrite</source>
         <translation>Sobrescribir</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>No sobrescribir</translation>
     </message>
@@ -1267,7 +1290,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation>Renombrar en el token</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+62"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+64"/>
         <source>
 Name: %1
 Model: %2
@@ -1283,19 +1306,18 @@ Nº serie: %3</translation>
         <translation>Gestionar token de seguridad</translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+162"/>
-        <location line="+61"/>
+        <location line="+34"/>
+        <location line="+182"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>El tipo del elemento &apos;%1&apos; no ha sido reconocido</translation>
     </message>
     <message>
-        <location line="-3"/>
+        <location line="-4"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Los detalles del elemento &apos;%1&apos; no se pueden mostrar</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+32"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
         <translation>El archivo &apos;%1&apos; no contiene datos de PKI</translation>
     </message>
@@ -1318,12 +1340,12 @@ Nº serie: %3</translation>
         <translation>Origen</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+10"/>
         <source>Insertion date</source>
         <translation>Fecha de inserción</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+12"/>
         <source>Comment</source>
         <translation>Comentarios</translation>
     </message>
@@ -1408,7 +1430,7 @@ Nº serie: %3</translation>
         <translation>Comentarios</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="+79"/>
+        <location filename="../widgets/KeyDetail.cpp" line="+89"/>
         <source>Details of the %1 key</source>
         <translation>Detalles de la clave %1</translation>
     </message>
@@ -1435,22 +1457,25 @@ Nº serie: %3</translation>
     <message>
         <location line="+1"/>
         <location line="+9"/>
+        <location line="+12"/>
         <source>Public key</source>
         <translation>Clave pública</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="-20"/>
         <location line="+9"/>
+        <location line="+12"/>
         <source>Private key</source>
         <translation>Clave privada</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-11"/>
+        <location line="+12"/>
         <source>Curve name</source>
         <translation>Nombre de curva</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+7"/>
         <source>Unknown key</source>
         <translation>Clave desconocida</translation>
     </message>
@@ -1458,7 +1483,7 @@ Nº serie: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+28"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+30"/>
         <source>Change password</source>
         <translation>Cambiar contraseña</translation>
     </message>
@@ -1488,7 +1513,7 @@ Nº serie: %3</translation>
         <translation>Token de seguridad</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+37"/>
         <location line="+18"/>
         <location line="+18"/>
         <source>This is not a token</source>
@@ -1566,7 +1591,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+126"/>
+        <location filename="../widgets/MW_menu.cpp" line="+132"/>
         <source>Certificates</source>
         <translation>Certificados</translation>
     </message>
@@ -1616,38 +1641,35 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>&amp;Nueva CRL</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+257"/>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation>Formato antiguo de base de datos detectado. Creando una copia de seguridad llamada: &apos;%1&apos; y convirtiendo la base de datos al nuevo formato</translation>
+        <translation type="vanished">Formato antiguo de base de datos detectado. Creando una copia de seguridad llamada: &apos;%1&apos; y convirtiendo la base de datos al nuevo formato</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Failed to rename the database file, because the target already exists</source>
-        <translation>Error al renombrar el archivo de base de datos, porque el destino ya existe</translation>
+        <translation type="vanished">Error al renombrar el archivo de base de datos, porque el destino ya existe</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location filename="../widgets/MainWindow.cpp" line="+584"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Usar o exportar las claves privadas no será posible sin proporcionar la contraseña correcta</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>El algoritmo de hash &apos;%1&apos; utilizado actualmente no es seguro. Por favor seleccione al menos &apos;SHA-224&apos; por razones de seguridad.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location filename="../widgets/MainWindow.cpp" line="+868"/>
+        <location line="-11"/>
+        <location line="+150"/>
         <source>Database</source>
         <translation>Base de datos</translation>
     </message>
     <message>
-        <location line="+98"/>
         <source>No deleted items found</source>
-        <translation>No se han encontrado elementos eliminados</translation>
+        <translation type="vanished">No se han encontrado elementos eliminados</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-47"/>
+        <location filename="../widgets/MW_menu.cpp" line="-49"/>
         <source>Recent DataBases</source>
         <translation>Bases de datos recientes</translation>
     </message>
@@ -1728,7 +1750,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Turkish</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+48"/>
+        <location filename="../widgets/MW_menu.cpp" line="+50"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
@@ -1927,18 +1949,17 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-734"/>
-        <location line="+735"/>
+        <location filename="../widgets/MainWindow.cpp" line="-611"/>
+        <location line="+613"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location line="-593"/>
         <source>no such option: %1</source>
-        <translation>No existe la opción: %1</translation>
+        <translation type="vanished">No existe la opción: %1</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="-477"/>
         <source>Import PEM data</source>
         <translation>Importar datos PEM</translation>
     </message>
@@ -1963,7 +1984,7 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>El token &apos;%1&apos; no contiene claves ni certificados</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+46"/>
         <source>Current Password</source>
         <translation>Contraseña actual</translation>
     </message>
@@ -1979,12 +2000,11 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+5"/>
-        <location line="+78"/>
         <source>New Password</source>
         <translation>Nueva Contraseña</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location line="+0"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Por favor introduzca la nueva contraseña para encriptar las claves privadas en el archivo de base de datos</translation>
     </message>
@@ -1994,47 +2014,41 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
         <translation>Inicio de la transacción fallido</translation>
     </message>
     <message>
-        <location line="+54"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
-        <translation>Por favor, introduzca una contraseña, que será utilizada para encriptar las claves privadas de la base de datos:
+        <translation type="vanished">Por favor, introduzca una contraseña, que será utilizada para encriptar las claves privadas de la base de datos:
 %1</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>Password verify error, please try again</source>
-        <translation>Contraseña incorrecta, inténtelo de nuevo</translation>
+        <translation type="vanished">Contraseña incorrecta, inténtelo de nuevo</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Password</source>
-        <translation>Contraseña</translation>
+        <translation type="vanished">Contraseña</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
-        <translation>Por favor, introduzca la contraseña para desbloquear la base de datos:
+        <translation type="vanished">Por favor, introduzca la contraseña para desbloquear la base de datos:
 %1</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>The following error occurred:</source>
-        <translation>El siguiente error ha ocurrido:</translation>
+        <translation type="vanished">El siguiente error ha ocurrido:</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Copy to Clipboard</source>
-        <translation>Copiar al Portapapeles</translation>
+        <translation type="vanished">Copiar al Portapapeles</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+158"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Índice de Certificados ( index.txt )</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+60"/>
+        <location line="+55"/>
         <source>All files ( * )</source>
         <translation>Todos los archivos ( * )</translation>
     </message>
@@ -2127,6 +2141,11 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <source>Revocation reasons</source>
         <translation>Razones de revocación</translation>
     </message>
+    <message>
+        <location filename="../widgets/NewCrl.cpp" line="+77"/>
+        <source>Create CRL</source>
+        <translation type="unfinished">Crear CRL</translation>
+    </message>
 </context>
 <context>
     <name>NewKey</name>
@@ -2182,7 +2201,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Recordar como valores por defecto</translation>
     </message>
     <message>
-        <location filename="../widgets/NewKey.cpp" line="+181"/>
+        <location filename="../widgets/NewKey.cpp" line="+137"/>
         <source>Create</source>
         <translation>Crear</translation>
     </message>
@@ -2271,7 +2290,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+586"/>
+        <location filename="../widgets/NewX509.cpp" line="+592"/>
         <source>Subject</source>
         <translation>Sujeto</translation>
     </message>
@@ -2447,7 +2466,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+375"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
@@ -2492,7 +2511,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation type="obsolete">Nombre interno</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-717"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>Crítica</translation>
     </message>
@@ -2502,7 +2521,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Crear solicitud de firma de certificado</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+26"/>
         <source>minimum size: %1</source>
         <translation>tamaño mínimo: %1</translation>
     </message>
@@ -2532,7 +2551,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Crear certificado x509</translation>
     </message>
     <message>
-        <location line="+351"/>
+        <location line="+368"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Plantilla &apos;%1&apos; aplicada</translation>
     </message>
@@ -2552,7 +2571,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Nueva clave &apos;%1&apos; creada</translation>
     </message>
     <message>
-        <location line="+246"/>
+        <location line="+245"/>
         <source>Other Tabs</source>
         <translation>Otras pestañas</translation>
     </message>
@@ -2572,14 +2591,14 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>De la solicitud PKCS#10</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+108"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
         <location line="+16"/>
         <location line="+14"/>
         <location line="+34"/>
-        <location line="+11"/>
+        <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
         <location line="+26"/>
@@ -2588,7 +2607,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Cancelar emisión</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="-210"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Se violan las siguientes restricciones de longitud de RFC3280:</translation>
     </message>
@@ -2601,7 +2620,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
     <message>
         <location line="-59"/>
         <location line="+61"/>
-        <location line="+45"/>
+        <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
         <location line="+26"/>
@@ -2610,7 +2629,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Continuar emisión</translation>
     </message>
     <message>
-        <location line="-182"/>
+        <location line="-190"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>La verificación de la solicitud de certificado ha fallado.
@@ -2669,6 +2688,21 @@ aunque las has declarado como obligatorias en el menú de opciones.</translation
     </message>
     <message>
         <location line="+10"/>
+        <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Select other algorithm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Use algorithm anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>El certificado entrará en vigor antes que el certificado firmante. Probablemente no es lo que pretendes.</translation>
     </message>
@@ -2717,7 +2751,7 @@ aunque las has declarado como obligatorias en el menú de opciones.</translation
         <translation>El nombre alternativo del sujeto  debe contener una copia del nombre común. Sin embargo el nombre común está vacío.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+195"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
         <source>Configfile error on line %1
 </source>
         <translation>Error en la línea %1 del fichero de configuración
@@ -2797,7 +2831,7 @@ aunque las has declarado como obligatorias en el menú de opciones.</translation
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+58"/>
+        <location filename="../widgets/OpenDb.cpp" line="+50"/>
         <source>Database name</source>
         <translation>Nombre de la base de datos</translation>
     </message>
@@ -2807,19 +2841,17 @@ aunque las has declarado como obligatorias en el menú de opciones.</translation
         <translation>Prefijo de tabla</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+93"/>
+        <location filename="../widgets/OpenDb.cpp" line="+71"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>No hay disponible un driver de SqLite3. Por favor instale el paquete &apos;qt-sqlite&apos; de la distribución</translation>
     </message>
     <message>
-        <location line="+44"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation>Por favor, introduzca la contraseña de acceso del usuario &apos;%1&apos; al servidor de base de datos %2.</translation>
+        <translation type="vanished">Por favor, introduzca la contraseña de acceso del usuario &apos;%1&apos; al servidor de base de datos %2.</translation>
     </message>
     <message>
-        <location line="+39"/>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
-        <translation>El driver de base de datos no soporta transacciones. Esto puede deberse a que el cliente y el servidor sean de versiones diferentes. Continue con cuidado.</translation>
+        <translation type="vanished">El driver de base de datos no soporta transacciones. Esto puede deberse a que el cliente y el servidor sean de versiones diferentes. Continue con cuidado.</translation>
     </message>
 </context>
 <context>
@@ -2952,7 +2984,7 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+31"/>
+        <location filename="../widgets/Options.cpp" line="+34"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>Cadena imprimible o UTF8 (por defecto)</translation>
     </message>
@@ -3004,7 +3036,12 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Considerar cadena HEX</translation>
     </message>
     <message>
-        <location filename="../widgets/PwDialog.cpp" line="+85"/>
+        <location filename="../widgets/PwDialog.cpp" line="+44"/>
+        <source>Password</source>
+        <translation type="unfinished">Contraseña</translation>
+    </message>
+    <message>
+        <location line="+52"/>
         <source>Repeat %1</source>
         <translation>Repita %1</translation>
     </message>
@@ -3019,15 +3056,52 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>La contraseña HEX debe contener sólo los caracteres &apos;0&apos;-&apos;9&apos; y &apos;a&apos;-&apos;f&apos; y debe consistir en un número par de caracteres</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+29"/>
+        <source>Exit</source>
+        <translation type="unfinished">Salir</translation>
+    </message>
+    <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Salir</translation>
+        <translation type="vanished">&amp;Salir</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <location filename="../widgets/XcaWarning.cpp" line="+28"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Apply</source>
+        <translation type="unfinished">Aplicar</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Yes</source>
+        <translation type="unfinished">Sí</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>No</source>
+        <translation type="unfinished">No</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+155"/>
+        <location filename="../lib/asn1time.cpp" line="+157"/>
         <source>Undefined</source>
         <translation>Sin definir</translation>
     </message>
@@ -3100,12 +3174,12 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Error encontrando el final de la cadena</translation>
     </message>
     <message>
-        <location filename="../lib/exception.h" line="+61"/>
+        <location filename="../lib/exception.h" line="+60"/>
         <source>Out of Memory at %1:%2</source>
         <translation>Error de memoria en %1:%2</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+598"/>
+        <location filename="../lib/func.cpp" line="+634"/>
         <source>Country code</source>
         <translation>Código de país</translation>
     </message>
@@ -3304,7 +3378,7 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation type="vanished">Claves PKI ( *.pem *.der *.key );; Claves PKCS#8 ( *.p8 *.pk8 );; Claves Públicas SSH ( *.pub );;</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>PKI Keys ( *.pem *.der *.key );; PKCS#8 Keys ( *.p8 *.pk8 );; Microsoft PVK Keys ( *.pvk );; SSH Public Keys ( *.pub );;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3434,7 +3508,7 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Objeto desconocido &apos;%1&apos; en archivo %2 línea %3</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+200"/>
+        <location filename="../lib/pkcs11.cpp" line="+214"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Por favor, introduzca el PIN en el PinPad</translation>
     </message>
@@ -3449,7 +3523,7 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Por favor, introduzca el PIN del token %1</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+54"/>
         <source>No Security token found</source>
         <translation>No se ha encontrado Token de seguridad</translation>
     </message>
@@ -3469,7 +3543,7 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Por favor, introduzca el nuevo PIN para el token: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.h" line="+92"/>
+        <location filename="../lib/pkcs11.h" line="+101"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>Tamaño de PIN requerido: %1 - %2</translation>
     </message>
@@ -3503,7 +3577,7 @@ Especialmente EC y DSA están definidos únicamente con SHA.1 en la especificaci
         <translation>Error cargando librería</translation>
     </message>
     <message>
-        <location line="+354"/>
+        <location line="+357"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>La función PKCS#11 &apos;%1&apos; falló: %2</translation>
     </message>
@@ -3520,7 +3594,7 @@ In library %3
         <translation>Error al iniciar transacción de base de datos</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="+116"/>
+        <location filename="../lib/x509name.cpp" line="+111"/>
         <source>Invalid</source>
         <translation>No válido</translation>
     </message>
@@ -3535,9 +3609,29 @@ In library %3
         <translation>%1 tiene más de %2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+85"/>
+        <location filename="../lib/x509v3ext.cpp" line="+86"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>La cadena &apos;%1&apos; para &apos;%2&apos; contiene caracteres no válidos</translation>
+    </message>
+    <message>
+        <location filename="../lib/main.cpp" line="+210"/>
+        <source>Index file written to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Index hierarchy written to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Unknown key type %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/XcaWarning.h" line="+23"/>
+        <source>Password verify error, please try again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3586,7 +3680,7 @@ In library %3
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../widgets/RevocationList.cpp" line="+73"/>
+        <location filename="../widgets/RevocationList.cpp" line="+75"/>
         <source>No.</source>
         <translatorcomment>I understand it as &apos;Number&apos;, right?  MRM: Right: that&apos;s the spanish &apos;Number&apos; abbreviation</translatorcomment>
         <translation>Nº</translation>
@@ -3612,7 +3706,7 @@ In library %3
         <translation>Invalidación</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+28"/>
         <source>Generate CRL</source>
         <translation>Generar CRL</translation>
     </message>
@@ -3694,7 +3788,7 @@ In library %3
 <context>
     <name>TempTreeView</name>
     <message>
-        <location filename="../widgets/TempTreeView.cpp" line="+22"/>
+        <location filename="../widgets/TempTreeView.cpp" line="+23"/>
         <source>Duplicate</source>
         <translation>Duplicar</translation>
     </message>
@@ -3709,9 +3803,14 @@ In library %3
         <translation>Solicitud de certificado</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+9"/>
         <source>copy</source>
         <translation>copy</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Preset Template values</source>
+        <translation type="unfinished">Establecer valores de la plantilla</translation>
     </message>
 </context>
 <context>
@@ -3725,7 +3824,7 @@ In library %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+25"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>OpenSSL config</source>
         <translation>Configuración OpenSSL</translation>
     </message>
@@ -3748,7 +3847,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+326"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+343"/>
         <source>Subject entries</source>
         <translation>Entradas del Sujeto</translation>
     </message>
@@ -3788,7 +3887,7 @@ In library %3
         <translation>Columnas</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+36"/>
         <source>New</source>
         <translation>Nuevo</translation>
     </message>
@@ -3834,9 +3933,66 @@ In library %3
     </message>
 </context>
 <context>
+    <name>database_model</name>
+    <message>
+        <location filename="../lib/database_model.cpp" line="+125"/>
+        <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
+        <translation type="unfinished">Formato antiguo de base de datos detectado. Creando una copia de seguridad llamada: &apos;%1&apos; y convirtiendo la base de datos al nuevo formato</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Failed to rename the database file, because the target already exists</source>
+        <translation type="unfinished">Error al renombrar el archivo de base de datos, porque el destino ya existe</translation>
+    </message>
+    <message>
+        <location line="+135"/>
+        <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
+        <translation type="unfinished">Por favor, introduzca la contraseña de acceso del usuario &apos;%1&apos; al servidor de base de datos %2.</translation>
+    </message>
+    <message>
+        <location line="+117"/>
+        <source>Unable to create &apos;%1&apos;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+171"/>
+        <source>The file &apos;%1&apos; is not an XCA database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
+        <translation type="unfinished">No hay disponible un driver de SqLite3. Por favor instale el paquete &apos;qt-sqlite&apos; de la distribución</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>New Password</source>
+        <translation type="unfinished">Nueva Contraseña</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Please enter a password, that will be used to encrypt your private keys in the database:
+%1</source>
+        <translation type="unfinished">Por favor, introduzca una contraseña, que será utilizada para encriptar las claves privadas de la base de datos:
+%1</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Password</source>
+        <translation type="unfinished">Contraseña</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter the password for unlocking the database:
+%1</source>
+        <translation type="unfinished">Por favor, introduzca la contraseña para desbloquear la base de datos:
+%1</translation>
+    </message>
+</context>
+<context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+178"/>
+        <location filename="../lib/db_base.cpp" line="+170"/>
         <source>Internal name</source>
         <translation>Nombre interno</translation>
     </message>
@@ -3887,7 +4043,12 @@ In library %3
         <translation>Primera línea del campo de comentarios</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+62"/>
+        <source>Import from: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+151"/>
         <source>Could not create directory %1</source>
         <translation>No se pudo crear el directorio %1</translation>
     </message>
@@ -3929,7 +4090,7 @@ In library %3
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+34"/>
+        <location filename="../lib/db_crl.cpp" line="+30"/>
         <source>Signer</source>
         <translation>Firmante</translation>
     </message>
@@ -3964,7 +4125,7 @@ In library %3
         <translation>Número de CRL</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+69"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3973,7 +4134,7 @@ and so it was not imported</source>
 Y por lo tanto no será importada</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+25"/>
         <source>Revocation list export</source>
         <translation>Exportar lista de revocación</translation>
     </message>
@@ -3983,22 +4144,19 @@ Y por lo tanto no será importada</translation>
         <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <location line="+66"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation>No hay certificados de CA para generar la CRL</translation>
+        <translation type="vanished">No hay certificados de CA para generar la CRL</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation>Seleccione certificado de CA</translation>
+        <translation type="vanished">Seleccione certificado de CA</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>Create CRL</source>
-        <translation>Crear CRL</translation>
+        <translation type="vanished">Crear CRL</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+63"/>
         <source>Failed to initiate DB transaction</source>
         <translation>Error al iniciar la transacción de DB</translation>
     </message>
@@ -4017,7 +4175,7 @@ Y por lo tanto no será importada</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+65"/>
+        <location filename="../lib/db_key.cpp" line="+58"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
@@ -4042,7 +4200,7 @@ Y por lo tanto no será importada</translation>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+74"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -4073,35 +4231,41 @@ y será completada con la nueva parte privada de la clave</translation>
         <translation>Extendiendo la clave pública de %1 con la  clave importada &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+18"/>
         <source>Key size too small !</source>
         <translation>¡Tamaño de clave demasiado pequeño!</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>You are sure to create a key of the size: %1 ?</source>
         <translation>¿Está seguro de crear una nueva clave de tamaño: %1?</translation>
     </message>
     <message>
-        <location line="+82"/>
-        <location line="+44"/>
+        <location line="+50"/>
+        <location line="+51"/>
         <source>PEM public</source>
         <translation>PEM publico</translation>
     </message>
     <message>
-        <location line="-41"/>
-        <location line="+46"/>
+        <location line="-48"/>
+        <location line="+53"/>
         <source>SSH2 public</source>
         <translation>SSH2 publico</translation>
     </message>
     <message>
-        <location line="-43"/>
-        <location line="+62"/>
+        <location line="-50"/>
+        <location line="+70"/>
         <source>PEM private</source>
         <translation>PEM privado</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-65"/>
+        <location line="+70"/>
+        <source>SSH2 private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-67"/>
         <source>Export keys to Clipboard</source>
         <translation>Exportar claves al portapapeles</translation>
     </message>
@@ -4116,22 +4280,22 @@ y será completada con la nueva parte privada de la clave</translation>
         <translation>Exportar la clave pública [%1]</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+22"/>
         <source>DER public</source>
         <translation>DER publico</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
         <source>DER private</source>
         <translation>DER privado</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-3"/>
         <source>PEM encryped</source>
         <translation>PEM encriptado</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+9"/>
         <source>PVK private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4146,7 +4310,7 @@ y será completada con la nueva parte privada de la clave</translation>
         <translation>PKCS#8 encriptado</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Export private key [%1]</source>
         <translation>Exportar clave privada [%1]</translation>
     </message>
@@ -4156,12 +4320,12 @@ y será completada con la nueva parte privada de la clave</translation>
         <translation>Claves privadas ( *.pem *.der *.pk8 );; Claves públicas SSH ( *.pub )</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+60"/>
         <source>Internal error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Tried to change password of a token</source>
         <translation>Intentó cambiar la contraseña de un token</translation>
     </message>
@@ -4169,7 +4333,7 @@ y será completada con la nueva parte privada de la clave</translation>
 <context>
     <name>db_temp</name>
     <message>
-        <location filename="../lib/db_temp.cpp" line="+38"/>
+        <location filename="../lib/db_temp.cpp" line="+34"/>
         <source>Empty template</source>
         <translation>Plantilla vacía</translation>
     </message>
@@ -4179,12 +4343,11 @@ y será completada con la nueva parte privada de la clave</translation>
         <translation>Plantilla incorrecta: %1</translation>
     </message>
     <message>
-        <location line="+45"/>
         <source>Preset Template values</source>
-        <translation>Establecer valores de la plantilla</translation>
+        <translation type="vanished">Establecer valores de la plantilla</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+62"/>
         <source>Save template as</source>
         <translation>Guardar plantilla como</translation>
     </message>
@@ -4197,7 +4360,7 @@ y será completada con la nueva parte privada de la clave</translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+67"/>
+        <location filename="../lib/db_x509.cpp" line="+71"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
@@ -4257,17 +4420,20 @@ y será completada con la nueva parte privada de la clave</translation>
         <translation>Caducidad de CRL</translation>
     </message>
     <message>
-        <location line="+74"/>
         <source>Plain View</source>
-        <translation>Vista Plana</translation>
+        <translation type="vanished">Vista Plana</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Tree View</source>
-        <translation>Vista de árbol</translation>
+        <translation type="vanished">Vista de árbol</translation>
     </message>
     <message>
-        <location line="+180"/>
+        <location line="+171"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>Error al obtener un número de serie aleatorio único</translation>
     </message>
@@ -4281,7 +4447,7 @@ and so it was not imported</source>
 Y por lo tanto no será importado</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+42"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
         <translation>Firmado el %1 por &apos;%2&apos;</translation>
     </message>
@@ -4291,7 +4457,7 @@ Y por lo tanto no será importado</translation>
         <translation>Desconocido</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+88"/>
         <source>Invalid public key</source>
         <translation>Clave pública no válida</translation>
     </message>
@@ -4306,7 +4472,7 @@ Y por lo tanto no será importado</translation>
         <translation>¿Guardar el certificado a la clave en el token &apos;%1 (#%2)&apos;?</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+65"/>
         <source>PEM chain</source>
         <translation>Cadena PEM</translation>
     </message>
@@ -4367,22 +4533,26 @@ Y por lo tanto no será importado</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</source>
-        <translation>Certificados X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
+        <translation type="vanished">Certificados X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <location line="+64"/>
-        <location line="+66"/>
+        <location line="+70"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>No se ha encontrado clave asociada al Certificado &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-61"/>
+        <location line="-65"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>No es posible para una clave de token &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+352"/>
+        <location line="+346"/>
         <source>days</source>
         <translation>Días</translation>
     </message>
@@ -4391,7 +4561,7 @@ Y por lo tanto no será importado</translation>
         <translation type="vanished">Error abriendo archivo: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="-287"/>
+        <location line="-277"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>No es posible para un certificado con clave de token &apos;%1&apos;</translation>
     </message>
@@ -4400,7 +4570,7 @@ Y por lo tanto no será importado</translation>
         <translation type="vanished"> días</translation>
     </message>
     <message>
-        <location line="+296"/>
+        <location line="+286"/>
         <source>No template</source>
         <translation>Sin plantilla</translation>
     </message>
@@ -4408,7 +4578,7 @@ Y por lo tanto no será importado</translation>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+25"/>
+        <location filename="../lib/db_x509super.cpp" line="+30"/>
         <source>Subject</source>
         <translation>Sujeto</translation>
     </message>
@@ -4431,7 +4601,7 @@ Y por lo tanto no será importado</translation>
 <context>
     <name>db_x509req</name>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="+31"/>
+        <location filename="../lib/db_x509req.cpp" line="+28"/>
         <source>Signed</source>
         <translation>Firmado</translation>
     </message>
@@ -4470,7 +4640,7 @@ and thus was not stored</source>
 y por lo tanto no será almacenada</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+67"/>
         <source>Certificate request export</source>
         <translation>Exportación de solicitud</translation>
     </message>
@@ -4483,7 +4653,7 @@ y por lo tanto no será almacenada</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+51"/>
+        <location filename="../lib/db_x509super.cpp" line="+48"/>
         <source>Key name</source>
         <translation>Nombre de clave</translation>
     </message>
@@ -4519,18 +4689,18 @@ y por lo tanto no será almacenada</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+51"/>
+        <location line="+52"/>
         <source>Certificate</source>
         <translation>Certificado</translation>
     </message>
     <message>
-        <location line="-51"/>
-        <location line="+51"/>
+        <location line="-52"/>
+        <location line="+52"/>
         <source>Certificate request</source>
         <translation>Solicitud de certificado</translation>
     </message>
     <message>
-        <location line="-36"/>
+        <location line="-37"/>
         <source>Save as OpenSSL config</source>
         <translation>Almacenar como configuración OpenSSL</translation>
     </message>
@@ -4540,7 +4710,7 @@ y por lo tanto no será almacenada</translation>
         <translation>Archivo de configuración ( *.conf *.cnf);; Todos los archivos ( * )</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>The following extensions were not ported into the template</source>
         <translation>Las siguientes extensiones no fueron importadas en la plantilla</translation>
     </message>
@@ -4566,12 +4736,12 @@ y por lo tanto no será almacenada</translation>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="+20"/>
+        <location filename="../lib/pass_info.cpp" line="+15"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>PIN</source>
         <translation>PIN</translation>
     </message>
@@ -4579,7 +4749,7 @@ y por lo tanto no será almacenada</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+101"/>
+        <location filename="../lib/pki_base.cpp" line="+125"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Error interno: Mensaje inesperado: %1 %2</translation>
     </message>
@@ -4592,7 +4762,7 @@ y por lo tanto no será almacenada</translation>
         <translation type="vanished">Error escribiendo en archivo: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+183"/>
+        <location line="+164"/>
         <source>Unknown</source>
         <translation>Desconocido</translation>
     </message>
@@ -4625,6 +4795,11 @@ y por lo tanto no será almacenada</translation>
         <location line="+1"/>
         <source>Renewed</source>
         <translation>Renovado</translation>
+    </message>
+    <message>
+        <location line="+135"/>
+        <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4665,7 +4840,7 @@ y por lo tanto no será almacenada</translation>
         <translation>Tamaño erroneo: %1</translation>
     </message>
     <message>
-        <location line="+219"/>
+        <location line="+215"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation type="unfinished">Renovación de CRL de CA &apos;%1&apos; debido a</translation>
     </message>
@@ -4705,29 +4880,32 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation type="vanished">Error al desencriptar la clave (contraseña incorrecta) </translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+238"/>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation>Error al desencriptar la clave (contraseña erronea) %1</translation>
+        <translation type="vanished">Error al desencriptar la clave (contraseña erronea) %1</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Please enter the password to decrypt the private key.</source>
-        <translation>Por favor, introduzca la contraseña para desencriptar la clave privada.</translation>
+        <translation type="vanished">Por favor, introduzca la contraseña para desencriptar la clave privada.</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location filename="../lib/pki_evp.cpp" line="+260"/>
+        <source>Please enter the password to decrypt the private key %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation>La clave del fichero &apos;%1&apos; está incompleta o es inconsistente.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+89"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation>Por favor, introduzca la contraseña para desencriptar la clave privada del archivo:
 %1</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+77"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation>Imposible cargar la clave privada del archivo %1. Se intentó con los formatos de PEM y DER privada, pública, tipos de clave PKCS#8 y formato SSH2.</translation>
     </message>
@@ -4753,7 +4931,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>Por favor, introduzca la contraseña de base de datos para desencriptar la clave: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+105"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Por favor, introduzca la contraseña para proteger la clave privada: &apos;%1&apos;</translation>
     </message>
@@ -4763,7 +4941,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>Por favor, introduzca la contraseña de base de datos para encriptar la clave</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+112"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>Por favor, introduzca la contraseña que protege la clave PKCS#8 &apos;%1&apos;</translation>
     </message>
@@ -4773,7 +4951,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+55"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Por favor, introduzca la clave de exportación para la clave privada &apos;%1&apos;</translation>
     </message>
@@ -4781,7 +4959,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+203"/>
+        <location filename="../lib/pki_key.cpp" line="+238"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Importada con éxito la %1 clave pública &apos;%2&apos;</translation>
     </message>
@@ -4811,13 +4989,14 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>¿Eliminar las %1 claves: %2?</translation>
     </message>
     <message>
-        <location line="-158"/>
-        <location line="+167"/>
+        <location line="-192"/>
+        <location line="+201"/>
+        <location line="+677"/>
         <source>Public key</source>
         <translation>Clave pública</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="-439"/>
         <source>Common</source>
         <translation>Común</translation>
     </message>
@@ -4842,19 +5021,19 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>Sin contraseña</translation>
     </message>
     <message>
-        <location line="+96"/>
-        <location line="+94"/>
+        <location line="+97"/>
+        <location line="+106"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
         <translation>Contenido SSH2 inesperado: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-74"/>
+        <location line="-86"/>
         <location line="+6"/>
         <source>Invalid SSH2 public key</source>
         <translation>Clave pública SSH2 no válida</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+198"/>
         <source>Failed writing to %1</source>
         <translation>Error escribiendo a %1</translation>
     </message>
@@ -4862,7 +5041,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+125"/>
+        <location filename="../lib/pki_multi.cpp" line="+131"/>
         <source>No known PEM encoded items found</source>
         <translation>No se han encontrado elementos PEM codifiicados</translation>
     </message>
@@ -4870,29 +5049,29 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+37"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+40"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>Por favor, introduzca la contraseña para desencriptar el archvo PKCS#12:
 %1</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Unable to load the PKCS#12 (pfx) file %1.</source>
         <translation>No se puede cargar el archivo  PKCS#12 (pfx) %1.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+24"/>
         <source>The supplied password was wrong (%1)</source>
         <translation>La contraseña introducida es incorrecta (%1)</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+54"/>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
         <translation>Por favor, introduzca la contraseña para encriptar el archvo PKCS#12</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>No existe clave o no existe certifcado y no existe pkcs12</translation>
     </message>
@@ -4900,7 +5079,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+151"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+173"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>No se puede cargar el archivo PKCS#7 %1. Se he probado con los formatos PEM y DER.</translation>
     </message>
@@ -4908,7 +5087,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+57"/>
+        <location filename="../lib/pki_scard.cpp" line="+52"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>Importada con éxito la clave del token &apos;%1&apos;</translation>
     </message>
@@ -4957,12 +5136,11 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation type="vanished">Error de comprobación de Clave Pública. Por favor, reimporte la tarjeta</translation>
     </message>
     <message>
-        <location line="+68"/>
         <source>Illegal Key generation method</source>
-        <translation>Método de generación de claves ilegal</translation>
+        <translation type="vanished">Método de generación de claves ilegal</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+66"/>
         <source>Unable to find generated key on card</source>
         <translation>No se puede encontrar la clave generada en la tarjeta</translation>
     </message>
@@ -5001,7 +5179,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+124"/>
+        <location filename="../lib/pki_temp.cpp" line="+123"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Importada con éxito la plantilla XCA &apos;%1&apos;</translation>
     </message>
@@ -5026,7 +5204,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>Tamaño erroneo: %1</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+85"/>
         <source>Template file content error (too small)</source>
         <translation>Error en el contenido del fichero de plantilla (demasiado pequeño)</translation>
     </message>
@@ -5035,7 +5213,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation type="vanished">Error en el contenido del fichero de plantilla (demasiado pequeño): %1</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+49"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation>No es una plantilla XCA codificada en PEM</translation>
     </message>
@@ -5048,7 +5226,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+66"/>
+        <location filename="../lib/pki_x509.cpp" line="+64"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Importado con éxito el certificado &apos;%1&apos;</translation>
     </message>
@@ -5068,7 +5246,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>¿Eliminar los %1 certificados: %2?</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+161"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Imposible cargar el certificado del archivo %1. Se intentó con los formatos de PEM y DER de certificado.</translation>
     </message>
@@ -5093,7 +5271,7 @@ Está almacenada en la base de datos de XCA &apos;%5&apos;</translation>
         <translation>Tamaño erroneo: %1</translation>
     </message>
     <message>
-        <location line="+291"/>
+        <location line="+288"/>
         <source>No</source>
         <translation>No</translation>
     </message>
@@ -5128,7 +5306,7 @@ Está almacenada en la base de datos de XCA &apos;%3&apos;</translation>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+102"/>
+        <location filename="../lib/pki_x509req.cpp" line="+110"/>
         <source>Signing key not valid (public key)</source>
         <translation>Clave de firma no válida (clave pública)</translation>
     </message>
@@ -5163,7 +5341,7 @@ Está almacenada en la base de datos de XCA &apos;%3&apos;</translation>
         <translation>Tamaño erroneo: %1</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+167"/>
         <source>Signed</source>
         <translation>Firmado</translation>
     </message>
@@ -5206,7 +5384,7 @@ Está almacenada en la base de datos de XCA &apos;%3&apos;</translation>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="+72"/>
+        <location filename="../widgets/v3ext.cpp" line="+75"/>
         <source>An email address or &apos;copy&apos;</source>
         <translation>Una dirección de correo o &apos;copiar&apos;</translation>
     </message>
@@ -5265,6 +5443,19 @@ Está almacenada en la base de datos de XCA &apos;%3&apos;</translation>
 &apos;%1&apos;</source>
         <translation>Validado con éxito:
 &apos;%1&apos;</translation>
+    </message>
+</context>
+<context>
+    <name>xcaWarning</name>
+    <message>
+        <location filename="../widgets/XcaWarning.cpp" line="+88"/>
+        <source>The following error occurred:</source>
+        <translation type="unfinished">El siguiente error ha ocurrido:</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Copy to Clipboard</source>
+        <translation type="unfinished">Copiar al Portapapeles</translation>
     </message>
 </context>
 </TS>
