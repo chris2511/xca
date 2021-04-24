@@ -421,12 +421,12 @@
     <message>
         <location line="+80"/>
         <source>Plain View</source>
-        <translation type="unfinished">Einfache Ansicht</translation>
+        <translation>Einfache Ansicht</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Tree View</source>
-        <translation type="unfinished">Baumansicht</translation>
+        <translation>Baumansicht</translation>
     </message>
     <message>
         <source>Trust</source>
@@ -593,12 +593,12 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="+37"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished">Es existieren keine CA Zertifikate für eine CRL generierung</translation>
+        <translation>Es existieren keine CA Zertifikate für eine CRL generierung</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation type="unfinished">CA Zertifikat wählen</translation>
+        <translation>CA Zertifikat wählen</translation>
     </message>
 </context>
 <context>
@@ -2547,17 +2547,17 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+10"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der aktuell gewählte Hash-algorithmus &apos;%1&apos; ist nicht sicher und sollte nicht verwendet werden.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Select other algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Anderen Algorithmus wählen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Use algorithm anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Algirithmus trotzdem verwenden</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2930,7 +2930,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location filename="../widgets/PwDialog.cpp" line="+44"/>
         <source>Password</source>
-        <translation type="unfinished">Passwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -2950,7 +2950,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+29"/>
         <source>Exit</source>
-        <translation type="unfinished">Beenden</translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -2972,32 +2972,32 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+28"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Apply</source>
-        <translation type="unfinished">Übernehmen</translation>
+        <translation>Übernehmen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Yes</source>
-        <translation type="unfinished">Ja</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>No</source>
-        <translation type="unfinished">Nein</translation>
+        <translation>Nein</translation>
     </message>
 </context>
 <context>
@@ -3272,7 +3272,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
         <source>Invalid filename: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiger Dateiname: %1</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3544,22 +3544,22 @@ in Bibliothek %3
     <message>
         <location filename="../lib/main.cpp" line="+210"/>
         <source>Index file written to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Index Datei gespeichert als &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Index hierarchy written to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Index Hierarchie gespeichert als &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Unknown key type %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannter Schlüsseltyp %1</translation>
     </message>
     <message>
         <location filename="../widgets/XcaWarning.h" line="+23"/>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished">Die Passwort überprüfung ist fehlgeschlagen</translation>
+        <translation>Die Passwort überprüfung ist fehlgeschlagen</translation>
     </message>
 </context>
 <context>
@@ -3741,7 +3741,7 @@ in Bibliothek %3
     <message>
         <location line="+48"/>
         <source>Preset Template values</source>
-        <translation type="unfinished">Vorlagenwerte voreinstellen</translation>
+        <translation>Vorlagenwerte voreinstellen</translation>
     </message>
 </context>
 <context>
@@ -3903,54 +3903,54 @@ in Bibliothek %3
     <message>
         <location filename="../lib/database_model.cpp" line="+125"/>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="unfinished">Veraltetes Datenbankformat entdeckt. Eine Sicherheitskopie mit dem Namen: &apos;%1&apos; wird erstellt und die Datenbank in das neue Format umgewandelt</translation>
+        <translation>Veraltetes Datenbankformat entdeckt. Eine Sicherheitskopie mit dem Namen: &apos;%1&apos; wird erstellt und die Datenbank in das neue Format umgewandelt</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="unfinished">Datenbank konnte nicht umbenannt werden, da die Zieldatei bereits existiert</translation>
+        <translation>Datenbank konnte nicht umbenannt werden, da die Zieldatei bereits existiert</translation>
     </message>
     <message>
         <location line="+135"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished">Bitte das Datenbankpasswort des Benutzers &apos;%1&apos; für die Datenbank auf &apos;%2&apos; eingeben.</translation>
+        <translation>Bitte das Datenbankpasswort des Benutzers &apos;%1&apos; für die Datenbank auf &apos;%2&apos; eingeben.</translation>
     </message>
     <message>
         <location line="+117"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+171"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei &apos;%1&apos; ist keine XCA Datenbank</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished">Kein SQLite3 Treiber verfügbar. Bitte das qt-sqlite Paket der Paketdistribution installieren</translation>
+        <translation>Kein SQLite3 Treiber verfügbar. Bitte das qt-sqlite Paket der Paketdistribution installieren</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>New Password</source>
-        <translation type="unfinished">Neues Passwort</translation>
+        <translation>Neues Passwort</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
-        <translation type="unfinished">Bitte das Passwort zur Verschlüsselung der privaten Schlüssel in der Datenbank %1 eingeben</translation>
+        <translation>Bitte das Passwort zur Verschlüsselung der privaten Schlüssel in der Datenbank %1 eingeben</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Password</source>
-        <translation type="unfinished">Passwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
-        <translation type="unfinished">Bitte geben Sie das Passwort ein um die Datenbank
+        <translation>Bitte geben Sie das Passwort ein um die Datenbank
 %1 zu öffnen</translation>
     </message>
 </context>
@@ -4049,7 +4049,7 @@ Grösse %3
     <message>
         <location line="+62"/>
         <source>Import from: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert aus: %1</translation>
     </message>
     <message>
         <location line="+151"/>
@@ -4362,7 +4362,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <location line="-65"/>
         <location line="+70"/>
         <source>SSH2 private</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH2 Privat</translation>
     </message>
     <message>
         <location line="-67"/>
@@ -4634,7 +4634,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     <message>
         <location line="+4"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished"></translation>
+        <translation>X509 Zertifikate ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
         <location line="+415"/>
@@ -4654,7 +4654,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     <message>
         <location line="-228"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis &apos;%1&apos; konnte nicht angelegt werden</translation>
     </message>
     <message>
         <location line="+337"/>
@@ -5344,7 +5344,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+135"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaft &apos;%1&apos; in &apos;pki_base::print&apos; nicht aufgeführt</translation>
     </message>
     <message>
         <source>Error: </source>
@@ -5381,20 +5381,21 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+273"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished">CRL erneuerung der CA &apos;%1&apos; fällig</translation>
+        <translation>CRL erneuerung der CA &apos;%1&apos; fällig</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
-        <translation type="unfinished">Die neueste von CA &apos;%1&apos; ausgestellte CRL wird am %2 ablaufen.
+        <translation>Die neueste von CA &apos;%1&apos; ausgestellte CRL wird am %2 ablaufen.
 Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Die XCA CRL &apos;%1&apos;, ausgestellt von der CA &apos;%2&apos; am %3 wird am %4 ablaufen.
+Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -5459,7 +5460,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="-399"/>
         <source>Please enter the password to decrypt the private key %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte das Passwort zur Entschlüsselung des privaten Schlüssels &apos;%1&apos; eingeben.</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -6082,12 +6083,12 @@ Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+88"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">Der folgende Fehler ist aufgetreten:</translation>
+        <translation>Der folgende Fehler ist aufgetreten:</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">In die Zwischenablage</translation>
+        <translation>In die Zwischenablage</translation>
     </message>
 </context>
 </TS>
