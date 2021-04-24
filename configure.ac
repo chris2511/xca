@@ -19,6 +19,26 @@ AC_CHECK_TOOL(WINDRES, [windres], [:])
 VERSIONHASH="$(echo "${PACKAGE_VERSION}" | shasum | cut -b -12)"
 AC_SUBST([VERSIONHASH])
 
+AC_ARG_WITH([macos-version],
+  AS_HELP_STRING([--with-macos-version], [Select macOS minimum SDK version]),
+  [ MACOS_VERSION="$withval"
+    CXXFLAGS="${CXXFLAGS} -mmacosx-version-min=$MACOS_VERSION"
+    case "$withval" in
+	10.10) EXTRA_VERSION=-Yosemite ;;
+	10.11) EXTRA_VERSION=-El-Capitan ;;
+	10.12) EXTRA_VERSION=-Sierra ;;
+	10.13) EXTRA_VERSION=-High-Sierra ;;
+	10.14) EXTRA_VERSION=-Mojave ;;
+	10.15) EXTRA_VERSION=-Catalina ;;
+	11.00) EXTRA_VERSION=-Big-Sur ;;
+	*) echo "Unknown macOS Version $withval"
+	   exit 1 ;;
+    esac
+  ]
+)
+AC_SUBST([EXTRA_VERSION])
+AC_SUBST([MACOS_VERSION])
+
 if test -d "$INSTALL_DIR"; then
   AC_MSG_NOTICE([Using INSTALL_DIR $INSTALL_DIR])
   test -d "${INSTALL_DIR}/include" && CXXFLAGS="${CXXFLAGS} -I${INSTALL_DIR}/include"

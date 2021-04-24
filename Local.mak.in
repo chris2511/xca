@@ -9,6 +9,7 @@ export HOST=@HOST@
 CPPFLAGS+=-Wall -Wextra -DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\"
 CFLAGS+=-O2 -ggdb -std=c++11 @CXXFLAGS@
 LIBS=@LIBS@
+EXTRA_VERSION=@EXTRA_VERSION@
 
 MOC=@QT_MOC@
 UIC=@QT_UIC@

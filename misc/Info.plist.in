@@ -28,6 +28,8 @@
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>@MACOS_VERSION@.0</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
