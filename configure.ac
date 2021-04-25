@@ -111,7 +111,7 @@ if test -n "${_OPENSSLDIR}" && test -d "${_OPENSSLDIR}"; then
 fi
 
 PKG_CHECK_MODULES([OpenSSL],
-   [libcrypto >= 0.9.8], [ ],
+   [libcrypto >= 1.0.2], [ ],
    [
      OpenSSL_LIBS=" -lcrypto ";
      AC_MSG_WARN([OpenSSL pkg-config failed, using fallback defaults (${OpenSSL_LIBS})]);
