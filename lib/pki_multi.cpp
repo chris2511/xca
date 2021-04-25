@@ -138,6 +138,12 @@ void pki_multi::probeAnything(const QString &fname)
 	QList<load_base*> lbs;
 	int old_count = multi.size();
 
+	/* Check for file accessibility to report
+	 * a reasonable error early thrown by file.open_read() */
+	XFile file(fname);
+	file.open_read();
+	file.close();
+
 	lbs <<  new load_pem() <<
 		new load_cert() << new load_pkcs7() << new load_pkcs12() <<
 		new load_crl() <<  new load_req() <<   new load_key() <<
