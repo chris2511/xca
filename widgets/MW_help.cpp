@@ -101,8 +101,8 @@ void MainWindow::about()
 		QString lang(QLocale::languageToString(QLocale(sl[0]).language()));
 		QStringList row {
 			QString("<b>%1</b>").arg(lang),
-			htmlEscape(sl[2]),
-			htmlEscape(email),
+			sl[2].toHtmlEscaped(),
+			email.toHtmlEscaped(),
 		};
 		rows << tag[0] + row.join(tag[0] + tag[1]) + tag[1];
 	}

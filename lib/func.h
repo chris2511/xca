@@ -85,15 +85,6 @@ void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 #define I2D_VOID(a) ((int (*)(const void *, unsigned char **))(a))
 #define D2I_VOID(a) ((void *(*)(void *, unsigned char **, long))(a))
 
-static inline QString htmlEscape(const QString &html)
-{
-#if QT_VERSION < 0x050000
-	return Qt::escape(html);
-#else
-	return html.toHtmlEscaped();
-#endif
-}
-
 QString appendXcaComment(QString current, QString msg);
 
 /* from version.cpp */

@@ -55,7 +55,8 @@ static void segv_handler_gui(int)
 }
 #endif
 
-void myMsgOutput(QtMsgType type, const char *msg)
+void myMessageOutput(QtMsgType type, const QMessageLogContext &,
+			const QString &msg)
 {
 	static QElapsedTimer *t;
 	static int abort_on_warning = -1;
@@ -83,27 +84,19 @@ void myMsgOutput(QtMsgType type, const char *msg)
 	case QtWarningMsg:  warn_msg = "WARNING";  severity = COL_LRED "Warning"; break;
 	case QtCriticalMsg: warn_msg = "CRITICAL"; severity = COL_RED "Critical"; break;
 	case QtFatalMsg:    warn_msg = "FATAL";    severity = COL_RED "Fatal"; break;
-#if QT_VERSION >= 0x050000
 	case QtInfoMsg:	    severity = COL_CYAN "Info"; break;
-#endif
 	default:            severity = COL_CYAN "Default"; break;
 	}
 	console_write(stderr, QString(COL_YELL "%1%2 %3:" COL_RESET " %4\n")
 			.arg(el/1000, 4)
 			.arg((el%1000)/100, 2, 10, QChar('0'))
-			.arg(severity).arg(QString::fromUtf8(msg)).toUtf8());
+			.arg(severity).arg(msg).toUtf8());
 
 	if (abort_on_warning == 1 && warn_msg) {
 		qFatal("Abort on %s", warn_msg);
 	}
 }
 
-#if QT_VERSION >= 0x050000
-void myMessageOutput(QtMsgType t, const QMessageLogContext &, const QString &m)
-{
-	myMsgOutput(t, m.toUtf8().constData());
-}
-#endif
 
 static void cmd_version(FILE *fp)
 {
@@ -305,11 +298,7 @@ int main(int argc, char *argv[])
 		puts(CCHAR(arguments::doc(xca_special)));
 		return 0;
 	}
-#if QT_VERSION < 0x050000
-	qInstallMsgHandler(myMsgOutput);
-#else
 	qInstallMessageHandler(myMessageOutput);
-#endif
 #if defined(Q_OS_WIN32)
 	AttachConsole(-1);
 

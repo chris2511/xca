@@ -149,12 +149,13 @@ if test -n "${_QTDIR}" && test -d "${_QTDIR}"; then
 fi
 
 AC_ARG_WITH([qt-version],
-  AS_HELP_STRING([--with-qt-version], [Select the Qt version]),
+  AS_HELP_STRING([--with-qt-version],
+		 [Select the Qt version: 5 or 6 if both are installed]),
   [WANT_QT_VERSION="$withval"],
   [WANT_QT_VERSION=detect])
 
 if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
-  PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0 Qt5Widgets >= 5.0 Qt5Sql >= 5.0 Qt5Help >= 5.0], [
+  PKG_CHECK_MODULES(Qt5, [Qt5Core Qt5Widgets Qt5Sql Qt5Help], [
     _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
     QT_MOC="${_QT_HOST_BINS}/moc"
     QT_UIC="${_QT_HOST_BINS}/uic"
@@ -170,8 +171,8 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 5; then
   ],[ : ])
 fi
 
-if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
-  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.7 QtCore < 5.0 QtGui >= 4.7 QtGui < 5.0 QtSql >= 4.7 QtSql < 5.0 QtHelp < 5.0], [
+if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 6; then
+  PKG_CHECK_MODULES(Qt6, [Qt6Core Qt6Gui Qt6Sql Qt6Help], [
     QT_MOC="`pkg-config --variable=moc_location QtCore`"
     QT_UIC="`pkg-config --variable=uic_location QtCore`"
     if test -n "${QT_MOC}"; then
@@ -179,13 +180,13 @@ if test "${WANT_QT_VERSION}" = detect -o "${WANT_QT_VERSION}" = 4; then
     fi
     if test "$HOST" = "DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
-      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
-      Qt4_LDFLAGS=" -Xlinker -rpath -Xlinker ${FRAMEDIR}"
+      Qt6_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtSql.framework/Headers"
+      Qt6_LDFLAGS=" -Xlinker -rpath -Xlinker ${FRAMEDIR}"
     fi
-    WANT_QT_VERSION=4
-    QT_VERSION=4
-    QT_CFLAGS="${Qt4_CFLAGS}"
-    QT_LIBS="${Qt4_LIBS}${Qt4_LDFLAGS}"
+    WANT_QT_VERSION=6
+    QT_VERSION=6
+    QT_CFLAGS="${Qt6_CFLAGS}"
+    QT_LIBS="${Qt6_LIBS}${Qt6_LDFLAGS}"
   ],[ : ])
 fi
 

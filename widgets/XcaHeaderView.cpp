@@ -13,11 +13,7 @@
 XcaHeaderView::XcaHeaderView()
 	:QHeaderView(Qt::Horizontal)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 	setSectionsMovable(true);
-#else
-	setMovable(true);
-#endif
 }
 
 void XcaHeaderView::contextMenuEvent(QContextMenuEvent *e)

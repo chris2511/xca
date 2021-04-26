@@ -22,11 +22,7 @@
 
 #if defined(Q_OS_MAC)
 #include <IOKit/IOKitLib.h>
-  #if QT_VERSION < 0x050000
-#include <QDesktopServices>
-  #else
 #include <QStandardPaths>
-  #endif
 #endif
 #include <QDir>
 #include <QFile>
@@ -318,16 +314,10 @@ const QString getUserSettingsDir()
 	rv = portable_app() ? getPrefix() + "/settings" :
 				specialFolder(CSIDL_APPDATA) + "/xca";
 #elif defined(Q_OS_MAC)
-  #if QT_VERSION < 0x050000
-	rv = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-	rv.insert(rv.count() - QCoreApplication::applicationName().count(),
-		QCoreApplication::organizationName());
-  #else
 	rv = QStandardPaths::writableLocation(
 			QStandardPaths::GenericDataLocation) + "/data/" +
 		QCoreApplication::organizationName() + "/" +
 		QCoreApplication::applicationName();
-  #endif
 #else
 	rv = QDir::homePath() + "/.xca";
 #endif

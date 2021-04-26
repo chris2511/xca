@@ -98,13 +98,8 @@ void XcaApplication::setupLanguage(QLocale l)
 #endif
 		<< getI18nDir()
 #ifndef WIN32
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 		<< "/usr/local/share/qt5/translations/"
 		<< "/usr/share/qt5/translations/"
-#else
-		<< "/usr/local/share/qt4/translations/"
-		<< "/usr/share/qt4/translations/"
-#endif
 		<< "/usr/share/qt/translations/"
 #endif
 		;

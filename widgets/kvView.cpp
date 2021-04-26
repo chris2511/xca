@@ -168,11 +168,7 @@ kvView::kvView(QWidget *parent)
 	setAlternatingRowColors(true);
 	horizontalHeader()->setDefaultSectionSize(200);
 	horizontalHeader()->setStretchLastSection(true);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 	verticalHeader()->setSectionsMovable(true);
-#else
-	verticalHeader()->setMovable(true);
-#endif
 	verticalHeader()->setDefaultSectionSize(24);
 	setEditTriggers(QAbstractItemView::AllEditTriggers);
 

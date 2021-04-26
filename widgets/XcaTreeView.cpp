@@ -41,11 +41,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 		this, SLOT(resizeColumnToContents(int)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(doubleClick(const QModelIndex &)));
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 	header()->setSectionsClickable(true);
-#else
-	header()->setClickable(true);
-#endif
 	throttle.setSingleShot(true);
 	connect(&throttle, SIGNAL(timeout()), this, SLOT(columnsResize()));
 	connect(&throttle, SIGNAL(timeout()), proxy, SLOT(invalidate()));

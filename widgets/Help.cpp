@@ -30,15 +30,7 @@ Help::~Help()
 
 void Help::display(const QUrl &url)
 {
-#if QT_VERSION < 0x050000
-	QString path = url.path();
-	int pos = path.lastIndexOf("/");
-	if (pos != -1)
-		path = path.mid(pos+1);
-	textbox->setSource(QUrl(path));
-#else
 	textbox->setSource(QUrl(url.fileName()));
-#endif
 	textbox->scrollToAnchor(url.fragment());
 	show();
 	raise();
