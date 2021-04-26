@@ -16,7 +16,6 @@
 #include "asn1time.h"
 #include "pkcs11_lib.h"
 #include "base.h"
-#include "db.h"
 #include "pki_lookup.h"
 #include "headerlist.h"
 #include "sql.h"
@@ -24,6 +23,17 @@
 
 #define pki_openssl_error() _openssl_error(*this, C_FILE, __LINE__)
 #define pki_ign_openssl_error() _ign_openssl_error(*this, C_FILE, __LINE__)
+
+enum pki_type {
+	none,
+	asym_key,
+	x509_req,
+	x509,
+	revocation,
+	tmpl,
+	setting,
+	smartCard,
+};
 
 enum pki_source {
 	unknown,
@@ -164,8 +174,6 @@ class pki_base : public QObject
 		virtual void fload(const QString &);
 		virtual void writeDefault(const QString&) const;
 
-		/* Old database management methods */
-		virtual void fromData(const unsigned char *, db_header_t *) {};
 		/* Qt Model-View methods */
 		virtual QVariant bg_color(const dbheader *hd) const
 		{

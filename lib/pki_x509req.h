@@ -40,7 +40,6 @@ class pki_x509req : public pki_x509super
 		void fromPEM_BIO(BIO *bio, const QString &name);
 		void fload(const QString &fname);
 		void writeDefault(const QString &dirname) const;
-		void fromData(const unsigned char *p, db_header_t *head);
 		x509name getSubject() const;
 		void writeReq(XFile &file, bool pem) const;
 		void markSigned(bool signe);

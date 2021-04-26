@@ -11,7 +11,6 @@
 
 #include "ui_NewX509.h"
 #include "lib/oid.h"
-#include "lib/db.h"
 #include "kvView.h"
 #include "MainWindow.h"
 #include <openssl/x509v3.h>

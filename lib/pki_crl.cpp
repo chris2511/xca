@@ -204,20 +204,6 @@ QByteArray pki_crl::i2d() const
 	return i2d_bytearray(I2D_VOID(i2d_X509_CRL), crl);
 }
 
-void pki_crl::fromData(const unsigned char *p, db_header_t *head)
-{
-	int size;
-
-	size = head->len - sizeof(db_header_t);
-
-	QByteArray ba((const char*)p, size);
-	d2i(ba);
-
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
-	}
-}
-
 void pki_crl::addRev(const x509rev &xrev, bool withReason)
 {
 	X509_CRL_add0_revoked(crl, xrev.get(withReason));

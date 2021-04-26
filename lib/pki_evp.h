@@ -38,7 +38,6 @@ class pki_evp: public pki_key
 	public:
 		static QString passHash;
 		static Passwd passwd;
-		static Passwd oldpasswd;
 		static QString md5passwd(QByteArray pass);
 		static QString sha512passwd(QByteArray pass, QString salt);
 		static QString sha512passwT(QByteArray pass, QString salt);
@@ -54,8 +53,6 @@ class pki_evp: public pki_key
 		void encryptKey(const char *password = NULL);
 		void bogusEncryptKey();
 		EVP_PKEY *decryptKey() const;
-		EVP_PKEY *legacyDecryptKey(QByteArray &myencKey,
-					   Passwd &ownPassBuf) const;
 		EVP_PKEY *priv2pub(EVP_PKEY* key);
 		static QString removeTypeFromIntName(QString n);
 		void fromPEMbyteArray(const QByteArray &ba, const QString &name);
@@ -63,7 +60,6 @@ class pki_evp: public pki_key
 		EVP_PKEY *load_ssh_ed25519_privatekey(const QByteArray &ba,
 						const pass_info &p);
 		void writeDefault(const QString &dirname) const;
-		void fromData(const unsigned char *p, db_header_t *head);
 		void writeKey(XFile &file, const EVP_CIPHER *enc,
 				pem_password_cb *cb, bool pem) const;
 		void writePKCS8(XFile &file, const EVP_CIPHER *enc,

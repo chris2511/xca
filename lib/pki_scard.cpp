@@ -14,7 +14,6 @@
 #include "pkcs11.h"
 #include "x509name.h"
 #include "func.h"
-#include "db.h"
 #include "widgets/XcaWarning.h"
 #include "widgets/XcaProgress.h"
 
@@ -684,42 +683,6 @@ void pki_scard::generate(const keyjob &task)
 
 pki_scard::~pki_scard()
 {
-}
-
-void pki_scard::fromData(const unsigned char *p, db_header_t *head )
-{
-	int version, size;
-	void *ptr = NULL;
-
-	size = head->len - sizeof(db_header_t);
-        version = head->version;
-
-	QByteArray ba((const char*)p, size);
-
-	card_serial = db::stringFromData(ba);
-	card_manufacturer = db::stringFromData(ba);
-	card_label = db::stringFromData(ba);
-	slot_label = db::stringFromData(ba);
-	card_model = db::stringFromData(ba);
-	if (version < 2)
-		card_model.clear();
-	object_id  = db::stringFromData(ba);
-	int count      = db::intFromData(ba);
-	mech_list.clear();
-	for (int i=0; i<count; i++)
-		mech_list << db::intFromData(ba);
-
-	d2i(ba);
-
-	if (key)
-		ptr = EVP_PKEY_get0(key);
-
-	if (!ptr)
-		throw errorEx(tr("Ignoring unsupported token key"));
-
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
-	}
 }
 
 QString pki_scard::getTypeString(void) const

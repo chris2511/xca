@@ -116,8 +116,6 @@ class x509revList : public QList<x509rev>
 	public:
 		static x509revList fromSql(QVariant caId);
 		bool merged;
-		QByteArray toBA();
-		void fromBA(QByteArray &ba);
 		void merge(const x509revList &other);
 		bool identical(const x509revList &other) const;
 		x509revList() : QList<x509rev>()

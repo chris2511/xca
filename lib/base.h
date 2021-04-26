@@ -39,13 +39,9 @@
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 #define xhtonl(x) (x)
 #define xntohl(x) (x)
-#define xhtons(x) (x)
-#define xntohs(x) (x)
 #elif Q_BYTE_ORDER == Q_LITTLE_ENDIAN
 #define xhtonl(x) (__builtin_bswap32(x))
 #define xntohl(x) (__builtin_bswap32(x))
-#define xhtons(x) (__builtin_bswap16(x))
-#define xntohs(x) (__builtin_bswap16(x))
 #else
 	# error "What kind of system is this?"
 #endif

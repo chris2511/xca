@@ -11,7 +11,6 @@
 #include <QList>
 #include <QDialog>
 #include "ui_XcaDialog.h"
-#include "lib/db.h"
 #include "MainWindow.h"
 #include "Help.h"
 

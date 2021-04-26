@@ -22,7 +22,6 @@
 #include "db_base.h"
 #include "sql.h"
 #include "func.h"
-#include "db.h"
 #include "settings.h"
 #include "entropy.h"
 #include "pass_info.h"
@@ -92,154 +91,10 @@ bool database_model::checkForOldDbFormat(const QString &dbfile) const
 	return !memcmp(head, magic, sizeof head);
 }
 
-enum open_result database_model::verifyOldDbPass(const QString &dbname) const
-{
-	// look for the password
-	QString passhash;
-	db_header_t head;
-	class db mydb(dbname);
-	mydb.first();
-	if (!mydb.find(setting, QString("pwhash"))) {
-		QString val;
-		char *p;
-		if ((p = (char *)mydb.load(&head))) {
-			passhash = p;
-			free(p);
-			return initPass(dbname, passhash);
-		}
-	}
-	return open_abort;
-}
-
-QString database_model::checkPre2Xdatabase() const
-{
-	enum open_result result;
-	if (!checkForOldDbFormat(dbName))
-		return QString();
-
-	QString newname = dbName;
-	if (newname.endsWith(".xdb"))
-		newname = newname.left(newname.length() -4);
-	newname += "_backup_" + QDateTime::currentDateTime()
-			.toString("yyyyMMdd_hhmmss") + ".xdb";
-	if (!XCA_OKCANCEL(tr("Legacy database format detected. Creating a backup copy called: '%1' and converting the database to the new format").arg(newname))) {
-		throw open_abort;
-	}
-
-	result = verifyOldDbPass(dbName);
-	if (result != pw_ok)
-		throw result;
-
-	if (!QFile::rename(dbName, newname)) {
-		XCA_WARN(tr("Failed to rename the database file, because the target already exists"));
-		throw open_abort;
-	}
-	return newname;
-}
-
-void database_model::importOldDatabase(const QString &dbname)
-{
-	class db mydb(dbname);
-	unsigned char *p = NULL;
-	db_header_t head;
-	pki_base *pki;
-	db_base *db;
-	QList<enum pki_type> pkitype {
-		smartCard, asym_key, tmpl, x509, x509_req, revocation
-	};
-
-	Settings["pwhash"] = pki_evp::passHash;
-	for (int i=0; i < pkitype.count(); i++) {
-		mydb.first();
-		while (mydb.find(pkitype[i], QString()) == 0) {
-			QString s;
-			p = mydb.load(&head);
-			enum pki_type type = pkitype[i];
-
-			if (!p) {
-				qWarning("Load was empty !");
-				goto next;
-			}
-			switch (type) {
-			case smartCard:
-				db = model<db_key>();
-				pki = new pki_scard("");
-				break;
-			case asym_key:
-				db = model<db_key>();
-				pki = new pki_evp();
-				break;
-			case x509_req:
-				db = model<db_x509req>();
-				pki = new pki_x509req();
-				break;
-			case x509:
-				db = model<db_x509>();
-				pki = new pki_x509();
-				break;
-			case revocation:
-				db = model<db_crl>();
-				pki = new pki_crl();
-				break;
-			case tmpl:
-				db = model<db_temp>();
-				pki = new pki_temp();
-				break;
-			default:
-				goto next;
-			}
-			pki->setIntName(QString::fromUtf8(head.name));
-
-			try {
-				pki->fromData(p, &head);
-				pki->pkiSource = legacy_db;
-			}
-			catch (errorEx &err) {
-				err.appendString(pki->getIntName());
-				delete pki;
-				throw err;
-			}
-			free(p);
-			if (pki) {
-				pki_x509req *r=dynamic_cast<pki_x509req*>(pki);
-				if (r && r->issuedCerts() > 0)
-					r->setDone();
-				qDebug() << "load old:" << pki->getIntName();
-				pki = db->insertPKI(pki);
-			}
-next:
-			if (mydb.next())
-				break;
-		}
-	}
-	QStringList sl; sl << "workingdir" << "pkcs11path" <<
-		"default_hash" << "mandatory_dn" << "explicit_dn" <<
-		"string_opt" << "optionflags1" << "defaultkey";
-
-	mydb.first();
-	while (!mydb.find(setting, QString())) {
-		QString val;
-		char *p;
-		if ((p = (char *)mydb.load(&head))) {
-			val = p;
-			free(p);
-		}
-		QString set = QString::fromUtf8(head.name);
-		if (sl.contains(set)) {
-			if (set == "optionflags1")
-				set = "optionflags";
-			Settings[set] = val;
-		}
-		if (mydb.next())
-			break;
-	}
-}
-
 database_model::database_model(const QString &name, const Passwd &pass)
 {
 	enum open_result result;
 	QSqlError err;
-	QString oldDbFile;
 
 	dbName = name;
 	dbTimer = 0;
@@ -249,11 +104,6 @@ database_model::database_model(const QString &name, const Passwd &pass)
 
 	if (dbName.isEmpty())
 		throw open_abort;
-
-	qDebug() << "Opening database:" << dbName;
-
-	if (!isRemoteDB(dbName))
-		oldDbFile = checkPre2Xdatabase();
 
 	Passwd passwd(pass);
 	do {
@@ -277,13 +127,12 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	Entropy::seed_rng();
 	initSqlDB();
 
-	if (oldDbFile.isEmpty()) {
-		result = initPass(dbName, Settings["pwhash"]);
-		if (result == pw_exit)
-			throw pw_exit;
-		if (result != pw_ok && Settings["pwhash"].empty())
-			throw open_abort;
-	}
+	result = initPass(dbName, Settings["pwhash"]);
+	if (result == pw_exit)
+		throw pw_exit;
+	if (result != pw_ok && Settings["pwhash"].empty())
+		throw open_abort;
+
 	/* Assure initialisation order:
 	 * keys first, followed by x509[req], and crls last.
 	 * Templates don't care.
@@ -299,8 +148,6 @@ database_model::database_model(const QString &name, const Passwd &pass)
 		connect(m, SIGNAL(pkiChanged(pki_base*)),
 			this, SLOT(pkiChangedSlot(pki_base*)));
 	}
-	if (!oldDbFile.isEmpty())
-		importOldDatabase(oldDbFile);
 
 	pkcs11::libraries.load(Settings["pkcs11path"]);
 	restart_timer();

@@ -200,21 +200,6 @@ QByteArray pki_x509req::i2d() const
 	return i2d_bytearray(I2D_VOID(i2d_X509_REQ), request);
 }
 
-void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
-{
-	int size;
-
-	size = head->len - sizeof(db_header_t);
-	QByteArray ba((const char *)p, size);
-
-	d2i(ba);
-	pki_openssl_error();
-
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
-	}
-}
-
 void pki_x509req::addAttribute(int nid, QString content)
 {
 	if (content.isEmpty())

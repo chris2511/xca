@@ -9,7 +9,6 @@
 #include "pki_key.h"
 #include "pki_x509super.h"
 #include "func.h"
-#include "db.h"
 #include "pkcs11.h"
 #include "widgets/XcaWarning.h"
 #include "widgets/ExportDialog.h"

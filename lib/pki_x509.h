@@ -77,7 +77,6 @@ class pki_x509 : public pki_x509super
 		void setIssuer(const x509name &n);
 		bool caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen) const;
 
-		void fromData(const unsigned char *p, db_header_t *head);
 		bool isCA() const;
 		bool canSign() const;
 		void writeCert(XFile &file, bool PEM) const;

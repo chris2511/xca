@@ -438,7 +438,7 @@ QString compressFilename(const QString &filename, int maxlen)
 QString asn1ToQString(const ASN1_STRING *str, bool quote)
 {
 	QString qs;
-	unsigned short *bmp;
+	unsigned char *bmp;
 	int i;
 
 	if (!str)
@@ -446,9 +446,10 @@ QString asn1ToQString(const ASN1_STRING *str, bool quote)
 
 	switch (str->type) {
 		case V_ASN1_BMPSTRING:
-			bmp = (unsigned short*)str->data;
-			for (i = 0; i < str->length/2; i++) {
-				unsigned short s = xntohs(bmp[i]);
+			bmp = str->data;
+			//bmp = (unsigned char*)str->data;
+			for (i = 0; i < str->length/2; i += 2) {
+				unsigned short s = (bmp[i] << 8) + bmp[i+1];
 				qs += QString::fromUtf16(&s, 1);
 			}
 			break;

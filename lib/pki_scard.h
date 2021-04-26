@@ -41,7 +41,6 @@ class pki_scard: public pki_key
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		bool prepare_card(slotid *slot) const;
 		bool find_key_on_card(slotid *slot) const;
-		void fromData(const unsigned char *p, db_header_t *head);
 		QString getTypeString(void) const;
 		QString getManufacturer() const
 		{

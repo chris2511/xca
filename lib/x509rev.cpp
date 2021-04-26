@@ -6,7 +6,6 @@
  */
 
 #include "x509rev.h"
-#include "db.h"
 #include "pki_base.h"
 #include "func.h"
 #include "exception.h"
@@ -180,29 +179,6 @@ void x509rev::executeQuery(XSqlQuery &q)
 	q.bindValue(4, crlNo ? QVariant(crlNo) : QVariant());
 	q.bindValue(5, crl_reasons[reason_idx].bitnum);
 	q.exec();
-}
-
-void x509revList::fromBA(QByteArray &ba)
-{
-	int i, num = db::intFromData(ba);
-	x509rev r;
-	clear();
-	merged = false;
-	for (i=0; i<num; i++) {
-		r.d2i(ba);
-		append(r);
-	}
-}
-
-QByteArray x509revList::toBA()
-{
-	int i, len = size();
-	QByteArray ba(db::intToData(len));
-
-	for (i=0; i<len; i++) {
-		ba += at(i).i2d();
-	}
-	return ba;
 }
 
 void x509revList::merge(const x509revList &other)

@@ -14,8 +14,8 @@
 #include <QHeaderView>
 #include <QDebug>
 #include <openssl/objects.h>
-#include "db.h"
 #include "settings.h"
+#include "pki_base.h"
 #include "func.h"
 
 #define HD_undef NID_undef

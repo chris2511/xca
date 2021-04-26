@@ -9,7 +9,6 @@
 #define __DB_BASE_H
 
 #include <typeinfo>
-#include "db.h"
 #include "base.h"
 #include "load_obj.h"
 #include "widgets/ExportDialog.h"

@@ -17,7 +17,6 @@
 #include <widgets/XcaWarning.h>
 
 #include "base.h"
-#include "db.h"
 #include "sql.h"
 
 class pki_base;

@@ -14,11 +14,6 @@ Older versions of XCA used a simple serial
 proprietary database for storing the cryptographic items.
 Starting with version 2.0.0 this has changed to SQL.
 
-For file based databases the SQLite database format is used.
-Since XCA uses SQL, it can also be connected to a network database.
-The databases *mySQL* *PostgreSQL* and *Microsoft SqlServer* are tested.
-Please use the *Open Remote DataBase* menu item to connect to a remote host.
-
 The main disadvantage of the old format leading to the switch to SQL
 was the inaccessibility by external tools. Since years users ask for
 command-line access to the database.
@@ -28,13 +23,17 @@ The new database can be queried by external tools like `sqlite3` or
 Please see :ref:`extracting-items`
 
 .. Note::
-  When opening a legacy database, it will be converted to the new format after
-  backing up the original database.
+  To convert legacy XCA databases, XCA <= 2.4.x is needed.
+  Newer versions of XCA cannot read the old format anymore.
 
 .. Danger::
   Please be careful with older XCA versions.
   XCA before 1.4.0 will overwrite the new SQLite database during database open.
 
+For file based databases the SQLite database format is used.
+Since XCA uses SQL, it can also be connected to a network database.
+The databases *mySQL* *PostgreSQL* and *Microsoft SqlServer* are tested.
+Please use the *Open Remote DataBase* menu item to connect to a remote host.
 
 Dowload
 -------

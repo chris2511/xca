@@ -64,7 +64,6 @@ class pki_temp: public pki_x509name
 		void writeDefault(const QString &dirname) const ;
 		void fromData(const unsigned char *p, int size, int version);
 		void old_fromData(const unsigned char *p, int size, int version);
-		void fromData(const unsigned char *p, db_header_t *head );
 		void fromData(QByteArray &ba, int version);
 		void setAsPreDefined()
 		{

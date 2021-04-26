@@ -7,7 +7,6 @@
 
 #include "pki_temp.h"
 #include "func.h"
-#include "db.h"
 #include "oid.h"
 #include "exception.h"
 #include "widgets/MainWindow.h"
@@ -16,6 +15,46 @@
 #include <QDataStream>
 
 #define TEMPLATE_DS_VERSION (QDataStream::Qt_4_2)
+
+namespace db {
+
+	QByteArray intToData(uint32_t val)
+	{
+		uint32_t v = xhtonl(val);
+		return QByteArray((char*)&v, sizeof(uint32_t));
+	}
+	uint32_t intFromData(QByteArray &ba)
+	{
+		uint32_t ret;
+		if ((unsigned)(ba.count()) < sizeof(uint32_t)) {
+			throw errorEx(QObject::tr("Out of data"));
+		}
+		memcpy(&ret, ba.constData(), sizeof(uint32_t));
+		ba = ba.mid(sizeof(uint32_t));
+		return xntohl(ret);
+	}
+	bool boolFromData(QByteArray &ba)
+	{
+		unsigned char c;
+		if (ba.count() < 1)
+			throw errorEx(QObject::tr("Out of data"));
+
+		c = ba.constData()[0];
+		ba = ba.mid(1);
+		return c ? true : false;
+	}
+	QString stringFromData(QByteArray &ba)
+	{
+		int idx = ba.indexOf('\0');
+
+		if (idx == -1)
+			throw errorEx(QObject::tr("Error finding endmarker of string"));
+
+		QString ret = QString::fromUtf8(ba.constData(), idx);
+		ba = ba.mid(idx+1);
+		return ret;
+	}
+};
 
 const QList<QString> pki_temp::tmpl_keys = {
 	"subAltName",
@@ -260,15 +299,6 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 		}
 	}
 	return el;
-}
-
-void pki_temp::fromData(const unsigned char *p, db_header_t *head )
-{
-	int version, size;
-
-	size = head->len - sizeof(db_header_t);
-	version = head->version;
-	fromData(p, size, version);
 }
 
 static QString old_eKeyUse2QString(int old)

@@ -76,7 +76,6 @@ class pki_crl: public pki_x509name
 		void setNextUpdate(const a1time &t);
 		a1time getNextUpdate() const;
 		a1time getLastUpdate() const;
-		void fromData(const unsigned char *p, db_header_t *head);
 		bool verify(pki_x509 *issuer);
 		int numRev() const;
 		x509revList getRevList();

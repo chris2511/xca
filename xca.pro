@@ -42,7 +42,6 @@ HEADERS += lib/asn1int.h \
            lib/base.h \
            lib/db_base.h \
            lib/db_crl.h \
-           lib/db.h \
            lib/db_key.h \
            lib/db_temp.h \
            lib/db_token.h \
@@ -148,7 +147,6 @@ FORMS += ui/CaProperties.ui \
 SOURCES += lib/asn1int.cpp \
            lib/asn1time.cpp \
            lib/db_base.cpp \
-           lib/db.cpp \
            lib/db_crl.cpp \
            lib/db_key.cpp \
            lib/db_temp.cpp \
