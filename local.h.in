@@ -1,5 +1,5 @@
-/* Filled in version number from the VERSION file */
-#undef PACKAGE_VERSION
+/* Filled in version number from the VERSION file + commit iterator */
+#undef XCA_VERSION
 
 /* usually "xca" */
 #undef PACKAGE_TARNAME

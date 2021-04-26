@@ -3,7 +3,7 @@
 # @configure_input@
 
 export TOPDIR=@abs_srcdir@
-export VERSION=@PACKAGE_VERSION@
+export VERSION=@XCA_VERSION@
 export HOST=@HOST@
 
 CPPFLAGS+=-Wall -Wextra -DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\"

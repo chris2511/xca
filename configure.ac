@@ -5,10 +5,10 @@ AC_INIT([X Certificate and Key management],
 	[http://xca.hohnstaedt.de])
 
 ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@*\)-g.*/\1/p')"
-PACKAGE_VERSION=$(IFS='.'; set - $PACKAGE_VERSION; echo $1.$2.$(($ITERATION+$3)))
+XCA_VERSION=$(IFS='.'; set - $PACKAGE_VERSION; echo $1.$2.$(($ITERATION+$3)))
 
 AC_MSG_NOTICE([     ***************************************************])
-AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${PACKAGE_VERSION}])
+AC_MSG_NOTICE([     *   ${PACKAGE_NAME} ${XCA_VERSION}])
 AC_MSG_NOTICE([     ***************************************************])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_CXX
@@ -16,8 +16,11 @@ AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 AC_CHECK_TOOL(WINDRES, [windres], [:])
 
-VERSIONHASH="$(echo "${PACKAGE_VERSION}" | shasum | cut -b -12)"
+VERSIONHASH="$(echo "${XCA_VERSION}" | shasum | cut -b -12)"
 AC_SUBST([VERSIONHASH])
+AC_SUBST([XCA_VERSION])
+AC_DEFINE_UNQUOTED([XCA_VERSION], [ "${XCA_VERSION}" ],
+		[ XCA Version string with calculated patch level])
 
 AC_ARG_WITH([macos-version],
   AS_HELP_STRING([--with-macos-version], [Select macOS minimum SDK version]),

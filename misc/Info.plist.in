@@ -9,9 +9,9 @@
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
 	<key>CFBundleShortVersionString</key>
-	<string>@PACKAGE_VERSION@</string>
+	<string>@XCA_VERSION@</string>
 	<key>CFBundleVersion</key>
-	<string>@PACKAGE_VERSION@</string>
+	<string>@XCA_VERSION@</string>
 	<key>CFBundleIconFile</key>
 	<string>xca-mac-icon.icns</string>
 	<key>CFBundleIdentifier</key>

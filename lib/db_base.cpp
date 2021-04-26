@@ -752,7 +752,7 @@ void db_base::writeVcalendar(XFile &file, QStringList vcal) const
 	QStringList ics; ics <<
 	"BEGIN:VCALENDAR" <<
 	"VERSION:2.0" <<
-	"PRODID:-//" XCA_TITLE "//" PACKAGE_VERSION "//" <<
+	"PRODID:-//" XCA_TITLE "//" XCA_VERSION "//" <<
 	vcal <<
 	"END:VCALENDAR";
 	file.write(ics.join("\r\n").toUtf8());

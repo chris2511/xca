@@ -17,7 +17,7 @@
 #define COMMITHASH ""
 #endif
 
-#define VERSION PACKAGE_VERSION
+#define VERSION XCA_VERSION
 
 const char *version_str(bool html)
 {

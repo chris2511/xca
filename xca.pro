@@ -25,7 +25,7 @@ macx {
 
 LIBS += -lcrypto -lltdl
 QMAKE_CXXFLAGS = -Werror -DQMAKE
-DEFINES += PACKAGE_VERSION=\\\"'$$system(cat VERSION)'\\\"
+DEFINES += XCA_VERSION=\\\"'$$system(cat VERSION)'\\\"
 
 !win32 {
   commithash.h.commands = ./gen_commithash.h.sh \$@
