@@ -437,43 +437,18 @@ QString compressFilename(const QString &filename, int maxlen)
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote)
 {
-	QString qs;
-	unsigned char *bmp;
-	int i;
+	unsigned char *out = NULL;
+	int len;
+	QString utf8;
 
-	if (!str)
-		return qs;
-
-	switch (str->type) {
-		case V_ASN1_BMPSTRING:
-			bmp = str->data;
-			//bmp = (unsigned char*)str->data;
-			for (i = 0; i < str->length/2; i += 2) {
-				unsigned short s = (bmp[i] << 8) + bmp[i+1];
-				qs += QString::fromUtf16(&s, 1);
-			}
-			break;
-		case V_ASN1_UTF8STRING:
-			qs = QString::fromUtf8((const char*)str->data, str->length);
-			break;
-		case V_ASN1_T61STRING:
-			qs = QString::fromLocal8Bit((const char*)str->data, str->length);
-			break;
-		default:
-			qs = QString::fromLatin1((const char*)str->data, str->length);
+	len = ASN1_STRING_to_UTF8(&out, str);
+	if (len != -1) {
+		utf8 = QString::fromUtf8((const char*)out, len);
+		OPENSSL_free(out);
 	}
-#if 0
-	QString s;
-	qDebug("Convert %s (%d %d) string to '%s' len %d:",
-		ASN1_tag2str(str->type), str->type,
-		V_ASN1_UTF8STRING, CCHAR(qs), str->length);
-	for (int i=0; i< str->length; i++)
-		s += QString(" %1").arg(str->data[i], 2, 16);
-	qDebug() << s;
-#endif
 	if (quote)
-		qs.replace('\n', "\\n\\");
-	return qs;
+		utf8.replace('\n', "\\n\\");
+	return utf8;
 }
 
 /* returns an encoded ASN1 string from QString for a special nid*/
