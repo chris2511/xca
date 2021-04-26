@@ -12,8 +12,6 @@
 #include "database_model.h"
 #include <QDir>
 
-#include "openssl_compat.h"
-
 pki_crl::pki_crl(const QString name )
 	:pki_x509name(name)
 {

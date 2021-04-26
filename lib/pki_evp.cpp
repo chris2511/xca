@@ -15,14 +15,13 @@
 #include "widgets/PwDialog.h"
 #include "widgets/XcaWarning.h"
 #include "widgets/XcaProgress.h"
+#include "openssl_compat.h"
 
 #include <openssl/rand.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/pkcs12.h>
 #include <openssl/err.h>
-
-#include "openssl_compat.h"
 
 Passwd pki_evp::passwd;
 Passwd pki_evp::oldpasswd;
@@ -90,11 +89,7 @@ void pki_evp::generate(const keyjob &task)
 	Entropy::seed_rng();
 	XcaProgress progress;
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	BN_GENCB _bar, *bar = &_bar;
-#else
 	BN_GENCB *bar = BN_GENCB_new();
-#endif
 	BN_GENCB_set_old(bar, XcaProgress::inc, &progress);
 
 	switch (task.ktype.type) {
@@ -154,9 +149,7 @@ void pki_evp::generate(const keyjob &task)
 #endif
 #endif
 	}
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 	BN_GENCB_free(bar);
-#endif
 	isPub = false;
 	pkiSource = generated;
 	pki_openssl_error();
@@ -181,7 +174,6 @@ pki_evp::pki_evp(const QString &n, int type)
 	pki_openssl_error();
 }
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 {
 	const BIGNUM *b;
@@ -211,28 +203,6 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 	}
 	return false;
 }
-
-#else
-
-static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
-{
-	int keytype;
-
-	keytype = EVP_PKEY_id(key);
-
-	switch (EVP_PKEY_type(keytype)) {
-		case EVP_PKEY_RSA:
-			return key->pkey.rsa->d ? true: false;
-		case EVP_PKEY_DSA:
-			return key->pkey.dsa->priv_key ? true: false;
-#ifndef OPENSSL_NO_EC
-		case EVP_PKEY_EC:
-			return EC_KEY_get0_private_key(key->pkey.ec) ? true: false;
-#endif
-	}
-	return false;
-}
-#endif
 
 pki_evp::pki_evp(EVP_PKEY *pkey)
 	:pki_key()
@@ -453,7 +423,6 @@ void pki_evp::fload(const QString &fname)
 			PKCS8_PRIV_KEY_INFO_free(p8inf);
 		}
 	}
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();
@@ -464,7 +433,6 @@ void pki_evp::fload(const QString &fname)
 		file.retry_read();
 		pkey = load_ssh_ed25519_privatekey(file.read(10000), p);
 	}
-#endif
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();
@@ -480,13 +448,11 @@ void pki_evp::fload(const QString &fname)
 		file.retry_read();
 		pkey = load_ssh2_key(file);
 	}
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	if (!pkey) {
 		pki_ign_openssl_error();
 		file.retry_read();
 		pkey = b2i_PublicKey_bio(file.bio());
 	}
-#endif
 	if (pki_ign_openssl_error() || !pkey) {
 		if (pkey)
 			EVP_PKEY_free(pkey);
@@ -804,7 +770,6 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 
 void pki_evp::writePVKprivate(XFile &file, pem_password_cb *cb) const
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	pass_info p(XCA_TITLE, tr("Please enter the password protecting the Microsoft PVK key '%1'").arg(getIntName()));
 
 	int enc = cb ? 2 /* pvk-strong */ : 0 /* pvk-none */;
@@ -823,12 +788,8 @@ void pki_evp::writePVKprivate(XFile &file, pem_password_cb *cb) const
 	}
 	ign_openssl_error();
 	EVP_PKEY_free(pkey);
-#else
-	(void)file;
-	(void)cb;
-	throw errorEx("Internal Error");
-#endif
 }
+
 static int mycb(char *buf, int size, int, void *)
 {
 	strncpy(buf, pki_evp::passwd, size);
@@ -843,7 +804,7 @@ void pki_evp::writeDefault(const QString &dirname) const
 			mycb, true);
 }
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L || defined LIBRESSL_VERSION_NUMBER
+#ifndef LIBRESSL_VERSION_NUMBER
 int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
                                          const EVP_CIPHER *enc,
                                          unsigned char *kstr, int klen,
@@ -886,7 +847,6 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 {
 	bool verify = true;
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	unsigned char data[32], sig[1024];
 	size_t datalen = sizeof data, siglen = sizeof sig;
 	EVP_MD_CTX *ctx = NULL;
@@ -928,7 +888,7 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 
 	if (ctx)
 		EVP_MD_CTX_free(ctx);
-#endif
+
 	if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
 		RSA *rsa = EVP_PKEY_get0_RSA(pkey);
 		if (RSA_check_key(rsa) != 1)

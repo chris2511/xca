@@ -39,14 +39,9 @@ class DHgen: public QThread
 	{
 		DH *dh = NULL;
 		try {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 			dh = DH_new();
 			check_oom(dh);
 			DH_generate_parameters_ex(dh, bits, 2, NULL);
-#else
-			dh = DH_generate_parameters(bits, 2, NULL, NULL);
-			check_oom(dh);
-#endif
 			openssl_error();
 
 			XFile file(fname);

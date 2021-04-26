@@ -21,8 +21,6 @@
 
 #include <QMessageBox>
 
-#include "openssl_compat.h"
-
 pki_pkcs12::pki_pkcs12(const QString &d, pki_x509 *acert, pki_key *akey)
 	:pki_multi(d), cert(acert), key(akey)
 {

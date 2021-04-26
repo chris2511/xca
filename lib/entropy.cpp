@@ -19,7 +19,6 @@
 #include "func.h"
 #include "xfile.h"
 #include "entropy.h"
-#include "openssl_compat.h"
 
 /* Entropy sources for XCA
  *

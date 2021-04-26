@@ -37,14 +37,6 @@ int main(){
 	strcat(buf, C"lt_dlinit() returned != 0\n");
 #ifdef OPENSSL_NO_EC
   strcat(buf, C"This OpenSSL installation has no EC cryptography support\n");
-#else
-#ifdef NID_brainpoolP160r1
-  printf(C"ECC With RFC 5639 Brainpool curves enabled\n"
-#if OPENSSL_VERSION_NUMBER < 0x10002001L
-	C"    (Backported to " OPENSSL_VERSION_TEXT ")\n"
-#endif
-	);
-#endif
 #endif
   if (*buf)
         printf(WARN "%s" WARN, buf);

@@ -17,8 +17,6 @@
 #include <openssl/rand.h>
 #include <openssl/pem.h>
 
-#include "openssl_compat.h"
-
 builtin_curves builtinCurves;
 
 pki_key::pki_key(const QString &name)
@@ -421,16 +419,11 @@ QList<int> pki_key::possibleHashNids()
 				NID_sha384 << NID_sha512 << NID_ripemd160;
 			break;
 		case EVP_PKEY_DSA:
-			nids << NID_sha1;
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
-			nids << NID_sha256;
-#endif
+			nids << NID_sha1 << NID_sha256;
 			break;
 		case EVP_PKEY_EC:
-			nids << NID_sha1;
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
-			nids << NID_sha224 << NID_sha256 << NID_sha384 << NID_sha512;
-#endif
+			nids << NID_sha1  << NID_sha224 << NID_sha256 <<
+				NID_sha384 << NID_sha512;
 			break;
 	}
 	return nids;
@@ -909,12 +902,7 @@ QByteArray pki_key::X509_PUBKEY_public_key() const
 	int len;
 
 	X509_PUBKEY_set(&pk, key);
-#if OPENSSL_VERSION_NUMBER < 0x10000000L
-	p = pk->public_key->data;
-	len = pk->public_key->length;
-#else
 	X509_PUBKEY_get0_param(NULL, &p, &len, NULL, pk);
-#endif
 
 	QByteArray data((const char*)p, len);
 	X509_PUBKEY_free(pk);
@@ -949,11 +937,7 @@ void pki_key::print(BioByteArray &bba, enum print_opt opt) const
 	pki_base::print(bba, opt);
 	switch (opt) {
 	case print_openssl_txt:
-#if OPENSSL_VERSION_NUMBER < 0x10000000L
-		bba += "Not supported\n";
-#else
 		EVP_PKEY_print_public(bba, key, 0, NULL);
-#endif
 		break;
 	case print_pem:
 		PEM_write_bio_PUBKEY(bba, key);

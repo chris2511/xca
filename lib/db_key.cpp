@@ -252,14 +252,12 @@ void db_key::store(QModelIndex index)
 	if (!index.isValid() || !key)
 		return;
 
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
 	int keytype = key->getKeyType();
 	if (keytype == EVP_PKEY_RSA || keytype == EVP_PKEY_DSA)
 		pvk = true;
 #ifdef EVP_PKEY_ED25519
 	if (keytype == EVP_PKEY_ED25519)
 		ed25519 = true;
-#endif
 #endif
 
 	types <<

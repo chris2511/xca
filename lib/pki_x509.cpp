@@ -16,8 +16,6 @@
 #include "base.h"
 #include "exception.h"
 #include "pass_info.h"
-#include "openssl_compat.h"
-#include "widgets/XcaWarning.h"
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()

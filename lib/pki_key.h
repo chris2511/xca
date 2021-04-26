@@ -15,8 +15,6 @@
 #include "pki_base.h"
 #include "builtin_curves.h"
 
-#include "openssl_compat.h"
-
 #define PEM_STRING_OPENSSH_KEY "OPENSSH PRIVATE KEY"
 #define DEFAULT_KEY_LENGTH 2048
 #define ED25519_KEYLEN 32

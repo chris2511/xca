@@ -57,20 +57,7 @@ void MainWindow::about()
 					QString(), QString());
 	about->aboutDialog(QPixmap(":scardImg"));
 	QString openssl, qt, cont, version, brainpool;
-#ifndef OPENSSL_NO_EC
-#ifdef NID_brainpoolP160r1
-	EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_brainpoolP160r1);
-	ign_openssl_error();
-	if (group) {
-		EC_GROUP_free(group);
-		brainpool = "<p>ECC With RFC 5639 Brainpool curves"
-#if OPENSSL_VERSION_NUMBER < 0x10002001L
-	        "<br/>(Backported to " OPENSSL_VERSION_TEXT ")"
-#endif
-		;
-	}
-#endif
-#else
+#ifdef OPENSSL_NO_EC
 	brainpool = "(Elliptic Curve Cryptography support disabled)";
 #endif
 	openssl = SSLeay_version(SSLEAY_VERSION);

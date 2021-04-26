@@ -17,8 +17,6 @@
 #include "exception.h"
 #include <openssl/bio.h>
 
-#include "openssl_compat.h"
-
 pki_x509req::pki_x509req(const QString &name)
 	: pki_x509super(name)
 {

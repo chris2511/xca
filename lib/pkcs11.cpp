@@ -27,8 +27,6 @@
 #include "widgets/PwDialog.h"
 #include "widgets/XcaWarning.h"
 
-#include "openssl_compat.h"
-
 void waitcursor(int start, int line)
 {
 	qDebug() << "Waitcursor" << (start ? "start" : "end") << line;
@@ -655,8 +653,7 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	return size;
 }
 
-#if OPENSSL_VERSION_NUMBER < 0x10000000L || \
-    OPENSSL_VERSION_NUMBER >= 0x10100000L && ! defined LIBRESSL_VERSION_NUMBER
+#ifndef LIBRESSL_VERSION_NUMBER
 static int rsa_privdata_free(RSA *rsa)
 {
 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
@@ -720,8 +717,7 @@ out:
 	return NULL;
 }
 
-#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
-//	OpenSSL < 1.0.0 have no EC_KEY_METHOD.
+#ifndef OPENSSL_NO_EC
 
 static void ec_privdata_free(EC_KEY *ec)
 {
@@ -819,13 +815,9 @@ static EC_KEY_METHOD *setup_ec_key_meth()
 
 EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 {
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-	static RSA_METHOD rsa_meth_buf;
-	static DSA_METHOD dsa_meth_buf;
-#endif
 	static RSA_METHOD *rsa_meth = NULL;
 	static DSA_METHOD *dsa_meth = NULL;
-#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
+#ifndef OPENSSL_NO_EC
 	static EC_KEY_METHOD *ec_key_meth = NULL;
 	EC_KEY *ec;
 #endif
@@ -844,18 +836,10 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		rsa = RSAPublicKey_dup(rsa);
 		openssl_error();
 		if (!rsa_meth) {
-#if OPENSSL_VERSION_NUMBER >= 0x1010000L
 			rsa_meth = RSA_meth_dup(RSA_get_default_method());
 			RSA_meth_set_priv_enc(rsa_meth, rsa_encrypt);
 			RSA_meth_set_priv_dec(rsa_meth, rsa_decrypt);
 			RSA_meth_set_finish(rsa_meth, rsa_privdata_free);
-#else
-			rsa_meth = &rsa_meth_buf;
-			*rsa_meth = *RSA_get_default_method();
-			rsa_meth->rsa_priv_enc = rsa_encrypt;
-			rsa_meth->rsa_priv_dec = rsa_decrypt;
-			rsa_meth->finish = rsa_privdata_free;
-#endif
 		}
 		p11obj = obj;
 		RSA_set_method(rsa, rsa_meth);
@@ -869,16 +853,9 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		dsa = DSAparams_dup(dsa);
 		openssl_error();
 		if (!dsa_meth) {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 			dsa_meth = DSA_meth_dup(DSA_get_default_method());
 			DSA_meth_set_sign(dsa_meth, dsa_sign);
 			DSA_meth_set_finish(dsa_meth, dsa_privdata_free);
-#else
-			dsa_meth = &dsa_meth_buf;
-			*dsa_meth = *DSA_get_default_method();
-			dsa_meth->dsa_do_sign = dsa_sign;
-			dsa_meth->finish = dsa_privdata_free;
-#endif
 		}
 		p11obj = obj;
 		DSA_set_method(dsa, dsa_meth);
@@ -887,7 +864,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		openssl_error();
 		EVP_PKEY_assign_DSA(evp, dsa);
 		break;
-#if !defined(OPENSSL_NO_EC) && OPENSSL_VERSION_NUMBER >= 0x10100000L
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		ec = EVP_PKEY_get0_EC_KEY(pub);
 		ec = EC_KEY_dup(ec);

@@ -19,8 +19,6 @@
 #include "lib/BioByteArray.h"
 #include "lib/func.h"
 
-#include "lib/openssl_compat.h"
-
 x509v3ext NewX509::getBasicConstraints()
 {
 	QStringList cont;

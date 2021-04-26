@@ -22,8 +22,6 @@
 #include <QProgressBar>
 #include <ltdl.h>
 
-#include "openssl_compat.h"
-
 void pki_scard::init(void)
 {
 	ownPass = ptPin;

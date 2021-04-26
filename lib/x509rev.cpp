@@ -15,9 +15,6 @@
 #include <QVariant>
 #include <QSqlQuery>
 
-#include "openssl_compat.h"
-
-#ifndef CRL_REASON_UNSPECIFIED
 #define CRL_REASON_UNSPECIFIED                  0
 #define CRL_REASON_KEY_COMPROMISE               1
 #define CRL_REASON_CA_COMPROMISE                2
@@ -28,7 +25,6 @@
 #define CRL_REASON_REMOVE_FROM_CRL              8
 #define CRL_REASON_PRIVILEGE_WITHDRAWN          9
 #define CRL_REASON_AA_COMPROMISE                10
-#endif
 
 static ENUMERATED_NAMES crl_reasons[] = {
 {CRL_REASON_UNSPECIFIED,         "Unspecified", "unspecified"},

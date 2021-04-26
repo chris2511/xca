@@ -587,13 +587,6 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 		*adv = QString("%1=%2\n").arg(sn).
 			arg(parse_critical() + crldps.join(", ")) +
 			*adv + othersect;
-
-#if OPENSSL_VERSION_NUMBER < 0x10000000L
-		*adv = QString( "\n"
-			"# This syntax only works for openssl >= 1.0.0\n"
-			"# But this is %1\n"
-			"# ").arg(OPENSSL_VERSION_TEXT) + *adv;
-#endif
 	}
 	return true;
 
