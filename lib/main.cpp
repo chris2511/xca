@@ -29,6 +29,8 @@
 #include <windows.h>
 #endif
 
+void migrateOldPaths();
+
 char segv_data[1024];
 MainWindow *mainwin = NULL;
 
@@ -328,22 +330,28 @@ int main(int argc, char *argv[])
 		xca_name = argv[0];
 
 	bool console_only = arguments::is_console(argc, argv);
-	XcaApplication *gui;
+	XcaApplication *gui = nullptr;
+	QCoreApplication *coreApp = nullptr;
 
 #if !defined(Q_OS_WIN32)
 	if (console_only) {
-		new QCoreApplication(argc, argv);
-		gui = NULL;
+		coreApp = new QCoreApplication(argc, argv);
 	} else
 #endif
 	{
 		/* On windows, always instantiate a GUI app */
-		gui = new XcaApplication(argc, argv);
+		coreApp = gui = new XcaApplication(argc, argv);
 	}
 
-	if (!QDir().mkpath(getUserSettingsDir()))
-		qCritical("Failed to create Path: '%s'", CCHAR(getUserSettingsDir()));
+	coreApp->setApplicationName(PACKAGE_TARNAME);
+	coreApp->setOrganizationDomain("de.hohnstaedt");
+	coreApp->setApplicationVersion(XCA_VERSION);
 
+	migrateOldPaths();
+
+	qWarning() << "AppDataLocation" << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+	qWarning() << "AppConfigLocation" << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
 	Entropy entropy;
 	Settings.clear();
 	initOIDs();

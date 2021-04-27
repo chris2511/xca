@@ -120,12 +120,13 @@ static void insert_new_oid(const QStringList &sl, QString fname, int line)
 	}
 }
 
-static void readOIDs(QString fname)
+static void readOIDs(const QString &fname)
 {
 	int line = 0;
 	QFile file(fname);
 	if (!file.open(QIODevice::ReadOnly))
                 return;
+	qWarning() << "readOIDs" << fname;
 	QTextStream in(&file);
 	while (!in.atEnd()) {
 		QString entry = in.readLine().trimmed();
@@ -174,44 +175,28 @@ static NIDlist read_nidlist(const QString &name)
 {
 	NIDlist nl;
 
-	/* first try $HOME/xca/ */
-	nl = readNIDlist(getUserSettingsDir() + "/" + name);
-#if !defined(Q_OS_WIN32)
-#if !defined(Q_OS_MAC)
-	if (nl.count() == 0){
-		/* next is /etx/xca/... */
-		nl = readNIDlist(QString(ETC) + "/" + name);
-	}
-#endif
-#endif
-	if (nl.count() == 0) {
-		/* look at /usr/(local/)share/xca/ */
-		nl = readNIDlist(getPrefix() + "/" + name);
+	foreach(QString d, QStandardPaths::standardLocations(
+				QStandardPaths::AppDataLocation))
+	{
+		nl = readNIDlist(d + "/" + name);
+		qWarning() << "read_nidlist" << d + "/" + name << nl.count();
+		if (nl.count() > 0)
+			break;
 	}
 	return nl;
 }
 
 void initOIDs()
 {
-	QString oids("/oids.txt");
-	QString dir = getPrefix();
-
 	first_additional_oid = OBJ_new_nid(0);
-#ifndef NID_tlsfeature
-	NID_tlsfeature = OBJ_create("1.3.6.1.5.5.7.1.24", "tlsfeature",
-							"TLS Feature");
-#endif
 	openssl_error();
 	for (int i=0; i<first_additional_oid;i++)
 		addToLowerMap(i);
 	ign_openssl_error();
-	readOIDs(dir + oids);
-#if !defined(Q_OS_WIN32)
-#if !defined(Q_OS_MAC)
-	readOIDs(QString(ETC) + oids);
-#endif
-#endif
-	readOIDs(getUserSettingsDir() + oids);
+
+	foreach(QString d, QStandardPaths::standardLocations(
+				QStandardPaths::AppDataLocation))
+		readOIDs(d + "/oids.txt");
 
 	extkeyuse_nid = read_nidlist("eku.txt");
 	distname_nid = read_nidlist("dn.txt");

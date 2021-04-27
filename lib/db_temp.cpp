@@ -19,36 +19,50 @@
 
 db_temp::db_temp() : db_x509name("templates")
 {
+	/* XCA loads templates from private space ($HOME/.local/)
+	 * Host specific (/usr/local) and distribution (/usr)
+	 * The first <name>.xca found avoids other <name>.xca to be loaded
+	 */
+	QSet<QString> template_files;
+	load_temp l;
+
 	sqlHashTable = "templates";
 	pkitype << tmpl;
 
 	updateHeaders();
 	loadContainer();
 
-	QDir dir;
-	if (!dir.cd(getPrefix()))
-		return;
-	dir.setFilter(QDir::Files | QDir::NoSymLinks);
-	QFileInfoList list = dir.entryInfoList();
-	load_temp l;
 	pki_temp *tmpl = new pki_temp(tr("Empty template"));
 	tmpl->setAsPreDefined();
 	predefs << tmpl;
 
-	for (int i = 0; i < list.size(); ++i) {
-		QFileInfo fileInfo = list.at(i);
-		QString name = getPrefix() + "/" + fileInfo.fileName();
-		if (!name.endsWith(".xca", Qt::CaseInsensitive))
-			continue;
-		try {
-			tmpl = dynamic_cast<pki_temp*>(l.loadItem(name));
-			if (tmpl) {
-				tmpl->setAsPreDefined();
-				predefs << tmpl;
+	foreach(QString d, QStandardPaths::standardLocations(
+				QStandardPaths::AppDataLocation))
+	{
+		QFileInfoList list = QDir(d).entryInfoList(
+				QStringList("*.xca"),
+				QDir::Files | QDir::NoSymLinks |
+                                QDir::NoDot | QDir::Readable);
+
+		foreach(QFileInfo fileInfo, list) {
+			if (template_files.contains(fileInfo.fileName()))
+				continue;
+
+			qWarning() << "LOAD TMP" << fileInfo.absoluteFilePath()
+						<< fileInfo.fileName();
+			try {
+				tmpl = dynamic_cast<pki_temp*>(l.loadItem(
+						fileInfo.absoluteFilePath()));
+				if (tmpl) {
+					tmpl->setAsPreDefined();
+					predefs << tmpl;
+					template_files << fileInfo.fileName();
+				}
+			} catch(errorEx &err) {
+				XCA_WARN(tr("Bad template: %1")
+					.arg(nativeSeparator(
+						fileInfo.absoluteFilePath())));
 			}
-		} catch(errorEx &err) {
-			XCA_WARN(tr("Bad template: %1")
-				.arg(nativeSeparator(name)));
 		}
 	}
 }

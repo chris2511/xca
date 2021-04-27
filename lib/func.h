@@ -44,7 +44,6 @@ int console_write(FILE *fp, const QByteArray &ba);
 Passwd readPass();
 QPixmap *loadImg(const char *name);
 int portable_app();
-const QString getPrefix();
 const QString getHomeDir();
 const QString getLibDir();
 const QString getDocDir();

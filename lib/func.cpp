@@ -22,8 +22,8 @@
 
 #if defined(Q_OS_MAC)
 #include <IOKit/IOKitLib.h>
-#include <QStandardPaths>
 #endif
+#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -118,20 +118,6 @@ const QStringList getLibExtensions()
 }
 
 #if defined(Q_OS_WIN32)
-static QString xcaExeDir()
-{
-	QString dir;
-	wchar_t inst_dir[2048];
-	ULONG dwLength = ARRAY_SIZE(inst_dir);
-
-	dwLength = GetModuleFileNameW(0, inst_dir, dwLength - 1);
-	dir = QString::fromWCharArray(inst_dir, dwLength);
-	int bslash = dir.lastIndexOf("\\");
-	if (bslash > 0)
-		dir = dir.mid(0, bslash);
-	return QFileInfo(dir).canonicalFilePath();
-}
-
 static QString registryInstallDir()
 {
 	QString dir;
@@ -158,7 +144,7 @@ int portable_app()
 	if (portable == -1) {
 #if defined(Q_OS_WIN32)
 		f1 = registryInstallDir();
-		f2 = xcaExeDir();
+		f2 = QCoreApplication::applicationDirPath();
 		/* f1 == f2 Registry entry of install dir exists and matches
 		 * path of this xca.exe -> Installed. Not the portable app
 		 */
@@ -170,48 +156,6 @@ int portable_app()
 #endif
 	}
 	return portable;
-}
-
-/* returns e.g. /usr/local/share/xca for unix systems
- * or HKEY_LOCAL_MACHINE->Software->xca for WIN32
- * (e.g. c:\Program Files\xca )
- */
-
-const QString getPrefix()
-{
-#if defined(Q_OS_WIN32)
-	static QString inst_dir;
-	QString reg_dir;
-
-	if (!inst_dir.isEmpty()) {
-		/* if we already once discovered the directory just return it */
-		return inst_dir;
-	}
-	inst_dir = xcaExeDir();
-
-	if (portable_app())
-		return QString(inst_dir);
-
-	reg_dir = registryInstallDir();
-	if (reg_dir.isEmpty())
-		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
-	else
-		inst_dir = reg_dir;
-	return inst_dir;
-
-#elif defined(Q_OS_MAC)
-	// since this is platform-specific anyway,
-	// this is a more robust way to get the bundle directory
-	QDir bundleDir(qApp->applicationDirPath());
-	bundleDir.cdUp();
-        return bundleDir.canonicalPath() + "/Resources";
-#else
-#ifndef XCA_PREFIX
-#define XCA_PREFIX PREFIX "/share/xca"
-#endif
-	return QString(XCA_PREFIX);
-#endif
-
 }
 
 #if defined(Q_OS_WIN32)
@@ -231,11 +175,9 @@ static QString specialFolder(int csidl)
 
 const QString getHomeDir()
 {
-#if defined(Q_OS_WIN32)
-	return portable_app() ? getPrefix() : specialFolder(CSIDL_PERSONAL);
-#else
-	return QDir::homePath();
-#endif
+	return portable_app() ? QCoreApplication::applicationDirPath() :
+				QStandardPaths::writableLocation(
+					QStandardPaths::DocumentsLocation);
 }
 
 /* For portable APP remove leading file name if it is
@@ -294,43 +236,81 @@ const QString getLibDir()
 
 const QString getDocDir()
 {
-#if defined(Q_OS_WIN32)
-	return getPrefix() + "\\html";
-#elif defined (Q_OS_MAC)
-	return getPrefix();
-#else
-	return QString(DOCDIR);
+	static QString docdir;
+
+	if (!docdir.isEmpty())
+		return docdir;
+
+	QStringList docs;
+#ifdef DOCDIR
+	docs << QString(DOCDIR);
 #endif
+	docs += QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+	foreach (docdir, docs) {
+#if defined(Q_OS_WIN32)
+		docdir += "/html";
+#endif
+		if (QFileInfo::exists(docdir + "/xca.qhc")) {
+			qWarning() << "Detected" << docdir + "/xca.qhc";
+			return docdir;
+		}
+	}
+	docdir = QString();
+	return docdir;
 }
 
 // The intent of this function is to return the proper location for
 // user-controlled settings on the current platform
-// i.e. PROFILE\Application Data\xca on windows, HOME/.xca on UNIX,
-// ~/Library/Preferences/xca on Mac OS X
 const QString getUserSettingsDir()
 {
-	QString rv;
+	static QString dir;
+
+	if (!dir.isEmpty())
+		return dir;
+
+	dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
 #if defined(Q_OS_WIN32)
-	rv = portable_app() ? getPrefix() + "/settings" :
-				specialFolder(CSIDL_APPDATA) + "/xca";
-#elif defined(Q_OS_MAC)
-	rv = QStandardPaths::writableLocation(
-			QStandardPaths::GenericDataLocation) + "/data/" +
-		QCoreApplication::organizationName() + "/" +
-		QCoreApplication::applicationName();
-#else
-	rv = QDir::homePath() + "/.xca";
+	if (portable_app())
+		dir = QCoreApplication::applicationDirPath() + "/settings";
+
 #endif
-	return rv;
+	if (!QDir().mkpath(dir))
+		qCritical("Failed to create Path: '%s'", CCHAR(dir));
+
+	return dir;
 }
 
 const QString getI18nDir()
 {
-#if defined(Q_OS_WIN32)
-	return getPrefix() + "\\i18n";
-#else
-	return getPrefix();
+	return  QStandardPaths::locate(QStandardPaths::DataLocation,
+					"translations");
+}
+
+void migrateOldPaths()
+{
+	QString old;
+#if defined(Q_OS_UNIX)
+	old = QDir::homePath() + "/.xca";
+
+#elif defined(Q_OS_MAC)
+	old = QStandardPaths::writableLocation(
+		QStandardPaths::GenericDataLocation) + "/data/" +
+		QCoreApplication::applicationName();
 #endif
+	QDir old_dir(old);
+	qWarning() << "OLD" << old;
+	if (old.isEmpty() || !old_dir.exists())
+		return;
+	qWarning() << "OLDexists" << old;
+	QString new_dir = getUserSettingsDir() + "/";
+	foreach(QString n, QStringList({"dbhistory", "defaultdb",
+					"defaultlang", ".rnd"}))
+	{
+		old_dir.rename(n, new_dir + n);
+		qWarning() << "Move" << old + "/" + n << new_dir + n;
+	}
+	old_dir.rmdir(old);
 }
 
 // Qt's open and save dialogs result in some undesirable quirks.
