@@ -4,7 +4,7 @@ AC_INIT([X Certificate and Key management],
 	[xca],
 	[http://xca.hohnstaedt.de])
 
-ITERATION="$(cd "$srcdir" && git describe 2>/dev/null | sed -n 's/.*-\(@<:@0-9@:>@*\)-g.*/\1/p')"
+ITERATION="$(cd "$srcdir" && git rev-list --count RELEASE.${PACKAGE_VERSION}..HEAD)"
 XCA_VERSION=$(IFS='.'; set - $PACKAGE_VERSION; echo $1.$2.$(($ITERATION+$3)))
 
 AC_MSG_NOTICE([     ***************************************************])
