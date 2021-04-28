@@ -368,6 +368,10 @@ int main(int argc, char *argv[])
 			read_cmdline(argc, argv);
 			mainwin->importMulti(cmdline_items, 1);
 			cmdline_items = NULL;
+			if (!Database.isOpen())
+				mainwin->init_database(QString());
+			else
+				mainwin->setup_open_database();
 			mainwin->show();
 			gui->exec();
 		} else {

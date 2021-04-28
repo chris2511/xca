@@ -133,11 +133,6 @@ MainWindow::MainWindow() : QMainWindow()
 	check_oom(dhgenBar);
 	dhgenBar->setMinimum(0);
 	dhgenBar->setMaximum(0);
-
-	enum open_result result = Database.isOpen() ? init_database() :
-				      init_database(QString());
-	if (result == pw_exit)
-		throw pw_exit;
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -557,7 +552,7 @@ enum open_result MainWindow::init_database(const QString &name,
 	close_database();
 	try {
 		Database.open(name, pass);
-		return init_database();
+		return setup_open_database();
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
 		return open_abort;
@@ -567,7 +562,7 @@ enum open_result MainWindow::init_database(const QString &name,
 	return pw_ok;
 }
 
-enum open_result MainWindow::init_database()
+enum open_result MainWindow::setup_open_database()
 {
 	if (!Database.isOpen())
 		return open_abort;

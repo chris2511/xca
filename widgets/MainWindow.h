@@ -109,7 +109,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	public slots:
 		enum open_result init_database(const QString &dbName,
 				const Passwd &pass = Passwd());
-		enum open_result init_database();
+		enum open_result setup_open_database();
 		void new_database();
 		void load_database();
 		void close_database();
