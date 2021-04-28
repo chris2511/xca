@@ -11,7 +11,7 @@ QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
 QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
 TS_XCA=$(patsubst %, xca_%.ts, $(PO_LANGUAGES))
 
-lang all: $(QM_XCA)
+.install-stamp lang all: $(QM_XCA)
 
 %.qm: %.ts
 	@$(PRINT) "  LANG   [$(BASENAME)] $@"

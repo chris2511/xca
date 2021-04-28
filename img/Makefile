@@ -22,6 +22,7 @@ ICON_NAME = xca
 ICONDIR = $(datadir)/icons/hicolor
 
 install: install-pixmaps install-icons
+.install-stamp: $(ICONS) $(PIXMAPS) $(ICON_NAME).png
 
 install-pixmaps: $(PIXMAPS)
 	install -D -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/$(ICON_NAME).xpm

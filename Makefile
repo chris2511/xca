@@ -25,6 +25,7 @@ SUBDIRS=lib widgets img misc
 OBJECTS=$(patsubst %, %/.build-stamp, $(SUBDIRS))
 INSTDIR=misc lang doc img
 INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
+INSTSTAMP=$(patsubst %, %/.install-stamp, $(INSTDIR))
 APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
@@ -89,12 +90,17 @@ headers: do.ui commithash.h
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
+%/.install-stamp: %/.build-stamp headers
+	mkdir -p $*
+	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
+		VPATH=$(TOPDIR)/$* .install-stamp
+
 $(INSTTARGET): install.%: %/.build-stamp
 	mkdir -p $*
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$* install
 
-$(APPTARGET): app.%: %/.build-stamp
+$(APPTARGET): app.%: %/.install-stamp
 	mkdir -p $*
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$* APPDIR=$(APPDIR) app
@@ -185,13 +191,15 @@ $(DMGSTAGE): xca.app
 	$(ENABLE_DOC)cp -a doc/html $(DMGSTAGE)/manual/
 	$(ENABLE_DOC)ln -sf html/index.html $(DMGSTAGE)/manual/
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
+	touch $@
 
-xca.app: xca$(SUFFIX)
+xca.app: xca$(SUFFIX) $(INSTSTAMP)
 	@$(PRINT) "  APP    $@"
 	rm -rf $@
 	mkdir -p $@/Contents/MacOS
 	install -m 755 $< $@/Contents/MacOS
 	$(MAKE) $(APPTARGET)
+	touch $@
 
 xca.dmg: $(MACTARGET).dmg
 
@@ -212,6 +220,7 @@ APPSTORE_DIR=AppStore
 xca.app.dSYM: xca$(SUFFIX)
 	@$(PRINT) "  SYM    $@"
 	dsymutil $^ -o $@
+	touch $@
 
 $(MACTARGET).pkg: xca.app xca.app.dSYM
 	@$(PRINT) "  PKG    $@"
@@ -233,7 +242,7 @@ trans:
 	lupdate -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) doc lang macdeployqt/macdeployqt $(DMGSTAGE) commithash.h xca-portable.zip msi-installer-dir.zip
+.PHONY: $(SUBDIRS) $(INSTDIR) commithash.h xca-portable.zip msi-installer-dir.zip
 
 do.doc do.lang headers: local.h
 

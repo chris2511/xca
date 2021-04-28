@@ -11,6 +11,9 @@ all: .build-stamp
 	for i in $(patsubst %, $(shell pwd)/%, $(OBJS)); do echo $$i; done > $@
 	@$(PRINT) "  DONE   [$(BASENAME)]"
 
+.install-stamp: .build-stamp
+	touch $@
+
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))
 HEADERS=$(shell ls *.h 2>/dev/null)
 GCH=$(patsubst %, %.gch, $(HEADERS))
@@ -35,4 +38,3 @@ ui_%.h: %.ui
 	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $^ > $@
 
 .SECONDARY:
-.PHONY: .build-stamp

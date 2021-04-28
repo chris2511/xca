@@ -14,6 +14,7 @@ SPHINX_FILES=$(patsubst %,sphinx/%.rst,$(RST_FILES))
 
 doc: xca.1.gz html/index.html qthelp/xca.qhc
 qthelpfiles=qthelp/*.html qthelp/xca.qhc qthelp/xca.qch
+.install-stamp: doc
 
 include $(TOPDIR)/Rules.mak
 
@@ -27,10 +28,12 @@ xca.1: xca.1.head xca.1.options xca.1.tail
 html/index.html: sphinx/conf.py
 	@$(PRINT) "  HTML   [$(BASENAME)] $@"
 	$(ENABLE_DOC)$(DOCTOOL) -b html $(DOCTOOLFLAGS) sphinx html
+	touch $@
 
 qthelp/xca.qhcp: sphinx/conf.py
 	@$(PRINT) "  QTHELP [$(BASENAME)] $@"
 	$(ENABLE_DOC)$(DOCTOOL) -b qthelp $(DOCTOOLFLAGS) sphinx qthelp
+	touch $@
 
 qthelp/xca.qhc: qthelp/xca.qhcp
 	@$(PRINT) "  QTHGEN [$(BASENAME)] $@"
