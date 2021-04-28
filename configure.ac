@@ -37,10 +37,12 @@ AC_ARG_WITH([macos-version],
 	*) echo "Unknown macOS Version $withval"
 	   exit 1 ;;
     esac
+    MACOS_VERSION3="${MACOS_VERSION}.0"
   ]
 )
 AC_SUBST([EXTRA_VERSION])
 AC_SUBST([MACOS_VERSION])
+AC_SUBST([MACOS_VERSION3])
 
 if test -d "$INSTALL_DIR"; then
   AC_MSG_NOTICE([Using INSTALL_DIR $INSTALL_DIR])
@@ -57,6 +59,7 @@ case "$(${CXX} -dumpmachine)" in
       PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
     done
     export DYLD_LIBRARY_PATH
+    test "${MACOS_VERSION3}" || MACOS_VERSION3="$(sw_vers -productVersion)"
     ;;
   *mingw*)
     HOST=WINDOWS

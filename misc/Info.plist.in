@@ -29,7 +29,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>@MACOS_VERSION@.0</string>
+	<string>@MACOS_VERSION3@</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<string>no</string>
 	<key>CFBundleDocumentTypes</key>
