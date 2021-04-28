@@ -32,6 +32,16 @@ This usually happens if a CA certificate got renewed.
 In this case XCA selects the certificate with the later expiry date as
 anchor for the issued certificates.
 
+.. index:: ca_properties (ca_properties)
+.. _ca_properties:
+
+CA Properties
+-------------
+
+For every CA a default template can be configured that will be automatically
+applied when creating a new certificate.
+The CRL days define the preset expiry time to the next CRL release when issuing a new CRL.
+
 .. index:: certgen (certgen)
 
 Generating certificates

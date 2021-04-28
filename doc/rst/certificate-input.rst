@@ -115,9 +115,8 @@ It is not in the focus of this document to explain them all in detail.
 The most important are the *Basic Constraints* and the
 *Validity* range.
 
-For more information consult the documents in :ref:`otherdoc`.
-If you don't know what this is all about please read those documents before
-creating any certificates.
+More details can be found in
+`RFC5280 <https://tools.ietf.org/html/rfc5280.html>`_.
 
 Basic Constraints
 .................

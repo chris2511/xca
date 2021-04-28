@@ -24,6 +24,7 @@
 #include "widgets/PwDialog.h"
 #include "widgets/RevocationList.h"
 #include "widgets/NewX509.h"
+#include "widgets/Help.h"
 
 #include "ui_CaProperties.h"
 #include <QMessageBox>
@@ -1057,6 +1058,7 @@ void db_x509::caProperties(QModelIndex idx)
 		ui.temp->setCurrentPkiItem(templ);
 
 	ui.certName->setTitle(cert->getIntName());
+	mainwin->helpdlg->register_ctxhelp_button(dlg, "ca_properties");
 
 	if (dlg->exec()) {
 		XSqlQuery q;
