@@ -437,12 +437,12 @@
     <message>
         <location line="+80"/>
         <source>Plain View</source>
-        <translation type="unfinished">Običan pregled</translation>
+        <translation>Običan pregled</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Tree View</source>
-        <translation type="unfinished">Stablast pregled</translation>
+        <translation>Stablast pregled</translation>
     </message>
     <message>
         <source>Trust</source>
@@ -609,12 +609,12 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="+37"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished">Nema CA potvrda za izradu liste opozvanih potvrda</translation>
+        <translation>Nema CA potvrda za izradu liste opozvanih potvrda</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation type="unfinished">Odaberi CA potvrdu</translation>
+        <translation>Odaberi CA potvrdu</translation>
     </message>
 </context>
 <context>
@@ -1246,7 +1246,7 @@ Serijski broj: %3</translation>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Da li originalni ključ &apos;%1&apos; treba biti zamijenjen ključem iz tokena?
-To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz </translation>
+To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     </message>
 </context>
 <context>
@@ -2638,17 +2638,17 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="+10"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trenutno odabrani algoritam sažetka &apos;%1&apos; je nesiguran i ne bi ga trebalo koristiti.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Select other algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Odaberite drugi algoritam</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Use algorithm anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Koristi ipak taj algoritam</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2703,7 +2703,8 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
         <source>Configfile error on line %1
 </source>
-        <translation>Greška u konfiguracijskoj datoteci u liniji %1</translation>
+        <translation>Greška u konfiguracijskoj datoteci u liniji %1
+</translation>
     </message>
 </context>
 <context>
@@ -2816,7 +2817,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="+177"/>
         <source>Mandatory subject entries</source>
-        <translation>Obavezne stavke subjekta </translation>
+        <translation>Obavezne stavke subjekta</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -2946,7 +2947,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="+1"/>
         <source>PKIX recommendation in RFC2459</source>
-        <translation>PKIX preporuke iz RFC2459 </translation>
+        <translation>PKIX preporuke iz RFC2459</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2993,7 +2994,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location filename="../widgets/PwDialog.cpp" line="+44"/>
         <source>Password</source>
-        <translation type="unfinished">Zaporka</translation>
+        <translation>Zaporka</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -3013,7 +3014,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="+29"/>
         <source>Exit</source>
-        <translation type="unfinished">Izlaz</translation>
+        <translation>Izlaz</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -3025,32 +3026,32 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+28"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>U redu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatvori</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Cancel</source>
-        <translation type="unfinished">Odustani</translation>
+        <translation>Odustani</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Primijeni</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Yes</source>
-        <translation type="unfinished">Da</translation>
+        <translation>Da</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>No</source>
-        <translation type="unfinished">Ne</translation>
+        <translation>Ne</translation>
     </message>
 </context>
 <context>
@@ -3460,7 +3461,7 @@ U knjižnici %3
     <message>
         <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation>DN Oznaka </translation>
+        <translation>DN Oznaka</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3594,22 +3595,23 @@ U knjižnici %3
     <message>
         <location filename="../lib/main.cpp" line="+210"/>
         <source>Index file written to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka kazala upisana u &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Index hierarchy written to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Hijerarhija kazala upisana u  &apos;%1/</translatorcomment>
+        <translation>Ljestvica kazala upisana u &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Unknown key type %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepoznata vrsta ključa %1</translation>
     </message>
     <message>
         <location filename="../widgets/XcaWarning.h" line="+23"/>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished">Greška provjere zaporke, pokušajte ponovo</translation>
+        <translation>Greška provjere zaporke, pokušajte ponovo</translation>
     </message>
 </context>
 <context>
@@ -3795,7 +3797,7 @@ U knjižnici %3
     <message>
         <location line="+48"/>
         <source>Preset Template values</source>
-        <translation type="unfinished">Postavljanje vrijednosti Predloška</translation>
+        <translation>Postavljanje vrijednosti Predloška</translation>
     </message>
 </context>
 <context>
@@ -3944,7 +3946,7 @@ U knjižnici %3
     <message>
         <location line="+1"/>
         <source>Clipboard</source>
-        <translation>Clipboard</translation>
+        <translation>Međuspremnik</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3957,55 +3959,55 @@ U knjižnici %3
     <message>
         <location filename="../lib/database_model.cpp" line="+125"/>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="unfinished">Detektiran stari format baze podataka. Izrađujem rezervnu kopiju s imenom: &apos;%1&apos; i pretvaram bazu podataka u novi format</translation>
+        <translation>Detektiran stari format baze podataka. Izrađujem rezervnu kopiju s imenom: &apos;%1&apos; i pretvaram bazu podataka u novi format</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="unfinished">Nije moguće preimenovati datoteku baze podataka, ciljano ime već postoji</translation>
+        <translation>Nije moguće preimenovati datoteku baze podataka, ciljano ime već postoji</translation>
     </message>
     <message>
         <location line="+135"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished">Unesite zaporku za pristup poslužitelju baze podatka %2 kao korisnik &apos;%1&apos;.</translation>
+        <translation>Unesite zaporku za pristup poslužitelju baze podatka %2 kao korisnik &apos;%1&apos;.</translation>
     </message>
     <message>
         <location line="+117"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće stvoriti &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+171"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka &apos;%1&apos; nije XCA baza podataka</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished">Nedostaje upravljački program za SqLite3. Iz vaše distribucije instalirajte paket qt-sqlite</translation>
+        <translation>Nedostaje upravljački program za SqLite3. Iz vaše distribucije instalirajte paket qt-sqlite</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>New Password</source>
-        <translation type="unfinished">Nova Zaporka</translation>
+        <translation>Nova Zaporka</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
-        <translation type="unfinished">Unesite zaporku za kripciju privatnih ključeva u bazi podataka:
+        <translation>Unesite zaporku za kripciju privatnih ključeva u bazi podataka:
 %1</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Password</source>
-        <translation type="unfinished">Zaporka</translation>
+        <translation>Zaporka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
-        <translation type="unfinished">Unesite zaporku za otključavanje baze podataka:
+        <translation>Unesite zaporku za otključavanje baze podataka:
 %1</translation>
     </message>
 </context>
@@ -4098,7 +4100,7 @@ Veličina: %3
     <message>
         <location line="+62"/>
         <source>Import from: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvoz iz: %1</translation>
     </message>
     <message>
         <location line="+151"/>
@@ -4366,7 +4368,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+67"/>
         <source>Clipboard</source>
-        <translation>Clipboard</translation>
+        <translation>Međuspremnik</translation>
     </message>
     <message>
         <source>File</source>
@@ -4421,7 +4423,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="-42"/>
         <source>Export keys to Clipboard</source>
-        <translation>Izvezi ključeve u Clipboard</translation>
+        <translation>Izvezi ključeve u Međuspremnik</translation>
     </message>
     <message>
         <location line="+50"/>
@@ -4447,7 +4449,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <location line="-65"/>
         <location line="+70"/>
         <source>SSH2 private</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH2 privatni</translation>
     </message>
     <message>
         <location line="-11"/>
@@ -4673,7 +4675,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+171"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuspješno stvaranje &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4722,7 +4724,7 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+4"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished"></translation>
+        <translation>X509 potvrde ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
         <location line="+415"/>
@@ -4780,7 +4782,7 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+4"/>
         <source>Certificate Index file</source>
-        <translation>Datoteka kazalo Potvrda </translation>
+        <translation>Datoteka kazalo Potvrda</translation>
     </message>
     <message>
         <source>New Certificate</source>
@@ -5412,7 +5414,7 @@ i zbog toga nije spremljen</translation>
     <message>
         <location line="+135"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Karakteristika &apos;%1&apos; nije navedena u &apos;pki_base::print&apos;</translation>
     </message>
     <message>
         <source>Error: </source>
@@ -5478,7 +5480,7 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
         <translation>XCA CRL &apos;%1&apos;, izdan %3 ističe %4.
-Spremljena je u XCA bazi &apos;%5&apos;  </translation>
+Spremljena je u XCA bazi &apos;%5&apos;</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -5529,7 +5531,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="-156"/>
         <source>Please enter the password to decrypt the private key %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesite zaporku za dekripciju privatnog ključa: &apos;%1&apos;.</translation>
     </message>
     <message>
         <location line="+233"/>
@@ -5678,7 +5680,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+198"/>
         <source>Failed writing to %1</source>
-        <translation>Nije moguće pisati u %1 </translation>
+        <translation>Nije moguće pisati u %1</translation>
     </message>
 </context>
 <context>
@@ -5815,7 +5817,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="+9"/>
         <location line="+13"/>
         <source>Failed to find the key on the token</source>
-        <translation>Nije moguće naći ključ na tokenu </translation>
+        <translation>Nije moguće naći ključ na tokenu</translation>
     </message>
     <message>
         <location line="-6"/>
@@ -5944,7 +5946,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <source>The XCA certificate &apos;%1&apos;, issued on %2 will expire on %3.
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation>XCA potvrda &apos;%1&apos;, izdana %2 ističe %3.
-Spremljena je u XCA bazi &apos;%4&apos;  </translation>
+Spremljena je u XCA bazi &apos;%4&apos;</translation>
     </message>
     <message>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
@@ -6157,12 +6159,12 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+88"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">Dogodila se sljedeća greška:</translation>
+        <translation>Dogodila se sljedeća greška:</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Kopiraj u Clipboard</translation>
+        <translation>Kopiraj u Međuspremnik</translation>
     </message>
 </context>
 </TS>
