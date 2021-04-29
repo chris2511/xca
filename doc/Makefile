@@ -28,12 +28,12 @@ xca.1: xca.1.head xca.1.options xca.1.tail
 html/index.html: sphinx/conf.py
 	@$(PRINT) "  HTML   [$(BASENAME)] $@"
 	$(ENABLE_DOC)$(DOCTOOL) -b html $(DOCTOOLFLAGS) sphinx html
-	touch $@
+	mkdir -p html && touch $@
 
 qthelp/xca.qhcp: sphinx/conf.py
 	@$(PRINT) "  QTHELP [$(BASENAME)] $@"
 	$(ENABLE_DOC)$(DOCTOOL) -b qthelp $(DOCTOOLFLAGS) sphinx qthelp
-	touch $@
+	mkdir -p qthelp && touch $@
 
 qthelp/xca.qhc: qthelp/xca.qhcp
 	@$(PRINT) "  QTHGEN [$(BASENAME)] $@"

@@ -16,7 +16,11 @@ RUN set -x \
 		curl \
 		libqt4-dev \
 		libqt4-sql-sqlite \
-		x11-apps
+		x11-apps \
+		python3-pip
+
+ARG INSTALL_SPHINX=
+RUN test "$INSTALL_SPHINX" != "yes" || pip3 install sphinx
 
 ARG PARALLELMFLAGS=-j2
 

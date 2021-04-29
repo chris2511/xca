@@ -12,6 +12,7 @@ env:
 
         - OPENSSL_UPSTREAM=old/1.1.1/openssl-1.1.1d.tar.gz
           OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
+          INSTALL_SPHINX="yes"
 
         - OPENSSL_UPSTREAM=old/1.1.1/openssl-1.1.1d.tar.gz
           OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
@@ -25,4 +26,5 @@ script:
         --build-arg OPENSSL_SHA1=$OPENSSL_SHA1
         --build-arg OPENSSL_BUILD_PARALLEL=$OPENSSL_BUILD_PARALLEL
         --build-arg OPENSSL_FLAGS=$OPENSSL_FLAGS
+        --build-arg INSTALL_SPHINX=$INSTALL_SPHINX
         --tag xca .
