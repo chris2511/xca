@@ -56,7 +56,7 @@ class db_x509: public db_x509super
 		void store(QModelIndex idx);
 		void store(QModelIndexList list);
 		void load();
-		void caProperties(QModelIndex idx);
+		void updateCaProperties(pki_x509 *cert);
 		void toCertificate(QModelIndex index);
 		void certRenewal(QModelIndexList indexes);
 		void revoke(QModelIndexList indexes);

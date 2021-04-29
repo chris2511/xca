@@ -26,7 +26,6 @@
 #include "widgets/NewX509.h"
 #include "widgets/Help.h"
 
-#include "ui_CaProperties.h"
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include <QAction>
@@ -1031,56 +1030,21 @@ void db_x509::toToken(QModelIndex idx, bool alwaysSelect)
         }
 }
 
-void db_x509::caProperties(QModelIndex idx)
+void db_x509::updateCaProperties(pki_x509 *cert)
 {
-	QStringList actions;
-	Ui::CaProperties ui;
+	XSqlQuery q;
+	Transaction;
+	TransThrow();
 
-	pki_x509 *cert = fromIndex<pki_x509>(idx);
-	if (!cert)
-		return;
+	SQL_PREPARE(q, "UPDATE authority SET crlDays=?, "
+			"template=? WHERE item=?");
 
-	QDialog *dlg = new QDialog(NULL);
-	ui.setupUi(dlg);
-	ui.days->setSuffix(QString(" ") + tr("days"));
-	ui.days->setMaximum(1000000);
-	ui.days->setValue(cert->getCrlDays());
-	ui.image->setPixmap(QPixmap(":certImg"));
+	q.bindValue(0, cert->getCrlDays());
+	q.bindValue(1, cert->getTemplateSqlId());
+	q.bindValue(2, cert->getSqlItemId());
 
-	QVariant tmplId = cert->getTemplateSqlId();
-	pki_temp *templ = Store.lookupPki<pki_temp>(tmplId);
-
-	ui.temp->insertPkiItems(Store.getAll<pki_temp>());
-        ui.temp->setNullItem(tr("No template"));
-	ui.temp->setCurrentIndex(0);
-	if (templ)
-		ui.temp->setCurrentPkiItem(templ);
-
-	ui.certName->setTitle(cert->getIntName());
-	mainwin->helpdlg->register_ctxhelp_button(dlg, "ca_properties");
-
-	if (dlg->exec()) {
-		XSqlQuery q;
-		QSqlError e;
-		Transaction;
-		TransThrow();
-
-		templ = ui.temp->currentPkiItem();
-		tmplId = templ ? templ->getSqlItemId() : QVariant();
-
-		cert->setTemplateSqlId(tmplId);
-		cert->setCrlDays(ui.days->value());
-
-		SQL_PREPARE(q, "UPDATE authority SET crlDays=?, "
-				"template=? WHERE item=?");
-
-		q.bindValue(0, cert->getCrlDays());
-		q.bindValue(1, tmplId);
-		q.bindValue(2, cert->getSqlItemId());
-		AffectedItems(cert->getSqlItemId());
-		q.exec();
-	        TransDone(q.lastError());
-		XCA_SQLERROR(q.lastError());
-	}
-	delete dlg;
+	AffectedItems(cert->getSqlItemId());
+	q.exec();
+	TransDone(q.lastError());
+	XCA_SQLERROR(q.lastError());
 }

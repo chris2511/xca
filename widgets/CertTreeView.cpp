@@ -5,8 +5,10 @@
  * All rights reserved.
  */
 
+#include "ui_CaProperties.h"
 #include "CertTreeView.h"
 #include "XcaWarning.h"
+#include "XcaDialog.h"
 #include "MainWindow.h"
 #include "RevocationList.h"
 #include "NewCrl.h"
@@ -173,8 +175,42 @@ void CertTreeView::manageRevocations()
 
 void CertTreeView::caProperties()
 {
-	if (basemodel)
-		certs()->caProperties(currentIndex());
+	Ui::CaProperties ui;
+	XcaDialog *dlg;
+	QWidget *w;
+
+	pki_x509 *cert = db_base::fromIndex<pki_x509>(currentIndex());
+	if (!cert || !basemodel)
+		return;
+
+	w = new QWidget();
+	ui.setupUi(w);
+	ui.days->setSuffix(QString(" ") + tr("days"));
+	ui.days->setMaximum(1000000);
+	ui.days->setValue(cert->getCrlDays());
+
+	QVariant tmplId = cert->getTemplateSqlId();
+	pki_temp *templ = Store.lookupPki<pki_temp>(tmplId);
+
+	ui.temp->insertPkiItems(Store.getAll<pki_temp>());
+        ui.temp->setNullItem(tr("No template"));
+	ui.temp->setCurrentIndex(0);
+	if (templ)
+		ui.temp->setCurrentPkiItem(templ);
+
+	dlg = new XcaDialog(this, x509, w, tr("CA Properties"),
+		cert->getIntName(), "ca_properties");
+
+	if (dlg->exec()) {
+		templ = ui.temp->currentPkiItem();
+                tmplId = templ ? templ->getSqlItemId() : QVariant();
+		cert->setTemplateSqlId(tmplId);
+                cert->setCrlDays(ui.days->value());
+
+		certs()->updateCaProperties(cert);
+		columnsChanged();
+	}
+	delete dlg;
 }
 
 void CertTreeView::certRenewal()
