@@ -12,7 +12,7 @@ RST_FILES=arguments common-actions object-ids smartcard \
 
 SPHINX_FILES=$(patsubst %,sphinx/%.rst,$(RST_FILES))
 
-doc: xca.1.gz html/index.html qthelp/xca.qhc
+.build-stamp doc: xca.1.gz html/index.html qthelp/xca.qhc
 qthelpfiles=qthelp/*.html qthelp/xca.qhc qthelp/xca.qch
 .install-stamp: doc
 

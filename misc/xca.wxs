@@ -53,12 +53,12 @@
                 <File Id="xca.exe" Source="xca.exe" KeyPath="yes"/>
             </Component>
             <Component Id="Cextensions" Guid="97df41c4-624f-488b-84b8-7f1cf4018da3" KeyPath="yes">
-                <ProgId Id="XCA.Database" Description="XCA Database" Icon="xca.exe" IconIndex="1">
+                <ProgId Id="XCA.Database" Description="XCA Database" Icon="xca.exe">
                     <Extension Id="xdb" ContentType="application/x-xca-database">
                         <Verb Id="open" Command="Open" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
                     </Extension>
                 </ProgId>
-                <ProgId Id="XCA.Template" Description="XCA Template" Icon="xca.exe" IconIndex="2">
+                <ProgId Id="XCA.Template" Description="XCA Template" Icon="xca.exe">
                     <Extension Id="xca" ContentType="application/x-xca-template">
                         <Verb Id="open" Command="Open" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
                     </Extension>

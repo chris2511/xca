@@ -13,7 +13,7 @@
 	<key>CFBundleVersion</key>
 	<string>@XCA_VERSION@</string>
 	<key>CFBundleIconFile</key>
-	<string>xca-mac-icon.icns</string>
+	<string>xca-icons.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.hohnstaedt.xca</string>
 	<key>CFBundleName</key>

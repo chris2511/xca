@@ -12,27 +12,22 @@ endif
 include $(TOPDIR)/Rules.mak
 sinclude .depend
 
-ICONS = \
-		xca-16x16.png \
-		xca-32x32.png \
-		xca-64x64.png
-PIXMAPS = \
-		  xca-32x32.xpm
-ICON_NAME = xca
+ICON_SIZES = 16x16 32x32 64x64
+ICONS = $(patsubst %,%/apps/xca.png, $(ICON_SIZES))
+ICONS_SRC = $(patsubst %,xca-icons.iconset/icon_%.png, $(ICON_SIZES))
+PIXMAPS = xca-32x32.xpm
 ICONDIR = $(datadir)/icons/hicolor
 
-install: install-pixmaps install-icons
-.install-stamp: $(ICONS) $(PIXMAPS) $(ICON_NAME).png
+install: install-pixmaps $(ICONS) $(ICONS_SRC)
+.install-stamp: $(PIXMAPS) $(ICONS_SRC)
 
 install-pixmaps: $(PIXMAPS)
-	install -D -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/$(ICON_NAME).xpm
+	install -d $(DESTDIR)$(datadir)/pixmaps/
+	install -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/
 
-install-icons: $(ICONS)
-	for SZ in 16 32 64; do \
-		if [ -f xca-$${SZ}x$${SZ}.png ]; then \
-			install -D -m 0644 xca-$${SZ}x$${SZ}.png $(DESTDIR)$(ICONDIR)/$${SZ}x$${SZ}/apps/$(ICON_NAME).png ; \
-		fi ; \
-	done
+%/apps/xca.png: xca-icons.iconset/icon_%.png
+	install -d $(DESTDIR)$(ICONDIR)/$*/apps
+	install -m 0644 $^ $(DESTDIR)$(ICONDIR)/$@
 
 imgres.cpp: imgres.rcc
 	@$(PRINT) "  RCC    [$(BASENAME)] $@"
@@ -40,11 +35,14 @@ imgres.cpp: imgres.rcc
 
 imgres.rcc: bigcert.png bigcrl.png bigcsr.png bigkey.png bigtemp.png crl.png halfkey.png invalidcertkey.png invalidcert.png key.png netscape.png reqkey.png req.png template.png validcertkey.png validcert.png scard.png
 
-w32res.o: w32res.rc key.ico xca.ico xdb.ico
+w32res.o: w32res.rc xca.ico
 	@$(PRINT) " WINDRES $@"
 	$(WINDRES) $< $@
 
-app: xca-mac-icon.icns
+xca-icons.icns: xca-icons.iconset
+	iconutil --convert icns $^
+
+app: xca-icons.icns
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 $^ $(APPDIR)/Resources
 
