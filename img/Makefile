@@ -12,7 +12,7 @@ endif
 include $(TOPDIR)/Rules.mak
 sinclude .depend
 
-ICON_SIZES = 16x16 32x32 64x64
+ICON_SIZES = 16x16 32x32 48x48 64x64
 ICONS = $(patsubst %,%/apps/xca.png, $(ICON_SIZES))
 ICONS_SRC = $(patsubst %,xca-icons.iconset/icon_%.png, $(ICON_SIZES))
 PIXMAPS = xca-32x32.xpm
@@ -26,8 +26,10 @@ install-pixmaps: $(PIXMAPS)
 	install -m 644 $^ $(DESTDIR)$(datadir)/pixmaps/
 
 %/apps/xca.png: xca-icons.iconset/icon_%.png
-	install -d $(DESTDIR)$(ICONDIR)/$*/apps
+	install -d $(DESTDIR)$(ICONDIR)/$*/apps $(DESTDIR)$(ICONDIR)/$*/mimetypes
 	install -m 0644 $^ $(DESTDIR)$(ICONDIR)/$@
+	ln -s ../apps/xca.png $(DESTDIR)$(ICONDIR)/$*/mimetypes/x-xca-database.png
+	ln -s ../apps/xca.png $(DESTDIR)$(ICONDIR)/$*/mimetypes/x-xca-template.png
 
 imgres.cpp: imgres.rcc
 	@$(PRINT) "  RCC    [$(BASENAME)] $@"
