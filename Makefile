@@ -31,7 +31,7 @@ APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)${EXTRA_VERSION}
 APPDIR=$(BUILD)/xca.app/Contents
-OSSLSIGN_=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
+OSSLSIGN=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
 
 OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
 	-key "pkcs11:object=Open%20Source%20Developer%2C%20Christian%20Hohnstaedt" \
