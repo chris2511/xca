@@ -274,7 +274,7 @@
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation>O certificado terá validade anterior a do Assinador. Provavelmente, não é isto que queira.</translation>
+        <translation>O certificado terá validade anterior a do Assinador. Provavelmente, não seja isto o que queira.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -303,7 +303,7 @@
     <message>
         <location line="-5"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
-        <translation>O certificado terá período de validade superior ao do Assinador. Provavelmente, não é isto que queira.</translation>
+        <translation>O certificado terá período de validade superior ao do Assinador. Provavelmente, não seja isto o que queira.</translation>
     </message>
 </context>
 <context>
@@ -986,7 +986,7 @@ Série: %3</translation>
         <location line="+29"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation>Deo substituit a chave original &apos;%1&apos;pela chave do Dispositivo?
+        <translation>Devo substituir a chave original &apos;%1&apos;pela chave do Dispositivo?
 Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</translation>
     </message>
 </context>
@@ -1118,18 +1118,6 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <location line="-139"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>O Verificador usado correntemente &apos;%1&apos; é inseguro. Favor selecionar um Verificador &apos;SHA 224&apos; (ou superior) por motivos de segurança.</translation>
-    </message>
-    <message>
-        <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="vanished">Detectado Banco de Dados no formato de versões antigas. Criando um backup denominado: &apos;%1&apos; e restaurando o Bando de Dados no formato desta versão</translation>
-    </message>
-    <message>
-        <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="vanished">A ação de renomear o Arquivo de Banco de Dados FALHOU, porque o arquivo final já existe</translation>
-    </message>
-    <message>
-        <source>No deleted items found</source>
-        <translation type="vanished">Nenhum ítem apagado foi encontrado</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-49"/>
@@ -1388,10 +1376,6 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>Sobre</translation>
     </message>
     <message>
-        <source>no such option: %1</source>
-        <translation type="vanished">não há a opção: %1</translation>
-    </message>
-    <message>
         <location filename="../widgets/MainWindow.cpp" line="-336"/>
         <source>Import PEM data</source>
         <translation>Importar dados PEM</translation>
@@ -1451,34 +1435,6 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <location line="+24"/>
         <source>Transaction start failed</source>
         <translation>Transação Inicial Falhou</translation>
-    </message>
-    <message>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database:
-%1</source>
-        <translation type="vanished">Favor entrar uma senha, que será usada para encriptar sua chave privada no Banco de Dados:
-%1</translation>
-    </message>
-    <message>
-        <source>Password verify error, please try again</source>
-        <translation type="vanished">Erro na Verificação da Senha, favor tentar novamente</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="vanished">Senha</translation>
-    </message>
-    <message>
-        <source>Please enter the password for unlocking the database:
-%1</source>
-        <translation type="vanished">Favor entrar a senha para desbloquear o Banco de Dados:
-%1</translation>
-    </message>
-    <message>
-        <source>The following error occurred:</source>
-        <translation type="vanished">Ocorreu o seguinte erro:</translation>
-    </message>
-    <message>
-        <source>Copy to Clipboard</source>
-        <translation type="vanished">Copiar para o Clipboard</translation>
     </message>
     <message>
         <location line="+158"/>
@@ -2135,7 +2091,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
     <message>
         <location line="+6"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation>O certificado terá validade anterior ao do Assinador. Provavelmente, não é isto que queira.</translation>
+        <translation>O certificado terá validade anterior ao do Assinador. Provavelmente, não seja isto o que queira.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2153,7 +2109,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
     <message>
         <location line="-5"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
-        <translation>O certificado terá período de validade superior ao do Assinador. Provavelmente, não é isto que queira.</translation>
+        <translation>O certificado terá período de validade superior ao do Assinador. Provavelmente, não seja isto o que queira.</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -2276,14 +2232,6 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Não há driver SqLite3 disponível. Favor instalar o pacote qt-sqlite da sua distribuição</translation>
     </message>
-    <message>
-        <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="vanished">Favor entrar com a senha de acesso do Serviço de Banco de Dados  %2 como usuário &apos;%1&apos;.</translation>
-    </message>
-    <message>
-        <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
-        <translation type="vanished">O Driver do Banco de Dados não suporta transações. Isto pode acontecer se a aplicação cliente e servidora sejam de versões diferentes. Continuar com cuidado.</translation>
-    </message>
 </context>
 <context>
     <name>Options</name>
@@ -2334,7 +2282,7 @@ Especificamente, EC e DSA somente são definidos com SHA1 na especificação do 
     <message>
         <location line="+5"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
-        <translation>Somente use Verificadores suportados pelo dispositivo ao assinar com um chave do dispositivo</translation>
+        <translation>Somente use Verificadores suportados pelo dispositivo ao assinar com uma chave do dispositivo</translation>
     </message>
     <message>
         <location line="-19"/>
@@ -2487,10 +2435,6 @@ Especificamente, EC e DSA somente são definidos com SHA1 na especificação do 
         <source>Exit</source>
         <translation type="unfinished">Sair</translation>
     </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation type="vanished">Sai&amp;r</translation>
-    </message>
 </context>
 <context>
     <name>QMessageBox</name>
@@ -2535,7 +2479,7 @@ Especificamente, EC e DSA somente são definidos com SHA1 na especificação do 
     <message>
         <location line="+2"/>
         <source>Broken / Invalid</source>
-        <translation>Com Defeito /Inválido</translation>
+        <translation>Com Defeito / Inválido</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -3547,18 +3491,6 @@ e, assim, ela não será importada</translation>
         <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <source>There are no CA certificates for CRL generation</source>
-        <translation type="vanished">Não há certificados AC para geração de CRL</translation>
-    </message>
-    <message>
-        <source>Select CA certificate</source>
-        <translation type="vanished">Selecionar Certificado do AC</translation>
-    </message>
-    <message>
-        <source>Create CRL</source>
-        <translation type="vanished">Criar CRL</translation>
-    </message>
-    <message>
         <location line="+63"/>
         <source>Failed to initiate DB transaction</source>
         <translation>Falha ao inciar uma transação de Banco de Dados</translation>
@@ -3734,10 +3666,6 @@ e será importado somente a parte privada da chave</translation>
         <translation>Modelo Vazio</translation>
     </message>
     <message>
-        <source>Preset Template values</source>
-        <translation type="vanished">Valores Pré-definidos do Modelo</translation>
-    </message>
-    <message>
         <location line="+78"/>
         <source>Save template as</source>
         <translation>Salvar Modelo como</translation>
@@ -3809,14 +3737,6 @@ e será importado somente a parte privada da chave</translation>
         <location line="+1"/>
         <source>CRL Expiration</source>
         <translation>Validade CRL</translation>
-    </message>
-    <message>
-        <source>Plain View</source>
-        <translation type="vanished">Visualizar</translation>
-    </message>
-    <message>
-        <source>Tree View</source>
-        <translation type="vanished">Visualização em Árvore</translation>
     </message>
     <message>
         <location line="+219"/>
@@ -3936,10 +3856,6 @@ e, assim, ela não será importada</translation>
         <location line="+10"/>
         <source>Certificate export</source>
         <translation>Exportar Certificado</translation>
-    </message>
-    <message>
-        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</source>
-        <translation type="vanished">Certificados X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <location line="+65"/>
@@ -4242,14 +4158,6 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="vanished">Falha ao decriptar a chave (senha errada) %1</translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key.</source>
-        <translation type="vanished">Favor entrar a senha para decriptar a chave privada.</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="+260"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation type="unfinished"></translation>
@@ -4495,10 +4403,6 @@ Common is thecommonName
         <location line="+87"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Favor inserir o cartão: %1 %2 [%3] n° de série: %4</translation>
-    </message>
-    <message>
-        <source>Illegal Key generation method</source>
-        <translation type="vanished">Método de criação de Chave é ilegal</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -4748,7 +4652,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%4&apos;</translation>
     <message>
         <location line="+4"/>
         <source>A uniform resource indicator</source>
-        <translation>Uma URI (uniform resource indicator)</translation>
+        <translation>Um URI (uniform resource indicator)</translation>
     </message>
     <message>
         <location line="+5"/>

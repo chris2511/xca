@@ -9,6 +9,7 @@ Comment[fr]=Création et gestion de certificats conformes à la norme X.509
 Comment[hr]=Grafičko korisničko sučelje za upravljanje životnim ciklusom X.509 sukladnih potvrda
 Comment[nl]=Een grafische gebruikers interface voor behandeling en uitgifte van X.509 conforme certificaten
 Comment[sk]=GUI na spracovanie a vydávanie Certifikátov X.509
+Comment[pt_BR]=Interface gráfica para gerenciar e emitir Certificados X.509
 Exec=xca %F
 Icon=xca
 Terminal=false
