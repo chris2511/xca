@@ -244,12 +244,6 @@
             <Component Id="Cxca.qhc" Guid="4e19aeb1-5c08-4242-9b4b-dccec72f325c">
                 <File Id="xca.qhc" Source="html/xca.qhc" KeyPath="yes"/>
             </Component>
-            <Component Id="Cxca.qhcp" Guid="47e53de5-3f5b-492c-a605-4c40e82bb339">
-                <File Id="xca.qhcp" Source="html/xca.qhcp" KeyPath="yes"/>
-            </Component>
-            <Component Id="Cxca.qhp" Guid="48e55359-da55-44d2-b54c-fd7a49094a73">
-                <File Id="xca.qhp" Source="html/xca.qhp" KeyPath="yes"/>
-            </Component>
         </DirectoryRef>
 
         <DirectoryRef Id="i18n">
@@ -414,8 +408,6 @@
             <ComponentRef Id="Ctemplate.html"/>
             <ComponentRef Id="Cxca.qch"/>
             <ComponentRef Id="Cxca.qhc"/>
-            <ComponentRef Id="Cxca.qhcp"/>
-            <ComponentRef Id="Cxca.qhp"/>
         </ComponentGroup>
 
         <ComponentGroup Id="GroupI18n">

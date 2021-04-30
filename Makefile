@@ -81,7 +81,7 @@ xca$(SUFFIX): $(OBJECTS)
 
 do.ui do.doc do.lang do.misc: do.%:
 	mkdir -p $*
-	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* $*
+	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* all
 
 headers: do.ui commithash.h
 
@@ -166,7 +166,7 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
 	   "$(TOPDIR)"/misc/*.xca "${TOPDIR}/../sql/"*.dll $@
-	cp -a doc/qthelp/* $@/html
+	cp -a doc/qthelp/*.html doc/qthelp/xca.qhc doc/qthelp/xca.qch $@/html
 	cp $(patsubst %,"$(QTDIR)/translations/qt_%.qm", de es pl pt ru fr sk it ja) \
 		lang/*.qm $@/i18n
 	sed 's/$$/\r/' < "$(TOPDIR)"/COPYRIGHT > $@/copyright.txt
