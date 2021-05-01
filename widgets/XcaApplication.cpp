@@ -74,6 +74,7 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 #endif
 	);
 	installEventFilter(this);
+	setWindowIcon(QIcon(QPixmap(":appIcon")));
 }
 
 void XcaApplication::setupLanguage(QLocale l)
