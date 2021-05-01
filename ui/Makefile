@@ -13,4 +13,4 @@ UI_H =  ui_CaProperties.h ui_CertDetail.h ui_CertExtend.h \
 
 include $(TOPDIR)/Rules.mak
 
-ui: $(UI_H)
+ui all: $(UI_H)
