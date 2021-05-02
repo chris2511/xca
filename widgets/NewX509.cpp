@@ -125,6 +125,10 @@ NewX509::NewX509(QWidget *w) : QDialog(w ?: mainwin)
 	foreach(int nid, distname_nid)
 		keys << QString(OBJ_nid2ln(nid));
 
+	tabnames = QStringList({
+		"wizard_src", "wizard_subject", "wizard_extensions",
+		"wizard_keyusage", "wizard_netscape", "wizard_advanced",
+		"comment"});
 	extDNlist->setKeys(keys);
 	extDNlist->setInfoLabel(extDNinfo);
 	connect(extDNlist->itemDelegateForColumn(1),
@@ -146,8 +150,8 @@ NewX509::NewX509(QWidget *w) : QDialog(w ?: mainwin)
 	setWindowTitle(XCA_TITLE);
 
 	for (i=0; i<tabWidget->count(); i++) {
-		tabnames << tabWidget->tabText(i);
-		qDebug() << "TAB:" << i << " " << tabWidget->tabText(i);
+		tabWidget->widget(i)->setObjectName(tabnames[i]);
+		qDebug() << "TAB:" << i << tabWidget->tabText(i);
 	}
 
 	nsImg->setPixmap(QPixmap(":nsImg"));
@@ -1113,13 +1117,10 @@ void NewX509::on_editAuthInfAcc_clicked()
 
 void NewX509::on_tabWidget_currentChanged(int tab)
 {
-	QStringList helpctx({
-		"wizard_src", "wizard_subject", "wizard_extensions",
-		"wizard_keyusage", "wizard_netscape", "wizard_advanced",
-		"comment"});
-	if (tabWidget->tabText(tab) == tabnames[5])
+	QString tab_name = tabWidget->widget(tab)->objectName();
+	if (tab_name == tabnames[5])
 		do_validateExtensions();
-	buttonBox->setProperty("help_ctx", QVariant(helpctx[tab]));
+	buttonBox->setProperty("help_ctx", QVariant(tab_name));
 }
 
 QString NewX509::mandatoryDnRemain()
