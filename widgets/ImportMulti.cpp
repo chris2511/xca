@@ -30,7 +30,7 @@
 #include <typeinfo>
 
 ImportMulti::ImportMulti(QWidget *parent)
-	:QDialog(parent)
+	: QDialog(parent ?: mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
@@ -46,6 +46,7 @@ ImportMulti::ImportMulti(QWidget *parent)
 	renameToken->hide();
 	slotInfo->hide();
 	setAcceptDrops(true);
+	setWindowModality(Qt::WindowModal);
 }
 
 void ImportMulti::tokenInfo(const slotid &s)
