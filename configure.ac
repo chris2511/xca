@@ -55,9 +55,11 @@ case "$(${CXX} -dumpmachine)" in
     HOST=DARWIN
     CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
     LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
-    for d in $(find /usr/local/Cellar -name 'pkgconfig' -type d); do
-      PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
-    done
+    if [[ $(brew --cellar) ]]; then
+      for d in $(find $(brew --cellar) -name 'pkgconfig' -type d); do
+        PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
+      done
+    fi
     export DYLD_LIBRARY_PATH
     test "${MACOS_VERSION3}" || MACOS_VERSION3="$(sw_vers -productVersion)"
     ;;
