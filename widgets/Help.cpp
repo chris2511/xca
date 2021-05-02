@@ -41,6 +41,7 @@ void Help::display(const QUrl &url)
 #endif
 	textbox->scrollToAnchor(url.fragment());
 	show();
+	raise();
 }
 
 void Help::content()
