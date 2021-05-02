@@ -59,6 +59,11 @@ case "$(${CXX} -dumpmachine)" in
       for d in $(find $(brew --cellar) -name 'pkgconfig' -type d); do
         PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
       done
+
+    # homebrew's libtool is not available via pkg-config. Add it manually:
+    CFLAGS="${CFLAGS} -I$(find $(brew --cellar libtool) -type d -name "include" | sort -n | tail -n 1)"
+    CXXFLAGS="${CXXFLAGS} -I$(find $(brew --cellar libtool) -type d -name "include" | sort -n | tail -n 1)"
+    LIBS="${LIBS} -L$(find $(brew --cellar libtool) -type d -name "lib" | sort -n | tail -n 1)"
     fi
     export DYLD_LIBRARY_PATH
     test "${MACOS_VERSION3}" || MACOS_VERSION3="$(sw_vers -productVersion)"
