@@ -21,6 +21,8 @@
 #include <QPair>
 
 #include "XcaWarning.h"
+#include "NewKey.h"
+#include "CertDetail.h"
 #include "OidResolver.h"
 #include "MainWindow.h"
 #include "Help.h"
@@ -136,16 +138,10 @@ NewX509::NewX509(QWidget *w) : QDialog(w ?: mainwin)
                 this, SLOT(checkCrlDist(const QString &)));
 	connect(authInfAcc, SIGNAL(textChanged(const QString &)),
                 this, SLOT(checkAuthInfAcc(const QString &)));
-	connect(this, SIGNAL(genKey(QString)),
-		mainwin->keyView, SLOT(newItem(QString)));
 	connect(keymodel, SIGNAL(keyDone(pki_key*)),
 		this, SLOT(newKeyDone(pki_key*)));
-	connect(this, SIGNAL(showReq(pki_base*)),
-		mainwin->reqView, SLOT(showPki(pki_base*)));
 	connect(reqmodel, SIGNAL(pkiChanged(pki_base*)),
 		this, SLOT(itemChanged(pki_base*)));
-
-
 
 	setWindowTitle(XCA_TITLE);
 
@@ -646,7 +642,7 @@ void NewX509::switchHashAlgo()
 
 void NewX509::on_showReqBut_clicked()
 {
-	emit showReq(reqList->currentPkiItem());
+	CertDetail::showCert(this, reqList->currentPkiItem());
 }
 
 QList<pki_x509req *> NewX509::getAllRequests() const
@@ -686,7 +682,13 @@ void NewX509::on_genKeyBut_clicked()
 	QString name = description->text();
 	if (name.isEmpty())
 		name = getX509name().getMostPopular();
-	emit genKey(name);
+
+	NewKey *dlg = new NewKey(this, name);
+	if (dlg->exec()) {
+		db_key *keys = Database.model<db_key>();
+		keys->newKey(dlg->getKeyJob(), dlg->keyDesc->text());
+	}
+	delete dlg;
 }
 
 void NewX509::on_certList_currentIndexChanged(int)

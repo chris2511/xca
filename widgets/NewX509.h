@@ -151,10 +151,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		void checkIssAltName(const QString & text);
 		void checkCrlDist(const QString & text);
 		void checkAuthInfAcc(const QString & text);
-
-	signals:
-		void genKey(QString);
-		void showReq(pki_base *req);
 };
 
 #endif

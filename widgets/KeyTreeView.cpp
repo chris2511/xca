@@ -180,7 +180,7 @@ void KeyTreeView::newItem(const QString &name)
 	if (!basemodel)
 		return;
 
-	NewKey *dlg = new NewKey(mainwin, name);
+	NewKey *dlg = new NewKey(this, name);
 
 	if (dlg->exec())
 		keys()->newKey(dlg->getKeyJob(), dlg->keyDesc->text());
