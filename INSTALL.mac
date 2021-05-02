@@ -1,5 +1,5 @@
 
-brew install pkg-config autoconf automake openssl qt libtool
+brew install pkg-config autoconf automake openssl qt@5 libtool
 
 cd xca-2.3.0
 ./configure && make
