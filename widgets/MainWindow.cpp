@@ -162,6 +162,17 @@ void MainWindow::openURLs(QStringList &files)
 
 void MainWindow::openURLs()
 {
+	foreach(QString file, urlsToOpen) {
+		if (file.endsWith(".xdb") ||
+		    !database_model::splitRemoteDbName(file).isEmpty())
+		{
+			init_database(file);
+			if (Database.isOpen()) {
+				urlsToOpen.removeAll(file);
+				break;
+			}
+		}
+	}
 	importAnything(urlsToOpen);
 	urlsToOpen.clear();
 }
