@@ -70,7 +70,6 @@ const EVP_MD *hashBox::currentHash() const
 #endif
 #ifdef EVP_PKEY_ED25519
         case EVP_PKEY_ED25519:
-TRACE
                 return NULL;
 #endif
 	}

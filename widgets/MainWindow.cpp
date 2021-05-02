@@ -531,9 +531,13 @@ void MainWindow::importMulti(pki_multi *multi, int force)
 {
 	if (!multi)
 		return;
+
+	QStringList failed_files = multi->failed_files;
 	ImportMulti *dlgi = new ImportMulti(this);
+
+	// dlgi->addItem() deletes "multi" if appropriate
 	dlgi->addItem(multi);
-	dlgi->execute(force, multi->failed_files);
+	dlgi->execute(force, failed_files);
 	delete dlgi;
 }
 
@@ -761,7 +765,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 			pastePem();
 			break;
 		}
-        /* FALLTHROUGH */
+		/* FALLTHROUGH */
 	default:
 		QMainWindow::keyPressEvent(e);
 		return;

@@ -200,9 +200,8 @@ bool XcaApplication::notify(QObject* receiver, QEvent* event)
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
         } catch (...) {
-		qDebug() << QString("Event exception: ")
+		qWarning() << QString("Event exception: ")
 			 << receiver << event;
-		abort();
         }
 	return false;
 }
