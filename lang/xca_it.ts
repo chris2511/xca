@@ -386,12 +386,12 @@
     <message>
         <location line="+68"/>
         <source>Plain View</source>
-        <translation type="unfinished">Visualizzazione semplice</translation>
+        <translation>Visualizzazione semplice</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Tree View</source>
-        <translation type="unfinished">Visualizzazione ad albero</translation>
+        <translation>Visualizzazione ad albero</translation>
     </message>
 </context>
 <context>
@@ -495,12 +495,12 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="+37"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished">Non esistono certificati CA per generare la CRL</translation>
+        <translation>Non esistono certificati CA per generare la CRL</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation type="unfinished">Seleziona un certificato CA</translation>
+        <translation>Seleziona un certificato CA</translation>
     </message>
 </context>
 <context>
@@ -1611,7 +1611,7 @@ Prego inserire i bit dei parametri DH</translation>
     <message>
         <location filename="../widgets/NewCrl.cpp" line="+77"/>
         <source>Create CRL</source>
-        <translation type="unfinished">Crea CRL</translation>
+        <translation>Crea CRL</translation>
     </message>
 </context>
 <context>
@@ -2151,17 +2151,17 @@ nonostante siano stati dichiarati come obbligatori nel menu opzioni.</translatio
     <message>
         <location line="+10"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;algoritmo di hashing selezionato &apos;%1&apos; non è sicuro e non dovrebbe essere utilizzato.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Select other algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona altro algoritmo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Use algorithm anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizza comunque l&apos;algoritmo</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2500,7 +2500,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location filename="../widgets/PwDialog.cpp" line="+44"/>
         <source>Password</source>
-        <translation type="unfinished">Password</translation>
+        <translation>Password</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -2520,7 +2520,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location line="+29"/>
         <source>Exit</source>
-        <translation type="unfinished">Esci</translation>
+        <translation>Esci</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -2532,32 +2532,32 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+28"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiudi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Apply</source>
-        <translation type="unfinished">Applica</translation>
+        <translation>Applica</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Yes</source>
-        <translation type="unfinished">Sì</translation>
+        <translation>Sì</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -3080,22 +3080,22 @@ nella libreria %3
     <message>
         <location filename="../lib/main.cpp" line="+210"/>
         <source>Index file written to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>File indice scritto in  &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Index hierarchy written to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerarchia indici scritta in  &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Unknown key type %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di chiave &apos;%1&apos; sconosciuto</translation>
     </message>
     <message>
         <location filename="../widgets/XcaWarning.h" line="+23"/>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished">Errore di verifica password, prego riprovare</translation>
+        <translation>Errore di verifica password, prego riprovare</translation>
     </message>
 </context>
 <context>
@@ -3273,7 +3273,7 @@ nella libreria %3
     <message>
         <location line="+48"/>
         <source>Preset Template values</source>
-        <translation type="unfinished">Valori modello predefiniti</translation>
+        <translation>Valori modello predefiniti</translation>
     </message>
 </context>
 <context>
@@ -3400,55 +3400,55 @@ nella libreria %3
     <message>
         <location filename="../lib/database_model.cpp" line="+125"/>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="unfinished">Rilevato formato database obsoleto. Creo un copia di backup chiamata: &apos;%1&apos; e converto il database nel nuovo formato</translation>
+        <translation>Rilevato formato database obsoleto. Creo un copia di backup chiamata: &apos;%1&apos; e converto il database nel nuovo formato</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="unfinished">Impossibile rinominare il file database: nome destinazione già esistente</translation>
+        <translation>Impossibile rinominare il file database: nome destinazione già esistente</translation>
     </message>
     <message>
         <location line="+135"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished">Prego inserire la password di accesso al database server %2 come utente: &apos;%1&apos;.</translation>
+        <translation>Prego inserire la password di accesso al database server %2 come utente: &apos;%1&apos;.</translation>
     </message>
     <message>
         <location line="+117"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile creare &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+171"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
-        <translation type="unfinished"></translation>
+        <translation>Il file &apos;%1&apos; non è un database XCA</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished">Driver SqLite3 non disponibile. Prego installare il pacchetto qt-sqlite della distribuzione in uso</translation>
+        <translation>Driver SqLite3 non disponibile. Prego installare il pacchetto qt-sqlite della distribuzione in uso</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>New Password</source>
-        <translation type="unfinished">Nuova password</translation>
+        <translation>Nuova password</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
-        <translation type="unfinished">Prego inserire una password che verrà utilizzata per crittare le chiavi private nel database:
+        <translation>Prego inserire una password che verrà utilizzata per crittare le chiavi private nel database:
 %1</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Password</source>
-        <translation type="unfinished">Password</translation>
+        <translation>Password</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
-        <translation type="unfinished">Prego inserire la password per sbloccare il database:
+        <translation>Prego inserire la password per sbloccare il database:
 %1</translation>
     </message>
 </context>
@@ -3511,7 +3511,7 @@ nella libreria %3
     <message>
         <location line="+62"/>
         <source>Import from: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa da: %1</translation>
     </message>
     <message>
         <location line="+151"/>
@@ -3714,7 +3714,7 @@ e sarà completata con la nuova parte privata della chiave</translation>
         <location line="-65"/>
         <location line="+70"/>
         <source>SSH2 private</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH2 privata</translation>
     </message>
     <message>
         <location line="-67"/>
@@ -3931,7 +3931,7 @@ pertanto non è stato importato</translation>
     <message>
         <location line="+4"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificati x509 ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
         <location line="+415"/>
@@ -3951,7 +3951,7 @@ pertanto non è stato importato</translation>
     <message>
         <location line="-228"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile creare la directory %1</translation>
     </message>
     <message>
         <location line="+270"/>
@@ -4246,7 +4246,7 @@ pertanto non è stata salvata</translation>
     <message>
         <location line="+135"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Proprieà &apos;%1&apos; non prevista in &apos;pki_base::print&apos;</translation>
     </message>
     <message>
         <location line="-305"/>
@@ -4342,7 +4342,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+260"/>
         <source>Please enter the password to decrypt the private key %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prego inserire la password per decrittare la chiave privata %1.</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4902,12 +4902,12 @@ E&apos; mantenuta nel database XCA &apos;%3&apos;</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+88"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">Incontrato l&apos;errore seguente:</translation>
+        <translation>Incontrato l&apos;errore seguente:</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Copia negli appunti</translation>
+        <translation>Copia negli appunti</translation>
     </message>
 </context>
 </TS>
