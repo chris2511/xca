@@ -157,6 +157,8 @@ void ImportMulti::on_butRemove_clicked()
 		pki_base *pki = db_base::fromIndex(index);
 		delete pki;
 	}
+	if (mcont->rowCount(QModelIndex()) == 0)
+		accept();
 }
 
 void ImportMulti::on_butOk_clicked()
@@ -192,6 +194,8 @@ void ImportMulti::on_butImport_clicked()
 		import(index);
 	}
 	TransCommit();
+	if (mcont->rowCount(QModelIndex()) == 0)
+		accept();
 }
 
 void ImportMulti::on_deleteToken_clicked()
