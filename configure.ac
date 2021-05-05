@@ -55,15 +55,11 @@ case "$(${CXX} -dumpmachine)" in
     HOST=DARWIN
     CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
     LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
-    if [[ $(brew --cellar) ]]; then
-      for d in $(find $(brew --cellar) -name 'pkgconfig' -type d); do
-        PKG_CONFIG_PATH="${d}:${PKG_CONFIG_PATH}"
-      done
-
-    # homebrew's libtool is not available via pkg-config. Add it manually:
-    CFLAGS="${CFLAGS} -I$(find $(brew --cellar libtool) -type d -name "include" | sort -n | tail -n 1)"
-    CXXFLAGS="${CXXFLAGS} -I$(find $(brew --cellar libtool) -type d -name "include" | sort -n | tail -n 1)"
-    LIBS="${LIBS} -L$(find $(brew --cellar libtool) -type d -name "lib" | sort -n | tail -n 1)"
+    BREW_PREFIX="$(brew --prefix)"
+    if test "$BREW_PREFIX"; then
+      PKG_CONFIG_PATH="$(find ${BREW_PREFIX}/Cellar -name 'pkgconfig' -type d | tr '\n' ':')${PKG_CONFIG_PATH}"
+      CXXFLAGS="${CFLAGS} -I${BREW_PREFIX}/include"
+      LIBS="${LIBS} -L${BREW_PREFIX}/lib"
     fi
     export DYLD_LIBRARY_PATH
     test "${MACOS_VERSION3}" || MACOS_VERSION3="$(sw_vers -productVersion)"
