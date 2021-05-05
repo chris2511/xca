@@ -205,7 +205,7 @@ void database_model::importOldDatabase(const QString &dbname)
 				if (r && r->issuedCerts() > 0)
 					r->setDone();
 				qDebug() << "load old:" << pki->getIntName();
-				db->insertPKI(pki);
+				pki = db->insertPKI(pki);
 			}
 next:
 			if (mydb.next())

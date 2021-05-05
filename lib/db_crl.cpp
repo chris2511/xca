@@ -54,7 +54,7 @@ void db_crl::revokeCerts(pki_crl *crl)
 	db_x509 *certs = Database.model<db_x509>();
 	x509revList revlist;
 
-	if (!certs)
+	if (!certs || !crl)
 		return;
 
 	pki_x509 *signer = crl->getIssuer();
@@ -108,9 +108,11 @@ pki_base *db_crl::insert(pki_base *item)
 	}
 	Transaction;
 	if (TransBegin()) {
-		insertPKI(crl);
-		revokeCerts(crl);
-		TransCommit();
+		crl = dynamic_cast<pki_crl *>(insertPKI(crl));
+		if (crl) {
+			revokeCerts(crl);
+			TransCommit();
+		}
 	}
 	return crl;
 }
@@ -210,12 +212,12 @@ pki_crl *db_crl::newCrl(const crljob &task)
 		err = q.lastError();
 		if (err.isValid())
 			throw errorEx(tr("Database error: %1").arg(err.text()));
-		insertPKI(crl);
+		crl = dynamic_cast<pki_crl *>(insertPKI(crl));
 		err = db.lastError();
 		if (err.isValid())
 			throw errorEx(tr("Database error: %1").arg(err.text()));
 		TransCommit();
-		createSuccess((crl));
+		createSuccess(crl);
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);

@@ -149,9 +149,7 @@ pki_base* db_key::insert(pki_base *item)
 			deletePKI(index(oldkey));
 		}
 	}
-	insertPKI(lkey);
-
-	return lkey;
+	return insertPKI(lkey);
 }
 
 pki_key *db_key::newKey(const keyjob &task, const QString &name)

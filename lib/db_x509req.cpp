@@ -53,8 +53,7 @@ pki_base *db_x509req::insert(pki_base *item)
 		delete req;
 		return NULL;
 	}
-	insertPKI(req);
-	return req;
+	return insertPKI(req);
 }
 
 void db_x509req::newItem()

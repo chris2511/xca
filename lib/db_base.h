@@ -66,7 +66,7 @@ class db_base: public QAbstractItemModel
 		db_base(const char *classname);
 		virtual void updateHeaders();
 		virtual ~db_base();
-		virtual void insertPKI(pki_base *pki);
+		virtual pki_base *insertPKI(pki_base *pki);
 		pki_base *getByName(QString desc);
 		pki_base *getByReference(pki_base *refpki);
 		virtual void loadContainer();

@@ -234,7 +234,7 @@ void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 	allHeaders[logicalIndex]->sortIndicator = order;
 }
 
-void db_base::insertPKI(pki_base *pki)
+pki_base *db_base::insertPKI(pki_base *pki)
 {
 	QString filename = pki->getFilename();
 	if (!filename.isEmpty()) {
@@ -242,19 +242,23 @@ void db_base::insertPKI(pki_base *pki)
 		pki->setFilename(QString());
 	}
 	Transaction;
-	if (!TransBegin())
-		return;
+	if (!TransBegin()) {
+		delete pki;
+		return NULL;
+	}
 	QSqlError e = pki->insertSql();
 	if (e.isValid()) {
 		XCA_SQLERROR(e);
 		TransRollback();
-		return;
+		delete pki;
+		return NULL;
 	}
 	Store.add(pki->getSqlItemId(), pki);
 	inToCont(pki);
 	TransCommit();
 	restart_timer();
 	emit columnsContentChanged();
+	return pki;
 }
 
 QString db_base::pem2QString(QModelIndexList indexes) const
@@ -380,8 +384,7 @@ pki_base *db_base::getByReference(pki_base *refpki)
 
 pki_base *db_base::insert(pki_base *item)
 {
-	insertPKI(item);
-	return item;
+	return insertPKI(item);
 }
 
 void db_base::dump(const QString &dir) const

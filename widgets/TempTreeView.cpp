@@ -85,7 +85,8 @@ void TempTreeView::newItem()
 		if (temp) {
 			temp->pkiSource = generated;
 			if (runTempDlg(temp)) {
-				temps()->insertPKI(temp);
+				temp = dynamic_cast<pki_temp *>(
+						temps()->insertPKI(temp));
 				temps()->createSuccess(temp);
 			} else {
 				delete temp;

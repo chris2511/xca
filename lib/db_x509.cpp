@@ -326,8 +326,7 @@ pki_base *db_x509::insert(pki_base *item)
 		delete cert;
 		return NULL;
 	}
-	insertPKI(cert);
-	return cert;
+	return insertPKI(cert);
 }
 
 void db_x509::load(void)
@@ -517,7 +516,7 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 	// set the comment field
 	cert->setComment(dlg->comment->toPlainText());
 	cert->pkiSource = dlg->getPkiSource();
-	cert = (pki_x509*)insert(cert);
+	cert = dynamic_cast<pki_x509*>(insert(cert));
 	createSuccess(cert);
 	if (cert && clientkey->isToken()) {
 		pki_scard *card = (pki_scard*)clientkey;
@@ -887,7 +886,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 
 			// and finally sign the cert
 			newcert->sign(signkey, oldcert->getDigest());
-			newcert = (pki_x509 *)insert(newcert);
+			newcert = dynamic_cast<pki_x509 *>(insert(newcert));
 			createSuccess(newcert);
 		}
 		if (doRevoke)
