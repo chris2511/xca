@@ -40,9 +40,8 @@ install:
 	  update-mime-database $(datarootdir)/mime || :; \
 	  update-desktop-database || :; \
 	fi
-
-app: Info.plist $(CONFIG_OBJ)
+app: Info.plist PkgInfo | $(CONFIG_OBJ)
 	mkdir -p $(APPDIR)/Resources
-	install -m 644 $^ $(SRCPATH)PkgInfo $(APPDIR)
+	install -m 644 $^ $(APPDIR)
 	install -m 644 $(CONFIG_OBJ) $(SRCPATH)*.xca $(APPDIR)/Resources
 
