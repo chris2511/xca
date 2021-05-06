@@ -203,7 +203,7 @@ xca.app: xca$(SUFFIX) $(INSTSTAMP)
 
 xca.dmg: $(MACTARGET).dmg
 
-CODESIGN=codesign --deep --signature-size=96000 --options=runtime --timestamp  --entitlements $(TOPDIR)/misc/entitlement.plist
+CODESIGN=codesign --deep --signature-size=96000 --options=runtime --timestamp
 
 $(MACTARGET).dmg: $(DMGSTAGE)
 	@$(PRINT) "  DMG    $@"
@@ -228,7 +228,7 @@ $(MACTARGET).pkg: xca.app xca.app.dSYM
 	mkdir -p $(APPSTORE_DIR)/dSYM
 	cp -a $^ $(APPSTORE_DIR)
 	$(MACDEPLOYQT) $(APPSTORE_DIR)/xca.app -appstore-compliant
-	$(CODESIGN) -s "$(APPLE_CERT_3PARTY_APP)" $(APPSTORE_DIR)/xca.app
+	$(CODESIGN) -s "$(APPLE_CERT_3PARTY_APP)" --entitlements $(TOPDIR)/misc/entitlement.plist $(APPSTORE_DIR)/xca.app
 	# Having the xca.app.dSYM around is apparently not sufficient
 	symbols -noTextInSOD -noDaemon -arch all \
 		-symbolsPackageDir $(APPSTORE_DIR)/dSYM \
