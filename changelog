@@ -1,6 +1,6 @@
  * Unify XCA icon (certificate) on all platforms
  * Close #247: Apple silicon (M1) configure fixes
- * AMicrosoft BitLocker
+ * Add Microsoft BitLocker extended key usage
  * Disregard OpenSSL 0.9.8 compatibility
  * Add bash completion script
  * Add context sensitive help

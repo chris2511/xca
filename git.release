@@ -22,7 +22,7 @@ fi
 
 lasttag=$(git describe --abbrev=0 HEAD)
 unset unchanged
-for i in changelog doc/xca.sgml README.md; do
+for i in changelog README.md; do
   if git diff --quiet "$lasttag" -- $i; then
     echo "File $i untouched since $lasttag"
     unchanged="x"
@@ -65,7 +65,7 @@ cp xca-$TVERSION.tar.gz "$releasedir"
   mkdir -p "xca-$TVERSION/BUILD" && cd "xca-$TVERSION/BUILD"
   ../configure && make -j7
   mkdir "$releasedir/doc"
-  cp doc/*.html "$releasedir/doc"
+  cp -a doc/html "$releasedir/doc"
 )
 (
   cd ..
