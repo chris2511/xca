@@ -377,13 +377,13 @@ int main(int argc, char *argv[])
 		} else {
 			read_cmdline(argc, argv);
 			delete cmdline_items;
-			Database.close();
 		}
 	} catch (errorEx &ex) {
 		XCA_ERROR(ex);
 	} catch (enum open_result r) {
 		qDebug() << "DB open failed: " << r;
 	}
+	Database.close();
 
 	qDebug() << "pki_base::count" << pki_base::allitems.size();
 	foreach(pki_base *pki, pki_base::allitems)
