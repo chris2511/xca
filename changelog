@@ -1,4 +1,8 @@
-
+ * Unify XCA icon (certificate) on all platforms
+ * Close #247: Apple silicon (M1) configure fixes
+ * AMicrosoft BitLocker
+ * Disregard OpenSSL 0.9.8 compatibility
+ * Add bash completion script
  * Add context sensitive help
  * Convert documentation from linuxdoc/SGML to sphinxdoc
  * Close #258: xca aborts on exit and on access to own templates
