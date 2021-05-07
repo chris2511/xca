@@ -1,5 +1,5 @@
 .TP
-.B \-\-crlgen=<ca identifier> *
+.B \-\-crlgen=<ca-identifier> *
 Generate CRL for <ca>. Use the 'name' option to set the internal name of the new CRL.
 .TP
 .B \-\-database=<database>
@@ -29,7 +29,7 @@ Generate a new key and import it into the database. Use the 'name' option to set
 .B \-\-list-curves
 Prints all known Elliptic Curves.
 .TP
-.B \-\-name=<internal name> *
+.B \-\-name=<internal-name> *
 Provides the name of new generated items. An automatic name will be generated if omitted.
 .TP
 .B \-\-no-gui

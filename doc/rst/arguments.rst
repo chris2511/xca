@@ -1,3 +1,6 @@
+..
+  Automatically created by
+  XCA_SPECIAL=rst ./xca > doc/rst/arguments.rst
 
 --crlgen=ca-identifier    Generate CRL for <ca>. Use the \'name\' option to set the internal name of the new CRL. [#need-db]_
 --database=database       File name (\*.xdb) of the SQLite database or a remote database descriptor\: [user\@host/TYPE\:dbname#prefix].

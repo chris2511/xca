@@ -136,7 +136,10 @@ static QString esc(QString msg)
 
 QString arguments::rst()
 {
-	QString s = "\n";
+	QString s = "..\n"
+"  Automatically created by\n"
+"  XCA_SPECIAL=rst ./xca > doc/rst/arguments.rst\n\n";
+
 	QMap<QString, QString> passdoc = getPassDoc();
 	int space = (maxOptWidth() + 4) * -1;
 
