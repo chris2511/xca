@@ -18,7 +18,7 @@
 #include "openssl_compat.h"
 
 #define PEM_STRING_OPENSSH_KEY "OPENSSH PRIVATE KEY"
-#define MAX_KEY_LENGTH 4096
+#define DEFAULT_KEY_LENGTH 2048
 #define ED25519_KEYLEN 32
 
 #define VIEW_public_keys_type 6
@@ -101,7 +101,7 @@ class keyjob
 	int ec_nid;
 	slotid slot;
 	keyjob() {
-		size = 2048;
+		size = DEFAULT_KEY_LENGTH;
 		ktype = keytype::byName("RSA");
 		ec_nid = NID_undef;
 		slot = slotid();
@@ -114,7 +114,7 @@ class keyjob
 		if (sl.size() != 2)
 			return;
 		ktype = keytype::byName(sl[0]);
-		size = 0;
+		size = DEFAULT_KEY_LENGTH;
 		ec_nid = NID_undef;
 		if (isEC())
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());

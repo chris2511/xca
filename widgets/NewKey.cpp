@@ -19,7 +19,7 @@
 #include <QLineEdit>
 #include <QStringList>
 
-keyjob NewKey::defaultjob("RSA:2048");
+keyjob NewKey::defaultjob;
 
 class keyListItem
 {
