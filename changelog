@@ -1,3 +1,5 @@
+xca 2.4.0 Fri May 07 2021
+
  * Unify XCA icon (certificate) on all platforms
  * Close #247: Apple silicon (M1) configure fixes
  * Add Microsoft BitLocker extended key usage
