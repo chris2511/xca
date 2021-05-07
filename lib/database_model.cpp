@@ -542,7 +542,7 @@ void database_model::openLocalDatabase(const QString &connName,
 					const QString &descriptor)
 {
 	QSqlDatabase db = QSqlDatabase::database(connName);
-	QFile f(descriptor);
+	XFile f(descriptor);
 	qDebug() << connName << descriptor;
 	if (!f.exists(descriptor)) {
 		f.open(QIODevice::WriteOnly);
