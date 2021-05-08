@@ -12,7 +12,7 @@ RST_FILES=arguments common-actions object-ids smartcard \
 
 SPHINX_FILES=$(patsubst %,sphinx/%.rst,$(RST_FILES))
 
-.build-stamp doc: xca.1.gz html/index.html qthelp/xca.qhc
+.build-stamp doc: xca.1.gz html/index.html qthelp/xca.qhc changelog.html
 qthelpfiles=qthelp/*.html qthelp/xca.qhc qthelp/xca.qch
 .install-stamp: doc
 
@@ -67,3 +67,5 @@ sphinx/_static/bigcert.png: ../img/bigcert.png
 sphinx/%.rst: rst/%.rst
 	@mkdir -p sphinx
 	cp $^ $@
+changelog.html: ../changelog
+	sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s#^xca \([^ ]*\) *\(.*\)#</ul></div><div id="changelog_\1"><h3>xca \1 \2</h3><ul>#; s#\*\(.*\)#</li><li>\1#' $^ >$@
