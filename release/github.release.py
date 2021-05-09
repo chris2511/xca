@@ -24,7 +24,7 @@ data = {
   "prerelease": True
 }
 
-passwd = input("Github Password for " + user + ": ")
+passwd = input("Github token for " + user + ": ")
 r = []
 
 response = requests.post(url, json=data, auth=(user, passwd))

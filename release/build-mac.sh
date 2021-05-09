@@ -56,5 +56,3 @@ cd "$XCA_BUILD"
 $XCA_DIR/configure --with-macos-version=10.13 --with-openssl="$INSTALL_DIR"
 make -j5
 cp *.dmg ..
-
-DMG=xca-2.3.0.139-Yosemite.dmg

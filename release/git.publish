@@ -10,16 +10,16 @@ export TVERSION
 
 releasedir="$HOME/xca-$TVERSION"
 
-./misc/gen-binary-hash "$releasedir"
+./release/gen-binary-hash "$releasedir"
 git commit -a -m "Release XCA $TVERSION done"
 
-./github.release.py "$TVERSION" "${releasedir}/"*xca*"$TVERSION"*
+./release/github.release.py "$TVERSION" "${releasedir}/"*xca*"$TVERSION"*
 
 cat << EOF
 
 After verifying the commits, tags and github release,
 finally do:
   git push origin --tags master
-  scp ${releasedir}/doc/* hohnstaedt.de:xca-doc/
+  scp -r ${releasedir}/doc/html hohnstaedt.de:xca-doc/
   Un-draft the release on github
 EOF

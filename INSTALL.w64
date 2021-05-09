@@ -25,6 +25,6 @@ comment out OSSLSIGN line in Makefile
 
 copy the installed Qt tree from windows host to ./qt/
 
-Edit the Qt path in xca-x.y.z/misc/build-w64.sh
-Now call xca-x.y.z/misc/build-w64.sh
-and wait until xca_setup.exe is built.
+Edit the Qt path in xca-x.y.z/release/build-w64.sh
+Now call xca-x.y.z/release/build-w64.sh
+and wait until xca-portable-x.y.z is built.

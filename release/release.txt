@@ -1,0 +1,33 @@
+Release schedule cheat sheet
+
+- Test, test, test
+- Test again
+- Check
+   - ign_openssl_error()
+   - for TRACE
+
+- update translation and xca.pro (qmake-qt4 -o makefile && make)
+- update changelog.txt doc/xca.sgml and README.md
+- ./git.release VERSION
+- Create xca.dmg
+- Create and sign MSI Installer
+- git push git.hohnstaedt.de
+- update xca.hohnstaedt.de:
+  scp changelog git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
+
+https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow
+
+DMG=xca-2.4.0-High-Sierra.dmg
+
+xcrun altool --notarize-app --primary-bundle-id "de.hohnstaedt.xca.dmg" --username "christian@hohnstaedt.de" --password "@keychain:AC_PASSWORD" --asc-provider HWR8GSJ73M --file "$DMG"
+
+xcrun stapler staple "$DMG"
+
+xca.msi > Windows
+unzip xca-portable
+unzip xca-installer-dir > xca-portable
+execute xca.bat in xca-installer-dir
+cp xca.msi -> xca_build
+make xca.msi.signed
+mv xca.msi.signed ~/xca-2.4.0/xca-2.4.0.msi
+

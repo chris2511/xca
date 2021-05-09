@@ -53,7 +53,7 @@ html_theme_options = {
     'logo': 'bigcert.png',
     'logo_name': 'true',
     'fixed_sidebar': 'pinned',
-    'page_width': '1200px',
+    'page_width': '1150px',
 }
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

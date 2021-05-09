@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -ex
+hashes="$(dirname $0)/binary-hashes.json"
 
 export dir="$1"
 (
@@ -14,6 +15,6 @@ export dir="$1"
 	  "last":""
 	}
 	EOF
-) < misc/binary-hashes.json > misc/binary-hashes.json.tmp &&
+) < "$hashes" > "$hashes".tmp &&
 
-mv misc/binary-hashes.json.tmp misc/binary-hashes.json
+mv "$hashes".tmp "$hashes"
