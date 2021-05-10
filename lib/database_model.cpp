@@ -34,6 +34,8 @@
 
 xca_db Database;
 
+bool database_model::open_without_password = false;
+
 QSqlError database_model::initSqlDB()
 {
 #define MAX_SCHEMAS 7
@@ -424,7 +426,6 @@ void database_model::openDatabase(const QString &descriptor, const Passwd &pass)
 
 	qDebug() << "IS REMOTE?" << params.size() << NUM_PARAM << type << params;
 	try {
-		Passwd pwd(pass);
 		QSqlDatabase db = QSqlDatabase::addDatabase(type);
 		connName = db.connectionName();
 		if (!isRemote) {
@@ -432,7 +433,7 @@ void database_model::openDatabase(const QString &descriptor, const Passwd &pass)
 				throw errorEx(tr("No SqLite3 driver available. Please install the qt-sqlite package of your distribution"));
 			openLocalDatabase(connName, descriptor);
 		} else {
-			openRemoteDatabase(connName, params, pwd);
+			openRemoteDatabase(connName, params, pass);
 		}
 		DbTransaction::setHasTransaction(
 			db.driver()->hasFeature(QSqlDriver::Transactions));
@@ -483,7 +484,7 @@ enum open_result database_model::initPass(const QString &dbName, const QString &
 		salt = Entropy::makeSalt();
 		pki_evp::passHash =pki_evp::sha512passwT(pki_evp::passwd,salt);
 		Settings["pwhash"] = pki_evp::passHash;
-	} else {
+	} else if (!open_without_password) {
 		pwhash_upgrade();
 		while (pki_evp::sha512passwT(pki_evp::passwd, pki_evp::passHash)
 				!= pki_evp::passHash)
@@ -501,6 +502,7 @@ enum open_result database_model::initPass(const QString &dbName, const QString &
 			pwhash_upgrade();
 		}
 	}
+	open_without_password = false;
 	if (pki_evp::passwd.isNull())
 		pki_evp::passwd = "";
 	return pw_ok;

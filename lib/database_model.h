@@ -49,6 +49,7 @@ class database_model: public QObject
 		void pkiChangedSlot(pki_base *pki);
 
 	public:
+		static bool open_without_password;
 		database_model(const QString &dbName,
 				const Passwd &pass = Passwd());
 		~database_model();

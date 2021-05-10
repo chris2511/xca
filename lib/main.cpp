@@ -159,6 +159,9 @@ static void read_cmdline(int argc, char *argv[])
 	if (cmd_opts.getResult() != 0)
 		cmd_help(EXIT_FAILURE, cmd_opts.resultString().toUtf8());
 
+	if (!cmd_opts.has("password"))
+		database_model::open_without_password = true;
+
 	if (cmd_opts.has("database"))
 		Database.open(cmd_opts["database"], sqlpw);
 
@@ -189,6 +192,8 @@ static void read_cmdline(int argc, char *argv[])
 			cmd_help(EXIT_FAILURE, msg[opt]);
 		}
 	}
+	database_model::open_without_password = true;
+
 	if (cmd_opts.has("list-curves")) {
 		QStringList list;
 		foreach(const builtin_curve &c, builtinCurves) {
