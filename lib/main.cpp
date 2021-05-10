@@ -203,6 +203,17 @@ static void read_cmdline(int argc, char *argv[])
 		}
 		console_write(stdout, list.join("\n").toUtf8() + '\n');
 	}
+	if (cmd_opts.has("list-items")) {
+		QStringList list;
+		foreach(pki_base *pki, Store.getAll<pki_base>()) {
+			list << QString(COL_YELL "%1 " COL_GREEN "%2 "
+					COL_RESET "%3")
+					.arg(pki->getSqlItemId().toString(), 7)
+					.arg(pki->getTypeString(), -27)
+					.arg(pki->getIntName());
+		}
+		console_write(stdout, list.join("\n").toUtf8() + '\n');
+	}
 	if (!cmd_opts["index"].isEmpty()) {
 		qDebug() << cmd_opts["index"];
 		db_x509 *certs = Database.model<db_x509>();
@@ -242,10 +253,11 @@ static void read_cmdline(int argc, char *argv[])
 		foreach(pki_x509 *iss, issuers) {
 			pki_key *key = iss->getRefKey();
 			QString keytype = key ? key->getTypeString() : "";
-			out << QString("%1 '%2' %3")
-				.arg(iss->getSqlItemId().toULongLong(), 4)
-				.arg(iss->getIntName())
-				.arg(keytype);
+			out << QString(COL_YELL "%1 " COL_GREEN "%2 "
+					COL_RESET "%3")
+				.arg(iss->getSqlItemId().toULongLong(), 7)
+				.arg(keytype, -13)
+				.arg(iss->getIntName());
 		}
 		console_write(stdout, out.join("\n").toUtf8() + '\n');
 	}

@@ -139,6 +139,7 @@ class pki_base : public QObject
 		{
 			return pkiType;
 		}
+		QString getTypeString() const;
 		QString i2d_b64() const
 		{
 			return QString::fromLatin1(i2d().toBase64());

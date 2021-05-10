@@ -41,6 +41,8 @@ const QList<arg_option> arguments::opts = {
 		"Generate a new key and import it into the database. Use the 'name' option to set the internal name of the new key. The <type> parameter has the format: '[RSA|DSA|EC]:[<size>|<curve>]."),
 	arg_option("list-curves", NULL, no_argument, true, false,
 		"Prints all known Elliptic Curves."),
+	arg_option("list-items", NULL, no_argument, true, true,
+		"List all items in the database."),
 	arg_option("name", "internal-name", required_argument, false, true,
 		"Provides the name of new generated items. An automatic name will be generated if omitted."),
 	arg_option("no-gui", NULL, no_argument, true, false,

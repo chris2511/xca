@@ -395,6 +395,12 @@ void pki_base::collect_properties(QMap<QString, QString> &prp) const
 	prp["Descriptor"] = getIntName();
 	if (getComment().size() > 0)
 		prp["Comment"] = "\n" + getComment().replace('\n', "\n    ");
+	prp["Type"] = getTypeString();
+}
+
+QString pki_base::getTypeString() const
+{
+	QString t;
 	switch (pkiType) {
 	case asym_key:   t = "Asymetric Key"; break;
 	case x509_req:   t = "PKCS#10 Certificate request"; break;
@@ -403,7 +409,7 @@ void pki_base::collect_properties(QMap<QString, QString> &prp) const
 	case tmpl:       t = "XCA Template"; break;
 	default:         t = "Unknown"; break;
 	}
-	prp["Type"] = t;
+	return t;
 }
 
 void pki_base::print(BioByteArray &bba, enum print_opt opt) const
