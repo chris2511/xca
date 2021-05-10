@@ -366,9 +366,6 @@ int main(int argc, char *argv[])
 
 	migrateOldPaths();
 
-	qWarning() << "AppDataLocation" << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-	qWarning() << "AppConfigLocation" << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
 	Entropy entropy;
 	Settings.clear();
 	initOIDs();

@@ -48,8 +48,8 @@ db_temp::db_temp() : db_x509name("templates")
 			if (template_files.contains(fileInfo.fileName()))
 				continue;
 
-			qWarning() << "LOAD TMP" << fileInfo.absoluteFilePath()
-						<< fileInfo.fileName();
+			qDebug() << "Loading template" << fileInfo.fileName()
+					<< fileInfo.absoluteFilePath();
 			try {
 				tmpl = dynamic_cast<pki_temp*>(l.loadItem(
 						fileInfo.absoluteFilePath()));

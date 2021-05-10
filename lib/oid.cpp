@@ -126,7 +126,7 @@ static void readOIDs(const QString &fname)
 	QFile file(fname);
 	if (!file.open(QIODevice::ReadOnly))
                 return;
-	qWarning() << "readOIDs" << fname;
+	qDebug() << "Read additional OIDs from" << fname;
 	QTextStream in(&file);
 	while (!in.atEnd()) {
 		QString entry = in.readLine().trimmed();
@@ -179,7 +179,8 @@ static NIDlist read_nidlist(const QString &name)
 				QStandardPaths::AppDataLocation))
 	{
 		nl = readNIDlist(d + "/" + name);
-		qWarning() << "read_nidlist" << d + "/" + name << nl.count();
+		qDebug() << "Read" << nl.count() << "NIDs from"
+				 << d + "/" + name;
 		if (nl.count() > 0)
 			break;
 	}

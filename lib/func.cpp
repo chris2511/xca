@@ -251,7 +251,7 @@ const QString getDocDir()
 		docdir += "/html";
 #endif
 		if (QFileInfo::exists(docdir + "/xca.qhc")) {
-			qWarning() << "Detected" << docdir + "/xca.qhc";
+			qDebug() << "Detected" << docdir + "/xca.qhc";
 			return docdir;
 		}
 	}
@@ -299,16 +299,15 @@ void migrateOldPaths()
 		QCoreApplication::applicationName();
 #endif
 	QDir old_dir(old);
-	qWarning() << "OLD" << old;
 	if (old.isEmpty() || !old_dir.exists())
 		return;
-	qWarning() << "OLDexists" << old;
+	qDebug() << "Old XCA directory exists" << old;
 	QString new_dir = getUserSettingsDir() + "/";
 	foreach(QString n, QStringList({"dbhistory", "defaultdb",
 					"defaultlang", ".rnd"}))
 	{
 		old_dir.rename(n, new_dir + n);
-		qWarning() << "Move" << old + "/" + n << new_dir + n;
+		qDebug() << "Move file" << old + "/" + n << new_dir + n;
 	}
 	old_dir.rmdir(old);
 }
