@@ -19,7 +19,7 @@ PIXMAPS = xca-32x32.xpm
 ICONDIR = $(datadir)/icons/hicolor
 
 install: install-pixmaps $(ICONS) $(ICONS_SRC)
-.install-stamp: $(PIXMAPS) $(ICONS_SRC)
+.install-stamp: $(PIXMAPS) $(ICONS_SRC) xca-icons.icns
 
 install-pixmaps: $(PIXMAPS)
 	install -d $(DESTDIR)$(datadir)/pixmaps/
@@ -42,7 +42,8 @@ w32res.o: w32res.rc xca.ico
 	$(WINDRES) $< $@
 
 xca-icons.icns: xca-icons.iconset
-	iconutil --convert icns $^
+	@$(PRINT) "  ICNS   $@"
+	iconutil --convert icns -o $@ $^
 
 app: xca-icons.icns
 	mkdir -p $(APPDIR)/Resources

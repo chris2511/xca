@@ -114,7 +114,7 @@ clean:
 	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
 	rm -f commithash.h misc/oids.txt misc/variables.wxi doc/xca.1
 	rm -f xca$(SUFFIX) *.dmg xca-portable*.zip msi-installer-dir*.zip xca*.msi
-	rm -rf xca-$(VERSION)* msi-installer-dir-$(VERSION)* xca-portable-$(VERSION)* doc/html/ doc/qthelp/ doc/sphinx
+	rm -rf xca-$(VERSION)* msi-installer-dir-$(VERSION)* xca-portable-$(VERSION)* doc/html/ doc/qthelp/ doc/sphinx AppStore xca.app
 
 distclean: clean
 	rm -f local.h Local.mak config.log config.status misc/Info.plist
