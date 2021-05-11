@@ -96,15 +96,15 @@ void MainWindow::about()
 
 	Entropy::seed_rng();
 	cont = QString(
-	"<p><h3><center><u>XCA%8</u></center></h3>"
+	"<p><h3><center><u>XCA%7</u></center></h3>"
 	"<p>Copyright 2001 - 2021 by Christian Hohnstädt\n"
-	"<p>Version: %4<p>%1<p>%2" /* commithash, Brainpool, OpenSSL & Qt Version */
+	"<p>Version: %3<p>%1" /* commithash, OpenSSL & Qt Version */
 	"<p><a href=\"https://hohnstaedt.de/xca\">https://hohnstaedt.de/xca</a>"
-	"<p>Entropy strength: %3"
+	"<p>Entropy strength: %2"
 	"<p><table border=\"0\">"
-	"<tr><td>Installation path:</td><td>%5</td></tr>"
-	"<tr><td>User settings path:</td><td>%6</td></tr>"
-	"<tr><td>Working directory:</td><td>%7</td></tr>"
+	"<tr><td>Installation path:</td><td>%4</td></tr>"
+	"<tr><td>User settings path:</td><td>%5</td></tr>"
+	"<tr><td>Working directory:</td><td>%6</td></tr>"
 	"</table>"
 	"<hr><table border=\"0\">"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
@@ -112,7 +112,7 @@ void MainWindow::about()
 	"<tr><th align=left>Kerstin Steinhauff</th><td><u>&lt;tine@kerstine.de&gt;</td></u></tr>"
 	"<tr><td></td><td>Arts and Graphics</td></tr>"
 	"</table><hr><center><u><b>Maintained Translations</b></u></center>"
-	"<p><table><tr>%9</tr></table>").arg(brainpool)
+	"<p><table><tr>%8</tr></table>")
 			.arg(version)
 			.arg(Entropy::strength())
 			.arg(version_str(true))
