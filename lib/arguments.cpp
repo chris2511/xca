@@ -53,6 +53,8 @@ const QList<arg_option> arguments::opts = {
 		"Print PEM representation of provided files. Prints only the public part of private keys."),
 	arg_option("print", NULL, no_argument, true, false,
 		"Print a synopsis of provided files."),
+	arg_option("select", "id-list", required_argument, true, true,
+		"Selects all items in the comma separated id-list to be shown with 'print', 'text' or 'pem'."),
 	arg_option("sqlpass", "password", required_argument, false, false,
 		"Password to access the remote SQL server."),
 	arg_option("text", NULL, no_argument, true, false,

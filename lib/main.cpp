@@ -294,6 +294,16 @@ static void read_cmdline(int argc, char *argv[])
 				cmdline_items->append_item(crl);
 		}
 	}
+	if (!cmd_opts["select"].isEmpty()) {
+		foreach(QString item, cmd_opts["select"].split(",")) {
+			bool ok;
+			qWarning() << "Select" << item;
+			qulonglong id = item.toULongLong(&ok);
+			pki_base *pki = Store.lookupPki<pki_base>(QVariant(id));
+			if (pki)
+				cmdline_items->append_item(pki);
+		}
+	}
 
 	BioByteArray bba;
 	foreach(pki_base *pki, cmdline_items->get()) {
