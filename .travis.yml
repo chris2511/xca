@@ -7,16 +7,11 @@ env:
     global:
         - PARALLELMFLAGS="-j4"
     matrix:
-        - OPENSSL_UPSTREAM=old/1.0.2/openssl-1.0.2u.tar.gz
-          OPENSSL_SHA1=740916d79ab0d209d2775277b1c6c3ec2f6502b2
+        - INSTALL_SPHINX=""
+          OPENSSL_FLAGS=""
 
-        - OPENSSL_UPSTREAM=old/1.1.1/openssl-1.1.1d.tar.gz
-          OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
-          INSTALL_SPHINX="yes"
-
-        - OPENSSL_UPSTREAM=old/1.1.1/openssl-1.1.1d.tar.gz
-          OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
-          OPENSSL_FLAGS=no-ec
+        - INSTALL_SPHINX="yes"
+        - OPENSSL_FLAGS=no-ec
 
 script:
     - docker build --rm

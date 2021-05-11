@@ -9,10 +9,10 @@ Requirements:
 
 for compilation, you need the following Libraries:
 
-QT          >=  5.0.0  from http://www.troll.no
-OpenSSL     >=  1.1.0  from http://www.openssl.org
+QT          >=  5.0.0  from https://www.qt.io
+OpenSSL     >=  1.1.0  from https://www.openssl.org
 
-GNU C++ compiler >= 3.1.0
+C++11 compiler, e.g. GNU gcc >= 5
 GNU make
 
 

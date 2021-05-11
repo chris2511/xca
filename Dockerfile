@@ -14,9 +14,9 @@ RUN set -x \
                 libltdl-dev \
 		ca-certificates \
 		curl \
-		libqt4-dev \
-		libqt4-sql-sqlite \
-		qt4-dev-tools \
+		qt5-default \
+		qtbase5-dev \
+		qtbase5-dev-tools \
 		x11-apps \
 		python3-pip
 

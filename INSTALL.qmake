@@ -10,8 +10,6 @@ $ qmake -o makefile
 creates the makefile. I recommend "makefile" to not overwrite "Makefile"
 and also assures, that it is used instead of the original Makefile.
 
-(At least on debian the qmake command is "qmake-qt4")
-
 Now you need to create the file Local.h
 $ cat >local.h <<EOF
 #define XCA_VERSION "`cat VERSION`"
