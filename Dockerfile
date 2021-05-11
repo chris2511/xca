@@ -17,6 +17,8 @@ RUN set -x \
 		qt5-default \
 		qtbase5-dev \
 		qtbase5-dev-tools \
+		qttools5-dev \
+		qttools5-dev-tools \
 		x11-apps \
 		python3-pip
 

@@ -92,11 +92,11 @@ QByteArray pki_key::i2d() const
 void pki_key::write_SSH2_ed25519_private(BIO *b,
 			 const EVP_PKEY *pkey, const EVP_CIPHER *enc) const
 {
+	(void)enc;
 #ifndef OPENSSL_NO_EC
 	static const char data0001[] = { 0, 0, 0, 1};
 	char buf_nonce[8];
 	QByteArray data, priv, pubfull;
-	(void)enc;
 
 	pubfull = SSH2publicQByteArray(true);
 	RAND_bytes((unsigned char*)buf_nonce, sizeof buf_nonce);
@@ -116,6 +116,9 @@ void pki_key::write_SSH2_ed25519_private(BIO *b,
 	PEM_write_bio(b, PEM_STRING_OPENSSH_KEY, (char*)"",
 		(unsigned char*)(data.data()), data.size());
 	pki_openssl_error();
+#else
+	(void)b;
+	(void)pkey;
 #endif
 }
 

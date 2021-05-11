@@ -560,7 +560,7 @@ void db_x509::store(QModelIndexList list)
 	if (list.size() == 0)
 		return;
 
-	pki_x509 *oldcrt, *crt = fromIndex<pki_x509>(list[0]);
+	pki_x509 *oldcrt = nullptr, *crt = fromIndex<pki_x509>(list[0]);
 	if (!crt)
 		return;
 
