@@ -290,10 +290,10 @@ void pki_scard::deleteFromToken()
 pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 {
 	QByteArray ba;
-	RSA *rsa;
-	DSA *dsa;
+	const RSA *rsa;
+	const DSA *dsa;
 #ifndef OPENSSL_NO_EC
-	EC_KEY *ec;
+	const EC_KEY *ec;
 #endif
 	const BIGNUM *n = NULL;
 	const BIGNUM *e = NULL;
@@ -398,10 +398,10 @@ int pki_scard::renameOnToken(const slotid &slot, const QString &name)
 void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 {
 	QByteArray ba;
-	RSA *rsa;
-	DSA *dsa;
+	const RSA *rsa;
+	const DSA *dsa;
 #ifndef OPENSSL_NO_EC
-	EC_KEY *ec;
+	const EC_KEY *ec;
 #endif
 	pk11_attlist pub_atts;
 	pk11_attlist priv_atts;

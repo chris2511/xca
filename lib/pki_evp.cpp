@@ -250,8 +250,8 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 static void search_ec_oid(EVP_PKEY *pkey)
 {
 #ifndef OPENSSL_NO_EC
-	EC_KEY *ec;
 	EC_GROUP *builtin;
+	const EC_KEY *ec;
 	const EC_GROUP *ec_group;
 
 	int keytype = EVP_PKEY_id(pkey);
@@ -806,7 +806,7 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 		EVP_MD_CTX_free(ctx);
 
 	if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
-		RSA *rsa = EVP_PKEY_get0_RSA(pkey);
+		const RSA *rsa = EVP_PKEY_get0_RSA(pkey);
 		if (RSA_check_key(rsa) != 1)
 			verify = false;
 	}
