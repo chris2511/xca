@@ -14,6 +14,8 @@
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include "widgets/ItemCombo.h"
+#include "widgets/ExportDialog.h"
+#include "ui_ExportDialog.h"
 
 db_crl::db_crl() : db_x509name("crls")
 {

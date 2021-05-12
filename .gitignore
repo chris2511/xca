@@ -1,7 +1,3 @@
-.depend
-*qmake_qmake_immediate.*
-.qmake.stash
-.build-stamp
 *.o
 *.obj
 *.rej
@@ -10,19 +6,5 @@
 *.h.gch
 ui_*.h
 moc_*
-Local.mak
-local.h
-commithash.h
 xca
-xca.exe
-setup_xca*.exe
-xca_db_stat
-xca_db_stat.exe
-aclocal.m4
-autom4te.cache/
-config.cache
-config.log
-config.status
-configure
-misc/Info.plist
 misc/variables.wxi

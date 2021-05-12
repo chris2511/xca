@@ -9,17 +9,17 @@
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
 	<key>CFBundleShortVersionString</key>
-	<string>@XCA_VERSION@</string>
+	<string>@PROJECT_VERSION@</string>
 	<key>CFBundleVersion</key>
-	<string>@XCA_VERSION@</string>
+	<string>@PROJECT_VERSION@</string>
 	<key>CFBundleIconFile</key>
 	<string>xca-icons.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.hohnstaedt.xca</string>
 	<key>CFBundleName</key>
-	<string>@PACKAGE_TARNAME@</string>
+	<string>@CMAKE_PROJECT_NAME@</string>
 	<key>CFBundleDisplayName</key>
-	<string>@PACKAGE_NAME@</string>
+	<string>@CMAKE_PROJECT_NAME@</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -29,7 +29,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>@MACOS_VERSION3@</string>
+	<string>@CMAKE_OSX_DEPLOYMENT_TARGET@.0</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<string>no</string>
 	<key>CFBundleDocumentTypes</key>

@@ -1,0 +1,37 @@
+include_directories(${Qt5Widgets_INCLUDE_DIRS}
+                ${Qt5Sql_INCLUDE_DIRS}
+                ${Qt5Core_INCLUDE_DIRS}
+                ${Qt5Help_INCLUDE_DIRS}
+                ${OPENSSL_INCLUDE_DIR}
+		${LTDL_INCLUDE_DIR}
+                ${PROJECT_BINARY_DIR}
+                ${PROJECT_SOURCE_DIR}
+)
+add_library(widgets STATIC
+CertDetail.cpp		NewCrl.cpp		XcaApplication.h
+CertDetail.h		NewCrl.h		XcaDialog.cpp
+CertExtend.cpp		NewKey.cpp		XcaDialog.h
+CertExtend.h		NewKey.h		XcaHeaderView.cpp
+CertTreeView.cpp	NewX509.cpp		XcaHeaderView.h
+CertTreeView.h		NewX509.h
+CrlDetail.cpp		NewX509_ext.cpp		XcaProxyModel.cpp
+CrlDetail.h		OidResolver.cpp		XcaProxyModel.h
+CrlTreeView.cpp		OidResolver.h		XcaTreeView.cpp
+CrlTreeView.h		OpenDb.cpp		XcaTreeView.h
+ExportDialog.cpp	OpenDb.h		XcaWarning.cpp
+ExportDialog.h		Options.cpp		XcaWarning.h
+FocusCombo.h		Options.h		clicklabel.cpp
+Help.cpp		PwDialog.cpp		clicklabel.h
+Help.h			PwDialog.h
+ImportMulti.cpp		ReqTreeView.cpp
+ImportMulti.h		ReqTreeView.h		distname.cpp
+ItemCombo.h		RevocationList.cpp	distname.h
+KeyDetail.cpp		RevocationList.h	hashBox.cpp
+KeyDetail.h		SearchPkcs11.cpp	hashBox.h
+KeyTreeView.cpp		SearchPkcs11.h		kvView.cpp
+KeyTreeView.h		TempTreeView.cpp	kvView.h
+MW_help.cpp		TempTreeView.h		v3ext.cpp
+MW_menu.cpp		X509SuperTreeView.cpp	v3ext.h
+MainWindow.cpp		X509SuperTreeView.h	validity.cpp
+MainWindow.h		XcaApplication.cpp	validity.h
+)

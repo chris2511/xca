@@ -1,8 +1,10 @@
-/* Filled in version number from the VERSION file + commit iterator */
-#undef XCA_VERSION
+#define XCA_VERSION "@PROJECT_VERSION@"
 
 /* usually "xca" */
-#undef PACKAGE_TARNAME
+#define PACKAGE_TARNAME "@PROJECT_NAME@"
 
 /* usually "X Certificate and Key management" */
-#undef PACKAGE_NAME
+#define PACKAGE_NAME "@PROJECT_DESCRIPTION@"
+
+#define GIT_COMMIT_REV "@GIT_REV@"
+#cmakedefine GIT_LOCAL_CHANGES

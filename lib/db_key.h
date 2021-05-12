@@ -8,6 +8,7 @@
 #ifndef __DB_KEY_H
 #define __DB_KEY_H
 
+#include "exportType.h"
 #include "db_base.h"
 #include "pki_key.h"
 

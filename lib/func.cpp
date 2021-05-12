@@ -13,6 +13,7 @@
 #include "lib/settings.h"
 #include "widgets/validity.h"
 #include "widgets/XcaWarning.h"
+#include <openssl/evp.h>
 #include <openssl/objects.h>
 #include <openssl/sha.h>
 #include <openssl/asn1.h>

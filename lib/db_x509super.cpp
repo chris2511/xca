@@ -16,6 +16,8 @@
 #include "widgets/XcaDialog.h"
 #include "widgets/XcaWarning.h"
 
+#include "ui_CertDetail.h"
+
 #include <QFileDialog>
 #include <QFileInfo>
 

@@ -18,6 +18,9 @@
 
 #include "widgets/XcaWarning.h"
 
+#warning Drop "widgets dependency"
+#include "ui_MainWindow.h"
+
 #include <QThread>
 #include <QProgressBar>
 #include <ltdl.h>

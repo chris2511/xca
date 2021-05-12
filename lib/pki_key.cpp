@@ -10,8 +10,8 @@
 #include "pki_x509super.h"
 #include "func.h"
 #include "pkcs11.h"
+#include "exportType.h"
 #include "widgets/XcaWarning.h"
-#include "widgets/ExportDialog.h"
 
 #include <openssl/rand.h>
 #include <openssl/pem.h>

@@ -9,6 +9,7 @@
 #ifndef __DB_X509_H
 #define __DB_X509_H
 
+#include "exportType.h"
 #include "db_x509super.h"
 #include "asn1int.h"
 #include "x509rev.h"

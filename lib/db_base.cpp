@@ -17,11 +17,14 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include "widgets/XcaWarning.h"
-#include "widgets/MainWindow.h"
 #include "widgets/XcaApplication.h"
 #include "widgets/ImportMulti.h"
 #include "widgets/XcaDialog.h"
+
+#warning drop UI dependencies
 #include "ui_ItemProperties.h"
+#include "ui_ImportMulti.h"
+#include "ui_XcaDialog.h"
 
 void db_base::restart_timer()
 {

@@ -11,7 +11,7 @@
 #include <typeinfo>
 #include "base.h"
 #include "load_obj.h"
-#include "widgets/ExportDialog.h"
+#include "exportType.h"
 #include "pki_base.h"
 #include "headerlist.h"
 

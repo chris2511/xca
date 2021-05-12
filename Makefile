@@ -1,36 +1,3 @@
-#
-# Makefile for XCA
-#
-#####################################################################
-
-TAG=RELEASE.$(TVERSION)
-TARGET=xca-$(TVERSION)
-MAKEFLAGS += -rR
-
-export BUILD=$(shell pwd)
-
-ifneq ($(MAKECMDGOALS), distclean)
-ifneq ($(MAKECMDGOALS), clean)
-ifneq ($(MAKECMDGOALS), dist)
-include Local.mak
-endif
-endif
-endif
-ifeq ($(TOPDIR),)
-TOPDIR=.
-endif
-
-VPATH=$(TOPDIR)
-SUBDIRS=lib widgets img misc
-OBJECTS=$(patsubst %, %/.build-stamp, $(SUBDIRS))
-INSTDIR=misc lang doc img
-INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
-INSTSTAMP=$(patsubst %, %/.install-stamp, $(INSTDIR))
-APPTARGET=$(patsubst %, app.%, $(INSTDIR))
-
-DMGSTAGE=$(BUILD)/xca-$(VERSION)
-MACTARGET=$(DMGSTAGE)${EXTRA_VERSION}
-APPDIR=$(BUILD)/xca.app/Contents
 OSSLSIGN=PKCS11SPY=/opt/SimpleSign/libcrypto3PKCS.so /usr/local/bin/osslsigncode
 
 OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
@@ -40,84 +7,12 @@ OSSLSIGN_OPT=sign -askpass -certs ~/osdch.crt -askpass \
 	-n "XCA $(VERSION)" -i https://hohnstaedt.de/xca \
 	-t http://timestamp.comodoca.com -h sha2
 
-ifeq ($(SUFFIX), .exe)
-all: xca-portable.zip msi-installer-dir.zip
-else
-ifneq ($(MACDEPLOYQT),)
-all: xca.dmg
 ifneq ($(APPLE_DEVELOPER),)
 APPLE_CERT_ID_APP=Developer ID Application: $(APPLE_DEVELOPER)
 APPLE_CERT_3PARTY_INST=3rd Party Mac Developer Installer: $(APPLE_DEVELOPER)
 APPLE_CERT_3PARTY_APP=3rd Party Mac Developer Application: $(APPLE_DEVELOPER)
 all: xca.pkg
 endif
-else
-all: xca$(SUFFIX) do.doc do.lang
-	@echo
-	@echo "Ok, compilation was successful."
-	@echo "Now do as root: 'make install'"
-	@echo
-endif
-endif
-
-ifeq ($(MAKECMDGOALS),)
-MAKEFLAGS += -s
-export DOCTOOLFLAGS += -q
-PRINT=echo
-else
-PRINT=:
-endif
-export PRINT
-
-ifneq ($(TOPDIR), $(BUILD))
-do.ui: clean_topdir
-clean_topdir:
-	$(MAKE) -C $(TOPDIR) clean
-endif
-
-xca$(SUFFIX): $(OBJECTS)
-	@$(PRINT) "  LINK   $@"
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
-
-do.ui do.doc do.lang do.misc: do.%:
-	mkdir -p $*
-	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* all
-
-headers: do.ui commithash.h
-
-%/.build-stamp: headers
-	mkdir -p $*
-	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
-		VPATH=$(TOPDIR)/$*
-
-%/.install-stamp: %/.build-stamp headers
-	mkdir -p $*
-	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
-		VPATH=$(TOPDIR)/$* .install-stamp
-
-$(INSTTARGET): install.%: %/.build-stamp
-	mkdir -p $*
-	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
-		VPATH=$(TOPDIR)/$* install
-
-$(APPTARGET): app.%: %/.install-stamp
-	mkdir -p $*
-	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
-		VPATH=$(TOPDIR)/$* APPDIR=$(APPDIR) app
-
-clean:
-	find lib widgets img misc -name "*.o" \
-				-o -name ".build-stamp" \
-				-o -name ".depend" \
-				-o -name "moc_*.cpp" | xargs rm -f
-	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
-	rm -f lang/*.xml lang/.build-stamp misc/dn.txt misc/eku.txt
-	rm -f commithash.h misc/oids.txt misc/variables.wxi doc/xca.1
-	rm -f xca$(SUFFIX) *.dmg xca-portable*.zip msi-installer-dir*.zip xca*.msi
-	rm -rf xca-$(VERSION)* msi-installer-dir-$(VERSION)* xca-portable-$(VERSION)* doc/html/ doc/qthelp/ doc/sphinx AppStore xca.app
-
-distclean: clean
-	rm -f local.h Local.mak config.log config.status misc/Info.plist
 
 dist: $(TARGET).tar.gz
 $(TARGET).tar:
@@ -137,11 +32,6 @@ snapshot:
 	HASH=$$(git rev-parse HEAD) && \
 	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
 		gzip -9 > xca-$${HASH}.tar.gz
-
-install: xca$(SUFFIX) $(INSTTARGET)
-	install -m 755 -d $(DESTDIR)$(bindir)
-	install -m 755 xca $(DESTDIR)$(bindir)
-	$(STRIP) $(DESTDIR)$(bindir)/xca
 
 xca$(SUFFIX).signed: xca$(SUFFIX)
 
@@ -241,14 +131,3 @@ trans:
 	$(MAKE) -C lang po2ts
 	lupdate -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
-
-.PHONY: $(SUBDIRS) $(INSTDIR) commithash.h xca-portable.zip msi-installer-dir.zip
-
-do.doc do.lang headers: local.h
-
-Local.mak: configure Local.mak.in
-	$(TOPDIR)/configure
-
-commithash.h:
-	@$(PRINT) "  GEN    $@"
-	$(TOPDIR)/gen_commithash.h.sh $@

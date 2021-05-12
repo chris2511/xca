@@ -26,6 +26,11 @@
 #include "widgets/NewX509.h"
 #include "widgets/Help.h"
 
+#include "ui_RevocationList.h"
+#include "ui_CertExtend.h"
+#include "ui_Revoke.h"
+#include "ui_Help.h"
+
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include <QAction>

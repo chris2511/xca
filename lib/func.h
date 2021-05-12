@@ -8,17 +8,12 @@
 #ifndef __FUNC_H
 #define __FUNC_H
 
-#include <QPixmap>
 #include <QByteArray>
 #include <QMap>
-#include <QTextDocument>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdio.h>
-
-#include <openssl/evp.h>
-#include <openssl/asn1.h>
 
 #include "base.h"
 #include "Passwd.h"
@@ -38,7 +33,12 @@
 
 class Validity;
 class MainWindow;
+class QPixmap;
 extern MainWindow *mainwin;
+
+typedef struct asn1_object_st ASN1_OBJECT;
+typedef struct asn1_string_st ASN1_STRING;
+typedef struct evp_md_st EVP_MD;
 
 int console_write(FILE *fp, const QByteArray &ba);
 Passwd readPass();

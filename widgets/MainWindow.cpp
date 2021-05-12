@@ -40,6 +40,7 @@
 #include "XcaProgressGui.h"
 #include "PwDialog.h"
 #include "OpenDb.h"
+#include "Help.h"
 #include "OidResolver.h"
 
 OidResolver *MainWindow::resolver = NULL;

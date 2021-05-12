@@ -7,17 +7,15 @@
  * and needs to get recompiled every time
  */
 
-#ifndef QMAKE
 #include "local.h"
-#endif
-
-#ifndef NO_COMMITHASH
-#include "commithash.h"
-#else
-#define COMMITHASH ""
-#endif
 
 #define VERSION XCA_VERSION
+
+#ifdef GIT_LOCAL_CHANGES
+#define COMMITHASH GIT_COMMIT_REV "+local-changes"
+#else
+#define COMMITHASH GIT_COMMIT_REV
+#endif
 
 const char *version_str(bool html)
 {

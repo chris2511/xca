@@ -14,8 +14,6 @@
 #include <QStringList>
 #include <QMap>
 
-#include "func.h"
-
 struct option;
 
 #define file_argument (required_argument+1)

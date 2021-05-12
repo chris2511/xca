@@ -19,6 +19,8 @@
 #include <openssl/pkcs12.h>
 #include <openssl/stack.h>
 
+#warning split PwDialog into console and GUI
+#include "ui_PwDialog.h"
 #include <QMessageBox>
 
 pki_pkcs12::pki_pkcs12(const QString &d, pki_x509 *acert, pki_key *akey)

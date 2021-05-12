@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = '@PACKAGE_TARNAME@'
+project = '@PROJECT_NAME@'
 copyright = '2021, Christian Hohnstädt'
 author = 'Christian Hohnstädt'
 

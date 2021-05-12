@@ -16,17 +16,9 @@
 #endif
 
 #include <qglobal.h>
-#include <openssl/opensslv.h>
-#ifndef QMAKE
 #include "local.h"
-#else
-#define PREFIX "/usr/local"
-#define ETC "/etc"
-#define DOCDIR "/usr/local/doc/xca"
-#endif
 
 #define CCHAR(x) qPrintable(x)
-#endif
 
 #define C_FILE ((strrchr(__FILE__, '/') ? : __FILE__- 1) + 1)
 #define TRACE qDebug("File: %s Func: %s Line: %d", C_FILE, __func__, __LINE__);
@@ -44,4 +36,6 @@
 #define xntohl(x) (__builtin_bswap32(x))
 #else
 	# error "What kind of system is this?"
+#endif
+
 #endif
