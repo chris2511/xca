@@ -282,8 +282,8 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 static void search_ec_oid(EVP_PKEY *pkey)
 {
 #ifndef OPENSSL_NO_EC
-	EC_KEY *ec;
 	EC_GROUP *builtin;
+	const EC_KEY *ec;
 	const EC_GROUP *ec_group;
 
 	int keytype = EVP_PKEY_id(pkey);
@@ -620,10 +620,6 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	EVP_CIPHER_CTX_free(ctx);
 
 	pki_openssl_error();
-	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
-		RSA *rsa = EVP_PKEY_get0_RSA(tmpkey);
-		RSA_blinding_on(rsa, NULL);
-	}
 	myencKey.fill(0);
 	return tmpkey;
 }
@@ -930,7 +926,7 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 		EVP_MD_CTX_free(ctx);
 #endif
 	if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
-		RSA *rsa = EVP_PKEY_get0_RSA(pkey);
+		const RSA *rsa = EVP_PKEY_get0_RSA(pkey);
 		if (RSA_check_key(rsa) != 1)
 			verify = false;
 	}
