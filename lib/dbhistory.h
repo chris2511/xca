@@ -14,6 +14,7 @@ class dbhistory
 {
 	private:
 		QStringList history;
+		static QString lastRemote;
 
 	public:
 		dbhistory();
@@ -22,5 +23,7 @@ class dbhistory
 		{
 			return history;
 		}
+		static void setLastRemote(const QString &db);
+		static QString getLastRemote();
 };
 #endif

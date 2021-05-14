@@ -8,7 +8,6 @@
 #include <QString>
 #include <QDir>
 
-#include "widgets/OpenDb.h"
 #include "xfile.h"
 #include "func.h"
 #include "dbhistory.h"
@@ -18,6 +17,7 @@ static QString dbhistory_file()
 {
 	return getUserSettingsDir() +  "/dbhistory";
 }
+QString dbhistory::lastRemote;
 
 dbhistory::dbhistory()
 {
@@ -46,7 +46,7 @@ dbhistory::dbhistory()
 
 	foreach(name, history) {
 		if (database_model::isRemoteDB(name)) {
-			OpenDb::setLastRemote(name);
+			setLastRemote(name);
 			break;
 		}
 	}
@@ -82,3 +82,13 @@ void dbhistory::addEntry(const QString &name)
 	file.close();
 }
 
+void dbhistory::setLastRemote(const QString &db)
+{
+	if (database_model::isRemoteDB(db))
+		lastRemote = db;
+}
+
+QString dbhistory::getLastRemote()
+{
+	return lastRemote;
+}

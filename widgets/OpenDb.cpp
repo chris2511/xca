@@ -14,8 +14,7 @@
 #include "OpenDb.h"
 #include "XcaWarning.h"
 #include "lib/base.h"
-
-QString OpenDb::lastRemote;
+#include "lib/dbhistory.h"
 
 DbMap OpenDb::getDatabases()
 {
@@ -136,12 +135,6 @@ QString OpenDb::getDescriptor() const
 			.arg(pref);
 }
 
-void OpenDb::setLastRemote(const QString &db)
-{
-	if (database_model::isRemoteDB(db))
-		lastRemote = db;
-}
-
 int OpenDb::exec()
 {
 	if (!hasSqLite() && !hasRemoteDrivers())
@@ -150,11 +143,11 @@ int OpenDb::exec()
 	if (!show_connection_settings)
 		return 1;
 
-	setupDatabaseName(lastRemote);
+	setupDatabaseName(dbhistory::getLastRemote());
 
 	bool ret = QDialog::exec();
 
 	if (ret && !sqlite)
-		lastRemote = getDescriptor();
+		dbhistory::setLastRemote(getDescriptor());
 	return ret;
 }
