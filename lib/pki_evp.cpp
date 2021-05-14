@@ -11,10 +11,11 @@
 #include "func.h"
 #include "entropy.h"
 #include "BioByteArray.h"
+#include "XcaProgress.h"
+#include "openssl_compat.h"
+
 #include "widgets/PwDialog.h"
 #include "widgets/XcaWarning.h"
-#include "widgets/XcaProgress.h"
-#include "openssl_compat.h"
 
 #include <openssl/rand.h>
 #include <openssl/evp.h>

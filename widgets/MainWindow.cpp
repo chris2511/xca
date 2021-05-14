@@ -35,6 +35,7 @@
 #include "lib/pki_scard.h"
 #include "XcaDialog.h"
 #include "XcaWarning.h"
+#include "XcaProgressGui.h"
 #include "PwDialog.h"
 #include "OpenDb.h"
 #include "OidResolver.h"
@@ -128,6 +129,7 @@ MainWindow::MainWindow() : QMainWindow()
 	foreach(XcaTreeView *v, views)
 		v->setMainwin(this, searchEdit);
 
+	XcaProgress::setGui(new XcaProgressGui(this));
 	dhgen = NULL;
 	dhgenBar = new QProgressBar();
 	check_oom(dhgenBar);
@@ -430,6 +432,7 @@ MainWindow::~MainWindow()
 	fprintf(stderr, "Memdebug:\n");
 	CRYPTO_mem_leaks_fp(stderr);
 #endif
+	XcaProgress::setGui(nullptr);
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)

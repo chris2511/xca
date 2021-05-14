@@ -14,8 +14,9 @@
 #include "pkcs11.h"
 #include "x509name.h"
 #include "func.h"
+#include "XcaProgress.h"
+
 #include "widgets/XcaWarning.h"
-#include "widgets/XcaProgress.h"
 
 #include <QThread>
 #include <QProgressBar>
