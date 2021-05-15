@@ -10,7 +10,6 @@
 #include "MainWindow.h"
 #include "XcaApplication.h"
 #include "ImportMulti.h"
-#include "dhgen.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -27,12 +26,15 @@
 
 #include <openssl/err.h>
 
+#include "lib/entropy.h"
 #include "lib/Passwd.h"
 #include "lib/database_model.h"
 #include "lib/exception.h"
 #include "lib/pki_evp.h"
 #include "lib/pki_multi.h"
 #include "lib/pki_scard.h"
+#include "lib/dhgen.h"
+
 #include "XcaDialog.h"
 #include "XcaWarning.h"
 #include "XcaProgressGui.h"
@@ -130,11 +132,8 @@ MainWindow::MainWindow() : QMainWindow()
 		v->setMainwin(this, searchEdit);
 
 	XcaProgress::setGui(new XcaProgressGui(this));
-	dhgen = NULL;
-	dhgenBar = new QProgressBar();
-	check_oom(dhgenBar);
-	dhgenBar->setMinimum(0);
-	dhgenBar->setMaximum(0);
+	dhgen = nullptr;
+	dhgenProgress = nullptr;
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -680,8 +679,7 @@ void MainWindow::exportIndex(const QString &fname, bool hierarchy) const
 
 void MainWindow::generateDHparamDone()
 {
-	statusBar()->removeWidget(dhgenBar);
-	errorEx e(dhgen->error);
+	errorEx e(dhgen->error());
 	if (e.isEmpty())
 		XCA_INFO(tr("Diffie-Hellman parameters saved as: %1")
 			.arg(dhgen->filename()));
@@ -689,6 +687,8 @@ void MainWindow::generateDHparamDone()
 		XCA_ERROR(e);
 	dhgen->deleteLater();
 	dhgen = NULL;
+	delete dhgenProgress;
+	dhgenProgress = nullptr;
 }
 
 void MainWindow::generateDHparam()
@@ -718,9 +718,7 @@ void MainWindow::generateDHparam()
 		if (fname == "")
 			throw errorEx("");
 		dhgen = new DHgen(fname, bits);
-		check_oom(dhgen);
-		statusBar()->addPermanentWidget(dhgenBar, 1);
-		dhgenBar->show();
+		dhgenProgress = new XcaProgress(QString("Diffie-Hellman"), 0);
 		dhgen->start(QThread::LowestPriority);
 		connect(dhgen, SIGNAL(finished()),
 			this, SLOT(generateDHparamDone()));

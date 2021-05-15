@@ -15,11 +15,12 @@
 #include "lib/main.h"
 #include "lib/database_model.h"
 #include "lib/dbhistory.h"
+#include "lib/dhgen.h"
+#include "lib/XcaProgress.h"
 
 #include <QList>
 #include <QMenu>
 #include <QToolTip>
-#include <QProgressBar>
 
 class db_x509;
 class pki_multi;
@@ -66,7 +67,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QStringList urlsToOpen;
 		int checkOldGetNewPass(Passwd &pass);
 		void checkDB();
-		QProgressBar *dhgenBar;
+		XcaProgress *dhgenProgress;
 		DHgen *dhgen;
 		const QList<QStringList> getTranslators() const;
 		QList<XcaTreeView *> views;
