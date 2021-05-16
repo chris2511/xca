@@ -18,10 +18,6 @@
 #include "widgets/XcaWarning.h"
 #include "widgets/MainWindow.h"
 
-#ifndef NID_tlsfeature
-int NID_tlsfeature = NID_undef;
-#endif
-
 int first_additional_oid = 0;
 
 NIDlist extkeyuse_nid;

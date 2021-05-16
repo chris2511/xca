@@ -53,11 +53,7 @@ x509v3ext NewX509::getOCSPstaple()
 	x509v3ext ext;
 	if (OCSPstaple->isChecked())
 		ext.create(NID_tlsfeature,
-#ifdef NID_tlsfeature
 			"status_request",
-#else
-			"DER:30:03:02:01:05",
-#endif
 			&ext_ctx);
 	return ext;
 }

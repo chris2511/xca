@@ -14,9 +14,6 @@ class QString;
 
 typedef QList<int> NIDlist;
 
-#ifndef NID_tlsfeature
-extern int NID_tlsfeature;
-#endif
 extern NIDlist extkeyuse_nid;
 extern NIDlist distname_nid;
 

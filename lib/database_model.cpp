@@ -8,7 +8,6 @@
 #include <QDir>
 #include <QDebug>
 #include "widgets/XcaWarning.h"
-#include "widgets/OpenDb.h"
 #include "widgets/PwDialog.h"
 
 #include "exception.h"
