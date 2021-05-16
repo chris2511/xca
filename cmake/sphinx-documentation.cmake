@@ -2,7 +2,7 @@
 find_program(SPHINX sphinx-build)
 find_program(QTCOLLGEN qcollectiongenerator)
 
-if(SPHINX)
+if(SPHINX AND QTCOLLGEN)
   add_custom_command(
 	OUTPUT html/index.html
 	COMMAND ${SPHINX} -b html sphinx/rst html
