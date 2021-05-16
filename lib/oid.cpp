@@ -49,14 +49,14 @@ static void insert_new_oid(const QStringList &sl, QString fname, int line)
 	bool differs = false;
 	QByteArray in_use, oid, sn, ln;
 
-	oid = sl[0].toLatin1();
-	sn = sl[1].toLatin1();
-	ln = sl[2].toLatin1();
 	if (sl.count() != 3) {
 		XCA_WARN(QObject::tr("Error reading config file %1 at line %2")
 			.arg(fname).arg(line));
 		return;
 	}
+	oid = sl[0].toLatin1();
+	sn = sl[1].toLatin1();
+	ln = sl[2].toLatin1();
 
 	int nid = OBJ_txt2nid(oid.constData());
 	if (nid != NID_undef) {

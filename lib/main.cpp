@@ -387,7 +387,11 @@ int main(int argc, char *argv[])
 
 	Entropy entropy;
 	Settings.clear();
-	initOIDs();
+	try {
+		initOIDs();
+	} catch (errorEx &e) {
+		XCA_ERROR(e);
+	}
 
 	for (int i=0; i < argc; i++)
 		qDebug() << "wargv" << argc << i << argv[i];
