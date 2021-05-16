@@ -198,7 +198,7 @@ static void read_cmdline(int argc, char *argv[])
 			cmd_help(EXIT_FAILURE, msg[opt]);
 		}
 	}
-	database_model::open_without_password = true;
+	database_model::open_without_password = false;
 
 	if (cmd_opts.has("list-curves")) {
 		QStringList list;
