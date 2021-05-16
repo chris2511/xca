@@ -10,7 +10,7 @@
 #include "pki_x509req.h"
 #include "pki_temp.h"
 #include "widgets/NewX509.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include "widgets/ExportDialog.h"
 
 db_x509req::db_x509req() : db_x509super("requests")

@@ -8,13 +8,12 @@
 #include "pki_base.h"
 #include "pki_temp.h"
 #include "db_x509super.h"
+#include "db_temp.h"
 #include "database_model.h"
 #include "oid.h"
 
-#include "widgets/MainWindow.h"
-#include "widgets/CertDetail.h"
 #include "widgets/XcaDialog.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 
 #include "ui_CertDetail.h"
 

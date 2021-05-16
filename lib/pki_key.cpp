@@ -11,7 +11,7 @@
 #include "func.h"
 #include "pkcs11.h"
 #include "exportType.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 
 #include <openssl/rand.h>
 #include <openssl/pem.h>

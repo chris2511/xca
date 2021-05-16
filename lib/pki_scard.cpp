@@ -16,10 +16,9 @@
 #include "func.h"
 #include "XcaProgress.h"
 
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 
 #warning Drop "widgets dependency"
-#include "ui_MainWindow.h"
 
 #include <QThread>
 #include <QProgressBar>

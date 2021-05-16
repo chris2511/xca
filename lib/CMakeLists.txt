@@ -39,5 +39,5 @@ db_x509req.h		pki_crl.h		x509v3ext.cpp
 db_x509super.cpp	pki_evp.cpp		x509v3ext.h
 db_x509super.h		pki_evp.h		xfile.h
 dhgen.cpp		dhgen.h			XcaProgress.cpp
-XcaProgress.h
+XcaProgress.h		XcaWarningCore.cpp	XcaWarningCore.h
 )

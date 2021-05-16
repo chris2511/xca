@@ -8,14 +8,11 @@
 
 #include "db_temp.h"
 #include "func.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include "widgets/NewX509.h"
 #include "ui_NewX509.h"
 #include <QFileDialog>
 #include <QDir>
-#include <QContextMenuEvent>
-#include <QAction>
-#include <QInputDialog>
 #include <QFileInfo>
 
 db_temp::db_temp() : db_x509name("templates")

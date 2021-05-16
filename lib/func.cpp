@@ -9,10 +9,9 @@
 #include <unistd.h>
 #include "func.h"
 #include "exception.h"
-#include "lib/asn1time.h"
-#include "lib/settings.h"
-#include "widgets/validity.h"
-#include "widgets/XcaWarning.h"
+#include "asn1time.h"
+#include "settings.h"
+#include "XcaWarningCore.h"
 #include <openssl/evp.h>
 #include <openssl/objects.h>
 #include <openssl/sha.h>

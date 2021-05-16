@@ -11,10 +11,10 @@
 #include "MainWindow.h"
 #include "distname.h"
 #include "clicklabel.h"
-#include "XcaWarning.h"
 #include "Help.h"
 #include "OidResolver.h"
 #include "lib/func.h"
+#include "lib/XcaWarningCore.h"
 #include <QLabel>
 #include <QPushButton>
 #include <QLineEdit>

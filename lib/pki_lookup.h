@@ -14,7 +14,7 @@
 #include <QHash>
 #include <QDebug>
 
-#include <widgets/XcaWarning.h>
+#include "XcaWarningCore.h"
 
 #include "base.h"
 #include "sql.h"

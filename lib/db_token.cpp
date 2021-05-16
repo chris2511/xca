@@ -3,7 +3,7 @@
 #include "exception.h"
 #include "pki_scard.h"
 #include "sql.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 
 db_token::db_token() : db_base("manageTokens")
 {

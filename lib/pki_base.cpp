@@ -10,12 +10,11 @@
 #include "xfile.h"
 #include "pki_base.h"
 #include "exception.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include <QString>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/md5.h>
-#include <typeinfo>
 
 pki_lookup Store;
 

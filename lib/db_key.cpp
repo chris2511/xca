@@ -11,15 +11,12 @@
 
 #include "pki_scard.h"
 #include "main.h"
-#include <QDialog>
-#include <QLabel>
-#include <QPushButton>
 
 #include "exception.h"
 #include "ui_NewKey.h"
 #include "pkcs11.h"
 
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include "widgets/PwDialog.h"
 #include "widgets/ExportDialog.h"
 

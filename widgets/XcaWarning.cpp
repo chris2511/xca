@@ -13,111 +13,55 @@
 #include <QDebug>
 #include <QSqlDatabase>
 
-xcaWarning::xcaWarning(QWidget *w, const QString &txt, QMessageBox::Icon icn)
+xcaWarning::xcaWarning(QWidget *w, const QString &txt,
+				QMessageBox::Icon icn)
+	: QMessageBox(icn, XCA_TITLE, txt, QMessageBox::NoButton, w)
 {
-	buttons = QMessageBox::NoButton;
-	m = NULL;
-	msg = txt;
-	icon = icn;
-
-	if (IS_GUI_APP) {
-		m = new QMessageBox(icn, XCA_TITLE, txt, buttons, w);
-		m->setTextFormat(Qt::PlainText);
-		return;
-	}
-	button_texts[QMessageBox::Ok] = QMessageBox::tr("Ok");
-	button_texts[QMessageBox::Close] = QMessageBox::tr("Close");
-	button_texts[QMessageBox::Cancel] = QMessageBox::tr("Cancel");
-	button_texts[QMessageBox::Apply] = QMessageBox::tr("Apply");
-	button_texts[QMessageBox::Yes] = QMessageBox::tr("Yes");
-	button_texts[QMessageBox::No] = QMessageBox::tr("No");
-}
-
-xcaWarning::~xcaWarning()
-{
-	delete m;
-}
-
-void xcaWarning::setStandardButtons(QMessageBox::StandardButtons b)
-{
-	buttons = b;
-	if (m)
-		m->setStandardButtons(b);
-}
-
-int xcaWarning::exec()
-{
-	if (m)
-		return m->exec();
-
-	QMap<QMessageBox::Icon, const char *> colors;
-	colors[QMessageBox::Information] = COL_CYAN "Information";
-	colors[QMessageBox::Warning] = COL_RED "Warning";
-	colors[QMessageBox::Critical] = COL_RED "Critical";
-	colors[QMessageBox::Question] = COL_BLUE "Question";
-
-	console_write(stdout, QString("%1:" COL_RESET " %2\n")
-				.arg(colors[icon]).arg(msg).toUtf8());
-	return QMessageBox::Ok;
+	setTextFormat(Qt::PlainText);
 }
 
 void xcaWarning::addButton(QMessageBox::StandardButton button,
 				const QString &text)
 {
-	if (m) {
-		QPushButton *b = m->addButton(button);
-		if (b && !text.isEmpty())
-			b->setText(text);
-	} else {
-		buttons |= button;
-		if (!text.isEmpty())
-			button_texts[button] = text;
-	}
+	QPushButton *b = QMessageBox::addButton(button);
+	if (b && !text.isEmpty())
+		b->setText(text);
 }
 
-void xcaWarning::information(const QString &msg)
+int xcaWarningGui::showBox(const QString &txt, QMessageBox::Icon icn,
+			QMessageBox::StandardButtons b)
 {
-	xcaWarning m(NULL, msg, QMessageBox::Information);
-	m.setStandardButtons(QMessageBox::Ok);
-	m.exec();
+	xcaWarning *w = new xcaWarning(NULL, txt, icn);
+	w->setStandardButtons(b);
+	int n = w->exec();
+	delete w;
+	return n;
 }
 
-void xcaWarning::warning(const QString &msg)
+void xcaWarningGui::information(const QString &msg)
 {
-	xcaWarning m(NULL, msg, QMessageBox::Warning);
-	m.setStandardButtons(QMessageBox::Ok);
-	m.exec();
+	showBox(msg, QMessageBox::Information, QMessageBox::Ok);
 }
 
-bool xcaWarning::yesno(const QString &msg)
+void xcaWarningGui::warning(const QString &msg)
 {
-	xcaWarning m(NULL, msg, QMessageBox::Question);
-	m.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-	return m.exec() == QMessageBox::Yes;
+	showBox(msg, QMessageBox::Warning, QMessageBox::Ok);
 }
 
-bool xcaWarning::okcancel(const QString &msg)
+bool xcaWarningGui::yesno(const QString &msg)
 {
-	xcaWarning m(NULL, msg, QMessageBox::Warning);
-	m.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-	return m.exec() == QMessageBox::Ok;
+	return showBox(msg, QMessageBox::Question,
+		QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes;
 }
 
-void xcaWarning::sqlerror(QSqlError err)
+bool xcaWarningGui::okcancel(const QString &msg)
 {
-	if (!err.isValid())
-		err = QSqlDatabase::database().lastError();
-
-	if (err.isValid()) {
-		qCritical() << "SQL ERROR:" << err.text();
-		XCA_WARN(err.text());
-	}
+	return showBox(msg, QMessageBox::Warning,
+		QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok;
 }
 
-void xcaWarning::error(const errorEx &err)
+void xcaWarningGui::error(const errorEx &err)
 {
-	if (err.isEmpty())
-		 return;
 	QString msg = tr("The following error occurred:") +
 			"\n" + err.getString();
 	xcaWarning box(NULL, msg);

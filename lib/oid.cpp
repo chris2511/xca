@@ -9,14 +9,12 @@
 
 #include <openssl/objects.h>
 #include <QStringList>
-#include <QMessageBox>
-#include <QTextEdit>
+#include <QStandardPaths>
 #include <QDebug>
 #include <QDir>
 #include "func.h"
 #include "oid.h"
-#include "widgets/XcaWarning.h"
-#include "widgets/MainWindow.h"
+#include "XcaWarningCore.h"
 
 int first_additional_oid = 0;
 

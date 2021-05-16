@@ -15,7 +15,7 @@
 #include "openssl_compat.h"
 
 #include "widgets/PwDialog.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 
 #include <openssl/rand.h>
 #include <openssl/evp.h>

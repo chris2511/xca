@@ -7,7 +7,7 @@
 
 #include <QDir>
 #include <QDebug>
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include "widgets/PwDialog.h"
 
 #include "exception.h"

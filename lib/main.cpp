@@ -12,7 +12,7 @@
 
 #include "widgets/MainWindow.h"
 #include "widgets/XcaApplication.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include "func.h"
 #include "xfile.h"
 #include "main.h"

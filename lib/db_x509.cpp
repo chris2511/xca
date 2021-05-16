@@ -17,23 +17,17 @@
 #include "database_model.h"
 #include "entropy.h"
 
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportDialog.h"
-#include "widgets/MainWindow.h"
 #include "widgets/PwDialog.h"
 #include "widgets/RevocationList.h"
 #include "widgets/NewX509.h"
-#include "widgets/Help.h"
 
 #include "ui_RevocationList.h"
 #include "ui_CertExtend.h"
 #include "ui_Revoke.h"
 #include "ui_Help.h"
-
-#include <QMessageBox>
-#include <QContextMenuEvent>
-#include <QAction>
 
 #include <openssl/rand.h>
 

@@ -19,7 +19,7 @@
 #include "exception.h"
 #include "func.h"
 #include "xfile.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 #include <QList>
 
 pki_multi::pki_multi(const QString &name)

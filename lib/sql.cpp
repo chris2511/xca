@@ -10,7 +10,7 @@
 #include "base.h"
 #include "sql.h"
 #include "settings.h"
-#include "widgets/XcaWarning.h"
+#include "XcaWarningCore.h"
 
 int DbTransaction::mutex;
 int DbTransaction::error;
