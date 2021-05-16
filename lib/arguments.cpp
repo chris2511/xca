@@ -360,7 +360,7 @@ bool arguments::is_console(int argc, char *argv[])
 		if (arg.startsWith("--"))
 			arg = arg.mid(1);
 		foreach(QString opt, console_opts) {
-			if (opt.startsWith(arg))
+			if (arg.startsWith(opt))
 				return true;
 		}
 	}
