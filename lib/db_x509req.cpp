@@ -9,8 +9,10 @@
 #include "db_x509req.h"
 #include "pki_x509req.h"
 #include "pki_temp.h"
-#include "widgets/NewX509.h"
 #include "XcaWarningCore.h"
+
+#warning split PwDialog into console and GUI
+#include "widgets/NewX509.h"
 #include "widgets/ExportDialog.h"
 
 db_x509req::db_x509req() : db_x509super("requests")

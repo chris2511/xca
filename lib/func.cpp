@@ -28,11 +28,11 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QStringList>
+#include <QCoreApplication>
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QMessageBox>
-#include <QApplication>
 #include <QPushButton>
 #include <QProgressBar>
 #include <QTextEdit>

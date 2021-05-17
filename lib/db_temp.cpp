@@ -9,11 +9,13 @@
 #include "db_temp.h"
 #include "func.h"
 #include "XcaWarningCore.h"
+#include <QDir>
+#include <QFileInfo>
+
+#warning drop UI dependencies
 #include "widgets/NewX509.h"
 #include "ui_NewX509.h"
 #include <QFileDialog>
-#include <QDir>
-#include <QFileInfo>
 
 db_temp::db_temp() : db_x509name("templates")
 {

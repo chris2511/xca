@@ -14,7 +14,7 @@
 #include "XcaProgress.h"
 #include "openssl_compat.h"
 
-#include "widgets/PwDialog.h"
+#include "PwDialogCore.h"
 #include "XcaWarningCore.h"
 
 #include <openssl/rand.h>
@@ -232,7 +232,7 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 
 	while (!pkey) {
 		pkey = PEM_read_bio_PrivateKey(BioByteArray(ba).ro(), NULL,
-						PwDialog::pwCallback, &p);
+						PwDialogCore::pwCallback, &p);
 		if (openssl_pw_error())
 			XCA_PASSWD_ERROR();
 		if (p.getResult() != pw_ok)
@@ -384,7 +384,7 @@ void pki_evp::fload(const QString &fname)
 {
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
 		arg(compressFilename(fname)));
-	pem_password_cb *cb = PwDialog::pwCallback;
+	pem_password_cb *cb = PwDialogCore::pwCallback;
 
 	pki_ign_openssl_error();
 	XFile file(fname);
@@ -472,7 +472,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
 		pass_info pi(XCA_TITLE, tr("Please enter the password to decrypt the private key: '%1'").arg(getIntName()));
-		ret = PwDialog::execute(&pi, &ownPassBuf, false);
+		ret = PwDialogCore::execute(&pi, &ownPassBuf, false);
 		if (ret != 1)
 			throw errorEx(tr("Password input aborted"),
 					getClassName());
@@ -485,7 +485,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 			 sha512passwd(ownPassBuf, passHash) != passHash))
 		{
 			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key '%1'").arg(getIntName()));
-			ret = PwDialog::execute(&p, &ownPassBuf,
+			ret = PwDialogCore::execute(&p, &ownPassBuf,
 							passHash.isEmpty());
 			if (ret != 1)
 				throw errorEx(tr("Password input aborted"),
@@ -541,7 +541,7 @@ void pki_evp::encryptKey(const char *password)
 		int ret;
 		pass_info p(XCA_TITLE, tr("Please enter the password to protect the private key: '%1'").
 			arg(getIntName()));
-		ret = PwDialog::execute(&p, &ownPassBuf, true);
+		ret = PwDialogCore::execute(&p, &ownPassBuf, true);
 		if (ret != 1)
 			throw errorEx("Password input aborted", getClassName());
 		pki_openssl_error();
@@ -562,7 +562,7 @@ void pki_evp::encryptKey(const char *password)
 				(sha512passwT(ownPassBuf, passHash) != passHash &&
 				 sha512passwd(ownPassBuf, passHash) != passHash))
 			{
-				ret = PwDialog::execute(&p, &ownPassBuf,
+				ret = PwDialogCore::execute(&p, &ownPassBuf,
 							passHash.isEmpty());
 				if (ret != 1)
 					throw errorEx("Password input aborted",

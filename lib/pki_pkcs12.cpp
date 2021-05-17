@@ -13,14 +13,12 @@
 #include "pass_info.h"
 #include "exception.h"
 #include "func.h"
-#include "widgets/PwDialog.h"
+#include "PwDialogCore.h"
 #include "XcaWarningCore.h"
+
 #include <openssl/err.h>
 #include <openssl/pkcs12.h>
 #include <openssl/stack.h>
-
-#warning split PwDialog into console and GUI
-#include "ui_PwDialog.h"
 
 pki_pkcs12::pki_pkcs12(const QString &d, pki_x509 *acert, pki_key *akey)
 	:pki_multi(d), cert(acert), key(akey)
@@ -51,7 +49,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	while (!PKCS12_verify_mac(pkcs12, pass.constData(), pass.size())) {
 		if (pass.size() > 0)
 			XCA_PASSWD_ERROR();
-		enum open_result result = PwDialog::execute(&p, &pass);
+		enum open_result result = PwDialogCore::execute(&p, &pass);
 		if (result != pw_ok) {
 			/* cancel pressed */
 			PKCS12_free(pkcs12);
@@ -128,7 +126,7 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 	if (cert == NULL || key == NULL)
 		my_error(tr("No key or no Cert and no pkcs12"));
 
-	if (PwDialog::execute(&p, &pass, true) != 1)
+	if (PwDialogCore::execute(&p, &pass, true) != 1)
 		return;
 
 	STACK_OF(X509) *certstack = sk_X509_new_null();

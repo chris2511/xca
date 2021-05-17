@@ -40,4 +40,5 @@ db_x509super.cpp	pki_evp.cpp		x509v3ext.h
 db_x509super.h		pki_evp.h		xfile.h
 dhgen.cpp		dhgen.h			XcaProgress.cpp
 XcaProgress.h		XcaWarningCore.cpp	XcaWarningCore.h
+PwDialogCore.cpp	PwDialogCore.h
 )

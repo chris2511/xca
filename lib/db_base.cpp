@@ -16,12 +16,13 @@
 #include <QMimeData>
 #include <QFileDialog>
 #include <QFileInfo>
+
+#warning drop UI dependencies
 #include "widgets/XcaWarning.h"
 #include "widgets/XcaApplication.h"
 #include "widgets/ImportMulti.h"
 #include "widgets/XcaDialog.h"
 
-#warning drop UI dependencies
 #include "ui_ItemProperties.h"
 #include "ui_ImportMulti.h"
 #include "ui_XcaDialog.h"

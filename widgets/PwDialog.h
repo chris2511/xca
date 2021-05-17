@@ -8,10 +8,8 @@
 #ifndef __PWDIALOG_H
 #define __PWDIALOG_H
 
-#include <QByteArray>
 #include "ui_PwDialog.h"
-#include "lib/Passwd.h"
-#include "lib/pki_x509.h"
+#include "lib/PwDialogCore.h"
 #include "lib/pass_info.h"
 
 class PwDialog: public QDialog, public Ui::PwDialog
@@ -31,12 +29,17 @@ class PwDialog: public QDialog, public Ui::PwDialog
 	void addAbortButton();
 	void setRW(bool write);
 
-	static enum open_result execute(pass_info *p, Passwd *passwd,
+	enum open_result execute(pass_info *p, Passwd *passwd,
 			bool write = false, bool abort = false);
-	static int pwCallback(char *buf, int size, int rwflag, void *userdata);
 
    public slots:
 	void accept();
 	void buttonPress(QAbstractButton *but);
+};
+
+class PwDialogUI: public PwDialogUI_i
+{
+	enum open_result execute(pass_info *p, Passwd *passwd,
+                        bool write = false, bool abort = false);
 };
 #endif

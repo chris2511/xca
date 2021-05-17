@@ -7,8 +7,9 @@
 
 #include <QDir>
 #include <QDebug>
+
 #include "XcaWarningCore.h"
-#include "widgets/PwDialog.h"
+#include "PwDialogCore.h"
 
 #include "exception.h"
 #include "database_model.h"
@@ -119,7 +120,7 @@ database_model::database_model(const QString &name, const Passwd &pass)
 			DbMap params = splitRemoteDbName(dbName);
 			pass_info p(XCA_TITLE, tr("Please enter the password to access the database server %2 as user '%1'.")
 					.arg(params["user"]).arg(params["host"]));
-			result = PwDialog::execute(&p, &passwd);
+			result = PwDialogCore::execute(&p, &passwd);
 			if (result != pw_ok)
 				throw result;
 		}
@@ -477,7 +478,7 @@ enum open_result database_model::initPass(const QString &dbName, const QString &
 
 	pki_evp::passHash = passhash;
 	if (pki_evp::passHash.isEmpty()) {
-		result = PwDialog::execute(&p, &pki_evp::passwd, true, true);
+		result = PwDialogCore::execute(&p, &pki_evp::passwd,true,true);
 		if (result != pw_ok)
 			return result;
 		salt = Entropy::makeSalt();
@@ -492,7 +493,7 @@ enum open_result database_model::initPass(const QString &dbName, const QString &
 				XCA_PASSWD_ERROR();
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbName)));
-			result = PwDialog::execute(&p, &pki_evp::passwd,
+			result = PwDialogCore::execute(&p, &pki_evp::passwd,
 						false, true);
 			if (result != pw_ok) {
 				pki_evp::passwd = QByteArray();

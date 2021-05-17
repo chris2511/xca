@@ -11,8 +11,8 @@
 #include "lib/exception.h"
 #include "XcaWarning.h"
 #include "PwDialog.h"
-#include <QLabel>
-#include <QMessageBox>
+
+#include <QDebug>
 
 static int hex2bin(QString &x, Passwd *final)
 {
@@ -33,19 +33,9 @@ static int hex2bin(QString &x, Passwd *final)
 	return len;
 }
 
-enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
+enum open_result PwDialogUI::execute(pass_info *p, Passwd *passwd,
 					bool write, bool abort)
 {
-#if !defined(Q_OS_WIN32)
-	if (!IS_GUI_APP) {
-		console_write(stdout,
-			QString(COL_CYAN "%1\n" COL_LRED "%2:" COL_RESET)
-				.arg(p->getDescription())
-				.arg(tr("Password")).toUtf8());
-		*passwd = readPass();
-		return pw_ok;
-	}
-#endif
 	PwDialog *dlg = new PwDialog(p, write);
 	if (abort)
 		dlg->addAbortButton();
@@ -55,20 +45,6 @@ enum open_result PwDialog::execute(pass_info *p, Passwd *passwd,
 	if (result == pw_exit)
 		throw pw_exit;
 	return result;
-}
-
-int PwDialog::pwCallback(char *buf, int size, int rwflag, void *userdata)
-{
-	Passwd passwd;
-	enum open_result result;
-	pass_info *p = static_cast<pass_info *>(userdata);
-
-	result = PwDialog::execute(p, &passwd, rwflag, false);
-
-	size = MIN(size, passwd.size());
-	memcpy(buf, passwd.constData(), size);
-	p->setResult(result);
-	return result == pw_ok ? size : 0;
 }
 
 PwDialog::PwDialog(pass_info *p, bool write)

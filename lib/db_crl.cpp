@@ -11,6 +11,8 @@
 #include "main.h"
 #include "exception.h"
 #include "database_model.h"
+
+#warning drop UI dependencies
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include "widgets/ItemCombo.h"

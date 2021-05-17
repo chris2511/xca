@@ -10,15 +10,18 @@
 #include "pki_evp.h"
 
 #include "pki_scard.h"
+#include "pki_x509super.h"
 #include "main.h"
 
 #include "exception.h"
-#include "ui_NewKey.h"
 #include "pkcs11.h"
 
 #include "XcaWarningCore.h"
-#include "widgets/PwDialog.h"
+#include "PwDialogCore.h"
+
+#warning drop UI dependencies
 #include "widgets/ExportDialog.h"
+#include "ui_ExportDialog.h"
 
 db_key::db_key() : db_base("keys")
 {
@@ -332,26 +335,26 @@ void db_key::store(QModelIndex index)
 			/* fallthrough */
 		case exportType::PEM_private:
 			privkey->writeKey(file, algo,
-				PwDialog::pwCallback, true);
+				PwDialogCore::pwCallback, true);
 			break;
 		case exportType::PKCS8_encrypt:
 			algo = encrypt;
 			/* fallthrough */
 		case exportType::PKCS8:
 			privkey->writePKCS8(file, algo,
-				PwDialog::pwCallback, true);
+				PwDialogCore::pwCallback, true);
 			break;
 		case exportType::SSH2_public:
 			key->writeSSH2public(file);
 			break;
 		case exportType::SSH2_private:
-			key->writeSSH2private(file, PwDialog::pwCallback);
+			key->writeSSH2private(file, PwDialogCore::pwCallback);
 			break;
 		case exportType::PVK_private:
 			privkey->writePVKprivate(file, NULL);
 			break;
 		case exportType::PVK_encrypt:
-			privkey->writePVKprivate(file, PwDialog::pwCallback);
+			privkey->writePVKprivate(file,PwDialogCore::pwCallback);
 			break;
 		default:
 			throw errorEx(tr("Internal error"));

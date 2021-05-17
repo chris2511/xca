@@ -18,13 +18,15 @@
 #include <openssl/rand.h>
 #include <openssl/engine.h>
 #include <openssl/evp.h>
-#include <QPushButton>
 #include <QThread>
 
 #include <ltdl.h>
-#include "ui_SelectToken.h"
-#include "widgets/PwDialog.h"
+#include "PwDialogCore.h"
 #include "XcaWarningCore.h"
+
+#warning split PwDialog into console and GUI
+#include "ui_SelectToken.h"
+#include <QPushButton>
 
 void waitcursor(int start, int line)
 {
@@ -242,7 +244,7 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 			if (!ppt.err.isEmpty())
 				throw errorEx(ppt.err);
 		} else {
-			if (PwDialog::execute(&p, &pin, false) != 1)
+			if (PwDialogCore::execute(&p, &pin, false) != 1)
 				return QString();
 		}
 		login(pin.constUchar(), pin.size(), so);
@@ -334,7 +336,7 @@ void pkcs11::changePin(const slotid &slot, bool so)
 	pass_info p(XCA_TITLE, msg.arg(ti.label()) + "\n" + ti.pinInfo());
 	p.setPin();
 
-	if (PwDialog::execute(&p, &newPin, true) == 1) {
+	if (PwDialogCore::execute(&p, &newPin, true) == 1) {
 		pinp = pin.toLatin1();
 		setPin(pinp.constUchar(), pinp.size(),
 			newPin.constUchar(), newPin.size());
@@ -359,7 +361,7 @@ void pkcs11::initPin(const slotid &slot)
 	p.setPin();
 
 	if (!ti.protAuthPath()) {
-		ret = PwDialog::execute(&p, &newPin, true);
+		ret = PwDialogCore::execute(&p, &newPin, true);
 		pinp = newPin;
 	}
 	p11slot.isValid();

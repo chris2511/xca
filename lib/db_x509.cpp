@@ -18,9 +18,11 @@
 #include "entropy.h"
 
 #include "XcaWarningCore.h"
+#include "PwDialogCore.h"
+
+#warning split PwDialog into console and GUI
 #include "widgets/CertExtend.h"
 #include "widgets/ExportDialog.h"
-#include "widgets/PwDialog.h"
 #include "widgets/RevocationList.h"
 #include "widgets/NewX509.h"
 
@@ -701,7 +703,7 @@ void db_x509::store(QModelIndexList list)
 
 			if (type == exportType::PEM_cert_pk8) {
 				pkey->writePKCS8(file, EVP_des_ede3_cbc(),
-						PwDialog::pwCallback, true);
+						PwDialogCore::pwCallback, true);
 			} else {
 				pkey->writeKey(file, NULL, NULL, true);
 			}

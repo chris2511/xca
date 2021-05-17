@@ -134,6 +134,7 @@ MainWindow::MainWindow() : QMainWindow()
 
 	XcaProgress::setGui(new XcaProgressGui(this));
 	xcaWarningCore::setGui(new xcaWarningGui());
+	PwDialogCore::setGui(new PwDialogUI());
 
 	dhgen = nullptr;
 	dhgenProgress = nullptr;
@@ -294,11 +295,11 @@ void MainWindow::initToken()
 			arg(slotname) + "\n" + ti.pinInfo());
 		p.setPin();
 		if (ti.tokenInitialized()) {
-			ret = PwDialog::execute(&p, &pin, false);
+			ret = PwDialogCore::execute(&p, &pin, false);
 		} else {
 			p.setDescription(tr("Please enter the new SO PIN (PUK) for the token '%1'").
 			arg(slotname) + "\n" + ti.pinInfo());
-			ret = PwDialog::execute(&p, &pin, true);
+			ret = PwDialogCore::execute(&p, &pin, true);
 		}
 		if (ret != 1)
 			return;
@@ -464,7 +465,7 @@ int MainWindow::checkOldGetNewPass(Passwd &pass)
 		/* Try empty password */
 		if (pki_evp::sha512passwT(pass, passHash) != passHash) {
 			/* Not the empty password, check it */
-			if (PwDialog::execute(&p, &pass, false) != 1)
+			if (PwDialogCore::execute(&p, &pass, false) != 1)
 				return 0;
 		}
 
@@ -478,7 +479,7 @@ int MainWindow::checkOldGetNewPass(Passwd &pass)
 			"to encrypt your private keys in the database-file"),
 			this);
 
-	return PwDialog::execute(&p, &pass, true) != 1 ? 0 : 1;
+	return PwDialogCore::execute(&p, &pass, true) != 1 ? 0 : 1;
 }
 
 void MainWindow::changeDbPass()
