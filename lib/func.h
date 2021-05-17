@@ -42,7 +42,6 @@ typedef struct evp_md_st EVP_MD;
 
 int console_write(FILE *fp, const QByteArray &ba);
 Passwd readPass();
-QPixmap *loadImg(const char *name);
 int portable_app();
 const QString getHomeDir();
 const QString getLibDir();

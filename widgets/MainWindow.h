@@ -21,6 +21,7 @@
 #include <QList>
 #include <QMenu>
 #include <QToolTip>
+#include <QHelpEvent>
 
 class db_x509;
 class pki_multi;

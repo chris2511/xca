@@ -15,9 +15,6 @@
 #include "pki_base.h"
 #include "headerlist.h"
 
-#include <QListView>
-#include <QPixmap>
-#include <QContextMenuEvent>
 #include <QStringList>
 #include <QAbstractItemModel>
 #include <QHash>
@@ -75,7 +72,6 @@ class db_base: public QAbstractItemModel
 		virtual void remFromCont(const QModelIndex &idx);
 		void changeView();
 
-		QPixmap *loadImg(const char *name);
 		void dump(const QString &dirname) const;
 		QModelIndex index(int row, int column, const QModelIndex &parent)const;
 		QModelIndex index(pki_base *pki)const;

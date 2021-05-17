@@ -29,15 +29,7 @@
 #include <QFileInfo>
 #include <QStringList>
 #include <QCoreApplication>
-#include <QLabel>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QMessageBox>
-#include <QPushButton>
-#include <QProgressBar>
-#include <QTextEdit>
 #include <QDebug>
-#include <stdarg.h>
 
 #if defined(Q_OS_WIN32)
 #include <shlobj.h>
@@ -97,11 +89,6 @@ Passwd readPass()
 		throw errorEx(strerror(errno));
 #endif
 	return pw;
-}
-
-QPixmap *loadImg(const char *name )
-{
-	return new QPixmap(QString(":") + name);
 }
 
 const QStringList getLibExtensions()
