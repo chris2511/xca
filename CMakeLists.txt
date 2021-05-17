@@ -75,21 +75,6 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(${CMAKE_PROJECT_NAME} translations)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
 
-###### ICONS
-
-set(ICONS "${PROJECT_BINARY_DIR}/xca-icons.icns")
-file(GLOB ICON_SRC ${PROJECT_SOURCE_DIR}/img/xca-icons.iconset/*.png)
-add_custom_command(OUTPUT ${ICONS}
-	COMMAND iconutil --convert icns -o ${ICONS}
-		${PROJECT_SOURCE_DIR}/img/xca-icons.iconset
-	DEPENDS ${ICON_SRC}
-)
-add_custom_target(mac-icons DEPENDS ${ICONS})
-set_source_files_properties(${ICONS}
-	PROPERTIES MACOSX_PACKAGE_LOCATION Resources
-)
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICONS})
-
 ##### SPHINX Documentation and man pages
 
 include(cmake/sphinx-documentation.cmake)
@@ -155,6 +140,23 @@ if (APPLE)
     foreach(dir ${CMAKE_PREFIX_PATH})
       list(APPEND DIRS "${dir}/bin" "${dir}/lib")
     endforeach()
+  endif()
+
+  ###### MAC ICONS
+  find_program(ICONUTIL iconutil)
+  if(ICONUTIL)
+    set(ICONS "${PROJECT_BINARY_DIR}/xca-icons.icns")
+    file(GLOB ICON_SRC ${PROJECT_SOURCE_DIR}/img/xca-icons.iconset/*.png)
+    add_custom_command(OUTPUT ${ICONS}
+	  COMMAND iconutil --convert icns -o ${ICONS}
+		  ${PROJECT_SOURCE_DIR}/img/xca-icons.iconset
+	  DEPENDS ${ICON_SRC}
+    )
+    add_custom_target(mac-icons DEPENDS ${ICONS})
+    set_source_files_properties(${ICONS}
+	  PROPERTIES MACOSX_PACKAGE_LOCATION Resources
+    )
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICONS})
   endif()
 
   # Append Qt's lib folder which is two levels above Qt5Widgets_DIR
