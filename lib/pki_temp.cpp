@@ -6,10 +6,10 @@
  */
 
 #include "pki_temp.h"
+#include "pki_x509.h"
 #include "func.h"
 #include "oid.h"
 #include "exception.h"
-#include "widgets/MainWindow.h"
 #include <QDir>
 #include <QBuffer>
 #include <QDataStream>

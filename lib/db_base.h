@@ -21,8 +21,6 @@
 
 #define X_XCA_DRAG_DATA "application/x-xca-drag-data"
 
-class MainWindow;
-
 class QContextMenuEvent;
 class XcaTreeView;
 class NewX509;

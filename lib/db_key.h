@@ -12,7 +12,6 @@
 #include "db_base.h"
 #include "pki_key.h"
 
-class MainWindow;
 class QModelIndex;
 class QContextMenuEvent;
 
