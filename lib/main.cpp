@@ -331,7 +331,7 @@ static void read_cmdline(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	const char *xca_special = getenv("XCA_SPECIAL");
+	const char *xca_special = getenv("XCA_ARGUMENTS");
 	if (xca_special && *xca_special) {
 		puts(CCHAR(arguments::doc(xca_special)));
 		return 0;

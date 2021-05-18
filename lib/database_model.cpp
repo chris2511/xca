@@ -366,7 +366,7 @@ void database_model::openRemoteDatabase(const QString &connName,
 	db.setUserName(params["user"]);
 	db.setPassword(pass);
 
-	QString envvar(db.driverName()+ "_OPTIONS");
+	QString envvar(QString("XCA_%1_OPTIONS").arg(db.driverName()));
 	const char *opts = getenv(envvar.toLatin1());
 	if (opts)
 		db.setConnectOptions(opts);
