@@ -416,7 +416,7 @@ void NewX509::fromX509super(pki_x509super *cert_or_req, bool applyTemp)
 		usedKeysToo->setChecked(true);
 		keyList->setCurrentPkiItem(key);
 	}
-	hashAlgo->setCurrentMD(cert_or_req->getDigest());
+	hashAlgo->setCurrent(cert_or_req->getDigest());
 
 	switch(cert_or_req->getType()) {
 	case x509: {
@@ -635,13 +635,10 @@ void NewX509::switchHashAlgo()
 
 	key = sig ? sig->getRefKey() : getSelectedKey();
 
-	if (key) {
-		hashAlgo->setKeyType(key->getKeyType());
+	if (key)
 		hashAlgo->setupHashes(key->possibleHashNids());
-	} else {
-		hashAlgo->setKeyType(EVP_PKEY_RSA);
+	else
 		hashAlgo->setupAllHashes();
-	}
 }
 
 void NewX509::on_showReqBut_clicked()
@@ -1286,9 +1283,9 @@ void NewX509::accept()
 		}
 		return;
         }
-	if (hashAlgo->count() > 0 && hashAlgo->isInsecure()) {
+	if (hashAlgo->count() > 0 && hashAlgo->current().isInsecure()) {
 		gotoTab(0);
-		xcaWarning msg(this, tr("The currently selected hash algorithm '%1' is insecure and should not be used.").arg(hashAlgo->currentHashName()));
+		xcaWarning msg(this, tr("The currently selected hash algorithm '%1' is insecure and should not be used.").arg(hashAlgo->current().name()));
 		msg.addButton(QMessageBox::Ok, tr("Select other algorithm"));
 		msg.addButton(QMessageBox::Yes, tr("Use algorithm anyway"));
 		if (msg.exec() == QMessageBox::Ok)

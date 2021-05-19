@@ -31,9 +31,8 @@ NewCrl::NewCrl(const crljob &j, QWidget *w)
 	on_applyTime_clicked();
 	nextUpdate->setEndDate(true);
 
-	hashAlgo->setKeyType(key->getKeyType());
 	hashAlgo->setupHashes(key->possibleHashNids());
-	hashAlgo->setCurrentMD(task.hashAlgo);
+	hashAlgo->setCurrent(task.hashAlgo);
 
 	crlNumber->setText(task.crlNumber.toDec());
 	if (issuer->hasExtension(NID_subject_alt_name)) {

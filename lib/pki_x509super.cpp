@@ -131,9 +131,9 @@ QString pki_x509super::getSigAlg() const
 	return QString(OBJ_nid2ln(sigAlg()));
 }
 
-const EVP_MD *pki_x509super::getDigest()
+const digest pki_x509super::getDigest() const
 {
-	return EVP_get_digestbynid(sigAlg());
+	return digest(sigAlg());
 }
 
 bool pki_x509super::hasPrivKey() const

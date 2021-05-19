@@ -97,7 +97,8 @@ QSqlError pki_x509req::deleteSqlData()
 	return q.lastError();
 }
 
-void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, extList el)
+void pki_x509req::createReq(pki_key *key, const x509name &dn,
+				const digest &digest, extList el)
 {
 	QList<int> bad_nids; bad_nids << NID_authority_key_identifier <<
 		NID_issuer_alt_name << NID_undef;
@@ -128,7 +129,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	pki_openssl_error();
 
 	privkey = key->decryptKey();
-	X509_REQ_sign(request, privkey, md);
+	X509_REQ_sign(request, privkey, digest.MD());
 	pki_openssl_error();
 	EVP_PKEY_free(privkey);
 }

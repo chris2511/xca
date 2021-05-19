@@ -17,7 +17,8 @@
 #define VIEW_crls_issuer 7
 #define VIEW_crls_crl 8
 
-#include "widgets/hashBox.h"
+#include "digest.h"
+
 class crljob
 {
     public:
@@ -28,21 +29,21 @@ class crljob
 	bool setCrlNumber;
 	a1int crlNumber;
 	int crlDays;
-	const EVP_MD *hashAlgo;
+	const digest hashAlgo;
 	a1time lastUpdate;
 	a1time nextUpdate;
 
-	crljob(pki_x509 *x) : issuer(x)
+	crljob(pki_x509 *x) : issuer(x),
+		withReason(true),
+		authKeyId(true),
+		subAltName(true),
+		setCrlNumber(issuer->getCrlNumber().getLong() > 0),
+		crlNumber(issuer->getCrlNumber()),
+		crlDays(issuer->getCrlDays()),
+		hashAlgo(digest::getDefault()),
+		nextUpdate(lastUpdate.addDays(crlDays))
 	{
-		withReason = true;
-		authKeyId = true;
-		subAltName = true;
-		setCrlNumber = issuer->getCrlNumber().getLong() > 0;
-		crlNumber = issuer->getCrlNumber();
 		crlNumber++;
-		crlDays = issuer->getCrlDays();
-		hashAlgo = hashBox::getDefaultMD();
-		nextUpdate = lastUpdate.addDays(crlDays);
 	}
 };
 
@@ -66,7 +67,7 @@ class pki_crl: public pki_x509name
 		void addRev(const x509rev &rev, bool withReason=true);
 		void addExt(int nid, QString value);
 		void addV3ext(const x509v3ext &e);
-		void sign(pki_key *key, const EVP_MD *md = EVP_md5());
+		void sign(pki_key *key, const digest &digest);
 		void writeCrl(XFile &file, bool pem = true) const;
 		pki_x509 *getIssuer() const;
 		QString getIssuerName() const;

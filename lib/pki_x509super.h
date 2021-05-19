@@ -13,6 +13,7 @@
 #include "pki_key.h"
 #include "x509name.h"
 #include "x509v3ext.h"
+#include "digest.h"
 
 #define VIEW_x509super_keyid 6
 
@@ -46,7 +47,7 @@ class pki_x509super : public pki_x509name
 		virtual pki_key *getPubKey() const = 0;
 		virtual extList getV3ext() const = 0;
 		virtual QString getSigAlg() const;
-		virtual const EVP_MD *getDigest();
+		virtual const digest getDigest() const;
 		QVariant getKeySqlId()
 		{
 			return keySqlId;

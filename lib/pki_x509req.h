@@ -14,6 +14,7 @@
 #include "pki_x509super.h"
 #include "x509v3ext.h"
 #include "x509name.h"
+#include "digest.h"
 
 #define VIEW_x509req_request 7
 #define VIEW_x509req_signed 8
@@ -55,7 +56,7 @@ class pki_x509req : public pki_x509super
 		bool verify() const;
 		pki_key *getPubKey() const;
 		void createReq(pki_key *key, const x509name &dn,
-				const EVP_MD *md, extList el);
+				const digest &digest, extList el);
 		void setSubject(const x509name &n);
 		QVariant column_data(const dbheader *hd) const;
 		QVariant getIcon(const dbheader *hd) const;

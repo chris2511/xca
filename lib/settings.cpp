@@ -2,7 +2,7 @@
 #include "func.h"
 #include "sql.h"
 #include "pki_key.h"
-#include "widgets/hashBox.h"
+#include "digest.h"
 #include <QDir>
 #include <QFile>
 #include <openssl/asn1.h>
@@ -31,7 +31,7 @@ settings::settings()
 	defaul["explicit_dn"] = "C,ST,L,O,OU,CN,emailAddress";
 	defaul["string_opt"] = "MASK:0x2002";
 	defaul["workingdir"] = getHomeDir() + "/";
-	defaul["default_hash"] = hashBox::getDefault();
+	defaul["default_hash"] = digest::getDefault().name();
 	defaul["ical_expiry"] = "1W";
 	defaul["cert_expiry"] = "80%";
 	defaul["serial_len"] = "64";
@@ -55,7 +55,7 @@ void settings::setAction(const QString &key, const QString &value)
 	if (key == "string_opt")
 		ASN1_STRING_set_default_mask_asc((char*)CCHAR(value));
 	else if (key == "default_hash")
-		hashBox::setDefault(value);
+		digest::setDefault(value);
 	else if (key == "defaultkey")
 		keyjob::defaultjob = keyjob(value);
 	else if (key == "optionflags") {

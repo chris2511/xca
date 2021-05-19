@@ -144,7 +144,7 @@ int Options::exec()
 	Settings["only_token_hashes"] = onlyTokenHashes->checkState();
 	Settings["disable_netscape"] = disableNetscape->checkState();
 
-	Settings["default_hash"] = hashAlgo->currentHashName();
+	Settings["default_hash"] = hashAlgo->current().name();
 	Settings["mandatory_dn"] = getDnString(extDNlist);
 	Settings["explicit_dn"] = getDnString(expDNlist);
 	Settings["string_opt"] = string_opts[mbstring->currentIndex()];

@@ -193,7 +193,7 @@ pki_crl *db_crl::newCrl(const crljob &task)
 		crl->setIssuer(cert);
 		crl->setLastUpdate(task.lastUpdate);
 		crl->setNextUpdate(task.nextUpdate);
-		crl->sign(cert->getRefKey(), task.hashAlgo);
+		crl->sign(cert->getRefKey(), task.hashAlgo.MD());
 
 		Transaction;
 		if (!TransBegin())

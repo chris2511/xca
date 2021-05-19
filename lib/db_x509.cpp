@@ -509,9 +509,8 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 			cert->addV3ext(el[i], true);
 	}
 
-	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
 	// and finally sign the request
-	cert->sign(signkey, hashAlgo);
+	cert->sign(signkey, dlg->hashAlgo->current());
 
 	// set the comment field
 	cert->setComment(dlg->comment->toPlainText());

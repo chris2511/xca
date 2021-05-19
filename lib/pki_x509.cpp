@@ -561,7 +561,7 @@ bool pki_x509::hasExtension(int nid) const
 	return getV3ext().idxByNid(nid) != -1;
 }
 
-void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
+void pki_x509::sign(pki_key *signkey, const digest &digest)
 {
 	EVP_PKEY *tkey;
 	if (!signkey) {
@@ -569,7 +569,7 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 	}
 	tkey = signkey->decryptKey();
 	pki_openssl_error();
-	X509_sign(cert, tkey, digest);
+	X509_sign(cert, tkey, digest.MD());
 	pki_openssl_error();
 	EVP_PKEY_free(tkey);
 	pki_openssl_error();

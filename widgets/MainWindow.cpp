@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "XcaApplication.h"
 #include "ImportMulti.h"
+#include "hashBox.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -601,9 +602,9 @@ enum open_result MainWindow::setup_open_database()
 
 	enableTokenMenu(pkcs11::libraries.loaded());
 
-	hashBox hb(this);
-	if (hb.isInsecure()) {
-		XCA_WARN(tr("The currently used default hash '%1' is insecure. Please select at least 'SHA 224' for security reasons.").arg(hb.currentHashName()));
+	digest defdig(digest::getDefault());
+	if (defdig.isInsecure()) {
+		XCA_WARN(tr("The currently used default hash '%1' is insecure. Please select at least 'SHA 224' for security reasons.").arg(defdig.name()));
 		setOptions();
 	}
 

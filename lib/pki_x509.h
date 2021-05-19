@@ -91,7 +91,7 @@ class pki_x509 : public pki_x509super
 		extList getV3ext() const;
 		bool checkDate();
 		bool addV3ext(const x509v3ext &e, bool skip_existing = false);
-		void sign(pki_key *signkey, const EVP_MD *digest);
+		void sign(pki_key *signkey, const digest &digest);
 		pki_x509 *findIssuer();
 		X509 *getCert()
 		{
