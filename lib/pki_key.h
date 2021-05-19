@@ -39,7 +39,7 @@ class keytype
 			keytype(EVP_PKEY_EC, "EC", CKM_EC_KEY_PAIR_GEN,
 				true, false),
 #ifdef EVP_PKEY_ED25519
-			keytype(EVP_PKEY_ED25519, "ED25519", 0, false, false),
+			keytype(EVP_PKEY_ED25519, "ED25519", CKM_VENDOR_DEFINED, false, false),
 #endif
 #endif
 		};

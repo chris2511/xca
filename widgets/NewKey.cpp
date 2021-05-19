@@ -117,7 +117,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 			foreach(keytype t, keytype::types())
 				if (ml.contains(t.mech))
 					keytypes << keyListItem(&p11, slot,
-								t.type);
+								t.mech);
 		}
 	} catch (errorEx &err) {
 		p11_slots.clear();
