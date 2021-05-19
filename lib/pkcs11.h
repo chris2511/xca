@@ -14,8 +14,6 @@
 #include <QString>
 #include <QList>
 
-#include <ltdl.h>
-
 #include "pk11_attribute.h"
 #include "func.h"
 

@@ -20,7 +20,6 @@
 #include <openssl/evp.h>
 #include <QThread>
 
-#include <ltdl.h>
 #include "PwDialogCore.h"
 #include "XcaWarningCore.h"
 

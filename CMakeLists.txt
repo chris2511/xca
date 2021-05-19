@@ -44,8 +44,6 @@ target_include_directories(xcadoc PRIVATE
 
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
-find_library(LTDL_LIB ltdl REQUIRED)
-find_path(LTDL_INCLUDE_DIR ltdl.h REQUIRED)
 
 add_subdirectory(lib)
 add_subdirectory(widgets)

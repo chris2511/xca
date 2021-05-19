@@ -22,7 +22,6 @@
 
 #include <QThread>
 #include <QProgressBar>
-#include <ltdl.h>
 
 void pki_scard::init(void)
 {

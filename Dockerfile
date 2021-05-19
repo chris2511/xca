@@ -11,7 +11,6 @@ RUN set -x \
 		autotools-dev \
 		automake \
 		pkg-config \
-                libltdl-dev \
 		ca-certificates \
 		curl \
 		qt5-default \

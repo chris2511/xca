@@ -14,18 +14,14 @@
 #include <QString>
 #include <QObject>
 #include <QList>
-#include <Qt>
+#include <QLibrary>
 
-#include <ltdl.h>
-
-class pkcs11_lib
+class pkcs11_lib : public QLibrary
 {
     private:
-	lt_dlhandle dl_handle;
 	CK_FUNCTION_LIST *p11;
-	QString file;
+	QString file, load_error;
 	bool enabled;
-	QString load_error;
 
     public:
 	static QString name2File(const QString &name, bool *enabled = NULL);

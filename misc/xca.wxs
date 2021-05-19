@@ -106,9 +106,6 @@
             <Component Id="Clibgcc_s_seh1" Guid="f5c27ddf-a2e1-49e2-9f24-fbf97bc5cb70">
                 <File Id="libgcc_s_seh1.dll" Source="libgcc_s_seh-1.dll" KeyPath="yes"/>
             </Component>
-            <Component Id="Clibltdl7" Guid="b5d2f228-7605-4007-97f1-754fcf7281b8">
-                <File Id="libltdl7.dll" Source="libltdl-7.dll" KeyPath="yes"/>
-            </Component>
             <Component Id="Clibcrypto11x64" Guid="44133d17-96b5-4aee-8a24-9c722482add5">
                 <File Id="libcrypto11x64.dll" Source="libcrypto-1_1-x64.dll" KeyPath="yes"/>
             </Component>
@@ -368,7 +365,6 @@
             <ComponentRef Id="Clibstdcpp6"/>
             <ComponentRef Id="Clibwinpthread1"/>
             <ComponentRef Id="Clibgcc_s_seh1"/>
-            <ComponentRef Id="Clibltdl7"/>
             <ComponentRef Id="Clibcrypto11x64"/>
             <ComponentRef Id="CQt5Core"/>
             <ComponentRef Id="CQt5Gui"/>

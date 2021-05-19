@@ -53,7 +53,6 @@ xca-portable-$(VERSION): xca$(SUFFIX).signed do.doc do.lang do.misc
 	cp $(patsubst %,misc/%.txt, dn eku oids) \
 	   $(patsubst %,"$(QTDIR)/bin/%.dll", Qt5Gui Qt5Core Qt5Widgets \
 		Qt5Sql Qt5Help libwinpthread-1 libstdc++-6 libgcc_s_seh-1) \
-	   "$(INSTALL_DIR)/bin/libltdl-7.dll" \
 	   "$(INSTALL_DIR)/bin/libcrypto-1_1-x64.dll" \
 	   "$(TOPDIR)"/misc/*.xca "${TOPDIR}/../sql/"*.dll $@
 	cp -a doc/qthelp/*.html doc/qthelp/xca.qhc doc/qthelp/xca.qch $@/html

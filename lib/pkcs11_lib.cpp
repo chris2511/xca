@@ -15,36 +15,8 @@
 #include <openssl/rand.h>
 #include <QMessageBox>
 #include <QTextCodec>
-#include <ltdl.h>
+
 #include "ui_SelectToken.h"
-
-QByteArray find_filecodec(const QString &file)
-{
-#if defined(Q_OS_WIN32)
-	QList<QByteArray> codecs = QTextCodec::availableCodecs();
-	QString fil = nativeSeparator(file);
-
-	foreach(QByteArray codec, QTextCodec::availableCodecs())
-	{
-		auto tc = QTextCodec::codecForName(codec);
-		bool can = tc->canEncode(file);
-		int fd = -1;
-		QByteArray fn;
-		if (can) {
-			fn = tc->fromUnicode(fil);
-			fd = open(fn, O_RDONLY);
-			if (fd != -1)
-				close(fd);
-		}
-		qDebug() << "TestCodec" << codec << can << fn << fd;
-		if (fd != -1)
-			return fn;
-	}
-	return fil.toLocal8Bit();
-#else
-	return file.toUtf8();
-#endif
-}
 
 pkcs11_lib::pkcs11_lib(const QString &f)
 {
@@ -52,30 +24,24 @@ pkcs11_lib::pkcs11_lib(const QString &f)
 	CK_RV rv;
 	file = name2File(f, &enabled);
 	p11 = NULL;
-	dl_handle = NULL;
 
 	if (!enabled)
 		return;
-
-	lt_dlinit();
 
 	try {
 		/* PKCS11 libs without path should be looked up locally */
 		QString realfile = file;
 		if (!realfile.contains("/") && !realfile.isEmpty())
 			realfile.prepend("./");
-		QByteArray localfn = find_filecodec(realfile);
-		if (localfn.isEmpty())
-			throw errorEx(QObject::tr("Invalid filename: %1").arg(file));
-		dl_handle = lt_dlopen(localfn);
-		if (dl_handle == NULL)
-			throw errorEx(QObject::tr("Failed to open PKCS11 library: %1: %2").arg(file).arg(lt_dlerror()));
+		setFileName(realfile);
+		if (!load())
+			throw errorEx(tr("Failed to open PKCS11 library: %1: %2").arg(file).arg(errorString()));
 
 		/* Get the list of function pointers */
 		c_get_function_list = (CK_RV (*)(CK_FUNCTION_LIST_PTR_PTR))
-				lt_dlsym(dl_handle, "C_GetFunctionList");
+				resolve("C_GetFunctionList");
 		if (!c_get_function_list)
-			throw errorEx(QObject::tr("This does not look like a PKCS#11 library. Symbol 'C_GetFunctionList' not found."));
+			throw errorEx(tr("This does not look like a PKCS#11 library. Symbol 'C_GetFunctionList' not found."));
 
 		qDebug() << "Trying to load PKCS#11 provider" << file;
 		rv = c_get_function_list(&p11);
@@ -92,9 +58,7 @@ pkcs11_lib::pkcs11_lib(const QString &f)
 		WAITCURSOR_END;
 		if (p11)
 			p11 = NULL;
-		if (dl_handle)
-			lt_dlclose(dl_handle);
-		lt_dlexit();
+		unload();
 		qDebug() << "Failed to load PKCS#11 provider" << file;
 	}
 }
@@ -107,8 +71,7 @@ pkcs11_lib::~pkcs11_lib()
 		return;
 	qDebug() << "Unloading PKCS#11 provider" << file;
 	CALL_P11_C(this, C_Finalize, NULL);
-	lt_dlclose(dl_handle);
-	lt_dlexit();
+	unload();
 	qDebug() << "Unloaded PKCS#11 provider" << file;
 }
 
