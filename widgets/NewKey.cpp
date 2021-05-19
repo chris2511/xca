@@ -19,8 +19,6 @@
 #include <QLineEdit>
 #include <QStringList>
 
-keyjob NewKey::defaultjob;
-
 class keyListItem
 {
     public:
@@ -108,7 +106,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 		keytypes << keyListItem(t);
 
 	updateCurves();
-	keyLength->setEditText(QString("%1 bit").arg(defaultjob.size));
+	keyLength->setEditText(QString("%1 bit").arg(keyjob::defaultjob.size));
 	keyDesc->setFocus();
 	if (pkcs11::libraries.loaded()) try {
 		pkcs11 p11;
@@ -129,7 +127,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 		q.setValue(keytypes[i]);
 		keyType->addItem(keytypes[i].printname, q);
 		if (!keytypes[i].card &&
-		    keytypes[i].type() == defaultjob.ktype.type)
+		    keytypes[i].type() == keyjob::defaultjob.ktype.type)
 		{
 			keyType->setCurrentIndex(i);
 		}
@@ -175,7 +173,8 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 	curveBox->insertSeparator(curveBox->count());
 	addCurveBoxCurves(curve_other);
 
-	int default_index = curveBox->findData(QVariant(defaultjob.ec_nid));
+	int default_index = curveBox->findData(
+				QVariant(keyjob::defaultjob.ec_nid));
 	curveBox->setCurrentIndex(default_index == -1 ? 0 : default_index);
 #else
 	(void)min; (void)max; (void)ec_flags;
@@ -218,8 +217,8 @@ keyjob NewKey::getKeyJob() const
 void NewKey::accept()
 {
 	if (rememberDefault->isChecked()) {
-		defaultjob = getKeyJob();
-		Settings["defaultkey"] = defaultjob.toString();
+		keyjob::defaultjob = getKeyJob();
+		Settings["defaultkey"] = keyjob::defaultjob.toString();
 	}
 	QDialog::accept();
 }

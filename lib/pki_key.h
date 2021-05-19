@@ -94,6 +94,7 @@ class keytype
 class keyjob
 {
     public:
+	static keyjob defaultjob;
 	keytype ktype;
 	int size;
 	int ec_nid;

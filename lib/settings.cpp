@@ -1,8 +1,8 @@
 #include "settings.h"
 #include "func.h"
 #include "sql.h"
+#include "pki_key.h"
 #include "widgets/hashBox.h"
-#include "widgets/NewKey.h"
 #include <QDir>
 #include <QFile>
 #include <openssl/asn1.h>
@@ -57,7 +57,7 @@ void settings::setAction(const QString &key, const QString &value)
 	else if (key == "default_hash")
 		hashBox::setDefault(value);
 	else if (key == "defaultkey")
-		NewKey::defaultjob = keyjob(value);
+		keyjob::defaultjob = keyjob(value);
 	else if (key == "optionflags") {
 		XSqlQuery q;
 		Transaction;

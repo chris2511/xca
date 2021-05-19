@@ -22,7 +22,6 @@ class NewKey: public QDialog, public Ui::NewKey
 			unsigned long ec_flags=0);
 		void addCurveBoxCurves(const QList<builtin_curve> &curves);
 	public:
-		static keyjob defaultjob;
 		NewKey(QWidget *parent, const QString &name);
 		keyjob getKeyJob() const;
 

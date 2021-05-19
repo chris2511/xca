@@ -17,6 +17,7 @@
 #include <openssl/pem.h>
 
 builtin_curves builtinCurves;
+keyjob keyjob::defaultjob;
 
 pki_key::pki_key(const QString &name)
         :pki_base(name)
