@@ -192,9 +192,10 @@ install(FILES misc/xca.desktop
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
 )
 install(FILES misc/xca.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
-install(DIRECTORY "${PROJECT_BINARY_DIR}/qthelp/"
+file(GLOB HTML_FILES "${PROJECT_BINARY_DIR}/qthelp/*.html"
+			"${PROJECT_BINARY_DIR}/qthelp/xca.q[hc][ch]")
+install(FILES ${HTML_FILES}
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
-	FILES_MATCHING PATTERN "*.html" PATTERN "xca.q[hc][ch]"
 )
 install(FILES "${PROJECT_BINARY_DIR}/xca.1.gz"
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/man
