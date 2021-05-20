@@ -271,7 +271,7 @@ const QString getUserSettingsDir()
 const QString getI18nDir()
 {
 	return  QStandardPaths::locate(QStandardPaths::DataLocation,
-					"translations");
+			"i18n", QStandardPaths::LocateDirectory);
 }
 
 void migrateOldPaths()

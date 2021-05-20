@@ -69,6 +69,9 @@ lang/xca_hr.ts		lang/xca_pt_BR.ts
 lang/xca_it.ts		lang/xca_ru.ts
 )
 qt5_add_translation(QM_FILES ${TS_FILES})
+set_source_files_properties(${TS_FILES}
+	PROPERTIES MACOSX_PACKAGE_LOCATION Resources/i18n
+)
 add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(${CMAKE_PROJECT_NAME} translations)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
@@ -179,8 +182,11 @@ if (WIN32)
 endif (WIN32)
 
 if (UNIX AND NOT APPLE)
-install(FILES ${QM_FILES} ${TEXT_FILES} ${XCA_TEMPLATES}
+install(FILES ${TEXT_FILES} ${XCA_TEMPLATES}
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}
+)
+install(FILES ${QM_FILES}
+	DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/i18n
 )
 install(FILES misc/xca.desktop
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
