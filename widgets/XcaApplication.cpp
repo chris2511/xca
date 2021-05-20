@@ -17,7 +17,6 @@
 #include <QFile>
 #include <QAction>
 
-QLocale XcaApplication::lang = QLocale::system();
 QFont XcaApplication::tableFont;
 QList<QLocale> XcaApplication::langAvail;
 
@@ -26,7 +25,7 @@ void XcaApplication::setMainwin(MainWindow *m)
 	mainw = m;
 }
 
-bool XcaApplication::languageAvailable(QLocale l)
+bool XcaApplication::languageAvailable(const QLocale &l)
 {
 	return langAvail.contains(l);
 }
@@ -39,6 +38,7 @@ static QString defaultlang()
 XcaApplication::XcaApplication(int &argc, char *argv[])
 	:QApplication(argc, argv)
 {
+	QLocale lang;
 	qtTr = NULL;
 	xcaTr = NULL;
 	mainw = NULL;
@@ -77,11 +77,10 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 	setWindowIcon(QIcon(QPixmap(":appIcon")));
 }
 
-void XcaApplication::setupLanguage(QLocale l)
+void XcaApplication::setupLanguage(const QLocale &lang)
 {
 	QStringList dirs;
 
-	lang = l;
 	if (qtTr) {
 		removeTranslator(qtTr);
 		delete qtTr;
@@ -111,7 +110,7 @@ void XcaApplication::setupLanguage(QLocale l)
 		}
 	}
 	xcaTr->load(lang, "xca", getI18nDir());
-	QLocale::setDefault(l);
+	QLocale::setDefault(lang);
 	installTranslator(qtTr);
 	installTranslator(xcaTr);
 	if (mainw)

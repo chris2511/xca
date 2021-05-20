@@ -53,7 +53,7 @@ static QAction *languageMenuEntry(const QStringList &sl)
 	a->setDisabled(!XcaApplication::languageAvailable(locale));
 
 	a->setCheckable(true);
-	if (locale == XcaApplication::language())
+	if (locale == QLocale())
 		a->setChecked(true);
 	return a;
 }

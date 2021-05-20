@@ -36,17 +36,15 @@ private:
 	MainWindow *mainw;
 	XcaTranslator *qtTr;
 	XcaTranslator *xcaTr;
-	static QLocale lang;
 	static QList<QLocale> langAvail;
 
 public:
 	XcaApplication(int &argc, char *argv[]);
 	virtual ~XcaApplication();
 	void setMainwin(MainWindow *m);
-	void setupLanguage(QLocale lang);
-	static QLocale language() { return lang; }
+	void setupLanguage(const QLocale &lang);
 	static QFont tableFont;
-	static bool languageAvailable(QLocale l);
+	static bool languageAvailable(const QLocale &l);
 	bool eventFilter(QObject *watched, QEvent *ev);
 	bool notify(QObject* receiver, QEvent* event);
 
