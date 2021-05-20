@@ -18,6 +18,7 @@
 #include "XcaProxyModel.h"
 #include "MainWindow.h"
 #include "XcaWarning.h"
+#include "XcaApplication.h"
 
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
@@ -47,6 +48,8 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	connect(&throttle, SIGNAL(timeout()), proxy, SLOT(invalidate()));
 	setFocusPolicy(Qt::StrongFocus);
 	setExpandsOnDoubleClick(false);
+
+	setFont(XcaApplication::tableFont);
 }
 
 XcaTreeView::~XcaTreeView()

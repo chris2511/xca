@@ -19,7 +19,6 @@
 
 #warning drop UI dependencies
 #include "widgets/XcaWarning.h"
-#include "widgets/XcaApplication.h"
 #include "widgets/ImportMulti.h"
 #include "widgets/XcaDialog.h"
 
@@ -473,8 +472,6 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 			return item->getIcon(hd);
 		case Qt::TextAlignmentRole:
 			return hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
-		case Qt::FontRole:
-			return QVariant(XcaApplication::tableFont);
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:
