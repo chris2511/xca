@@ -156,7 +156,7 @@ void pki_multi::probeAnything(const QString &fname)
 				append_item(item);
 				break;
 			}
-		} catch (errorEx &err) {
+		} catch (errorEx &) {
 			continue;
 		} catch (enum open_result r) {
 			if (r == pw_cancel)

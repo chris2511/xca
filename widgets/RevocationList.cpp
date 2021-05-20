@@ -93,7 +93,7 @@ void RevocationList::setupRevocationView(QTreeWidget *certList,
 	certList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
-RevocationList::RevocationList(QWidget *w) : QDialog(w ?: mainwin)
+RevocationList::RevocationList(QWidget *w) : QDialog(w ? w : mainwin)
 {
 	QPushButton *genCrl;
 	setupUi(this);

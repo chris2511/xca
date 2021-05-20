@@ -18,7 +18,7 @@ static const char * const PixmapMap[] = {
 XcaDialog::XcaDialog(QWidget *parent, enum pki_type type, QWidget *w,
 			const QString &t, const QString &desc,
 			const QString &help_ctx)
-	 : QDialog(parent ?: mainwin)
+	 : QDialog(parent ? parent : mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

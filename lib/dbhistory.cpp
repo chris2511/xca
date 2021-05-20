@@ -32,11 +32,11 @@ dbhistory::dbhistory()
 
 	history.clear();
 	while (!file.atEnd()) {
-		char buf[1024];
-		ssize_t size = file.readLine(buf, sizeof buf);
-		if (size <= 0)
+		QByteArray ba;
+		ba = file.readLine(1024);
+		if (ba.size() == 0)
 			break;
-		name = QString::fromUtf8(buf).trimmed();
+		name = QString::fromUtf8(ba).trimmed();
 		if (name.size() == 0)
 			continue;
 		if (history.indexOf(name) == -1)

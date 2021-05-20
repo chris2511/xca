@@ -8,10 +8,18 @@
 #ifndef __X_FILE_H
 #define __X_FILE_H
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <QFile>
 #include <QDebug>
 #include <stdio.h>
+#if defined (Q_CC_MSVC)
+#include <stdlib.h>
+#include <io.h>
+typedef int mode_t;
+#else
 #include <unistd.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 

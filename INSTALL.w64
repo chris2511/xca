@@ -1,30 +1,22 @@
 
-This is a short overview of how to build
-XCA for windows 64-bit.
+Since the switch to CMAKE a native compilation on Windows
+is possible.
 
-This is for debian hosts, cross-compiling a windows binary.
+Required:
+  QT via Maintainance tool:
+    Qt -> 5.15.2 -> MingW-64bit
+       -> Qt Creator
+       -> MingW
+       -> Cmake
+       -> Ninja
 
-Needed packages:
-  mingw cross compiler
-  wine (to run moc.exe and uic.exe)
+  OpenSSL: Win64OpenSSL_1_1_1k.msi
 
-# apt-get install mingw-w64 wine
+Optional for the documentation
+  Python3.9 via Microsoft Store
+  Inside Python console run "pip install sphinx"
 
-create a new, empty directory say xca-w64
-$ cd xca-w64
-$ tar zxf xca-0.x.y.tar.gz
+Add the C:\Qt\5.15.2\mingw81_64\bin and the path shown by pip
+to your %PATH% environment
 
-Use a Windows host to execute and install the QT5 tools
-The required component is: Qt5 / MinGW 64-bit
-https://www.qt.io/download
-
-./bootstrap
-touch build-libs
-
-comment out OSSLSIGN line in Makefile
-
-copy the installed Qt tree from windows host to ./qt/
-
-Edit the Qt path in xca-x.y.z/release/build-w64.sh
-Now call xca-x.y.z/release/build-w64.sh
-and wait until xca-portable-x.y.z is built.
+Open XCA in the Qt Creator and GO

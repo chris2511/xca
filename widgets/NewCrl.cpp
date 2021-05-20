@@ -19,7 +19,7 @@
 #include <QMessageBox>
 
 NewCrl::NewCrl(const crljob &j, QWidget *w)
-	: QWidget(w ?: mainwin), task(j)
+	: QWidget(w ? w : mainwin), task(j)
 {
 	pki_x509 *issuer = task.issuer;
 	pki_key *key = issuer->getRefKey();

@@ -84,7 +84,7 @@ class keyListItem
 Q_DECLARE_METATYPE(keyListItem);
 
 NewKey::NewKey(QWidget *parent, const QString &name)
-	:QDialog(parent ?: mainwin)
+	:QDialog(parent ? parent : mainwin)
 {
 	static const QList<int> sizeList = { 1024, 2048, 4096, 8192 };
 	slotidList p11_slots;

@@ -30,7 +30,7 @@
 #include <typeinfo>
 
 ImportMulti::ImportMulti(QWidget *parent)
-	: QDialog(parent ?: mainwin)
+	: QDialog(parent ? parent : mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

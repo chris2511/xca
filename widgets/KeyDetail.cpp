@@ -23,7 +23,7 @@
 #include <QLineEdit>
 
 KeyDetail::KeyDetail(QWidget *w)
-	: QDialog(w ?: mainwin) , keySqlId()
+	: QDialog(w ? w : mainwin) , keySqlId()
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

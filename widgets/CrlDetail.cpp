@@ -21,7 +21,7 @@
 #include <QLineEdit>
 
 CrlDetail::CrlDetail(QWidget *w)
-	: QDialog(w ?: mainwin), issuerSqlId(), crlSqlId()
+	: QDialog(w ? w : mainwin), issuerSqlId(), crlSqlId()
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

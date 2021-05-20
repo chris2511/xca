@@ -107,7 +107,7 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(QWidget *w) : QDialog(w ?: mainwin)
+NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
 {
 	int i;
 	QStringList keys;

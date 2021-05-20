@@ -21,7 +21,7 @@
 #include <QMessageBox>
 
 CertDetail::CertDetail(QWidget *w)
-	: QDialog(w ?: mainwin), keySqlId(), issuerSqlId(), thisSqlId()
+	: QDialog(w ? w : mainwin), keySqlId(), issuerSqlId(), thisSqlId()
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

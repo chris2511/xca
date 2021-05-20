@@ -22,7 +22,7 @@
 ExportDialog::ExportDialog(QWidget *w, const QString &title,
 			const QString &filt, pki_base *pki, const QPixmap &img,
 			QList<exportType> types, const QString &help_ctx)
-	: QDialog(w ?: mainwin)
+	: QDialog(w ? w : mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
