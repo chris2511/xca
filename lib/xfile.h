@@ -52,7 +52,7 @@ class XFile : public QFile
 					mode = openMode() & WriteOnly ?
 							"ab" : "rb";
 				filp = fdopen(dup(handle()), mode);
-				check_oom(filp);
+				Q_CHECK_PTR(filp);
 			}
 			qDebug() << fileName() << "FILE ptr @" << ftell(filp);
 			return filp;

@@ -175,7 +175,7 @@ void db_x509super::toTemplate(QModelIndex index)
 
 	try {
 		pki_temp *temp = new pki_temp();
-		check_oom(temp);
+		Q_CHECK_PTR(temp);
 		temp->setIntName(pki->getIntName());
 		extList el = temp->fromCert(pki);
 		if (el.size()) {

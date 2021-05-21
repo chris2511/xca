@@ -77,7 +77,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 			alias = QString::fromUtf8((const char *)str);
 		alias = QString::fromUtf8(alias.toLatin1());
 		cert = new pki_x509(mycert);
-		check_oom(cert);
+		Q_CHECK_PTR(cert);
 		if (alias.isEmpty()) {
 			cert->autoIntName(fname);
 			alias = cert->getIntName();
@@ -90,7 +90,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	}
 	if (mykey) {
 		key = new pki_evp(mykey);
-		check_oom(key);
+		Q_CHECK_PTR(key);
 		key->setIntName(alias + "_key");
 		key->pkiSource = imported;
 		inheritFilename(key);
@@ -101,7 +101,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 		if (!crt)
 			continue;
 		pki_x509 *cacert = new pki_x509(crt);
-		check_oom(cacert);
+		Q_CHECK_PTR(cacert);
 		if (alias.isEmpty()) {
 			cacert->autoIntName(QString());
 		} else {

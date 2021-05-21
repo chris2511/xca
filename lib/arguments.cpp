@@ -242,7 +242,7 @@ int arguments::parse(int argc, char *argv[])
 	if (!long_opts)
 		long_opts = new struct option[cnt+1];
 
-	check_oom(long_opts);
+	Q_CHECK_PTR(long_opts);
 	for (i = 0; i < cnt; ++i)
 		opts[i].fillOption(long_opts +i);
 	long_opts[cnt].name = NULL;

@@ -100,7 +100,7 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(const slotid &slot)
 	CALL_P11_C(slot.lib, C_GetMechanismList, slot.id, NULL, &count);
 	if (count != 0) {
 		m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
-		check_oom(m);
+		Q_CHECK_PTR(m);
 
 		CALL_P11_C(slot.lib, C_GetMechanismList, slot.id, m, &count);
 		if (rv != CKR_OK) {
@@ -997,7 +997,7 @@ static unsigned char *create_x509_sig(EVP_PKEY_CTX *ctx, const unsigned char *m,
 	if (i <= 0)
 		return NULL;
 	p = tmps = (unsigned char *)malloc(i);
-	check_oom(tmps);
+	Q_CHECK_PTR(tmps);
 	if (i2d_X509_SIG(&sig, &p) <= 0) {
 		free(tmps);
 		return NULL;
@@ -1149,7 +1149,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 
 	if (!e) {
 		e = ENGINE_new();
-		check_oom(e);
+		Q_CHECK_PTR(e);
 
 		ENGINE_set_pkey_meths(e, eng_meths);
 		ENGINE_set_finish_function(e, eng_finish);

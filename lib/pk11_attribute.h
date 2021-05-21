@@ -161,8 +161,8 @@ public:
 	void setULong(unsigned long value)
 	{
 		BIGNUM *bn = BN_new();
-		check_oom(bn);
-		check_oom(BN_set_word(bn, value));
+		Q_CHECK_PTR(bn);
+		BN_set_word(bn, value);
 		setBignum(bn, true);
 	}
 	unsigned long getValue(const unsigned char **ptr) const

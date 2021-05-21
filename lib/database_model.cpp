@@ -146,7 +146,7 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	models << new db_temp();
 
 	foreach(db_base *m, models) {
-		check_oom(m);
+		Q_CHECK_PTR(m);
 		connect(m, SIGNAL(pkiChanged(pki_base*)),
 			this, SLOT(pkiChangedSlot(pki_base*)));
 	}

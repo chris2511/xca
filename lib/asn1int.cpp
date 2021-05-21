@@ -20,14 +20,14 @@ ASN1_INTEGER *a1int::dup(const ASN1_INTEGER *a) const
 	openssl_error();
 	if (!r)
 		r = ASN1_INTEGER_new();
-	check_oom(r);
+	Q_CHECK_PTR(r);
 	return r;
 }
 
 a1int::a1int()
 {
 	in = ASN1_INTEGER_new();
-	check_oom(in);
+	Q_CHECK_PTR(in);
 	ASN1_INTEGER_set(in, 0);
 	openssl_error();
 }
@@ -45,14 +45,14 @@ a1int::a1int(const a1int &a)
 a1int::a1int(const QString &hex)
 {
 	in = ASN1_INTEGER_new();
-	check_oom(in);
+	Q_CHECK_PTR(in);
 	setHex(hex);
 }
 
 a1int::a1int(long l)
 {
 	in = ASN1_INTEGER_new();
-	check_oom(in);
+	Q_CHECK_PTR(in);
 	set(l);
 }
 

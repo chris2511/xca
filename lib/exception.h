@@ -54,11 +54,4 @@ class errorEx
 			return msg.isEmpty();
 		}
 };
-
-#define check_oom(ptr) \
-	if(!ptr) { \
-		throw errorEx(QObject::tr("Out of Memory at %1:%2").\
-			arg(C_FILE).arg(__LINE__)); \
-	}
-
 #endif

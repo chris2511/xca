@@ -487,7 +487,7 @@ void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 		pki_openssl_error();
 		size = BN_num_bytes(point);
 		buf = (unsigned char *)OPENSSL_malloc(size);
-		check_oom(buf);
+		Q_CHECK_PTR(buf);
 		BN_bn2bin(point, buf);
 		os = ASN1_OCTET_STRING_new();
 		/* set0 -> ASN1_OCTET_STRING_free() also free()s buf */

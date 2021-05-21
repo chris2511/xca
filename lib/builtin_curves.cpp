@@ -128,10 +128,10 @@ builtin_curves::builtin_curves()
 	int i, num_curves = EC_get_builtin_curves(NULL, 0);
 	EC_builtin_curve *curves = new EC_builtin_curve[num_curves];
 
-	check_oom(curves);
+	Q_CHECK_PTR(curves);
 
 	BIGNUM *order = BN_new();
-	check_oom(order);
+	Q_CHECK_PTR(order);
 
 	EC_get_builtin_curves(curves, num_curves);
 

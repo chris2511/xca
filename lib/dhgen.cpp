@@ -19,7 +19,7 @@ void DHgen::run()
 	DH *dh = NULL;
 	try {
 		dh = DH_new();
-		check_oom(dh);
+		Q_CHECK_PTR(dh);
 		DH_generate_parameters_ex(dh, bits, 2, NULL);
 		openssl_error();
 

@@ -477,7 +477,7 @@ QString pki_key::BN2QString(const BIGNUM *bn) const
 	char zs[10];
 	int j, size = BN_num_bytes(bn);
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
-	check_oom(buf);
+	Q_CHECK_PTR(buf);
 	BN_bn2bin(bn, buf);
 	for (j = 0; j< size; j++) {
 		sprintf(zs, "%02X%c",buf[j], ((j+1)%16 == 0) ? '\n' :
@@ -608,7 +608,7 @@ BIGNUM *pki_key::ssh_key_data2bn(QByteArray *ba) const
 	QByteArray chunk = ssh_key_next_chunk(ba);
 	BIGNUM *bn = BN_bin2bn((const unsigned char *)chunk.constData(),
 				chunk.size(), NULL);
-	check_oom(bn);
+	Q_CHECK_PTR(bn);
 	return bn;
 }
 
@@ -655,10 +655,10 @@ EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 		BIGNUM *n = ssh_key_data2bn(&ba);
 
 		RSA *rsa = RSA_new();
-		check_oom(rsa);
+		Q_CHECK_PTR(rsa);
 		RSA_set0_key(rsa, n, e, NULL);
 		pk = EVP_PKEY_new();
-		check_oom(pk);
+		Q_CHECK_PTR(pk);
 		EVP_PKEY_assign_RSA(pk, rsa);
 	} else if (sl[0].startsWith("ssh-dss")) {
 		ssh_key_check_chunk(&ba, "ssh-dss");
@@ -667,13 +667,13 @@ EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 		BIGNUM *g = ssh_key_data2bn(&ba);
 		BIGNUM *pubkey = ssh_key_data2bn(&ba);
 		DSA *dsa = DSA_new();
-		check_oom(dsa);
+		Q_CHECK_PTR(dsa);
 
 		DSA_set0_pqg(dsa, p, q, g);
 		DSA_set0_key(dsa, pubkey, NULL);
 
 		pk = EVP_PKEY_new();
-		check_oom(pk);
+		Q_CHECK_PTR(pk);
 		EVP_PKEY_assign_DSA(pk, dsa);
 #ifndef OPENSSL_NO_EC
 	} else if (sl[0].startsWith("ecdsa-sha2-nistp256")) {
@@ -685,7 +685,7 @@ EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 		BIGNUM *bn = ssh_key_data2bn(&ba);
 
 		ec = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
-		check_oom(ec);
+		Q_CHECK_PTR(ec);
 		EC_KEY_set_asn1_flag(ec, OPENSSL_EC_NAMED_CURVE);
 		EC_KEY_set_public_key(ec, EC_POINT_bn2point(
 					EC_KEY_get0_group(ec), bn, NULL, NULL));
@@ -693,7 +693,7 @@ EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
 		pki_openssl_error();
 
 		pk = EVP_PKEY_new();
-		check_oom(pk);
+		Q_CHECK_PTR(pk);
 		EVP_PKEY_assign_EC_KEY(pk, ec);
 #ifdef EVP_PKEY_ED25519
 	} else if (sl[0].startsWith("ssh-ed25519")) {

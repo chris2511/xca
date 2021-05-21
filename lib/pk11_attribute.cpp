@@ -31,7 +31,7 @@ void pk11_attr_data::load(const slotid &slot,
 	rv = slot.p11()->C_GetAttributeValue(sess, obj, &attr, 1);
 	if (rv == CKR_OK) {
 		attr.pValue = malloc(attr.ulValueLen +1);
-		check_oom(attr.pValue);
+		Q_CHECK_PTR(attr.pValue);
 		rv = slot.p11()->C_GetAttributeValue(sess, obj, &attr, 1); \
 		if (rv == CKR_OK)
 			return;
@@ -49,7 +49,7 @@ void pk11_attr_data::setValue(const unsigned char *ptr, unsigned long len)
 		return;
 	}
 	attr.pValue = malloc(len+1);
-	check_oom(attr.pValue);
+	Q_CHECK_PTR(attr.pValue);
 	memcpy(attr.pValue, ptr, len);
 	attr.ulValueLen = len;
 	((char*)attr.pValue)[len] = 0;
@@ -61,7 +61,7 @@ void pk11_attr_data::setConstBignum(const BIGNUM *bn)
 	if (attr.pValue)
 		free(attr.pValue);
 	attr.pValue = malloc(attr.ulValueLen);
-	check_oom(attr.pValue);
+	Q_CHECK_PTR(attr.pValue);
 	attr.ulValueLen = BN_bn2bin(bn, (unsigned char *)attr.pValue);
 }
 
@@ -89,12 +89,12 @@ void pk11_attlist::copy(const pk11_attlist &a)
 	if (alloc_len) {
 		attributes =
 			(CK_ATTRIBUTE *)malloc(alloc_len *sizeof(*attributes));
-		check_oom(attributes);
+		Q_CHECK_PTR(attributes);
 		memcpy(attributes, a.attributes, attlen *sizeof(*attributes));
 	}
 	for (unsigned long i=0; i<attlen; i++) {
 		char *p = (char*)malloc(attributes[i].ulValueLen +1);
-		check_oom(p);
+		Q_CHECK_PTR(p);
 		memcpy(p, a.attributes[i].pValue, attributes[i].ulValueLen);
 		p[attributes[i].ulValueLen] = '\0';
 		attributes[i].pValue = p;
@@ -123,13 +123,13 @@ void pk11_attlist::addAttribute(const pk11_attribute &a)
 		alloc_len = alloc_len ? alloc_len *2 : 16;
 		attributes = (CK_ATTRIBUTE *)realloc(attributes,
 			alloc_len * sizeof(*attributes));
-		check_oom(attributes);
+		Q_CHECK_PTR(attributes);
 	}
 	attr = attributes + attlen++;
 	attr->type = a.attr.type;
 	attr->ulValueLen = a.attr.ulValueLen;
 	attr->pValue = malloc(attr->ulValueLen +1);
-	check_oom(attr->pValue);
+	Q_CHECK_PTR(attr->pValue);
 	memcpy(attr->pValue, a.attr.pValue, attr->ulValueLen);
 	((char*)attr->pValue)[attr->ulValueLen] = 0;
 }

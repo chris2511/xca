@@ -1010,7 +1010,7 @@ void db_x509::toRequest(QModelIndex idx)
 
 	try {
 		pki_x509req *req = new pki_x509req();
-		check_oom(req);
+		Q_CHECK_PTR(req);
 		req->pkiSource = transformed;
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(),

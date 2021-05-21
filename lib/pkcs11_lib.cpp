@@ -100,7 +100,7 @@ QList<unsigned long> pkcs11_lib::getSlotList()
 
 		p11_slots = (CK_SLOT_ID *)realloc(p11_slots,
 					num_slots *sizeof(CK_SLOT_ID));
-		check_oom(p11_slots);
+		Q_CHECK_PTR(p11_slots);
 	}
 
 	for (i=0; i<num_slots; i++) {

@@ -519,7 +519,7 @@ EVP_PKEY *pki_evp::priv2pub(EVP_PKEY* key)
 
 	keylen = i2d_PUBKEY(key, NULL);
 	p1 = p = (unsigned char *)OPENSSL_malloc(keylen);
-	check_oom(p);
+	Q_CHECK_PTR(p);
 
 	/* convert rsa/dsa/ec to Pubkey */
 	keylen = i2d_PUBKEY(key, &p);
@@ -582,7 +582,7 @@ void pki_evp::encryptKey(const char *password)
 	   have the encrypted private in "encKey"
 	 */
 	EVP_PKEY *pkey1 = priv2pub(key);
-	check_oom(pkey1);
+	Q_CHECK_PTR(pkey1);
 	EVP_PKEY_free(key);
 	key = pkey1;
 	pki_openssl_error();
@@ -776,7 +776,7 @@ bool pki_evp::verify_priv(EVP_PKEY *pkey) const
 		ctx = EVP_MD_CTX_new();
 		pki_ign_openssl_error();
 		RAND_bytes(data, datalen);
-		check_oom(ctx);
+		Q_CHECK_PTR(ctx);
 		verify = false;
 
 		/* Sign some random data in "data" */
