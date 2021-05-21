@@ -12,7 +12,6 @@
 #include "ui_NewX509.h"
 #include "lib/oid.h"
 #include "kvView.h"
-#include "MainWindow.h"
 #include <openssl/x509v3.h>
 #include <QListWidget>
 

@@ -28,6 +28,7 @@ class xcaWarning_i
 	virtual bool yesno(const QString &msg) = 0;
 	virtual bool okcancel(const QString &msg) = 0;
 	virtual void error(const errorEx &err) = 0;
+	virtual ~xcaWarning_i() { };
 };
 
 class xcaWarningCore

@@ -9,8 +9,8 @@ if (FILE AND SRC)
     set(DIR_HINT "/usr/local/share/xca/${FILE}.txt or HOME/.local/share/xca/${FILE}.txt")
   endif()
 
-  file(READ "${SRC}/misc/${FILE}.text" CONT)
-  file(WRITE "misc/${FILE}.txt"
+  file(READ "${SRC}/${FILE}.text" CONT)
+  file(WRITE "${FILE}.txt"
 		${TEXT_PREFIX} "\n# "
 		${DIR_HINT} "\n"
 		${CONT})

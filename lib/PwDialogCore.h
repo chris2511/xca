@@ -17,6 +17,7 @@ class PwDialogUI_i
     public:
 	virtual enum open_result execute(pass_info *p, Passwd *passwd,
 			bool write = false, bool abort = false) = 0;
+	virtual ~PwDialogUI_i() { };
 };
 
 class PwDialogCore

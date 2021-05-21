@@ -11,6 +11,7 @@
 #include <QDebug>
 
 #include "widgets/MainWindow.h"
+#include "ui_MainWindow.h"
 #include "widgets/XcaApplication.h"
 #include "XcaWarningCore.h"
 #include "func.h"

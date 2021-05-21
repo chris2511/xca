@@ -15,7 +15,7 @@ OpenSSL     >=  1.1.0  from https://www.openssl.org
 C++11 compiler, e.g. GNU gcc >= 5
 GNU make
 
-INSTALL_DIR=/Users/chris/src/xca-dir/install \
+INSTALL_DIR=/Users/chris/src/xca-dir/install
 cmake -DCMAKE_LIBRARY_PATH="$INSTALL_DIR"/lib \
 	-DCMAKE_INCLUDE_PATH="$INSTALL_DIR"/include \
 	-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt\@5/5.15.2/ \

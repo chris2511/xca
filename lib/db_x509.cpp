@@ -6,6 +6,8 @@
  */
 
 #include "db_x509.h"
+#include "db_x509req.h"
+#include "db_crl.h"
 #include "pki_x509.h"
 #include "pki_crl.h"
 #include "pki_temp.h"
@@ -25,8 +27,10 @@
 #include "widgets/ExportDialog.h"
 #include "widgets/RevocationList.h"
 #include "widgets/NewX509.h"
+#include "widgets/MainWindow.h"
 
 #include "ui_RevocationList.h"
+#include "ui_MainWindow.h"
 #include "ui_CertExtend.h"
 #include "ui_Revoke.h"
 #include "ui_Help.h"
