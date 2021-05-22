@@ -88,10 +88,13 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
 	RESOURCE DESTINATION Resources
 )
 
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/COPYRIGHT")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+
 ###############################################
 ##### Host specific settings
 
-if (APPLE)
+if(APPLE)
   # message(STATUS "Blaaaaaahhhh ${APP_RESOURCES}")
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE TRUE
@@ -104,10 +107,14 @@ if (APPLE)
   " COMPONENT Runtime)
 
   set(CPACK_GENERATOR "DragNDrop")
-  include(CPack)
-endif (APPLE)
 
-if (WIN32)
+elseif(WIN32)
   set(QT_USE_QTMAIN TRUE)
-endif (WIN32)
+  set(CPACK_GENERATOR WIX)
+else()
+  set(CPACK_SOURCE_GENERATOR "TGZ")
+  set(CPACK_SOURCE_IGNORE_FILES \\.git/ build/ ".*~$")
+  set(CPACK_VERBATIM_VARIABLES YES)
+endif()
 
+include(CPack)
