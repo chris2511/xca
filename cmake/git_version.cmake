@@ -31,6 +31,19 @@ if(Git_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
     message(STATUS "Commit counter: ${GIT_COMMIT_COUNTER} - ${GIT_REV} - ${PROJECT_VERSION}")
   endif()
+  set(RELEASE_TAG "RELEASE.${PROJECT_VERSION}"
+	 CACHE STRING "Release TAG for the release")
+  set(RELEASE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
+  add_custom_command(
+	OUTPUT "${RELEASE_NAME}.tar.gz"
+	WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+	COMMAND git archive --format=tar.gz --prefix=${RELEASE_NAME}/
+		${RELEASE_TAG} > ${CMAKE_BINARY_DIR}/${RELEASE_NAME}.tar.gz
+	COMMENT "Create ${RELEASE_NAME}.tar.gz from tag ${RELEASE_TAG}"
+  )
+  add_custom_target(release DEPENDS ${RELEASE_NAME}.tar.gz)
+
 endif()
+
 message(STATUS "VERSION: ${PROJECT_VERSION}")
 
