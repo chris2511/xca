@@ -71,7 +71,7 @@ QSqlError database_model::initSqlDB()
 	}
 
 	if (i != MAX_SCHEMAS)
-		throw errorEx(tr("Failed to update the database schema to the current version"));
+		throw errorEx(QObject::tr("Failed to update the database schema to the current version"));
 
 	TransCommit();
 	return QSqlError();

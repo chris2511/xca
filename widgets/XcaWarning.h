@@ -22,6 +22,8 @@ class xcaWarning: public QMessageBox
 
 class xcaWarningGui : public QObject, public xcaWarning_i
 {
+	Q_OBJECT
+
     public:
 	int showBox(const QString &txt, QMessageBox::Icon icn,
 			QMessageBox::StandardButtons b);

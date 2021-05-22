@@ -18,6 +18,8 @@
 
 class pkcs11_lib : public QLibrary
 {
+	Q_OBJECT
+
     private:
 	CK_FUNCTION_LIST *p11;
 	QString file, load_error;

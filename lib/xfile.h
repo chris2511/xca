@@ -30,6 +30,8 @@ typedef int mode_t;
 
 class XFile : public QFile
 {
+	Q_OBJECT
+
 	private:
 		FILE *filp;
 		BIO *b;
