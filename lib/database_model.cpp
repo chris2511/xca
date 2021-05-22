@@ -43,7 +43,7 @@ QSqlError database_model::initSqlDB()
 
 	QStringList schemas[MAX_SCHEMAS];
 
-#include "widgets/database_schema.cpp"
+#include "database_schema.cpp"
 
 	XSqlQuery q;
 	QSqlDatabase db = QSqlDatabase::database();

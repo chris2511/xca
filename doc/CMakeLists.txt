@@ -34,10 +34,10 @@ if(SPHINX AND QTCOLLGEN)
 	OUTPUT rst/database_schema.sql
 	COMMAND ${CMAKE_COMMAND} -E make_directory rst/_static
 	COMMAND ${CMAKE_COMMAND}
-		-D "SRC=${PROJECT_SOURCE_DIR}/widgets/database_schema.cpp"
+		-D "SRC=${PROJECT_SOURCE_DIR}/lib/database_schema.cpp"
 		-D "DST=rst/database_schema.sql"
 		-P "${PROJECT_SOURCE_DIR}/cmake/database_schema.cmake"
-	DEPENDS "${PROJECT_SOURCE_DIR}/widgets/database_schema.cpp"
+	DEPENDS "${PROJECT_SOURCE_DIR}/lib/database_schema.cpp"
 	COMMENT "Generating database schema SQL documentation"
   )
   add_custom_command(
