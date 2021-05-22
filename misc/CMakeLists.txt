@@ -14,7 +14,7 @@ macro(Text_header file)
         COMMAND ${CMAKE_COMMAND} -DFILE=${file}
 		-DSRC="${CMAKE_CURRENT_SOURCE_DIR}"
                 -P "${PROJECT_SOURCE_DIR}/cmake/text_header_file.cmake"
-        DEPENDS ${file}.text
+        DEPENDS ${file}.text preamble.txt
   )
   list(APPEND TEXT_FILES "${CMAKE_CURRENT_BINARY_DIR}/${file}.txt")
   list(APPEND SRC_TEXT_FILES "${CMAKE_CURRENT_SOURCE_DIR}/${file}.text")
