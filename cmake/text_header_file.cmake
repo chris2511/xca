@@ -1,5 +1,5 @@
 
-if (FILE AND SRC)
+if (FILE AND SRC AND DST)
   if (APPLE)
     set(DIR_HINT "HOME/Library/Application Support/data/xca/${FILE}.txt")
   elseif (WIN32)
@@ -10,7 +10,7 @@ if (FILE AND SRC)
 
   file(READ "${SRC}/preamble.txt" PREAMBLE)
   file(READ "${SRC}/${FILE}.text" CONT)
-  file(WRITE "${FILE}.txt"
+  file(WRITE "${DST}/${FILE}.txt"
 		${PREAMBLE} "\n# "
 		${DIR_HINT} "\n"
 		${CONT})

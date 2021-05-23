@@ -38,8 +38,7 @@ configure_file(local.h.in local.h)
 
 add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc)
 add_executable(xcadoc xcadoc.cpp)
-target_include_directories(xcadoc PRIVATE
-	 "${PROJECT_BINARY_DIR}AA" "${PROJECT_SOURCE_DIR}/lib")
+target_include_directories(xcadoc PRIVATE "${PROJECT_SOURCE_DIR}/lib")
 
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
@@ -83,10 +82,11 @@ endif()
 
 add_subdirectory(lib)
 add_subdirectory(widgets)
-add_subdirectory(lang)
-add_subdirectory(doc)
-add_subdirectory(misc)
-add_subdirectory(img)
+
+include(misc/CMakeLists.txt)
+include(lang/CMakeLists.txt)
+include(doc/CMakeLists.txt)
+include(img/CMakeLists.txt)
 
 install(TARGETS ${CMAKE_PROJECT_NAME}
 	BUNDLE DESTINATION .
@@ -94,7 +94,6 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
 	RESOURCE DESTINATION Resources
 )
 
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/COPYRIGHT")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 
 ###############################################
@@ -106,7 +105,6 @@ if(APPLE)
     set(APPLE_CERT_3PARTY_APP "3rd Party Mac Developer Application: $ENV{APPLE_DEVELOPER}")
     set(APPLE_CERT_ID_APP "Developer ID Application: $ENV{APPLE_DEVELOPER}")
   endif()
-  message(STATUS "Blaaaaaahhhh ${APP_RESOURCES}")
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE TRUE
 	RESOURCE "${APP_RESOURCES}"
@@ -119,7 +117,7 @@ if(APPLE)
 
   set(CPACK_BUNDLE_APPLE_CERT_APP "${APPLE_CERT_ID_APP}")
   set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
-  set(CPACK_GENERATOR "DragNDrop")
+  set(CPACK_GENERATOR "DragNDrop;productbuild")
 
 elseif(WIN32)
   set(QT_USE_QTMAIN TRUE)

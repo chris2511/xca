@@ -1,12 +1,16 @@
 
+set(S "${PROJECT_SOURCE_DIR}/img")
+set(D "${PROJECT_BINARY_DIR}/img")
+file(MAKE_DIRECTORY ${D})
+
 macro(Install_PNG size)
-  install(FILES xca-icons.iconset/icon_${size}.png
+  install(FILES ${S}/xca-icons.iconset/icon_${size}.png
 	DESTINATION ${ICONDIR}/${size}/apps RENAME xca.png
   )
-  install(FILES xca-icons.iconset/icon_${size}.png
+  install(FILES ${S}/xca-icons.iconset/icon_${size}.png
 	DESTINATION ${ICONDIR}/${size}/mimetypes RENAME x-xca-database.png
   )
-  install(FILES xca-icons.iconset/icon_${size}.png
+  install(FILES ${S}/xca-icons.iconset/icon_${size}.png
 	DESTINATION ${ICONDIR}/${size}/mimetypes RENAME x-xca-template.png
   )
 endmacro()
@@ -16,26 +20,25 @@ if(APPLE)
   ###### MAC ICONS
   find_program(ICONUTIL iconutil)
   if(ICONUTIL)
-    set(ICONS "${CMAKE_CURRENT_BINARY_DIR}/xca-icons.icns")
-    file(GLOB ICON_SRC ${CMAKE_CURRENT_SOURCE_DIR}/xca-icons.iconset/*.png)
+    set(ICONS "${D}/xca-icons.icns")
+    file(GLOB ICON_SRC ${S}/xca-icons.iconset/*.png)
     add_custom_command(OUTPUT ${ICONS}
 	  COMMAND iconutil --convert icns -o ${ICONS}
-		  ${CMAKE_CURRENT_SOURCE_DIR}/xca-icons.iconset
+		  ${S}/xca-icons.iconset
 	  DEPENDS ${ICON_SRC}
     )
     add_custom_target(mac-icons DEPENDS ${ICONS})
     list(APPEND APP_RESOURCES ${ICONS})
-    target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICON_SRC})
-    add_dependencies(${CMAKE_PROJECT_NAME} mac-icons)
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICONS})
   endif()
-  set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/bigcert.png")
+  set(CPACK_DMG_BACKGROUND_IMAGE "${S}/bigcert.png")
 
 endif()
 
-if (UNIX)
+if (UNIX AND NOT APPLE)
 
-  install(FILES xca-32x32.xpm
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
+  install(FILES ${S}/xca-32x32.xpm
+	DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
   )
   set(ICONDIR ${CMAKE_INSTALL_DATADIR}/icons/hicolor)
 

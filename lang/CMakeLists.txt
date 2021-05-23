@@ -1,19 +1,23 @@
 
+set(S "${PROJECT_SOURCE_DIR}/lang")
+set(D "${PROJECT_BINARY_DIR}/lang")
+file(MAKE_DIRECTORY "${D}")
+
 set(TS_FILES
-xca_fr.ts	xca_ja.ts	xca_pt_BR.ts	xca_tr.ts
-xca_de.ts	xca_hr.ts	xca_nl.ts	xca_ru.ts
-xca_es.ts	xca_it.ts	xca_pl.ts	xca_sk.ts
-xca_zh_CN.ts	xca.ts
+${S}/xca_fr.ts	${S}/xca_ja.ts	${S}/xca_tr.ts	${S}/xca.ts
+${S}/xca_de.ts	${S}/xca_hr.ts	${S}/xca_nl.ts	${S}/xca_ru.ts
+${S}/xca_es.ts	${S}/xca_it.ts	${S}/xca_pl.ts	${S}/xca_sk.ts
+${S}/xca_zh_CN.ts	${S}/xca_pt_BR.ts
 )
 
 qt5_add_translation(QM_FILES ${TS_FILES})
 list(APPEND APP_RESOURCES ${QM_FILES})
-set(APP_RESOURCES ${APP_RESOURCES} PARENT_SCOPE)
 
 add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(${CMAKE_PROJECT_NAME} translations)
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
 
-if (UNIX)
+if (UNIX AND NOT APPLE)
   install(FILES ${QM_FILES}
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/i18n
   )
@@ -24,16 +28,12 @@ find_program(LCONVERT lconvert)
 # cmake -DTRANS=1 ../xca && make trans
 if (LCONVERT AND TRANS)
   add_custom_command(
-	OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/xca.pot"
-	COMMAND ${LCONVERT} -if ts -of po
-		-i "${CMAKE_CURRENT_SOURCE_DIR}/xca.ts"
-		-o "${CMAKE_CURRENT_SOURCE_DIR}/xca.pot"
-	DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/xca.ts"
+	OUTPUT "${S}/xca.pot"
+	COMMAND ${LCONVERT} -if ts -of po -i "${S}/xca.ts" -o "${S}/xca.pot"
+	DEPENDS "${S}/xca.ts"
 	COMMENT "Update POT file"
   )
   qt5_create_translation(CQM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
-  add_custom_target(trans DEPENDS ${CQM_FILES}
-		"${CMAKE_CURRENT_SOURCE_DIR}/xca.pot"
-  )
+  add_custom_target(trans DEPENDS ${CQM_FILES} "${S}/xca.pot")
 endif()

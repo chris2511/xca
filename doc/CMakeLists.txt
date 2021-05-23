@@ -1,105 +1,126 @@
 
+set(S "${PROJECT_SOURCE_DIR}/doc")
+set(D "${PROJECT_BINARY_DIR}/doc")
+file(MAKE_DIRECTORY "${D}")
+
 find_program(SPHINX sphinx-build)
 find_program(QTCOLLGEN qcollectiongenerator)
 
-set(RST_FILES
-rst/index.rst rst/commandline.rst rst/requests.rst rst/object-ids.rst
-rst/common-actions.rst rst/database.rst rst/options.rst rst/certificates.rst
-rst/revocationlist.rst rst/changelog.rst rst/introduction.rst
-rst/privatekey.rst rst/step-by-step.rst rst/certificate-input.rst
-rst/template.rst rst/smartcard.rst rst/miscellaneous.rst
+set(FILENAMES
+	index commandline requests object-ids common-actions database options
+	certificates revocationlist changelog introduction privatekey
+	step-by-step certificate-input template smartcard miscellaneous
 )
 
-if(SPHINX AND QTCOLLGEN)
-  configure_file(conf.py.in rst/conf.py)
+foreach(file ${FILENAMES})
+  list(APPEND RST_SOURCE "${S}/rst/${file}.rst")
+  list(APPEND RST_DEST "${D}/rst/${file}.rst")
+  list(APPEND HTML_DEST "${D}/html/${file}.html")
+  list(APPEND QTHELP_DEST "${D}/qthelp/${file}.html")
+endforeach()
+
+if(SPHINX)
+  configure_file(${S}/conf.py.in ${D}/rst/conf.py)
   add_custom_command(
-	OUTPUT html/index.html
-	COMMAND ${SPHINX} -b html rst html
-	DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/rst/conf.py" sphinx-src
+	OUTPUT ${HTML_DEST}
+	COMMAND ${SPHINX} -b html ${D}/rst ${D}/html
+	DEPENDS "${D}/rst/conf.py" sphinx-src
 	COMMENT "Create HTML documentation"
   )
   add_custom_command(
-	OUTPUT qthelp/xca.qhcp
-	COMMAND ${SPHINX} -b qthelp rst qthelp
-	DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/rst/conf.py" sphinx-src
+	OUTPUT "${D}/qthelp/xca.qhcp" "${D}/qthelp/xca.qch" ${QTHELP_DEST}
+	COMMAND ${SPHINX} -b qthelp ${D}/rst ${D}/qthelp
+	DEPENDS "${D}/rst/conf.py" sphinx-src
 	COMMENT "Create context sensitive help"
   )
   add_custom_command(
-	OUTPUT qthelp/xca.qhc
-	COMMAND ${QTCOLLGEN} -o qthelp/xca.qhc qthelp/xca.qhcp
-	DEPENDS qthelp/xca.qhcp
-	COMMENT "Create context sensitive help index"
-  )
-  add_custom_command(
-	OUTPUT rst/database_schema.sql
-	COMMAND ${CMAKE_COMMAND} -E make_directory rst/_static
+	OUTPUT ${D}/rst/database_schema.sql
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${D}/rst/_static
 	COMMAND ${CMAKE_COMMAND}
 		-D "SRC=${PROJECT_SOURCE_DIR}/lib/database_schema.cpp"
-		-D "DST=rst/database_schema.sql"
+		-D "DST=${D}/rst/database_schema.sql"
 		-P "${PROJECT_SOURCE_DIR}/cmake/database_schema.cmake"
 	DEPENDS "${PROJECT_SOURCE_DIR}/lib/database_schema.cpp"
 	COMMENT "Generating database schema SQL documentation"
   )
   add_custom_command(
-	OUTPUT rst/COPYRIGHT rst/changelog
-                rst/_static/bigcert.png rst
-	COMMAND ${CMAKE_COMMAND} -E make_directory rst/_static
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-				"${PROJECT_SOURCE_DIR}/doc/rst" rst
+	OUTPUT ${D}/rst/COPYRIGHT ${D}/rst/changelog
+		${D}/rst/_static/bigcert.png ${RST_DEST}
+	COMMAND ${CMAKE_COMMAND} -E make_directory "${D}/rst/_static"
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+				"${PROJECT_SOURCE_DIR}/img/bigcert.png"
+				"${D}/rst/_static"
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different
 				"${PROJECT_SOURCE_DIR}/COPYRIGHT"
 				"${PROJECT_SOURCE_DIR}/changelog"
-				rst
+				${RST_SOURCE} ${D}/rst
 	DEPENDS "${PROJECT_SOURCE_DIR}/COPYRIGHT"
 		"${PROJECT_SOURCE_DIR}/changelog"
-		${RST_FILES}
+		${RST_SOURCE}
 	COMMENT "Prepare Sphinx source directory"
   )
   add_custom_command(
-	OUTPUT rst/arguments.rst
-	COMMAND xcadoc rst rst/arguments.rst
+	OUTPUT "${D}/rst/arguments.rst"
+	COMMAND xcadoc rst "${D}/rst/arguments.rst"
 	COMMENT "Generate 'rst' commandline documentation"
   )
-  add_custom_target(sphinx-html DEPENDS html/index.html)
-  add_custom_target(sphinx-qthelp ALL DEPENDS qthelp/xca.qhc)
+  add_custom_target(sphinx-html DEPENDS ${D}/html/index.html)
   add_custom_target(sphinx DEPENDS sphinx-html sphinx-qthelp)
   add_custom_target(sphinx-src
-	DEPENDS rst/COPYRIGHT rst/changelog
-		rst/_static/bigcert.png rst
-		rst/database_schema.sql
-		rst/arguments.rst
+	DEPENDS ${D}/rst/COPYRIGHT ${D}/rst/changelog
+		${D}/rst/_static/bigcert.png
+		${D}/rst/database_schema.sql
+		${D}/rst/arguments.rst
+		${RST_DEST}
   )
-  file(GLOB HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/qthelp/*.html"
-                        "${CMAKE_CURRENT_BINARY_DIR}/qthelp/xca.q[hc][ch]")
-  list(APPEND APP_RESOURCES ${HTML_FILES})
-  set(APP_RESOURCES ${APP_RESOURCES} PARENT_SCOPE)
-  target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${HTML_FILES})
-  install(FILES ${HTML_FILES}
+  list(APPEND APP_RESOURCES ${QTHELP_DEST} "${D}/qthelp/xca.qhc"
+         "${D}/qthelp/xca.qch"
+  )
+
+  if (UNIX AND NOT APPLE)
+    install(FILES ${HTML_DEST}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
   )
-else()
+  endif()
+  if(QTCOLLGEN)
+    add_custom_command(
+	OUTPUT "${D}/qthelp/xca.qhc"
+	COMMAND ${QTCOLLGEN} -o "${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qhcp"
+	DEPENDS "${D}/qthelp/xca.qhcp"
+	COMMENT "Create context sensitive help index"
+    )
+    add_custom_target(sphinx-qthelp ALL DEPENDS ${D}/qthelp/xca.qhc)
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+	 "${QTHELP_DEST}"
+	 "${D}/qthelp/xca.qhc"
+	 "${D}/qthelp/xca.qch"
+    )
+
+  endif()
+endif()
+
+if (NOT SPHINX OR NOTQTCOLLGEN)
   add_custom_target(sphinx-qthelp)
 endif()
 
 if (NOT WIN32)
   add_custom_command(
-	OUTPUT xca.1.gz
-	COMMAND sh -c 'cat
-		"${CMAKE_CURRENT_SOURCE_DIR}/xca.1.head"
-		xca.1.options
-		"${CMAKE_CURRENT_SOURCE_DIR}/xca.1.tail" | gzip > xca.1.gz'
-	DEPENDS xca.1.head xca.1.tail
-		"${CMAKE_CURRENT_BINARY_DIR}/xca.1.options"
+	OUTPUT "${D}/xca.1.gz"
+	COMMAND cat "${S}/xca.1.head" "${D}/xca.1.options" "${S}/xca.1.tail" | gzip > "${D}/xca.1.gz"
+	DEPENDS "${S}/xca.1.head" "${S}/xca.1.tail"
+		"${D}/xca.1.options"
 	COMMENT "Compiling man page"
   )
   add_custom_command(
-	OUTPUT xca.1.options
-	COMMAND xcadoc man xca.1.options
+	OUTPUT "${D}/xca.1.options"
+	COMMAND xcadoc man "${D}/xca.1.options"
 	COMMENT "Generate 'man' commandline documentation"
   )
-  add_custom_target(manpage ALL DEPENDS xca.1.gz)
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/xca.1.gz"
+  add_custom_target(manpage ALL DEPENDS ${D}/xca.1.gz)
+  if (NOT APPLE)
+    install(FILES "${D}/xca.1.gz"
         DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
-  )
+    )
+  endif()
   add_dependencies(${CMAKE_PROJECT_NAME} manpage)
 endif()
