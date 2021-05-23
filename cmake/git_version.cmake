@@ -33,6 +33,9 @@ if(Git_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
   endif()
   set(RELEASE_TAG "RELEASE.${PROJECT_VERSION}"
 	 CACHE STRING "Release TAG for the release")
+  if (DEFINED ENV{RELEASE_TAG})
+    set(RELEASE_TAG "$ENV{RELEASE_TAG}")
+  endif()
   set(RELEASE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
   add_custom_command(
 	OUTPUT "${RELEASE_NAME}.tar.gz"

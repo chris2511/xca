@@ -53,6 +53,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 target_link_libraries(xcadoc core Qt5::Core)
 
 if (APPLE)
+
   find_library(IOKIT_LIBRARY IOKit)
   find_library(COREFOUNDATION_LIBRARY CoreFoundation)
   target_link_libraries(${CMAKE_PROJECT_NAME}
@@ -71,6 +72,11 @@ if (APPLE)
     list(APPEND sqlplugin_paths "${loc}")
   endforeach()
   qt5_import_plugins(${CMAKE_PROJECT_NAME} INCLUDE_BY_TYPE sqldrivers)
+
+elseif(WIN32)
+
+  set(QT_USE_QTMAIN TRUE)
+
 endif()
 
 ##### Sub directories
@@ -95,7 +101,12 @@ set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 ##### Host specific settings
 
 if(APPLE)
-  # message(STATUS "Blaaaaaahhhh ${APP_RESOURCES}")
+  if (DEFINED ENV{APPLE_DEVELOPER})
+    set(APPLE_CERT_3PARTY_INST "3rd Party Mac Developer Installer: $ENV{APPLE_DEVELOPER}")
+    set(APPLE_CERT_3PARTY_APP "3rd Party Mac Developer Application: $ENV{APPLE_DEVELOPER}")
+    set(APPLE_CERT_ID_APP "Developer ID Application: $ENV{APPLE_DEVELOPER}")
+  endif()
+  message(STATUS "Blaaaaaahhhh ${APP_RESOURCES}")
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE TRUE
 	RESOURCE "${APP_RESOURCES}"
@@ -106,6 +117,8 @@ if(APPLE)
     verify_app(xca)
   " COMPONENT Runtime)
 
+  set(CPACK_BUNDLE_APPLE_CERT_APP "${APPLE_CERT_ID_APP}")
+  set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
   set(CPACK_GENERATOR "DragNDrop")
 
 elseif(WIN32)

@@ -12,6 +12,7 @@ macro(Install_PNG size)
 endmacro()
 
 if(APPLE)
+
   ###### MAC ICONS
   find_program(ICONUTIL iconutil)
   if(ICONUTIL)
@@ -27,6 +28,8 @@ if(APPLE)
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICON_SRC})
     add_dependencies(${CMAKE_PROJECT_NAME} mac-icons)
   endif()
+  set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/bigcert.png")
+
 endif()
 
 if (UNIX)
@@ -40,4 +43,5 @@ if (UNIX)
   Install_PNG(32x32)
   Install_PNG(48x48)
   Install_PNG(64x64)
+
 endif()
