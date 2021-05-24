@@ -180,7 +180,7 @@
     </message>
     <message>
         <source>Revoked: </source>
-        <translation type="vanished">Revocato: </translation>
+        <translation>Revocato: </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1133,7 +1133,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <source>No deleted items found</source>
-        <translation type="vanished">Non trovati elementi cancellati</translation>
+        <translation>Non trovati elementi cancellati</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-49"/>
@@ -1228,11 +1228,11 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <source>&amp;New DataBase</source>
-        <translation type="vanished">&amp;Nuovo database</translation>
+        <translation>&amp;Nuovo database</translation>
     </message>
     <message>
         <source>&amp;Open DataBase</source>
-        <translation type="vanished">&amp;Apri database</translation>
+        <translation>&amp;Apri database</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1246,7 +1246,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <source>&amp;Close DataBase</source>
-        <translation type="vanished">&amp;Chiudi database</translation>
+        <translation>&amp;Chiudi database</translation>
     </message>
     <message>
         <location line="-10"/>
@@ -1408,7 +1408,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <source>&amp;Content</source>
-        <translation type="vanished">&amp;Contenuti</translation>
+        <translation>&amp;Contenuti</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1417,7 +1417,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <source>no such option: %1</source>
-        <translation type="vanished">opzione inesistente: %1</translation>
+        <translation>opzione inesistente: %1</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="-336"/>
@@ -1483,30 +1483,30 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
-        <translation type="vanished">Prego inserire una password che verrà utilizzata per crittare le chiavi private nel database:
+        <translation>Prego inserire una password che verrà utilizzata per crittare le chiavi private nel database:
 %1</translation>
     </message>
     <message>
         <source>Password verify error, please try again</source>
-        <translation type="vanished">Errore di verifica password, prego riprovare</translation>
+        <translation>Errore di verifica password, prego riprovare</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="vanished">Password</translation>
+        <translation>Password</translation>
     </message>
     <message>
         <source>Please enter the password for unlocking the database:
 %1</source>
-        <translation type="vanished">Prego inserire la password per sbloccare il database:
+        <translation>Prego inserire la password per sbloccare il database:
 %1</translation>
     </message>
     <message>
         <source>The following error occurred:</source>
-        <translation type="vanished">Incontrato l&apos;errore seguente:</translation>
+        <translation>Incontrato l&apos;errore seguente:</translation>
     </message>
     <message>
         <source>Copy to Clipboard</source>
-        <translation type="vanished">Copia negli appunti</translation>
+        <translation>Copia negli appunti</translation>
     </message>
     <message>
         <location line="+158"/>
@@ -1533,7 +1533,7 @@ Prego inserire i bit dei parametri DH</translation>
     </message>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Errore in apertura file: &apos;%1&apos;: %2</translation>
+        <translation>Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -1769,7 +1769,7 @@ Prego inserire i bit dei parametri DH</translation>
     <message>
         <location line="+16"/>
         <source>Distinguished name</source>
-        <translation>Distinguished name</translation>
+        <translation>Nome distinto</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -2279,12 +2279,12 @@ nonostante siano stati dichiarati come obbligatori nel menu opzioni.</translatio
     <message>
         <location line="+10"/>
         <source>Hostname</source>
-        <translation></translation>
+        <translation>Nome host</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Username</source>
-        <translation></translation>
+        <translation>Nome utente</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2309,11 +2309,11 @@ nonostante siano stati dichiarati come obbligatori nel menu opzioni.</translatio
     </message>
     <message>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="vanished">Prego inserire la password di accesso al database server %2 come utente: &apos;%1&apos;.</translation>
+        <translation>Prego inserire la password di accesso al database server %2 come utente: &apos;%1&apos;.</translation>
     </message>
     <message>
         <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
-        <translation type="vanished">Il driver database non supporta le transazioni. Questo può succedere se il client e il server hanno versioni differenti. Continuare con attenzione.</translation>
+        <translation>Il driver database non supporta le transazioni. Questo può succedere se il client e il server hanno versioni differenti. Continuare con attenzione.</translation>
     </message>
 </context>
 <context>
@@ -2524,7 +2524,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="vanished">E&amp;sci</translation>
+        <translation>E&amp;sci</translation>
     </message>
 </context>
 <context>
@@ -2614,15 +2614,15 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     </message>
     <message>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
-        <translation type="vanished">DB: Rinomina: &apos;%1&apos; già in uso</translation>
+        <translation>DB: Rinomina: &apos;%1&apos; già in uso</translation>
     </message>
     <message>
         <source>DB: Entry to rename not found: %1</source>
-        <translation type="vanished">DB: Elemento da rinominare non trovato: %1</translation>
+        <translation>DB: Elemento da rinominare non trovato: %1</translation>
     </message>
     <message>
         <source>DB: Write error %1 - %2</source>
-        <translation type="vanished">DB: Errore di scrittura %1 - %2</translation>
+        <translation>DB: Errore di scrittura %1 - %2</translation>
     </message>
     <message>
         <location filename="../lib/db.cpp" line="+280"/>
@@ -2991,7 +2991,7 @@ Nello specifico EC e DSA sono definiti solo con SHA1 nelle specifiche PKCS#11.</
     </message>
     <message>
         <source>Failed to open PKCS11 library: %1</source>
-        <translation type="vanished">Impossibile aprire libreria PKCS#11: %1</translation>
+        <translation>Impossibile aprire libreria PKCS#11: %1</translation>
     </message>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
@@ -3456,7 +3456,7 @@ nella libreria %3
     <name>db_base</name>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Errore in apertura file: &apos;%1&apos;: %2</translation>
+        <translation>Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location filename="../lib/db_base.cpp" line="+170"/>
@@ -3607,15 +3607,15 @@ quindi non è stata importata</translation>
     </message>
     <message>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="vanished">Non esistono certificati CA per generare la CRL</translation>
+        <translation>Non esistono certificati CA per generare la CRL</translation>
     </message>
     <message>
         <source>Select CA certificate</source>
-        <translation type="vanished">Seleziona un certificato CA</translation>
+        <translation>Seleziona un certificato CA</translation>
     </message>
     <message>
         <source>Create CRL</source>
-        <translation type="vanished">Crea CRL</translation>
+        <translation>Crea CRL</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -3873,11 +3873,11 @@ e sarà completata con la nuova parte privata della chiave</translation>
     </message>
     <message>
         <source>Plain View</source>
-        <translation type="vanished">Visualizzazione semplice</translation>
+        <translation>Visualizzazione semplice</translation>
     </message>
     <message>
         <source>Tree View</source>
-        <translation type="vanished">Visualizzazione ad albero</translation>
+        <translation>Visualizzazione ad albero</translation>
     </message>
     <message>
         <location line="+219"/>
@@ -4000,7 +4000,7 @@ pertanto non è stato importato</translation>
     </message>
     <message>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</source>
-        <translation type="vanished">Certificati x509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
+        <translation>Certificati x509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <location line="+65"/>
@@ -4015,7 +4015,7 @@ pertanto non è stato importato</translation>
     </message>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Errore in apertura file: &apos;%1&apos;: %2</translation>
+        <translation>Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+69"/>
@@ -4024,7 +4024,7 @@ pertanto non è stato importato</translation>
     </message>
     <message>
         <source> days</source>
-        <translation type="vanished"> giorni</translation>
+        <translation> giorni</translation>
     </message>
 </context>
 <context>
@@ -4202,11 +4202,11 @@ pertanto non è stata salvata</translation>
     <name>pki_base</name>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Errore in apertura file: &apos;%1&apos;: %2</translation>
+        <translation>Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <source>Error writing to file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Errore scrittura file: &apos;%1&apos;: %2</translation>
+        <translation>Errore scrittura file: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="+289"/>
@@ -4312,7 +4312,7 @@ Si trova nel database XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="vanished">Sconosciuto</translation>
+        <translation>Sconosciuto</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4322,22 +4322,22 @@ Si trova nel database XCA &apos;%5&apos;</translation>
     <message>
         <source>The XCA CRL &apos;%1&apos;, issued by the CA &apos;%2&apos; on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
-        <translation type="vanished">La CRL XCA &apos;%1&apos;, rilasciata dalla CA &apos;%2&apos; il %3, scadrà il %4. E&apos; mantenuta nel database XCA &apos;%5&apos;</translation>
+        <translation>La CRL XCA &apos;%1&apos;, rilasciata dalla CA &apos;%2&apos; il %3, scadrà il %4. E&apos; mantenuta nel database XCA &apos;%5&apos;</translation>
     </message>
 </context>
 <context>
     <name>pki_evp</name>
     <message>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation type="vanished">Impossibile decrittare la chiave (password errata) </translation>
+        <translation>Impossibile decrittare la chiave (password errata) </translation>
     </message>
     <message>
         <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="vanished">Impossibile decrittare la chiave (password errata) %1</translation>
+        <translation>Impossibile decrittare la chiave (password errata) %1</translation>
     </message>
     <message>
         <source>Please enter the password to decrypt the private key.</source>
-        <translation type="vanished">Prego inserire la password per decrittare la chiave privata.</translation>
+        <translation>Prego inserire la password per decrittare la chiave privata.</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+260"/>
