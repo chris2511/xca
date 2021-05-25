@@ -297,7 +297,7 @@ static void read_cmdline(int argc, char *argv[])
 	if (!cmd_opts["select"].isEmpty()) {
 		foreach(QString item, cmd_opts["select"].split(",")) {
 			bool ok;
-			qWarning() << "Select" << item;
+			qDebug() << "Select" << item;
 			qulonglong id = item.toULongLong(&ok);
 			pki_base *pki = Store.lookupPki<pki_base>(QVariant(id));
 			if (pki)
