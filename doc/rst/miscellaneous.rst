@@ -36,7 +36,7 @@ The databases *mySQL* *PostgreSQL* and *Microsoft SqlServer* are tested.
 Please use the *Open Remote DataBase* menu item to connect to a remote host.
 
 Download
--------
+--------
 
 The most recent stable version of XCA can be downloaded from
 http://hohnstaedt.de/xca/index.php/download
