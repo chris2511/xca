@@ -35,7 +35,7 @@ Since XCA uses SQL, it can also be connected to a network database.
 The databases *mySQL* *PostgreSQL* and *Microsoft SqlServer* are tested.
 Please use the *Open Remote DataBase* menu item to connect to a remote host.
 
-Dowload
+Download
 -------
 
 The most recent stable version of XCA can be downloaded from
