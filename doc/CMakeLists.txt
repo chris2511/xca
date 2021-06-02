@@ -28,7 +28,7 @@ if(SPHINX)
 	COMMENT "Create HTML documentation"
   )
   add_custom_command(
-	OUTPUT "${D}/qthelp/xca.qhcp" "${D}/qthelp/xca.qch" ${QTHELP_DEST}
+	OUTPUT "${D}/qthelp/xca.qhcp" "${D}/qthelp/xca.qhp" ${QTHELP_DEST}
 	COMMAND ${SPHINX} -b qthelp ${D}/rst ${D}/qthelp
 	DEPENDS "${D}/rst/conf.py" sphinx-src
 	COMMENT "Create context sensitive help"
@@ -84,12 +84,12 @@ if(SPHINX)
   endif()
   if(QTCOLLGEN)
     add_custom_command(
-	OUTPUT "${D}/qthelp/xca.qhc"
-	COMMAND ${QTCOLLGEN} -o "${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qhcp"
+	OUTPUT "${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qch"
+	COMMAND ${QTCOLLGEN} "${D}/qthelp/xca.qhcp"
 	DEPENDS "${D}/qthelp/xca.qhcp"
 	COMMENT "Create context sensitive help index"
     )
-    add_custom_target(sphinx-qthelp ALL DEPENDS ${D}/qthelp/xca.qhc)
+    add_custom_target(sphinx-qthelp ALL DEPENDS "${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qch")
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 	 "${QTHELP_DEST}"
 	 "${D}/qthelp/xca.qhc"
