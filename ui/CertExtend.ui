@@ -216,6 +216,16 @@
       <string>Revoke old certificate</string>
      </property>
      <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="replace">
+     <property name="text">
+      <string>Replace old certificate</string>
+     </property>
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
