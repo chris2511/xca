@@ -232,12 +232,12 @@ QString x509name::checkLength() const
 			continue;
 		entry = getEntry(i);
 		if (tab->minsize > entry.size()) {
-			warn += QObject::tr("%1 is shorter than %2 bytes: '%3'").
+			warn += QObject::tr("%1 is shorter than %2 characters: '%3'").
 				arg(OBJ_nid2ln(n)).arg(tab->maxsize).arg(entry);
 			warn += "\n";
 		}
 		if ((tab->maxsize != -1) && (tab->maxsize < entry.size())) {
-			warn += QObject::tr("%1 is longer than %2 bytes: '%3'").
+			warn += QObject::tr("%1 is longer than %2 characters: '%3'").
 				arg(OBJ_nid2ln(n)).arg(tab->maxsize).arg(entry);
 			warn += "\n";
 		}
