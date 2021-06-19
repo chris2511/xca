@@ -18,7 +18,10 @@
 #include "XcaProxyModel.h"
 #include "MainWindow.h"
 #include "XcaWarning.h"
+#include "XcaDialog.h"
 #include "XcaApplication.h"
+
+#include "ui_ItemProperties.h"
 
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
@@ -282,8 +285,23 @@ void XcaTreeView::doubleClick(const QModelIndex &m)
 
 void XcaTreeView::editComment()
 {
-	if (basemodel)
-		basemodel->editComment(currentIndex());
+	pki_base *item = db_base::fromIndex(currentIndex());
+	if (!basemodel || !item)
+		return;
+
+	QWidget *w = new QWidget(nullptr);
+	Ui::ItemProperties *prop = new Ui::ItemProperties();
+	prop->setupUi(w);
+	prop->comment->setPlainText(item->getComment());
+	prop->name->setText(item->getIntName());
+	prop->source->setText(item->pki_source_name());
+	prop->insertionDate->setText(item->getInsertionDate().toPretty());
+	XcaDialog *d = new XcaDialog(this, item->getType(), w,
+		tr("Item properties"), QString(), "itemproperties");
+	if (d->exec())
+		basemodel->updateItem(item, prop->name->text(),
+					prop->comment->toPlainText());
+	delete d;
 }
 
 void XcaTreeView::pem2clipboard()

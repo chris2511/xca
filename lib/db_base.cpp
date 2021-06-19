@@ -8,6 +8,8 @@
 #include "db_base.h"
 #include "func.h"
 #include "exception.h"
+#include "XcaWarningCore.h"
+
 #include <QMessageBox>
 #include <QListView>
 #include <QClipboard>
@@ -18,13 +20,9 @@
 #include <QFileInfo>
 
 #warning drop UI dependencies
-#include "widgets/XcaWarning.h"
 #include "widgets/ImportMulti.h"
-#include "widgets/XcaDialog.h"
-
-#include "ui_ItemProperties.h"
+#include "widgets/XcaWarning.h"
 #include "ui_ImportMulti.h"
-#include "ui_XcaDialog.h"
 
 void db_base::restart_timer()
 {
@@ -628,26 +626,6 @@ void db_base::timerEvent(QTimerEvent *event)
 		killTimer(minutesTimer);
 		minutesTimer = 0;
 	}
-}
-
-void db_base::editComment(const QModelIndex &index)
-{
-	pki_base *item = fromIndex(index);
-	if (!index.isValid() || !item)
-		return;
-
-	QWidget *w = new QWidget(NULL);
-	Ui::ItemProperties *prop = new Ui::ItemProperties();
-	prop->setupUi(w);
-	prop->comment->setPlainText(item->getComment());
-	prop->name->setText(item->getIntName());
-	prop->source->setText(item->pki_source_name());
-	prop->insertionDate->setText(item->getInsertionDate().toPretty());
-	XcaDialog *d = new XcaDialog(nullptr, item->getType(), w,
-		tr("Item properties"), QString(), "itemproperties");
-	if (d->exec())
-		updateItem(item, prop->name->text(), prop->comment->toPlainText());
-	delete d;
 }
 
 void db_base::load_default(load_base &load)

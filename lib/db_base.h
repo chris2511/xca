@@ -128,7 +128,6 @@ class db_base: public QAbstractItemModel
 
 		void deletePKI(QModelIndex idx);
 		QMimeData *mimeData(const QModelIndexList &indexes) const;
-		void editComment(const QModelIndex &index);
 		void emitDataChanged(pki_base *pki);
 		bool containsType(enum pki_type t) const;
 		void writeVcalendar(XFile &file, QStringList vcal) const;
