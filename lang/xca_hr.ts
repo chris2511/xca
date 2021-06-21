@@ -12,17 +12,21 @@
 <context>
     <name>CaProperties</name>
     <message>
-        <location filename="../ui/CaProperties.ui" line="+30"/>
         <source>CA Properties</source>
         <translatorcomment>Svojstva CA</translatorcomment>
-        <translation>Osobine CA</translation>
+        <translation type="vanished">Osobine CA</translation>
     </message>
     <message>
         <source>Use random Serial numbers</source>
         <translation type="vanished">Koristi slučajne Serijske brojeve</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location filename="../ui/CaProperties.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished">Obrazac</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Days until next CRL issuing</source>
         <translatorcomment>Broj dana do izdavanja CRL</translatorcomment>
         <translation>Broj dana do sljedećeg CRL</translation>
@@ -317,11 +321,16 @@
     </message>
     <message>
         <location line="+10"/>
+        <source>Replace old certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Keep serial number</source>
         <translation>Sačuvaj serijski broj</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-53"/>
         <source>Midnight</source>
         <translation>Ponoć</translation>
     </message>
@@ -380,7 +389,7 @@
 <context>
     <name>CertTreeView</name>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="+30"/>
+        <location filename="../widgets/CertTreeView.cpp" line="+32"/>
         <source>Import PKCS#12</source>
         <translation>Uvezi PKCS#12</translation>
     </message>
@@ -445,11 +454,26 @@
         <translation>Stablast pregled</translation>
     </message>
     <message>
+        <location line="+29"/>
+        <source>days</source>
+        <translation type="unfinished">dana</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>No template</source>
+        <translation type="unfinished">Nema predloška</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>CA Properties</source>
+        <translation type="unfinished">Osobine CA</translation>
+    </message>
+    <message>
         <source>Trust</source>
         <translation type="vanished">Povjerenje</translation>
     </message>
     <message>
-        <location line="-75"/>
+        <location line="-117"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>Obnovi</translation>
@@ -978,7 +1002,7 @@ PKCS#8 je službeni format za razmjenu ključeva</translation>
         <translation>Preimenuj na tokenu</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+64"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+65"/>
         <source>
 Name: %1
 Model: %2
@@ -999,13 +1023,13 @@ Serijski broj: %3</translation>
         <translation type="obsolete">Vrsta stavke &apos;%1&apos; je nepoznata</translation>
     </message>
     <message>
-        <location line="+212"/>
+        <location line="+216"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Detalji stavke &apos;%1&apos; ne mogu se prikazati</translation>
     </message>
     <message>
-        <location line="-178"/>
-        <location line="+182"/>
+        <location line="-182"/>
+        <location line="+186"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Vrsta stavke &apos;%1&apos; je nepoznata</translation>
     </message>
@@ -1367,7 +1391,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+584"/>
+        <location filename="../widgets/MainWindow.cpp" line="+594"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
@@ -1728,7 +1752,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation type="vanished">nema te opcije: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-336"/>
+        <location filename="../widgets/MainWindow.cpp" line="-340"/>
         <source>Import PEM data</source>
         <translation>Uvezi PEM podatke</translation>
     </message>
@@ -1742,13 +1766,13 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation type="obsolete">Unesite novi SO PIN (PUK) pametnog tokena &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-165"/>
-        <location line="+613"/>
+        <location line="-171"/>
+        <location line="+623"/>
         <source>Search</source>
         <translation>Traži</translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-446"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>Unesite novi SO PIN (PUK) za pametni token &apos;%1&apos;</translation>
     </message>
@@ -1827,7 +1851,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation type="vanished">Kopiraj u Clipboard</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+162"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Kazalo Potvrda ( index.txt )</translation>
     </message>
@@ -2363,7 +2387,7 @@ Unesite bitove za DH parametre</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+400"/>
+        <location filename="../widgets/NewX509.cpp" line="+406"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
@@ -2452,7 +2476,7 @@ Unesite bitove za DH parametre</translation>
         <translation type="vanished">Izradi &amp;samopotpisanu potvrdu s MD5 sažetkom CA serijskog broja</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-692"/>
+        <location filename="../widgets/NewX509.cpp" line="-698"/>
         <source>Create Certificate signing request</source>
         <translation>Izradi zahtjev za izdavanje potvrde (CSR)</translation>
     </message>
@@ -2486,7 +2510,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Izradi x509 Potvrdu</translation>
     </message>
     <message>
-        <location line="+682"/>
+        <location line="+688"/>
         <source>From PKCS#10 request</source>
         <translation>Iz PKCS#10 zahtjeva</translation>
     </message>
@@ -2496,7 +2520,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Druge Kartice</translation>
     </message>
     <message>
-        <location line="-755"/>
+        <location line="-761"/>
         <source>Critical</source>
         <translation>Ključan</translation>
     </message>
@@ -2510,7 +2534,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Uredi XCA predložak</translation>
     </message>
     <message>
-        <location line="+381"/>
+        <location line="+387"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Primijenjen obrazac &apos;%1&apos;</translation>
     </message>
@@ -2540,7 +2564,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Greške</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2700,7 +2724,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Alternativno ime subjekta treba sadržavati kopiju uobičajenog imena. Međutim, uobičajeno ime nije definirano.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+189"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+187"/>
         <source>Configfile error on line %1
 </source>
         <translation>Greška u konfiguracijskoj datoteci u liniji %1
@@ -3119,13 +3143,13 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <translation type="vanished">DB: Greška u pisanju %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+280"/>
-        <location line="+17"/>
+        <location filename="../lib/pki_temp.cpp" line="+30"/>
+        <location line="+10"/>
         <source>Out of data</source>
         <translation>Nema podatka</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+11"/>
         <source>Error finding endmarker of string</source>
         <translation>Greška u traženju oznake kraja niza</translation>
     </message>
@@ -3270,7 +3294,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <translation>Učitaj PEM kodiranu datoteku</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+214"/>
+        <location filename="../lib/pkcs11.cpp" line="+212"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Unesite PIN u PinPad</translation>
     </message>
@@ -3369,7 +3393,7 @@ U knjižnici %3
         <translation>%1 je duže od %2 okteta: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+634"/>
+        <location filename="../lib/func.cpp" line="+579"/>
         <source>Country code</source>
         <translation>Kod države</translation>
     </message>
@@ -3583,7 +3607,7 @@ U knjižnici %3
         <translation>Identifikator &apos;%1&apos; za OID %2 iz datoteke %3 linija %4 je već iskorišten za drugi OID kao &apos;%5:%6:%7&apos; i potrebno ga je promijeniti da se izbjegne nesporazum.</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+64"/>
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
         <translation>Nepoznati objekt &apos;%1&apos; u datoteci %2 linija %3</translation>
     </message>
@@ -3593,7 +3617,7 @@ U knjižnici %3
         <translation>Neuspješno pokretanje transakcije na bazi podataka</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+210"/>
+        <location filename="../lib/main.cpp" line="+229"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Datoteka kazala upisana u &apos;%1&apos;</translation>
     </message>
@@ -3865,7 +3889,7 @@ U knjižnici %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+343"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+339"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
@@ -3957,22 +3981,20 @@ U knjižnici %3
 <context>
     <name>database_model</name>
     <message>
-        <location filename="../lib/database_model.cpp" line="+125"/>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation>Detektiran stari format baze podataka. Izrađujem rezervnu kopiju s imenom: &apos;%1&apos; i pretvaram bazu podataka u novi format</translation>
+        <translation type="vanished">Detektiran stari format baze podataka. Izrađujem rezervnu kopiju s imenom: &apos;%1&apos; i pretvaram bazu podataka u novi format</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Failed to rename the database file, because the target already exists</source>
-        <translation>Nije moguće preimenovati datoteku baze podataka, ciljano ime već postoji</translation>
+        <translation type="vanished">Nije moguće preimenovati datoteku baze podataka, ciljano ime već postoji</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location filename="../lib/database_model.cpp" line="+121"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation>Unesite zaporku za pristup poslužitelju baze podatka %2 kao korisnik &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+114"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation>Nije moguće stvoriti &apos;%1&apos;: %2</translation>
     </message>
@@ -3982,7 +4004,7 @@ U knjižnici %3
         <translation>Datoteka &apos;%1&apos; nije XCA baza podataka</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+27"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Nedostaje upravljački program za SqLite3. Iz vaše distribucije instalirajte paket qt-sqlite</translation>
     </message>
@@ -4103,7 +4125,7 @@ Veličina: %3
         <translation>Uvoz iz: %1</translation>
     </message>
     <message>
-        <location line="+151"/>
+        <location line="+154"/>
         <source>Could not create directory %1</source>
         <translation>Ne može se kreirati mapa %1</translation>
     </message>
@@ -4213,7 +4235,7 @@ and so it was not imported</source>
 i zbog toga nije uvezen</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+28"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
@@ -4326,7 +4348,7 @@ i biti će nadopunjena s novim, privatnim dijelom ključa</translation>
         <translation>Proširivanje javnog ključa iz %1 uvezenim ključem &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
         <source>Key size too small !</source>
         <translation>Prekratki ključ!</translation>
     </message>
@@ -4405,7 +4427,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="-30"/>
-        <location line="+51"/>
+        <location line="+49"/>
         <source>PEM public</source>
         <translation>PEM javni</translation>
     </message>
@@ -4415,18 +4437,18 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>DER javni</translation>
     </message>
     <message>
-        <location line="-49"/>
-        <location line="+53"/>
+        <location line="-47"/>
+        <location line="+51"/>
         <source>SSH2 public</source>
         <translation>SSH2 javni</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-40"/>
         <source>Export keys to Clipboard</source>
         <translation>Izvezi ključeve u Međuspremnik</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+48"/>
         <source>DER private</source>
         <translation>DER privatni</translation>
     </message>
@@ -4440,14 +4462,14 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="obsolete">PKCS#8</translation>
     </message>
     <message>
-        <location line="-55"/>
-        <location line="+70"/>
+        <location line="-53"/>
+        <location line="+68"/>
         <source>PEM private</source>
         <translation>PEM privatni</translation>
     </message>
     <message>
-        <location line="-65"/>
-        <location line="+70"/>
+        <location line="-63"/>
+        <location line="+68"/>
         <source>SSH2 private</source>
         <translation>SSH2 privatni</translation>
     </message>
@@ -4506,7 +4528,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="vanished">Vrsta</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="+50"/>
+        <location filename="../lib/db_temp.cpp" line="+62"/>
         <source>Bad template: %1</source>
         <translation>Loš predložak: %1</translation>
     </message>
@@ -4515,7 +4537,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="vanished">Ništa</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-27"/>
         <source>Empty template</source>
         <translation>Prazan predložak</translation>
     </message>
@@ -4524,7 +4546,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="vanished">Postavljanje vrijednosti Predloška</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+92"/>
         <source>XCA templates ( *.xca );; All files ( * )</source>
         <translation>XCA predlošci ( *.xca );; Sve datoteke ( * )</translation>
     </message>
@@ -4692,7 +4714,7 @@ and so it was not imported</source>
 i zbog toga nije uvezena</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+41"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
         <translation>Potpisano %1 od &apos;%2&apos;</translation>
     </message>
@@ -4727,14 +4749,12 @@ i zbog toga nije uvezena</translation>
         <translation>X509 potvrde ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
-        <location line="+415"/>
         <source>days</source>
-        <translation>dana</translation>
+        <translation type="vanished">dana</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>No template</source>
-        <translation>Nema predloška</translation>
+        <translation type="vanished">Nema predloška</translation>
     </message>
     <message>
         <source>Please enter the new hexadecimal secret number for the QA process.</source>
@@ -4746,7 +4766,7 @@ i zbog toga nije uvezena</translation>
         <translation type="vanished">QA proces je prekinut od strane korisnika.</translation>
     </message>
     <message>
-        <location line="-573"/>
+        <location line="-149"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Ključ kojeg ste odabrali za potpisivanje nije privatni ključ.</translation>
     </message>
@@ -5196,7 +5216,7 @@ i zbog toga nije spremljen</translation>
         <translation type="obsolete">Zahtjev za izdavanje potvrde ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+66"/>
         <source>Certificate request export</source>
         <translation>Izvoz zahtjeva za izdavanje potvrde</translation>
     </message>
@@ -5412,7 +5432,7 @@ i zbog toga nije spremljen</translation>
         <translation>Obnovljeno</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+141"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation>Karakteristika &apos;%1&apos; nije navedena u &apos;pki_base::print&apos;</translation>
     </message>
@@ -5421,7 +5441,7 @@ i zbog toga nije spremljen</translation>
         <translation type="vanished">Greška:</translation>
     </message>
     <message>
-        <location line="-305"/>
+        <location line="-311"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interna greška: Neočekivana poruka: %1 %2</translation>
     </message>
@@ -5429,7 +5449,7 @@ i zbog toga nije spremljen</translation>
 <context>
     <name>pki_crl</name>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="+59"/>
+        <location filename="../lib/pki_crl.cpp" line="+57"/>
         <source>Successfully imported the revocation list &apos;%1&apos;</source>
         <translation>Uspješno uvezen popis opozvanih potvrda &apos;%1&apos;</translation>
     </message>
@@ -5459,12 +5479,11 @@ i zbog toga nije spremljen</translation>
         <translation>Nije naveden izdavač</translation>
     </message>
     <message>
-        <location line="+58"/>
         <source>Wrong Size %1</source>
-        <translation>Pogrešna Dužina %1</translation>
+        <translation type="vanished">Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="+215"/>
+        <location line="+259"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation>Krajnji rok za obnovu CRL od CA &apos;%1&apos;</translation>
     </message>
@@ -5509,7 +5528,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="vanished">Unesite zaporku za dekripciju privatnog ključa.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+327"/>
+        <location filename="../lib/pki_evp.cpp" line="+295"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation>Ključ iz datoteke &apos;%1&apos; je nepotpun ili proturječan.</translation>
     </message>
@@ -5534,17 +5553,16 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Unesite zaporku za dekripciju privatnog ključa: &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location line="+233"/>
+        <location line="+229"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation>Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni, PKCS#8 tip ključeva i SSH2 format.</translation>
     </message>
     <message>
-        <location line="+31"/>
         <source>Ignoring unsupported private key</source>
-        <translation>Ignoriram nepodržani privatni ključ</translation>
+        <translation type="vanished">Ignoriram nepodržani privatni ključ</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Unesite zaporku za dekripciju privatnog ključa: &apos;%1&apos;</translation>
     </message>
@@ -5560,7 +5578,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Unesite zaporku baze podataka za dekripciju ključa &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+55"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Unesite zaporku za zaštitu privatnog ključa: &apos;%1&apos;</translation>
     </message>
@@ -5575,12 +5593,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Unesite zaporku za zaštitu PKCS#8 ključa &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
         <translation>Unesite zaporku za zaštitu Microsoft PVK ključa &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+51"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Unesite zaporku za izvoz privatnog ključa &apos;%1&apos;</translation>
     </message>
@@ -5634,14 +5652,14 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="obsolete">javni ključ</translation>
     </message>
     <message>
-        <location line="-192"/>
-        <location line="+201"/>
-        <location line="+677"/>
+        <location line="-195"/>
+        <location line="+204"/>
+        <location line="+667"/>
         <source>Public key</source>
         <translation>Javni ključ</translation>
     </message>
     <message>
-        <location line="-439"/>
+        <location line="-434"/>
         <source>Common</source>
         <translation>Opće</translation>
     </message>
@@ -5698,7 +5716,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+40"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+38"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>Unesite zaporku za dekripciju PKCS#12 datoteke:
@@ -5736,7 +5754,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+52"/>
+        <location filename="../lib/pki_scard.cpp" line="+49"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translatorcomment>!!! Da li je ključ s tokena ili ključ za token???</translatorcomment>
         <translation>Uspješno uvezen ključ za token &apos;%1&apos;</translation>
@@ -5799,17 +5817,15 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Nemoguće je pronaći ključ generiran na kartici</translation>
     </message>
     <message>
-        <location line="+38"/>
         <source>Ignoring unsupported token key</source>
-        <translation>Ignoriram nepodržani ključ za token</translation>
+        <translation type="vanished">Ignoriram nepodržani ključ za token</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Wrong Size %1</source>
-        <translation>Pogrešna Dužina %1</translation>
+        <translation type="vanished">Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Token %1</source>
         <translation>Token %1</translation>
     </message>
@@ -5833,7 +5849,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+123"/>
+        <location filename="../lib/pki_temp.cpp" line="+111"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Uspješno uvezen XCA predložak &apos;%1&apos;</translation>
     </message>
@@ -5853,7 +5869,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Obrisati %1 XCA predloške: %2?</translation>
     </message>
     <message>
-        <location line="+208"/>
+        <location line="+199"/>
         <source>Wrong Size %1</source>
         <translation>Kriva Dužina %1</translation>
     </message>
@@ -5892,7 +5908,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+64"/>
+        <location filename="../lib/pki_x509.cpp" line="+62"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Uspješno uvezena potvrda &apos;%1&apos;</translation>
     </message>
@@ -5932,12 +5948,11 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Nema ključa za potpisivanje !</translation>
     </message>
     <message>
-        <location line="+61"/>
         <source>Wrong Size %1</source>
-        <translation>Pogrešna Dužina %1</translation>
+        <translation type="vanished">Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="+320"/>
+        <location line="+316"/>
         <source>Renew certificate: %1</source>
         <translation>Obnovi potvrdu: %1</translation>
     </message>
@@ -5988,7 +6003,7 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+110"/>
+        <location filename="../lib/pki_x509req.cpp" line="+108"/>
         <source>Signing key not valid (public key)</source>
         <translation>Neispravan ključ za potpisivanje (javni ključ)</translation>
     </message>
@@ -6018,7 +6033,7 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
         <translation>Nije moguće učitati zahtjev za izdavanje potvrde u datoteci %1. Proban je PEM, DER  SPKAC format.</translation>
     </message>
     <message>
-        <location line="+199"/>
+        <location line="+184"/>
         <source>Signed</source>
         <translation>Potpisan</translation>
     </message>
@@ -6028,9 +6043,8 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
         <translation>Neobrađen</translation>
     </message>
     <message>
-        <location line="-167"/>
         <source>Wrong Size %1</source>
-        <translation>Kriva dužina %1</translation>
+        <translation type="vanished">Kriva dužina %1</translation>
     </message>
 </context>
 <context>
