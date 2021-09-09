@@ -11,6 +11,7 @@
 #include <QMenu>
 #include <QVariant>
 #include <QRegExp>
+#include <QFileDialog>
 
 #include "OidResolver.h"
 #include "XcaHeaderView.h"
@@ -244,18 +245,48 @@ void XcaTreeView::deleteItems()
 
 void XcaTreeView::storeItems()
 {
-	QModelIndexList indexes = getSelectedIndexes();
-	if (basemodel) {
-		try {
-			switch (indexes.size()) {
-			case 0: return;
-			case 1: basemodel->store(indexes[0]); return;
-			default: basemodel->store(getSelectedIndexes());
-				return;
-			}
-		} catch (errorEx &err) {
-			XCA_ERROR(err);
+	storeItems(getSelectedIndexes());
+}
+
+void XcaTreeView::storeItems(QModelIndexList indexes)
+{
+	if (!basemodel || indexes.size() == 0)
+		return;
+	try {
+		if (indexes.size() == 1) {
+			basemodel->store(indexes[0]);
+			return;
 		}
+
+		xcaWarningBox msg(NULL,
+				tr("How to export the %1 selected items").
+					arg(indexes.size()));
+		msg.addButton(QMessageBox::Ok, tr("All in one PEM file"));
+		msg.addButton(QMessageBox::Apply, tr("Each item in one file"));
+		msg.addButton(QMessageBox::Cancel);
+		int ret = msg.exec();
+		if (ret == QMessageBox::Apply) {
+			foreach(QModelIndex i, indexes)
+				basemodel->store(i);
+			return;
+		} else if (ret != QMessageBox::Ok) {
+			return;
+		}
+
+		QString s = QFileDialog::getSaveFileName(NULL,
+			tr("Save %1 items in one file as").arg(indexes.size()),
+			Settings["workingdir"] + "export.pem",
+			tr("PEM files ( *.pem );; All files ( * )"));
+		if (s.isEmpty())
+			return;
+
+		update_workingdir(s);
+		QString pem = basemodel->pem2QString(indexes);
+		XFile file(s);
+		file.open_write();
+		file.write(pem.toLatin1());
+	} catch (errorEx &err) {
+		XCA_ERROR(err);
 	}
 }
 

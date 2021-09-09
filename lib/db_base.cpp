@@ -21,7 +21,6 @@
 
 #warning drop UI dependencies
 #include "widgets/ImportMulti.h"
-#include "widgets/XcaWarning.h"
 #include "ui_ImportMulti.h"
 
 void db_base::restart_timer()
@@ -653,43 +652,6 @@ void db_base::load_default(load_base &load)
 	}
 	dlgi->execute();
 	delete dlgi;
-}
-
-void db_base::store(QModelIndexList indexes)
-{
-	int ret;
-
-	xcaWarning msg(NULL, tr("How to export the %1 selected items").
-				arg(indexes.size()));
-	msg.addButton(QMessageBox::Ok, tr("All in one PEM file"));
-	msg.addButton(QMessageBox::Apply, tr("Each item in one file"));
-	msg.addButton(QMessageBox::Cancel);
-	ret = msg.exec();
-	if (ret == QMessageBox::Apply) {
-		foreach(QModelIndex i, indexes)
-			store(i);
-		return;
-	} else if (ret != QMessageBox::Ok) {
-		return;
-	}
-
-	QString s = QFileDialog::getSaveFileName(NULL,
-		tr("Save %1 items in one file as").arg(indexes.size()),
-		Settings["workingdir"] + "export.pem",
-		tr("PEM files ( *.pem );; All files ( * )"));
-	if (s.isEmpty())
-		return;
-
-	update_workingdir(s);
-	try {
-		QString pem = pem2QString(indexes);
-		XFile file(s);
-		file.open_write();
-		file.write(pem.toLatin1());
-	}
-	catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
 }
 
 bool db_base::columnHidden(int col) const
