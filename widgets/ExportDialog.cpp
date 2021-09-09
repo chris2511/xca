@@ -129,7 +129,7 @@ void ExportDialog::on_exportFormat_activated(int selected)
 bool ExportDialog::mayWriteFile(const QString &fname)
 {
         if (QFile::exists(fname)) {
-		xcaWarning msg(NULL,
+		xcaWarningBox msg(NULL,
 			tr("The file: '%1' already exists!").arg(fname));
 		msg.addButton(QMessageBox::Ok, tr("Overwrite"));
 		msg.addButton(QMessageBox::Cancel, tr("Do not overwrite"));

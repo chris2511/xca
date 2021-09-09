@@ -22,7 +22,7 @@
 #include "XcaWarningCore.h"
 #include "PwDialogCore.h"
 
-#warning split PwDialog into console and GUI
+#warning drop UI dependencies
 #include "widgets/CertExtend.h"
 #include "widgets/ExportDialog.h"
 #include "widgets/RevocationList.h"

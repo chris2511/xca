@@ -10,7 +10,7 @@
 #include <QDebug>
 #include <QSqlDatabase>
 
-class xcaWarning_i *xcaWarningCore::gui;
+class xcaWarning_i *xcaWarning::gui;
 
 static bool print_cmdline(const char *color, const QString &msg)
 {
@@ -21,56 +21,30 @@ static bool print_cmdline(const char *color, const QString &msg)
 
 void xcaWarningCore::information(const QString &msg)
 {
-	if (gui)
-		gui->information(msg);
-	else
-		print_cmdline(COL_CYAN "Information", msg);
+	print_cmdline(COL_CYAN "Information", msg);
 }
 
 void xcaWarningCore::warning(const QString &msg)
 {
-	if (gui)
-		gui->warning(msg);
-	else
-		print_cmdline(COL_RED "Warning", msg);
+	print_cmdline(COL_RED "Warning", msg);
 }
 
 bool xcaWarningCore::yesno(const QString &msg)
 {
-	return gui ? gui->yesno(msg) :
-		print_cmdline(COL_BLUE "Question", msg);
+	return print_cmdline(COL_BLUE "Question", msg);
 }
 
 bool xcaWarningCore::okcancel(const QString &msg)
 {
-	return gui ? gui->okcancel(msg) :
-		print_cmdline(COL_BLUE "Question", msg);
+	return print_cmdline(COL_BLUE "Question", msg);
 }
 
 void xcaWarningCore::sqlerror(QSqlError err)
 {
-	if (!err.isValid())
-		err = QSqlDatabase::database().lastError();
-	if (!err.isValid())
-		return;
-	if (gui)
-		qCritical() << "SQL ERROR:" << err.text();
-
 	warning(err.text());
 }
 
-void xcaWarningCore::error(const errorEx &err)
+void xcaWarningCore::error(const QString &msg)
 {
-	if (err.isEmpty())
-		 return;
-	QString msg = QObject::tr("The following error occurred:") +
-			"\n" + err.getString();
-	if (gui)
-		gui->error(msg);
-}
-
-void xcaWarningCore::setGui(class xcaWarning_i *g)
-{
-	delete gui;
-	gui = g;
+	print_cmdline(COL_RED "Error", msg);
 }

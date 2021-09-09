@@ -383,6 +383,7 @@ int main(int argc, char *argv[])
 	coreApp->setApplicationName(PACKAGE_TARNAME);
 	coreApp->setOrganizationDomain("de.hohnstaedt");
 	coreApp->setApplicationVersion(XCA_VERSION);
+	xcaWarning::setGui(new xcaWarningCore());
 
 	migrateOldPaths();
 

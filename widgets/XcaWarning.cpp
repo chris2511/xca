@@ -13,14 +13,14 @@
 #include <QDebug>
 #include <QSqlDatabase>
 
-xcaWarning::xcaWarning(QWidget *w, const QString &txt,
+xcaWarningBox::xcaWarningBox(QWidget *w, const QString &txt,
 				QMessageBox::Icon icn)
 	: QMessageBox(icn, XCA_TITLE, txt, QMessageBox::NoButton, w)
 {
 	setTextFormat(Qt::PlainText);
 }
 
-void xcaWarning::addButton(QMessageBox::StandardButton button,
+void xcaWarningBox::addButton(QMessageBox::StandardButton button,
 				const QString &text)
 {
 	QPushButton *b = QMessageBox::addButton(button);
@@ -31,7 +31,7 @@ void xcaWarning::addButton(QMessageBox::StandardButton button,
 int xcaWarningGui::showBox(const QString &txt, QMessageBox::Icon icn,
 			QMessageBox::StandardButtons b)
 {
-	xcaWarning *w = new xcaWarning(NULL, txt, icn);
+	xcaWarningBox *w = new xcaWarningBox(NULL, txt, icn);
 	w->setStandardButtons(b);
 	int n = w->exec();
 	delete w;
@@ -60,11 +60,14 @@ bool xcaWarningGui::okcancel(const QString &msg)
 		QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok;
 }
 
-void xcaWarningGui::error(const errorEx &err)
+void xcaWarningGui::sqlerror(QSqlError err)
 {
-	QString msg = tr("The following error occurred:") +
-			"\n" + err.getString();
-	xcaWarning box(NULL, msg);
+	qCritical() << "SQL ERROR:" << err.text();
+}
+
+void xcaWarningGui::error(const QString &msg)
+{
+	xcaWarningBox box(NULL, msg);
 	box.addButton(QMessageBox::Apply, tr("Copy to Clipboard"));
 	box.addButton(QMessageBox::Ok);
 	if (box.exec() == QMessageBox::Apply) {

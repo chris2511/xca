@@ -13,9 +13,6 @@
 #include "database_model.h"
 
 #warning drop UI dependencies
-#include <QMessageBox>
-#include <QContextMenuEvent>
-#include "widgets/ItemCombo.h"
 #include "widgets/ExportDialog.h"
 #include "ui_ExportDialog.h"
 

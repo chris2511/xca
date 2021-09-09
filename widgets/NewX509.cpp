@@ -1167,7 +1167,7 @@ void NewX509::accept()
 		xn = getX509name(1);
 	} catch (errorEx &err) {
 		gotoTab(1);
-		xcaWarning msg(this, err.getString());
+		xcaWarningBox msg(this, err.getString());
 		msg.addButton(QMessageBox::Ok);
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		if (msg.exec() == QMessageBox::Close) {
@@ -1180,7 +1180,7 @@ void NewX509::accept()
 		gotoTab(1);
 		lenErr = tr("The following length restrictions of RFC3280 are violated:") +
 			"\n" + lenErr;
-		xcaWarning msg(this, lenErr);
+		xcaWarningBox msg(this, lenErr);
 		msg.addButton(QMessageBox::Ok, tr("Edit subject"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
@@ -1198,7 +1198,7 @@ void NewX509::accept()
 	}
 	if (fromReqCB->isChecked() && !getSelectedReq()->verify()) {
 		gotoTab(0);
-		xcaWarning msg(this,
+		xcaWarningBox msg(this,
 			tr("The verification of the Certificate request failed.\nThe rollout should be aborted."));
 		msg.addButton(QMessageBox::Ok, tr("Continue anyway"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
@@ -1210,7 +1210,7 @@ void NewX509::accept()
 		QString cn = getX509name().getMostPopular();
 		if (cn.isEmpty()) {
 			gotoTab(1);
-			xcaWarning msg(this,
+			xcaWarningBox msg(this,
 				tr("The internal name and the common name are empty.\nPlease set at least the internal name."));
 			msg.addButton(QMessageBox::Ok, tr("Edit name"));
 			msg.addButton(QMessageBox::Close, tr("Abort rollout"));
@@ -1226,7 +1226,7 @@ void NewX509::accept()
 				!fromReqCB->isChecked())
 	{
 		gotoTab(1);
-		xcaWarning msg(this,
+		xcaWarningBox msg(this,
 			tr("There is no Key selected for signing."));
 		msg.addButton(QMessageBox::Ok, tr("Select key"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
@@ -1241,7 +1241,7 @@ void NewX509::accept()
 	if (!unsetDN.isEmpty()) {
 		gotoTab(1);
 		QString text = tr("The following distinguished name entries are empty:\n%1\nthough you have declared them as mandatory in the options menu.").arg(unsetDN);
-		xcaWarning msg(this, text);
+		xcaWarningBox msg(this, text);
 		msg.addButton(QMessageBox::Ok, tr("Edit subject"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
@@ -1273,7 +1273,7 @@ void NewX509::accept()
 	if ((!signkey || signkey->isPubKey()) && pt != tmpl) {
 		QString txt;
 		gotoTab(signer ? 0 : 1);
-		xcaWarning msg(this,
+		xcaWarningBox msg(this,
 			tr("The key you selected for signing is not a private one."));
 		txt = signer ? tr("Select other signer"):tr("Select other key");
 		msg.addButton(QMessageBox::Ok, txt);
@@ -1285,7 +1285,7 @@ void NewX509::accept()
         }
 	if (hashAlgo->count() > 0 && hashAlgo->current().isInsecure()) {
 		gotoTab(0);
-		xcaWarning msg(this, tr("The currently selected hash algorithm '%1' is insecure and should not be used.").arg(hashAlgo->current().name()));
+		xcaWarningBox msg(this, tr("The currently selected hash algorithm '%1' is insecure and should not be used.").arg(hashAlgo->current().name()));
 		msg.addButton(QMessageBox::Ok, tr("Select other algorithm"));
 		msg.addButton(QMessageBox::Yes, tr("Use algorithm anyway"));
 		if (msg.exec() == QMessageBox::Ok)
@@ -1294,7 +1294,7 @@ void NewX509::accept()
 	if (signer && notBefore->getDate() < signer->getNotBefore()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
-		xcaWarning msg(this, text);
+		xcaWarningBox msg(this, text);
 		msg.addButton(QMessageBox::Ok, tr("Edit dates"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
@@ -1317,7 +1317,7 @@ void NewX509::accept()
 				!noWellDefinedExpDate->isChecked()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
-		xcaWarning msg(this, text);
+		xcaWarningBox msg(this, text);
 		msg.addButton(QMessageBox::Ok, tr("Edit dates"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
@@ -1340,7 +1340,7 @@ void NewX509::accept()
 	    notBefore->getDate() > notAfter->getDate()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
-		xcaWarning msg(this, text);
+		xcaWarningBox msg(this, text);
 		msg.addButton(QMessageBox::Ok, tr("Edit dates"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
@@ -1366,7 +1366,7 @@ void NewX509::accept()
 			text = tr("The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.");
 			gotoTab(0);
 		}
-		xcaWarning msg(this, text);
+		xcaWarningBox msg(this, text);
 		msg.addButton(QMessageBox::Ok, tr("Edit extensions"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
@@ -1386,7 +1386,7 @@ void NewX509::accept()
 	QStringList san = subAltName->text().split(QRegExp(" *, *"));
 	if (cn.isEmpty() && san.contains("DNS:copycn") && pt != tmpl) {
 		gotoTab(2);
-		xcaWarning msg(this, tr("The subject alternative name shall contain a copy of the common name. However, the common name is empty."));
+		xcaWarningBox msg(this, tr("The subject alternative name shall contain a copy of the common name. However, the common name is empty."));
 		msg.addButton(QMessageBox::Ok, tr("Edit extensions"));
 		msg.addButton(QMessageBox::Close, tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply, tr("Continue rollout"));

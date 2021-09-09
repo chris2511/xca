@@ -11,7 +11,7 @@
 #include "pki_temp.h"
 #include "XcaWarningCore.h"
 
-#warning split PwDialog into console and GUI
+#warning drop UI dependencies
 #include "widgets/NewX509.h"
 #include "widgets/ExportDialog.h"
 

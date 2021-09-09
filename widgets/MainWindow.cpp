@@ -134,7 +134,7 @@ MainWindow::MainWindow() : QMainWindow()
 		v->setMainwin(this, searchEdit);
 
 	XcaProgress::setGui(new XcaProgressGui(this));
-	xcaWarningCore::setGui(new xcaWarningGui());
+	xcaWarning::setGui(new xcaWarningGui());
 	PwDialogCore::setGui(new PwDialogUI());
 
 	dhgen = nullptr;

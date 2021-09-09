@@ -118,7 +118,6 @@ class db_base: public QAbstractItemModel
 		{
 			colResizing--;
 		}
-		virtual void store(QModelIndexList indexes);
 		virtual void store(QModelIndex index) { (void)index; };
 		dbheaderList getAllHeaders() {
 			return allHeaders;
