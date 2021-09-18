@@ -65,7 +65,7 @@ if(SPHINX)
 	COMMENT "Generate 'rst' commandline documentation"
   )
   add_custom_target(sphinx-html DEPENDS ${D}/html/index.html)
-  add_custom_target(sphinx DEPENDS sphinx-html sphinx-qthelp)
+  add_custom_target(sphinx ALL DEPENDS sphinx-html sphinx-qthelp)
   add_custom_target(sphinx-src
 	DEPENDS ${D}/rst/COPYRIGHT ${D}/rst/changelog
 		${D}/rst/_static/bigcert.png
@@ -80,7 +80,7 @@ if(SPHINX)
   if (UNIX AND NOT APPLE)
     install(FILES ${HTML_DEST}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
-  )
+    )
   endif()
   if(QTCOLLGEN)
     add_custom_command(
