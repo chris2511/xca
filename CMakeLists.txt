@@ -103,21 +103,27 @@ if(APPLE)
   if (DEFINED ENV{APPLE_DEVELOPER})
     set(APPLE_CERT_3PARTY_INST "3rd Party Mac Developer Installer: $ENV{APPLE_DEVELOPER}")
     set(APPLE_CERT_3PARTY_APP "3rd Party Mac Developer Application: $ENV{APPLE_DEVELOPER}")
-    set(APPLE_CERT_ID_APP "Developer ID Application: $ENV{APPLE_DEVELOPER}")
+    set(APPLE_CERT_ID_APP "Developer ID Application: $$APPLE_DEVELOPER")
+    set(MACDEPLOYQT_SIGN -codesign=${APPLE_CERT_ID_APP}
+			 -timestamp -always-overwrite
+    )
   endif()
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE TRUE
 	RESOURCE "${APP_RESOURCES}"
   )
-  install(CODE "
-    include(BundleUtilities)
-    fixup_bundle(\"${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.app\" \"\" \"${LIBS_PATH}\")
-    verify_app(xca)
-  " COMPONENT Runtime)
+  get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
+  get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
+  find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
+  add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
+    COMMAND "${MACDEPLOYQT_EXECUTABLE}"
+        "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.app"
+        ${MACDEPLOYQT_SIGN}
+    COMMENT "Running macdeployqt..."
+  )
 
-  set(CPACK_BUNDLE_APPLE_CERT_APP "${APPLE_CERT_ID_APP}")
   set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
-  set(CPACK_GENERATOR "DragNDrop;productbuild")
+  set(CPACK_GENERATOR "DragNDrop") #;productbuild")
 
 elseif(WIN32)
   set(QT_USE_QTMAIN TRUE)
