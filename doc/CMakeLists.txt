@@ -65,16 +65,12 @@ if(SPHINX)
 	COMMENT "Generate 'rst' commandline documentation"
   )
   add_custom_target(sphinx-html DEPENDS ${D}/html/index.html)
-  add_custom_target(sphinx ALL DEPENDS sphinx-html sphinx-qthelp)
   add_custom_target(sphinx-src
 	DEPENDS ${D}/rst/COPYRIGHT ${D}/rst/changelog
 		${D}/rst/_static/bigcert.png
 		${D}/rst/database_schema.sql
 		${D}/rst/arguments.rst
 		${RST_DEST}
-  )
-  list(APPEND APP_RESOURCES ${QTHELP_DEST} "${D}/qthelp/xca.qhc"
-         "${D}/qthelp/xca.qch"
   )
 
   if (UNIX AND NOT APPLE)
@@ -89,18 +85,19 @@ if(SPHINX)
 	DEPENDS "${D}/qthelp/xca.qhcp"
 	COMMENT "Create context sensitive help index"
     )
-    add_custom_target(sphinx-qthelp ALL DEPENDS "${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qch")
+    add_custom_target(sphinx-qthelp ALL DEPENDS
+			"${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qch"
+    )
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 	 "${QTHELP_DEST}"
 	 "${D}/qthelp/xca.qhc"
 	 "${D}/qthelp/xca.qch"
     )
+    list(APPEND APP_RESOURCES ${QTHELP_DEST} "${D}/qthelp/xca.qhc"
+         "${D}/qthelp/xca.qch"
+    )
 
   endif()
-endif()
-
-if (NOT SPHINX OR NOTQTCOLLGEN)
-  add_custom_target(sphinx-qthelp)
 endif()
 
 if (NOT WIN32)
