@@ -665,6 +665,61 @@ QSqlError pki_evp::deleteSqlData()
 	return q.lastError();
 }
 
+bool pki_evp::pem_format(BioByteArray &b, exportType::etype format)
+{
+	EVP_PKEY *pkey;
+	int keytype;
+
+	switch (format) {
+	case exportType::PEM_private:
+	case exportType::SSH2_private:
+		pkey = decryptKey();
+		keytype = EVP_PKEY_id(pkey);
+		switch (keytype) {
+		case EVP_PKEY_RSA:
+			PEM_write_bio_RSAPrivateKey(b,
+				EVP_PKEY_get0_RSA(pkey),
+				NULL, NULL, 0, NULL, NULL);
+			break;
+		case EVP_PKEY_DSA:
+			PEM_write_bio_DSAPrivateKey(b,
+				EVP_PKEY_get0_DSA(pkey),
+				NULL, NULL, 0, NULL, NULL);
+			break;
+#ifndef OPENSSL_NO_EC
+		case EVP_PKEY_EC:
+			PEM_write_bio_ECPrivateKey(b,
+				EVP_PKEY_get0_EC_KEY(pkey),
+				NULL, NULL, 0, NULL, NULL);
+			break;
+#ifdef EVP_PKEY_ED25519
+		case EVP_PKEY_ED25519:
+			if (format == exportType::PEM_private)
+				return false;
+			write_SSH2_ed25519_private(b, pkey, NULL);
+			break;
+#endif
+#endif
+		}
+		EVP_PKEY_free(pkey);
+		break;
+	case exportType::PKCS8:
+		pkey = decryptKey();
+		PEM_write_bio_PrivateKey(b, pkey, NULL, NULL, 0, NULL, NULL);
+		EVP_PKEY_free(pkey);
+		break;
+	case exportType::PKCS8_encrypt:
+		pkey = decryptKey();
+		PEM_write_bio_PrivateKey(b, pkey, EVP_aes_256_cbc(),
+					 passwd.constUchar(), passwd.size(),
+					 NULL, NULL);
+		EVP_PKEY_free(pkey);
+		break;
+	default:
+		return pki_key::pem_format(b, format);
+	}
+	return true;
+}
 void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem) const
 {
