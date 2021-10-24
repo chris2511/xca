@@ -20,7 +20,7 @@ include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1
 	@$(PRINT) "  MAN    [$(BASENAME)] $@"
-	gzip -9 <$^ >$@
+	gzip -n9 <$^ >$@
 
 xca.1: xca.1.head xca.1.options xca.1.tail
 	cat $^ > $@
