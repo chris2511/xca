@@ -125,26 +125,23 @@ void db_crl::store(QModelIndex index)
 	if (!index.isValid() || !crl)
 		return;
 
-	QList<exportType> types; types <<
-		exportType(exportType::PEM, "pem", "PEM") <<
-		exportType(exportType::DER, "der", "DER") <<
-		exportType(exportType::vcalendar, "ics", "vCalendar");
 	ExportDialog *dlg = new ExportDialog(NULL,
-			tr("Revocation list export"),
-			tr("CRL ( *.pem *.der *.crl )"), crl,
-			QPixmap(":revImg"), types);
+		tr("Revocation list export"),
+		tr("CRL ( *.pem *.der *.crl )"), crl, QPixmap(":revImg"),
+		pki_export::select(revocation, 0));
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	try {
+		const pki_export *xtype = dlg->export_type();
 		XFile file(dlg->filename->text());
 		pki_base::pem_comment = dlg->pemComment->isChecked();
 		file.open_key();
-		if (dlg->type() == exportType::vcalendar) {
+		if (xtype->match_all(F_CAL)) {
 			writeVcalendar(file, crl->icsVEVENT());
 		} else {
-			crl->writeCrl(file, dlg->type() == exportType::PEM);
+			crl->writeCrl(file, xtype->match_all(F_PEM));
 		}
 	}
 	catch (errorEx &err) {

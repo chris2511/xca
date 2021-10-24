@@ -8,7 +8,7 @@
 #ifndef __DB_KEY_H
 #define __DB_KEY_H
 
-#include "exportType.h"
+#include "pki_export.h"
 #include "db_base.h"
 #include "pki_key.h"
 
@@ -21,7 +21,6 @@ class db_key: public db_base
 
 	protected:
 		virtual dbheaderList getHeaders();
-		exportType::etype clipboardFormat(QModelIndexList indexes) const;
 	public:
 		db_key();
 		QList<pki_key*> getUnusedKeys();

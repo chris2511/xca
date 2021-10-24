@@ -13,7 +13,7 @@
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 #include "pki_base.h"
-#include "exportType.h"
+//#include "pki_export.h"
 #include "builtin_curves.h"
 
 #define PEM_STRING_OPENSSH_KEY "OPENSSH PRIVATE KEY"

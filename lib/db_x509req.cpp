@@ -108,28 +108,25 @@ void db_x509req::load(void)
 
 void db_x509req::store(QModelIndex index)
 {
-	QList<exportType> types;
-
 	pki_x509req *req = fromIndex<pki_x509req>(index);
 	if (!req)
 		return;
 
-	types << exportType(exportType::PEM, "pem", "PEM") <<
-			exportType(exportType::DER, "der", "DER");
-
 	ExportDialog *dlg = new ExportDialog(NULL,
 		tr("Certificate request export"),
-		tr("Certificate request ( *.pem *.der *.csr )"), req,
-		QPixmap(":csrImg"), types, "csrexport");
+		tr("Certificate request ( *.pem *.der *.csr )"),
+		req, QPixmap(":csrImg"),
+		pki_export::select(x509_req, 0), "csrexport");
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	try {
+		const pki_export *xport = dlg->export_type();
 		XFile file(dlg->filename->text());
 		pki_base::pem_comment = dlg->pemComment->isChecked();
 		file.open_write();
-		req->writeReq(file, dlg->type() == exportType::PEM);
+		req->writeReq(file, xport->match_all(F_PEM));
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);

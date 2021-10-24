@@ -9,7 +9,7 @@
 #ifndef __DB_X509_H
 #define __DB_X509_H
 
-#include "exportType.h"
+#include "pki_export.h"
 #include "db_x509super.h"
 #include "asn1int.h"
 #include "x509rev.h"
@@ -47,8 +47,8 @@ class db_x509: public db_x509super
 		pki_x509 *newCert(NewX509 *dlg);
 		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, XFile &file, bool chain) const;
-		void writePKCS7(pki_x509 *cert, XFile &file,
-			exportType::etype type, QModelIndexList list) const;
+		void writePKCS7(pki_x509 *cert, XFile &file, int flags,
+				QModelIndexList list) const;
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
 		void inToCont(pki_base *pki);
 		a1int getUniqueSerial(pki_x509 *signer);

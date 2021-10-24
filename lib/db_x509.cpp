@@ -558,8 +558,8 @@ void db_x509::store(QModelIndex idx)
 void db_x509::store(QModelIndexList list)
 {
 	QStringList filt;
-	bool chain;
-	QList<exportType> types, usual;
+	bool single = list.size() == 1;;
+	int disable_flags = 0;
 
 	if (list.size() == 0)
 		return;
@@ -570,68 +570,23 @@ void db_x509::store(QModelIndexList list)
 
 	pki_key *privkey = crt->getRefKey();
 	pki_evp *pkey;
-	chain = crt->getSigner() && crt->getSigner() != crt;
 
-	usual <<
-		exportType(exportType::PEM, "crt", "PEM") <<
-		exportType(exportType::PKCS7, "p7b", "PKCS #7");
+	if (!single || !crt->getSigner() || crt->getSigner() == crt)
+		disable_flags |= F_CHAIN;
 
-	types << exportType(exportType::DER, "cer", "DER");
+	if (!privkey || !privkey->isPrivKey() || privkey->isToken())
+		disable_flags |= F_PRIVATE;
 
-	if (list.size() > 1) {
-		usual <<
-			exportType(exportType::PEM_selected, "pem",
-				"PEM selected") <<
-			exportType(exportType::PKCS7_selected, "pem",
-				"PKCS7 selected");
-	}
-	if (chain) {
-		types <<
-			exportType(exportType::PEM_chain, "pem",
-				tr("PEM chain")) <<
-			exportType(exportType::PKCS7_chain, "p7b",
-				tr("PKCS#7 chain"));
-	}
+	if (single)
+		disable_flags |= F_SELECT;
 
-	if (privkey && privkey->isPrivKey() && !privkey->isToken()) {
-		if (chain) {
-			usual << exportType(exportType::PKCS12_chain, "pfx",
-				tr("PKCS#12 chain"));
-			types << exportType(exportType::PKCS12, "pfx",
-				"PKCS #12");
-		} else {
-			usual << exportType(exportType::PKCS12, "pfx",
-				"PKCS #12");
-		}
-		types <<
-			exportType(exportType::PEM_cert_key, "pem",
-				tr("PEM + key")) <<
-			exportType(exportType::PEM_cert_pk8, "pem",
-				"PEM + PKCS#8");
-	}
-	types << exportType() <<
-		exportType(exportType::PKCS7_unrevoked, "p7b",
-			tr("PKCS#7 unrevoked")) <<
-		exportType(exportType::PKCS7_all, "p7b",
-			tr("PKCS#7 all")) <<
-		exportType(exportType::PEM_unrevoked, "pem",
-			tr("PEM unrevoked")) <<
-		exportType(exportType::PEM_all, "pem",
-			tr("PEM all")) <<
-		exportType(exportType::Index, "txt",
-			tr("Certificate Index file"));
-	if (crt->getNotAfter() > a1time())
-		types << exportType(exportType::vcalendar, "ics",
-			tr("vCalendar"));
+	if (!single || !crt->isCA())
+		disable_flags |= F_CA;
 
-	if (crt->isCA())
-		types << exportType(exportType::vcalendar_ca, "ics",
-			tr("CA vCalendar"));
-
-	types = usual << exportType() << types;
 	ExportDialog *dlg = new ExportDialog(NULL, tr("Certificate export"),
 		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"), crt,
-		QPixmap(":certImg"), types, "certexport");
+		QPixmap(":certImg"), pki_export::select(x509, disable_flags),
+		"certexport");
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
@@ -639,108 +594,72 @@ void db_x509::store(QModelIndexList list)
 	QStringList vcal;
 	QList<pki_x509*> certs;
 	QList<pki_base*> items;
-	enum exportType::etype type = dlg->type();
 	try {
+		const pki_export *xport = dlg->export_type();
 		XFile file(dlg->filename->text());
 		file.open_write();
 		pki_base::pem_comment = dlg->pemComment->isChecked();
 
-		switch (type) {
-		case exportType::PEM:
-			crt->writeCert(file, true);
-			break;
-		case exportType::PEM_chain:
+		if (xport->match_all(F_PEM | F_CHAIN)) {
 			while (crt && crt != oldcrt) {
 				crt->writeCert(file, true);
 				oldcrt = crt;
 				crt = crt->getSigner();
 			}
-			break;
-		case exportType::PEM_selected:
+		} else if (xport->match_all(F_PEM | F_SELECT)) {
 			foreach(QModelIndex idx, list) {
 				crt = fromIndex<pki_x509>(idx);
 				if (crt)
 					crt->writeCert(file, true);
 			}
-			break;
-		case exportType::PEM_unrevoked:
-			foreach(pki_x509 *pki, Store.getAll<pki_x509>()) {
+		} else if (xport->match_all(F_PEM | F_UNREVOKED)) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
 				if (!pki->isRevoked())
 					pki->writeCert(file, true);
-			}
-			break;
-		case exportType::PEM_all:
-			foreach(pki_x509 *pki, Store.getAll<pki_x509>()) {
+		} else if (xport->match_all(F_PEM | F_ALL)) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
 				pki->writeCert(file, true);
-			}
-			break;
-		case exportType::DER:
-			crt->writeCert(file, false);
-			break;
-		case exportType::PKCS7:
-		case exportType::PKCS7_chain:
-		case exportType::PKCS7_unrevoked:
-		case exportType::PKCS7_selected:
-		case exportType::PKCS7_all:
-			writePKCS7(crt, file, type, list);
-			break;
-		case exportType::PKCS12:
-			writePKCS12(crt, file, false);
-			break;
-		case exportType::PKCS12_chain:
-			writePKCS12(crt, file, true);
-			break;
-		case exportType::PEM_cert_pk8:
-		case exportType::PEM_cert_key:
+		} else if (xport->match_all(F_PEM | F_PRIVATE)) {
 			pkey = (pki_evp *)crt->getRefKey();
-			if (!pkey || pkey->isPubKey()) {
-				XCA_WARN(tr("There was no key found for the Certificate: '%1'").
+			if (!pkey || pkey->isPubKey())
+				throw errorEx(tr("There was no key found for the Certificate: '%1'").
 					arg(crt->getIntName()));
-				break;
-			}
-			if (pkey->isToken()) {
-				XCA_WARN(tr("Not possible for a token key: '%1'").
+			if (pkey->isToken())
+				throw errorEx(tr("Not possible for a token key: '%1'").
 					arg(crt->getIntName()));
-				break;
-			}
-
-			if (type == exportType::PEM_cert_pk8) {
+			if (xport->match_all(F_PKCS8)) {
 				pkey->writePKCS8(file, EVP_des_ede3_cbc(),
-						PwDialogCore::pwCallback, true);
+					PwDialogCore::pwCallback, true);
 			} else {
 				pkey->writeKey(file, NULL, NULL, true);
 			}
 			crt->writeCert(file, true);
-			break;
-		case exportType::Index:
+		} else if (xport->match_all(F_PEM)) {
+			crt->writeCert(file, true);
+		} else if (xport->match_all(F_DER)) {
+			crt->writeCert(file, false);
+		} else if (xport->match_all(F_PKCS7)) {
+			writePKCS7(crt, file, xport->flags, list);
+		} else if (xport->match_all(F_PKCS12)) {
+			writePKCS12(crt, file, xport->match_all(F_CHAIN));
+		} else if (xport->match_all(F_INDEX)) {
 			foreach(QModelIndex idx, list) {
 				crt = fromIndex<pki_x509>(idx);
 				if (crt)
 					certs << crt;
 			}
 			writeIndex(file, certs);
-			break;
-		case exportType::vcalendar:
+		} else if (xport->match_all(F_CAL)) {
 			foreach(QModelIndex idx, list) {
 				crt = fromIndex<pki_x509>(idx);
-				if (crt)
-					vcal += crt->icsVEVENT();
+				if (!crt)
+					continue;
+				vcal += xport->match_all(F_CHAIN) ?
+					crt->icsVEVENT_ca() : crt->icsVEVENT();
 			}
 			writeVcalendar(file, vcal);
-			break;
-		case exportType::vcalendar_ca:
-			foreach(QModelIndex idx, list) {
-				crt = fromIndex<pki_x509>(idx);
-				if (crt)
-					vcal += crt->icsVEVENT_ca();
-			}
-			writeVcalendar(file, vcal);
-			break;
-		default:
-			exit(1);
 		}
-	}
-	catch (errorEx &err) {
+	} catch (errorEx &err) {
 		XCA_ERROR(err);
 	}
 	pki_base::pem_comment = false;
@@ -786,43 +705,32 @@ void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 	delete p12;
 }
 
-void db_x509::writePKCS7(pki_x509 *cert, XFile &file, exportType::etype type,
+void db_x509::writePKCS7(pki_x509 *cert, XFile &file, int flags,
 			QModelIndexList list) const
 {
-	pki_pkcs7 *p7 = NULL;
+	pki_pkcs7 *p7 = new pki_pkcs7(QString());
 
 	try {
-		p7 = new pki_pkcs7(QString());
-		switch (type) {
-		case exportType::PKCS7_chain:
-			while (cert != NULL) {
+		if (flags & F_CHAIN) {
+			while (cert) {
 				p7->append_item(cert);
 				if (cert->getSigner() == cert)
-					cert = NULL;
-				else
-					cert = cert->getSigner();
+					break;
+				cert = cert->getSigner();
 			}
-			break;
-		case exportType::PKCS7:
-			p7->append_item(cert);
-			break;
-		case exportType::PKCS7_selected:
+		} else if (flags & F_SELECT) {
 			foreach(QModelIndex idx, list) {
 				cert = fromIndex<pki_x509>(idx);
 				if (cert)
 					p7->append_item(cert);
 			}
-			break;
-		case exportType::PKCS7_unrevoked:
-		case exportType::PKCS7_all:
+		} else if (flags & (F_UNREVOKED | F_ALL)) {
 			foreach(pki_x509 *cer, Store.getAll<pki_x509>()) {
-				if ((type == exportType::PKCS7_all) ||
-				    (!cer->isRevoked()))
+				if ((flags & F_ALL) || !cer->isRevoked())
 					p7->append_item(cer);
 			}
-			break;
-		default:
-			exit(1);
+		} else {
+			p7->append_item(cert);
 		}
 		p7->writeP7(file, false);
 	}

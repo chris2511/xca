@@ -10,7 +10,7 @@
 #include "pki_x509super.h"
 #include "func.h"
 #include "pkcs11.h"
-#include "exportType.h"
+#include "pki_export.h"
 #include "XcaWarningCore.h"
 
 #include <openssl/rand.h>
@@ -125,16 +125,15 @@ void pki_key::write_SSH2_ed25519_private(BIO *b,
 
 bool pki_key::pem(BioByteArray &b)
 {
-	switch ((int)Settings["KeyFormat"]) {
-	case exportType::SSH2_public:
-		b += SSH2publicQByteArray();
-		break;
-	case exportType::PEM_key:
-		PEM_write_bio_PUBKEY(b, key);
-		break;
-	default:
+	const pki_export *xport = pki_export::default_key_format();
+
+	if (xport->match_all(F_PRIVATE))
 		return false;
-	}
+	if (xport->match_all(F_SSH2))
+		b += SSH2publicQByteArray();
+	else if (xport->match_all(F_PEM))
+		PEM_write_bio_PUBKEY(b, key);
+
 	return true;
 }
 

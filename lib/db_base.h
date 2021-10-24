@@ -11,7 +11,6 @@
 #include <typeinfo>
 #include "base.h"
 #include "load_obj.h"
-#include "exportType.h"
 #include "pki_base.h"
 #include "headerlist.h"
 
@@ -41,10 +40,6 @@ class db_base: public QAbstractItemModel
 		virtual dbheaderList getHeaders();
 		int colResizing;
 		QString sqlItemSelector();
-		virtual exportType::etype clipboardFormat(QModelIndexList) const
-		{
-			return exportType::Separator;
-		}
 		bool isValidCol(int col) const;
 		void timerEvent(QTimerEvent *event);
 		bool treeview;

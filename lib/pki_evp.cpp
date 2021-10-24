@@ -669,11 +669,9 @@ bool pki_evp::pem(BioByteArray &b)
 {
 	EVP_PKEY *pkey;
 	int keytype;
-	int format = Settings["KeyFormat"];
+	const pki_export *xport = pki_export::default_key_format();
 
-	switch (format) {
-	case exportType::PEM_private:
-	case exportType::SSH2_private:
+	if (xport->match_all(F_PEM | F_PRIVATE)) {
 		pkey = decryptKey();
 		keytype = EVP_PKEY_id(pkey);
 		switch (keytype) {
@@ -695,7 +693,7 @@ bool pki_evp::pem(BioByteArray &b)
 			break;
 #ifdef EVP_PKEY_ED25519
 		case EVP_PKEY_ED25519:
-			if (format == exportType::PEM_private)
+			 if (xport->match_all(F_PRIVATE))
 				return false;
 			write_SSH2_ed25519_private(b, pkey, NULL);
 			break;
@@ -703,22 +701,17 @@ bool pki_evp::pem(BioByteArray &b)
 #endif
 		}
 		EVP_PKEY_free(pkey);
-		break;
-	case exportType::PKCS8:
+	} else if (xport->match_all(F_PKCS8 | F_PRIVATE)) {
+		const EVP_CIPHER *algo = xport->match_all(F_CRYPT) ?
+			EVP_aes_256_cbc() : NULL;
 		pkey = decryptKey();
-		PEM_write_bio_PrivateKey(b, pkey, NULL, NULL, 0, NULL, NULL);
-		EVP_PKEY_free(pkey);
-		break;
-	case exportType::PKCS8_encrypt:
-		pkey = decryptKey();
-		PEM_write_bio_PrivateKey(b, pkey, EVP_aes_256_cbc(),
+		PEM_write_bio_PrivateKey(b, pkey, NULL,
 					 passwd.constUchar(), passwd.size(),
 					 NULL, NULL);
 		EVP_PKEY_free(pkey);
-		break;
-	default:
+	} else
 		return pki_key::pem(b);
-	}
+
 	return true;
 }
 void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,

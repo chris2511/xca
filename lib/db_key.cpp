@@ -194,57 +194,11 @@ void db_key::load(void)
 	load_default(l);
 }
 
-exportType::etype db_key::clipboardFormat(QModelIndexList indexes) const
-{
-	QList<exportType> types;
-	bool allPriv = true;
-	bool ssh2compatible = true;
-
-	foreach(QModelIndex idx, indexes) {
-		pki_key *key = fromIndex<pki_key>(idx);
-		if (!key)
-			continue;
-		if (key->isPubKey() || key->isToken())
-			allPriv = false;
-		if (!key->SSH2_compatible())
-			ssh2compatible = false;
-	}
-	if (!allPriv && !ssh2compatible)
-		return exportType::PEM_key;
-
-	types << exportType(exportType::PEM_key, "pem", tr("PEM public"));
-	if (ssh2compatible)
-		types << exportType(exportType::SSH2_public,
-			"pub", tr("SSH2 public"));
-	if (allPriv) {
-		types << exportType(exportType::PEM_private, "pem",
-			tr("PEM private"))
-		      << exportType(exportType::PKCS8, "pk8",
-			"PKCS#8");
-		if (ssh2compatible)
-			types << exportType(exportType::SSH2_private,
-				"priv", tr("SSH2 private"));
-	}
-	ExportDialog *dlg = new ExportDialog(NULL,
-		tr("Export keys to Clipboard"), QString(), NULL,
-		QPixmap(":keyImg"), types, "keyexport");
-
-	dlg->filename->setText(tr("Clipboard"));
-	dlg->filename->setEnabled(false);
-	dlg->fileBut->setEnabled(false);
-	if (!dlg->exec()) {
-		delete dlg;
-		return exportType::Separator;
-	}
-	return dlg->type();
-}
 
 void db_key::store(QModelIndex index)
 {
-	const EVP_CIPHER *algo = NULL, *encrypt = EVP_aes_256_cbc();
 	QString title = tr("Export public key [%1]");
-	QList<exportType> types;
-	bool pvk = false, ed25519 = false;
+	int disable_flags = 0;
 
 	pki_key *key = fromIndex<pki_key>(index);
 	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
@@ -253,112 +207,63 @@ void db_key::store(QModelIndex index)
 		return;
 
 	int keytype = key->getKeyType();
-	if (keytype == EVP_PKEY_RSA || keytype == EVP_PKEY_DSA)
-		pvk = true;
+	if (keytype != EVP_PKEY_RSA && keytype != EVP_PKEY_DSA)
+		disable_flags |= F_PVK;
 #ifdef EVP_PKEY_ED25519
 	if (keytype == EVP_PKEY_ED25519)
-		ed25519 = true;
+		disable_flags |= F_CRYPT;
 #endif
+	if (!key->SSH2_compatible())
+		disable_flags |= F_SSH2;
 
-	types <<
-	exportType(exportType::PEM_key, "pem", tr("PEM public")) <<
-	exportType(exportType::DER_key, "der", tr("DER public"));
+	if (key->isPubKey() || key->isToken())
+		disable_flags |= F_PRIVATE;
 
-	if (key->SSH2_compatible())
-		types << exportType(exportType::SSH2_public,
-					"pub", tr("SSH2 public"));
-	if (!key->isPubKey() && !key->isToken()) {
-		QList<exportType> usual;
-		if (!ed25519)
-			types << exportType(exportType::PEM_private_encrypt,
-				"pem", tr("PEM encryped"));
-		types <<
-			exportType(exportType::DER_private, "der",
-				tr("DER private")) <<
-			exportType(exportType::PKCS8, "pk8", "PKCS#8");
-
-		if (pvk) {
-			types <<
-			exportType(exportType::PVK_private, "pvk",
-				tr("PVK private")) <<
-			exportType(exportType::PVK_encrypt, "pvk",
-				tr("PVK encrypted"));
-		}
-		if (!ed25519)
-			usual << exportType(exportType::PEM_private, "pem",
-				tr("PEM private"));
-		usual << exportType(exportType::PKCS8_encrypt, "pk8",
-			tr("PKCS#8 encrypted"));
-		if (key->SSH2_compatible())
-			usual << exportType(exportType::SSH2_private, "priv",
-				tr("SSH2 private"));
-		title = tr("Export private key [%1]");
-		types = usual << exportType() << types;
-	}
 	ExportDialog *dlg = new ExportDialog(NULL,
 		title.arg(key->getTypeString()),
 		tr("Private Keys ( *.pem *.der *.pk8 );; "
 		   "SSH Public Keys ( *.pub )"), key,
 		QPixmap(key->isToken() ? ":scardImg" : ":keyImg"),
-		types, "keyexport");
+		pki_export::select(asym_key, disable_flags), "keyexport");
 
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	try {
-		exportType::etype type = dlg->type();
+		const pki_export *xport = dlg->export_type();
 		pki_base::pem_comment = dlg->pemComment->isChecked();
 		XFile file(dlg->filename->text());
+		const EVP_CIPHER *algo = NULL;
+		int(*pwCallback)(char *, int, int, void *) = NULL;
 
-		switch (type) {
-		case exportType::DER_key:
-		case exportType::PEM_key:
-		case exportType::SSH2_public:
+		if (xport->match_all(F_CRYPT)) {
+			algo = EVP_aes_256_cbc();
+			pwCallback = PwDialogCore::pwCallback;
+		}
+		if (xport->match_all(F_PRIVATE))
 			file.open_write();
-			break;
-		default:
+		else
 			file.open_key();
-		}
-		switch (type) {
-		case exportType::DER_key:
-			key->writePublic(file, false);
-			break;
-		case exportType::DER_private:
+
+		if (xport->match_all(F_DER | F_PRIVATE))
 			privkey->writeKey(file, NULL, NULL, false);
-			break;
-		case exportType::PEM_key:
+		else if (xport->match_all(F_PEM | F_PRIVATE))
+			privkey->writeKey(file, algo, pwCallback, true);
+		else if (xport->match_all(F_DER))
+			key->writePublic(file, false);
+		else if (xport->match_all(F_PEM))
 			key->writePublic(file, true);
-			break;
-		case exportType::PEM_private_encrypt:
-			algo = encrypt;
-			/* fallthrough */
-		case exportType::PEM_private:
-			privkey->writeKey(file, algo,
-				PwDialogCore::pwCallback, true);
-			break;
-		case exportType::PKCS8_encrypt:
-			algo = encrypt;
-			/* fallthrough */
-		case exportType::PKCS8:
-			privkey->writePKCS8(file, algo,
-				PwDialogCore::pwCallback, true);
-			break;
-		case exportType::SSH2_public:
+		else if (xport->match_all(F_PKCS8))
+			privkey->writePKCS8(file, algo, pwCallback, true);
+		else if (xport->match_all(F_SSH2 | F_PRIVATE))
+			key->writeSSH2private(file, pwCallback);
+		else if (xport->match_all(F_SSH2))
 			key->writeSSH2public(file);
-			break;
-		case exportType::SSH2_private:
-			key->writeSSH2private(file, PwDialogCore::pwCallback);
-			break;
-		case exportType::PVK_private:
-			privkey->writePVKprivate(file, NULL);
-			break;
-		case exportType::PVK_encrypt:
-			privkey->writePVKprivate(file,PwDialogCore::pwCallback);
-			break;
-		default:
+		else if (xport->match_all(F_PVK))
+			privkey->writePVKprivate(file, pwCallback);
+		else
 			throw errorEx(tr("Internal error"));
-		}
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);

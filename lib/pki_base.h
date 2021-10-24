@@ -20,20 +20,10 @@
 #include "headerlist.h"
 #include "sql.h"
 #include "xfile.h"
+#include "pki_export.h"
 
 #define pki_openssl_error() _openssl_error(*this, C_FILE, __LINE__)
 #define pki_ign_openssl_error() _ign_openssl_error(*this, C_FILE, __LINE__)
-
-enum pki_type {
-	none,
-	asym_key,
-	x509_req,
-	x509,
-	revocation,
-	tmpl,
-	setting,
-	smartCard,
-};
 
 enum pki_source {
 	unknown,

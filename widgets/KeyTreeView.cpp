@@ -24,26 +24,19 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 	pki_key *key = db_base::fromIndex<pki_key>(index);
 	int exp_type = Settings["KeyFormat"];
+	const pki_export *x;
 
 	clipboard = menu->addMenu(tr("Clipboard format"));
-	/* The evil copy & paster striked again */
-	a = clipboard->addAction(tr("PEM public"));
-	a->setData(QVariant(exportType::PEM_key));
-	a->setCheckable(true);
-	a->setChecked(exp_type == exportType::PEM_key);
-	group->addAction(a);
-
-	a = clipboard->addAction(tr("PEM private"));
-	a->setData(QVariant(exportType::PEM_private));
-	a->setCheckable(true);
-	a->setChecked(exp_type == exportType::PEM_private);
-	group->addAction(a);
-
-	a = clipboard->addAction(tr("PKCS#8"));
-	a->setData(QVariant(exportType::PKCS8));
-	a->setCheckable(true);
-	a->setChecked(exp_type == exportType::PKCS8);
-	group->addAction(a);
+	foreach(x, pki_export::select(asym_key, 0)) {
+		if (!(x->flags & F_CLIPBOARD))
+			continue;
+		qWarning() << "CLIPBOARD"  << x->id << x->desc;
+		a = clipboard->addAction(x->desc);
+		a->setData(x->id);
+		a->setCheckable(true);
+		a->setChecked(exp_type == x->id);
+		group->addAction(a);
+	}
 
 	connect(group, SIGNAL(triggered(QAction*)),
 		this, SLOT(clipboardFormat(QAction*)));

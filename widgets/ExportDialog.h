@@ -9,7 +9,7 @@
 #define __EXPORTDIALOG_H
 
 #include "ui_ExportDialog.h"
-#include "lib/exportType.h"
+#include "lib/pki_export.h"
 
 class QPixmap;
 class pki_base;
@@ -20,14 +20,14 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 
    protected:
 	QString filter;
-	QVector<QString> help;
 
    public:
 	ExportDialog(QWidget *w, const QString &title, const QString &filt,
-		     pki_base *pki, const QPixmap &img, QList<exportType> types,
+		     pki_base *pki, const QPixmap &img,
+		     QList<const pki_export*> types,
 		     const QString &help_ctx = QString());
 	static bool mayWriteFile(const QString &fname);
-	enum exportType::etype type();
+	const pki_export *export_type(int idx = -1) const;
 
    public slots:
 	void on_fileBut_clicked();
