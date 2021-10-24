@@ -22,6 +22,9 @@
 
 #if defined(Q_OS_MAC)
 #include <IOKit/IOKitLib.h>
+#define I18N_DIR ""
+#else
+#define I18N_DIR "i18n/"
 #endif
 #include <QStandardPaths>
 #include <QDir>
@@ -270,8 +273,9 @@ const QString getUserSettingsDir()
 
 const QString getI18nDir()
 {
-	return  QStandardPaths::locate(QStandardPaths::DataLocation,
-			"i18n", QStandardPaths::LocateDirectory);
+	QString qm = QStandardPaths::locate(QStandardPaths::DataLocation,
+		I18N_DIR "xca.qm");
+	return QFileInfo(qm).path();
 }
 
 void migrateOldPaths()
