@@ -92,7 +92,7 @@ class pki_crl: public pki_x509name
 		void setCrlNumber(a1int num);
 		bool getCrlNumber(a1int *num) const;
 		a1int getCrlNumber() const;
-		bool pem(BioByteArray &, int);
+		bool pem(BioByteArray &);
 		bool visible() const;
 		QSqlError lookupIssuer();
 		QSqlError insertSqlData();

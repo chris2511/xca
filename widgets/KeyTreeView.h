@@ -11,6 +11,7 @@
 #include "XcaTreeView.h"
 #include "lib/db_key.h"
 
+class QAction;
 class KeyTreeView: public XcaTreeView
 {
 	Q_OBJECT
@@ -35,5 +36,6 @@ class KeyTreeView: public XcaTreeView
 	void toToken();
 	void newItem();
 	void newItem(const QString &name);
+	void clipboardFormat(QAction*);
 };
 #endif

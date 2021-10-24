@@ -249,7 +249,7 @@ void pki_x509req::writeReq(XFile &file, bool pem) const
 	pki_openssl_error();
 }
 
-bool pki_x509req::pem(BioByteArray &b, int)
+bool pki_x509req::pem(BioByteArray &b)
 {
 	return PEM_write_bio_X509_REQ(b, request);
 }

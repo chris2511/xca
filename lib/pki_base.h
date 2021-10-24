@@ -169,7 +169,7 @@ class pki_base : public QObject
 		virtual int renameOnToken(const slotid &, const QString &);
 
 		/* Import / Export management */
-		virtual bool pem(BioByteArray &b, int format=0);
+		virtual bool pem(BioByteArray &b);
 		virtual void fromPEM_BIO(BIO *, const QString &);
 		virtual void fromPEMbyteArray(const QByteArray &, const QString &);
 		virtual void fload(const QString &);

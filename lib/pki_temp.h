@@ -84,7 +84,7 @@ class pki_temp: public pki_x509name
 		{
 			xname = n;
 		}
-		bool pem(BioByteArray &, int);
+		bool pem(BioByteArray &);
 		QByteArray toExportData() const;
 		void fromPEM_BIO(BIO *, const QString &);
 		void fromExportData(QByteArray data);

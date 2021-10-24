@@ -614,7 +614,7 @@ QString pki_x509::getIndexEntry()
 		QString(X509_NAME_oneline(getSubject().get(), NULL, 0)));
 }
 
-bool pki_x509::pem(BioByteArray &b, int)
+bool pki_x509::pem(BioByteArray &b)
 {
 	return PEM_write_bio_X509(b, cert);
 }

@@ -263,15 +263,13 @@ pki_base *db_base::insertPKI(pki_base *pki)
 
 QString db_base::pem2QString(QModelIndexList indexes) const
 {
-	exportType::etype format;
 	BioByteArray bba;
 
-	format = clipboardFormat(indexes);
 	foreach(QModelIndex idx, indexes) {
 		if (idx.column() != 0)
 			continue;
 		pki_base *pki = fromIndex(idx);
-		pki->pem(bba, format);
+		pki->pem(bba);
 		openssl_error();
 	}
 	return bba.qstring();

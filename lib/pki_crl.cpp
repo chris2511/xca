@@ -265,7 +265,7 @@ void pki_crl::writeCrl(XFile &file, bool pem) const
 	pki_openssl_error();
 }
 
-bool pki_crl::pem(BioByteArray &b, int)
+bool pki_crl::pem(BioByteArray &b)
 {
 	return PEM_write_bio_X509_CRL(b, crl);
 }

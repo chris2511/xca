@@ -233,7 +233,7 @@ class pki_key: public pki_base
 		{
 			qFatal("generate in pki_key");
 		}
-		bool pem(BioByteArray &, int);
+		bool pem(BioByteArray &);
 		QVariant column_data(const dbheader *hd) const;
 		QString modulus() const;
 		QString pubEx() const;

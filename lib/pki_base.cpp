@@ -130,7 +130,7 @@ QByteArray pki_base::i2d() const
 	return QByteArray();
 }
 
-bool pki_base::pem(BioByteArray &, int)
+bool pki_base::pem(BioByteArray &)
 {
 	return false;
 }

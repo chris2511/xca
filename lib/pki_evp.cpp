@@ -665,10 +665,11 @@ QSqlError pki_evp::deleteSqlData()
 	return q.lastError();
 }
 
-bool pki_evp::pem_format(BioByteArray &b, exportType::etype format)
+bool pki_evp::pem(BioByteArray &b)
 {
 	EVP_PKEY *pkey;
 	int keytype;
+	int format = Settings["KeyFormat"];
 
 	switch (format) {
 	case exportType::PEM_private:
@@ -716,7 +717,7 @@ bool pki_evp::pem_format(BioByteArray &b, exportType::etype format)
 		EVP_PKEY_free(pkey);
 		break;
 	default:
-		return pki_key::pem_format(b, format);
+		return pki_key::pem(b);
 	}
 	return true;
 }

@@ -17,9 +17,36 @@
 void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes)
 {
+	QMenu *clipboard;
+	QAction *a;
 	bool multi = indexes.size() > 1;
+	QActionGroup *group = new QActionGroup(menu);
 
 	pki_key *key = db_base::fromIndex<pki_key>(index);
+	int exp_type = Settings["KeyFormat"];
+
+	clipboard = menu->addMenu(tr("Clipboard format"));
+	/* The evil copy & paster striked again */
+	a = clipboard->addAction(tr("PEM public"));
+	a->setData(QVariant(exportType::PEM_key));
+	a->setCheckable(true);
+	a->setChecked(exp_type == exportType::PEM_key);
+	group->addAction(a);
+
+	a = clipboard->addAction(tr("PEM private"));
+	a->setData(QVariant(exportType::PEM_private));
+	a->setCheckable(true);
+	a->setChecked(exp_type == exportType::PEM_private);
+	group->addAction(a);
+
+	a = clipboard->addAction(tr("PKCS#8"));
+	a->setData(QVariant(exportType::PKCS8));
+	a->setCheckable(true);
+	a->setChecked(exp_type == exportType::PKCS8);
+	group->addAction(a);
+
+	connect(group, SIGNAL(triggered(QAction*)),
+		this, SLOT(clipboardFormat(QAction*)));
 
 	if (indexes.size() == 0 || !key)
 		return;
@@ -185,4 +212,12 @@ void KeyTreeView::newItem(const QString &name)
 	if (dlg->exec())
 		keys()->newKey(dlg->getKeyJob(), dlg->keyDesc->text());
 	delete dlg;
+}
+
+void KeyTreeView::clipboardFormat(QAction *a)
+{
+	qWarning("pki_key::default_export_type: %d %d\n",
+	         (int)Settings["KeyFormat"], a->data().toInt());
+
+	Settings["KeyFormat"] = a->data().toInt();
 }

@@ -123,9 +123,9 @@ void pki_key::write_SSH2_ed25519_private(BIO *b,
 #endif
 }
 
-bool pki_key::pem(BioByteArray &b, int format)
+bool pki_key::pem(BioByteArray &b)
 {
-	switch (format) {
+	switch ((int)Settings["KeyFormat"]) {
 	case exportType::SSH2_public:
 		b += SSH2publicQByteArray();
 		break;

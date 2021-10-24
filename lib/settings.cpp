@@ -3,6 +3,7 @@
 #include "sql.h"
 #include "pki_key.h"
 #include "digest.h"
+#include "exportType.h"
 #include <QDir>
 #include <QFile>
 #include <openssl/asn1.h>
@@ -37,6 +38,7 @@ settings::settings()
 	defaul["serial_len"] = "64";
 	defaul["fp_separator"] = ":";
 	defaul["fp_digits"] = "2";
+	defaul["KeyFormat"] = QString("%1").arg(exportType::PEM_key);
 
 	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
 }
