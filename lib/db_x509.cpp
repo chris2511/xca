@@ -841,6 +841,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 	CertExtend *dlg = NULL;
 	x509rev r;
 	bool doRevoke = false;
+	bool doReplace = false;
 
 	if (indexes.size() == 0)
 		return;
@@ -866,6 +867,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			r = revoke->getRevocation();
 			delete revoke;
 		}
+		doReplace = dlg->replace->isChecked();
 		foreach(idx, indexes) {
 			oldcert = fromIndex<pki_x509>(idx);
 			if (!oldcert)
@@ -891,6 +893,10 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			newcert->sign(signkey, oldcert->getDigest());
 			newcert = dynamic_cast<pki_x509 *>(insert(newcert));
 			createSuccess(newcert);
+
+			// delete old certificate if requested
+			if (doReplace)
+				deletePKI(idx);
 		}
 		if (doRevoke)
 			do_revoke(indexes, r);
