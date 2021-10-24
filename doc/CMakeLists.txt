@@ -103,7 +103,7 @@ endif()
 if (NOT WIN32)
   add_custom_command(
 	OUTPUT "${D}/xca.1.gz"
-	COMMAND cat "${S}/xca.1.head" "${D}/xca.1.options" "${S}/xca.1.tail" | gzip > "${D}/xca.1.gz"
+	COMMAND cat "${S}/xca.1.head" "${D}/xca.1.options" "${S}/xca.1.tail" | gzip -n9 > "${D}/xca.1.gz"
 	DEPENDS "${S}/xca.1.head" "${S}/xca.1.tail"
 		"${D}/xca.1.options"
 	COMMENT "Compiling man page"
