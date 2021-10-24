@@ -7,7 +7,7 @@ set(TS_FILES
 ${S}/xca_fr.ts	${S}/xca_ja.ts	${S}/xca_tr.ts	${S}/xca.ts
 ${S}/xca_de.ts	${S}/xca_hr.ts	${S}/xca_nl.ts	${S}/xca_ru.ts
 ${S}/xca_es.ts	${S}/xca_it.ts	${S}/xca_pl.ts	${S}/xca_sk.ts
-${S}/xca_zh_CN.ts	${S}/xca_pt_BR.ts
+${S}/xca_zh_CN.ts	${S}/xca_pt_BR.ts	${S}/xca_id.ts
 )
 
 qt5_add_translation(QM_FILES ${TS_FILES})

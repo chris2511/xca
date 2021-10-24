@@ -46,6 +46,8 @@ const QList<QStringList> MainWindow::getTranslators() const
 		"Slavko", "linux", "slavino.sk" },
 	QStringList{ "es", tr("Spanish"),
 		"Miguel Romera", "mrmsoftdonation", "gmail.com" },
+	QStringList{ "id", tr("Indonesian"),
+		"Andika Triwidada", "andika", "gmail.com" },
 	QStringList{ "tr", tr("Turkish") },
 	};
 };
