@@ -100,6 +100,10 @@ if(SPHINX)
   endif()
 endif()
 
+if (NOT SPHINX OR NOT QTCOLLGEN)
+  add_custom_target(sphinx-qthelp)
+endif()
+
 if (NOT WIN32)
   add_custom_command(
 	OUTPUT "${D}/xca.1.gz"
