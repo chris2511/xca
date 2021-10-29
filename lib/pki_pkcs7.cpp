@@ -156,6 +156,13 @@ void pki_pkcs7::fromPEM_BIO(BIO *bio, const QString &name)
 	append_certs(myp7, name);
 }
 
+void pki_pkcs7::fromPEMbyteArray(const QByteArray &ba, const QString &name)
+{
+	// Skip the pki_multi::fromPEMbyteArray(),
+	// which would cause an endless loop
+	pki_base::fromPEMbyteArray(ba, name);
+}
+
 void pki_pkcs7::fload(const QString &name)
 {
 	PKCS7 *myp7;

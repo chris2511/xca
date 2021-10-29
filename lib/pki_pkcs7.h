@@ -36,6 +36,7 @@ class pki_pkcs7: public pki_multi
 		void encryptFile(pki_x509 *crt, const QString &filename);
 		void writeP7(XFile &file, bool PEM);
 		void fromPEM_BIO(BIO *bio, const QString &name);
+		void fromPEMbyteArray(const QByteArray &, const QString &);
 		void fload(const QString &name);
 };
 #endif
