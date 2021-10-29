@@ -22,6 +22,7 @@ class pki_base;
 class QKeyEvent;
 class QContextMenuEvent;
 class QMenu;
+class load_base;
 
 class XcaTreeView: public QTreeView
 {
@@ -58,6 +59,7 @@ class XcaTreeView: public QTreeView
 	void keyPressEvent(QKeyEvent *event);
 	virtual void showPki(pki_base *) {};
 	virtual void storeItems(QModelIndexList indexes);
+	virtual void load_default(load_base *load);
 
    public slots:
 	void changeView();
@@ -71,7 +73,6 @@ class XcaTreeView: public QTreeView
 	void showItems();
 	void newItem();
 	void doubleClick(const QModelIndex &m);
-	void load();
 	void pem2clipboard();
 	void headerDetails();
 	void columnRemove();

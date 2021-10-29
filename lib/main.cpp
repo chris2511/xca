@@ -378,6 +378,7 @@ int main(int argc, char *argv[])
 	{
 		/* On windows, always instantiate a GUI app */
 		coreApp = gui = new XcaApplication(argc, argv);
+		is_gui_app = true;
 	}
 
 	coreApp->setApplicationName(PACKAGE_TARNAME);

@@ -26,7 +26,6 @@ class db_x509req: public db_x509super
 		pki_base *newPKI(enum pki_type type = none);
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
 		void store(QModelIndex index);
-		void load();
 		QList<pki_x509req*> getAllRequests();
 		void resetX509count();
 		void setSigned(QModelIndex index, bool signe);

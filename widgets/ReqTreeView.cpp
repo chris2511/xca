@@ -60,3 +60,9 @@ void ReqTreeView::unmarkSigned()
 	if (basemodel)
 		reqs()->setSigned(currentIndex(), false);
 }
+
+void ReqTreeView::load(void)
+{
+	load_req l;
+	load_default(&l);
+}

@@ -35,6 +35,7 @@ class KeyTreeView: public XcaTreeView
 	void changeSoPin();
 	void toToken();
 	void newItem();
+	void load();
 	void newItem(const QString &name);
 	void clipboardFormat(QAction*);
 };

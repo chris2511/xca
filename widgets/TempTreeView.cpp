@@ -107,3 +107,9 @@ bool TempTreeView::alterTemp(pki_temp *temp)
 	temps()->alterTemp(temp);
 	return true;
 }
+
+void TempTreeView::load()
+{
+	load_temp l;
+	load_default(&l);
+}

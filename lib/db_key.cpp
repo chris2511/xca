@@ -188,13 +188,6 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 	return key;
 }
 
-void db_key::load(void)
-{
-	load_key l;
-	load_default(l);
-}
-
-
 void db_key::store(QModelIndex index)
 {
 	QString title = tr("Export public key [%1]");

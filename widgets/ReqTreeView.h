@@ -30,5 +30,6 @@ class ReqTreeView: public X509SuperTreeView
 	void signReq();
 	void markSigned();
 	void unmarkSigned();
+	void load();
 };
 #endif

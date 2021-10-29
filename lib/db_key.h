@@ -34,7 +34,6 @@ class db_key: public db_base
 		pki_key *newKey(const keyjob &task, const QString &name);
 
 	public slots:
-		void load();
 		void store(QModelIndex index);
 
 	signals:

@@ -44,12 +44,6 @@ pki_base *db_crl::newPKI(enum pki_type type)
 	return new pki_crl();
 }
 
-void db_crl::load()
-{
-	load_crl l;
-	load_default(l);
-}
-
 void db_crl::revokeCerts(pki_crl *crl)
 {
 	db_x509 *certs = Database.model<db_x509>();

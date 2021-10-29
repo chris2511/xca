@@ -45,6 +45,8 @@
 #define getch() getchar()
 #endif
 
+bool is_gui_app = false;
+
 int console_write(FILE *fp, const QByteArray &ba)
 {
 	if (ba.size() == 0)

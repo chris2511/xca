@@ -113,18 +113,14 @@ void CertTreeView::toOtherToken()
 
 void CertTreeView::loadPKCS12()
 {
-	if (basemodel) {
-		load_pkcs12 l;
-		certs()->load_default(l);
-	}
+	load_pkcs12 l;
+	load_default(&l);
 }
 
 void CertTreeView::loadPKCS7()
 {
-	if (basemodel) {
-		load_pkcs7 l;
-		certs()->load_default(l);
-	}
+	load_pkcs7 l;
+	load_default(&l);
 }
 
 void CertTreeView::genCrl()
@@ -229,4 +225,10 @@ void CertTreeView::unRevoke()
 {
 	if (basemodel)
 		certs()->unRevoke(getSelectedIndexes());
+}
+
+void CertTreeView::load()
+{
+	load_cert c;
+	load_default(&c);
 }

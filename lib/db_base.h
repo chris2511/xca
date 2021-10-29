@@ -92,7 +92,6 @@ class db_base: public QAbstractItemModel
 		{
 			return dynamic_cast<T*>(fromIndex(index));
 		}
-		void load_default(load_base &load);
 		void insertChild(pki_base *child, pki_base *parent = NULL);
 		int rownumber(const pki_base *child) const;
 		void createSuccess(const pki_base *pki) const;
@@ -117,7 +116,6 @@ class db_base: public QAbstractItemModel
 		dbheaderList getAllHeaders() {
 			return allHeaders;
 		}
-		void pem2clipboard(QModelIndexList indexes) const;
 		QString pem2QString(QModelIndexList indexes) const;
 
 		void deletePKI(QModelIndex idx);
@@ -128,7 +126,6 @@ class db_base: public QAbstractItemModel
 
 	public slots:
 		virtual void newItem() { }
-		virtual void load() { }
 		void columnResetDefaults();
 		void sectionResized(int i, int, int newSize);
 		void sortIndicatorChanged(int, Qt::SortOrder);

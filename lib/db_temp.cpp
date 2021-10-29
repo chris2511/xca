@@ -107,12 +107,6 @@ bool db_temp::alterTemp(pki_temp *temp)
 	return true;
 }
 
-void db_temp::load()
-{
-	load_temp l;
-	load_default(l);
-}
-
 void db_temp::store(QModelIndex index)
 {
 	pki_temp *temp = fromIndex<pki_temp>(index);

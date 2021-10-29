@@ -34,6 +34,7 @@ class TempTreeView: public XcaTreeView
 	void reqFromTemp();
 	void duplicateTemp();
 	void newItem();
+	void load();
 
     signals:
 	void newReq(pki_temp *);

@@ -333,12 +333,6 @@ pki_base *db_x509::insert(pki_base *item)
 	return insertPKI(cert);
 }
 
-void db_x509::load(void)
-{
-	load_cert c;
-	load_default(c);
-}
-
 pki_x509 *db_x509::get1SelectedCert()
 {
 	QModelIndexList indexes = mainwin->certView->getSelectedIndexes();

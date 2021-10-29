@@ -55,3 +55,8 @@ void CrlTreeView::newItem()
 	newItem(ca);
 }
 
+void CrlTreeView::load()
+{
+	load_crl l;
+	load_default(&l);
+}

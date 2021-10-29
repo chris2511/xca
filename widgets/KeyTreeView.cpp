@@ -214,3 +214,9 @@ void KeyTreeView::clipboardFormat(QAction *a)
 
 	Settings["KeyFormat"] = a->data().toInt();
 }
+
+void KeyTreeView::load(void)
+{
+	load_key l;
+	load_default(&l);
+}

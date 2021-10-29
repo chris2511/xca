@@ -100,12 +100,6 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 	}
 }
 
-void db_x509req::load(void)
-{
-	load_req l;
-	load_default(l);
-}
-
 void db_x509req::store(QModelIndex index)
 {
 	pki_x509req *req = fromIndex<pki_x509req>(index);

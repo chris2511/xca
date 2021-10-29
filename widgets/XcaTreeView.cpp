@@ -12,6 +12,7 @@
 #include <QVariant>
 #include <QRegExp>
 #include <QFileDialog>
+#include <QClipboard>
 
 #include "OidResolver.h"
 #include "XcaHeaderView.h"
@@ -21,6 +22,7 @@
 #include "XcaWarning.h"
 #include "XcaDialog.h"
 #include "XcaApplication.h"
+#include "ImportMulti.h"
 
 #include "ui_ItemProperties.h"
 
@@ -303,10 +305,31 @@ void XcaTreeView::newItem()
 		basemodel->newItem();
 }
 
-void XcaTreeView::load()
+void XcaTreeView::load_default(load_base *load)
 {
-	if (basemodel)
-		basemodel->load();
+	QString s;
+	QStringList slist = QFileDialog::getOpenFileNames(NULL, load->caption,
+				Settings["workingdir"], load->filter);
+
+	if (!slist.count())
+		return;
+
+	update_workingdir(slist[0]);
+
+	ImportMulti *dlgi = new ImportMulti(NULL);
+	foreach(s, slist) {
+		pki_base *item = NULL;
+		try {
+			item = load->loadItem(s);
+			dlgi->addItem(item);
+		}
+		catch (errorEx &err) {
+			XCA_ERROR(err);
+			delete item;
+		}
+	}
+	dlgi->execute();
+	delete dlgi;
 }
 
 void XcaTreeView::doubleClick(const QModelIndex &m)
@@ -337,8 +360,15 @@ void XcaTreeView::editComment()
 
 void XcaTreeView::pem2clipboard()
 {
-	if (basemodel)
-		basemodel->pem2clipboard(getSelectedIndexes());
+	if (!basemodel)
+		return;
+
+	QString msg = basemodel->pem2QString(getSelectedIndexes());
+	QClipboard *cb = QApplication::clipboard();
+
+	if (cb->supportsSelection())
+		cb->setText(msg, QClipboard::Selection);
+	cb->setText(msg);
 }
 
 void XcaTreeView::headerDetails()

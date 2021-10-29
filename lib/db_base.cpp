@@ -19,10 +19,6 @@
 #include <QFileDialog>
 #include <QFileInfo>
 
-#warning drop UI dependencies
-#include "widgets/ImportMulti.h"
-#include "ui_ImportMulti.h"
-
 void db_base::restart_timer()
 {
 	if (!IS_GUI_APP)
@@ -273,16 +269,6 @@ QString db_base::pem2QString(QModelIndexList indexes) const
 		openssl_error();
 	}
 	return bba.qstring();
-}
-
-void db_base::pem2clipboard(QModelIndexList indexes) const
-{
-	QString msg = pem2QString(indexes);
-	QClipboard *cb = QApplication::clipboard();
-
-	if (cb->supportsSelection())
-		cb->setText(msg, QClipboard::Selection);
-	cb->setText(msg);
 }
 
 void db_base::deletePKI(QModelIndex idx)
@@ -623,33 +609,6 @@ void db_base::timerEvent(QTimerEvent *event)
 		killTimer(minutesTimer);
 		minutesTimer = 0;
 	}
-}
-
-void db_base::load_default(load_base &load)
-{
-	QString s;
-	QStringList slist = QFileDialog::getOpenFileNames(NULL, load.caption,
-				Settings["workingdir"], load.filter);
-
-	if (!slist.count())
-		return;
-
-	update_workingdir(slist[0]);
-
-	ImportMulti *dlgi = new ImportMulti(NULL);
-	foreach(s, slist) {
-		pki_base *item = NULL;
-		try {
-			item = load.loadItem(s);
-			dlgi->addItem(item);
-		}
-		catch (errorEx &err) {
-			XCA_ERROR(err);
-			delete item;
-		}
-	}
-	dlgi->execute();
-	delete dlgi;
 }
 
 bool db_base::columnHidden(int col) const

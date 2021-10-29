@@ -219,9 +219,7 @@ void MainWindow::init_images()
 void MainWindow::loadPem()
 {
 	load_pem l;
-	db_key *keys = Database.model<db_key>();
-	if (keys)
-		keys->load_default(l);
+	keyView->load_default(&l);
 }
 
 bool MainWindow::pastePem(QString text, bool silent)
