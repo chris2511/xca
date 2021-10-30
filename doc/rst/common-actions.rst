@@ -211,7 +211,8 @@ to leave a note during important operations:
   a request gets signed.
 - File name when the item got imported from a file.
 
-The content of the comment field will never be part of an exported item.
+The content of the comment field will never be part of an exported item,
+except when explicitly selected during PEM export.
 
 .. _primary_key:
 

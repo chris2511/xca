@@ -128,6 +128,8 @@ const pki_export *ExportDialog::export_type(int idx) const
 void ExportDialog::on_exportFormat_highlighted(int index)
 {
 	const pki_export *x = export_type(index);
-	if (x)
-		infoBox->setText(x->help);
+	if (!x)
+		return;
+	infoBox->setText(x->help);
+	pemComment->setEnabled(x->flags & F_PEM);
 }
