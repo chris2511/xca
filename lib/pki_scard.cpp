@@ -18,10 +18,7 @@
 
 #include "XcaWarningCore.h"
 
-#warning Drop "widgets dependency"
-
 #include <QThread>
-#include <QProgressBar>
 
 void pki_scard::init(void)
 {

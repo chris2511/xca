@@ -3,6 +3,7 @@
 #include "sql.h"
 #include "pki_key.h"
 #include "digest.h"
+#include "pki_export.h"
 
 #include <QDir>
 #include <QFile>
@@ -38,7 +39,7 @@ settings::settings()
 	defaul["serial_len"] = "64";
 	defaul["fp_separator"] = ":";
 	defaul["fp_digits"] = "2";
-	defaul["KeyFormat"] = "19"; // PEM public
+	defaul["KeyFormat"] = QString::number(DEFAULT_KEY_CLIPBOARD_TYPE);
 
 	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
 }

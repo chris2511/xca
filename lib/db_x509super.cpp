@@ -15,10 +15,7 @@
 #include "widgets/XcaDialog.h"
 #include "XcaWarningCore.h"
 
-#include "ui_CertDetail.h"
-
-#include <QFileDialog>
-#include <QFileInfo>
+#include <QTextEdit>
 
 db_x509name::db_x509name(const char *classname)
 	:db_base(classname)
@@ -150,20 +147,6 @@ void db_x509super::extractPubkey(QModelIndex index)
 	if (Settings["suppress_messages"])
 		return;
 	XCA_INFO(key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
-}
-
-void db_x509super::toOpenssl(QModelIndex index) const
-{
-	pki_x509super *pki = fromIndex<pki_x509super>(index);
-	QString fn = Settings["workingdir"] + pki->getUnderlinedName() + ".conf";
-	QString fname = QFileDialog::getSaveFileName(NULL,
-		tr("Save as OpenSSL config"),	fn,
-		tr("Config files ( *.conf *.cnf);; All files ( * )"));
-	if (fname.isEmpty())
-		return;
-
-	update_workingdir(fname);
-	pki->opensslConf(fname);
 }
 
 void db_x509super::toTemplate(QModelIndex index)

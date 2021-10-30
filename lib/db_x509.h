@@ -48,20 +48,21 @@ class db_x509: public db_x509super
 		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, XFile &file, bool chain) const;
 		void writePKCS7(pki_x509 *cert, XFile &file, int flags,
-				QModelIndexList list) const;
+				const QModelIndexList &list) const;
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
 		void inToCont(pki_base *pki);
 		a1int getUniqueSerial(pki_x509 *signer);
 		void toToken(QModelIndex idx, bool alwaysSelect);
 		void toRequest(QModelIndex idx);
-		void store(QModelIndex idx);
-		void store(QModelIndexList list);
 		void updateCaProperties(pki_x509 *cert);
 		void toCertificate(QModelIndex index);
 		void certRenewal(QModelIndexList indexes);
 		void revoke(QModelIndexList indexes);
 		void do_revoke(QModelIndexList indexes, const x509rev &r);
 		void unRevoke(QModelIndexList indexes);
+		int exportFlags(const QModelIndex &idx) const;
+		void exportItems(const QModelIndexList &indexes,
+				const pki_export *xport, XFile &file) const;
 
 	public slots:
 		void newItem();

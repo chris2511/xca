@@ -6,10 +6,12 @@
  */
 
 #include "lib/pki_scard.h"
+#include "lib/load_obj.h"
 #include "KeyTreeView.h"
 #include "MainWindow.h"
 #include "KeyDetail.h"
 #include "NewKey.h"
+#include "ExportDialog.h"
 #include "XcaWarning.h"
 #include <QAbstractItemView>
 #include <QMenu>
@@ -209,9 +211,6 @@ void KeyTreeView::newItem(const QString &name)
 
 void KeyTreeView::clipboardFormat(QAction *a)
 {
-	qWarning("pki_key::default_export_type: %d %d\n",
-	         (int)Settings["KeyFormat"], a->data().toInt());
-
 	Settings["KeyFormat"] = a->data().toInt();
 }
 
@@ -219,4 +218,18 @@ void KeyTreeView::load(void)
 {
 	load_key l;
 	load_default(&l);
+}
+
+ExportDialog *KeyTreeView::exportDialog(const QModelIndexList &indexes)
+{
+	if (indexes.size() == 0)
+		return NULL;
+	pki_key *key = db_base::fromIndex<pki_key>(indexes[0]);
+	return new ExportDialog(this,
+		tr("Export public key [%1]").arg(key->getTypeString()),
+		tr("Private Keys ( *.pem *.der *.pk8 );; "
+		   "SSH Public Keys ( *.pub )"), indexes,
+		QPixmap(key->isToken() ? ":scardImg" : ":keyImg"),
+		pki_export::select(asym_key, basemodel->exportFlags(indexes)),
+		"keyexport");
 }

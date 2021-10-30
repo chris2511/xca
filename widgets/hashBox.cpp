@@ -13,7 +13,6 @@ hashBox::hashBox(QWidget *parent)
 	:QComboBox(parent)
 {
 	setupAllHashes();
-	setDefaultHash();
 }
 
 const digest hashBox::current() const
@@ -45,7 +44,10 @@ void hashBox::setupHashes(QList<int> nids)
 	}
 	setEnabled(count() > 0);
 	setDefaultHash();
-	setCurrent(digest(md));
+	if (!md.isEmpty())
+		setCurrent(digest(md));
+	else
+		setDefaultHash();
 }
 
 void hashBox::setupAllHashes()

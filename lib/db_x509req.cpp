@@ -13,7 +13,6 @@
 
 #warning drop UI dependencies
 #include "widgets/NewX509.h"
-#include "widgets/ExportDialog.h"
 
 db_x509req::db_x509req() : db_x509super("requests")
 {
@@ -100,33 +99,12 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 	}
 }
 
-void db_x509req::store(QModelIndex index)
+void db_x509req::exportItem(const QModelIndex &index,
+		const pki_export *xport, XFile &file) const
 {
 	pki_x509req *req = fromIndex<pki_x509req>(index);
-	if (!req)
-		return;
-
-	ExportDialog *dlg = new ExportDialog(NULL,
-		tr("Certificate request export"),
-		tr("Certificate request ( *.pem *.der *.csr )"),
-		req, QPixmap(":csrImg"),
-		pki_export::select(x509_req, 0), "csrexport");
-	if (!dlg->exec()) {
-		delete dlg;
-		return;
-	}
-	try {
-		const pki_export *xport = dlg->export_type();
-		XFile file(dlg->filename->text());
-		pki_base::pem_comment = dlg->pemComment->isChecked();
-		file.open_write();
+	if (req)
 		req->writeReq(file, xport->match_all(F_PEM));
-	}
-	catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
-	pki_base::pem_comment = false;
-	delete dlg;
 }
 
 void db_x509req::setSigned(QModelIndex index, bool signe)

@@ -28,6 +28,7 @@ class TempTreeView: public XcaTreeView
 			const QModelIndex &index, QModelIndexList indexes);
 	void showPki(pki_base *pki);
 	bool alterTemp(pki_temp *temp);
+	ExportDialog *exportDialog(const QModelIndexList &index);
 
    public slots:
 	void certFromTemp();

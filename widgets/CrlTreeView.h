@@ -25,6 +25,7 @@ class CrlTreeView: public XcaTreeView
     public:
 	CrlTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void showPki(pki_base *pki);
+	ExportDialog *exportDialog(const QModelIndexList &index);
 
     public slots:
 	void newItem(pki_x509 *cert);

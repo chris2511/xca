@@ -6,8 +6,10 @@
  */
 
 #include "lib/pki_x509req.h"
+#include "lib/load_obj.h"
 #include "ReqTreeView.h"
 #include "MainWindow.h"
+#include "ExportDialog.h"
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
 #include <QMenu>
@@ -65,4 +67,14 @@ void ReqTreeView::load(void)
 {
 	load_req l;
 	load_default(&l);
+}
+
+ExportDialog *ReqTreeView::exportDialog(const QModelIndexList &indexes)
+{
+	return new ExportDialog(this,
+		tr("Certificate request export"),
+		tr("Certificate request ( *.pem *.der *.csr )"),
+		indexes, QPixmap(":csrImg"),
+		pki_export::select(x509_req, basemodel->exportFlags(indexes)),
+		"csrexport");
 }

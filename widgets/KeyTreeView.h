@@ -26,6 +26,7 @@ class KeyTreeView: public XcaTreeView
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
 	void showPki(pki_base *pki);
+	ExportDialog *exportDialog(const QModelIndexList &indexes);
 
    public slots:
 	void resetOwnPass();

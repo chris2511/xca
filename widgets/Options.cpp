@@ -6,6 +6,7 @@
  */
 
 #include "lib/func.h"
+#include "lib/load_obj.h"
 #include "Options.h"
 #include "SearchPkcs11.h"
 #include "XcaWarning.h"

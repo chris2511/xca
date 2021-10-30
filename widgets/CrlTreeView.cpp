@@ -12,9 +12,11 @@
 #include "MainWindow.h"
 #include "ItemCombo.h"
 #include "XcaWarning.h"
+#include "ExportDialog.h"
 #include "lib/db_crl.h"
 #include "lib/pki_x509.h"
 #include "lib/database_model.h"
+#include "lib/load_obj.h"
 
 void CrlTreeView::showPki(pki_base *pki)
 {
@@ -59,4 +61,12 @@ void CrlTreeView::load()
 {
 	load_crl l;
 	load_default(&l);
+}
+
+ExportDialog *CrlTreeView::exportDialog(const QModelIndexList &indexes)
+{
+	return new ExportDialog(this,
+		tr("Revocation list export"),
+		tr("CRL ( *.pem *.der *.crl )"), indexes, QPixmap(":revImg"),
+		pki_export::select(revocation, basemodel->exportFlags(indexes)));
 }

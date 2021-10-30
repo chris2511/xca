@@ -24,6 +24,7 @@ class CertTreeView: public X509SuperTreeView
 	CertTreeView(QWidget *parent) : X509SuperTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
+	ExportDialog *exportDialog(const QModelIndexList &index);
 
     public slots:
 	void changeView();

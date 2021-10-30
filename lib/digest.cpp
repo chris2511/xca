@@ -21,13 +21,13 @@ digest::digest(int nid) : md_nid(nid)
 {
 }
 
-digest::digest(const EVP_MD *md) : md_nid(NID_undef)
+digest::digest(const EVP_MD *md) : md_nid(default_md)
 {
 	if (!OBJ_find_sigid_algs(EVP_MD_type(md), &md_nid, NULL))
 		md_nid = EVP_MD_type(md);
 }
 
-digest::digest(const QString &name) : md_nid(NID_undef)
+digest::digest(const QString &name) : md_nid(default_md)
 {
 	QString s(name);
 	md_nid = OBJ_txt2nid(CCHAR(s.remove(QChar(' '))));

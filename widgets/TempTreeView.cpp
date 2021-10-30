@@ -6,7 +6,9 @@
  */
 
 #include "lib/pki_temp.h"
+#include "lib/load_obj.h"
 #include "TempTreeView.h"
+#include "ExportDialog.h"
 #include "NewX509.h"
 #include "XcaDialog.h"
 #include "MainWindow.h"
@@ -112,4 +114,14 @@ void TempTreeView::load()
 {
 	load_temp l;
 	load_default(&l);
+}
+
+ExportDialog *TempTreeView::exportDialog(const QModelIndexList &indexes)
+{
+	return new ExportDialog(this,
+		tr("Template export"),
+		tr("XCA Templates ( *.xca )"),
+		indexes, QPixmap(":tempImg"),
+		pki_export::select(tmpl, basemodel->exportFlags(indexes)),
+                "templateexport");
 }

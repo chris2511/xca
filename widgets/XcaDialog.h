@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef __XCADIALOG_H
-#define __XCADIALOG_H
+#ifndef __XCADIALOG_H__
+#define __XCADIALOG_H__
 
 #include <QDialog>
 #include "ui_XcaDialog.h"

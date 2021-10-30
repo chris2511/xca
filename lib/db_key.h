@@ -11,6 +11,7 @@
 #include "pki_export.h"
 #include "db_base.h"
 #include "pki_key.h"
+#include "xfile.h"
 
 class QModelIndex;
 class QContextMenuEvent;
@@ -32,9 +33,9 @@ class db_key: public db_base
 		void setOwnPass(QModelIndex idx, enum pki_key::passType);
 		void loadContainer();
 		pki_key *newKey(const keyjob &task, const QString &name);
-
-	public slots:
-		void store(QModelIndex index);
+		int exportFlags(const QModelIndex &index) const;
+		void exportItem(const QModelIndex &index,
+			const pki_export *xport, XFile &file) const;
 
 	signals:
 		void delKey(pki_key *delkey);

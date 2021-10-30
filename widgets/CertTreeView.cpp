@@ -11,9 +11,11 @@
 #include "XcaDialog.h"
 #include "MainWindow.h"
 #include "RevocationList.h"
+#include "ExportDialog.h"
 #include "NewCrl.h"
 #include "lib/database_model.h"
 #include "lib/db_crl.h"
+#include "lib/load_obj.h"
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
@@ -231,4 +233,14 @@ void CertTreeView::load()
 {
 	load_cert c;
 	load_default(&c);
+}
+
+ExportDialog *CertTreeView::exportDialog(const QModelIndexList &indexes)
+{
+	return new ExportDialog(this,
+		tr("Certificate export"),
+		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"),
+		indexes, QPixmap(":certImg"),
+		pki_export::select(x509, basemodel->exportFlags(indexes)),
+                "certexport");
 }

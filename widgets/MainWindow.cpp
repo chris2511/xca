@@ -35,6 +35,7 @@
 #include "lib/pki_multi.h"
 #include "lib/pki_scard.h"
 #include "lib/dhgen.h"
+#include "lib/load_obj.h"
 
 #include "XcaDialog.h"
 #include "XcaWarning.h"

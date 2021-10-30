@@ -10,13 +10,9 @@
 #include "exception.h"
 #include "XcaWarningCore.h"
 
-#include <QMessageBox>
-#include <QListView>
-#include <QClipboard>
 #include <QDir>
 #include <QDebug>
 #include <QMimeData>
-#include <QFileDialog>
 #include <QFileInfo>
 
 void db_base::restart_timer()
@@ -657,4 +653,23 @@ void db_base::writeVcalendar(XFile &file, QStringList vcal) const
 	vcal <<
 	"END:VCALENDAR";
 	file.write(ics.join("\r\n").toUtf8());
+}
+
+void db_base::exportItems(const QModelIndexList &indexes,
+		const pki_export *xport, XFile &file) const
+{
+	foreach(QModelIndex idx, indexes)
+		exportItem(idx, xport, file);
+}
+
+int db_base::exportFlags(const QModelIndexList &indexes) const
+{
+	int disabled_flags = 0;
+	foreach(const QModelIndex &idx, indexes)
+		disabled_flags |= exportFlags(idx);
+	if (indexes.size() > 1)
+		disabled_flags |= F_SINGLE;
+	else
+		disabled_flags |= F_MULTI;
+	return disabled_flags;
 }

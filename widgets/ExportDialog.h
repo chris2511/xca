@@ -10,6 +10,7 @@
 
 #include "ui_ExportDialog.h"
 #include "lib/pki_export.h"
+#include <QModelIndexList>
 
 class QPixmap;
 class pki_base;
@@ -23,9 +24,10 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 
    public:
 	ExportDialog(QWidget *w, const QString &title, const QString &filt,
-		     pki_base *pki, const QPixmap &img,
+		     const QModelIndexList &indexes, const QPixmap &img,
 		     QList<const pki_export*> types,
 		     const QString &help_ctx = QString());
+	~ExportDialog();
 	static bool mayWriteFile(const QString &fname);
 	const pki_export *export_type(int idx = -1) const;
 

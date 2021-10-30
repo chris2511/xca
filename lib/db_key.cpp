@@ -19,10 +19,6 @@
 #include "XcaWarningCore.h"
 #include "PwDialogCore.h"
 
-#warning drop UI dependencies
-#include "widgets/ExportDialog.h"
-#include "ui_ExportDialog.h"
-
 db_key::db_key() : db_base("keys")
 {
 	sqlHashTable = "public_keys";
@@ -188,16 +184,14 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 	return key;
 }
 
-void db_key::store(QModelIndex index)
+int db_key::exportFlags(const QModelIndex &index) const
 {
-	QString title = tr("Export public key [%1]");
 	int disable_flags = 0;
 
 	pki_key *key = fromIndex<pki_key>(index);
-	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
 
 	if (!index.isValid() || !key)
-		return;
+		return 0;
 
 	int keytype = key->getKeyType();
 	if (keytype != EVP_PKEY_RSA && keytype != EVP_PKEY_DSA)
@@ -212,57 +206,41 @@ void db_key::store(QModelIndex index)
 	if (key->isPubKey() || key->isToken())
 		disable_flags |= F_PRIVATE;
 
-	ExportDialog *dlg = new ExportDialog(NULL,
-		title.arg(key->getTypeString()),
-		tr("Private Keys ( *.pem *.der *.pk8 );; "
-		   "SSH Public Keys ( *.pub )"), key,
-		QPixmap(key->isToken() ? ":scardImg" : ":keyImg"),
-		pki_export::select(asym_key, disable_flags), "keyexport");
+	return disable_flags;
+}
 
-	if (!dlg->exec()) {
-		delete dlg;
-		return;
-	}
-	try {
-		const pki_export *xport = dlg->export_type();
-		pki_base::pem_comment = dlg->pemComment->isChecked();
-		XFile file(dlg->filename->text());
-		const EVP_CIPHER *algo = NULL;
-		int(*pwCallback)(char *, int, int, void *) = NULL;
+void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
+			XFile &file) const
+{
+	const EVP_CIPHER *algo = NULL;
+	pki_key *key = fromIndex<pki_key>(index);
+	pki_evp *privkey = dynamic_cast<pki_evp *>(key);
 
-		if (xport->match_all(F_CRYPT)) {
-			algo = EVP_aes_256_cbc();
-			pwCallback = PwDialogCore::pwCallback;
-		}
-		if (xport->match_all(F_PRIVATE))
-			file.open_write();
-		else
-			file.open_key();
+	int(*pwCallback)(char *, int, int, void *) = NULL;
 
-		if (xport->match_all(F_DER | F_PRIVATE))
-			privkey->writeKey(file, NULL, NULL, false);
-		else if (xport->match_all(F_PEM | F_PRIVATE))
-			privkey->writeKey(file, algo, pwCallback, true);
-		else if (xport->match_all(F_DER))
-			key->writePublic(file, false);
-		else if (xport->match_all(F_PEM))
-			key->writePublic(file, true);
-		else if (xport->match_all(F_PKCS8))
-			privkey->writePKCS8(file, algo, pwCallback, true);
-		else if (xport->match_all(F_SSH2 | F_PRIVATE))
-			key->writeSSH2private(file, pwCallback);
-		else if (xport->match_all(F_SSH2))
-			key->writeSSH2public(file);
-		else if (xport->match_all(F_PVK))
-			privkey->writePVKprivate(file, pwCallback);
-		else
-			throw errorEx(tr("Internal error"));
+	if (xport->match_all(F_CRYPT)) {
+		algo = EVP_aes_256_cbc();
+		pwCallback = PwDialogCore::pwCallback;
 	}
-	catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
-	pki_base::pem_comment = false;
-	delete dlg;
+
+	if (privkey && xport->match_all(F_DER | F_PRIVATE))
+		privkey->writeKey(file, NULL, NULL, false);
+	else if (privkey && xport->match_all(F_PEM | F_PRIVATE))
+		privkey->writeKey(file, algo, pwCallback, true);
+	else if (xport->match_all(F_DER))
+		key->writePublic(file, false);
+	else if (xport->match_all(F_PEM))
+		key->writePublic(file, true);
+	else if (privkey && xport->match_all(F_PKCS8))
+		privkey->writePKCS8(file, algo, pwCallback, true);
+	else if (xport->match_all(F_SSH2 | F_PRIVATE))
+		key->writeSSH2private(file, pwCallback);
+	else if (xport->match_all(F_SSH2))
+		key->writeSSH2public(file);
+	else if (privkey && xport->match_all(F_PVK))
+		privkey->writePVKprivate(file, pwCallback);
+	else
+		throw errorEx(tr("Internal error"));
 }
 
 void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)

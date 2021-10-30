@@ -7,15 +7,12 @@
 
 
 #include "db_temp.h"
+#include "pki_temp.h"
+#include "load_obj.h"
 #include "func.h"
 #include "XcaWarningCore.h"
 #include <QDir>
 #include <QFileInfo>
-
-#warning drop UI dependencies
-#include "widgets/NewX509.h"
-#include "ui_NewX509.h"
-#include <QFileDialog>
 
 db_temp::db_temp() : db_x509name("templates")
 {
@@ -107,28 +104,10 @@ bool db_temp::alterTemp(pki_temp *temp)
 	return true;
 }
 
-void db_temp::store(QModelIndex index)
+void db_temp::exportItem(const QModelIndex &index,
+                        const pki_export *, XFile &file) const
 {
 	pki_temp *temp = fromIndex<pki_temp>(index);
-
-	if (!index.isValid() || !temp)
-		return;
-
-	QString fn = Settings["workingdir"] +
-		temp->getUnderlinedName() + ".xca";
-	QString s = QFileDialog::getSaveFileName(NULL,
-		tr("Save template as"),	fn,
-		tr("XCA templates ( *.xca );; All files ( * )"));
-	if (s.isEmpty())
-		return;
-
-	update_workingdir(s);
-	try {
-		XFile file(s);
-		file.open_key();
+	if (temp)
 		temp->writeTemp(file);
-	}
-	catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
 }

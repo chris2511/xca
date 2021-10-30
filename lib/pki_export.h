@@ -14,6 +14,7 @@
 #include <QList>
 
 #define BIT(n) (1<<n)
+#define DEFAULT_KEY_CLIPBOARD_TYPE 19
 
 enum pki_type {
 	none,
@@ -32,8 +33,8 @@ enum {
 	F_PRIVATE   = BIT(2), /* File contains Private Key */
 	F_USUAL     = BIT(3), /* Usual format */
 	F_SSH2      = BIT(4), /* Key is SSH2 compatible */
-	F_MULTI     = BIT(5), /* More than one element */
-	F_SELECT    = BIT(6), /* Selected elements */
+	F_MULTI     = BIT(5), /* Hide if only element is selected */
+	F_SINGLE    = BIT(6), /* Single element not suitable for selections */
 	F_ALL       = BIT(7), /* All elements */
 	F_UNREVOKED = BIT(8), /* All unrevoked certificates */
 	F_PLUSKEY   = BIT(9), /* Cert plus key */
@@ -65,7 +66,6 @@ class pki_export : public QObject {
 	pki_export(int i, enum pki_type p, const QString &e,
 		   const QString &d, int f, const QString &h);
 	static QList<const pki_export*> select(enum pki_type, int);
-	static const pki_export *default_key_format();
 	static const pki_export *by_id(int id);
 	bool match_all(int match_flags) const;
 

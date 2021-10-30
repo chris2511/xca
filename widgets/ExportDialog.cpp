@@ -20,25 +20,31 @@
 #include <QStringList>
 
 ExportDialog::ExportDialog(QWidget *w, const QString &title,
-			const QString &filt, pki_base *pki, const QPixmap &img,
-			QList<const pki_export*> types, const QString &help_ctx)
+			const QString &filt, const QModelIndexList &indexes,
+			const QPixmap &img, QList<const pki_export*> types,
+			const QString &help_ctx)
 	: QDialog(w ? w : mainwin)
 {
 	QList<const pki_export*> usual, normal;
+	QString fname = "selected_items";
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
-	if (pki)
-		descr->setText(pki->getIntName());
+	if (indexes.size() == 1) {
+		pki_base *pki = db_base::fromIndex(indexes[0]);
+		if (pki) {
+			descr->setText(pki->getIntName());
+			fname = pki->getUnderlinedName();
+		}
+	}
 	descr->setReadOnly(true);
 	image->setPixmap(img);
 	label->setText(title);
 	mainwin->helpdlg->register_ctxhelp_button(this, help_ctx);
 
-	if (pki) {
-		QString fn = Settings["workingdir"] +
-			pki->getUnderlinedName() + "." + types[0]->extension;
-		filename->setText(nativeSeparator(fn));
-	}
+	QString fn = Settings["workingdir"] +
+		fname + "." + types[0]->extension;
+	filename->setText(nativeSeparator(fn));
+
 	filter = filt + ";;" + tr("All files ( * )");
 
 	foreach(const pki_export *t, types) {
@@ -56,6 +62,11 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title,
 
 	exportFormat->setCurrentIndex(0);
 	on_exportFormat_highlighted(0);
+}
+
+ExportDialog::~ExportDialog()
+{
+	pki_base::pem_comment = 0;
 }
 
 void ExportDialog::on_fileBut_clicked()
@@ -102,6 +113,7 @@ bool ExportDialog::mayWriteFile(const QString &fname)
 void ExportDialog::accept()
 {
 	QString fn = filename->text();
+	pki_base::pem_comment = pemComment->isChecked();
 
 	if (!filename->isEnabled()) {
 		QDialog::accept();

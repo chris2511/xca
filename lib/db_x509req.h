@@ -25,10 +25,11 @@ class db_x509req: public db_x509super
 		pki_base* insert(pki_base *item);
 		pki_base *newPKI(enum pki_type type = none);
 		void fillContextMenu(QMenu *menu, const QModelIndex &index);
-		void store(QModelIndex index);
 		QList<pki_x509req*> getAllRequests();
 		void resetX509count();
 		void setSigned(QModelIndex index, bool signe);
+		void exportItem(const QModelIndex &index,
+				const pki_export *xport, XFile &file) const;
 
 	public slots:
 		void newItem(pki_temp *temp, pki_x509req *orig = NULL);

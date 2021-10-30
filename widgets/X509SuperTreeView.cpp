@@ -13,6 +13,7 @@
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
+#include <QFileDialog>
 #include <QMenu>
 
 void X509SuperTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
@@ -52,8 +53,19 @@ void X509SuperTreeView::toOpenssl()
 {
 	QModelIndex idx = currentIndex();
 
-	if (idx.isValid() && basemodel)
-		x509super()->toOpenssl(idx);
+	if (!idx.isValid() || !basemodel)
+		return;
+
+	pki_x509super *pki = db_base::fromIndex<pki_x509super>(idx);
+	QString fn = Settings["workingdir"] + pki->getUnderlinedName() + ".conf";
+	QString fname = QFileDialog::getSaveFileName(NULL,
+		tr("Save as OpenSSL config"),   fn,
+		tr("Config files ( *.conf *.cnf);; All files ( * )"));
+	if (fname.isEmpty())
+		return;
+
+	update_workingdir(fname);
+	pki->opensslConf(fname);
 }
 
 

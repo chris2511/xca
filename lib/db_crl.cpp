@@ -12,10 +12,6 @@
 #include "exception.h"
 #include "database_model.h"
 
-#warning drop UI dependencies
-#include "widgets/ExportDialog.h"
-#include "ui_ExportDialog.h"
-
 db_crl::db_crl() : db_x509name("crls")
 {
 	sqlHashTable = "crls";
@@ -112,37 +108,21 @@ pki_base *db_crl::insert(pki_base *item)
 	return crl;
 }
 
-void db_crl::store(QModelIndex index)
+void db_crl::exportItems(const QModelIndexList &indexes,
+			const pki_export *xport, XFile &file) const
 {
-	pki_crl *crl = fromIndex<pki_crl>(index);
-
-	if (!index.isValid() || !crl)
-		return;
-
-	ExportDialog *dlg = new ExportDialog(NULL,
-		tr("Revocation list export"),
-		tr("CRL ( *.pem *.der *.crl )"), crl, QPixmap(":revImg"),
-		pki_export::select(revocation, 0));
-	if (!dlg->exec()) {
-		delete dlg;
-		return;
+	QStringList vcal;
+	foreach(QModelIndex idx, indexes) {
+		pki_crl *crl = fromIndex<pki_crl>(idx);
+		if (!crl)
+			continue;
+		if (xport->match_all(F_CAL))
+			vcal << crl->icsVEVENT();
+		else
+			crl->writeCrl(file, xport->match_all(F_PEM));
 	}
-	try {
-		const pki_export *xtype = dlg->export_type();
-		XFile file(dlg->filename->text());
-		pki_base::pem_comment = dlg->pemComment->isChecked();
-		file.open_key();
-		if (xtype->match_all(F_CAL)) {
-			writeVcalendar(file, crl->icsVEVENT());
-		} else {
-			crl->writeCrl(file, xtype->match_all(F_PEM));
-		}
-	}
-	catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
-	pki_base::pem_comment = false;
-	delete dlg;
+	if (vcal.size() > 0)
+		writeVcalendar(file, vcal);
 }
 
 pki_crl *db_crl::newCrl(const crljob &task)

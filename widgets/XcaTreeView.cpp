@@ -22,7 +22,9 @@
 #include "XcaWarning.h"
 #include "XcaDialog.h"
 #include "XcaApplication.h"
+#include "ExportDialog.h"
 #include "ImportMulti.h"
+#include "lib/load_obj.h"
 
 #include "ui_ItemProperties.h"
 
@@ -245,51 +247,9 @@ void XcaTreeView::deleteItems()
 	TransCommit();
 }
 
-void XcaTreeView::storeItems()
+void XcaTreeView::exportItems()
 {
-	storeItems(getSelectedIndexes());
-}
-
-void XcaTreeView::storeItems(QModelIndexList indexes)
-{
-	if (!basemodel || indexes.size() == 0)
-		return;
-	try {
-		if (indexes.size() == 1) {
-			basemodel->store(indexes[0]);
-			return;
-		}
-
-		xcaWarningBox msg(NULL,
-				tr("How to export the %1 selected items").
-					arg(indexes.size()));
-		msg.addButton(QMessageBox::Ok, tr("All in one PEM file"));
-		msg.addButton(QMessageBox::Apply, tr("Each item in one file"));
-		msg.addButton(QMessageBox::Cancel);
-		int ret = msg.exec();
-		if (ret == QMessageBox::Apply) {
-			foreach(QModelIndex i, indexes)
-				basemodel->store(i);
-			return;
-		} else if (ret != QMessageBox::Ok) {
-			return;
-		}
-
-		QString s = QFileDialog::getSaveFileName(NULL,
-			tr("Save %1 items in one file as").arg(indexes.size()),
-			Settings["workingdir"] + "export.pem",
-			tr("PEM files ( *.pem );; All files ( * )"));
-		if (s.isEmpty())
-			return;
-
-		update_workingdir(s);
-		QString pem = basemodel->pem2QString(indexes);
-		XFile file(s);
-		file.open_write();
-		file.write(pem.toLatin1());
-	} catch (errorEx &err) {
-		XCA_ERROR(err);
-	}
+	exportItems(getSelectedIndexes());
 }
 
 void XcaTreeView::showItems()
@@ -497,6 +457,36 @@ void XcaTreeView::changeView()
 	show();
 }
 
+void XcaTreeView::exportItems(const QModelIndexList &indexes)
+{
+	if (!basemodel || indexes.empty())
+		return;
+
+	ExportDialog *dlg = exportDialog(indexes);
+
+	if (dlg && dlg->exec()) {
+		try {
+			const pki_export *xport = dlg->export_type();
+			XFile file(dlg->filename->text());
+
+			if (xport->match_all(F_PRIVATE))
+				file.open_key();
+			else
+				file.open_write();
+
+			basemodel->exportItems(indexes, xport, file);
+		} catch (errorEx &err) {
+			XCA_ERROR(err);
+		}
+	}
+	delete dlg;
+}
+
+ExportDialog *XcaTreeView::exportDialog(const QModelIndexList &indexes)
+{
+	return NULL;
+}
+
 void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 		const QModelIndex &idx)
 {
@@ -521,7 +511,7 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("Clipboard"), this,
 				SLOT(pem2clipboard()), QKeySequence::Copy);
-		subExport->addAction(tr("File"), this, SLOT(storeItems()),
+		subExport->addAction(tr("File"), this, SLOT(exportItems()),
 				QKeySequence::Save);
 	}
 
@@ -550,7 +540,7 @@ void XcaTreeView::keyPressEvent(QKeyEvent *event)
 			return;
 	}
 	if (event->matches(QKeySequence::Save)) {
-		storeItems();
+		exportItems();
 		return;
 	}
 	if (event->matches(QKeySequence::Copy)) {

@@ -669,7 +669,7 @@ bool pki_evp::pem(BioByteArray &b)
 {
 	EVP_PKEY *pkey;
 	int keytype;
-	const pki_export *xport = pki_export::default_key_format();
+	const pki_export *xport = pki_export::by_id(Settings["KeyFormat"]);
 
 	if (xport->match_all(F_PEM | F_PRIVATE)) {
 		pkey = decryptKey();

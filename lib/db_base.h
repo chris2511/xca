@@ -10,7 +10,6 @@
 
 #include <typeinfo>
 #include "base.h"
-#include "load_obj.h"
 #include "pki_base.h"
 #include "headerlist.h"
 
@@ -64,10 +63,20 @@ class db_base: public QAbstractItemModel
 		virtual void inToCont(pki_base *pki);
 		virtual void remFromCont(const QModelIndex &idx);
 		void changeView();
+		int exportFlags(const QModelIndexList &indexes) const;
+		virtual int exportFlags(const QModelIndex &index) const
+		{
+			return 0;
+		}
+		virtual void exportItem(const QModelIndex &index,
+			const pki_export *xport, XFile &file) const { };
+		virtual void exportItems(const QModelIndexList &indexes,
+			const pki_export *xport, XFile &file) const;
 
 		void dump(const QString &dirname) const;
-		QModelIndex index(int row, int column, const QModelIndex &parent)const;
-		QModelIndex index(pki_base *pki)const;
+		QModelIndex index(int row, int column,
+				const QModelIndex &parent) const;
+		QModelIndex index(pki_base *pki) const;
 		QModelIndex parent(const QModelIndex &index) const;
 		int rowCount(const QModelIndex &parent) const;
 		int allItemsCount() const
@@ -112,7 +121,6 @@ class db_base: public QAbstractItemModel
 		{
 			colResizing--;
 		}
-		virtual void store(QModelIndex index) { (void)index; };
 		dbheaderList getAllHeaders() {
 			return allHeaders;
 		}

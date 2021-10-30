@@ -23,6 +23,7 @@ class QKeyEvent;
 class QContextMenuEvent;
 class QMenu;
 class load_base;
+class ExportDialog;
 
 class XcaTreeView: public QTreeView
 {
@@ -58,8 +59,9 @@ class XcaTreeView: public QTreeView
 			QMenu *parent = NULL, int sect = -1);
 	void keyPressEvent(QKeyEvent *event);
 	virtual void showPki(pki_base *) {};
-	virtual void storeItems(QModelIndexList indexes);
+	virtual void exportItems(const QModelIndexList &indexes);
 	virtual void load_default(load_base *load);
+	virtual ExportDialog *exportDialog(const QModelIndexList &indexes);
 
    public slots:
 	void changeView();
@@ -69,7 +71,7 @@ class XcaTreeView: public QTreeView
 	void editIdx();
 	void setFilter(const QString &pattern);
 	void deleteItems();
-	void storeItems();
+	void exportItems();
 	void showItems();
 	void newItem();
 	void doubleClick(const QModelIndex &m);

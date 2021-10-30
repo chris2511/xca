@@ -525,7 +525,7 @@
    <slots>
     <slot>newItem()</slot>
     <slot>load()</slot>
-    <slot>storeItems()</slot>
+    <slot>exportItems()</slot>
     <slot>showItems()</slot>
     <slot>deleteItems()</slot>
    </slots>
@@ -599,7 +599,7 @@
    <sender>BNexportKey</sender>
    <signal>clicked()</signal>
    <receiver>keyView</receiver>
-   <slot>storeItems()</slot>
+   <slot>exportItems()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>526</x>
@@ -663,7 +663,7 @@
    <sender>BNexportReq</sender>
    <signal>clicked()</signal>
    <receiver>reqView</receiver>
-   <slot>storeItems()</slot>
+   <slot>exportItems()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>489</x>
@@ -743,7 +743,7 @@
    <sender>BNexportCert</sender>
    <signal>clicked()</signal>
    <receiver>certView</receiver>
-   <slot>storeItems()</slot>
+   <slot>exportItems()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>499</x>
@@ -871,7 +871,7 @@
    <sender>BNexportTemp</sender>
    <signal>clicked()</signal>
    <receiver>tempView</receiver>
-   <slot>storeItems()</slot>
+   <slot>exportItems()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>488</x>
@@ -887,7 +887,7 @@
    <sender>BNexportCrl</sender>
    <signal>clicked()</signal>
    <receiver>crlView</receiver>
-   <slot>storeItems()</slot>
+   <slot>exportItems()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>472</x>

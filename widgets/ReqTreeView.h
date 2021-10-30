@@ -24,6 +24,7 @@ class ReqTreeView: public X509SuperTreeView
 	ReqTreeView(QWidget *parent) : X509SuperTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
+	ExportDialog *exportDialog(const QModelIndexList &indexes);
 
     public slots:
 	void toRequest();

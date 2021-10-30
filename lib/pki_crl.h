@@ -45,6 +45,7 @@ class crljob
 	{
 		crlNumber++;
 	}
+	crljob() = delete;
 };
 
 class pki_crl: public pki_x509name
