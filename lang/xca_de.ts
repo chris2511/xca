@@ -4235,7 +4235,7 @@ Grösse %3
 and so it was not imported</source>
         <translation>Die Sperrliste existiert bereits in der Datenbank als:
 &apos;%1&apos;
-daher wurde ssie nicht importiert</translation>
+daher wurde sie nicht importiert</translation>
     </message>
 </context>
 <context>
