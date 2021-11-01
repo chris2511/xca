@@ -8,8 +8,9 @@
 #ifndef __XCAWARNINGCORE_H
 #define __XCAWARNINGCORE_H
 
-#include "lib/base.h"
-#include "lib/exception.h"
+#include "base.h"
+#include "exception.h"
+#include "x509v3ext.h"
 #include <QSqlError>
 #include <QSqlDatabase>
 
@@ -26,6 +27,7 @@ class xcaWarning_i
     public:
 	virtual void information(const QString &msg) = 0;
 	virtual void warning(const QString &msg) = 0;
+	virtual void warningv3(const QString &msg, const extList &el) = 0;
 	virtual bool yesno(const QString &msg) = 0;
 	virtual bool okcancel(const QString &msg) = 0;
 	virtual void sqlerror(QSqlError err) = 0;
@@ -43,6 +45,7 @@ class xcaWarningCore : public QObject, public xcaWarning_i
 	bool yesno(const QString &msg);
 	bool okcancel(const QString &msg);
 	void sqlerror(QSqlError err);
+	void warningv3(const QString &msg, const extList &el);
 	void error(const QString &msg);
 };
 
@@ -62,6 +65,10 @@ class xcaWarning
 	static void warning(const QString &msg)
 	{
 		gui->warning(msg);
+	}
+	static void warningv3(const QString &msg, const extList &el)
+	{
+		gui->warningv3(msg, el);
 	}
 	static bool yesno(const QString &msg)
 	{

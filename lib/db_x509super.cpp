@@ -12,7 +12,6 @@
 #include "database_model.h"
 #include "oid.h"
 
-#include "widgets/XcaDialog.h"
 #include "XcaWarningCore.h"
 
 #include <QTextEdit>
@@ -52,7 +51,6 @@ void db_x509super::loadContainer()
 		pki->setRefKey(Store.lookupPki<pki_key>(keySqlId));
 	}
 }
-
 dbheaderList db_x509super::getHeaders()
 {
 	dbheaderList h = db_x509name::getHeaders();
@@ -162,17 +160,7 @@ void db_x509super::toTemplate(QModelIndex index)
 		temp->setIntName(pki->getIntName());
 		extList el = temp->fromCert(pki);
 		if (el.size()) {
-			QString etext;
-			etext = QString("<h3>") +
-				tr("The following extensions were not ported into the template") +
-				QString("</h3><hr>") +
-				el.getHtml("<br>");
-			QTextEdit *textbox = new QTextEdit(etext);
-		        XcaDialog *d = new XcaDialog(NULL, x509, textbox,
-						QString(), QString());
-			d->aboutDialog(QPixmap(":tempImg"));
-		        d->exec();
-		        delete d;
+			xcaWarning::warningv3(tr("The following extensions were not ported into the template"), el);
 		}
 		temp->pkiSource = transformed;
 		temp->selfComment(tr("Transformed from %1 '%2'")

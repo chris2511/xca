@@ -6,12 +6,15 @@
  */
 
 #include "XcaWarning.h"
+#include "XcaDialog.h"
 #include "lib/func.h"
+
 #include <QApplication>
 #include <QClipboard>
 #include <QPushButton>
 #include <QDebug>
 #include <QSqlDatabase>
+#include <QTextEdit>
 
 xcaWarningBox::xcaWarningBox(QWidget *w, const QString &txt,
 				QMessageBox::Icon icn)
@@ -74,4 +77,17 @@ void xcaWarningGui::error(const QString &msg)
 		if (cb->supportsSelection())
 			cb->setText(msg, QClipboard::Selection);
 	}
+}
+
+void xcaWarningGui::warningv3(const QString &msg, const extList &el)
+{
+	QString etext = QString("<h3>") + msg +
+		QString("</h3><hr>") + el.getHtml("<br>");
+
+	QTextEdit *textbox = new QTextEdit(etext);
+	XcaDialog *d = new XcaDialog(NULL, x509, textbox,
+				QString(), QString());
+	d->aboutDialog(QPixmap(":certImg"));
+	d->exec();
+	delete d;
 }

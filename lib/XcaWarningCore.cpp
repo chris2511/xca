@@ -48,3 +48,9 @@ void xcaWarningCore::error(const QString &msg)
 {
 	print_cmdline(COL_RED "Error", msg);
 }
+
+void xcaWarningCore::warningv3(const QString &msg, const extList &el)
+{
+	warning(QString("  " COL_CYAN "%1" COL_RESET "\n%2")
+		.arg(msg).arg(el.getConsole(QString("    "))));
+}

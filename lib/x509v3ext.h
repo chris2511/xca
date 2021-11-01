@@ -68,7 +68,7 @@ class extList : public QList<x509v3ext>
     public:
 	void setStack(const STACK_OF(X509_EXTENSION) *st, int start=0);
 	STACK_OF(X509_EXTENSION) *getStack();
-	QString getHtml(const QString &sep);
+	QString getHtml(const QString &sep) const;
 	QString getConsole(const QString &indent) const;
 	bool delByNid(int nid);
 	int delInvalid();

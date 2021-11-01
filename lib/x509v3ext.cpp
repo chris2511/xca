@@ -1048,7 +1048,7 @@ bool extList::search(const QRegExp &pattern)
 			return true;
 	return false;
 }
-QString extList::getHtml(const QString &sep)
+QString extList::getHtml(const QString &sep) const
 {
 	x509v3ext e;
 	QStringList s;
