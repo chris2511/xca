@@ -11,8 +11,8 @@ set_property(TARGET ${PROJECT_NAME}
 	     PROPERTY MACOSX_BUNDLE_INFO_PLIST "${D}/Info.plist")
 
 ##### XCA Templates
-
-foreach(templ CA.xca TLS_server.xca TLS_client.xca)
+set(TEMPLATES CA.xca TLS_server.xca TLS_client.xca)
+foreach(templ ${TEMPLATES})
   list(APPEND XCA_TEMPLATES ${S}/${templ})
 endforeach()
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${XCA_TEMPLATES})
@@ -33,6 +33,21 @@ endmacro()
 Text_header(dn)
 Text_header(eku)
 Text_header(oids)
+
+foreach(misc_name ${TEXT_FILES} ${XCA_TEMPLATES})
+  string(REGEX REPLACE ".*/" "" misc_basename ${misc_name})
+  guid(${misc_basename})
+  list(APPEND MISC_COMPREFS "  <ComponentRef Id=\"Cmisc.${misc_basename}\"/>\n")
+  list(APPEND MISC_COMPS "  <Component Id=\"Cmisc.${misc_basename}\" Guid=\"${GUID}\">
+    <File Id=\"misc.${misc_basename}\" Source=\"${misc_name}\" KeyPath=\"yes\"/>
+  </Component>\n")
+endforeach()
+
+string(APPEND WIX_MISC_CONTENT
+"<DirectoryRef Id=\"INSTALLDIR\">\n" ${MISC_COMPS} "</DirectoryRef>
+<ComponentGroup Id=\"GroupMisc\">\n" ${MISC_COMPREFS} "</ComponentGroup>")
+
+WixFile(${D}/misc.wxs ${WIX_MISC_CONTENT})
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${TEXT_FILES})
 list(APPEND APP_RESOURCES ${TEXT_FILES})

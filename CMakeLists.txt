@@ -72,11 +72,22 @@ if (APPLE)
   endforeach()
   qt5_import_plugins(${CMAKE_PROJECT_NAME} INCLUDE_BY_TYPE sqldrivers)
 
-elseif(WIN32)
-
-  set(QT_USE_QTMAIN TRUE)
-
 endif()
+
+macro(guid content)
+  string(
+    UUID GUID NAMESPACE f243d4ea-d51d-42fc-a3c0-4eb186c55d34
+    NAME ${content} TYPE SHA1
+  )
+  message("GUID " ${content} " " ${GUID})
+endmacro()
+
+macro(WixFile filename content)
+  file(WRITE ${filename} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<Wix xmlns=\"http://schemas.microsoft.com/wix/2006/wi\">\n<Fragment>\n"
+    ${content}
+    "\n</Fragment>\n</Wix>")
+endmacro()
 
 ##### Sub directories
 
@@ -99,6 +110,11 @@ set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 ###############################################
 ##### Host specific settings
 
+get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
+get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
+find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
+find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
+
 if(APPLE)
   if (DEFINED ENV{APPLE_DEVELOPER})
     set(APPLE_CERT_3PARTY_INST "3rd Party Mac Developer Installer: $ENV{APPLE_DEVELOPER}")
@@ -112,9 +128,6 @@ if(APPLE)
 	MACOSX_BUNDLE TRUE
 	RESOURCE "${APP_RESOURCES}"
   )
-  get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
-  get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
-  find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
     COMMAND "${MACDEPLOYQT_EXECUTABLE}"
         "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.app"
@@ -126,8 +139,26 @@ if(APPLE)
   set(CPACK_GENERATOR "DragNDrop") #;productbuild")
 
 elseif(WIN32)
+  add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
+    COMMAND "${WINDEPLOYQT_EXECUTABLE}"
+        --dir "${CMAKE_BINARY_DIR}/OUT"
+        "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.exe"
+    COMMENT "Running windeployqt..."
+  )
   set(QT_USE_QTMAIN TRUE)
   set(CPACK_GENERATOR WIX)
+  set(CPACK_PACKAGE_VENDOR "Christian Hohnstädt")
+  set(CPACK_WIX_TEMPLATE "${PROJECT_SOURCE_DIR}/misc/xca.wxs")
+  set(CPACK_WIX_UPGRADE_GUID "23fdacfe-3ef8-45b4-81e8-b0c90244c217")
+  set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/img/banner.bmp")
+  set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/img/dialog.bmp")
+  set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/misc/copyright.rtf")
+  set(CPACK_WIX_EXTRA_SOURCES
+     ${CMAKE_BINARY_DIR}/openssl.wxs
+     ${CMAKE_BINARY_DIR}/language.wxs
+     ${CMAKE_BINARY_DIR}/doc/documentation.wxs
+     ${CMAKE_BINARY_DIR}/misc/misc.wxs
+     )
 else()
   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr/local CACHE PATH

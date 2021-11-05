@@ -16,8 +16,25 @@ foreach(file ${FILENAMES})
   list(APPEND RST_SOURCE "${S}/rst/${file}.rst")
   list(APPEND RST_DEST "${D}/rst/${file}.rst")
   list(APPEND HTML_DEST "${D}/html/${file}.html")
+  list(APPEND HTML_FILE "${file}.html")
   list(APPEND QTHELP_DEST "${D}/qthelp/${file}.html")
 endforeach()
+
+foreach(doc ${HTML_FILE} xca.qhc xca.qch)
+  string(REPLACE "-" "" id ${doc})
+  guid(${doc})
+  list(APPEND DOC_COMPREFS "  <ComponentRef Id=\"Csphinx.${id}\"/>\n")
+  list(APPEND DOC_COMPS "  <Component Id=\"Csphinx.${id}\" Guid=\"${GUID}\">
+    <File Id=\"sphinx.${id}\" Source=\"${D}/qthelp/${doc}\" KeyPath=\"yes\"/>
+  </Component>\n")
+endforeach()
+
+string(APPEND WIX_DOC_CONTENT
+"<DirectoryRef Id=\"html\">\n" ${DOC_COMPS} "</DirectoryRef>\n"
+"<ComponentGroup Id=\"GroupDocumentation\">\n" ${DOC_COMPREFS} "</ComponentGroup>"
+)
+
+WixFile(${D}/documentation.wxs ${WIX_DOC_CONTENT})
 
 if(SPHINX)
   configure_file(${S}/conf.py.in ${D}/rst/conf.py)

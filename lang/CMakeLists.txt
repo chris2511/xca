@@ -1,14 +1,32 @@
 
 set(S "${PROJECT_SOURCE_DIR}/lang")
-set(D "${PROJECT_BINARY_DIR}/lang")
-file(MAKE_DIRECTORY "${D}")
+set(D "${PROJECT_BINARY_DIR}")
 
-set(TS_FILES
-${S}/xca_fr.ts	${S}/xca_ja.ts	${S}/xca_tr.ts	${S}/xca.ts
-${S}/xca_de.ts	${S}/xca_hr.ts	${S}/xca_nl.ts	${S}/xca_ru.ts
-${S}/xca_es.ts	${S}/xca_it.ts	${S}/xca_pl.ts	${S}/xca_sk.ts
-${S}/xca_zh_CN.ts	${S}/xca_pt_BR.ts	${S}/xca_id.ts
+list(APPEND XCA_LANGUAGES id hr nl pt_BR zh_CN)
+list(APPEND XCAQM_LANGUAGES de fr ja pl ru tr es it sk)
+
+foreach(lang ${XCA_LANGUAGES} ${XCAQM_LANGUAGES})
+  list(APPEND TS_FILES ${S}/xca_${lang}.ts)
+endforeach()
+
+foreach(lang ${XCA_LANGUAGES} ${XCAQM_LANGUAGES})
+  guid(${lang})
+  list(APPEND LANG_COMPREFS "  <ComponentRef Id=\"Ci18n.${lang}\"/>\n")
+  set(LANG_COMPS "  <Component Id=\"Ci18n.${lang}\" Guid=\"${GUID}\">
+    <File Id=\"xca_${lang}.qm\" Source=\"${D}/xca_${lang}.qm\" KeyPath=\"yes\"/>\n")
+  if(${lang} IN_LIST XCAQM_LANGUAGES)
+    string(APPEND LANG_COMPS "    <File Id=\"qt_${lang}.qm\" Source=\"${D}/translations/qt_${lang}.qm\"/>\n")
+  endif()
+  string(APPEND LANG_COMPS "  </Component>\n")
+  list(APPEND LANG_ALLCOMPS ${LANG_COMPS})
+endforeach()
+
+string(APPEND WIX_LANG_CONTENT
+  "<DirectoryRef Id=\"i18n\">\n" ${LANG_ALLCOMPS} "</DirectoryRef>\n"
+  "<ComponentGroup Id=\"GroupI18n\">\n" ${LANG_COMPREFS} "</ComponentGroup>"
 )
+
+WixFile(${D}/language.wxs ${WIX_LANG_CONTENT})
 
 qt5_add_translation(QM_FILES ${TS_FILES})
 list(APPEND APP_RESOURCES ${QM_FILES})
