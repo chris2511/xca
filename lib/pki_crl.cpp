@@ -420,7 +420,7 @@ QStringList pki_crl::icsVEVENT() const
 		  "It is stored in the XCA database '%3'")
 			.arg(ca->getIntName())
 			.arg(getNextUpdate().toPretty())
-			.arg(Database.name())
+			.arg(nativeSeparator(Database.name()))
 		);
 	}
 	return pki_base::icsVEVENT(getNextUpdate(),
@@ -430,7 +430,7 @@ QStringList pki_crl::icsVEVENT() const
 			.arg(getIntName())
 			.arg(getLastUpdate().toPretty())
 			.arg(getNextUpdate().toPretty())
-			.arg(Database.name())
+			.arg(nativeSeparator(Database.name()))
 	);
 }
 

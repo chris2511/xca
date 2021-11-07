@@ -23,6 +23,7 @@
 #include "PwDialogCore.h"
 
 #warning drop UI dependencies
+#include "ui_NewX509.h"
 #include "widgets/CertExtend.h"
 #include "widgets/RevocationList.h"
 #include "widgets/NewX509.h"

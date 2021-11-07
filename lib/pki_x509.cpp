@@ -888,7 +888,7 @@ QStringList pki_x509::icsVEVENT() const
 			.arg(getIntName())
 			.arg(getNotBefore().toPretty())
 			.arg(getNotAfter().toPretty())
-			.arg(Database.name())
+			.arg(nativeSeparator(Database.name()))
 	);
 }
 
