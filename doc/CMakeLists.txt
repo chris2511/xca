@@ -4,7 +4,7 @@ set(D "${PROJECT_BINARY_DIR}/doc")
 file(MAKE_DIRECTORY "${D}")
 
 find_program(SPHINX sphinx-build)
-find_program(QTCOLLGEN qcollectiongenerator)
+find_program(QTCOLLGEN NAMES qhelpgenerator qcollectiongenerator)
 
 set(FILENAMES
 	index commandline requests object-ids common-actions database options
@@ -64,7 +64,7 @@ if(SPHINX)
 	COMMAND xcadoc rst "${D}/rst/arguments.rst"
 	COMMENT "Generate 'rst' commandline documentation"
   )
-  add_custom_target(sphinx-html DEPENDS ${D}/html/index.html)
+  add_custom_target(sphinx-html ALL DEPENDS ${HTML_DEST})
   add_custom_target(sphinx-src
 	DEPENDS ${D}/rst/COPYRIGHT ${D}/rst/changelog
 		${D}/rst/_static/bigcert.png
@@ -78,31 +78,28 @@ if(SPHINX)
         DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
     )
   endif()
+
   if(QTCOLLGEN)
+    set(QTHELP_IDX ${D}/qthelp/xca.qhc ${D}/qthelp/xca.qch)
     add_custom_command(
-	OUTPUT "${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qch"
-	COMMAND ${QTCOLLGEN} "${D}/qthelp/xca.qhcp"
-	DEPENDS "${D}/qthelp/xca.qhcp"
+	OUTPUT ${QTHELP_IDX}
+	COMMAND ${QTCOLLGEN} ${D}/qthelp/xca.qhcp
+	DEPENDS ${D}/qthelp/xca.qhcp
 	COMMENT "Create context sensitive help index"
     )
-    add_custom_target(sphinx-qthelp ALL DEPENDS
-			"${D}/qthelp/xca.qhc" "${D}/qthelp/xca.qch"
-    )
-    target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-	 "${QTHELP_DEST}"
-	 "${D}/qthelp/xca.qhc"
-	 "${D}/qthelp/xca.qch"
-    )
-    list(APPEND APP_RESOURCES ${QTHELP_DEST} "${D}/qthelp/xca.qhc"
-         "${D}/qthelp/xca.qch"
-    )
+    add_custom_target(sphinx-qthelp ALL DEPENDS ${QTHELP_IDX})
 
-  endif()
-endif()
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QTHELP_DEST} ${QTHELP_IDX})
+    list(APPEND APP_RESOURCES ${QTHELP_DEST} ${QTHELP_IDX})
 
-if (NOT SPHINX OR NOT QTCOLLGEN)
-  add_custom_target(sphinx-qthelp)
-endif()
+    if (UNIX AND NOT APPLE)
+        install(FILES ${QTHELP_DEST} ${QTHELP_IDX}
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/html
+        )
+    endif()
+
+  endif(QTCOLLGEN)
+endif(SPHINX)
 
 if (NOT WIN32)
   add_custom_command(

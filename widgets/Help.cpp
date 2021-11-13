@@ -13,14 +13,15 @@
 #include <QHelpEngine>
 #include <QDialogButtonBox>
 
-Help::Help() : QWidget(NULL)
+Help::Help() : QWidget(NULL), helpengine(nullptr)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	textbox->setSearchPaths(QStringList(getDocDir()));
 	textbox->setOpenExternalLinks(true);
 	textbox->clearHistory();
-	helpengine = new QHelpEngineCore(getDocDir() + "/xca.qhc");
+	if (!getDocDir().isEmpty())
+		helpengine = new QHelpEngineCore(getDocDir() + "/xca.qhc");
 }
 
 Help::~Help()
@@ -43,6 +44,8 @@ void Help::content()
 
 QMap<QString, QUrl> Help::url_by_ctx(const QString &ctx) const
 {
+	if (!helpengine)
+		return QMap<QString, QUrl>();
 	return helpengine->linksForIdentifier(QString("%1.%1").arg(ctx));
 }
 
@@ -78,7 +81,7 @@ void Help::register_ctxhelp_button(QDialog *dlg, const QString &help_ctx) const
 	buttonBox->setProperty("help_ctx", QVariant(help_ctx));
 	connect(buttonBox, SIGNAL(helpRequested()), this, SLOT(contexthelp()));
 
-	if (url_by_ctx(help_ctx).count() == 0) {
+	if (helpengine && url_by_ctx(help_ctx).count() == 0) {
 		qWarning() << "Unknown help context: " << help_ctx;
 		buttonBox->button(QDialogButtonBox::Help)->setEnabled(false);
 	}

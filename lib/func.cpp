@@ -239,9 +239,10 @@ const QString getDocDir()
 #endif
 	docs += QStandardPaths::standardLocations(QStandardPaths::DataLocation);
 	foreach (docdir, docs) {
-#if defined(Q_OS_WIN32)
+#if !defined(Q_OS_MAC)
 		docdir += "/html";
 #endif
+		qWarning() << "DOCDIR" << docdir;
 		if (QFileInfo::exists(docdir + "/xca.qhc")) {
 			qDebug() << "Detected" << docdir + "/xca.qhc";
 			return docdir;
