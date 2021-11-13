@@ -171,11 +171,12 @@ void pki_x509req::fload(const QString &fname)
 	X509_REQ *_req;
 	XFile file(fname);
 	file.open_read();
-	_req = PEM_read_X509_REQ(file.fp(), NULL, NULL, NULL);
+	QByteArray ba(file.readAll());
+
+	_req = PEM_read_bio_X509_REQ(BioByteArray(ba).ro(), NULL, NULL, NULL);
 	if (!_req) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		_req = d2i_X509_REQ_fp(file.fp(), NULL);
+		_req = d2i_X509_REQ_bio(BioByteArray(ba).ro(), NULL);
 	}
 	if (pki_ign_openssl_error() || !_req) {
 		if (_req)
@@ -238,15 +239,17 @@ void pki_x509req::writeDefault(const QString &dirname) const
 
 void pki_x509req::writeReq(XFile &file, bool pem) const
 {
+	BioByteArray b;
 	if (!request)
 		return;
 	if (pem) {
-		PEM_file_comment(file);
-		PEM_write_X509_REQ(file.fp(), request);
+		b += PEM_comment();
+		PEM_write_bio_X509_REQ(b, request);
 	} else {
-		i2d_X509_REQ_fp(file.fp(), request);
+		i2d_X509_REQ_bio(b, request);
 	}
 	pki_openssl_error();
+	file.write(b);
 }
 
 bool pki_x509req::pem(BioByteArray &b)

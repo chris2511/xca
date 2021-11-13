@@ -6,7 +6,6 @@
  */
 
 
-//#define MDEBUG
 #include "MainWindow.h"
 #include "XcaApplication.h"
 #include "ImportMulti.h"
@@ -101,12 +100,6 @@ MainWindow::MainWindow() : QMainWindow()
 
 	init_images();
 	homedir = getHomeDir();
-
-#ifdef MDEBUG
-	CRYPTO_malloc_debug_init();
-	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
-	qWarning() << "malloc() debugging on.";
-#endif
 
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
@@ -431,10 +424,7 @@ MainWindow::~MainWindow()
 	OBJ_cleanup();
 	delete dbindex;
 	delete helpdlg;
-#ifdef MDEBUG
-	fprintf(stderr, "Memdebug:\n");
-	CRYPTO_mem_leaks_fp(stderr);
-#endif
+
 	XcaProgress::setGui(nullptr);
 }
 

@@ -12,14 +12,6 @@
 
 #include <QFile>
 #include <QDebug>
-#include <stdio.h>
-#if defined (Q_CC_MSVC)
-#include <stdlib.h>
-#include <io.h>
-typedef int mode_t;
-#else
-#include <unistd.h>
-#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -32,10 +24,6 @@ class XFile : public QFile
 {
 	Q_OBJECT
 
-	private:
-		FILE *filp;
-		BIO *b;
-
 	public:
 		bool open(OpenMode flags)
 		{
@@ -46,46 +34,12 @@ class XFile : public QFile
 			}
 			return o;
 		}
-		XFile(const QString &name) : QFile(name), filp(NULL), b(NULL)
+		XFile(const QString &name) : QFile(name)
 		{
-		}
-		BIO *bio()
-		{
-			if (!b)
-				b = BIO_new_fp(fp(), BIO_NOCLOSE);
-			return b;
-		}
-		FILE *fp(const char *mode = NULL)
-		{
-			if (!filp) {
-				if (!mode)
-					mode = openMode() & WriteOnly ?
-							"ab" : "rb";
-				filp = fdopen(dup(handle()), mode);
-				Q_CHECK_PTR(filp);
-			}
-			qDebug() << fileName() << "FILE ptr @" << ftell(filp);
-			return filp;
-		}
-		qint64 writeData(const char *data, qint64 maxSize)
-		{
-			if (filp)
-				fflush(filp);
-			flush();
-			seek(size());
-			qDebug() << "WriteData to" << fileName() <<
-					maxSize << "@" << size();
-			qint64 r = QFile::writeData(data, maxSize);
-			flush();
-			if (filp)
-				fseek(filp, 0, SEEK_END);
-			return r;
 		}
 		void retry_read()
 		{
 			seek(0);
-			if (filp)
-				fseek(filp, 0, SEEK_SET);
 			if (error()) {
 				throw errorEx(
 					tr("Error rewinding file: '%1': %2")
@@ -107,13 +61,6 @@ class XFile : public QFile
 		bool open_read()
 		{
 			return open(ReadOnly);
-		}
-
-		~XFile() {
-			if (filp)
-				fclose(filp);
-			if (b)
-				BIO_free(b);
 		}
 };
 

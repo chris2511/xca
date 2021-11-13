@@ -65,7 +65,7 @@ class pki_base : public QObject
 		pki_base *parent;
 		void my_error(const QString &error) const;
 		QString filename;
-		virtual void PEM_file_comment(XFile &file) const;
+		virtual QByteArray PEM_comment() const;
 		virtual void collect_properties(QMap<QString, QString> &) const;
 		QList<pki_base*> childItems;
 

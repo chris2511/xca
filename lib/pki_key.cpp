@@ -147,7 +147,9 @@ void pki_key::writeSSH2private(XFile &file, pem_password_cb *cb) const
 		pki_openssl_error();
 		return;
 	}
-	write_SSH2_ed25519_private(file.bio(), pkey, NULL);
+	BioByteArray b;
+	write_SSH2_ed25519_private(b, pkey, NULL);
+	file.write(b);
 }
 
 QString pki_key::length() const
@@ -406,13 +408,15 @@ bool pki_key::compare(const pki_base *ref) const
 
 void pki_key::writePublic(XFile &file, bool pem) const
 {
+	BioByteArray b;
 	if (pem) {
-		PEM_file_comment(file);
-		PEM_write_PUBKEY(file.fp(), key);
+		b += PEM_comment();
+		PEM_write_bio_PUBKEY(b, key);
 	} else {
-		i2d_PUBKEY_fp(file.fp(), key);
+		i2d_PUBKEY_bio(b, key);
 	}
 	pki_openssl_error();
+	file.write(b);
 }
 
 QString pki_key::BNoneLine(BIGNUM *bn) const
@@ -589,14 +593,13 @@ QByteArray pki_key::ssh_key_next_chunk(QByteArray *ba) const
 	return chunk;
 }
 
-EVP_PKEY *pki_key::load_ssh2_key(XFile &file)
+EVP_PKEY *pki_key::load_ssh2_key(const QByteArray &b)
 {
 	/* See RFC 4253 Section 6.6 */
-	QByteArray ba;
 	QStringList sl;
 	EVP_PKEY *pk = NULL;
+	QByteArray ba(b);
 
-	ba = file.read(4096);
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	sl = QString(ba).split(" ", Qt::SkipEmptyParts);
 #else
@@ -870,13 +873,12 @@ QByteArray pki_key::X509_PUBKEY_public_key() const
 	return data;
 }
 
-void pki_key::PEM_file_comment(XFile &file) const
+QByteArray pki_key::PEM_comment() const
 {
 	if (!pem_comment)
-		return;
-	pki_base::PEM_file_comment(file);
-	file.write(QString("%1 %2\n").arg(length(), getTypeString())
-			.toUtf8());
+		return QByteArray();
+	return pki_base::PEM_comment() +
+		QString("%1 %2\n").arg(length(), getTypeString()).toUtf8();
 }
 
 void pki_key::collect_properties(QMap<QString, QString> &prp) const

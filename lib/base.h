@@ -9,6 +9,8 @@
 #define __BASE_H
 
 #define QT_NO_CAST_TO_ASCII 1
+#define OPENSSL_NO_STDIO 1
+
 #ifndef PACKAGE_NAME
 #define XCA_TITLE "X Certificate and Key management"
 #else

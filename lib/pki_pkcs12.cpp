@@ -39,7 +39,9 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	setFilename(fname);
 	XFile file(fname);
 	file.open_read();
-	PKCS12 *pkcs12 = d2i_PKCS12_fp(file.fp(), NULL);
+	BioByteArray b(file.readAll());
+
+	PKCS12 *pkcs12 = d2i_PKCS12_bio(b.ro(), NULL);
 	if (pki_ign_openssl_error()) {
 		if (pkcs12)
 			PKCS12_free(pkcs12);
@@ -139,8 +141,10 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 				key->decryptKey(), cert->getCert(), certstack,
 				0, NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
 				0, 0, 0);
-	i2d_PKCS12_fp(file.fp(), pkcs12);
+	BioByteArray b;
+	i2d_PKCS12_bio(b, pkcs12);
 	sk_X509_free(certstack);
 	pki_openssl_error();
 	PKCS12_free(pkcs12);
+	file.write(b);
 }

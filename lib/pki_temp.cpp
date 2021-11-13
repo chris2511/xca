@@ -424,8 +424,7 @@ QByteArray pki_temp::toExportData() const
 
 void pki_temp::writeTemp(XFile &file) const
 {
-	PEM_file_comment(file);
-	file.write(toExportData());
+	file.write(PEM_comment() + toExportData());
 }
 
 void pki_temp::writeDefault(const QString &dirname) const

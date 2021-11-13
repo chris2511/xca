@@ -389,34 +389,34 @@ void pki_evp::fload(const QString &fname)
 	pki_ign_openssl_error();
 	XFile file(fname);
 	file.open_read();
+	QByteArray ba = file.readAll();
 	EVP_PKEY *pkey;
 
 	do {
-		pkey = PEM_read_PrivateKey(file.fp(), NULL, cb, &p);
+		pkey = PEM_read_bio_PrivateKey(BioByteArray(ba).ro(),
+						NULL, cb, &p);
 		if (openssl_pw_error())
 			XCA_PASSWD_ERROR();
 		if (p.getResult() != pw_ok)
 			throw p.getResult();
 		if (pki_ign_openssl_error())
 			break;
-		file.retry_read();
 	} while (!pkey);
 
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = d2i_PrivateKey_fp(file.fp(), NULL);
+		pkey = d2i_PrivateKey_bio(BioByteArray(ba).ro(), NULL);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = d2i_PKCS8PrivateKey_fp(file.fp(), NULL, cb, &p);
+		pkey = d2i_PKCS8PrivateKey_bio(BioByteArray(ba).ro(),
+						NULL, cb, &p);
 	}
 	if (!pkey) {
 		PKCS8_PRIV_KEY_INFO *p8inf;
 		pki_ign_openssl_error();
-		file.retry_read();
-		p8inf = d2i_PKCS8_PRIV_KEY_INFO_fp(file.fp(), NULL);
+		p8inf = d2i_PKCS8_PRIV_KEY_INFO_bio(BioByteArray(ba).ro(),
+							NULL);
 		if (p8inf) {
 			pkey = EVP_PKCS82PKEY(p8inf);
 			PKCS8_PRIV_KEY_INFO_free(p8inf);
@@ -424,33 +424,27 @@ void pki_evp::fload(const QString &fname)
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = b2i_PVK_bio(file.bio(), cb, &p);
+		pkey = b2i_PVK_bio(BioByteArray(ba).ro(), cb, &p);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = load_ssh_ed25519_privatekey(file.read(10000), p);
+		pkey = load_ssh_ed25519_privatekey(ba, p);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = PEM_read_PUBKEY(file.fp(), NULL, cb, &p);
+		pkey = PEM_read_bio_PUBKEY(BioByteArray(ba).ro(), NULL, cb, &p);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = d2i_PUBKEY_fp(file.fp(), NULL);
+		pkey = d2i_PUBKEY_bio(BioByteArray(ba).ro(), NULL);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = load_ssh2_key(file);
+		pkey = load_ssh2_key(ba);
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		pkey = b2i_PublicKey_bio(file.bio());
+		pkey = b2i_PublicKey_bio(BioByteArray(ba).ro());
 	}
 	if (pki_ign_openssl_error() || !pkey) {
 		if (pkey)
@@ -725,13 +719,15 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 		pki_openssl_error();
 		return;
 	}
+	BioByteArray b;
 	if (pem) {
-		PEM_file_comment(file);
-		PEM_write_PKCS8PrivateKey(file.fp(), pkey, enc, NULL, 0,cb,&p);
+		b += PEM_comment();
+		PEM_write_bio_PKCS8PrivateKey(b, pkey, enc, NULL, 0, cb, &p);
 	} else {
-		i2d_PKCS8PrivateKey_fp(file.fp(), pkey, enc, NULL, 0, cb, &p);
+		i2d_PKCS8PrivateKey_bio(b, pkey, enc, NULL, 0, cb, &p);
 	}
 	EVP_PKEY_free(pkey);
+	file.write(b);
 }
 
 void pki_evp::writePVKprivate(XFile &file, pem_password_cb *cb) const
@@ -747,13 +743,15 @@ void pki_evp::writePVKprivate(XFile &file, pem_password_cb *cb) const
 	/* In case of success! the error
 	 *   PEMerr(PEM_F_I2B_PVK_BIO, PEM_R_BIO_WRITE_FAILURE)
 	 * is set. Workaround this behavior */
-	if (i2b_PVK_bio(file.bio(), pkey, enc, cb, &p) == -1) {
+	BioByteArray b;
+	if (i2b_PVK_bio(b, pkey, enc, cb, &p) == -1) {
 		pki_openssl_error();
 		PEMerr(PEM_F_I2B_PVK_BIO, PEM_R_BIO_WRITE_FAILURE);
 		pki_openssl_error();
 	}
 	ign_openssl_error();
 	EVP_PKEY_free(pkey);
+	file.write(b);
 }
 
 static int mycb(char *buf, int size, int, void *)
@@ -799,15 +797,17 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 	        pki_openssl_error();
 		return;
 	}
+	BioByteArray b;
 	if (pem) {
-		PEM_file_comment(file);
-		PEM_write_bio_PrivateKey_traditional(file.bio(), pkey, enc,
+		b += PEM_comment();
+		PEM_write_bio_PrivateKey_traditional(b, pkey, enc,
 						NULL, 0, cb, &p);
 	} else {
-		i2d_PrivateKey_fp(file.fp(), pkey);
+		i2d_PrivateKey_bio(b, pkey);
 	}
 	EVP_PKEY_free(pkey);
 	pki_openssl_error();
+	file.write(b);
 }
 
 bool pki_evp::verify_priv(EVP_PKEY *pkey) const

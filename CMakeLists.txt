@@ -79,7 +79,6 @@ macro(guid content)
     UUID GUID NAMESPACE f243d4ea-d51d-42fc-a3c0-4eb186c55d34
     NAME ${content} TYPE SHA1
   )
-  message("GUID " ${content} " " ${GUID})
 endmacro()
 
 macro(WixFile filename content)

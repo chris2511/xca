@@ -132,11 +132,12 @@ void pki_crl::fload(const QString &fname)
 	X509_CRL *_crl;
 	XFile file(fname);
 	file.open_read();
-	_crl = PEM_read_X509_CRL(file.fp(), NULL, NULL, NULL);
+	QByteArray ba(file.readAll());
+
+	_crl = PEM_read_bio_X509_CRL(BioByteArray(ba).ro(), NULL, NULL, NULL);
 	if (!_crl) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		_crl = d2i_X509_CRL_fp(file.fp(), NULL);
+		_crl = d2i_X509_CRL_bio(BioByteArray(ba).ro(), NULL);
 	}
 	if (pki_ign_openssl_error() || !_crl) {
 		if (_crl)
@@ -256,13 +257,15 @@ void pki_crl::writeDefault(const QString &dirname) const
 
 void pki_crl::writeCrl(XFile &file, bool pem) const
 {
+	BioByteArray b;
 	if (pem) {
-		PEM_file_comment(file);
-		PEM_write_X509_CRL(file.fp(), crl);
+		b += PEM_comment();
+		PEM_write_bio_X509_CRL(b, crl);
 	} else {
-		i2d_X509_CRL_fp(file.fp(), crl);
+		i2d_X509_CRL_bio(b, crl);
 	}
 	pki_openssl_error();
+	file.write(b);
 }
 
 bool pki_crl::pem(BioByteArray &b)

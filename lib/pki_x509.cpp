@@ -215,11 +215,12 @@ void pki_x509::fload(const QString &fname)
 	X509 *_cert;
 	XFile file(fname);
 	file.open_read();
-	_cert = PEM_read_X509(file.fp(), NULL, NULL, NULL);
+	QByteArray ba(file.readAll());
+
+	_cert = PEM_read_bio_X509(BioByteArray(ba).ro(), NULL, NULL, NULL);
 	if (!_cert) {
 		pki_ign_openssl_error();
-		file.retry_read();
-		_cert = d2i_X509_fp(file.fp(), NULL);
+		_cert = d2i_X509_bio(BioByteArray(ba).ro(), NULL);
 	}
 	if (pki_ign_openssl_error() || !_cert) {
 		if (_cert)
@@ -586,13 +587,15 @@ void pki_x509::writeCert(XFile &file, bool PEM) const
 {
 	if (!cert)
 		return;
+	BioByteArray b;
 	if (PEM) {
-		PEM_file_comment(file);
-		PEM_write_X509(file.fp(), cert);
+		b += PEM_comment();
+		PEM_write_bio_X509(b, cert);
 	} else {
-		i2d_X509_fp(file.fp(), cert);
+		i2d_X509_bio(b, cert);
 	}
 	pki_openssl_error();
+	file.write(b);
 }
 
 QString pki_x509::getIndexEntry()

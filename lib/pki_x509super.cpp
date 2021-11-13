@@ -296,12 +296,12 @@ bool pki_x509name::visible() const
 	return getSubject().search(limitPattern);
 }
 
-void pki_x509name::PEM_file_comment(XFile &file) const
+QByteArray pki_x509name::PEM_comment() const
 {
 	if (!pem_comment)
-		return;
-	pki_base::PEM_file_comment(file);
-	file.write(getSubject().oneLine(XN_FLAG_RFC2253).toUtf8() + "\n");
+		return QByteArray();
+	return pki_base::PEM_comment() +
+		getSubject().oneLine(XN_FLAG_RFC2253).toUtf8() + "\n";
 }
 
 void pki_x509name::collect_properties(QMap<QString, QString> &prp) const

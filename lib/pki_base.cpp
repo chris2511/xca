@@ -90,13 +90,13 @@ bool pki_base::visible() const
 		comment.contains(limitPattern);
 }
 
-void pki_base::PEM_file_comment(XFile &file) const
+QByteArray pki_base::PEM_comment() const
 {
 	if (!pem_comment)
-		return;
-	file.write(QString("XCA internal name: %1\n%2\n")
-			.arg(getIntName()).arg(getComment())
-				.toUtf8());
+		return QByteArray();
+
+	return QString("XCA internal name: %1\n%2\n")
+			.arg(getIntName()).arg(getComment()).toUtf8();
 }
 
 void pki_base::clear()

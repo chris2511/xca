@@ -20,7 +20,7 @@
 class pki_x509name : public pki_base
 {
     protected:
-	void PEM_file_comment(XFile &file) const;
+	QByteArray PEM_comment() const;
 
     public:
 	pki_x509name(const QString &name = QString());

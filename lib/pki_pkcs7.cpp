@@ -28,7 +28,8 @@ pki_pkcs7::~pki_pkcs7()
 
 void pki_pkcs7::encryptFile(pki_x509 *crt, const QString &filename)
 {
-	encryptBio(crt, XFile(filename).bio());
+	XFile f(filename);
+	encryptBio(crt, BioByteArray(f.readAll()).ro());
 }
 
 void pki_pkcs7::encryptBio(pki_x509 *crt, BIO *bio)
@@ -80,8 +81,10 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 
 void pki_pkcs7::signFile(pki_x509 *crt, const QString &filename)
 {
+	XFile f(filename);
+	f.open_read();
 	if (crt)
-		signBio(crt, XFile(filename).bio());
+		signBio(crt, BioByteArray(f.readAll()).ro());
 }
 
 void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
@@ -105,11 +108,13 @@ void pki_pkcs7::writeP7(XFile &file, bool PEM)
 		if (x)
 			PKCS7_add_certificate(p7, X509_dup(x->getCert()));
 	}
+	BioByteArray b;
 	if (PEM)
-		PEM_write_PKCS7(file.fp(), p7);
+		PEM_write_bio_PKCS7(b, p7);
 	else
-		i2d_PKCS7_fp(file.fp(), p7);
+		i2d_PKCS7_bio(b, p7);
 	openssl_error();
+	file.write(b);
 }
 
 void pki_pkcs7::append_certs(PKCS7 *myp7, const QString &name)
@@ -168,11 +173,12 @@ void pki_pkcs7::fload(const QString &name)
 	PKCS7 *myp7;
 	XFile file(name);
 	file.open_read();
-	myp7 = PEM_read_PKCS7(file.fp(), NULL, NULL, NULL);
+	QByteArray ba(file.readAll());
+
+	myp7 = PEM_read_bio_PKCS7(BioByteArray(ba).ro(), NULL, NULL, NULL);
 	if (!myp7) {
 		ign_openssl_error();
-		file.retry_read();
-		myp7 = d2i_PKCS7_fp(file.fp(), NULL);
+		myp7 = d2i_PKCS7_bio(BioByteArray(ba).ro(), NULL);
 	}
 	if (ign_openssl_error()) {
 		if (myp7)
