@@ -45,7 +45,8 @@ if (UNIX AND NOT APPLE)
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
   )
   install(FILES misc/xca.completion
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/bash-completion/completions/xca
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/bash-completion/completions
+        RENAME xca
   )
   install(FILES misc/xca.xml
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages
