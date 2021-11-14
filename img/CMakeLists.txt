@@ -34,6 +34,9 @@ if(APPLE)
   set(CPACK_DMG_BACKGROUND_IMAGE "${S}/bigcert.png")
   set(CPACK_BUNDLE_ICON ${ICONS})
 
+elseif(WIN32)
+    ENABLE_LANGUAGE(RC)
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${S}/w32res.rc)
 endif()
 
 if (UNIX AND NOT APPLE)
