@@ -32,7 +32,7 @@ settings::settings()
 	defaul["mandatory_dn"] = "";
 	defaul["explicit_dn"] = "C,ST,L,O,OU,CN,emailAddress";
 	defaul["string_opt"] = "MASK:0x2002";
-	defaul["workingdir"] = getHomeDir() + "/";
+	defaul["workingdir"] = "";
 	defaul["default_hash"] = digest::getDefault().name();
 	defaul["ical_expiry"] = "1W";
 	defaul["cert_expiry"] = "80%";
@@ -100,6 +100,8 @@ void settings::load_settings()
 				continue; // Skip non-existing working-dir
 			if (!value.isEmpty() && !value.endsWith("/"))
 				value += "/";
+			if (value.isEmpty())
+				value = getHomeDir() + "/";
 		}
 		db_keys << key;		// Key with host ID
 		setAction(l[0], value);	// Key without host ID
