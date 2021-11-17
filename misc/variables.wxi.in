@@ -1,5 +1,0 @@
-<Include>
-    <?define Version="@XCA_VERSION@"?>
-    <?define VersionHash="@VERSIONHASH@"?>
-    <?define PackageName="@PACKAGE_NAME@"?>
-</Include>

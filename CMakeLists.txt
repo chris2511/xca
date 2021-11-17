@@ -43,6 +43,16 @@ target_include_directories(xcadoc PRIVATE "${PROJECT_SOURCE_DIR}/lib")
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 
+get_filename_component(OPENSSL_ROOT_DIR ${OPENSSL_INCLUDE_DIR} DIRECTORY)
+set(PSQL_BINDIR "C:/Program Files/PostgreSQL/14/bin")
+set(MYSQL_BINDIR "C:/Program Files/qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit/${CMAKE_BUILD_TYPE}")
+if (NOT EXISTS ${PSQL_BINDIR})
+  set(PSQL_BINDIR "")
+endif()
+if (NOT EXISTS ${MYSQL_BINDIR})
+  set(MYSQL_BINDIR "")
+endif()
+
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	core widgets core
 	OpenSSL::Crypto
@@ -140,7 +150,7 @@ if(APPLE)
 elseif(WIN32)
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
     COMMAND "${WINDEPLOYQT_EXECUTABLE}"
-        --dir "${CMAKE_BINARY_DIR}/OUT"
+        --dir "${CMAKE_BINARY_DIR}"
         "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.exe"
     COMMENT "Running windeployqt..."
   )
@@ -153,11 +163,12 @@ elseif(WIN32)
   set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/img/dialog.bmp")
   set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/misc/copyright.rtf")
   set(CPACK_WIX_EXTRA_SOURCES
-     ${CMAKE_BINARY_DIR}/openssl.wxs
      ${CMAKE_BINARY_DIR}/language.wxs
      ${CMAKE_BINARY_DIR}/doc/documentation.wxs
      ${CMAKE_BINARY_DIR}/misc/misc.wxs
+     ${CMAKE_BINARY_DIR}/misc/dynamic.wxs
      )
+  string(APPEND CMAKE_CXX_FLAGS "-mwindows")
 else()
   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr/local CACHE PATH
