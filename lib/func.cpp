@@ -277,7 +277,7 @@ const QString getUserSettingsDir()
 const QString getI18nDir()
 {
 	QString qm = QStandardPaths::locate(QStandardPaths::DataLocation,
-		I18N_DIR "xca.qm");
+		I18N_DIR "xca_de.qm");
 	return QFileInfo(qm).path();
 }
 
