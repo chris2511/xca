@@ -32,7 +32,6 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	foreach(x, pki_export::select(asym_key, 0)) {
 		if (!(x->flags & F_CLIPBOARD))
 			continue;
-		qWarning() << "CLIPBOARD"  << x->id << x->desc;
 		a = clipboard->addAction(x->desc);
 		a->setData(x->id);
 		a->setCheckable(true);
