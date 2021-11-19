@@ -586,10 +586,11 @@ bool pki_scard::find_key_on_card(slotid *slot) const
 	cls << getIdAttr();
 
 	foreach(sl, p11.getSlotList()) {
-		p11.startSession(sl);
+		pkcs11 p11sess;
+		p11sess.startSession(sl);
 
-		foreach(CK_OBJECT_HANDLE object, p11.objectList(cls)) {
-			EVP_PKEY *pkey = load_pubkey(p11, object);
+		foreach(CK_OBJECT_HANDLE object, p11sess.objectList(cls)) {
+			EVP_PKEY *pkey = load_pubkey(p11sess, object);
 			bool match = EVP_PKEY_cmp(key, pkey) == 1;
 			EVP_PKEY_free(pkey);
 
