@@ -27,9 +27,11 @@ if(APPLE)
 		  ${S}/xca-icons.iconset
 	  DEPENDS ${ICON_SRC}
     )
+    set_source_files_properties(${ICONS} PROPERTIES GENERATED TRUE)
     add_custom_target(mac-icons DEPENDS ${ICONS})
-    list(APPEND APP_RESOURCES ${ICONS})
+    add_dependencies(${CMAKE_PROJECT_NAME} mac-icons)
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICONS})
+    list(APPEND APP_RESOURCES ${ICONS})
   endif()
   set(CPACK_DMG_BACKGROUND_IMAGE "${S}/bigcert.png")
   set(CPACK_BUNDLE_ICON ${ICONS})

@@ -20,3 +20,9 @@ brew install mariadb-connector-c postgresql unixodbc
       ODBC_PREFIX=$(pkg-config --variable=prefix odbc)
 
 make sub-plugins
+
+# Compile OpenSSL
+./Configure darwin64-x86_64-cc shared --prefix=/Users/chris/src/xca-dir/install/ "-mmacosx-version-min=10.13"
+
+# Compile XCA
+cmake -DOPENSSL_ROOT_DIR=$HOME/src/xca-dir/install
