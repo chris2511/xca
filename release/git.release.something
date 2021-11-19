@@ -22,8 +22,8 @@ fi
 branchname="build-$TVERSION"
 
 git checkout -b  "$branchname" "$commit"
-echo "$TVERSION" > VERSION
-git commit VERSION -m "$TVERSION"
+echo "$TVERSION" > VERSION.txt
+git commit VERSION.txt -m "$TVERSION"
 git tag RELEASE.$TVERSION
 
 # Create the tar.gz

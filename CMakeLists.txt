@@ -6,7 +6,7 @@ project(xca
 	LANGUAGES CXX
 )
 
-file(READ VERSION ver)
+file(READ VERSION.txt ver)
 string(REGEX MATCH "([0-9\.]*)" _ ${ver})
 set(PROJECT_VERSION ${CMAKE_MATCH_1})
 

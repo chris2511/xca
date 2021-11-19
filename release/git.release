@@ -3,7 +3,7 @@
 set -e
 
 type git || exit 1
-test -s VERSION && test -s changelog && test -d ../qt
+test -s VERSION.txt && test -s changelog && test -d ../qt
 
 export TVERSION="$1"
 commit=master
@@ -43,7 +43,7 @@ if test -n "$x"; then
   exit 1
 fi
 
-echo "$TVERSION" > VERSION
+echo "$TVERSION" > VERSION.txt
 (
  LANG=C date +"xca $TVERSION %a %b %d %Y"
  echo
@@ -51,7 +51,7 @@ echo "$TVERSION" > VERSION
 ) > changelog.new
 mv changelog.new changelog
 
-git commit VERSION changelog -m "Prepare XCA $TVERSION"
+git commit VERSION.txt changelog -m "Prepare XCA $TVERSION"
 git tag -a "RELEASE.$TVERSION" -m "Release version $TVERSION"
 
 # Create the tar.gz
