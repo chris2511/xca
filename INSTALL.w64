@@ -1,16 +1,20 @@
 
-Since the switch to CMAKE a native compilation on Windows
+Since the switch to CMAKE a native compilation of XCA on Windows
 is possible.
 
 Required:
-  QT via Maintainance tool:
+  QT via Maintenance tool:
     Qt -> 5.15.2 -> MingW-64bit
-       -> Qt Creator
+       -> QtCreator (optional)
        -> MingW
        -> Cmake
-       -> Ninja
 
   OpenSSL: Win64OpenSSL_1_1_1k.msi
+
+Optional for the remote database connections:
+  MySQL: qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit.zip
+                       https://github.com/thecodemonkey86/qt_mysql_driver
+  PostgreSQL: postgresql-14.1-1-windows-x64.exe
 
 Optional for the documentation
   Python3.9 via Microsoft Store
@@ -19,4 +23,12 @@ Optional for the documentation
 Add the C:\Qt\5.15.2\mingw81_64\bin and the path shown by pip
 to your %PATH% environment
 
-Open XCA in the Qt Creator and GO
+Currently only MinGW is supported.
+
+Take your favorite path:
+ - Open XCA in the Qt Creator and GO
+ - Open in VS-Code and GO
+ - On the console in the xca directory build in a subdir:
+   cmake -G "MinGW Makefiles" ../xca
+   cmake --build . -j5
+   cpack
