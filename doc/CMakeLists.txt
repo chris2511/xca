@@ -41,6 +41,7 @@ if(SPHINX)
   configure_file(${S}/conf.py.in ${D}/rst/conf.py)
   add_custom_command(
 	OUTPUT ${D}/html.stamp
+	BYPRODUCTS ${HTML_DEST}
 	COMMAND ${SPHINX} -q -b html ${D}/rst ${D}/html
 	COMMAND cmake -E touch ${D}/html.stamp
 	DEPENDS ${D}/rst/conf.py sphinx-src
@@ -49,14 +50,11 @@ if(SPHINX)
   add_custom_target(sphinx-html DEPENDS ${D}/html.stamp)
   add_custom_command(
 	OUTPUT ${D}/qthelp.stamp
+	BYPRODUCTS ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
 	COMMAND ${SPHINX} -q -b qthelp ${D}/rst ${D}/qthelp
 	COMMAND cmake -E touch ${D}/qthelp.stamp
 	DEPENDS ${D}/rst/conf.py sphinx-src
 	COMMENT "Create context sensitive help"
-  )
-  set_source_files_properties(${HTML_DEST}
-	${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
-	PROPERTIES GENERATED TRUE
   )
   add_custom_target(sphinx-qthelp DEPENDS ${D}/qthelp.stamp)
   add_custom_command(
@@ -90,10 +88,6 @@ if(SPHINX)
 	COMMENT "Generate 'rst' commandline documentation"
   )
   add_dependencies(${CMAKE_PROJECT_NAME} sphinx-html)
-  set_source_files_properties(${HTML_DEST} ${QTHELP_DEST}
-	${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp
-	PROPERTIES GENERATED TRUE
-  )
   target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${HTML_DEST})
   add_custom_target(sphinx-src
 	DEPENDS ${D}/rst.stamp
@@ -111,15 +105,13 @@ if(SPHINX)
     set(QTHELP_IDX ${D}/qthelp/xca.qhc ${D}/qthelp/xca.qch)
     add_custom_command(
 	OUTPUT ${D}/qtcollgen.stamp
+	BYPRODUCTS ${QTHELP_IDX}
 	COMMAND ${QTCOLLGEN} ${D}/qthelp/xca.qhcp
 	COMMAND cmake -E touch ${D}/qtcollgen.stamp
 	DEPENDS ${D}/qthelp.stamp
 	COMMENT "Create context sensitive help index"
     )
     add_custom_target(sphinx-qtcollgen DEPENDS ${D}/qtcollgen.stamp)
-    set_source_files_properties(${QTHELP_IDX}
-	PROPERTIES GENERATED TRUE
-    )
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QTHELP_DEST} ${QTHELP_IDX})
     add_dependencies(${CMAKE_PROJECT_NAME} sphinx-qtcollgen)
     list(APPEND APP_RESOURCES ${QTHELP_DEST} ${QTHELP_IDX})
