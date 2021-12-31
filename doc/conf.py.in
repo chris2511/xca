@@ -22,7 +22,7 @@ copyright = '2021, Christian Hohnstädt'
 author = 'Christian Hohnstädt'
 
 # The full version, including alpha/beta/rc tags
-release = '@XCA_VERSION@'
+release = '@PROJECT_VERSION@'
 
 
 # -- General configuration ---------------------------------------------------

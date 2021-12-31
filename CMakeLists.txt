@@ -41,6 +41,9 @@ add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc)
 add_executable(xcadoc xcadoc.cpp)
 target_include_directories(xcadoc PRIVATE "${PROJECT_SOURCE_DIR}/lib")
 
+set(PSQL_BINDIR "")
+set(MYSQL_BINDIR "")
+
 if (APPLE)
   execute_process(COMMAND brew --prefix OUTPUT_STRIP_TRAILING_WHITESPACE
                   OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET)
@@ -70,6 +73,7 @@ elseif(WIN32)
   endif()
 endif()
 
+
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
@@ -84,7 +88,6 @@ endif()
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	core widgets core
 	OpenSSL::Crypto
-	${LTDL_LIB}
 	Qt5::Widgets Qt5::Core Qt5::Sql Qt5::Help
 )
 target_link_libraries(xcadoc core Qt5::Core)

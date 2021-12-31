@@ -3,7 +3,6 @@ include_directories(${Qt5Widgets_INCLUDE_DIRS}
                 ${Qt5Core_INCLUDE_DIRS}
                 ${Qt5Help_INCLUDE_DIRS}
                 ${OPENSSL_INCLUDE_DIR}
-		${LTDL_INCLUDE_DIR}
                 ${PROJECT_BINARY_DIR}
                 ${PROJECT_SOURCE_DIR}
 )
