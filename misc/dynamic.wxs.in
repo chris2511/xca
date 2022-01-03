@@ -4,7 +4,7 @@
     <Fragment>
         <DirectoryRef Id="INSTALLDIR">
             <Component Id="Clibcrypto11x64" Guid="44133d17-96b5-4aee-8a24-9c722482add5">
-                <File Id="libcrypto11x64.dll" Source="@OPENSSL_ROOT_DIR@/libcrypto-1_1-x64.dll" KeyPath="yes"/>
+                <File Id="libcrypto11x64.dll" Source="@OPENSSL_ROOT_DIR@/bin/libcrypto-1_1-x64.dll" KeyPath="yes"/>
             </Component>
         </DirectoryRef>
         <FeatureGroup Id="DatabaseGroup">
