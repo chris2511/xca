@@ -1,6 +1,6 @@
 # XCA -- X Certificate and Key Management
 
-[![Build Status](https://www.travis-ci.org/chris2511/xca.svg?branch=master)](https://www.travis-ci.org/chris2511/xca)
+[![CMake](https://github.com/chris2511/xca/actions/workflows/cmake.yaml/badge.svg)](https://github.com/chris2511/xca/actions/workflows/cmake.yaml)
 
 ## __Release Notes__
  * The latest release is *2.4.0*

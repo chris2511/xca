@@ -181,6 +181,7 @@ elseif(WIN32)
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
     COMMAND "${WINDEPLOYQT_EXECUTABLE}"
         --dir "${CMAKE_BINARY_DIR}"
+        --compiler-runtime
         "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.exe"
     COMMENT "Running windeployqt..."
   )

@@ -1,0 +1,86 @@
+name: CMake
+
+on: push
+
+env:
+  BUILD_TYPE: Release
+  MSYS: D:\msys2
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+        - os: ubuntu-latest
+          generator: Unix Makefiles
+          openssl_root: /usr
+          artifact: xca-*-Linux.tar.gz
+
+        - os: macos-latest
+          generator: Unix Makefiles
+          openssl_root: /usr/local/opt/openssl@1.1
+          artifact: xca-*.dmg
+
+        - os: windows-latest
+          generator: MinGW Makefiles
+                      # ${{env.MSYS}} not accepted here... ??
+          openssl_root: D:\msys2\msys64\mingw64
+          artifact: xca-*.msi
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+    - name: Install Sphinx
+      run: pip install sphinx
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        arch: win64_mingw81
+
+    - uses: msys2/setup-msys2@v2
+      if: matrix.os == 'windows-latest'
+      with:
+        location: ${{env.MSYS}}
+        msystem: mingw64
+        install: mingw-w64-x86_64-openssl openssl-devel
+
+    - name: Brew install OpenSSL
+      if: matrix.os == 'macos-latest'
+      run: brew install openssl
+
+    - name: Checkout XCA
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Configure
+      # No YAML Multiline mechanism (>, |, \, >-, >+2 whatever) works as expected
+      # Give up. Live with the long line
+      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5
+
+    - name: Fixup after WindeployQT
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd ${{env.MSYS}}\msys64\mingw64\bin
+        cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}/build
+
+    #- name: Test
+      #working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      #run: ctest -C ${{env.BUILD_TYPE}}
+
+    - name: Pack
+      run: |
+        cd ${{github.workspace}}/build
+        cpack -C ${{env.BUILD_TYPE}}
+
+    - name: Deploy
+      uses: actions/upload-artifact@v2
+      with:
+        path: ${{github.workspace}}/build/${{matrix.artifact}}
+        name: ${{matrix.os}}
