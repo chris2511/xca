@@ -311,7 +311,7 @@ arguments &arguments::operator = (const arguments &a)
 
 arguments::~arguments()
 {
-	delete long_opts;
+    delete[] long_opts;
 }
 
 QString arguments::operator [] (const QString &key) const
