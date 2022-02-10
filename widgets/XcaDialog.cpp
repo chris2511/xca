@@ -12,7 +12,7 @@
 
 // index = enum pki_type
 static const char * const PixmapMap[] = {
-  "" ":keyImg", ":csrImg", ":certImg", ":revImg", ":tempImg", "", ":scardImg",
+    "", ":keyImg", ":csrImg", ":certImg", ":revImg", ":tempImg", "", ":scardImg",
 };
 
 XcaDialog::XcaDialog(QWidget *parent, enum pki_type type, QWidget *w,
