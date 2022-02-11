@@ -30,11 +30,13 @@ void TempTreeView::fillContextMenu(QMenu *menu, QMenu *,
 void TempTreeView::duplicateTemp()
 {
 	pki_temp *temp = db_base::fromIndex<pki_temp>(currentIndex());
-	if (!temp || !basemodel)
+    db_temp* db_temp = temps();
+    if (!temp || !basemodel || !db_temp)
 		return;
+
 	pki_temp *newtemp = new pki_temp(temp);
 	newtemp->setIntName(newtemp->getIntName() + " " + tr("copy"));
-	temps()->insertPKI(newtemp);
+    db_temp->insertPKI(newtemp);
 }
 
 void TempTreeView::certFromTemp()
