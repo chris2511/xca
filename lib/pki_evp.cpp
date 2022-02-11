@@ -699,7 +699,7 @@ bool pki_evp::pem(BioByteArray &b)
 		const EVP_CIPHER *algo = xport->match_all(F_CRYPT) ?
 			EVP_aes_256_cbc() : NULL;
 		pkey = decryptKey();
-		PEM_write_bio_PrivateKey(b, pkey, NULL,
+        PEM_write_bio_PrivateKey(b, pkey, algo,
 					 passwd.constUchar(), passwd.size(),
 					 NULL, NULL);
 		EVP_PKEY_free(pkey);
