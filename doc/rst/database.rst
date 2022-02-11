@@ -21,6 +21,14 @@ Extract the private key with internal name 'pk8key' from the database::
 
   sqlite3 ~/xca.xdb "SELECT private FROM view_private WHERE name='pk8key'" | base64 -d | openssl pkcs8 -inform DER
 
+Extract the certificate with internal name 'rootca' from the database::
+
+  sqlite3 ~/xca.xdb "SELECT cert FROM view_certs WHERE name='rootca'" | base64 -d | openssl x509 -inform DER
+
+Extract the public part of a key by database primary key::
+
+  sqlite3 ~/xca.xdb "SELECT public from view_public_keys WHERE id=3" | base64 -d | openssl pkey -inform DER -pubin
+
 Extract a CRL::
 
   sqlite3 ~/xca.xdb "SELECT crl FROM view_crls WHERE name='ca'" | base64 -d | openssl crl -inform DER
