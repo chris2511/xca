@@ -1,9 +1,7 @@
+# This installation is for building macos 10.13 compatible releases including
+# database drivers. IOW: For me
 
-brew install pkg-config autoconf automake openssl qt@5 libtool
-
-cd xca-2.3.0
-./configure && make
-
+brew install openssl qt5 python3 cmake
 
 # Compile SQL Drivers if necessary:
 
@@ -22,7 +20,9 @@ brew install mariadb-connector-c postgresql unixodbc
 make sub-plugins
 
 # Compile OpenSSL
-./Configure darwin64-x86_64-cc shared --prefix=/Users/chris/src/xca-dir/install/ "-mmacosx-version-min=10.13"
+./Configure darwin64-x86_64-cc shared --prefix=$HOME/src/xca-dir/install/ "-mmacosx-version-min=10.13"
 
 # Compile XCA
-cmake -DOPENSSL_ROOT_DIR=$HOME/src/xca-dir/install
+cmake -DOPENSSL_ROOT_DIR=$HOME/src/xca-dir/install -B build xca
+cmake --build build -j5
+cd build && cpack

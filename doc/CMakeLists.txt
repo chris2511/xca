@@ -95,10 +95,16 @@ if(SPHINX)
 		${D}/rst/arguments.rst
   )
 
-  if (UNIX AND NOT APPLE)
-    install(FILES ${HTML_DEST}
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
+  if (UNIX)
+    if (APPLE)
+      execute_process(COMMAND ln -fs .doc/html/index.html ${D}/manual.html)
+      install(FILES ${D}/manual.html DESTINATION .)
+      install(DIRECTORY ${D}/html DESTINATION .doc)
+    else()
+      install(FILES ${HTML_DEST}
+              DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
     )
+    endif()
   endif()
 
   if(QTCOLLGEN)

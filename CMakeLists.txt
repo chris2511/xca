@@ -100,8 +100,6 @@ if (APPLE)
 	${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
   )
   set(CMAKE_MACOSX_BUNDLE ON)
-  set_property(TARGET ${PROJECT_NAME} PROPERTY MACOSX_BUNDLE_INFO_PLIST
-		"${PROJECT_SOURCE_DIR}/misc/Info.plist.in")
 
   ##### Plugins
 
@@ -112,6 +110,13 @@ if (APPLE)
     list(APPEND sqlplugin_paths "${loc}")
   endforeach()
   qt5_import_plugins(${CMAKE_PROJECT_NAME} INCLUDE_BY_TYPE sqldrivers)
+
+  # Avoid bin/ sub-directory in DMG
+  set(RUNTIME_DEST .)
+
+else()
+
+  set(RUNTIME_DEST ${CMAKE_INSTALL_BINDIR})
 
 endif()
 
@@ -140,9 +145,9 @@ include(doc/CMakeLists.txt)
 include(img/CMakeLists.txt)
 
 install(TARGETS ${CMAKE_PROJECT_NAME}
-	BUNDLE DESTINATION .
-	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 	RESOURCE DESTINATION Resources
+	BUNDLE DESTINATION .
+	RUNTIME DESTINATION ${RUNTIME_DEST}
 )
 
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")

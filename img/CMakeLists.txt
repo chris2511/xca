@@ -33,7 +33,6 @@ if(APPLE)
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${ICONS})
     list(APPEND APP_RESOURCES ${ICONS})
   endif()
-  set(CPACK_DMG_BACKGROUND_IMAGE "${S}/bigcert.png")
   set(CPACK_BUNDLE_ICON ${ICONS})
 
 elseif(WIN32)

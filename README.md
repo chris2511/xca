@@ -68,6 +68,7 @@ To build XCA you need:
  - Install dependencies and clone xca as above
    and additionally install the xcode app
  - `cmake -G Xcode
+
 ### Windows
 
 - Install the dependencies

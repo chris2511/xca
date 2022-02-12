@@ -7,9 +7,11 @@ configure_file(${S}/Info.plist.in ${D}/Info.plist)
 configure_file(${S}/dynamic.wxs.in ${D}/dynamic.wxs)
 
 set(CPACK_RESOURCE_FILE_LICENSE "${S}/copyright.rtf")
-set(CPACK_BUNDLE_PLIST "${D}/Info.plist")
+set(CPACK_BUNDLE_PLIST ${D}/Info.plist)
+set(CPACK_DMG_DS_STORE ${S}/dmg.DS_Store)
+
 set_property(TARGET ${PROJECT_NAME}
-             PROPERTY MACOSX_BUNDLE_INFO_PLIST "${D}/Info.plist")
+             PROPERTY MACOSX_BUNDLE_INFO_PLIST ${D}/Info.plist)
 
 ##### XCA Templates
 set(TEMPLATES CA.xca TLS_server.xca TLS_client.xca)
