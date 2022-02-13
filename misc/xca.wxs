@@ -187,6 +187,7 @@
             <ComponentRef Id="Clibwinpthread1"/>
             <ComponentRef Id="Clibgcc_s_seh1"/>
             <ComponentRef Id="Clibcrypto11x64"/>
+            <ComponentRef Id="Cvcruntime140"/>
             <ComponentRef Id="CQt5Core"/>
             <ComponentRef Id="CQt5Gui"/>
             <ComponentRef Id="CQt5Sql"/>

@@ -71,6 +71,7 @@ elseif(WIN32)
   if (NOT EXISTS ${MYSQL_BINDIR})
     set(MYSQL_BINDIR "")
   endif()
+  set(SYSTEM32 $ENV{WINDIR}/system32)
 endif()
 
 
