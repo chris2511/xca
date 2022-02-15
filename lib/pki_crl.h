@@ -29,7 +29,7 @@ class crljob
 	bool setCrlNumber;
 	a1int crlNumber;
 	int crlDays;
-	const digest hashAlgo;
+    digest hashAlgo;
 	a1time lastUpdate;
 	a1time nextUpdate;
 
