@@ -55,6 +55,7 @@ crljob NewCrl::getCrlJob() const
 	t.lastUpdate = lastUpdate->getDate();
 	t.nextUpdate = nextUpdate->getDate();
     t.hashAlgo = hashAlgo->current();
+    t.crlNumber = crlNumber->text().toLong();
 	return t;
 }
 
