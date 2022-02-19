@@ -33,10 +33,6 @@ digest::digest(const QString &name) : md_nid(default_md)
 	md_nid = OBJ_txt2nid(CCHAR(s.remove(QChar(' '))));
 }
 
-digest::digest(const digest &d) : md_nid(d.md_nid)
-{
-}
-
 bool digest::isInsecure() const
 {
 	switch (md_nid) {

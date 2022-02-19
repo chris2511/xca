@@ -23,7 +23,8 @@ class digest
 	digest(int nid);
 	digest(const EVP_MD *md);
 	digest(const QString &name);
-	digest(const digest &d);
+    digest(const digest &d) = default;
+    digest& operator=(const digest &d) = default;
 
 	bool isInsecure() const;
 	const EVP_MD *MD() const;
