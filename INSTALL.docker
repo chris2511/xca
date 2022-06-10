@@ -23,19 +23,11 @@ There are some options to customize build. Use dockers "--build-arg"
 option to add options.
 
 CODENAME              : code name of ubuntu version
-                        example: --build-arg CODENAME=bionic
+                        example: --build-arg CODENAME=jammy
 USER_ID               : id of user "user" inside of container
                         example: --build-arg USER_ID=`id -u`
 PARALLELMFLAGS        : make flags for parralel build
                         example: --build-arg PARALLELMFLAGS=-j2
-OPENSSL_UPSTREAM      : Upstream URL (variable path after
-                                       https://www.openssl.org/source/ )
-		        example: --build-arg OPENSSL_VERIONS=1.1.1d
-OPENSSL_SHA1          : sha1 checksum of OpenSSL package
-                        example: --build-arg OPENSSL_SHA1=056057782325134b76d1931c48f2c7e6595d7ef4
-OPENSSL_BUILD_PARALLEL: enable/disable parallel build of OpenSSL
-                        example: --build-arg OPENSSL_BUILD_PARALLEL=YES
-                        note: some (older) versions of OpenSSL do not support parallel build
 
 Run XCA
 =======
@@ -44,7 +36,7 @@ Once the container is built, run it using the following command:
 
 	docker run --rm -it --user `id -u` --network=host \
 		-e DISPLAY=$DISPLAY -e "QT_X11_NO_MITSHM=1" \
-		xca 
+		xca
 
 Share local directory
 ---------------------
@@ -58,13 +50,3 @@ Use docker volumes to share a local directory. This might be useful to store dat
 		xca
 
 This makes ./some_local_directory accessible in the container as /backup.
-
-Run bash
---------
-
-For debugging purposes container can be started in bash mode:
-
-	docker run --rm -it --user `id -u` --network=host \
-		-e DISPLAY=$DISPLAY -e "QT_X11_NO_MITSHM=1" \
-		--entrypoint dumb-init xca -- bash
- 

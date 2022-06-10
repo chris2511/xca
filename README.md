@@ -33,7 +33,7 @@ To build XCA you need:
  - a toolchain
  - cmake: https://cmake.org
  - Qt5: https://www.qt.io
- - OpenSSL: https://www.openssl.org
+ - OpenSSL: https://www.openssl.org (1.1.1 or higher)
  - Sphinx-Build: https://www.sphinx-doc.org
 
 ### Linux / Unix
@@ -42,7 +42,6 @@ To build XCA you need:
    ```
    sudo apt install build-essential libssl-dev pkg-config qtbase5-dev qttools5-dev-tools libqt5sql5 libqt5help5 python3-sphinxcontrib.qthelp
    ```
-
  - Clone: `git clone https://github.com/chris2511/xca.git`
  - Configure: `cmake -B build xca`
  - Make: `cmake --build build -j5`
@@ -80,11 +79,17 @@ To build XCA you need:
   ```
   Add the PATH shown by pip to your PATH
   ```
-  aqt install-qt windows desktop 5.15.2 win64_mingw81
-  aqt install-tool windows desktop tool_cmake qt.tools.cmake.win64
-  aqt install-tool windows desktop tool_mingw qt.tools.win64_mingw810
+  aqt install-qt windows desktop 5.15.2 win64\_mingw81
+  aqt install-tool windows desktop tools\_cmake qt.tools.cmake.win64
+  aqt install-tool windows desktop tools\_mingw qt.tools.win64\_mingw810
   ```
   If 7z is missing, install it from the store.
+
+ - Optional for the remote database connections:
+   - MySQL: [qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit.zip]
+            (https://github.com/thecodemonkey86/qt_mysql_driver)
+   - PostgreSQL: [postgresql-14.1-1-windows-x64.exe]()
+
  - Clone: `git clone https://github.com/chris2511/xca.git`
  - Configure: `cmake -B build -G "MinGW Makefiles" xca`
  - Make: `cmake --build build -j5`
@@ -93,10 +98,3 @@ To build XCA you need:
 Of course VSCode may be used, too. The MSVC toolchain, however
 is no supported, yet.
 
-#### SQL Drivers
-
-Optional for the remote database connections:
-
- - MySQL: https://github.com/thecodemonkey86/qt_mysql_driver/files/5575769/qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit.zip
-
- - PostgreSQL: postgresql-14.1-1-windows-x64.exe
