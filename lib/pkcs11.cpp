@@ -653,6 +653,23 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	return size;
 }
 
+// Shared between libressl and openssl
+static int eng_idx = -1;
+static int eng_finish(ENGINE *e)
+{
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, eng_idx);
+	delete p11;
+	ENGINE_set_ex_data(e, eng_idx, NULL);
+	return 1;
+}
+
+static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
+{
+	void *p = EVP_PKEY_CTX_get_app_data(src);
+	EVP_PKEY_CTX_set_app_data(dst,  p);
+	return 1;
+}
+
 #ifndef LIBRESSL_VERSION_NUMBER
 static int rsa_privdata_free(RSA *rsa)
 {
@@ -718,6 +735,8 @@ out:
 }
 
 #ifndef OPENSSL_NO_EC
+
+static EVP_PKEY_METHOD *p11_eddsa_method;
 
 static void ec_privdata_free(EC_KEY *ec)
 {
@@ -811,6 +830,61 @@ static EC_KEY_METHOD *setup_ec_key_meth()
 				ec_set_private_proc, ec_set_public_proc);
 	return ec_key_meth;
 }
+
+static int eddsa_eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
+{
+	static const int my_nids[] = {EVP_PKEY_ED25519 };
+	(void)e;
+	if (m) {
+		switch (nid) {
+		case EVP_PKEY_ED25519:
+			*m = p11_eddsa_method;
+			return 1;
+		return 0;
+	    }
+	}
+	if (nids) {
+		*nids = my_nids;
+		return ARRAY_SIZE(my_nids);
+	}
+	return -1;
+
+}
+
+static int eng_pmeth_sign_eddsa(EVP_MD_CTX *ctx,
+			unsigned char *sig, size_t *siglen,
+			const unsigned char *tbs, size_t tbslen)
+{
+	int len, rs_len, ret = -1;
+	unsigned char rs_buf[512];
+	EVP_PKEY *pkey = EVP_PKEY_CTX_get0_pkey(EVP_MD_CTX_pkey_ctx(ctx));
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(EVP_PKEY_get0_engine(pkey), eng_idx);
+
+	// siglen is unsigned and can' cope with -1 as return value
+	len = p11->encrypt(tbslen, tbs, rs_buf, sizeof rs_buf, CKM_EDDSA);
+	if (len & 0x01) // Must be even
+		goto out;
+	memcpy(sig, rs_buf, len);
+	*siglen = len;
+	ret = 1;
+ out:
+	ign_openssl_error();
+	return ret;
+}
+
+static int eng_pmeth_ctrl_eddsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
+{
+	(void)p1;
+	switch (type) {
+	case EVP_PKEY_CTRL_MD:
+		if (p2 == NULL || (const EVP_MD *)p2 == EVP_md_null())
+		    return 1;
+		ECerr(EC_F_PKEY_ECD_CTRL, EC_R_INVALID_DIGEST_TYPE);
+		return 0;
+	}
+	qWarning() << "EC Don't call me" << type;
+	return -2;
+}
 #endif
 
 EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
@@ -820,6 +894,32 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifndef OPENSSL_NO_EC
 	static EC_KEY_METHOD *ec_key_meth = NULL;
 	EC_KEY *ec;
+	static ENGINE *e = NULL;
+
+	if (!e) {
+		e = ENGINE_new();
+		Q_CHECK_PTR(e);
+
+		ENGINE_set_pkey_meths(e, eddsa_eng_meths);
+		ENGINE_set_finish_function(e, eng_finish);
+		if (eng_idx == -1)
+			eng_idx = ENGINE_get_ex_new_index(0, NULL, NULL, NULL, 0);
+		ENGINE_set_ex_data(e, eng_idx, NULL);
+		// Why is engine attached to pubkey? I'm commenting it, as I do
+		// not want it to be attached to RSA/DSA/EC
+		//CRYPTO_add(&pub->references, 1, CRYPTO_LOCK_EVP_PKEY);
+		//pub->engine = e;
+
+		if (!p11_eddsa_method) {
+			p11_eddsa_method = EVP_PKEY_meth_new(EVP_PKEY_ED25519,
+					EVP_PKEY_FLAG_SIGCTX_CUSTOM);
+			EVP_PKEY_meth_set_digestsign(p11_eddsa_method,
+					eng_pmeth_sign_eddsa);
+			EVP_PKEY_meth_set_ctrl(p11_eddsa_method,
+					eng_pmeth_ctrl_eddsa, NULL);
+			EVP_PKEY_meth_set_copy(p11_eddsa_method, eng_pmeth_copy);
+		}
+	}
 #endif
 	RSA *rsa;
 	DSA *dsa;
@@ -876,26 +976,32 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		openssl_error();
 		EVP_PKEY_assign_EC_KEY(evp, ec);
 		break;
+	case EVP_PKEY_ED25519:
+		size_t len;
+		if (ENGINE_get_ex_data(e, eng_idx))
+			qWarning() << "We forgot to free the previous Card key.";
+		ENGINE_set_ex_data(e, eng_idx, this);
+		p11obj = obj;
+		EVP_PKEY_get_raw_public_key(pub, NULL, &len);
+		unsigned char *pubkey = (unsigned char *)OPENSSL_malloc(len);
+		Q_CHECK_PTR(pubkey);
+		EVP_PKEY_get_raw_public_key(pub, pubkey, &len);
+		evp = EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, e, pubkey, len);
+		openssl_error();
+		OPENSSL_free(pubkey);
+		//EVP_PKEY_set1_engine(evp, e);
+		break;
 #endif
 	}
 	return evp;
 }
 #else
 
-static int eng_idx = -1;
 static EVP_PKEY_METHOD *p11_rsa_method;
 static EVP_PKEY_METHOD *p11_dsa_method;
 #ifndef OPENSSL_NO_EC
 static EVP_PKEY_METHOD *p11_ec_method;
 #endif
-
-static int eng_finish(ENGINE *e)
-{
-	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, eng_idx);
-	delete p11;
-	ENGINE_set_ex_data(e, eng_idx, NULL);
-	return 1;
-}
 
 static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 {
@@ -1108,13 +1214,6 @@ out:
 	return ret;
 }
 #endif
-
-static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
-{
-	void *p = EVP_PKEY_CTX_get_app_data(src);
-	EVP_PKEY_CTX_set_app_data(dst,  p);
-	return 1;
-}
 
 static int eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 {
