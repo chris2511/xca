@@ -62,39 +62,44 @@ To build XCA you need:
  - Build the DMG: `cd build && cpack`
  - Build the PKG: `cd build && cpack -G productbuild`
 
-#### Xcode
-
- - Install dependencies and clone xca as above
-   and additionally install the xcode app
- - `cmake -G Xcode
-
 ### Windows
 
 - Install the dependencies
   - Install Python for windows from the store or https://www.python.org/downloads/windows/
   - Install OpenSSL from here: https://slproweb.com/download/Win64OpenSSL-1_1_1m.msi and verify the sha256 from https://github.com/slproweb/opensslhashes/blob/master/win32_openssl_hashes.json
   - To install the Qt libraries, cmake and the MinGW compiler [aqtinstall](https://github.com/miurahr/aqtinstall) is used.
-  ```
-  pip3 install sphinx aqtinstall
-  ```
-  Add the PATH shown by pip to your PATH
-  ```
-  aqt install-qt windows desktop 5.15.2 win64\_mingw81
-  aqt install-tool windows desktop tools\_cmake qt.tools.cmake.win64
-  aqt install-tool windows desktop tools\_mingw qt.tools.win64\_mingw810
-  ```
-  If 7z is missing, install it from the store.
+    Sphinx is used to generate the documentation
+    ```
+    pip3 install sphinx aqtinstall
+    ```
+  - Add the PATH shown by pip to your PATH
+  - Install Qt, cmake and the MinGW toolchain
+    ```
+    aqt install-qt windows desktop 5.15.2 win64_mingw81
+    aqt install-tool windows desktop tools\_cmake qt.tools.cmake.win64
+    aqt install-tool windows desktop tools\_mingw qt.tools.win64\_mingw810
+    aqt install-tool windows desktop tools\_vcredist qt.tools.vcredist_64
+    ```
+  - If 7z is missing, install it from the store. `7-Zip File Manager (unofficial)` or from 7-zip.org
+  - Add cmake, MinGW, OpenSSL and Qt5 to your Path
+    ```
+    %USERPROFILE%\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts;
+    %USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
+    %USERPROFILE%\Tools\CMake_64\bin;
+    %USERPROFILE%\Tools\mingw810_64\bin;
+    %USERPROFILE%\5.15.2\mingw81_64\bin;
+    ```
+  - Create `Qt5_DIR` environment variable:
+    ```
+    %USERPROFILE%\5.15.2\mingw81_64\lib\cmake
+    ```
+  - Install `https://wixtoolset.org/releases/` if you want to create the installer
+  - Optional for the remote database connections:
+    - MySQL: qsqlmysql.dll\_Qt\_SQL\_driver\_5.15.2\_MinGW\_8.1.0\_64-bit.zip from
+             https://github.com/thecodemonkey86/qt_mysql_driver
+    - PostgreSQL: postgresql-14.1-1-windows-x64.exe
 
- - Optional for the remote database connections:
-   - MySQL: [qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit.zip]
-            (https://github.com/thecodemonkey86/qt_mysql_driver)
-   - PostgreSQL: [postgresql-14.1-1-windows-x64.exe]()
-
- - Clone: `git clone https://github.com/chris2511/xca.git`
- - Configure: `cmake -B build -G "MinGW Makefiles" xca`
- - Make: `cmake --build build -j5`
- - Build the MSI installer: `cd build && cpack`
-
-Of course VSCode may be used, too. The MSVC toolchain, however
-is no supported, yet.
-
+- Clone: `git clone https://github.com/chris2511/xca.git`
+- Configure: `cmake -B build -G "MinGW Makefiles" xca`
+- Make: `cmake --build build -j5`
+- Build the MSI installer: `cd build && cpack`
