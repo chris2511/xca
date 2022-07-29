@@ -206,6 +206,25 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		EVP_PKEY_assign_EC_KEY(pkey, ec);
 		break;
 	}
+	case CKK_EC_EDWARDS: {
+		QByteArray ba;
+		ASN1_OCTET_STRING *os;
+		pk11_attr_data grp(CKA_EC_PARAMS);
+		p11.loadAttribute(grp, object);
+		pk11_attr_data pt(CKA_EC_POINT);
+		p11.loadAttribute(pt, object);
+		ba = pt.getData();
+		os = (ASN1_OCTET_STRING *)
+			d2i_bytearray(D2I_VOID(d2i_ASN1_OCTET_STRING), ba);
+		pki_openssl_error();
+		pkey = EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, NULL,
+			(const uint8_t *)os->data,
+			os->length);
+		pki_openssl_error();
+		ASN1_OCTET_STRING_free(os);
+		pki_openssl_error();
+		break;
+	}
 #endif
 	default:
 		throw errorEx(QString("Unsupported CKA_KEY_TYPE: %1\n").arg(keytype));
@@ -327,6 +346,10 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC) <<
 			pk11_attr_data(CKA_EC_PARAMS, ba);
+		break;
+	case EVP_PKEY_ED25519:
+		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC_EDWARDS);
+		// should it also return params, somehow?
 		break;
 #endif
 	default:
