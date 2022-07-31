@@ -68,6 +68,7 @@ class pki_base : public QObject
 		virtual QByteArray PEM_comment() const;
 		virtual void collect_properties(QMap<QString, QString> &) const;
 		QList<pki_base*> childItems;
+		mutable QRegExp lastPattern;
 
 	public:
 		enum msg_type {
@@ -89,12 +90,17 @@ class pki_base : public QObject
 
 		QList<pki_base*> getChildItems() const;
 		void clear();
+		void recheckVisibility()
+		{
+			lastPattern = QRegExp();
+		}
 		QString getIntName() const
 		{
 			return desc;
 		}
 		void setFilename(const QString &s)
 		{
+			recheckVisibility();
 			filename = s;
 		}
 		QString getFilename() const
@@ -110,6 +116,7 @@ class pki_base : public QObject
 		QString getUnderlinedName() const;
 		void setIntName(const QString &d)
 		{
+			recheckVisibility();
 			desc = d;
 		}
 		virtual void autoIntName(const QString &file);
@@ -119,6 +126,7 @@ class pki_base : public QObject
 		}
 		void setComment(const QString &c)
 		{
+			recheckVisibility();
 			comment = c;
 		}
 		QVariant getSqlItemId() const

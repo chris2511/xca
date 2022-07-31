@@ -553,6 +553,7 @@ void db_base::updateItem(pki_base *pki, const QString &name,
 	TransDone(e);
 	pki->setIntName(name);
 	pki->setComment(comment);
+	pki->recheckVisibility();
 
 	QModelIndex i, j;
 	i = index(pki);

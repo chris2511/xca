@@ -84,8 +84,9 @@ QString pki_base::getUnderlinedName() const
 
 bool pki_base::visible() const
 {
-	if (limitPattern.isEmpty())
+	if (limitPattern.isEmpty() || limitPattern == lastPattern)
 		return true;
+	lastPattern = limitPattern;
 	return getIntName().contains(limitPattern) ||
 		comment.contains(limitPattern);
 }
