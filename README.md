@@ -40,7 +40,7 @@ To build XCA you need:
 
  - Install the dependencies
    ```
-   sudo apt install build-essential libssl-dev pkg-config qtbase5-dev qttools5-dev-tools libqt5sql5 libqt5help5 python3-sphinxcontrib.qthelp
+   sudo apt install build-essential libssl-dev pkg-config qtbase5-dev qttools5-dev-tools libqt5sql5 libqt5help5 cmake qttools5-dev python3-sphinxcontrib.qthelp
    ```
  - Clone: `git clone https://github.com/chris2511/xca.git`
  - Configure: `cmake -B build xca`
