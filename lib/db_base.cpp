@@ -377,8 +377,10 @@ void db_base::dump(const QString &dir) const
 	}
 
 	try {
-		foreach(pki_base *pki, Store.getAll<pki_base>())
-			pki->writeDefault(dirname);
+		foreach(pki_base *pki, Store.getAll<pki_base>()) {
+			if (pkitype.contains(pki->getType()))
+				pki->writeDefault(dirname);
+		}
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);

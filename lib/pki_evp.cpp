@@ -764,7 +764,7 @@ void pki_evp::writeDefault(const QString &dirname) const
 {
 	XFile file(get_dump_filename(dirname, ".pem"));
 	file.open_key();
-	writeKey(file, pki_evp::passwd[0] ? EVP_des_ede3_cbc() : NULL,
+	writeKey(file, pki_evp::passwd.isEmpty() ? NULL : EVP_des_ede3_cbc(),
 			mycb, true);
 }
 
