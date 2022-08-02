@@ -102,7 +102,7 @@ if(SPHINX)
       install(DIRECTORY ${D}/html DESTINATION .doc)
     else()
       install(FILES ${HTML_DEST}
-              DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/${CMAKE_PROJECT_NAME}
+              DESTINATION ${CMAKE_INSTALL_DOCDIR}
     )
     endif()
   endif()
