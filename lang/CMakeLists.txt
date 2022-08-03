@@ -2,7 +2,7 @@
 set(S "${PROJECT_SOURCE_DIR}/lang")
 set(D "${PROJECT_BINARY_DIR}")
 
-list(APPEND XCA_LANGUAGES id hr nl pt_BR zh_CN)
+list(APPEND XCA_LANGUAGES id hr nl pt_BR zh_CN fa)
 list(APPEND XCAQM_LANGUAGES de fr ja pl ru tr es it sk)
 
 foreach(lang ${XCA_LANGUAGES} ${XCAQM_LANGUAGES})
