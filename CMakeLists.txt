@@ -160,7 +160,7 @@ if(APPLE)
   if (DEFINED ENV{APPLE_DEVELOPER})
     set(APPLE_CERT_3PARTY_INST "3rd Party Mac Developer Installer: $ENV{APPLE_DEVELOPER}")
     set(APPLE_CERT_3PARTY_APP "3rd Party Mac Developer Application: $ENV{APPLE_DEVELOPER}")
-    set(APPLE_CERT_ID_APP "Developer ID Application: $$APPLE_DEVELOPER")
+    set(APPLE_CERT_ID_APP "Developer ID Application: $ENV{APPLE_DEVELOPER}")
     set(MACDEPLOYQT_SIGN -codesign=${APPLE_CERT_ID_APP}
 			 -timestamp -always-overwrite
     )
@@ -171,12 +171,11 @@ if(APPLE)
   )
   get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
   get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
-  find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
+  find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS ${_qt_bin_dir})
 
-  add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
-    COMMAND "${MACDEPLOYQT_EXECUTABLE}"
-        "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.app"
-        ${MACDEPLOYQT_SIGN}
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${MACDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
+        -always-overwrite ${MACDEPLOYQT_SIGN}
     COMMENT "Running macdeployqt..."
   )
 
@@ -185,10 +184,8 @@ if(APPLE)
 
 elseif(WIN32)
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
-    COMMAND "${WINDEPLOYQT_EXECUTABLE}"
-        --dir "${CMAKE_BINARY_DIR}"
-        --compiler-runtime
-        "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.exe"
+    COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>
+        --dir ${CMAKE_BINARY_DIR} --compiler-runtime
     COMMENT "Running windeployqt..."
   )
   set(QT_USE_QTMAIN TRUE)
