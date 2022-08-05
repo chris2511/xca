@@ -56,12 +56,14 @@ To build XCA you need:
   brew install openssl qt5 python3 cmake
   pip3 install sphinx
   ```
- - Clone: `git clone https://github.com/chris2511/xca.git`
- - Configure: `cmake -B build xca`
- - Make: `cmake --build build -j5`
- - Build the DMG: `cd build && cpack`
- - Build the PKG: `cd build && cpack -G productbuild`
+- Clone: `git clone https://github.com/chris2511/xca.git`
+- Configure: `cmake -B build xca`
+- Make: `cmake --build build -j5`
+- Build the DMG: `cd build && cpack`
+- Build the PKG: `cd build && cpack -G productbuild`
 
+XCA can be used with Xcode after initializing the directory with:
+`cmake -G Xcode -B .`
 ### Windows
 
 - Install the dependencies
