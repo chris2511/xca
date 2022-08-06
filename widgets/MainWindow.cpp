@@ -573,6 +573,13 @@ enum open_result MainWindow::init_database(const QString &name,
 	return pw_ok;
 }
 
+void MainWindow::showDatabaseName()
+{
+	if (Database.isOpen())
+		dbindex->setText(tr("Database: %1")
+			.arg(compressFilename(Database.name())));
+}
+
 enum open_result MainWindow::setup_open_database()
 {
 	if (!Database.isOpen())
@@ -582,8 +589,7 @@ enum open_result MainWindow::setup_open_database()
 		homedir = QFileInfo(Database.name()).canonicalPath();
 
 	setItemEnabled(true);
-	dbindex->setText(tr("Database") + ": " +
-			 compressFilename(Database.name()));
+	showDatabaseName();
 	set_geometry(Settings["mw_geometry"]);
 
 	if (pki_evp::passwd.isNull())
@@ -730,9 +736,7 @@ void MainWindow::changeEvent(QEvent *event)
 		foreach(db_base *model, Database.getModels())
 			model->updateHeaders();
 
-		if (Database.isOpen())
-			dbindex->setText(tr("Database") + ": " +
-					Database.name());
+		showDatabaseName();
 		searchEdit->setPlaceholderText(tr("Search"));
 	}
 	QMainWindow::changeEvent(event);

@@ -1568,8 +1568,8 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location filename="../widgets/MainWindow.cpp" line="+93"/>
         <location line="+150"/>
-        <source>Database</source>
-        <translation>Datenbank</translation>
+        <source>Database: %1</source>
+        <translation>Datenbank: %1</translation>
     </message>
     <message>
         <location line="-139"/>

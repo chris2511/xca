@@ -85,6 +85,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString homedir;
 		void keyPressEvent(QKeyEvent *e);
 		void update_history_menu();
+		void showDatabaseName();
 
 	public:
 		int exitApp;
