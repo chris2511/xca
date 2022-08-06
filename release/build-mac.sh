@@ -1,58 +1,62 @@
 #!/bin/sh -e
+set -x
+
+do_openssl_arch()
+{
+  arch="$1"
+  openssl="openssl-1.1.1q"
+  test -f "$openssl".tar.gz || curl -O https://www.openssl.org/source/"$openssl".tar.gz
+  if ! test -d "${openssl}-${arch}"; then
+    tar zxf "$openssl".tar.gz
+    mv "$openssl" "${openssl}-${arch}"
+  fi
+  (cd ${openssl}-${arch}
+   ./Configure darwin64-${arch}-cc shared \
+	--prefix="${INSTALL_DIR}-${arch}" \
+	-mmacosx-version-min="$SDK"
+   make -j $JOBS build_libs && make install_dev
+  )
+}
 
 do_openssl()
 {
-set -x
-read openssl < "`dirname $0`/../OpenSSL.version"
-test -f "$openssl".tar.gz || curl https://www.openssl.org/source/"$openssl".tar.gz > "$openssl".tar.gz
-tar zxf "$openssl".tar.gz
-(cd $openssl
- ./Configure darwin64-x86_64-cc shared --prefix=$INSTALL_DIR $CFLAGS
- #./config shared --prefix=$INSTALL_DIR
- make && make install_sw
-)
-chmod 755 $INSTALL_DIR/lib/*.dylib
+  mkdir -p ${INSTALL_DIR}/lib
+  do_openssl_arch x86_64
+  do_openssl_arch arm64
+
+  lipo -create ${INSTALL_DIR}-*/lib/libcrypto.*.dylib -output ${INSTALL_DIR}/lib/libcrypto.1.1.dylib
+  lipo -create ${INSTALL_DIR}-*/lib/libssl.*.dylib -output ${INSTALL_DIR}/lib/libssl.1.1.dylib
+  cp -a ${INSTALL_DIR}-arm64/include ${INSTALL_DIR}
+  ln -s libcrypto.1.1.dylib ${INSTALL_DIR}/lib/libcrypto.dylib
+  ln -s libssl.1.1.dylib ${INSTALL_DIR}/lib/libssl.dylib
+
+#  chmod 755 $INSTALL_DIR/lib/*.dylib
 }
 
-do_libtool()
-{(
-read libtool < "`dirname $0`/../Libtool.version"
-test -f "$libtool".tar.gz || curl http://ftp.gnu.org/gnu/libtool/"$libtool".tar.gz > "$libtool".tar.gz
-tar zxf "$libtool".tar.gz
-cd "$libtool"
-#export CFLAGS="-arch i386"
-./configure --prefix ${INSTALL_DIR}
-make && make install
-)}
+XCA_DIR="$(cd `dirname $0`/.. && pwd)"
+TOP_DIR="`dirname $XCA_DIR`"
 
-XCA_DIR="`dirname $0`"
-XCA_DIR="`cd $XCA_DIR/.. && pwd`"
+BUILDDIR="$TOP_DIR/osx-release"
 
-# define the installation dir and the path to the new library
-# it will be installed locally in the home directory
-export INSTALL_DIR="`pwd`"/install
-export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
-export CPPFLAGS="$CPPFLAGS -I${INSTALL_DIR}/include"
-export LDFLAGS="-L${INSTALL_DIR}/lib"
+INSTALL_DIR="$TOP_DIR/install"
+SDK="10.13"
+JOBS=4
+ARCHIVE="xcarch.xcarchive"
+test -x $INSTALL_DIR/lib/libcrypto.dylib || (cd $TOP_DIR && do_openssl )
 
-export CFLAGS="-mmacosx-version-min=10.13"
+cmake -B "$BUILDDIR" "$XCA_DIR" \
+	-DOPENSSL_ROOT_DIR="$INSTALL_DIR" \
+	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+cmake --build "$BUILDDIR" -j4
 
-if test -f build-libs; then
-  mkdir -p "$INSTALL_DIR"
-  do_libtool
-  do_openssl
-fi
-unset CFLAGS
+echo xcodebuild -scheme package \
+	   -jobs $JOBS \
+	   -configuration Release\
+	   -parallelizeTargets \
+	   -archivePath $ARCHIVE \
+	   CODE_SIGN_IDENTITY="${APPLE_DEVELOPER_HASH}" \
+	   build archive
 
-XCA_DIR="`dirname $0`"
-XCA_DIR="`cd $XCA_DIR/.. && pwd`"
+echo xcodebuild -exportArchive -archivePath "$ARCHIVE" -exportOptionsPlist "$XCA_DIR/misc/ExportOptions.plist" -exportPath Release
 
-XCA_BUILD="xca-macbuild"
-#rm -rf "$XCA_BUILD"
-mkdir -p "$XCA_BUILD"
-cd "$XCA_BUILD"
-
-(cd $XCA_DIR && ./bootstrap)
-$XCA_DIR/configure --with-macos-version=10.13 --with-openssl="$INSTALL_DIR"
-make -j5
-cp *.dmg ..
+#/usr/bin/ditto -c -k --keepParent "$APP_PATH" "$ZIP_PATH"

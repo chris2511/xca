@@ -157,16 +157,10 @@ set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 ##### Host specific settings
 
 if(APPLE)
-  if (DEFINED ENV{APPLE_DEVELOPER})
-    set(APPLE_CERT_3PARTY_INST "3rd Party Mac Developer Installer: $ENV{APPLE_DEVELOPER}")
-    set(APPLE_CERT_3PARTY_APP "3rd Party Mac Developer Application: $ENV{APPLE_DEVELOPER}")
-    set(APPLE_CERT_ID_APP "Developer ID Application: $ENV{APPLE_DEVELOPER}")
-    set(MACDEPLOYQT_SIGN -codesign=${APPLE_CERT_ID_APP}
-			 -timestamp -always-overwrite
-    )
-  endif()
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE TRUE
+	XCODE_ATTRIBUTE_INSTALL_PATH /Applications
+	XCODE_ATTRIBUTE_SKIP_INSTALL No
 	RESOURCE "${APP_RESOURCES}"
   )
   get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
@@ -175,9 +169,17 @@ if(APPLE)
 
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${MACDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
-        -always-overwrite ${MACDEPLOYQT_SIGN}
+        -always-overwrite
     COMMENT "Running macdeployqt..."
   )
+  if (DEFINED ENV{APPLE_DEVELOPER_HASH})
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND codesign --deep --signature-size=96000 --options=runtime --timestamp
+                --force -s "$ENV{APPLE_DEVELOPER_HASH}"
+		$<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
+      COMMENT "Running codesign for $ENV{APPLE_DEVELOPER} ..."
+    )
+  endif()
 
   set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
   set(CPACK_GENERATOR "DragNDrop") #;productbuild")
