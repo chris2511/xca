@@ -15,6 +15,7 @@
 #include "Passwd.h"
 #include "entropy.h"
 
+#include <openssl/opensslv.h>
 #include <openssl/rand.h>
 #include <openssl/engine.h>
 #include <openssl/evp.h>
@@ -663,9 +664,13 @@ static int eng_finish(ENGINE *e)
 	return 1;
 }
 
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+static int eng_pmeth_copy(EVP_PKEY_CTX *dst, const EVP_PKEY_CTX *src)
+#else
 static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
+#endif
 {
-	void *p = EVP_PKEY_CTX_get_app_data(src);
+	void *p = EVP_PKEY_CTX_get_app_data((EVP_PKEY_CTX *)src);
 	EVP_PKEY_CTX_set_app_data(dst,  p);
 	return 1;
 }
@@ -735,8 +740,6 @@ out:
 }
 
 #ifndef OPENSSL_NO_EC
-
-static EVP_PKEY_METHOD *p11_eddsa_method;
 
 static void ec_privdata_free(EC_KEY *ec)
 {
@@ -830,6 +833,11 @@ static EC_KEY_METHOD *setup_ec_key_meth()
 				ec_set_private_proc, ec_set_public_proc);
 	return ec_key_meth;
 }
+#endif
+
+#ifdef EVP_PKEY_ED25519
+
+static EVP_PKEY_METHOD *p11_eddsa_method;
 
 static int eddsa_eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 {
@@ -894,6 +902,8 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifndef OPENSSL_NO_EC
 	static EC_KEY_METHOD *ec_key_meth = NULL;
 	EC_KEY *ec;
+#endif
+#ifdef EVP_PKEY_ED25519
 	static ENGINE *e = NULL;
 
 	if (!e) {
@@ -976,6 +986,8 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		openssl_error();
 		EVP_PKEY_assign_EC_KEY(evp, ec);
 		break;
+#endif
+#ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519:
 		size_t len;
 		if (ENGINE_get_ex_data(e, eng_idx))
