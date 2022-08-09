@@ -154,7 +154,7 @@ static bool compare_pki_base(pki_base* a, pki_base* b)
 }
 
 static pki_multi *cmdline_items;
-static void read_cmdline(int argc, char *argv[])
+static void read_cmdline(int argc, char *argv[], bool console_only)
 {
 	arguments cmd_opts(argc, argv);
 	pki_evp::passwd = acquire_password(cmd_opts["password"]);
@@ -166,7 +166,7 @@ static void read_cmdline(int argc, char *argv[])
 	if (cmd_opts.getResult() != 0)
 		cmd_help(EXIT_FAILURE, cmd_opts.resultString().toUtf8());
 
-	if (!cmd_opts.has("password"))
+	if (!cmd_opts.has("password") && console_only)
 		database_model::open_without_password = true;
 
 	if (cmd_opts.has("database"))
@@ -402,7 +402,7 @@ int main(int argc, char *argv[])
 		if (gui && !console_only) {
 			mainwin = new MainWindow();
 			gui->setMainwin(mainwin);
-			read_cmdline(argc, argv);
+			read_cmdline(argc, argv, console_only);
 			mainwin->importMulti(cmdline_items, 1);
 			cmdline_items = NULL;
 			if (!Database.isOpen())
@@ -412,7 +412,7 @@ int main(int argc, char *argv[])
 			mainwin->show();
 			gui->exec();
 		} else {
-			read_cmdline(argc, argv);
+			read_cmdline(argc, argv, console_only);
 			delete cmdline_items;
 		}
 	} catch (errorEx &ex) {
