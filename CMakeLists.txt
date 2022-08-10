@@ -72,9 +72,12 @@ elseif(WIN32)
   if (NOT EXISTS ${MYSQL_BINDIR})
     set(MYSQL_BINDIR "")
   endif()
-  set(SYSTEM32 $ENV{WINDIR}/system32)
+  file(TO_CMAKE_PATH $ENV{WINDIR}/system32 SYSTEM32)
 endif()
-
+file(TO_CMAKE_PATH "${OPENSSL_ROOT_DIR}" OPENSSL_ROOT_DIR)
+file(TO_CMAKE_PATH "${Qt5_DIR}" Qt5_DIR)
+file(TO_CMAKE_PATH "${PSQL_BINDIR}" PSQL_BINDIR)
+file(TO_CMAKE_PATH "${MYSQL_BINDIR}" MYSQL_BINDIR)
 
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
@@ -115,6 +118,10 @@ if (APPLE)
 
   # Avoid bin/ sub-directory in DMG
   set(RUNTIME_DEST .)
+
+elseif(WIN32)
+
+  set(RUNTIME_DEST ${CMAKE_PROJECT_NAME}-portable-${PROJECT_VERSION})
 
 else()
 
@@ -206,6 +213,24 @@ elseif(WIN32)
      ${CMAKE_BINARY_DIR}/misc/dynamic.wxs
      )
   string(APPEND CMAKE_CXX_FLAGS "-mwindows")
+  install(DIRECTORY
+	  ${CMAKE_BINARY_DIR}/platforms
+	  ${CMAKE_BINARY_DIR}/sqldrivers
+	  ${CMAKE_BINARY_DIR}/styles
+	  DESTINATION ${RUNTIME_DEST}
+  )
+  install(FILES ${CMAKE_BINARY_DIR}/Qt5Core.dll
+		${CMAKE_BINARY_DIR}/Qt5Gui.dll
+		${CMAKE_BINARY_DIR}/Qt5Help.dll
+		${CMAKE_BINARY_DIR}/Qt5Sql.dll
+		${CMAKE_BINARY_DIR}/Qt5Widgets.dll
+		${CMAKE_BINARY_DIR}/libgcc_s_seh-1.dll
+		${CMAKE_BINARY_DIR}/libstdc++-6.dll
+		${CMAKE_BINARY_DIR}/libwinpthread-1.dll
+		${SYSTEM32}/vcruntime140.dll
+		${OPENSSL_ROOT_DIR}/bin/libcrypto-1_1-x64.dll
+	  DESTINATION ${RUNTIME_DEST}
+  )
 else()
   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr/local CACHE PATH

@@ -68,4 +68,8 @@ if (UNIX AND NOT APPLE)
   install(FILES misc/xca.xml
         DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages
   )
+elseif(WIN32)
+  install(FILES ${TEXT_FILES} ${XCA_TEMPLATES}
+	  DESTINATION ${RUNTIME_DEST}
+  )
 endif()

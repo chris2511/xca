@@ -101,8 +101,12 @@ if(SPHINX)
     else()
       install(FILES ${HTML_DEST}
               DESTINATION ${CMAKE_INSTALL_DOCDIR}
-    )
+      )
     endif()
+  elseif(WIN32)
+    install(FILES ${HTML_DEST}
+	    DESTINATION ${RUNTIME_DEST}/html
+    )
   endif()
 
   if(QTCOLLGEN)

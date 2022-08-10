@@ -39,6 +39,10 @@ if (UNIX AND NOT APPLE)
   install(FILES ${QM_FILES}
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/i18n
   )
+elseif(WIN32)
+  install(FILES ${QM_FILES}
+	  DESTINATION ${RUNTIME_DEST}/i18n
+  )
 endif()
 
 find_program(LCONVERT lconvert)
