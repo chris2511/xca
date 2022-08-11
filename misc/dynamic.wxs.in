@@ -9,7 +9,10 @@
             <Component Id="Cvcruntime140" Guid="f0b03b2a-14f7-4631-bfe3-d4c6c9b57e1d">
                 <File Id="vcruntime140.dll" Source="@SYSTEM32@/vcruntime140.dll" KeyPath="yes"/>
             </Component>
-	    <!-- aqt install-tool windows desktop tools_vcredist qt.tools.vcredist_msvc2019_x64 -->
+	    <!-- aqt install-tool windows desktop tools_vcredist qt.tools.vcredist_msvc2019_x64
+		Copy C:\Windows\System32\vcruntime140.dll C:\Windows\WOW64\
+		The WIX system uses that one and it crashes on the target.
+	    -->
         </DirectoryRef>
         <FeatureGroup Id="DatabaseGroup">
             <Feature Id="Databases" Title="Database Drivers"

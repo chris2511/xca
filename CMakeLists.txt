@@ -212,7 +212,7 @@ elseif(WIN32)
      ${CMAKE_BINARY_DIR}/misc/misc.wxs
      ${CMAKE_BINARY_DIR}/misc/dynamic.wxs
      )
-  string(APPEND CMAKE_CXX_FLAGS "-mwindows")
+  target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -mwindows -MT$<$<CONFIG:Debug>:D>)
   install(DIRECTORY
 	  ${CMAKE_BINARY_DIR}/platforms
 	  ${CMAKE_BINARY_DIR}/sqldrivers
@@ -231,7 +231,7 @@ elseif(WIN32)
 		${OPENSSL_ROOT_DIR}/bin/libcrypto-1_1-x64.dll
 	  DESTINATION ${RUNTIME_DEST}
   )
-  install(CODE "execute_process(COMMAND cmake -E chdir ${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")
+  install(CODE "execute_process(COMMAND cmake -E chdir \${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")
   set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
 else()
