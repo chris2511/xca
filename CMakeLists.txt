@@ -231,6 +231,9 @@ elseif(WIN32)
 		${OPENSSL_ROOT_DIR}/bin/libcrypto-1_1-x64.dll
 	  DESTINATION ${RUNTIME_DEST}
   )
+  install(CODE "execute_process(COMMAND cmake -E chdir ${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")
+  set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+
 else()
   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr/local CACHE PATH
