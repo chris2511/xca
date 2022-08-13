@@ -275,7 +275,7 @@ void x509name::addEntryByNid(int nid, const QString entry)
 	ASN1_STRING *a = QStringToAsn1(entry.simplified(), nid);
 	X509_NAME_add_entry_by_NID(xn, nid, a->type, a->data, a->length, -1, 0);
 	ASN1_STRING_free(a);
-	openssl_error(QString("'%1' (%2)").arg(entry).arg(OBJ_nid2ln(nid)));
+	openssl_error_msg(QString("'%1' (%2)").arg(entry).arg(OBJ_nid2ln(nid)));
 }
 
 X509_NAME *x509name::get() const

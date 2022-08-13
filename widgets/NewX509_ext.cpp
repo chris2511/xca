@@ -180,7 +180,7 @@ extList NewX509::getAdvanced()
 	ret = NCONF_load_bio(conf, BioByteArray(conf_str.toLatin1()).ro(),
 				&err_line);
 	if (ret != 1) {
-		openssl_error(tr("Configfile error on line %1\n").
+		openssl_error_msg(tr("Configfile error on line %1\n").
 				arg(err_line));
 		return elist;
 	}

@@ -119,7 +119,7 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 					keytypes << keyListItem(&p11, slot,
 								t.mech);
 		}
-	} catch (errorEx &err) {
+	} catch (errorEx &) {
 		p11_slots.clear();
 	}
 	for (int i=0; i<keytypes.count(); i++) {

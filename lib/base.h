@@ -8,8 +8,12 @@
 #ifndef __BASE_H
 #define __BASE_H
 
-#define QT_NO_CAST_TO_ASCII 1
-#define OPENSSL_NO_STDIO 1
+#define QT_NO_CAST_TO_ASCII
+#define OPENSSL_NO_STDIO
+
+// Disable advertisement for crappy, insecure, non-conformant MS BS _s functions
+#define _CRT_SECURE_NO_WARNINGS
+#pragma warning(disable:4996)
 
 #ifndef PACKAGE_NAME
 #define XCA_TITLE "X Certificate and Key management"
@@ -17,7 +21,7 @@
 #define XCA_TITLE PACKAGE_NAME
 #endif
 
-#include <qglobal.h>
+#include <QtGlobal>
 #include "local.h"
 
 #define CCHAR(x) qPrintable(x)
@@ -34,8 +38,14 @@
 #define xhtonl(x) (x)
 #define xntohl(x) (x)
 #elif Q_BYTE_ORDER == Q_LITTLE_ENDIAN
+#if defined(Q_OS_WIN32)
+#include <stdlib.h>
+#define xhtonl(x) (_byteswap_ulong(x))
+#define xntohl(x) (_byteswap_ulong(x))
+#else
 #define xhtonl(x) (__builtin_bswap32(x))
 #define xntohl(x) (__builtin_bswap32(x))
+#endif
 #else
 	# error "What kind of system is this?"
 #endif

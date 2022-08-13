@@ -6,12 +6,15 @@
  */
 
 #include <stdio.h>
+#include <QtGlobal>
+#if !defined(Q_OS_WIN32)
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#endif
 
 #include <QDir>
 #include <QDebug>
@@ -98,9 +101,7 @@ void Entropy::seed_rng()
 	RAND_seed(pool, pool_pos);
 	seed_strength += pool_pos;
 
-#if !defined(Q_OS_WIN32)
 	random_from_file("/dev/urandom", 32);
-#endif
 #ifdef DEBUG_ENTROPY
 	{
 		QDebug dbg = qDebug();
@@ -115,6 +116,7 @@ void Entropy::seed_rng()
 
 int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 {
+#if !defined(Q_OS_WIN32)
 	char buf[256];
 	int fd, sum;
 
@@ -130,10 +132,8 @@ int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 	fd = file.handle();
 	if (fd == -1)
 		return 0;
-#if !defined(Q_OS_WIN32)
 	if (fcntl(fd, F_SETFL, O_NONBLOCK) == -1)
 		return 0;
-#endif
 	for (sum=0; amount > 0;) {
 		int len = read(fd, buf, amount > sizeof buf ?
 					sizeof buf : amount);
@@ -156,6 +156,12 @@ int Entropy::random_from_file(QString fname, unsigned amount, int weakness)
 	qDebug("Entropy from file '%s' = %d bytes", CCHAR(fname), sum);
 #endif
 	return sum;
+#else
+	(void)fname;
+	(void)amount;
+	(void)weakness;
+	return 0;
+#endif
 }
 
 unsigned Entropy::strength()
@@ -174,29 +180,26 @@ Entropy::Entropy()
 	RAND_poll();
 	seed_strength += 8;
 
-#if !defined(Q_OS_WIN32)
 	random_from_file("/dev/random", 32);
 	random_from_file("/dev/hwrng", 32);
-#endif
 }
 
 Entropy::~Entropy()
 {
-#define RAND_BUF_SIZE 1024
-	unsigned char buf[RAND_BUF_SIZE];
+	unsigned char buf[1024];
 
-	if (RAND_bytes(buf, RAND_BUF_SIZE) == 1) {
+	if (RAND_bytes(buf, sizeof buf) == 1) {
 		XFile file(rnd);
 		try {
 			file.open_key();
-			file.write((char*)buf, RAND_BUF_SIZE);
+			file.write((char*)buf, sizeof buf);
 		} catch (errorEx &e) {
 			qDebug() << "random_from_file" << rnd
 				 << e.getString();
 		}
 		file.close();
 	}
-	memset(buf, 0, RAND_BUF_SIZE);
+	memset(buf, 0, sizeof buf);
 #ifdef DEBUG_ENTROPY
 	qDebug("Seed strength: %d", seed_strength);
 #endif

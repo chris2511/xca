@@ -5,8 +5,6 @@
  * All rights reserved.
  */
 
-
-#include <unistd.h>
 #include "func.h"
 #include "exception.h"
 #include "asn1time.h"
@@ -42,6 +40,7 @@
 #endif
 #else
 #include <termios.h>
+#include <unistd.h>
 #define getch() getchar()
 #endif
 
@@ -440,7 +439,7 @@ ASN1_STRING *QStringToAsn1(const QString s, int nid)
 			mask &= global_mask;
 	}
 	ASN1_mbstring_copy(&out, utf8, -1, MBSTRING_UTF8, mask);
-	openssl_error(QString("'%1' (%2)").arg(s).arg(OBJ_nid2ln(nid)));
+	openssl_error_msg(QString("'%1' (%2)").arg(s).arg(OBJ_nid2ln(nid)));
 	return out;
 }
 

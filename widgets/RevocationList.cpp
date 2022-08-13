@@ -183,7 +183,7 @@ void RevocationList::on_certList_itemDoubleClicked(QTreeWidgetItem *current)
 	delete revoke;
 }
 
-Revocation::Revocation(QModelIndexList indexes, QWidget *w) : QDialog(w ?: mainwin)
+Revocation::Revocation(QModelIndexList indexes, QWidget *w) : QDialog(w ? w : mainwin)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

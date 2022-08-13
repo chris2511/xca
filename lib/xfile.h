@@ -8,12 +8,8 @@
 #ifndef __X_FILE_H
 #define __X_FILE_H
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <QFile>
 #include <QDebug>
-#include <sys/types.h>
-#include <sys/stat.h>
 
 #include <errno.h>
 #include "exception.h"
@@ -49,9 +45,8 @@ class XFile : public QFile
 		}
 		bool open_key()
 		{
-			mode_t m = umask(077);
 			bool o = open_write();
-			umask(m);
+			setPermissions(ReadOwner | WriteOwner);
 			return o;
 		}
 		bool open_write()

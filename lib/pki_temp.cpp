@@ -459,7 +459,7 @@ void pki_temp::try_fload(XFile &file)
 	QByteArray ba = file.read(4096*1024);
 	try {
 		fromPEM_BIO(BioByteArray(ba).ro(), file.fileName());
-	} catch (errorEx &err) {
+	} catch (errorEx &) {
 		fromExportData(ba);
 	}
 	pki_openssl_error();
@@ -471,14 +471,15 @@ void pki_temp::fload(const QString &fname)
 		XFile file(fname);
 		file.open_read();
 		try_fload(file);
-	} catch (errorEx &err) {
 #if defined(Q_OS_WIN32)
+	} catch (errorEx &) {
 		/* Try again in ascii mode on Windows
 		 * to support pre 1.1.0 template exports */
 		XFile file(fname);
 		file.open(QIODevice::ReadOnly | QIODevice::QIODevice::Text);
 		try_fload(file);
 #else
+	} catch (errorEx &err) {
 		throw err;
 #endif
 	}

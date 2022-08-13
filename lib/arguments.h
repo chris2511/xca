@@ -8,15 +8,17 @@
 #ifndef __ARGUMENTS_H
 #define __ARGUMENTS_H
 
-#include <getopt.h>
-
 #include <QString>
 #include <QStringList>
 #include <QMap>
+#include <QCommandLineOption>
 
-struct option;
+enum {
+	file_argument,
+	required_argument,
+	no_argument,
+};
 
-#define file_argument (required_argument+1)
 class arg_option
 {
     public:
@@ -29,7 +31,7 @@ class arg_option
 
 	arg_option(const char *l, const char *a, int has_arg,
 		bool n, bool nd, const char *h);
-	void fillOption(struct option *opt) const;
+	QCommandLineOption getCmdOption() const;
 };
 
 class arguments
@@ -39,9 +41,7 @@ class arguments
 	int result;
 	QMap<QString, QString> found_options;
 	QStringList files;
-	struct option *long_opts;
 	bool need_db;
-	QString result_string;
 
     public:
 	static bool is_console(int argc, char *argv[]);
@@ -54,15 +54,12 @@ class arguments
 
 	arguments(int argc, char *argv[]);
 	arguments(const arguments &a);
-	~arguments();
 
 	QString operator [] (const QString &) const;
 	arguments &operator = (const arguments &);
 	bool has(const QString &opt) const;
 	int parse(int argc, char *argv[]);
 	QStringList getFiles() const;
-	int getResult() const;
-	QString resultString() const;
 	bool needDb() const;
 };
 #endif

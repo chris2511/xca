@@ -54,7 +54,7 @@ void OidResolver::searchOid(QString s)
 		if (a) {
 			try {
 				oid->setText(OBJ_obj2QString(a, 1));
-			} catch (errorEx &e) {
+			} catch (errorEx &) {
 				oid->clear();
 			}
 		} else {

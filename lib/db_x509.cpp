@@ -22,7 +22,7 @@
 #include "XcaWarningCore.h"
 #include "PwDialogCore.h"
 
-#warning drop UI dependencies
+#pragma message ("drop UI dependencies")
 #include "ui_NewX509.h"
 #include "widgets/CertExtend.h"
 #include "widgets/RevocationList.h"

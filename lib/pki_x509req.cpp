@@ -161,7 +161,7 @@ void pki_x509req::fromPEM_BIO(BIO *bio, const QString &name)
 {
 	X509_REQ *req;
 	req = PEM_read_bio_X509_REQ(bio, NULL, NULL, NULL);
-	openssl_error(name);
+	openssl_error_msg(name);
 	X509_REQ_free(request);
 	request = req;
 }
@@ -210,7 +210,7 @@ void pki_x509req::addAttribute(int nid, QString content)
 	ASN1_STRING *a = QStringToAsn1(content, nid);
 	X509_REQ_add1_attr_by_NID(request, nid, a->type, a->data, a->length);
 	ASN1_STRING_free(a);
-	openssl_error(QString("'%1' (%2)").arg(content).arg(OBJ_nid2ln(nid)));
+	openssl_error_msg(QString("'%1' (%2)").arg(content).arg(OBJ_nid2ln(nid)));
 }
 
 x509name pki_x509req::getSubject() const

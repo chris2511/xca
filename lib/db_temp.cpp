@@ -55,7 +55,7 @@ db_temp::db_temp() : db_x509name("templates")
 					predefs << tmpl;
 					template_files << fileInfo.fileName();
 				}
-			} catch(errorEx &err) {
+			} catch(errorEx &) {
 				XCA_WARN(tr("Bad template: %1")
 					.arg(nativeSeparator(
 						fileInfo.absoluteFilePath())));

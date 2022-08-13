@@ -24,7 +24,7 @@
 #include "PwDialogCore.h"
 #include "XcaWarningCore.h"
 
-#warning split PwDialog into console and GUI
+#pragma message ("split PwDialog into console and GUI")
 #include "ui_SelectToken.h"
 #include <QPushButton>
 
@@ -863,7 +863,7 @@ static int eng_pmeth_sign_eddsa(EVP_MD_CTX *ctx,
 			unsigned char *sig, size_t *siglen,
 			const unsigned char *tbs, size_t tbslen)
 {
-	int len, rs_len, ret = -1;
+	int len, ret = -1;
 	unsigned char rs_buf[512];
 	EVP_PKEY *pkey = EVP_PKEY_CTX_get0_pkey(EVP_MD_CTX_pkey_ctx(ctx));
 	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(EVP_PKEY_get0_engine(pkey), eng_idx);

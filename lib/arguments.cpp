@@ -12,8 +12,8 @@
 #include "exception.h"
 #include "arguments.h"
 
-#include <getopt.h>
 #include <stdio.h>
+#include <QCommandLineParser>
 
 #if !defined(Q_OS_WIN32)
 #include <sys/ioctl.h>
@@ -83,14 +83,9 @@ arg_option::arg_option(const char *l, const char *a, int has,
 {
 }
 
-void arg_option::fillOption(struct option *opt) const
+QCommandLineOption arg_option::getCmdOption() const
 {
-	opt->name = long_opt;
-	opt->has_arg = arg_type;
-	if (arg_type == file_argument)
-		opt->has_arg = required_argument;
-	opt->flag = NULL;
-	opt->val = 0;
+	return QCommandLineOption(long_opt, help);
 }
 
 static QString splitQstring(int offset, int width, const QString &text)
@@ -236,31 +231,28 @@ QString arguments::help()
 
 int arguments::parse(int argc, char *argv[])
 {
-	int i, cnt = opts.count();
+	files.clear();
+	need_db = false;
 
-	/* Setup "struct option" */
-	if (!long_opts)
-		long_opts = new struct option[cnt+1];
+	QCommandLineParser parser;
+	foreach(const arg_option &opt, opts)
+		parser.addOption(opt.getCmdOption());
 
-	Q_CHECK_PTR(long_opts);
-	for (i = 0; i < cnt; ++i)
-		opts[i].fillOption(long_opts +i);
-	long_opts[cnt].name = NULL;
-	long_opts[cnt].flag = NULL;
-	opterr = 0;
 	/* Parse cmdline options argv */
-	while (true) {
-		int optind = 0;
-		result = getopt_long_only(argc, argv, ":", long_opts, &optind);
-		if (result)
-			break;
-		const arg_option i = opts[optind];
-		found_options[i.long_opt] = QString::fromUtf8(optarg);
-		if (i.need_db)
-			need_db = true;
+	QStringList args;
+	for (int i =0; i < argc; i++)
+		args << QString::fromUtf8(argv[i]);
+	parser.process(args);
+
+	QStringList found = parser.optionNames();
+	foreach(const arg_option &opt, opts) {
+		if (found.contains(opt.long_opt)) {
+			 found_options[opt.long_opt] = parser.value(opt.long_opt);
+			if (opt.need_db)
+				need_db = true;
+		}
 	}
-	for (i = optind; i < argc; ++i) {
-		QString file = QString::fromUtf8(argv[i]);
+	foreach(const QString &file, parser.positionalArguments()) {
 		if (!has("database") && file.endsWith(".xdb")) {
 			/* No database given, but here is an xdb file
 			 * Try to be clever.
@@ -270,28 +262,11 @@ int arguments::parse(int argc, char *argv[])
 			files << file;
 		}
 	}
-	if (result == ':') {
-		result_string = QString("Missing option argument for '%1'")
-					.arg(argv[optind-1]);
-	}
-	if (result == '?') {
-		result_string = QString("Invalid option: '%1'")
-					.arg(argv[optind-1]);
-	}
-	if (result == -1)
-		result = 0;
-
 	return result;
-}
-
-QString arguments::resultString() const
-{
-	return result_string;
 }
 
 arguments::arguments(int argc, char *argv[])
 {
-	long_opts = NULL;
 	need_db = false;
 	parse(argc, argv);
 }
@@ -303,15 +278,9 @@ arguments::arguments(const arguments &a)
 
 arguments &arguments::operator = (const arguments &a)
 {
-	long_opts = NULL;
 	files = a.files;
 	found_options = a.found_options;
 	return *this;
-}
-
-arguments::~arguments()
-{
-    delete[] long_opts;
 }
 
 QString arguments::operator [] (const QString &key) const
@@ -327,11 +296,6 @@ bool arguments::has(const QString &opt) const
 QStringList arguments::getFiles() const
 {
 	return files;
-}
-
-int arguments::getResult() const
-{
-	return result;
 }
 
 bool arguments::needDb() const

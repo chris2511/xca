@@ -11,7 +11,7 @@
 #include "pki_temp.h"
 #include "XcaWarningCore.h"
 
-#warning drop UI dependencies
+#pragma message ("drop UI dependencies")
 #include "widgets/NewX509.h"
 
 db_x509req::db_x509req() : db_x509super("requests")

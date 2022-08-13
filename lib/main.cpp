@@ -163,9 +163,6 @@ static void read_cmdline(int argc, char *argv[], bool console_only)
 	if (cmd_opts.has("verbose"))
 		debug = 1;
 
-	if (cmd_opts.getResult() != 0)
-		cmd_help(EXIT_FAILURE, cmd_opts.resultString().toUtf8());
-
 	if (!cmd_opts.has("password") && console_only)
 		database_model::open_without_password = true;
 

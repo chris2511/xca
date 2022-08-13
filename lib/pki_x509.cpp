@@ -205,7 +205,7 @@ void pki_x509::fromPEM_BIO(BIO *bio, const QString &fname)
 {
 	X509 *_cert;
 	_cert = PEM_read_bio_X509(bio, NULL, NULL, NULL);
-	openssl_error(fname);
+	openssl_error_msg(fname);
 	X509_free(cert);
 	cert = _cert;
 }

@@ -72,8 +72,9 @@ QString OBJ_obj2QString(const ASN1_OBJECT *a, int no_name = 0);
 
 extern QMap<int, QString> dn_translations;
 void dn_translations_setup();
-#define openssl_error(x) _openssl_error(QString(x), C_FILE, __LINE__)
-#define ign_openssl_error(x) _ign_openssl_error(QString(x), C_FILE, __LINE__)
+#define openssl_error_msg(x) _openssl_error(QString(x), C_FILE, __LINE__)
+#define openssl_error() openssl_error_msg("")
+#define ign_openssl_error() _ign_openssl_error(QString(), C_FILE, __LINE__)
 void _openssl_error(const QString &txt, const char *file, int line);
 bool _ign_openssl_error(const QString &txt, const char *file, int line);
 
