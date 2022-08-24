@@ -38,7 +38,8 @@ Options::Options(QWidget *parent)
 	  << tr("UTF8 strings only (RFC2459)")
 	  << tr("All strings");
 	mbstring->addItems(s);
-	mbstring->setCurrentIndex(string_opts.indexOf(Settings["string_opt"]));
+	mbstring->setCurrentIndex(string_opts.indexOf(
+								QString(Settings["string_opt"])));
 
 	searchP11 = NULL;
 	transDnEntries->setText(transDnEntries->text()

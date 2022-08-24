@@ -14,7 +14,6 @@
 
 #include <openssl/rand.h>
 #include <QMessageBox>
-#include <QTextCodec>
 
 #include "ui_SelectToken.h"
 

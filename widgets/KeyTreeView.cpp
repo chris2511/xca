@@ -14,6 +14,7 @@
 #include "ExportDialog.h"
 #include "XcaWarning.h"
 #include <QAbstractItemView>
+#include <QActionGroup>
 #include <QMenu>
 
 void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,

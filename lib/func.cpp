@@ -237,7 +237,7 @@ const QString getDocDir()
 #ifdef DOCDIR
 	docs << QString(DOCDIR);
 #endif
-	docs += QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+	docs += QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
 	foreach (docdir, docs) {
 #if !defined(Q_OS_MAC)
 		docdir += "/html";
@@ -275,7 +275,7 @@ const QString getUserSettingsDir()
 
 const QString getI18nDir()
 {
-	QString qm = QStandardPaths::locate(QStandardPaths::DataLocation,
+	QString qm = QStandardPaths::locate(QStandardPaths::AppDataLocation,
 		I18N_DIR "xca_de.qm");
 	return QFileInfo(qm).path();
 }

@@ -207,7 +207,7 @@ void CertDetail::setReq(pki_x509req *req)
 		QGridLayout *attrLayout = new QGridLayout(attributes);
 		attrLayout->setAlignment(Qt::AlignTop);
 		attrLayout->setSpacing(6);
-		attrLayout->setMargin(11);
+		attrLayout->setContentsMargins(11, 11, 11, 11);
 
 		for (int i = 0, ii = 0; i<cnt; i++) {
 			int nid;

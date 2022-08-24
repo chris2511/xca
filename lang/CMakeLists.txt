@@ -28,7 +28,11 @@ string(APPEND WIX_LANG_CONTENT
 
 WixFile(${D}/language.wxs ${WIX_LANG_CONTENT})
 
-qt5_add_translation(QM_FILES ${TS_FILES})
+if (${QT_VERSION} VERSION_LESS 6.0.0)
+  qt5_add_translation(QM_FILES ${TS_FILES})
+else()
+  qt_add_translation(QM_FILES ${TS_FILES})
+endif()
 list(APPEND APP_RESOURCES ${QM_FILES})
 
 add_custom_target(translations DEPENDS ${QM_FILES})

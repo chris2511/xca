@@ -129,7 +129,7 @@ if(SPHINX)
     endif()
 
   else(QTCOLLGEN)
-    message(WARNING "Neither 'qhelpgenerator' nor 'qcollectiongenerator' found. In-app documentation disabed. ${Qt5_DIR}/../../../bin")
+    message(WARNING "Neither 'qhelpgenerator' nor 'qcollectiongenerator' found. In-app documentation disabed. ${Qt_DIR}/../../../bin")
   endif(QTCOLLGEN)
 else(SPHINX)
   message(WARNING "sphinx-build binary not found. Documentation generation disabled")

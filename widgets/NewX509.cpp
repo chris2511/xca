@@ -68,7 +68,8 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 		layout = new QGridLayout(parent);
 		layout->setAlignment(Qt::AlignTop);
 		layout->setSpacing(6);
-		layout->setMargin(0);
+		layout->setContentsMargins(0, 0, 0, 0);
+		layout->setContentsMargins(11, 11, 11, 11);
 	}
 	int n = 0, col = 0;
 

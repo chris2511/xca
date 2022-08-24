@@ -28,6 +28,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QActionGroup>
 
 static QAction *languageMenuEntry(const QStringList &sl)
 {

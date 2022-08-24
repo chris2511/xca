@@ -48,5 +48,4 @@ if(Git_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
 
 endif()
 
-message(STATUS "VERSION: ${PROJECT_VERSION}")
-
+message(STATUS "XCA Version: ${PROJECT_VERSION}")

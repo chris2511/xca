@@ -12,7 +12,6 @@
 #include "lib/entropy.h"
 
 #include <QClipboard>
-#include <QTextCodec>
 #include <QDir>
 #include <QFile>
 #include <QAction>
@@ -50,13 +49,13 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 	}
 
 	langAvail << QLocale::system();
-	langAvail << QString("en");
+	langAvail << QLocale("en");
 	QDirIterator qmIt(getI18nDir(), QStringList() << "*.qm", QDir::Files);
 	while (qmIt.hasNext()) {
 		XcaTranslator t;
 		qmIt.next();
 		QString language = qmIt.fileInfo().baseName().mid(4, -1);
-		if (t.load(language, "xca", getI18nDir()))
+		if (t.load(QLocale(language), "xca", getI18nDir()))
 			langAvail << QLocale(language);
 	}
 	setupLanguage(lang);
@@ -157,8 +156,13 @@ bool XcaApplication::eventFilter(QObject *watched, QEvent *ev)
 	case QEvent::NonClientAreaMouseMove:
 		if (mctr++ > 8) {
 			me = static_cast<QMouseEvent *>(ev);
-			Entropy::add(me->globalX());
-			Entropy::add(me->globalY());
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+			QPoint p = me->globalPosition().toPoint();
+#else
+			QPoint p = me->globalPos();
+#endif
+			Entropy::add(p.x());
+			Entropy::add(p.y());
 			mctr = 0;
 		}
 		break;
@@ -174,7 +178,7 @@ bool XcaApplication::eventFilter(QObject *watched, QEvent *ev)
 			dynamic_cast<XcaTreeView*>(watched->parent()) : NULL;
 
 		if ((watched == mainw || treeview) &&
-		    me->button() == Qt::MidButton &&
+		    me->button() == Qt::MiddleButton &&
 		    QApplication::clipboard()->supportsSelection())
 		{
 			mainw->pastePem();

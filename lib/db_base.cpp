@@ -596,7 +596,12 @@ void db_base::timerEvent(QTimerEvent *event)
 				qDebug() << "Date changed for" << pki->getIntName() << ":" << hd->getName() << "Col:" << idx << t.toSortable();
 				QModelIndex i;
 				i = createIndex(rownumber(pki), idx, pki);
-				emit dataChanged(i, i);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+				emit dataChanged(i, i, QList<int>{Qt::DisplayRole});
+#else
+				emit dataChanged(i, i, QVector<int>{Qt::DisplayRole});
+#endif
+
 			}
 		}
 	}

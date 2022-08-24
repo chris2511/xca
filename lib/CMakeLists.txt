@@ -1,10 +1,6 @@
-include_directories(${Qt5Sql_INCLUDE_DIRS}
-		${Qt5Core_INCLUDE_DIRS}
-		${Qt5Help_INCLUDE_DIRS}
-		${OPENSSL_INCLUDE_DIR}
-		${PROJECT_BINARY_DIR}
-		${PROJECT_SOURCE_DIR}
-)
+
+include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
+
 add_library(core STATIC
 BioByteArray.cpp	dbhistory.cpp		pki_key.cpp
 BioByteArray.h		dbhistory.h		pki_key.h
@@ -42,3 +38,6 @@ XcaProgress.h		XcaWarningCore.cpp	XcaWarningCore.h
 PwDialogCore.cpp	PwDialogCore.h		digest.h
 digest.cpp		pki_export.cpp
 )
+
+target_link_libraries(core PRIVATE
+		OpenSSL::Crypto ${QT}::Core ${QT}::Sql ${QT}::Help)

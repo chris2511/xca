@@ -23,16 +23,16 @@ DistName::DistName(QWidget* parent)
 	DistNameLayout = new QGridLayout();
 	DistNameLayout->setAlignment(Qt::AlignTop);
 	DistNameLayout->setSpacing(6);
-	DistNameLayout->setMargin(11);
+	DistNameLayout->setContentsMargins(11, 11, 11, 11);
 
 	QGridLayout *g = new QGridLayout();
 	g->setAlignment(Qt::AlignTop);
 	g->setSpacing(6);
-	g->setMargin(11);
+	g->setContentsMargins(11, 11, 11, 11);
 
 	QVBoxLayout *v = new QVBoxLayout(this);
 	v->setSpacing(6);
-	v->setMargin(11);
+	v->setContentsMargins(11, 11, 11, 11);
 	v->addLayout(DistNameLayout);
 	v->addStretch();
 	v->addLayout(g);

@@ -100,21 +100,6 @@
             <Component Id="Clibgcc_s_seh1" Guid="f5c27ddf-a2e1-49e2-9f24-fbf97bc5cb70">
                 <File Id="libgcc_s_seh1.dll" Source="libgcc_s_seh-1.dll" KeyPath="yes"/>
             </Component>
-            <Component Id="CQt5Core" Guid="561efd92-0fc8-4e2d-abe8-6ba16fc8bacd">
-                <File Id="Qt5Core.dll" Source="Qt5Core.dll" KeyPath="yes"/>
-            </Component>
-            <Component Id="CQt5Gui" Guid="2f680a70-2b2b-4b6e-9119-f53c8b5e1fe4">
-                <File Id="Qt5Gui.dll" Source="Qt5Gui.dll" KeyPath="yes"/>
-            </Component>
-            <Component Id="CQt5Sql" Guid="df605486-2591-4232-8799-25ad2271e3d4">
-                <File Id="Qt5Sql.dll" Source="Qt5Sql.dll" KeyPath="yes"/>
-            </Component>
-            <Component Id="CQt5Widgets" Guid="eff9bc63-dc01-4f44-ab1f-8447a773817b">
-                <File Id="Qt5Widgets.dll" Source="Qt5Widgets.dll" KeyPath="yes"/>
-            </Component>
-            <Component Id="CQt5Help" Guid="83c15eef-0d1a-43a4-a0f7-1b90d0788705">
-                <File Id="Qt5Help.dll" Source="Qt5Help.dll" KeyPath="yes"/>
-            </Component>
             <Component Id="Ccopyright.rtf" Guid="83c15eef-0d1a-43a4-a0f7-1b90d0784712">
                 <File Id="copyright.rtf" Source="$(var.CPACK_WIX_LICENSE_RTF)" KeyPath="yes"/>
             </Component>
@@ -188,11 +173,11 @@
             <ComponentRef Id="Clibgcc_s_seh1"/>
             <ComponentRef Id="Clibcrypto11x64"/>
             <ComponentRef Id="Cvcruntime140"/>
-            <ComponentRef Id="CQt5Core"/>
-            <ComponentRef Id="CQt5Gui"/>
-            <ComponentRef Id="CQt5Sql"/>
-            <ComponentRef Id="CQt5Widgets"/>
-            <ComponentRef Id="CQt5Help"/>
+            <ComponentRef Id="CQtCore"/>
+            <ComponentRef Id="CQtGui"/>
+            <ComponentRef Id="CQtSql"/>
+            <ComponentRef Id="CQtWidgets"/>
+            <ComponentRef Id="CQtHelp"/>
             <ComponentRef Id="Ccopyright.rtf"/>
             <ComponentRef Id="ApplicationShortcut" />
             <ComponentRef Id="RegistryEntries" />
@@ -201,7 +186,7 @@
         <Feature Id='Complete' Title='XCA' Description="Complete Installation"
                  Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
             <Feature Id="XCA" Title="Main Application" Level="1" Absent="disallow"
-                     Description="Contains the main application, required Qt5 libraries and the SQLite driver.">
+                     Description="Contains the main application, required Qt libraries and the SQLite driver.">
                 <ComponentGroupRef Id="GroupBasic" />
                 <ComponentGroupRef Id="GroupI18n" />
                 <ComponentGroupRef Id="GroupMisc" />

@@ -13,6 +13,21 @@
 		Copy C:\Windows\System32\vcruntime140.dll C:\Windows\WOW64\
 		The WIX system uses that one and it crashes on the target.
 	    -->
+            <Component Id="CQtCore" Guid="561efd92-0fc8-4e2d-abe8-6ba16fc8bacd">
+                <File Id="QtCore.dll" Source="@QT@Core.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQtGui" Guid="2f680a70-2b2b-4b6e-9119-f53c8b5e1fe4">
+                <File Id="QtGui.dll" Source="@QT@Gui.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQtSql" Guid="df605486-2591-4232-8799-25ad2271e3d4">
+                <File Id="QtSql.dll" Source="@QT@Sql.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQtWidgets" Guid="eff9bc63-dc01-4f44-ab1f-8447a773817b">
+                <File Id="QtWidgets.dll" Source="@QT@Widgets.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CQtHelp" Guid="83c15eef-0d1a-43a4-a0f7-1b90d0788705">
+                <File Id="QtHelp.dll" Source="@QT@Help.dll" KeyPath="yes"/>
+            </Component>
         </DirectoryRef>
         <FeatureGroup Id="DatabaseGroup">
             <Feature Id="Databases" Title="Database Drivers"

@@ -150,7 +150,11 @@ QString XSqlQuery::rewriteQuery(QString _q)
 QString XSqlQuery::query_details()
 {
 	QString lq = lastq;
-	QList<QVariant> list = boundValues().values();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+	QVariantList list = boundValues();
+#else
+	QVariantList list = boundValues().values();
+#endif
 	QStringList sl;
 
 	if (query != lastq) {

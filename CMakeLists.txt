@@ -25,7 +25,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_AUTOMOC ON)
@@ -49,15 +49,15 @@ if (APPLE)
   execute_process(COMMAND brew --prefix OUTPUT_STRIP_TRAILING_WHITESPACE
                   OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET)
   # Preset the default brew paths....
-  if (NOT Qt5_DIR)
-    set(Qt5_DIR ${BREW_PREFIX}/opt/qt@5/lib/cmake/Qt5)
+  if (NOT CMAKE_PREFIX_PATH)
+    set(CMAKE_PREFIX_PATH ${BREW_PREFIX}/opt/qt@5/)
   endif()
   if (NOT OPENSSL_ROOT_DIR)
     set(OPENSSL_ROOT_DIR ${BREW_PREFIX}/opt/openssl@1.1)
   endif()
 elseif(WIN32)
-  if (NOT Qt5_DIR)
-    set(Qt5_DIR "C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5")
+  if (NOT CMAKE_PREFIX_PATH)
+    set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/")
   endif()
   if (NOT OPENSSL_ROOT_DIR)
     set(OPENSSL_ROOT_DIR $ENV{PROGRAMFILES}/OpenSSL-Win64)
@@ -75,13 +75,18 @@ elseif(WIN32)
   file(TO_CMAKE_PATH $ENV{WINDIR}/system32 SYSTEM32)
 endif()
 file(TO_CMAKE_PATH "${OPENSSL_ROOT_DIR}" OPENSSL_ROOT_DIR)
-file(TO_CMAKE_PATH "${Qt5_DIR}" Qt5_DIR)
 file(TO_CMAKE_PATH "${PSQL_BINDIR}" PSQL_BINDIR)
 file(TO_CMAKE_PATH "${MYSQL_BINDIR}" MYSQL_BINDIR)
 
 find_package(OpenSSL REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
-get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+set(QT Qt${QT_VERSION_MAJOR})
+find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
+message(STATUS "Using ${QT} with version ${QT_VERSION}")
+
+get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
+get_target_property(core_libdir ${QT}::Core IMPORTED_LOCATION)
+message(QTCORE ${core_libdir})
 get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
 find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
@@ -93,9 +98,9 @@ endif()
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	core widgets core
 	OpenSSL::Crypto
-	Qt5::Widgets Qt5::Core Qt5::Sql Qt5::Help
+	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
 )
-target_link_libraries(xcadoc core Qt5::Core)
+target_link_libraries(xcadoc core ${QT}::Core)
 
 if (APPLE)
 
@@ -108,13 +113,13 @@ if (APPLE)
 
   ##### Plugins
 
-  get_target_property(sqlplugins Qt5::Sql QT_ALL_PLUGINS_sqldrivers)
+  get_target_property(sqlplugins ${QT}::Sql QT_ALL_PLUGINS_sqldrivers)
   message(STATUS "SQL Plugins ${sqlplugins}")
   foreach(sql ${sqlplugins})
     get_target_property(loc ${sql} LOCATION_${CMAKE_BUILD_TYPE})
     list(APPEND sqlplugin_paths "${loc}")
   endforeach()
-  qt5_import_plugins(${CMAKE_PROJECT_NAME} INCLUDE_BY_TYPE sqldrivers)
+  qt_import_plugins(${CMAKE_PROJECT_NAME} INCLUDE_BY_TYPE sqldrivers)
 
   # Avoid bin/ sub-directory in DMG
   set(RUNTIME_DEST .)
@@ -171,7 +176,7 @@ if(APPLE)
 	XCODE_ATTRIBUTE_SKIP_INSTALL No
 	RESOURCE "${APP_RESOURCES}"
   )
-  get_target_property(qmake_executable Qt5::qmake IMPORTED_LOCATION)
+  get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
   get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
   find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS ${_qt_bin_dir})
 
@@ -219,11 +224,11 @@ elseif(WIN32)
 	  ${CMAKE_BINARY_DIR}/styles
 	  DESTINATION ${RUNTIME_DEST}
   )
-  install(FILES ${CMAKE_BINARY_DIR}/Qt5Core.dll
-		${CMAKE_BINARY_DIR}/Qt5Gui.dll
-		${CMAKE_BINARY_DIR}/Qt5Help.dll
-		${CMAKE_BINARY_DIR}/Qt5Sql.dll
-		${CMAKE_BINARY_DIR}/Qt5Widgets.dll
+  install(FILES ${CMAKE_BINARY_DIR}/${QT}Core.dll
+		${CMAKE_BINARY_DIR}/${QT}Gui.dll
+		${CMAKE_BINARY_DIR}/${QT}Help.dll
+		${CMAKE_BINARY_DIR}/${QT}Sql.dll
+		${CMAKE_BINARY_DIR}/${QT}Widgets.dll
 		${CMAKE_BINARY_DIR}/libgcc_s_seh-1.dll
 		${CMAKE_BINARY_DIR}/libstdc++-6.dll
 		${CMAKE_BINARY_DIR}/libwinpthread-1.dll

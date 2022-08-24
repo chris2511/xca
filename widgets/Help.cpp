@@ -12,6 +12,9 @@
 #include <QDialog>
 #include <QHelpEngine>
 #include <QDialogButtonBox>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+#include <QHelpLink>
+#endif
 
 Help::Help() : QWidget(NULL), helpengine(nullptr)
 {
@@ -42,19 +45,29 @@ void Help::content()
 	display(QUrl("qthelp://org.sphinx.xca/doc/index.html"));
 }
 
-QMap<QString, QUrl> Help::url_by_ctx(const QString &ctx) const
+QList<QUrl> Help::url_by_ctx(const QString &ctx) const
 {
 	if (!helpengine)
-		return QMap<QString, QUrl>();
-	return helpengine->linksForIdentifier(QString("%1.%1").arg(ctx));
+		return QList<QUrl>();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+	QList<QUrl> l;
+	foreach(QHelpLink hl,
+			helpengine->documentsForIdentifier(QString("%1.%1").arg(ctx)))
+	{
+		l << hl.url;
+	}
+	return l;
+#else
+	return helpengine->linksForIdentifier(QString("%1.%1").arg(ctx)).values();
+#endif
 }
 
 void Help::contexthelp(const QString &context)
 {
-	QMap<QString, QUrl> helpctx = url_by_ctx(context);
+	QList<QUrl> helpctx = url_by_ctx(context);
 
 	if (helpctx.count())
-		display(helpctx.constBegin().value());
+		display(helpctx.at(0));
 }
 
 void Help::contexthelp()
@@ -81,7 +94,7 @@ void Help::register_ctxhelp_button(QDialog *dlg, const QString &help_ctx) const
 	buttonBox->setProperty("help_ctx", QVariant(help_ctx));
 	connect(buttonBox, SIGNAL(helpRequested()), this, SLOT(contexthelp()));
 
-	if (helpengine && url_by_ctx(help_ctx).count() == 0) {
+	if (url_by_ctx(help_ctx).count() == 0) {
 		qWarning() << "Unknown help context: " << help_ctx;
 		buttonBox->button(QDialogButtonBox::Help)->setEnabled(false);
 	}

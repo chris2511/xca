@@ -1,11 +1,6 @@
-include_directories(${Qt5Widgets_INCLUDE_DIRS}
-                ${Qt5Sql_INCLUDE_DIRS}
-                ${Qt5Core_INCLUDE_DIRS}
-                ${Qt5Help_INCLUDE_DIRS}
-                ${OPENSSL_INCLUDE_DIR}
-                ${PROJECT_BINARY_DIR}
-                ${PROJECT_SOURCE_DIR}
-)
+
+include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
+
 add_library(widgets STATIC
 CertDetail.cpp		NewCrl.cpp		XcaApplication.h
 CertDetail.h		NewCrl.h		XcaDialog.cpp
@@ -34,3 +29,6 @@ MW_menu.cpp		X509SuperTreeView.cpp	v3ext.h
 MainWindow.cpp		X509SuperTreeView.h	validity.cpp
 MainWindow.h		XcaApplication.cpp	validity.h
 )
+
+target_link_libraries(widgets PRIVATE
+	OpenSSL::Crypto ${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help)
