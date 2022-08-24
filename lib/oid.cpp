@@ -10,6 +10,7 @@
 #include <openssl/objects.h>
 #include <QStringList>
 #include <QStandardPaths>
+#include <QRegularExpression>
 #include <QDebug>
 #include <QDir>
 #include "func.h"
@@ -127,7 +128,8 @@ static void readOIDs(const QString &fname)
 		line++;
 		if (entry.startsWith('#') || entry.isEmpty())
 			continue;
-		insert_new_oid(entry.split(QRegExp("\\s*:\\s*")), fname, line);
+		insert_new_oid(entry.split(QRegularExpression("\\s*:\\s*")),
+									fname, line);
 	}
 }
 

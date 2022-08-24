@@ -330,15 +330,15 @@ DbMap database_model::splitRemoteDbName(const QString &db)
 	static const char * const names[NUM_PARAM] =
 		{ "all", "user", "host", "type", "dbname", "prefix" };
 	DbMap map;
-	QRegExp rx("(.*)@(.*)/(.*):([^#]*)#?([^#]*)");
-	int i, pos = rx.indexIn(db);
-	QStringList list = rx.capturedTexts();
+	auto match = QRegularExpression("(.*)@(.*)/(.*):([^#]*)#?([^#]*)")
+					.match(db);
+	QStringList list = match.capturedTexts();
 
-	if (pos != -1 && list.size() >= NUM_PARAM_LEAST) {
+	if (match.hasMatch() && list.size() >= NUM_PARAM_LEAST) {
 		if (list.size() == NUM_PARAM_LEAST)
 			list[NUM_PARAM_LEAST] = "";
 		list[NUM_PARAM_LEAST] = list[NUM_PARAM_LEAST].toLower();
-		for (i=0; i < NUM_PARAM; i++) {
+		for (int i=0; i < NUM_PARAM; i++) {
 			map[names[i]] = list[i];
 		}
 		qDebug() << "SPLIT DB:" << map;

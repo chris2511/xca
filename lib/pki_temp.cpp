@@ -13,6 +13,7 @@
 #include <QDir>
 #include <QBuffer>
 #include <QDataStream>
+#include <QRegularExpression>
 
 #define TEMPLATE_DS_VERSION (QDataStream::Qt_4_2)
 
@@ -259,7 +260,8 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 
 	settings["kuCritical"] = kuCritical ? "1" : "0";
 	fromExtList(&el, NID_ext_key_usage, "eKeyUse");
-	QStringList eKeyUse = settings["eKeyUse"].split(QRegExp(",\\s*"));
+	QStringList eKeyUse = settings["eKeyUse"]
+							.split(QRegularExpression(",\\s*"));
 	settings["ekuCritical"] = "0";
 	if (eKeyUse.contains("critical")) {
 		eKeyUse.removeOne("critical");

@@ -17,6 +17,8 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QValidator>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include <QMap>
 #include <QPair>
 
@@ -338,8 +340,8 @@ void NewX509::setupLineEditByNid(int nid, QLineEdit *l)
 			info << tr("maximum size: %1").arg(tab->maxsize);
 		if (tab->mask == B_ASN1_PRINTABLESTRING) {
 			info << tr("only a-z A-Z 0-9 '()+,-./:=?");
-			QRegExp rx("[a-zA-Z0-9'()+,-./:=?]+");
-			validator = new QRegExpValidator(rx, this);
+			QRegularExpression rx("[a-zA-Z0-9'()+,-./:=?]+");
+			validator = new QRegularExpressionValidator(rx, this);
 		} else if (tab->mask == B_ASN1_IA5STRING) {
 			info << tr("only 7-bit clean characters");
 		}
@@ -1383,7 +1385,7 @@ void NewX509::accept()
 		}
 	}
 	QString cn = xn.getEntryByNid(NID_commonName);
-	QStringList san = subAltName->text().split(QRegExp(" *, *"));
+	QStringList san = subAltName->text().split(QRegularExpression(" *, *"));
 	if (cn.isEmpty() && san.contains("DNS:copycn") && pt != tmpl) {
 		gotoTab(2);
 		xcaWarningBox msg(this, tr("The subject alternative name shall contain a copy of the common name. However, the common name is empty."));

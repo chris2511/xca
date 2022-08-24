@@ -18,7 +18,7 @@
 
 pki_lookup Store;
 
-QRegExp pki_base::limitPattern;
+QRegularExpression pki_base::limitPattern;
 bool pki_base::pem_comment;
 QList<pki_base*> pki_base::allitems;
 
@@ -75,16 +75,16 @@ int pki_base::renameOnToken(const slotid &, const QString &)
 QString pki_base::getUnderlinedName() const
 {
 	QString name = getIntName();
-	QRegExp rx("^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$");
+	QRegularExpression rx("^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$");
 
-	if (rx.indexIn(name) != -1)
+	if (rx.match(name).hasMatch())
 		name += "_";
-	return name.replace(QRegExp("[ $&;`/\\\\<>:\"/\\|?*]+"), "_");
+	return name.replace(QRegularExpression("[ $&;`/\\\\<>:\"/\\|?*]+"), "_");
 }
 
 bool pki_base::visible() const
 {
-	if (limitPattern.isEmpty() || limitPattern == lastPattern)
+	if (limitPattern.pattern().isEmpty() || limitPattern == lastPattern)
 		return true;
 	lastPattern = limitPattern;
 	return getIntName().contains(limitPattern) ||
@@ -115,8 +115,6 @@ bool pki_base::childVisible() const
 
 int pki_base::isVisible()
 {
-	if (limitPattern.isEmpty())
-		return 1;
 	return visible() ? 1 : childVisible() ? 2 : 0;
 }
 
@@ -451,7 +449,7 @@ static QString icsValue(QString s)
 	int n = 60;
 	QStringList lines;
 
-	QString t = s.replace(QRegExp("([,;\\\\])"), "\\\\1")
+	QString t = s.replace(QRegularExpression("([,;\\\\])"), "\\\\1")
 			.replace("\n", "\\n")
 			.replace("\r", "\\r");
 	qDebug() << "S:" << s;

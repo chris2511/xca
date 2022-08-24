@@ -31,6 +31,7 @@
 #include <QStringList>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QRegularExpression>
 
 #if defined(Q_OS_WIN32)
 #include <shlobj.h>
@@ -309,13 +310,14 @@ void migrateOldPaths()
 QString getFullFilename(const QString & filename, const QString & selectedFilter)
 {
 	QString rv = filename.trimmed(), ext;
-	QRegExp rx(".* \\( ?\\*(.[a-z]{1,3}) ?\\)");
-	rx.indexIn(selectedFilter);
-	ext = rx.cap(1);
-	if (!ext.isEmpty() && !rv.endsWith(ext)) {
-		rv += ext;
-	}
-	return rv;
+	auto match = QRegularExpression(".* \\( ?\\*(.[a-z]{1,3}) ?\\)")
+					.match(selectedFilter);
+
+	ext = match.captured(1);
+	if (ext.isEmpty() || rv.endsWith(ext))
+		return rv;
+
+	return rv + ext;
 }
 
 QString hostId()
@@ -538,7 +540,7 @@ bool _ign_openssl_error(const QString &txt, const char *file, int line)
 QString formatHash(const QByteArray &data, QString sep, int width)
 {
 	return QString(data.toHex()).toUpper()
-			.replace(QRegExp(QString("(.{%1})(?=.)").arg(width)),
+			.replace(QRegularExpression(QString("(.{%1})(?=.)").arg(width)),
 				 QString("\\1") + sep);
 }
 

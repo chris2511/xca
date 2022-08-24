@@ -9,7 +9,7 @@
 #define __PKI_BASE_H
 
 #include <QString>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QVariant>
 #include <QByteArray>
 #include "BioByteArray.h"
@@ -49,7 +49,7 @@ class pki_base : public QObject
 		Q_OBJECT
 
 	public: /* static */
-		static QRegExp limitPattern;
+		static QRegularExpression limitPattern;
 		static QString rmslashdot(const QString &fname);
 		static unsigned hash(const QByteArray &ba);
 		static bool pem_comment;
@@ -68,7 +68,7 @@ class pki_base : public QObject
 		virtual QByteArray PEM_comment() const;
 		virtual void collect_properties(QMap<QString, QString> &) const;
 		QList<pki_base*> childItems;
-		mutable QRegExp lastPattern;
+		mutable QRegularExpression lastPattern;
 
 	public:
 		enum msg_type {
@@ -92,7 +92,7 @@ class pki_base : public QObject
 		void clear();
 		void recheckVisibility()
 		{
-			lastPattern = QRegExp();
+			lastPattern = QRegularExpression();
 		}
 		QString getIntName() const
 		{

@@ -77,12 +77,12 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 			tt = tr("An email address");
 	} else if (s == "RID") {
 		tt = tr("A registered ID: OBJECT IDENTIFIER");
-		QRegExp rx("[a-zA-Z0-9.]+");
-		v = new QRegExpValidator(rx, this);
+		QRegularExpression rx("[a-zA-Z0-9.]+");
+		v = new QRegularExpressionValidator(rx, this);
 	} else if (s == "URI") {
 		tt = tr("A uniform resource indicator");
-		QRegExp rx("[a-z][a-z0-9\\.\\+\\-]*://.*");
-                v = new QRegExpValidator(rx, this);
+		QRegularExpression rx("[a-z][a-z0-9\\.\\+\\-]*://.*");
+                v = new QRegularExpressionValidator(rx, this);
 	} else if (s == "DNS") {
 		if (nid == NID_subject_alt_name)
 			tt = tr("A DNS domain name or 'copycn'");
@@ -93,14 +93,14 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 		v = new ipValidator();
 	} else if (s == "otherName") {
 		tt = tr("Syntax: <OID>;TYPE:text like '1.2.3.4:UTF8:name'");
-		QRegExp rx("[a-zA-Z0-9.]+;.*");
-		v = new QRegExpValidator(rx, this);
+		QRegularExpression rx("[a-zA-Z0-9.]+;.*");
+		v = new QRegularExpressionValidator(rx, this);
 	} else if (s == "issuer") {
 		tt = tr("No editing. Only 'copy' allowed here");
 		l->setText(QString("copy"));
 		l->setReadOnly(true);
-		QRegExp rx("copy");
-                v = new QRegExpValidator(rx, this);
+		QRegularExpression rx("copy");
+                v = new QRegularExpressionValidator(rx, this);
 	}
 	l->setToolTip(tt);
 	l->setValidator(v);

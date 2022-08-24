@@ -207,7 +207,7 @@ keyjob NewKey::getKeyJob() const
 		job.ec_nid = curveBox->itemData(idx).toInt();
 	} else {
 		QString size = keyLength->currentText();
-		size.replace(QRegExp("[^0-9]"), "");
+		size.replace(QRegularExpression("[^0-9]"), "");
 		job.size = size.toInt();
 	}
 	job.slot = selected.slot;

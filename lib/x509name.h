@@ -10,6 +10,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QRegularExpression>
 #include <openssl/x509.h>
 
 class x509name
@@ -47,7 +48,7 @@ class x509name
 		QString taggedValues() const;
 		QString hash() const;
 		unsigned hashNum() const;
-		bool search(const QRegExp &pattern) const;
+		bool search(const QRegularExpression &pattern) const;
 };
 
 #endif

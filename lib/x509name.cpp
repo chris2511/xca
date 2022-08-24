@@ -245,7 +245,7 @@ QString x509name::checkLength() const
 	return warn;
 }
 
-bool x509name::search(const QRegExp &pattern) const
+bool x509name::search(const QRegularExpression &pattern) const
 {
 	int i, max = entryCount();
 	for (i=0; i<max; i++) {

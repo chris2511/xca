@@ -10,7 +10,7 @@
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QVariant>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QFileDialog>
 #include <QClipboard>
 
@@ -205,8 +205,8 @@ void XcaTreeView::editIdx()
 
 void XcaTreeView::setFilter(const QString &pattern)
 {
-	pki_base::limitPattern = QRegExp(pattern,
-			Qt::CaseInsensitive, QRegExp::Wildcard);
+	pki_base::limitPattern = QRegularExpression(pattern,
+			QRegularExpression::CaseInsensitiveOption);
 	// Only to tell the model about the changed filter
 	proxy->setFilterFixedString(pattern);
 }

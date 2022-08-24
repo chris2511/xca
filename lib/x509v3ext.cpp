@@ -13,6 +13,7 @@
 #include <openssl/x509v3.h>
 #include <openssl/stack.h>
 #include <QStringList>
+#include <QRegularExpression>
 #include <QDebug>
 #include "base.h"
 #include "BioByteArray.h"
@@ -156,17 +157,17 @@ QString x509v3ext::getValue() const
 QString x509v3ext::getHtmlValue() const
 {
 	QString text = getValue();
-	text.replace(QRegExp("&"), "&amp;");
-	text.replace(QRegExp("<"), "&lt;");
-	text.replace(QRegExp(">"), "&gt;");
-	text.replace(QRegExp("\n"), "<br>\n");
+	text.replace(QRegularExpression("&"), "&amp;");
+	text.replace(QRegularExpression("<"), "&lt;");
+	text.replace(QRegularExpression(">"), "&gt;");
+	text.replace(QRegularExpression("\n"), "<br>\n");
 	return text;
 }
 
 QString x509v3ext::getConsoleValue(const QString &indent) const
 {
 	QString text = getValue();
-	text.replace(QRegExp("\n"), QString("\n") + indent);
+	text.replace(QRegularExpression("\n"), QString("\n") + indent);
 	return text;
 }
 
@@ -1041,7 +1042,7 @@ STACK_OF(X509_EXTENSION) *extList::getStack()
 	return sk;
 }
 
-bool extList::search(const QRegExp &pattern)
+bool extList::search(const QRegularExpression &pattern)
 {
 	foreach(const x509v3ext &e, *this)
 		if (e.getValue().contains(pattern))

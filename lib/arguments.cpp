@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <QCommandLineParser>
+#include <QRegularExpression>
 
 #if !defined(Q_OS_WIN32)
 #include <sys/ioctl.h>
@@ -130,7 +131,7 @@ QString arguments::man()
 
 static QString esc(QString msg)
 {
-	return msg.replace(QRegExp("([\\*@:'_])"), "\\\\1");
+	return msg.replace(QRegularExpression("([\\*@:'_])"), "\\\\1");
 }
 
 QString arguments::rst()

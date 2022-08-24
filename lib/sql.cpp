@@ -6,6 +6,7 @@
  */
 
 #include <QString>
+#include <QRegularExpression>
 #include <QDebug>
 #include "base.h"
 #include "sql.h"
@@ -141,7 +142,7 @@ QString XSqlQuery::rewriteQuery(QString _q)
 
 	QString m = tables.join("|") + "|i_" + tables.join("|i_");
 	m = QString("\\b(%1)").arg(m);
-	query = query.replace(QRegExp(m), table_prefix + "\\1");
+	query = query.replace(QRegularExpression(m), table_prefix + "\\1");
 
 	return query;
 }

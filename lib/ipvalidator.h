@@ -9,7 +9,7 @@
 #define __IPVALIDATOR_H
 
 #include <QStringList>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QString>
 #include <QValidator>
 
@@ -38,7 +38,7 @@ class ipValidator : public QValidator
     public:
 	QValidator::State validate(QString &input, int&) const
 	{
-		if (!QRegExp("[0-9a-fA-F:\\.]*").exactMatch(input))
+		if (!QRegularExpression("^[0-9a-fA-F:\\.]*$").match(input).hasMatch())
 			return Invalid;
 		return inet_pton(AF_INET, CCHAR(input), buf) == 1 ||
 			inet_pton(AF_INET6, CCHAR(input), buf) == 1 ?

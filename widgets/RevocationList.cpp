@@ -5,6 +5,8 @@
  * All rights reserved.
  */
 
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include "RevocationList.h"
 #include "MainWindow.h"
 #include "NewCrl.h"
@@ -213,7 +215,8 @@ Revocation::Revocation(QModelIndexList indexes, QWidget *w) : QDialog(w ? w : ma
 		serial->setEnabled(false);
 	} else {
 		serial->setValidator(
-			new QRegExpValidator(QRegExp("[A-Fa-f0-9]+"), serial));
+			new QRegularExpressionValidator(
+					QRegularExpression("[A-Fa-f0-9]+"), serial));
 	}
 }
 
