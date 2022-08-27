@@ -8,6 +8,18 @@ This guide shows the minimal requirements for various tasks.  For more
 advanced use of XCA, users are encouraged to familiarize themselves with
 the applicable standards.
 
+Create a new Database
+---------------------
+
+If the New Certificate button is greyed out you first need to create
+a new database.  If you have a database already you may need to open it instead.
+
+1) Click the File menu.
+2) Click New Database.
+3) Type the name of the new database into the file selector box.
+4) Enter a password into the New Password dialog.
+5) Click the *OK* button at the bottom.
+
 Setting up a Root CA Certificate
 --------------------------------
 
