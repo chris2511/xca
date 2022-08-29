@@ -97,16 +97,13 @@ if(SPHINX)
     if (APPLE)
       execute_process(COMMAND ln -fs .doc/html/index.html ${D}/manual.html)
       install(FILES ${D}/manual.html DESTINATION .)
-      install(DIRECTORY ${D}/html DESTINATION .doc)
+      set(HTML_INSTALL_DEST .doc/html)
+      install(DIRECTORY ${D}/html DESTINATION .doc PATTERN ".*" EXCLUDE)
     else()
-      install(FILES ${HTML_DEST}
-              DESTINATION ${CMAKE_INSTALL_DOCDIR}
+      install(DIRECTORY ${D}/html/ DESTINATION ${CMAKE_INSTALL_DOCDIR}
+          PATTERN ".*" EXCLUDE
       )
     endif()
-  elseif(WIN32)
-    install(FILES ${HTML_DEST}
-	    DESTINATION ${RUNTIME_DEST}/html
-    )
   endif()
 
   if(QTCOLLGEN)
@@ -124,7 +121,11 @@ if(SPHINX)
 
     if (UNIX AND NOT APPLE)
         install(FILES ${QTHELP_DEST} ${QTHELP_IDX}
-            DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/html
+                DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/html
+        )
+    elseif (WIN32)
+        install(FILES ${QTHELP_DEST} ${QTHELP_IDX}
+                DESTINATION ${RUNTIME_DEST}/html
         )
     endif()
 

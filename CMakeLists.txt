@@ -86,7 +86,6 @@ message(STATUS "Using ${QT} with version ${QT_VERSION}")
 
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
 get_target_property(core_libdir ${QT}::Core IMPORTED_LOCATION)
-message(QTCORE ${core_libdir})
 get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
 find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")

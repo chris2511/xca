@@ -211,7 +211,7 @@ The relevant server config is as follows:
 
 The client config is:
 
-.. code-block:: apache
+.. code-block:: output
 
   ca ca.crt
   pkcs11-providers /usr/lib/libeTPkcs11.so

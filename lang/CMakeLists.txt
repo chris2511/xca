@@ -29,9 +29,9 @@ string(APPEND WIX_LANG_CONTENT
 WixFile(${D}/language.wxs ${WIX_LANG_CONTENT})
 
 if (${QT_VERSION} VERSION_LESS 6.0.0)
-  qt5_add_translation(QM_FILES ${TS_FILES})
+  qt5_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
 else()
-  qt_add_translation(QM_FILES ${TS_FILES})
+  qt_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
 endif()
 list(APPEND APP_RESOURCES ${QM_FILES})
 
