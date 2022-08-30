@@ -809,9 +809,7 @@ bool pki_key::verify(EVP_PKEY *pkey) const
 		break;
 #ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519: {
-		size_t len;
-		verify = EVP_PKEY_get_raw_private_key(pkey, NULL, &len) == 1 &&
-				len == ED25519_KEYLEN;
+		// let's check it in verify_priv
 		break;
 	}
 #endif
