@@ -864,13 +864,19 @@ static int eng_pmeth_sign_eddsa(EVP_MD_CTX *ctx,
 			const unsigned char *tbs, size_t tbslen)
 {
 	int len, rs_len, ret = -1;
-	unsigned char rs_buf[512];
+	unsigned char rs_buf[64];
 	EVP_PKEY *pkey = EVP_PKEY_CTX_get0_pkey(EVP_MD_CTX_pkey_ctx(ctx));
 	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(EVP_PKEY_get0_engine(pkey), eng_idx);
+	*siglen = EVP_PKEY_size(pkey);
+	if (sig == NULL) {
+	    // caller needs only size
+	    ret = 1;
+	    goto out;
+	}
 
 	// siglen is unsigned and can' cope with -1 as return value
 	len = p11->encrypt(tbslen, tbs, rs_buf, sizeof rs_buf, CKM_EDDSA);
-	if (len & 0x01) // Must be even
+	if ((len & 0x01) || (*siglen != len)) // Must be even
 		goto out;
 	memcpy(sig, rs_buf, len);
 	*siglen = len;
