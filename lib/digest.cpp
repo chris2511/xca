@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include "func.h"
 #include "digest.h"
 #include "lib/base.h"
 #include <QList>
@@ -36,6 +37,7 @@ digest::digest(const QString &name) : md_nid(default_md)
 		return;
 	}
 	md_nid = OBJ_txt2nid(CCHAR(s.remove(QChar(' '))));
+	ign_openssl_error();
 }
 
 bool digest::isInsecure() const
@@ -51,12 +53,12 @@ bool digest::isInsecure() const
 
 const EVP_MD *digest::MD() const
 {
-	return EVP_get_digestbynid(md_nid);
+	return md_nid == NID_undef ? NULL : EVP_get_digestbynid(md_nid);
 }
 
 QString digest::name() const
 {
-	return OBJ_nid2sn(md_nid);
+	return QString(md_nid == NID_undef ? "" : OBJ_nid2sn(md_nid));
 }
 
 const digest digest::getDefault()
