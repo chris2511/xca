@@ -30,6 +30,11 @@ digest::digest(const EVP_MD *md) : md_nid(default_md)
 digest::digest(const QString &name) : md_nid(default_md)
 {
 	QString s(name);
+	// Workaround for Ed25519
+	if (s.isEmpty()) {
+		md_nid = NID_undef;
+		return;
+	}
 	md_nid = OBJ_txt2nid(CCHAR(s.remove(QChar(' '))));
 }
 
