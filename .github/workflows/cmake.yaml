@@ -10,43 +10,59 @@ jobs:
   build:
     strategy:
       matrix:
+
+        os: [ ubuntu, macos, windows ]
+        qt: [ "5.15.2", "6.3.1" ]
+
         include:
-        - os: ubuntu-latest
+        - os: ubuntu
           generator: Unix Makefiles
           openssl_root: /usr
           artifact: xca-*-Linux.tar.gz
+          host: linux
 
-        - os: macos-latest
+        - os: macos
           generator: Unix Makefiles
           openssl_root: /usr/local/opt/openssl@1.1
           artifact: xca-*.dmg
+          host: mac
 
-        - os: windows-latest
+        - os: windows
           generator: MinGW Makefiles
-                      # ${{env.MSYS}} not accepted here... ??
           openssl_root: D:\msys2\msys64\mingw64
           artifact: xca-*.msi
+          host: windows
 
-    runs-on: ${{matrix.os}}
+        - os: windows
+          qt: "5.15.2"
+          winarch: win64_mingw81
+
+        - os: windows
+          qt: "6.3.1"
+          winarch: win64_mingw
+
+    runs-on: ${{matrix.os}}-latest
 
     steps:
     - name: Install Sphinx
-      run: pip install sphinx
+      run: pip3 install sphinx
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v3
       with:
-        arch: win64_mingw81
+        arch: ${{matrix.winarch}}
+        version: ${{matrix.qt}}
+ #       tools: "tools_openssl_x64 ${{matrix.winarch}}"
 
     - uses: msys2/setup-msys2@v2
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows'
       with:
         location: ${{env.MSYS}}
         msystem: mingw64
         install: mingw-w64-x86_64-openssl openssl-devel
 
     - name: Brew install OpenSSL
-      if: matrix.os == 'macos-latest'
+      if: matrix.os == 'macos'
       run: brew install openssl
 
     - name: Checkout XCA
@@ -60,10 +76,10 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5 -v
 
     - name: Fixup after WindeployQT
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows'
       run: |
         cd ${{env.MSYS}}\msys64\mingw64\bin
         cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}/build
@@ -78,6 +94,7 @@ jobs:
       run: |
         cd ${{github.workspace}}/build
         cpack -C ${{env.BUILD_TYPE}}
+#        type _CPack_Packages/win64/WIX/wix.log
 
     - name: Deploy
       uses: actions/upload-artifact@v2

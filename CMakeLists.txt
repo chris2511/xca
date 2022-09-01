@@ -20,6 +20,12 @@ include(cmake/git_version.cmake)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
+if(${CMAKE_BUILD_TYPE} MATCHES Release)
+#  set(WINDEPLOY_OPTS --release)
+else()
+#  set(WINDEPLOY_OPTS --debug)
+#  set(MACDEPLOY_OPTS -use-debug-libs)
+endif()
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
 
@@ -110,16 +116,6 @@ if (APPLE)
   )
   set(CMAKE_MACOSX_BUNDLE ON)
 
-  ##### Plugins
-
-  get_target_property(sqlplugins ${QT}::Sql QT_ALL_PLUGINS_sqldrivers)
-  message(STATUS "SQL Plugins ${sqlplugins}")
-  foreach(sql ${sqlplugins})
-    get_target_property(loc ${sql} LOCATION_${CMAKE_BUILD_TYPE})
-    list(APPEND sqlplugin_paths "${loc}")
-  endforeach()
-  qt_import_plugins(${CMAKE_PROJECT_NAME} INCLUDE_BY_TYPE sqldrivers)
-
   # Avoid bin/ sub-directory in DMG
   set(RUNTIME_DEST .)
 
@@ -181,7 +177,7 @@ if(APPLE)
 
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${MACDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
-        -always-overwrite
+        -always-overwrite ${MACDEPLOY_OPTS}
     COMMENT "Running macdeployqt..."
   )
   if (DEFINED ENV{APPLE_DEVELOPER_HASH})
@@ -199,7 +195,7 @@ if(APPLE)
 elseif(WIN32)
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
     COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>
-        --dir ${CMAKE_BINARY_DIR} --compiler-runtime
+        --dir ${CMAKE_BINARY_DIR} --compiler-runtime ${WINDEPLOY_OPTS} --verbose 2
     COMMENT "Running windeployqt..."
   )
   set(QT_USE_QTMAIN TRUE)

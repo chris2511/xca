@@ -14,7 +14,9 @@ foreach(lang ${XCA_LANGUAGES} ${XCAQM_LANGUAGES})
   list(APPEND LANG_COMPREFS "  <ComponentRef Id=\"Ci18n.${lang}\"/>\n")
   set(LANG_COMPS "  <Component Id=\"Ci18n.${lang}\" Guid=\"${GUID}\">
     <File Id=\"xca_${lang}.qm\" Source=\"${D}/xca_${lang}.qm\" KeyPath=\"yes\"/>\n")
-  if(${lang} IN_LIST XCAQM_LANGUAGES)
+  if(${lang} IN_LIST XCAQM_LANGUAGES AND
+     EXISTS ${_qt_bin_dir}/../translations/qt_${lang}.qm
+  )
     string(APPEND LANG_COMPS "    <File Id=\"qt_${lang}.qm\" Source=\"${D}/translations/qt_${lang}.qm\"/>\n")
   endif()
   string(APPEND LANG_COMPS "  </Component>\n")
@@ -27,11 +29,12 @@ string(APPEND WIX_LANG_CONTENT
 )
 
 WixFile(${D}/language.wxs ${WIX_LANG_CONTENT})
-
-if (${QT_VERSION} VERSION_LESS 6.0.0)
-  qt5_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
-else()
-  qt_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
+if(NOT TRANS)
+  if (${QT_VERSION} VERSION_LESS 6.0.0)
+    qt5_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
+  else()
+    qt_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
+  endif()
 endif()
 list(APPEND APP_RESOURCES ${QM_FILES})
 
@@ -59,7 +62,11 @@ if (LCONVERT AND TRANS)
 	DEPENDS "${S}/xca.ts"
 	COMMENT "Update POT file"
   )
-  qt5_create_translation(CQM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+  if (${QT_VERSION} VERSION_LESS 6.0.0)
+    qt5_create_translation(CQM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+  else()
+    qt_create_translation(CQM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+  endif()
 
   add_custom_target(trans DEPENDS ${CQM_FILES} "${S}/xca.pot")
 endif()

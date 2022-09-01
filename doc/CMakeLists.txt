@@ -5,7 +5,7 @@ file(MAKE_DIRECTORY "${D}")
 
 find_program(SPHINX sphinx-build)
 find_program(QTCOLLGEN NAMES qhelpgenerator qcollectiongenerator
-                       HINTS "${_qt_bin_dir}")
+                       HINTS ${_qt_bin_dir} ${_qt_bin_dir}/../libexec)
 
 set(FILENAMES
 	index commandline requests object-ids common-actions database options
@@ -130,7 +130,7 @@ if(SPHINX)
     endif()
 
   else(QTCOLLGEN)
-    message(WARNING "Neither 'qhelpgenerator' nor 'qcollectiongenerator' found. In-app documentation disabed. ${Qt_DIR}/../../../bin")
+    message(WARNING "Neither 'qhelpgenerator' nor 'qcollectiongenerator' found. In-app documentation disabed. ${_qt_bin_dir}")
   endif(QTCOLLGEN)
 else(SPHINX)
   message(WARNING "sphinx-build binary not found. Documentation generation disabled")
