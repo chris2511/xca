@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9.0)
+cmake_minimum_required(VERSION 3.12.0)
 
 project(xca
 	DESCRIPTION "X Certificate and Key management"
@@ -20,12 +20,6 @@ include(cmake/git_version.cmake)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
-if(${CMAKE_BUILD_TYPE} MATCHES Release)
-#  set(WINDEPLOY_OPTS --release)
-else()
-#  set(WINDEPLOY_OPTS --debug)
-#  set(MACDEPLOY_OPTS -use-debug-libs)
-endif()
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
 
@@ -44,9 +38,10 @@ configure_file(local.h.in local.h)
 
 ##### Libraries and executables
 
-add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc)
-add_executable(xcadoc xcadoc.cpp)
-target_include_directories(xcadoc PRIVATE "${PROJECT_SOURCE_DIR}/lib")
+add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc ${PROJECT_BINARY_DIR}/local.h)
+add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
+
+include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
 set(PSQL_BINDIR "")
 set(MYSQL_BINDIR "")
@@ -101,11 +96,13 @@ if (NOT OPENSSL_ROOT_DIR)
 endif()
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
-	core widgets core
 	OpenSSL::Crypto
 	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
 )
-target_link_libraries(xcadoc core ${QT}::Core)
+target_link_libraries(xcadoc
+	OpenSSL::Crypto
+	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
+)
 
 if (APPLE)
 
@@ -177,7 +174,7 @@ if(APPLE)
 
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${MACDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
-        -always-overwrite ${MACDEPLOY_OPTS}
+        -always-overwrite
     COMMENT "Running macdeployqt..."
   )
   if (DEFINED ENV{APPLE_DEVELOPER_HASH})
@@ -193,10 +190,15 @@ if(APPLE)
   set(CPACK_GENERATOR "DragNDrop") #;productbuild")
 
 elseif(WIN32)
-  add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
+  add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>
-        --dir ${CMAKE_BINARY_DIR} --compiler-runtime ${WINDEPLOY_OPTS} --verbose 2
-    COMMENT "Running windeployqt..."
+        --dir ${CMAKE_BINARY_DIR} --compiler-runtime
+    COMMENT "Running windeployqt on ${CMAKE_PROJECT_NAME} ..."
+  )
+  add_custom_command(TARGET xcadoc POST_BUILD
+    COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:xcadoc>
+        --dir ${CMAKE_BINARY_DIR} --no-translations
+    COMMENT "Running windeployqt on xcadoc ..."
   )
   set(QT_USE_QTMAIN TRUE)
   set(CPACK_GENERATOR WIX)

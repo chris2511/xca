@@ -18,17 +18,6 @@
 #include "base.h"
 #include "Passwd.h"
 
-#define COL_CYAN  "\x1b[0;36m"
-#define COL_BLUE  "\x1b[0;94m"
-#define COL_GREEN "\x1b[0;92m"
-#define COL_LRED  "\x1b[0;91m"
-#define COL_YELL  "\x1b[0;33m"
-#define COL_RED   "\x1b[0;31m"
-#define COL_RESET "\x1b[0m"
-#define COL_BOLD  "\x1b[1m"
-#define COL_DIM   "\x1b[2m"
-#define COL_UNDER "\x1b[4m"
-
 #define IS_GUI_APP (is_gui_app)
 
 class Validity;

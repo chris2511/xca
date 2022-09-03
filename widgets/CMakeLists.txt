@@ -1,7 +1,4 @@
-
-include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
-
-add_library(widgets STATIC
+list(APPEND xca_sources
 CertDetail.cpp		NewCrl.cpp		XcaApplication.h
 CertDetail.h		NewCrl.h		XcaDialog.cpp
 CertExtend.cpp		NewKey.cpp		XcaDialog.h
@@ -30,5 +27,5 @@ MainWindow.cpp		X509SuperTreeView.h	validity.cpp
 MainWindow.h		XcaApplication.cpp	validity.h
 )
 
-target_link_libraries(widgets PRIVATE
-	OpenSSL::Crypto ${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help)
+list(TRANSFORM xca_sources PREPEND ${PROJECT_SOURCE_DIR}/widgets/)
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${xca_sources})

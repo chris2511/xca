@@ -8,6 +8,7 @@
 #ifndef __ARGUMENTS_H
 #define __ARGUMENTS_H
 
+#include "base.h"
 #include <QString>
 #include <QStringList>
 #include <QMap>

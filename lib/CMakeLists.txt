@@ -1,7 +1,7 @@
 
-include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
+list(APPEND xcadoc_sources arguments.cpp arguments.h xcadoc.cpp)
 
-add_library(core STATIC
+list(APPEND xca_sources
 BioByteArray.cpp	dbhistory.cpp		pki_key.cpp
 BioByteArray.h		dbhistory.h		pki_key.h
 Passwd.cpp		entropy.cpp		pki_lookup.h
@@ -39,5 +39,11 @@ PwDialogCore.cpp	PwDialogCore.h		digest.h
 digest.cpp		pki_export.cpp
 )
 
-target_link_libraries(core PRIVATE
-		OpenSSL::Crypto ${QT}::Core ${QT}::Sql ${QT}::Help)
+list(TRANSFORM xca_sources PREPEND ${PROJECT_SOURCE_DIR}/lib/)
+list(TRANSFORM xcadoc_sources PREPEND ${PROJECT_SOURCE_DIR}/lib/)
+
+list(APPEND xca_sources ${PROJECT_BINARY_DIR}/local.h)
+list(APPEND xcadoc_sources ${PROJECT_BINARY_DIR}/local.h)
+
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${xca_sources})
+target_sources(xcadoc PRIVATE ${xcadoc_sources})

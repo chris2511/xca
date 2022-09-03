@@ -18,19 +18,21 @@ jobs:
         - os: ubuntu
           generator: Unix Makefiles
           openssl_root: /usr
-          artifact: xca-*-Linux.tar.gz
+          artifact: build/xca-*-Linux.tar.gz
           host: linux
 
         - os: macos
           generator: Unix Makefiles
           openssl_root: /usr/local/opt/openssl@1.1
-          artifact: xca-*.dmg
+          artifact: build/xca-*.dmg
           host: mac
 
         - os: windows
           generator: MinGW Makefiles
           openssl_root: D:\msys2\msys64\mingw64
-          artifact: xca-*.msi
+          artifact: |
+             build/xca-*.msi
+             build/xca-portable-*.zip
           host: windows
 
         - os: windows
@@ -78,17 +80,22 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5 -v
 
-    - name: Fixup after WindeployQT
+    - name: Fixup after WindeployQT and Install
       if: matrix.os == 'windows'
       run: |
         cd ${{env.MSYS}}\msys64\mingw64\bin
         cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}/build
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -t install
 
     #- name: Test
       #working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       #run: ctest -C ${{env.BUILD_TYPE}}
+
+    - name: Install
+      if: matrix.os != 'windows'
+      run: DESTDIR=${{github.workspace}}/build/INSTALL cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -t install
 
     - name: Pack
       run: |
@@ -99,5 +106,5 @@ jobs:
     - name: Deploy
       uses: actions/upload-artifact@v2
       with:
-        path: ${{github.workspace}}/build/${{matrix.artifact}}
-        name: ${{matrix.os}}
+        path: ${{matrix.artifact}}
+        name: ${{matrix.os}}-${{matrix.qt}}
