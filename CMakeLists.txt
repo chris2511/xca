@@ -214,7 +214,7 @@ elseif(WIN32)
      ${CMAKE_BINARY_DIR}/misc/misc.wxs
      ${CMAKE_BINARY_DIR}/misc/dynamic.wxs
      )
-  target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -mwindows -MT$<$<CONFIG:Debug>:D>)
+  target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -mwindows -MD)
   install(DIRECTORY
 	  ${CMAKE_BINARY_DIR}/platforms
 	  ${CMAKE_BINARY_DIR}/sqldrivers

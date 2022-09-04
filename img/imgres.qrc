@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource>
-    <file alias="appIco">xca.png</file>
+    <file alias="appIco">xca-icons.iconset/icon_128x128.png</file>
 
     <file alias="doneIco">done.png</file>
     <file alias="warnIco">warn.png</file>
