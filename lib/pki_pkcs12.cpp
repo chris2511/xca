@@ -148,3 +148,42 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 	PKCS12_free(pkcs12);
 	file.write(b);
 }
+
+
+const QList<int> encAlgo::all_encAlgos(
+	{ NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+	  NID_aes_256_cbc
+});
+
+int encAlgo::default_encAlgo(NID_pbe_WithSHA1And3_Key_TripleDES_CBC);
+
+encAlgo::encAlgo(int nid) : encAlgo_nid(nid)
+{
+}
+
+encAlgo::encAlgo(const QString &name) : encAlgo_nid(default_encAlgo)
+{
+	QString s(name);
+	encAlgo_nid = OBJ_txt2nid(CCHAR(s.remove(QChar(' '))));
+	ign_openssl_error();
+}
+
+QString encAlgo::name() const
+{
+	return QString(encAlgo_nid == NID_undef ? "" : OBJ_nid2sn(encAlgo_nid));
+}
+
+int encAlgo::getEncAlgo() const
+{
+	return encAlgo_nid;
+}
+
+const encAlgo encAlgo::getDefault()
+{
+	return encAlgo(default_encAlgo);
+}
+
+void encAlgo::setDefault(const QString &def)
+{
+	default_encAlgo = encAlgo(def).encAlgo_nid;
+}
