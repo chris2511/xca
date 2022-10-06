@@ -118,7 +118,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	pki_openssl_error();
 }
 
-void pki_pkcs12::writePKCS12(XFile &file) const
+void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 {
 	Passwd pass;
 	PKCS12 *pkcs12;
@@ -137,9 +137,10 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 		if (x && x != cert)
 			sk_X509_push(certstack, x->getCert());
 	}
+	int encAlgoNid = encAlgo.getEncAlgoNid();
 	pkcs12 = PKCS12_create(pass.data(), getIntName().toUtf8().data(),
 				key->decryptKey(), cert->getCert(), certstack,
-				NID_pbe_WithSHA1And3_Key_TripleDES_CBC, NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+				encAlgoNid, encAlgoNid,
 				0, 0, 0);
 	BioByteArray b;
 	i2d_PKCS12_bio(b, pkcs12);

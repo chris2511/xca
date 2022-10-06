@@ -147,6 +147,7 @@ int Options::exec()
 	Settings["disable_netscape"] = disableNetscape->checkState();
 
 	Settings["default_hash"] = hashAlgo->current().name();
+    	Settings["pkcs12_enc_algo"] = pkcs12EncAlgo->current().name();
 	Settings["mandatory_dn"] = getDnString(extDNlist);
 	Settings["explicit_dn"] = getDnString(expDNlist);
 	Settings["string_opt"] = string_opts[mbstring->currentIndex()];

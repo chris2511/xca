@@ -57,6 +57,6 @@ class pki_pkcs12: public pki_multi
 		{
 			return cert;
 		}
-		void writePKCS12(XFile &file) const;
+		void writePKCS12(XFile &file, encAlgo &encAlgo) const;
 };
 #endif
