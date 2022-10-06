@@ -151,6 +151,7 @@ void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 }
 
 
+// see https://www.rfc-editor.org/rfc/rfc8018 Appendix B.2 for possible encryption schemes
 const QList<int> encAlgo::all_encAlgos(
 	{ NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
 	  NID_aes_256_cbc
