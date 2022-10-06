@@ -139,7 +139,7 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 	}
 	pkcs12 = PKCS12_create(pass.data(), getIntName().toUtf8().data(),
 				key->decryptKey(), cert->getCert(), certstack,
-				0, NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+				NID_pbe_WithSHA1And3_Key_TripleDES_CBC, NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
 				0, 0, 0);
 	BioByteArray b;
 	i2d_PKCS12_bio(b, pkcs12);
