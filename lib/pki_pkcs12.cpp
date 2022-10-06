@@ -173,7 +173,7 @@ QString encAlgo::name() const
 	return QString(encAlgo_nid == NID_undef ? "" : OBJ_nid2sn(encAlgo_nid));
 }
 
-int encAlgo::getEncAlgo() const
+int encAlgo::getEncAlgoNid() const
 {
 	return encAlgo_nid;
 }
