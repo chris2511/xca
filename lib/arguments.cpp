@@ -84,7 +84,10 @@ arg_option::arg_option(const char *l, const char *a, int has,
 
 QCommandLineOption arg_option::getCmdOption() const
 {
-	return QCommandLineOption(long_opt, help);
+	if (arg_type == no_argument)
+		return QCommandLineOption(long_opt, help);
+	else
+		return QCommandLineOption(long_opt, help, long_opt);
 }
 
 static QString splitQstring(int offset, int width, const QString &text)
