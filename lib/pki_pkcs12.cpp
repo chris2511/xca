@@ -118,7 +118,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	pki_openssl_error();
 }
 
-void pki_pkcs12::writePKCS12(XFile &file) const
+void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 {
 	Passwd pass;
 	PKCS12 *pkcs12;
@@ -137,9 +137,10 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 		if (x && x != cert)
 			sk_X509_push(certstack, x->getCert());
 	}
+	int encAlgoNid = encAlgo.getEncAlgoNid();
 	pkcs12 = PKCS12_create(pass.data(), getIntName().toUtf8().data(),
 				key->decryptKey(), cert->getCert(), certstack,
-				0, NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+				encAlgoNid, encAlgoNid,
 				0, 0, 0);
 	BioByteArray b;
 	i2d_PKCS12_bio(b, pkcs12);
@@ -147,4 +148,44 @@ void pki_pkcs12::writePKCS12(XFile &file) const
 	pki_openssl_error();
 	PKCS12_free(pkcs12);
 	file.write(b);
+}
+
+
+// see https://www.rfc-editor.org/rfc/rfc8018 Appendix B.2 for possible encryption schemes
+const QList<int> encAlgo::all_encAlgos(
+	{ NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+	  NID_aes_256_cbc
+});
+
+int encAlgo::default_encAlgo(NID_pbe_WithSHA1And3_Key_TripleDES_CBC);
+
+encAlgo::encAlgo(int nid) : encAlgo_nid(nid)
+{
+}
+
+encAlgo::encAlgo(const QString &name) : encAlgo_nid(default_encAlgo)
+{
+	QString s(name);
+	encAlgo_nid = OBJ_txt2nid(CCHAR(s.remove(QChar(' '))));
+	ign_openssl_error();
+}
+
+QString encAlgo::name() const
+{
+	return QString(encAlgo_nid == NID_undef ? "" : OBJ_nid2sn(encAlgo_nid));
+}
+
+int encAlgo::getEncAlgoNid() const
+{
+	return encAlgo_nid;
+}
+
+const encAlgo encAlgo::getDefault()
+{
+	return encAlgo(default_encAlgo);
+}
+
+void encAlgo::setDefault(const QString &def)
+{
+	default_encAlgo = encAlgo(def).encAlgo_nid;
 }

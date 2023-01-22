@@ -57,6 +57,20 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>PKCS12 encryption algorithm</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="pkcs12EncBox" name="pkcs12EncAlgo"/>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout">
          <item>
           <widget class="QLabel" name="label">
@@ -424,14 +438,19 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
  </widget>
  <customwidgets>
   <customwidget>
+   <class>focusCombo</class>
+   <extends>QComboBox</extends>
+   <header>widgets/FocusCombo.h</header>
+  </customwidget>
+  <customwidget>
    <class>hashBox</class>
    <extends>QComboBox</extends>
    <header>widgets/hashBox.h</header>
   </customwidget>
   <customwidget>
-   <class>focusCombo</class>
+   <class>pkcs12EncBox</class>
    <extends>QComboBox</extends>
-   <header>widgets/FocusCombo.h</header>
+   <header>widgets/pkcs12EncBox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

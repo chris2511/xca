@@ -25,6 +25,8 @@ MW_help.cpp		TempTreeView.h		v3ext.cpp
 MW_menu.cpp		X509SuperTreeView.cpp	v3ext.h
 MainWindow.cpp		X509SuperTreeView.h	validity.cpp
 MainWindow.h		XcaApplication.cpp	validity.h
+pkcs12EncBox.h
+pkcs12EncBox.cpp
 )
 
 list(TRANSFORM xca_sources PREPEND ${PROJECT_SOURCE_DIR}/widgets/)
