@@ -417,7 +417,8 @@ void pki_base::print(BioByteArray &bba, enum print_opt opt) const
 		"Not Before", "Not After", "Verify Ok",
 		"Unstructured Name", "Challange Password",
 		"Last Update", "Next Update", "CA", "Self signed",
-		"Key", "Signature", "Extensions", "Comment",
+		"Key", "Signature", "Extensions", "Comment", "Algorithm",
+		"Friendly Name"
 	};
 	if (opt == print_coloured) {
 		QMap<QString, QString> prp;

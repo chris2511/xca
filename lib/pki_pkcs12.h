@@ -41,7 +41,7 @@ class pki_pkcs12: public pki_multi
 	friend class pki_evp;
 
 	protected:
-		QString alias;
+		QString alias, algorithm;
 		pki_x509 *cert;
 		pki_key *key;
 
@@ -58,5 +58,6 @@ class pki_pkcs12: public pki_multi
 			return cert;
 		}
 		void writePKCS12(XFile &file, encAlgo &encAlgo) const;
+		void collect_properties(QMap<QString, QString> &prp) const;
 };
 #endif

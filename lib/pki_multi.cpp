@@ -171,8 +171,13 @@ void pki_multi::probeAnything(const QString &fname)
 
 void pki_multi::print(BioByteArray &bba, enum print_opt opt) const
 {
+	pki_base::print(bba, opt);
 	foreach(pki_base *pki, multi)
 		pki->print(bba, opt);
+}
+
+void pki_multi::collect_properties(QMap<QString, QString> &prp) const
+{
 }
 
 QList<pki_base *> pki_multi::pull()
