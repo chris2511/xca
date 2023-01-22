@@ -442,7 +442,7 @@ QString pki_key::BN2QString(const BIGNUM *bn) const
 	Q_CHECK_PTR(buf);
 	BN_bn2bin(bn, buf);
 	for (j = 0; j< size; j++) {
-		sprintf(zs, "%02X%c",buf[j], ((j+1)%16 == 0) ? '\n' :
+		snprintf(zs, sizeof zs, "%02X%c",buf[j], ((j+1)%16 == 0) ? '\n' :
 				j<size-1 ? ':' : ' ');
 		x += zs;
 	}

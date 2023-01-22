@@ -353,9 +353,11 @@ QString hostId()
 				ioRegistryRoot, CFSTR(kIOPlatformUUIDKey),
 				kCFAllocatorDefault, 0);
 
-	snprintf((char*)guid, sizeof guid, "%s", CCHAR(
-		QString::fromUtf16(CFStringGetCharactersPtr(uuidCf))
-	));
+
+	CFStringGetCString(uuidCf, (char*)guid, sizeof guid,
+					kCFStringEncodingMacRoman);
+
+	qDebug() << QString::fromCFString(uuidCf) << (char*)guid;
 
 	IOObjectRelease(ioRegistryRoot);
 	CFRelease(uuidCf);

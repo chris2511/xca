@@ -78,6 +78,7 @@ void MainWindow::init_menu()
 	wdMenuList.clear();
 	scardList.clear();
 	acList.clear();
+	setMenuBar(new QMenuBar(nullptr));
 
 	langGroup = new QActionGroup(this);
 

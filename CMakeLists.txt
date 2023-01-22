@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.12.0)
+cmake_minimum_required(VERSION 3.16.0)
+
+set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "")
 
 project(xca
 	DESCRIPTION "X Certificate and Key management"
@@ -20,8 +22,6 @@ include(cmake/git_version.cmake)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
-
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -84,6 +84,13 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 set(QT Qt${QT_VERSION_MAJOR})
 find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 message(STATUS "Using ${QT} with version ${QT_VERSION}")
+
+if (${QT_VERSION} VERSION_LESS 6.5.0)
+  set(CMAKE_OSX_DEPLOYMENT_TARGET 10.14)
+else()
+  set(CMAKE_OSX_DEPLOYMENT_TARGET 11)
+endif()
+
 
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
 get_target_property(core_libdir ${QT}::Core IMPORTED_LOCATION)

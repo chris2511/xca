@@ -1,7 +1,7 @@
 # This installation is for building macos 10.13 compatible releases including
 # database drivers. IOW: For me
 
-brew install openssl qt5 python3 cmake
+brew install python3 cmake
 
 # Compile SQL Drivers if necessary:
 
@@ -20,9 +20,38 @@ brew install mariadb-connector-c postgresql unixodbc
 make sub-plugins
 
 # Compile OpenSSL
-./Configure darwin64-x86_64-cc shared --prefix=$HOME/src/xca-dir/install/ "-mmacosx-version-min=10.13"
+
+#! /bin/sh
+OSSL="openssl-3.0.7"
+INSTALL="$(pwd)/install"
+
+test -d "$OSSL"
+for arch in x86_64 arm64; do
+  mkdir -p "${OSSL}-${arch}"
+  ( cd  "${OSSL}-${arch}" &&
+    ../${OSSL}/Configure \
+         darwin64-${arch}-cc shared \
+	 --prefix="$INSTALL" \
+         -mmacosx-version-min=10.14
+ #   make -j6
+  #  make install_sw
+  )
+  PARTS_crypto="$PARTS_crypto ${OSSL}-${arch}/libcrypto.3.dylib"
+  PARTS_ssl="$PARTS_ssl ${OSSL}-${arch}/libssl.3.dylib"
+done
+rm -f "$INSTALL"/lib/libcrypto.3.dylib "$INSTALL"/lib/libssl.3.dylib
+lipo -create -output "$INSTALL"/lib/libcrypto.3.dylib $PARTS_crypto
+lipo -create -output "$INSTALL"/lib/libssl.3.dylib $PARTS_ssl
+
+#Install Qt6
+QT_VERSION="6.2.4"
+pip install aqtinstall
+aqt install-qt mac desktop $QT_VERSION
 
 # Compile XCA
-cmake -DOPENSSL_ROOT_DIR=$HOME/src/xca-dir/install -B build xca
-cmake --build build -j5
+cmake -DOPENSSL_ROOT_DIR=$(pwd)/install \
+      -DCMAKE_PREFIX_PATH=$(pwd)/$QT_VERSION/macos/lib/cmake \
+      -B build xca
+
+cmake --build build -j7
 cd build && cpack
