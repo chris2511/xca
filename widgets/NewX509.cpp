@@ -691,6 +691,7 @@ void NewX509::on_genKeyBut_clicked()
 	if (dlg->exec()) {
 		db_key *keys = Database.model<db_key>();
 		keys->newKey(dlg->getKeyJob(), dlg->keyDesc->text());
+		switchHashAlgo();
 	}
 	delete dlg;
 }
