@@ -349,7 +349,7 @@ EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
 	pub = ssh_key_next_chunk(&content);
 	ssh_key_check_chunk(&pub, "ssh-ed25519");
 	pub = ssh_key_next_chunk(&pub);
-	if (pub.count() != ED25519_KEYLEN)
+	if (pub.size() != ED25519_KEYLEN)
 		return NULL;
 
 	// Followed by the private key
@@ -364,7 +364,7 @@ EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
 		return NULL;
 	priv = ssh_key_next_chunk(&priv);
 	// The private key is concatenated by the public key in one chunk
-	if (priv.count() != 2 * ED25519_KEYLEN)
+	if (priv.size() != 2 * ED25519_KEYLEN)
 		return NULL;
 	// The last ED25519_KEYLEN bytes must match the public key
 	if (pub != priv.mid(ED25519_KEYLEN))
@@ -487,8 +487,8 @@ EVP_PKEY *pki_evp::decryptKey() const
 		}
 	}
 	QByteArray myencKey = getEncKey();
-	qDebug() << "myencKey.count()"<<myencKey.count();
-	if (myencKey.count() == 0)
+	qDebug() << "myencKey.size()"<<myencKey.size();
+	if (myencKey.size() == 0)
 		return NULL;
 	EVP_PKEY *priv = NULL;
 	X509_SIG *p8 = d2i_PKCS8_bio(BioByteArray(myencKey).ro(), NULL);
@@ -635,7 +635,7 @@ QByteArray pki_evp::getEncKey() const
 	QSqlError e;
 	QByteArray ba;
 
-	if (encKey.count() > 0 || !sqlItemId.isValid())
+	if (encKey.size() > 0 || !sqlItemId.isValid())
 		return encKey;
 
 	SQL_PREPARE(q, "SELECT private FROM private_keys WHERE item=?");

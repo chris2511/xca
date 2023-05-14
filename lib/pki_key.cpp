@@ -73,7 +73,7 @@ void pki_key::d2i_old(QByteArray &ba, int type)
 {
 	const unsigned char *p, *p1;
 	p = p1 = (const unsigned char *)ba.constData();
-	EVP_PKEY *k = d2i_PublicKey(type, NULL, &p1, ba.count());
+	EVP_PKEY *k = d2i_PublicKey(type, NULL, &p1, ba.size());
 
         pki_openssl_error();
 
@@ -661,7 +661,7 @@ EVP_PKEY *pki_key::load_ssh2_key(const QByteArray &b)
 		ssh_key_check_chunk(&ba, "ssh-ed25519");
 		QByteArray pub = ssh_key_next_chunk(&ba);
 		pk = EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, NULL,
-			(const unsigned char *)pub.constData(), pub.count());
+			(const unsigned char *)pub.constData(), pub.size());
 		pki_openssl_error();
 #endif
 #endif

@@ -98,20 +98,24 @@ void MainWindow::init_menu()
 		languageMenu->addAction(a);
 	}
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("New DataBase"), this, SLOT(new_database()),
-			QKeySequence::New)
-			->setEnabled(OpenDb::hasSqLite());
-	file->addAction(tr("Open DataBase"), this, SLOT(load_database()),
-			QKeySequence::Open)
-			->setEnabled(OpenDb::hasSqLite());
+
+	a = file->addAction(tr("New DataBase"), this, SLOT(new_database()));
+	a->setShortcut(QKeySequence::New);
+	a->setEnabled(OpenDb::hasSqLite());
+
+	a = file->addAction(tr("Open DataBase"), this, SLOT(load_database()));
+	a->setShortcut(QKeySequence::Open);
+	a->setEnabled(OpenDb::hasSqLite());
+
 	file->addAction(tr("Open Remote DataBase"),
-			this, SLOT(openRemoteSqlDB()))
-			->setEnabled(OpenDb::hasRemoteDrivers());
+			this, SLOT(openRemoteSqlDB()))->
+			setEnabled(OpenDb::hasRemoteDrivers());
 	file->addMenu(historyMenu);
 	file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
-	acList += file->addAction(tr("Close DataBase"), this,
-		SLOT(close_database()), QKeySequence::Close);
+	a = file->addAction(tr("Close DataBase"), this, SLOT(close_database()));
+	a->setShortcut(QKeySequence::Close);
+	acList += a;
 
 	a = new QAction(tr("Options"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(setOptions()));
@@ -137,8 +141,8 @@ void MainWindow::init_menu()
 	import->addAction(tr("Template"), tempView, SLOT(load()) );
 	import->addAction(tr("Revocation list"), crlView, SLOT(load()));
 	import->addAction(tr("PEM file"), this, SLOT(loadPem()) );
-	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()),
-			QKeySequence::Paste);
+	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()))->
+			setShortcut(QKeySequence::Paste);
 
 	token = menuBar()->addMenu(tr("Token"));
 	token->addAction(tr("&Manage Security token"), this,
@@ -170,8 +174,8 @@ void MainWindow::init_menu()
 	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));
 
 	help = menuBar()->addMenu(tr("&Help") );
-	help->addAction(tr("Content"), helpdlg, SLOT(content()),
-			QKeySequence::HelpContents);
+	help->addAction(tr("Content"), helpdlg, SLOT(content()))->
+			setShortcut(QKeySequence::HelpContents);
 	a = new QAction(tr("About"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(about()));
 	a->setMenuRole(QAction::AboutRole);

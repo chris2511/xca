@@ -27,7 +27,7 @@ namespace db {
 	uint32_t intFromData(QByteArray &ba)
 	{
 		uint32_t ret;
-		if ((unsigned)(ba.count()) < sizeof(uint32_t)) {
+		if ((unsigned)(ba.size()) < sizeof(uint32_t)) {
 			throw errorEx(QObject::tr("Out of data"));
 		}
 		memcpy(&ret, ba.constData(), sizeof(uint32_t));
@@ -37,7 +37,7 @@ namespace db {
 	bool boolFromData(QByteArray &ba)
 	{
 		unsigned char c;
-		if (ba.count() < 1)
+		if (ba.size() < 1)
 			throw errorEx(QObject::tr("Out of data"));
 
 		c = ba.constData()[0];
@@ -307,7 +307,7 @@ static QString old_eKeyUse2QString(int old)
 {
 	QStringList sl;
 
-        for (int i = 0; i < extkeyuse_nid.count(); i++) {
+        for (int i = 0; i < extkeyuse_nid.size(); i++) {
 		if (old & (1<<i)) {
 			sl << OBJ_nid2sn(extkeyuse_nid[i]);
 		}
@@ -363,8 +363,8 @@ void pki_temp::old_fromData(const unsigned char *p, int size, int version)
 		settings["noWellDefinedExpDate"] =
 				QString::number(db::boolFromData(ba));
 
-	if (ba.count() > 0) {
-		my_error(tr("Wrong Size %1").arg(ba.count()));
+	if (ba.size() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.size()));
 	}
 }
 
@@ -418,7 +418,7 @@ QByteArray pki_temp::toExportData() const
 {
 	QByteArray data, header;
 	data = toData();
-	header = db::intToData(data.count());
+	header = db::intToData(data.size());
 	header += db::intToData(TMPL_VERSION);
 	header += data;
 	return header;
