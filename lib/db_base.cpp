@@ -75,6 +75,7 @@ void db_base::remFromCont(const QModelIndex &idx)
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
 	rootItem->takeChild(pki);
+	pki->setParent(nullptr);
 	endRemoveRows();
 	emit columnsContentChanged();
 }

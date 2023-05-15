@@ -122,7 +122,7 @@ void db_x509::remFromCont(const QModelIndex &idx)
 		child = dynamic_cast<pki_x509*>(pki->takeFirst());
 		child->delSigner(dynamic_cast<pki_x509*>(pki));
 		new_parent = child->findIssuer();
-		insertChild(child);
+		insertChild(child, new_parent);
 		if (new_parent)
 			childs << child;
 	}
