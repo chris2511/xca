@@ -1,3 +1,21 @@
+ * Fix #321 - decryptKey shows OpenSSL error
+ * Merge #325 Update entitlement.plist
+ * Close: #366 Not Responding after upgrade
+ * Add Persian translation .ts file to XCA.
+ * Close #327: "Dump database" dumps everything to everywhere
+ * Close #317: "Please insert card: ..." message
+ * Add Indonesian translation
+ * Close #283 Nitrokey HSM2 can't create EC keys on 2.4.0
+ * Switch from autotools/qmake to cmake
+ * Close #278: Miss components to connect remote database
+ * Commandline: Add "--list-items" to print a list of database items
+ * Close #67: possibility to ignore password prompt from CLI
+ * Close #259: Follow the XDG base directory specification
+ * Add support for Qt6 and OpenSSL 3.x
+ * Drop support for Qt4
+ * Drop support for old XCA < 2.0.0 databases
+ * Drop support for OpenSSL < 1.1.0
+
 xca 2.4.0 Fri May 07 2021
 
  * Unify XCA icon (certificate) on all platforms

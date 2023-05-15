@@ -22,7 +22,7 @@ make sub-plugins
 # Compile OpenSSL
 
 #! /bin/sh
-OSSL="openssl-3.0.7"
+OSSL="openssl-3.0.8"
 INSTALL="$(pwd)/install"
 
 test -d "$OSSL"

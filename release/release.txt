@@ -11,7 +11,6 @@ Release schedule cheat sheet
 - ./git.release VERSION
 - Create xca.dmg
 - Create and sign MSI Installer
-- git push git.hohnstaedt.de
 - update xca.hohnstaedt.de:
   scp changelog git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
 
@@ -22,12 +21,4 @@ DMG=xca-2.4.0-High-Sierra.dmg
 xcrun notarytool submit "$DMG" --keychain-profile "AC_PASSWORD" --key-id HWR8GSJ73M --wait --webhook "https://example.com/notarization"
 
 xcrun stapler staple "$DMG"
-
-xca.msi > Windows
-unzip xca-portable
-unzip xca-installer-dir > xca-portable
-execute xca.bat in xca-installer-dir
-cp xca.msi -> xca_build
-make xca.msi.signed
-mv xca.msi.signed ~/xca-2.4.0/xca-2.4.0.msi
 

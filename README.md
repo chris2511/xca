@@ -17,7 +17,7 @@
 
 A detailled changelog can be found here:
 
-<http://hohnstaedt.de/xca/index.php/software/changelog>
+<https://hohnstaedt.de/xca/index.php/software/changelog>
 
 ## __Documentation__
 
@@ -64,6 +64,7 @@ To build XCA you need:
 
 XCA can be used with Xcode after initializing the directory with:
 `cmake -G Xcode -B .`
+
 ### Windows
 
 - Install the dependencies
@@ -95,7 +96,7 @@ XCA can be used with Xcode after initializing the directory with:
     ```
     %USERPROFILE%\5.15.2\mingw81_64\lib\cmake
     ```
-  - Install `https://wixtoolset.org/releases/` if you want to create the installer
+  - Install `https://wixtoolset.org/releases/` if you want to create the MSI installer
   - Optional for the remote database connections:
     - MySQL: qsqlmysql.dll\_Qt\_SQL\_driver\_5.15.2\_MinGW\_8.1.0\_64-bit.zip from
              https://github.com/thecodemonkey86/qt_mysql_driver
@@ -104,4 +105,5 @@ XCA can be used with Xcode after initializing the directory with:
 - Clone: `git clone https://github.com/chris2511/xca.git`
 - Configure: `cmake -B build -G "MinGW Makefiles" xca`
 - Make: `cmake --build build -j5`
-- Build the MSI installer: `cd build && cpack`
+- Create the Portable App: `cmake --build build -t install`
+- Build the MSI installer (and the Portable App): `cd build && cpack`
