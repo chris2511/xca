@@ -789,45 +789,13 @@ void pki_key::writeSSH2public(XFile &file) const
 
 bool pki_key::verify(EVP_PKEY *pkey) const
 {
-	bool verify = true;
-	const BIGNUM *a = NULL;
-	const BIGNUM *b = NULL;
-	const BIGNUM *c = NULL;
+	EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
+	Q_CHECK_PTR(ctx);
+	bool verify = EVP_PKEY_public_check(ctx);
+	EVP_PKEY_CTX_free(ctx);
 
-	switch (EVP_PKEY_type(EVP_PKEY_id(pkey))) {
-	case EVP_PKEY_RSA:
-		RSA_get0_key(EVP_PKEY_get0_RSA(pkey), &a, &b, NULL);
-		verify = a && b;
-		break;
-	case EVP_PKEY_DSA:
-		DSA_get0_pqg(EVP_PKEY_get0_DSA(pkey), &a, &b, &c);
-		verify = a && b && c;
-		break;
-#ifndef OPENSSL_NO_EC
-	case EVP_PKEY_EC:
-		verify = EC_KEY_check_key(EVP_PKEY_get0_EC_KEY(pkey)) == 1;
-		break;
-#ifdef EVP_PKEY_ED25519
-	case EVP_PKEY_ED25519: {
-		size_t len;
-		verify = EVP_PKEY_get_raw_private_key(pkey, NULL, &len) == 1 &&
-				len == ED25519_KEYLEN;
-		break;
-	}
-#endif
-#endif
-	default:
-		verify = false;
-	}
-	if (verify)
-		verify = verify_priv(pkey);
 	pki_openssl_error();
 	return verify;
-}
-
-bool pki_key::verify_priv(EVP_PKEY *) const
-{
-	return true;
 }
 
 QString pki_key::fingerprint(const QString &format) const

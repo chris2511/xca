@@ -139,6 +139,7 @@ void pki_evp::generate(const keyjob &task)
 	case EVP_PKEY_ED25519: {
 		EVP_PKEY *pkey = NULL;
 		EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_ED25519, NULL);
+		Q_CHECK_PTR(pctx);
 		EVP_PKEY_keygen_init(pctx);
 		EVP_PKEY_keygen(pctx, &pkey);
 		EVP_PKEY_CTX_free(pctx);
@@ -810,56 +811,16 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 	file.write(b);
 }
 
-bool pki_evp::verify_priv(EVP_PKEY *pkey) const
+bool pki_evp::verify(EVP_PKEY *pkey) const
 {
-	bool verify = true;
-	unsigned char data[32], sig[1024];
-	size_t datalen = sizeof data, siglen = sizeof sig;
-	EVP_MD_CTX *ctx = NULL;
-	const EVP_MD *md = EVP_sha256();
-	EVP_PKEY_CTX *pkctx = NULL;
-
 	if (!EVP_PKEY_isPrivKey(pkey))
-		return true;
-	do {
-		ctx = EVP_MD_CTX_new();
-		pki_ign_openssl_error();
-		RAND_bytes(data, datalen);
-		Q_CHECK_PTR(ctx);
-		verify = false;
+		return pki_key::verify(pkey);
 
-		/* Sign some random data in "data" */
-#ifdef EVP_PKEY_ED25519
-		if (EVP_PKEY_id(pkey) == EVP_PKEY_ED25519)
-			md = NULL;
-#endif
-		if (!EVP_DigestSignInit(ctx, &pkctx, md, NULL, pkey))
-			break;
+	EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
+	Q_CHECK_PTR(ctx);
+	bool verify = EVP_PKEY_check(ctx);
+	EVP_PKEY_CTX_free(ctx);
 
-		if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA)
-			EVP_PKEY_CTX_set_rsa_padding(pkctx, RSA_PKCS1_PADDING);
-
-		if (!EVP_DigestSign(ctx, sig, &siglen, data, datalen))
-			break;
-
-		/* Verify the signature */
-		if (!EVP_DigestVerifyInit(ctx, NULL, md, NULL, pkey))
-			break;
-
-		if (EVP_DigestVerify(ctx, sig, siglen, data, datalen) != 1)
-			break;
-
-		verify = true;
-	} while (0);
-
-	if (ctx)
-		EVP_MD_CTX_free(ctx);
-
-	if (EVP_PKEY_id(pkey) == EVP_PKEY_RSA && EVP_PKEY_isPrivKey(pkey)) {
-		const RSA *rsa = EVP_PKEY_get0_RSA(pkey);
-		if (RSA_check_key(rsa) != 1)
-			verify = false;
-	}
 	pki_openssl_error();
 	return verify;
 }

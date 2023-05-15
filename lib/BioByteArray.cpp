@@ -60,6 +60,7 @@ BIO *BioByteArray::bio()
 {
 	if (!read_write) {
 		read_write = BIO_new(BIO_s_mem());
+		Q_CHECK_PTR(read_write);
 		biowrite(store);
 		store.fill(0);
 		store.clear();
@@ -72,6 +73,7 @@ BIO *BioByteArray::ro()
 	if (!read_only)
 		read_only = BIO_new_mem_buf(
 			(void*)store.constData(), store.length());
+	Q_CHECK_PTR(read_only);
 	return read_only;
 }
 

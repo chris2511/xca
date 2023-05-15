@@ -66,7 +66,7 @@ class pki_evp: public pki_key
 		void writePKCS8(XFile &file, const EVP_CIPHER *enc,
 				pem_password_cb *cb, bool pem) const;
 		void writePVKprivate(XFile &file, pem_password_cb *cb) const;
-		bool verify_priv(EVP_PKEY *pkey) const;
+		bool verify(EVP_PKEY *pkey) const;
 		QVariant getIcon(const dbheader *hd) const;
 		bool sqlUpdatePrivateKey();
 		QSqlError insertSqlData();
