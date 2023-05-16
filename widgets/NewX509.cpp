@@ -614,12 +614,12 @@ void NewX509::on_reqSubChange_clicked()
 	on_fromReqCB_clicked();
 }
 
-void NewX509::on_keyList_currentIndexChanged(const QString &)
+void NewX509::on_keyList_currentIndexChanged(int)
 {
 	switchHashAlgo();
 }
 
-void NewX509::on_reqList_currentIndexChanged(const QString &)
+void NewX509::on_reqList_currentIndexChanged(int)
 {
 	switchHashAlgo();
 }

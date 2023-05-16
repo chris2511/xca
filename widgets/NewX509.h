@@ -123,8 +123,8 @@ class NewX509: public QDialog, public Ui::NewX509
 
 	public slots:
 		void on_fromReqCB_clicked();
-		void on_keyList_currentIndexChanged(const QString &);
-		void on_reqList_currentIndexChanged(const QString &);
+		void on_keyList_currentIndexChanged(int);
+		void on_reqList_currentIndexChanged(int);
 		void newKeyDone(pki_key *nkey);
 		void on_applyTime_clicked();
 		void on_editSubAlt_clicked();
