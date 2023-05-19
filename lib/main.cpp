@@ -402,12 +402,15 @@ int main(int argc, char *argv[])
 			read_cmdline(argc, argv, console_only);
 			mainwin->importMulti(cmdline_items, 1);
 			cmdline_items = NULL;
+			enum open_result r = open_abort;
 			if (!Database.isOpen())
-				mainwin->init_database(QString());
+				r = mainwin->init_database(QString());
 			else
-				mainwin->setup_open_database();
-			mainwin->show();
-			gui->exec();
+				r = mainwin->setup_open_database();
+			if (r == pw_cancel || r == pw_ok) {
+				mainwin->show();
+				gui->exec();
+			}
 		} else {
 			read_cmdline(argc, argv, console_only);
 			delete cmdline_items;
