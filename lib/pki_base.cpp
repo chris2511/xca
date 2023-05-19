@@ -405,6 +405,7 @@ QString pki_base::getTypeString() const
 	case x509:       t = "x.509 Certificate"; break;
 	case revocation: t = "Certificate revocation list"; break;
 	case tmpl:       t = "XCA Template"; break;
+	case smartCard:  t = "Token Key"; break;
 	default:         t = "Unknown"; break;
 	}
 	return t;
