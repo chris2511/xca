@@ -249,9 +249,7 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	pk11_attr_data id(CKA_ID);
 	p11.loadAttribute(id, object);
 	if (id.getAttribute()->ulValueLen > 0) {
-		BIGNUM *cka_id = id.getBignum();
-		object_id = BNoneLine(cka_id);
-		BN_free(cka_id);
+		object_id = QString(id.getData().toHex());
 	}
 
 	try {
@@ -292,9 +290,9 @@ pk11_attr_data pki_scard::getIdAttr() const
 	pk11_attr_data id(CKA_ID);
 	if (object_id.isEmpty())
 		return id;
-	BIGNUM *bn = NULL;
-	BN_hex2bn(&bn, CCHAR(object_id));
-	id.setBignum(bn, true);
+
+	QByteArray val = QByteArray::fromHex(object_id.toLocal8Bit());
+	id.setValue(reinterpret_cast<const unsigned char*>(val.constData()), val.length());
 	return id;
 }
 
