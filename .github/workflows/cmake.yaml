@@ -54,28 +54,28 @@ jobs:
       with:
         arch: ${{matrix.winarch}}
         version: ${{matrix.qt}}
- #       tools: "tools_openssl_x64 ${{matrix.winarch}}"
 
-    - uses: msys2/setup-msys2@v2
+    - name: Install MSYS2 and OpenSSL on Windows
+      uses: msys2/setup-msys2@v2
       if: matrix.os == 'windows'
       with:
         location: ${{env.MSYS}}
         msystem: mingw64
-        install: mingw-w64-x86_64-openssl openssl-devel
+        install: mingw-w64-x86_64-openssl openssl-devel base-devel mingw-w64-x86_64-gcc
 
     - name: Brew install OpenSSL
       if: matrix.os == 'macos'
       run: brew install openssl
 
     - name: Checkout XCA
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Configure
       # No YAML Multiline mechanism (>, |, \, >-, >+2 whatever) works as expected
       # Give up. Live with the long line
-      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64
+      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64 -DMYSQL_BINDIR="" -DPSQL_BINDIR=""
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5 -v
@@ -84,7 +84,7 @@ jobs:
       if: matrix.os == 'windows'
       run: |
         cd ${{env.MSYS}}\msys64\mingw64\bin
-        cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}/build
+        cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}\build
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -t install
 
     #- name: Test
@@ -104,7 +104,7 @@ jobs:
 #        type _CPack_Packages/win64/WIX/wix.log
 
     - name: Deploy
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         path: ${{matrix.artifact}}
         name: ${{matrix.os}}-${{matrix.qt}}
