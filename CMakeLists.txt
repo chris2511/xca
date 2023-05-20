@@ -63,6 +63,9 @@ elseif(WIN32)
   if (NOT OPENSSL_ROOT_DIR)
     set(OPENSSL_ROOT_DIR $ENV{PROGRAMFILES}/OpenSSL-Win64)
   endif()
+  if (NOT OPENSSL_LIBRARY_MAJOR)
+	  set(OPENSSL_LIBRARY_MAJOR 3) # For OpenSSL 1.1.1 use "1_1"
+  endif()
   set(PSQL_BINDIR $ENV{PROGRAMFILES}/PostgreSQL/14/bin
                   CACHE PATH "PostgreSQL installation directory for the MSI installer")
   set(MYSQL_BINDIR $ENV{PROGRAMFILES}/qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit/${CMAKE_BUILD_TYPE}
@@ -237,7 +240,7 @@ elseif(WIN32)
 		${CMAKE_BINARY_DIR}/libstdc++-6.dll
 		${CMAKE_BINARY_DIR}/libwinpthread-1.dll
 		${SYSTEM32}/vcruntime140.dll
-		${OPENSSL_ROOT_DIR}/bin/libcrypto-1_1-x64.dll
+		${OPENSSL_ROOT_DIR}/bin/libcrypto-${OPENSSL_LIBRARY_MAJOR}-x64.dll
 	  DESTINATION ${RUNTIME_DEST}
   )
   install(CODE "execute_process(COMMAND cmake -E chdir \${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")

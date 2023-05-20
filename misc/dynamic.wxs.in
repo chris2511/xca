@@ -4,7 +4,7 @@
     <Fragment>
         <DirectoryRef Id="INSTALLDIR">
             <Component Id="Clibcrypto11x64" Guid="44133d17-96b5-4aee-8a24-9c722482add5">
-                <File Id="libcrypto11x64.dll" Source="@OPENSSL_ROOT_DIR@/bin/libcrypto-1_1-x64.dll" KeyPath="yes"/>
+                <File Id="libcrypto11x64.dll" Source="@OPENSSL_ROOT_DIR@/bin/libcrypto-@OPENSSL_LIBRARY_MAJOR@-x64.dll" KeyPath="yes"/>
             </Component>
             <Component Id="Cvcruntime140" Guid="f0b03b2a-14f7-4631-bfe3-d4c6c9b57e1d">
                 <File Id="vcruntime140.dll" Source="@SYSTEM32@/vcruntime140.dll" KeyPath="yes"/>
@@ -78,7 +78,7 @@
 <?endif ?>
 <?if NOT "@PSQL_BINDIR@" = "" ?>
             <Component Id="Clibssl11x64" Guid="6b19ce1c-4f7e-447f-8998-9209e642a43b">
-                <File Id="libssl11x64.dll" Source="@PSQL_BINDIR@/libssl-1_1-x64.dll" KeyPath="yes"/>
+                <File Id="libssl11x64.dll" Source="@PSQL_BINDIR@/libssl-@OPENSSL_LIBRARY_MAJOR@-x64.dll" KeyPath="yes"/>
             </Component>
             <Component Id="Clibpq" Guid="f243d4ea-d51d-42fc-a3c0-4eb186c55d34">
                 <File Id="libpq.dll" Source="@PSQL_BINDIR@/libpq.dll" KeyPath="yes"/>
