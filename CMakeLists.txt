@@ -202,7 +202,7 @@ if(APPLE)
 elseif(WIN32)
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>
-        --dir ${CMAKE_BINARY_DIR} --compiler-runtime
+        --dir ${CMAKE_BINARY_DIR} --compiler-runtime --no-translations
     COMMENT "Running windeployqt on ${CMAKE_PROJECT_NAME} ..."
   )
   add_custom_command(TARGET xcadoc POST_BUILD

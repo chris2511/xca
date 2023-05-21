@@ -2,22 +2,18 @@
 set(S "${PROJECT_SOURCE_DIR}/lang")
 set(D "${PROJECT_BINARY_DIR}")
 
-list(APPEND XCA_LANGUAGES id hr nl pt_BR zh_CN fa)
-list(APPEND XCAQM_LANGUAGES de fr ja pl ru tr es it sk)
+list(APPEND XCA_QT_LANGUAGES de fr ja pl ru tr es it sk)
+list(APPEND XCA_LANGUAGES id hr nl pt_BR zh_CN fa ${XCA_QT_LANGUAGES})
 
-foreach(lang ${XCA_LANGUAGES} ${XCAQM_LANGUAGES})
-  list(APPEND TS_FILES ${S}/xca_${lang}.ts)
-endforeach()
-
-foreach(lang ${XCA_LANGUAGES} ${XCAQM_LANGUAGES})
+foreach(lang ${XCA_LANGUAGES})
   guid(${lang})
+  list(APPEND TS_FILES ${S}/xca_${lang}.ts)
   list(APPEND LANG_COMPREFS "  <ComponentRef Id=\"Ci18n.${lang}\"/>\n")
   set(LANG_COMPS "  <Component Id=\"Ci18n.${lang}\" Guid=\"${GUID}\">
     <File Id=\"xca_${lang}.qm\" Source=\"${D}/xca_${lang}.qm\" KeyPath=\"yes\"/>\n")
-  if(${lang} IN_LIST XCAQM_LANGUAGES AND
-     EXISTS ${_qt_bin_dir}/../translations/qt_${lang}.qm
-  )
-    string(APPEND LANG_COMPS "    <File Id=\"qt_${lang}.qm\" Source=\"${D}/translations/qt_${lang}.qm\"/>\n")
+  if(EXISTS ${_qt_bin_dir}/../translations/qt_${lang}.qm)
+    list(APPEND QM_FILES ${_qt_bin_dir}/../translations/qt_${lang}.qm)
+    string(APPEND LANG_COMPS "    <File Id=\"qt_${lang}.qm\" Source=\"${_qt_bin_dir}/../translations/qt_${lang}.qm\"/>\n")
   endif()
   string(APPEND LANG_COMPS "  </Component>\n")
   list(APPEND LANG_ALLCOMPS ${LANG_COMPS})
