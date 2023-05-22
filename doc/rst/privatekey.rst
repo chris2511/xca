@@ -84,7 +84,7 @@ Please consult the documentation of the provider of the PKCS#11 library.
 Key Export
 ----------
 
-Keys can be exported by either selecting the key and pressing <em>Export</em>
+Keys can be exported by either selecting the key and pressing *Export*
 or by using the context-menu.
 It may be chosen to export the key to the clipboard as PEM public, SSH2 public
 or unencrypted PEM private format.

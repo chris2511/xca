@@ -135,7 +135,7 @@ Renaming an Item
 ----------------
 
 An Item can be renamed via the context menu by right-clicking on the item,
-by pressing &lt;F2&gt; or by the <em>Rename</em> button on the right border.
+by pressing <F2> or by the *Rename* button on the right border.
 
 Deleting Items
 --------------
@@ -183,7 +183,7 @@ The source may be one of the following
 - Transformed
     Converted from an other item by the "transform" context menu
 - Token
-    The device has been initiall read from a hardware token
+    The device has been initially read from a hardware token
 - Legacy Database
     The item was already present in a legacy XCA database that
     did not track the Source information.
