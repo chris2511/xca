@@ -33,12 +33,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS "${PROJECT_SOURCE_DIR}/ui")
 set(CMAKE_AUTOUIC ON)
 add_compile_definitions(OPENSSL_SUPPRESS_DEPRECATED)
+file(GLOB UI_FILES ${CMAKE_AUTOUIC_SEARCH_PATHS}/*.ui)
 
 configure_file(local.h.in local.h)
 
 ##### Libraries and executables
-
-add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc ${PROJECT_BINARY_DIR}/local.h)
+add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc ${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})

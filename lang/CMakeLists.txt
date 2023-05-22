@@ -25,18 +25,18 @@ string(APPEND WIX_LANG_CONTENT
 )
 
 WixFile(${D}/language.wxs ${WIX_LANG_CONTENT})
-if(NOT TRANS)
-  if (${QT_VERSION} VERSION_LESS 6.0.0)
-    qt5_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
-  else()
-    qt_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
-  endif()
+if (${QT_VERSION} VERSION_LESS 6.0.0 )
+  qt5_add_translation(QM_FILES ${TS_FILES} OPTIONS -silent)
+  message(STATUS "Updating translations from source with 'lupdate' only supprted with QT6")
+  target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
+else()
+  qt_add_translations(xca TS_FILES ${TS_FILES} ${S}/xca.ts
+			  LRELEASE_OPTIONS -silent
+			  QM_FILES_OUTPUT_VARIABLE QM_FILES
+  )
+  add_custom_target(trans DEPENDS xca_lupdate "${S}/xca.pot")
 endif()
 list(APPEND APP_RESOURCES ${QM_FILES})
-
-add_custom_target(translations DEPENDS ${QM_FILES})
-add_dependencies(${CMAKE_PROJECT_NAME} translations)
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
 
 if (UNIX AND NOT APPLE)
   install(FILES ${QM_FILES}
@@ -49,20 +49,9 @@ elseif(WIN32)
 endif()
 
 find_program(LCONVERT lconvert)
-
-# cmake -DTRANS=1 ../xca && make trans
-if (LCONVERT AND TRANS)
-  add_custom_command(
+add_custom_command(
 	OUTPUT "${S}/xca.pot"
 	COMMAND ${LCONVERT} -if ts -of po -i "${S}/xca.ts" -o "${S}/xca.pot"
 	DEPENDS "${S}/xca.ts"
 	COMMENT "Update POT file"
-  )
-  if (${QT_VERSION} VERSION_LESS 6.0.0)
-    qt5_create_translation(CQM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-  else()
-    qt_create_translation(CQM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-  endif()
-
-  add_custom_target(trans DEPENDS ${CQM_FILES} "${S}/xca.pot")
-endif()
+)
