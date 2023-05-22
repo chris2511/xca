@@ -451,12 +451,12 @@
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Экспортировать сертификат</translation>
+        <translation>Экспортировать сертификат</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished">Сертификаты X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
+        <translation>Сертификаты X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <source>Trust</source>
@@ -591,12 +591,12 @@
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">Экспорт списка отзывов</translation>
+        <translation>Экспорт списка отзывов</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">Списки отзыва ( *.pem *.der *.crl );;</translation>
+        <translation>Списки отзыва ( *.pem *.der *.crl );;</translation>
     </message>
 </context>
 <context>
@@ -787,37 +787,37 @@
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished">Дней</translation>
+        <translation>Дней</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">Месяцев</translation>
+        <translation>Месяцев</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">Лет</translation>
+        <translation>Лет</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">Применить</translation>
+        <translation>Применить</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">Начинать с полуночи</translation>
+        <translation>Начинать с полуночи</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished">По местному времени</translation>
+        <translation>По местному времени</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Конечный срок не определён</translation>
+        <translation>Конечный срок не определён</translation>
     </message>
 </context>
 <context>
@@ -1137,12 +1137,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">Экспортировать открытый ключ [%1]</translation>
+        <translation>Экспортировать открытый ключ [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished">Закрытые ключи ( *.pem *.der *.pk8 );; Открытые ключи SSH ( *.pub )</translation>
+        <translation>Закрытые ключи ( *.pem *.der *.pk8 );; Открытые ключи SSH ( *.pub )</translation>
     </message>
 </context>
 <context>
@@ -3334,7 +3334,7 @@ In library %3
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">Произошла ошибка:</translation>
+        <translation>Произошла ошибка:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3344,7 +3344,7 @@ In library %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">Пароль</translation>
+        <translation>Пароль</translation>
     </message>
 </context>
 <context>
@@ -3372,12 +3372,12 @@ In library %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">Экспорт запроса на сертификат</translation>
+        <translation>Экспорт запроса на сертификат</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">Запрос на сертификат ( *.pem *.der *.csr )</translation>
+        <translation>Запрос на сертификат ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
@@ -3614,12 +3614,12 @@ In library %3
     <message>
         <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">Сохранить конфигурацию OpenSSL</translation>
+        <translation>Сохранить конфигурацию OpenSSL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">Файлы настроек ( *.conf *.cnf );; Все файлы ( * )</translation>
+        <translation>Файлы настроек ( *.conf *.cnf );; Все файлы ( * )</translation>
     </message>
 </context>
 <context>
@@ -3627,7 +3627,7 @@ In library %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished">Ошибка при открытии файла: &apos;%1&apos;: %2</translation>
+        <translation>Ошибка при открытии файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -3669,7 +3669,7 @@ In library %3
     <message>
         <location line="-71"/>
         <source>Item properties</source>
-        <translation type="unfinished">Свойства элемента</translation>
+        <translation>Свойства элемента</translation>
     </message>
     <message>
         <location line="+74"/>
@@ -4545,12 +4545,12 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">Невозможно открыть библиотеку PKCS#11 %1: %2</translation>
+        <translation>Невозможно открыть библиотеку PKCS#11 %1: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">Это не похоже на библиотеку PKCS#11. Не найден символ &apos;C_GetFunctionList&apos;.</translation>
+        <translation>Это не похоже на библиотеку PKCS#11. Не найден символ &apos;C_GetFunctionList&apos;.</translation>
     </message>
 </context>
 <context>
@@ -4763,47 +4763,47 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">Текстовый PEM формат с заголовками</translation>
+        <translation>Текстовый PEM формат с заголовками</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">Все выбранные элементы в одном PEM файле</translation>
+        <translation>Все выбранные элементы в одном PEM файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM chain</source>
-        <translation type="unfinished">Цепочка PEM</translation>
+        <translation>Цепочка PEM</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">Вся цепочка сертификации в одном PEM файле</translation>
+        <translation>Вся цепочка сертификации в одном PEM файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM + key</source>
-        <translation type="unfinished">PEM + ключ</translation>
+        <translation>PEM + ключ</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">Сертификат и нешифрованный закрытый ключ в одном PEM файле</translation>
+        <translation>Сертификат и нешифрованный закрытый ключ в одном PEM файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">Сертификат и зашифрованный закрытый ключ в одном PKCS#8 файле</translation>
+        <translation>Сертификат и зашифрованный закрытый ключ в одном PKCS#8 файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">Отдельный сертификат в формате PKCS#7</translation>
+        <translation>Отдельный сертификат в формате PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">Все выбранные сертификаты в одном PKCS#7 файле</translation>
+        <translation>Все выбранные сертификаты в одном PKCS#7 файле</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4813,7 +4813,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">Вся цепочка сертификации в формате PKCS#7</translation>
+        <translation>Вся цепочка сертификации в формате PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4828,7 +4828,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">Вся цепочка сертификатов и закртый ключ в зашифрованном PKCS#12 файле</translation>
+        <translation>Вся цепочка сертификатов и закртый ключ в зашифрованном PKCS#12 файле</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4838,59 +4838,59 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">Сертификат и закрытый ключ в зашифрованном PKCS#12 файле</translation>
+        <translation>Сертификат и закрытый ключ в зашифрованном PKCS#12 файле</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">Файл списка сертификатов</translation>
+        <translation>Файл списка сертификатов</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">Список сертификатов в тектовом формате OpenSSL, который создаётся командой &apos;ca&apos;, необходимый для OCSP</translation>
+        <translation>Список сертификатов в тектовом формате OpenSSL, который создаётся командой &apos;ca&apos;, необходимый для OCSP</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+20"/>
         <source>vCalendar</source>
-        <translation type="unfinished">vCalendar</translation>
+        <translation>vCalendar</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">Напоминание об окончании срока для выбранных сертификатов в формате vCalendar</translation>
+        <translation>Напоминание об окончании срока для выбранных сертификатов в формате vCalendar</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished">ЦС vCalendar</translation>
+        <translation>ЦС vCalendar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">Напоминание об окончании срока для всех сертификатов ЦС и CRL в формате vCalendar</translation>
+        <translation>Напоминание об окончании срока для всех сертификатов ЦС и CRL в формате vCalendar</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM public</source>
-        <translation type="unfinished">Открытый ключ PEM</translation>
+        <translation>Открытый ключ PEM</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">Открытый ключ в текстовом формате PEM</translation>
+        <translation>Открытый ключ в текстовом формате PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM private</source>
-        <translation type="unfinished">Закрытый ключ PEM</translation>
+        <translation>Закрытый ключ PEM</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">Закрытый ключ в тектовом формате без пароля</translation>
+        <translation>Закрытый ключ в тектовом формате без пароля</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4900,62 +4900,62 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">Закрытый ключ в тектовом формате OpenSSL без пароля</translation>
+        <translation>Закрытый ключ в тектовом формате OpenSSL без пароля</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 private</source>
-        <translation type="unfinished">Закрытый ключ SSH2</translation>
+        <translation>Закрытый ключ SSH2</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 public</source>
-        <translation type="unfinished">Открытый ключ SSH2</translation>
+        <translation>Открытый ключ SSH2</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">Открытый ключ в формате SSH2</translation>
+        <translation>Открытый ключ в формате SSH2</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER public</source>
-        <translation type="unfinished">Открытый ключ DER</translation>
+        <translation>Открытый ключ DER</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">Открытый ключ в двоичном формате DER</translation>
+        <translation>Открытый ключ в двоичном формате DER</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER private</source>
-        <translation type="unfinished">Закрытый ключ DER</translation>
+        <translation>Закрытый ключ DER</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">Закрытый ключ в двоичном формате DER без пароля</translation>
+        <translation>Закрытый ключ в двоичном формате DER без пароля</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK private</source>
-        <translation type="unfinished">Закрытый ключ PVK</translation>
+        <translation>Закрытый ключ PVK</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">Закрытый ключ в формате Microsoft PVK без пароля</translation>
+        <translation>Закрытый ключ в формате Microsoft PVK без пароля</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished">Зашифрованный PVK</translation>
+        <translation>Зашифрованный PVK</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished">Закрытый ключ в формате Microsoft PVK с паролем</translation>
+        <translation>Закрытый ключ в формате Microsoft PVK с паролем</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4965,7 +4965,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Закрытый ключ в текстовом формате PKCS#8 с паролем</translation>
+        <translation>Закрытый ключ в текстовом формате PKCS#8 с паролем</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4975,7 +4975,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Закрытый ключ в текстовом формате PKCS#8 без пароля</translation>
+        <translation>Закрытый ключ в текстовом формате PKCS#8 без пароля</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5530,7 +5530,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Копировать в буфер обмена</translation>
+        <translation>Копировать в буфер обмена</translation>
     </message>
 </context>
 </TS>

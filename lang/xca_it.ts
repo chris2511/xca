@@ -405,27 +405,27 @@
     <message>
         <location line="+29"/>
         <source>days</source>
-        <translation type="unfinished">giorni</translation>
+        <translation>giorni</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>No template</source>
-        <translation type="unfinished">Nessun modello</translation>
+        <translation>Nessun modello</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>CA Properties</source>
-        <translation type="unfinished">Proprietà della CA</translation>
+        <translation>Proprietà della CA</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Esportazione Certificato</translation>
+        <translation>Esportazione Certificato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished">Certificati x509 ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
+        <translation>Certificati x509 ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
 </context>
 <context>
@@ -539,7 +539,7 @@
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">Esportazione lista di revoca</translation>
+        <translation>Esportazione lista di revoca</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -727,37 +727,37 @@
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished">Giorni</translation>
+        <translation>Giorni</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">Mesi</translation>
+        <translation>Mesi</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">Anni</translation>
+        <translation>Anni</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">Applica</translation>
+        <translation>Applica</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">Mezzanotte</translation>
+        <translation>Mezzanotte</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished">Ora locale</translation>
+        <translation>Ora locale</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Scadenza non ben definita</translation>
+        <translation>Scadenza non ben definita</translation>
     </message>
 </context>
 <context>
@@ -1065,12 +1065,12 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     <message>
         <location line="+52"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">Esporta chiave pubblica [%1]</translation>
+        <translation>Esporta chiave pubblica [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished">Chiavi private ( *.pem *.der *.pk8 );; Chiavi pubbliche SSH ( *.pub );;</translation>
+        <translation>Chiavi private ( *.pem *.der *.pk8 );; Chiavi pubbliche SSH ( *.pub );;</translation>
     </message>
 </context>
 <context>
@@ -3182,7 +3182,7 @@ nella libreria %3
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">Incontrato l&apos;errore seguente:</translation>
+        <translation>Incontrato l&apos;errore seguente:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3192,7 +3192,7 @@ nella libreria %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">Password</translation>
+        <translation>Password</translation>
     </message>
 </context>
 <context>
@@ -3220,12 +3220,12 @@ nella libreria %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">Esportazione richiesta certificato</translation>
+        <translation>Esportazione richiesta certificato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">Richiesta certificato ( *.pem *.der *.csr )</translation>
+        <translation>Richiesta certificato ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
@@ -3454,12 +3454,12 @@ nella libreria %3
     <message>
         <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">Salva come configurazione OpenSSL</translation>
+        <translation>Salva come configurazione OpenSSL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">File di configurazione ( *.conf *.cnf);; Tutti i file ( * )</translation>
+        <translation>File di configurazione ( *.conf *.cnf);; Tutti i file ( * )</translation>
     </message>
 </context>
 <context>
@@ -3467,7 +3467,7 @@ nella libreria %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished">Errore in apertura file: &apos;%1&apos;: %2</translation>
+        <translation>Errore in apertura file: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -3480,7 +3480,7 @@ nella libreria %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
         <source>Item properties</source>
-        <translation type="unfinished">Proprietà elemento</translation>
+        <translation>Proprietà elemento</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4322,12 +4322,12 @@ pertanto non è stata salvata</translation>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">Impossibile aprire libreria PKCS#11: %1: %2</translation>
+        <translation>Impossibile aprire libreria PKCS#11: %1: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">Questo non sembra essere una libreria PKCS#11. Simbolo &apos;C_GetFunctionList&apos; non trovato.</translation>
+        <translation>Questo non sembra essere una libreria PKCS#11. Simbolo &apos;C_GetFunctionList&apos; non trovato.</translation>
     </message>
 </context>
 <context>
@@ -4545,47 +4545,47 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">Formato testo PEM con intestazioni</translation>
+        <translation>Formato testo PEM con intestazioni</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">Lista concatenata di tutti gli oggetti selezionati in un file di testo PEM</translation>
+        <translation>Lista concatenata di tutti gli oggetti selezionati in un file di testo PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM chain</source>
-        <translation type="unfinished">Catena PEM</translation>
+        <translation>Catena PEM</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">Formato testo concatenato della catena di certificazione completa in un file PEM</translation>
+        <translation>Formato testo concatenato della catena di certificazione completa in un file PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM + key</source>
-        <translation type="unfinished">PEM + chiave</translation>
+        <translation>PEM + chiave</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">Certificato e chiave privata concatenati in chiaro in unico file con codifica PEM</translation>
+        <translation>Certificato e chiave privata concatenati in chiaro in unico file con codifica PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">Certificato e chiave privata concatenati e crittati in unico file con codifica PKCS#8</translation>
+        <translation>Certificato e chiave privata concatenati e crittati in unico file con codifica PKCS#8</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">Singolo certificato con codifica PKCS#7</translation>
+        <translation>Singolo certificato con codifica PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">Tutti i certificati selezionati codificati in un file PKCS#7</translation>
+        <translation>Tutti i certificati selezionati codificati in un file PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4595,7 +4595,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">Catena di certificazione completa con codifica PKCS#7</translation>
+        <translation>Catena di certificazione completa con codifica PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4610,7 +4610,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">Catena di certificazione completa e chiave privata in un file PKCS#12 crittato</translation>
+        <translation>Catena di certificazione completa e chiave privata in un file PKCS#12 crittato</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4620,59 +4620,59 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">Certificato e chiave privata in un file PKCS#12 crittato</translation>
+        <translation>Certificato e chiave privata in un file PKCS#12 crittato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">File indice certificati</translation>
+        <translation>File indice certificati</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">File indice dei certificati in formato specifico OpenSSL come creato dal comando &apos;ca&apos; e richiesto dallo strumento OCSP</translation>
+        <translation>File indice dei certificati in formato specifico OpenSSL come creato dal comando &apos;ca&apos; e richiesto dallo strumento OCSP</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+20"/>
         <source>vCalendar</source>
-        <translation type="unfinished">vCalendar</translation>
+        <translation>vCalendar</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">Promemoria scadenza in formato vCalendar per gli oggetti selezionati</translation>
+        <translation>Promemoria scadenza in formato vCalendar per gli oggetti selezionati</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished">CA vCalendar</translation>
+        <translation>CA vCalendar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">Promemoria scadenza in formato vCalendar contenente tutti i certificati rilasciati e validi, la CA stessa e l&apos;ultima CRL</translation>
+        <translation>Promemoria scadenza in formato vCalendar contenente tutti i certificati rilasciati e validi, la CA stessa e l&apos;ultima CRL</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM public</source>
-        <translation type="unfinished">PEM pubblica</translation>
+        <translation>PEM pubblica</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">Chiave pubblica formato testo in unico file PEM</translation>
+        <translation>Chiave pubblica formato testo in unico file PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM private</source>
-        <translation type="unfinished">PEM privata</translation>
+        <translation>PEM privata</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">Chiave privata in chiaro in formato testo</translation>
+        <translation>Chiave privata in chiaro in formato testo</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4682,62 +4682,62 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">Chiave privata crittata OpenSSL in formato testo</translation>
+        <translation>Chiave privata crittata OpenSSL in formato testo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 private</source>
-        <translation type="unfinished">SSH2 privata</translation>
+        <translation>SSH2 privata</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 public</source>
-        <translation type="unfinished">SSH2 pubblica</translation>
+        <translation>SSH2 pubblica</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">Chiave pubblica codificata in formato SSH2</translation>
+        <translation>Chiave pubblica codificata in formato SSH2</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER public</source>
-        <translation type="unfinished">DER pubblica</translation>
+        <translation>DER pubblica</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">Chiave pubblica formato DER binario</translation>
+        <translation>Chiave pubblica formato DER binario</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER private</source>
-        <translation type="unfinished">DER privata</translation>
+        <translation>DER privata</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">Chiave privata in chiaro in formato DER binario</translation>
+        <translation>Chiave privata in chiaro in formato DER binario</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK private</source>
-        <translation type="unfinished">PVK privata</translation>
+        <translation>PVK privata</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">Chiave privata non crittata in formato Microsoft PVK</translation>
+        <translation>Chiave privata non crittata in formato Microsoft PVK</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished">PVK crittata</translation>
+        <translation>PVK crittata</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished">Chiave privata crittata in formato Microsoft PVK</translation>
+        <translation>Chiave privata crittata in formato Microsoft PVK</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4747,7 +4747,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Chiave privata crittata in formato testo PKCS#8</translation>
+        <translation>Chiave privata crittata in formato testo PKCS#8</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4757,7 +4757,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Chiave privata in chiaro in formato testo PKCS#8</translation>
+        <translation>Chiave privata in chiaro in formato testo PKCS#8</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5286,7 +5286,7 @@ E&apos; mantenuta nel database XCA &apos;%3&apos;</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Copia negli appunti</translation>
+        <translation>Copia negli appunti</translation>
     </message>
 </context>
 </TS>

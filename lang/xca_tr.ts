@@ -876,7 +876,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CaProperties.ui" line="30"/>
         <source>Default template</source>
-        <translation type="unfinished">Varsayılan şablon</translation>
+        <translation>Varsayılan şablon</translation>
     </message>
 </context>
 <context>
@@ -885,7 +885,7 @@ PEM base64 kodlanmış DER dosyası
         <location filename="../ui/CertDetail.ui" line="30"/>
         <location filename="../widgets/CertDetail.cpp" line="112"/>
         <source>Details of the Certificate</source>
-        <translation type="unfinished">Sertifika bilgileri</translation>
+        <translation>Sertifika bilgileri</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="78"/>
@@ -895,87 +895,87 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertDetail.ui" line="106"/>
         <source>Internal name</source>
-        <translation type="unfinished">Dahili adı</translation>
+        <translation>Dahili adı</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="113"/>
         <source>The internal name of the certificate in the database</source>
-        <translation type="unfinished">Sertifika veritabanındaki isim</translation>
+        <translation>Sertifika veritabanındaki isim</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="120"/>
         <source>Signature</source>
-        <translation type="unfinished">İmza</translation>
+        <translation>İmza</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="145"/>
         <source>Key</source>
-        <translation type="unfinished">Anahtar</translation>
+        <translation>Anahtar</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="165"/>
         <source>Serial</source>
-        <translation type="unfinished">Seri</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="178"/>
         <source>The serial number of the certificate</source>
-        <translation type="unfinished">Sertifika seri numarası</translation>
+        <translation>Sertifika seri numarası</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="191"/>
         <source>Fingerprints</source>
-        <translation type="unfinished">Parmak izleri</translation>
+        <translation>Parmak izleri</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="203"/>
         <source>MD5</source>
-        <translation type="unfinished">MD5</translation>
+        <translation>MD5</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="216"/>
         <source>An md5 hashsum of the certificate</source>
-        <translation type="unfinished">An md5 hassum sertifikası</translation>
+        <translation>An md5 hassum sertifikası</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="229"/>
         <source>SHA1</source>
-        <translation type="unfinished">SHA1</translation>
+        <translation>SHA1</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="242"/>
         <source>A SHA-1 hashsum of the certificate</source>
-        <translation type="unfinished">A SHA-1 hashsum sertifikası</translation>
+        <translation>A SHA-1 hashsum sertifikası</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="255"/>
         <source>SHA256</source>
-        <translation type="unfinished">SHA256</translation>
+        <translation>SHA256</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="268"/>
         <source>A SHA-256 hashsum of the certificate</source>
-        <translation type="unfinished">A SHA-1 hashsum sertifikası {256 ?}</translation>
+        <translation>A SHA-1 hashsum sertifikası {256 ?}</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="278"/>
         <source>Validity</source>
-        <translation type="unfinished">Geçerlilik</translation>
+        <translation>Geçerlilik</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="287"/>
         <source>The time since the certificate is valid</source>
-        <translation type="unfinished">Zamana kadar geçerli sertifika</translation>
+        <translation>Zamana kadar geçerli sertifika</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="294"/>
         <source>The time until the certificate is valid</source>
-        <translation type="unfinished">Bu zaman kadar sertifika geçerli</translation>
+        <translation>Bu zaman kadar sertifika geçerli</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="328"/>
         <source>Subject</source>
-        <translation type="unfinished">Konu</translation>
+        <translation>Konu</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="341"/>
@@ -985,7 +985,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertDetail.ui" line="354"/>
         <source>Attributes</source>
-        <translation type="unfinished">Nitelikler</translation>
+        <translation>Nitelikler</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="364"/>
@@ -996,7 +996,7 @@ PEM base64 kodlanmış DER dosyası
         <location filename="../ui/CertDetail.ui" line="377"/>
         <location filename="../widgets/CertDetail.cpp" line="40"/>
         <source>Show config</source>
-        <translation type="unfinished">Yapılandırmayı göster</translation>
+        <translation>Yapılandırmayı göster</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="385"/>
@@ -1006,7 +1006,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="44"/>
         <source>Show extensions</source>
-        <translation type="unfinished">Uzantıları göster</translation>
+        <translation>Uzantıları göster</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="66"/>
@@ -1021,17 +1021,17 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="73"/>
         <source>Not available</source>
-        <translation type="unfinished">Kullanılamaz</translation>
+        <translation>Kullanılamaz</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="120"/>
         <source>Signer unknown</source>
-        <translation type="unfinished">Bilinmeyen imzalayan makam</translation>
+        <translation>Bilinmeyen imzalayan makam</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="124"/>
         <source>Self signed</source>
-        <translation type="unfinished">Kendinden imzalı</translation>
+        <translation>Kendinden imzalı</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="154"/>
@@ -1041,17 +1041,17 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="159"/>
         <source>Not valid</source>
-        <translation type="unfinished">Geçersiz</translation>
+        <translation>Geçersiz</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="163"/>
         <source>Valid</source>
-        <translation type="unfinished">Geçerli</translation>
+        <translation>Geçerli</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="184"/>
         <source>Details of the certificate signing request</source>
-        <translation type="unfinished">sertifika imzalama isteği detayları</translation>
+        <translation>sertifika imzalama isteği detayları</translation>
     </message>
 </context>
 <context>
@@ -1059,32 +1059,32 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertExtend.ui" line="30"/>
         <source>Certificate renewal</source>
-        <translation type="unfinished">Sertifika yenileme</translation>
+        <translation>Sertifika yenileme</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="74"/>
         <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
-        <translation type="unfinished">Bu yeni bir seri numarası ve düzeltilmiş geçerlilik değerleri ile eski bir kopyası olarak yeni bir sertifika oluşturur.</translation>
+        <translation>Bu yeni bir seri numarası ve düzeltilmiş geçerlilik değerleri ile eski bir kopyası olarak yeni bir sertifika oluşturur.</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="100"/>
         <source>Validity</source>
-        <translation type="unfinished">Geçerlilik</translation>
+        <translation>Geçerlilik</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="111"/>
         <source>Not before</source>
-        <translation type="unfinished">Öncedeğil</translation>
+        <translation>Öncedeğil</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="118"/>
         <source>Not after</source>
-        <translation type="unfinished">Sonradeğil</translation>
+        <translation>Sonradeğil</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="144"/>
         <source>Time range</source>
-        <translation type="unfinished">Zaman aralığı</translation>
+        <translation>Zaman aralığı</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="150"/>
@@ -1094,32 +1094,32 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertExtend.ui" line="158"/>
         <source>Days</source>
-        <translation type="unfinished">Gün</translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="163"/>
         <source>Months</source>
-        <translation type="unfinished">Ay</translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="168"/>
         <source>Years</source>
-        <translation type="unfinished">Yıl</translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="176"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Tanımlanmamış son</translation>
+        <translation>Tanımlanmamış son</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="183"/>
         <source>Midnight</source>
-        <translation type="unfinished">Gece Yarısı</translation>
+        <translation>Gece Yarısı</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="190"/>
         <source>Apply</source>
-        <translation type="unfinished">Uygula</translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="216"/>
@@ -1139,7 +1139,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertExtend.cpp" line="43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation type="unfinished">Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
+        <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="45"/>
@@ -1163,12 +1163,12 @@ PEM base64 kodlanmış DER dosyası
         <location filename="../widgets/CertExtend.cpp" line="48"/>
         <location filename="../widgets/CertExtend.cpp" line="70"/>
         <source>Adjust date and continue</source>
-        <translation type="unfinished">Tarihi düzenler ve devam eder</translation>
+        <translation>Tarihi düzenler ve devam eder</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="65"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
-        <translation type="unfinished">Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
+        <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
 </context>
 <context>
@@ -1267,12 +1267,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="199"/>
         <source>CA Properties</source>
-        <translation type="unfinished">CA Özellikleri</translation>
+        <translation>CA Özellikleri</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="241"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Sertifika dışa aktar</translation>
+        <translation>Sertifika dışa aktar</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="242"/>
@@ -1285,7 +1285,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/clicklabel.cpp" line="37"/>
         <source>Double click for details</source>
-        <translation type="unfinished">Detaylariçin çift tıklayın</translation>
+        <translation>Detaylariçin çift tıklayın</translation>
     </message>
 </context>
 <context>
@@ -1293,42 +1293,42 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CrlDetail.ui" line="30"/>
         <source>Details of the Revocation list</source>
-        <translation type="unfinished">İptal listesi için çift tıklayın</translation>
+        <translation>İptal listesi için çift tıklayın</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="78"/>
         <source>&amp;Status</source>
-        <translation type="unfinished">&amp;Durum</translation>
+        <translation>&amp;Durum</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="144"/>
         <source>Version</source>
-        <translation type="unfinished">Sürüm</translation>
+        <translation>Sürüm</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="163"/>
         <source>Signature</source>
-        <translation type="unfinished">İmza</translation>
+        <translation>İmza</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="170"/>
         <source>Signed by</source>
-        <translation type="unfinished">İmzalayan:</translation>
+        <translation>İmzalayan:</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="177"/>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="184"/>
         <source>The internal name of the CRL in the database</source>
-        <translation type="unfinished">CRL veritabanındaki isim</translation>
+        <translation>CRL veritabanındaki isim</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="197"/>
         <source>issuing dates</source>
-        <translation type="unfinished">Verilen tarih</translation>
+        <translation>Verilen tarih</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="215"/>
@@ -1343,17 +1343,17 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CrlDetail.ui" line="255"/>
         <source>&amp;Issuer</source>
-        <translation type="unfinished">&amp;veren</translation>
+        <translation>&amp;veren</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="277"/>
         <source>&amp;Extensions</source>
-        <translation type="unfinished">&amp;Uzantıları</translation>
+        <translation>&amp;Uzantıları</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="306"/>
         <source>&amp;Revocation list</source>
-        <translation type="unfinished">&amp;İptal listesi</translation>
+        <translation>&amp;İptal listesi</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="340"/>
@@ -1363,17 +1363,17 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="52"/>
         <source>Failed</source>
-        <translation type="unfinished">Başarısız</translation>
+        <translation>Başarısız</translation>
     </message>
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="57"/>
         <source>Unknown signer</source>
-        <translation type="unfinished">Bilinmeyen imzalayan</translation>
+        <translation>Bilinmeyen imzalayan</translation>
     </message>
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="60"/>
         <source>Verification not possible</source>
-        <translation type="unfinished">Doğrulama mümkün değil</translation>
+        <translation>Doğrulama mümkün değil</translation>
     </message>
 </context>
 <context>
@@ -1404,22 +1404,22 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/ExportDialog.ui" line="79"/>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="86"/>
         <source>The internal name of the CRL in the database</source>
-        <translation type="unfinished">CRL veritabanındaki isim</translation>
+        <translation>CRL veritabanındaki isim</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="99"/>
         <source>Filename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation>Dosya adı</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="115"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="151"/>
@@ -1429,27 +1429,27 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/ExportDialog.ui" line="171"/>
         <source>Export Format</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation>Verme biçimi</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="48"/>
         <source>All files ( * )</source>
-        <translation type="unfinished">Bütün dosyalar ( * )</translation>
+        <translation>Bütün dosyalar ( * )</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="104"/>
         <source>The file: &apos;%1&apos; already exists!</source>
-        <translation type="unfinished">Dosya: 2%1&apos; zaten var</translation>
+        <translation>Dosya: 2%1&apos; zaten var</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="105"/>
         <source>Overwrite</source>
-        <translation type="unfinished">Üzerine yaz</translation>
+        <translation>Üzerine yaz</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="106"/>
         <source>Do not overwrite</source>
-        <translation type="unfinished">Üzerine yazmayın</translation>
+        <translation>Üzerine yazmayın</translation>
     </message>
 </context>
 <context>
@@ -1467,27 +1467,27 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/TimeInput.ui" line="70"/>
         <source>Days</source>
-        <translation type="unfinished">Gün</translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="75"/>
         <source>Months</source>
-        <translation type="unfinished">Ay</translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="80"/>
         <source>Years</source>
-        <translation type="unfinished">Yıl</translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="88"/>
         <source>Apply</source>
-        <translation type="unfinished">Uygula</translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="95"/>
         <source>Midnight</source>
-        <translation type="unfinished">Gece Yarısı</translation>
+        <translation>Gece Yarısı</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="102"/>
@@ -1497,7 +1497,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/TimeInput.ui" line="109"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Tanımlanmamış son</translation>
+        <translation>Tanımlanmamış son</translation>
     </message>
 </context>
 <context>
@@ -1505,17 +1505,17 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/Help.ui" line="36"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished">&lt;&lt;</translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="../ui/Help.ui" line="46"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished">&gt;&gt;</translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="../ui/Help.ui" line="72"/>
         <source>&amp;Done</source>
-        <translation type="unfinished">&amp;Bitti</translation>
+        <translation>&amp;Bitti</translation>
     </message>
 </context>
 <context>
@@ -1533,22 +1533,22 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/ImportMulti.ui" line="101"/>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation>&amp;İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="108"/>
         <source>&amp;Done</source>
-        <translation type="unfinished">&amp;Bitti</translation>
+        <translation>&amp;Bitti</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="115"/>
         <source>&amp;Remove from list</source>
-        <translation type="unfinished">&amp;İptal listesi</translation>
+        <translation>&amp;İptal listesi</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="122"/>
         <source>Details</source>
-        <translation type="unfinished">Detaylar</translation>
+        <translation>Detaylar</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="129"/>
@@ -1600,12 +1600,12 @@ Serial: %3</source>
     <message>
         <location filename="../ui/ItemProperties.ui" line="22"/>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <location filename="../ui/ItemProperties.ui" line="32"/>
         <source>Source</source>
-        <translation type="unfinished">Kaynak</translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <location filename="../ui/ItemProperties.ui" line="42"/>
@@ -1623,7 +1623,7 @@ Serial: %3</source>
     <message>
         <location filename="../ui/KeyDetail.ui" line="82"/>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="89"/>
@@ -1634,7 +1634,7 @@ Serial: %3</source>
         <location filename="../ui/KeyDetail.ui" line="102"/>
         <location filename="../ui/KeyDetail.ui" line="182"/>
         <source>Key</source>
-        <translation type="unfinished">Anahtar</translation>
+        <translation>Anahtar</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="110"/>
@@ -1685,7 +1685,7 @@ Serial: %3</source>
     <message>
         <location filename="../ui/KeyDetail.ui" line="296"/>
         <source>Serial</source>
-        <translation type="unfinished">Seri</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="324"/>
@@ -1705,7 +1705,7 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="95"/>
         <source>Not available</source>
-        <translation type="unfinished">Kullanılamaz</translation>
+        <translation>Kullanılamaz</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="106"/>
@@ -1837,7 +1837,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location filename="../ui/MainWindow.ui" line="384"/>
         <location filename="../ui/MainWindow.ui" line="463"/>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation>&amp;İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="70"/>
@@ -1859,7 +1859,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location filename="../ui/MainWindow.ui" line="377"/>
         <location filename="../ui/MainWindow.ui" line="477"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Sil</translation>
+        <translation>&amp;Sil</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="124"/>
@@ -1875,7 +1875,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location filename="../ui/MainWindow.ui" line="222"/>
         <location filename="../widgets/MW_menu.cpp" line="138"/>
         <source>Certificates</source>
-        <translation type="unfinished">Sertifikalar</translation>
+        <translation>Sertifikalar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="246"/>
@@ -1971,7 +1971,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="468"/>
         <source>New Password</source>
-        <translation type="unfinished">Yeni Parola</translation>
+        <translation>Yeni Parola</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="468"/>
@@ -2007,7 +2007,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location filename="../widgets/MainWindow.cpp" line="661"/>
         <location filename="../widgets/MainWindow.cpp" line="717"/>
         <source>All files ( * )</source>
-        <translation type="unfinished">Bütün dosyalar ( * )</translation>
+        <translation>Bütün dosyalar ( * )</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="684"/>
@@ -2119,7 +2119,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="100"/>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Dosya</translation>
+        <translation>&amp;Dosya</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="102"/>
@@ -2154,7 +2154,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="128"/>
         <source>Exit</source>
-        <translation type="unfinished">Çıkış</translation>
+        <translation>Çıkış</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="135"/>
@@ -2274,7 +2274,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="176"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Yardım</translation>
+        <translation>&amp;Yardım</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="177"/>
@@ -2302,22 +2302,22 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewCrl.ui" line="70"/>
         <source>Days</source>
-        <translation type="unfinished">Gün</translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="75"/>
         <source>Months</source>
-        <translation type="unfinished">Ay</translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="80"/>
         <source>Years</source>
-        <translation type="unfinished">Yıl</translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="88"/>
         <source>Midnight</source>
-        <translation type="unfinished">Gece Yarısı</translation>
+        <translation>Gece Yarısı</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="95"/>
@@ -2327,7 +2327,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewCrl.ui" line="102"/>
         <source>Apply</source>
-        <translation type="unfinished">Uygula</translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="128"/>
@@ -2386,7 +2386,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewKey.ui" line="102"/>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="121"/>
@@ -2421,7 +2421,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/NewKey.cpp" line="135"/>
         <source>Create</source>
-        <translation type="unfinished">Oluştur</translation>
+        <translation>Oluştur</translation>
     </message>
 </context>
 <context>
@@ -2429,7 +2429,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="75"/>
         <source>Source</source>
-        <translation type="unfinished">Kaynak</translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="97"/>
@@ -2479,7 +2479,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="225"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished">İmza algoritması</translation>
+        <translation>İmza algoritması</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="253"/>
@@ -2510,7 +2510,7 @@ Please enter the DH parameter bits</source>
         <location filename="../ui/NewX509.ui" line="336"/>
         <location filename="../widgets/NewX509.cpp" line="595"/>
         <source>Subject</source>
-        <translation type="unfinished">Konu</translation>
+        <translation>Konu</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="344"/>
@@ -2530,12 +2530,12 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="386"/>
         <source>Add</source>
-        <translation type="unfinished">Ekle</translation>
+        <translation>Ekle</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="393"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="430"/>
@@ -2565,7 +2565,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="478"/>
         <source>Type</source>
-        <translation type="unfinished">Tür</translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="485"/>
@@ -2620,42 +2620,42 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="593"/>
         <source>Validity</source>
-        <translation type="unfinished">Geçerlilik</translation>
+        <translation>Geçerlilik</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="599"/>
         <source>Not before</source>
-        <translation type="unfinished">Öncedeğil</translation>
+        <translation>Öncedeğil</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="613"/>
         <source>Not after</source>
-        <translation type="unfinished">Sonradeğil</translation>
+        <translation>Sonradeğil</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="630"/>
         <source>Time range</source>
-        <translation type="unfinished">Zaman aralığı</translation>
+        <translation>Zaman aralığı</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="640"/>
         <source>Days</source>
-        <translation type="unfinished">Gün</translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="645"/>
         <source>Months</source>
-        <translation type="unfinished">Ay</translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="650"/>
         <source>Years</source>
-        <translation type="unfinished">Yıl</translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="664"/>
         <source>Apply</source>
-        <translation type="unfinished">Uygula</translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="671"/>
@@ -2665,7 +2665,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="674"/>
         <source>Midnight</source>
-        <translation type="unfinished">Gece Yarısı</translation>
+        <translation>Gece Yarısı</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="681"/>
@@ -2675,7 +2675,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="688"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Tanımlanmamış son</translation>
+        <translation>Tanımlanmamış son</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="738"/>
@@ -2691,7 +2691,7 @@ Please enter the DH parameter bits</source>
         <location filename="../ui/NewX509.ui" line="831"/>
         <location filename="../widgets/NewX509.cpp" line="998"/>
         <source>Edit</source>
-        <translation type="unfinished">Düzenle</translation>
+        <translation>Düzenle</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="788"/>
@@ -2711,7 +2711,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1139"/>
         <source>Advanced</source>
-        <translation type="unfinished">Gelişmiş</translation>
+        <translation>Gelişmiş</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1163"/>
@@ -2797,7 +2797,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1052"/>
         <source>Errors</source>
-        <translation type="unfinished">Hatalar</translation>
+        <translation>Hatalar</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1070"/>
@@ -2862,7 +2862,7 @@ Please set at least the internal name.</source>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1218"/>
         <source>Edit name</source>
-        <translation type="unfinished">İsmi Düzenle</translation>
+        <translation>İsmi Düzenle</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1233"/>
@@ -2914,7 +2914,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1299"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation type="unfinished">Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
+        <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1301"/>
@@ -2927,12 +2927,12 @@ though you have declared them as mandatory in the options menu.</source>
         <location filename="../widgets/NewX509.cpp" line="1304"/>
         <location filename="../widgets/NewX509.cpp" line="1327"/>
         <source>Adjust date and continue</source>
-        <translation type="unfinished">Tarihi düzenler ve devam eder</translation>
+        <translation>Tarihi düzenler ve devam eder</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1322"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
-        <translation type="unfinished">Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
+        <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1345"/>
@@ -3036,7 +3036,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../ui/OpenDb.ui" line="128"/>
         <source>Password</source>
-        <translation type="unfinished">Parola</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="142"/>
@@ -3149,13 +3149,13 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <location filename="../ui/Options.ui" line="298"/>
         <location filename="../ui/Options.ui" line="380"/>
         <source>Add</source>
-        <translation type="unfinished">Ekle</translation>
+        <translation>Ekle</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="244"/>
         <location filename="../ui/Options.ui" line="305"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="269"/>
@@ -3215,7 +3215,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../widgets/Options.cpp" line="62"/>
         <source>Days</source>
-        <translation type="unfinished">Gün</translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="62"/>
@@ -3253,7 +3253,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../widgets/PwDialog.cpp" line="121"/>
         <source>Exit</source>
-        <translation type="unfinished">Çıkış</translation>
+        <translation>Çıkış</translation>
     </message>
 </context>
 <context>
@@ -3316,7 +3316,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/func.cpp" line="575"/>
         <source>Country code</source>
-        <translation type="unfinished">Ülke kodu</translation>
+        <translation>Ülke kodu</translation>
     </message>
     <message>
         <location filename="../lib/func.cpp" line="576"/>
@@ -3331,7 +3331,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/func.cpp" line="578"/>
         <source>Organisation</source>
-        <translation type="unfinished">Organizasyon</translation>
+        <translation>Organizasyon</translation>
     </message>
     <message>
         <location filename="../lib/func.cpp" line="579"/>
@@ -3346,7 +3346,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/func.cpp" line="581"/>
         <source>E-Mail address</source>
-        <translation type="unfinished">E-posta adresi</translation>
+        <translation>E-posta adresi</translation>
     </message>
     <message>
         <location filename="../lib/func.cpp" line="582"/>
@@ -3401,7 +3401,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/func.cpp" line="592"/>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <location filename="../lib/func.cpp" line="593"/>
@@ -3416,7 +3416,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/func.cpp" line="595"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Yeni Parola</translation>
+        <translation>Yeni Parola</translation>
     </message>
     <message>
         <location filename="../lib/func.cpp" line="597"/>
@@ -3506,7 +3506,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/load_obj.cpp" line="20"/>
         <source>All files ( * )</source>
-        <translation type="unfinished">Bütün dosyalar ( * )</translation>
+        <translation>Bütün dosyalar ( * )</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="56"/>
@@ -3729,7 +3729,7 @@ In library %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="27"/>
         <source>Password</source>
-        <translation type="unfinished">Parola</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <location filename="../lib/sql.h" line="55"/>
@@ -3772,7 +3772,7 @@ In library %3
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="27"/>
         <source>Sign</source>
-        <translation type="unfinished">İmzalayan:</translation>
+        <translation>İmzalayan:</translation>
     </message>
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="29"/>
@@ -3810,17 +3810,17 @@ In library %3
     <message>
         <location filename="../ui/RevocationList.ui" line="96"/>
         <source>Add</source>
-        <translation type="unfinished">Ekle</translation>
+        <translation>Ekle</translation>
     </message>
     <message>
         <location filename="../ui/RevocationList.ui" line="103"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../ui/RevocationList.ui" line="110"/>
         <source>Edit</source>
-        <translation type="unfinished">Düzenle</translation>
+        <translation>Düzenle</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
@@ -3830,22 +3830,22 @@ In library %3
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
         <source>Serial</source>
-        <translation type="unfinished">Seri</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
         <source>Revocation</source>
-        <translation type="unfinished">İptal</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
         <source>Reason</source>
-        <translation type="unfinished">Neden</translation>
+        <translation>Neden</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="78"/>
         <source>Invalidation</source>
-        <translation type="unfinished">İptal</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="106"/>
@@ -3883,7 +3883,7 @@ In library %3
     <message>
         <location filename="../ui/Revoke.ui" line="124"/>
         <source>Serial</source>
-        <translation type="unfinished">Seri</translation>
+        <translation>Seri</translation>
     </message>
 </context>
 <context>
@@ -3896,7 +3896,7 @@ In library %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="57"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="64"/>
@@ -4006,7 +4006,7 @@ In library %3
     <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="29"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Yapılandırmayı göster</translation>
+        <translation>Yapılandırmayı göster</translation>
     </message>
     <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="30"/>
@@ -4031,7 +4031,7 @@ In library %3
     <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="63"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">X509 sertifikası (*cer *.crt *.p12 *.p7b);;Tüm dosyalar (*)</translation>
+        <translation>X509 sertifikası (*cer *.crt *.p12 *.p7b);;Tüm dosyalar (*)</translation>
     </message>
 </context>
 <context>
@@ -4087,7 +4087,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="390"/>
         <source>Details</source>
-        <translation type="unfinished">Detaylar</translation>
+        <translation>Detaylar</translation>
     </message>
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="433"/>
@@ -4102,7 +4102,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="500"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation>&amp;İçe Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="501"/>
@@ -4112,7 +4112,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="505"/>
         <source>Rename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation>Dosya adı</translation>
     </message>
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="506"/>
@@ -4122,12 +4122,12 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="509"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="511"/>
         <source>Export</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation>Verme biçimi</translation>
     </message>
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="512"/>
@@ -4137,7 +4137,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="514"/>
         <source>File</source>
-        <translation type="unfinished">&amp;Dosya</translation>
+        <translation>&amp;Dosya</translation>
     </message>
 </context>
 <context>
@@ -4165,7 +4165,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="474"/>
         <source>New Password</source>
-        <translation type="unfinished">Yeni Parola</translation>
+        <translation>Yeni Parola</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="474"/>
@@ -4176,7 +4176,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="494"/>
         <source>Password</source>
-        <translation type="unfinished">Parola</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="495"/>
@@ -4190,7 +4190,7 @@ In library %3
     <message>
         <location filename="../lib/db_base.cpp" line="163"/>
         <source>Internal name</source>
-        <translation type="unfinished">Dahili adı</translation>
+        <translation>Dahili adı</translation>
     </message>
     <message>
         <location filename="../lib/db_base.cpp" line="164"/>
@@ -4220,7 +4220,7 @@ In library %3
     <message>
         <location filename="../lib/db_base.cpp" line="169"/>
         <source>Source</source>
-        <translation type="unfinished">Kaynak</translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <location filename="../lib/db_base.cpp" line="170"/>
@@ -4310,7 +4310,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_key.cpp" line="54"/>
         <source>Type</source>
-        <translation type="unfinished">Tür</translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="55"/>
@@ -4330,7 +4330,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_key.cpp" line="60"/>
         <source>Password</source>
-        <translation type="unfinished">Parola</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="134"/>
@@ -4400,7 +4400,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="78"/>
         <source>Serial</source>
-        <translation type="unfinished">Seri</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="79"/>
@@ -4425,7 +4425,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="83"/>
         <source>Not before</source>
-        <translation type="unfinished">Öncedeğil</translation>
+        <translation>Öncedeğil</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="84"/>
@@ -4435,12 +4435,12 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="85"/>
         <source>Not after</source>
-        <translation type="unfinished">Sonradeğil</translation>
+        <translation>Sonradeğil</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="86"/>
         <source>Revocation</source>
-        <translation type="unfinished">İptal</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="87"/>
@@ -4511,7 +4511,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509super.cpp" line="27"/>
         <source>Subject</source>
-        <translation type="unfinished">Konu</translation>
+        <translation>Konu</translation>
     </message>
     <message>
         <location filename="../lib/db_x509super.cpp" line="28"/>
@@ -4549,7 +4549,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509req.cpp" line="33"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Yeni Parola</translation>
+        <translation>Yeni Parola</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="35"/>
@@ -4584,7 +4584,7 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/db_x509super.cpp" line="80"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished">İmza algoritması</translation>
+        <translation>İmza algoritması</translation>
     </message>
     <message>
         <location filename="../lib/db_x509super.cpp" line="81"/>
@@ -4634,7 +4634,7 @@ and thus was not stored</source>
     <message>
         <location filename="../widgets/kvView.cpp" line="164"/>
         <source>Type</source>
-        <translation type="unfinished">Tür</translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <location filename="../widgets/kvView.cpp" line="164"/>
@@ -4647,7 +4647,7 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pass_info.cpp" line="15"/>
         <source>Password</source>
-        <translation type="unfinished">Parola</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <location filename="../lib/pass_info.cpp" line="22"/>
@@ -5444,17 +5444,17 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../ui/v3ext.ui" line="56"/>
         <source>Add</source>
-        <translation type="unfinished">Ekle</translation>
+        <translation>Ekle</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="63"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="89"/>
         <source>Apply</source>
-        <translation type="unfinished">Uygula</translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="96"/>
@@ -5464,7 +5464,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../ui/v3ext.ui" line="125"/>
         <source>Cancel</source>
-        <translation type="unfinished">İptal</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="75"/>

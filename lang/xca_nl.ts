@@ -401,27 +401,27 @@
     <message>
         <location line="+29"/>
         <source>days</source>
-        <translation type="unfinished">dagen</translation>
+        <translation>dagen</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>No template</source>
-        <translation type="unfinished">Geen sjabloon</translation>
+        <translation>Geen sjabloon</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>CA Properties</source>
-        <translation type="unfinished">CA Eigenschappen</translation>
+        <translation>CA Eigenschappen</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Certificaat export</translation>
+        <translation>Certificaat export</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished">X.509 Certificaten ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
+        <translation>X.509 Certificaten ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
 </context>
 <context>
@@ -535,12 +535,12 @@
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">Intrekkingslijst exporteren</translation>
+        <translation>Intrekkingslijst exporteren</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
+        <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
 </context>
 <context>
@@ -723,37 +723,37 @@
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished">Dagen</translation>
+        <translation>Dagen</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">Maanden</translation>
+        <translation>Maanden</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">Jaren</translation>
+        <translation>Jaren</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">Toepassen</translation>
+        <translation>Toepassen</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">Middernacht</translation>
+        <translation>Middernacht</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished">Lokale tijdstip</translation>
+        <translation>Lokale tijdstip</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Geen correct gedefinieerde expiratie</translation>
+        <translation>Geen correct gedefinieerde expiratie</translation>
     </message>
 </context>
 <context>
@@ -1061,12 +1061,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+52"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">Openbare sleutel exporteren [%1]</translation>
+        <translation>Openbare sleutel exporteren [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished">Privé-sleutels ( *.pem *.der *.pk8 );; SSH Openbare sleutels ( *.pub )</translation>
+        <translation>Privé-sleutels ( *.pem *.der *.pk8 );; SSH Openbare sleutels ( *.pub )</translation>
     </message>
 </context>
 <context>
@@ -3133,7 +3133,7 @@ In bibliotheek bestand %3
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">De volgende fout is opgetreden:</translation>
+        <translation>De volgende fout is opgetreden:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3143,7 +3143,7 @@ In bibliotheek bestand %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">Wachtwoord</translation>
+        <translation>Wachtwoord</translation>
     </message>
 </context>
 <context>
@@ -3171,12 +3171,12 @@ In bibliotheek bestand %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">Exporteren van certificaat verzoeken</translation>
+        <translation>Exporteren van certificaat verzoeken</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">Certificaataanvraag (* .pem * .der * .csr)</translation>
+        <translation>Certificaataanvraag (* .pem * .der * .csr)</translation>
     </message>
 </context>
 <context>
@@ -3405,12 +3405,12 @@ In bibliotheek bestand %3
     <message>
         <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">Opslaan als OpenSSL-configuratie</translation>
+        <translation>Opslaan als OpenSSL-configuratie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">Configuratiebestanden ( *.conf *.cnf);; Alle bestanden ( * )</translation>
+        <translation>Configuratiebestanden ( *.conf *.cnf);; Alle bestanden ( * )</translation>
     </message>
 </context>
 <context>
@@ -3431,7 +3431,7 @@ In bibliotheek bestand %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
         <source>Item properties</source>
-        <translation type="unfinished">Item eigenschappen</translation>
+        <translation>Item eigenschappen</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4263,12 +4263,12 @@ en werd dus niet opgeslagen</translation>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">Openen van PKCS#11-bibliotheek bestand is mislukt: %1: %2</translation>
+        <translation>Openen van PKCS#11-bibliotheek bestand is mislukt: %1: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">Dit lijkt geen PKCS#11 bibliotheek bestand. Teken: &apos;C_GetFunctionList&apos; not found.</translation>
+        <translation>Dit lijkt geen PKCS#11 bibliotheek bestand. Teken: &apos;C_GetFunctionList&apos; not found.</translation>
     </message>
 </context>
 <context>
@@ -4465,47 +4465,47 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">PEM Tekst formaat met koppen</translation>
+        <translation>PEM Tekst formaat met koppen</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">Samengevoegde lijst van alle geselecteerde items in één PEM tekstbestand</translation>
+        <translation>Samengevoegde lijst van alle geselecteerde items in één PEM tekstbestand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM chain</source>
-        <translation type="unfinished">PEM reeks</translation>
+        <translation>PEM reeks</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">Samengevoegd tekstformaat van de volledige certificaat reeks in één PEM bestand</translation>
+        <translation>Samengevoegd tekstformaat van de volledige certificaat reeks in één PEM bestand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM + key</source>
-        <translation type="unfinished">PEM + sleutel</translation>
+        <translation>PEM + sleutel</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">Samenvoeging van het certificaat en de niet-versleutelde privé-sleutel in één PEM bestand</translation>
+        <translation>Samenvoeging van het certificaat en de niet-versleutelde privé-sleutel in één PEM bestand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">Samenvoeging van het certificaat en de versleutelde privé-sleutel in PKCS#8 bestand</translation>
+        <translation>Samenvoeging van het certificaat en de versleutelde privé-sleutel in PKCS#8 bestand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">PKCS#7 gecodeerd mono certificaat</translation>
+        <translation>PKCS#7 gecodeerd mono certificaat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">Alle geselecteerde certificaten gecodeerd in één PKCS#7 bestand</translation>
+        <translation>Alle geselecteerde certificaten gecodeerd in één PKCS#7 bestand</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4515,7 +4515,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">PKCS#7 gecodeerde, complete certificaat reeks</translation>
+        <translation>PKCS#7 gecodeerde, complete certificaat reeks</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4530,7 +4530,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+0"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">De volledige certificaat reeks en de privé-sleutel als versleuteld PKCS#12 bestand</translation>
+        <translation>De volledige certificaat reeks en de privé-sleutel als versleuteld PKCS#12 bestand</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4540,59 +4540,59 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+0"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">Het certificaat en de privé-sleutel als versleuteld PKCS#12 bestand</translation>
+        <translation>Het certificaat en de privé-sleutel als versleuteld PKCS#12 bestand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">Certificaat index bestand</translation>
+        <translation>Certificaat index bestand</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">OpenSSL-specifiek certificaat-indexbestand, gemaakt met de opdracht &apos;ca&apos; en vereist voor de OCSP-tool</translation>
+        <translation>OpenSSL-specifiek certificaat-indexbestand, gemaakt met de opdracht &apos;ca&apos; en vereist voor de OCSP-tool</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+20"/>
         <source>vCalendar</source>
-        <translation type="unfinished">vCalendar</translation>
+        <translation>vCalendar</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">vCalendar vervaldatum herinnering voor de geselecteerde items</translation>
+        <translation>vCalendar vervaldatum herinnering voor de geselecteerde items</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished">CA vCalendar</translation>
+        <translation>CA vCalendar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">vCalendar vervaldatum herinnering met daarin bevattend: alle uitgegeven, geldige certificaten, de CA zelf en de nieuwste CRL</translation>
+        <translation>vCalendar vervaldatum herinnering met daarin bevattend: alle uitgegeven, geldige certificaten, de CA zelf en de nieuwste CRL</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM public</source>
-        <translation type="unfinished">PEM openbaar</translation>
+        <translation>PEM openbaar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">Tekstformaat van de openbare sleutel in één PEM bestand</translation>
+        <translation>Tekstformaat van de openbare sleutel in één PEM bestand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM private</source>
-        <translation type="unfinished">PEM privé</translation>
+        <translation>PEM privé</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">Niet-versleutelde privé-sleutel in tekst formaat</translation>
+        <translation>Niet-versleutelde privé-sleutel in tekst formaat</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4602,62 +4602,62 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">OpenSSL-specifieke versleutelde privé-sleutel in tekstformaat</translation>
+        <translation>OpenSSL-specifieke versleutelde privé-sleutel in tekstformaat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 private</source>
-        <translation type="unfinished">SSH2 privé</translation>
+        <translation>SSH2 privé</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 public</source>
-        <translation type="unfinished">SSH2 openbaar</translation>
+        <translation>SSH2 openbaar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">De openbare sleutel gecodeerd in SSH2-indeling</translation>
+        <translation>De openbare sleutel gecodeerd in SSH2-indeling</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER public</source>
-        <translation type="unfinished">DER openbaar</translation>
+        <translation>DER openbaar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">Binair DER-formaat van de openbare sleutel</translation>
+        <translation>Binair DER-formaat van de openbare sleutel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER private</source>
-        <translation type="unfinished">DER privé</translation>
+        <translation>DER privé</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">Niet-versleutelde privé-sleutel in binair DER formaat</translation>
+        <translation>Niet-versleutelde privé-sleutel in binair DER formaat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK private</source>
-        <translation type="unfinished">PVK privé</translation>
+        <translation>PVK privé</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">Niet-versleutelde privé-sleutel in Microsoft PVK formaat</translation>
+        <translation>Niet-versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished">PVK versleuteld</translation>
+        <translation>PVK versleuteld</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished">Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
+        <translation>Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4667,7 +4667,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Versleutelde privé-sleutel in PKCS#8 formaat</translation>
+        <translation>Versleutelde privé-sleutel in PKCS#8 formaat</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4677,7 +4677,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Niet-versleutelde privé-sleutel in PKCS#8 formaat</translation>
+        <translation>Niet-versleutelde privé-sleutel in PKCS#8 formaat</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5188,7 +5188,7 @@ Het certificaat is opgeslagen in de XCA database &apos;%4&apos;</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Kopieer naar klembord</translation>
+        <translation>Kopieer naar klembord</translation>
     </message>
 </context>
 </TS>

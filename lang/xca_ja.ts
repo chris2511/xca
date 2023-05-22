@@ -416,12 +416,12 @@
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">証明書のエクスポート</translation>
+        <translation>証明書のエクスポート</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished">X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
+        <translation>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
 </context>
 <context>
@@ -535,12 +535,12 @@
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">失効リストのエクスポート</translation>
+        <translation>失効リストのエクスポート</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
+        <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
 </context>
 <context>
@@ -723,37 +723,37 @@
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished">日</translation>
+        <translation>日</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">月</translation>
+        <translation>月</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">年</translation>
+        <translation>年</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">適用</translation>
+        <translation>適用</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">深夜時間</translation>
+        <translation>深夜時間</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished">ローカル時間</translation>
+        <translation>ローカル時間</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">有効期限が明確に定義されていない</translation>
+        <translation>有効期限が明確に定義されていない</translation>
     </message>
 </context>
 <context>
@@ -1061,12 +1061,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">公開キーのエクスポート[%1]</translation>
+        <translation>公開キーのエクスポート[%1]</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished">Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</translation>
+        <translation>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</translation>
     </message>
 </context>
 <context>
@@ -3131,7 +3131,7 @@ In library %3
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">次のエラーが発生しました:</translation>
+        <translation>次のエラーが発生しました:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3141,7 +3141,7 @@ In library %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">パスワード</translation>
+        <translation>パスワード</translation>
     </message>
 </context>
 <context>
@@ -3169,12 +3169,12 @@ In library %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">証明書要求のエクスポート</translation>
+        <translation>証明書要求のエクスポート</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">Certificate request ( *.pem *.der *.csr )</translation>
+        <translation>Certificate request ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
@@ -3403,12 +3403,12 @@ In library %3
     <message>
         <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">OpenSSL設定として保存</translation>
+        <translation>OpenSSL設定として保存</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">Config files ( *.conf *.cnf);; All files ( * )</translation>
+        <translation>Config files ( *.conf *.cnf);; All files ( * )</translation>
     </message>
 </context>
 <context>
@@ -3429,7 +3429,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
         <source>Item properties</source>
-        <translation type="unfinished">アイテムのプロパティ</translation>
+        <translation>アイテムのプロパティ</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4261,12 +4261,12 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">PKCS11ライブラリ%1を開けませんでした:%2</translation>
+        <translation>PKCS11ライブラリ%1を開けませんでした:%2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">これはPKCS#11ライブラリとして認識できません。シンボル「C_GetFunctionList」が見つかりません。</translation>
+        <translation>これはPKCS#11ライブラリとして認識できません。シンボル「C_GetFunctionList」が見つかりません。</translation>
     </message>
 </context>
 <context>
@@ -4463,47 +4463,47 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">ヘッダ付きPEMテキスト形式</translation>
+        <translation>ヘッダ付きPEMテキスト形式</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">1つのPEMテキストファイルで選択されたすべての項目を連結したリスト</translation>
+        <translation>1つのPEMテキストファイルで選択されたすべての項目を連結したリスト</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM chain</source>
-        <translation type="unfinished">PEMチェーン</translation>
+        <translation>PEMチェーン</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">1つのPEMファイル内の完全な証明書チェーンの連結テキスト形式</translation>
+        <translation>1つのPEMファイル内の完全な証明書チェーンの連結テキスト形式</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM + key</source>
-        <translation type="unfinished">PEM + key</translation>
+        <translation>PEM + key</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">1つのPEMファイルでの証明書と暗号化されていない秘密鍵の連結</translation>
+        <translation>1つのPEMファイルでの証明書と暗号化されていない秘密鍵の連結</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">証明書と暗号化された秘密鍵をPKCS#8形式で1つのファイルに連結したもの</translation>
+        <translation>証明書と暗号化された秘密鍵をPKCS#8形式で1つのファイルに連結したもの</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">PKCS#7でエンコードされた単一の証明書</translation>
+        <translation>PKCS#7でエンコードされた単一の証明書</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">選択されたすべての証明書が1つのPKCS#7ファイルにエンコードされている</translation>
+        <translation>選択されたすべての証明書が1つのPKCS#7ファイルにエンコードされている</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4513,7 +4513,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">PKCS#7エンコードされた完全な証明書チェーン</translation>
+        <translation>PKCS#7エンコードされた完全な証明書チェーン</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4528,7 +4528,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+0"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">完全な証明書チェーンと暗号化されたPKCS#12ファイルとしての秘密鍵</translation>
+        <translation>完全な証明書チェーンと暗号化されたPKCS#12ファイルとしての秘密鍵</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4538,59 +4538,59 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+0"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">暗号化されたPKCS#12ファイルとしての証明書と秘密鍵</translation>
+        <translation>暗号化されたPKCS#12ファイルとしての証明書と秘密鍵</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">証明書インデックスファイル</translation>
+        <translation>証明書インデックスファイル</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">&apos;CA&apos;コマンドで作成され、OCSPツールで必要なOpenSSL固有の証明書インデックスファイル</translation>
+        <translation>&apos;CA&apos;コマンドで作成され、OCSPツールで必要なOpenSSL固有の証明書インデックスファイル</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+20"/>
         <source>vCalendar</source>
-        <translation type="unfinished">vCalendar</translation>
+        <translation>vCalendar</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">選択したアイテムのvCalendar有効期限リマインダ</translation>
+        <translation>選択したアイテムのvCalendar有効期限リマインダ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished">CA vCalendar</translation>
+        <translation>CA vCalendar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">発行されたすべての有効な証明書、CA自体、および最新のCRLを含むvCalendar有効期限リマインダ</translation>
+        <translation>発行されたすべての有効な証明書、CA自体、および最新のCRLを含むvCalendar有効期限リマインダ</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM public</source>
-        <translation type="unfinished">PEM public</translation>
+        <translation>PEM public</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">1つのPEMファイル内の公開キーのテキスト形式</translation>
+        <translation>1つのPEMファイル内の公開キーのテキスト形式</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM private</source>
-        <translation type="unfinished">PEM private</translation>
+        <translation>PEM private</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">テキスト形式の暗号化されていない秘密鍵</translation>
+        <translation>テキスト形式の暗号化されていない秘密鍵</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4600,62 +4600,62 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">OpenSSL固有の暗号化された秘密鍵 (テキスト形式)</translation>
+        <translation>OpenSSL固有の暗号化された秘密鍵 (テキスト形式)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 private</source>
-        <translation type="unfinished">SSH2 private</translation>
+        <translation>SSH2 private</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 public</source>
-        <translation type="unfinished">SSH2 public</translation>
+        <translation>SSH2 public</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">SSH2形式でエンコードされた公開キー</translation>
+        <translation>SSH2形式でエンコードされた公開キー</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER public</source>
-        <translation type="unfinished">DER public</translation>
+        <translation>DER public</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">公開キーのバイナリDERフォーマット</translation>
+        <translation>公開キーのバイナリDERフォーマット</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER private</source>
-        <translation type="unfinished">DER private</translation>
+        <translation>DER private</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">バイナリDER形式の暗号化されていない秘密鍵</translation>
+        <translation>バイナリDER形式の暗号化されていない秘密鍵</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK private</source>
-        <translation type="unfinished">PVKプライベート</translation>
+        <translation>PVKプライベート</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">Microsoft PVK形式の秘密鍵は暗号化されていません</translation>
+        <translation>Microsoft PVK形式の秘密鍵は暗号化されていません</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished">PVK暗号化</translation>
+        <translation>PVK暗号化</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished">Microsoft PVK形式の暗号化された秘密鍵</translation>
+        <translation>Microsoft PVK形式の暗号化された秘密鍵</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4665,7 +4665,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">暗号化された秘密鍵 (PKCS#8テキスト形式)</translation>
+        <translation>暗号化された秘密鍵 (PKCS#8テキスト形式)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4675,7 +4675,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">PKCS#8テキスト形式の暗号化されていない非公開キー</translation>
+        <translation>PKCS#8テキスト形式の暗号化されていない非公開キー</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5186,7 +5186,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">クリップボードにコピー</translation>
+        <translation>クリップボードにコピー</translation>
     </message>
 </context>
 </TS>

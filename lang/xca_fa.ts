@@ -419,12 +419,12 @@
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">برون‌داد گواهی</translation>
+        <translation>برون‌داد گواهی</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished">گواهی x509  (با قالب‌های pem, cer, crt, p12, pfx, p7b)</translation>
+        <translation>گواهی x509  (با قالب‌های pem, cer, crt, p12, pfx, p7b)</translation>
     </message>
 </context>
 <context>
@@ -538,12 +538,12 @@
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">برون‌داد فهرست ابطال</translation>
+        <translation>برون‌داد فهرست ابطال</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">فهرست ابطال  (CRL) (*.pem *der *.crl)</translation>
+        <translation>فهرست ابطال  (CRL) (*.pem *der *.crl)</translation>
     </message>
 </context>
 <context>
@@ -736,22 +736,22 @@
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">ماه</translation>
+        <translation>ماه</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">سال</translation>
+        <translation>سال</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">اعمال</translation>
+        <translation>اعمال</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">نیمه‌شب</translation>
+        <translation>نیمه‌شب</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -761,7 +761,7 @@
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">انقضای نامشخص</translation>
+        <translation>انقضای نامشخص</translation>
     </message>
 </context>
 <context>
@@ -1069,12 +1069,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">برون‌داد کلید مومی [%1]</translation>
+        <translation>برون‌داد کلید مومی [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished">کلید‌های خصوصی ( با قالب‌های pem، der و pk8);; کلیدهای عمومی SSH (با قالب pub)</translation>
+        <translation>کلید‌های خصوصی ( با قالب‌های pem، der و pk8);; کلیدهای عمومی SSH (با قالب pub)</translation>
     </message>
 </context>
 <context>
@@ -3138,7 +3138,7 @@ In library %3
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">خطای زیر ایجاد شد:</translation>
+        <translation>خطای زیر ایجاد شد:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3148,7 +3148,7 @@ In library %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">گذرواژه</translation>
+        <translation>گذرواژه</translation>
     </message>
 </context>
 <context>
@@ -3176,12 +3176,12 @@ In library %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">برون‌داد درخواست صدور گواهی</translation>
+        <translation>برون‌داد درخواست صدور گواهی</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">درخواست صدور گواهی (با قالب‌های pem، der, csr)</translation>
+        <translation>درخواست صدور گواهی (با قالب‌های pem، der, csr)</translation>
     </message>
 </context>
 <context>
@@ -3410,12 +3410,12 @@ In library %3
     <message>
         <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">ذخیره به عنوان پیکربندی Open SSL</translation>
+        <translation>ذخیره به عنوان پیکربندی Open SSL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">پرونده‌های پیکربندی (با قالب conf, cnf) ;; همه‌ی پرونده‌ها (با همه‌ی قالب‌ها)</translation>
+        <translation>پرونده‌های پیکربندی (با قالب conf, cnf) ;; همه‌ی پرونده‌ها (با همه‌ی قالب‌ها)</translation>
     </message>
 </context>
 <context>
@@ -3436,7 +3436,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
         <source>Item properties</source>
-        <translation type="unfinished">مشخصه‌های موارد</translation>
+        <translation>مشخصه‌های موارد</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4249,12 +4249,12 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">بازکردن کتابخانه‌ی PKCS#11  با شکست مواجه شد: %1: %2</translation>
+        <translation>بازکردن کتابخانه‌ی PKCS#11  با شکست مواجه شد: %1: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">به نظر نمی‌رسد که این کتابخانه‌ی PKCS#11 معتبر باشد. نماد تابع &apos;C_GetFunctionList&apos; یافت نشد.</translation>
+        <translation>به نظر نمی‌رسد که این کتابخانه‌ی PKCS#11 معتبر باشد. نماد تابع &apos;C_GetFunctionList&apos; یافت نشد.</translation>
     </message>
 </context>
 <context>
@@ -4448,47 +4448,47 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">قالب متنی PEM با سرآیند</translation>
+        <translation>قالب متنی PEM با سرآیند</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">فهرست همه‌ی موارد در یک پرونده‌ی متنی PEM الحاق‌شده</translation>
+        <translation>فهرست همه‌ی موارد در یک پرونده‌ی متنی PEM الحاق‌شده</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM chain</source>
-        <translation type="unfinished">زنجیره‌ی PEM</translation>
+        <translation>زنجیره‌ی PEM</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">قالب متنی الحاق‌شده از زنجیره‌ی کامل گواهی در یک پرونده‌ی PEM</translation>
+        <translation>قالب متنی الحاق‌شده از زنجیره‌ی کامل گواهی در یک پرونده‌ی PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM + key</source>
-        <translation type="unfinished">PEM + کلید</translation>
+        <translation>PEM + کلید</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">الحاق کواهی با کلید خصوصی رمزنگاری‌نشده در یک فایل با قالب PEM</translation>
+        <translation>الحاق کواهی با کلید خصوصی رمزنگاری‌نشده در یک فایل با قالب PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">الحاق گواهی و کلید خصوصی رمزنگاری‌شده در یک فایل با قالب PKCS#8</translation>
+        <translation>الحاق گواهی و کلید خصوصی رمزنگاری‌شده در یک فایل با قالب PKCS#8</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">تک‌‌گواهی در قالب PKCS#7</translation>
+        <translation>تک‌‌گواهی در قالب PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">همه‌ی گواهی‌های انتخاب‌شده در یک پرونده‌ی در قالب PKCS#7</translation>
+        <translation>همه‌ی گواهی‌های انتخاب‌شده در یک پرونده‌ی در قالب PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4498,7 +4498,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">زنجیره‌ی کامل گواهی در قالب PKCS#7</translation>
+        <translation>زنجیره‌ی کامل گواهی در قالب PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4513,7 +4513,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">زنچیره‌ی کامل گواهی و کلید خصوصی در قالب یک پرونده‌ی PKCS#12 رمزنگاری‌شده</translation>
+        <translation>زنچیره‌ی کامل گواهی و کلید خصوصی در قالب یک پرونده‌ی PKCS#12 رمزنگاری‌شده</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4523,59 +4523,59 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">گواهی و کلید خصوصی در قالب یک پرونده‌ی PKCS#12 رمزنگاری‌شده</translation>
+        <translation>گواهی و کلید خصوصی در قالب یک پرونده‌ی PKCS#12 رمزنگاری‌شده</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">پرونده‌ی نمایه‌ی گواهی</translation>
+        <translation>پرونده‌ی نمایه‌ی گواهی</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">پرونده‌ی متنی نمایه‌ی گواهی مختص OpenSSL که با دستور &apos;ca&apos;  ساخته شده و توسط ابزار OCSP مورد نیاز است</translation>
+        <translation>پرونده‌ی متنی نمایه‌ی گواهی مختص OpenSSL که با دستور &apos;ca&apos;  ساخته شده و توسط ابزار OCSP مورد نیاز است</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+20"/>
         <source>vCalendar</source>
-        <translation type="unfinished">vCalendar</translation>
+        <translation>vCalendar</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">یاآوری انقضای vCalander برای موارد انتخاب‌شده</translation>
+        <translation>یاآوری انقضای vCalander برای موارد انتخاب‌شده</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished">vCalander مرکز صدور</translation>
+        <translation>vCalander مرکز صدور</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">یادآوری انقضای vCalander شامل همه‌ی گواهی‌های معتبر صادرشده، خود مرکز صدور و آخرین فهرست ابطال</translation>
+        <translation>یادآوری انقضای vCalander شامل همه‌ی گواهی‌های معتبر صادرشده، خود مرکز صدور و آخرین فهرست ابطال</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM public</source>
-        <translation type="unfinished">PEM عمومی</translation>
+        <translation>PEM عمومی</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">قالب متنی کلید عمومی در یک فایل PEM</translation>
+        <translation>قالب متنی کلید عمومی در یک فایل PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM private</source>
-        <translation type="unfinished">PEM خصوصی</translation>
+        <translation>PEM خصوصی</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">کلید خصوصی رمزنگاری‌نشده در قالب متن</translation>
+        <translation>کلید خصوصی رمزنگاری‌نشده در قالب متن</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4585,62 +4585,62 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">کلید خصوصی رمزنگاری‌شده مخصوص OpenSSl در قالب متن</translation>
+        <translation>کلید خصوصی رمزنگاری‌شده مخصوص OpenSSl در قالب متن</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 private</source>
-        <translation type="unfinished">SSH2 خصوصی</translation>
+        <translation>SSH2 خصوصی</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSH2 public</source>
-        <translation type="unfinished">SSH2 عمومی</translation>
+        <translation>SSH2 عمومی</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">کلید عمومی در قالب SSH2</translation>
+        <translation>کلید عمومی در قالب SSH2</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER public</source>
-        <translation type="unfinished">DER عمومی</translation>
+        <translation>DER عمومی</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">کلید خصوصی در قالب دودویی DER</translation>
+        <translation>کلید خصوصی در قالب دودویی DER</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER private</source>
-        <translation type="unfinished">DER خصوصی</translation>
+        <translation>DER خصوصی</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">کلید خصوصی رمزنگاری‌نشده در قالب دودویی DER</translation>
+        <translation>کلید خصوصی رمزنگاری‌نشده در قالب دودویی DER</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK private</source>
-        <translation type="unfinished">PVK خصوصی</translation>
+        <translation>PVK خصوصی</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">کلید خصوصی در قالب Microsoft PVK به صورت رمزنگاری‌نشده</translation>
+        <translation>کلید خصوصی در قالب Microsoft PVK به صورت رمزنگاری‌نشده</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished">PVK رمزنگاری‌شده</translation>
+        <translation>PVK رمزنگاری‌شده</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished">کلید خصوصی رمزنگاری‌شده در قالب Microsoft PVK</translation>
+        <translation>کلید خصوصی رمزنگاری‌شده در قالب Microsoft PVK</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4650,7 +4650,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">کلید خصوصی رمزنگاری‌شده در قالب متنی PKCS#8</translation>
+        <translation>کلید خصوصی رمزنگاری‌شده در قالب متنی PKCS#8</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4660,7 +4660,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">کلید خصوصی رمزنگاری‌نشده در قالب متنی PKCS#8</translation>
+        <translation>کلید خصوصی رمزنگاری‌نشده در قالب متنی PKCS#8</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5166,7 +5166,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">ایجاد رونوشت در حافظه‌رونوشت</translation>
+        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
     </message>
 </context>
 </TS>

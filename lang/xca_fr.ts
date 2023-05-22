@@ -401,27 +401,27 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="186"/>
         <source>days</source>
-        <translation type="unfinished"> jours</translation>
+        <translation> jours</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="194"/>
         <source>No template</source>
-        <translation type="unfinished">Pas de modèle</translation>
+        <translation>Pas de modèle</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="199"/>
         <source>CA Properties</source>
-        <translation type="unfinished">Propriétés du CA</translation>
+        <translation>Propriétés du CA</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="241"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Exportation de certificat</translation>
+        <translation>Exportation de certificat</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="242"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished">Certificats X509 ( *.pem *.cer *.crt *.p12  *.pfx *.p7b)</translation>
+        <translation>Certificats X509 ( *.pem *.cer *.crt *.p12  *.pfx *.p7b)</translation>
     </message>
 </context>
 <context>
@@ -535,12 +535,12 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="69"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">Exportation d&apos;une liste de révocation</translation>
+        <translation>Exportation d&apos;une liste de révocation</translation>
     </message>
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="70"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">Listes de révocation ( *.pem *.der *.crl )</translation>
+        <translation>Listes de révocation ( *.pem *.der *.crl )</translation>
     </message>
 </context>
 <context>
@@ -723,37 +723,37 @@
     <message>
         <location filename="../ui/TimeInput.ui" line="70"/>
         <source>Days</source>
-        <translation type="unfinished">Jours</translation>
+        <translation>Jours</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="75"/>
         <source>Months</source>
-        <translation type="unfinished">Mois</translation>
+        <translation>Mois</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="80"/>
         <source>Years</source>
-        <translation type="unfinished">Années</translation>
+        <translation>Années</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="88"/>
         <source>Apply</source>
-        <translation type="unfinished">Appliquer</translation>
+        <translation>Appliquer</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="95"/>
         <source>Midnight</source>
-        <translation type="unfinished">Minuit</translation>
+        <translation>Minuit</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="102"/>
         <source>Local time</source>
-        <translation type="unfinished">Heure locale</translation>
+        <translation>Heure locale</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="109"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Pas de date d&apos;expiration précise</translation>
+        <translation>Pas de date d&apos;expiration précise</translation>
     </message>
 </context>
 <context>
@@ -1061,12 +1061,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="229"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">Exporter la clé publique [%1]</translation>
+        <translation>Exporter la clé publique [%1]</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="230"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished">Clés privées ( *.pem *.der *.pk8 );; Clé publiques SSH ( *.pub )</translation>
+        <translation>Clés privées ( *.pem *.der *.pk8 );; Clé publiques SSH ( *.pub )</translation>
     </message>
 </context>
 <context>
@@ -3075,7 +3075,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../lib/XcaWarningCore.h" line="92"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">L&apos;erreur suivante s&apos;est produite:</translation>
+        <translation>L&apos;erreur suivante s&apos;est produite:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="74"/>
@@ -3085,7 +3085,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="27"/>
         <source>Password</source>
-        <translation type="unfinished">Mot de passe</translation>
+        <translation>Mot de passe</translation>
     </message>
 </context>
 <context>
@@ -3113,12 +3113,12 @@ Dans la bibliothèque %3
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="75"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">Exporter la requête de signature</translation>
+        <translation>Exporter la requête de signature</translation>
     </message>
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="76"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">Requête de signature de certificat ( *.pem *.der *.csr )</translation>
+        <translation>Requête de signature de certificat ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
@@ -3347,12 +3347,12 @@ Dans la bibliothèque %3
     <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="62"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">Enregistrer en format de configuration OpenSSL</translation>
+        <translation>Enregistrer en format de configuration OpenSSL</translation>
     </message>
     <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="63"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )</translation>
+        <translation>Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )</translation>
     </message>
 </context>
 <context>
@@ -3373,7 +3373,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="314"/>
         <source>Item properties</source>
-        <translation type="unfinished">Propriétés de l&apos;élement</translation>
+        <translation>Propriétés de l&apos;élement</translation>
     </message>
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="381"/>
@@ -4177,12 +4177,12 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="37"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">L&apos;ouverture de la bibliothèque PKCS#11 &apos;%1&apos; a échoué: %2</translation>
+        <translation>L&apos;ouverture de la bibliothèque PKCS#11 &apos;%1&apos; a échoué: %2</translation>
     </message>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="43"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">Cela n&apos;a pas l&apos;air d&apos;une bibliothèque PKCS#11. Le symbole &apos;C_GetFunctionList&apos; n&apos;a pas été trouvé.</translation>
+        <translation>Cela n&apos;a pas l&apos;air d&apos;une bibliothèque PKCS#11. Le symbole &apos;C_GetFunctionList&apos; n&apos;a pas été trouvé.</translation>
     </message>
 </context>
 <context>
@@ -4371,47 +4371,47 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location filename="../lib/pki_export.cpp" line="70"/>
         <location filename="../lib/pki_export.cpp" line="73"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">Format textuel PEM avec des en-têtes</translation>
+        <translation>Format textuel PEM avec des en-têtes</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="44"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">Concaténation de tous les éléments sélectionnés dans un seul fichier texte en format PEM</translation>
+        <translation>Concaténation de tous les éléments sélectionnés dans un seul fichier texte en format PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="45"/>
         <source>PEM chain</source>
-        <translation type="unfinished">Chaîne en PEM</translation>
+        <translation>Chaîne en PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="45"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">Fichier PEM contenant la concaténation de tous les certificats de la chaîne</translation>
+        <translation>Fichier PEM contenant la concaténation de tous les certificats de la chaîne</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="46"/>
         <source>PEM + key</source>
-        <translation type="unfinished">PEM + clé</translation>
+        <translation>PEM + clé</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="46"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">La concaténation du certificat et de sa clé privée non-chiffrée dans un seul fichier PEM</translation>
+        <translation>La concaténation du certificat et de sa clé privée non-chiffrée dans un seul fichier PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="47"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">La concaténation du certificat et de sa clé privée chiffrée en format PKCS#8 dans un seul fichier</translation>
+        <translation>La concaténation du certificat et de sa clé privée chiffrée en format PKCS#8 dans un seul fichier</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="48"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">Un seul certificat en format PKCS#7</translation>
+        <translation>Un seul certificat en format PKCS#7</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="49"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">Tous les certificats sélectionnés dans un seul fichier en format PKCS#7</translation>
+        <translation>Tous les certificats sélectionnés dans un seul fichier en format PKCS#7</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="50"/>
@@ -4421,7 +4421,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="50"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">La chaîne complète de certificats en format PKCS#7 dans un seul fichier</translation>
+        <translation>La chaîne complète de certificats en format PKCS#7 dans un seul fichier</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="51"/>
@@ -4436,7 +4436,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="52"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">La chaîne complète des certificats et la clé privée en un seul fichier chiffré en format PKCS#12</translation>
+        <translation>La chaîne complète des certificats et la clé privée en un seul fichier chiffré en format PKCS#12</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="53"/>
@@ -4446,59 +4446,59 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="53"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">Le certificat et sa clé privée dans un fichier en format PKCS#12</translation>
+        <translation>Le certificat et sa clé privée dans un fichier en format PKCS#12</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="54"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">Ficher d&apos;index des certificats</translation>
+        <translation>Ficher d&apos;index des certificats</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="54"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">Fichier d&apos;index des certificats spécifique à OpenSSL, tel que créé par la commande &apos;ca&apos; et nécessaire à l&apos;outil OCSP</translation>
+        <translation>Fichier d&apos;index des certificats spécifique à OpenSSL, tel que créé par la commande &apos;ca&apos; et nécessaire à l&apos;outil OCSP</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="55"/>
         <location filename="../lib/pki_export.cpp" line="75"/>
         <source>vCalendar</source>
-        <translation type="unfinished">message vCalendar</translation>
+        <translation>message vCalendar</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="55"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">message vCalendar de rappel d&apos;expiration des éléments sélectionnés</translation>
+        <translation>message vCalendar de rappel d&apos;expiration des éléments sélectionnés</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="56"/>
         <source>CA vCalendar</source>
-        <translation type="unfinished">message vCalendar pour le CA</translation>
+        <translation>message vCalendar pour le CA</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="56"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">message vCalendar de rappel d&apos;expiration contenant tous les certificats valides émis, le CA lui-même et la liste de révocation la plus récente</translation>
+        <translation>message vCalendar de rappel d&apos;expiration contenant tous les certificats valides émis, le CA lui-même et la liste de révocation la plus récente</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="58"/>
         <source>PEM public</source>
-        <translation type="unfinished">clé publique PEM</translation>
+        <translation>clé publique PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="58"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">Formattage textuel de la clé publique dans un fichier PEM</translation>
+        <translation>Formattage textuel de la clé publique dans un fichier PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="59"/>
         <source>PEM private</source>
-        <translation type="unfinished">Clé privée PEM</translation>
+        <translation>Clé privée PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="59"/>
         <location filename="../lib/pki_export.cpp" line="61"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">Clé privée non-chiffrée en format texte</translation>
+        <translation>Clé privée non-chiffrée en format texte</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="60"/>
@@ -4508,62 +4508,62 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="60"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">Clé privée chiffrée spécifiquement par OpenSSL en format texte</translation>
+        <translation>Clé privée chiffrée spécifiquement par OpenSSL en format texte</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="61"/>
         <source>SSH2 private</source>
-        <translation type="unfinished">Clé privée SSH2</translation>
+        <translation>Clé privée SSH2</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="62"/>
         <source>SSH2 public</source>
-        <translation type="unfinished">Clé publique SSH2</translation>
+        <translation>Clé publique SSH2</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="62"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">La clé publique en format SSH2</translation>
+        <translation>La clé publique en format SSH2</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="63"/>
         <source>DER public</source>
-        <translation type="unfinished">Clé publique DER</translation>
+        <translation>Clé publique DER</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="63"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">Format binaire DER de la clé publique</translation>
+        <translation>Format binaire DER de la clé publique</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="64"/>
         <source>DER private</source>
-        <translation type="unfinished">Clé privée DER</translation>
+        <translation>Clé privée DER</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="64"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">Clé privée non-chiffrée en format binaire DER</translation>
+        <translation>Clé privée non-chiffrée en format binaire DER</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
         <source>PVK private</source>
-        <translation type="unfinished">Clé privée PVK</translation>
+        <translation>Clé privée PVK</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">La clé privée en format Microsoft PVK n&apos;est pas chiffrée</translation>
+        <translation>La clé privée en format Microsoft PVK n&apos;est pas chiffrée</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="66"/>
         <source>PVK encrypted</source>
-        <translation type="unfinished">Chiffrée en PVK</translation>
+        <translation>Chiffrée en PVK</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="66"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished">Clé privée chiffrée en format Microsoft PVK</translation>
+        <translation>Clé privée chiffrée en format Microsoft PVK</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="67"/>
@@ -4573,7 +4573,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="67"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Clé privée chiffrée en format texte PKCS#8</translation>
+        <translation>Clé privée chiffrée en format texte PKCS#8</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="68"/>
@@ -4583,7 +4583,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="68"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Clé privée non-chiffrée en format texte PKCS#8</translation>
+        <translation>Clé privée non-chiffrée en format texte PKCS#8</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="71"/>
@@ -5090,7 +5090,7 @@ Il est stocké dans la base de données XCA &apos;%4&apos;</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Copier dans le presse-papier</translation>
+        <translation>Copier dans le presse-papier</translation>
     </message>
 </context>
 </TS>

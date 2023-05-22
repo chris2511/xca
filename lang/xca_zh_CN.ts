@@ -396,32 +396,32 @@
     <message>
         <location line="+64"/>
         <source>Plain View</source>
-        <translation type="unfinished">平铺视图</translation>
+        <translation>平铺视图</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Tree View</source>
-        <translation type="unfinished">层次视图</translation>
+        <translation>层次视图</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>days</source>
-        <translation type="unfinished">天</translation>
+        <translation>天</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>No template</source>
-        <translation type="unfinished">无模板</translation>
+        <translation>无模板</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>CA Properties</source>
-        <translation type="unfinished">CA属性</translation>
+        <translation>CA属性</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">证书导出</translation>
+        <translation>证书导出</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -530,22 +530,22 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="+39"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished">没有可用于生成CRL的CA证书</translation>
+        <translation>没有可用于生成CRL的CA证书</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation type="unfinished">选择CA证书</translation>
+        <translation>选择CA证书</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">吊销列表导出</translation>
+        <translation>吊销列表导出</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
+        <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
 </context>
 <context>
@@ -720,37 +720,37 @@
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished">天</translation>
+        <translation>天</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">月</translation>
+        <translation>月</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">年</translation>
+        <translation>年</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">应用</translation>
+        <translation>应用</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">UTC午夜时间</translation>
+        <translation>UTC午夜时间</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished">当地时间</translation>
+        <translation>当地时间</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">未明确定义到期日</translation>
+        <translation>未明确定义到期日</translation>
     </message>
 </context>
 <context>
@@ -1058,7 +1058,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">导出公钥 [%1]</translation>
+        <translation>导出公钥 [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1696,7 +1696,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/NewCrl.cpp" line="+78"/>
         <source>Create CRL</source>
-        <translation type="unfinished">创建CRL</translation>
+        <translation>创建CRL</translation>
     </message>
 </context>
 <context>
@@ -2609,7 +2609,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+29"/>
         <source>Exit</source>
-        <translation type="unfinished">退出</translation>
+        <translation>退出</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -2802,7 +2802,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+1"/>
         <source>Name</source>
-        <translation type="unfinished">内部名称</translation>
+        <translation>内部名称</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3158,12 +3158,12 @@ In library %3
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished">密码校验错误，请再试一次</translation>
+        <translation>密码校验错误，请再试一次</translation>
     </message>
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">下列错误发生:</translation>
+        <translation>下列错误发生:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3173,7 +3173,7 @@ In library %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">密码</translation>
+        <translation>密码</translation>
     </message>
 </context>
 <context>
@@ -3201,7 +3201,7 @@ In library %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">证书请求导出</translation>
+        <translation>证书请求导出</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3361,7 +3361,7 @@ In library %3
     <message>
         <location line="+48"/>
         <source>Preset Template values</source>
-        <translation type="unfinished">内置模板</translation>
+        <translation>内置模板</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -3435,7 +3435,7 @@ In library %3
     <message>
         <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">保存为OpenSSL配置</translation>
+        <translation>保存为OpenSSL配置</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3448,7 +3448,7 @@ In library %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished">打开文件错误: &apos;%1&apos;: %2</translation>
+        <translation>打开文件错误: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -3461,7 +3461,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
         <source>Item properties</source>
-        <translation type="unfinished">条目属性</translation>
+        <translation>条目属性</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -3481,7 +3481,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Key properties</source>
-        <translation type="unfinished">密钥属性</translation>
+        <translation>密钥属性</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3562,7 +3562,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="+47"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished">请输入密码，用于以用户身份&apos;%1&apos;访问数据库服务器%2。</translation>
+        <translation>请输入密码，用于以用户身份&apos;%1&apos;访问数据库服务器%2。</translation>
     </message>
     <message>
         <location line="+114"/>
@@ -3577,12 +3577,12 @@ In library %3
     <message>
         <location line="+27"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished">SqLite3数据库驱动不可用。 请安装您的发行版的qt-sqlite包</translation>
+        <translation>SqLite3数据库驱动不可用。 请安装您的发行版的qt-sqlite包</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>New Password</source>
-        <translation type="unfinished">新密码</translation>
+        <translation>新密码</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3594,7 +3594,7 @@ In library %3
     <message>
         <location line="+20"/>
         <source>Password</source>
-        <translation type="unfinished">密码</translation>
+        <translation>密码</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4160,7 +4160,7 @@ and thus was not stored</source>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">椭圆曲线簇</translation>
+        <translation>椭圆曲线簇</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -4225,12 +4225,12 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished">打开PKCS11动态库失败: %1: %2</translation>
+        <translation>打开PKCS11动态库失败: %1: %2</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished">这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
+        <translation>这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
     </message>
 </context>
 <context>
@@ -4328,7 +4328,7 @@ and thus was not stored</source>
     <message>
         <location line="+261"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
-        <translation type="unfinished">CA &apos;%1&apos;的CRL更新时间到了</translation>
+        <translation>CA &apos;%1&apos;的CRL更新时间到了</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4448,22 +4448,22 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished">带头部的PEM文本格式</translation>
+        <translation>带头部的PEM文本格式</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished">导出选定的条目到一个PEM文本文件中</translation>
+        <translation>导出选定的条目到一个PEM文本文件中</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM chain</source>
-        <translation type="unfinished">PEM证书链</translation>
+        <translation>PEM证书链</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">导出完整的证书链到一个PEM文件中</translation>
+        <translation>导出完整的证书链到一个PEM文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4473,22 +4473,22 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">导出证书和未加密私钥到一个PEM文件中</translation>
+        <translation>导出证书和未加密私钥到一个PEM文件中</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">导出证书和加密私钥到PKCS#8文件中</translation>
+        <translation>导出证书和加密私钥到PKCS#8文件中</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished">PKCS#7编码的单个证书</translation>
+        <translation>PKCS#7编码的单个证书</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished">导出选定的证书到一个PKCS#7文件中</translation>
+        <translation>导出选定的证书到一个PKCS#7文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4498,7 +4498,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished">PKCS#7编码的完整证书链</translation>
+        <translation>PKCS#7编码的完整证书链</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4513,7 +4513,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">导出完整证书链和加密私钥到PKCS#12文件中</translation>
+        <translation>导出完整证书链和加密私钥到PKCS#12文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4523,17 +4523,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished">导出证书和加密私钥到PKCS#12文件中</translation>
+        <translation>导出证书和加密私钥到PKCS#12文件中</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished">证书索引文件（Index）</translation>
+        <translation>证书索引文件（Index）</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="unfinished">导出OpenSSL风格的证书索引文件（Index），该文件由&apos;openssl ca&apos;命令创建，通常OCSP工具需要使用它</translation>
+        <translation>导出OpenSSL风格的证书索引文件（Index），该文件由&apos;openssl ca&apos;命令创建，通常OCSP工具需要使用它</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4544,7 +4544,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-20"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="unfinished">所选条目的vCalendar到期提醒</translation>
+        <translation>所选条目的vCalendar到期提醒</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4554,7 +4554,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="unfinished">包含所有已颁发的有效证书，CA本身和最新的CRL的vCalendar到期提醒</translation>
+        <translation>包含所有已颁发的有效证书，CA本身和最新的CRL的vCalendar到期提醒</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4564,7 +4564,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished">导出公钥到PEM文本文件中</translation>
+        <translation>导出公钥到PEM文本文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4575,7 +4575,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+0"/>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished">导出未加密私钥到文本文件中</translation>
+        <translation>导出未加密私钥到文本文件中</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4585,7 +4585,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">导出OpenSSL风格的加密私钥到文本文件中</translation>
+        <translation>导出OpenSSL风格的加密私钥到文本文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4600,7 +4600,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">以SSH2格式编码的公钥</translation>
+        <translation>以SSH2格式编码的公钥</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4610,7 +4610,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished">导出公钥到DER二进制文件中</translation>
+        <translation>导出公钥到DER二进制文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4620,7 +4620,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">导出未加密的私钥到DER二进制文件中</translation>
+        <translation>导出未加密的私钥到DER二进制文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4650,7 +4650,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">导出加密私钥到PKCS#8文本文件中</translation>
+        <translation>导出加密私钥到PKCS#8文本文件中</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4660,7 +4660,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">导出未加密私钥到PKCS#8文本文件中</translation>
+        <translation>导出未加密私钥到PKCS#8文本文件中</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5189,7 +5189,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">复制到剪贴板</translation>
+        <translation>复制到剪贴板</translation>
     </message>
 </context>
 </TS>

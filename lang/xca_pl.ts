@@ -396,7 +396,7 @@
     <message>
         <location line="+0"/>
         <source>Tree View</source>
-        <translation type="unfinished">Widok struktury</translation>
+        <translation>Widok struktury</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -416,7 +416,7 @@
     <message>
         <location line="+42"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Eksport certyfikatu</translation>
+        <translation>Eksport certyfikatu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -525,17 +525,17 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="+39"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished">Brakuje certyfikatów urzędów (CA) do wygenerowania listy CRL</translation>
+        <translation>Brakuje certyfikatów urzędów (CA) do wygenerowania listy CRL</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation type="unfinished">Wybierz certyfikat Urzędu Certyfikacji</translation>
+        <translation>Wybierz certyfikat Urzędu Certyfikacji</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Revocation list export</source>
-        <translation type="unfinished">Eksport listy unieważnień</translation>
+        <translation>Eksport listy unieważnień</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -611,37 +611,37 @@
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished">Dni</translation>
+        <translation>Dni</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation type="unfinished">Miesiące</translation>
+        <translation>Miesiące</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation type="unfinished">Lata</translation>
+        <translation>Lata</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished">Zastosuj</translation>
+        <translation>Zastosuj</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Midnight</source>
-        <translation type="unfinished">Północ</translation>
+        <translation>Północ</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished">Czas lokalny</translation>
+        <translation>Czas lokalny</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Bezterminowo</translation>
+        <translation>Bezterminowo</translation>
     </message>
 </context>
 <context>
@@ -1587,7 +1587,7 @@ Podaj liczbę bitów parametru DH</translation>
     <message>
         <location filename="../widgets/NewCrl.cpp" line="+78"/>
         <source>Create CRL</source>
-        <translation type="unfinished">Nowa lista CRL</translation>
+        <translation>Nowa lista CRL</translation>
     </message>
 </context>
 <context>
@@ -2500,7 +2500,7 @@ W szczególności EC i DSA są zdefiniowane tylko z funkcją SHA1 w specyfikacji
     <message>
         <location line="+29"/>
         <source>Exit</source>
-        <translation type="unfinished">Wyjście</translation>
+        <translation>Wyjście</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -2887,7 +2887,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2912,7 +2912,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Subject alternative name</source>
-        <translation type="unfinished">Alternatywna nazwa podmiotu</translation>
+        <translation>Alternatywna nazwa podmiotu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2927,12 +2927,12 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished">Identyfikator urzędu</translation>
+        <translation>Identyfikator urzędu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key usage</source>
-        <translation type="unfinished">Użycie klucza</translation>
+        <translation>Użycie klucza</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3007,12 +3007,12 @@ In library %3
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished">Błąd weryfikacji hasła, spróbuj ponownie</translation>
+        <translation>Błąd weryfikacji hasła, spróbuj ponownie</translation>
     </message>
     <message>
         <location line="+69"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">Wystąpił błąd:</translation>
+        <translation>Wystąpił błąd:</translation>
     </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+74"/>
@@ -3022,7 +3022,7 @@ In library %3
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+27"/>
         <source>Password</source>
-        <translation type="unfinished">Hasło</translation>
+        <translation>Hasło</translation>
     </message>
 </context>
 <context>
@@ -3050,12 +3050,12 @@ In library %3
     <message>
         <location line="+40"/>
         <source>Certificate request export</source>
-        <translation type="unfinished">Eksport żądania certyfikacjnego</translation>
+        <translation>Eksport żądania certyfikacjnego</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished">Żądanie certyfikacyjne ( *.pem *.der *.csr )</translation>
+        <translation>Żądanie certyfikacyjne ( *.pem *.der *.csr )</translation>
     </message>
 </context>
 <context>
@@ -3210,7 +3210,7 @@ In library %3
     <message>
         <location line="+48"/>
         <source>Preset Template values</source>
-        <translation type="unfinished">Domyślna zawartość szablonu</translation>
+        <translation>Domyślna zawartość szablonu</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -3297,7 +3297,7 @@ In library %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished">Nieudane otwarcie pliku: &apos;%1&apos;: %2</translation>
+        <translation>Nieudane otwarcie pliku: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -3310,7 +3310,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
         <source>Item properties</source>
-        <translation type="unfinished">Parametry obiektu</translation>
+        <translation>Parametry obiektu</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -3411,7 +3411,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="+47"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="unfinished">Podaj hasło dostępu do serwera bazy %2 jako &apos;%1&apos;.</translation>
+        <translation>Podaj hasło dostępu do serwera bazy %2 jako &apos;%1&apos;.</translation>
     </message>
     <message>
         <location line="+114"/>
@@ -3426,12 +3426,12 @@ In library %3
     <message>
         <location line="+27"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished">Brak sterownika SqLite3. Zainstaluj pakiet qt-sqlite dla Twojej dystrybucji</translation>
+        <translation>Brak sterownika SqLite3. Zainstaluj pakiet qt-sqlite dla Twojej dystrybucji</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>New Password</source>
-        <translation type="unfinished">Zmiana hasła</translation>
+        <translation>Zmiana hasła</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3443,7 +3443,7 @@ In library %3
     <message>
         <location line="+20"/>
         <source>Password</source>
-        <translation type="unfinished">Hasło</translation>
+        <translation>Hasło</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3799,7 +3799,7 @@ and so it was not imported</source>
     <message>
         <location line="+26"/>
         <source>The key you selected for signing is not a private one.</source>
-        <translation type="unfinished">Klucz wybrany do podpisu nie jest kluczem prywatnym.</translation>
+        <translation>Klucz wybrany do podpisu nie jest kluczem prywatnym.</translation>
     </message>
     <message>
         <location line="-221"/>
@@ -3920,7 +3920,7 @@ i nie zostało ponowanie zapisane</translation>
     <message>
         <location line="+2"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished">Funkcja skrótu</translation>
+        <translation>Funkcja skrótu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3935,7 +3935,7 @@ i nie zostało ponowanie zapisane</translation>
     <message>
         <location line="+2"/>
         <source>EC Group</source>
-        <translation type="unfinished">Grupa EC</translation>
+        <translation>Grupa EC</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -3970,12 +3970,12 @@ i nie zostało ponowanie zapisane</translation>
     <message>
         <location filename="../widgets/kvView.cpp" line="+164"/>
         <source>Type</source>
-        <translation type="unfinished">Rodzaj</translation>
+        <translation>Rodzaj</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Content</source>
-        <translation type="unfinished">Zawartość</translation>
+        <translation>Zawartość</translation>
     </message>
 </context>
 <context>
@@ -4033,7 +4033,7 @@ i nie zostało ponowanie zapisane</translation>
     <message>
         <location line="+1"/>
         <source>Token</source>
-        <translation type="unfinished">Token</translation>
+        <translation>Token</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4469,7 +4469,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+164"/>
         <location line="+635"/>
         <source>Public key</source>
-        <translation type="unfinished">Klucz publiczny</translation>
+        <translation>Klucz publiczny</translation>
     </message>
     <message>
         <location line="-400"/>
@@ -4489,7 +4489,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>PIN</source>
-        <translation type="unfinished">PIN</translation>
+        <translation>PIN</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4579,7 +4579,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation type="unfinished">Czy usunąć %1 klucze: %2?</translation>
+        <translation>Czy usunąć %1 klucze: %2?</translation>
     </message>
     <message>
         <location line="+327"/>
@@ -4775,7 +4775,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location line="+186"/>
         <source>Signed</source>
-        <translation type="unfinished">Podpisany</translation>
+        <translation>Podpisany</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4793,22 +4793,22 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location line="+30"/>
         <source>Add</source>
-        <translation type="unfinished">Dodaj</translation>
+        <translation>Dodaj</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Delete</source>
-        <translation type="unfinished">Usuń</translation>
+        <translation>Usuń</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Apply</source>
-        <translation type="unfinished">Zastosuj</translation>
+        <translation>Zastosuj</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Validate</source>
-        <translation type="unfinished">Weryfikuj</translation>
+        <translation>Weryfikuj</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -4890,7 +4890,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Kopiuj do schowka</translation>
+        <translation>Kopiuj do schowka</translation>
     </message>
 </context>
 </TS>
