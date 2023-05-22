@@ -34,7 +34,7 @@
     <message>
         <location line="+135"/>
         <source>Serial</source>
-        <translation>No. de Sequência</translation>
+        <translation>N° de Série</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -218,7 +218,7 @@
     <message>
         <location line="+11"/>
         <source>Not before</source>
-        <translation>Não Antes</translation>
+        <translation type="unfinished">Não antes</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -273,7 +273,7 @@
     <message>
         <location line="+10"/>
         <source>Replace old certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Substituir certificado antigo</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -653,22 +653,22 @@
     <message>
         <location line="+2"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation>Chave privada específica OpenSSL no formato texto</translation>
+        <translation>Chave privada criptografada específica do OpenSSL no formato texto</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation>Chave privada não encriptada no formato binário DER</translation>
+        <translation>Chave privada não criptografada no formato binário DER</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation>Chave privada não encriptada no formato texto PKCS#8</translation>
+        <translation>Chave privada não criptografada no formato texto PKCS#8</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation>Chave privada encriptada no formato texto PKCS#8</translation>
+        <translation>Chave privada criptografada no formato texto PKCS#8</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -693,12 +693,12 @@
     <message>
         <location line="+1"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation>Chave Privada no formato Microsoft PVK não encriptada</translation>
+        <translation>Chave Privada no formato Microsoft PVK não criptografada</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>Chave Privada encriptada no formato Microsoft PVK</translation>
+        <translation>Chave Privada criptografada no formato Microsoft PVK</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -739,7 +739,7 @@
     <message>
         <location filename="../ui/ImportMulti.ui" line="+36"/>
         <source>Import PKI Items</source>
-        <translation>Importar Ítens PKI</translation>
+        <translation type="unfinished">Importar Itens PKI</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -1110,12 +1110,12 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     <message>
         <location line="+28"/>
         <source>&amp;New Template</source>
-        <translation>Modelo &amp;Novo</translation>
+        <translation type="unfinished">&amp;Novo Modelo</translation>
     </message>
     <message>
         <location line="+86"/>
         <source>&amp;New CRL</source>
-        <translation>CRL &amp;Novo</translation>
+        <translation type="unfinished">&amp;Novo CRL</translation>
     </message>
     <message>
         <location line="-79"/>
@@ -1141,7 +1141,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     <message>
         <location line="-139"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
-        <translation>O Verificador usado correntemente &apos;%1&apos; é inseguro. Favor selecionar um Verificador &apos;SHA 224&apos; (ou superior) por motivos de segurança.</translation>
+        <translation type="unfinished">O Verificador usado atualmente &apos;%1&apos; é inseguro. Favor selecionar um Verificador &apos;SHA 224&apos; (ou superior) por motivos de segurança.</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-49"/>
@@ -1242,7 +1242,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     <message>
         <location line="+4"/>
         <source>Set as default DataBase</source>
-        <translation>Define como Banco de Dados Padrão</translation>
+        <translation type="unfinished">Definir como Banco de Dados Padrão</translation>
     </message>
     <message>
         <location line="-10"/>
@@ -1357,7 +1357,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     <message>
         <location line="+3"/>
         <source>Extra</source>
-        <translation>Extra</translation>
+        <translation type="unfinished">Extras</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1646,12 +1646,12 @@ Entrar com bits dos parâmetros DH</translation>
     <message>
         <location line="+7"/>
         <source>Copy extensions from the request</source>
-        <translation>Copiar as extensões da Requisição</translation>
+        <translation type="unfinished">Copiar as Extensões da Requisição</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Modify subject of the request</source>
-        <translation>Modificar a Finalidade da Requisição</translation>
+        <translation type="unfinished">Modificar a Finalidade da Requisição</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -1827,7 +1827,7 @@ Entrar com bits dos parâmetros DH</translation>
     <message>
         <location line="+17"/>
         <source>Time range</source>
-        <translation>Faixa de tempo</translation>
+        <translation type="unfinished">Faixa de Tempo</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2179,7 +2179,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
     <message>
         <location line="+10"/>
         <source>Enter the OID, the Nid, or one of the textual representations</source>
-        <translation>Entre o OID, ou o Nid, ou uma representação de texto</translation>
+        <translation type="unfinished">Digite o OID, o Nid ou uma representação de texto</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -2228,12 +2228,12 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
     <message>
         <location line="+10"/>
         <source>Hostname</source>
-        <translation>Nome do Nó IP</translation>
+        <translation type="unfinished">Nome do Host ou IP</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Username</source>
-        <translation>Identificador</translation>
+        <translation type="unfinished">Nome de Usuário</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -3064,7 +3064,7 @@ Na biblioteca %3
     <message>
         <location line="+0"/>
         <source>Serial</source>
-        <translation>N° de Sequencia</translation>
+        <translation>N° de Série</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3117,7 +3117,7 @@ Na biblioteca %3
     <message>
         <location line="+7"/>
         <source>Serial</source>
-        <translation>N° de Sequencia</translation>
+        <translation type="unfinished">N° de Série</translation>
     </message>
 </context>
 <context>
@@ -3135,7 +3135,7 @@ Na biblioteca %3
     <message>
         <location line="+7"/>
         <source>Include subdirectories</source>
-        <translation>Uncluir SUbdiretórios</translation>
+        <translation type="unfinished">Incluir Subdiretórios</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3194,7 +3194,7 @@ Na biblioteca %3
     <message>
         <location filename="../widgets/validity.cpp" line="+94"/>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation>aaaa-MM-dd hh:mm</translation>
+        <translation>dd-MM-yyyy hh:mm</translation>
     </message>
 </context>
 <context>
@@ -3713,7 +3713,7 @@ e será importado somente a parte privada da chave</translation>
     <message>
         <location line="+1"/>
         <source>Serial</source>
-        <translation>N° de Sequencia</translation>
+        <translation>N° de Série</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4196,7 +4196,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
     <message>
         <location line="+73"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
-        <translation>Impossibilidade de carregar a Chave Privada do arquivo %1. Tentativas de formato PEM e DER privados, públicos, tipos de chaves  PKCS#8 e formato SSH2 falharam.</translation>
+        <translation>Não foi possível carregar a Chave Privada do arquivo %1. As tentativas no formato PEM e DER privados, públicos, tipos de chaves PKCS#8 e formato SSH2 falharam.</translation>
     </message>
     <message>
         <source>Ignoring unsupported private key</source>
@@ -4269,7 +4269,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
     <message>
         <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation>Chave privada %1, de &apos;%2&apos;, criada com sucesso</translation>
+        <translation>Chave privada %1, de &apos;%2&apos;, foi criada com sucesso</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4621,7 +4621,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%4&apos;</translation>
     <message>
         <location filename="../ui/v3ext.ui" line="+26"/>
         <source>Copy Common Name</source>
-        <translation>Copiar o Common Name</translation>
+        <translation type="unfinished">Copiar o Common Name (CN)</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -4720,7 +4720,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%4&apos;</translation>
     <message>
         <location line="+3"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished">Copiar para o Clipboard</translation>
+        <translation type="unfinished">Copiar para a Área de Transferência</translation>
     </message>
 </context>
 </TS>
