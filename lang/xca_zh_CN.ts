@@ -323,7 +323,7 @@
 <context>
     <name>CertTreeView</name>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="+32"/>
+        <location filename="../widgets/CertTreeView.cpp" line="+34"/>
         <source>Import PKCS#12</source>
         <translation>导入PKCS#12</translation>
     </message>
@@ -394,7 +394,7 @@
         <translation>反吊销</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+64"/>
         <source>Plain View</source>
         <translation type="unfinished">平铺视图</translation>
     </message>
@@ -417,6 +417,16 @@
         <location line="+5"/>
         <source>CA Properties</source>
         <translation type="unfinished">CA属性</translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Certificate export</source>
+        <translation type="unfinished">证书导出</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -518,7 +528,7 @@
 <context>
     <name>CrlTreeView</name>
     <message>
-        <location filename="../widgets/CrlTreeView.cpp" line="+37"/>
+        <location filename="../widgets/CrlTreeView.cpp" line="+39"/>
         <source>There are no CA certificates for CRL generation</source>
         <translation type="unfinished">没有可用于生成CRL的CA证书</translation>
     </message>
@@ -526,6 +536,16 @@
         <location line="+8"/>
         <source>Select CA certificate</source>
         <translation type="unfinished">选择CA证书</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Revocation list export</source>
+        <translation type="unfinished">吊销列表导出</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL ( *.pem *.der *.crl )</source>
+        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
     </message>
 </context>
 <context>
@@ -561,152 +581,116 @@
         <translation>导出格式</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+41"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+48"/>
         <source>All files ( * )</source>
         <translation>All files ( * )</translation>
     </message>
     <message>
-        <location line="+15"/>
         <source>PEM Text format with headers</source>
-        <translation>带头部的PEM文本格式</translation>
+        <translation type="vanished">带头部的PEM文本格式</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation>导出选定的条目到一个PEM文本文件中</translation>
+        <translation type="vanished">导出选定的条目到一个PEM文本文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation>导出完整的证书链到一个PEM文件中</translation>
+        <translation type="vanished">导出完整的证书链到一个PEM文件中</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Concatenated text format of all certificates in one PEM file</source>
-        <translation>导出所有的证书到一个PEM文件中</translation>
+        <translation type="vanished">导出所有的证书到一个PEM文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Binary DER encoded file</source>
-        <translation>二进制DER编码文件</translation>
+        <translation type="vanished">二进制DER编码文件</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation>PKCS#7编码的单个证书</translation>
+        <translation type="vanished">PKCS#7编码的单个证书</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation>PKCS#7编码的完整证书链</translation>
+        <translation type="vanished">PKCS#7编码的完整证书链</translation>
     </message>
     <message>
-        <location line="-6"/>
         <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
-        <translation>导出所有未吊销的证书到一个PEM文件中</translation>
+        <translation type="vanished">导出所有未吊销的证书到一个PEM文件中</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>All unrevoked certificates encoded in one PKCS#7 file</source>
-        <translation>导出所有未吊销的证书到一个PKCS#7文件中</translation>
+        <translation type="vanished">导出所有未吊销的证书到一个PKCS#7文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation>导出选定的证书到一个PKCS#7文件中</translation>
+        <translation type="vanished">导出选定的证书到一个PKCS#7文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>All certificates encoded in one PKCS#7 file</source>
-        <translation>导出所有的证书到一个PKCS#7文件中</translation>
+        <translation type="vanished">导出所有的证书到一个PKCS#7文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation>导出证书和加密私钥到PKCS#12文件中</translation>
+        <translation type="vanished">导出证书和加密私钥到PKCS#12文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation>导出完整证书链和加密私钥到PKCS#12文件中</translation>
+        <translation type="vanished">导出完整证书链和加密私钥到PKCS#12文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation>导出证书和未加密私钥到一个PEM文件中</translation>
+        <translation type="vanished">导出证书和未加密私钥到一个PEM文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation>导出证书和加密私钥到PKCS#8文件中</translation>
+        <translation type="vanished">导出证书和加密私钥到PKCS#8文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation>导出公钥到PEM文本文件中</translation>
+        <translation type="vanished">导出公钥到PEM文本文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Binary DER format of the public key</source>
-        <translation>导出公钥到DER二进制文件中</translation>
+        <translation type="vanished">导出公钥到DER二进制文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation>导出未加密私钥到文本文件中</translation>
+        <translation type="vanished">导出未加密私钥到文本文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation>导出OpenSSL风格的加密私钥到文本文件中</translation>
+        <translation type="vanished">导出OpenSSL风格的加密私钥到文本文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation>导出未加密的私钥到DER二进制文件中</translation>
+        <translation type="vanished">导出未加密的私钥到DER二进制文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation>导出未加密私钥到PKCS#8文本文件中</translation>
+        <translation type="vanished">导出未加密私钥到PKCS#8文本文件中</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation>导出加密私钥到PKCS#8文本文件中</translation>
+        <translation type="vanished">导出加密私钥到PKCS#8文本文件中</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation>以SSH2格式编码的公钥</translation>
+        <translation type="vanished">以SSH2格式编码的公钥</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation>导出OpenSSL风格的证书索引文件（Index），该文件由&apos;openssl ca&apos;命令创建，通常OCSP工具需要使用它</translation>
+        <translation type="vanished">导出OpenSSL风格的证书索引文件（Index），该文件由&apos;openssl ca&apos;命令创建，通常OCSP工具需要使用它</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>vCalendar expiry reminder for the selected items</source>
-        <translation>所选条目的vCalendar到期提醒</translation>
+        <translation type="vanished">所选条目的vCalendar到期提醒</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation>包含所有已颁发的有效证书，CA本身和最新的CRL的vCalendar到期提醒</translation>
+        <translation type="vanished">包含所有已颁发的有效证书，CA本身和最新的CRL的vCalendar到期提醒</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+37"/>
+        <location line="+56"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>文件: &apos;%1&apos;已存在!</translation>
     </message>
@@ -719,6 +703,54 @@
         <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>不覆盖</translation>
+    </message>
+</context>
+<context>
+    <name>Form</name>
+    <message>
+        <location filename="../ui/TimeInput.ui" line="+32"/>
+        <source>last update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>next update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Days</source>
+        <translation type="unfinished">天</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Months</source>
+        <translation type="unfinished">月</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Years</source>
+        <translation type="unfinished">年</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Apply</source>
+        <translation type="unfinished">应用</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Midnight</source>
+        <translation type="unfinished">UTC午夜时间</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation type="unfinished">当地时间</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>No well-defined expiration</source>
+        <translation type="unfinished">未明确定义到期日</translation>
     </message>
 </context>
 <context>
@@ -975,7 +1007,12 @@ Serial: %3</source>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+30"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
         <source>Change password</source>
         <translation>修改密码</translation>
     </message>
@@ -1017,6 +1054,16 @@ Serial: %3</source>
 This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>旧密钥 &apos;%1&apos;是否应该被令牌上的密钥替换？
 这将删除密钥 &apos;%1&apos;并使其无法导出</translation>
+    </message>
+    <message>
+        <location line="+52"/>
+        <source>Export public key [%1]</source>
+        <translation type="unfinished">导出公钥 [%1]</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1083,7 +1130,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+132"/>
+        <location filename="../widgets/MW_menu.cpp" line="+138"/>
         <source>Certificates</source>
         <translation>证书</translation>
     </message>
@@ -1133,18 +1180,16 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>吊销列表</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+594"/>
+        <location filename="../widgets/MainWindow.cpp" line="+596"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>如果没有提供正确的密码，将无法使用或导出私钥</translation>
     </message>
     <message>
-        <location line="-5"/>
-        <location line="+150"/>
         <source>Database</source>
-        <translation>数据库</translation>
+        <translation type="vanished">数据库</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="+6"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>当前使用的默认哈希&apos;%1&apos;是不安全的。 出于安全原因，请至少选择&apos;SHA 224&apos;。</translation>
     </message>
@@ -1161,13 +1206,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">找不到已删除的项目</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-49"/>
+        <location filename="../widgets/MW_menu.cpp" line="-53"/>
         <source>Recent DataBases</source>
         <translation>最近打开的数据库</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="+25"/>
-        <location filename="../widgets/MW_menu.cpp" line="-44"/>
+        <location filename="../widgets/MW_menu.cpp" line="-45"/>
         <source>System</source>
         <translation>使用系统语言</translation>
     </message>
@@ -1212,7 +1257,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>西班牙语</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="+5"/>
+        <source>Persian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-12"/>
         <source>Polish</source>
         <translation>波兰语</translation>
     </message>
@@ -1238,11 +1288,16 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+7"/>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Turkish</source>
         <translation>土耳其语</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+50"/>
+        <location filename="../widgets/MW_menu.cpp" line="+51"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1260,7 +1315,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">打开数据库</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+10"/>
         <source>Open Remote DataBase</source>
         <translation>打开远程数据库</translation>
     </message>
@@ -1274,22 +1329,22 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">关闭数据库</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>New DataBase</source>
         <translation>新建数据库</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Open DataBase</source>
         <translation>打开数据库</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Close DataBase</source>
         <translation>关闭数据库</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Options</source>
         <translation>选项</translation>
     </message>
@@ -1445,7 +1500,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">没有这个选项: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-340"/>
+        <location filename="../widgets/MainWindow.cpp" line="-344"/>
         <source>Import PEM data</source>
         <translation>导入PEM数据</translation>
     </message>
@@ -1455,13 +1510,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>请输入安全令牌&apos;%1&apos;的旧SO PIN（PUK）</translation>
     </message>
     <message>
-        <location line="-171"/>
+        <location line="-170"/>
         <location line="+623"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location line="-446"/>
+        <location line="-447"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>请输入安全令牌&apos;%1&apos;的新SO PIN（PUK）</translation>
     </message>
@@ -1476,7 +1531,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>安全令牌&apos;%1&apos;不包含任何密钥和证书</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+44"/>
         <source>Current Password</source>
         <translation>当前密码</translation>
     </message>
@@ -1504,6 +1559,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+24"/>
         <source>Transaction start failed</source>
         <translation>数据库事务开始失败</translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Database: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
@@ -1534,23 +1594,23 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">复制到剪贴板</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+81"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Certificate Index ( index.txt )</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+55"/>
+        <location line="+56"/>
         <source>All files ( * )</source>
         <translation>All files ( * )</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-33"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
         <translation>DH参数保存为：%1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>有些应用程序需要Diffie-Hellman参数。
@@ -1634,7 +1694,7 @@ Please enter the DH parameter bits</source>
         <translation>哈希算法</translation>
     </message>
     <message>
-        <location filename="../widgets/NewCrl.cpp" line="+77"/>
+        <location filename="../widgets/NewCrl.cpp" line="+78"/>
         <source>Create CRL</source>
         <translation type="unfinished">创建CRL</translation>
     </message>
@@ -1693,7 +1753,7 @@ Please enter the DH parameter bits</source>
         <translation>设置为默认</translation>
     </message>
     <message>
-        <location filename="../widgets/NewKey.cpp" line="+137"/>
+        <location filename="../widgets/NewKey.cpp" line="+135"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
@@ -1782,7 +1842,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+592"/>
+        <location filename="../widgets/NewX509.cpp" line="+595"/>
         <source>Subject</source>
         <translation>主体</translation>
     </message>
@@ -1958,7 +2018,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+406"/>
+        <location filename="../widgets/NewX509.cpp" line="+403"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
@@ -1999,7 +2059,7 @@ Please enter the DH parameter bits</source>
         <translation>此名称仅在内部使用，不会出现在生成的证书中</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-738"/>
+        <location filename="../widgets/NewX509.cpp" line="-735"/>
         <source>Critical</source>
         <translation>关键</translation>
     </message>
@@ -2039,7 +2099,7 @@ Please enter the DH parameter bits</source>
         <translation>创建x509证书</translation>
     </message>
     <message>
-        <location line="+374"/>
+        <location line="+371"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>模板&apos;%1&apos;已应用</translation>
     </message>
@@ -2239,7 +2299,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>主体可选名称应包含通用名称（CN）。但是，通用名称为空。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+187"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
         <source>Configfile error on line %1
 </source>
         <translation>配置文件错误位于行%1</translation>
@@ -2318,7 +2378,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+50"/>
+        <location filename="../widgets/OpenDb.cpp" line="+49"/>
         <source>Database name</source>
         <translation>数据库名</translation>
     </message>
@@ -2359,7 +2419,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>默认哈希算法</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>String types</source>
         <translation>字符串类型</translation>
     </message>
@@ -2398,7 +2458,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>禁用传统的Netscape扩展信息</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="-33"/>
+        <source>PKCS12 encryption algorithm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+77"/>
         <source>Certificate expiry warning threshold</source>
         <translation>证书到期警告阈值</translation>
     </message>
@@ -2471,7 +2536,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+34"/>
+        <location filename="../widgets/Options.cpp" line="+35"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>可打印字符串或UTF8（默认）</translation>
     </message>
@@ -2496,7 +2561,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>所有字符串</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Days</source>
         <translation>天</translation>
     </message>
@@ -2523,12 +2588,11 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>作为HEX字符串</translation>
     </message>
     <message>
-        <location filename="../widgets/PwDialog.cpp" line="+44"/>
         <source>Password</source>
-        <translation type="unfinished">密码</translation>
+        <translation type="obsolete">密码</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location filename="../widgets/PwDialog.cpp" line="+72"/>
         <source>Repeat %1</source>
         <translation>重复%1</translation>
     </message>
@@ -2555,34 +2619,20 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+28"/>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation type="obsolete">取消</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Apply</source>
-        <translation type="unfinished">应用</translation>
+        <translation type="obsolete">应用</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Yes</source>
-        <translation type="unfinished">是</translation>
+        <translation type="obsolete">是</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>No</source>
-        <translation type="unfinished">否</translation>
+        <translation type="obsolete">否</translation>
     </message>
 </context>
 <context>
@@ -2650,7 +2700,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">数据库: 写入错误 %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+30"/>
+        <location filename="../lib/pki_temp.cpp" line="+31"/>
         <location line="+10"/>
         <source>Out of data</source>
         <translation>无数据</translation>
@@ -2661,12 +2711,11 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>查找字符串的结束标记出现错误</translation>
     </message>
     <message>
-        <location filename="../lib/exception.h" line="+60"/>
         <source>Out of Memory at %1:%2</source>
-        <translation>内存不足 %1:%2</translation>
+        <translation type="vanished">内存不足 %1:%2</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+579"/>
+        <location filename="../lib/func.cpp" line="+575"/>
         <source>Country code</source>
         <translation>国家代码</translation>
     </message>
@@ -2971,7 +3020,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>加载PEM文件</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+212"/>
+        <location filename="../lib/pkcs11.cpp" line="+213"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>请输入PIN</translation>
     </message>
@@ -3006,7 +3055,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>请输入令牌 &apos;%1&apos;的新PIN:</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.h" line="+101"/>
+        <location filename="../lib/pkcs11.h" line="+99"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>合法的PIN长度: %1 - %2</translation>
     </message>
@@ -3015,22 +3064,15 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">打开PKCS11动态库失败: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+69"/>
-        <source>Invalid filename: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation>打开PKCS11动态库失败: %1: %2</translation>
+        <translation type="vanished">打开PKCS11动态库失败: %1: %2</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation>这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
+        <translation type="vanished">这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+119"/>
         <source>Disabled</source>
         <translation>已禁用</translation>
     </message>
@@ -3069,17 +3111,17 @@ In library %3
         <translation>%1大于%2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+86"/>
+        <location filename="../lib/x509v3ext.cpp" line="+87"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>字符串 &apos;%2&apos;中的 &apos;%1&apos;包含无效字符</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+56"/>
+        <location filename="../lib/oid.cpp" line="+48"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>读取配置文件%1（行%2）错误</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+38"/>
         <source>The Object &apos;%1&apos; from file %2 line %3 is already known as &apos;%4:%5:%6&apos; and should be removed.</source>
         <translation>文件%2（行%3）中的对象 &apos;%1&apos;已经存在 &apos;%4:%5:%6&apos;，应当被移除。</translation>
     </message>
@@ -3089,7 +3131,7 @@ In library %3
         <translation>文件%3（行%4）中用于OID %2的标识符 &apos;%1&apos;已经用于另一个OID &apos;%5:%6:%7&apos;，应当修改以避免冲突。</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+65"/>
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
         <translation>文件 %2（行%3）中的未知对象&apos;%1&apos;</translation>
     </message>
@@ -3099,7 +3141,7 @@ In library %3
         <translation>数据库事务开始失败</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+229"/>
+        <location filename="../lib/main.cpp" line="+227"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3114,15 +3156,30 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaWarning.h" line="+23"/>
+        <location filename="../lib/XcaWarningCore.h" line="+23"/>
         <source>Password verify error, please try again</source>
         <translation type="unfinished">密码校验错误，请再试一次</translation>
+    </message>
+    <message>
+        <location line="+69"/>
+        <source>The following error occurred:</source>
+        <translation type="unfinished">下列错误发生:</translation>
+    </message>
+    <message>
+        <location filename="../lib/database_model.cpp" line="+74"/>
+        <source>Failed to update the database schema to the current version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/PwDialogCore.cpp" line="+27"/>
+        <source>Password</source>
+        <translation type="unfinished">密码</translation>
     </message>
 </context>
 <context>
     <name>ReqTreeView</name>
     <message>
-        <location filename="../widgets/ReqTreeView.cpp" line="+25"/>
+        <location filename="../widgets/ReqTreeView.cpp" line="+27"/>
         <source>Sign</source>
         <translation>签发</translation>
     </message>
@@ -3140,6 +3197,16 @@ In library %3
         <location line="+3"/>
         <source>Similar Request</source>
         <translation>请求副本</translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Certificate request export</source>
+        <translation type="unfinished">证书请求导出</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate request ( *.pem *.der *.csr )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3165,7 +3232,7 @@ In library %3
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../widgets/RevocationList.cpp" line="+75"/>
+        <location filename="../widgets/RevocationList.cpp" line="+77"/>
         <source>No.</source>
         <translation>No.</translation>
     </message>
@@ -3272,7 +3339,7 @@ In library %3
 <context>
     <name>TempTreeView</name>
     <message>
-        <location filename="../widgets/TempTreeView.cpp" line="+23"/>
+        <location filename="../widgets/TempTreeView.cpp" line="+25"/>
         <source>Duplicate</source>
         <translation>生成副本</translation>
     </message>
@@ -3287,7 +3354,7 @@ In library %3
         <translation>创建请求</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>copy</source>
         <translation>复制</translation>
     </message>
@@ -3295,6 +3362,44 @@ In library %3
         <location line="+48"/>
         <source>Preset Template values</source>
         <translation type="unfinished">内置模板</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Template export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>XCA Templates ( *.xca )</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TrustState</name>
+    <message>
+        <location filename="../ui/TrustState.ui" line="+33"/>
+        <source>Certificate trust</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
+        <source>Trustment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>&amp;Never trust this certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Only &amp;trust this certificate, if we trust the signer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&amp;Always trust this certificate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3308,7 +3413,7 @@ In library %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+29"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL配置</translation>
     </message>
@@ -3327,11 +3432,39 @@ In library %3
         <source>Public key</source>
         <translation>公钥</translation>
     </message>
+    <message>
+        <location line="+30"/>
+        <source>Save as OpenSSL config</source>
+        <translation type="unfinished">保存为OpenSSL配置</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XFile</name>
+    <message>
+        <location filename="../lib/xfile.h" line="+28"/>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation type="unfinished">打开文件错误: &apos;%1&apos;: %2</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Error rewinding file: &apos;%1&apos;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+339"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
+        <source>Item properties</source>
+        <translation type="unfinished">条目属性</translation>
+    </message>
+    <message>
+        <location line="+67"/>
         <source>Subject entries</source>
         <translation>主体条目</translation>
     </message>
@@ -3371,7 +3504,7 @@ In library %3
         <translation>列</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+66"/>
         <source>New</source>
         <translation>创建</translation>
     </message>
@@ -3427,7 +3560,7 @@ In library %3
         <translation type="obsolete">无法重命名数据库文件，因为目标已存在</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+121"/>
+        <location filename="../lib/database_model.cpp" line="+47"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation type="unfinished">请输入密码，用于以用户身份&apos;%1&apos;访问数据库服务器%2。</translation>
     </message>
@@ -3478,7 +3611,7 @@ In library %3
         <translation type="vanished">打开文件错误: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="+170"/>
+        <location filename="../lib/db_base.cpp" line="+163"/>
         <source>Internal name</source>
         <translation>内部名称</translation>
     </message>
@@ -3533,45 +3666,35 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+142"/>
         <source>Could not create directory %1</source>
         <translation>创建文件夹失败 %1</translation>
     </message>
     <message>
-        <location line="+251"/>
         <source>Item properties</source>
-        <translation>条目属性</translation>
+        <translation type="vanished">条目属性</translation>
     </message>
     <message>
-        <location line="+37"/>
         <source>How to export the %1 selected items</source>
-        <translation>如何导出选定的%1个条目</translation>
+        <translation type="vanished">如何导出选定的%1个条目</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>All in one PEM file</source>
-        <translation>将全部条目导出到一个PEM文件</translation>
+        <translation type="vanished">将全部条目导出到一个PEM文件</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Each item in one file</source>
-        <translation>每个条目导出到单个文件</translation>
+        <translation type="vanished">每个条目导出到单个文件</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Save %1 items in one file as</source>
-        <translation>保存%1个条目到单个文件</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>PEM files ( *.pem );; All files ( * )</source>
-        <translation></translation>
+        <translation type="vanished">保存%1个条目到单个文件</translation>
     </message>
 </context>
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+30"/>
+        <location filename="../lib/db_crl.cpp" line="+27"/>
         <source>Signer</source>
         <translation>签发人</translation>
     </message>
@@ -3606,7 +3729,7 @@ In library %3
         <translation>CRL编号</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+63"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3615,14 +3738,12 @@ and so it was not imported</source>
 因此未被导入</translation>
     </message>
     <message>
-        <location line="+27"/>
         <source>Revocation list export</source>
-        <translation>吊销列表导出</translation>
+        <translation type="vanished">吊销列表导出</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation>CRL ( *.pem *.der *.crl )</translation>
+        <translation type="vanished">CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <source>There are no CA certificates for CRL generation</source>
@@ -3637,7 +3758,7 @@ and so it was not imported</source>
         <translation type="vanished">创建CRL</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+72"/>
         <source>Failed to initiate DB transaction</source>
         <translation>初始化数据库事务失败</translation>
     </message>
@@ -3656,7 +3777,7 @@ and so it was not imported</source>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+58"/>
+        <location filename="../lib/db_key.cpp" line="+54"/>
         <source>Type</source>
         <translation>类型</translation>
     </message>
@@ -3714,91 +3835,28 @@ and will be completed by the new, private part of the key</source>
         <translation>确认创建长度为%1的密钥？</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+49"/>
-        <source>PEM public</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-46"/>
-        <location line="+51"/>
-        <source>SSH2 public</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-48"/>
-        <location line="+68"/>
-        <source>PEM private</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-63"/>
-        <location line="+68"/>
-        <source>SSH2 private</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-65"/>
         <source>Export keys to Clipboard</source>
-        <translation>导出密钥到剪贴板</translation>
+        <translation type="vanished">导出密钥到剪贴板</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Clipboard</source>
-        <translation>剪贴板</translation>
+        <translation type="vanished">剪贴板</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Export public key [%1]</source>
-        <translation>导出公钥 [%1]</translation>
+        <translation type="vanished">导出公钥 [%1]</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <source>DER public</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>DER private</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-3"/>
-        <source>PEM encryped</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>PVK private</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>PVK encrypted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>PKCS#8 encrypted</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+4"/>
         <source>Export private key [%1]</source>
-        <translation>导出私钥 [%1]</translation>
+        <translation type="vanished">导出私钥 [%1]</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+60"/>
+        <location line="+82"/>
         <source>Internal error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+11"/>
         <source>Tried to change password of a token</source>
         <translation>尝试修改令牌密码</translation>
     </message>
@@ -3806,7 +3864,7 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_temp</name>
     <message>
-        <location filename="../lib/db_temp.cpp" line="+62"/>
+        <location filename="../lib/db_temp.cpp" line="+59"/>
         <source>Bad template: %1</source>
         <translation>损坏的模板: %1</translation>
     </message>
@@ -3820,20 +3878,14 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished">内置模板</translation>
     </message>
     <message>
-        <location line="+91"/>
         <source>Save template as</source>
-        <translation>将模板保存为</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>XCA templates ( *.xca );; All files ( * )</source>
-        <translation></translation>
+        <translation type="vanished">将模板保存为</translation>
     </message>
 </context>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+71"/>
+        <location filename="../lib/db_x509.cpp" line="+76"/>
         <source>CA</source>
         <translation></translation>
     </message>
@@ -3915,7 +3967,7 @@ and so it was not imported</source>
 因此未被导入</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+35"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
         <translation>由&apos;%2&apos;在%1上签名</translation>
     </message>
@@ -3930,29 +3982,12 @@ and so it was not imported</source>
         <translation>不合法的公钥</translation>
     </message>
     <message>
-        <location line="+156"/>
         <source>PKCS#7 unrevoked</source>
-        <translation>PKCS#7反吊销</translation>
+        <translation type="vanished">PKCS#7反吊销</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>PEM unrevoked</source>
-        <translation>PEM反吊销</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>vCalendar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>CA vCalendar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">PEM反吊销</translation>
     </message>
     <message>
         <source>days</source>
@@ -3963,68 +3998,52 @@ and so it was not imported</source>
         <translation type="vanished">无模板</translation>
     </message>
     <message>
-        <location line="-149"/>
+        <location line="+26"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>您选择的用于签名的密钥不是私钥。</translation>
     </message>
     <message>
-        <location line="-227"/>
+        <location line="-221"/>
         <source>Failed to create directory &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+269"/>
+        <location line="+262"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>将证书保存到令牌&apos;%1 (#%2)&apos;？</translation>
     </message>
     <message>
-        <location line="+65"/>
         <source>PEM chain</source>
-        <translation>PEM证书链</translation>
+        <translation type="vanished">PEM证书链</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>PKCS#7 chain</source>
-        <translation>PKCS#7证书链</translation>
+        <translation type="vanished">PKCS#7证书链</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>PKCS#12 chain</source>
-        <translation>PKCS#12证书链</translation>
+        <translation type="vanished">PKCS#12证书链</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>PKCS#7 all</source>
-        <translation>PKCS#7 全部</translation>
+        <translation type="vanished">PKCS#7 全部</translation>
     </message>
     <message>
-        <location line="-8"/>
-        <source>PEM + key</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>PEM all</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+2"/>
         <source>Certificate Index file</source>
-        <translation>证书索引文件（Index）</translation>
+        <translation type="vanished">证书索引文件（Index）</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Certificate export</source>
-        <translation>证书导出</translation>
+        <translation type="vanished">证书导出</translation>
     </message>
     <message>
-        <location line="+65"/>
-        <location line="+70"/>
+        <location line="+82"/>
+        <location line="+49"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>找不到证书&apos;%1&apos;的密钥</translation>
     </message>
     <message>
-        <location line="-65"/>
+        <location line="-46"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>令牌密钥&apos;%1&apos;不可用</translation>
     </message>
@@ -4033,7 +4052,7 @@ and so it was not imported</source>
         <translation type="vanished">打开文件错误: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+50"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>令牌证书&apos;%1&apos;不可用</translation>
     </message>
@@ -4045,7 +4064,7 @@ and so it was not imported</source>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+30"/>
+        <location filename="../lib/db_x509super.cpp" line="+27"/>
         <source>Subject</source>
         <translation>主体</translation>
     </message>
@@ -4068,7 +4087,7 @@ and so it was not imported</source>
 <context>
     <name>db_x509req</name>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="+28"/>
+        <location filename="../lib/db_x509req.cpp" line="+29"/>
         <source>Signed</source>
         <translation>已签发</translation>
     </message>
@@ -4107,20 +4126,14 @@ and thus was not stored</source>
 因此未被导入</translation>
     </message>
     <message>
-        <location line="+66"/>
         <source>Certificate request export</source>
-        <translation>证书请求导出</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation></translation>
+        <translation type="vanished">证书请求导出</translation>
     </message>
 </context>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+48"/>
+        <location filename="../lib/db_x509super.cpp" line="+47"/>
         <source>Key name</source>
         <translation>密钥名称</translation>
     </message>
@@ -4156,33 +4169,27 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+52"/>
+        <location line="+28"/>
         <source>Certificate</source>
         <translation>证书</translation>
     </message>
     <message>
-        <location line="-52"/>
-        <location line="+52"/>
+        <location line="-28"/>
+        <location line="+28"/>
         <source>Certificate request</source>
         <translation>证书请求</translation>
     </message>
     <message>
-        <location line="-37"/>
         <source>Save as OpenSSL config</source>
-        <translation>保存为OpenSSL配置</translation>
+        <translation type="vanished">保存为OpenSSL配置</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+23"/>
+        <location line="-5"/>
         <source>The following extensions were not ported into the template</source>
         <translation>以下扩展未进入到模板中</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+3"/>
         <source>Transformed from %1 &apos;%2&apos;</source>
         <translation>从%1转换得到&apos;%2&apos;</translation>
     </message>
@@ -4214,6 +4221,19 @@ and thus was not stored</source>
     </message>
 </context>
 <context>
+    <name>pkcs11_lib</name>
+    <message>
+        <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
+        <source>Failed to open PKCS11 library: %1: %2</source>
+        <translation type="unfinished">打开PKCS11动态库失败: %1: %2</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
+        <translation type="unfinished">这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
+    </message>
+</context>
+<context>
     <name>pki_base</name>
     <message>
         <source>Error opening file: &apos;%1&apos;: %2</source>
@@ -4224,7 +4244,7 @@ and thus was not stored</source>
         <translation type="vanished">写入文件错误: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+289"/>
+        <location filename="../lib/pki_base.cpp" line="+287"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
@@ -4259,12 +4279,12 @@ and thus was not stored</source>
         <translation>已续签</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+143"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-311"/>
+        <location line="-313"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>内部错误: 意料之外的消息: %1 %2</translation>
     </message>
@@ -4292,7 +4312,7 @@ and thus was not stored</source>
         <translation>删除这%1个CRL: %2?</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+84"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>无法从文件%1加载CRL。尝试使用PEM或DER格式的CRL。</translation>
     </message>
@@ -4306,7 +4326,7 @@ and thus was not stored</source>
         <translation type="vanished">错误的大小%1</translation>
     </message>
     <message>
-        <location line="+259"/>
+        <location line="+261"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation type="unfinished">CA &apos;%1&apos;的CRL更新时间到了</translation>
     </message>
@@ -4354,7 +4374,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">请输入密码，用于解锁私钥。</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+228"/>
+        <location filename="../lib/pki_evp.cpp" line="+230"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4371,7 +4391,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 %1</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+67"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation>无法从文件%1中加载私钥。尝试使用PEM和DER私钥，公钥，PKCS#8密钥类型和SSH2格式。</translation>
     </message>
@@ -4406,25 +4426,272 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>请输入数据库密码，用于加密密钥</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+161"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>请输入密码，用于保护PKCS#8密钥 &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+20"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+53"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>请输入私钥&apos;%1&apos;的导出密码</translation>
     </message>
 </context>
 <context>
+    <name>pki_export</name>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="+43"/>
+        <location line="+27"/>
+        <location line="+3"/>
+        <source>PEM Text format with headers</source>
+        <translation type="unfinished">带头部的PEM文本格式</translation>
+    </message>
+    <message>
+        <location line="-29"/>
+        <source>Concatenated list of all selected items in one PEM text file</source>
+        <translation type="unfinished">导出选定的条目到一个PEM文本文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PEM chain</source>
+        <translation type="unfinished">PEM证书链</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenated text format of the complete certificate chain in one PEM file</source>
+        <translation type="unfinished">导出完整的证书链到一个PEM文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PEM + key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
+        <translation type="unfinished">导出证书和未加密私钥到一个PEM文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
+        <translation type="unfinished">导出证书和加密私钥到PKCS#8文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS#7 encoded single certificate</source>
+        <translation type="unfinished">PKCS#7编码的单个证书</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>All selected certificates encoded in one PKCS#7 file</source>
+        <translation type="unfinished">导出选定的证书到一个PKCS#7文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #7 chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>PKCS#7 encoded complete certificate chain</source>
+        <translation type="unfinished">PKCS#7编码的完整证书链</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Binary DER encoded certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #12 chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
+        <translation type="unfinished">导出完整证书链和加密私钥到PKCS#12文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #12</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The certificate and the private key as encrypted PKCS#12 file</source>
+        <translation type="unfinished">导出证书和加密私钥到PKCS#12文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate Index file</source>
+        <translation type="unfinished">证书索引文件（Index）</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
+        <translation type="unfinished">导出OpenSSL风格的证书索引文件（Index），该文件由&apos;openssl ca&apos;命令创建，通常OCSP工具需要使用它</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+20"/>
+        <source>vCalendar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-20"/>
+        <source>vCalendar expiry reminder for the selected items</source>
+        <translation type="unfinished">所选条目的vCalendar到期提醒</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA vCalendar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
+        <translation type="unfinished">包含所有已颁发的有效证书，CA本身和最新的CRL的vCalendar到期提醒</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>PEM public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Text format of the public key in one PEM file</source>
+        <translation type="unfinished">导出公钥到PEM文本文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PEM private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <location line="+2"/>
+        <source>Unencrypted private key in text format</source>
+        <translation type="unfinished">导出未加密私钥到文本文件中</translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>PEM encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>OpenSSL specific encrypted private key in text format</source>
+        <translation type="unfinished">导出OpenSSL风格的加密私钥到文本文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SSH2 private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SSH2 public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key encoded in SSH2 format</source>
+        <translation type="unfinished">以SSH2格式编码的公钥</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DER public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Binary DER format of the public key</source>
+        <translation type="unfinished">导出公钥到DER二进制文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DER private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in binary DER format</source>
+        <translation type="unfinished">导出未加密的私钥到DER二进制文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PVK private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Private key in Microsoft PVK format not encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PVK encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Encrypted private key in Microsoft PVK format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #8 encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Encrypted private key in PKCS#8 text format</source>
+        <translation type="unfinished">导出加密私钥到PKCS#8文本文件中</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in PKCS#8 text format</source>
+        <translation type="unfinished">导出未加密私钥到PKCS#8文本文件中</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Binary DER format of the certificate request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Binary DER format of the revocation list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar reminder for the CRL expiry date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>XCA template in PEM-like format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>All selected XCA templates in PEM-like format</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+238"/>
+        <location filename="../lib/pki_key.cpp" line="+199"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>成功导入%1个公钥 &apos;%2&apos;</translation>
     </message>
@@ -4454,14 +4721,14 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>删除%1个密钥 &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="-195"/>
-        <location line="+204"/>
-        <location line="+667"/>
+        <location line="-155"/>
+        <location line="+164"/>
+        <location line="+635"/>
         <source>Public key</source>
         <translation>公钥</translation>
     </message>
     <message>
-        <location line="-434"/>
+        <location line="-400"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4487,18 +4754,18 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+97"/>
-        <location line="+106"/>
+        <location line="+105"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
         <translation>意料之外的SSH2内容：&apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-86"/>
+        <location line="-85"/>
         <location line="+6"/>
         <source>Invalid SSH2 public key</source>
         <translation>不合法的SSH2公钥</translation>
     </message>
     <message>
-        <location line="+198"/>
+        <location line="+197"/>
         <source>Failed writing to %1</source>
         <translation>写入到%1失败</translation>
     </message>
@@ -4521,12 +4788,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
 %1</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+14"/>
         <source>Unable to load the PKCS#12 (pfx) file %1.</source>
         <translation>无法加载PKCS#12 (pfx)文件 %1.</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+32"/>
         <source>The supplied password was wrong (%1)</source>
         <translation>提供的密码有误 (%1)</translation>
     </message>
@@ -4544,7 +4811,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+173"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+186"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>无法加载PKCS#7文件 %1。尝试使用PEM或DER格式。</translation>
     </message>
@@ -4552,7 +4819,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+49"/>
+        <location filename="../lib/pki_scard.cpp" line="+48"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>成功导入令牌密钥 &apos;%1&apos;</translation>
     </message>
@@ -4572,7 +4839,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>删除%1个密钥: %2?</translation>
     </message>
     <message>
-        <location line="+302"/>
+        <location line="+327"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>从令牌 &apos;%2 (#%3)&apos;中删除私钥 &apos;%1&apos;?</translation>
     </message>
@@ -4592,7 +4859,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>无法在令牌上找到复制的密钥</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+88"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>请插入智能卡: %1 %2 [%3] 序列号: %4</translation>
     </message>
@@ -4662,12 +4929,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>删除%1个XCA模板: %2?</translation>
     </message>
     <message>
-        <location line="+199"/>
+        <location line="+200"/>
         <source>Wrong Size %1</source>
         <translation>错误的大小%1</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+84"/>
         <source>Template file content error (too small)</source>
         <translation>模板文件内容错误 （太小）</translation>
     </message>
@@ -4676,7 +4943,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">模板文件内容错误 （太小）: %1</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+50"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation>不是PEM编码的XCA模板</translation>
     </message>
@@ -4709,7 +4976,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>删除%1个证书: %2?</translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+162"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>无法从文件%1加载证书。尝试使用PEM或DER格式的证书。</translation>
     </message>
@@ -4733,7 +5000,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">错误的大小%1</translation>
     </message>
     <message>
-        <location line="+284"/>
+        <location line="+286"/>
         <source>No</source>
         <translation>否</translation>
     </message>
@@ -4768,7 +5035,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+108"/>
+        <location filename="../lib/pki_x509req.cpp" line="+109"/>
         <source>Signing key not valid (public key)</source>
         <translation>签名密钥不合法 （公钥）</translation>
     </message>
@@ -4793,7 +5060,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
         <translation>删除%1个证书请求: %2?</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+29"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>无法从文件%1加载证书请求。尝试使用PEM、DER或SPKAC格式。</translation>
     </message>
@@ -4802,7 +5069,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
         <translation type="vanished">错误的大小%1</translation>
     </message>
     <message>
-        <location line="+184"/>
+        <location line="+186"/>
         <source>Signed</source>
         <translation>已签发</translation>
     </message>
@@ -4909,12 +5176,18 @@ It is stored in the XCA database &apos;%3&apos;</source>
 <context>
     <name>xcaWarning</name>
     <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+88"/>
         <source>The following error occurred:</source>
-        <translation type="unfinished">下列错误发生:</translation>
+        <translation type="obsolete">下列错误发生:</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <source>Copy to Clipboard</source>
+        <translation type="obsolete">复制到剪贴板</translation>
+    </message>
+</context>
+<context>
+    <name>xcaWarningGui</name>
+    <message>
+        <location filename="../widgets/XcaWarning.cpp" line="+72"/>
         <source>Copy to Clipboard</source>
         <translation type="unfinished">复制到剪贴板</translation>
     </message>
