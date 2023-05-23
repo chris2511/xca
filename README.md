@@ -53,7 +53,7 @@ To build XCA you need:
 - Install the dependencies
   ```
   xcode-select --install
-  brew install openssl qt5 python3 cmake
+  brew install openssl@3 qt6 python3 cmake
   pip3 install sphinx
   ```
 - Clone: `git clone https://github.com/chris2511/xca.git`

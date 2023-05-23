@@ -51,17 +51,11 @@ if (APPLE)
                   OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET)
   # Preset the default brew paths....
   if (NOT CMAKE_PREFIX_PATH)
-    set(CMAKE_PREFIX_PATH ${BREW_PREFIX}/opt/qt@5/)
-  endif()
-  if (NOT OPENSSL_ROOT_DIR)
-    set(OPENSSL_ROOT_DIR ${BREW_PREFIX}/opt/openssl@1.1)
+    set(CMAKE_PREFIX_PATH ${BREW_PREFIX}/opt/qt@6/ ${BREW_PREFIX}/opt/openssl@3)
   endif()
 elseif(WIN32)
   if (NOT CMAKE_PREFIX_PATH)
-    set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/")
-  endif()
-  if (NOT OPENSSL_ROOT_DIR)
-    set(OPENSSL_ROOT_DIR $ENV{PROGRAMFILES}/OpenSSL-Win64)
+    set(CMAKE_PREFIX_PATH $ENV{UserProfile} $ENV{PROGRAMFILES}/OpenSSL-Win64)
   endif()
   if (NOT OPENSSL_LIBRARY_MAJOR)
 	  set(OPENSSL_LIBRARY_MAJOR 3) # For OpenSSL 1.1.1 use "1_1"
@@ -78,12 +72,12 @@ elseif(WIN32)
   endif()
   file(TO_CMAKE_PATH $ENV{WINDIR}/system32 SYSTEM32)
 endif()
-file(TO_CMAKE_PATH "${OPENSSL_ROOT_DIR}" OPENSSL_ROOT_DIR)
 file(TO_CMAKE_PATH "${PSQL_BINDIR}" PSQL_BINDIR)
 file(TO_CMAKE_PATH "${MYSQL_BINDIR}" MYSQL_BINDIR)
 
+set(QTFIXEDVERSION Qt6 Qt5 CACHE STRING "Force q specific QT version 'Qt5' or 'Qt6'")
 find_package(OpenSSL REQUIRED)
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(QT NAMES ${QTFIXEDVERSION} REQUIRED COMPONENTS Core)
 set(QT Qt${QT_VERSION_MAJOR})
 find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 message(STATUS "Using ${QT} with version ${QT_VERSION}")
@@ -94,12 +88,8 @@ else()
   set(CMAKE_OSX_DEPLOYMENT_TARGET 11)
 endif()
 
-
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
-get_target_property(core_libdir ${QT}::Core IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
-find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
-find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
 
 if (NOT OPENSSL_ROOT_DIR)
   get_filename_component(OPENSSL_ROOT_DIR ${OPENSSL_INCLUDE_DIR} DIRECTORY)
@@ -178,10 +168,7 @@ if(APPLE)
 	XCODE_ATTRIBUTE_SKIP_INSTALL No
 	RESOURCE "${APP_RESOURCES}"
   )
-  get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
-  get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
   find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS ${_qt_bin_dir})
-
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${MACDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
         -always-overwrite
@@ -200,6 +187,7 @@ if(APPLE)
   set(CPACK_GENERATOR "DragNDrop") #;productbuild")
 
 elseif(WIN32)
+  find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS ${_qt_bin_dir})
   add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>
         --dir ${CMAKE_BINARY_DIR} --compiler-runtime --no-translations

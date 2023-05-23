@@ -4,8 +4,7 @@ set(D "${PROJECT_BINARY_DIR}/doc")
 file(MAKE_DIRECTORY "${D}")
 
 find_program(SPHINX sphinx-build)
-find_program(QTCOLLGEN NAMES qhelpgenerator qcollectiongenerator
-                       HINTS ${_qt_bin_dir} ${_qt_bin_dir}/../libexec)
+find_package(Qt6 QUIET OPTIONAL_COMPONENTS ToolsTools)
 
 set(FILENAMES
 	index commandline requests object-ids common-actions database options
@@ -106,11 +105,11 @@ if(SPHINX)
     endif()
   endif()
 
-  if(QTCOLLGEN)
+  if(TARGET ${QT}::qhelpgenerator)
     set(QTHELP_IDX ${D}/qthelp/xca.qhc ${D}/qthelp/xca.qch)
     add_custom_command(
 	OUTPUT ${QTHELP_IDX}
-	COMMAND ${QTCOLLGEN} ${D}/qthelp/xca.qhcp
+	COMMAND $<TARGET_FILE:${QT}::qhelpgenerator> ${D}/qthelp/xca.qhcp
 	DEPENDS sphinx-qthelp
 	COMMENT "Create context sensitive help index"
     )
@@ -129,9 +128,9 @@ if(SPHINX)
         )
     endif()
 
-  else(QTCOLLGEN)
-    message(WARNING "Neither 'qhelpgenerator' nor 'qcollectiongenerator' found. In-app documentation disabed. ${_qt_bin_dir}")
-  endif(QTCOLLGEN)
+  else()
+    message(WARNING "Application 'qhelpgenerator' not found. In-app documentation disabed.")
+  endif()
 else(SPHINX)
   message(WARNING "sphinx-build binary not found. Documentation generation disabled")
 endif(SPHINX)
