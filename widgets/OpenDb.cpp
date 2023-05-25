@@ -21,9 +21,9 @@ DbMap OpenDb::getDatabases()
 	QStringList list = QSqlDatabase::drivers();
 	DbMap databases;
 
-	databases["QPSQL7"]   = "PostgreSQL";
-	databases["QMYSQL3"]  = "MySQL / MariaDB";
-	databases["QODBC3"]   = "Open Database Connectivity (ODBC)";
+	databases["QPSQL"]   = "PostgreSQL";
+	databases["QMYSQL"]  = "MySQL / MariaDB";
+	databases["QODBC"]   = "Open Database Connectivity (ODBC)";
 
 	foreach (QString driver, databases.keys()) {
 		if (!list.contains(driver))
