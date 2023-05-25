@@ -12,7 +12,7 @@ jobs:
       matrix:
 
         os: [ ubuntu, macos, windows ]
-        qt: [ "5.15.2", "6.3.1" ]
+        qt: [ "5.15.2", "6.5.1" ]
 
         include:
         - os: ubuntu
@@ -40,7 +40,7 @@ jobs:
           winarch: win64_mingw81
 
         - os: windows
-          qt: "6.3.1"
+          qt: "6.5.1"
           winarch: win64_mingw
 
     runs-on: ${{matrix.os}}-latest

@@ -22,8 +22,8 @@ do_openssl()
   lipo -create -output "$INSTALL_DIR"/lib/libssl.${OSSL_MAJOR}.dylib $PARTS_ssl
 }
 
-OSSL_MAJOR="1.1"
-OSSL="openssl-1.1.1t"
+OSSL_MAJOR="3"
+OSSL="openssl-3.0.8"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 
@@ -37,7 +37,7 @@ test -x $INSTALL_DIR/lib/libcrypto.dylib || (cd $TOP_DIR && do_openssl )
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \
 	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
-	-DCMAKE_PREFIX_PATH="$TOP_DIR/6.5.0/macos/lib/cmake;$INSTALL_DIR" \
+	-DCMAKE_PREFIX_PATH="$TOP_DIR/6.5.1/macos/lib/cmake;$INSTALL_DIR" \
 	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK
 
 cmake --build "$BUILDDIR" -j$JOBS
