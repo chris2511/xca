@@ -209,6 +209,7 @@ NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
 	attrWidget->hide();
 	pt = none;
 	notAfter->setEndDate(true);
+	basicPath->setValidator(new QIntValidator(0, 1000, this));
 
 	QMap<int, QWidget*> nidWidget;
 	nidWidget[NID_subject_alt_name] = sanLbl;
