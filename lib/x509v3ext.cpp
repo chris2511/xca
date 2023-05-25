@@ -20,32 +20,44 @@
 
 x509v3ext::x509v3ext()
 {
-	ext = X509_EXTENSION_new();
+	ext = nullptr;
 }
 
-x509v3ext::x509v3ext(const X509_EXTENSION *n)
+x509v3ext::x509v3ext(const X509_EXTENSION *n) : ext(nullptr)
 {
-	ext = X509_EXTENSION_dup((X509_EXTENSION *)n);
+	if (n) {
+		ext = X509_EXTENSION_dup((X509_EXTENSION *)n);
+		Q_CHECK_PTR(ext);
+	}
 }
 
-x509v3ext::x509v3ext(const x509v3ext &n)
+x509v3ext::x509v3ext(const x509v3ext &n) : ext(nullptr)
 {
-	ASN1_OCTET_STRING *str = n.getData();
-	ext = X509_EXTENSION_new();
-	if (str && str->length)
-		set(n.ext);
+	set(n.ext);
+}
+
+x509v3ext::x509v3ext(int nid, const QString &et, X509V3_CTX *ctx) : ext(nullptr)
+{
+	create(nid, et, ctx);
 }
 
 x509v3ext::~x509v3ext()
 {
-	X509_EXTENSION_free(ext);
+	if (ext)
+		X509_EXTENSION_free(ext);
 }
 
 x509v3ext &x509v3ext::set(const X509_EXTENSION *n)
 {
-	if (ext != NULL)
+	if (n) {
+		ASN1_OCTET_STRING *str = X509_EXTENSION_get_data((X509_EXTENSION *)n);
+		if (!str || !str->length)
+			n = nullptr;
+	}
+	if (ext != nullptr)
 		X509_EXTENSION_free(ext);
-	ext = X509_EXTENSION_dup((X509_EXTENSION *)n);
+	ext = n ? X509_EXTENSION_dup((X509_EXTENSION *)n) : nullptr;
+	openssl_error();
 	return *this;
 }
 
@@ -53,8 +65,9 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 {
 	if (ext) {
 		X509_EXTENSION_free(ext);
-		ext = NULL;
+		ext = nullptr;
 	}
+	openssl_error();
 	if (!et.isEmpty()) {
 		QString etext = et;
 		if (et.contains("DNS:copycn") && ctx && ctx->subject_cert &&
@@ -69,13 +82,12 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		QByteArray ba = etext.toLocal8Bit();
 		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
 	}
-	if (!ext)
-		ext = X509_EXTENSION_new();
-	else {
+	if (ext) {
 		if (ctx && ctx->subject_cert) {
 			X509_add_ext(ctx->subject_cert, ext, -1);
 		}
 	}
+	ign_openssl_error();
 	return *this;
 }
 
@@ -91,11 +103,10 @@ x509v3ext &x509v3ext::create_ia5(int nid, const QString &et, X509V3_CTX *ctx)
 
 const ASN1_OBJECT *x509v3ext::object() const
 {
-	ASN1_OBJECT *obj = X509_EXTENSION_get_object(ext);
-	try {
-		openssl_error();
-	} catch (errorEx e) {
-		return NULL;
+	ASN1_OBJECT *obj = nullptr;
+	if (ext) {
+		obj = X509_EXTENSION_get_object(ext);
+		ign_openssl_error();
 	}
 	return obj;
 }
@@ -110,12 +121,16 @@ int x509v3ext::nid() const
 		QString o = OBJ_obj2QString(obj, 1);
 		if (!o.isEmpty())
 			nid = OBJ_create(CCHAR(o), CCHAR(o), CCHAR(o));
+		openssl_error();
 	}
 	return nid;
 }
 
 void *x509v3ext::d2i() const
 {
+	if (!ext)
+		return nullptr;
+
 	void *r = X509V3_EXT_d2i(ext);
 	ign_openssl_error();
 	return r;
@@ -130,22 +145,24 @@ x509v3ext &x509v3ext::operator = (const x509v3ext &x)
 QString x509v3ext::getObject() const
 {
 	const ASN1_OBJECT *obj = object();
-	return obj ? OBJ_obj2QString(obj) : QString("<ERROR>");
+	return obj ? OBJ_obj2QString(obj) : QString("INVALID");
 }
 
 int x509v3ext::getCritical() const
 {
-	return X509_EXTENSION_get_critical(ext);
+	return ext ? X509_EXTENSION_get_critical(ext) : 0;
 }
 
 ASN1_OCTET_STRING *x509v3ext::getData() const
 {
-	return X509_EXTENSION_get_data(ext);
+	return ext ? X509_EXTENSION_get_data(ext) : nullptr;;
 }
 
 QString x509v3ext::getValue() const
 {
 	BioByteArray bba;
+	if (!isValid())
+		return QString();
 	int ret = X509V3_EXT_print(bba, ext, X509V3_EXT_DEFAULT, 0);
 	if (ign_openssl_error() || !ret)
 		ret = ASN1_STRING_print(bba, (ASN1_STRING *)getData());
@@ -388,6 +405,9 @@ bool x509v3ext::parse_ia5(QString *single, QString *adv) const
 {
 	ASN1_STRING *str = (ASN1_STRING *)d2i();
 	QString ret;
+
+	if (!isValid())
+		return false;
 
 	if (!str) {
 		const unsigned char *p = getData()->data;
@@ -768,6 +788,7 @@ bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 {
 	QStringList ret;
 	AUTHORITY_KEYID *akeyid = (AUTHORITY_KEYID *)d2i();
+	ign_openssl_error();
 
 	if (!akeyid)
 		return false;
@@ -785,23 +806,26 @@ bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 
 bool x509v3ext::parse_generic(QString *, QString *adv) const
 {
+	if (!isValid())
+		return false;
+
 	const ASN1_OBJECT *o = object();
-	QString der, obj = o ? obj2SnOid(o) : QString("<ERROR>");
+	QString der, obj = o ? obj2SnOid(o) : QString("INVALID");
 	ASN1_OCTET_STRING *v = getData();
 
-	for (int i=0; i<v->length; i++)
+	for (int i=0; v && i < v->length; i++)
 		der += QString(":%1").arg((int)(v->data[i]), 2, 16, QChar('0'));
 
 	if (adv)
 		*adv = QString("%1=%2DER%3\n").arg(obj).
-				arg(parse_critical()).arg(der) +
-			*adv;
+				arg(parse_critical()).arg(der) + *adv;
 	return true;
 }
 
 bool x509v3ext::parse_inhibitAnyPolicy(QString *, QString *adv) const
 {
 	ASN1_INTEGER *a = (ASN1_INTEGER *)d2i();
+	ign_openssl_error();
 
 	if (!a)
 		return false;
@@ -820,6 +844,7 @@ bool x509v3ext::parse_policyConstraints(QString *, QString *adv) const
 	QStringList v;
 	a1int a1null(0L), a;
 	POLICY_CONSTRAINTS *pol = (POLICY_CONSTRAINTS *)d2i();
+	ign_openssl_error();
 
 	if (!pol)
 		return false;
@@ -846,6 +871,7 @@ bool x509v3ext::parse_policyMappings(QString *, QString *adv) const
 	QStringList polMaps;
 	QString myadv;
 	POLICY_MAPPINGS *pmaps = (POLICY_MAPPINGS *)d2i();
+	ign_openssl_error();
 
 	if (!pmaps)
 		return false;
@@ -892,6 +918,7 @@ bool x509v3ext::parse_nameConstraints(QString *, QString *adv) const
 	QStringList permEx;
 	QString tag = OBJ_nid2sn(nid());
 	NAME_CONSTRAINTS *cons = (NAME_CONSTRAINTS *)d2i();
+	ign_openssl_error();
 
 	if (!cons)
 		return false;
@@ -989,7 +1016,7 @@ QString x509v3ext::getConsole(const QString &indent) const
 
 X509_EXTENSION *x509v3ext::get() const
 {
-	return X509_EXTENSION_dup(ext);
+	return ext ? X509_EXTENSION_dup(ext) : nullptr;
 }
 
 bool x509v3ext::isValid() const
@@ -1037,6 +1064,7 @@ void extList::setStack(const STACK_OF(X509_EXTENSION) *st, int start)
 STACK_OF(X509_EXTENSION) *extList::getStack()
 {
 	STACK_OF(X509_EXTENSION) *sk = sk_X509_EXTENSION_new_null();
+	Q_CHECK_PTR(sk);
 	foreach(const x509v3ext &e, *this)
 		sk_X509_EXTENSION_push(sk, e.get());
 	return sk;
@@ -1094,11 +1122,11 @@ int extList::idxByNid(int nid)
 int extList::delInvalid(void)
 {
 	int removed=0;
-	for(int i = 0; i<size(); i++) {
-		if (!at(i).isValid()) {
-			removeAt(i);
+	QMutableListIterator<x509v3ext> i(*this);
+	while (i.hasNext()) {
+		if (!i.next().isValid()) {
+			i.remove();
 			removed=1;
-			i--;
 		}
 	}
 	return removed;

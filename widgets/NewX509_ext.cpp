@@ -78,7 +78,6 @@ x509v3ext NewX509::getKeyUsage()
 	};
 
 	QStringList cont;
-	x509v3ext ext;
 
 	int rows = keyUsage->count();
 	for (int i=0; i<rows; i++) {
@@ -87,14 +86,13 @@ x509v3ext NewX509::getKeyUsage()
 	}
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
-	ext.create(NID_key_usage, cont.join(", "), &ext_ctx);
-	return ext;
+
+	return x509v3ext(NID_key_usage, cont.join(", "), &ext_ctx);
 }
 
 x509v3ext NewX509::getEkeyUsage()
 {
 	QStringList cont;
-	x509v3ext ext;
 
 	int rows = ekeyUsage->count();
 	for (int i=0; i<rows; i++) {
@@ -103,13 +101,12 @@ x509v3ext NewX509::getEkeyUsage()
 	}
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
-	ext.create(NID_ext_key_usage, cont.join(", "), &ext_ctx);
-	return ext;
+
+	return x509v3ext(NID_ext_key_usage, cont.join(", "), &ext_ctx);
 }
 
 x509v3ext NewX509::getSubAltName()
 {
-	x509v3ext ext;
 	QString s = subAltName->text();
 	if (pt == x509_req) {
 		QStringList sn, sl = s.split(',');
@@ -119,13 +116,11 @@ x509v3ext NewX509::getSubAltName()
 		}
 		s = sn.join(",");
 	}
-	ext.create(NID_subject_alt_name, s, &ext_ctx);
-	return ext;
+	return x509v3ext(NID_subject_alt_name, s, &ext_ctx);
 }
 
 x509v3ext NewX509::getIssAltName()
 {
-	x509v3ext ext;
 	QString s = issAltName->text();
 	if (pt == x509_req) {
 		QStringList sn, sl = s.split(',');
@@ -135,26 +130,17 @@ x509v3ext NewX509::getIssAltName()
 		}
 		s = sn.join(",");
 	}
-	ext.create(NID_issuer_alt_name, s, &ext_ctx);
-	return ext;
+	return x509v3ext(NID_issuer_alt_name, s, &ext_ctx);
 }
 
 x509v3ext NewX509::getCrlDist()
 {
-	x509v3ext ext;
-	if (!crlDist->text().isEmpty()) {
-		ext.create(NID_crl_distribution_points, crlDist->text(), &ext_ctx);
-	}
-	return ext;
+	return x509v3ext(NID_crl_distribution_points, crlDist->text(), &ext_ctx);
 }
 
 x509v3ext NewX509::getAuthInfAcc()
 {
-	x509v3ext ext;
-	if (!authInfAcc->text().isEmpty()) {
-		ext.create(NID_info_access, authInfAcc->text(), &ext_ctx);
-	}
-	return ext;
+	return x509v3ext(NID_info_access, authInfAcc->text(), &ext_ctx);
 }
 
 extList NewX509::getAdvanced()
@@ -241,6 +227,7 @@ extList NewX509::getAllExt()
 	ne += getAdvanced();
 	if (!Settings["disable_netscape"])
 		ne += getNetscapeExt();
+	ne.delInvalid();
 	return ne;
 }
 
@@ -249,7 +236,6 @@ extList NewX509::getNetscapeExt()
 	QString certTypeList[] = {
 		"client", "server",  "email", "objsign",
 		"sslCA",  "emailCA", "objCA" };
-
 
 	QStringList cont;
 	x509v3ext ext;
@@ -261,7 +247,7 @@ extList NewX509::getNetscapeExt()
 			cont << certTypeList[i];
 	}
 
-	el << ext.create(NID_netscape_cert_type, cont.join(", "), &ext_ctx);
+	el << x509v3ext(NID_netscape_cert_type, cont.join(", "), &ext_ctx);
 	el << ext.create_ia5(NID_netscape_base_url, nsBaseUrl->text(), &ext_ctx);
 	el << ext.create_ia5(NID_netscape_revocation_url, nsRevocationUrl->text(), &ext_ctx);
 	el << ext.create_ia5(NID_netscape_ca_revocation_url, nsCARevocationUrl->text(), &ext_ctx);

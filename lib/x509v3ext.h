@@ -25,6 +25,7 @@ class x509v3ext
 	x509v3ext();
 	x509v3ext(const X509_EXTENSION *n);
 	x509v3ext(const x509v3ext &n);
+	x509v3ext(int nid, const QString &et, X509V3_CTX *ctx);
 	~x509v3ext();
 	x509v3ext &set(const X509_EXTENSION *n);
 	x509v3ext &create(int nid, const QString &et, X509V3_CTX *ctx = NULL);

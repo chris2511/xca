@@ -131,7 +131,7 @@ NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
 	tabnames = QStringList({
 		"wizard_src", "wizard_subject", "wizard_extensions",
 		"wizard_keyusage", "wizard_netscape", "wizard_advanced",
-		"comment"});
+		"wizard_comment"});
 	extDNlist->setKeys(keys);
 	extDNlist->setInfoLabel(extDNinfo);
 	connect(extDNlist->itemDelegateForColumn(1),
@@ -938,6 +938,7 @@ void NewX509::on_adv_validate_clicked()
 
 void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
 {
+	x509v3ext ext;
 	if (text.isEmpty()) {
 		img->clear();
 		return;
@@ -945,23 +946,19 @@ void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
 	ign_openssl_error();
 	switch (nid) {
 	case NID_subject_alt_name:
-		getSubAltName();
+		ext = getSubAltName();
 		break;
 	case NID_issuer_alt_name:
-		getIssAltName();
+		ext = getIssAltName();
 		break;
 	case NID_crl_distribution_points:
-		getCrlDist();
+		ext = getCrlDist();
 		break;
 	case NID_info_access:
-		getAuthInfAcc();
+		ext = getAuthInfAcc();
 		break;
 	}
-	if (ign_openssl_error()) {
-		img->setPixmap(QPixmap(":warnIco"));
-		return;
-	}
-	img->setPixmap(QPixmap(":doneIco"));
+	img->setPixmap(ext.isValid() ? QPixmap(":doneIco") : QPixmap(":warnIco"));
 }
 
 void NewX509::checkSubAltName(const QString & text)
@@ -1082,8 +1079,26 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 		errtxt += "</ul>\n<hr>\n";
 		result = errtxt + result;
 	}
+	QString lineext;
+	if (!subAltName->text().isEmpty() && !getSubAltName().isValid())
+		lineext += "The Subject Alternative Name is invalid<br>\n";
+	if (!issAltName->text().isEmpty() && !getIssAltName().isValid())
+		lineext += "The Issuer Alternative Name is invalid<br>\n";
+	if (!crlDist->text().isEmpty() && !getCrlDist().isValid())
+		lineext += "The CRL Distribution Point is invalid<br>\n";
+	if (!authInfAcc->text().isEmpty() && !getAuthInfAcc().isValid())
+		lineext += "The Authority Information Access is invalid<br>\n";
+	if (!lineext.isEmpty()) {
+		if (!result.isEmpty())
+			result += "\n<hr>\n";
+		result += lineext;
+		ret = 3;
+	}
+	if (ret == 0 && ext_count == 0 && pt == x509)
+		ret = 2;
+
 	ign_openssl_error();
-	return ret == 1 ? 1 : ext_count == 0 && pt == x509 ? 2 : 0;
+	return ret;
 }
 
 void NewX509::on_editSubAlt_clicked()
@@ -1150,7 +1165,7 @@ QString NewX509::mandatoryDnRemain()
 void NewX509::gotoTab(int tab)
 {
 	for (int i=0; i<tabWidget->count(); i++) {
-		if (tabWidget->tabText(i) == tabnames[tab]) {
+		if (tabWidget->widget(i)->objectName() == tabnames[tab]) {
 			tabWidget->setCurrentIndex(i);
 			break;
 		}
@@ -1362,12 +1377,19 @@ void NewX509::accept()
 	int r = do_validateExtensions();
 	if (r) {
 		QString text;
-		if (r == 1) {
+		switch (r) {
+		case 1:
 			text = tr("The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.");
 			gotoTab(5);
-		} else {
+			break;
+		case 2:
 			text = tr("The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.");
 			gotoTab(0);
+			break;
+		case 3:
+			text = tr("The certificate contains invalid extensions.");
+			gotoTab(2);
+			break;
 		}
 		xcaWarningBox msg(this, text);
 		msg.addButton(QMessageBox::Ok, tr("Edit extensions"));
