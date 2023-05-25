@@ -24,6 +24,8 @@ digest::digest(int nid) : md_nid(nid)
 
 digest::digest(const EVP_MD *md) : md_nid(default_md)
 {
+	if (!md)
+		return;
 	if (!OBJ_find_sigid_algs(EVP_MD_type(md), &md_nid, NULL))
 		md_nid = EVP_MD_type(md);
 }
