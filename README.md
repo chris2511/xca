@@ -79,9 +79,9 @@ XCA can be used with Xcode after initializing the directory with:
   - Install Qt, cmake and the MinGW toolchain
     ```
     aqt install-qt windows desktop 5.15.2 win64_mingw81
-    aqt install-tool windows desktop tools\_cmake qt.tools.cmake.win64
-    aqt install-tool windows desktop tools\_mingw qt.tools.win64\_mingw810
-    aqt install-tool windows desktop tools\_vcredist qt.tools.vcredist_64
+    aqt install-tool windows desktop tools_cmake qt.tools.cmake.win64
+    aqt install-tool windows desktop tools_mingw qt.tools.win64\_mingw810
+    aqt install-tool windows desktop tools_vcredist qt.tools.vcredist_64
     ```
   - If 7z is missing, install it from the store. `7-Zip File Manager (unofficial)` or from 7-zip.org
   - Add cmake, MinGW, OpenSSL and Qt5 to your Path
@@ -106,4 +106,4 @@ XCA can be used with Xcode after initializing the directory with:
 - Configure: `cmake -B build -G "MinGW Makefiles" xca`
 - Make: `cmake --build build -j5`
 - Create the Portable App: `cmake --build build -t install`
-- Build the MSI installer (and the Portable App): `cd build && cpack`
+- Build the MSI installer (and the Portable App): `cd build ; cpack`

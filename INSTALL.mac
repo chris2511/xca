@@ -1,7 +1,7 @@
 # This installation is for building macos 10.13 compatible releases including
 # database drivers. IOW: For me
 
-brew install python3 cmake
+brew install python3 cmake pkg-config
 
 # Compile SQL Drivers if necessary:
 
@@ -14,10 +14,14 @@ brew install mariadb-connector-c postgresql unixodbc
       MYSQL_LIBDIR=$(pkg-config --variable=prefix libmariadb)/lib/mariadb \
       MYSQL_INCDIR=$(pkg-config --variable=prefix libmariadb)/include/mariadb/ \
       MYSQL_LIBS="-lmariadb" \
-      PSQL_PREFIX=$(brew --cellar postgresql)/12.4/ \
+      PSQL_PREFIX=$(brew --prefix)/opt/postgresql@14 \
       ODBC_PREFIX=$(pkg-config --variable=prefix odbc)
 
 make sub-plugins
+
+https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.2/Postgres-2.6.2-14.dmg
+
+
 
 # Compile OpenSSL
 

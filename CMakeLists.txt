@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "")
-
 project(xca
 	DESCRIPTION "X Certificate and Key management"
 	HOMEPAGE_URL http://xca.hohnstaedt.de
@@ -81,12 +79,6 @@ find_package(QT NAMES ${QTFIXEDVERSION} REQUIRED COMPONENTS Core)
 set(QT Qt${QT_VERSION_MAJOR})
 find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 message(STATUS "Using ${QT} with version ${QT_VERSION}")
-
-if (${QT_VERSION} VERSION_LESS 6.5.0)
-  set(CMAKE_OSX_DEPLOYMENT_TARGET 10.14)
-else()
-  set(CMAKE_OSX_DEPLOYMENT_TARGET 11)
-endif()
 
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)

@@ -72,7 +72,6 @@ void xcaWarningGui::error(const QString &msg)
 	box.addButton(QMessageBox::Apply, tr("Copy to Clipboard"));
 	box.addButton(QMessageBox::Ok);
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0) && defined(Q_OS_MAC))
-#warning MAC_650
 	box.show();
 	QCoreApplication::processEvents(QEventLoop::AllEvents);
 #else
