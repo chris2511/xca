@@ -37,6 +37,7 @@ else()
   add_custom_target(trans DEPENDS xca_lupdate "${S}/xca.pot")
 endif()
 list(APPEND APP_RESOURCES ${QM_FILES})
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
 
 if (UNIX AND NOT APPLE)
   install(FILES ${QM_FILES}
