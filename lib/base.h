@@ -28,6 +28,9 @@
 
 #define C_FILE ((strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') : __FILE__- 1) + 1)
 #define TRACE qDebug("File: %s Func: %s Line: %d", C_FILE, __func__, __LINE__);
+#ifndef QT_MESSAGELOGCONTEXT
+ #define QT_MESSAGELOGCONTEXT 1
+#endif
 
 #define nativeSeparator(s) QDir::toNativeSeparators(s)
 
@@ -50,12 +53,14 @@
 	# error "What kind of system is this?"
 #endif
 
-#define COL_CYAN  "\x1b[0;36m"
-#define COL_BLUE  "\x1b[0;94m"
-#define COL_GREEN "\x1b[0;92m"
-#define COL_LRED  "\x1b[0;91m"
-#define COL_YELL  "\x1b[0;33m"
-#define COL_RED   "\x1b[0;31m"
+#define COL_CYAN  "\x1b[36m"
+#define COL_BLUE  "\x1b[94m"
+#define COL_GREEN "\x1b[92m"
+#define COL_LRED  "\x1b[91m"
+#define COL_YELL  "\x1b[33m"
+#define COL_RED   "\x1b[31m"
+#define COL_DGREEN "\x1b[32m"
+#define COL_MAGENTA "\x1b[35m"
 #define COL_RESET "\x1b[0m"
 #define COL_BOLD  "\x1b[1m"
 #define COL_DIM   "\x1b[2m"

@@ -59,7 +59,7 @@ const QList<arg_option> arguments::opts = {
 	arg_option("text", NULL, no_argument, true, false,
 		"Print the content of provided files as OpenSSL does."),
 	arg_option("verbose", NULL, no_argument, false, false,
-		"Print debug log on stderr. Alternatively set the environment variable XCA_DEBUG=1."),
+		"Print debug log on stderr. Same as setting XCA_DEBUG=all. See XCA_DEBUG"),
 	arg_option("version", NULL, no_argument, true, false,
 		"Print version information and exit."),
 };
@@ -84,10 +84,10 @@ arg_option::arg_option(const char *l, const char *a, int has,
 
 QCommandLineOption arg_option::getCmdOption() const
 {
-	if (arg_type == no_argument)
-		return QCommandLineOption(long_opt, help);
-	else
-		return QCommandLineOption(long_opt, help, long_opt);
+	switch (arg_type) {
+	case no_argument: return QCommandLineOption(long_opt, help);
+	default: return QCommandLineOption(long_opt, help, long_opt);
+	}
 }
 
 static QString splitQstring(int offset, int width, const QString &text)
