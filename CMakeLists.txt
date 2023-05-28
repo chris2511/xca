@@ -107,6 +107,7 @@ if (APPLE)
 
   # Avoid bin/ sub-directory in DMG
   set(RUNTIME_DEST .)
+  set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 elseif(WIN32)
 
@@ -169,6 +170,7 @@ if(APPLE)
   if (DEFINED ENV{APPLE_DEVELOPER_HASH})
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND codesign --deep --signature-size=96000 --options=runtime --timestamp
+		--entitlements ${PROJECT_SOURCE_DIR}/misc/entitlement.plist
                 --force -s "$ENV{APPLE_DEVELOPER_HASH}"
 		$<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
       COMMENT "Running codesign for $ENV{APPLE_DEVELOPER} ..."
