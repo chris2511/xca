@@ -300,15 +300,8 @@ void db_base::insertChild(pki_base *child, pki_base *parent)
 	if (!parent || parent == child)
 		parent = treeItem;
 
-	if (curr_parent) {
-		/* Need to take it */
-		if (curr_parent != treeItem && treeview)
-			idx = index(curr_parent);
-		int row = rownumber(child);
-		beginRemoveRows(idx, row, row);
-		curr_parent->takeChild(child);
-		endRemoveRows();
-	}
+	if (curr_parent)
+		remFromCont(index(child));
 
 	if (parent != treeItem && treeview)
 		idx = index(parent);

@@ -163,34 +163,32 @@ void ImportMulti::on_butRemove_clicked()
 
 void ImportMulti::on_butOk_clicked()
 {
-	if (!openDB())
-		return;
+	QModelIndexList indexes;
 
-	Transaction;
-	if (!TransBegin())
-		return;
+	for (int i = 0; i < mcont->rowCount(); i++)
+		indexes << mcont->index(i, 0, QModelIndex());
 
-	while (mcont->rowCount(QModelIndex()))
-		import(mcont->index(0, 0, QModelIndex()));
-
-	TransCommit();
+	importIndexes(indexes);
 	accept();
 }
 
 void ImportMulti::on_butImport_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
-	QModelIndexList indexes = selectionModel->selectedIndexes();
 
+	importIndexes(selectionModel->selectedIndexes());
+}
+
+void ImportMulti::importIndexes(const QModelIndexList &indexes)
+{
 	if (!openDB())
 		return;
 
 	Transaction;
 	if (!TransBegin())
 		return;
+
 	foreach(QModelIndex index, indexes) {
-		if (index.column() != 0)
-			continue;
 		import(index);
 	}
 	TransCommit();
@@ -236,6 +234,9 @@ void ImportMulti::on_renameToken_clicked()
 pki_base *ImportMulti::import(const QModelIndex &idx)
 {
 	pki_base *pki = mcont->fromIndex(idx);
+
+	if (idx.column() != 0)
+		return NULL;
 
 	for (int i = 0; i < mcont->rowCount(idx); i++)
 		import(mcont->index(i, 0, idx));

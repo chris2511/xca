@@ -192,7 +192,7 @@ void db_x509::inToCont(pki_base *pki)
 		revList.merge(other->getRevList());
 	}
 	/* Search rootItem childs, whether they are ours */
-	foreach(pki_base *b, rootItem->getChildItems()) {
+	foreach(pki_base *b, treeItem->getChildItems()) {
 		pki_x509 *child = dynamic_cast<pki_x509*>(b);
 		if (!child || child == cert || child->getSigner() == child)
 			continue;

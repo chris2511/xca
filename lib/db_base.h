@@ -75,10 +75,10 @@ class db_base: public QAbstractItemModel
 
 		void dump(const QString &dirname) const;
 		QModelIndex index(int row, int column,
-				const QModelIndex &parent) const;
+				const QModelIndex &parent = QModelIndex()) const;
 		QModelIndex index(pki_base *pki) const;
 		QModelIndex parent(const QModelIndex &index) const;
-		int rowCount(const QModelIndex &parent) const;
+		int rowCount(const QModelIndex &parent = QModelIndex()) const;
 		int allItemsCount() const
 		{
 			return rootItem->childCount();
