@@ -417,11 +417,15 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 QByteArray pki_temp::toExportData() const
 {
 	QByteArray data, header;
+	BioByteArray b;
+
 	data = toData();
 	header = db::intToData(data.size());
 	header += db::intToData(TMPL_VERSION);
 	header += data;
-	return header;
+	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, (char*)"",
+		(unsigned char*)(header.data()), header.size());
+	return b.byteArray();
 }
 
 void pki_temp::writeTemp(XFile &file) const
@@ -438,9 +442,8 @@ void pki_temp::writeDefault(const QString &dirname) const
 
 bool pki_temp::pem(BioByteArray &b)
 {
-	QByteArray ba = toExportData();
-	return PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, (char*)"",
-		(unsigned char*)(ba.data()), ba.size());
+	b += toExportData();
+	return true;
 }
 
 void pki_temp::fromExportData(QByteArray data)
