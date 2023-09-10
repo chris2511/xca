@@ -78,23 +78,25 @@ XCA can be used with Xcode after initializing the directory with:
   - Add the PATH shown by pip to your PATH
   - Install Qt, cmake and the MinGW toolchain
     ```
-    aqt install-qt windows desktop 5.15.2 win64_mingw81
-    aqt install-tool windows desktop tools_cmake qt.tools.cmake.win64
-    aqt install-tool windows desktop tools_mingw qt.tools.win64\_mingw810
+    (aqt install-qt windows desktop 5.15.2 win64_mingw81)
+    aqt install-qt windows desktop 6.6.0 win64_mingw
+    (aqt install-tool windows desktop tools_cmake qt.tools.cmake.win64)
+    aqt install-tool windows desktop tools_mingw90 qt.tools.win64_mingw900
     aqt install-tool windows desktop tools_vcredist qt.tools.vcredist_64
     ```
   - If 7z is missing, install it from the store. `7-Zip File Manager (unofficial)` or from 7-zip.org
+  - Install the "vcredist\\vcredist_64.exe"
   - Add cmake, MinGW, OpenSSL and Qt5 to your Path
     ```
     %USERPROFILE%\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts;
     %USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
     %USERPROFILE%\Tools\CMake_64\bin;
-    %USERPROFILE%\Tools\mingw810_64\bin;
-    %USERPROFILE%\5.15.2\mingw81_64\bin;
+    %USERPROFILE%\Tools\mingw_64\bin;
+    %USERPROFILE%\5.15.2\mingw_64\bin;
     ```
-  - Create `Qt5_DIR` environment variable:
+  - Create `CMAKE_PREFIX_PATH` environment variable:
     ```
-    %USERPROFILE%\5.15.2\mingw81_64\lib\cmake
+    %USERPROFILE%\6.6.0\mingw_64\lib\cmake
     ```
   - Install `https://wixtoolset.org/releases/` if you want to create the MSI installer
   - Optional for the remote database connections:
