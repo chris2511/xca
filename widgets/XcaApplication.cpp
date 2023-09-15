@@ -65,7 +65,7 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 	setLibraryPaths(libp);
 #endif
 
-	tableFont = QFont("Courier", QApplication::font().pointSize()
+	tableFont = QFont("Courier New", QApplication::font().pointSize()
 #if defined (Q_OS_WIN32)
 	+1
 #else
