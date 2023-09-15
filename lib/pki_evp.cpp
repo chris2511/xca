@@ -586,7 +586,7 @@ void pki_evp::encryptKey(const char *password)
 void pki_evp::set_evp_key(EVP_PKEY *pkey)
 {
 	if (key)
-		free(key);
+		EVP_PKEY_free(key);
 	key = pkey;
 }
 
