@@ -11,20 +11,20 @@
    </rect>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout">
+   <layout class="QVBoxLayout" name="la">
     <item>
      <widget class="QTabWidget" name="tabView">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
        <number>2</number>
       </property>
-      <widget class="QWidget" name="RSATab">
+      <widget class="QWidget" name="KeyTab">
        <attribute name="title">
         <string>Private Keys</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="margin">
-         <number>8</number>
-        </property>
+       <layout class="QHBoxLayout" name="layout_2">
         <item>
          <widget class="KeyTreeView" name="keyView"/>
         </item>
@@ -119,14 +119,11 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="CertTab">
+      <widget class="QWidget" name="CSRTab">
        <attribute name="title">
         <string>Certificate signing requests</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="margin">
-         <number>8</number>
-        </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="ReqTreeView" name="reqView"/>
         </item>
@@ -145,9 +142,6 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <layout class="QVBoxLayout">
-           <property name="margin">
-            <number>8</number>
-           </property>
            <item>
             <widget class="QPushButton" name="BNnewReq">
              <property name="text">
@@ -217,14 +211,11 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="ReqTab">
+      <widget class="QWidget" name="CertTab">
        <attribute name="title">
         <string>Certificates</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="margin">
-         <number>8</number>
-        </property>
+       <layout class="QHBoxLayout" name="layout">
         <item>
          <widget class="CertTreeView" name="certView"/>
         </item>
@@ -237,9 +228,6 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <layout class="QVBoxLayout">
-           <property name="margin">
-            <number>11</number>
-           </property>
            <item>
             <widget class="QPushButton" name="BNnewCert">
              <property name="text">
@@ -330,20 +318,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="CATab">
+      <widget class="QWidget" name="TemplateTab">
        <attribute name="title">
         <string>Templates</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="margin">
-         <number>8</number>
-        </property>
+       <layout class="QHBoxLayout" name="layout_4">
         <item>
-         <widget class="TempTreeView" name="tempView">
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-         </widget>
+         <widget class="TempTreeView" name="tempView"/>
         </item>
         <item>
          <widget class="QFrame" name="tempButtons">
@@ -353,10 +334,7 @@
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="margin">
-            <number>11</number>
-           </property>
+          <layout class="QVBoxLayout" name="_3">
            <item>
             <widget class="QPushButton" name="BNnewTemp">
              <property name="text">
@@ -426,11 +404,11 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="unnamed">
+      <widget class="QWidget" name="CRLTab">
        <attribute name="title">
         <string>Revocation lists</string>
        </attribute>
-       <layout class="QHBoxLayout">
+       <layout class="QHBoxLayout" name="crl_2">
         <item>
          <widget class="CrlTreeView" name="crlView"/>
         </item>
@@ -518,18 +496,6 @@
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>XcaTreeView</class>
-   <extends>QTreeView</extends>
-   <header>widgets/XcaTreeView.h</header>
-   <slots>
-    <slot>newItem()</slot>
-    <slot>load()</slot>
-    <slot>exportItems()</slot>
-    <slot>showItems()</slot>
-    <slot>deleteItems()</slot>
-   </slots>
-  </customwidget>
   <customwidget>
    <class>KeyTreeView</class>
    <extends>QTreeView</extends>

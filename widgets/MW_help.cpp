@@ -111,7 +111,7 @@ void MainWindow::about()
 	"<tr><td>Installation path:</td><td>%4</td></tr>"
 	"<tr><td>User settings path:</td><td>%5</td></tr>"
 	"<tr><td>Working directory:</td><td>%6</td></tr>"
-	"</table>"
+	"</table><br/>"
 	"<hr><table border=\"0\">"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
