@@ -75,7 +75,7 @@ jobs:
     - name: Configure
       # No YAML Multiline mechanism (>, |, \, >-, >+2 whatever) works as expected
       # Give up. Live with the long line
-      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64 -DMYSQL_BINDIR="" -DPSQL_BINDIR=""
+      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5 -v

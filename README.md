@@ -99,13 +99,35 @@ XCA can be used with Xcode after initializing the directory with:
     %USERPROFILE%\6.6.0\mingw_64\lib\cmake
     ```
   - Install `https://wixtoolset.org/releases/` if you want to create the MSI installer
-  - Optional for the remote database connections:
-    - MySQL: qsqlmysql.dll\_Qt\_SQL\_driver\_5.15.2\_MinGW\_8.1.0\_64-bit.zip from
-             https://github.com/thecodemonkey86/qt_mysql_driver
-    - PostgreSQL: postgresql-14.1-1-windows-x64.exe
 
 - Clone: `git clone https://github.com/chris2511/xca.git`
 - Configure: `cmake -B build -G "MinGW Makefiles" xca`
 - Make: `cmake --build build -j5`
 - Create the Portable App: `cmake --build build -t install`
 - Build the MSI installer (and the Portable App): `cd build ; cpack`
+
+## __SQL Remote Database Drivers__
+
+MySQL plugins are not shipped with QT anymore because of license issues.
+
+### Linux
+
+Debian: Install `libqt6sql6-psql` `libqt6sql6-mysql` or `libqt6sql6-odbc`.
+They should pull in all necessary dependencies.
+RPMs packets: `libqt6-database-plugin-pgsql` `libqt6-database-plugin-mysql` `libqt6-database-plugin-odbc`
+
+### Apple macos
+
+- **PostgreSQL**: Install the https://postgresapp.com/
+- **ODBC**: It requires the `/usr/local/opt/libiodbc/lib/libiodbc.2.dylib`.
+    When installing unixodbc via `brew` the library must be symlinked from
+    `/opt/homebrew/Cellar/libiodbc/3.52.16/lib/libiodbc.2.dylib`
+- **MariaDB**: Probably via ODBC ?
+
+### Windows
+
+- **PostgreSQL**: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads (Commandline tools).
+  Add the `bin` directory of the Postgres installation directory to your PATH (C:\\Program Files\\PostgreSQL\\16)
+- **ODBC**: Use the `ODBC Datasources 64bit app` to configure the SQL Server
+- **MariaDB (MySQL)**: Install the Plugin from here: https://github.com/thecodemonkey86/qt_mysql_driver.
+  Select the MinGW variant and install it as documented.

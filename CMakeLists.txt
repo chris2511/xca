@@ -41,9 +41,6 @@ add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
-set(PSQL_BINDIR "")
-set(MYSQL_BINDIR "")
-
 if (APPLE)
   execute_process(COMMAND brew --prefix OUTPUT_STRIP_TRAILING_WHITESPACE
                   OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET)
@@ -56,22 +53,10 @@ elseif(WIN32)
     set(CMAKE_PREFIX_PATH $ENV{UserProfile} $ENV{PROGRAMFILES}/OpenSSL-Win64)
   endif()
   if (NOT OPENSSL_LIBRARY_MAJOR)
-	  set(OPENSSL_LIBRARY_MAJOR 3) # For OpenSSL 1.1.1 use "1_1"
-  endif()
-  set(PSQL_BINDIR $ENV{PROGRAMFILES}/PostgreSQL/14/bin
-                  CACHE PATH "PostgreSQL installation directory for the MSI installer")
-  set(MYSQL_BINDIR $ENV{PROGRAMFILES}/qsqlmysql.dll_Qt_SQL_driver_5.15.2_MinGW_8.1.0_64-bit/${CMAKE_BUILD_TYPE}
-                  CACHE PATH "MySQL installation directory for the MSI installer")
-  if (NOT EXISTS ${PSQL_BINDIR})
-    set(PSQL_BINDIR "")
-  endif()
-  if (NOT EXISTS ${MYSQL_BINDIR})
-    set(MYSQL_BINDIR "")
+    set(OPENSSL_LIBRARY_MAJOR 3) # For OpenSSL 1.1.1 use "1_1"
   endif()
   file(TO_CMAKE_PATH $ENV{WINDIR}/system32 SYSTEM32)
 endif()
-file(TO_CMAKE_PATH "${PSQL_BINDIR}" PSQL_BINDIR)
-file(TO_CMAKE_PATH "${MYSQL_BINDIR}" MYSQL_BINDIR)
 
 set(QTFIXEDVERSION Qt6 Qt5 CACHE STRING "Force q specific QT version 'Qt5' or 'Qt6'")
 find_package(OpenSSL REQUIRED)
