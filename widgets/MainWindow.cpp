@@ -87,11 +87,7 @@ MainWindow::MainWindow() : QMainWindow()
 	wdList << keyButtons << reqButtons << certButtons <<
 		tempButtons <<	crlButtons;
 
-	QStringList drivers = QSqlDatabase::drivers();
-	foreach(QString driver, drivers) {
-		QSqlDatabase d = QSqlDatabase::addDatabase(driver, driver +"_C");
-		qDebug() << "DB driver:" << driver;
-	}
+	OpenDb::initDatabases();
 
 	historyMenu = NULL;
 	helpdlg = new Help();

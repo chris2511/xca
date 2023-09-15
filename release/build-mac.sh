@@ -42,4 +42,10 @@ cmake -B "$BUILDDIR" "$XCA_DIR" \
 
 cmake --build "$BUILDDIR" -j$JOBS
 
+if test -d /Applications/Postgres.app; then
+	echo "###### Hey Christian, rename /Applications/Postgres.app when linking, to skip those drivers !!"
+	# If the Postgres.app exists, macdeployqt will take that libpg.dylib and
+	# install it inside XCA. This destroys other links to libssl-1.1 ...
+	# Let the users install /Applications/Postgres.app
+fi
 cd "$BUILDDIR" && cpack

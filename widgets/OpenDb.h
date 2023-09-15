@@ -17,15 +17,16 @@
 class OpenDb: public QDialog, public Ui::OpenDb
 {
 	Q_OBJECT
-    private:
-	static DbMap getDatabases();
+  private:
+	static DbMap databases;
 	static QString lastRemote;
 	bool sqlite, show_connection_settings;
 	void setupDatabaseName(const QString &db);
 	QString getDbType() const;
 	void fillDbDropDown(const QString &current);
 
-    public:
+  public:
+	static void initDatabases();
 	OpenDb(QWidget *parent, const QString &db);
 	QString getDescriptor() const;
 	static bool hasSqLite();
@@ -33,7 +34,7 @@ class OpenDb: public QDialog, public Ui::OpenDb
 	static bool hasRemoteDrivers();
 	static void setLastRemote(const QString &db);
 
-    public slots:
+  public slots:
 	int exec();
 	void driver_selected();
 };
