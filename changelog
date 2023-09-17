@@ -1,6 +1,10 @@
+ * Fix possible segfault caused by wrong free()
+ * Add Bulgarian translation
+ * Close #368: error while creating CRL with CA using EC key (ed25519)
+ * Treat CKA_ID as byte array, not Bignum
  * Fix #321 - decryptKey shows OpenSSL error
  * Merge #325 Update entitlement.plist
- * Close: #366 Not Responding after upgrade
+ * Close #366: Not Responding after upgrade
  * Add Persian translation .ts file to XCA.
  * Close #327: "Dump database" dumps everything to everywhere
  * Close #317: "Please insert card: ..." message

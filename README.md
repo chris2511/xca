@@ -78,9 +78,7 @@ XCA can be used with Xcode after initializing the directory with:
   - Add the PATH shown by pip to your PATH
   - Install Qt, cmake and the MinGW toolchain
     ```
-    (aqt install-qt windows desktop 5.15.2 win64_mingw81)
     aqt install-qt windows desktop 6.6.0 win64_mingw
-    (aqt install-tool windows desktop tools_cmake qt.tools.cmake.win64)
     aqt install-tool windows desktop tools_mingw90 qt.tools.win64_mingw900
     aqt install-tool windows desktop tools_vcredist qt.tools.vcredist_64
     ```
@@ -112,9 +110,9 @@ MySQL plugins are not shipped with QT anymore because of license issues.
 
 ### Linux
 
-Debian: Install `libqt6sql6-psql` `libqt6sql6-mysql` or `libqt6sql6-odbc`.
+Debian: `libqt6sql6-psql` `libqt6sql6-mysql` or `libqt6sql6-odbc`.
+RPM: `libqt6-database-plugin-pgsql` `libqt6-database-plugin-mysql` `libqt6-database-plugin-odbc`
 They should pull in all necessary dependencies.
-RPMs packets: `libqt6-database-plugin-pgsql` `libqt6-database-plugin-mysql` `libqt6-database-plugin-odbc`
 
 ### Apple macos
 
