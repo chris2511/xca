@@ -6,14 +6,17 @@ Release schedule cheat sheet
    - ign_openssl_error()
    - for TRACE
 
-- update translation and xca.pro (qmake-qt4 -o makefile && make)
+- update translation (cmake -B . && cmake --build . -t trans)
 - update changelog.txt doc/xca.sgml and README.md
-- ./git.release VERSION
+- ./release/git.release VERSION
 - Create xca.dmg
 - Create and sign MSI Installer
 - update xca.hohnstaedt.de:
   scp changelog git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
+- ./release/git.publish
 
+Apple Notarization
+------------------------
 https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow
 
 DMG=xca-2.4.0-High-Sierra.dmg
@@ -21,4 +24,8 @@ DMG=xca-2.4.0-High-Sierra.dmg
 xcrun notarytool submit "$DMG" --keychain-profile "AC_PASSWORD" --key-id HWR8GSJ73M --wait --webhook "https://example.com/notarization"
 
 xcrun stapler staple "$DMG"
+
+Microsoft Store
+-----------------
+https://partner.microsoft.com ("Partner Center")
 

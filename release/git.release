@@ -6,12 +6,18 @@ type git || exit 1
 test -s VERSION.txt && test -s changelog && test -d ../qt
 
 export TVERSION="$1"
-commit=master
+commit=HEAD
 test -z "$2" || commit="$2"
 
 if test -z "$TVERSION"; then
   echo "usage: $0 <VERSION> [commit]"
-  echo "   if commit is ommitted, 'master' is used"
+  echo "   if commit is ommitted, 'HEAD' is used"
+  exit 1
+fi
+
+TAG="RELEASE.$TVERSION"
+if git tag | grep "$TAG"; then
+  echo Tag $TVERSION already exists
   exit 1
 fi
 
@@ -52,26 +58,10 @@ echo "$TVERSION" > VERSION.txt
 mv changelog.new changelog
 
 git commit VERSION.txt changelog -m "Prepare XCA $TVERSION"
-git tag -a "RELEASE.$TVERSION" -m "Release version $TVERSION"
+git tag -a "$TAG" -m "Release version $TVERSION"
 
 # Create the tar.gz
-make dist
+git archive --format=tar.gz --prefix=xca-$TVERSION/ --output xca-$TVERSION.tar.gz "$TAG"
 releasedir="$HOME/xca-$TVERSION"
 mkdir -p "$releasedir"
 cp xca-$TVERSION.tar.gz "$releasedir"
-(
-  cd ..
-  tar zxf "$releasedir/xca-$TVERSION.tar.gz"
-  mkdir -p "xca-$TVERSION/BUILD" && cd "xca-$TVERSION/BUILD"
-  ../configure && make -j7
-  mkdir "$releasedir/doc"
-  cp -a doc/html "$releasedir/doc"
-)
-(
-  cd ..
-  rm -rf xca_build
-  "./xca-$TVERSION/release/build-w64.sh"
-  cp "xca-portable-${TVERSION}.zip" msi-installer-dir-${TVERSION}.zip "$releasedir"
-)
-
-ls -la  "$releasedir"
