@@ -841,13 +841,13 @@ Serial: %3</source>
         <translation>مدیریت توکن امنیتی</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>جزئیات مورد &apos;%1&apos; قابل نمایش نیست</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>نوع مورد %1 شناخته‌شده نیست</translation>
     </message>
@@ -1080,62 +1080,62 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>کلید خصوصی</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>&amp;کلید جدید</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>&amp;برون‌داد</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>&amp;درون‌داد</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>درون‌داد با قالب PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>&amp;نمایش جزئیات</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>&amp;حذف</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>درخواست گواهی امضاشده</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>&amp;درخواست جدید</translation>
     </message>
@@ -1146,7 +1146,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>گواهی</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;گواهی جدید</translation>
     </message>
@@ -1171,7 +1171,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>قالب‌ها</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>&amp;قالب جدید</translation>
     </message>
@@ -1191,7 +1191,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>فهرست های ابطال</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+596"/>
+        <location filename="../widgets/MainWindow.cpp" line="+592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>استفاده و یا برون‌داد کلید‌های خصوصی بدون گذرواژه‌ی درست امکان‌پذیر نیست</translation>
     </message>
@@ -1257,7 +1257,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>فارسی</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>لهستانی</translation>
     </message>
@@ -1826,7 +1831,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>صاحب گواهی</translation>
     </message>
@@ -2005,7 +2010,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>ویرایش</translation>
     </message>
@@ -2046,7 +2051,7 @@ Please enter the DH parameter bits</source>
         <translation>این نام تنها به صورت درونی استفاده شده است و در گواهی نهایی ظاهر نمی‌شود</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-735"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>بحرانی</translation>
     </message>
@@ -2106,7 +2111,7 @@ Please enter the DH parameter bits</source>
         <translation>کلید جدید &apos;%1 ساخته شد</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>زبانه‌های دیگر</translation>
     </message>
@@ -2126,7 +2131,7 @@ Please enter the DH parameter bits</source>
         <translation>از درخواست PKCS#10</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2136,13 +2141,13 @@ Please enter the DH parameter bits</source>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>در مورد تجدید</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>محدودیت‌های طول در RFC3280  نقض شده است:</translation>
     </message>
@@ -2158,13 +2163,13 @@ Please enter the DH parameter bits</source>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>ادامه‌ی تجدید</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-197"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>اعتبارسنجی درخواست گواهی با شکست مواجه شد. فرایند تجدید باید لغو شود.</translation>
@@ -2261,17 +2266,22 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>گواهی پیش از آن‌که معتبر شود، به روز نیست. شما احتمالا چند تاریخ را با هم اشتباه گرفته‌اید.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>گواهی دارای افزونه‌های غیرمعتبر یا تکراری است. اعتبار آن‌ها را در زبانه‌ی پیشرفته بررسی کنید.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>گواهی هیچ افزونه‌ای ندارد. شما باید یکی از افزونه‌های مورد نیاز برای استفاده گواهی که در قالب تعریف شده است  اعمال کنید.</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>ویرایش افزونه‌ها</translation>
@@ -2282,7 +2292,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>نام جایگزین دارنده باید شامل یک رونوشت از نام عمومی باشد. در هر حال، نام عمومی خالی است.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>خطای پرونده‌ی پیکربندی در خط %1
@@ -2362,7 +2372,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>نام پایگاه‌داده</translation>
     </message>
@@ -2372,7 +2382,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>پیشوند جدول</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>راه‌اندازی Sqlite3 در دسترس نیست. خواهشمند است بسته‌ی qt-sqlite را برای توزیع خود نصب کنید</translation>
     </message>
@@ -2595,6 +2605,33 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <source>E&amp;xit</source>
         <translation type="vanished">خ&amp;روج</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">تأیید</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="vanished">بستن</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">لغو</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">اعمال</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="vanished">بله</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="vanished">خیر</translation>
     </message>
 </context>
 <context>
@@ -2853,7 +2890,7 @@ In library %3
         <translation>%1 بلندتر از %2 بایت است: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>رشته‌ی &apos;%1&apos; برای &apos;%2&apos; دارای نویسه‌های نادرست است</translation>
     </message>
@@ -3073,7 +3110,7 @@ In library %3
         <translation>دیدگاه</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>پرونده‌ی نمایه‌ها نوشته شده بر روی &apos;%1&apos;</translation>
     </message>
@@ -3601,7 +3638,7 @@ In library %3
         <translation>درون‌داد از: %1</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>ساخت مسیر %1 امکان پذیر نیست</translation>
     </message>
@@ -4902,7 +4939,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>%1 اندازه‌ی نادرست</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Template file content error (too small)</source>
         <translation>پرونده‌ی قالب دارای خطا (بسیار کوچک)</translation>
     </message>
@@ -5124,41 +5161,6 @@ It is stored in the XCA database &apos;%4&apos;</source>
     </message>
 </context>
 <context>
-    <name>xcaWarningGui</name>
-    <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+72"/>
-        <source>Copy to Clipboard</source>
-        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
-    </message>
-</context>
-<context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">تأیید</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">بستن</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">لغو</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">اعمال</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">بله</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">خیر</translation>
-    </message>
-</context>
-<context>
     <name>xcaWarning</name>
     <message>
         <source>The following error occurred:</source>
@@ -5167,6 +5169,14 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <source>Copy to Clipboard</source>
         <translation type="vanished">ایجاد رونوشت در حافظه‌رونوشت</translation>
+    </message>
+</context>
+<context>
+    <name>xcaWarningGui</name>
+    <message>
+        <location filename="../widgets/XcaWarning.cpp" line="+72"/>
+        <source>Copy to Clipboard</source>
+        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
     </message>
 </context>
 </TS>

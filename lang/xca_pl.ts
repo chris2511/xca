@@ -721,13 +721,13 @@ Numer seryjny: %3</translation>
         <translation>Zarządzanie bezpiecznym tokenem</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Nie można wyświetlić szczegółów elementu &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Nie rozpoznano typu elementu  &apos;%1&apos;</translation>
     </message>
@@ -960,62 +960,62 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>Klucze prywatne</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>&amp;Dodaj klucz</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>&amp;Eksportuj</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>&amp;Importuj</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>Importuj PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>Pokaż &amp;szczegóły</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>&amp;Usuń</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>Żądania certyfikacyjne</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>&amp;Dodaj żądanie</translation>
     </message>
@@ -1026,7 +1026,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
         <translation>Certyfikaty</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;Dodaj certyfikat</translation>
     </message>
@@ -1051,7 +1051,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
         <translation>Szablony</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>&amp;Dodaj szablon</translation>
     </message>
@@ -1071,7 +1071,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
         <translation>Listy unieważnień</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+596"/>
+        <location filename="../widgets/MainWindow.cpp" line="+592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Używanie lub eksportowanie kluczy prywatnych będzie niemożliwe bez podania poprawnego hasła</translation>
     </message>
@@ -1153,7 +1153,12 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>Polski</translation>
     </message>
@@ -1733,7 +1738,7 @@ Podaj liczbę bitów parametru DH</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>Podmiot</translation>
     </message>
@@ -1909,7 +1914,7 @@ Podaj liczbę bitów parametru DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>Zmień</translation>
     </message>
@@ -1950,7 +1955,7 @@ Podaj liczbę bitów parametru DH</translation>
         <translation>Nazwa używana wewnętrznie, nie będzie widoczna w wynikowym certyfikacie</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-735"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>Krytyczne</translation>
     </message>
@@ -2010,7 +2015,7 @@ Podaj liczbę bitów parametru DH</translation>
         <translation>Utworzony nowy klucz &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>Pozostałe ustawienia</translation>
     </message>
@@ -2030,7 +2035,7 @@ Podaj liczbę bitów parametru DH</translation>
         <translation>Na podstawie żądania PKCS#10</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2040,13 +2045,13 @@ Podaj liczbę bitów parametru DH</translation>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>Przerwij operację</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Następujące ograniczenia długości wg RFC3280 są naruszone:</translation>
     </message>
@@ -2062,13 +2067,13 @@ Podaj liczbę bitów parametru DH</translation>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>Kontynuuj operację</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-197"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Błąd weryfikacji żądania certyfikacyjnego.
@@ -2168,17 +2173,22 @@ podczas, gdy ustawiono je jako obowiązkowe w menu opcji.</translation>
         <translation>Certyfikat w momencie wystawienia będzie już przeterminowany, to wygląda na błąd.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Certyfikat zawiera błędne lub powielone rozszerzenia. Zweryfikuj zakładkę Zaawansowane.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>Certyfikat nie zawiera żadnych rozszerzeń. Możesz załadować rozszerzenia bazując na stosownym szablonie.</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>Popraw rozszerzenia</translation>
@@ -2189,7 +2199,7 @@ podczas, gdy ustawiono je jako obowiązkowe w menu opcji.</translation>
         <translation>Alternatywna nazwa podmiotu powinna zawierać kopię nazwy powszechnej. Jednak nazwa powszechna jest pusta.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>Błąd pliku konfiguracyjnego w linii %1
@@ -2269,7 +2279,7 @@ podczas, gdy ustawiono je jako obowiązkowe w menu opcji.</translation>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>Nazwa bazy</translation>
     </message>
@@ -2279,7 +2289,7 @@ podczas, gdy ustawiono je jako obowiązkowe w menu opcji.</translation>
         <translation>Prefiks tabel</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Brak sterownika SqLite3. Zainstaluj pakiet qt-sqlite dla Twojej dystrybucji</translation>
     </message>
@@ -2770,7 +2780,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2990,7 +3000,7 @@ In library %3
         <translation>Komentarz</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3511,7 +3521,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>Nie można utworzyć folderu %1</translation>
     </message>
@@ -4661,7 +4671,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Template file content error (too small)</source>
         <translation type="unfinished"></translation>
     </message>

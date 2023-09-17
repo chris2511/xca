@@ -833,13 +833,13 @@ Serial: %3</source>
         <translation>セキュリティトークンを管理</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>アイテム「%1 」の詳細を表示できません</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>アイテムのタイプ「%1 」が認識されません</translation>
     </message>
@@ -1072,62 +1072,62 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>秘密鍵</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>新しい秘密鍵(&amp;N)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>エクスポート(&amp;E)</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>インポート(&amp;I)</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>PFX (PKCS#12)形式でインポート</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>詳細を表示(&amp;S)</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>削除(&amp;D)</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>証明書署名要求</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>署名リクエスト(&amp;N)</translation>
     </message>
@@ -1138,7 +1138,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>署名済証明書</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>新しい証明書を作成(&amp;N)</translation>
     </message>
@@ -1163,7 +1163,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>テンプレート</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>新しいテンプレート(&amp;N)</translation>
     </message>
@@ -1183,7 +1183,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>失効リスト</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+596"/>
+        <location filename="../widgets/MainWindow.cpp" line="+592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>正しいパスワードを入力しないと、秘密鍵の使用またはエクスポートはできません</translation>
     </message>
@@ -1265,7 +1265,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>ポーランド語</translation>
     </message>
@@ -1817,7 +1822,7 @@ DHパラメータビットを入力してください</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>サブジェクト</translation>
     </message>
@@ -1993,7 +1998,7 @@ DHパラメータビットを入力してください</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
@@ -2034,7 +2039,7 @@ DHパラメータビットを入力してください</translation>
         <translation>この名前は内部でのみ使用され、結果の証明書には表示されません</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-735"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>重要</translation>
     </message>
@@ -2094,7 +2099,7 @@ DHパラメータビットを入力してください</translation>
         <translation>新しい秘密鍵「%1」が作成されました</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>その他のタブ</translation>
     </message>
@@ -2114,7 +2119,7 @@ DHパラメータビットを入力してください</translation>
         <translation>PKCS#10要求</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2124,13 +2129,13 @@ DHパラメータビットを入力してください</translation>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>展開の注視</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>RFC3280の次の長さ制限に違反しています:</translation>
     </message>
@@ -2146,13 +2151,13 @@ DHパラメータビットを入力してください</translation>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>展開を続ける</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-197"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>証明書要求の検証に失敗しました。
@@ -2253,17 +2258,22 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>証明書は有効になる前に期限切れになります。おそらく、あなたは両方の日付を間違えているでしょう。</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>証明書に無効な拡張キーまたは重複した拡張キーが含まれています。詳細タブで検証を確認します。</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>証明書に拡張キーが含まれていません。いずれかのテンプレートの拡張キーを適用して、証明書の目的を定義できます。</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>拡張キーの編集</translation>
@@ -2274,7 +2284,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>サブジェクト代替名は、コモンネームのコピーを含む。ただし、コモンネームは空です。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>%1行目のコンフィグエラー
@@ -2354,7 +2364,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>データベース名</translation>
     </message>
@@ -2364,7 +2374,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>テーブルプレフィクス</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>SQLite3ドライバがありません。お使いのディストリビューションのqt-sqliteパッケージをインストールしてください</translation>
     </message>
@@ -2889,7 +2899,7 @@ In library %3
         <translation>%1は%2バイトを超えています:&apos;%3</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>「%2 」の文字列「%1 」に無効な文字が含まれています</translation>
     </message>
@@ -3109,7 +3119,7 @@ In library %3
         <translation>Comment</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>インデックス・ファイルを&apos;%1&apos;に書き込みました</translation>
     </message>
@@ -3630,7 +3640,7 @@ In library %3
         <translation>インポート元： %1</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>ディレクトリ%1を作成できませんでした</translation>
     </message>
@@ -4945,7 +4955,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Template file content error (too small)</source>
         <translation>テンプレートファイルのコンテンツエラー(小さすぎる)</translation>
     </message>

@@ -833,13 +833,13 @@ Série: %3</translation>
         <translation>Gerenciar o dispositivo de Segurança</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Detalhes do ítem &apos;%1&apos; não podem ser mostrados</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>O tipo do ítem &apos;%1&apos; é desconhecido</translation>
     </message>
@@ -1072,62 +1072,62 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>Chaves Privadas</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>&amp;Nova Chave</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>&amp;Exportar</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>&amp;Importar</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>Importar PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>Mostrar Detalhe&amp;s</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>&amp;Apagar</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>Requisições de Assinatura de Certificado</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>&amp;Nova Requisição</translation>
     </message>
@@ -1138,7 +1138,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>Certificados</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;Novo Certificado</translation>
     </message>
@@ -1163,7 +1163,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>Modelos</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>&amp;Novo Modelo</translation>
     </message>
@@ -1183,7 +1183,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>Lista de Revogação</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+596"/>
+        <location filename="../widgets/MainWindow.cpp" line="+592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Não é possível Usar ou Exportar Chaves Privadas sem fornecer a senha correta</translation>
     </message>
@@ -1253,7 +1253,12 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>Polonês</translation>
     </message>
@@ -1773,7 +1778,7 @@ Entrar com bits dos parâmetros DH</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>Finalidade</translation>
     </message>
@@ -1949,7 +1954,7 @@ Entrar com bits dos parâmetros DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
@@ -1990,7 +1995,7 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>Este nome é usado somente internamente e não aparece no certificado</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-735"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>Crítico</translation>
     </message>
@@ -2050,7 +2055,7 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>Nova Chave  &apos;%1&apos; criada</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>Outras abas</translation>
     </message>
@@ -2070,7 +2075,7 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>De Requisição PKCS#10</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2080,13 +2085,13 @@ Entrar com bits dos parâmetros DH</translation>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>Abortar o procedimento</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Foram violadas as seguintes restrições da RFC3280:</translation>
     </message>
@@ -2102,13 +2107,13 @@ Entrar com bits dos parâmetros DH</translation>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>Continuar o procedimento</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-197"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>A verificação do Certificado Requisitado falhou.
@@ -2209,17 +2214,22 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
         <translation>O certificado está vencido antes de se tornar válido. Por algum motivo vc se confundiu as duas datas.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>O Certificado contém extensões inválidas ou duplicadas. Verifique a validação na Lapela Avançada.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>O certificado não contém extensões. Você pode aplicar as extensões de um dos modelos para definir o propósito do certificado.</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>Editar extensões</translation>
@@ -2230,7 +2240,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
         <translation>O Nome Alternativo da Finalidade (Subject Alternative Name) pode conter uma cópia do campo &apos;common name&apos;. Entretanto, este último campo está vazio.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>Erro no Arquivo de Configuração, linha %1
@@ -2310,7 +2320,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>Nome do Banco de Dados</translation>
     </message>
@@ -2320,7 +2330,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
         <translation>Prefixo da Tabela</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Não há driver SqLite3 disponível. Favor instalar o pacote qt-sqlite da sua distribuição</translation>
     </message>
@@ -2825,7 +2835,7 @@ Na biblioteca %3
         <translation>%1 é maior que %2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>Cadeia &apos;%1&apos; para &apos;%2&apos; contém caracteres inválidos</translation>
     </message>
@@ -3045,7 +3055,7 @@ Na biblioteca %3
         <translation>Comentário</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3566,7 +3576,7 @@ Na biblioteca %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>Impossibilidade de criar o diretório %1</translation>
     </message>
@@ -4836,7 +4846,7 @@ Common is thecommonName
         <translation>Tamanho Errado %1</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Template file content error (too small)</source>
         <translation>Conteúdo do Modelo com erro (muito pequeno)</translation>
     </message>

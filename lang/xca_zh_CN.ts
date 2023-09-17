@@ -830,13 +830,13 @@ Serial: %3</source>
         <translation>管理安全令牌</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>无法显示条目&apos;%1&apos;的详细信息</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>条目&apos;%1&apos;的类型无法识别</translation>
     </message>
@@ -1069,62 +1069,62 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>私钥</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>创建密钥</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>导出</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>导入</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>导入PFX（PKCS#12）</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>显示详细信息</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>证书签名请求</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>创建请求</translation>
     </message>
@@ -1135,7 +1135,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>证书</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>创建证书</translation>
     </message>
@@ -1160,7 +1160,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>模板</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>创建模板</translation>
     </message>
@@ -1180,7 +1180,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>吊销列表</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+596"/>
+        <location filename="../widgets/MainWindow.cpp" line="+592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>如果没有提供正确的密码，将无法使用或导出私钥</translation>
     </message>
@@ -1262,7 +1262,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>波兰语</translation>
     </message>
@@ -1842,7 +1847,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>主体</translation>
     </message>
@@ -2018,7 +2023,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
@@ -2059,7 +2064,7 @@ Please enter the DH parameter bits</source>
         <translation>此名称仅在内部使用，不会出现在生成的证书中</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-735"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>关键</translation>
     </message>
@@ -2119,7 +2124,7 @@ Please enter the DH parameter bits</source>
         <translation>新密钥&apos;%1&apos;已创建</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>其他标签页</translation>
     </message>
@@ -2139,7 +2144,7 @@ Please enter the DH parameter bits</source>
         <translation>来自PKCS#10请求</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2149,13 +2154,13 @@ Please enter the DH parameter bits</source>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>中止</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>违反了RFC3280的以下长度限制:</translation>
     </message>
@@ -2171,13 +2176,13 @@ Please enter the DH parameter bits</source>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>继续</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-197"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>证书请求的合法性验证失败。
@@ -2278,17 +2283,22 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>证书的失效日期早于生效日期。你可能混淆了这两个日期。</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>证书包含无效或重复的扩展信息。检查高级标签页上的验证信息。</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>证书不包含扩展名。您可以应用模板的扩展信息来定义证书的用途。</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>编辑扩展信息</translation>
@@ -2299,7 +2309,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>主体可选名称应包含通用名称（CN）。但是，通用名称为空。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>配置文件错误位于行%1</translation>
@@ -2378,7 +2388,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>数据库名</translation>
     </message>
@@ -2388,7 +2398,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>表前缀</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>SqLite3数据库驱动不可用。 请安装您的发行版的qt-sqlite包</translation>
     </message>
@@ -3111,7 +3121,7 @@ In library %3
         <translation>%1大于%2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>字符串 &apos;%2&apos;中的 &apos;%1&apos;包含无效字符</translation>
     </message>
@@ -3141,7 +3151,7 @@ In library %3
         <translation>数据库事务开始失败</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3666,7 +3676,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>创建文件夹失败 %1</translation>
     </message>
@@ -4934,7 +4944,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>错误的大小%1</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Template file content error (too small)</source>
         <translation>模板文件内容错误 （太小）</translation>
     </message>

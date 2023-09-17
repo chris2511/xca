@@ -833,13 +833,13 @@ Serial: %3</translation>
         <translation>Kelola token keamanan</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+217"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Rincian dari butir &apos;%1&apos; tidak bisa ditunjukkan</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Tipe dari butir &apos;%1&apos; tidak dikenal</translation>
     </message>
@@ -1072,62 +1072,62 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>Kunci Privat</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>Ku&amp;nci Baru</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>&amp;Ekspor</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>&amp;Impor</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>Impor PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>&amp;Tampilkan Rincian</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>&amp;Hapus</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>Certificate signing request</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>Permi&amp;ntaan Baru</translation>
     </message>
@@ -1138,7 +1138,7 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Sertifikat</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>Sertifikat &amp;Baru</translation>
     </message>
@@ -1163,7 +1163,7 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Templat</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>Templat &amp;Baru</translation>
     </message>
@@ -1183,7 +1183,7 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Daftar pencabutan</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+596"/>
+        <location filename="../widgets/MainWindow.cpp" line="+592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Memakai atau mengekspor kunci privat tidak akan mungkin tanpa memberikan kata sandi yang benar</translation>
     </message>
@@ -1253,7 +1253,12 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>Polandia</translation>
     </message>
@@ -1773,7 +1778,7 @@ Harap masukkan bit parameter DH</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>Subjek</translation>
     </message>
@@ -1949,7 +1954,7 @@ Harap masukkan bit parameter DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>Sunting</translation>
     </message>
@@ -1990,7 +1995,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Nama ini hanya dipakai secara internal dan tidak muncul dalam sertifikat yang dihasilkan</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-735"/>
+        <location filename="../widgets/NewX509.cpp" line="-732"/>
         <source>Critical</source>
         <translation>Kritikal</translation>
     </message>
@@ -2050,7 +2055,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Kunci baru &apos;%1&apos; telah dibuat</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>Tab Lain</translation>
     </message>
@@ -2070,7 +2075,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Dari permintaan PKCS#10</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+123"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2080,13 +2085,13 @@ Harap masukkan bit parameter DH</translation>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>Tentang rollout</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Pembatasan panjang berikut dari RFC3280 dilanggar:</translation>
     </message>
@@ -2102,13 +2107,13 @@ Harap masukkan bit parameter DH</translation>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>Lanjutkan rollout</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-197"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Verifikasi permintaan sertifikat gagal.
@@ -2209,17 +2214,22 @@ walaupun Anda telah menyatakan mereka sebagai wajib dalam menu opsi.</translatio
         <translation>Sertifikat akan kedaluwarsa sebelum menjadi valid. Barangkali kedua tanggal tertukar.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Sertifikat memuat ekstensi yang tidak valid atau duplikat. Periksa validasi pada tab tingkat lanjut.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>Sertifikat tidak memuat ekstensi. Anda dapat menerapkan ekstensi dari salah satu templat untuk mendefinisikan tujuan sertifikat.</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>Suting ekstensi</translation>
@@ -2230,7 +2240,7 @@ walaupun Anda telah menyatakan mereka sebagai wajib dalam menu opsi.</translatio
         <translation>Subject alternative name akan memuat salinan dari common name. Namun common name kosong.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>Kesalahan berkas konfig pada baris %1
@@ -2310,7 +2320,7 @@ walaupun Anda telah menyatakan mereka sebagai wajib dalam menu opsi.</translatio
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>Nama basis data</translation>
     </message>
@@ -2320,7 +2330,7 @@ walaupun Anda telah menyatakan mereka sebagai wajib dalam menu opsi.</translatio
         <translation>Prefiks tabel</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Driver SqLite3 tidak tersedia. Harap pasang paket sq-sqlite dari distribusi Anda</translation>
     </message>
@@ -2833,7 +2843,7 @@ Dalam pustaka %3
         <translation>%1 lebih panjang dari %2 byte: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>String &apos;%1&apos; bagi &apos;%2&apos; memuat karakter yang tidak valid</translation>
     </message>
@@ -3053,7 +3063,7 @@ Dalam pustaka %3
         <translation>Komentar</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Berkas indeks ditulis ke &apos;%1&apos;</translation>
     </message>
@@ -3574,7 +3584,7 @@ Dalam pustaka %3
         <translation>Impor dari: %1</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>Tidak bisa membuat direktori %1</translation>
     </message>
@@ -4843,7 +4853,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Salah Ukuran %1</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+87"/>
         <source>Template file content error (too small)</source>
         <translation>Kesalahan konten berkas templat (terlalu kecil)</translation>
     </message>

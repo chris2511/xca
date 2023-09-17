@@ -833,23 +833,23 @@ Numéro de série: %3</translation>
         <translation>Gérer les jetons de sécurité</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="286"/>
+        <location filename="../widgets/ImportMulti.cpp" line="287"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Les détails de l&apos;objet &apos;%1&apos; ne peuvent pas être affichés</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="104"/>
-        <location filename="../widgets/ImportMulti.cpp" line="290"/>
+        <location filename="../widgets/ImportMulti.cpp" line="291"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Le type de l&apos;objet &apos;%1&apos; n&apos;est pas reconnu</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="318"/>
+        <location filename="../widgets/ImportMulti.cpp" line="319"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
         <translation>Le fichier &apos;%1&apos; ne contient pas de données PKI</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="321"/>
+        <location filename="../widgets/ImportMulti.cpp" line="322"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
         <translation>Les %1 fichiers: &apos;%2&apos; ne contiennent pas de données PKI</translation>
     </message>
@@ -1072,7 +1072,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="22"/>
+        <location filename="../ui/MainWindow.ui" line="25"/>
         <source>Private Keys</source>
         <translation>Clés privées</translation>
     </message>
@@ -1083,19 +1083,19 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="56"/>
-        <location filename="../ui/MainWindow.ui" line="161"/>
-        <location filename="../ui/MainWindow.ui" line="253"/>
-        <location filename="../ui/MainWindow.ui" line="391"/>
-        <location filename="../ui/MainWindow.ui" line="456"/>
+        <location filename="../ui/MainWindow.ui" line="155"/>
+        <location filename="../ui/MainWindow.ui" line="241"/>
+        <location filename="../ui/MainWindow.ui" line="369"/>
+        <location filename="../ui/MainWindow.ui" line="434"/>
         <source>&amp;Export</source>
         <translation>&amp;Exporter</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="63"/>
-        <location filename="../ui/MainWindow.ui" line="168"/>
-        <location filename="../ui/MainWindow.ui" line="260"/>
-        <location filename="../ui/MainWindow.ui" line="384"/>
-        <location filename="../ui/MainWindow.ui" line="463"/>
+        <location filename="../ui/MainWindow.ui" line="162"/>
+        <location filename="../ui/MainWindow.ui" line="248"/>
+        <location filename="../ui/MainWindow.ui" line="362"/>
+        <location filename="../ui/MainWindow.ui" line="441"/>
         <source>&amp;Import</source>
         <translation>&amp;Importer</translation>
     </message>
@@ -1106,18 +1106,18 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="77"/>
-        <location filename="../ui/MainWindow.ui" line="175"/>
-        <location filename="../ui/MainWindow.ui" line="267"/>
-        <location filename="../ui/MainWindow.ui" line="470"/>
+        <location filename="../ui/MainWindow.ui" line="169"/>
+        <location filename="../ui/MainWindow.ui" line="255"/>
+        <location filename="../ui/MainWindow.ui" line="448"/>
         <source>&amp;Show Details</source>
         <translation>&amp;Afficher les Détails</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="84"/>
-        <location filename="../ui/MainWindow.ui" line="182"/>
-        <location filename="../ui/MainWindow.ui" line="274"/>
-        <location filename="../ui/MainWindow.ui" line="377"/>
-        <location filename="../ui/MainWindow.ui" line="477"/>
+        <location filename="../ui/MainWindow.ui" line="176"/>
+        <location filename="../ui/MainWindow.ui" line="262"/>
+        <location filename="../ui/MainWindow.ui" line="355"/>
+        <location filename="../ui/MainWindow.ui" line="455"/>
         <source>&amp;Delete</source>
         <translation>&amp;Détruire</translation>
     </message>
@@ -1127,63 +1127,63 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Requêtes de signature de certificat</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="154"/>
+        <location filename="../ui/MainWindow.ui" line="148"/>
         <source>&amp;New Request</source>
         <translation>&amp;Nouvelle requête</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="222"/>
+        <location filename="../ui/MainWindow.ui" line="216"/>
         <location filename="../widgets/MW_menu.cpp" line="138"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="246"/>
+        <location filename="../ui/MainWindow.ui" line="234"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;Nouveau Certificat</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="281"/>
+        <location filename="../ui/MainWindow.ui" line="269"/>
         <source>Import &amp;PKCS#12</source>
         <translation>Importer en &amp;PKCS#12</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="288"/>
+        <location filename="../ui/MainWindow.ui" line="276"/>
         <source>Import P&amp;KCS#7</source>
         <translation>Importer en P&amp;KCS#7</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="295"/>
+        <location filename="../ui/MainWindow.ui" line="283"/>
         <source>Plain View</source>
         <translation>Vue à plat</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="335"/>
+        <location filename="../ui/MainWindow.ui" line="323"/>
         <source>Templates</source>
         <translation>Modèles</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="363"/>
+        <location filename="../ui/MainWindow.ui" line="341"/>
         <source>&amp;New Template</source>
         <translation>&amp;Nouveau modèle</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="449"/>
+        <location filename="../ui/MainWindow.ui" line="427"/>
         <source>&amp;New CRL</source>
         <translation>&amp;Nouvelle liste de révocation</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="370"/>
+        <location filename="../ui/MainWindow.ui" line="348"/>
         <source>Ch&amp;ange Template</source>
         <translation>&amp;Modifier le Modèle</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="431"/>
+        <location filename="../ui/MainWindow.ui" line="409"/>
         <source>Revocation lists</source>
         <translation>Listes de révocation</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="596"/>
+        <location filename="../widgets/MainWindow.cpp" line="592"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Il sera impossible d&apos;utiliser ou d&apos;exporter des clés privées sans fournir le mot de passe correct.</translation>
     </message>
@@ -1192,7 +1192,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation type="vanished">Base de données</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="602"/>
+        <location filename="../widgets/MainWindow.cpp" line="598"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>L&apos;algorithme de hachage &apos;%1&apos; sélectionné n&apos;est pas sûr. SVP choisissez au moins &apos;SHA 224&apos; pour raisons de sécurité.</translation>
     </message>
@@ -1250,6 +1250,11 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location filename="../widgets/MW_help.cpp" line="52"/>
         <source>Persian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="54"/>
+        <source>Bulgarian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1463,89 +1468,89 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>A propos</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="258"/>
+        <location filename="../widgets/MainWindow.cpp" line="254"/>
         <source>Import PEM data</source>
         <translation>Importer les données PEM</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="287"/>
+        <location filename="../widgets/MainWindow.cpp" line="283"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>SVP saisir le PUK original du jeton &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="117"/>
-        <location filename="../widgets/MainWindow.cpp" line="740"/>
+        <location filename="../widgets/MainWindow.cpp" line="113"/>
+        <location filename="../widgets/MainWindow.cpp" line="736"/>
         <source>Search</source>
         <translation>Rechercher</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="293"/>
+        <location filename="../widgets/MainWindow.cpp" line="289"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>SVP saisir le nouveau NIP SO (PUK) pour le jeton: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="300"/>
+        <location filename="../widgets/MainWindow.cpp" line="296"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>La nouvelle étiquette du jeton &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="408"/>
+        <location filename="../widgets/MainWindow.cpp" line="404"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Le jeton &apos;%1&apos; ne contient aucune clé ni aucun certificat</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="452"/>
+        <location filename="../widgets/MainWindow.cpp" line="448"/>
         <source>Current Password</source>
         <translation>Mot de passe actuel</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="453"/>
+        <location filename="../widgets/MainWindow.cpp" line="449"/>
         <source>Please enter the current database password</source>
         <translation>SVP saisir le mot de passe de la base de données</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="463"/>
+        <location filename="../widgets/MainWindow.cpp" line="459"/>
         <source>The entered password is wrong</source>
         <translation>Le mot de passe renseigné est inexact</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="468"/>
+        <location filename="../widgets/MainWindow.cpp" line="464"/>
         <source>New Password</source>
         <translation>Nouveau mot de passe</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="468"/>
+        <location filename="../widgets/MainWindow.cpp" line="464"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>SVP saisir le nouveau mot de passe pour chiffrer les clés privées dans le fichier de base de données</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="492"/>
+        <location filename="../widgets/MainWindow.cpp" line="488"/>
         <source>Transaction start failed</source>
         <translation>Le démarrage de la transaction a échoué</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="579"/>
+        <location filename="../widgets/MainWindow.cpp" line="575"/>
         <source>Database: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="660"/>
+        <location filename="../widgets/MainWindow.cpp" line="656"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Index des certificats ( index.txt )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="661"/>
-        <location filename="../widgets/MainWindow.cpp" line="717"/>
+        <location filename="../widgets/MainWindow.cpp" line="657"/>
+        <location filename="../widgets/MainWindow.cpp" line="713"/>
         <source>All files ( * )</source>
         <translation>Tous les fichiers ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="684"/>
+        <location filename="../widgets/MainWindow.cpp" line="680"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
         <translation>Les paramètres Diffie-Hellman on été sauvegardés dans: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="702"/>
+        <location filename="../widgets/MainWindow.cpp" line="698"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>Les paramètres de Diffie-Hellman sont nécessaires à certaines applications mais ne sont pas gérés par XCA.
@@ -1773,7 +1778,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="336"/>
-        <location filename="../widgets/NewX509.cpp" line="595"/>
+        <location filename="../widgets/NewX509.cpp" line="596"/>
         <source>Subject</source>
         <translation>Sujet</translation>
     </message>
@@ -1949,7 +1954,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <location filename="../ui/NewX509.ui" line="762"/>
         <location filename="../ui/NewX509.ui" line="795"/>
         <location filename="../ui/NewX509.ui" line="831"/>
-        <location filename="../widgets/NewX509.cpp" line="998"/>
+        <location filename="../widgets/NewX509.cpp" line="996"/>
         <source>Edit</source>
         <translation>Modifier</translation>
     </message>
@@ -1975,7 +1980,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1163"/>
-        <location filename="../widgets/NewX509.cpp" line="1008"/>
+        <location filename="../widgets/NewX509.cpp" line="1006"/>
         <source>Validate</source>
         <translation>Valider</translation>
     </message>
@@ -1990,159 +1995,159 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Ce nom est seulement utilisé par xca et n&apos;apparaît pas dans le certificat exporté</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="273"/>
+        <location filename="../widgets/NewX509.cpp" line="274"/>
         <source>Critical</source>
         <translation>Critique</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="313"/>
+        <location filename="../widgets/NewX509.cpp" line="314"/>
         <source>Create Certificate signing request</source>
         <translation>Créer une requête de signature de certificat</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="339"/>
+        <location filename="../widgets/NewX509.cpp" line="340"/>
         <source>minimum size: %1</source>
         <translation>taille minimale: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="341"/>
+        <location filename="../widgets/NewX509.cpp" line="342"/>
         <source>maximum size: %1</source>
         <translation>taille maximale: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="343"/>
+        <location filename="../widgets/NewX509.cpp" line="344"/>
         <source>only a-z A-Z 0-9 &apos;()+,-./:=?</source>
         <translation>seulement a-z A-Z 0-9 &apos;()+,-./:=?</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="347"/>
+        <location filename="../widgets/NewX509.cpp" line="348"/>
         <source>only 7-bit clean characters</source>
         <translation>seulement des caractères 7-bit ASCII imprimables</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="372"/>
+        <location filename="../widgets/NewX509.cpp" line="373"/>
         <source>Edit XCA template</source>
         <translation>Editer un modèle XCA</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="385"/>
+        <location filename="../widgets/NewX509.cpp" line="386"/>
         <source>Create x509 Certificate</source>
         <translation>Créer un certificat x509</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="756"/>
+        <location filename="../widgets/NewX509.cpp" line="757"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Le modèle &apos;%1&apos; a été appliqué</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="763"/>
+        <location filename="../widgets/NewX509.cpp" line="764"/>
         <source>Subject applied from template &apos;%1&apos;</source>
         <translation>Sujet extrait du modèle &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="771"/>
+        <location filename="../widgets/NewX509.cpp" line="772"/>
         <source>Extensions applied from template &apos;%1&apos;</source>
         <translation>Les extensions du modéle &apos;%1&apos; ont été appliquées</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="786"/>
+        <location filename="../widgets/NewX509.cpp" line="787"/>
         <source>New key &apos;%1&apos; created</source>
         <translation>La nouvelle clé &apos;%1&apos; a été créée</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1031"/>
+        <location filename="../widgets/NewX509.cpp" line="1029"/>
         <source>Other Tabs</source>
         <translation>Autres Onglets</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1045"/>
+        <location filename="../widgets/NewX509.cpp" line="1043"/>
         <source>Advanced Tab</source>
         <translation>Onglet Avancé</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1052"/>
+        <location filename="../widgets/NewX509.cpp" line="1050"/>
         <source>Errors</source>
         <translation>Erreurs</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1070"/>
+        <location filename="../widgets/NewX509.cpp" line="1068"/>
         <source>From PKCS#10 request</source>
         <translation>A partir d&apos;une requête en PKCS#10</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1175"/>
-        <location filename="../widgets/NewX509.cpp" line="1188"/>
-        <location filename="../widgets/NewX509.cpp" line="1207"/>
-        <location filename="../widgets/NewX509.cpp" line="1219"/>
+        <location filename="../widgets/NewX509.cpp" line="1191"/>
+        <location filename="../widgets/NewX509.cpp" line="1204"/>
+        <location filename="../widgets/NewX509.cpp" line="1223"/>
         <location filename="../widgets/NewX509.cpp" line="1235"/>
-        <location filename="../widgets/NewX509.cpp" line="1249"/>
-        <location filename="../widgets/NewX509.cpp" line="1283"/>
-        <location filename="../widgets/NewX509.cpp" line="1302"/>
-        <location filename="../widgets/NewX509.cpp" line="1325"/>
-        <location filename="../widgets/NewX509.cpp" line="1348"/>
-        <location filename="../widgets/NewX509.cpp" line="1374"/>
-        <location filename="../widgets/NewX509.cpp" line="1394"/>
+        <location filename="../widgets/NewX509.cpp" line="1251"/>
+        <location filename="../widgets/NewX509.cpp" line="1265"/>
+        <location filename="../widgets/NewX509.cpp" line="1299"/>
+        <location filename="../widgets/NewX509.cpp" line="1318"/>
+        <location filename="../widgets/NewX509.cpp" line="1341"/>
+        <location filename="../widgets/NewX509.cpp" line="1364"/>
+        <location filename="../widgets/NewX509.cpp" line="1397"/>
+        <location filename="../widgets/NewX509.cpp" line="1417"/>
         <source>Abort rollout</source>
         <translation>Interrompre le déploiement</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1184"/>
+        <location filename="../widgets/NewX509.cpp" line="1200"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Pour être en conformité avec la RFC3280, les règles de restriction de longueur suivantes ne sont pas respectées:</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1187"/>
-        <location filename="../widgets/NewX509.cpp" line="1248"/>
+        <location filename="../widgets/NewX509.cpp" line="1203"/>
+        <location filename="../widgets/NewX509.cpp" line="1264"/>
         <source>Edit subject</source>
         <translation>Modifier le sujet</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1189"/>
-        <location filename="../widgets/NewX509.cpp" line="1250"/>
-        <location filename="../widgets/NewX509.cpp" line="1303"/>
-        <location filename="../widgets/NewX509.cpp" line="1326"/>
-        <location filename="../widgets/NewX509.cpp" line="1349"/>
-        <location filename="../widgets/NewX509.cpp" line="1375"/>
-        <location filename="../widgets/NewX509.cpp" line="1395"/>
+        <location filename="../widgets/NewX509.cpp" line="1205"/>
+        <location filename="../widgets/NewX509.cpp" line="1266"/>
+        <location filename="../widgets/NewX509.cpp" line="1319"/>
+        <location filename="../widgets/NewX509.cpp" line="1342"/>
+        <location filename="../widgets/NewX509.cpp" line="1365"/>
+        <location filename="../widgets/NewX509.cpp" line="1398"/>
+        <location filename="../widgets/NewX509.cpp" line="1418"/>
         <source>Continue rollout</source>
         <translation>Continuer le déploiement</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1205"/>
+        <location filename="../widgets/NewX509.cpp" line="1221"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>La vérification de la requête de signature à échoué.
 Le déploiement devrait être interrompu.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1206"/>
+        <location filename="../widgets/NewX509.cpp" line="1222"/>
         <source>Continue anyway</source>
         <translation>Continuer quand-même</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1217"/>
+        <location filename="../widgets/NewX509.cpp" line="1233"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation>Le nom interne et le nom commun sont vides.
 SVP saisir au moins le nom interne.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1218"/>
+        <location filename="../widgets/NewX509.cpp" line="1234"/>
         <source>Edit name</source>
         <translation>Modifier le nom</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1233"/>
+        <location filename="../widgets/NewX509.cpp" line="1249"/>
         <source>There is no Key selected for signing.</source>
         <translation>Aucune clé n&apos;est sélectionnée pour la signature.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1234"/>
+        <location filename="../widgets/NewX509.cpp" line="1250"/>
         <source>Select key</source>
         <translation>Sélectionner la clé</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1246"/>
+        <location filename="../widgets/NewX509.cpp" line="1262"/>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
@@ -2151,86 +2156,91 @@ though you have declared them as mandatory in the options menu.</source>
 bien que vous les avez déclarées comme obligatoires dans le menu des options.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1280"/>
+        <location filename="../widgets/NewX509.cpp" line="1296"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>La clé sélectionnée pour la signature n&apos;est pas une clé privée.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1281"/>
+        <location filename="../widgets/NewX509.cpp" line="1297"/>
         <source>Select other signer</source>
         <translation>Sélectionner un autre signataire</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1281"/>
+        <location filename="../widgets/NewX509.cpp" line="1297"/>
         <source>Select other key</source>
         <translation>Sélectionner une autre clé</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1291"/>
+        <location filename="../widgets/NewX509.cpp" line="1307"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
         <translation>L&apos;algorithme de hachage sélectionné &apos;%1&apos; est peu sûr et ne devrait pas être utilisé.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1292"/>
+        <location filename="../widgets/NewX509.cpp" line="1308"/>
         <source>Select other algorithm</source>
         <translation>Sélectionner un autre algorithme</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1293"/>
+        <location filename="../widgets/NewX509.cpp" line="1309"/>
         <source>Use algorithm anyway</source>
         <translation>Utiliser quand même cet algorithme</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1299"/>
+        <location filename="../widgets/NewX509.cpp" line="1315"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1301"/>
-        <location filename="../widgets/NewX509.cpp" line="1324"/>
-        <location filename="../widgets/NewX509.cpp" line="1347"/>
+        <location filename="../widgets/NewX509.cpp" line="1317"/>
+        <location filename="../widgets/NewX509.cpp" line="1340"/>
+        <location filename="../widgets/NewX509.cpp" line="1363"/>
         <source>Edit dates</source>
         <translation>Modifier les limites de validité</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1304"/>
-        <location filename="../widgets/NewX509.cpp" line="1327"/>
+        <location filename="../widgets/NewX509.cpp" line="1320"/>
+        <location filename="../widgets/NewX509.cpp" line="1343"/>
         <source>Adjust date and continue</source>
         <translation>Ajuster la date et continuer</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1322"/>
+        <location filename="../widgets/NewX509.cpp" line="1338"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Le certificat serait valide plus longtemps que son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1345"/>
+        <location filename="../widgets/NewX509.cpp" line="1361"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Le certificat serait échu avant de devenir actif. Vous avez probablement interverti les deux dates.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1366"/>
+        <location filename="../widgets/NewX509.cpp" line="1383"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Le certificat contient des extensions dupliquées ou invalides. Vérifier la validité sur l&apos;onglet &quot;Avancé&quot;.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1369"/>
+        <location filename="../widgets/NewX509.cpp" line="1387"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>Le certificat ne contient aucune extension. Vous pouvez appliquer des extensions à partir de l&apos;un des modèles pour définir l&apos;usage du certificat</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1373"/>
-        <location filename="../widgets/NewX509.cpp" line="1393"/>
+        <location filename="../widgets/NewX509.cpp" line="1391"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1396"/>
+        <location filename="../widgets/NewX509.cpp" line="1416"/>
         <source>Edit extensions</source>
         <translation>Modifier les extensions</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1392"/>
+        <location filename="../widgets/NewX509.cpp" line="1415"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>Le nom alternatif du sujet devrait contenir une copie du nom commun. Cependant ce dernier est vide.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="169"/>
         <source>Configfile error on line %1
 </source>
         <translation>Erreur dans le fichier de configuration à la ligne %1
@@ -2310,7 +2320,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="142"/>
-        <location filename="../widgets/OpenDb.cpp" line="49"/>
+        <location filename="../widgets/OpenDb.cpp" line="56"/>
         <source>Database name</source>
         <translation>Nom de la base de données</translation>
     </message>
@@ -2320,7 +2330,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <translation>Préfixe du nom des tables</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="120"/>
+        <location filename="../widgets/OpenDb.cpp" line="125"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Le pilote SqLite3 n&apos;est pas disponible. SVP installez le paquetage qt-sqlite de votre distribution</translation>
     </message>
@@ -2833,7 +2843,7 @@ Dans la bibliothèque %3
         <translation>%1 est plus long que %2 octets: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="87"/>
+        <location filename="../lib/x509v3ext.cpp" line="99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>La chaîne &apos;%1&apos; pour &apos;%2&apos; contient des caractères invalides</translation>
     </message>
@@ -3053,17 +3063,17 @@ Dans la bibliothèque %3
         <translation>Commentaire</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="227"/>
+        <location filename="../lib/main.cpp" line="357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Fichier d&apos;index écrit dans &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="234"/>
+        <location filename="../lib/main.cpp" line="364"/>
         <source>Index hierarchy written to &apos;%1&apos;</source>
         <translation>Hiérarchie d&apos;index écrite dans &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="247"/>
+        <location filename="../lib/main.cpp" line="377"/>
         <source>Unknown key type %1</source>
         <translation>Type de clé inconnu %1</translation>
     </message>
@@ -3574,7 +3584,7 @@ Dans la bibliothèque %3
         <translation>Importer à partir de: %1</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="376"/>
+        <location filename="../lib/db_base.cpp" line="369"/>
         <source>Could not create directory %1</source>
         <translation>Impossible de créer le répertoire %1</translation>
     </message>
@@ -4849,17 +4859,17 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="451"/>
+        <location filename="../lib/pki_temp.cpp" line="454"/>
         <source>Template file content error (too small)</source>
         <translation>Erreur de contenu du fichier de modèle (trop petit)</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="501"/>
+        <location filename="../lib/pki_temp.cpp" line="504"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation>Ce n&apos;est pas un modèle XCA en format PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="509"/>
+        <location filename="../lib/pki_temp.cpp" line="512"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>Ce n&apos;est pas un modèle XCA, mais &apos;%1&apos;</translation>
     </message>

@@ -861,13 +861,13 @@
         <translation>&amp;Готово</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+286"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+287"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Невозможно отобразить сведения о &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+186"/>
+        <location line="-183"/>
+        <location line="+187"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Тип элемента &apos;%1&apos; невозможно определить</translation>
     </message>
@@ -902,7 +902,7 @@
         <translation>Переименовать в модуле защиты</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-256"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-257"/>
         <source>
 Name: %1
 Model: %2
@@ -1225,7 +1225,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+2"/>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-14"/>
         <source>Polish</source>
         <translation>Польский</translation>
     </message>
@@ -1304,7 +1309,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;Помощь</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+468"/>
+        <location filename="../widgets/MainWindow.cpp" line="+464"/>
         <source>New Password</source>
         <translation>Новый Пароль</translation>
     </message>
@@ -1317,62 +1322,62 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">Копировать в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+22"/>
+        <location filename="../ui/MainWindow.ui" line="+25"/>
         <source>Private Keys</source>
         <translation>Закрытые ключи</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>&amp;New Key</source>
         <translation>&amp;Новый ключ</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+138"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+128"/>
         <location line="+65"/>
         <source>&amp;Export</source>
         <translation>&amp;Экспорт</translation>
     </message>
     <message>
-        <location line="-393"/>
-        <location line="+105"/>
-        <location line="+92"/>
-        <location line="+124"/>
+        <location line="-371"/>
+        <location line="+99"/>
+        <location line="+86"/>
+        <location line="+114"/>
         <location line="+79"/>
         <source>&amp;Import</source>
         <translation>&amp;Импорт</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-371"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>Импорт PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+98"/>
         <location line="+92"/>
-        <location line="+203"/>
+        <location line="+86"/>
+        <location line="+193"/>
         <source>&amp;Show Details</source>
         <translation>&amp;Показать сведения</translation>
     </message>
     <message>
-        <location line="-386"/>
-        <location line="+98"/>
+        <location line="-364"/>
         <location line="+92"/>
-        <location line="+103"/>
+        <location line="+86"/>
+        <location line="+93"/>
         <location line="+100"/>
         <source>&amp;Delete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-331"/>
         <source>Certificate signing requests</source>
         <translation>Запросы на получение сертификата</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Request</source>
         <translation>&amp;Новый запрос</translation>
     </message>
@@ -1383,7 +1388,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Сертификаты</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;Новый сертификат</translation>
     </message>
@@ -1408,7 +1413,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Шаблоны</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+18"/>
         <source>&amp;New Template</source>
         <translation>&amp;Новый шаблон</translation>
     </message>
@@ -1952,7 +1957,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="-328"/>
-        <location filename="../widgets/NewX509.cpp" line="+595"/>
+        <location filename="../widgets/NewX509.cpp" line="+596"/>
         <source>Subject</source>
         <translation>Субъект</translation>
     </message>
@@ -2140,7 +2145,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+403"/>
+        <location filename="../widgets/NewX509.cpp" line="+400"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -2166,7 +2171,7 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">Создать &amp;самоподписанный сертификат с серийным номером хэшированным MD5</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-685"/>
+        <location filename="../widgets/NewX509.cpp" line="-682"/>
         <source>Create Certificate signing request</source>
         <translation>Создать запрос на сертификат</translation>
     </message>
@@ -2176,7 +2181,7 @@ Please enter the DH parameter bits</source>
         <translation>Создать сертификат x509</translation>
     </message>
     <message>
-        <location line="+790"/>
+        <location line="+805"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2186,13 +2191,13 @@ Please enter the DH parameter bits</source>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>Прервать</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-217"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Требования RFC3280 по длине нарушены:</translation>
     </message>
@@ -2214,13 +2219,13 @@ Please set at least the internal name.</source>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+26"/>
+        <location line="+33"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>Продолжить</translation>
     </message>
     <message>
-        <location line="-50"/>
+        <location line="-57"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Срок действия сертификата истечёт до того, как он станет действительным. Скорее всего, даты перепутаны.</translation>
     </message>
@@ -2236,12 +2241,12 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-337"/>
+        <location filename="../widgets/NewX509.cpp" line="-355"/>
         <source>Validate</source>
         <translation>Проверить</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+197"/>
+        <location filename="../widgets/NewX509.cpp" line="+215"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Проверка запроса на подпись завершилась ошибкой.
@@ -2295,7 +2300,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Выбранный для подписи ключ не закрытый.</translation>
     </message>
     <message>
-        <location line="-1007"/>
+        <location line="-1022"/>
         <source>Critical</source>
         <translation>Критично</translation>
     </message>
@@ -2329,7 +2334,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Создан новый ключ &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+495"/>
+        <location line="+510"/>
         <source>Select other signer</source>
         <translation>Выберите другого издателя</translation>
     </message>
@@ -2370,17 +2375,22 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Срок действия сертификата больше срока действия издателя. Скорее всего, здесь ошибка.</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+45"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Сертификат содержит недействительные либо дублированные расширения. Необходимо выполнить проверку во вкладке &quot;Дополнительно&quot;.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>У сертификата отсутствуют расширения. Вы можете подставить расширения из одного из шаблонов, чтобы определить назначение сертификата.</translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>The certificate contains invalid extensions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>Редактировать расширения</translation>
@@ -2406,7 +2416,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Применить всё</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1053"/>
+        <location filename="../widgets/NewX509.cpp" line="-1075"/>
         <source>minimum size: %1</source>
         <translation>минимальный размер: %1</translation>
     </message>
@@ -2426,7 +2436,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>только 7-битные символы</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+720"/>
         <source>From PKCS#10 request</source>
         <translation>Из запроса PKCS#10</translation>
     </message>
@@ -2446,7 +2456,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Ошибки</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+183"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
         <source>Configfile error on line %1
 </source>
         <translation>Ошибкав  кофигурационном файле в строке %1
@@ -2530,7 +2540,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+49"/>
+        <location filename="../widgets/OpenDb.cpp" line="+56"/>
         <source>Database name</source>
         <translation>Название базы данных</translation>
     </message>
@@ -2540,7 +2550,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Префикс для таблиц</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+71"/>
+        <location filename="../widgets/OpenDb.cpp" line="+69"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Драйвер SqLite3 недоступен. Пожалуйста, установите пакет qt-sqlite вашего дистрибутива</translation>
     </message>
@@ -3282,7 +3292,7 @@ In library %3
         <translation>Комментарий</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+87"/>
+        <location filename="../lib/x509v3ext.cpp" line="+99"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>Строка &apos;%1&apos; содержит неподходящие символы для &apos;%2&apos;</translation>
     </message>
@@ -3312,7 +3322,7 @@ In library %3
         <translation>Не удалось начать транзакцию</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+227"/>
+        <location filename="../lib/main.cpp" line="+357"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Файл индекса сохранён как &apos;%1&apos;</translation>
     </message>
@@ -3877,7 +3887,7 @@ Size: %3
         <translation>Импортировать из %1</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+135"/>
         <source>Could not create directory %1</source>
         <translation>Не удалось создать папку &apos;%1&apos;</translation>
     </message>
@@ -5257,7 +5267,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Удалить %1 шаблоны XCA: %2?</translation>
     </message>
     <message>
-        <location line="+284"/>
+        <location line="+287"/>
         <source>Template file content error (too small)</source>
         <translation>Содержимое файла шаблона ошибочно (слишком мал)</translation>
     </message>
