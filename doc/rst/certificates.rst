@@ -2,8 +2,8 @@
 .. index:: certdetail (certdetail)
 .. _certificates:
 
-Certificates
-============
+X.509 Certificates
+==================
 
 All certificates from the database are displayed in a tree view reflecting
 the chain dependencies.
@@ -13,7 +13,7 @@ CA certificate.
 
 .. _ca_cert:
 
-CA certificates
+CA Certificates
 ---------------
 
 XCA will recognize CA certificates if the CA flag in the *Basic Constraints*
@@ -106,6 +106,10 @@ Certificate Export
     in a format used by apache or the X509 patch for OpenSSH.
   - **PEM cert + PKCS8 key:** concatenation of the
     private key in PKCS#8 format and certificate.
+  - **vCalendar (*.ics)** expiry notifications for all selected certificates
+    to be imported into your favorite calendar app.
+  - **CA vCalendar (*.ics)** expiry notifications for the CA certificate,
+    valid, issued cdrtificates and the latest CRL.
 
 - **Token:** Store certificate on the Security token containing the private key.
 - **Other token:** Store certificate on any Security token.
