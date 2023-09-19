@@ -18,7 +18,7 @@
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
 
-#if defined(Q_OS_MAC)
+#ifdef Q_OS_MACOS
 #include <IOKit/IOKitLib.h>
 #define I18N_DIR ""
 #else
@@ -101,7 +101,7 @@ const QStringList getLibExtensions()
 	return QStringList {
 #if defined(Q_OS_WIN32)
 		QString("*.dll"), QString("*.DLL"),
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 		QString("*.dylib"), QString("*.so"),
 #else
 		QString("*.so"),
@@ -239,7 +239,7 @@ const QString getDocDir()
 #endif
 	docs += QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
 	foreach (docdir, docs) {
-#if !defined(Q_OS_MAC)
+#ifndef Q_OS_MACOS
 		docdir += "/html";
 #endif
 		if (QFileInfo::exists(docdir + "/xca.qhc")) {
@@ -286,7 +286,7 @@ void migrateOldPaths()
 #if defined(Q_OS_UNIX)
 	old = QDir::homePath() + "/.xca";
 
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	old = QStandardPaths::writableLocation(
 		QStandardPaths::GenericDataLocation) + "/data/" +
 		QCoreApplication::applicationName();
@@ -346,7 +346,7 @@ QString hostId()
 	}
 	RegCloseKey(hKey);
 
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	io_registry_entry_t ioRegistryRoot = IORegistryEntryFromPath(
 				kIOMasterPortDefault, "IOService:/");
 	CFStringRef uuidCf = (CFStringRef)IORegistryEntryCreateCFProperty(

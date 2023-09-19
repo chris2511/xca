@@ -59,7 +59,7 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 			langAvail << QLocale(language);
 	}
 	setupLanguage(lang);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QStringList libp = libraryPaths();
 	libp.prepend(applicationDirPath() + "/../Plugins");
 	setLibraryPaths(libp);

@@ -158,7 +158,7 @@ load_pkcs11::load_pkcs11()
 {
 #if defined(Q_OS_WIN32)
 	filter = QObject::tr("PKCS#11 library ( *.dll );;") + filter;
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	filter = QObject::tr("PKCS#11 library ( *.dylib *.so );;") + filter;
 #else
 	filter = QObject::tr("PKCS#11 library ( *.so );;") + filter;
