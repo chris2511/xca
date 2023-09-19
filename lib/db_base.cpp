@@ -286,6 +286,8 @@ void db_base::deletePKI(QModelIndex idx)
 				remFromCont(idx);
 			AffectedItems(pki->getSqlItemId());
 			XCA_SQLERROR(e);
+			Store.remove(pki->getSqlItemId());
+			delete pki;
 		}
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
