@@ -34,8 +34,7 @@ void xcaWarningBox::addButton(QMessageBox::StandardButton button,
 int xcaWarningGui::showBox(const QString &txt, QMessageBox::Icon icn,
 			QMessageBox::StandardButtons b)
 {
-	xcaWarningBox w(NULL, txt, icn);
-	w.setStandardButtons(b);
+	QMessageBox w(icn, XCA_TITLE, txt, b, nullptr);
 	return w.exec();
 }
 

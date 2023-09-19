@@ -13,10 +13,12 @@
 
 class xcaWarningBox: public QMessageBox
 {
-    public:
-	xcaWarningBox(QWidget *w, const QString &txt,
+	Q_OBJECT
+
+	public:
+		xcaWarningBox(QWidget *w, const QString &txt,
 			QMessageBox::Icon icn = QMessageBox::Warning);
-	void addButton(QMessageBox::StandardButton button,
+		void addButton(QMessageBox::StandardButton button,
 			const QString &text = QString());
 };
 
