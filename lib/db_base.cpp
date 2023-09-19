@@ -75,7 +75,6 @@ void db_base::remFromCont(const QModelIndex &idx)
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
 	rootItem->takeChild(pki);
-	pki->setParent(nullptr);
 	endRemoveRows();
 	emit columnsContentChanged();
 }
@@ -108,7 +107,8 @@ void db_base::loadContainer()
 		t = (enum pki_type)q.value(VIEW_item_type).toInt();
 		pki_base *pki = newPKI(t);
 		pki->restoreSql(rec);
-		insertChild(pki);
+		rootItem->insert(pki);
+		treeItem->insert(pki);
 		Store.add(q.value(VIEW_item_id), pki);
 	} catch (errorEx &ex) {
 		XCA_ERROR(ex);
@@ -302,17 +302,23 @@ void db_base::insertChild(pki_base *child, pki_base *parent)
 	if (!parent || parent == child)
 		parent = treeItem;
 
-	if (curr_parent)
-		remFromCont(index(child));
-
 	if (parent != treeItem && treeview)
 		idx = index(parent);
 
-	beginInsertRows(idx, 0, 0);
-	parent->insert(child);
-	child->setParent(parent);
+	if (curr_parent) { // && curr_parent != parent)
+		int row = curr_parent->indexOf(child);
+		beginMoveRows(index(curr_parent), row, row, idx, 0);
+		curr_parent->takeChild(child);
+	} else {
+		beginInsertRows(idx, 0, 0);
+	}
 	rootItem->insert(child);
-	endInsertRows();
+	parent->insert(child);
+
+	if (curr_parent)
+		endMoveRows();
+	else
+		endInsertRows();
 
 	qDebug() << "insertChild" << *child << "To parent" << *parent
 		 << "From" << (curr_parent ? QString(*curr_parent) : "NEW")
@@ -397,7 +403,7 @@ QModelIndex db_base::index(int row, int column,
 
 QModelIndex db_base::index(pki_base *pki) const
 {
-	if (!pki)
+	if (!pki || pki == treeItem)
 		return QModelIndex();
 	return createIndex(rownumber(pki), 0, pki);
 }

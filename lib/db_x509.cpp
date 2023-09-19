@@ -64,7 +64,8 @@ void db_x509::loadContainer()
 			qDebug() << "MOVE" << cert->getIntName()
 				<< "from" << cert->getParent()->getIntName()
 				<< "to" << root->getIntName();
-			insertChild(cert, root);
+			treeItem->takeChild(cert);
+			root->insert(cert);
 		}
 	}
 	emit columnsContentChanged();
@@ -156,7 +157,7 @@ static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
 void db_x509::inToCont(pki_base *pki)
 {
 	pki_x509 *cert = dynamic_cast<pki_x509*>(pki);
-	cert->setParent(NULL);
+	cert->setParent(nullptr);
 	pki_base *root = cert->getSigner();
 
 	insertChild(cert, root);

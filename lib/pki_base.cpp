@@ -249,8 +249,10 @@ pki_base *pki_base::child(int row)
 
 void pki_base::insert(pki_base *item)
 {
-	if (!childItems.contains(item))
+	if (!childItems.contains(item)) {
 		childItems.prepend(item);
+		item->setParent(this);
+	}
 }
 
 int pki_base::childCount() const
@@ -266,7 +268,8 @@ int pki_base::indexOf(const pki_base *child) const
 
 void pki_base::takeChild(pki_base *pki)
 {
-	childItems.removeOne(pki);
+	if (childItems.removeOne(pki))
+		pki->setParent(nullptr);
 }
 
 QList<pki_base*> pki_base::getChildItems() const
