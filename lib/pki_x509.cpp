@@ -172,7 +172,7 @@ QSqlError pki_x509::deleteSqlData()
 pki_x509 *pki_x509::findIssuer()
 {
 	XSqlQuery q;
-	pki_x509 *issuer;
+	pki_x509 *issuer = NULL;
 	unsigned hash;
 
 	if ((issuer = getSigner()) != NULL)
@@ -189,16 +189,22 @@ pki_x509 *pki_x509::findIssuer()
 	q.bindValue(0, hash);
 	q.exec();
 	while (q.next()) {
-		issuer = Store.lookupPki<pki_x509>(q.value(0));
-		if (!issuer) {
+		pki_x509 *an_issuer = Store.lookupPki<pki_x509>(q.value(0));
+		qDebug() << "Possibvle Issuer of" << *this << *an_issuer << an_issuer->getNotAfter();
+		if (!an_issuer) {
 			qDebug("Certificate with id %d not found",
                                 q.value(0).toInt());
+			continue;
 		}
-		if (verify(issuer)) {
-			return issuer;
+		if (verify_only(an_issuer)) {
+			if (!issuer || (issuer->getNotAfter() < an_issuer->getNotAfter())) {
+				qDebug() << "New issuer of" << *this << *an_issuer << an_issuer->getNotAfter();
+				issuer = an_issuer;
+			}
 		}
 	}
-	return NULL;
+	verify(issuer);
+	return issuer;
 }
 
 void pki_x509::fromPEM_BIO(BIO *bio, const QString &fname)
