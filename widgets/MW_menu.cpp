@@ -198,9 +198,8 @@ void MainWindow::update_history_menu()
 		QString txt = hist[i];
 		if (!QFile::exists(txt) && !database_model::isRemoteDB(txt))
 			continue;
-		txt = QFileInfo(txt).fileName();
-		if (txt.size() > 20)
-			txt = QString("...") + txt.mid(txt.size() - 20);
+		if (txt.size() > 33)
+			txt = QString("...") + txt.mid(txt.size() - 30);
 		a = historyMenu->addAction(QString("%1 %2").arg(j++).arg(txt));
 		a->setData(QVariant(hist[i]));
 		a->setToolTip(hist[i]);
