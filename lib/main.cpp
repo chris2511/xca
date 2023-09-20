@@ -24,6 +24,7 @@
 #include "pki_evp.h"
 #include "pki_base.h"
 #include "arguments.h"
+#include "pki_export.h"
 #include "db_x509.h"
 #if defined(Q_OS_WIN32)
 //For the segfault handler
@@ -564,6 +565,7 @@ int main(int argc, char *argv[])
 			 << pki->getIntName();
 	delete mainwin;
 	delete gui;
+	pki_export::free_elements();
 #if defined(Q_OS_WIN32)
 	FreeConsole();
 #endif

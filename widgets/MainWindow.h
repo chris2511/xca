@@ -75,6 +75,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QList<XcaTreeView *> views;
 		dbhistory history;
 		void exportIndex(const QString &fname, bool hierarchy) const;
+		QAction *languageMenuEntry(const QStringList &sl);
 
 	protected:
 		void init_images();

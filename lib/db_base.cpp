@@ -43,6 +43,7 @@ db_base::db_base(const char *classname)
 db_base::~db_base()
 {
 	saveHeaderState();
+	qDeleteAll(allHeaders);
 	delete rootItem;
 	delete treeItem;
 }
@@ -150,8 +151,8 @@ void db_base::reloadContainer(const QList<enum pki_type> &typelist)
 void db_base::updateHeaders()
 {
 	QString s = allHeaders.toData();
-	foreach(dbheader *h, allHeaders)
-		delete h;
+
+	qDeleteAll(allHeaders);
 	allHeaders = getHeaders();
 	allHeaders.fromData(s);
 }

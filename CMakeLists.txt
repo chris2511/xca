@@ -17,10 +17,7 @@ include(cmake/git_version.cmake)
 
 ##### Build specifications
 
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-
+set(ADDRESS_SANITIZER OFF CACHE BOOL "Enable Address sanitizing")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -31,6 +28,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS "${PROJECT_SOURCE_DIR}/ui")
 set(CMAKE_AUTOUIC ON)
 add_compile_definitions(OPENSSL_SUPPRESS_DEPRECATED QT_MESSAGELOGCONTEXT)
+
+if (ADDRESS_SANITIZER)
+  add_compile_options(-fsanitize=address -O1 -fno-omit-frame-pointer -g)
+  set(ASAN_LIB -fsanitize=address)
+endif()
+
 file(GLOB UI_FILES ${CMAKE_AUTOUIC_SEARCH_PATHS}/*.ui)
 
 configure_file(local.h.in local.h)
@@ -75,10 +78,12 @@ endif()
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	OpenSSL::Crypto
 	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
+	${ASAN_LIB}
 )
 target_link_libraries(xcadoc
 	OpenSSL::Crypto
 	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
+	${ASAN_LIB}
 )
 
 if (APPLE)

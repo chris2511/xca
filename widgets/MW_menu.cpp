@@ -30,7 +30,7 @@
 #include <QFileDialog>
 #include <QActionGroup>
 
-static QAction *languageMenuEntry(const QStringList &sl)
+QAction *MainWindow::languageMenuEntry(const QStringList &sl)
 {
 	QString lang, tooltip;
 	QLocale locale;
@@ -48,7 +48,7 @@ static QAction *languageMenuEntry(const QStringList &sl)
 	if (sl.length() > 2)
 		tooltip += " - " + sl[2];
 
-	QAction *a = new QAction(lang, NULL);
+	QAction *a = new QAction(lang, this);
 	a->setToolTip(tooltip);
 	a->setData(QVariant(locale));
 	a->setDisabled(!XcaApplication::languageAvailable(locale));

@@ -39,6 +39,11 @@ const pki_export *pki_export::by_id(int id)
 	return NULL;
 }
 
+void pki_export::free_elements()
+{
+	qDeleteAll(elements);
+}
+
 QList<pki_export*> pki_export::elements {
 new pki_export( 1, x509, "crt", "PEM",               F_PEM | F_USUAL | F_SINGLE,             tr("PEM Text format with headers")),
 new pki_export( 3, x509, "pem", "PEM",               F_PEM | F_MULTI,                        tr("Concatenated list of all selected items in one PEM text file")),

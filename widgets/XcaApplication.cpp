@@ -35,12 +35,9 @@ static QString defaultlang()
 }
 
 XcaApplication::XcaApplication(int &argc, char *argv[])
-	:QApplication(argc, argv)
+	:QApplication(argc, argv), mainw(nullptr), qtTr(nullptr), xcaTr(nullptr)
 {
 	QLocale lang;
-	qtTr = NULL;
-	xcaTr = NULL;
-	mainw = NULL;
 
 	QFile file(defaultlang());
 
@@ -205,5 +202,6 @@ bool XcaApplication::notify(QObject* receiver, QEvent* event)
 
 XcaApplication::~XcaApplication()
 {
+	delete xcaTr;
+	delete qtTr;
 }
-
