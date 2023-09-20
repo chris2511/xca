@@ -37,10 +37,10 @@ Outputs the commandline arguments in man-page nroff, sphinx rst or as
 oneline list for command-completion to automatically update the documentation
 if new arguments are added.
 .TP
-.B QPSQL7_OPTIONS QMYSQL3_OPTIONS QODBC3_OPTIONS
+.B QPSQL_OPTIONS QMYSQL_OPTIONS QODBC_OPTIONS
 Additional connection options for the SQL database drivers as described in
 https://doc.qt.io/qt-5/qsqldatabase.html#setConnectOptions like
-\fIQPSQL7_OPTIONS=requiressl=1\fR
+\fIQPSQL_OPTIONS=requiressl=1\fR
 
 .SH SEE ALSO
 A more detailed HTML documentation can be found in the doc directory,
