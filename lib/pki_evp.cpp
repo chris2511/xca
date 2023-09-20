@@ -818,9 +818,12 @@ bool pki_evp::verify(EVP_PKEY *pkey) const
 
 	EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
 	Q_CHECK_PTR(ctx);
-	bool verify = EVP_PKEY_check(ctx);
+	int verify = EVP_PKEY_check(ctx);
 	EVP_PKEY_CTX_free(ctx);
-
+	if (verify == -2) {
+		// Operation not supported assume true
+		pki_ign_openssl_error();
+	}
 	pki_openssl_error();
 	return verify;
 }
