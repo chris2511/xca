@@ -25,7 +25,7 @@ QList<pki_base*> pki_base::allitems;
 pki_base::pki_base(const QString &name, pki_base *p)
 {
 	desc = name;
-	parent = p;
+	parent = nullptr;
 	childItems.clear();
 	pkiType=none;
 	pkiSource=unknown;
@@ -36,7 +36,7 @@ pki_base::pki_base(const QString &name, pki_base *p)
 pki_base::pki_base(const pki_base *p)
 {
 	desc = p->desc;
-	parent = p->parent;
+	parent = nullptr;
 	childItems.clear();
 	pkiType = p->pkiType;
 	pkiSource = p->pkiSource;

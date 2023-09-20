@@ -88,7 +88,7 @@ const QList<QString> pki_temp::tmpl_keys = {
 };
 
 pki_temp::pki_temp(const pki_temp *pk)
-	:pki_x509name(pk)
+	:pki_x509name(pk->getIntName())
 {
 	pre_defined = false;
 
