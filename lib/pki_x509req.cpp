@@ -162,6 +162,8 @@ void pki_x509req::fromPEM_BIO(BIO *bio, const QString &name)
 	X509_REQ *req;
 	req = PEM_read_bio_X509_REQ(bio, NULL, NULL, NULL);
 	openssl_error_msg(name);
+	if (!req)
+		throw errorEx();
 	X509_REQ_free(request);
 	request = req;
 }
