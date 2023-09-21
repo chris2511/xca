@@ -533,12 +533,12 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 }
 
 void db_base::updateItem(pki_base *pki, const QString &name,
-			 const QString &comment)
+			 const QString &comment, bool force)
 {
 	XSqlQuery q;
 	QSqlError e;
 
-	if (name == pki->getIntName() && comment == pki->getComment())
+	if (name == pki->getIntName() && comment == pki->getComment() && !force)
 		return;
 
 	Transaction;
