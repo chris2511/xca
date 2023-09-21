@@ -30,6 +30,8 @@ class database_model: public QObject
 		void openSqlDB();
 		QSqlError initSqlDB();
 		QString dbName;
+		QString db_provider;
+		const QString &detect_provider();
 		bool checkForOldDbFormat(const QString &dbfile) const;
 		enum open_result verifyOldDbPass(const QString &dbname) const;
 		void importOldDatabase(const QString &dbfile);

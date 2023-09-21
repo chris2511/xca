@@ -36,6 +36,40 @@ xca_db Database;
 
 bool database_model::open_without_password = false;
 
+const QString &database_model::detect_provider()
+{
+	// Since we may access the database via ODBC, we need to ask
+	// the backend engine directly.
+	static const QList<QStringList> db_probes {
+		{ "SELECT sqlite_version()", "3", "SQLITE" },
+		{ "SELECT version()", "postgresql", "POSTGRES" },
+		{ "SELECT @@version", "mysql", "MARIADB" },
+		{ "SELECT @@version", "mariadb", "MARIADB" },
+		{ "SELECT @@version", "microsoft", "MICROSOFT" },
+	};
+	if (db_provider.isEmpty()) {
+		QSqlDatabase db = QSqlDatabase::database();
+		if (!db.isOpen())
+			return db_provider;
+
+		db_provider = "UNKNOWN";
+		XSqlQuery q;
+		foreach(QStringList probe, db_probes) {
+			qDebug() << probe[0];
+			if (q.exec(probe[0]) && !q.lastError().isValid() && q.next()) {
+				QString id = q.value(0).toString().simplified();
+				qDebug() << probe[1] << id;
+				if (id.contains(probe[1], Qt::CaseInsensitive)) {
+					db_provider = probe[2];
+					break;
+				}
+			}
+		}
+	}
+	qDebug() << "db_provider:" << db_provider;
+	return db_provider;
+}
+
 QSqlError database_model::initSqlDB()
 {
 #define MAX_SCHEMAS 7
@@ -53,6 +87,10 @@ QSqlError database_model::initSqlDB()
 	if (!db.isOpen())
 		return QSqlError();
 
+	QString b64_blob = "TEXT";
+	if (detect_provider() == "MARIADB")
+		b64_blob = "LONGTEXT";
+
 	Transaction;
 	if (!TransBegin())
 		return db.lastError();
@@ -62,6 +100,7 @@ QSqlError database_model::initSqlDB()
 		if (i >= ARRAY_SIZE(schemas))
 			break;
 		foreach(QString sql, schemas[i]) {
+			sql = sql.arg(b64_blob);
 			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
 			if (!q.exec(sql) || q.lastError().isValid()) {
 				TransRollback();

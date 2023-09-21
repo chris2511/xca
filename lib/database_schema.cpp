@@ -4,10 +4,11 @@
  * Collisions are of course possible.
  *
  * All binaries are stored Base64 encoded in a column of type
- * ' B64_BLOB ' It is defined here as 'VARCHAR(8000)'
+ * ' B64_BLOB ' It is defined here as 'TEXT' which is huge, except
+ * on mysql where LONGTEXT is used.
  */
 
-#define B64_BLOB "VARCHAR(8000)"
+#define B64_BLOB "%1"
 
 /*
  * The B64(DER(something)) function means DER encode something

@@ -10,6 +10,11 @@ file(READ VERSION.txt ver)
 string(REGEX MATCH "([0-9\.]*)" _ ${ver})
 set(PROJECT_VERSION ${CMAKE_MATCH_1})
 
+cmake_host_system_information(RESULT OS_DATA_LIST QUERY
+	OS_NAME OS_RELEASE OS_VERSION OS_PLATFORM)
+list(JOIN OS_DATA_LIST " -- " OS_DATA)
+message(STATUS ${OS_DATA})
+
 include(GNUInstallDirs)
 
 ##### Git command to tweak the version and commit hash
