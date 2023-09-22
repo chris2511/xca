@@ -105,11 +105,20 @@ if(SPHINX)
     endif()
   endif()
 
-  if(TARGET ${QT}::qhelpgenerator)
+  if (QT_VERSION VERSION_LESS 5.12.0)
+    if (TARGET ${QT}::qcollectiongenerator)
+      set(QHELPGEN $<TARGET_FILE:${QT}::qcollectiongenerator>)
+    endif()
+  else()
+    if(TARGET ${QT}::qhelpgenerator)
+      set(QHELPGEN $<TARGET_FILE:${QT}::qhelpgenerator>)
+    endif()
+  endif()
+  if(QHELPGEN)
     set(QTHELP_IDX ${D}/qthelp/xca.qhc ${D}/qthelp/xca.qch)
     add_custom_command(
 	OUTPUT ${QTHELP_IDX}
-	COMMAND $<TARGET_FILE:${QT}::qhelpgenerator> ${D}/qthelp/xca.qhcp
+	COMMAND ${QHELPGEN} ${D}/qthelp/xca.qhcp
 	DEPENDS sphinx-qthelp
 	COMMENT "Create context sensitive help index"
     )
