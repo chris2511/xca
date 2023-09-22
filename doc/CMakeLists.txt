@@ -79,6 +79,7 @@ if(SPHINX)
 		${RST_SOURCE}
 	COMMENT "Prepare Sphinx source directory"
   )
+  file(TOUCH ${D}/rst/arguments.rst)
   add_custom_command(
 	OUTPUT ${D}/rst/arguments.rst
 	COMMAND xcadoc rst ${D}/rst/arguments.rst
