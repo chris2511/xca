@@ -31,7 +31,7 @@
 #include <windows.h>
 #endif
 
-#include <iostream>
+#include <QTextStream>
 
 void migrateOldPaths();
 
@@ -126,7 +126,8 @@ dbg_pattern::dbg_pattern(QString part)
 bool dbg_pattern::match(const QString &curr_file, const QString &curr_func,
 						int line) const
 {
-	// std::cerr << "MATCH '" << CCHAR(curr_file) << "' '" << CCHAR(curr_func) << "' " << line << std::endl;
+	// QTextStream out(stdout);
+	// out << QString("MATCH %1:%2(%3)\n").arg(curr_file).arg(curr_func).arg(line);
 	if (curr_func == func)
 		return true;
 	if (curr_func.endsWith(QString("::%1").arg(func)))
