@@ -21,6 +21,7 @@ pki_lookup Store;
 QRegularExpression pki_base::limitPattern;
 bool pki_base::pem_comment;
 QList<pki_base*> pki_base::allitems;
+QBrush pki_base::red, pki_base::cyan, pki_base::yellow;
 
 pki_base::pki_base(const QString &name, pki_base *p)
 {
@@ -492,4 +493,18 @@ QStringList pki_base::icsVEVENT(const a1time &expires,
 	QString("TRIGGER:-P%1").arg(alarm) <<
 	"END:VALARM" <<
 	"END:VEVENT";
+}
+
+void pki_base::setupColors(const QPalette &pal)
+{
+	int factor = 50;
+	if (pal.window().color().value() > pal.windowText().color().value())
+		factor = 125;
+
+	qDebug() << "WindowColor" << pal.window().color().value()
+			 << "TextColor" << pal.windowText().color().value()
+			 << "Factor" << factor;
+	red = QBrush(QColor(255, 0, 0).lighter(factor));
+	yellow = QBrush(QColor(255, 255, 0).lighter(factor));
+	cyan = QBrush(QColor(127, 255, 212).lighter(factor));
 }

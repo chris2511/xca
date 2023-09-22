@@ -549,3 +549,22 @@ void XcaTreeView::keyPressEvent(QKeyEvent *event)
 	}
 	QTreeView::keyPressEvent(event);
 }
+
+void XcaTreeView::changeEvent(QEvent *event)
+{
+	bool c = false;
+    if (event->type() == QEvent::StyleChange)
+    {
+        qDebug() << "Style has been changed.";
+		c = true;
+    }
+    if (event->type() == QEvent::PaletteChange)
+    {
+        qDebug() << "Style has been changed.";
+		c = true;
+    }
+	if (c)
+		pki_base::setupColors(palette());
+
+    QTreeView::changeEvent(event);
+}

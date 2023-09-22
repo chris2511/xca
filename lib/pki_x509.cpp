@@ -1002,10 +1002,6 @@ bool pki_x509::visible() const
 
 QVariant pki_x509::bg_color(const dbheader *hd) const
 {
-#define BG_RED     QBrush(QColor(255,  0,  0))
-#define BG_YELLOW  QBrush(QColor(255,255,  0))
-#define BG_CYAN    QBrush(QColor(127,255,212))
-
 	if (Settings["no_expire_colors"])
 		return QVariant();
 
@@ -1031,15 +1027,15 @@ QVariant pki_x509::bg_color(const dbheader *hd) const
 	switch (hd->id) {
 		case HD_cert_notBefore:
 			if (nb > now || !nb.isValid() || nb.isUndefined())
-				return QVariant(BG_RED);
+				return QVariant(red);
 			break;
 		case HD_cert_notAfter: {
 			if (na.isUndefined())
-				return QVariant(BG_CYAN);
+				return QVariant(cyan);
 			if (na < now)
-				return QVariant(BG_RED);
+				return QVariant(red);
 			if (certwarn < now)
-				return QVariant(BG_YELLOW);
+				return QVariant(yellow);
 			break;
 		}
 		case HD_cert_crl_expire:
@@ -1049,9 +1045,9 @@ QVariant pki_x509::bg_color(const dbheader *hd) const
 				if (!crlExpire.isUndefined()) {
 					crlwarn = crlex.addSecs(-2 *60*60*24);
 					if (crlex < now)
-						return QVariant(BG_RED);
+						return QVariant(red);
 					if (crlwarn < now || !crlex.isValid())
-						return QVariant(BG_YELLOW);
+						return QVariant(yellow);
 				}
 			}
 	}

@@ -472,7 +472,12 @@ int main(int argc, char *argv[])
 		if (d && *d)
 			debug_info::set_debug(QString(d));
 	}
+
 #if defined(Q_OS_WIN32)
+	// If no style provided externally
+	if (!QApplication::style())
+		QApplication::setStyle("Fusion");
+
 	AttachConsole(-1);
 
 	int wargc;

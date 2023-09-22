@@ -120,6 +120,8 @@ MainWindow::MainWindow() : QMainWindow()
 
 	views << keyView << reqView << certView << crlView << tempView;
 
+	pki_base::setupColors(palette());
+
 	foreach(XcaTreeView *v, views)
 		v->setMainwin(this, searchEdit);
 
