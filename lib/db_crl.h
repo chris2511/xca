@@ -24,7 +24,7 @@ class db_crl: public db_x509name
 		pki_base *insert(pki_base *item);
 		void removeSigner(pki_base *signer);
 		void updateCertView();
-		pki_crl *newCrl(const crljob &crljob);
+		pki_crl *newCrl(const crljob &crljob, QString name = QString());
 		void exportItems(const QModelIndexList &indexes,
 			const pki_export *xport, XFile &file) const;
 };

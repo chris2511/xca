@@ -34,6 +34,8 @@ const QList<arg_option> arguments::opts = {
 		"Save OpenSSL index in <file>."),
 	arg_option("import", NULL, no_argument, false, true,
 		"Import all provided items into the database."),
+	arg_option("import-names", NULL, required_argument, false, true,
+		"A semicolon separated list of names applied to the imported items in the order found in the PEM file and on the commandline."),
 	arg_option("issuers", NULL, no_argument, true, true,
 		"Print all known issuer certificates that have an associated private key and the CA basic constraints set to 'true'."),
 	arg_option("keygen", "type", required_argument, true, true,

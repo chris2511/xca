@@ -125,7 +125,7 @@ void db_crl::exportItems(const QModelIndexList &indexes,
 		writeVcalendar(file, vcal);
 }
 
-pki_crl *db_crl::newCrl(const crljob &task)
+pki_crl *db_crl::newCrl(const crljob &task, QString name)
 {
 	pki_crl *crl = NULL;
 	pki_x509 *cert = task.issuer;
@@ -137,8 +137,10 @@ pki_crl *db_crl::newCrl(const crljob &task)
 		X509V3_set_ctx_nodb(&ext_ctx);
 		XSqlQuery q;
 
+		if (name.isEmpty())
+			name = cert->getIntName();
 		crl = new pki_crl();
-		crl->createCrl(cert->getIntName(), cert);
+		crl->createCrl(name, cert);
 		crl->pkiSource = generated;
 
 		foreach(x509rev rev, cert->getRevList())

@@ -307,6 +307,14 @@ static void read_cmdline(int argc, char *argv[], bool console_only)
 		qDebug() << "Probe" << file;
 		cmdline_items->probeAnything(file);
 	}
+	QStringList names = cmd_opts["import-names"].split(";");
+	foreach(pki_base *pki, cmdline_items->get()) {
+		if (names.isEmpty())
+			break;
+		QString name = names.takeFirst();
+		if (!name.isEmpty())
+			pki->setIntName(name);
+	}
 	if (cmdline_items->failed_files.size() > 0) {
 		XCA_WARN(QString("Failed to import from '%1'")
 			.arg(cmdline_items->failed_files.join("' '")));
@@ -419,7 +427,7 @@ static void read_cmdline(int argc, char *argv[], bool console_only)
 					.arg(cmd_opts["crlgen"]));
 		} else {
 			crljob task(issuer);
-			pki_crl *crl = crls->newCrl(task);
+			pki_crl *crl = crls->newCrl(task, cmd_opts["name"]);
 			if (crl)
 				cmdline_items->append_item(crl);
 		}
