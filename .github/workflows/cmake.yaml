@@ -20,12 +20,14 @@ jobs:
           openssl_root: /usr
           artifact: build/xca-*-Linux.tar.gz
           host: linux
+          runs: ubuntu-latest
 
         - os: macos
           generator: Unix Makefiles
           openssl_root: /usr/local/opt/openssl@1.1
           artifact: build/xca-*.dmg
           host: mac
+          runs: macos-latest
 
         - os: windows
           generator: MinGW Makefiles
@@ -38,12 +40,15 @@ jobs:
         - os: windows
           qt: "5.15.2"
           winarch: win64_mingw81
+          runs: windows-2019
 
+        exclude:
         - os: windows
           qt: "6.6.0"
-          winarch: win64_mingw
+            #winarch: win64_mingw
+            #runs: windows-latest
 
-    runs-on: ${{matrix.os}}-latest
+    runs-on: ${{matrix.runs}}
 
     steps:
     - name: Install Sphinx
