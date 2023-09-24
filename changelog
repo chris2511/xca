@@ -1,3 +1,12 @@
+ * Close #423: parameter --name is not respected when running with CLI
+ * Close #457: Support Qt5 < 5.12 / python3-sphinxcontrib.qthelp
+ * Close #440: yellow background makes date text hard to read in dark themes
+ * Close #437: loading CRL at startup generates an error
+ * Close #444 cannot update template internal name
+ * Close #442: asan checks failed
+ * Close #446: show more information in Recent Databases
+ * Improve/Fix database loading
+ * Document vCalendar/ics feature #456
  * Fix possible segfault caused by wrong free()
  * Add Bulgarian translation
  * Close #368: error while creating CRL with CA using EC key (ed25519)

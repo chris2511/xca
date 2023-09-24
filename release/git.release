@@ -41,7 +41,7 @@ if test -n "$unchanged"; then
 fi
 
 x=$(git grep "^xca $TVERSION " changelog ||
-  git grep "^$TVERSION\$" VERSION || :)
+  git grep "^$TVERSION\$" VERSION.txt || :)
 
 if test -n "$x"; then
   echo "$x"

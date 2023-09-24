@@ -7,10 +7,10 @@ Release schedule cheat sheet
    - for TRACE
 
 - update translation (cmake -B . && cmake --build . -t trans)
-- update changelog.txt doc/xca.sgml and README.md
+- update changelog.txt and README.md
 - ./release/git.release VERSION
 - Create xca.dmg
-- Create and sign MSI Installer
+- Create (and sign) MSI Installer
 - update xca.hohnstaedt.de:
   scp changelog git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
 - ./release/git.publish
@@ -29,3 +29,4 @@ Microsoft Store
 -----------------
 https://partner.microsoft.com ("Partner Center")
 
+MSIX Packaging Tool

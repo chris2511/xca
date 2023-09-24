@@ -3,14 +3,12 @@
 [![CMake](https://github.com/chris2511/xca/actions/workflows/cmake.yaml/badge.svg)](https://github.com/chris2511/xca/actions/workflows/cmake.yaml)
 
 ## __Release Notes__
- * The latest release is *2.4.0*
- * Most notable changes
- * * Add support for Ed25519 keys
- * * Add commandline support (e.g. generate CRL)
- * Fix a lot of bugs
- * Since version 2 of XCA the database format changed to SQL
-   Don't try to open it with older versions of XCA (< 1.4.0).
-   They will corrupt the database.
+ * The latest release is *2.5.0*
+ * Drop support for Qt4, old XCA < 2.0.0 databases and OpenSSL < 1.1.0
+ * Add Support for Qt6 and OpenSSL 3.x
+ * Switch from autotools/qmake to cmake
+ * Fix a lot of bugs (and probably added some new)
+ * Add translations for Indonesian, Persian and Bulgarian
  * Please report issues on github <https://github.com/chris2511/xca/issues>
 
 ## __Changelog:__
@@ -32,7 +30,7 @@ This application is documented in the *Help* menu and here:
 To build XCA you need:
  - a toolchain
  - cmake: https://cmake.org
- - Qt5: https://www.qt.io
+ - Qt5 or Qt6: https://www.qt.io
  - OpenSSL: https://www.openssl.org (1.1.1 or higher)
  - Sphinx-Build: https://www.sphinx-doc.org
 
@@ -113,8 +111,8 @@ MySQL plugins are not shipped with QT anymore because of license issues.
 
 ### Linux
 
-Debian: `libqt6sql6-psql` `libqt6sql6-mysql` or `libqt6sql6-odbc`.
-RPM: `libqt6-database-plugin-pgsql` `libqt6-database-plugin-mysql` `libqt6-database-plugin-odbc`
+- Debian: `libqt6sql6-psql` `libqt6sql6-mysql` or `libqt6sql6-odbc`.
+- RPM: `libqt6-database-plugin-pgsql` `libqt6-database-plugin-mysql` `libqt6-database-plugin-odbc`
 They should pull in all necessary dependencies.
 
 ### Apple macos
