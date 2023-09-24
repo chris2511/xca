@@ -38,12 +38,10 @@ jobs:
         - os: windows
           qt: "5.15.2"
           winarch: win64_mingw81
-          tools: 'tools_mingw90'
 
         - os: windows
           qt: "6.6.0"
           winarch: win64_mingw
-          tools: 'tools_mingw90'
 
     runs-on: ${{matrix.os}}-latest
 
@@ -56,15 +54,14 @@ jobs:
       with:
         arch: ${{matrix.winarch}}
         version: ${{matrix.qt}}
-        tools: ${{matrix.tools}}
 
     - name: Install MSYS2 and OpenSSL on Windows
       uses: msys2/setup-msys2@v2
       if: matrix.os == 'windows'
       with:
         location: ${{env.MSYS}}
-        msystem: MINGW64
-        install: mingw-w64-x86_64-openssl openssl-devel base-devel
+        msystem: mingw64
+        install: mingw-w64-x86_64-openssl openssl-devel base-devel mingw-w64-x86_64-gcc
 
     - name: Brew install OpenSSL
       if: matrix.os == 'macos'
@@ -86,7 +83,7 @@ jobs:
     - name: Fixup after WindeployQT and Install
       if: matrix.os == 'windows'
       run: |
-        cd ${{env.Qt5_DIR}}${{env.Qt6_DIR}}\bin
+        cd ${{env.MSYS}}\msys64\mingw64\bin
         cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}\build
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -t install
 
