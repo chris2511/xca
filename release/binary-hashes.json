@@ -80,5 +80,10 @@
   "xca-2.4.0.tar.gz":"66da8954fe9709ace965c6fcb1cfbb7b08ce75b7222988acb9e2b8b5fac7cf10",
   "xca-portable-2.4.0.zip":"35fa8e4c973a899bc360da3b313ba1172a36eabb1d82deed0cfafda244de65a3",
 
+  "xca-2.5.0-Darwin.dmg":"0042758b99d09aa254d721e1e94fd97adfc186727891093e9eeec4d18e9d734f",
+  "xca-2.5.0-win64.msi":"6a3a67e4fc96c6fb4d007b883f373b9cb26613b35a90cfcb614a3e859ce3d758",
+  "xca-2.5.0.tar.gz":"b50ef50c4850a1c1d20fce41971783cb0a2fb9155caa05300029b28b53311d37",
+  "xca-portable-2.5.0.zip":"5eaf8764160f41243aedb3ed2fbf0970995b0732f21113070b4d226f158c5a56",
+
   "last":""
 }
