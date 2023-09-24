@@ -1,3 +1,5 @@
+xca 2.5.0 Sun Sep 24 2023
+
  * Close #423: parameter --name is not respected when running with CLI
  * Close #457: Support Qt5 < 5.12 / python3-sphinxcontrib.qthelp
  * Close #440: yellow background makes date text hard to read in dark themes
