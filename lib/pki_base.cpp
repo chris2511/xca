@@ -31,6 +31,7 @@ pki_base::pki_base(const QString &name, pki_base *p)
 	pkiType=none;
 	pkiSource=unknown;
 	allitems << this;
+	iamvisible = 1;
 	qDebug() << "NEW pki_base::count" << allitems.count();
 }
 
@@ -42,6 +43,7 @@ pki_base::pki_base(const pki_base *p)
 	pkiType = p->pkiType;
 	pkiSource = p->pkiSource;
 	allitems << this;
+	iamvisible = 1;
 	qDebug() << "COPY pki_base::count" << allitems.count();
 	p->inheritFilename(this);
 }
@@ -85,9 +87,6 @@ QString pki_base::getUnderlinedName() const
 
 bool pki_base::visible() const
 {
-	if (limitPattern.pattern().isEmpty() || limitPattern == lastPattern)
-		return true;
-	lastPattern = limitPattern;
 	return getIntName().contains(limitPattern) ||
 		comment.contains(limitPattern);
 }
@@ -116,7 +115,14 @@ bool pki_base::childVisible() const
 
 int pki_base::isVisible()
 {
-	return visible() ? 1 : childVisible() ? 2 : 0;
+	qDebug() << limitPattern << lastPattern;
+	if (limitPattern.pattern().isEmpty())
+		iamvisible = 1;
+	else if (limitPattern != lastPattern) {
+		lastPattern = limitPattern;
+		iamvisible = visible() ? 1 : childVisible() ? 2 : 0;
+	}
+	return iamvisible;
 }
 
 QString pki_base::getMsg(msg_type msg) const

@@ -73,6 +73,7 @@ class pki_base : public QObject
 		QList<pki_base*> childItems;
 		mutable QRegularExpression lastPattern;
 		static QBrush red, yellow, cyan;
+		int iamvisible;
 
 	public:
 		enum msg_type {
