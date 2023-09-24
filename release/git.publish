@@ -2,10 +2,10 @@
 
 set -e
 
-test -s VERSION && test -s changelog && test -s README.md
+test -s VERSION.txt && test -s changelog && test -s README.md
 test -d .git
 
-read TVERSION < VERSION
+read TVERSION < VERSION.txt
 export TVERSION
 
 releasedir="$HOME/xca-$TVERSION"
@@ -13,13 +13,13 @@ releasedir="$HOME/xca-$TVERSION"
 ./release/gen-binary-hash "$releasedir"
 git commit -a -m "Release XCA $TVERSION done"
 
-./release/github.release.py "$TVERSION" "${releasedir}/"*xca*"$TVERSION"*
+./release/github.release.py "$TVERSION" "${releasedir}/"xca*"$TVERSION"*
 
 cat << EOF
 
 After verifying the commits, tags and github release,
 finally do:
-  git push origin --tags master
+  git push origin --tags main
   scp -r ${releasedir}/doc/html hohnstaedt.de:xca-doc/
   Un-draft the release on github
 EOF

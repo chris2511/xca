@@ -10,7 +10,7 @@ Release schedule cheat sheet
 - update changelog.txt and README.md
 - ./release/git.release VERSION
 - Create xca.dmg
-- Create (and sign) MSI Installer
+- Create (and sign) MSI Installer and portable app
 - update xca.hohnstaedt.de:
   scp changelog git.hohnstaedt.de:/var/cache/git/projects/changelog.txt
 - ./release/git.publish
