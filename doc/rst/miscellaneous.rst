@@ -32,7 +32,7 @@ Please see :ref:`extracting-items`
 
 For file based databases the SQLite database format is used.
 Since XCA uses SQL, it can also be connected to a network database.
-The databases *mySQL* *PostgreSQL* and *Microsoft SqlServer* are tested.
+The databases *MariaDB (mySQL)* *PostgreSQL* and *Microsoft SqlServer* are tested.
 Please use the *Open Remote DataBase* menu item to connect to a remote host.
 
 Download
