@@ -22,16 +22,16 @@ The *oids.txt* file is searched in reversed order and all
 
   - $HOME/.xca/
   - /etc/xca/
-  - PREFIX/share/xca/ <newline>PREFIX is usually /usr or /usr/local
+  - PREFIX/share/xca/ (PREFIX is usually /usr or /usr/local)
 
 - Windows
 
   - CSIDL_APPDATA\xca, which is something like
 
-    C:\Documents and Settings\username\Application Data\xca
-    or C:\Users\username\AppData\Roaming\xca
+    C:\\Documents and Settings\\username\\Application Data\\xca
+    or C:\\Users\\username\\AppData\\Roaming\\xca
   - Installation directory
-    e.g.: `C:\Programs\xca`
+    e.g.: `C:\\Program Files\\xca`
 
 - MacOSX
 
