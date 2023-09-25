@@ -23,6 +23,8 @@ const QList<QStringList> MainWindow::getTranslators() const
 {
 	return QList<QStringList> {
 	QStringList{ "", tr("System") },
+	QStringList{ "bg", tr("Bulgarian"),
+		"Svetoslav Slavkov", "contact", "sslavkov.eu" },
 	QStringList{ "zh_CN", tr("Chinese"),
 		"Xczh", "xczh.me", "foxmail.com" },
 	QStringList{ "hr", tr("Croatian"),
@@ -33,10 +35,14 @@ const QList<QStringList> MainWindow::getTranslators() const
 		"Patrick Monnerat", "patrick", "monnerat.net" },
 	QStringList{ "de", tr("German"),
 		"Christian Hohnstädt", "christian", "hohnstaedt.de" },
+	QStringList{ "id", tr("Indonesian"),
+		"Andika Triwidada", "andika", "gmail.com" },
 	QStringList{ "it", tr("Italian"),
 		"Paolo Basenghi", "paul69", "libero.it" },
 	QStringList{ "ja", tr("Japanese"),
 		"ぶらすず", "burasuzu", "gmail.com" },
+	QStringList{ "fa", tr("Persian"),
+		"Erfan Esmayili Barzi", "erfankam", "gmail.com" },
 	QStringList{ "pl", tr("Polish"),
 		"Jacek Tyborowski", "jacek", "tyborowski.pl" },
 	QStringList{ "pt_BR", tr("Portuguese in Brazil"),
@@ -46,13 +52,7 @@ const QList<QStringList> MainWindow::getTranslators() const
 		"Slavko", "linux", "slavino.sk" },
 	QStringList{ "es", tr("Spanish"),
 		"Miguel Romera", "mrmsoftdonation", "gmail.com" },
-	QStringList{ "id", tr("Indonesian"),
-		"Andika Triwidada", "andika", "gmail.com" },
 	QStringList{ "tr", tr("Turkish") },
-	QStringList{ "fa", tr("Persian"),
-		"Erfan Esmayili Barzi", "erfankam", "gmail.com" },
-	QStringList{ "bg", tr("Bulgarian"),
-		"Svetoslav Slavkov", "contact", "sslavkov.eu" },
 	};
 };
 
