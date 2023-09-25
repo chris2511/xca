@@ -119,6 +119,10 @@ void db_x509::remFromCont(const QModelIndex &idx)
 	pki_base *new_parent;
 	QList<pki_x509 *> childs;
 
+	Transaction;
+	if (!TransBegin())
+		return;
+
 	while (pki->childCount()) {
 		child = dynamic_cast<pki_x509*>(pki->takeFirst());
 		child->delSigner(dynamic_cast<pki_x509*>(pki));
@@ -136,6 +140,7 @@ void db_x509::remFromCont(const QModelIndex &idx)
 		q.exec();
 	}
 	crls->removeSigner(pki);
+	TransCommit();
 }
 
 static bool recursiveSigning(pki_x509 *cert, pki_x509 *client)
