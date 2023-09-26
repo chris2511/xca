@@ -558,6 +558,8 @@ void XcaTreeView::changeEvent(QEvent *event)
 			qDebug() << "Style change event" << event->type();
 			pki_base::setupColors(palette());
 			break;
+		default:
+			break;
 	}
     QTreeView::changeEvent(event);
 }
