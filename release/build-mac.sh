@@ -100,8 +100,10 @@ cmake -B "$BUILDDIR_APPSTORE" "$XCA_DIR" \
         -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
         -DCMAKE_PREFIX_PATH="$QT_DIR/lib/cmake;$INSTALL_DIR" \
         -DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
-	-DAPPSTORE_COMPLIANT=ON
+	-DAPPSTORE_COMPLIANT=ON \
+	-DPROVISIONPROFILE="$TOP_DIR/XCA_AppStore_Provisioning.provisionprofile"
 
 cmake --build "$BUILDDIR_APPSTORE" -j$JOBS
+#cp embedded.provisionprofile "$BUILDDIR_APPSTORE"/xca.app/Contents
 productbuild --component "$BUILDDIR_APPSTORE/xca.app" /Applications \
 		--sign "3rd Party Mac Developer Installer" xca-appstore.pkg

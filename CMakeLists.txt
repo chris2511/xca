@@ -24,8 +24,12 @@ include(cmake/git_version.cmake)
 
 set(ADDRESS_SANITIZER OFF CACHE BOOL "Enable Address sanitizing")
 set(APPSTORE_COMPLIANT OFF CACHE BOOL "Create an Appstore compliant, sanboxed app")
+set(PROVISIONPROFILE "" CACHE STRING "Location of the embedded.provisionprofile")
 if (APPSTORE_COMPLIANT)
+  set(APPLE_DEVELOPER_CERT "3rd Party Mac Developer Application")
   set(APPSTORE -appstore-compliant)
+else()
+  set(APPLE_DEVELOPER_CERT "Developer ID Application")
 endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -167,13 +171,18 @@ if(APPLE)
         -always-overwrite ${APPSTORE}
     COMMENT "Running macdeployqt..."
   )
-  if (DEFINED ENV{APPLE_DEVELOPER_HASH})
+  if (PROVISIONPROFILE)
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND cmake -E copy ${PROVISIONPROFILE}
+              $<TARGET_FILE_DIR:${PROJECT_NAME}>/../embedded.provisionprofile)
+  endif()
+  if (DEFINED APPLE_DEVELOPER_CERT)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND codesign --deep --signature-size=96000 --options=runtime --timestamp
 		--entitlements ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
-		--force -s "$ENV{APPLE_DEVELOPER_HASH}"
+		--force -s ${APPLE_DEVELOPER_CERT}
 		$<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
-		COMMENT "Running codesign for $ENV{APPLE_DEVELOPER_HASH} ..."
+      COMMENT "Running codesign for ${APPLE_DEVELOPER_CERT} ..."
       DEPENDS ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
     )
   endif()
