@@ -126,7 +126,11 @@ void MainWindow::about()
 					     QStandardPaths::AppDataLocation)))
 			.arg(nativeSeparator(getUserSettingsDir()))
 			.arg(nativeSeparator(QString(Settings["workingdir"])))
+#ifndef APPSTORE_COMPLIANT
 			.arg(portable_app() ? " (Portable)" : "")
+#else
+			.arg(" (App Store)")
+#endif
 			.arg(rows.join("</tr><tr>"));
 
 	textbox->setHtml(cont);

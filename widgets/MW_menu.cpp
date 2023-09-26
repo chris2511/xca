@@ -82,12 +82,6 @@ void MainWindow::init_menu()
 
 	langGroup = new QActionGroup(this);
 
-	historyMenu = new tipMenu(tr("Recent DataBases") + " ...", this);
-	update_history_menu();
-
-	connect(historyMenu, SIGNAL(triggered(QAction*)),
-                this, SLOT(open_database(QAction*)));
-
 	languageMenu = new tipMenu(tr("Language"), this);
 	connect(languageMenu, SIGNAL(triggered(QAction*)),
 		qApp, SLOT(switchLanguage(QAction*)));
@@ -97,6 +91,15 @@ void MainWindow::init_menu()
 		langGroup->addAction(a);
 		languageMenu->addAction(a);
 	}
+
+
+#ifndef APPSTORE_COMPLIANT
+	historyMenu = new tipMenu(tr("Recent DataBases") + " ...", this);
+	update_history_menu();
+
+	connect(historyMenu, SIGNAL(triggered(QAction*)),
+                this, SLOT(open_database(QAction*)));
+
 	file = menuBar()->addMenu(tr("&File"));
 
 	a = file->addAction(tr("New DataBase"), this, SLOT(new_database()));
@@ -117,20 +120,25 @@ void MainWindow::init_menu()
 	a->setShortcut(QKeySequence::Close);
 	acList += a;
 
+#endif
 	a = new QAction(tr("Options"), this);
 	connect(a, SIGNAL(triggered()), this, SLOT(setOptions()));
 	a->setMenuRole(QAction::PreferencesRole);
+#ifndef APPSTORE_COMPLIANT
 	file->addAction(a);
+#endif
 	acList += a;
 
-	file->addMenu(languageMenu);
-	file->addSeparator();
 	a = new QAction(tr("Exit"), this);
 	connect(a, SIGNAL(triggered()),
 		qApp, SLOT(quit()), Qt::QueuedConnection);
 	a->setMenuRole(QAction::QuitRole);
 	a->setShortcut(QKeySequence::Quit);
+#ifndef APPSTORE_COMPLIANT
+	file->addMenu(languageMenu);
+	file->addSeparator();
 	file->addAction(a);
+#endif
 
 	import = menuBar()->addMenu(tr("I&mport"));
 	import->addAction(tr("Keys"), keyView, SLOT(load()) );
@@ -144,6 +152,7 @@ void MainWindow::init_menu()
 	import->addAction(tr("Paste PEM file"), this, SLOT(pastePem()))->
 			setShortcut(QKeySequence::Paste);
 
+#ifndef APPSTORE_COMPLIANT
 	token = menuBar()->addMenu(tr("Token"));
 	token->addAction(tr("&Manage Security token"), this,
 				SLOT(manageToken()));
@@ -155,7 +164,7 @@ void MainWindow::init_menu()
 				SLOT(changeSoPin()) );
 	token->addAction(tr("Init PIN"), this,
 				SLOT(initPin()) );
-
+#endif
 	extra = menuBar()->addMenu(tr("Extra"));
 	acList += extra->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
@@ -173,6 +182,10 @@ void MainWindow::init_menu()
 				 SLOT(generateDHparam()));
 	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));
 
+#ifdef APPSTORE_COMPLIANT
+	extra->addSeparator();
+	extra->addMenu(languageMenu);
+#endif
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("Content"), helpdlg, SLOT(content()))->
 			setShortcut(QKeySequence::HelpContents);
@@ -182,7 +195,9 @@ void MainWindow::init_menu()
 	a->setShortcut(QKeySequence::WhatsThis);
 	help->addAction(a);
 	wdMenuList += import;
+#ifndef APPSTORE_COMPLIANT
 	scardList += token;
+#endif
 
 	setItemEnabled(Database.isOpen());
 }
