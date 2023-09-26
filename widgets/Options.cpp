@@ -75,6 +75,11 @@ Options::Options(QWidget *parent)
 	pkcs11List->setModel(&pkcs11::libraries);
 	pkcs11List->showDropIndicator();
 	pkcs11List->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
+#ifdef APPSTORE_COMPLIANT
+	onlyTokenHashes->hide();
+	tabWidget->removeTab(2);
+#endif
 }
 
 Options::~Options()

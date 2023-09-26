@@ -8,3 +8,6 @@
 
 #define GIT_COMMIT_REV "@GIT_REV@"
 #cmakedefine GIT_LOCAL_CHANGES
+
+/* Build an AppStore compliant version */
+#cmakedefine APPSTORE_COMPLIANT

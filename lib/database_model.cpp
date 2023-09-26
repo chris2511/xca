@@ -137,7 +137,11 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	enum open_result result;
 	QSqlError err;
 
+#ifndef APPSTORE_COMPLIANT
 	dbName = name;
+#else
+	dbName = "default.xdb";
+#endif
 	dbTimer = 0;
 
 	if (dbName.isEmpty())

@@ -67,7 +67,8 @@ XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/6.6.0/macos"
 
-BUILDDIR="$TOP_DIR/osx-release"
+BUILDDIR="$TOP_DIR/osx-release-dmg"
+BUILDDIR_APPSTORE="$TOP_DIR/osx-release-appstore"
 
 INSTALL_DIR="$TOP_DIR/install"
 SDK="11"
@@ -92,4 +93,17 @@ if test -d /Applications/Postgres.app; then
 	# install it inside XCA. This destroys other links to libssl-1.1 ...
 	# Let the users install /Applications/Postgres.app
 fi
-cd "$BUILDDIR" && cpack
+(cd "$BUILDDIR" && cpack)
+
+######## Create the AppStore Package
+cmake -B "$BUILDDIR_APPSTORE" "$XCA_DIR" \
+	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
+	-DCMAKE_PREFIX_PATH="$QT_DIR/lib/cmake;$INSTALL_DIR" \
+	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
+	-DAPPSTORE_COMPLIANT=ON \
+	-DPROVISIONPROFILE="$TOP_DIR/XCA_AppStore_Provisioning.provisionprofile"
+
+read xca_version < "$XCA_DIR"/VERSION.txt
+cmake --build "$BUILDDIR_APPSTORE" -j$JOBS
+productbuild --component "$BUILDDIR_APPSTORE/xca.app" /Applications \
+    --sign "3rd Party Mac Developer Installer" xca-${xca_version}-appstore.pkg
