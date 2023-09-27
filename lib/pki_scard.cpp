@@ -564,11 +564,11 @@ QList<int> pki_scard::possibleHashNids()
 		case EVP_PKEY_RSA:
 			switch (mechanism) {
 			case CKM_MD5_RSA_PKCS:    nids << NID_md5; break;
+			case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
 			case CKM_SHA1_RSA_PKCS:   nids << NID_sha1; break;
 			case CKM_SHA256_RSA_PKCS: nids << NID_sha256; break;
 			case CKM_SHA384_RSA_PKCS: nids << NID_sha384; break;
 			case CKM_SHA512_RSA_PKCS: nids << NID_sha512; break;
-			case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
 			}
 			break;
 		case EVP_PKEY_DSA:

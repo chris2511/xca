@@ -42,6 +42,12 @@ digest::digest(const QString &name) : md_nid(default_md)
 	ign_openssl_error();
 }
 
+void digest::adjust(QList<int> nids)
+{
+	if (!nids.contains(md_nid))
+		md_nid = nids.last();
+}
+
 bool digest::isInsecure() const
 {
 	switch (md_nid) {

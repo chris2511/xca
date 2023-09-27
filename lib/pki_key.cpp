@@ -156,7 +156,7 @@ QString pki_key::length() const
 {
 	bool dsa_unset = false;
 
-	if (EVP_PKEY_id(key) == EVP_PKEY_DSA) {
+	if (getKeyType() == EVP_PKEY_DSA) {
 		const BIGNUM *p = NULL;
 		const DSA *dsa = EVP_PKEY_get0_DSA(key);
 		if (dsa)
@@ -378,16 +378,18 @@ QList<int> pki_key::possibleHashNids()
 
 	switch (EVP_PKEY_type(getKeyType())) {
 		case EVP_PKEY_RSA:
-			nids << NID_md5 << NID_sha1 << NID_sha224 << NID_sha256 <<
-				NID_sha384 << NID_sha512 << NID_ripemd160;
+			nids << NID_md5 << NID_ripemd160 << NID_sha1 << NID_sha224 << NID_sha256 <<
+				NID_sha384 << NID_sha512;
 			break;
 		case EVP_PKEY_DSA:
 			nids << NID_sha1 << NID_sha256;
 			break;
 		case EVP_PKEY_EC:
-			nids << NID_sha1  << NID_sha224 << NID_sha256 <<
+			nids << NID_sha1 << NID_sha224 << NID_sha256 <<
 				NID_sha384 << NID_sha512;
 			break;
+		case EVP_PKEY_ED25519:
+			nids << NID_undef;
 	}
 	return nids;
 };

@@ -11,6 +11,7 @@
 
 #include <openssl/bio.h>
 #include "pki_x509.h"
+#include "pki_key.h"
 #include "x509name.h"
 
 #define VIEW_crls_num 6
@@ -44,6 +45,12 @@ class crljob
 		nextUpdate(lastUpdate.addDays(crlDays))
 	{
 		crlNumber++;
+		if (x) {
+			pki_key *key = x->getPubKey();
+			if (key)
+				hashAlgo.adjust(key->possibleHashNids());
+			delete key;
+		}
 	}
 	crljob() = delete;
 };
