@@ -31,6 +31,10 @@
 #include <windows.h>
 #endif
 
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+#include <openssl/provider.h>
+#endif
+
 #include <QTextStream>
 
 void migrateOldPaths();
@@ -513,6 +517,12 @@ int main(int argc, char *argv[])
 	if (argc > 0)
 		xca_name = argv[0];
 
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+	if (OSSL_PROVIDER_try_load(0, "legacy", 1))
+		qDebug() << "Legacy provider loaded";
+	else
+		qWarning() << "Legacy provider NOT loaded";
+#endif
 	bool console_only = arguments::is_console(argc, argv);
 	XcaApplication *gui = nullptr;
 	QCoreApplication *coreApp = nullptr;
