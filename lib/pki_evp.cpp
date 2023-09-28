@@ -516,9 +516,60 @@ EVP_PKEY *pki_evp::tryDecryptKey() const
 			throw errorEx(tr("Decryption of private key '%1' failed")
 							.arg(getIntName()));
 		}
+	} else {
+		pki_ign_openssl_error();
+		priv = legacyDecryptKey(myencKey, ownPassBuf);
 	}
 	pki_openssl_error();
 	return priv;
+}
+
+EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
+				    Passwd &ownPassBuf) const
+{
+	unsigned char *p;
+	const unsigned char *p1;
+	int outl, decsize;
+	unsigned char iv[EVP_MAX_IV_LENGTH];
+	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+
+	EVP_PKEY *tmpkey;
+	EVP_CIPHER_CTX *ctx;
+	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+	p = (unsigned char *)OPENSSL_malloc(myencKey.size());
+	Q_CHECK_PTR(p);
+	pki_openssl_error();
+	p1 = p;
+	memset(iv, 0, EVP_MAX_IV_LENGTH);
+
+	memcpy(iv, myencKey.constData(), 8); /* recover the iv */
+	/* generate the key */
+	EVP_BytesToKey(cipher, EVP_sha1(), iv,
+		ownPassBuf.constUchar(), ownPassBuf.size(), 1, ckey, NULL);
+	ctx = EVP_CIPHER_CTX_new();
+	EVP_DecryptInit(ctx, cipher, ckey, iv);
+	EVP_DecryptUpdate(ctx, p , &outl,
+		(const unsigned char*)myencKey.constData() +8,
+		myencKey.size() -8);
+	decsize = outl;
+	EVP_DecryptFinal_ex(ctx, p + decsize , &outl);
+
+	EVP_CIPHER_CTX_cleanup(ctx);
+	decsize += outl;
+	pki_openssl_error();
+	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
+	pki_openssl_error();
+	OPENSSL_cleanse(p, myencKey.size());
+	OPENSSL_free(p);
+	EVP_CIPHER_CTX_free(ctx);
+
+	pki_openssl_error();
+	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
+		RSA *rsa = EVP_PKEY_get1_RSA(tmpkey);
+		RSA_blinding_on(rsa, NULL);
+	}
+	myencKey.fill(0);
+	return tmpkey;
 }
 
 EVP_PKEY *pki_evp::decryptKey() const
