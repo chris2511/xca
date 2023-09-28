@@ -119,6 +119,10 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 			basemodel, SLOT(sortIndicatorChanged(int,Qt::SortOrder)));
 		connect(basemodel, SIGNAL(columnsContentChanged()),
 			this, SLOT(columnsChanged()));
+		connect(selectionModel(), SIGNAL(currentChanged(const QModelIndex &,
+										const QModelIndex &)),
+			this, SLOT(itemSelectionChanged(const QModelIndex &,
+										const QModelIndex &)));
 
 		basemodel->initHeaderView(header());
 	}
@@ -138,6 +142,20 @@ QModelIndex XcaTreeView::getIndex(const QModelIndex &index)
 QModelIndex XcaTreeView::getProxyIndex(const QModelIndex &index)
 {
 	return proxy->mapFromSource(index);
+}
+
+void XcaTreeView::itemSelectionChanged(const QModelIndex &m, const QModelIndex &)
+{
+	QModelIndex index = getIndex(m);
+	QVariant v;
+	qDebug() << "selectionChanged()" << index.isValid() << index.row() << index.column();
+	if (m.isValid()) {
+		pki_base *pki = db_base::fromIndex(index);
+		if (pki)
+			v = pki->getSqlItemId();
+	}
+	if (basemodel)
+		basemodel->setSelected(v);
 }
 
 QModelIndexList XcaTreeView::getSelectedIndexes()

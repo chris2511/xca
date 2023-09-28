@@ -84,5 +84,6 @@ class XcaTreeView: public QTreeView
 	void showItem(pki_base *);
 	void showItem(const QModelIndex &index);
 	void showItem(const QString &name);
+	void itemSelectionChanged(const QModelIndex &m, const QModelIndex &);
 };
 #endif

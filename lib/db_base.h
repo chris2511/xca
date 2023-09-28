@@ -44,6 +44,7 @@ class db_base: public QAbstractItemModel
 		bool treeview;
 		pki_base *rootItem;
 		pki_base *treeItem;
+		QVariant selected;
 
 	public:
 		void restart_timer();
@@ -137,6 +138,7 @@ class db_base: public QAbstractItemModel
 		void columnResetDefaults();
 		void sectionResized(int i, int, int newSize);
 		void sortIndicatorChanged(int, Qt::SortOrder);
+		void setSelected(const QVariant &v);
 
 	signals:
 		void resetHeader() const;

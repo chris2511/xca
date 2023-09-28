@@ -339,15 +339,6 @@ pki_base *db_x509::insert(pki_base *item)
 	return insertPKI(cert);
 }
 
-pki_x509 *db_x509::get1SelectedCert()
-{
-	QModelIndexList indexes = mainwin->certView->getSelectedIndexes();
-	QModelIndex index;
-	if (indexes.count())
-		index = indexes[0];
-	return fromIndex<pki_x509>(index);
-}
-
 void db_x509::markRequestSigned(pki_x509req *req, pki_x509 *cert)
 {
 	if (!req || !cert)
@@ -381,8 +372,9 @@ void db_x509::newItem()
 {
 	NewX509 *dlg = new NewX509();
 	dlg->setCert();
-	pki_x509 *sigcert = get1SelectedCert();
-	dlg->defineSigner((pki_x509*)sigcert, true);
+	pki_x509 *sigcert = Store.lookupPki<pki_x509>(selected);
+	qDebug() << "SIGCERT" << (sigcert ? sigcert->getIntName() : "NULLL");
+	dlg->defineSigner(sigcert, true);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -392,7 +384,8 @@ void db_x509::newItem()
 void db_x509::newCert(pki_x509req *req)
 {
 	NewX509 *dlg = new NewX509();
-	pki_x509 *sigcert = get1SelectedCert();
+	pki_x509 *sigcert = Store.lookupPki<pki_x509>(selected);
+	qDebug() << "SIGCERT" << (sigcert ? sigcert->getIntName() : "NULLL");
 	dlg->setCert();
 	dlg->defineRequest(req);
 	dlg->defineSigner(sigcert, true);

@@ -21,9 +21,7 @@
 #define IS_GUI_APP (is_gui_app)
 
 class Validity;
-class MainWindow;
 class QPixmap;
-extern MainWindow *mainwin;
 extern bool is_gui_app;
 
 typedef struct asn1_object_st ASN1_OBJECT;

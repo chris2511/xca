@@ -684,3 +684,8 @@ int db_base::exportFlags(const QModelIndexList &indexes) const
 		disabled_flags |= F_MULTI;
 	return disabled_flags;
 }
+
+void db_base::setSelected(const QVariant &v)
+{
+	selected = v;
+}

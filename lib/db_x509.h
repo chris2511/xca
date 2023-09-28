@@ -24,7 +24,6 @@ class db_x509: public db_x509super
 	Q_OBJECT
 
 	protected:
-		pki_x509 *get1SelectedCert();
 		dbheaderList getHeaders();
 		void dereferenceIssuer();
 
