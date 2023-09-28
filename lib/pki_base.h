@@ -89,7 +89,7 @@ class pki_base : public QObject
 		};
 		enum pki_source pkiSource;
 
-		pki_base(const QString &d = QString(), pki_base *p = NULL);
+		pki_base(const QString &d = QString());
 		pki_base(const pki_base *p);
 		virtual ~pki_base();
 

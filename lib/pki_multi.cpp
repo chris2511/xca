@@ -176,7 +176,7 @@ void pki_multi::print(BioByteArray &bba, enum print_opt opt) const
 		pki->print(bba, opt);
 }
 
-void pki_multi::collect_properties(QMap<QString, QString> &prp) const
+void pki_multi::collect_properties(QMap<QString, QString> &) const
 {
 }
 

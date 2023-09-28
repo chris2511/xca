@@ -73,7 +73,7 @@ class dbg_pattern
 		bool invert() const { return inv; }
 		dbg_pattern(QString);
 		bool match(const QString &curr_file, const QString &curr_func,
-					int line) const;
+					unsigned line) const;
 };
 
 class debug_info
@@ -81,7 +81,7 @@ class debug_info
 	private:
 		QString short_file;
 		QString short_func;
-		int line;
+		unsigned line;
 
 		static QList<dbg_pattern> patternlist;
 	public:
@@ -129,7 +129,7 @@ dbg_pattern::dbg_pattern(QString part)
 }
 
 bool dbg_pattern::match(const QString &curr_file, const QString &curr_func,
-						int line) const
+						unsigned line) const
 {
 	// QTextStream out(stdout);
 	// out << QString("MATCH %1:%2(%3)\n").arg(curr_file).arg(curr_func).arg(line);

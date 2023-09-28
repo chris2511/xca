@@ -64,12 +64,12 @@ class db_base: public QAbstractItemModel
 		virtual void remFromCont(const QModelIndex &idx);
 		void changeView();
 		int exportFlags(const QModelIndexList &indexes) const;
-		virtual int exportFlags(const QModelIndex &index) const
+		virtual int exportFlags(const QModelIndex &) const
 		{
 			return 0;
 		}
-		virtual void exportItem(const QModelIndex &index,
-			const pki_export *xport, XFile &file) const { };
+		virtual void exportItem(const QModelIndex &,
+			const pki_export *, XFile &) const { };
 		virtual void exportItems(const QModelIndexList &indexes,
 			const pki_export *xport, XFile &file) const;
 

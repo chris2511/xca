@@ -23,7 +23,7 @@ bool pki_base::pem_comment;
 QList<pki_base*> pki_base::allitems;
 QBrush pki_base::red, pki_base::cyan, pki_base::yellow;
 
-pki_base::pki_base(const QString &name, pki_base *p)
+pki_base::pki_base(const QString &name)
 {
 	desc = name;
 	parent = nullptr;

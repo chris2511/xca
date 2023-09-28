@@ -44,6 +44,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS "${PROJECT_SOURCE_DIR}/ui")
 set(CMAKE_AUTOUIC ON)
 add_compile_definitions(OPENSSL_SUPPRESS_DEPRECATED QT_MESSAGELOGCONTEXT)
 
+add_compile_options(-Wall -Wextra -Wno-unknown-pragmas)
 if (ADDRESS_SANITIZER)
   add_compile_options(-fsanitize=address -O1 -fno-omit-frame-pointer -g)
   set(ASAN_LIB -fsanitize=address)

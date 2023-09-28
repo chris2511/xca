@@ -482,9 +482,9 @@ void XcaTreeView::exportItems(const QModelIndexList &indexes)
 	delete dlg;
 }
 
-ExportDialog *XcaTreeView::exportDialog(const QModelIndexList &indexes)
+ExportDialog *XcaTreeView::exportDialog(const QModelIndexList &)
 {
-	return NULL;
+	return nullptr;
 }
 
 void XcaTreeView::showContextMenu(QContextMenuEvent *e,

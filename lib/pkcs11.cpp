@@ -876,7 +876,7 @@ static int eng_pmeth_sign_eddsa(EVP_MD_CTX *ctx,
 
 	// siglen is unsigned and can' cope with -1 as return value
 	len = p11->encrypt(tbslen, tbs, rs_buf, sizeof rs_buf, CKM_EDDSA);
-	if ((len & 0x01) || (*siglen != len)) // Must be even
+	if ((len & 0x01) || (*siglen != (size_t)len)) // Must be even
 		goto out;
 	memcpy(sig, rs_buf, len);
 	*siglen = len;
@@ -886,7 +886,7 @@ static int eng_pmeth_sign_eddsa(EVP_MD_CTX *ctx,
 	return ret;
 }
 
-static int eng_pmeth_ctrl_eddsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
+static int eng_pmeth_ctrl_eddsa(EVP_PKEY_CTX *, int type, int p1, void *p2)
 {
 	(void)p1;
 	switch (type) {

@@ -779,11 +779,6 @@ void pki_scard::initPin()
 	p11.initPin(slot);
 }
 
-int pki_scard::verify()
-{
-	return true;
-}
-
 bool pki_scard::isToken()
 {
 	return true;

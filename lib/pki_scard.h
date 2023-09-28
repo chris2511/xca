@@ -73,7 +73,6 @@ class pki_scard: public pki_key
 		void changePin();
 		void initPin();
 		void changeSoPin();
-		int verify();
 		bool isToken();
 		QVariant getIcon(const dbheader *hd) const;
 		QList<CK_MECHANISM_TYPE> getMech_list()
