@@ -6,6 +6,7 @@
  */
 
 #include "pki_export.h"
+#include <QDebug>
 
 pki_export::pki_export(int i, enum pki_type p, const QString &e,
 			const QString &d, int f, const QString &h)
@@ -24,6 +25,8 @@ pki_export::select(enum pki_type pki_type, int disable)
 	QList<const pki_export*> ret;
 
 	foreach(const pki_export *exp, elements) {
+		if (exp->pki_type == pki_type)
+			qDebug() << exp->id << QString("Disable %1 %2").arg(disable, 0, 16).arg(disable & exp->flags, 0, 16);
 		if (exp->pki_type == pki_type && (disable & exp->flags) == 0)
 			ret << exp;
 	}
@@ -41,6 +44,13 @@ const pki_export *pki_export::by_id(int id)
 
 void pki_export::free_elements()
 {
+#ifndef QT_NO_DEBUG
+	QList<int> ids;
+	foreach(pki_export *e, elements) {
+		Q_ASSERT(!ids.contains(e->id));
+		ids << e->id;
+	}
+#endif
 	qDeleteAll(elements);
 }
 
@@ -48,7 +58,7 @@ QList<pki_export*> pki_export::elements {
 new pki_export( 1, x509, "crt", "PEM",               F_PEM | F_USUAL | F_SINGLE,             tr("PEM Text format with headers")),
 new pki_export( 3, x509, "pem", "PEM",               F_PEM | F_MULTI,                        tr("Concatenated list of all selected items in one PEM text file")),
 new pki_export( 2, x509, "pem", tr("PEM chain"),     F_PEM | F_USUAL | F_CHAIN | F_SINGLE,   tr("Concatenated text format of the complete certificate chain in one PEM file")),
-new pki_export( 6, x509, "pem", tr("PEM + key"),     F_PEM | F_PLUSKEY | F_PRIVATE| F_SINGLE,tr("Concatenation of the certificate and the unencrypted private key in one PEM file")),
+new pki_export( 6, x509, "pem", tr("PEM + key"),     F_PEM | F_PRIVATE| F_SINGLE,            tr("Concatenation of the certificate and the unencrypted private key in one PEM file")),
 new pki_export( 7, x509, "pem",    "PEM + PKCS#8",   F_PEM | F_PKCS8 | F_PRIVATE | F_CRYPT,  tr("Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file")),
 new pki_export( 8, x509, "p7b",    "PKCS #7",        F_PKCS7 | F_USUAL | F_SINGLE,           tr("PKCS#7 encoded single certificate")),
 new pki_export(10, x509, "p7b",    "PKCS #7",        F_PKCS7 | F_USUAL | F_MULTI,            tr("All selected certificates encoded in one PKCS#7 file")),
@@ -80,5 +90,5 @@ new pki_export(33, revocation, "der", "DER",  F_DER | F_SINGLE,          tr("Bin
 new pki_export(34, revocation, "ics", tr("vCalendar"), F_CAL,            tr("vCalendar reminder for the CRL expiry date")),
 
 new pki_export(35, tmpl, "xca", "PEM", F_PEM | F_SINGLE,                 tr("XCA template in PEM-like format")),
-new pki_export(35, tmpl, "pem", "PEM", F_PEM | F_MULTI,                  tr("All selected XCA templates in PEM-like format")),
+new pki_export(36, tmpl, "pem", "PEM", F_PEM | F_MULTI,                  tr("All selected XCA templates in PEM-like format")),
 	};

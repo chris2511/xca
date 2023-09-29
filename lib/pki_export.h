@@ -37,7 +37,6 @@ enum {
 	F_SINGLE    = BIT(6), /* Single element not suitable for selections */
 	F_ALL       = BIT(7), /* All elements */
 	F_UNREVOKED = BIT(8), /* All unrevoked certificates */
-	F_PLUSKEY   = BIT(9), /* Cert plus key */
 	F_CA        = BIT(10),/* Export types for CAs */
 	F_CHAIN     = BIT(11),/* Certificate chain */
 	F_PKCS7     = BIT(12),

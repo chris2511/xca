@@ -586,39 +586,36 @@ void db_x509::exportItems(const QModelIndexList &list,
 			certs << x;
 	}
 
-	if (xport->match_all(F_PEM | F_CHAIN)) {
-		while (crt && crt != oldcrt) {
-			crt->writeCert(file, true);
-			oldcrt = crt;
-			crt = crt->getSigner();
-		}
-	} else if (xport->match_all(F_PEM)) {
-		foreach(crt, certs)
-			crt->writeCert(file, true);
-	} else if (xport->match_all(F_PEM | F_UNREVOKED)) {
-		foreach(pki_x509 *pki, Store.getAll<pki_x509>())
-			if (!pki->isRevoked())
+	if (xport->match_all(F_PEM)) {
+		if (xport->match_all(F_CHAIN)) {
+			for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
+				crt->writeCert(file, true);
+		} else if (xport->match_all(F_UNREVOKED)) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
+				if (!pki->isRevoked())
+					pki->writeCert(file, true);
+		} else if (xport->match_all(F_ALL)) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
 				pki->writeCert(file, true);
-	} else if (xport->match_all(F_PEM | F_ALL)) {
-		foreach(pki_x509 *pki, Store.getAll<pki_x509>())
-			pki->writeCert(file, true);
-	} else if (xport->match_all(F_PEM | F_PRIVATE)) {
-		pki_evp *pkey = (pki_evp *)crt->getRefKey();
-		if (!pkey || pkey->isPubKey())
-			throw errorEx(tr("There was no key found for the Certificate: '%1'").
-				arg(crt->getIntName()));
-		if (pkey->isToken())
-			throw errorEx(tr("Not possible for a token key: '%1'").
-				arg(crt->getIntName()));
-		if (xport->match_all(F_PKCS8)) {
-			pkey->writePKCS8(file, EVP_des_ede3_cbc(),
-				PwDialogCore::pwCallback, true);
 		} else {
-			pkey->writeKey(file, NULL, NULL, true);
+			if (xport->match_all(F_PRIVATE)) {
+				pki_evp *pkey = (pki_evp *)crt->getRefKey();
+				if (!pkey || pkey->isPubKey())
+					throw errorEx(tr("There was no key found for the Certificate: '%1'").
+							arg(crt->getIntName()));
+				if (pkey->isToken())
+					throw errorEx(tr("Not possible for a token key: '%1'").
+							arg(crt->getIntName()));
+				if (xport->match_all(F_PKCS8)) {
+					pkey->writePKCS8(file, EVP_des_ede3_cbc(),
+						PwDialogCore::pwCallback, true);
+				} else {
+					pkey->writeKey(file, NULL, NULL, true);
+				}
+			}
+			foreach(crt, certs)
+				crt->writeCert(file, true);
 		}
-		crt->writeCert(file, true);
-	} else if (xport->match_all(F_PEM)) {
-		crt->writeCert(file, true);
 	} else if (xport->match_all(F_DER)) {
 		crt->writeCert(file, false);
 	} else if (xport->match_all(F_PKCS7)) {
