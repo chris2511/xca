@@ -4,6 +4,7 @@ set(D "${PROJECT_BINARY_DIR}")
 
 list(APPEND XCA_QT_LANGUAGES de fr ja pl ru tr es it sk bg)
 list(APPEND XCA_LANGUAGES id hr nl pt_BR zh_CN fa ${XCA_QT_LANGUAGES})
+list(JOIN XCA_LANGUAGES "</string>\n		<string>" LANGUAGES_PLIST)
 
 foreach(lang ${XCA_LANGUAGES})
   guid(${lang})

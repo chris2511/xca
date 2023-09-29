@@ -32,6 +32,10 @@
 	<string>@CMAKE_OSX_DEPLOYMENT_TARGET@.0.0</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<string>no</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>@LANGUAGES_PLIST@</string>
+	</array>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

@@ -143,8 +143,8 @@ endmacro()
 add_subdirectory(lib)
 add_subdirectory(widgets)
 
-include(misc/CMakeLists.txt)
 include(lang/CMakeLists.txt)
+include(misc/CMakeLists.txt)
 include(doc/CMakeLists.txt)
 include(img/CMakeLists.txt)
 
