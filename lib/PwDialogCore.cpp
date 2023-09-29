@@ -15,10 +15,16 @@
 #include <QMessageBox>
 
 PwDialogUI_i *PwDialogCore::pwdialog;
+Passwd PwDialogCore::cmdline_passwd;
 
 enum open_result PwDialogCore::execute(pass_info *p, Passwd *passwd,
 					bool write, bool abort)
 {
+	if (!cmdline_passwd.isEmpty()) {
+		*passwd = cmdline_passwd;
+		cmdline_passwd.cleanse();
+		return pw_ok;
+	}
 	if (pwdialog)
 		return pwdialog->execute(p, passwd, write, abort);
 #if !defined(Q_OS_WIN32)

@@ -25,6 +25,7 @@
 #include "pki_base.h"
 #include "arguments.h"
 #include "pki_export.h"
+#include "PwDialogCore.h"
 #include "db_x509.h"
 #if defined(Q_OS_WIN32)
 //For the segfault handler
@@ -292,14 +293,14 @@ static pki_multi *cmdline_items;
 static void read_cmdline(int argc, char *argv[], bool console_only)
 {
 	arguments cmd_opts(argc, argv);
-	pki_evp::passwd = acquire_password(cmd_opts["password"]);
+	PwDialogCore::cmdline_passwd = acquire_password(cmd_opts["password"]);
 	Passwd sqlpw = acquire_password(cmd_opts["sqlpass"]);
 
 	if (cmd_opts.has("verbose")) {
 		QString all = cmd_opts["verbose"];
 		debug_info::set_debug(all.isEmpty() ? QString("all") : all);
 	}
-	if (!cmd_opts.has("password") && console_only)
+	if (console_only)
 		database_model::open_without_password = true;
 
 	if (cmd_opts.has("database"))
