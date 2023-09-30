@@ -584,10 +584,6 @@ int main(int argc, char *argv[])
 	}
 	Database.close();
 
-	qDebug() << "pki_base::count" << pki_base::allitems.size();
-	foreach(pki_base *pki, pki_base::allitems)
-		qDebug() << "Remaining" << pki->getClassName()
-			 << pki->getIntName();
 	delete mainwin;
 	delete gui;
 	pki_export::free_elements();

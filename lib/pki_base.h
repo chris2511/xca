@@ -56,7 +56,6 @@ class pki_base : public QObject
 		static unsigned hash(const QByteArray &ba);
 		static bool pem_comment;
 		static int count;
-		static QList<pki_base*> allitems;
 		static void setupColors(const QPalette &pal);
 
 	protected:
