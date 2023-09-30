@@ -1,3 +1,9 @@
+
+ * Close #459: pass private key password
+ * Close #465: Export PEM + Key in one File
+ * Close #460: Impossible to import PKCS#12 (RC40_CBC)
+ * Make XCA AppStore compliant with -DAPPSTORE_COMPLIANT=ON
+
 xca 2.5.0 Sun Sep 24 2023
 
  * Close #423: parameter --name is not respected when running with CLI

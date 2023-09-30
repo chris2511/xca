@@ -5,6 +5,8 @@
 ## __Release Notes__
  * The latest release is *2.5.0*
  * Drop support for Qt4, old XCA < 2.0.0 databases and OpenSSL < 1.1.0
+ * Drivers for SQL Servers must be [installed separately](#sql-remote-database-drivers) since 2.5.0
+ * Keys created in XCA databases < 2.0.0 must be [converted](https://github.com/chris2511/xca/discussions/468) with XCA < 2.5.0
  * Add Support for Qt6 and OpenSSL 3.x
  * Switch from autotools/qmake to cmake
  * Fix a lot of bugs (and probably added some new)
