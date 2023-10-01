@@ -27,6 +27,9 @@ xcrun stapler staple "$DMG"
 
 Microsoft Store
 -----------------
+OpenSSL:
+./Configure mingw64 --prefix=/c/OpenSSL --libdir=lib
+
 https://partner.microsoft.com ("Partner Center")
 
 MSIX Packaging Tool

@@ -19,7 +19,7 @@ include(GNUInstallDirs)
 
 ##### Git command to tweak the version and commit hash
 include(cmake/git_version.cmake)
-file(WRITE ${PROJECT_BINARY_DIR}/VERSION.txt ${PROJECT_VERSION}\n)
+file(WRITE ${PROJECT_BINARY_DIR}/PKGVERSION.txt ${PROJECT_VERSION}\n)
 
 ##### Build specifications
 

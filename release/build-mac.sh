@@ -103,7 +103,7 @@ cmake -B "$BUILDDIR_APPSTORE" "$XCA_DIR" \
 	-DAPPSTORE_COMPLIANT=ON \
 	-DPROVISIONPROFILE="$TOP_DIR/XCA_AppStore_Provisioning.provisionprofile"
 
-read xca_version < "$XCA_DIR"/VERSION.txt
+read xca_version < "$BUILDDIR_APPSTORE"/PKGVERSION.txt
 cmake --build "$BUILDDIR_APPSTORE" -j$JOBS
 productbuild --component "$BUILDDIR_APPSTORE/xca.app" /Applications \
-    --sign "3rd Party Mac Developer Installer" xca-${xca_version}-appstore.pkg
+    --sign "3rd Party Mac Developer Installer" "$BUILDDIR_APPSTORE/xca-${xca_version}-appstore.pkg"
