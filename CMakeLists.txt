@@ -32,6 +32,14 @@ if (APPSTORE_COMPLIANT)
 else()
   set(APPLE_DEVELOPER_CERT "Developer ID Application")
 endif()
+if(APPLE)
+  execute_process(COMMAND security find-identity -v
+                  ERROR_QUIET OUTPUT_VARIABLE IDCHECK)
+  string(FIND "${IDCHECK}" "${APPLE_DEVELOPER_CERT}" matchres)
+  if(matchres EQUAL -1)
+    unset(APPLE_DEVELOPER_CERT)
+  endif()
+endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -180,7 +188,8 @@ if(APPLE)
   endif()
   if (DEFINED APPLE_DEVELOPER_CERT)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-      COMMAND codesign --deep --signature-size=96000 --options=runtime --timestamp
+      COMMAND codesign --deep --signature-size=96000
+                --options=runtime --timestamp
 		--entitlements ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
 		--force -s ${APPLE_DEVELOPER_CERT}
 		$<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
