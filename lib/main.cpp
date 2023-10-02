@@ -244,7 +244,7 @@ static void cmd_version(FILE *fp)
 }
 
 const char *xca_name = "xca";
-static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
+static int cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 {
 	FILE *fp = exitcode == EXIT_SUCCESS ? stdout : stderr;
 	QString s;
@@ -256,7 +256,7 @@ static void cmd_help(int exitcode = EXIT_SUCCESS, const char *msg = NULL)
 		s += QString("\nError: %1\n").arg(msg);
 
 	console_write(fp, s.toUtf8());
-	exit(exitcode);
+	return exitcode;
 }
 
 static Passwd acquire_password(QString source)
@@ -290,7 +290,7 @@ static bool compare_pki_base(pki_base* a, pki_base* b)
 }
 
 static pki_multi *cmdline_items;
-static void read_cmdline(int argc, char *argv[], bool console_only)
+static int read_cmdline(int argc, char *argv[], bool console_only)
 {
 	arguments cmd_opts(argc, argv);
 	PwDialogCore::cmdline_passwd = acquire_password(cmd_opts["password"]);
@@ -330,7 +330,7 @@ static void read_cmdline(int argc, char *argv[], bool console_only)
 		try {
 			Database.open(QString());
 		} catch (errorEx &err) {
-			cmd_help(EXIT_FAILURE, CCHAR(err.getString()));
+			return cmd_help(EXIT_FAILURE, CCHAR(err.getString()));
 		} catch (enum open_result opt) {
 			static const char * const msg[] = {
 				/* pw_cancel */ "Password input aborted",
@@ -338,7 +338,7 @@ static void read_cmdline(int argc, char *argv[], bool console_only)
 				/* pw_exit   */ "Exit selected",
 				/* open_abort*/ "No database given",
 			};
-			cmd_help(EXIT_FAILURE, msg[opt]);
+			return cmd_help(EXIT_FAILURE, msg[opt]);
 		}
 	}
 	database_model::open_without_password = false;
@@ -470,6 +470,7 @@ static void read_cmdline(int argc, char *argv[], bool console_only)
 		Database.insert(cmdline_items);
 		cmdline_items = NULL;
 	}
+	return EXIT_SUCCESS;
 }
 
 int main(int argc, char *argv[])
@@ -554,6 +555,8 @@ int main(int argc, char *argv[])
 		XCA_ERROR(e);
 	}
 
+	int ret = EXIT_SUCCESS;
+
 	for (int i=0; i < argc; i++)
 		qDebug() << "wargv" << argc << i << argv[i];
 	try {
@@ -578,7 +581,7 @@ int main(int argc, char *argv[])
 				}
 			}
 		} else {
-			read_cmdline(argc, argv, console_only);
+			ret = read_cmdline(argc, argv, console_only);
 			delete cmdline_items;
 		}
 	} catch (errorEx &ex) {
@@ -594,5 +597,5 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_WIN32)
 	FreeConsole();
 #endif
-	return EXIT_SUCCESS;
+	return ret;
 }
