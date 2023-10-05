@@ -84,7 +84,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="keyDesc">
+      <widget class="QLineEdit" name="descr">
        <property name="toolTip">
         <string>The internal name of the key used by xca</string>
        </property>

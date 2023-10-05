@@ -20,16 +20,9 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
-CertDetail::CertDetail(QWidget *w)
-	: QDialog(w ? w : mainwin), keySqlId(), issuerSqlId(), thisSqlId()
+CertDetail::CertDetail(QWidget *w) : XcaDetail(w)
 {
 	setupUi(this);
-	setWindowTitle(XCA_TITLE);
-	showConf = false;
-	myPubKey = NULL;
-	tmpPubKey = NULL;
-
-	Database.connectToDbChangeEvt(this, SLOT(itemChanged(pki_base*)));
 }
 
 void CertDetail::on_showExt_clicked()
@@ -51,6 +44,7 @@ void CertDetail::setX509super(pki_x509super *x)
 	descr->setText(x->getIntName());
 	thisSqlId = x->getSqlItemId();
 
+	connect_pki(x);
 	// examine the key
 	myPubKey = x->getRefKey();
 	if (myPubKey) {
@@ -108,9 +102,8 @@ void CertDetail::setCert(pki_x509 *cert)
 {
 	if (!cert)
 		return;
-	image->setPixmap(QPixmap(":certImg"));
+	init("certdetail", ":certImg");
 	headerLabel->setText(tr("Details of the Certificate"));
-	mainwin->helpdlg->register_ctxhelp_button(this, "certdetail");
 	try {
 		// No attributes
 		tabwidget->removeTab(3);
@@ -180,6 +173,7 @@ void CertDetail::setReq(pki_x509req *req)
 {
 	if (!req)
 		return;
+	init("csrdetail", ":csrImg");
 	image->setPixmap(QPixmap(":csrImg"));
 	headerLabel->setText(tr("Details of the certificate signing request"));
 	mainwin->helpdlg->register_ctxhelp_button(this, "csrdetail");
@@ -288,20 +282,9 @@ void CertDetail::showCert(QWidget *parent, pki_x509super *x)
 	if (!x)
 		return;
 	CertDetail *dlg = new CertDetail(parent);
-	if (!dlg)
-                return;
 	dlg->setX509super(x);
-	if (dlg->exec()) {
-		db_base *db = Database.modelForPki(x);
-		if (!db) {
-			x->setIntName(dlg->descr->text());
-			x->setComment(dlg->comment->toPlainText());
-		} else {
-			db->updateItem(x, dlg->descr->text(),
-					dlg->comment->toPlainText());
-		}
-        }
-        delete dlg;
+	dlg->exec();
+	delete dlg;
 }
 
 CertDetail::~CertDetail()

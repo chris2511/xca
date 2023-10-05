@@ -31,6 +31,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		void addItem(pki_base *pki);
 		pki_base *getSelected();
 		pki_base *import(const QModelIndex &idx);
+		pki_base *import(pki_base *pki);
 		void importIndexes(const QModelIndexList &indexes);
 		void execute(int force=0, QStringList failed = QStringList());
 		int entries();
@@ -38,6 +39,8 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		void dragEnterEvent(QDragEnterEvent *event);
 		void dropEvent(QDropEvent *event);
 		bool openDB() const;
+		void showDetail(pki_base *pki);
+		void showDetail(const QModelIndex &idx);
 
 	public slots:
 		void on_butRemove_clicked();

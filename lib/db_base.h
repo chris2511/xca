@@ -48,8 +48,7 @@ class db_base: public QAbstractItemModel
 
 	public:
 		void restart_timer();
-		void updateItem(pki_base *pki, const QString &name,
-				const QString &comment, bool force = false);
+		void updateItem(pki_base *pki);
 
 		virtual pki_base *newPKI(enum pki_type type = none);
 		db_base(const char *classname);

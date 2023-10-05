@@ -330,9 +330,11 @@ void XcaTreeView::editComment()
 	prop->insertionDate->setText(item->getInsertionDate().toPretty());
 	XcaDialog *d = new XcaDialog(this, item->getType(), w,
 		tr("Item properties"), QString(), "itemproperties");
-	if (d->exec())
-		basemodel->updateItem(item, prop->name->text(),
-					prop->comment->toPlainText());
+	if (d->exec()) {
+		item->setIntName(prop->name->text());
+		item->setComment(prop->comment->toPlainText());
+		basemodel->updateItem(item);
+	}
 	delete d;
 }
 

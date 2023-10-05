@@ -518,35 +518,34 @@ Qt::ItemFlags db_base::flags(const QModelIndex &index) const
 
 bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	QString on, nn;
+	QString newname;
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
-		nn = value.toString();
+		newname = value.toString();
 		item = fromIndex(index);
-		on = item->getIntName();
-		if (nn == on)
+		if (newname == item->getIntName())
 			return true;
-		updateItem(item, nn, item->getComment());
+		item->setIntName(newname);
+		updateItem(item);
 		return true;
 	}
 	return false;
 }
 
-void db_base::updateItem(pki_base *pki, const QString &name,
-			 const QString &comment, bool force)
+void db_base::updateItem(pki_base *pki)
 {
 	XSqlQuery q;
 	QSqlError e;
 
-	if (name == pki->getIntName() && comment == pki->getComment() && !force)
+	if (!pki->getSqlItemId().isValid())
 		return;
 
 	Transaction;
 	TransThrow();
 
 	SQL_PREPARE(q, "UPDATE items SET name=?, comment=? WHERE id=?");
-	q.bindValue(0, name);
-	q.bindValue(1, comment);
+	q.bindValue(0, pki->getIntName());
+	q.bindValue(1, pki->getComment());
 	q.bindValue(2, pki->getSqlItemId());
 	q.exec();
 	e = q.lastError();
@@ -554,8 +553,6 @@ void db_base::updateItem(pki_base *pki, const QString &name,
 
 	XCA_SQLERROR(e);
 	TransDone(e);
-	pki->setIntName(name);
-	pki->setComment(comment);
 	pki->recheckVisibility();
 
 	QModelIndex i, j;

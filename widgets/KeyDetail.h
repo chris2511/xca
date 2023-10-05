@@ -9,23 +9,24 @@
 #define __KEYDETAIL_H
 
 #include "ui_KeyDetail.h"
+#include "XcaDetail.h"
 
 class pki_key;
 class pki_base;
 
-class KeyDetail: public QDialog, public Ui::KeyDetail
+class KeyDetail: public XcaDetail, public Ui::KeyDetail
 {
 	Q_OBJECT
 
 	QVariant keySqlId;
 
-    public:
+  public:
 	KeyDetail(QWidget *w = nullptr);
 	void setKey(pki_key *key);
 	void setupFingerprints(pki_key *key);
 	static void showKey(QWidget *parent, pki_key *keyi, bool ro = false);
 
-    public slots:
-	void itemChanged(pki_base *pki);
+  public slots:
+	void itemChanged(pki_base *pki) override;
 };
 #endif

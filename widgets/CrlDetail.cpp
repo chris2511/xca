@@ -20,15 +20,10 @@
 #include <QTextEdit>
 #include <QLineEdit>
 
-CrlDetail::CrlDetail(QWidget *w)
-	: QDialog(w ? w : mainwin), issuerSqlId(), crlSqlId()
+CrlDetail::CrlDetail(QWidget *w) : XcaDetail(w), issuerSqlId(), crlSqlId()
 {
 	setupUi(this);
-	setWindowTitle(XCA_TITLE);
-	mainwin->helpdlg->register_ctxhelp_button(this, "crldetail");
-
-	image->setPixmap(QPixmap(":revImg"));
-	Database.connectToDbChangeEvt(this, SLOT(itemChanged(pki_base*)));
+	init("crldetail", ":revImg");
 }
 
 void CrlDetail::setCrl(pki_crl *crl)
@@ -36,6 +31,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	pki_x509 *iss;
 	x509v3ext e1, e2;
 
+	connect_pki(crl);
 	iss = crl->getIssuer();
 	crlSqlId = crl->getSqlItemId();
 
@@ -99,20 +95,10 @@ void CrlDetail::showIssuer()
 
 void CrlDetail::showCrl(QWidget *parent, pki_crl *crl)
 {
-	CrlDetail *dlg = new CrlDetail(parent);
-	if (!dlg)
+	if (!crl)
 		return;
-
+	CrlDetail *dlg = new CrlDetail(parent);
 	dlg->setCrl(crl);
-	if (dlg->exec()) {
-		db_base *db = Database.modelForPki(crl);
-		if (!db) {
-			crl->setIntName(dlg->descr->text());
-			crl->setComment(dlg->comment->toPlainText());
-		} else {
-			db->updateItem(crl, dlg->descr->text(),
-					dlg->comment->toPlainText());
-		}
-        }
+	dlg->exec();
 	delete dlg;
 }

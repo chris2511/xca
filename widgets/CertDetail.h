@@ -11,10 +11,11 @@
 #include "ui_CertDetail.h"
 #include "lib/pki_x509req.h"
 #include "lib/pki_x509.h"
+#include "XcaDetail.h"
 
 class pki_x509;
 
-class CertDetail: public QDialog, public Ui::CertDetail
+class CertDetail: public XcaDetail, public Ui::CertDetail
 {
 		Q_OBJECT
 
@@ -34,7 +35,7 @@ class CertDetail: public QDialog, public Ui::CertDetail
 
 	private slots:
 		void on_showExt_clicked();
-		void itemChanged(pki_base *pki);
+		void itemChanged(pki_base *pki) override;
 		void showPubKey();
 		void showIssuer();
 };

@@ -99,7 +99,7 @@ bool db_temp::alterTemp(pki_temp *temp)
 		TransRollback();
 		return false;
 	}
-	updateItem(temp, temp->getIntName(), temp->getComment(), true);
+	updateItem(temp);
 	TransCommit();
 	return true;
 }
