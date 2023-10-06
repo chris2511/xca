@@ -98,6 +98,7 @@ class pkcs11_lib_list: public QAbstractListModel
 	QList<int> model_data;
 
     public:
+	~pkcs11_lib_list();
 	pkcs11_lib *add_lib(const QString &fname);
 	void load(const QString &list);
 	slotidList getSlotList() const;

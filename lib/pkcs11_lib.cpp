@@ -246,13 +246,17 @@ QString pkcs11_lib_list::getPkcs11Provider() const
 
 void pkcs11_lib_list::remove_libs()
 {
-	if (libs.isEmpty() == 0)
+	if (libs.isEmpty())
 		return;
 	beginRemoveRows(QModelIndex(), 0, libs.size() -1);
 	qDeleteAll(libs);
 	libs.clear();
 	model_data.clear();
 	endRemoveRows();
+}
+pkcs11_lib_list::~pkcs11_lib_list()
+{
+	remove_libs();
 }
 
 bool pkcs11_lib_list::loaded() const

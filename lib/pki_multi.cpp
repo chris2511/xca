@@ -40,10 +40,13 @@ pki_multi::~pki_multi()
 void pki_multi::append_item(pki_base *pki)
 {
 	pki_multi *m = dynamic_cast<pki_multi*>(pki);
-	if (m)
+	if (m) {
 		multi += m->multi;
-	else
+		m->multi.clear();
+		delete m;
+	} else {
 		multi << pki;
+	}
 }
 
 #define D5 "-----"
