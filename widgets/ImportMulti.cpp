@@ -87,17 +87,18 @@ void ImportMulti::addItem(pki_base *pki)
 		return;
 	}
 
-	pki_x509 *cert = dynamic_cast<pki_x509 *>(pki);
-	pki_crl *crl = dynamic_cast<pki_crl *>(pki);
-	pki_x509super *cert_or_req = dynamic_cast<pki_x509super *>(pki);
+	if (Database.isOpen()) {
+		pki_x509 *cert = dynamic_cast<pki_x509 *>(pki);
+		pki_crl *crl = dynamic_cast<pki_crl *>(pki);
+		pki_x509super *cert_or_req = dynamic_cast<pki_x509super *>(pki);
 
-	if (cert)
-		cert->setSigner(cert->findIssuer());
-	if (cert_or_req)
-		cert_or_req->lookupKey();
-	if (crl)
-		crl->lookupIssuer();
-
+		if (cert)
+			cert->setSigner(cert->findIssuer());
+		if (cert_or_req)
+			cert_or_req->lookupKey();
+		if (crl)
+			crl->lookupIssuer();
+	}
 	if (!dynamic_cast<pki_key*>(pki) &&
 	    !dynamic_cast<pki_x509name*>(pki))
 	{
