@@ -74,6 +74,83 @@
 		        <key>LSHandlerRank</key>
 			<string>Owner</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>cert</string>
+				<string>cer</string>
+				<string>der</string>
+				<string>crt</string>
+				<string>p7c</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>certificate</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>pem</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>printable encoded archive</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>p7b</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>certificate bundle</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>p7r</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>certificate request response</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>p10</string>
+				<string>csr</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>certificate request</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>p12</string>
+				<string>pkcs12</string>
+				<string>pfx</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>personal information exchange file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
 	</array>
 
 </dict>

@@ -21,7 +21,7 @@ https://developer.apple.com/documentation/xcode/notarizing_macos_software_before
 
 DMG=xca-2.4.0-High-Sierra.dmg
 
-xcrun notarytool submit "$DMG" --keychain-profile "AC_PASSWORD" --key-id HWR8GSJ73M --wait --webhook "https://example.com/notarization"
+xcrun notarytool submit "$DMG" --keychain-profile "AC_PASSWORD" --key-id HWR8GSJ73M --wait
 
 xcrun stapler staple "$DMG"
 
