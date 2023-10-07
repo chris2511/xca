@@ -18,7 +18,7 @@ enum revCol { Cnumber, Cserial, Cdate, Creason, CiDate, Cmax };
 
 class revListItem : public QTreeWidgetItem
 {
-    public:
+  public:
 	revListItem(QTreeWidget *w) : QTreeWidgetItem(w) { };
 	bool operator < (const QTreeWidgetItem &other) const
 	{
@@ -95,7 +95,8 @@ void RevocationList::setupRevocationView(QTreeWidget *certList,
 	certList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
-RevocationList::RevocationList(QWidget *w) : QDialog(w ? w : mainwin)
+RevocationList::RevocationList(QWidget *w)
+	: QDialog(w && w->isVisible() ? w : nullptr)
 {
 	QPushButton *genCrl;
 	setupUi(this);

@@ -19,11 +19,11 @@ class CertDetail: public XcaDetail, public Ui::CertDetail
 {
 		Q_OBJECT
 
-		bool showConf;
-		QVariant keySqlId, issuerSqlId, thisSqlId;
-		QString conf, exts;
+		bool showConf{ false };
+		QVariant keySqlId{}, issuerSqlId{}, thisSqlId{};
+		QString conf{}, exts{};
 		QLabel *labelFromAsn1String(ASN1_STRING *s);
-		pki_key *myPubKey, *tmpPubKey;
+		pki_key *myPubKey{}, *tmpPubKey{};
 		void setCert(pki_x509 *cert);
 		void setReq(pki_x509req *req);
 

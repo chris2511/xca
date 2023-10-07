@@ -18,9 +18,9 @@ class XcaDetail: public QDialog
 	Q_OBJECT
 
 	protected:
-		pki_base *pki;
-		ImportMulti *importmulti;
-		QPushButton *importbut;
+		pki_base *pki{};
+		ImportMulti *importmulti{};
+		QPushButton *importbut{};
 		void updateNameComment();
 
 	public:

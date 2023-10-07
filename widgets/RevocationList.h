@@ -20,8 +20,8 @@ class RevocationList: public QDialog, public Ui::RevocationList
 	Q_OBJECT
 
 	private:
-		x509revList revList;
-		pki_x509 *issuer;
+		x509revList revList{};
+		pki_x509 *issuer{};
 	public:
 		static void setupRevocationView(QTreeWidget *certList,
 			const x509revList &revList, const pki_x509 *iss);

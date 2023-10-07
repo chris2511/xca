@@ -20,7 +20,7 @@ class OpenDb: public QDialog, public Ui::OpenDb
   private:
 	static DbMap databases;
 	static QString lastRemote;
-	bool sqlite, show_connection_settings;
+	bool sqlite{}, show_connection_settings{};
 	void setupDatabaseName(const QString &db);
 	QString getDbType() const;
 	void fillDbDropDown(const QString &current);

@@ -1,4 +1,5 @@
-/*
+/* vi: set sw=4 ts=4:
+ *
  * Copyright (C) 2014 - 2020 Christian Hohnstaedt.
  *
  * All rights reserved.
@@ -18,25 +19,22 @@
 
 class builtin_curve
 {
-    public:
-	int nid;
-	QString comment;
-	unsigned order_size;
-	int flags;
+  public:
+	int nid{};
+	QString comment{};
+	unsigned order_size{};
+	int flags{};
 	/* type: CKF_EC_F_P || CKF_EC_F_2M */
-	unsigned long type;
-	builtin_curve(int n, QString c, int s, int f, int t) {
-		nid = n;
-		comment = c;
-		order_size = s;
-		flags = f;
-		type = t;
-	};
+	unsigned long type{};
+
+	builtin_curve(int n, QString c, int s, int f, int t)
+		: nid(n), comment(c), order_size(s), flags(f), type(t) { };
+	builtin_curve() = delete;
 };
 
 class builtin_curves: public QList<builtin_curve>
 {
-    public:
+  public:
 	builtin_curves();
 	bool containNid(int nid)
 	{

@@ -41,7 +41,6 @@ Options::Options(QWidget *parent)
 	mbstring->setCurrentIndex(string_opts.indexOf(
 								QString(Settings["string_opt"])));
 
-	searchP11 = NULL;
 	transDnEntries->setText(transDnEntries->text()
 			.arg(OBJ_nid2ln(NID_commonName))
 			.arg(dn_translations[NID_commonName]));

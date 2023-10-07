@@ -35,7 +35,7 @@ static QString defaultlang()
 }
 
 XcaApplication::XcaApplication(int &argc, char *argv[])
-	:QApplication(argc, argv), mainw(nullptr), qtTr(nullptr), xcaTr(nullptr)
+	: QApplication(argc, argv)
 {
 	QLocale lang;
 

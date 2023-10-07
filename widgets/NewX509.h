@@ -28,11 +28,12 @@ class x509name;
 class x509v3ext;
 class extList;
 
-class nameEdit {
-    public:
-	int nid;
-	QLineEdit *edit;
-	QLabel *label;
+class nameEdit
+{
+  public:
+	int nid{};
+	QLineEdit *edit{};
+	QLabel *label{};
 	nameEdit(int n, QLineEdit *e, QLabel *l) {
 		nid = n; edit = e; label = l;
 	}
@@ -42,30 +43,30 @@ class NewX509: public QDialog, public Ui::NewX509
 {
 		Q_OBJECT
 	private:
-		NIDlist aia_nid;
-		NIDlist attr_nid;
-		QList<nameEdit> attrEdits;
-		QList<nameEdit> nameEdits;
-		X509V3_CTX ext_ctx;
+		NIDlist aia_nid{};
+		NIDlist attr_nid{};
+		QList<nameEdit> attrEdits{};
+		QList<nameEdit> nameEdits{};
+		X509V3_CTX ext_ctx{};
 		void editV3ext(QLineEdit *le, QString types, int n);
-		enum pki_type pt;
-		enum pki_source pkiSource;
+		enum pki_type pt{ none };
+		enum pki_source pkiSource{ generated };
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
-		QStringList tabnames;
-		QList<pki_key*> unusedKeys, allKeys;
-		pki_x509 *ctx_cert;
-		QString v3ext_backup;
-		kvmodel *extDNmodel;
+		QStringList tabnames{};
+		QList<pki_key*> unusedKeys, allKeys{};
+		pki_x509 *ctx_cert{};
+		QString v3ext_backup{};
+		kvmodel *extDNmodel{};
 		extList getExtDuplicates();
 		void checkIcon(const QString &text, int nid, QLabel*img);
 		void selfComment(QString msg);
-		QMap<QString, QLineEdit*> templateLineEdits;
-		QMap<QString, QCheckBox*> templateCheckBoxes;
+		QMap<QString, QLineEdit*> templateLineEdits{};
+		QMap<QString, QCheckBox*> templateCheckBoxes{};
 		pki_temp *caTemplate(pki_x509 *ca) const;
 		void setupExplicitDN(NIDlist my_dn_nid);
 		QList<nameEdit> setupExplicitInputs(NIDlist nid_list,
-                        QWidget *parent, QWidget *old, int columns);
+				QWidget *parent, QWidget *old, int columns);
 
 	public:
 		NewX509(QWidget *w = nullptr);

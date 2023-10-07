@@ -14,11 +14,13 @@
 class hashBox: public QComboBox
 {
 	Q_OBJECT
-    private:
-	QString wanted_md;
-	int backup;
-	int key_type;
-    public:
+
+  private:
+	QString wanted_md{};
+	int backup{};
+	int key_type{};
+
+  public:
 	hashBox(QWidget *parent);
 	const digest current() const;
 	void setCurrent(const digest &md);

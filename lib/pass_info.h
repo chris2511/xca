@@ -20,16 +20,16 @@ class pass_info: public QObject
 {
 	Q_OBJECT
 
-   private:
-	QString title;
-	QString description;
-	QWidget *widget;
-	QString type;
-	QString pixmap;
-	enum open_result result;
+  private:
+	QString title{};
+	QString description{};
+	QWidget *widget{};
+	QString type{};
+	QString pixmap{};
+	enum open_result result{};
 
-   public:
-	pass_info(const QString &t, const QString &d, QWidget *w = NULL);
+  public:
+	pass_info(const QString &t, const QString &d, QWidget *w = nullptr);
 	QString getTitle() const
 	{
 		return title;

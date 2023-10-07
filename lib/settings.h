@@ -16,13 +16,13 @@
 class settings;
 class svalue
 {
-    private:
-	settings *setting;
-	QString key;
+  private:
+	settings *setting{};
+	QString key{};
 	QString get() const;
 	void set(const QString &val);
 
-    public:
+  public:
 	svalue(settings *s, const QString &k);
 	QStringList split(QString sep)
 	{
@@ -91,17 +91,17 @@ class settings
 {
 	friend class svalue;
 
-    private:
-	bool loaded;
-	QStringList db_keys, hostspecific;
-	QMap<QString, QString> values;
-	QMap<QString, QString> defaul;
+  private:
+	bool loaded{};
+	QStringList db_keys{}, hostspecific{};
+	QMap<QString, QString> values{};
+	QMap<QString, QString> defaul{};
 	void load_settings();
 	QString get(QString key);
 	void set(QString key, QString value);
 	void setAction(const QString &key, const QString &value);
 
-    public:
+  public:
 	settings();
 	void clear();
 	QString defaults(const QString &key);

@@ -12,7 +12,7 @@
 
 class XcaProgress_i
 {
-    public:
+  public:
 	XcaProgress_i() = default;
 	virtual void start(const QString &what, int max) = 0;
 	virtual void stop() = 0;
@@ -22,10 +22,10 @@ class XcaProgress_i
 
 class XcaProgressCmd : public XcaProgress_i
 {
-    private:
-	int i;
+  private:
+	int i{};
 
-    public:
+  public:
 	void start(const QString &what, int max);
 	void stop();
 	void increment();
@@ -33,10 +33,10 @@ class XcaProgressCmd : public XcaProgress_i
 
 class XcaProgress
 {
-    private:
+  private:
 	static XcaProgress_i *progress;
 
-    public:
+  public:
 	XcaProgress(const QString &what = QString(), int max = 100);
 	~XcaProgress();
 	void increment();

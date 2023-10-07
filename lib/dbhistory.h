@@ -13,7 +13,7 @@
 class dbhistory
 {
 	private:
-		QStringList history;
+		QStringList history{};
 		static QString lastRemote;
 
 	public:

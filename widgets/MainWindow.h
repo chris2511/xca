@@ -35,7 +35,7 @@ class tipMenu : public QMenu
 {
 	Q_OBJECT
 
-    public:
+  public:
 	tipMenu(QString n, QWidget *w) : QMenu(n, w) {}
 	bool event (QEvent * e)
 	{
@@ -58,22 +58,22 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	private:
 		static OidResolver *resolver;
-		QString string_opt;
-		QList<QWidget*> wdList;
-		QList<QWidget*> wdMenuList;
-		QList<QWidget*> scardList;
-		QList<QAction*> acList;
-		tipMenu *historyMenu;
+		QString string_opt{};
+		QList<QWidget*> wdList{};
+		QList<QWidget*> wdMenuList{};
+		QList<QWidget*> scardList{};
+		QList<QAction*> acList{};
+		tipMenu *historyMenu{};
+		QLineEdit *searchEdit{};
+		QStringList urlsToOpen{};
+		XcaProgress *dhgenProgress{};
+		DHgen *dhgen{};
+		QList<XcaTreeView *> views{};
+		dbhistory history{};
 		void set_geometry(QString geo);
-		QLineEdit *searchEdit;
-		QStringList urlsToOpen;
 		int checkOldGetNewPass(Passwd &pass);
 		void checkDB();
-		XcaProgress *dhgenProgress;
-		DHgen *dhgen;
 		const QList<QStringList> getTranslators() const;
-		QList<XcaTreeView *> views;
-		dbhistory history;
 		void exportIndex(const QString &fname, bool hierarchy) const;
 		QAction *languageMenuEntry(const QStringList &sl);
 

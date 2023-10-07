@@ -53,7 +53,7 @@ class pki_export : public QObject {
 
 	Q_OBJECT
 
-    public:
+  public:
 
 	int id;
 	enum pki_type pki_type;
@@ -69,7 +69,7 @@ class pki_export : public QObject {
 	static void free_elements();
 	bool match_all(int match_flags) const;
 
-    private:
+  private:
 	static QList<pki_export*> elements;
 };
 

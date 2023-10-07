@@ -110,9 +110,8 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
+NewX509::NewX509(QWidget *w) : QDialog(w && w->isVisible() ? w : nullptr)
 {
-	int i;
 	QStringList keys;
 	db_key *keymodel = Database.model<db_key>();
 	db_x509req *reqmodel = Database.model<db_x509req>();
@@ -123,8 +122,6 @@ NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
 	mainwin->helpdlg->register_ctxhelp_button(this, "wizard");
 
 	/* temporary storage for creating temporary X509V3_CTX */
-	ctx_cert = NULL;
-	pkiSource = generated;
 	foreach(int nid, distname_nid)
 		keys << QString(OBJ_nid2ln(nid));
 
@@ -152,7 +149,7 @@ NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
 
 	setWindowTitle(XCA_TITLE);
 
-	for (i=0; i<tabWidget->count(); i++) {
+	for (int i=0; i<tabWidget->count(); i++) {
 		tabWidget->widget(i)->setObjectName(tabnames[i]);
 		qDebug() << "TAB:" << i << tabWidget->tabText(i);
 	}
@@ -207,7 +204,6 @@ NewX509::NewX509(QWidget *w) : QDialog(w ? w : mainwin)
 	certList->setDisabled(true);
 	tabWidget->setCurrentIndex(0);
 	attrWidget->hide();
-	pt = none;
 	notAfter->setEndDate(true);
 	basicPath->setValidator(new QIntValidator(0, 1000, this));
 

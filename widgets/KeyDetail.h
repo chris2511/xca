@@ -18,7 +18,7 @@ class KeyDetail: public XcaDetail, public Ui::KeyDetail
 {
 	Q_OBJECT
 
-	QVariant keySqlId;
+	QVariant keySqlId{};
 
   public:
 	KeyDetail(QWidget *w = nullptr);

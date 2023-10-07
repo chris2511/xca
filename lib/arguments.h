@@ -22,13 +22,13 @@ enum {
 
 class arg_option
 {
-    public:
-	const char *long_opt;
-	const char *arg;
-	int arg_type;
-	bool no_gui;
-	bool need_db;
-	QString help;
+  public:
+	const char *long_opt{};
+	const char *arg{};
+	int arg_type{};
+	bool no_gui{};
+	bool need_db{};
+	QString help{};
 
 	arg_option(const char *l, const char *a, int has_arg,
 		bool n, bool nd, const char *h);
@@ -37,14 +37,14 @@ class arg_option
 
 class arguments
 {
-    private:
+  private:
 	static const QList<arg_option> opts;
-	int result;
-	QMap<QString, QString> found_options;
-	QStringList files;
-	bool need_db;
+	int result{};
+	QMap<QString, QString> found_options{};
+	QStringList files{};
+	bool need_db{ false };
 
-    public:
+  public:
 	static bool is_console(int argc, char *argv[]);
 	static QString help();
 	static QString man();

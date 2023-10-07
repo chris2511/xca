@@ -22,7 +22,7 @@ class pki_pkcs7: public pki_multi
 	friend class pki_x509;
 
 	protected:
-		PKCS7 *p7;
+		PKCS7 *p7{};
 		void signBio(pki_x509 *crt, BIO *bio);
 		void encryptBio(pki_x509 *crt, BIO *bio);
 		void append_certs(PKCS7 *myp7, const QString &name);

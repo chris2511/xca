@@ -18,7 +18,7 @@ class QAction;
 class XcaTranslator : public QTranslator
 {
 	Q_OBJECT
-public:
+  public:
 	XcaTranslator(QObject *p = NULL) : QTranslator(p) { }
 	bool load(const QLocale &locale, const QString &filename,
 		const QString &dir)
@@ -32,13 +32,13 @@ class XcaApplication : public QApplication
 {
 	Q_OBJECT
 
-private:
-	MainWindow *mainw;
-	XcaTranslator *qtTr;
-	XcaTranslator *xcaTr;
+  private:
+	MainWindow *mainw{};
+	XcaTranslator *qtTr{};
+	XcaTranslator *xcaTr{};
 	static QList<QLocale> langAvail;
 
-public:
+  public:
 	XcaApplication(int &argc, char *argv[]);
 	virtual ~XcaApplication();
 	void setMainwin(MainWindow *m);

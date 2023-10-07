@@ -16,8 +16,8 @@ class pki_base;
 class load_base
 {
 	public:
-		QString filter;
-		QString caption;
+		QString filter{};
+		QString caption{};
 		load_base();
 		virtual ~load_base();
 		virtual pki_base *loadItem(const QString &s);

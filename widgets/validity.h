@@ -15,11 +15,11 @@ class Validity : public QDateTimeEdit
 {
     Q_OBJECT
 
-	bool midnight, endDate;
+	bool midnight{}, endDate{};
 	void updateFormatString();
 
   protected:
-	QTime mytime;
+	QTime mytime{};
 
   public:
 	Validity( QWidget* parent);

@@ -19,7 +19,7 @@ class CrlDetail: public XcaDetail, public Ui::CrlDetail
 	Q_OBJECT
 
 	private:
-		QVariant issuerSqlId, crlSqlId;
+		QVariant issuerSqlId{}, crlSqlId{};
 	public:
 		CrlDetail(QWidget *w = nullptr);
 		void setCrl(pki_crl *crl);

@@ -19,7 +19,7 @@ class QString;
 class x509v3ext
 {
    private:
-	X509_EXTENSION *ext;
+	X509_EXTENSION *ext{};
 	const ASN1_OBJECT *object() const;
    public:
 	x509v3ext();

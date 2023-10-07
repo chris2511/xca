@@ -22,7 +22,7 @@ class TempTreeView: public XcaTreeView
 
 	bool runTempDlg(pki_temp *temp);
 
-    public:
+  public:
 	TempTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
@@ -30,14 +30,14 @@ class TempTreeView: public XcaTreeView
 	bool alterTemp(pki_temp *temp);
 	ExportDialog *exportDialog(const QModelIndexList &index);
 
-   public slots:
+  public slots:
 	void certFromTemp();
 	void reqFromTemp();
 	void duplicateTemp();
 	void newItem();
 	void load();
 
-    signals:
+  signals:
 	void newReq(pki_temp *);
 	void newCert(pki_temp *);
 };

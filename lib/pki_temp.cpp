@@ -88,19 +88,14 @@ const QList<QString> pki_temp::tmpl_keys = {
 };
 
 pki_temp::pki_temp(const pki_temp *pk)
-	:pki_x509name(pk->getIntName())
+	:pki_x509name(pk->getIntName()), xname(pk->xname),  settings(pk->settings)
 {
-	pre_defined = false;
-
-	xname = pk->xname;
-	settings = pk->settings;
 }
 
 pki_temp::pki_temp(const QString &d)
 	:pki_x509name(d)
 {
 	pkiType = tmpl;
-	pre_defined = false;
 
 	foreach(QString key, tmpl_keys) {
 		settings[key] = QString();
@@ -112,7 +107,7 @@ pki_temp::pki_temp(const QString &d)
 QString pki_temp::comboText() const
 {
 	return pre_defined ? QString("[default] ") + pki_base::comboText() :
-			 pki_base::comboText();
+			pki_base::comboText();
 }
 
 QSqlError pki_temp::insertSqlData()

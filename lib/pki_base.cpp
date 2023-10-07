@@ -22,24 +22,15 @@ QRegularExpression pki_base::limitPattern;
 bool pki_base::pem_comment;
 QBrush pki_base::red, pki_base::cyan, pki_base::yellow;
 
-pki_base::pki_base(const QString &name)
+pki_base::pki_base(const QString &name) : desc(name)
 {
-	desc = name;
-	parent = nullptr;
-	childItems.clear();
-	pkiType=none;
-	pkiSource=unknown;
-	iamvisible = 1;
 }
 
 pki_base::pki_base(const pki_base *p)
 {
 	desc = p->desc;
-	parent = nullptr;
-	childItems.clear();
 	pkiType = p->pkiType;
 	pkiSource = p->pkiSource;
-	iamvisible = 1;
 	p->inheritFilename(this);
 }
 

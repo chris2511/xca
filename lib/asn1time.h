@@ -22,15 +22,15 @@
 class a1time : public QDateTime
 {
    private:
-	ASN1_TIME *atime;
+	ASN1_TIME *atime{};
 	int from_asn1(const ASN1_TIME *a);
 	int set_asn1(const QString &str, int type);
 
    public:
 	a1time();
-	a1time(const QDateTime &a);
+	a1time(const QDateTime &a) : QDateTime(a) { };
+	a1time(const a1time &a) : QDateTime(a) { };
 	a1time(const ASN1_TIME *a);
-	a1time(const a1time &a);
 	a1time(const QString &plain);
 	a1time &operator = (const a1time &a);
 	~a1time();

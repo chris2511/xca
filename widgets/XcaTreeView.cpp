@@ -31,7 +31,6 @@
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
 {
-	mainwin = NULL;
 	setHeader(new XcaHeaderView());
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -45,7 +44,6 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setSortingEnabled(true);
 	proxy->setDynamicSortFilter(true);
 	sortByColumn(0, Qt::AscendingOrder);
-	basemodel = NULL;
 	connect(header(), SIGNAL(sectionHandleDoubleClicked(int)),
 		this, SLOT(resizeColumnToContents(int)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
@@ -409,8 +407,6 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 		if (curr_hd->id > 0)
 			menu->addAction(tr("Details"), this,
 						SLOT(headerDetails()));
-	} else {
-		curr_hd = NULL;
 	}
 	menu->addSeparator();
 	foreach(hd, allHeaders) {

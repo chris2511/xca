@@ -12,7 +12,7 @@
 
 class Passwd: public QByteArray
 {
-    public:
+  public:
 	void cleanse();
 	~Passwd();
 	unsigned char *constUchar() const;

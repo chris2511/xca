@@ -15,16 +15,16 @@
 
 class DHgen: public QThread
 {
-	QString fname;
-	int bits;
-	errorEx err;
+	QString fname{};
+	int bits{};
+	errorEx err{};
 
-    public:
+  public:
 	DHgen(const QString &n, int b) : QThread(), fname(n), bits(b) {}
 	QString filename() const { return fname; }
 	errorEx error() const { return err; }
 
-    protected:
+  protected:
 	void run();
 };
 #endif

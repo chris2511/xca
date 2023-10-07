@@ -1,3 +1,10 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2018 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
 #include "settings.h"
 #include "func.h"
 #include "sql.h"
@@ -13,9 +20,8 @@
 settings Settings;
 
 svalue::svalue(settings *s, const QString &k)
+	:  setting(s), key(k)
 {
-	setting = s;
-	key = k;
 }
 
 QString svalue::get() const

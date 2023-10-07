@@ -21,14 +21,14 @@ class KeyTreeView: public XcaTreeView
 		return dynamic_cast<db_key*>(basemodel);
 	}
 
-    public:
+  public:
 	KeyTreeView(QWidget *parent) : XcaTreeView(parent) { }
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
 	void showPki(pki_base *pki);
 	ExportDialog *exportDialog(const QModelIndexList &indexes);
 
-   public slots:
+  public slots:
 	void resetOwnPass();
 	void setOwnPass();
 	void changePin();

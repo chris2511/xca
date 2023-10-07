@@ -22,13 +22,13 @@ class pk11_attlist;
 class pk11_attribute
 {
 	friend class pk11_attlist;
-protected:
-	CK_ATTRIBUTE attr;
 
-public:
+  protected:
+	CK_ATTRIBUTE attr{};
+
+  public:
 	pk11_attribute(unsigned long type)
 	{
-		memset(&attr, 0, sizeof(attr));
 		attr.type = type;
 	}
 	virtual ~pk11_attribute() { }

@@ -21,8 +21,8 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 	Q_OBJECT
 
 	private:
-		slotid slot;
-		db_token *mcont;
+		slotid slot{};
+		db_token *mcont{};
 		void importError(QStringList failed);
 
 	public:

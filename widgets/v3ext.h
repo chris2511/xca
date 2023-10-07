@@ -22,20 +22,21 @@ class v3ext: public QDialog, public Ui::v3ext
 {
 	Q_OBJECT
 	private:
-		QLineEdit *le;
-		int nid;
-		X509V3_CTX *ext_ctx;
+		int nid{};
+		QLineEdit *le{};
+		X509V3_CTX *ext_ctx{};
+		QStringList keys{};
+		QString prefix{};
 		bool __validate(bool showSuccess);
-		QStringList keys;
-		QString prefix;
+
 	public:
 		v3ext( QWidget *parent);
-		void addItem(QString list);
-		void addEntry(QString list);
+		void addItem(const QString &list);
+		void addEntry(const QString &list);
 		QString toString();
 		void addInfo(QLineEdit *myle, const QStringList &sl, int n,
 				X509V3_CTX *ctx);
-		void setPrefix(QString p) {
+		void setPrefix(const QString &p) {
 			prefix = p;
 		}
 

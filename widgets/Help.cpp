@@ -16,7 +16,7 @@
 #include <QHelpLink>
 #endif
 
-Help::Help() : QWidget(NULL), helpengine(nullptr)
+Help::Help() : QWidget(NULL)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);

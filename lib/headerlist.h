@@ -61,20 +61,10 @@
 
 class dbheader
 {
-    protected:
-	void init()
-	{
-		id = HD_undef;
-		action = NULL;
-		show = showDefault = false;
-		size = -1;
-		visualIndex = -1;
-		sortIndicator = -1;
-		type = hd_default;
-	}
-	QString name, tooltip;
+  protected:
+	QString name{}, tooltip{};
 
-    public:
+  public:
 	enum hdr_type {
 		hd_default,
 		hd_x509name,
@@ -84,30 +74,23 @@ class dbheader
 		hd_asn1time,
 		hd_key,
 	};
-	int id;
-	bool show;
-	bool showDefault;
+	int id{ HD_undef };
+	bool show{ false };
+	bool showDefault{ false };
+	QAction *action{};
+	int size{ -1 };
+	int visualIndex{ -1 };
+	int sortIndicator{ -1 };
+	enum hdr_type type{ hd_default };
+
 	virtual QString getName() { return name; }
 	virtual QString getTooltip() { return tooltip; }
-	QAction *action;
-	int size;
-	int visualIndex;
-	int sortIndicator;
-	enum hdr_type type;
 
-	dbheader(QString aname = QString())
-	{
-		init();
-		name = aname;
-	}
+	dbheader(QString aname = QString()) : name(aname) { }
 	dbheader(int aid, bool ashow = false,
 		QString aname = QString(), QString atip = QString())
+		: name(aname), tooltip(atip), id(aid), show(ashow), showDefault(ashow)
 	{
-		init();
-		id = aid;
-		name = aname;
-		tooltip = atip;
-		show = showDefault = ashow;
 	}
 	virtual ~dbheader() { }
 
@@ -136,11 +119,12 @@ class dbheader
 	}
 	QString toData()
 	{
-		QStringList sl; sl
-		<< QString::number(visualIndex)
-		<< QString::number(sortIndicator)
-		<< QString::number(size)
-		<< QString::number(show);
+		QStringList sl{
+			QString::number(visualIndex),
+			QString::number(sortIndicator),
+			QString::number(size),
+			QString::number(show)
+		};
 		return sl.join(" ");
 	}
 	void fromData(QString s)
@@ -185,10 +169,10 @@ class dbheader
 
 class nid_dbheader : public dbheader
 {
-    private:
-	QString sn;
+  private:
+	QString sn{};
 
-    public:
+  public:
 	nid_dbheader(int aid, enum hdr_type atype)
 		: dbheader(aid, aid == NID_commonName)
 	{

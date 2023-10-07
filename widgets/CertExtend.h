@@ -17,7 +17,7 @@ class CertExtend: public QDialog, public Ui::CertExtend
 {
 	Q_OBJECT
 
-	pki_x509 *signer;
+	pki_x509 *signer{};
 
    public:
 	CertExtend(QWidget *parent, pki_x509 *s);

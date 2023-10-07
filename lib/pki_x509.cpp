@@ -18,11 +18,9 @@
 #include "pass_info.h"
 
 pki_x509::pki_x509(X509 *c)
-	:pki_x509super()
+	:pki_x509super(), cert(c)
 {
 	init();
-	cert = c;
-	pki_openssl_error();
 }
 
 pki_x509::pki_x509(const pki_x509 *crt)
@@ -249,10 +247,7 @@ pki_x509::~pki_x509()
 
 void pki_x509::init()
 {
-	caTemplateSqlId = QVariant();
-	crlDays = 30;
 	crlExpire.setUndefined();
-	cert = NULL;
 	pkiType = x509;
 }
 

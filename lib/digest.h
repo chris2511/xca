@@ -15,11 +15,12 @@ class digest
 {
   private:
 	static int default_md;
-	int md_nid;
+	int md_nid{ NID_sha256 };
 
   public:
 	static const QList<int> all_digests;
 
+	digest() { };
 	digest(int nid);
 	digest(const EVP_MD *md);
 	digest(const QString &name);

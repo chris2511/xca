@@ -33,10 +33,7 @@ db_base::db_base(const char *classname)
 {
 	rootItem = new pki_base(QString("ROOTitem(%1)").arg(classname));
 	treeItem = new pki_base(QString("TREEitem(%1)").arg(classname));
-	colResizing = 0;
 	class_name = classname;
-	secondsTimer = minutesTimer = hoursTimer = 0;
-	treeview = true;
 	restart_timer();
 }
 
@@ -48,9 +45,8 @@ db_base::~db_base()
 	delete treeItem;
 }
 
-pki_base *db_base::newPKI(enum pki_type type)
+pki_base *db_base::newPKI(enum pki_type)
 {
-	(void)type;
 	return new pki_base();
 }
 

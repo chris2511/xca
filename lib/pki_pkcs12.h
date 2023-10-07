@@ -15,11 +15,11 @@ class pki_x509;
 
 class encAlgo
 {
-	private:
+  private:
 	static int default_encAlgo;
-	int encAlgo_nid;
+	int encAlgo_nid { NID_undef };
 
-	public:
+  public:
 	static const QList<int> all_encAlgos;
 
 	encAlgo(int nid);
@@ -41,9 +41,9 @@ class pki_pkcs12: public pki_multi
 	friend class pki_evp;
 
 	protected:
-		QString alias, algorithm;
-		pki_x509 *cert;
-		pki_key *key;
+		QString alias{}, algorithm{};
+		pki_x509 *cert{};
+		pki_key *key{};
 
 	public:
 		pki_pkcs12(const QString &d, pki_x509 *acert, pki_key *akey);

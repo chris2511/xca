@@ -20,10 +20,9 @@
 
 x509v3ext::x509v3ext()
 {
-	ext = nullptr;
 }
 
-x509v3ext::x509v3ext(const X509_EXTENSION *n) : ext(nullptr)
+x509v3ext::x509v3ext(const X509_EXTENSION *n)
 {
 	if (n) {
 		ext = X509_EXTENSION_dup((X509_EXTENSION *)n);
@@ -31,12 +30,12 @@ x509v3ext::x509v3ext(const X509_EXTENSION *n) : ext(nullptr)
 	}
 }
 
-x509v3ext::x509v3ext(const x509v3ext &n) : ext(nullptr)
+x509v3ext::x509v3ext(const x509v3ext &n)
 {
 	set(n.ext);
 }
 
-x509v3ext::x509v3ext(int nid, const QString &et, X509V3_CTX *ctx) : ext(nullptr)
+x509v3ext::x509v3ext(int nid, const QString &et, X509V3_CTX *ctx)
 {
 	create(nid, et, ctx);
 }

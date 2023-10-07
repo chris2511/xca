@@ -12,15 +12,13 @@
 #include "lib/func.h"
 
 
-Validity::Validity( QWidget* parent )
-    : QDateTimeEdit( parent )
+Validity::Validity(QWidget *parent) : QDateTimeEdit(parent)
 {
-	endDate = false;
 	setTimeSpec(Qt::UTC);
 	setNow();
 	hideTime(false);
 	connect(this, SIGNAL(timeChanged(const QTime &)),
-		this, SLOT(setMyTime(const QTime &)));
+			this, SLOT(setMyTime(const QTime &)));
 	updateFormatString();
 }
 

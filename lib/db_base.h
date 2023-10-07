@@ -28,23 +28,24 @@ class db_base: public QAbstractItemModel
 	Q_OBJECT
 
 	protected:
-		int secondsTimer, minutesTimer, hoursTimer;
-		void _writePKI(pki_base *pki, bool overwrite);
-		QList<enum pki_type> pkitype;
-		QList<enum pki_type> pkitype_depends;
-		QString class_name;
+		int secondsTimer{}, minutesTimer{}, hoursTimer{};
+		QList<enum pki_type> pkitype{};
+		QList<enum pki_type> pkitype_depends{};
+		QString class_name{};
 		/* Sql table containing the 'hash' of this items */
-		QString sqlHashTable;
-		dbheaderList allHeaders;
+		QString sqlHashTable{};
+		dbheaderList allHeaders{};
+		int colResizing{};
+		bool treeview{ true };
+		pki_base *rootItem{};
+		pki_base *treeItem{};
+		QVariant selected{};
+
+		void _writePKI(pki_base *pki, bool overwrite);
 		virtual dbheaderList getHeaders();
-		int colResizing;
 		QString sqlItemSelector();
 		bool isValidCol(int col) const;
 		void timerEvent(QTimerEvent *event);
-		bool treeview;
-		pki_base *rootItem;
-		pki_base *treeItem;
-		QVariant selected;
 
 	public:
 		void restart_timer();

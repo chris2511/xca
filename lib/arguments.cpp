@@ -271,7 +271,6 @@ int arguments::parse(int argc, char *argv[])
 
 arguments::arguments(int argc, char *argv[])
 {
-	need_db = false;
 	parse(argc, argv);
 }
 

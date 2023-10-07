@@ -18,7 +18,7 @@
 
 template <class T> class itemCombo : public QComboBox
 {
-    public:
+  public:
 	itemCombo(QWidget *parent) : QComboBox(parent) { }
 	void insertPkiItems(QList<T*> items) {
 		clear();

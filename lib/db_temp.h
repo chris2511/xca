@@ -16,10 +16,10 @@ class pki_temp;
 class db_temp: public db_x509name
 {
 	Q_OBJECT
-    protected:
-	QList<pki_temp*> predefs;
+  protected:
+	QList<pki_temp*> predefs{};
 
-    public:
+  public:
 	db_temp();
 	~db_temp();
 	pki_base *newPKI(enum pki_type type = none);

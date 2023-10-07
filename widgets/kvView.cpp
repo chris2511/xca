@@ -67,7 +67,7 @@ void lineDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 	model->setData(index, l->text(), Qt::EditRole);
 }
 
-kvmodel::kvmodel(QStringList &heads)
+kvmodel::kvmodel(const QStringList &heads)
 {
 	header = heads;
 	myCols = heads.size();
@@ -240,6 +240,8 @@ void kvView::addKvRow()
 
 void kvView::deleteCurrentRow()
 {
+	if (!currentIndex().isValid())
+		return;
 	model()->removeRows(currentIndex().row(), 1, QModelIndex());
 }
 

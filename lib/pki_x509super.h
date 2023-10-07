@@ -19,10 +19,10 @@
 
 class pki_x509name : public pki_base
 {
-    protected:
+  protected:
 	QByteArray PEM_comment() const;
 
-    public:
+  public:
 	pki_x509name(const QString &name = QString());
 	pki_x509name(const pki_x509name *n);
 	virtual x509name getSubject() const = 0;
@@ -36,7 +36,7 @@ class pki_x509super : public pki_x509name
 {
 		Q_OBJECT
 	protected:
-		QVariant keySqlId;
+		QVariant keySqlId{};
 		virtual int sigAlg() const = 0;
 		void collect_properties(QMap<QString, QString> &prp) const;
 	public:

@@ -22,7 +22,6 @@ pkcs11_lib::pkcs11_lib(const QString &f)
 	CK_RV (*c_get_function_list)(CK_FUNCTION_LIST_PTR_PTR);
 	CK_RV rv;
 	file = name2File(f, &enabled);
-	p11 = NULL;
 
 	if (!enabled)
 		return;

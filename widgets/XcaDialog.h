@@ -15,7 +15,7 @@
 class XcaDialog : public QDialog, public Ui::XcaDialog
 {
 	QWidget *widg;
-    public:
+  public:
 	XcaDialog(QWidget *parent, enum pki_type type, QWidget *w,
 		const QString &t, const QString &desc,
 		const QString &help_ctx = QString());

@@ -16,7 +16,7 @@ class DoubleClickLabel : public QLabel
 {
   Q_OBJECT
 
-	QString clicktext;
+	QString clicktext{};
   public:
 	DoubleClickLabel(QWidget *parent) : QLabel(parent) { }
 	void setClickText(QString s);

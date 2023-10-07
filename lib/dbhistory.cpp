@@ -30,7 +30,6 @@ dbhistory::dbhistory()
 		return;
 	}
 
-	history.clear();
 	while (!file.atEnd()) {
 		QByteArray ba;
 		ba = file.readLine(1024);

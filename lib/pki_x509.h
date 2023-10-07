@@ -34,15 +34,15 @@ class pki_x509 : public pki_x509super
 {
 		Q_OBJECT
 	private:
-		QVariant issuerSqlId;
-		a1time crlExpire;
-		a1int crlNumber;
-		int crlDays;
-		QVariant caTemplateSqlId;
-		X509 *cert;
+		QVariant issuerSqlId{};
+		a1time crlExpire{};
+		a1int crlNumber{};
+		int crlDays{ 30 };
+		QVariant caTemplateSqlId{};
+		X509 *cert{};
+		x509rev revocation{};
+		x509revList fromDataRevList{};
 		void init();
-		x509rev revocation;
-		x509revList fromDataRevList;
 		void resetX509ReqCount() const;
 
 	protected:

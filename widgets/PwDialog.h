@@ -17,9 +17,9 @@ class PwDialog: public QDialog, public Ui::PwDialog
 	Q_OBJECT
 
    private:
-	bool wrDialog;
-	Passwd final;
-	pass_info *pi;
+	pass_info *pi{};
+	Passwd final{};
+	bool wrDialog{};
 
    public:
 	PwDialog(pass_info *p, bool write = false);

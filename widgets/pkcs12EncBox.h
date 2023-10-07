@@ -15,7 +15,7 @@ class pkcs12EncBox: public QComboBox
 {
 	Q_OBJECT
 	private:
-		QString wanted_encAlgo;
+		QString wanted_encAlgo{};
 	public:
 		pkcs12EncBox(QWidget *parent);
 		const encAlgo current() const;

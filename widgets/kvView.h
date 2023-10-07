@@ -20,7 +20,9 @@ class kvView;
 
 class kvDelegate : public QItemDelegate
 {
-public:
+	Q_OBJECT
+
+  public:
 	kvDelegate(QObject *parent)
 		:QItemDelegate(parent)
 	{
@@ -30,13 +32,14 @@ public:
 
 class comboDelegate : public kvDelegate
 {
-	QStringList keys;
+	Q_OBJECT
 
-public:
-	comboDelegate(QStringList k, QObject *parent = 0)
-			:kvDelegate(parent)
+	QStringList keys{};
+
+  public:
+	comboDelegate(QStringList k, QObject *parent = nullptr)
+			:kvDelegate(parent), keys(k)
 	{
-		keys = k;
 	}
 	void addKey(QString &key)
 	{
@@ -62,13 +65,11 @@ class lineDelegate : public kvDelegate
 {
 	Q_OBJECT
 
-	QLabel *infoLabel;
+	QLabel *infoLabel{};
 public:
-	lineDelegate(QLabel *lbl = 0, QObject *parent = 0)
-			:kvDelegate(parent)
-	{
-		infoLabel = lbl;
-	}
+	lineDelegate(QLabel *lbl = nullptr, QObject *parent = nullptr)
+			: kvDelegate(parent), infoLabel(lbl)
+	{ }
 	QWidget *createEditor(QWidget *parent,
 		const QStyleOptionViewItem &option,
 		const QModelIndex &index) const;
@@ -77,9 +78,8 @@ public:
 			const QModelIndex &index) const;
 	void updateEditorGeometry(QWidget *editor,
 		const QStyleOptionViewItem &option,
-		const QModelIndex &index) const
+		const QModelIndex &) const
 	{
-		(void)index;
 		editor->setGeometry(option.rect);
 	}
 signals:
@@ -89,12 +89,12 @@ signals:
 
 class kvmodel: public QAbstractTableModel
 {
-	QStringList items;
-	QStringList header;
-	int myCols;
+	QStringList items{};
+	QStringList header{};
+	int myCols{};
 
 public:
-	kvmodel(QStringList &heads);
+	kvmodel(const QStringList &heads);
 	QStringList getRow(int i);
 	void addRow(const QStringList &newrow);
 	Qt::ItemFlags flags(const QModelIndex &index) const
@@ -132,11 +132,11 @@ class kvView: public QTableView
 {
 	Q_OBJECT
 
-	QStringList keys0;
-	QLabel *infoLabel;
+	QStringList keys0{};
+	QLabel *infoLabel{};
 
 public:
-	kvView(QWidget *parent = 0);
+	kvView(QWidget *parent = nullptr);
 	~kvView();
 	int rowCount()
 	{
@@ -149,7 +149,8 @@ public:
 	void addRow(const QStringList &newrow);
 	void deleteAllRows()
 	{
-		model()->removeRows(0, rowCount(), QModelIndex());
+		if (model()->rowCount() > 0)
+			model()->removeRows(0, rowCount(), QModelIndex());
 	}
 	void setInfoLabel(QLabel *lbl, int col = 1)
 	{

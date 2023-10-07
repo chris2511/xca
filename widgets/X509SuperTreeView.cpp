@@ -21,7 +21,6 @@ void X509SuperTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 {
 	pki_x509super *x = dynamic_cast<pki_x509super*>(
 					db_base::fromIndex(index));
-	transform = NULL;
 
 	if (indexes.size() != 1 || !x)
 		return;

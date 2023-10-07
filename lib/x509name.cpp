@@ -26,13 +26,11 @@ x509name::x509name(const X509_NAME *n)
 
 x509name::x509name(STACK_OF(X509_NAME_ENTRY) *entries)
 {
-	xn = NULL;
 	set(entries);
 }
 
 x509name::x509name(const x509name &n)
 {
-	xn = NULL;
 	set(n.xn);
 }
 

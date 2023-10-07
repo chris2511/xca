@@ -25,12 +25,9 @@ void pki_scard::init(void)
 	ownPass = ptPin;
 	pkiType = smartCard;
 	isPub = false;
-
-	card_serial = card_manufacturer = card_label = "";
-	card_model = slot_label = "";
 }
 
-pki_scard::pki_scard(const QString name)
+pki_scard::pki_scard(const QString &name)
 	:pki_key(name)
 {
 	init();

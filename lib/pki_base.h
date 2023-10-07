@@ -59,20 +59,21 @@ class pki_base : public QObject
 		static void setupColors(const QPalette &pal);
 
 	protected:
-		QVariant sqlItemId;
-		QString desc, comment;
-		a1time insertion_date;
-		enum pki_type pkiType;
+		QVariant sqlItemId{};
+		QString desc{}, comment{};
+		a1time insertion_date{};
+		enum pki_type pkiType{ none };
 		/* model data */
-		pki_base *parent;
+		pki_base *parent{};
+		QString filename{};
+		QList<pki_base*> childItems{};
+		mutable QRegularExpression lastPattern{};
+		int iamvisible{ 1 };
+		static QBrush red, yellow, cyan;
+
 		void my_error(const QString &error) const;
-		QString filename;
 		virtual QByteArray PEM_comment() const;
 		virtual void collect_properties(QMap<QString, QString> &) const;
-		QList<pki_base*> childItems;
-		mutable QRegularExpression lastPattern;
-		static QBrush red, yellow, cyan;
-		int iamvisible;
 
 	public:
 		enum msg_type {
@@ -86,7 +87,7 @@ class pki_base : public QObject
 			print_pem,
 			print_coloured,
 		};
-		enum pki_source pkiSource;
+		enum pki_source pkiSource{ unknown };
 
 		pki_base(const QString &d = QString());
 		pki_base(const pki_base *p);
@@ -178,9 +179,8 @@ class pki_base : public QObject
 		virtual void writeDefault(const QString&) const;
 
 		/* Qt Model-View methods */
-		virtual QVariant bg_color(const dbheader *hd) const
+		virtual QVariant bg_color(const dbheader *) const
 		{
-			(void)hd;
 			return QVariant();
 		}
 		virtual QVariant column_data(const dbheader *hd) const;

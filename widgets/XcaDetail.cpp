@@ -19,7 +19,7 @@
 #include "lib/database_model.h"
 
 XcaDetail::XcaDetail(QWidget *w)
-	: QDialog(w && w->isVisible() ? w : nullptr), pki(nullptr)
+	: QDialog(w && w->isVisible() ? w : nullptr)
 {
 	importmulti = dynamic_cast<ImportMulti *>(w);
 	setWindowTitle(XCA_TITLE);

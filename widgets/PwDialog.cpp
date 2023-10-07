@@ -48,7 +48,7 @@ enum open_result PwDialogUI::execute(pass_info *p, Passwd *passwd,
 }
 
 PwDialog::PwDialog(pass_info *p, bool write)
-	:QDialog(p->getWidget())
+	:QDialog(p->getWidget()), pi(p)
 {
 	pi = p;
 	setupUi(this);

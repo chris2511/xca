@@ -14,23 +14,20 @@
 
 class BioByteArray
 {
-    protected:
-	BIO *read_write;
-	BIO *read_only;
-	QByteArray store;
+  protected:
+	BIO *read_write{};
+	BIO *read_only{};
+	QByteArray store{};
 
 	void set(const QByteArray &qba);
 	void add(const QByteArray &qba);
 	void biowrite(const QByteArray &qba);
 	void cleanse_and_free(BIO *bio);
 
-    public:
-	BioByteArray(const QByteArray &qba) :
-		 read_write(NULL), read_only(NULL), store(qba) { }
-	BioByteArray(const BioByteArray &bba) :
-		 read_write(NULL), read_only(NULL), store(bba.byteArray()) { }
-	BioByteArray() :
-		 read_write(NULL), read_only(NULL), store() { }
+  public:
+	BioByteArray(const QByteArray &qba) : store(qba) { }
+	BioByteArray(const BioByteArray &bba) : store(bba.byteArray()) { }
+	BioByteArray() { }
 	~BioByteArray();
 	int size() const;
 	BIO *bio();

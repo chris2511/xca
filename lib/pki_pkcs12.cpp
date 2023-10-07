@@ -34,7 +34,6 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	Passwd pass;
 	EVP_PKEY *mykey = NULL;
 	X509 *mycert = NULL;
-	key = NULL; cert = NULL;
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file:\n%1").arg(compressFilename(fname)));
 	const X509_ALGOR *macalgid = NULL;
 	const ASN1_INTEGER *maciter = NULL;

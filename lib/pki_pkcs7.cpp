@@ -17,7 +17,6 @@
 pki_pkcs7::pki_pkcs7(const QString &name)
 	:pki_multi(name)
 {
-	p7 = NULL;
 }
 
 pki_pkcs7::~pki_pkcs7()

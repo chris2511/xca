@@ -18,8 +18,8 @@ class Options: public QDialog, public Ui::Options
 {
 		Q_OBJECT
 	private:
-		SearchPkcs11 *searchP11;
-		QStringList string_opts;
+		SearchPkcs11 *searchP11{};
+		QStringList string_opts{};
 		QString getDnString(QListWidget *w);
 		void setDnString(QString dn, QListWidget *w);
 

@@ -26,8 +26,8 @@ class DistName : public QWidget
 	void setX509name(const x509name &n);
 
   protected:
-	QGridLayout* DistNameLayout;
-	QLineEdit *rfc2253;
-	QLineEdit *namehash;
+	QGridLayout* DistNameLayout{};
+	QLineEdit *rfc2253{};
+	QLineEdit *namehash{};
 };
 #endif

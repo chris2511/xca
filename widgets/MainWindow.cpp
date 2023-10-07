@@ -89,7 +89,6 @@ MainWindow::MainWindow() : QMainWindow()
 
 	OpenDb::initDatabases();
 
-	historyMenu = NULL;
 	helpdlg = new Help();
 	init_menu();
 	setItemEnabled(false);
@@ -128,9 +127,6 @@ MainWindow::MainWindow() : QMainWindow()
 	XcaProgress::setGui(new XcaProgressGui(this));
 	xcaWarning::setGui(new xcaWarningGui());
 	PwDialogCore::setGui(new PwDialogUI());
-
-	dhgen = nullptr;
-	dhgenProgress = nullptr;
 }
 
 void MainWindow::dropEvent(QDropEvent *event)

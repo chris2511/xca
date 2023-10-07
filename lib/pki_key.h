@@ -1,4 +1,5 @@
-/*
+/* vi: set sw=4 ts=4:
+ *
  * Copyright (C) 2001 - 2020 Christian Hohnstaedt.
  *
  * All rights reserved.
@@ -28,7 +29,7 @@ extern builtin_curves builtinCurves;
 
 class keytype
 {
-    public:
+  public:
 	static QList<keytype> types()
 	{
 		return QList<keytype> {
@@ -45,10 +46,10 @@ class keytype
 #endif
 		};
 	}
-	int type;
-	QString name;
-	CK_MECHANISM_TYPE mech;
-	bool curve, length;
+	int type{};
+	QString name{};
+	CK_MECHANISM_TYPE mech{};
+	bool curve{}, length{};
 
 	keytype(int t, const QString &n, CK_MECHANISM_TYPE m, bool c, bool l)
 			: type(t), name(n), mech(m), curve(c), length(l) { }

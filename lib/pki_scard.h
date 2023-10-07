@@ -26,17 +26,17 @@ class pki_scard: public pki_key
 {
 		Q_OBJECT
 	protected:
-		QString card_serial;
-		QString card_manufacturer;
-		QString card_model;
-		QString card_label;
-		QString slot_label;
-		QString object_id;
-		QList<CK_MECHANISM_TYPE> mech_list;
+		QString card_serial{};
+		QString card_manufacturer{};
+		QString card_model{};
+		QString card_label{};
+		QString slot_label{};
+		QString object_id{};
+		QList<CK_MECHANISM_TYPE> mech_list{};
 		void init(void);
 
 	public:
-		pki_scard(const QString name);
+		pki_scard(const QString &name);
 		virtual ~pki_scard();
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		bool prepare_card(slotid *slot) const;

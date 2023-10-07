@@ -24,7 +24,7 @@ enum open_result {
 class errorEx
 {
 	protected:
-		QString msg;
+		QString msg{};
 
 	public:
 		errorEx(QString txt = "", QString className = "")

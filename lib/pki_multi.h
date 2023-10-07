@@ -16,7 +16,7 @@ class pki_multi: public pki_base
 {
 		Q_OBJECT
 	protected:
-		QList<pki_base*> multi;
+		QList<pki_base*> multi{};
 	public:
 		pki_multi(const QString &name = "");
 		~pki_multi();

@@ -18,17 +18,17 @@ class Help: public QWidget, public Ui::Help
 {
 	Q_OBJECT
 
-	QHelpEngineCore *helpengine;
+	QHelpEngineCore *helpengine{};
 	void display(const QUrl &url);
 
-   public:
+  public:
 	Help();
 	~Help();
 	void register_ctxhelp_button(QDialog *dlg,
 					const QString &help_ctx) const;
 	QList<QUrl> url_by_ctx(const QString &ctx) const;
 
-   public slots:
+  public slots:
 	void contexthelp();
 	void contexthelp(const QString &context);
 	void content();

@@ -20,14 +20,15 @@ class pkcs11_lib : public QLibrary
 {
 	Q_OBJECT
 
-    private:
-	CK_FUNCTION_LIST *p11;
-	QString file, load_error;
-	bool enabled;
+  private:
+	CK_FUNCTION_LIST *p11{};
+	QString file, load_error{};
+	bool enabled{};
 
-    public:
-	static QString name2File(const QString &name, bool *enabled = NULL);
+  public:
+	static QString name2File(const QString &name, bool *enabled = nullptr);
 	pkcs11_lib(const QString &file);
+	pkcs11_lib() = delete;
 	~pkcs11_lib();
 
 	QList<unsigned long> getSlotList();

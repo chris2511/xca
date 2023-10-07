@@ -20,9 +20,9 @@
 class x509rev
 {
 	private:
-		a1int serial;
-		a1time date, ivalDate;
-		int reason_idx, crlNo;
+		a1int serial{};
+		a1time date{}, ivalDate{};
+		int reason_idx{}, crlNo{};
 		void set(const x509rev &x);
 
 		X509_REVOKED *toREVOKED(bool withReason=true) const;
@@ -38,7 +38,6 @@ class x509rev
 
 		x509rev()
 		{
-			reason_idx = 0;
 			date.setUndefined();
 		}
 		x509rev(X509_REVOKED *n)

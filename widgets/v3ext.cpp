@@ -48,7 +48,7 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 		copy_cn->hide();
 }
 
-void v3ext::addItem(QString list)
+void v3ext::addItem(const QString &list)
 {
 	int i;
 	QStringList sl;
@@ -107,10 +107,10 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 }
 
 /* for one TYPE:Content String */
-void v3ext::addEntry(QString line)
+void v3ext::addEntry(const QString &l)
 {
 	int idx;
-	QString type, value;
+	QString type, value, line(l);
 
 	line = line.trimmed();
 	idx = line.indexOf(':');

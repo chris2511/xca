@@ -22,7 +22,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 
-KeyDetail::KeyDetail(QWidget *w) : XcaDetail(w) , keySqlId()
+KeyDetail::KeyDetail(QWidget *w) : XcaDetail(w)
 {
 	setupUi(this);
 

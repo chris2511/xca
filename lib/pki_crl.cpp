@@ -12,7 +12,7 @@
 #include "database_model.h"
 #include <QDir>
 
-pki_crl::pki_crl(const QString name )
+pki_crl::pki_crl(const QString &name)
 	:pki_x509name(name)
 {
 	crl = X509_CRL_new();

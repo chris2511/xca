@@ -16,7 +16,8 @@ class db_token: public db_base
 {
 		Q_OBJECT
 	private:
-		slotid slot;
+		slotid slot{};
+
 	public:
 		db_token();
 		bool setData(const QModelIndex &index,

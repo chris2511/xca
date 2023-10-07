@@ -39,12 +39,9 @@ extern char segv_data[1024];
 class tkInfo
 {
 private:
-	CK_TOKEN_INFO token_info;
+	CK_TOKEN_INFO token_info{};
 public:
-	tkInfo()
-	{
-		memset(&token_info, 0, sizeof token_info);
-	}
+	tkInfo() { }
 	tkInfo(const CK_TOKEN_INFO *ti)
 	{
 		set(ti);

@@ -22,8 +22,7 @@ pki_x509req::pki_x509req(const QString &name)
 {
 	request = X509_REQ_new();
 	pki_openssl_error();
-	pkiType=x509_req;
-	done = false;
+	pkiType = x509_req;
 	resetX509count();
 }
 

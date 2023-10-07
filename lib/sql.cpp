@@ -27,11 +27,6 @@ void DbTransaction::debug(const char *func, const char *file, int line)
 			.arg(line).arg(func).arg(mutex).arg(error);
 }
 
-DbTransaction::DbTransaction()
-{
-	has_begun = false;
-}
-
 DbTransaction::~DbTransaction()
 {
 	if (has_begun)

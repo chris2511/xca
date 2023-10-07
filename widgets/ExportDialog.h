@@ -19,10 +19,10 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 {
 	Q_OBJECT
 
-   protected:
-	QString filter;
+  protected:
+	QString filter{};
 
-   public:
+  public:
 	ExportDialog(QWidget *w, const QString &title, const QString &filt,
 		     const QModelIndexList &indexes, const QPixmap &img,
 		     QList<const pki_export*> types,
@@ -31,7 +31,7 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 	static bool mayWriteFile(const QString &fname);
 	const pki_export *export_type(int idx = -1) const;
 
-   public slots:
+  public slots:
 	void on_fileBut_clicked();
 	void on_exportFormat_activated(int);
 	void on_exportFormat_highlighted(int index);

@@ -22,19 +22,19 @@
 
 class crljob
 {
-    public:
-	pki_x509 *issuer;
-	bool withReason;
-	bool authKeyId;
-	bool subAltName;
-	bool setCrlNumber;
-	a1int crlNumber;
-	int crlDays;
-    digest hashAlgo;
-	a1time lastUpdate;
-	a1time nextUpdate;
+  public:
+	pki_x509 *issuer{};
+	bool withReason{};
+	bool authKeyId{};
+	bool subAltName{};
+	bool setCrlNumber{};
+	a1int crlNumber{};
+	int crlDays{};
+    digest hashAlgo{};
+	a1time lastUpdate{};
+	a1time nextUpdate{};
 
-	crljob(pki_x509 *x) : issuer(x),
+	crljob(pki_x509 *x = nullptr) : issuer(x),
 		withReason(true),
 		authKeyId(true),
 		subAltName(true),
@@ -52,7 +52,6 @@ class crljob
 			delete key;
 		}
 	}
-	crljob() = delete;
 };
 
 class pki_crl: public pki_x509name
@@ -60,12 +59,12 @@ class pki_crl: public pki_x509name
 		Q_OBJECT
 	friend class pki_x509;
 	protected:
-		QVariant issuerSqlId;
-		X509_CRL *crl;
+		QVariant issuerSqlId{};
+		X509_CRL *crl{};
 		extList extensions() const;
 		void collect_properties(QMap<QString, QString> &prp) const;
 	public:
-		pki_crl(const QString name = "");
+		pki_crl(const QString &name = QString());
 		~pki_crl();
 		void fromPEM_BIO(BIO *bio, const QString &name);
 		void fload(const QString &fname);

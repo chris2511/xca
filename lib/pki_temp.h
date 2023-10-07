@@ -29,10 +29,10 @@ class pki_temp: public pki_x509name
 		static const QList<QString> tmpl_keys;
 		int dataSize();
 		void try_fload(XFile &file);
-		bool pre_defined;
-		x509name xname;
-		QMap<QString, QString> settings;
-		QString adv_ext;
+		bool pre_defined{ false };
+		x509name xname{};
+		QMap<QString, QString> settings{};
+		QString adv_ext{};
 		void fromExtList(extList *el, int nid, const char *item);
 
 	public:
@@ -40,22 +40,22 @@ class pki_temp: public pki_x509name
 		pki_temp(const QString &d = QString());
 		~pki_temp();
 
-		QString getSetting(QString key)
+		QString getSetting(const QString &key)
 		{
 			CHECK_TMPL_KEY
 			return settings[key];
 		}
-		int getSettingInt(QString key)
+		int getSettingInt(const QString &key)
 		{
 			CHECK_TMPL_KEY
 			return settings[key].toInt();
 		}
-		void setSetting(QString key, QString value)
+		void setSetting(const QString &key, const QString &value)
 		{
 			CHECK_TMPL_KEY
 			settings[key] = value;
 		}
-		void setSetting(QString key, int value)
+		void setSetting(const QString &key, int value)
 		{
 			CHECK_TMPL_KEY
 			settings[key] = QString::number(value);

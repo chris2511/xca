@@ -20,7 +20,7 @@
 #include <QTextEdit>
 #include <QLineEdit>
 
-CrlDetail::CrlDetail(QWidget *w) : XcaDetail(w), issuerSqlId(), crlSqlId()
+CrlDetail::CrlDetail(QWidget *w) : XcaDetail(w)
 {
 	setupUi(this);
 	init("crldetail", ":revImg");

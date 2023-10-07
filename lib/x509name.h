@@ -16,7 +16,7 @@
 class x509name
 {
 	private:
-		X509_NAME *xn;
+		X509_NAME *xn{};
 	public:
 		x509name();
 		x509name(const X509_NAME *n);

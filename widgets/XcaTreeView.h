@@ -29,16 +29,16 @@ class XcaTreeView: public QTreeView
 {
 	Q_OBJECT
 
-	dbheader *curr_hd;
-	QTimer throttle;
+	dbheader *curr_hd{};
+	QTimer throttle{};
 
-   protected:
-	db_base *basemodel;
-	QSortFilterProxyModel *proxy;
-	MainWindow *mainwin;
+  protected:
+	db_base *basemodel{};
+	QSortFilterProxyModel *proxy{};
+	MainWindow *mainwin{};
 
-   public:
-	XcaTreeView(QWidget *parent = 0);
+  public:
+	XcaTreeView(QWidget *parent = nullptr);
 	virtual ~XcaTreeView();
 	void contextMenuEvent(QContextMenuEvent *e);
 	void setModel(QAbstractItemModel *model);

@@ -12,7 +12,7 @@
 
 class focusCombo : public QComboBox
 {
-    public:
+  public:
 	focusCombo(QWidget *parent) : QComboBox(parent) { }
 	void hidePopup()
 	{

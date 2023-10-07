@@ -24,7 +24,7 @@
 
 class xcaWarning_i
 {
-    public:
+  public:
 	virtual void information(const QString &msg) = 0;
 	virtual void warning(const QString &msg) = 0;
 	virtual void warningv3(const QString &msg, const extList &el) = 0;
@@ -39,7 +39,7 @@ class xcaWarningCore : public QObject, public xcaWarning_i
 {
 	Q_OBJECT
 
-    public:
+  public:
 	void information(const QString &msg);
 	void warning(const QString &msg);
 	bool yesno(const QString &msg);
@@ -53,7 +53,7 @@ class xcaWarning
 {
 	static class xcaWarning_i *gui;
 
-    public:
+  public:
 	xcaWarning() = delete;
 	xcaWarning(const xcaWarningCore &) = delete;
 	~xcaWarning() = delete;

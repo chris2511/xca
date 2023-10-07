@@ -77,42 +77,26 @@ int a1time::set_asn1(const QString &str, int type)
 	return 0;
 }
 
-a1time::a1time(const QDateTime &a)
-	: QDateTime(a)
-{
-	atime = NULL;
-}
-
-a1time::a1time(const a1time &a)
-	: QDateTime(a)
-{
-	atime = NULL;
-}
-
 a1time &a1time::operator = (const a1time &a)
 {
 	if (atime)
 		ASN1_TIME_free(atime);
-	atime = NULL;
 	QDateTime::operator=(a);
 	return *this;
 }
 
 a1time::a1time()
 {
-	atime = NULL;
 	*this = now();
 }
 
 a1time::a1time(const ASN1_TIME *a)
 {
-	atime = NULL;
 	from_asn1(a);
 }
 
 a1time::a1time(const QString &plain)
 {
-	atime = NULL;
 	fromPlain(plain);
 }
 

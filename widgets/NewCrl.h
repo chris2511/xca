@@ -17,14 +17,14 @@ class NewCrl: public QWidget, public Ui::NewCrl
 {
 	Q_OBJECT
 
-	crljob task;
-   public:
+	crljob task{};
+  public:
 	NewCrl(const crljob &task, QWidget *w = nullptr);
 	~NewCrl();
 	crljob getCrlJob() const;
 	static void newCrl(QWidget *parent, pki_x509 *issuer);
 
-   public slots:
+  public slots:
 	void on_applyTime_clicked();
 };
 #endif

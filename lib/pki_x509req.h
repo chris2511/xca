@@ -25,10 +25,10 @@ class pki_x509req : public pki_x509super
 {
 		Q_OBJECT
 
-		mutable int x509count;
+		mutable int x509count{};
 	protected:
-		X509_REQ *request;
-		bool done;
+		X509_REQ *request{};
+		bool done{ false };
 		int sigAlg() const;
 		void collect_properties(QMap<QString, QString> &prp) const;
 

@@ -14,15 +14,15 @@
 
 class Entropy
 {
-    protected:
-	QString rnd;
+  protected:
+	QString rnd{};
 	static QElapsedTimer timer;
 	static unsigned char pool[512];
 	static unsigned pool_pos;
 	static unsigned seed_strength;
 	static int random_from_file(QString fname, unsigned amount,
 					int weakness=1);
-    public:
+  public:
 	Entropy();
 	~Entropy();
 	static void add(int rand);
