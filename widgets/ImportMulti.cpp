@@ -29,8 +29,8 @@
 #include <QMimeData>
 #include <typeinfo>
 
-ImportMulti::ImportMulti(QWidget *)
-	: QDialog()
+ImportMulti::ImportMulti(QWidget *w)
+	: QDialog(w && w->isVisible() ? w : nullptr)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
@@ -170,7 +170,6 @@ void ImportMulti::on_butOk_clicked()
 		indexes << mcont->index(i, 0, QModelIndex());
 
 	importIndexes(indexes);
-	accept();
 }
 
 void ImportMulti::on_butImport_clicked()
@@ -264,6 +263,8 @@ void ImportMulti::on_butDetails_clicked()
 
 	if (selectionModel->selectedIndexes().count())
 		showDetail(selectionModel->selectedIndexes().first());
+	if (mcont->rowCount(QModelIndex()) == 0)
+		accept();
 }
 
 void ImportMulti::showDetail(const QModelIndex &idx)

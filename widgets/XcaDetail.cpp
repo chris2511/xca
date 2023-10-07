@@ -18,7 +18,8 @@
 #include "lib/pki_base.h"
 #include "lib/database_model.h"
 
-XcaDetail::XcaDetail(QWidget *w) : QDialog(), pki(nullptr)
+XcaDetail::XcaDetail(QWidget *w)
+	: QDialog(w && w->isVisible() ? w : nullptr), pki(nullptr)
 {
 	importmulti = dynamic_cast<ImportMulti *>(w);
 	setWindowTitle(XCA_TITLE);
