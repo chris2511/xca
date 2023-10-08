@@ -20,6 +20,7 @@
 #include "CrlDetail.h"
 #include "CertDetail.h"
 #include "KeyDetail.h"
+#include "NewX509.h"
 
 #include <QPushButton>
 #include <QMessageBox>
@@ -293,8 +294,7 @@ void ImportMulti::showDetail(pki_base *pki)
 		}
 		pki_temp *temp = dynamic_cast<pki_temp*>(pki);
 		if (temp) {
-			XCA_WARN(tr("Details of the item '%1' cannot be shown")
-				.arg("XCA template"));
+			NewX509::showTemp(this, temp);
 			return;
 		}
 		XCA_WARN(tr("The type of the item '%1' is not recognized").

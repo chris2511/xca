@@ -110,7 +110,7 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 	return edits;
 }
 
-NewX509::NewX509(QWidget *w) : QDialog(w && w->isVisible() ? w : nullptr)
+NewX509::NewX509(QWidget *w) : XcaDetail(w)
 {
 	QStringList keys;
 	db_key *keymodel = Database.model<db_key>();
@@ -142,10 +142,12 @@ NewX509::NewX509(QWidget *w) : QDialog(w && w->isVisible() ? w : nullptr)
                 this, SLOT(checkCrlDist(const QString &)));
 	connect(authInfAcc, SIGNAL(textChanged(const QString &)),
                 this, SLOT(checkAuthInfAcc(const QString &)));
-	connect(keymodel, SIGNAL(keyDone(pki_key*)),
-		this, SLOT(newKeyDone(pki_key*)));
-	connect(reqmodel, SIGNAL(pkiChanged(pki_base*)),
-		this, SLOT(itemChanged(pki_base*)));
+	if (keymodel)
+		connect(keymodel, SIGNAL(keyDone(pki_key*)),
+			this, SLOT(newKeyDone(pki_key*)));
+	if (reqmodel)
+		connect(reqmodel, SIGNAL(pkiChanged(pki_base*)),
+			this, SLOT(itemChanged(pki_base*)));
 
 	setWindowTitle(XCA_TITLE);
 
@@ -374,6 +376,17 @@ void NewX509::setTemp(pki_temp *temp)
 	pt = tmpl;
 	fromTemplate(temp);
 	comment->setPlainText(temp->getComment());
+	connect_pki(temp);
+}
+
+void NewX509::disableAllButNameComment()
+{
+	tab_0->setEnabled(false);
+	tab_2->setEnabled(false);
+	tab_3->setEnabled(false);
+	tab_4->setEnabled(false);
+	distNameBox->setEnabled(false);
+	privKeyBox->setEnabled(false);
 }
 
 /* Initialize dialog for Certificate creation */
@@ -648,28 +661,33 @@ void NewX509::on_showReqBut_clicked()
 
 QList<pki_x509req *> NewX509::getAllRequests() const
 {
-	return Database.model<db_x509req>()->getAllRequests();
+	db_x509req *db = Database.model<db_x509req>();
+	return db ? db->getAllRequests() : QList<pki_x509req *>();
 }
 
 QList<pki_x509*> NewX509::getAllIssuers() const
 {
-	return Database.model<db_x509>()->getAllIssuers();
+	db_x509 *db = Database.model<db_x509>();
+	return db ? db->getAllIssuers() : QList<pki_x509*>();
 }
 
 QList<pki_temp*> NewX509::getAllTempsAndPredefs() const
 {
-	return Database.model<db_temp>()->getPredefs() +
-			Store.getAll<pki_temp>();
+	db_temp *db = Database.model<db_temp>();
+	return db ? db->getPredefs() + Store.getAll<pki_temp>()
+				: QList<pki_temp*>();
 }
 
 QList<pki_key*> NewX509::getAllKeys() const
 {
-	return Database.model<db_key>()->getAllKeys();
+	db_key *db = Database.model<db_key>();
+	return db ? db->getAllKeys() : QList<pki_key*>();
 }
 
 QList<pki_key*> NewX509::getUnusedKeys() const
 {
-	return Database.model<db_key>()->getUnusedKeys();
+	db_key *db = Database.model<db_key>();
+	return db ? db->getUnusedKeys() : QList<pki_key*>();
 }
 
 void NewX509::itemChanged(pki_base* req)
@@ -680,6 +698,8 @@ void NewX509::itemChanged(pki_base* req)
 
 void NewX509::on_genKeyBut_clicked()
 {
+	if (!Database.isOpen())
+		return;
 	QString name = description->text();
 	if (name.isEmpty())
 		name = getX509name().getMostPopular();
@@ -1424,5 +1444,16 @@ void NewX509::accept()
 				break;
 		}
 	}
-	QDialog::accept();
+	XcaDetail::accept();
+}
+
+void NewX509::showTemp(QWidget *parent, pki_temp *x)
+{
+	if (!x)
+		return;
+	NewX509 *dlg = new NewX509(parent);
+	dlg->setTemp(x);
+	dlg->disableAllButNameComment();
+	dlg->exec();
+	delete dlg;
 }

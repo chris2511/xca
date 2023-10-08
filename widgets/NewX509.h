@@ -12,6 +12,7 @@
 #include "ui_NewX509.h"
 #include "lib/oid.h"
 #include "kvView.h"
+#include "XcaDetail.h"
 #include <openssl/x509v3.h>
 #include <QListWidget>
 
@@ -39,7 +40,7 @@ class nameEdit
 	}
 };
 
-class NewX509: public QDialog, public Ui::NewX509
+class NewX509: public XcaDetail, public Ui::NewX509
 {
 		Q_OBJECT
 	private:
@@ -75,6 +76,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void setRequest(); // reduce to request form
 		void setTemp(pki_temp *temp); // reduce to template form
 		void setCert(); // reduce to certificate form
+		void disableAllButNameComment();
 		void toTemplate(pki_temp *temp);
 		void fromTemplate(pki_temp *temp);
 		void defineTemplate(pki_temp *temp);
@@ -121,6 +123,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		QList<pki_temp*> getAllTempsAndPredefs() const;
 		QList<pki_key*> getUnusedKeys() const;
 		QList<pki_key*> getAllKeys() const;
+		static void showTemp(QWidget *parent, pki_temp *x);
 
 	public slots:
 		void on_fromReqCB_clicked();
