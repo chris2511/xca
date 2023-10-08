@@ -112,6 +112,8 @@ QList<pki_x509 *> db_x509::getAllIssuers()
 
 void db_x509::remFromCont(const QModelIndex &idx)
 {
+	if (!idx.isValid())
+		return;
 	db_crl *crls = Database.model<db_crl>();
 	db_x509super::remFromCont(idx);
 	pki_base *pki = fromIndex(idx);

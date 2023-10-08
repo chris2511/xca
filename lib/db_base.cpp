@@ -400,7 +400,7 @@ QModelIndex db_base::index(int row, int column,
 
 QModelIndex db_base::index(pki_base *pki) const
 {
-	if (!pki || pki == treeItem)
+	if (!pki || pki == treeItem || rootItem->indexOf(pki) == -1)
 		return QModelIndex();
 	return createIndex(rownumber(pki), 0, pki);
 }

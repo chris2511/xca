@@ -72,12 +72,13 @@ void KeyDetail::setupFingerprints(pki_key *key)
 	}
 }
 
-void KeyDetail::setKey(pki_key *key)
+void KeyDetail::setKey(pki_key *key, bool import)
 {
 	keySqlId = key->getSqlItemId();
 	descr->setText(key->getIntName());
 	keyLength->setText(key->length());
-	connect_pki(key);
+	if (import)
+		connect_pki(key);
 
 	keyPrivEx->disableToolTip();
 	if (!key->isToken())
@@ -151,12 +152,13 @@ void KeyDetail::itemChanged(pki_base *pki)
 		descr->setText(pki->getIntName());
 }
 
-void KeyDetail::showKey(QWidget *parent, pki_key *key, bool ro)
+void KeyDetail::showKey(QWidget *parent, pki_key *key, bool import)
 {
 	if (!key)
 		return;
 	KeyDetail *dlg = new KeyDetail(parent);
-	dlg->setKey(key);
+	bool ro = !key->getSqlItemId().isValid();
+	dlg->setKey(key, import);
 	dlg->descr->setReadOnly(ro);
 	dlg->comment->setReadOnly(ro);
 

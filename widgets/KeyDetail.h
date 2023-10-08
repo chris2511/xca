@@ -22,9 +22,9 @@ class KeyDetail: public XcaDetail, public Ui::KeyDetail
 
   public:
 	KeyDetail(QWidget *w = nullptr);
-	void setKey(pki_key *key);
+	void setKey(pki_key *key, bool import = true);
 	void setupFingerprints(pki_key *key);
-	static void showKey(QWidget *parent, pki_key *keyi, bool ro = false);
+	static void showKey(QWidget *parent, pki_key *key, bool import = true);
 
   public slots:
 	void itemChanged(pki_base *pki) override;

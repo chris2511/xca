@@ -252,8 +252,7 @@ int pki_base::childCount() const
 
 int pki_base::indexOf(const pki_base *child) const
 {
-	int ret = childItems.indexOf(const_cast<pki_base *>(child));
-	return ret >= 0 ? ret : 0;
+	return childItems.indexOf(const_cast<pki_base *>(child));
 }
 
 void pki_base::takeChild(pki_base *pki)

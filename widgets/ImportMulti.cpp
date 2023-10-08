@@ -237,11 +237,12 @@ pki_base *ImportMulti::import(const QModelIndex &idx)
 
 pki_base *ImportMulti::import(pki_base *pki)
 {
-	QModelIndex idx = mcont->index(pki);
 	if (!pki || pki->getSqlItemId().isValid())
 		return NULL;
 
-	mcont->remFromCont(idx);
+	QModelIndex idx = mcont->index(pki);
+	if (idx.isValid())
+		mcont->remFromCont(idx);
 
 	if (!Database.isOpen()) {
 		try {
