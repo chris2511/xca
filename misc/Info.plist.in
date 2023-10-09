@@ -87,6 +87,8 @@
 			<string>certificate</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+		        <key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -99,6 +101,8 @@
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
+		        <key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -111,6 +115,8 @@
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
+		        <key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -123,6 +129,8 @@
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
+		        <key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -136,6 +144,8 @@
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
+		        <key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -150,6 +160,8 @@
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
+		        <key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 	</array>
 
