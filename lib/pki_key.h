@@ -95,7 +95,7 @@ class keytype
 
 class keyjob
 {
-    public:
+  public:
 	static keyjob defaultjob;
 	keytype ktype;
 	int size;
@@ -122,13 +122,13 @@ class keyjob
 		else if (!isED25519())
 			size = sl[1].toInt();
 		slot = slotid();
+		ign_openssl_error();
 	}
 	QString toString()
 	{
 		if (isED25519())
 			return ktype.name;
-		return QString("%1:%2").arg(ktype.name)
-				.arg(isEC() ?
+		return QString("%1:%2").arg(ktype.name) .arg(isEC() ?
 					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
 					QString::number(size));
 	}
