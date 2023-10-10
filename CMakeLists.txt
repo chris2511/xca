@@ -15,6 +15,9 @@ cmake_host_system_information(RESULT OS_DATA_LIST QUERY
 list(JOIN OS_DATA_LIST " -- " OS_DATA)
 message(STATUS ${OS_DATA})
 
+string(REGEX MATCH  "([0-9]+\.[0-9]+\.[0-9]+)" OSX_SDK_MINIMUM
+	${CMAKE_OSX_DEPLOYMENT_TARGET} ".0.0.0")
+
 include(GNUInstallDirs)
 
 ##### Git command to tweak the version and commit hash

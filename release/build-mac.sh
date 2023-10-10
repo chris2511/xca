@@ -71,7 +71,7 @@ BUILDDIR="$TOP_DIR/osx-release-dmg"
 BUILDDIR_APPSTORE="$TOP_DIR/osx-release-appstore"
 
 INSTALL_DIR="$TOP_DIR/install"
-SDK="11"
+SDK="10.15"
 JOBS=7
 
 cd $TOP_DIR
