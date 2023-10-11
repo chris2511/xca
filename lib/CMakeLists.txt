@@ -37,6 +37,7 @@ dhgen.cpp		dhgen.h			XcaProgress.cpp
 XcaProgress.h		XcaWarningCore.cpp	XcaWarningCore.h
 PwDialogCore.cpp	PwDialogCore.h		digest.h
 digest.cpp		pki_export.cpp
+func_base.cpp		func_base.h
 )
 
 list(TRANSFORM xca_sources PREPEND ${PROJECT_SOURCE_DIR}/lib/)
