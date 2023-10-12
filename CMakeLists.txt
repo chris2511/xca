@@ -19,6 +19,7 @@ string(REGEX MATCH  "([0-9]+\.[0-9]+\.[0-9]+)" OSX_SDK_MINIMUM
 	${CMAKE_OSX_DEPLOYMENT_TARGET} ".0.0.0")
 
 include(GNUInstallDirs)
+include(CTest)
 
 ##### Git command to tweak the version and commit hash
 include(cmake/git_version.cmake)
@@ -93,6 +94,8 @@ find_package(OpenSSL REQUIRED)
 find_package(QT NAMES ${QTFIXEDVERSION} REQUIRED COMPONENTS Core)
 set(QT Qt${QT_VERSION_MAJOR})
 find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
+find_package(${QT} QUIET COMPONENTS Test)
+
 message(STATUS "Using ${QT} with version ${QT_VERSION}")
 
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)

@@ -7,7 +7,7 @@
 
 
 #include "asn1int.h"
-#include "func.h"
+#include "func_base.h"
 #include "exception.h"
 #include <openssl/err.h>
 #include <openssl/bn.h>
@@ -146,7 +146,7 @@ ASN1_INTEGER *a1int::get() const
 
 const ASN1_INTEGER *a1int::get0() const
 {
-       return in;
+	return in;
 }
 
 long a1int::getLong() const

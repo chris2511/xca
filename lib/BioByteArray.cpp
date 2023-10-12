@@ -17,6 +17,8 @@ void BioByteArray::set(const QByteArray &qba)
 			;
 		memset(buf, 0, sizeof buf);
 	}
+	store.fill(0);
+	store.clear();
 	add(qba);
 }
 

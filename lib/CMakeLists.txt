@@ -40,11 +40,31 @@ digest.cpp		pki_export.cpp
 func_base.cpp		func_base.h
 )
 
-list(TRANSFORM xca_sources PREPEND ${PROJECT_SOURCE_DIR}/lib/)
-list(TRANSFORM xcadoc_sources PREPEND ${PROJECT_SOURCE_DIR}/lib/)
+list(APPEND test_biobytearray_sources BioByteArray.cpp BioByteArray.h)
+list(APPEND test_asn1int_sources asn1int.cpp asn1int.h func_base.h func_base.cpp)
 
-list(APPEND xca_sources ${PROJECT_BINARY_DIR}/local.h)
-list(APPEND xcadoc_sources ${PROJECT_BINARY_DIR}/local.h)
+macro(ExpandSources target)
+  list(TRANSFORM ${target}_sources PREPEND ${PROJECT_SOURCE_DIR}/lib/)
+  list(APPEND ${target} ${PROJECT_BINARY_DIR}/local.h)
+  target_sources(${target} PRIVATE ${${target}_sources})
+endmacro()
 
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${xca_sources})
-target_sources(xcadoc PRIVATE ${xcadoc_sources})
+ExpandSources(xca)
+ExpandSources(xcadoc)
+
+macro(Test name)
+  add_executable(${name} ${name}.cpp)
+  ExpandSources(${name})
+  target_link_libraries(${name} PRIVATE
+    OpenSSL::Crypto ${QT}::Core ${QT}::Test ${QT}::Sql
+  )
+  add_test(NAME ${name} COMMAND ${name})
+  set_target_properties(${name} PROPERTIES MACOSX_BUNDLE FALSE)
+  add_dependencies(tests ${name})
+endmacro()
+
+if(BUILD_TESTING)
+  add_custom_target(tests)
+  Test(test_biobytearray)
+  Test(test_asn1int)
+endif()
