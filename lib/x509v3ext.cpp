@@ -73,10 +73,15 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		    nid == NID_subject_alt_name)
 		{
 			x509name xn(X509_get_subject_name(ctx->subject_cert));
-			QString cn = xn.getEntryByNid(NID_commonName);
-			if (!cn.isEmpty())
-				etext.replace(QString("DNS:copycn"),
-						QString("DNS:%1").arg(cn));
+			QStringList new_san;
+			int i, max = xn.entryCount();
+			for (i=0; i < max; i++) {
+				if (xn.nid(i) == NID_commonName)
+					new_san << QString("DNS:%1").arg(xn.getEntry(i));
+			}
+			qDebug() << "COUNT" << new_san.size() << new_san.join(",");
+			if (new_san.size() > 0)
+				etext.replace(QString("DNS:copycn"), new_san.join(","));
 		}
 		QByteArray ba = etext.toLocal8Bit();
 		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
