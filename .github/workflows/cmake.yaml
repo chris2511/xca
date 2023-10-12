@@ -83,20 +83,21 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 5 -v
+      run: cmake --build ${{github.workspace}}/build -j 5 -v
 
     - name: Fixup after WindeployQT and Install
       if: matrix.os == 'windows'
       run: |
         cd ${{env.MSYS}}\msys64\mingw64\bin
         cmake -E copy libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll ${{github.workspace}}\build
-        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -t install
+        cmake --build ${{github.workspace}}/build -t install
 
-    #- name: Test
-      #working-directory: ${{github.workspace}}/build
+    - name: Test
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      #run: ctest -C ${{env.BUILD_TYPE}}
+      run: |
+        cmake --build ${{github.workspace}}/build -t tests
+        cmake --build ${{github.workspace}}/build -t test
 
     - name: Install
       if: matrix.os != 'windows'
@@ -106,7 +107,6 @@ jobs:
       run: |
         cd ${{github.workspace}}/build
         cpack -C ${{env.BUILD_TYPE}}
-#        type _CPack_Packages/win64/WIX/wix.log
 
     - name: Deploy
       uses: actions/upload-artifact@v3
