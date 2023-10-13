@@ -14,49 +14,47 @@
 #include <openssl/err.h>
 #include "exception.h"
 
-x509name::x509name()
+static const QSharedPointer<X509_NAME> x509init(const X509_NAME *other)
 {
-	xn = X509_NAME_new();
+	X509_NAME *xname = other ? X509_NAME_dup((X509_NAME *)other)
+	                         : X509_NAME_new();
+	Q_CHECK_PTR(xname);
+	QSharedPointer<X509_NAME> r(xname, X509_NAME_free);
+	openssl_error();
+	return r;
 }
 
-x509name::x509name(const X509_NAME *n)
+x509name::x509name() : xn(x509init(nullptr))
 {
-	xn = X509_NAME_dup((X509_NAME *)n);
 }
 
-x509name::x509name(STACK_OF(X509_NAME_ENTRY) *entries)
+x509name::x509name(const X509_NAME *n) : xn(x509init(n))
+{
+}
+
+x509name::x509name(STACK_OF(X509_NAME_ENTRY) *entries) : xn(x509init(nullptr))
 {
 	set(entries);
 }
 
-x509name::x509name(const x509name &n)
+x509name::x509name(const x509name &n) : xn(x509init(n.get0()))
 {
-	set(n.xn);
-}
-
-x509name::~x509name()
-{
-	X509_NAME_free(xn);
 }
 
 x509name &x509name::set(const X509_NAME *n)
 {
-	if (xn != NULL)
-		X509_NAME_free(xn);
-	xn = X509_NAME_dup((X509_NAME *)n);
+	xn = x509init(n);
 	return *this;
 }
 
 x509name &x509name::set(const STACK_OF(X509_NAME_ENTRY) *entries)
 {
-	if (xn != NULL)
-		X509_NAME_free(xn);
-	xn = X509_NAME_new();
-	if (xn && entries) {
+	xn = x509init(nullptr);
+	if (entries) {
 		int count = sk_X509_NAME_ENTRY_num(entries);
 		for (int i = 0; i < count; i++) {
 			X509_NAME_ENTRY *entry = sk_X509_NAME_ENTRY_value(entries, i);
-			X509_NAME_add_entry(xn, entry, -1, 0);
+			X509_NAME_add_entry(xn.data(), entry, -1, 0);
 		}
 	}
 	return *this;
@@ -65,16 +63,14 @@ x509name &x509name::set(const STACK_OF(X509_NAME_ENTRY) *entries)
 QString x509name::oneLine(unsigned long flags) const
 {
 	BioByteArray bba;
-	X509_NAME_print_ex(bba, xn, 0, flags);
+	X509_NAME_print_ex(bba, get0(), 0, flags);
 	return bba.qstring();
 }
 
 QString x509name::getEntryByNid(int nid) const
 {
-	int i = X509_NAME_get_index_by_NID(xn, nid, -1);
-	if (i < 0)
-		return QString();
-	return getEntry(i);
+	int i = X509_NAME_get_index_by_NID(_get(), nid, -1);
+	return i < 0 ? QString() : getEntry(i);
 }
 
 QString x509name::getMostPopular() const
@@ -84,7 +80,7 @@ QString x509name::getMostPopular() const
 	int pos = -1;
 
 	for (unsigned i = 0; i < ARRAY_SIZE(nids) && pos < 0; i++) {
-		pos = X509_NAME_get_index_by_NID(xn, nids[i], -1);
+		pos = X509_NAME_get_index_by_NID(xn.data(), nids[i], -1);
 	}
 	if (pos < 0)
 		pos = 0;
@@ -99,7 +95,7 @@ QString x509name::getEntry(int i) const
 	if ( i<0 || i>entryCount() )
 		return ret;
 
-	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
+	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(get0(), i));
 
 	return asn1ToQString(d);
 }
@@ -111,7 +107,7 @@ QString x509name::getEntryTag(int i) const
 
 	if (i<0 || i>=entryCount())
 		i = entryCount() - 1;
-	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
+	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(get0(),i));
 
 	if (!d)
 		return s;
@@ -122,23 +118,23 @@ QString x509name::getEntryTag(int i) const
 
 QString x509name::popEntryByNid(int nid)
 {
-	int i = X509_NAME_get_index_by_NID(xn, nid, -1);
+	int i = X509_NAME_get_index_by_NID(_get(), nid, -1);
 	if (i < 0)
 		return QString();
 	QString n = getEntry(i);
-	X509_NAME_delete_entry(xn, i);
+	X509_NAME_delete_entry(xn.data(), i);
 	return n;
 }
 
 QString x509name::hash() const
 {
-	return QString("%1").arg(X509_NAME_hash(xn), 8, 16, QChar('0'));
+	return QString("%1").arg(X509_NAME_hash(_get()), 8, 16, QChar('0'));
 }
 
 /* 32 bit signed integer */
 unsigned x509name::hashNum() const
 {
-	return X509_NAME_hash(xn) & 0x7fffffffL;
+	return X509_NAME_hash(_get()) & 0x7fffffffL;
 }
 
 QStringList x509name::entryList(int i) const
@@ -157,57 +153,45 @@ QStringList x509name::entryList(int i) const
 
 int x509name::nid(int i) const
 {
-	X509_NAME_ENTRY *ne;
-
-	ne = X509_NAME_get_entry(xn, i);
-	if (ne == NULL)
-		return NID_undef;
-	return OBJ_obj2nid(X509_NAME_ENTRY_get_object(ne));
+	X509_NAME_ENTRY *ne = X509_NAME_get_entry(get0(), i);
+	return ne ? OBJ_obj2nid(X509_NAME_ENTRY_get_object(ne)) : NID_undef;
 }
 
 QString x509name::getOid(int i) const
 {
-	X509_NAME_ENTRY *ne;
-
-	ne = X509_NAME_get_entry(xn, i);
-	if (ne == NULL)
-		return QString();
-	return OBJ_obj2QString(X509_NAME_ENTRY_get_object(ne), 1);
+	X509_NAME_ENTRY *ne = X509_NAME_get_entry(_get(), i);
+	return ne ? OBJ_obj2QString(X509_NAME_ENTRY_get_object(ne), 1) : QString();
 }
 
 void x509name::d2i(QByteArray &ba)
 {
-	X509_NAME *n = (X509_NAME*)d2i_bytearray(D2I_VOID(d2i_X509_NAME), ba);
-	if (n) {
-		X509_NAME_free(xn);
-		xn = n;
-	}
+	xn = x509init((const X509_NAME*)d2i_bytearray(D2I_VOID(d2i_X509_NAME), ba));
 }
 
 QByteArray x509name::i2d() const
 {
-	 return i2d_bytearray(I2D_VOID(i2d_X509_NAME), xn);
+	 return i2d_bytearray(I2D_VOID(i2d_X509_NAME), get0());
 }
 
 bool x509name::operator == (const x509name &x) const
 {
-	return (X509_NAME_cmp(xn, x.xn) == 0);
+	return X509_NAME_cmp(get0(), x.get0()) == 0;
 }
 
 bool x509name::operator != (const x509name &x) const
 {
-	return (X509_NAME_cmp(xn, x.xn) != 0);
+	return X509_NAME_cmp(get0(), x.get0()) != 0;
 }
 
 x509name &x509name::operator = (const x509name &x)
 {
-	set(x.xn);
+	set(x.get0());
 	return *this;
 }
 
 int x509name::entryCount() const
 {
-	return  X509_NAME_entry_count(xn);
+	return  X509_NAME_entry_count(get0());
 }
 
 int x509name::getNidByName(const QString &nid_name)
@@ -271,18 +255,23 @@ void x509name::addEntryByNid(int nid, const QString entry)
 	if (entry.isEmpty())
 		return;
 	ASN1_STRING *a = QStringToAsn1(entry.simplified(), nid);
-	X509_NAME_add_entry_by_NID(xn, nid, a->type, a->data, a->length, -1, 0);
+	X509_NAME_add_entry_by_NID(_get(), nid, a->type, a->data, a->length, -1, 0);
 	ASN1_STRING_free(a);
 	openssl_error_msg(QString("'%1' (%2)").arg(entry).arg(OBJ_nid2ln(nid)));
 }
 
 X509_NAME *x509name::get() const
 {
-	return X509_NAME_dup(xn);
+	return X509_NAME_dup(_get());
 }
 
 const X509_NAME *x509name::get0() const
 {
-	return xn;
+	return xn.data();
+}
+
+X509_NAME *x509name::_get() const
+{
+	return xn.data();
 }
 

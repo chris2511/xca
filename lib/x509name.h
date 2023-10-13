@@ -10,19 +10,20 @@
 
 #include <QString>
 #include <QStringList>
+#include <QSharedPointer>
 #include <QRegularExpression>
 #include <openssl/x509.h>
 
 class x509name
 {
 	private:
-		X509_NAME *xn{};
+		QSharedPointer<X509_NAME> xn{};
+		X509_NAME *_get() const;
 	public:
 		x509name();
 		x509name(const X509_NAME *n);
 		x509name(const x509name &n);
 		x509name(STACK_OF(X509_NAME_ENTRY) *entries);
-		~x509name();
 		x509name &set(const X509_NAME *n);
 		x509name &set(const STACK_OF(X509_NAME_ENTRY) *entries);
 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
