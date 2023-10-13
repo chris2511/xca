@@ -56,7 +56,7 @@ macro(Test name)
   add_executable(${name} ${name}.cpp)
   ExpandSources(${name})
   target_link_libraries(${name} PRIVATE
-    OpenSSL::Crypto ${QT}::Core ${QT}::Test ${QT}::Sql
+    OpenSSL::Crypto ${QT}::Core ${QT}::Test ${QT}::Sql ${ASAN_LIB}
   )
   add_test(NAME ${name} COMMAND ${name})
   set_target_properties(${name} PROPERTIES MACOSX_BUNDLE FALSE)

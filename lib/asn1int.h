@@ -9,13 +9,13 @@
 #define __ASN1INTEGER_H
 
 #include <QString>
+#include <QSharedPointer>
 #include <openssl/asn1.h>
 
 class a1int
 {
   private:
-	ASN1_INTEGER *in{};
-	ASN1_INTEGER *dup(const ASN1_INTEGER *a) const;
+	QSharedPointer<ASN1_INTEGER> in{};
 	a1int &setQString(const QString &s, int dec);
 	QString toQString(int dec) const;
 
@@ -25,14 +25,13 @@ class a1int
 	a1int(const a1int &a);
 	a1int(long l);
 	a1int(const QString &hex);
-	~a1int();
 	a1int &set(const ASN1_INTEGER *i);
 	a1int &set(long l);
 	QString toHex() const;
 	QString toDec() const;
-        a1int &setHex(const QString &s);
-        a1int &setDec(const QString &s);
-        a1int &setRaw(const unsigned char *data, unsigned len);
+	a1int &setHex(const QString &s);
+	a1int &setDec(const QString &s);
+	a1int &setRaw(const unsigned char *data, unsigned len);
 	long getLong() const;
 	ASN1_INTEGER *get() const;
 	const ASN1_INTEGER *get0() const;

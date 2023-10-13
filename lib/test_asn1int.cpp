@@ -9,15 +9,18 @@
 #include <QString>
 #include "asn1int.h"
 
+#include <openssl/asn1.h>
+
 class test_asn1int: public QObject
 {
 	Q_OBJECT
 
-	private slots:
-    	void constructors();
-    	void setter();
-    	void ops();
-    	void der();
+  private slots:
+	void constructors();
+	void setter();
+	void ops();
+	void der();
+	void get();
 };
 
 void test_asn1int::constructors()
@@ -48,14 +51,27 @@ void test_asn1int::ops()
 {
 	a1int f = 388;
 	QCOMPARE(f.getLong(), 388);
-	QCOMPARE(f++.getLong(), 388); 
+	QCOMPARE(f++.getLong(), 388);
 	QCOMPARE((++f).getLong(), 390);
 	QCOMPARE(f.getLong(), 390);
 	a1int s(f);
-	QCOMPARE(s == f++, true);
-	QCOMPARE(++s == f, true);
+	QCOMPARE(s, f++);
+	QCOMPARE(++s, f);
 	QCOMPARE(++s != f, true);
 	QCOMPARE(s.getLong(), 392);
+	QCOMPARE(f.getLong(), 391);
+	QCOMPARE(f < s, true);
+	QCOMPARE(s > f, true);
+	QCOMPARE(QString(a1int(0x18929)), "018929");
+}
+
+void test_asn1int::get()
+{
+	a1int f(42);
+	ASN1_INTEGER *g = f.get();
+	QCOMPARE(g != f.get0(), true);
+	QCOMPARE(f.get0(), f.get0());
+	ASN1_INTEGER_free(g);
 }
 
 void test_asn1int::der()

@@ -12,65 +12,53 @@
 #include <openssl/err.h>
 #include <openssl/bn.h>
 
-ASN1_INTEGER *a1int::dup(const ASN1_INTEGER *a) const
+static const QSharedPointer<ASN1_INTEGER> a1init(const ASN1_INTEGER *i)
 {
-	// this wrapper casts the const to work around the nonconst
-	// declared ASN1_STRING_dup (actually it is const
-	ASN1_INTEGER *r = ASN1_INTEGER_dup((ASN1_INTEGER *)a);
+	ASN1_INTEGER *a;
+	if (i) {
+		a = ASN1_INTEGER_dup(i);
+		Q_CHECK_PTR(a);
+	} else {
+		a = ASN1_INTEGER_new();
+		Q_CHECK_PTR(a);
+		ASN1_INTEGER_set(a, 0);
+	}
+	QSharedPointer<ASN1_INTEGER> r(a, ASN1_INTEGER_free);
 	openssl_error();
-	if (!r)
-		r = ASN1_INTEGER_new();
-	Q_CHECK_PTR(r);
 	return r;
 }
 
-a1int::a1int()
+a1int::a1int() : in(a1init(nullptr))
 {
-	in = ASN1_INTEGER_new();
-	Q_CHECK_PTR(in);
-	ASN1_INTEGER_set(in, 0);
-	openssl_error();
 }
 
-a1int::a1int(const ASN1_INTEGER *i)
+a1int::a1int(const ASN1_INTEGER *i) : in(a1init(i))
 {
-	in = dup(i);
 }
 
-a1int::a1int(const a1int &a)
+a1int::a1int(const a1int &a) : in(a1init(a.get0()))
 {
-	in = dup(a.in);
 }
 
-a1int::a1int(const QString &hex)
+a1int::a1int(const QString &hex) : in(a1init(nullptr))
 {
-	in = ASN1_INTEGER_new();
-	Q_CHECK_PTR(in);
 	setHex(hex);
 }
 
-a1int::a1int(long l)
+a1int::a1int(long l) : in(a1init(nullptr))
 {
-	in = ASN1_INTEGER_new();
-	Q_CHECK_PTR(in);
 	set(l);
-}
-
-a1int::~a1int()
-{
-	ASN1_INTEGER_free(in);
 }
 
 a1int &a1int::set(const ASN1_INTEGER *i)
 {
-	ASN1_INTEGER_free(in);
-	in = dup(i);
+	in = a1init(i);
 	return *this;
 }
 
 a1int &a1int::set(long l)
 {
-	ASN1_INTEGER_set(in, l);
+	ASN1_INTEGER_set(in.data(), l);
 	openssl_error();
 	return *this;
 }
@@ -81,13 +69,12 @@ QString a1int::toQString(int dec) const
 	if (in->length == 0) {
 		return r;
 	}
-	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	QSharedPointer<BIGNUM> bn(ASN1_INTEGER_to_BN(get0(), NULL), BN_free);
 	openssl_error();
-	char *res = dec ? BN_bn2dec(bn) : BN_bn2hex(bn);
-	openssl_error();
+	char *res = dec ? BN_bn2dec(bn.data()) : BN_bn2hex(bn.data());
 	r = res;
 	OPENSSL_free(res);
-	BN_free(bn);
+	openssl_error();
 	return r;
 }
 
@@ -103,7 +90,7 @@ QString a1int::toDec() const
 
 a1int &a1int::setQString(const QString &s, int dec)
 {
-	BIGNUM *bn = NULL;
+	BIGNUM *bn = nullptr;
 	if (s.isEmpty()) {
 		return *this;
 	}
@@ -112,9 +99,9 @@ a1int &a1int::setQString(const QString &s, int dec)
 	else
 		BN_hex2bn(&bn, s.toLatin1());
 	openssl_error();
-	BN_to_ASN1_INTEGER(bn, in);
-	openssl_error();
+	BN_to_ASN1_INTEGER(bn, in.data());
 	BN_free(bn);
+	openssl_error();
 	return *this;
 }
 
@@ -130,41 +117,39 @@ a1int &a1int::setDec(const QString &s)
 
 a1int &a1int::setRaw(const unsigned char *data, unsigned len)
 {
-	BIGNUM *bn = BN_bin2bn(data, len, NULL);
-	if (!bn)
-		openssl_error();
-	BN_to_ASN1_INTEGER(bn, in);
+	QSharedPointer<BIGNUM> bn(BN_bin2bn(data, len, NULL), BN_free);
 	openssl_error();
-	BN_free(bn);
+	Q_CHECK_PTR(bn);
+	BN_to_ASN1_INTEGER(bn.data(), in.data());
+	openssl_error();
 	return *this;
 }
 
 ASN1_INTEGER *a1int::get() const
 {
-	return dup(in);
+	return ASN1_INTEGER_dup(get0());
 }
 
 const ASN1_INTEGER *a1int::get0() const
 {
-	return in;
+	return in.data();
 }
 
 long a1int::getLong() const
 {
-	long l = ASN1_INTEGER_get(in);
+	long l = ASN1_INTEGER_get(get0());
 	openssl_error();
 	return l;
 }
 
 a1int &a1int::operator ++ (void)
 {
-	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	QSharedPointer<BIGNUM> bn(ASN1_INTEGER_to_BN(get0(), NULL), BN_free);
 	openssl_error();
-	BN_add(bn, bn, BN_value_one());
+	BN_add(bn.data(), bn.data(), BN_value_one());
 	openssl_error();
-	BN_to_ASN1_INTEGER(bn, in);
+	BN_to_ASN1_INTEGER(bn.data(), in.data());
 	openssl_error();
-	BN_free(bn);
 	return *this;
 }
 
@@ -177,35 +162,35 @@ a1int a1int::operator ++ (int)
 
 a1int &a1int::operator = (const a1int &a)
 {
-	set(a.in);
+	set(a.get0());
 	return *this;
 }
 
 a1int &a1int::operator = (long i)
 {
-	ASN1_INTEGER_set(in, i);
+	ASN1_INTEGER_set(in.data(), i);
 	openssl_error();
 	return *this;
 }
 
 bool a1int::operator > (const a1int &a) const
 {
-	return (ASN1_INTEGER_cmp(in, a.in) > 0);
+	return (ASN1_INTEGER_cmp(get0(), a.get0()) > 0);
 }
 
 bool a1int::operator < (const a1int &a) const
 {
-	return (ASN1_INTEGER_cmp(in, a.in) < 0);
+	return (ASN1_INTEGER_cmp(get0(), a.get0()) < 0);
 }
 
 bool a1int::operator == (const a1int &a) const
 {
-	return (ASN1_INTEGER_cmp(in, a.in) == 0);
+	return (ASN1_INTEGER_cmp(get0(), a.get0()) == 0);
 }
 
 bool a1int::operator != (const a1int &a) const
 {
-	return (ASN1_INTEGER_cmp(in, a.in) != 0);
+	return (ASN1_INTEGER_cmp(get0(), a.get0()) != 0);
 }
 
 a1int::operator QString() const
@@ -215,11 +200,11 @@ a1int::operator QString() const
 
 QByteArray a1int::i2d()
 {
-	return i2d_bytearray(I2D_VOID(i2d_ASN1_INTEGER), in);
+	return i2d_bytearray(I2D_VOID(i2d_ASN1_INTEGER), get0());
 }
 
 int a1int::derSize() const
 {
-	return i2d_ASN1_INTEGER(in, NULL);
+	return i2d_ASN1_INTEGER(in.data(), nullptr);
 }
 
