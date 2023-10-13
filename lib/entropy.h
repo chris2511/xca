@@ -9,7 +9,6 @@
 #define __ENTROPY_H
 
 #include <QString>
-#include <QByteArray>
 #include <QElapsedTimer>
 
 class Entropy

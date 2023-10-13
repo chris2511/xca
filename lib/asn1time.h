@@ -21,12 +21,12 @@
 
 class a1time : public QDateTime
 {
-   private:
-	ASN1_TIME *atime{};
+  private:
+	mutable ASN1_TIME *atime{};
 	int from_asn1(const ASN1_TIME *a);
-	int set_asn1(const QString &str, int type);
+	int set_asn1(const QString &str, int type) const;
 
-   public:
+  public:
 	a1time();
 	a1time(const QDateTime &a) : QDateTime(a) { };
 	a1time(const a1time &a) : QDateTime(a) { };
@@ -46,10 +46,10 @@ class a1time : public QDateTime
 	QString toSortable() const;
 	QString toFancy() const;
 	QString isoLocalDate() const;
-	ASN1_TIME *get();
-	ASN1_TIME *get_utc();
+	const ASN1_TIME *get() const;
+	const ASN1_TIME *get_utc() const;
 	static QDateTime now(int delta = 0);
-	QByteArray i2d();
+	QByteArray i2d() const;
 	void d2i(QByteArray &ba);
 	qint64 age() const;
 };

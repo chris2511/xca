@@ -8,12 +8,8 @@
 #include <stdio.h>
 #include <QtGlobal>
 #if !defined(Q_OS_WIN32)
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <string.h>
-#include <errno.h>
+#include <fcntl.h>
 #endif
 
 #include <QDir>
@@ -70,7 +66,7 @@ QString Entropy::makeSalt(void)
 
 	Entropy::get(rand, sizeof rand);
 	for (unsigned i=0; i< sizeof rand; i++)
-		s += QString("%1").arg(rand[i]);
+		s += QString("%1").arg(rand[i], 2, 16, QChar('0'));
 	return s;
 }
 

@@ -97,13 +97,12 @@ void x509rev::fromREVOKED(const X509_REVOKED *rev)
 
 X509_REVOKED *x509rev::toREVOKED(bool withReason) const
 {
-	a1time i = ivalDate;
-	a1time d = date;
 	X509_REVOKED *rev = X509_REVOKED_new();
 	Q_CHECK_PTR(rev);
 	X509_REVOKED_set_serialNumber(rev, serial.get());
-	X509_REVOKED_set_revocationDate(rev, d.get_utc());
-	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date, i.get(), 0, 0);
+	X509_REVOKED_set_revocationDate(rev, (ASN1_TIME*)date.get_utc());
+	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date,
+							 (ASN1_TIME*)ivalDate.get(), 0, 0);
 
 	/* RFC says to not add the extension if it is "unspecified" */
 	if (reason_idx != 0 && withReason) {
