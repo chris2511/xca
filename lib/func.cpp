@@ -318,7 +318,7 @@ QString hostId()
 
 #elif defined(Q_OS_MACOS)
 	io_registry_entry_t ioRegistryRoot = IORegistryEntryFromPath(
-				kIOMasterPortDefault, "IOService:/");
+				kIOMainPortDefault, "IOService:/");
 	CFStringRef uuidCf = (CFStringRef)IORegistryEntryCreateCFProperty(
 				ioRegistryRoot, CFSTR(kIOPlatformUUIDKey),
 				kCFAllocatorDefault, 0);
