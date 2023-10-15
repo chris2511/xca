@@ -5,10 +5,9 @@
  * All rights reserved.
  */
 
-#include <QMessageBox>
 #include "x509name.h"
 #include "base.h"
-#include "func.h"
+#include "func_base.h"
 #include "BioByteArray.h"
 #include <openssl/asn1.h>
 #include <openssl/err.h>
@@ -122,7 +121,9 @@ QString x509name::popEntryByNid(int nid)
 	if (i < 0)
 		return QString();
 	QString n = getEntry(i);
-	X509_NAME_delete_entry(xn.data(), i);
+	X509_NAME_ENTRY *del = X509_NAME_delete_entry(xn.data(), i);
+	if (del)
+		X509_NAME_ENTRY_free(del);
 	return n;
 }
 
@@ -165,7 +166,9 @@ QString x509name::getOid(int i) const
 
 void x509name::d2i(QByteArray &ba)
 {
-	xn = x509init((const X509_NAME*)d2i_bytearray(D2I_VOID(d2i_X509_NAME), ba));
+	X509_NAME *n = (X509_NAME*)d2i_bytearray(D2I_VOID(d2i_X509_NAME), ba);
+	xn = x509init(n);
+	X509_NAME_free(n);
 }
 
 QByteArray x509name::i2d() const
@@ -250,7 +253,7 @@ QString x509name::taggedValues() const
 	return ret;
 }
 
-void x509name::addEntryByNid(int nid, const QString entry)
+void x509name::addEntryByNid(int nid, const QString &entry)
 {
 	if (entry.isEmpty())
 		return;

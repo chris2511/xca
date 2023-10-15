@@ -50,7 +50,7 @@ ExpandSources(xca)
 ExpandSources(xcadoc)
 
 macro(Test name)
-  add_executable(${name} ${name}.cpp)
+  add_executable(${name} EXCLUDE_FROM_ALL ${name}.cpp)
   ExpandSources(${name})
   target_link_libraries(${name} PRIVATE
     OpenSSL::Crypto ${QT}::Core ${QT}::Test ${QT}::Sql ${ASAN_LIB}
@@ -65,10 +65,13 @@ if(BUILD_TESTING)
   list(APPEND test_asn1int_sources asn1int.cpp asn1int.h func_base.h func_base.cpp)
   list(APPEND test_asn1time_sources asn1time.cpp asn1time.h func_base.h func_base.cpp)
   list(APPEND test_entropy_sources entropy.cpp entropy.h func.h func_base.cpp xfile.h)
+  list(APPEND test_x509name_sources x509name.cpp x509name.h func_base.h func_base.cpp
+                                    BioByteArray.h BioByteArray.cpp )
 
   add_custom_target(tests)
   Test(test_biobytearray)
   Test(test_asn1int)
   Test(test_asn1time)
   Test(test_entropy)
+  Test(test_x509name)
 endif()
