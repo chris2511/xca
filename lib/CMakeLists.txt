@@ -38,6 +38,7 @@ XcaProgress.h		XcaWarningCore.cpp	XcaWarningCore.h
 PwDialogCore.cpp	PwDialogCore.h		digest.h
 digest.cpp		pki_export.cpp		debug_info.h
 func_base.cpp		func_base.h		debug_info.cpp
+cmdline.cpp
 )
 
 macro(ExpandSources target)

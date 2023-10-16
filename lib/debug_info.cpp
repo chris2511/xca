@@ -7,9 +7,12 @@
 
 #include <QStringList>
 #include <QDebug>
+#include <QElapsedTimer>
 #include <stdlib.h>
 
 #include "debug_info.h"
+#include "base.h"
+#include "func.h"
 
 QList<dbg_pattern> debug_info::patternlist;
 bool debug_info::all = false;
