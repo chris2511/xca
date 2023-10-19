@@ -174,9 +174,7 @@ void CertDetail::setReq(pki_x509req *req)
 	if (!req)
 		return;
 	init("csrdetail", ":csrImg");
-	image->setPixmap(QPixmap(":csrImg"));
 	headerLabel->setText(tr("Details of the certificate signing request"));
-	mainwin->helpdlg->register_ctxhelp_button(this, "csrdetail");
 	try {
 		// No issuer
 		tabwidget->removeTab(2);
