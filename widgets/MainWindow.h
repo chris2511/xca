@@ -12,7 +12,6 @@
 
 #include "lib/oid.h"
 #include "lib/Passwd.h"
-#include "lib/main.h"
 #include "lib/database_model.h"
 #include "lib/dbhistory.h"
 #include "lib/dhgen.h"
@@ -30,6 +29,8 @@ class OidResolver;
 class QProgressBar;
 class DHgen;
 class Help;
+
+extern MainWindow *mainwin;
 
 class tipMenu : public QMenu
 {

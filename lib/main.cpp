@@ -14,7 +14,6 @@
 #include "ui_MainWindow.h"
 #include "widgets/XcaApplication.h"
 #include "func.h"
-#include "main.h"
 #include "entropy.h"
 #include "settings.h"
 #include "pki_multi.h"
@@ -33,7 +32,6 @@
 #include <QTextStream>
 
 char segv_data[1024];
-MainWindow *mainwin = NULL;
 
 #if defined(Q_OS_WIN32)
 static LONG CALLBACK w32_segfault(LPEXCEPTION_POINTERS e)

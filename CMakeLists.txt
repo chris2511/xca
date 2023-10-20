@@ -67,8 +67,12 @@ file(GLOB UI_FILES ${CMAKE_AUTOUIC_SEARCH_PATHS}/*.ui)
 configure_file(local.h.in local.h)
 
 ##### Libraries and executables
-add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc ${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
+add_library(xcalib STATIC)
+add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc lib/main.cpp
+		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
+add_executable(testxca img/imgres.qrc ${PROJECT_SOURCE_DIR}/lib/test_main.cpp
+		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
@@ -105,22 +109,25 @@ if (NOT OPENSSL_ROOT_DIR)
   get_filename_component(OPENSSL_ROOT_DIR ${OPENSSL_INCLUDE_DIR} DIRECTORY)
 endif()
 
-target_link_libraries(${CMAKE_PROJECT_NAME}
+target_link_libraries(xcalib
 	OpenSSL::Crypto
 	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
 	${ASAN_LIB}
 )
 target_link_libraries(xcadoc
-	OpenSSL::Crypto
-	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
-	${ASAN_LIB}
+	OpenSSL::Crypto ${QT}::Core ${ASAN_LIB}
 )
+target_link_libraries(${CMAKE_PROJECT_NAME} ${ASAN_LIB} xcalib)
+target_link_libraries(testxca ${ASAN_LIB} ${QT}::Test xcalib)
 
 if (APPLE)
 
   find_library(IOKIT_LIBRARY IOKit)
   find_library(COREFOUNDATION_LIBRARY CoreFoundation)
   target_link_libraries(${CMAKE_PROJECT_NAME}
+	${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
+  )
+  target_link_libraries(testxca
 	${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
   )
   set(CMAKE_MACOSX_BUNDLE ON)

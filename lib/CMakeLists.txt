@@ -1,7 +1,7 @@
 
 list(APPEND xcadoc_sources arguments.cpp arguments.h xcadoc.cpp)
 
-list(APPEND xca_sources
+list(APPEND xcalib_sources
 BioByteArray.cpp	dbhistory.cpp		pki_key.cpp
 BioByteArray.h		dbhistory.h		pki_key.h
 Passwd.cpp		entropy.cpp		pki_lookup.h
@@ -13,8 +13,8 @@ asn1int.h		headerlist.h		pki_pkcs7.cpp
 asn1time.cpp		ipvalidator.h		pki_pkcs7.h
 asn1time.h		load_obj.cpp		pki_scard.cpp
 base.h			load_obj.h		pki_scard.h
-builtin_curves.cpp	main.cpp		pki_temp.cpp
-builtin_curves.h	main.h			pki_temp.h
+builtin_curves.cpp	pki_temp.cpp
+builtin_curves.h	pki_temp.h
 database_model.cpp	oid.cpp			pki_x509.cpp
 database_model.h	oid.h			pki_x509.h
 db_base.cpp		opensc-pkcs11.h		pki_x509req.cpp
@@ -47,7 +47,7 @@ macro(ExpandSources target)
   target_sources(${target} PRIVATE ${${target}_sources})
 endmacro()
 
-ExpandSources(xca)
+ExpandSources(xcalib)
 ExpandSources(xcadoc)
 
 macro(Test name)

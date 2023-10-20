@@ -8,7 +8,6 @@
 
 #include "db_crl.h"
 #include "db_x509.h"
-#include "main.h"
 #include "exception.h"
 #include "database_model.h"
 

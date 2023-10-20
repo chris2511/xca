@@ -9,7 +9,6 @@
 #define __XCAPROGRESSGUI_H
 
 #include "lib/base.h"
-#include "lib/main.h"
 #include "lib/XcaProgress.h"
 
 #include <QProgressBar>

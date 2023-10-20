@@ -5,8 +5,6 @@
  * All rights reserved.
  */
 
-
-#include "lib/main.h"
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
 

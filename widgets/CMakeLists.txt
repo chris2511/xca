@@ -30,4 +30,4 @@ pkcs12EncBox.cpp        XcaDetail.cpp
 )
 
 list(TRANSFORM xca_sources PREPEND ${PROJECT_SOURCE_DIR}/widgets/)
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${xca_sources})
+target_sources(xcalib PRIVATE ${xca_sources})

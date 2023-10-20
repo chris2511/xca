@@ -44,7 +44,8 @@
 #include "Help.h"
 #include "OidResolver.h"
 
-OidResolver *MainWindow::resolver = NULL;
+OidResolver *MainWindow::resolver;
+MainWindow *mainwin;
 
 void MainWindow::enableTokenMenu(bool enable)
 {

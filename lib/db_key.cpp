@@ -11,7 +11,6 @@
 
 #include "pki_scard.h"
 #include "pki_x509super.h"
-#include "main.h"
 
 #include "exception.h"
 #include "pkcs11.h"
