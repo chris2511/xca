@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>de.hohnstaedt.xca</id>
+    <name>XCA</name>
+    <summary>X Certificate and Key management</summary>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>BSD-3-Clause</project_license>
+    <provides>
+        <binary>xca</binary>
+    </provides>
+    <launchable type="desktop-id">de.hohnstaedt.xca.desktop</launchable>
+    <description>
+        <p>
+            XCA is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys, Smartcards and CRLs.
+            Everything that is needed for a CA is implemented.
+            All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
+            For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
+        </p>
+        <p>Features:</p>
+        <ul>
+            <li>Start your own PKI and create all kinds of private keys, certificates, requests or CRLs</li>
+            <li>Import and export them in any format like PEM, DER, PKCS#7, PKCS#12</li>
+            <li>Use them for your IPsec, OpenVPN, TLS or any other certificate based setup</li>
+            <li>Manage your Smart-Cards via PKCS#11 interface</li>
+            <li>Export certificates and requests as OpenSSL config file</li>
+            <li>Create Subject- and/or Extension- templates to ease issuing similar certs</li>
+            <li>Convert existing certificates or requests to templates</li>
+            <li>Get the broad support of x509v3 extensions as flexible as OpenSSL but user friendlier</li>
+            <li>Adapt the columns to have your important information at a glance</li>
+        </ul>
+    </description>
+    <developer_name>Christian Hohnstädt, Kerstin Steinhauff et al.</developer_name>
+    <releases>
+        <release date="2023-09-24" version="2.5.0"></release>
+        <release date="2021-05-07" version="2.4.0"></release>
+        <release date="2020-04-29" version="2.3.0"></release>
+        <release date="2020-01-30" version="2.2.1"></release>
+    </releases>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://www.hohnstaedt.de/xca/images/screenshots/XCA-Screenshot-certs.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://www.hohnstaedt.de/xca/images/screenshots/XCA-Screenshot-keygen.png</image>
+        </screenshot>
+    </screenshots>
+    <content_rating type="oars-1.1"/>
+    <url type="homepage">https://www.hohnstaedt.de/xca/</url>
+    <url type="bugtracker">https://github.com/chris2511/xca/issues</url>
+    <url type="help">https://www.hohnstaedt.de/xca/index.php/documentation/manual</url>
+</component>
