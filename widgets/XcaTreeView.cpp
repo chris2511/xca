@@ -338,15 +338,16 @@ void XcaTreeView::editComment()
 
 void XcaTreeView::pem2clipboard()
 {
-	if (!basemodel)
-		return;
+	if (basemodel) try {
+		QString msg = basemodel->pem2QString(getSelectedIndexes());
+		QClipboard *cb = QApplication::clipboard();
 
-	QString msg = basemodel->pem2QString(getSelectedIndexes());
-	QClipboard *cb = QApplication::clipboard();
-
-	if (cb->supportsSelection())
-		cb->setText(msg, QClipboard::Selection);
-	cb->setText(msg);
+		if (cb->supportsSelection())
+			cb->setText(msg, QClipboard::Selection);
+		cb->setText(msg);
+	} catch (errorEx &err) {
+		XCA_ERROR(err);
+	}
 }
 
 void XcaTreeView::headerDetails()

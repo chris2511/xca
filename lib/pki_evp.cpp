@@ -501,8 +501,13 @@ EVP_PKEY *pki_evp::decryptKey() const
 			PKCS8_PRIV_KEY_INFO_free(p8inf);
 		}
 		X509_SIG_free(p8);
+		if (!p8inf) {
+			pki_ign_openssl_error();
+			throw errorEx(tr("Decryption of private key '%1' failed")
+							.arg(getIntName()));
+		}
 	}
-	pki_ign_openssl_error();
+	pki_openssl_error();
 	return priv;
 }
 
@@ -795,7 +800,7 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 	}
 	EVP_PKEY *pkey = key ? decryptKey() : NULL;
 	if (!pkey) {
-	        pki_openssl_error();
+		pki_openssl_error();
 		return;
 	}
 	BioByteArray b;
