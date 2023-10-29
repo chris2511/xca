@@ -26,7 +26,7 @@ https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.2/Postgres-2.6
 # Compile OpenSSL
 
 #! /bin/sh
-OSSL="openssl-3.0.8"
+OSSL="openssl-3.1.4"
 INSTALL="$(pwd)/install"
 
 test -d "$OSSL"

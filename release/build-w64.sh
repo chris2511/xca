@@ -14,7 +14,7 @@ do_openssl() {
 }
 
 BUILD=build
-OSSL="openssl-3.1.3"
+OSSL="openssl-3.1.4"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/6.5.3/mingw_64"
