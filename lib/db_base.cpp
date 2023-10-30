@@ -302,7 +302,7 @@ void db_base::insertChild(pki_base *child, pki_base *parent)
 	if (parent != treeItem && treeview)
 		idx = index(parent);
 
-	if (curr_parent) { // && curr_parent != parent)
+	if (curr_parent) {
 		int row = curr_parent->indexOf(child);
 		beginMoveRows(index(curr_parent), row, row, idx, 0);
 		curr_parent->takeChild(child);

@@ -269,7 +269,10 @@ QList<pki_base*> pki_base::getChildItems() const
 
 pki_base *pki_base::takeFirst()
 {
-	return childItems.takeFirst();
+	pki_base *pki = childItems.takeFirst();
+	if (pki)
+		 pki->setParent(nullptr);
+	return pki;
 }
 
 QString pki_base::pki_source_name() const
