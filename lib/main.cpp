@@ -142,17 +142,20 @@ int main(int argc, char *argv[])
 			mainwin = new MainWindow();
 			gui->setMainwin(mainwin);
 			read_cmdline(argc, argv, console_only, &cmdline_items);
-			qDebug() << "CMD Items" << cmdline_items->get().size();
-			if (cmdline_items->get().size() > 0) {
+			if (cmdline_items)
+				qDebug() << "CMD Items" << cmdline_items->get().size();
+			if (cmdline_items && cmdline_items->get().size() > 0) {
 				mainwin->importMulti(cmdline_items, 1);
 				cmdline_items = nullptr;
 			} else {
 				delete cmdline_items;
 				enum open_result r = open_abort;
+
 				if (!Database.isOpen())
 					r = mainwin->init_database(QString());
 				else
 					r = mainwin->setup_open_database();
+
 				qDebug() << "PWret" << r << pw_cancel << pw_ok;
 				if (r != pw_exit) {
 					mainwin->show();

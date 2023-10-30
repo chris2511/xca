@@ -418,9 +418,12 @@ MainWindow::~MainWindow()
 	EVP_cleanup();
 	OBJ_cleanup();
 	delete dbindex;
+	delete searchEdit;
 	delete helpdlg;
 
 	XcaProgress::setGui(nullptr);
+	xcaWarning::setGui(nullptr);
+	PwDialogCore::setGui(nullptr);
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)
