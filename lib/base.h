@@ -26,8 +26,7 @@
 
 #define CCHAR(x) qPrintable(x)
 
-#define C_FILE __FILE__
-#define TRACE qDebug("File: %s Func: %s Line: %d", C_FILE, __func__, __LINE__);
+#define TRACE qDebug("File: %s Func: %s Line: %d", __FILE__, __func__, __LINE__);
 
 #define nativeSeparator(s) QDir::toNativeSeparators(s)
 

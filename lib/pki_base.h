@@ -24,8 +24,8 @@
 #include "xfile.h"
 #include "pki_export.h"
 
-#define pki_openssl_error() _openssl_error(*this, C_FILE, __LINE__)
-#define pki_ign_openssl_error() _ign_openssl_error(*this, C_FILE, __LINE__)
+#define pki_openssl_error() _openssl_error(*this, __FILE__, __LINE__)
+#define pki_ign_openssl_error() _ign_openssl_error(*this, __FILE__, __LINE__)
 
 enum pki_source {
 	unknown,
