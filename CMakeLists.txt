@@ -61,6 +61,9 @@ if (ADDRESS_SANITIZER)
   add_compile_options(-fsanitize=address -O1 -fno-omit-frame-pointer -g)
   set(ASAN_LIB -fsanitize=address)
 endif()
+if (CMAKE_CXX_COMPILER_ID MATCHES Clang|GNU)
+  add_compile_options(-fmacro-prefix-map=${PROJECT_SOURCE_DIR}=.)
+endif()
 
 file(GLOB UI_FILES ${CMAKE_AUTOUIC_SEARCH_PATHS}/*.ui)
 
