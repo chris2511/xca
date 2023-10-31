@@ -1,4 +1,10 @@
 
+ * Fix crash when deleting CA certificates
+ * Close #480: add flatpak build information and github action
+ * Close #402: Subject Alternative Name not filled by all CN
+ * Improve import: Finish multi import when empty
+ * Add File extensions in Info.plist supported by XCA
+ * Close #384: Quick view of certificates without trying to open XCA
  * Close #459: pass private key password
  * Close #465: Export PEM + Key in one File
  * Close #460: Impossible to import PKCS#12 (RC40_CBC)
