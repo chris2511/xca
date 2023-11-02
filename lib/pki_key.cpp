@@ -384,12 +384,16 @@ QList<int> pki_key::possibleHashNids()
 		case EVP_PKEY_DSA:
 			nids << NID_sha1 << NID_sha256;
 			break;
+#ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
 			nids << NID_sha1 << NID_sha224 << NID_sha256 <<
 				NID_sha384 << NID_sha512;
 			break;
+#ifdef EVP_PKEY_ED25519
 		case EVP_PKEY_ED25519:
 			nids << NID_undef;
+#endif
+#endif
 	}
 	return nids;
 };
@@ -791,6 +795,7 @@ void pki_key::writeSSH2public(XFile &file) const
 
 bool pki_key::verify(EVP_PKEY *pkey) const
 {
+#ifndef LIBRESSL_VERSION_NUMBER
 	EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
 	Q_CHECK_PTR(ctx);
 	int verify = EVP_PKEY_public_check(ctx);
@@ -801,6 +806,10 @@ bool pki_key::verify(EVP_PKEY *pkey) const
 	}
 	pki_openssl_error();
 	return verify != 0;
+#else
+	(void)pkey;
+	return true;
+#endif
 }
 
 QString pki_key::fingerprint(const QString &format) const

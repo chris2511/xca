@@ -16,7 +16,7 @@
 
 #include <openssl/opensslv.h>
 
-#if OPENSSL_VERSION_NUMBER < 0x10101000L || defined LIBRESSL_VERSION_NUMBER
+#if OPENSSL_VERSION_NUMBER < 0x10101000L
 
 static inline int
 EVP_DigestSign(EVP_MD_CTX *ctx, unsigned char *sigret,

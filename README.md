@@ -34,6 +34,7 @@ To build XCA you need:
  - cmake: https://cmake.org
  - Qt5 or Qt6: https://www.qt.io
  - OpenSSL: https://www.openssl.org (1.1.1 or higher)
+   or libressl-3.6.x
  - Sphinx-Build: https://www.sphinx-doc.org
 
 ### Linux / Unix

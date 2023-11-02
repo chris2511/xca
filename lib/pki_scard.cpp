@@ -203,7 +203,6 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		EVP_PKEY_assign_EC_KEY(pkey, ec);
 		break;
 	}
-#endif
 #ifdef EVP_PKEY_ED25519
 	case CKK_EC_EDWARDS: {
 		QByteArray ba;
@@ -224,6 +223,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		pki_openssl_error();
 		break;
 	}
+#endif
 #endif
 	default:
 		throw errorEx(QString("Unsupported CKA_KEY_TYPE: %1\n").arg(keytype));
@@ -344,12 +344,12 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC) <<
 			pk11_attr_data(CKA_EC_PARAMS, ba);
 		break;
-#endif
 #ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519:
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC_EDWARDS);
 		// should it also return params, somehow?
 		break;
+#endif
 #endif
 	default:
 		throw errorEx(QString("Unknown Keytype %d")

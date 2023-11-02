@@ -17,16 +17,14 @@
 
 #include "base.h"
 #include "Passwd.h"
+#include <openssl/asn1.h>
+#include <openssl/evp.h>
 
 #define IS_GUI_APP (is_gui_app)
 
 class Validity;
 class QPixmap;
 extern bool is_gui_app;
-
-typedef struct asn1_object_st ASN1_OBJECT;
-typedef struct asn1_string_st ASN1_STRING;
-typedef struct evp_md_st EVP_MD;
 
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
 const QStringList getLibExtensions();

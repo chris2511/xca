@@ -15,10 +15,6 @@
 #include <openssl/buffer.h>
 
 #include <QDir>
-#if 0
-#include <QFile>
-#include <QFileInfo>
-#endif
 #include <QStringList>
 #include <QDebug>
 #include <QRegularExpression>

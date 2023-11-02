@@ -86,7 +86,8 @@ void test_main::newKey()
 	Q_ASSERT(QTest::qWaitForWindowActive(dlg));
 	QCOMPARE(dlg->rememberDefault->isChecked(), false);
 	QCOMPARE(job.toString(), dlg->getKeyJob().toString());
-	/* Curve box visible after selecting EC Kex */
+#ifndef OPENSSL_NO_EC
+	/* Curve box visible after selecting EC Key */
 	QCOMPARE(dlg->curveBox->isVisible(),false);
 	QCOMPARE(dlg->curveLabel->isVisible(),false);
 	dlg->keyType->setCurrentIndex(2);
@@ -94,6 +95,7 @@ void test_main::newKey()
 	QCOMPARE(dlg->curveLabel->isVisible(),true);
 	dlg->curveBox->setCurrentIndex(2);
 	QCOMPARE(dlg->getKeyJob().toString(), "EC:secp521r1");
+#ifdef EVP_PKEY_ED25519
 	/* Select Edwards Curve */
 	dlg->keyType->setCurrentIndex(3);
 	QCOMPARE(dlg->getKeyJob().toString(), "ED25519");
@@ -102,9 +104,11 @@ void test_main::newKey()
 	QCOMPARE(dlg->curveLabel->isVisible(),false);
 	QCOMPARE(dlg->keyLength->isVisible(),false);
 	QCOMPARE(dlg->keySizeLabel->isVisible(),false);
+#endif
 	/* Back to EC and previously set curve is set */
 	dlg->keyType->setCurrentIndex(2);
 	QCOMPARE(dlg->getKeyJob().toString(), "EC:secp521r1");
+#endif
 	dlg->accept();
 	delete dlg;
 
@@ -116,7 +120,8 @@ void test_main::newKey()
 	QCOMPARE(job.toString(), dlg->getKeyJob().toString());
 	QCOMPARE(dlg->curveBox->isVisible(),false);
 	QCOMPARE(dlg->curveLabel->isVisible(),false);
-	/* Select EC and remeber as default */
+#ifndef OPENSSL_NO_EC
+	/* Select EC and remember as default */
 	dlg->keyType->setCurrentIndex(2);
 	dlg->curveBox->setCurrentIndex(2);
 
@@ -133,6 +138,9 @@ void test_main::newKey()
 	Q_ASSERT(QTest::qWaitForWindowActive(dlg));
 	QCOMPARE(dlg->getKeyJob().toString(), "EC:secp521r1");
 	QCOMPARE(dlg->rememberDefault->isChecked(), false);
+#endif
+	dlg->accept();
+	delete dlg;
 }
 
 QTEST_MAIN(test_main)
