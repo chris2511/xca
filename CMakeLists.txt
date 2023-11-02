@@ -79,6 +79,7 @@ add_executable(testxca EXCLUDE_FROM_ALL
 		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_custom_target(tests)
 add_test(NAME testxca COMMAND testxca)
+set_tests_properties(testxca PROPERTIES LABELS gui)
 add_dependencies(tests testxca)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})

@@ -97,7 +97,7 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: |
         cmake --build ${{github.workspace}}/build -t tests
-        cmake --build ${{github.workspace}}/build -t test
+        ctest --test-dir ${{github.workspace}}/build -L console
 
     - name: Install
       if: matrix.os != 'windows'

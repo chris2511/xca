@@ -59,6 +59,7 @@ macro(Test name)
   add_test(NAME ${name} COMMAND ${name})
   set_target_properties(${name} PROPERTIES MACOSX_BUNDLE FALSE)
   add_dependencies(tests ${name})
+  set_tests_properties(${name} PROPERTIES LABELS console)
 endmacro()
 
 if(BUILD_TESTING)
