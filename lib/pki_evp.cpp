@@ -22,6 +22,7 @@
 #include <openssl/pem.h>
 #include <openssl/pkcs12.h>
 #include <openssl/err.h>
+#include <openssl/proverr.h>
 
 Passwd pki_evp::passwd;
 
@@ -213,10 +214,14 @@ pki_evp::pki_evp(EVP_PKEY *pkey)
 
 bool pki_evp::openssl_pw_error() const
 {
-	switch (ERR_peek_error() & 0xff000fff) {
+	unsigned long e = ERR_peek_error();
+
+	switch (ERR_PACK(ERR_GET_LIB(e), 0, ERR_GET_REASON(e))) {
 	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_DECRYPT):
 	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_PASSWORD_READ):
 	case ERR_PACK(ERR_LIB_EVP, 0, EVP_R_BAD_DECRYPT):
+	case ERR_PACK(ERR_LIB_PROV, 0, PROV_R_BAD_DECRYPT):
+	case ERR_PACK(ERR_LIB_PKCS12, 0, PKCS12_R_PKCS12_CIPHERFINAL_ERROR):
 		pki_ign_openssl_error();
 		return true;
 	}
@@ -230,14 +235,15 @@ void pki_evp::fromPEMbyteArray(const QByteArray &ba, const QString &name)
 		tr("Please enter the password to decrypt the private key %1.")
 			.arg(name));
 	pkey = load_ssh_ed25519_privatekey(ba, p);
+	pki_ign_openssl_error();
 
 	while (!pkey) {
 		pkey = PEM_read_bio_PrivateKey(BioByteArray(ba).ro(), NULL,
 						PwDialogCore::pwCallback, &p);
-		if (openssl_pw_error())
-			XCA_PASSWD_ERROR();
 		if (p.getResult() != pw_ok)
 			throw p.getResult();
+		if (openssl_pw_error())
+			XCA_PASSWD_ERROR();
 		if (pki_ign_openssl_error())
 			break;
 	}
@@ -396,10 +402,10 @@ void pki_evp::fload(const QString &fname)
 	do {
 		pkey = PEM_read_bio_PrivateKey(BioByteArray(ba).ro(),
 						NULL, cb, &p);
-		if (openssl_pw_error())
-			XCA_PASSWD_ERROR();
 		if (p.getResult() != pw_ok)
 			throw p.getResult();
+		if (openssl_pw_error())
+			XCA_PASSWD_ERROR();
 		if (pki_ign_openssl_error())
 			break;
 	} while (!pkey);

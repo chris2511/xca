@@ -127,6 +127,9 @@ void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 			XCA_ERROR(err);
 			delete item;
 			item = NULL;
+		} catch (...) {
+			delete item;
+			item = NULL;
 		}
 		ba.remove(0, sizeof BEGIN -1);
 	}
