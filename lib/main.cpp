@@ -28,6 +28,7 @@
 #if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 #include <openssl/provider.h>
 #endif
+#include <openssl/ui.h>
 
 #include <QTextStream>
 
@@ -54,6 +55,12 @@ static void segv_handler_gui(int)
 }
 #endif
 
+int uiwriter(UI *, UI_STRING *uis)
+{
+	qWarning() << "ui-writer callled:" << UI_get0_action_string(uis)
+			<< UI_get0_output_string(uis);
+	return 1;
+}
 
 int read_cmdline(int, char **, bool, pki_multi **);
 
@@ -116,6 +123,11 @@ int main(int argc, char *argv[])
 		coreApp = gui = new XcaApplication(argc, argv);
 		is_gui_app = true;
 	}
+
+	QSharedPointer<UI_METHOD> uimeth(
+			UI_create_method("xca-method"), UI_destroy_method);
+	UI_method_set_writer(uimeth.data(), uiwriter);
+	UI_set_default_method(uimeth.data());
 
 	coreApp->setApplicationName(PACKAGE_TARNAME);
 	coreApp->setOrganizationDomain("de.hohnstaedt");
