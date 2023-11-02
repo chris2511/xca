@@ -69,7 +69,6 @@ if(BUILD_TESTING)
   list(APPEND test_x509name_sources x509name.cpp x509name.h func_base.h func_base.cpp
                                     BioByteArray.h BioByteArray.cpp )
 
-  add_custom_target(tests)
   Test(test_biobytearray)
   Test(test_asn1int)
   Test(test_asn1time)

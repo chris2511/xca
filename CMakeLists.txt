@@ -74,8 +74,12 @@ add_library(xcalib STATIC)
 add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc lib/main.cpp
 		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
-add_executable(testxca img/imgres.qrc ${PROJECT_SOURCE_DIR}/lib/test_main.cpp
+add_executable(testxca EXCLUDE_FROM_ALL
+		img/imgres.qrc ${PROJECT_SOURCE_DIR}/lib/test_main.cpp
 		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
+add_custom_target(tests)
+add_test(NAME testxca COMMAND testxca)
+add_dependencies(tests testxca)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
