@@ -123,7 +123,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void default_database();
 		void about();
 		void loadPem();
-		bool pastePem(QString text, bool silent=false);
+		bool pastePem(const QString &text, bool silent=false);
 		void pastePem();
 		void changeDbPass();
 		void openURLs(QStringList &files);

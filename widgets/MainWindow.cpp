@@ -211,7 +211,7 @@ void MainWindow::loadPem()
 	keyView->load_default(&l);
 }
 
-bool MainWindow::pastePem(QString text, bool silent)
+bool MainWindow::pastePem(const QString &text, bool silent)
 {
 	bool success = false;
 	QByteArray pemdata = text.toLatin1();

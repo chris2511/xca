@@ -133,6 +133,7 @@ void pki_multi::fromPEMbyteArray(const QByteArray &_ba, const QString &name)
 		}
 		ba.remove(0, sizeof BEGIN -1);
 	}
+	pki_ign_openssl_error();
 	if (multi.size() == old_count)
 		throw errorEx(tr("No known PEM encoded items found"));
 }
