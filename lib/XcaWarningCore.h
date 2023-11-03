@@ -39,6 +39,9 @@ class xcaWarningCore : public QObject, public xcaWarning_i
 {
 	Q_OBJECT
 
+  protected:
+	virtual bool print_cmdline(const char *color, const QString &msg);
+
   public:
 	void information(const QString &msg);
 	void warning(const QString &msg);

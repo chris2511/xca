@@ -12,7 +12,7 @@
 
 class xcaWarning_i *xcaWarning::gui;
 
-static bool print_cmdline(const char *color, const QString &msg)
+bool xcaWarningCore::print_cmdline(const char *color, const QString &msg)
 {
 	console_write(stdout, QString("%1:" COL_RESET " %2\n")
 				.arg(color).arg(msg).toUtf8());
