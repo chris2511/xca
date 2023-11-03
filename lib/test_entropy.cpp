@@ -44,7 +44,7 @@ void test_entropy::initTestCase()
 void test_entropy::cleanupTestCase()
 {
 	delete e;
-	QCOMPARE(QFileInfo::exists(rnd), true);
+	QVERIFY(QFileInfo::exists(rnd));
 	QFile::remove(rnd);
 	qInstallMessageHandler(0);
 }
@@ -52,7 +52,7 @@ void test_entropy::cleanupTestCase()
 void test_entropy::start()
 {
 	e->add(17);
-	QCOMPARE((e->strength() > 0), true);
+	QVERIFY(e->strength() > 0);
 	e->add_buf((unsigned char*)"SomeText", 8);
 }
 
@@ -62,9 +62,9 @@ void test_entropy::muchSalt()
 	QString s1, s2;
 	for (int i=0; i<100; i++) {
 		s1 = e->makeSalt();
-		QCOMPARE(s1.contains(rx), true);
+		QVERIFY(s1.contains(rx));
 		QCOMPARE(s1.size(), 17);
-		QCOMPARE(s1 != s2, true);
+		QVERIFY(s1 != s2);
 		s2 = s1;
 	}
 }

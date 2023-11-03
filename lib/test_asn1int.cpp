@@ -57,11 +57,11 @@ void test_asn1int::ops()
 	a1int s(f);
 	QCOMPARE(s, f++);
 	QCOMPARE(++s, f);
-	QCOMPARE(++s != f, true);
+	QVERIFY(++s != f);
 	QCOMPARE(s.getLong(), 392);
 	QCOMPARE(f.getLong(), 391);
-	QCOMPARE(f < s, true);
-	QCOMPARE(s > f, true);
+	QVERIFY(f < s);
+	QVERIFY(s > f);
 	QCOMPARE(QString(a1int(0x18929)), "018929");
 }
 
@@ -69,7 +69,7 @@ void test_asn1int::get()
 {
 	a1int f(42);
 	ASN1_INTEGER *g = f.get();
-	QCOMPARE(g != f.get0(), true);
+	QVERIFY(g != f.get0());
 	QCOMPARE(f.get0(), f.get0());
 	ASN1_INTEGER_free(g);
 }

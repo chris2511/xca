@@ -6,13 +6,6 @@
  */
 
 #include <QTest>
-#if 0
-#include <QDebug>
-#include <QFile>
-#include <QByteArray>
-#include <QString>
-#include <QRegularExpression>
-#endif
 #include "x509name.h"
 
 class test_x509name: public QObject
@@ -40,7 +33,7 @@ void test_x509name::construct()
 	x509name y;
 	QCOMPARE(x.entryCount(), 2);
 	QCOMPARE(y.entryCount(), 0);
-	QCOMPARE(x != y, true);
+	QVERIFY(x != y);
 }
 
 void test_x509name::d2i2d()

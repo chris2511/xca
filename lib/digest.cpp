@@ -5,7 +5,7 @@
  * All rights reserved.
  */
 
-#include "func.h"
+#include "func_base.h"
 #include "digest.h"
 #include "lib/base.h"
 #include <QList>
