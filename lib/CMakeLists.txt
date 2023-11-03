@@ -69,10 +69,12 @@ if(BUILD_TESTING)
   list(APPEND test_entropy_sources entropy.cpp entropy.h func.h func_base.cpp xfile.h)
   list(APPEND test_x509name_sources x509name.cpp x509name.h func_base.h func_base.cpp
                                     BioByteArray.h BioByteArray.cpp )
+  list(APPEND test_digest_sources digest.cpp digest.h func_base.cpp func_base.h)
 
   Test(test_biobytearray)
   Test(test_asn1int)
   Test(test_asn1time)
   Test(test_entropy)
   Test(test_x509name)
+  Test(test_digest)
 endif()
