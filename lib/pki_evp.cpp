@@ -465,7 +465,7 @@ void pki_evp::fload(const QString &fname)
 	set_EVP_PKEY(pkey, fname);
 }
 
-EVP_PKEY *pki_evp::decryptKey() const
+EVP_PKEY *pki_evp::tryDecryptKey() const
 {
 	Passwd ownPassBuf;
 	int ret;
@@ -518,6 +518,14 @@ EVP_PKEY *pki_evp::decryptKey() const
 		}
 	}
 	pki_openssl_error();
+	return priv;
+}
+
+EVP_PKEY *pki_evp::decryptKey() const
+{
+	EVP_PKEY *priv = nullptr;
+	while (!priv)
+		priv = tryDecryptKey();
 	return priv;
 }
 
