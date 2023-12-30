@@ -190,8 +190,7 @@ pki_x509 *pki_x509::findIssuer()
 		pki_x509 *an_issuer = Store.lookupPki<pki_x509>(q.value(0));
 		qDebug() << "Possibvle Issuer of" << *this << *an_issuer << an_issuer->getNotAfter();
 		if (!an_issuer) {
-			qDebug("Certificate with id %d not found",
-                                q.value(0).toInt());
+			qDebug("Certificate with id %d not found", q.value(0).toInt());
 			continue;
 		}
 		if (verify_only(an_issuer)) {
@@ -331,7 +330,7 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 
 void pki_x509::d2i(QByteArray &ba)
 {
-        X509 *c = (X509*)d2i_bytearray(D2I_VOID(d2i_X509), ba);
+	X509 *c = (X509*)d2i_bytearray(D2I_VOID(d2i_X509), ba);
 	if (c) {
 		X509_free(cert);
 		cert = c;
@@ -418,10 +417,10 @@ void pki_x509::deleteFromToken()
 pk11_attlist pki_x509::objectAttributes()
 {
 	pk11_attlist attrs;
-        attrs <<
-                pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
-                pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
-                pk11_attr_data(CKA_VALUE, i2d());
+	attrs <<
+		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
+		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
+		pk11_attr_data(CKA_VALUE, i2d());
 	return attrs;
 }
 
@@ -461,7 +460,7 @@ int pki_x509::renameOnToken(const slotid &slot, const QString &name)
 	pk11_attr_data label(CKA_LABEL, name.toUtf8());
 	tkInfo ti = p11.tokenInfo();
 	if (p11.tokenLogin(ti.label(), false).isNull())
-                return 0;
+		return 0;
 	p11.storeAttribute(label, objs[0]);
 	return 1;
 }

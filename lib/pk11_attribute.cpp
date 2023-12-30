@@ -141,4 +141,3 @@ void pk11_attlist::reset()
 
 	attlen = 0;
 }
-

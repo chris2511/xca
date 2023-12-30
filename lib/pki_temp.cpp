@@ -302,7 +302,7 @@ static QString old_eKeyUse2QString(int old)
 {
 	QStringList sl;
 
-        for (int i = 0; i < extkeyuse_nid.size(); i++) {
+	for (int i = 0; i < extkeyuse_nid.size(); i++) {
 		if (old & (1<<i)) {
 			sl << OBJ_nid2sn(extkeyuse_nid[i]);
 		}
@@ -431,7 +431,7 @@ void pki_temp::writeTemp(XFile &file) const
 void pki_temp::writeDefault(const QString &dirname) const
 {
 	XFile file(get_dump_filename(dirname, ".xca"));
-        file.open_write();
+	file.open_write();
 	writeTemp(file);
 }
 
@@ -490,7 +490,7 @@ void pki_temp::fromPEM_BIO(BIO *bio, const QString &name)
 	QByteArray ba;
 	QString msg;
 	char *nm = NULL, *header = NULL;
-        unsigned char *data = NULL;
+	unsigned char *data = NULL;
 	long len;
 
 	PEM_read_bio(bio, &nm, &header, &data, &len);

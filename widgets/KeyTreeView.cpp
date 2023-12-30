@@ -183,7 +183,7 @@ void KeyTreeView::toToken()
 		}
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
-        }
+	}
 	delete card;
 }
 

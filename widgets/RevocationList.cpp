@@ -131,7 +131,7 @@ const x509revList &RevocationList::getRevList()
 void RevocationList::on_addRev_clicked()
 {
 	Revocation *revoke = new Revocation(QModelIndexList(), this);
-        if (revoke->exec()) {
+	if (revoke->exec()) {
 		x509rev revit = revoke->getRevocation();
 		revList << revit;
 		addRevItem(certList, revit, revList.size(), issuer);
@@ -150,8 +150,8 @@ void RevocationList::on_delRev_clicked()
 	certList->takeTopLevelItem(idx);
 	rev.setSerial(a1int(current->text(Cserial)));
 	idx = revList.indexOf(rev);
-        if (idx != -1)
-                revList.takeAt(idx);
+	if (idx != -1)
+		revList.takeAt(idx);
 }
 
 void RevocationList::on_editRev_clicked()
@@ -169,14 +169,14 @@ void RevocationList::on_certList_itemDoubleClicked(QTreeWidgetItem *current)
 
 	rev.setSerial(a1int(current->text(Cserial)));
 	idx = revList.indexOf(rev);
-        if (idx == -1)
+	if (idx == -1)
 		return;
 
 	rev = revList[idx];
 
 	Revocation *revoke = new Revocation(QModelIndexList(), this);
 	revoke->setRevocation(rev);
-        if (revoke->exec()) {
+	if (revoke->exec()) {
 		a1time a1 = rev.getDate();
 		rev = revoke->getRevocation();
 		rev.setDate(a1);

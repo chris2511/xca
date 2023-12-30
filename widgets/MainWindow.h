@@ -40,12 +40,11 @@ class tipMenu : public QMenu
 	tipMenu(QString n, QWidget *w) : QMenu(n, w) {}
 	bool event (QEvent * e)
 	{
-
-        if (e->type() == QEvent::ToolTip && activeAction() &&
-		    activeAction()->toolTip() != activeAction()->text()) {
-            const QHelpEvent *helpEvent = static_cast <QHelpEvent *>(e);
-            QToolTip::showText(helpEvent->globalPos(),
-				activeAction()->toolTip());
+		if (e->type() == QEvent::ToolTip && activeAction() &&
+			activeAction()->toolTip() != activeAction()->text()) {
+			const QHelpEvent *helpEvent = static_cast <QHelpEvent *>(e);
+			QToolTip::showText(helpEvent->globalPos(),
+			                   activeAction()->toolTip());
 		} else {
 			QToolTip::hideText();
 		}

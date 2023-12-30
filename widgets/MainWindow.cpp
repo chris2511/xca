@@ -299,7 +299,7 @@ void MainWindow::initToken()
 		p11.initToken(slot, pin.constUchar(), pin.size(), label);
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
-        }
+	}
 }
 
 void MainWindow::changePin(bool so)
@@ -315,7 +315,7 @@ void MainWindow::changePin(bool so)
 		p11.changePin(slot, so);
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
-        }
+	}
 }
 
 void MainWindow::changeSoPin()
@@ -336,7 +336,7 @@ void MainWindow::initPin()
 		p11.initPin(slot);
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
-        }
+	}
 }
 
 
@@ -406,7 +406,7 @@ void MainWindow::manageToken()
 		}
 	} catch (errorEx &err) {
 		XCA_ERROR(err);
-        }
+	}
 	delete card;
 	delete cert;
 	delete dlgi;

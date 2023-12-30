@@ -191,7 +191,7 @@ void CertTreeView::caProperties()
 	pki_temp *templ = Store.lookupPki<pki_temp>(tmplId);
 
 	ui.temp->insertPkiItems(Store.getAll<pki_temp>());
-        ui.temp->setNullItem(tr("No template"));
+	ui.temp->setNullItem(tr("No template"));
 	ui.temp->setCurrentIndex(0);
 	if (templ)
 		ui.temp->setCurrentPkiItem(templ);
@@ -201,9 +201,9 @@ void CertTreeView::caProperties()
 
 	if (dlg->exec()) {
 		templ = ui.temp->currentPkiItem();
-                tmplId = templ ? templ->getSqlItemId() : QVariant();
+		tmplId = templ ? templ->getSqlItemId() : QVariant();
 		cert->setTemplateSqlId(tmplId);
-                cert->setCrlDays(ui.days->value());
+		cert->setCrlDays(ui.days->value());
 
 		certs()->updateCaProperties(cert);
 		columnsChanged();
@@ -242,5 +242,5 @@ ExportDialog *CertTreeView::exportDialog(const QModelIndexList &indexes)
 		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"),
 		indexes, QPixmap(":certImg"),
 		pki_export::select(x509, basemodel->exportFlags(indexes)),
-                "certexport");
+		                   "certexport");
 }

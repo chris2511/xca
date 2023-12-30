@@ -98,7 +98,7 @@ void MainWindow::init_menu()
 	update_history_menu();
 
 	connect(historyMenu, SIGNAL(triggered(QAction*)),
-                this, SLOT(open_database(QAction*)));
+	        this, SLOT(open_database(QAction*)));
 
 	file = menuBar()->addMenu(tr("&File"));
 

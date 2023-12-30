@@ -460,7 +460,7 @@ void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int col)
 	}
 	if (!shown)
 		allHeaders[0]->show = true;
-        delete menu;
+	delete menu;
 	delete parent;
 	showHideSections();
 }

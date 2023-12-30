@@ -122,7 +122,7 @@ class pki_lookup
 	void flush()
 	{
 		qDeleteAll(lookup);
-                lookup.clear();
+		lookup.clear();
 	}
 };
 #endif

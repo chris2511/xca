@@ -258,7 +258,7 @@ bool x509revList::sqlUpdate(QVariant caId)
 			return false;
 	}
 
-        merged = false;
+	merged = false;
 	TransCommit();
 	return true;
 }

@@ -61,7 +61,7 @@ void pki_key::autoIntName(const QString &file)
 void pki_key::d2i(QByteArray &ba)
 {
 	EVP_PKEY *k = (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);
-        pki_openssl_error();
+	pki_openssl_error();
 	if (k) {
 		if (key)
 			EVP_PKEY_free(key);
@@ -75,19 +75,19 @@ void pki_key::d2i_old(QByteArray &ba, int type)
 	p = p1 = (const unsigned char *)ba.constData();
 	EVP_PKEY *k = d2i_PublicKey(type, NULL, &p1, ba.size());
 
-        pki_openssl_error();
+	pki_openssl_error();
 
 	if (k) {
 		if (key)
 			EVP_PKEY_free(key);
 		key = k;
 	}
-        ba = ba.mid(p1-p);
+	ba = ba.mid(p1-p);
 }
 
 QByteArray pki_key::i2d() const
 {
-        return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
+	return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
 
 void pki_key::write_SSH2_ed25519_private(BIO *b,

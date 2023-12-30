@@ -40,6 +40,6 @@ class PwDialog: public QDialog, public Ui::PwDialog
 class PwDialogUI: public PwDialogUI_i
 {
 	enum open_result execute(pass_info *p, Passwd *passwd,
-                        bool write = false, bool abort = false);
+	               bool write = false, bool abort = false);
 };
 #endif

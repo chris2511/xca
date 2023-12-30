@@ -49,7 +49,7 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 }
 
 bool XcaProxyModel::filterAcceptsRow(int sourceRow,
-         const QModelIndex &sourceParent) const
+	const QModelIndex &sourceParent) const
 {
 	if (!sourceModel())
 		return false;

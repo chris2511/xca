@@ -92,7 +92,7 @@ QList<nameEdit> NewX509::setupExplicitInputs(NIDlist nid_list,
 		}
 		label->setClickText(OBJ_nid2sn(nid));
 		connect(label, SIGNAL(doubleClicked(QString)),
-                        MainWindow::getResolver(), SLOT(searchOid(QString)));
+		        MainWindow::getResolver(), SLOT(searchOid(QString)));
 		edit = new QLineEdit(parent);
 		setupLineEditByNid(nid, edit);
 		edits << nameEdit(nid, edit, label);
@@ -133,15 +133,15 @@ NewX509::NewX509(QWidget *w) : XcaDetail(w)
 	extDNlist->setInfoLabel(extDNinfo);
 	connect(extDNlist->itemDelegateForColumn(1),
 		SIGNAL(setupLineEdit(const QString &, QLineEdit *)),
-		this, SLOT(setupExtDNwidget(const QString &, QLineEdit *)));
+		       this, SLOT(setupExtDNwidget(const QString &, QLineEdit *)));
 	connect(subAltName, SIGNAL(textChanged(const QString &)),
-                this, SLOT(checkSubAltName(const QString &)));
+	        this, SLOT(checkSubAltName(const QString &)));
 	connect(issAltName, SIGNAL(textChanged(const QString &)),
-                this, SLOT(checkIssAltName(const QString &)));
+	        this, SLOT(checkIssAltName(const QString &)));
 	connect(crlDist, SIGNAL(textChanged(const QString &)),
-                this, SLOT(checkCrlDist(const QString &)));
+	        this, SLOT(checkCrlDist(const QString &)));
 	connect(authInfAcc, SIGNAL(textChanged(const QString &)),
-                this, SLOT(checkAuthInfAcc(const QString &)));
+	        this, SLOT(checkAuthInfAcc(const QString &)));
 	if (keymodel)
 		connect(keymodel, SIGNAL(keyDone(pki_key*)),
 			this, SLOT(newKeyDone(pki_key*)));
@@ -237,7 +237,7 @@ NewX509::NewX509(QWidget *w) : XcaDetail(w)
 		QString tt = w->toolTip();
 
 		if (Settings["translate_dn"])
-                        text.swap(tooltip);
+			text.swap(tooltip);
 
 		if (!tt.isEmpty())
 			tooltip = QString("%1 (%2)").arg(tt).arg(tooltip);
@@ -1071,7 +1071,7 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 	el.clear();
 	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
 		req_el = getSelectedReq()->getV3ext();
-                for (int i=0; i<req_el.count(); i++) {
+		for (int i=0; i<req_el.count(); i++) {
 			if (ctx_cert && ctx_cert->addV3ext(req_el[i], true))
 				el += req_el[i];
 		}
@@ -1317,7 +1317,7 @@ void NewX509::accept()
 			reject();
 		}
 		return;
-        }
+	}
 	if (hashAlgo->count() > 0 && hashAlgo->current().isInsecure()) {
 		gotoTab(0);
 		xcaWarningBox msg(this, tr("The currently selected hash algorithm '%1' is insecure and should not be used.").arg(hashAlgo->current().name()));

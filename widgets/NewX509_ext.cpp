@@ -297,6 +297,6 @@ extList NewX509::getExtDuplicates()
 
 			}
 		}
-        }
+	}
 	return el_dup;
 }

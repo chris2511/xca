@@ -226,7 +226,7 @@ static const char *asn1Type2Name(int type)
 {
 #define ASN1_GEN_STR(x,y) { x,y }
 	struct {
-	        const char *strnam;
+		const char *strnam;
 		int tag;
 	} tags[] = {
 		ASN1_GEN_STR("BOOL", V_ASN1_BOOLEAN),
@@ -332,10 +332,10 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 				arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
 			return true;
 		} else if(gen->d.ip->length == 8) {
-			 *single = QString("IP:%1.%2.%3.%4/%5.%6.%7.%8").
-                                arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]).
-                                arg(p[4]).arg(p[5]).arg(p[6]).arg(p[7]);
-                        return true;
+			*single = QString("IP:%1.%2.%3.%4/%5.%6.%7.%8").
+			                    arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]).
+			                    arg(p[4]).arg(p[5]).arg(p[6]).arg(p[7]);
+			return true;
 		} else if(gen->d.ip->length == 16) {
 			*single = "IP:" + ipv6_from_binary(gen->d.ip->data);
 			return true;
@@ -482,7 +482,7 @@ bool x509v3ext::parse_ainfo(QString *single, QString *adv) const
 {
 	bool retval = true;
 	QString sect, ret;
-        QString tag = OBJ_nid2sn(nid());
+	QString tag = OBJ_nid2sn(nid());
 	QStringList sl;
 	int i;
 
@@ -632,11 +632,11 @@ static void gen_cpol_notice(QString tag, USERNOTICE *notice, QString *adv)
 		QStringList sl;
 		int i;
 		*adv += QString("organization=%1\n").
-                                arg(asn1ToQString(ref->organization, true));
+		          arg(asn1ToQString(ref->organization, true));
 		for (i = 0; i < sk_ASN1_INTEGER_num(ref->noticenos); i++) {
 			a1int num(sk_ASN1_INTEGER_value(ref->noticenos, i));
 			sl << num.toDec();
-                }
+		}
 		if (sl.size())
 			*adv += QString("noticeNumbers=%1\n").
 					arg(sl.join(", "));
@@ -661,7 +661,7 @@ static bool gen_cpol_qual_sect(QString tag, POLICYINFO *pinfo, QString *adv)
 
 	for (i = 0; i < sk_POLICYQUALINFO_num(quals); i++) {
 		POLICYQUALINFO *qualinfo = sk_POLICYQUALINFO_value(quals, i);
-                switch (OBJ_obj2nid(qualinfo->pqualid)) {
+		switch (OBJ_obj2nid(qualinfo->pqualid)) {
 		case NID_id_qt_cps:
 			polsect += QString("CPS.%1=%2\n").arg(i).
 					arg(asn1ToQString(qualinfo->d.cpsuri, true));
@@ -778,7 +778,7 @@ bool x509v3ext::parse_bitstring(QString *single, QString *adv) const
 	else if (adv)
 		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(ret) +*adv;
 	ASN1_BIT_STRING_free(bs);
-        return true;
+	return true;
 }
 
 bool x509v3ext::parse_sKeyId(QString *, QString *adv) const
