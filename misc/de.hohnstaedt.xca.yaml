@@ -2,6 +2,8 @@ app-id: de.hohnstaedt.xca
 runtime: org.kde.Platform
 runtime-version: '6.5'
 sdk: org.kde.Sdk
+rename-desktop-file: xca.desktop
+
 finish-args:
   # X11 + XShm access
   - --share=ipc
