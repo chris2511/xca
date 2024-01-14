@@ -74,13 +74,6 @@ add_library(xcalib STATIC)
 add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc lib/main.cpp
 		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
-add_executable(testxca EXCLUDE_FROM_ALL
-		img/imgres.qrc ${PROJECT_SOURCE_DIR}/lib/test_main.cpp
-		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
-add_custom_target(tests)
-add_test(NAME testxca COMMAND testxca)
-set_tests_properties(testxca PROPERTIES LABELS gui)
-add_dependencies(tests testxca)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
@@ -126,16 +119,12 @@ target_link_libraries(xcadoc
 	OpenSSL::Crypto ${QT}::Core ${ASAN_LIB}
 )
 target_link_libraries(${CMAKE_PROJECT_NAME} ${ASAN_LIB} xcalib)
-target_link_libraries(testxca ${ASAN_LIB} ${QT}::Test xcalib)
 
 if (APPLE)
 
   find_library(IOKIT_LIBRARY IOKit)
   find_library(COREFOUNDATION_LIBRARY CoreFoundation)
   target_link_libraries(${CMAKE_PROJECT_NAME}
-	${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
-  )
-  target_link_libraries(testxca
 	${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
   )
   set(CMAKE_MACOSX_BUNDLE ON)
@@ -168,6 +157,8 @@ macro(WixFile filename content)
     "\n</Fragment>\n</Wix>")
 endmacro()
 
+add_custom_target(tests)
+
 ##### Sub directories
 
 add_subdirectory(lib)
@@ -177,6 +168,7 @@ include(lang/CMakeLists.txt)
 include(misc/CMakeLists.txt)
 include(doc/CMakeLists.txt)
 include(img/CMakeLists.txt)
+include(test/CMakeLists.txt)
 
 install(TARGETS ${CMAKE_PROJECT_NAME}
 	RESOURCE DESTINATION Resources
