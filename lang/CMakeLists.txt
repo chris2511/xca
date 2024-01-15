@@ -31,11 +31,14 @@ if (${QT_VERSION} VERSION_LESS 6.0.0 )
   message(STATUS "Updating translations from source with 'lupdate' only supprted with QT6")
   target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
 else()
+  get_target_property(LIBSRC xcalib SOURCES)
+  get_target_property(XCASRC xca SOURCES)
   qt_add_translations(xca TS_FILES ${TS_FILES} ${S}/xca.ts
 			  LRELEASE_OPTIONS -silent
 			  QM_FILES_OUTPUT_VARIABLE QM_FILES
+			  SOURCES ${LIBSRC} ${XCASRC}
   )
-  add_custom_target(trans DEPENDS xca_lupdate "${S}/xca.pot")
+  add_custom_target(trans DEPENDS xca_lupdate "${D}/xca.pot")
 endif()
 list(APPEND APP_RESOURCES ${QM_FILES})
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
@@ -50,10 +53,13 @@ elseif(WIN32)
   )
 endif()
 
-find_program(LCONVERT lconvert)
-add_custom_command(
-	OUTPUT "${S}/xca.pot"
-	COMMAND ${LCONVERT} -if ts -of po -i "${S}/xca.ts" -o "${S}/xca.pot"
+find_program(LCONVERT lconvert HINTS ${_qt_bin_dir})
+if (LCONVERT)
+  add_custom_command(
+	OUTPUT "${D}/xca.pot"
+	COMMAND ${LCONVERT} -if ts -of po -i "${S}/xca.ts" -o "${D}/xca.pot"
+	COMMAND ${CMAKE_COMMAND} -E copy "${D}/xca.pot" "${S}/xca.pot"
 	DEPENDS "${S}/xca.ts"
 	COMMENT "Update POT file"
-)
+  )
+endif()
