@@ -3,6 +3,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: en_EN\n"
 "X-Qt-Contexts: true\n"
 
 #: ../ui/CaProperties.ui:14
@@ -20,7 +22,7 @@ msgctxt "CaProperties|"
 msgid "Default template"
 msgstr ""
 
-#: ../ui/CertDetail.ui:30 ../widgets/CertDetail.cpp:112
+#: ../ui/CertDetail.ui:30 ../widgets/CertDetail.cpp:106
 msgctxt "CertDetail|"
 msgid "Details of the Certificate"
 msgstr ""
@@ -135,58 +137,58 @@ msgctxt "CertDetail|"
 msgid "Attributes"
 msgstr ""
 
-#: ../ui/CertDetail.ui:377 ../widgets/CertDetail.cpp:40
+#: ../ui/CertDetail.ui:377 ../widgets/CertDetail.cpp:33
 msgctxt "CertDetail|"
 msgid "Show config"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:44
+#: ../widgets/CertDetail.cpp:37
 msgctxt "CertDetail|"
 msgid "Show extensions"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:66
+#: ../widgets/CertDetail.cpp:60
 msgctxt "CertDetail|"
 msgid "Show public key"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:69
+#: ../widgets/CertDetail.cpp:63
 msgctxt "CertDetail|"
 msgid "This key is not in the database."
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:73
+#: ../widgets/CertDetail.cpp:67
 msgctxt "CertDetail|"
 msgid "Not available"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:120
+#: ../widgets/CertDetail.cpp:113
 msgctxt "CertDetail|"
 msgid "Signer unknown"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:124
+#: ../widgets/CertDetail.cpp:117
 msgctxt "CertDetail|"
 msgid "Self signed"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:154
+#: ../widgets/CertDetail.cpp:147
 #, qt-format
 msgctxt "CertDetail|"
 msgid "Revoked at %1"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:159
+#: ../widgets/CertDetail.cpp:152
 msgctxt "CertDetail|"
 msgid "Not valid"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:163
+#: ../widgets/CertDetail.cpp:156
 msgctxt "CertDetail|"
 msgid "Valid"
 msgstr ""
 
-#: ../widgets/CertDetail.cpp:184
+#: ../widgets/CertDetail.cpp:177
 msgctxt "CertDetail|"
 msgid "Details of the certificate signing request"
 msgstr ""
@@ -487,17 +489,17 @@ msgctxt "CrlDetail|"
 msgid "Comment"
 msgstr ""
 
-#: ../widgets/CrlDetail.cpp:52
+#: ../widgets/CrlDetail.cpp:48
 msgctxt "CrlDetail|"
 msgid "Failed"
 msgstr ""
 
-#: ../widgets/CrlDetail.cpp:57
+#: ../widgets/CrlDetail.cpp:53
 msgctxt "CrlDetail|"
 msgid "Unknown signer"
 msgstr ""
 
-#: ../widgets/CrlDetail.cpp:60
+#: ../widgets/CrlDetail.cpp:56
 msgctxt "CrlDetail|"
 msgid "Verification not possible"
 msgstr ""
@@ -673,7 +675,7 @@ msgctxt "ImportMulti|"
 msgid "Rename on token"
 msgstr ""
 
-#: ../widgets/ImportMulti.cpp:65
+#: ../widgets/ImportMulti.cpp:66
 #, qt-format
 msgctxt "ImportMulti|"
 msgid ""
@@ -683,30 +685,29 @@ msgid ""
 "Serial: %3"
 msgstr ""
 
-#: ../widgets/ImportMulti.cpp:70
+#: ../widgets/ImportMulti.cpp:71
 msgctxt "ImportMulti|"
 msgid "Manage security token"
 msgstr ""
 
-#: ../widgets/ImportMulti.cpp:287
-#, qt-format
-msgctxt "ImportMulti|"
-msgid "Details of the item '%1' cannot be shown"
-msgstr ""
-
-#: ../widgets/ImportMulti.cpp:104 ../widgets/ImportMulti.cpp:291
+#: ../widgets/ImportMulti.cpp:106 ../widgets/ImportMulti.cpp:300
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "The type of the item '%1' is not recognized"
 msgstr ""
 
-#: ../widgets/ImportMulti.cpp:319
+#: ../widgets/ImportMulti.cpp:252
+msgctxt "ImportMulti|"
+msgid "Could not open the default database"
+msgstr ""
+
+#: ../widgets/ImportMulti.cpp:328
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "The file '%1' did not contain PKI data"
 msgstr ""
 
-#: ../widgets/ImportMulti.cpp:322
+#: ../widgets/ImportMulti.cpp:331
 #, qt-format
 msgctxt "ImportMulti|"
 msgid "The %1 files: '%2' did not contain PKI data"
@@ -742,7 +743,7 @@ msgctxt "KeyDetail|"
 msgid "The internal name of the key used by xca"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:106
+#: ../widgets/KeyDetail.cpp:101
 msgctxt "KeyDetail|"
 msgid "Security token"
 msgstr ""
@@ -812,45 +813,45 @@ msgctxt "KeyDetail|"
 msgid "Comment"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:89
+#: ../widgets/KeyDetail.cpp:84
 #, qt-format
 msgctxt "KeyDetail|"
 msgid "Details of the %1 key"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:95
+#: ../widgets/KeyDetail.cpp:90
 msgctxt "KeyDetail|"
 msgid "Not available"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:108
+#: ../widgets/KeyDetail.cpp:103
 msgctxt "KeyDetail|"
 msgid "Available"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:117
+#: ../widgets/KeyDetail.cpp:112
 msgctxt "KeyDetail|"
 msgid "Sub prime"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:118 ../widgets/KeyDetail.cpp:127
-#: ../widgets/KeyDetail.cpp:139
+#: ../widgets/KeyDetail.cpp:113 ../widgets/KeyDetail.cpp:122
+#: ../widgets/KeyDetail.cpp:134
 msgctxt "KeyDetail|"
 msgid "Public key"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:119 ../widgets/KeyDetail.cpp:128
-#: ../widgets/KeyDetail.cpp:140
+#: ../widgets/KeyDetail.cpp:114 ../widgets/KeyDetail.cpp:123
+#: ../widgets/KeyDetail.cpp:135
 msgctxt "KeyDetail|"
 msgid "Private key"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:129 ../widgets/KeyDetail.cpp:141
+#: ../widgets/KeyDetail.cpp:124 ../widgets/KeyDetail.cpp:136
 msgctxt "KeyDetail|"
 msgid "Curve name"
 msgstr ""
 
-#: ../widgets/KeyDetail.cpp:148
+#: ../widgets/KeyDetail.cpp:143
 msgctxt "KeyDetail|"
 msgid "Unknown key"
 msgstr ""
@@ -964,7 +965,7 @@ msgctxt "MainWindow|"
 msgid "&New Request"
 msgstr ""
 
-#: ../ui/MainWindow.ui:216 ../widgets/MW_menu.cpp:138
+#: ../ui/MainWindow.ui:216 ../widgets/MW_menu.cpp:146
 msgctxt "MainWindow|"
 msgid "Certificates"
 msgstr ""
@@ -1014,14 +1015,14 @@ msgctxt "MainWindow|"
 msgid "Revocation lists"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:592
+#: ../widgets/MainWindow.cpp:594
 msgctxt "MainWindow|"
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
 "correct password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:598
+#: ../widgets/MainWindow.cpp:600
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1029,7 +1030,7 @@ msgid ""
 "'SHA 224' for security reasons."
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:85
+#: ../widgets/MW_menu.cpp:97
 msgctxt "MainWindow|"
 msgid "Recent DataBases"
 msgstr ""
@@ -1039,355 +1040,355 @@ msgctxt "MainWindow|"
 msgid "System"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:28
+#: ../widgets/MW_help.cpp:30
 msgctxt "MainWindow|"
 msgid "Croatian"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:31
+#: ../widgets/MW_help.cpp:33
 msgctxt "MainWindow|"
 msgid "English"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:32
+#: ../widgets/MW_help.cpp:34
 msgctxt "MainWindow|"
 msgid "French"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:34
+#: ../widgets/MW_help.cpp:36
 msgctxt "MainWindow|"
 msgid "German"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:38
+#: ../widgets/MW_help.cpp:42
 msgctxt "MainWindow|"
 msgid "Japanese"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:44
+#: ../widgets/MW_help.cpp:50
 msgctxt "MainWindow|"
 msgid "Russian"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:45
+#: ../widgets/MW_help.cpp:51
 msgctxt "MainWindow|"
 msgid "Slovak"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:47
+#: ../widgets/MW_help.cpp:53
 msgctxt "MainWindow|"
 msgid "Spanish"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:52
+#: ../widgets/MW_help.cpp:44
 msgctxt "MainWindow|"
 msgid "Persian"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:54
+#: ../widgets/MW_help.cpp:26
 msgctxt "MainWindow|"
 msgid "Bulgarian"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:40
+#: ../widgets/MW_help.cpp:46
 msgctxt "MainWindow|"
 msgid "Polish"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:36
+#: ../widgets/MW_help.cpp:40
 msgctxt "MainWindow|"
 msgid "Italian"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:26
+#: ../widgets/MW_help.cpp:28
 msgctxt "MainWindow|"
 msgid "Chinese"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:30
+#: ../widgets/MW_help.cpp:32
 msgctxt "MainWindow|"
 msgid "Dutch"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:42
+#: ../widgets/MW_help.cpp:48
 msgctxt "MainWindow|"
 msgid "Portuguese in Brazil"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:49
+#: ../widgets/MW_help.cpp:38
 msgctxt "MainWindow|"
 msgid "Indonesian"
 msgstr ""
 
-#: ../widgets/MW_help.cpp:51
+#: ../widgets/MW_help.cpp:55
 msgctxt "MainWindow|"
 msgid "Turkish"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:91
+#: ../widgets/MW_menu.cpp:85
 msgctxt "MainWindow|"
 msgid "Language"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:100
+#: ../widgets/MW_menu.cpp:103
 msgctxt "MainWindow|"
 msgid "&File"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:110
+#: ../widgets/MW_menu.cpp:113
 msgctxt "MainWindow|"
 msgid "Open Remote DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:114
+#: ../widgets/MW_menu.cpp:117
 msgctxt "MainWindow|"
 msgid "Set as default DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:102
+#: ../widgets/MW_menu.cpp:105
 msgctxt "MainWindow|"
 msgid "New DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:106
+#: ../widgets/MW_menu.cpp:109
 msgctxt "MainWindow|"
 msgid "Open DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:116
+#: ../widgets/MW_menu.cpp:119
 msgctxt "MainWindow|"
 msgid "Close DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:120
+#: ../widgets/MW_menu.cpp:124
 msgctxt "MainWindow|"
 msgid "Options"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:128
+#: ../widgets/MW_menu.cpp:132
 msgctxt "MainWindow|"
 msgid "Exit"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:135
+#: ../widgets/MW_menu.cpp:143
 msgctxt "MainWindow|"
 msgid "I&mport"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:136
+#: ../widgets/MW_menu.cpp:144
 msgctxt "MainWindow|"
 msgid "Keys"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:137
+#: ../widgets/MW_menu.cpp:145
 msgctxt "MainWindow|"
 msgid "Requests"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:139
+#: ../widgets/MW_menu.cpp:147
 msgctxt "MainWindow|"
 msgid "PKCS#12"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:140
+#: ../widgets/MW_menu.cpp:148
 msgctxt "MainWindow|"
 msgid "PKCS#7"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:141
+#: ../widgets/MW_menu.cpp:149
 msgctxt "MainWindow|"
 msgid "Template"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:142
+#: ../widgets/MW_menu.cpp:150
 msgctxt "MainWindow|"
 msgid "Revocation list"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:143
+#: ../widgets/MW_menu.cpp:151
 msgctxt "MainWindow|"
 msgid "PEM file"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:144
+#: ../widgets/MW_menu.cpp:152
 msgctxt "MainWindow|"
 msgid "Paste PEM file"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:147
+#: ../widgets/MW_menu.cpp:156
 msgctxt "MainWindow|"
 msgid "Token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:164
+#: ../widgets/MW_menu.cpp:173
 msgctxt "MainWindow|"
 msgid "Export Certificate &Index hierarchy"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:177
+#: ../widgets/MW_menu.cpp:191
 msgctxt "MainWindow|"
 msgid "Content"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:148
+#: ../widgets/MW_menu.cpp:157
 msgctxt "MainWindow|"
 msgid "&Manage Security token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:150
+#: ../widgets/MW_menu.cpp:159
 msgctxt "MainWindow|"
 msgid "&Init Security token"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:152
+#: ../widgets/MW_menu.cpp:161
 msgctxt "MainWindow|"
 msgid "&Change PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:154
+#: ../widgets/MW_menu.cpp:163
 msgctxt "MainWindow|"
 msgid "Change &SO PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:156
+#: ../widgets/MW_menu.cpp:165
 msgctxt "MainWindow|"
 msgid "Init PIN"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:159
+#: ../widgets/MW_menu.cpp:168
 msgctxt "MainWindow|"
 msgid "Extra"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:160
+#: ../widgets/MW_menu.cpp:169
 msgctxt "MainWindow|"
 msgid "&Dump DataBase"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:162
+#: ../widgets/MW_menu.cpp:171
 msgctxt "MainWindow|"
 msgid "&Export Certificate Index"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:166
+#: ../widgets/MW_menu.cpp:175
 msgctxt "MainWindow|"
 msgid "C&hange DataBase password"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:169
+#: ../widgets/MW_menu.cpp:178
 msgctxt "MainWindow|"
 msgid "&Undelete items"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:172
+#: ../widgets/MW_menu.cpp:181
 msgctxt "MainWindow|"
 msgid "Generate DH parameter"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:174
+#: ../widgets/MW_menu.cpp:183
 msgctxt "MainWindow|"
 msgid "OID Resolver"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:176
+#: ../widgets/MW_menu.cpp:190
 msgctxt "MainWindow|"
 msgid "&Help"
 msgstr ""
 
-#: ../widgets/MW_menu.cpp:179
+#: ../widgets/MW_menu.cpp:193
 msgctxt "MainWindow|"
 msgid "About"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:254
+#: ../widgets/MainWindow.cpp:253
 msgctxt "MainWindow|"
 msgid "Import PEM data"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:283
+#: ../widgets/MainWindow.cpp:282
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:113 ../widgets/MainWindow.cpp:736
+#: ../widgets/MainWindow.cpp:113 ../widgets/MainWindow.cpp:738
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:289
+#: ../widgets/MainWindow.cpp:288
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the new SO PIN (PUK) for the token '%1'"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:296
+#: ../widgets/MainWindow.cpp:295
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The new label of the token '%1'"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:404
+#: ../widgets/MainWindow.cpp:403
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:448
+#: ../widgets/MainWindow.cpp:450
 msgctxt "MainWindow|"
 msgid "Current Password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:449
+#: ../widgets/MainWindow.cpp:451
 msgctxt "MainWindow|"
 msgid "Please enter the current database password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:459
+#: ../widgets/MainWindow.cpp:461
 msgctxt "MainWindow|"
 msgid "The entered password is wrong"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:464
+#: ../widgets/MainWindow.cpp:466
 msgctxt "MainWindow|"
 msgid "New Password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:464
+#: ../widgets/MainWindow.cpp:466
 msgctxt "MainWindow|"
 msgid ""
 "Please enter the new password to encrypt your private keys in the "
 "database-file"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:488
+#: ../widgets/MainWindow.cpp:490
 msgctxt "MainWindow|"
 msgid "Transaction start failed"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:575
+#: ../widgets/MainWindow.cpp:577
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Database: %1"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:656
+#: ../widgets/MainWindow.cpp:658
 msgctxt "MainWindow|"
 msgid "Certificate Index ( index.txt )"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:657 ../widgets/MainWindow.cpp:713
+#: ../widgets/MainWindow.cpp:659 ../widgets/MainWindow.cpp:715
 msgctxt "MainWindow|"
 msgid "All files ( * )"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:680
+#: ../widgets/MainWindow.cpp:682
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Diffie-Hellman parameters saved as: %1"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:698
+#: ../widgets/MainWindow.cpp:700
 msgctxt "MainWindow|"
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
@@ -1605,7 +1606,7 @@ msgctxt "NewX509|"
 msgid "Apply all"
 msgstr ""
 
-#: ../ui/NewX509.ui:336 ../widgets/NewX509.cpp:596
+#: ../ui/NewX509.ui:336 ../widgets/NewX509.cpp:605
 msgctxt "NewX509|"
 msgid "Subject"
 msgstr ""
@@ -1776,7 +1777,7 @@ msgid "DNS: IP: URI: email: RID:"
 msgstr ""
 
 #: ../ui/NewX509.ui:745 ../ui/NewX509.ui:762 ../ui/NewX509.ui:795
-#: ../ui/NewX509.ui:831 ../widgets/NewX509.cpp:996
+#: ../ui/NewX509.ui:831 ../widgets/NewX509.cpp:1012
 msgctxt "NewX509|"
 msgid "Edit"
 msgstr ""
@@ -1801,7 +1802,7 @@ msgctxt "NewX509|"
 msgid "Advanced"
 msgstr ""
 
-#: ../ui/NewX509.ui:1163 ../widgets/NewX509.cpp:1006
+#: ../ui/NewX509.ui:1163 ../widgets/NewX509.cpp:1022
 msgctxt "NewX509|"
 msgid "Validate"
 msgstr ""
@@ -1818,155 +1819,155 @@ msgid ""
 "certificate"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:274
+#: ../widgets/NewX509.cpp:272
 msgctxt "NewX509|"
 msgid "Critical"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:314
+#: ../widgets/NewX509.cpp:312
 msgctxt "NewX509|"
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:340
+#: ../widgets/NewX509.cpp:338
 #, qt-format
 msgctxt "NewX509|"
 msgid "minimum size: %1"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:342
+#: ../widgets/NewX509.cpp:340
 #, qt-format
 msgctxt "NewX509|"
 msgid "maximum size: %1"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:344
+#: ../widgets/NewX509.cpp:342
 msgctxt "NewX509|"
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:348
+#: ../widgets/NewX509.cpp:346
 msgctxt "NewX509|"
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:373
+#: ../widgets/NewX509.cpp:371
 msgctxt "NewX509|"
 msgid "Edit XCA template"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:386
+#: ../widgets/NewX509.cpp:395
 msgctxt "NewX509|"
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:757
+#: ../widgets/NewX509.cpp:773
 #, qt-format
 msgctxt "NewX509|"
 msgid "Template '%1' applied"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:764
+#: ../widgets/NewX509.cpp:780
 #, qt-format
 msgctxt "NewX509|"
 msgid "Subject applied from template '%1'"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:772
+#: ../widgets/NewX509.cpp:788
 #, qt-format
 msgctxt "NewX509|"
 msgid "Extensions applied from template '%1'"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:787
+#: ../widgets/NewX509.cpp:803
 #, qt-format
 msgctxt "NewX509|"
 msgid "New key '%1' created"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1029
+#: ../widgets/NewX509.cpp:1045
 msgctxt "NewX509|"
 msgid "Other Tabs"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1043
+#: ../widgets/NewX509.cpp:1059
 msgctxt "NewX509|"
 msgid "Advanced Tab"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1050
+#: ../widgets/NewX509.cpp:1066
 msgctxt "NewX509|"
 msgid "Errors"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1068
+#: ../widgets/NewX509.cpp:1084
 msgctxt "NewX509|"
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1191 ../widgets/NewX509.cpp:1204
-#: ../widgets/NewX509.cpp:1223 ../widgets/NewX509.cpp:1235
-#: ../widgets/NewX509.cpp:1251 ../widgets/NewX509.cpp:1265
-#: ../widgets/NewX509.cpp:1299 ../widgets/NewX509.cpp:1318
-#: ../widgets/NewX509.cpp:1341 ../widgets/NewX509.cpp:1364
-#: ../widgets/NewX509.cpp:1397 ../widgets/NewX509.cpp:1417
+#: ../widgets/NewX509.cpp:1207 ../widgets/NewX509.cpp:1220
+#: ../widgets/NewX509.cpp:1239 ../widgets/NewX509.cpp:1251
+#: ../widgets/NewX509.cpp:1267 ../widgets/NewX509.cpp:1281
+#: ../widgets/NewX509.cpp:1315 ../widgets/NewX509.cpp:1334
+#: ../widgets/NewX509.cpp:1357 ../widgets/NewX509.cpp:1380
+#: ../widgets/NewX509.cpp:1413 ../widgets/NewX509.cpp:1433
 msgctxt "NewX509|"
 msgid "Abort rollout"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1200
+#: ../widgets/NewX509.cpp:1216
 msgctxt "NewX509|"
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1203 ../widgets/NewX509.cpp:1264
+#: ../widgets/NewX509.cpp:1219 ../widgets/NewX509.cpp:1280
 msgctxt "NewX509|"
 msgid "Edit subject"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1205 ../widgets/NewX509.cpp:1266
-#: ../widgets/NewX509.cpp:1319 ../widgets/NewX509.cpp:1342
-#: ../widgets/NewX509.cpp:1365 ../widgets/NewX509.cpp:1398
-#: ../widgets/NewX509.cpp:1418
+#: ../widgets/NewX509.cpp:1221 ../widgets/NewX509.cpp:1282
+#: ../widgets/NewX509.cpp:1335 ../widgets/NewX509.cpp:1358
+#: ../widgets/NewX509.cpp:1381 ../widgets/NewX509.cpp:1414
+#: ../widgets/NewX509.cpp:1434
 msgctxt "NewX509|"
 msgid "Continue rollout"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1221
+#: ../widgets/NewX509.cpp:1237
 msgctxt "NewX509|"
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1222
+#: ../widgets/NewX509.cpp:1238
 msgctxt "NewX509|"
 msgid "Continue anyway"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1233
+#: ../widgets/NewX509.cpp:1249
 msgctxt "NewX509|"
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1234
+#: ../widgets/NewX509.cpp:1250
 msgctxt "NewX509|"
 msgid "Edit name"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1249
+#: ../widgets/NewX509.cpp:1265
 msgctxt "NewX509|"
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1250
+#: ../widgets/NewX509.cpp:1266
 msgctxt "NewX509|"
 msgid "Select key"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1262
+#: ../widgets/NewX509.cpp:1278
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -1975,22 +1976,22 @@ msgid ""
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1296
+#: ../widgets/NewX509.cpp:1312
 msgctxt "NewX509|"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1297
+#: ../widgets/NewX509.cpp:1313
 msgctxt "NewX509|"
 msgid "Select other signer"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1297
+#: ../widgets/NewX509.cpp:1313
 msgctxt "NewX509|"
 msgid "Select other key"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1307
+#: ../widgets/NewX509.cpp:1323
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -1998,73 +1999,73 @@ msgid ""
 "used."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1308
+#: ../widgets/NewX509.cpp:1324
 msgctxt "NewX509|"
 msgid "Select other algorithm"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1309
+#: ../widgets/NewX509.cpp:1325
 msgctxt "NewX509|"
 msgid "Use algorithm anyway"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1315
+#: ../widgets/NewX509.cpp:1331
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1317 ../widgets/NewX509.cpp:1340
-#: ../widgets/NewX509.cpp:1363
+#: ../widgets/NewX509.cpp:1333 ../widgets/NewX509.cpp:1356
+#: ../widgets/NewX509.cpp:1379
 msgctxt "NewX509|"
 msgid "Edit dates"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1320 ../widgets/NewX509.cpp:1343
+#: ../widgets/NewX509.cpp:1336 ../widgets/NewX509.cpp:1359
 msgctxt "NewX509|"
 msgid "Adjust date and continue"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1338
+#: ../widgets/NewX509.cpp:1354
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1361
+#: ../widgets/NewX509.cpp:1377
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1383
+#: ../widgets/NewX509.cpp:1399
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1387
+#: ../widgets/NewX509.cpp:1403
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains no extensions. You may apply the extensions of one "
 "of the templates to define the purpose of the certificate."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1391
+#: ../widgets/NewX509.cpp:1407
 msgctxt "NewX509|"
 msgid "The certificate contains invalid extensions."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1396 ../widgets/NewX509.cpp:1416
+#: ../widgets/NewX509.cpp:1412 ../widgets/NewX509.cpp:1432
 msgctxt "NewX509|"
 msgid "Edit extensions"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1415
+#: ../widgets/NewX509.cpp:1431
 msgctxt "NewX509|"
 msgid ""
 "The subject alternative name shall contain a copy of the common name. "
@@ -2314,12 +2315,12 @@ msgctxt "Options|"
 msgid "All strings"
 msgstr ""
 
-#: ../widgets/Options.cpp:62
+#: ../widgets/Options.cpp:61
 msgctxt "Options|"
 msgid "Days"
 msgstr ""
 
-#: ../widgets/Options.cpp:62
+#: ../widgets/Options.cpp:61
 msgctxt "Options|"
 msgid "Weeks"
 msgstr ""
@@ -2360,57 +2361,57 @@ msgctxt "PwDialog|"
 msgid "Exit"
 msgstr ""
 
-#: ../lib/asn1time.cpp:157
+#: ../lib/asn1time.cpp:142
 msgctxt "QObject|"
 msgid "Undefined"
 msgstr ""
 
-#: ../lib/asn1time.cpp:159
+#: ../lib/asn1time.cpp:144
 msgctxt "QObject|"
 msgid "Broken / Invalid"
 msgstr ""
 
-#: ../lib/asn1time.cpp:205
+#: ../lib/asn1time.cpp:190
 #, qt-format
 msgctxt "QObject|"
 msgid "in %1 seconds"
 msgstr ""
 
-#: ../lib/asn1time.cpp:206
+#: ../lib/asn1time.cpp:191
 #, qt-format
 msgctxt "QObject|"
 msgid "%1 seconds ago"
 msgstr ""
 
-#: ../lib/asn1time.cpp:209
+#: ../lib/asn1time.cpp:194
 #, qt-format
 msgctxt "QObject|"
 msgid "in %1 minutes"
 msgstr ""
 
-#: ../lib/asn1time.cpp:210
+#: ../lib/asn1time.cpp:195
 #, qt-format
 msgctxt "QObject|"
 msgid "%1 minutes ago"
 msgstr ""
 
-#: ../lib/asn1time.cpp:212
+#: ../lib/asn1time.cpp:197
 msgctxt "QObject|"
 msgid "Yesterday"
 msgstr ""
 
-#: ../lib/asn1time.cpp:214
+#: ../lib/asn1time.cpp:199
 msgctxt "QObject|"
 msgid "Tomorrow"
 msgstr ""
 
-#: ../lib/asn1time.cpp:217
+#: ../lib/asn1time.cpp:202
 #, qt-format
 msgctxt "QObject|"
 msgid "in %1 hours"
 msgstr ""
 
-#: ../lib/asn1time.cpp:218
+#: ../lib/asn1time.cpp:203
 #, qt-format
 msgctxt "QObject|"
 msgid "%1 hours ago"
@@ -2582,29 +2583,29 @@ msgctxt "QObject|"
 msgid "Please enter the new PIN for the token: '%1'"
 msgstr ""
 
-#: ../lib/pkcs11.h:99
+#: ../lib/pkcs11.h:96
 #, qt-format
 msgctxt "QObject|"
 msgid "Required PIN size: %1 - %2"
 msgstr ""
 
-#: ../lib/pkcs11_lib.cpp:119
+#: ../lib/pkcs11_lib.cpp:118
 msgctxt "QObject|"
 msgid "Disabled"
 msgstr ""
 
-#: ../lib/pkcs11_lib.cpp:123
+#: ../lib/pkcs11_lib.cpp:122
 msgctxt "QObject|"
 msgid "Library loading failed"
 msgstr ""
 
-#: ../lib/pkcs11_lib.cpp:480
+#: ../lib/pkcs11_lib.cpp:483
 #, qt-format
 msgctxt "QObject|"
 msgid "PKCS#11 function '%1' failed: %2"
 msgstr ""
 
-#: ../lib/pkcs11_lib.cpp:488
+#: ../lib/pkcs11_lib.cpp:491
 #, qt-format
 msgctxt "QObject|"
 msgid ""
@@ -2613,24 +2614,24 @@ msgid ""
 "%4"
 msgstr ""
 
-#: ../lib/x509name.cpp:111
+#: ../lib/x509name.cpp:104
 msgctxt "QObject|"
 msgid "Invalid"
 msgstr ""
 
-#: ../lib/x509name.cpp:235
+#: ../lib/x509name.cpp:220
 #, qt-format
 msgctxt "QObject|"
 msgid "%1 is shorter than %2 bytes: '%3'"
 msgstr ""
 
-#: ../lib/x509name.cpp:240
+#: ../lib/x509name.cpp:225
 #, qt-format
 msgctxt "QObject|"
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 
-#: ../lib/x509v3ext.cpp:99
+#: ../lib/x509v3ext.cpp:103
 #, qt-format
 msgctxt "QObject|"
 msgid "String '%1' for '%2' contains invalid characters"
@@ -2669,209 +2670,209 @@ msgctxt "QObject|"
 msgid "Failed to start a database transaction"
 msgstr ""
 
-#: ../lib/func.cpp:575
+#: ../lib/func_base.cpp:224
 msgctxt "QObject|"
 msgid "Country code"
 msgstr ""
 
-#: ../lib/func.cpp:576
+#: ../lib/func_base.cpp:225
 msgctxt "QObject|"
 msgid "State or Province"
 msgstr ""
 
-#: ../lib/func.cpp:577
+#: ../lib/func_base.cpp:226
 msgctxt "QObject|"
 msgid "Locality"
 msgstr ""
 
-#: ../lib/func.cpp:578
+#: ../lib/func_base.cpp:227
 msgctxt "QObject|"
 msgid "Organisation"
 msgstr ""
 
-#: ../lib/func.cpp:579
+#: ../lib/func_base.cpp:228
 msgctxt "QObject|"
 msgid "Organisational unit"
 msgstr ""
 
-#: ../lib/func.cpp:580
+#: ../lib/func_base.cpp:229
 msgctxt "QObject|"
 msgid "Common name"
 msgstr ""
 
-#: ../lib/func.cpp:581
+#: ../lib/func_base.cpp:230
 msgctxt "QObject|"
 msgid "E-Mail address"
 msgstr ""
 
-#: ../lib/func.cpp:582
+#: ../lib/func_base.cpp:231
 msgctxt "QObject|"
 msgid "Serial number"
 msgstr ""
 
-#: ../lib/func.cpp:583
+#: ../lib/func_base.cpp:232
 msgctxt "QObject|"
 msgid "Given name"
 msgstr ""
 
-#: ../lib/func.cpp:584
+#: ../lib/func_base.cpp:233
 msgctxt "QObject|"
 msgid "Surname"
 msgstr ""
 
-#: ../lib/func.cpp:585
+#: ../lib/func_base.cpp:234
 msgctxt "QObject|"
 msgid "Title"
 msgstr ""
 
-#: ../lib/func.cpp:586
+#: ../lib/func_base.cpp:235
 msgctxt "QObject|"
 msgid "Initials"
 msgstr ""
 
-#: ../lib/func.cpp:587
+#: ../lib/func_base.cpp:236
 msgctxt "QObject|"
 msgid "Description"
 msgstr ""
 
-#: ../lib/func.cpp:588
+#: ../lib/func_base.cpp:237
 msgctxt "QObject|"
 msgid "Role"
 msgstr ""
 
-#: ../lib/func.cpp:589
+#: ../lib/func_base.cpp:238
 msgctxt "QObject|"
 msgid "Pseudonym"
 msgstr ""
 
-#: ../lib/func.cpp:590
+#: ../lib/func_base.cpp:239
 msgctxt "QObject|"
 msgid "Generation Qualifier"
 msgstr ""
 
-#: ../lib/func.cpp:591
+#: ../lib/func_base.cpp:240
 msgctxt "QObject|"
 msgid "x500 Unique Identifier"
 msgstr ""
 
-#: ../lib/func.cpp:592
+#: ../lib/func_base.cpp:241
 msgctxt "QObject|"
 msgid "Name"
 msgstr ""
 
-#: ../lib/func.cpp:593
+#: ../lib/func_base.cpp:242
 msgctxt "QObject|"
 msgid "DN Qualifier"
 msgstr ""
 
-#: ../lib/func.cpp:594
+#: ../lib/func_base.cpp:243
 msgctxt "QObject|"
 msgid "Unstructured name"
 msgstr ""
 
-#: ../lib/func.cpp:595
+#: ../lib/func_base.cpp:244
 msgctxt "QObject|"
 msgid "Challenge password"
 msgstr ""
 
-#: ../lib/func.cpp:597
+#: ../lib/func_base.cpp:246
 msgctxt "QObject|"
 msgid "Basic Constraints"
 msgstr ""
 
-#: ../lib/func.cpp:598
+#: ../lib/func_base.cpp:247
 msgctxt "QObject|"
 msgid "Subject alternative name"
 msgstr ""
 
-#: ../lib/func.cpp:599
+#: ../lib/func_base.cpp:248
 msgctxt "QObject|"
 msgid "issuer alternative name"
 msgstr ""
 
-#: ../lib/func.cpp:600
+#: ../lib/func_base.cpp:249
 msgctxt "QObject|"
 msgid "Subject key identifier"
 msgstr ""
 
-#: ../lib/func.cpp:601
+#: ../lib/func_base.cpp:250
 msgctxt "QObject|"
 msgid "Authority key identifier"
 msgstr ""
 
-#: ../lib/func.cpp:602
+#: ../lib/func_base.cpp:251
 msgctxt "QObject|"
 msgid "Key usage"
 msgstr ""
 
-#: ../lib/func.cpp:603
+#: ../lib/func_base.cpp:252
 msgctxt "QObject|"
 msgid "Extended key usage"
 msgstr ""
 
-#: ../lib/func.cpp:604
+#: ../lib/func_base.cpp:253
 msgctxt "QObject|"
 msgid "CRL distribution points"
 msgstr ""
 
-#: ../lib/func.cpp:605
+#: ../lib/func_base.cpp:254
 msgctxt "QObject|"
 msgid "Authority information access"
 msgstr ""
 
-#: ../lib/func.cpp:606
+#: ../lib/func_base.cpp:255
 msgctxt "QObject|"
 msgid "Certificate type"
 msgstr ""
 
-#: ../lib/func.cpp:607
+#: ../lib/func_base.cpp:256
 msgctxt "QObject|"
 msgid "Base URL"
 msgstr ""
 
-#: ../lib/func.cpp:608
+#: ../lib/func_base.cpp:257
 msgctxt "QObject|"
 msgid "Revocation URL"
 msgstr ""
 
-#: ../lib/func.cpp:609
+#: ../lib/func_base.cpp:258
 msgctxt "QObject|"
 msgid "CA Revocation URL"
 msgstr ""
 
-#: ../lib/func.cpp:610
+#: ../lib/func_base.cpp:259
 msgctxt "QObject|"
 msgid "Certificate renewal URL"
 msgstr ""
 
-#: ../lib/func.cpp:611
+#: ../lib/func_base.cpp:260
 msgctxt "QObject|"
 msgid "CA policy URL"
 msgstr ""
 
-#: ../lib/func.cpp:612
+#: ../lib/func_base.cpp:261
 msgctxt "QObject|"
 msgid "SSL server name"
 msgstr ""
 
-#: ../lib/func.cpp:613
+#: ../lib/func_base.cpp:262
 msgctxt "QObject|"
 msgid "Comment"
 msgstr ""
 
-#: ../lib/main.cpp:357
+#: ../lib/cmdline.cpp:163
 #, qt-format
 msgctxt "QObject|"
 msgid "Index file written to '%1'"
 msgstr ""
 
-#: ../lib/main.cpp:364
+#: ../lib/cmdline.cpp:170
 #, qt-format
 msgctxt "QObject|"
 msgid "Index hierarchy written to '%1'"
 msgstr ""
 
-#: ../lib/main.cpp:377
+#: ../lib/cmdline.cpp:183
 #, qt-format
 msgctxt "QObject|"
 msgid "Unknown key type %1"
@@ -2882,17 +2883,17 @@ msgctxt "QObject|"
 msgid "Password verify error, please try again"
 msgstr ""
 
-#: ../lib/XcaWarningCore.h:92
+#: ../lib/XcaWarningCore.h:95
 msgctxt "QObject|"
 msgid "The following error occurred:"
 msgstr ""
 
-#: ../lib/database_model.cpp:74
+#: ../lib/database_model.cpp:113
 msgctxt "QObject|"
 msgid "Failed to update the database schema to the current version"
 msgstr ""
 
-#: ../lib/PwDialogCore.cpp:27
+#: ../lib/PwDialogCore.cpp:33
 msgctxt "QObject|"
 msgid "Password"
 msgstr ""
@@ -2972,7 +2973,7 @@ msgctxt "RevocationList|"
 msgid "Invalidation"
 msgstr ""
 
-#: ../widgets/RevocationList.cpp:106
+#: ../widgets/RevocationList.cpp:107
 msgctxt "RevocationList|"
 msgid "Generate CRL"
 msgstr ""
@@ -3102,37 +3103,37 @@ msgctxt "TrustState|"
 msgid "&Always trust this certificate"
 msgstr ""
 
-#: ../widgets/validity.cpp:94
+#: ../widgets/validity.cpp:92
 msgctxt "Validity|"
 msgid "yyyy-MM-dd hh:mm"
 msgstr ""
 
-#: ../widgets/X509SuperTreeView.cpp:29
+#: ../widgets/X509SuperTreeView.cpp:28
 msgctxt "X509SuperTreeView|"
 msgid "OpenSSL config"
 msgstr ""
 
-#: ../widgets/X509SuperTreeView.cpp:30
+#: ../widgets/X509SuperTreeView.cpp:29
 msgctxt "X509SuperTreeView|"
 msgid "Transform"
 msgstr ""
 
-#: ../widgets/X509SuperTreeView.cpp:31
+#: ../widgets/X509SuperTreeView.cpp:30
 msgctxt "X509SuperTreeView|"
 msgid "Template"
 msgstr ""
 
-#: ../widgets/X509SuperTreeView.cpp:32
+#: ../widgets/X509SuperTreeView.cpp:31
 msgctxt "X509SuperTreeView|"
 msgid "Public key"
 msgstr ""
 
-#: ../widgets/X509SuperTreeView.cpp:62
+#: ../widgets/X509SuperTreeView.cpp:61
 msgctxt "X509SuperTreeView|"
 msgid "Save as OpenSSL config"
 msgstr ""
 
-#: ../widgets/X509SuperTreeView.cpp:63
+#: ../widgets/X509SuperTreeView.cpp:62
 msgctxt "X509SuperTreeView|"
 msgid "Config files ( *.conf *.cnf);; All files ( * )"
 msgstr ""
@@ -3149,128 +3150,133 @@ msgctxt "XFile|"
 msgid "Error rewinding file: '%1': %2"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:314
+#: ../widgets/XcaDetail.cpp:47
+msgctxt "XcaDetail|"
+msgid "Import"
+msgstr ""
+
+#: ../widgets/XcaTreeView.cpp:330
 msgctxt "XcaTreeView|"
 msgid "Item properties"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:381
+#: ../widgets/XcaTreeView.cpp:400
 msgctxt "XcaTreeView|"
 msgid "Subject entries"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:382
+#: ../widgets/XcaTreeView.cpp:401
 msgctxt "XcaTreeView|"
 msgid "X509v3 Extensions"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:383
+#: ../widgets/XcaTreeView.cpp:402
 msgctxt "XcaTreeView|"
 msgid "Netscape extensions"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:384
+#: ../widgets/XcaTreeView.cpp:403
 msgctxt "XcaTreeView|"
 msgid "Key properties"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:385
+#: ../widgets/XcaTreeView.cpp:404
 msgctxt "XcaTreeView|"
 msgid "Reset"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:388
+#: ../widgets/XcaTreeView.cpp:407
 msgctxt "XcaTreeView|"
 msgid "Hide Column"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:390
+#: ../widgets/XcaTreeView.cpp:409
 msgctxt "XcaTreeView|"
 msgid "Details"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:433
+#: ../widgets/XcaTreeView.cpp:450
 msgctxt "XcaTreeView|"
 msgid "Columns"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:499
+#: ../widgets/XcaTreeView.cpp:516
 msgctxt "XcaTreeView|"
 msgid "New"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:500
+#: ../widgets/XcaTreeView.cpp:517
 msgctxt "XcaTreeView|"
 msgid "Import"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:501
+#: ../widgets/XcaTreeView.cpp:518
 msgctxt "XcaTreeView|"
 msgid "Paste PEM data"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:505
+#: ../widgets/XcaTreeView.cpp:522
 msgctxt "XcaTreeView|"
 msgid "Rename"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:506
+#: ../widgets/XcaTreeView.cpp:523
 msgctxt "XcaTreeView|"
 msgid "Properties"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:509
+#: ../widgets/XcaTreeView.cpp:526
 msgctxt "XcaTreeView|"
 msgid "Delete"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:511
+#: ../widgets/XcaTreeView.cpp:528
 msgctxt "XcaTreeView|"
 msgid "Export"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:512
+#: ../widgets/XcaTreeView.cpp:529
 msgctxt "XcaTreeView|"
 msgid "Clipboard"
 msgstr ""
 
-#: ../widgets/XcaTreeView.cpp:514
+#: ../widgets/XcaTreeView.cpp:531
 msgctxt "XcaTreeView|"
 msgid "File"
 msgstr ""
 
-#: ../lib/database_model.cpp:121
+#: ../lib/database_model.cpp:164
 #, qt-format
 msgctxt "database_model|"
 msgid ""
 "Please enter the password to access the database server %2 as user '%1'."
 msgstr ""
 
-#: ../lib/database_model.cpp:235
+#: ../lib/database_model.cpp:278
 #, qt-format
 msgctxt "database_model|"
 msgid "Unable to create '%1': %2"
 msgstr ""
 
-#: ../lib/database_model.cpp:406
+#: ../lib/database_model.cpp:449
 #, qt-format
 msgctxt "database_model|"
 msgid "The file '%1' is not an XCA database"
 msgstr ""
 
-#: ../lib/database_model.cpp:433
+#: ../lib/database_model.cpp:476
 msgctxt "database_model|"
 msgid ""
 "No SqLite3 driver available. Please install the qt-sqlite package of your "
 "distribution"
 msgstr ""
 
-#: ../lib/database_model.cpp:474
+#: ../lib/database_model.cpp:517
 msgctxt "database_model|"
 msgid "New Password"
 msgstr ""
 
-#: ../lib/database_model.cpp:474
+#: ../lib/database_model.cpp:517
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3279,12 +3285,12 @@ msgid ""
 "%1"
 msgstr ""
 
-#: ../lib/database_model.cpp:494
+#: ../lib/database_model.cpp:537
 msgctxt "database_model|"
 msgid "Password"
 msgstr ""
 
-#: ../lib/database_model.cpp:495
+#: ../lib/database_model.cpp:538
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3292,104 +3298,104 @@ msgid ""
 "%1"
 msgstr ""
 
-#: ../lib/db_base.cpp:163
+#: ../lib/db_base.cpp:160
 msgctxt "db_base|"
 msgid "Internal name"
 msgstr ""
 
-#: ../lib/db_base.cpp:164
+#: ../lib/db_base.cpp:161
 msgctxt "db_base|"
 msgid "No."
 msgstr ""
 
-#: ../lib/db_base.cpp:165
+#: ../lib/db_base.cpp:162
 msgctxt "db_base|"
 msgid "Primary key"
 msgstr ""
 
-#: ../lib/db_base.cpp:166
+#: ../lib/db_base.cpp:163
 msgctxt "db_base|"
 msgid "Database unique number"
 msgstr ""
 
-#: ../lib/db_base.cpp:167
+#: ../lib/db_base.cpp:164
 msgctxt "db_base|"
 msgid "Date"
 msgstr ""
 
-#: ../lib/db_base.cpp:168
+#: ../lib/db_base.cpp:165
 msgctxt "db_base|"
 msgid "Date of creation or insertion"
 msgstr ""
 
-#: ../lib/db_base.cpp:169
+#: ../lib/db_base.cpp:166
 msgctxt "db_base|"
 msgid "Source"
 msgstr ""
 
-#: ../lib/db_base.cpp:170
+#: ../lib/db_base.cpp:167
 msgctxt "db_base|"
 msgid "Generated, Imported, Transformed"
 msgstr ""
 
-#: ../lib/db_base.cpp:171
+#: ../lib/db_base.cpp:168
 msgctxt "db_base|"
 msgid "Comment"
 msgstr ""
 
-#: ../lib/db_base.cpp:172
+#: ../lib/db_base.cpp:169
 msgctxt "db_base|"
 msgid "First line of the comment field"
 msgstr ""
 
-#: ../lib/db_base.cpp:234
+#: ../lib/db_base.cpp:231
 #, qt-format
 msgctxt "db_base|"
 msgid "Import from: %1"
 msgstr ""
 
-#: ../lib/db_base.cpp:369
+#: ../lib/db_base.cpp:374
 #, qt-format
 msgctxt "db_base|"
 msgid "Could not create directory %1"
 msgstr ""
 
-#: ../lib/db_crl.cpp:27
+#: ../lib/db_crl.cpp:26
 msgctxt "db_crl|"
 msgid "Signer"
 msgstr ""
 
-#: ../lib/db_crl.cpp:28
+#: ../lib/db_crl.cpp:27
 msgctxt "db_crl|"
 msgid "Internal name of the signer"
 msgstr ""
 
-#: ../lib/db_crl.cpp:29
+#: ../lib/db_crl.cpp:28
 msgctxt "db_crl|"
 msgid "No. revoked"
 msgstr ""
 
-#: ../lib/db_crl.cpp:30
+#: ../lib/db_crl.cpp:29
 msgctxt "db_crl|"
 msgid "Number of revoked certificates"
 msgstr ""
 
-#: ../lib/db_crl.cpp:31
+#: ../lib/db_crl.cpp:30
 msgctxt "db_crl|"
 msgid "Last update"
 msgstr ""
 
-#: ../lib/db_crl.cpp:32
+#: ../lib/db_crl.cpp:31
 msgctxt "db_crl|"
 msgid "Next update"
 msgstr ""
 
-#: ../lib/db_crl.cpp:33
+#: ../lib/db_crl.cpp:32
 msgctxt "db_crl|"
 msgid "CRL number"
 msgstr ""
 
-#: ../lib/db_crl.cpp:96
+#: ../lib/db_crl.cpp:95
 #, qt-format
 msgctxt "db_crl|"
 msgid ""
@@ -3398,43 +3404,43 @@ msgid ""
 "and so it was not imported"
 msgstr ""
 
-#: ../lib/db_crl.cpp:168
+#: ../lib/db_crl.cpp:169
 msgctxt "db_crl|"
 msgid "Failed to initiate DB transaction"
 msgstr ""
 
-#: ../lib/db_crl.cpp:178 ../lib/db_crl.cpp:186 ../lib/db_crl.cpp:190
+#: ../lib/db_crl.cpp:179 ../lib/db_crl.cpp:187 ../lib/db_crl.cpp:191
 #, qt-format
 msgctxt "db_crl|"
 msgid "Database error: %1"
 msgstr ""
 
-#: ../lib/db_key.cpp:54
+#: ../lib/db_key.cpp:53
 msgctxt "db_key|"
 msgid "Type"
 msgstr ""
 
-#: ../lib/db_key.cpp:55
+#: ../lib/db_key.cpp:54
 msgctxt "db_key|"
 msgid "Size"
 msgstr ""
 
-#: ../lib/db_key.cpp:57
+#: ../lib/db_key.cpp:56
 msgctxt "db_key|"
 msgid "EC Group"
 msgstr ""
 
-#: ../lib/db_key.cpp:59
+#: ../lib/db_key.cpp:58
 msgctxt "db_key|"
 msgid "Use"
 msgstr ""
 
-#: ../lib/db_key.cpp:60
+#: ../lib/db_key.cpp:59
 msgctxt "db_key|"
 msgid "Password"
 msgstr ""
 
-#: ../lib/db_key.cpp:134
+#: ../lib/db_key.cpp:133
 #, qt-format
 msgctxt "db_key|"
 msgid ""
@@ -3443,7 +3449,7 @@ msgid ""
 "and is not going to be imported"
 msgstr ""
 
-#: ../lib/db_key.cpp:139
+#: ../lib/db_key.cpp:138
 #, qt-format
 msgctxt "db_key|"
 msgid ""
@@ -3452,29 +3458,29 @@ msgid ""
 "and will be completed by the new, private part of the key"
 msgstr ""
 
-#: ../lib/db_key.cpp:141
+#: ../lib/db_key.cpp:140
 #, qt-format
 msgctxt "db_key|"
 msgid "Extending public key from %1 by imported key '%2'"
 msgstr ""
 
-#: ../lib/db_key.cpp:157
+#: ../lib/db_key.cpp:156
 msgctxt "db_key|"
 msgid "Key size too small !"
 msgstr ""
 
-#: ../lib/db_key.cpp:161
+#: ../lib/db_key.cpp:160
 #, qt-format
 msgctxt "db_key|"
 msgid "You are sure to create a key of the size: %1 ?"
 msgstr ""
 
-#: ../lib/db_key.cpp:243
+#: ../lib/db_key.cpp:242
 msgctxt "db_key|"
 msgid "Internal error"
 msgstr ""
 
-#: ../lib/db_key.cpp:254
+#: ../lib/db_key.cpp:253
 msgctxt "db_key|"
 msgid "Tried to change password of a token"
 msgstr ""
@@ -3490,72 +3496,72 @@ msgctxt "db_temp|"
 msgid "Empty template"
 msgstr ""
 
-#: ../lib/db_x509.cpp:76
+#: ../lib/db_x509.cpp:77
 msgctxt "db_x509|"
 msgid "CA"
 msgstr ""
 
-#: ../lib/db_x509.cpp:77
+#: ../lib/db_x509.cpp:78
 msgctxt "db_x509|"
 msgid "reflects the basic Constraints extension"
 msgstr ""
 
-#: ../lib/db_x509.cpp:78
+#: ../lib/db_x509.cpp:79
 msgctxt "db_x509|"
 msgid "Serial"
 msgstr ""
 
-#: ../lib/db_x509.cpp:82
+#: ../lib/db_x509.cpp:83
 msgctxt "db_x509|"
 msgid "Start date"
 msgstr ""
 
-#: ../lib/db_x509.cpp:84
+#: ../lib/db_x509.cpp:85
 msgctxt "db_x509|"
 msgid "Expiry date"
 msgstr ""
 
-#: ../lib/db_x509.cpp:79
+#: ../lib/db_x509.cpp:80
 msgctxt "db_x509|"
 msgid "MD5 fingerprint"
 msgstr ""
 
-#: ../lib/db_x509.cpp:80
+#: ../lib/db_x509.cpp:81
 msgctxt "db_x509|"
 msgid "SHA1 fingerprint"
 msgstr ""
 
-#: ../lib/db_x509.cpp:81
+#: ../lib/db_x509.cpp:82
 msgctxt "db_x509|"
 msgid "SHA256 fingerprint"
 msgstr ""
 
-#: ../lib/db_x509.cpp:83
+#: ../lib/db_x509.cpp:84
 msgctxt "db_x509|"
 msgid "Not before"
 msgstr ""
 
-#: ../lib/db_x509.cpp:85
+#: ../lib/db_x509.cpp:86
 msgctxt "db_x509|"
 msgid "Not after"
 msgstr ""
 
-#: ../lib/db_x509.cpp:86
+#: ../lib/db_x509.cpp:87
 msgctxt "db_x509|"
 msgid "Revocation"
 msgstr ""
 
-#: ../lib/db_x509.cpp:87
+#: ../lib/db_x509.cpp:88
 msgctxt "db_x509|"
 msgid "CRL Expiration"
 msgstr ""
 
-#: ../lib/db_x509.cpp:306
+#: ../lib/db_x509.cpp:314
 msgctxt "db_x509|"
 msgid "Failed to retrieve unique random serial"
 msgstr ""
 
-#: ../lib/db_x509.cpp:329
+#: ../lib/db_x509.cpp:337
 #, qt-format
 msgctxt "db_x509|"
 msgid ""
@@ -3564,52 +3570,52 @@ msgid ""
 "and so it was not imported"
 msgstr ""
 
-#: ../lib/db_x509.cpp:364
+#: ../lib/db_x509.cpp:363
 #, qt-format
 msgctxt "db_x509|"
 msgid "Signed on %1 by '%2'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:365
+#: ../lib/db_x509.cpp:364
 msgctxt "db_x509|"
 msgid "Unknown"
 msgstr ""
 
-#: ../lib/db_x509.cpp:453
+#: ../lib/db_x509.cpp:454
 msgctxt "db_x509|"
 msgid "Invalid public key"
 msgstr ""
 
-#: ../lib/db_x509.cpp:479
+#: ../lib/db_x509.cpp:480
 msgctxt "db_x509|"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: ../lib/db_x509.cpp:258
+#: ../lib/db_x509.cpp:266
 #, qt-format
 msgctxt "db_x509|"
 msgid "Failed to create directory '%1'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:520
+#: ../lib/db_x509.cpp:521
 #, qt-format
 msgctxt "db_x509|"
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
-#: ../lib/db_x509.cpp:602 ../lib/db_x509.cpp:651
+#: ../lib/db_x509.cpp:599 ../lib/db_x509.cpp:649
 #, qt-format
 msgctxt "db_x509|"
 msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:605
+#: ../lib/db_x509.cpp:602
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for a token key: '%1'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:655
+#: ../lib/db_x509.cpp:653
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for the token-key Certificate '%1'"
@@ -3741,101 +3747,101 @@ msgctxt "kvView|"
 msgid "Content"
 msgstr ""
 
-#: ../lib/pass_info.cpp:15
+#: ../lib/pass_info.cpp:12
 msgctxt "pass_info|"
 msgid "Password"
 msgstr ""
 
-#: ../lib/pass_info.cpp:22
+#: ../lib/pass_info.cpp:18
 msgctxt "pass_info|"
 msgid "PIN"
 msgstr ""
 
-#: ../lib/pkcs11_lib.cpp:37
+#: ../lib/pkcs11_lib.cpp:36
 #, qt-format
 msgctxt "pkcs11_lib|"
 msgid "Failed to open PKCS11 library: %1: %2"
 msgstr ""
 
-#: ../lib/pkcs11_lib.cpp:43
+#: ../lib/pkcs11_lib.cpp:42
 msgctxt "pkcs11_lib|"
 msgid ""
 "This does not look like a PKCS#11 library. Symbol 'C_GetFunctionList' not "
 "found."
 msgstr ""
 
-#: ../lib/pki_base.cpp:287
+#: ../lib/pki_base.cpp:282
 msgctxt "pki_base|"
 msgid "Unknown"
 msgstr ""
 
-#: ../lib/pki_base.cpp:288
+#: ../lib/pki_base.cpp:283
 msgctxt "pki_base|"
 msgid "Imported"
 msgstr ""
 
-#: ../lib/pki_base.cpp:289
+#: ../lib/pki_base.cpp:284
 msgctxt "pki_base|"
 msgid "Generated"
 msgstr ""
 
-#: ../lib/pki_base.cpp:290
+#: ../lib/pki_base.cpp:285
 msgctxt "pki_base|"
 msgid "Transformed"
 msgstr ""
 
-#: ../lib/pki_base.cpp:291
+#: ../lib/pki_base.cpp:286
 msgctxt "pki_base|"
 msgid "Token"
 msgstr ""
 
-#: ../lib/pki_base.cpp:292
+#: ../lib/pki_base.cpp:287
 msgctxt "pki_base|"
 msgid "Legacy Database"
 msgstr ""
 
-#: ../lib/pki_base.cpp:293
+#: ../lib/pki_base.cpp:288
 msgctxt "pki_base|"
 msgid "Renewed"
 msgstr ""
 
-#: ../lib/pki_base.cpp:436
+#: ../lib/pki_base.cpp:431
 #, qt-format
 msgctxt "pki_base|"
 msgid "Property '%1' not listed in 'pki_base::print'"
 msgstr ""
 
-#: ../lib/pki_base.cpp:123
+#: ../lib/pki_base.cpp:113
 #, qt-format
 msgctxt "pki_base|"
 msgid "Internal error: Unexpected message: %1 %2"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:57
+#: ../lib/pki_crl.cpp:59
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Successfully imported the revocation list '%1'"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:58
+#: ../lib/pki_crl.cpp:60
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Delete the revocation list '%1'?"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:59
+#: ../lib/pki_crl.cpp:61
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Successfully created the revocation list '%1'"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:61
+#: ../lib/pki_crl.cpp:63
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Delete the %1 revocation lists: %2?"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:145
+#: ../lib/pki_crl.cpp:147
 #, qt-format
 msgctxt "pki_crl|"
 msgid ""
@@ -3843,18 +3849,18 @@ msgid ""
 "CRL."
 msgstr ""
 
-#: ../lib/pki_crl.cpp:160
+#: ../lib/pki_crl.cpp:162
 msgctxt "pki_crl|"
 msgid "No issuer given"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:421
+#: ../lib/pki_crl.cpp:423
 #, qt-format
 msgctxt "pki_crl|"
 msgid "CRL Renewal of CA '%1' due"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:422
+#: ../lib/pki_crl.cpp:424
 #, qt-format
 msgctxt "pki_crl|"
 msgid ""
@@ -3862,13 +3868,13 @@ msgid ""
 "It is stored in the XCA database '%3'"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:430
+#: ../lib/pki_crl.cpp:432
 #, qt-format
 msgctxt "pki_crl|"
 msgid "Renew CRL: %1"
 msgstr ""
 
-#: ../lib/pki_crl.cpp:431
+#: ../lib/pki_crl.cpp:433
 #, qt-format
 msgctxt "pki_crl|"
 msgid ""
@@ -3876,19 +3882,19 @@ msgid ""
 "It is stored in the XCA database '%5'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:230
+#: ../lib/pki_evp.cpp:239
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to decrypt the private key %1."
 msgstr ""
 
-#: ../lib/pki_evp.cpp:297
+#: ../lib/pki_evp.cpp:307
 #, qt-format
 msgctxt "pki_evp|"
 msgid "The key from file '%1' is incomplete or inconsistent."
 msgstr ""
 
-#: ../lib/pki_evp.cpp:386
+#: ../lib/pki_evp.cpp:396
 #, qt-format
 msgctxt "pki_evp|"
 msgid ""
@@ -3896,7 +3902,7 @@ msgid ""
 "%1"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:453
+#: ../lib/pki_evp.cpp:463
 #, qt-format
 msgctxt "pki_evp|"
 msgid ""
@@ -3904,298 +3910,304 @@ msgid ""
 "public, PKCS#8 key types and SSH2 format."
 msgstr ""
 
-#: ../lib/pki_evp.cpp:469
+#: ../lib/pki_evp.cpp:479
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:472 ../lib/pki_evp.cpp:486
+#: ../lib/pki_evp.cpp:482 ../lib/pki_evp.cpp:496
 msgctxt "pki_evp|"
 msgid "Password input aborted"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:482
+#: ../lib/pki_evp.cpp:492
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:537
+#: ../lib/pki_evp.cpp:516
+#, qt-format
+msgctxt "pki_evp|"
+msgid "Decryption of private key '%1' failed"
+msgstr ""
+
+#: ../lib/pki_evp.cpp:560
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to protect the private key: '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:555
+#: ../lib/pki_evp.cpp:578
 msgctxt "pki_evp|"
 msgid "Please enter the database password for encrypting the key"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:716
+#: ../lib/pki_evp.cpp:739
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password protecting the PKCS#8 key '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:736
+#: ../lib/pki_evp.cpp:759
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password protecting the Microsoft PVK key '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:789
+#: ../lib/pki_evp.cpp:812
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the export password for the private key '%1'"
 msgstr ""
 
-#: ../lib/pki_export.cpp:43 ../lib/pki_export.cpp:70 ../lib/pki_export.cpp:73
+#: ../lib/pki_export.cpp:58 ../lib/pki_export.cpp:85 ../lib/pki_export.cpp:88
 msgctxt "pki_export|"
 msgid "PEM Text format with headers"
 msgstr ""
 
-#: ../lib/pki_export.cpp:44
+#: ../lib/pki_export.cpp:59
 msgctxt "pki_export|"
 msgid "Concatenated list of all selected items in one PEM text file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:45
+#: ../lib/pki_export.cpp:60
 msgctxt "pki_export|"
 msgid "PEM chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:45
+#: ../lib/pki_export.cpp:60
 msgctxt "pki_export|"
 msgid ""
 "Concatenated text format of the complete certificate chain in one PEM file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:46
+#: ../lib/pki_export.cpp:61
 msgctxt "pki_export|"
 msgid "PEM + key"
 msgstr ""
 
-#: ../lib/pki_export.cpp:46
+#: ../lib/pki_export.cpp:61
 msgctxt "pki_export|"
 msgid ""
 "Concatenation of the certificate and the unencrypted private key in one PEM "
 "file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:47
+#: ../lib/pki_export.cpp:62
 msgctxt "pki_export|"
 msgid ""
 "Concatenation of the certificate and the encrypted private key in PKCS#8 "
 "format in one file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:48
+#: ../lib/pki_export.cpp:63
 msgctxt "pki_export|"
 msgid "PKCS#7 encoded single certificate"
 msgstr ""
 
-#: ../lib/pki_export.cpp:49
+#: ../lib/pki_export.cpp:64
 msgctxt "pki_export|"
 msgid "All selected certificates encoded in one PKCS#7 file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:50
+#: ../lib/pki_export.cpp:65
 msgctxt "pki_export|"
 msgid "PKCS #7 chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:50
+#: ../lib/pki_export.cpp:65
 msgctxt "pki_export|"
 msgid "PKCS#7 encoded complete certificate chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:51
+#: ../lib/pki_export.cpp:66
 msgctxt "pki_export|"
 msgid "Binary DER encoded certificate"
 msgstr ""
 
-#: ../lib/pki_export.cpp:52
+#: ../lib/pki_export.cpp:67
 msgctxt "pki_export|"
 msgid "PKCS #12 chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:52
+#: ../lib/pki_export.cpp:67
 msgctxt "pki_export|"
 msgid ""
 "The complete certificate chain and the private key as encrypted PKCS#12 file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:53
+#: ../lib/pki_export.cpp:68
 msgctxt "pki_export|"
 msgid "PKCS #12"
 msgstr ""
 
-#: ../lib/pki_export.cpp:53
+#: ../lib/pki_export.cpp:68
 msgctxt "pki_export|"
 msgid "The certificate and the private key as encrypted PKCS#12 file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:54
+#: ../lib/pki_export.cpp:69
 msgctxt "pki_export|"
 msgid "Certificate Index file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:54
+#: ../lib/pki_export.cpp:69
 msgctxt "pki_export|"
 msgid ""
 "OpenSSL specific Certificate Index file as created by the 'ca' command and "
 "required by the OCSP tool"
 msgstr ""
 
-#: ../lib/pki_export.cpp:55 ../lib/pki_export.cpp:75
+#: ../lib/pki_export.cpp:70 ../lib/pki_export.cpp:90
 msgctxt "pki_export|"
 msgid "vCalendar"
 msgstr ""
 
-#: ../lib/pki_export.cpp:55
+#: ../lib/pki_export.cpp:70
 msgctxt "pki_export|"
 msgid "vCalendar expiry reminder for the selected items"
 msgstr ""
 
-#: ../lib/pki_export.cpp:56
+#: ../lib/pki_export.cpp:71
 msgctxt "pki_export|"
 msgid "CA vCalendar"
 msgstr ""
 
-#: ../lib/pki_export.cpp:56
+#: ../lib/pki_export.cpp:71
 msgctxt "pki_export|"
 msgid ""
 "vCalendar expiry reminder containing all issued, valid certificates, the CA "
 "itself and the latest CRL"
 msgstr ""
 
-#: ../lib/pki_export.cpp:58
+#: ../lib/pki_export.cpp:73
 msgctxt "pki_export|"
 msgid "PEM public"
 msgstr ""
 
-#: ../lib/pki_export.cpp:58
+#: ../lib/pki_export.cpp:73
 msgctxt "pki_export|"
 msgid "Text format of the public key in one PEM file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:59
+#: ../lib/pki_export.cpp:74
 msgctxt "pki_export|"
 msgid "PEM private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:59 ../lib/pki_export.cpp:61
+#: ../lib/pki_export.cpp:74 ../lib/pki_export.cpp:76
 msgctxt "pki_export|"
 msgid "Unencrypted private key in text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:60
+#: ../lib/pki_export.cpp:75
 msgctxt "pki_export|"
 msgid "PEM encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:60
+#: ../lib/pki_export.cpp:75
 msgctxt "pki_export|"
 msgid "OpenSSL specific encrypted private key in text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:61
+#: ../lib/pki_export.cpp:76
 msgctxt "pki_export|"
 msgid "SSH2 private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:62
+#: ../lib/pki_export.cpp:77
 msgctxt "pki_export|"
 msgid "SSH2 public"
 msgstr ""
 
-#: ../lib/pki_export.cpp:62
+#: ../lib/pki_export.cpp:77
 msgctxt "pki_export|"
 msgid "The public key encoded in SSH2 format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:63
+#: ../lib/pki_export.cpp:78
 msgctxt "pki_export|"
 msgid "DER public"
 msgstr ""
 
-#: ../lib/pki_export.cpp:63
+#: ../lib/pki_export.cpp:78
 msgctxt "pki_export|"
 msgid "Binary DER format of the public key"
 msgstr ""
 
-#: ../lib/pki_export.cpp:64
+#: ../lib/pki_export.cpp:79
 msgctxt "pki_export|"
 msgid "DER private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:64
+#: ../lib/pki_export.cpp:79
 msgctxt "pki_export|"
 msgid "Unencrypted private key in binary DER format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:65
+#: ../lib/pki_export.cpp:80
 msgctxt "pki_export|"
 msgid "PVK private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:65
+#: ../lib/pki_export.cpp:80
 msgctxt "pki_export|"
 msgid "Private key in Microsoft PVK format not encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:66
+#: ../lib/pki_export.cpp:81
 msgctxt "pki_export|"
 msgid "PVK encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:66
+#: ../lib/pki_export.cpp:81
 msgctxt "pki_export|"
 msgid "Encrypted private key in Microsoft PVK format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:67
+#: ../lib/pki_export.cpp:82
 msgctxt "pki_export|"
 msgid "PKCS #8 encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:67
+#: ../lib/pki_export.cpp:82
 msgctxt "pki_export|"
 msgid "Encrypted private key in PKCS#8 text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:68
+#: ../lib/pki_export.cpp:83
 msgctxt "pki_export|"
 msgid "PKCS #8"
 msgstr ""
 
-#: ../lib/pki_export.cpp:68
+#: ../lib/pki_export.cpp:83
 msgctxt "pki_export|"
 msgid "Unencrypted private key in PKCS#8 text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:71
+#: ../lib/pki_export.cpp:86
 msgctxt "pki_export|"
 msgid "Binary DER format of the certificate request"
 msgstr ""
 
-#: ../lib/pki_export.cpp:74
+#: ../lib/pki_export.cpp:89
 msgctxt "pki_export|"
 msgid "Binary DER format of the revocation list"
 msgstr ""
 
-#: ../lib/pki_export.cpp:75
+#: ../lib/pki_export.cpp:90
 msgctxt "pki_export|"
 msgid "vCalendar reminder for the CRL expiry date"
 msgstr ""
 
-#: ../lib/pki_export.cpp:77
+#: ../lib/pki_export.cpp:92
 msgctxt "pki_export|"
 msgid "XCA template in PEM-like format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:78
+#: ../lib/pki_export.cpp:93
 msgctxt "pki_export|"
 msgid "All selected XCA templates in PEM-like format"
 msgstr ""
@@ -4236,59 +4248,59 @@ msgctxt "pki_key|"
 msgid "Delete the %1 keys: %2?"
 msgstr ""
 
-#: ../lib/pki_key.cpp:58 ../lib/pki_key.cpp:222 ../lib/pki_key.cpp:857
+#: ../lib/pki_key.cpp:58 ../lib/pki_key.cpp:222 ../lib/pki_key.cpp:871
 msgctxt "pki_key|"
 msgid "Public key"
 msgstr ""
 
-#: ../lib/pki_key.cpp:457
+#: ../lib/pki_key.cpp:463
 msgctxt "pki_key|"
 msgid "Common"
 msgstr ""
 
-#: ../lib/pki_key.cpp:457
+#: ../lib/pki_key.cpp:463
 msgctxt "pki_key|"
 msgid "Private"
 msgstr ""
 
-#: ../lib/pki_key.cpp:457
+#: ../lib/pki_key.cpp:463
 msgctxt "pki_key|"
 msgid "Bogus"
 msgstr ""
 
-#: ../lib/pki_key.cpp:457
+#: ../lib/pki_key.cpp:463
 msgctxt "pki_key|"
 msgid "PIN"
 msgstr ""
 
-#: ../lib/pki_key.cpp:467
+#: ../lib/pki_key.cpp:473
 msgctxt "pki_key|"
 msgid "No password"
 msgstr ""
 
-#: ../lib/pki_key.cpp:564 ../lib/pki_key.cpp:669
+#: ../lib/pki_key.cpp:570 ../lib/pki_key.cpp:675
 #, qt-format
 msgctxt "pki_key|"
 msgid "Unexpected SSH2 content: '%1'"
 msgstr ""
 
-#: ../lib/pki_key.cpp:584 ../lib/pki_key.cpp:590
+#: ../lib/pki_key.cpp:590 ../lib/pki_key.cpp:596
 msgctxt "pki_key|"
 msgid "Invalid SSH2 public key"
 msgstr ""
 
-#: ../lib/pki_key.cpp:787
+#: ../lib/pki_key.cpp:793
 #, qt-format
 msgctxt "pki_key|"
 msgid "Failed writing to %1"
 msgstr ""
 
-#: ../lib/pki_multi.cpp:131
+#: ../lib/pki_multi.cpp:138
 msgctxt "pki_multi|"
 msgid "No known PEM encoded items found"
 msgstr ""
 
-#: ../lib/pki_pkcs12.cpp:38
+#: ../lib/pki_pkcs12.cpp:37
 #, qt-format
 msgctxt "pki_pkcs12|"
 msgid ""
@@ -4296,221 +4308,221 @@ msgid ""
 "%1"
 msgstr ""
 
-#: ../lib/pki_pkcs12.cpp:52
+#: ../lib/pki_pkcs12.cpp:51
 #, qt-format
 msgctxt "pki_pkcs12|"
 msgid "Unable to load the PKCS#12 (pfx) file %1."
 msgstr ""
 
-#: ../lib/pki_pkcs12.cpp:84
+#: ../lib/pki_pkcs12.cpp:83
 #, qt-format
 msgctxt "pki_pkcs12|"
 msgid "The supplied password was wrong (%1)"
 msgstr ""
 
-#: ../lib/pki_pkcs12.cpp:138
+#: ../lib/pki_pkcs12.cpp:137
 msgctxt "pki_pkcs12|"
 msgid "Please enter the password to encrypt the PKCS#12 file"
 msgstr ""
 
-#: ../lib/pki_pkcs12.cpp:141
+#: ../lib/pki_pkcs12.cpp:140
 msgctxt "pki_pkcs12|"
 msgid "No key or no Cert and no pkcs12"
 msgstr ""
 
-#: ../lib/pki_pkcs7.cpp:186
+#: ../lib/pki_pkcs7.cpp:185
 #, qt-format
 msgctxt "pki_pkcs7|"
 msgid "Unable to load the PKCS#7 file %1. Tried PEM and DER format."
 msgstr ""
 
-#: ../lib/pki_scard.cpp:48
+#: ../lib/pki_scard.cpp:45
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Successfully imported the token key '%1'"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:49
+#: ../lib/pki_scard.cpp:46
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Delete the token key '%1'?"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:50
+#: ../lib/pki_scard.cpp:47
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Successfully created the token key '%1'"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:52
+#: ../lib/pki_scard.cpp:49
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Delete the %1 keys: %2?"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:379
+#: ../lib/pki_scard.cpp:376
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Delete the private key '%1' from the token '%2 (#%3)' ?"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:452
+#: ../lib/pki_scard.cpp:449
 msgctxt "pki_scard|"
 msgid "This Key is already on the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:538
+#: ../lib/pki_scard.cpp:535
 msgctxt "pki_scard|"
 msgid "PIN input aborted"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:550
+#: ../lib/pki_scard.cpp:547
 msgctxt "pki_scard|"
 msgid "Unable to find copied key on the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:638
+#: ../lib/pki_scard.cpp:635
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:704
+#: ../lib/pki_scard.cpp:701
 msgctxt "pki_scard|"
 msgid "Unable to find generated key on card"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:715
+#: ../lib/pki_scard.cpp:712
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Token %1"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:724 ../lib/pki_scard.cpp:737
+#: ../lib/pki_scard.cpp:721 ../lib/pki_scard.cpp:734
 msgctxt "pki_scard|"
 msgid "Failed to find the key on the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:731
+#: ../lib/pki_scard.cpp:728
 msgctxt "pki_scard|"
 msgid "Invalid Pin for the token"
 msgstr ""
 
-#: ../lib/pki_scard.cpp:743
+#: ../lib/pki_scard.cpp:740
 msgctxt "pki_scard|"
 msgid "Failed to initialize the key on the token"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:163
+#: ../lib/pki_temp.cpp:158
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Successfully imported the XCA template '%1'"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:164
+#: ../lib/pki_temp.cpp:159
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Delete the XCA template '%1'?"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:165
+#: ../lib/pki_temp.cpp:160
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Successfully created the XCA template '%1'"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:167
+#: ../lib/pki_temp.cpp:162
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Delete the %1 XCA templates: %2?"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:367
+#: ../lib/pki_temp.cpp:362
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Wrong Size %1"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:454
+#: ../lib/pki_temp.cpp:449
 msgctxt "pki_temp|"
 msgid "Template file content error (too small)"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:504
+#: ../lib/pki_temp.cpp:499
 msgctxt "pki_temp|"
 msgid "Not a PEM encoded XCA Template"
 msgstr ""
 
-#: ../lib/pki_temp.cpp:512
+#: ../lib/pki_temp.cpp:507
 #, qt-format
 msgctxt "pki_temp|"
 msgid "Not an XCA Template, but '%1'"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:62
+#: ../lib/pki_x509.cpp:60
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Successfully imported the certificate '%1'"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:63
+#: ../lib/pki_x509.cpp:61
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the certificate '%1'?"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:64
+#: ../lib/pki_x509.cpp:62
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Successfully created the certificate '%1'"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:66
+#: ../lib/pki_x509.cpp:64
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the %1 certificates: %2?"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:228
+#: ../lib/pki_x509.cpp:233
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
 "Unable to load the certificate in file %1. Tried PEM and DER certificate."
 msgstr ""
 
-#: ../lib/pki_x509.cpp:373
+#: ../lib/pki_x509.cpp:375
 msgctxt "pki_x509|"
 msgid "This certificate is already on the security token"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:436
+#: ../lib/pki_x509.cpp:438
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the certificate '%1' from the token '%2 (#%3)'?"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:569
+#: ../lib/pki_x509.cpp:571
 msgctxt "pki_x509|"
 msgid "There is no key for signing !"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:855
+#: ../lib/pki_x509.cpp:857
 msgctxt "pki_x509|"
 msgid "No"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:857
+#: ../lib/pki_x509.cpp:859
 msgctxt "pki_x509|"
 msgid "Yes"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:887
+#: ../lib/pki_x509.cpp:889
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Renew certificate: %1"
 msgstr ""
 
-#: ../lib/pki_x509.cpp:888
+#: ../lib/pki_x509.cpp:890
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
@@ -4518,36 +4530,36 @@ msgid ""
 "It is stored in the XCA database '%4'"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:109
+#: ../lib/pki_x509req.cpp:108
 msgctxt "pki_x509req|"
 msgid "Signing key not valid (public key)"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:151
+#: ../lib/pki_x509req.cpp:150
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Successfully imported the %1 certificate request '%2'"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:152
+#: ../lib/pki_x509req.cpp:151
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Delete the %1 certificate request '%2'?"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:153
+#: ../lib/pki_x509req.cpp:152
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Successfully created the %1 certificate request '%2'"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:155
+#: ../lib/pki_x509req.cpp:154
 #, qt-format
 msgctxt "pki_x509req|"
 msgid "Delete the %1 certificate requests: %2?"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:184
+#: ../lib/pki_x509req.cpp:185
 #, qt-format
 msgctxt "pki_x509req|"
 msgid ""
@@ -4555,12 +4567,12 @@ msgid ""
 "format."
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:370
+#: ../lib/pki_x509req.cpp:371
 msgctxt "pki_x509req|"
 msgid "Signed"
 msgstr ""
 
-#: ../lib/pki_x509req.cpp:370
+#: ../lib/pki_x509req.cpp:371
 msgctxt "pki_x509req|"
 msgid "Unhandled"
 msgstr ""
@@ -4657,7 +4669,7 @@ msgid ""
 "'%1'"
 msgstr ""
 
-#: ../widgets/XcaWarning.cpp:72
+#: ../widgets/XcaWarning.cpp:71
 msgctxt "xcaWarningGui|"
 msgid "Copy to Clipboard"
 msgstr ""

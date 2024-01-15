@@ -23,7 +23,7 @@
     <name>CertDetail</name>
     <message>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+112"/>
+        <location filename="../widgets/CertDetail.cpp" line="+106"/>
         <source>Details of the Certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -139,7 +139,7 @@
     </message>
     <message>
         <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-72"/>
+        <location filename="../widgets/CertDetail.cpp" line="-73"/>
         <source>Show config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -149,7 +149,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Show public key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -164,7 +164,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+46"/>
         <source>Signer unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -501,7 +501,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="+52"/>
+        <location filename="../widgets/CrlDetail.cpp" line="+48"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -701,7 +701,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+65"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+66"/>
         <source>
 Name: %1
 Model: %2
@@ -714,18 +714,18 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+217"/>
-        <source>Details of the item &apos;%1&apos; cannot be shown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-183"/>
-        <location line="+187"/>
+        <location line="+35"/>
+        <location line="+194"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="-48"/>
+        <source>Could not open the default database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+76"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -771,7 +771,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="+106"/>
+        <location filename="../widgets/KeyDetail.cpp" line="+101"/>
         <source>Security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1013,7 +1013,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+138"/>
+        <location filename="../widgets/MW_menu.cpp" line="+146"/>
         <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1063,7 +1063,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+592"/>
+        <location filename="../widgets/MainWindow.cpp" line="+594"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1073,18 +1073,18 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-53"/>
+        <location filename="../widgets/MW_menu.cpp" line="-49"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="+25"/>
-        <location filename="../widgets/MW_menu.cpp" line="-45"/>
+        <location filename="../widgets/MW_menu.cpp" line="-57"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>Croatian</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1104,12 +1104,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>Japanese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1124,27 +1124,27 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-9"/>
         <source>Persian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-18"/>
         <source>Bulgarian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="+20"/>
         <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="-6"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1154,27 +1154,27 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+16"/>
         <source>Portuguese in Brazil</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-10"/>
         <source>Indonesian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+17"/>
         <source>Turkish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+51"/>
+        <location filename="../widgets/MW_menu.cpp" line="+45"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1204,7 +1204,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1214,7 +1214,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>I&amp;mport</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1259,7 +1259,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1269,12 +1269,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+18"/>
         <source>Content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-34"/>
         <source>&amp;Manage Security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1334,7 +1334,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+7"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1344,7 +1344,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-344"/>
+        <location filename="../widgets/MainWindow.cpp" line="-347"/>
         <source>Import PEM data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1354,13 +1354,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-170"/>
-        <location line="+623"/>
+        <location line="-169"/>
+        <location line="+625"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-447"/>
+        <location line="-450"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1375,7 +1375,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>Current Password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1653,7 +1653,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+596"/>
+        <location filename="../widgets/NewX509.cpp" line="+605"/>
         <source>Subject</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1829,7 +1829,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+400"/>
+        <location filename="../widgets/NewX509.cpp" line="+407"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1870,7 +1870,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-732"/>
+        <location filename="../widgets/NewX509.cpp" line="-750"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1905,12 +1905,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+24"/>
         <source>Create x509 Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+371"/>
+        <location line="+378"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2363,7 +2363,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2409,7 +2409,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+157"/>
+        <location filename="../lib/asn1time.cpp" line="+142"/>
         <source>Undefined</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2620,12 +2620,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.h" line="+99"/>
+        <location filename="../lib/pkcs11.h" line="+96"/>
         <source>Required PIN size: %1 - %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+119"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+118"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2635,7 +2635,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+357"/>
+        <location line="+361"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2647,12 +2647,12 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="+111"/>
+        <location filename="../lib/x509name.cpp" line="+104"/>
         <source>Invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+116"/>
         <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2662,7 +2662,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+99"/>
+        <location filename="../lib/x509v3ext.cpp" line="+103"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2692,7 +2692,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+575"/>
+        <location filename="../lib/func_base.cpp" line="+224"/>
         <source>Country code</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2882,7 +2882,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+357"/>
+        <location filename="../lib/cmdline.cpp" line="+163"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2902,17 +2902,17 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+72"/>
         <source>The following error occurred:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+74"/>
+        <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/PwDialogCore.cpp" line="+27"/>
+        <location filename="../lib/PwDialogCore.cpp" line="+33"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2998,7 +2998,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+29"/>
         <source>Generate CRL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3146,7 +3146,7 @@ In library %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+94"/>
+        <location filename="../widgets/validity.cpp" line="+92"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3154,7 +3154,7 @@ In library %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+29"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>OpenSSL config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3198,14 +3198,22 @@ In library %3
     </message>
 </context>
 <context>
+    <name>XcaDetail</name>
+    <message>
+        <location filename="../widgets/XcaDetail.cpp" line="+47"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+314"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+330"/>
         <source>Item properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+70"/>
         <source>Subject entries</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3240,7 +3248,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+41"/>
         <source>Columns</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3293,7 +3301,7 @@ In library %3
 <context>
     <name>database_model</name>
     <message>
-        <location filename="../lib/database_model.cpp" line="+47"/>
+        <location filename="../lib/database_model.cpp" line="+51"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3338,7 +3346,7 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+163"/>
+        <location filename="../lib/db_base.cpp" line="+160"/>
         <source>Internal name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3393,7 +3401,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+143"/>
         <source>Could not create directory %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3401,7 +3409,7 @@ In library %3
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+27"/>
+        <location filename="../lib/db_crl.cpp" line="+26"/>
         <source>Signer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3443,7 +3451,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+74"/>
         <source>Failed to initiate DB transaction</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3458,7 +3466,7 @@ and so it was not imported</source>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+54"/>
+        <location filename="../lib/db_key.cpp" line="+53"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3538,7 +3546,7 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+76"/>
+        <location filename="../lib/db_x509.cpp" line="+77"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3598,7 +3606,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+219"/>
+        <location line="+226"/>
         <source>Failed to retrieve unique random serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3610,7 +3618,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+26"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3620,7 +3628,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+90"/>
         <source>Invalid public key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3630,28 +3638,28 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-221"/>
+        <location line="-214"/>
         <source>Failed to create directory &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+262"/>
+        <location line="+255"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+82"/>
-        <location line="+49"/>
+        <location line="+78"/>
+        <location line="+50"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-47"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+51"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3795,12 +3803,12 @@ and thus was not stored</source>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="+15"/>
+        <location filename="../lib/pass_info.cpp" line="+12"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+6"/>
         <source>PIN</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3808,7 +3816,7 @@ and thus was not stored</source>
 <context>
     <name>pkcs11_lib</name>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="-455"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3821,7 +3829,7 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+287"/>
+        <location filename="../lib/pki_base.cpp" line="+282"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3861,7 +3869,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-313"/>
+        <location line="-318"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3869,7 +3877,7 @@ and thus was not stored</source>
 <context>
     <name>pki_crl</name>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="+57"/>
+        <location filename="../lib/pki_crl.cpp" line="+59"/>
         <source>Successfully imported the revocation list &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3924,12 +3932,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+230"/>
+        <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3961,7 +3969,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+24"/>
+        <source>Decryption of private key &apos;%1&apos; failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3989,7 +4002,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_export</name>
     <message>
-        <location filename="../lib/pki_export.cpp" line="+43"/>
+        <location filename="../lib/pki_export.cpp" line="+58"/>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
@@ -4268,12 +4281,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-155"/>
         <location line="+164"/>
-        <location line="+635"/>
+        <location line="+649"/>
         <source>Public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-400"/>
+        <location line="-408"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4318,7 +4331,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+131"/>
+        <location filename="../lib/pki_multi.cpp" line="+138"/>
         <source>No known PEM encoded items found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4326,7 +4339,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+38"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+37"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation type="unfinished"></translation>
@@ -4355,7 +4368,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+186"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+185"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4363,7 +4376,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+48"/>
+        <location filename="../lib/pki_scard.cpp" line="+45"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4437,7 +4450,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+111"/>
+        <location filename="../lib/pki_temp.cpp" line="+106"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4480,7 +4493,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+60"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4500,12 +4513,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+169"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+142"/>
         <source>This certificate is already on the security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4544,7 +4557,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+109"/>
+        <location filename="../lib/pki_x509req.cpp" line="+108"/>
         <source>Signing key not valid (public key)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4569,7 +4582,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+31"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4678,7 +4691,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
 <context>
     <name>xcaWarningGui</name>
     <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+72"/>
+        <location filename="../widgets/XcaWarning.cpp" line="+71"/>
         <source>Copy to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>

@@ -43,13 +43,13 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+44"/>
+        <location filename="../widgets/CertDetail.cpp" line="+37"/>
         <source>Show extensions</source>
         <translatorcomment>there was a typo, sorry</translatorcomment>
         <translation>Показать расширения</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Show public key</source>
         <translation>показать открытый ключ</translation>
     </message>
@@ -64,7 +64,7 @@
         <translation>Недоступен</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+46"/>
         <source>Signer unknown</source>
         <translation>Издатель неизвестен</translation>
     </message>
@@ -107,7 +107,7 @@
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="-72"/>
+        <location filename="../widgets/CertDetail.cpp" line="-71"/>
         <source>Details of the Certificate</source>
         <translation>Сведения о сертификате</translation>
     </message>
@@ -243,7 +243,7 @@
     </message>
     <message>
         <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-72"/>
+        <location filename="../widgets/CertDetail.cpp" line="-73"/>
         <source>Show config</source>
         <translation>Показать конфигурацию</translation>
     </message>
@@ -495,7 +495,7 @@
         <translation>Внутреннее имя</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="+52"/>
+        <location filename="../widgets/CrlDetail.cpp" line="+48"/>
         <source>Failed</source>
         <translation>Ошибка</translation>
     </message>
@@ -861,18 +861,22 @@
         <translation>&amp;Готово</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+287"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
-        <translation>Невозможно отобразить сведения о &apos;%1&apos;</translation>
+        <translation type="vanished">Невозможно отобразить сведения о &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-183"/>
-        <location line="+187"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+106"/>
+        <location line="+194"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Тип элемента &apos;%1&apos; невозможно определить</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="-48"/>
+        <source>Could not open the default database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+76"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
         <translation>В файле &apos;%1&apos; данных PKI не обнаружено</translation>
     </message>
@@ -902,7 +906,7 @@
         <translation>Переименовать в модуле защиты</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-257"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-265"/>
         <source>
 Name: %1
 Model: %2
@@ -944,7 +948,7 @@ Serial: %3</source>
 <context>
     <name>KeyDetail</name>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="+108"/>
+        <location filename="../widgets/KeyDetail.cpp" line="+103"/>
         <source>Available</source>
         <translation>Известна</translation>
     </message>
@@ -1164,23 +1168,23 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">&amp;Справка</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+100"/>
+        <location filename="../widgets/MW_menu.cpp" line="+103"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-6"/>
         <source>Recent DataBases</source>
         <translation>Недавно открытые базы данных</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="+25"/>
-        <location filename="../widgets/MW_menu.cpp" line="-45"/>
+        <location filename="../widgets/MW_menu.cpp" line="-57"/>
         <source>System</source>
         <translation>Язык системы</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>Croatian</source>
         <translation>Хорватский</translation>
     </message>
@@ -1200,12 +1204,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Немецкий</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>Japanese</source>
         <translation>Японский</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
@@ -1220,27 +1224,27 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Испанский</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-9"/>
         <source>Persian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-18"/>
         <source>Bulgarian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="+20"/>
         <source>Polish</source>
         <translation>Польский</translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="-6"/>
         <source>Italian</source>
         <translation>Итальянский</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Chinese</source>
         <translation>Китайский</translation>
     </message>
@@ -1250,37 +1254,37 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Нидерландский</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+16"/>
         <source>Portuguese in Brazil</source>
         <translation>Бразильский португальский</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-10"/>
         <source>Indonesian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+17"/>
         <source>Turkish</source>
         <translation>Турецкий</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+51"/>
+        <location filename="../widgets/MW_menu.cpp" line="+45"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+28"/>
         <source>Open Remote DataBase</source>
         <translation>Открыть сетевую базу данных</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+39"/>
         <source>Paste PEM file</source>
         <translation>Вставить файл PEM</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Token</source>
         <translation>Модуль защиты</translation>
     </message>
@@ -1304,12 +1308,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Поиск OID</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+7"/>
         <source>&amp;Help</source>
         <translation>&amp;Помощь</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+464"/>
+        <location filename="../widgets/MainWindow.cpp" line="+466"/>
         <source>New Password</source>
         <translation>Новый Пароль</translation>
     </message>
@@ -1383,7 +1387,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="-38"/>
+        <location filename="../widgets/MW_menu.cpp" line="-44"/>
         <source>Certificates</source>
         <translation>Сертификаты</translation>
     </message>
@@ -1462,7 +1466,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">Во время удаления устаревших данных из базы данных произошла ошибка.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+22"/>
+        <location filename="../widgets/MW_menu.cpp" line="+23"/>
         <source>&amp;Dump DataBase</source>
         <translation>&amp;Сделать дамп базы данных</translation>
     </message>
@@ -1476,12 +1480,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;Восстановить удаленные элементы</translation>
     </message>
     <message>
-        <location line="-49"/>
+        <location line="-54"/>
         <source>Options</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location line="-18"/>
+        <location line="-19"/>
         <source>New DataBase</source>
         <translation>Новая база данных</translation>
     </message>
@@ -1496,7 +1500,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Закрыть базу данных</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Keys</source>
         <translation>Ключи</translation>
     </message>
@@ -1556,12 +1560,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>И&amp;мпорт</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+30"/>
         <source>Export Certificate &amp;Index hierarchy</source>
         <translation>Экспортировать &amp;иерархию сертификатов</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+18"/>
         <source>Content</source>
         <translation>Содержание</translation>
     </message>
@@ -1571,13 +1575,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-485"/>
-        <location line="+623"/>
+        <location filename="../widgets/MainWindow.cpp" line="-487"/>
+        <location line="+625"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location line="-482"/>
+        <location line="-485"/>
         <source>Import PEM data</source>
         <translation>Импортировать PEM данные</translation>
     </message>
@@ -1592,7 +1596,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Новое название модуля защиты &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+168"/>
+        <location line="+171"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Пожалуйста, введите новый пароль для шифрования закрытых ключей в базе данных</translation>
     </message>
@@ -1640,7 +1644,7 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">&amp;Открыть базу данных</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-29"/>
+        <location filename="../widgets/MW_menu.cpp" line="-34"/>
         <source>&amp;Init Security token</source>
         <translation>&amp;Инициализировать модуль защиты</translation>
     </message>
@@ -1650,7 +1654,7 @@ Please enter the DH parameter bits</source>
         <translation>Из&amp;менить пароль базы данных</translation>
     </message>
     <message>
-        <location line="-38"/>
+        <location line="-43"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
@@ -1664,7 +1668,7 @@ Please enter the DH parameter bits</source>
         <translation>Использование или экспорт закрытых ключей будет невозможен без ввода правильного пароля</translation>
     </message>
     <message>
-        <location line="-309"/>
+        <location line="-312"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>Пожалуйста, введите первоначальный PIN SO (PUK) для модуля защиты &apos;%1&apos;</translation>
     </message>
@@ -1674,7 +1678,7 @@ Please enter the DH parameter bits</source>
         <translation>Модуль защиты &apos;%1&apos; не содержит ни ключей, ни сертификатов</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>Current Password</source>
         <translation>Действующий пароль</translation>
     </message>
@@ -1709,12 +1713,12 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">Ошибка при открытии файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+44"/>
+        <location filename="../widgets/MW_menu.cpp" line="+49"/>
         <source>Generate DH parameter</source>
         <translation>Сгенерировать параметры Диффи — Хеллмана</translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-64"/>
         <source>Set as default DataBase</source>
         <translation>Установить как базу данных по умолчанию</translation>
     </message>
@@ -1724,7 +1728,7 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">&amp;Модуль защиты</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+40"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Управление модулями защиты</translation>
     </message>
@@ -1957,7 +1961,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="-328"/>
-        <location filename="../widgets/NewX509.cpp" line="+596"/>
+        <location filename="../widgets/NewX509.cpp" line="+605"/>
         <source>Subject</source>
         <translation>Субъект</translation>
     </message>
@@ -2145,7 +2149,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+400"/>
+        <location filename="../widgets/NewX509.cpp" line="+407"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -2171,17 +2175,17 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">Создать &amp;самоподписанный сертификат с серийным номером хэшированным MD5</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-682"/>
+        <location filename="../widgets/NewX509.cpp" line="-700"/>
         <source>Create Certificate signing request</source>
         <translation>Создать запрос на сертификат</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+83"/>
         <source>Create x509 Certificate</source>
         <translation>Создать сертификат x509</translation>
     </message>
     <message>
-        <location line="+805"/>
+        <location line="+812"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2300,7 +2304,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Выбранный для подписи ключ не закрытый.</translation>
     </message>
     <message>
-        <location line="-1022"/>
+        <location line="-1040"/>
         <source>Critical</source>
         <translation>Критично</translation>
     </message>
@@ -2314,7 +2318,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Редактировать шаблон XCA</translation>
     </message>
     <message>
-        <location line="+384"/>
+        <location line="+402"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Применён шаблон %1</translation>
     </message>
@@ -2416,7 +2420,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Применить всё</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1075"/>
+        <location filename="../widgets/NewX509.cpp" line="-1093"/>
         <source>minimum size: %1</source>
         <translation>минимальный размер: %1</translation>
     </message>
@@ -2436,7 +2440,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>только 7-битные символы</translation>
     </message>
     <message>
-        <location line="+720"/>
+        <location line="+738"/>
         <source>From PKCS#10 request</source>
         <translation>Из запроса PKCS#10</translation>
     </message>
@@ -2718,7 +2722,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Все строки</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>Days</source>
         <translation>Дней</translation>
     </message>
@@ -2907,12 +2911,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Открыть файл PEM</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="+111"/>
+        <location filename="../lib/x509name.cpp" line="+104"/>
         <source>Invalid</source>
         <translation>Неверный</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+116"/>
         <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 короче, чем %2 байт: &apos;%3&apos;</translation>
     </message>
@@ -2927,7 +2931,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Все файлы ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+157"/>
+        <location filename="../lib/asn1time.cpp" line="+142"/>
         <source>Undefined</source>
         <translation>Неопределённый</translation>
     </message>
@@ -3054,7 +3058,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Пожалуйста, введите новый PIN SO (PUK) для модуля защиты &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.h" line="+99"/>
+        <location filename="../lib/pkcs11.h" line="+96"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>Требуемая длина PIN-кода: %1 - %2</translation>
     </message>
@@ -3075,7 +3079,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">Это не похоже на библиотеку PKCS#11. Не найден символ &apos;C_GetFunctionList&apos;.</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+119"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+118"/>
         <source>Disabled</source>
         <translation>Отключено</translation>
     </message>
@@ -3085,7 +3089,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Загрузка библиотеки не удалась</translation>
     </message>
     <message>
-        <location line="+357"/>
+        <location line="+361"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>PKCS#11 функция &apos;%1&apos; завершилась ошибкой: %2</translation>
     </message>
@@ -3099,7 +3103,7 @@ In library %3
 %4</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+575"/>
+        <location filename="../lib/func_base.cpp" line="+224"/>
         <source>Country code</source>
         <translation>Код страны</translation>
     </message>
@@ -3292,7 +3296,7 @@ In library %3
         <translation>Комментарий</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+99"/>
+        <location filename="../lib/x509v3ext.cpp" line="+103"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>Строка &apos;%1&apos; содержит неподходящие символы для &apos;%2&apos;</translation>
     </message>
@@ -3322,7 +3326,7 @@ In library %3
         <translation>Не удалось начать транзакцию</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="+357"/>
+        <location filename="../lib/cmdline.cpp" line="+163"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Файл индекса сохранён как &apos;%1&apos;</translation>
     </message>
@@ -3342,17 +3346,17 @@ In library %3
         <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+72"/>
         <source>The following error occurred:</source>
         <translation>Произошла ошибка:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+74"/>
+        <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/PwDialogCore.cpp" line="+27"/>
+        <location filename="../lib/PwDialogCore.cpp" line="+33"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -3438,7 +3442,7 @@ In library %3
         <translation>Недействительность</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+29"/>
         <source>Generate CRL</source>
         <translation>Сгенерировать CRL</translation>
     </message>
@@ -3594,7 +3598,7 @@ In library %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+94"/>
+        <location filename="../widgets/validity.cpp" line="+92"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>гггг-ММ-дд чч:мм</translation>
     </message>
@@ -3602,7 +3606,7 @@ In library %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+29"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>OpenSSL config</source>
         <translation>Конфигурация OpenSSL</translation>
     </message>
@@ -3646,9 +3650,17 @@ In library %3
     </message>
 </context>
 <context>
+    <name>XcaDetail</name>
+    <message>
+        <location filename="../widgets/XcaDetail.cpp" line="+47"/>
+        <source>Import</source>
+        <translation type="unfinished">Импорт</translation>
+    </message>
+</context>
+<context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+381"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+400"/>
         <source>Subject entries</source>
         <translation>Поля субъекта</translation>
     </message>
@@ -3677,12 +3689,12 @@ In library %3
         <translation type="vanished">Убрать колонку</translation>
     </message>
     <message>
-        <location line="-71"/>
+        <location line="-74"/>
         <source>Item properties</source>
         <translation>Свойства элемента</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+77"/>
         <source>Hide Column</source>
         <translation>Спрятать колонку</translation>
     </message>
@@ -3692,7 +3704,7 @@ In library %3
         <translation>Сведения</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+41"/>
         <source>Columns</source>
         <translation>Колонки</translation>
     </message>
@@ -3753,7 +3765,7 @@ In library %3
         <translation type="obsolete">Не удалось переименовать файл базы данных, потому что файл с таким именем уже существует</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+47"/>
+        <location filename="../lib/database_model.cpp" line="+51"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation>Пожалуйста, введите пароль для доступа к серверу баз данных %2 от имени пользователя &apos;%1&apos;.</translation>
     </message>
@@ -3800,7 +3812,7 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+163"/>
+        <location filename="../lib/db_base.cpp" line="+160"/>
         <source>Internal name</source>
         <translation>Внутреннее имя</translation>
     </message>
@@ -3887,7 +3899,7 @@ Size: %3
         <translation>Импортировать из %1</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+143"/>
         <source>Could not create directory %1</source>
         <translation>Не удалось создать папку &apos;%1&apos;</translation>
     </message>
@@ -3919,7 +3931,7 @@ Size: %3
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+27"/>
+        <location filename="../lib/db_crl.cpp" line="+26"/>
         <source>Signer</source>
         <translation>Подписавший</translation>
     </message>
@@ -3970,7 +3982,7 @@ Size: %3
         <translation type="vanished">Создать CRL</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+137"/>
         <source>Failed to initiate DB transaction</source>
         <translation>Не удалось начать транзакцию в БД</translation>
     </message>
@@ -3990,7 +4002,7 @@ Size: %3
         <translation type="vanished">Экспорт списка отзывов</translation>
     </message>
     <message>
-        <location line="-94"/>
+        <location line="-96"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -4002,7 +4014,7 @@ and so it was not imported</source>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+157"/>
+        <location filename="../lib/db_key.cpp" line="+156"/>
         <source>Key size too small !</source>
         <translation>Слишком маленькая длина ключа!</translation>
     </message>
@@ -4166,7 +4178,7 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+78"/>
+        <location filename="../lib/db_x509.cpp" line="+79"/>
         <source>Serial</source>
         <translation>Серийный номер</translation>
     </message>
@@ -4208,12 +4220,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished">В виде дерева</translation>
     </message>
     <message>
-        <location line="+219"/>
+        <location line="+226"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>Не удалось получить уникальный случайный серийный номер</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+49"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
         <translation>Подписан %1 &apos;%2&apos;</translation>
     </message>
@@ -4223,7 +4235,7 @@ and will be completed by the new, private part of the key</source>
         <translation>Неизвестный</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+90"/>
         <source>Invalid public key</source>
         <translation>Недействительный открытый ключ</translation>
     </message>
@@ -4281,7 +4293,7 @@ and will be completed by the new, private part of the key</source>
         <translation>Отпечаток SHA256</translation>
     </message>
     <message>
-        <location line="+177"/>
+        <location line="+184"/>
         <source>Failed to create directory &apos;%1&apos;</source>
         <translation>Не удалось создать папку &apos;%1&apos;</translation>
     </message>
@@ -4318,7 +4330,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished">Сертификаты X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
-        <location line="+347"/>
+        <location line="+336"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Невозможно для модуля защиты: &apos;%1&apos;</translation>
     </message>
@@ -4331,7 +4343,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished"> дней</translation>
     </message>
     <message>
-        <location line="-276"/>
+        <location line="-265"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -4340,7 +4352,7 @@ and so it was not imported</source>
 и поэтому не был импортирован</translation>
     </message>
     <message>
-        <location line="-246"/>
+        <location line="-253"/>
         <source>Not before</source>
         <translation>Сертификат действителен с</translation>
     </message>
@@ -4366,8 +4378,8 @@ and so it was not imported</source>
         <translation type="vanished">Всё PEM</translation>
     </message>
     <message>
-        <location line="+517"/>
-        <location line="+49"/>
+        <location line="+513"/>
+        <location line="+50"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Для сертификата &apos;%1&apos; не был найден ключ</translation>
     </message>
@@ -4377,7 +4389,7 @@ and so it was not imported</source>
         <translation>Невозможно для сертификата модуля защиты: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-135"/>
+        <location line="-132"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Сохранить сертификат ключа в модуле защиты &apos;%1 (#%2)&apos;?</translation>
     </message>
@@ -4539,12 +4551,12 @@ and thus was not stored</source>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="+15"/>
+        <location filename="../lib/pass_info.cpp" line="+12"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+6"/>
         <source>PIN</source>
         <translatorcomment>для единообразия</translatorcomment>
         <translation>PIN-код</translation>
@@ -4553,7 +4565,7 @@ and thus was not stored</source>
 <context>
     <name>pkcs11_lib</name>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="-451"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="-455"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>Невозможно открыть библиотеку PKCS#11 %1: %2</translation>
     </message>
@@ -4574,7 +4586,7 @@ and thus was not stored</source>
         <translation type="vanished">Ошибка при записи в файл: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+287"/>
+        <location filename="../lib/pki_base.cpp" line="+282"/>
         <source>Unknown</source>
         <translation>Неизвестный</translation>
     </message>
@@ -4618,7 +4630,7 @@ and thus was not stored</source>
         <translation type="vanished">Ошибка: </translation>
     </message>
     <message>
-        <location line="-313"/>
+        <location line="-318"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Внутренняя ошибка: Неожиданное сообщение: %1 %2</translation>
     </message>
@@ -4626,7 +4638,7 @@ and thus was not stored</source>
 <context>
     <name>pki_crl</name>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="+160"/>
+        <location filename="../lib/pki_crl.cpp" line="+162"/>
         <source>No issuer given</source>
         <translation>Не указан издатель</translation>
     </message>
@@ -4695,13 +4707,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">Не удалось расшифровать ключ (неверный пароль) </translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+472"/>
+        <location filename="../lib/pki_evp.cpp" line="+482"/>
         <location line="+14"/>
         <source>Password input aborted</source>
         <translation>Ввод пароля прерван</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+64"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль для защиты закрытого ключа &apos;%1&apos;</translation>
     </message>
@@ -4710,12 +4722,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">Пожалуйста, введите пароль для расшифровки закрытого ключа.</translation>
     </message>
     <message>
-        <location line="-307"/>
+        <location line="-321"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>Пожалуйста, введите пароль для расшифровки закрытого ключа %1.</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation>Ключ из файла &apos;%1&apos; либо неполный, либо ошибочный.</translation>
     </message>
@@ -4741,7 +4753,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Пожалуйста, введите пароль для расшифровки закрытого ключа: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+37"/>
+        <source>Decryption of private key &apos;%1&apos; failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+62"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation>Пожалуйста, введите пароль к базе данных для шифрования ключа</translation>
     </message>
@@ -4761,7 +4778,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Пожалуйста, введите пароль для экспорта закрытого ключа &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-307"/>
+        <location line="-320"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль к базе данных для расшифровки ключа  &apos;%1&apos;</translation>
     </message>
@@ -4769,7 +4786,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_export</name>
     <message>
-        <location filename="../lib/pki_export.cpp" line="+43"/>
+        <location filename="../lib/pki_export.cpp" line="+58"/>
         <location line="+27"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
@@ -5048,12 +5065,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-155"/>
         <location line="+164"/>
-        <location line="+635"/>
+        <location line="+649"/>
         <source>Public key</source>
         <translation>Открытый ключ</translation>
     </message>
     <message>
-        <location line="-400"/>
+        <location line="-408"/>
         <source>Common</source>
         <translation>Общий</translation>
     </message>
@@ -5102,7 +5119,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="obsolete">Ошибка позиционирования</translation>
     </message>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+131"/>
+        <location filename="../lib/pki_multi.cpp" line="+138"/>
         <source>No known PEM encoded items found</source>
         <translation>Не найдено PEM элементов</translation>
     </message>
@@ -5110,7 +5127,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+138"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+137"/>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
         <translation>Пожалуйста, введите пароль для защиты файла PKCS#12</translation>
     </message>
@@ -5140,7 +5157,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="+186"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="+185"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>Не удалось загрузить PKCS#7 файл %1. Формат файла должен быть PEM или DER.</translation>
     </message>
@@ -5148,7 +5165,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+452"/>
+        <location filename="../lib/pki_scard.cpp" line="+449"/>
         <source>This Key is already on the token</source>
         <translation>Этот ключ уже есть в модуле защиты</translation>
     </message>
@@ -5242,7 +5259,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">Содержимое файла шаблона ошибочно (слишком мал) :%1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+315"/>
+        <location filename="../lib/pki_temp.cpp" line="+310"/>
         <source>Wrong Size %1</source>
         <translation>Неправильный размер %1</translation>
     </message>
@@ -5289,7 +5306,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+60"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Сертификат &apos;%1&apos; импортирован успешно</translation>
     </message>
@@ -5309,7 +5326,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Удалить %1 сертификатов: %2?</translation>
     </message>
     <message>
-        <location line="+370"/>
+        <location line="+374"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
         <translation>Удалить сертификат &apos;%1&apos; из модуля защиты &apos;%2 (#%3)&apos;?</translation>
     </message>
@@ -5353,12 +5370,12 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Не выбран ключ для подписи!</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-338"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Не удалось загрузить сертификат из файла %1. Испробованные форматы: PEM и DER.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+142"/>
         <source>This certificate is already on the security token</source>
         <translation>Этот сертификат уже есть в модуле защиты</translation>
     </message>
@@ -5370,7 +5387,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+109"/>
+        <location filename="../lib/pki_x509req.cpp" line="+108"/>
         <source>Signing key not valid (public key)</source>
         <translation>Ключ для подписи не действителен (открытый ключ)</translation>
     </message>
@@ -5395,7 +5412,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Удалить запрос %1: %2?</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+31"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>Не удлось загрузить запрос на подпись из файла %1. Испробованные форматы: PEM, DER и SPKAC.</translation>
     </message>
@@ -5538,7 +5555,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
 <context>
     <name>xcaWarningGui</name>
     <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+72"/>
+        <location filename="../widgets/XcaWarning.cpp" line="+71"/>
         <source>Copy to Clipboard</source>
         <translation>Копировать в буфер обмена</translation>
     </message>

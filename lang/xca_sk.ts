@@ -27,7 +27,7 @@
     <name>CertDetail</name>
     <message>
         <location filename="../ui/CertDetail.ui" line="30"/>
-        <location filename="../widgets/CertDetail.cpp" line="112"/>
+        <location filename="../widgets/CertDetail.cpp" line="106"/>
         <source>Details of the Certificate</source>
         <translation>Podrobnosti certifikátu</translation>
     </message>
@@ -143,57 +143,57 @@
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="377"/>
-        <location filename="../widgets/CertDetail.cpp" line="40"/>
+        <location filename="../widgets/CertDetail.cpp" line="33"/>
         <source>Show config</source>
         <translation>Zobraziť konfiguráciu</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="44"/>
+        <location filename="../widgets/CertDetail.cpp" line="37"/>
         <source>Show extensions</source>
         <translation>Zobraziť rozšírenia</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="66"/>
+        <location filename="../widgets/CertDetail.cpp" line="60"/>
         <source>Show public key</source>
         <translation>Zobraziť verejný kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="69"/>
+        <location filename="../widgets/CertDetail.cpp" line="63"/>
         <source>This key is not in the database.</source>
         <translation>Tento kľúč nie je v databáze.</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="73"/>
+        <location filename="../widgets/CertDetail.cpp" line="67"/>
         <source>Not available</source>
         <translation>Nedostupné</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="120"/>
+        <location filename="../widgets/CertDetail.cpp" line="113"/>
         <source>Signer unknown</source>
         <translation>Neznámy podpis</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="124"/>
+        <location filename="../widgets/CertDetail.cpp" line="117"/>
         <source>Self signed</source>
         <translation>Sebou podpísaný</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="154"/>
+        <location filename="../widgets/CertDetail.cpp" line="147"/>
         <source>Revoked at %1</source>
         <translation>Odvolaný %1: </translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="159"/>
+        <location filename="../widgets/CertDetail.cpp" line="152"/>
         <source>Not valid</source>
         <translation>Neplatný</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="163"/>
+        <location filename="../widgets/CertDetail.cpp" line="156"/>
         <source>Valid</source>
         <translation>Platný</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="184"/>
+        <location filename="../widgets/CertDetail.cpp" line="177"/>
         <source>Details of the certificate signing request</source>
         <translation>Podrobnosti žiadosti o podpísanie certifikátu</translation>
     </message>
@@ -505,17 +505,17 @@
         <translation>Komentár</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="52"/>
+        <location filename="../widgets/CrlDetail.cpp" line="48"/>
         <source>Failed</source>
         <translation>Zlyhalo</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="57"/>
+        <location filename="../widgets/CrlDetail.cpp" line="53"/>
         <source>Unknown signer</source>
         <translation>Neznámy podpis</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="60"/>
+        <location filename="../widgets/CrlDetail.cpp" line="56"/>
         <source>Verification not possible</source>
         <translation>Overenie nemožné</translation>
     </message>
@@ -817,7 +817,7 @@
         <translation>Premenovať token</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="65"/>
+        <location filename="../widgets/ImportMulti.cpp" line="66"/>
         <source>
 Name: %1
 Model: %2
@@ -828,28 +828,32 @@ Model: %2
 Sér. č.: %3</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="70"/>
+        <location filename="../widgets/ImportMulti.cpp" line="71"/>
         <source>Manage security token</source>
         <translation>Spravovať bezpečnostný token</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="287"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
-        <translation>Podrobnosti položky „%1” nemožno zobraziť</translation>
+        <translation type="vanished">Podrobnosti položky „%1” nemožno zobraziť</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="104"/>
-        <location filename="../widgets/ImportMulti.cpp" line="291"/>
+        <location filename="../widgets/ImportMulti.cpp" line="106"/>
+        <location filename="../widgets/ImportMulti.cpp" line="300"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Typ položky „%1” nie je rozpoznaný</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="319"/>
+        <location filename="../widgets/ImportMulti.cpp" line="252"/>
+        <source>Could not open the default database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/ImportMulti.cpp" line="328"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
         <translation>Súbor „%1” neobsahuje dáta PKI</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="322"/>
+        <location filename="../widgets/ImportMulti.cpp" line="331"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
         <translation>%1 súbory: „%2” neobsahuje dáta PKI</translation>
     </message>
@@ -890,7 +894,7 @@ Sér. č.: %3</translation>
         <translation>Interný názov kľúča používaný v xca</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="106"/>
+        <location filename="../widgets/KeyDetail.cpp" line="101"/>
         <source>Security token</source>
         <translation>Bezpečnostný token</translation>
     </message>
@@ -962,47 +966,47 @@ Sér. č.: %3</translation>
         <translation>Komentár</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="89"/>
+        <location filename="../widgets/KeyDetail.cpp" line="84"/>
         <source>Details of the %1 key</source>
         <translation>Podrobnosti kľúča %1</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="95"/>
+        <location filename="../widgets/KeyDetail.cpp" line="90"/>
         <source>Not available</source>
         <translation>Nedostupné</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="108"/>
+        <location filename="../widgets/KeyDetail.cpp" line="103"/>
         <source>Available</source>
         <translation>Dostupný</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="117"/>
+        <location filename="../widgets/KeyDetail.cpp" line="112"/>
         <source>Sub prime</source>
         <translation>Sub prime</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="118"/>
-        <location filename="../widgets/KeyDetail.cpp" line="127"/>
-        <location filename="../widgets/KeyDetail.cpp" line="139"/>
+        <location filename="../widgets/KeyDetail.cpp" line="113"/>
+        <location filename="../widgets/KeyDetail.cpp" line="122"/>
+        <location filename="../widgets/KeyDetail.cpp" line="134"/>
         <source>Public key</source>
         <translation>Verejný kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="119"/>
-        <location filename="../widgets/KeyDetail.cpp" line="128"/>
-        <location filename="../widgets/KeyDetail.cpp" line="140"/>
+        <location filename="../widgets/KeyDetail.cpp" line="114"/>
+        <location filename="../widgets/KeyDetail.cpp" line="123"/>
+        <location filename="../widgets/KeyDetail.cpp" line="135"/>
         <source>Private key</source>
         <translation>Súkromný kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="129"/>
-        <location filename="../widgets/KeyDetail.cpp" line="141"/>
+        <location filename="../widgets/KeyDetail.cpp" line="124"/>
+        <location filename="../widgets/KeyDetail.cpp" line="136"/>
         <source>Curve name</source>
         <translation>Názov krivky</translation>
     </message>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="148"/>
+        <location filename="../widgets/KeyDetail.cpp" line="143"/>
         <source>Unknown key</source>
         <translation>Neznámy kľúč</translation>
     </message>
@@ -1133,7 +1137,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="216"/>
-        <location filename="../widgets/MW_menu.cpp" line="138"/>
+        <location filename="../widgets/MW_menu.cpp" line="146"/>
         <source>Certificates</source>
         <translation>Certifikáty</translation>
     </message>
@@ -1183,7 +1187,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Zoznamy odvolaných</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="592"/>
+        <location filename="../widgets/MainWindow.cpp" line="594"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Použitie alebo exportovanie súkromných kľúčov nebude možné bez zadania správneho hesla</translation>
     </message>
@@ -1192,12 +1196,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation type="vanished">Databáza</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="598"/>
+        <location filename="../widgets/MainWindow.cpp" line="600"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>Aktuálne použitý predvolený odtlačok „%1” nie je bezpečný. Prosím, kvôli bezpečnosti, zvoľte aspoň „SHA 224”.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="85"/>
+        <location filename="../widgets/MW_menu.cpp" line="97"/>
         <source>Recent DataBases</source>
         <translation>Nedávne databázy</translation>
     </message>
@@ -1208,349 +1212,349 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>systémový</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="28"/>
+        <location filename="../widgets/MW_help.cpp" line="30"/>
         <source>Croatian</source>
         <translation>chorvátsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="31"/>
+        <location filename="../widgets/MW_help.cpp" line="33"/>
         <source>English</source>
         <translation>anglicky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="32"/>
+        <location filename="../widgets/MW_help.cpp" line="34"/>
         <source>French</source>
         <translation>francúzsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="34"/>
+        <location filename="../widgets/MW_help.cpp" line="36"/>
         <source>German</source>
         <translation>nemecky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="38"/>
+        <location filename="../widgets/MW_help.cpp" line="42"/>
         <source>Japanese</source>
         <translation>japonsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="44"/>
+        <location filename="../widgets/MW_help.cpp" line="50"/>
         <source>Russian</source>
         <translation>rusky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="45"/>
+        <location filename="../widgets/MW_help.cpp" line="51"/>
         <source>Slovak</source>
         <translation>slovensky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="47"/>
+        <location filename="../widgets/MW_help.cpp" line="53"/>
         <source>Spanish</source>
         <translation>španielsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="52"/>
+        <location filename="../widgets/MW_help.cpp" line="44"/>
         <source>Persian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="54"/>
+        <location filename="../widgets/MW_help.cpp" line="26"/>
         <source>Bulgarian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="40"/>
+        <location filename="../widgets/MW_help.cpp" line="46"/>
         <source>Polish</source>
         <translation>poľsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="36"/>
+        <location filename="../widgets/MW_help.cpp" line="40"/>
         <source>Italian</source>
         <translation>taliansky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="26"/>
+        <location filename="../widgets/MW_help.cpp" line="28"/>
         <source>Chinese</source>
         <translation>čínsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="30"/>
+        <location filename="../widgets/MW_help.cpp" line="32"/>
         <source>Dutch</source>
         <translation>holandsky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="42"/>
+        <location filename="../widgets/MW_help.cpp" line="48"/>
         <source>Portuguese in Brazil</source>
         <translation>brazílska portugalčina</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="49"/>
+        <location filename="../widgets/MW_help.cpp" line="38"/>
         <source>Indonesian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="51"/>
+        <location filename="../widgets/MW_help.cpp" line="55"/>
         <source>Turkish</source>
         <translation>turecky</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="91"/>
+        <location filename="../widgets/MW_menu.cpp" line="85"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="100"/>
+        <location filename="../widgets/MW_menu.cpp" line="103"/>
         <source>&amp;File</source>
         <translation>&amp;Súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="110"/>
+        <location filename="../widgets/MW_menu.cpp" line="113"/>
         <source>Open Remote DataBase</source>
         <translation>Otvoriť vzdialenú databázu</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="114"/>
+        <location filename="../widgets/MW_menu.cpp" line="117"/>
         <source>Set as default DataBase</source>
         <translation>Predvolená databáza</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="102"/>
+        <location filename="../widgets/MW_menu.cpp" line="105"/>
         <source>New DataBase</source>
         <translation>Nová databáza</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="106"/>
+        <location filename="../widgets/MW_menu.cpp" line="109"/>
         <source>Open DataBase</source>
         <translation>Otvoriť databázu</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="116"/>
+        <location filename="../widgets/MW_menu.cpp" line="119"/>
         <source>Close DataBase</source>
         <translation>Zatvoriť databázu</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="120"/>
+        <location filename="../widgets/MW_menu.cpp" line="124"/>
         <source>Options</source>
         <translation>Voľby</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="128"/>
+        <location filename="../widgets/MW_menu.cpp" line="132"/>
         <source>Exit</source>
         <translation>Skončiť</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="135"/>
+        <location filename="../widgets/MW_menu.cpp" line="143"/>
         <source>I&amp;mport</source>
         <translation>&amp;Importovať</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="136"/>
+        <location filename="../widgets/MW_menu.cpp" line="144"/>
         <source>Keys</source>
         <translation>Kľúče</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="137"/>
+        <location filename="../widgets/MW_menu.cpp" line="145"/>
         <source>Requests</source>
         <translation>Žiadosti</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="139"/>
+        <location filename="../widgets/MW_menu.cpp" line="147"/>
         <source>PKCS#12</source>
         <translation>PKCS#12</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="140"/>
+        <location filename="../widgets/MW_menu.cpp" line="148"/>
         <source>PKCS#7</source>
         <translation>PKCS#7</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="141"/>
+        <location filename="../widgets/MW_menu.cpp" line="149"/>
         <source>Template</source>
         <translation>Šablóna</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="142"/>
+        <location filename="../widgets/MW_menu.cpp" line="150"/>
         <source>Revocation list</source>
         <translation>Zoznam odvolaných</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="143"/>
+        <location filename="../widgets/MW_menu.cpp" line="151"/>
         <source>PEM file</source>
         <translation>Ssúbor PEM</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="144"/>
+        <location filename="../widgets/MW_menu.cpp" line="152"/>
         <source>Paste PEM file</source>
         <translation>Vložte súbor PEM</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="147"/>
+        <location filename="../widgets/MW_menu.cpp" line="156"/>
         <source>Token</source>
         <translation>Token</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="164"/>
+        <location filename="../widgets/MW_menu.cpp" line="173"/>
         <source>Export Certificate &amp;Index hierarchy</source>
         <translation>Exportovať hierarchiu &amp;indexu certifikátov</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="177"/>
+        <location filename="../widgets/MW_menu.cpp" line="191"/>
         <source>Content</source>
         <translation>Obsah</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="148"/>
+        <location filename="../widgets/MW_menu.cpp" line="157"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Spravovať Bezpečnostný token</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="150"/>
+        <location filename="../widgets/MW_menu.cpp" line="159"/>
         <source>&amp;Init Security token</source>
         <translation>&amp;Inicializovať Bezpečnostný token</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="152"/>
+        <location filename="../widgets/MW_menu.cpp" line="161"/>
         <source>&amp;Change PIN</source>
         <translation>Zmeniť @PIN</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="154"/>
+        <location filename="../widgets/MW_menu.cpp" line="163"/>
         <source>Change &amp;SO PIN</source>
         <translation>Zmeniť &amp;SO PIN</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="156"/>
+        <location filename="../widgets/MW_menu.cpp" line="165"/>
         <source>Init PIN</source>
         <translation>Inicializovať PIN</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="159"/>
+        <location filename="../widgets/MW_menu.cpp" line="168"/>
         <source>Extra</source>
         <translation>Extra</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="160"/>
+        <location filename="../widgets/MW_menu.cpp" line="169"/>
         <source>&amp;Dump DataBase</source>
         <translation>Vypísať &amp;databázu</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="162"/>
+        <location filename="../widgets/MW_menu.cpp" line="171"/>
         <source>&amp;Export Certificate Index</source>
         <translation>&amp;Exportovať index certifikátov</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="166"/>
+        <location filename="../widgets/MW_menu.cpp" line="175"/>
         <source>C&amp;hange DataBase password</source>
         <translation>Z&amp;meniť heslo databázy</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="169"/>
+        <location filename="../widgets/MW_menu.cpp" line="178"/>
         <source>&amp;Undelete items</source>
         <translation>O&amp;bnoviť zmazané</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="172"/>
+        <location filename="../widgets/MW_menu.cpp" line="181"/>
         <source>Generate DH parameter</source>
         <translation>Generovať parametre DH</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="174"/>
+        <location filename="../widgets/MW_menu.cpp" line="183"/>
         <source>OID Resolver</source>
         <translation>Prekladač OID</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="176"/>
+        <location filename="../widgets/MW_menu.cpp" line="190"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomocník</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="179"/>
+        <location filename="../widgets/MW_menu.cpp" line="193"/>
         <source>About</source>
         <translation>O programe</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="254"/>
+        <location filename="../widgets/MainWindow.cpp" line="253"/>
         <source>Import PEM data</source>
         <translation>Importovať dáta PEM</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="283"/>
+        <location filename="../widgets/MainWindow.cpp" line="282"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>Prosím, zadajte pôvodný SO PIN (PUK) tokenu „%1”</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="113"/>
-        <location filename="../widgets/MainWindow.cpp" line="736"/>
+        <location filename="../widgets/MainWindow.cpp" line="738"/>
         <source>Search</source>
         <translation>Hľadať</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="289"/>
+        <location filename="../widgets/MainWindow.cpp" line="288"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>Prosím, zadajte nový SO PIN (PUK) tokenu „%1”</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="296"/>
+        <location filename="../widgets/MainWindow.cpp" line="295"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>Nová menovka tokenu „%1”</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="404"/>
+        <location filename="../widgets/MainWindow.cpp" line="403"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Token „%1” neobsahuje žiadne kľúče ani certifikáty</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="448"/>
+        <location filename="../widgets/MainWindow.cpp" line="450"/>
         <source>Current Password</source>
         <translation>Aktuálne heslo</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="449"/>
+        <location filename="../widgets/MainWindow.cpp" line="451"/>
         <source>Please enter the current database password</source>
         <translation>Prosím, zadajte heslo aktuálnej databázy</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="459"/>
+        <location filename="../widgets/MainWindow.cpp" line="461"/>
         <source>The entered password is wrong</source>
         <translation>Zadané heslo je zlé</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="464"/>
+        <location filename="../widgets/MainWindow.cpp" line="466"/>
         <source>New Password</source>
         <translation>Nové heslo</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="464"/>
+        <location filename="../widgets/MainWindow.cpp" line="466"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Prosím, zadajte nové heslo na šifrovanie svojich súkromných kľúčov v súbore databázy</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="488"/>
+        <location filename="../widgets/MainWindow.cpp" line="490"/>
         <source>Transaction start failed</source>
         <translation>Spustenie transakcie zlyhalo</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="575"/>
+        <location filename="../widgets/MainWindow.cpp" line="577"/>
         <source>Database: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="656"/>
+        <location filename="../widgets/MainWindow.cpp" line="658"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Index certifikátov (index.txt)</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="657"/>
-        <location filename="../widgets/MainWindow.cpp" line="713"/>
+        <location filename="../widgets/MainWindow.cpp" line="659"/>
+        <location filename="../widgets/MainWindow.cpp" line="715"/>
         <source>All files ( * )</source>
         <translation>Všetky súbory ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="680"/>
+        <location filename="../widgets/MainWindow.cpp" line="682"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
         <translation>Parametre Diffie-Hellman uložené do: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="698"/>
+        <location filename="../widgets/MainWindow.cpp" line="700"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>Parametre Diffie-Hellman sú potrebné pre rôzne aplikácie, ale nie sú používané v XCA.
@@ -1798,7 +1802,7 @@ Prosím, zadajte bity parametra DH</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="336"/>
-        <location filename="../widgets/NewX509.cpp" line="596"/>
+        <location filename="../widgets/NewX509.cpp" line="605"/>
         <source>Subject</source>
         <translation>Predmet</translation>
     </message>
@@ -1974,7 +1978,7 @@ Prosím, zadajte bity parametra DH</translation>
         <location filename="../ui/NewX509.ui" line="762"/>
         <location filename="../ui/NewX509.ui" line="795"/>
         <location filename="../ui/NewX509.ui" line="831"/>
-        <location filename="../widgets/NewX509.cpp" line="996"/>
+        <location filename="../widgets/NewX509.cpp" line="1012"/>
         <source>Edit</source>
         <translation>Upraviť</translation>
     </message>
@@ -2000,7 +2004,7 @@ Prosím, zadajte bity parametra DH</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1163"/>
-        <location filename="../widgets/NewX509.cpp" line="1006"/>
+        <location filename="../widgets/NewX509.cpp" line="1022"/>
         <source>Validate</source>
         <translation>Overiť</translation>
     </message>
@@ -2015,159 +2019,159 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>Tento názov je použitý len interne a neobjaví sa vo výslednom certifikáte</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="274"/>
+        <location filename="../widgets/NewX509.cpp" line="272"/>
         <source>Critical</source>
         <translation>Kritické</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="314"/>
+        <location filename="../widgets/NewX509.cpp" line="312"/>
         <source>Create Certificate signing request</source>
         <translation>Vytvoriť Žiadosť o podpísanie certifikátu</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="340"/>
+        <location filename="../widgets/NewX509.cpp" line="338"/>
         <source>minimum size: %1</source>
         <translation>minimálna veľkosť: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="342"/>
+        <location filename="../widgets/NewX509.cpp" line="340"/>
         <source>maximum size: %1</source>
         <translation>maximálna veľkosť: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="344"/>
+        <location filename="../widgets/NewX509.cpp" line="342"/>
         <source>only a-z A-Z 0-9 &apos;()+,-./:=?</source>
         <translation>len a-z A-Z 0-9 &apos;()+,-./:=?</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="348"/>
+        <location filename="../widgets/NewX509.cpp" line="346"/>
         <source>only 7-bit clean characters</source>
         <translation>len prosté 7-b znaky</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="373"/>
+        <location filename="../widgets/NewX509.cpp" line="371"/>
         <source>Edit XCA template</source>
         <translation>Upraviť šablónu XCA</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="386"/>
+        <location filename="../widgets/NewX509.cpp" line="395"/>
         <source>Create x509 Certificate</source>
         <translation>Vytvoriť certifikát x509</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="757"/>
+        <location filename="../widgets/NewX509.cpp" line="773"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Šablóna „%1” aplikovaná</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="764"/>
+        <location filename="../widgets/NewX509.cpp" line="780"/>
         <source>Subject applied from template &apos;%1&apos;</source>
         <translation>Predmet nastavený zo šablóny „%1”</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="772"/>
+        <location filename="../widgets/NewX509.cpp" line="788"/>
         <source>Extensions applied from template &apos;%1&apos;</source>
         <translation>Rozšírenia nastavené zo šablóny „%1”</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="787"/>
+        <location filename="../widgets/NewX509.cpp" line="803"/>
         <source>New key &apos;%1&apos; created</source>
         <translation>Vytvorený nový kľúč „%1”</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1029"/>
+        <location filename="../widgets/NewX509.cpp" line="1045"/>
         <source>Other Tabs</source>
         <translation>Záložka Iné</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1043"/>
+        <location filename="../widgets/NewX509.cpp" line="1059"/>
         <source>Advanced Tab</source>
         <translation>Záložka Pokročilé</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1050"/>
+        <location filename="../widgets/NewX509.cpp" line="1066"/>
         <source>Errors</source>
         <translation>Chyby</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1068"/>
+        <location filename="../widgets/NewX509.cpp" line="1084"/>
         <source>From PKCS#10 request</source>
         <translation>Zo žiadosti PKCS#10</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1191"/>
-        <location filename="../widgets/NewX509.cpp" line="1204"/>
-        <location filename="../widgets/NewX509.cpp" line="1223"/>
-        <location filename="../widgets/NewX509.cpp" line="1235"/>
+        <location filename="../widgets/NewX509.cpp" line="1207"/>
+        <location filename="../widgets/NewX509.cpp" line="1220"/>
+        <location filename="../widgets/NewX509.cpp" line="1239"/>
         <location filename="../widgets/NewX509.cpp" line="1251"/>
-        <location filename="../widgets/NewX509.cpp" line="1265"/>
-        <location filename="../widgets/NewX509.cpp" line="1299"/>
-        <location filename="../widgets/NewX509.cpp" line="1318"/>
-        <location filename="../widgets/NewX509.cpp" line="1341"/>
-        <location filename="../widgets/NewX509.cpp" line="1364"/>
-        <location filename="../widgets/NewX509.cpp" line="1397"/>
-        <location filename="../widgets/NewX509.cpp" line="1417"/>
+        <location filename="../widgets/NewX509.cpp" line="1267"/>
+        <location filename="../widgets/NewX509.cpp" line="1281"/>
+        <location filename="../widgets/NewX509.cpp" line="1315"/>
+        <location filename="../widgets/NewX509.cpp" line="1334"/>
+        <location filename="../widgets/NewX509.cpp" line="1357"/>
+        <location filename="../widgets/NewX509.cpp" line="1380"/>
+        <location filename="../widgets/NewX509.cpp" line="1413"/>
+        <location filename="../widgets/NewX509.cpp" line="1433"/>
         <source>Abort rollout</source>
         <translation>Prerušiť operáciu</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1200"/>
+        <location filename="../widgets/NewX509.cpp" line="1216"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Nie sú splnené Nasledujúce obmedzenia veľkosti z RFC3280:</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1203"/>
-        <location filename="../widgets/NewX509.cpp" line="1264"/>
+        <location filename="../widgets/NewX509.cpp" line="1219"/>
+        <location filename="../widgets/NewX509.cpp" line="1280"/>
         <source>Edit subject</source>
         <translation>Upraviť predmet</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1205"/>
-        <location filename="../widgets/NewX509.cpp" line="1266"/>
-        <location filename="../widgets/NewX509.cpp" line="1319"/>
-        <location filename="../widgets/NewX509.cpp" line="1342"/>
-        <location filename="../widgets/NewX509.cpp" line="1365"/>
-        <location filename="../widgets/NewX509.cpp" line="1398"/>
-        <location filename="../widgets/NewX509.cpp" line="1418"/>
+        <location filename="../widgets/NewX509.cpp" line="1221"/>
+        <location filename="../widgets/NewX509.cpp" line="1282"/>
+        <location filename="../widgets/NewX509.cpp" line="1335"/>
+        <location filename="../widgets/NewX509.cpp" line="1358"/>
+        <location filename="../widgets/NewX509.cpp" line="1381"/>
+        <location filename="../widgets/NewX509.cpp" line="1414"/>
+        <location filename="../widgets/NewX509.cpp" line="1434"/>
         <source>Continue rollout</source>
         <translation>Pokračovať v operácii</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1221"/>
+        <location filename="../widgets/NewX509.cpp" line="1237"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Overenie žiadosti o certifikát zlyhalo.
 Operácia by mala byť prerušená.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1222"/>
+        <location filename="../widgets/NewX509.cpp" line="1238"/>
         <source>Continue anyway</source>
         <translation>Pokračovať i tak</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1233"/>
+        <location filename="../widgets/NewX509.cpp" line="1249"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation>Interný názov a bežný názov sú prázdne.
 Prosím, zadajte aspoň interný názov.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1234"/>
+        <location filename="../widgets/NewX509.cpp" line="1250"/>
         <source>Edit name</source>
         <translation>Upraviť názov</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1249"/>
+        <location filename="../widgets/NewX509.cpp" line="1265"/>
         <source>There is no Key selected for signing.</source>
         <translation>Nebol zvolený kľúč na podpísanie.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1250"/>
+        <location filename="../widgets/NewX509.cpp" line="1266"/>
         <source>Select key</source>
         <translation>Vybrať kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1262"/>
+        <location filename="../widgets/NewX509.cpp" line="1278"/>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
@@ -2176,86 +2180,86 @@ though you have declared them as mandatory in the options menu.</source>
 hoci ste ich v nastavení definovali ako povinné.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1296"/>
+        <location filename="../widgets/NewX509.cpp" line="1312"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Kľúč, zvolený na podpísanie, nie je súkromný.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1297"/>
+        <location filename="../widgets/NewX509.cpp" line="1313"/>
         <source>Select other signer</source>
         <translation>Zvoliť iného vydavateľa</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1297"/>
+        <location filename="../widgets/NewX509.cpp" line="1313"/>
         <source>Select other key</source>
         <translation>Zvoliť iný kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1307"/>
+        <location filename="../widgets/NewX509.cpp" line="1323"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
         <translation>Aktuálne zvolený algoritmus odtlačku „%1” nie je bezpečný a nemá byť používaný.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1308"/>
+        <location filename="../widgets/NewX509.cpp" line="1324"/>
         <source>Select other algorithm</source>
         <translation>Zvoľte iný algoritmus</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1309"/>
+        <location filename="../widgets/NewX509.cpp" line="1325"/>
         <source>Use algorithm anyway</source>
         <translation>Použiť algoritmus aj tak</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1315"/>
+        <location filename="../widgets/NewX509.cpp" line="1331"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Certifikát bude platný skôr ako jeho vydavateľ. To asi nie je to, čo chcete.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1317"/>
-        <location filename="../widgets/NewX509.cpp" line="1340"/>
-        <location filename="../widgets/NewX509.cpp" line="1363"/>
+        <location filename="../widgets/NewX509.cpp" line="1333"/>
+        <location filename="../widgets/NewX509.cpp" line="1356"/>
+        <location filename="../widgets/NewX509.cpp" line="1379"/>
         <source>Edit dates</source>
         <translation>Upraviť dátumy</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1320"/>
-        <location filename="../widgets/NewX509.cpp" line="1343"/>
+        <location filename="../widgets/NewX509.cpp" line="1336"/>
+        <location filename="../widgets/NewX509.cpp" line="1359"/>
         <source>Adjust date and continue</source>
         <translation>Opraviť dátum a pokračovať</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1338"/>
+        <location filename="../widgets/NewX509.cpp" line="1354"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Certifikát bude platný dlhšie ako jeho vydavateľ. To asi nie je to, čo chcete.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1361"/>
+        <location filename="../widgets/NewX509.cpp" line="1377"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Certifikát vyprší ešte pred nadobudnutím platnosti. Pravdepodobne ste zamenili oba dátumy.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1383"/>
+        <location filename="../widgets/NewX509.cpp" line="1399"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Certifikát obsahuje neplatné alebo duplicitné rozšírenia. Skontrolujte platnosť na záložke Pokročilé.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1387"/>
+        <location filename="../widgets/NewX509.cpp" line="1403"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>Certifikát neobsahuje rozšírenia. Na definovanie určenia certifikátu môžete pridať rozšírenia jednej zo šablón.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1391"/>
+        <location filename="../widgets/NewX509.cpp" line="1407"/>
         <source>The certificate contains invalid extensions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1396"/>
-        <location filename="../widgets/NewX509.cpp" line="1416"/>
+        <location filename="../widgets/NewX509.cpp" line="1412"/>
+        <location filename="../widgets/NewX509.cpp" line="1432"/>
         <source>Edit extensions</source>
         <translation>Upraviť rozšírenia</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1415"/>
+        <location filename="../widgets/NewX509.cpp" line="1431"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>Alternatívne meno predmetu má obsahovať kópiu bežného mena. Avšak, bežné meno je prázdne.</translation>
     </message>
@@ -2519,12 +2523,12 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Všetky reťazce</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="62"/>
+        <location filename="../widgets/Options.cpp" line="61"/>
         <source>Days</source>
         <translation>Dni</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="62"/>
+        <location filename="../widgets/Options.cpp" line="61"/>
         <source>Weeks</source>
         <translation>Týždne</translation>
     </message>
@@ -2600,52 +2604,52 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../lib/asn1time.cpp" line="157"/>
+        <location filename="../lib/asn1time.cpp" line="142"/>
         <source>Undefined</source>
         <translation>Nedefinované</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="159"/>
+        <location filename="../lib/asn1time.cpp" line="144"/>
         <source>Broken / Invalid</source>
         <translation>Poškodený/Neplatný</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="205"/>
+        <location filename="../lib/asn1time.cpp" line="190"/>
         <source>in %1 seconds</source>
         <translation>za %1 sekúnd</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="206"/>
+        <location filename="../lib/asn1time.cpp" line="191"/>
         <source>%1 seconds ago</source>
         <translation>pred %1 sekundami</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="209"/>
+        <location filename="../lib/asn1time.cpp" line="194"/>
         <source>in %1 minutes</source>
         <translation>za %1 minút</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="210"/>
+        <location filename="../lib/asn1time.cpp" line="195"/>
         <source>%1 minutes ago</source>
         <translation>pred %1 minútami</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="212"/>
+        <location filename="../lib/asn1time.cpp" line="197"/>
         <source>Yesterday</source>
         <translation>Včera</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="214"/>
+        <location filename="../lib/asn1time.cpp" line="199"/>
         <source>Tomorrow</source>
         <translation>Zajtra</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="217"/>
+        <location filename="../lib/asn1time.cpp" line="202"/>
         <source>in %1 hours</source>
         <translation>za %1 hodiny</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="218"/>
+        <location filename="../lib/asn1time.cpp" line="203"/>
         <source>%1 hours ago</source>
         <translation>pred %1 hodinami</translation>
     </message>
@@ -2815,7 +2819,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Prosím, zadajte nový PIN tokenu: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.h" line="99"/>
+        <location filename="../lib/pkcs11.h" line="96"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>Požadovaná veľkosť PIN: %1 - %2</translation>
     </message>
@@ -2832,22 +2836,22 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation type="vanished">Toto nevyzerá ako knižnica PKCS#11. Symbol &apos;C_GetFunctionList&apos; nenájdený.</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="119"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="118"/>
         <source>Disabled</source>
         <translation>Vypnuté</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="123"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="122"/>
         <source>Library loading failed</source>
         <translation>Načítanie knižnice zlyhalo</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="480"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="483"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>Funkcia PKCS#11 „%1” zlyhala: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="488"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="491"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2
 In library %3
 %4</source>
@@ -2856,22 +2860,22 @@ V knižnici %3
 %4</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="111"/>
+        <location filename="../lib/x509name.cpp" line="104"/>
         <source>Invalid</source>
         <translation>Neplatné</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="235"/>
+        <location filename="../lib/x509name.cpp" line="220"/>
         <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 je kratšie ako %2 B: „%3”</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="240"/>
+        <location filename="../lib/x509name.cpp" line="225"/>
         <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 je dlhšie ako %2 B: „%3”</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="99"/>
+        <location filename="../lib/x509v3ext.cpp" line="103"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>Reťazec „%1” pre „%2” obsahuje neplatné znaky</translation>
     </message>
@@ -2901,207 +2905,207 @@ V knižnici %3
         <translation>Zlyhala inicializácia DB transakcie</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="575"/>
+        <location filename="../lib/func_base.cpp" line="224"/>
         <source>Country code</source>
         <translation>Kód krajiny</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="576"/>
+        <location filename="../lib/func_base.cpp" line="225"/>
         <source>State or Province</source>
         <translation>Štát alebo provincia</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="577"/>
+        <location filename="../lib/func_base.cpp" line="226"/>
         <source>Locality</source>
         <translation>Lokalita</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="578"/>
+        <location filename="../lib/func_base.cpp" line="227"/>
         <source>Organisation</source>
         <translation>Organizácia</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="579"/>
+        <location filename="../lib/func_base.cpp" line="228"/>
         <source>Organisational unit</source>
         <translation>Organizačná jednotka</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="580"/>
+        <location filename="../lib/func_base.cpp" line="229"/>
         <source>Common name</source>
         <translation>Bežný názov</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="581"/>
+        <location filename="../lib/func_base.cpp" line="230"/>
         <source>E-Mail address</source>
         <translation>Emailová adresa</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="582"/>
+        <location filename="../lib/func_base.cpp" line="231"/>
         <source>Serial number</source>
         <translation>Sériové číslo</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="583"/>
+        <location filename="../lib/func_base.cpp" line="232"/>
         <source>Given name</source>
         <translation>Rodné meno</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="584"/>
+        <location filename="../lib/func_base.cpp" line="233"/>
         <source>Surname</source>
         <translation>Priezvisko</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="585"/>
+        <location filename="../lib/func_base.cpp" line="234"/>
         <source>Title</source>
         <translation>Titul</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="586"/>
+        <location filename="../lib/func_base.cpp" line="235"/>
         <source>Initials</source>
         <translation>Iniciály</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="587"/>
+        <location filename="../lib/func_base.cpp" line="236"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="588"/>
+        <location filename="../lib/func_base.cpp" line="237"/>
         <source>Role</source>
         <translation>Rola</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="589"/>
+        <location filename="../lib/func_base.cpp" line="238"/>
         <source>Pseudonym</source>
         <translation>Pseudonym</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="590"/>
+        <location filename="../lib/func_base.cpp" line="239"/>
         <source>Generation Qualifier</source>
         <translation>Prívlastok generácie</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="591"/>
+        <location filename="../lib/func_base.cpp" line="240"/>
         <source>x500 Unique Identifier</source>
         <translation>Jedinečný identifikátor x500</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="592"/>
+        <location filename="../lib/func_base.cpp" line="241"/>
         <source>Name</source>
         <translation>Názov</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="593"/>
+        <location filename="../lib/func_base.cpp" line="242"/>
         <source>DN Qualifier</source>
         <translation>Prívlastok DN</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="594"/>
+        <location filename="../lib/func_base.cpp" line="243"/>
         <source>Unstructured name</source>
         <translation>Neštruktúrovaný názov</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="595"/>
+        <location filename="../lib/func_base.cpp" line="244"/>
         <source>Challenge password</source>
         <translation>Heslo výzvy</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="597"/>
+        <location filename="../lib/func_base.cpp" line="246"/>
         <source>Basic Constraints</source>
         <translation>Základné obmedzenia</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="598"/>
+        <location filename="../lib/func_base.cpp" line="247"/>
         <source>Subject alternative name</source>
         <translation>Alternatívne meno predmetu</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="599"/>
+        <location filename="../lib/func_base.cpp" line="248"/>
         <source>issuer alternative name</source>
         <translation>Alternatívny názov vydavateľa</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="600"/>
+        <location filename="../lib/func_base.cpp" line="249"/>
         <source>Subject key identifier</source>
         <translation>Identifikátor kľúča predmetu</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="601"/>
+        <location filename="../lib/func_base.cpp" line="250"/>
         <source>Authority key identifier</source>
         <translation>Identifikátor kľúča autority</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="602"/>
+        <location filename="../lib/func_base.cpp" line="251"/>
         <source>Key usage</source>
         <translation>Použitie kľúča</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="603"/>
+        <location filename="../lib/func_base.cpp" line="252"/>
         <source>Extended key usage</source>
         <translation>Rozšírené použitie kľúča</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="604"/>
+        <location filename="../lib/func_base.cpp" line="253"/>
         <source>CRL distribution points</source>
         <translation>Distribučné body CRL</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="605"/>
+        <location filename="../lib/func_base.cpp" line="254"/>
         <source>Authority information access</source>
         <translation>Prístup k informácii CA (AIA)</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="606"/>
+        <location filename="../lib/func_base.cpp" line="255"/>
         <source>Certificate type</source>
         <translation>Typ certifikátu</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="607"/>
+        <location filename="../lib/func_base.cpp" line="256"/>
         <source>Base URL</source>
         <translation>Základná URL</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="608"/>
+        <location filename="../lib/func_base.cpp" line="257"/>
         <source>Revocation URL</source>
         <translation>URL odvolaní</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="609"/>
+        <location filename="../lib/func_base.cpp" line="258"/>
         <source>CA Revocation URL</source>
         <translation>URL odvolaní CA</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="610"/>
+        <location filename="../lib/func_base.cpp" line="259"/>
         <source>Certificate renewal URL</source>
         <translation>URL obnovenia CRL</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="611"/>
+        <location filename="../lib/func_base.cpp" line="260"/>
         <source>CA policy URL</source>
         <translation>URL politiky CA</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="612"/>
+        <location filename="../lib/func_base.cpp" line="261"/>
         <source>SSL server name</source>
         <translation>Meno servera SSL</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="613"/>
+        <location filename="../lib/func_base.cpp" line="262"/>
         <source>Comment</source>
         <translation>Komentár</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="357"/>
+        <location filename="../lib/cmdline.cpp" line="163"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Súbor index zapísaný do „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="364"/>
+        <location filename="../lib/cmdline.cpp" line="170"/>
         <source>Index hierarchy written to &apos;%1&apos;</source>
         <translation>Hierarchia indexu zapísaná do „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/main.cpp" line="377"/>
+        <location filename="../lib/cmdline.cpp" line="183"/>
         <source>Unknown key type %1</source>
         <translation>Neznámy typ kľúča %1</translation>
     </message>
@@ -3111,7 +3115,7 @@ V knižnici %3
         <translation>Chyba overenia hesla, prosím, skúste znova</translation>
     </message>
     <message>
-        <location filename="../lib/XcaWarningCore.h" line="92"/>
+        <location filename="../lib/XcaWarningCore.h" line="95"/>
         <source>The following error occurred:</source>
         <translation>Nastala nasledujúca chyba:</translation>
     </message>
@@ -3128,12 +3132,12 @@ V knižnici %3
         <translation type="vanished">DB: Chyba zápisu %1 – %2</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="74"/>
+        <location filename="../lib/database_model.cpp" line="113"/>
         <source>Failed to update the database schema to the current version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/PwDialogCore.cpp" line="27"/>
+        <location filename="../lib/PwDialogCore.cpp" line="33"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
@@ -3219,7 +3223,7 @@ V knižnici %3
         <translation>Zneplatnenie</translation>
     </message>
     <message>
-        <location filename="../widgets/RevocationList.cpp" line="106"/>
+        <location filename="../widgets/RevocationList.cpp" line="107"/>
         <source>Generate CRL</source>
         <translation>Generovať CRL</translation>
     </message>
@@ -3367,7 +3371,7 @@ V knižnici %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="94"/>
+        <location filename="../widgets/validity.cpp" line="92"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>d. MMM yyyy hh:mm</translation>
     </message>
@@ -3375,32 +3379,32 @@ V knižnici %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="29"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="28"/>
         <source>OpenSSL config</source>
         <translation>Konfigurácia OpenSSL</translation>
     </message>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="30"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="29"/>
         <source>Transform</source>
         <translation>Transformovať</translation>
     </message>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="31"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="30"/>
         <source>Template</source>
         <translation>Šablóna</translation>
     </message>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="32"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="31"/>
         <source>Public key</source>
         <translation>Verejný kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="62"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="61"/>
         <source>Save as OpenSSL config</source>
         <translation>Uložiť ako konfiguráciu OpenSSL</translation>
     </message>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="63"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="62"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
         <translation>Konfiguračné súbory ( *.conf *.cnf );; Všetky súbory ( * )</translation>
     </message>
@@ -3419,94 +3423,102 @@ V knižnici %3
     </message>
 </context>
 <context>
+    <name>XcaDetail</name>
+    <message>
+        <location filename="../widgets/XcaDetail.cpp" line="47"/>
+        <source>Import</source>
+        <translation type="unfinished">Importovať</translation>
+    </message>
+</context>
+<context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="314"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="330"/>
         <source>Item properties</source>
         <translation>Vlastnosti položky</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="381"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="400"/>
         <source>Subject entries</source>
         <translation>Položky predmetu</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="382"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="401"/>
         <source>X509v3 Extensions</source>
         <translation>Rozšírenia X509v3</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="383"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="402"/>
         <source>Netscape extensions</source>
         <translation>Rozšírenia Netscape</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="384"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="403"/>
         <source>Key properties</source>
         <translation>Vlastnosti kľúča</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="385"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="404"/>
         <source>Reset</source>
         <translation>Vymazať</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="388"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="407"/>
         <source>Hide Column</source>
         <translation>Odstrániť stĺpec</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="390"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="409"/>
         <source>Details</source>
         <translation>Podrobnosti</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="433"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="450"/>
         <source>Columns</source>
         <translation>Stĺpce</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="499"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="516"/>
         <source>New</source>
         <translation>Nový</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="500"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="517"/>
         <source>Import</source>
         <translation>Importovať</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="501"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="518"/>
         <source>Paste PEM data</source>
         <translation>Vložiť dáta PEM</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="505"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="522"/>
         <source>Rename</source>
         <translation>Premenovať</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="506"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="523"/>
         <source>Properties</source>
         <translation>Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="509"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="526"/>
         <source>Delete</source>
         <translation>Odstrániť</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="511"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="528"/>
         <source>Export</source>
         <translation>Exportovať</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="512"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="529"/>
         <source>Clipboard</source>
         <translation>Schránka</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="514"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="531"/>
         <source>File</source>
         <translation>Súbor</translation>
     </message>
@@ -3522,44 +3534,44 @@ V knižnici %3
         <translation type="vanished">Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="121"/>
+        <location filename="../lib/database_model.cpp" line="164"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation>Prosím, zadajte heslo na prístup k databázovému serveru %2 ako používateľ „%1”.</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="235"/>
+        <location filename="../lib/database_model.cpp" line="278"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation>Nemožno vytvoriť „%1”: %2</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="406"/>
+        <location filename="../lib/database_model.cpp" line="449"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation>Súbor „%1” nie je databáza XCA</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="433"/>
+        <location filename="../lib/database_model.cpp" line="476"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Nie je dostupný ovládač SQLite3. Prosím, nainštalujte balík qt-sqlite svojej distribúcie</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="474"/>
+        <location filename="../lib/database_model.cpp" line="517"/>
         <source>New Password</source>
         <translation>Nové heslo</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="474"/>
+        <location filename="../lib/database_model.cpp" line="517"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
         <translation>Prosím, zadajte heslo, ktoré bude slúžiť na šifrovanie súkromných kľúčov v databáze:
 %1</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="494"/>
+        <location filename="../lib/database_model.cpp" line="537"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="495"/>
+        <location filename="../lib/database_model.cpp" line="538"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
         <translation>Prosím, zadajte heslo na odomknutie databázy:
@@ -3569,62 +3581,62 @@ V knižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="163"/>
+        <location filename="../lib/db_base.cpp" line="160"/>
         <source>Internal name</source>
         <translation>Interný názov</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="164"/>
+        <location filename="../lib/db_base.cpp" line="161"/>
         <source>No.</source>
         <translation>Č.</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="165"/>
+        <location filename="../lib/db_base.cpp" line="162"/>
         <source>Primary key</source>
         <translation>Primárny kľúč</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="166"/>
+        <location filename="../lib/db_base.cpp" line="163"/>
         <source>Database unique number</source>
         <translation>Jedinečné číslo databázy</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="167"/>
+        <location filename="../lib/db_base.cpp" line="164"/>
         <source>Date</source>
         <translation>Dátum</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="168"/>
+        <location filename="../lib/db_base.cpp" line="165"/>
         <source>Date of creation or insertion</source>
         <translation>Dátum vytvorenia alebo vloženia</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="169"/>
+        <location filename="../lib/db_base.cpp" line="166"/>
         <source>Source</source>
         <translation>Zdroj</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="170"/>
+        <location filename="../lib/db_base.cpp" line="167"/>
         <source>Generated, Imported, Transformed</source>
         <translation>Generovaný, Importovaný, Transformovaný</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="171"/>
+        <location filename="../lib/db_base.cpp" line="168"/>
         <source>Comment</source>
         <translation>Komentár</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="172"/>
+        <location filename="../lib/db_base.cpp" line="169"/>
         <source>First line of the comment field</source>
         <translation>Prvý riadok poľa komentára</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="234"/>
+        <location filename="../lib/db_base.cpp" line="231"/>
         <source>Import from: %1</source>
         <translation>Importovať z: %1</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="369"/>
+        <location filename="../lib/db_base.cpp" line="374"/>
         <source>Could not create directory %1</source>
         <translation>Nemožno vytvoriť zložku %1</translation>
     </message>
@@ -3660,42 +3672,42 @@ V knižnici %3
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="27"/>
+        <location filename="../lib/db_crl.cpp" line="26"/>
         <source>Signer</source>
         <translation>Vydavateľ</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="28"/>
+        <location filename="../lib/db_crl.cpp" line="27"/>
         <source>Internal name of the signer</source>
         <translation>Interný názov vydavateľa</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="29"/>
+        <location filename="../lib/db_crl.cpp" line="28"/>
         <source>No. revoked</source>
         <translation>Počet odvolaných</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="30"/>
+        <location filename="../lib/db_crl.cpp" line="29"/>
         <source>Number of revoked certificates</source>
         <translation>Počet odvolaných certifikátov</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="31"/>
+        <location filename="../lib/db_crl.cpp" line="30"/>
         <source>Last update</source>
         <translation>Posledná aktualizácia</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="32"/>
+        <location filename="../lib/db_crl.cpp" line="31"/>
         <source>Next update</source>
         <translation>Nasled. aktualizácia</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="33"/>
+        <location filename="../lib/db_crl.cpp" line="32"/>
         <source>CRL number</source>
         <translation>Číslo CRL</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="96"/>
+        <location filename="../lib/db_crl.cpp" line="95"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3712,14 +3724,14 @@ a tak nebol importovaný</translation>
         <translation type="vanished">CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="168"/>
+        <location filename="../lib/db_crl.cpp" line="169"/>
         <source>Failed to initiate DB transaction</source>
         <translation>Zlyhala inicializácia DB transakcie</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="178"/>
-        <location filename="../lib/db_crl.cpp" line="186"/>
-        <location filename="../lib/db_crl.cpp" line="190"/>
+        <location filename="../lib/db_crl.cpp" line="179"/>
+        <location filename="../lib/db_crl.cpp" line="187"/>
+        <location filename="../lib/db_crl.cpp" line="191"/>
         <source>Database error: %1</source>
         <translation>Chyba databázy: %1</translation>
     </message>
@@ -3727,32 +3739,32 @@ a tak nebol importovaný</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="54"/>
+        <location filename="../lib/db_key.cpp" line="53"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="55"/>
+        <location filename="../lib/db_key.cpp" line="54"/>
         <source>Size</source>
         <translation>Veľkosť</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="57"/>
+        <location filename="../lib/db_key.cpp" line="56"/>
         <source>EC Group</source>
         <translation>Skupina EC</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="59"/>
+        <location filename="../lib/db_key.cpp" line="58"/>
         <source>Use</source>
         <translation>Použiť</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="60"/>
+        <location filename="../lib/db_key.cpp" line="59"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="134"/>
+        <location filename="../lib/db_key.cpp" line="133"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -3761,7 +3773,7 @@ and is not going to be imported</source>
 a tak nebude importovaný</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="139"/>
+        <location filename="../lib/db_key.cpp" line="138"/>
         <source>The database already contains the public part of the imported key as
 &apos;%1
 and will be completed by the new, private part of the key</source>
@@ -3770,17 +3782,17 @@ and will be completed by the new, private part of the key</source>
 a bude doplnená novou, súkromnou, časťou kľúča</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="141"/>
+        <location filename="../lib/db_key.cpp" line="140"/>
         <source>Extending public key from %1 by imported key &apos;%2&apos;</source>
         <translation>Rozšírenie verejného kľúča z %1 importovaním kľúča „%2”</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="157"/>
+        <location filename="../lib/db_key.cpp" line="156"/>
         <source>Key size too small !</source>
         <translation>Dĺžka kľúča je príliš malá!</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="161"/>
+        <location filename="../lib/db_key.cpp" line="160"/>
         <source>You are sure to create a key of the size: %1 ?</source>
         <translation>Naozaj chcete vytvoriť kľúč s veľkosťou: %1?</translation>
     </message>
@@ -3845,12 +3857,12 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation type="vanished">Súkromné kľúče ( *.pem *.der *.pk8 );; Verejné kľúče SSH ( *.pub )</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="243"/>
+        <location filename="../lib/db_key.cpp" line="242"/>
         <source>Internal error</source>
         <translation>Interná chyba</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="254"/>
+        <location filename="../lib/db_key.cpp" line="253"/>
         <source>Tried to change password of a token</source>
         <translation>Vyskúšaná zmena hesla tokenu</translation>
     </message>
@@ -3879,72 +3891,72 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="76"/>
+        <location filename="../lib/db_x509.cpp" line="77"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="77"/>
+        <location filename="../lib/db_x509.cpp" line="78"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Odráža rozšírenie Základné obmedzenia</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="78"/>
+        <location filename="../lib/db_x509.cpp" line="79"/>
         <source>Serial</source>
         <translation>Sériové číslo</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="82"/>
+        <location filename="../lib/db_x509.cpp" line="83"/>
         <source>Start date</source>
         <translation>Dátum začiatku</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="84"/>
+        <location filename="../lib/db_x509.cpp" line="85"/>
         <source>Expiry date</source>
         <translation>Dátum vypršania</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="79"/>
+        <location filename="../lib/db_x509.cpp" line="80"/>
         <source>MD5 fingerprint</source>
         <translation>Odtlačok MD5</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="80"/>
+        <location filename="../lib/db_x509.cpp" line="81"/>
         <source>SHA1 fingerprint</source>
         <translation>Odtlačok SHA1</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="81"/>
+        <location filename="../lib/db_x509.cpp" line="82"/>
         <source>SHA256 fingerprint</source>
         <translation>Odtlačok SHA256</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="83"/>
+        <location filename="../lib/db_x509.cpp" line="84"/>
         <source>Not before</source>
         <translation>Nie pred</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="85"/>
+        <location filename="../lib/db_x509.cpp" line="86"/>
         <source>Not after</source>
         <translation>Nie po</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="86"/>
+        <location filename="../lib/db_x509.cpp" line="87"/>
         <source>Revocation</source>
         <translation>Odvolanie</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="87"/>
+        <location filename="../lib/db_x509.cpp" line="88"/>
         <source>CRL Expiration</source>
         <translation>CRL vypršania</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="306"/>
+        <location filename="../lib/db_x509.cpp" line="314"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>Zlyhalo získanie jedinečného náhodného sériového čísla</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="329"/>
+        <location filename="../lib/db_x509.cpp" line="337"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3953,17 +3965,17 @@ and so it was not imported</source>
 a tak nebol importovaný</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="364"/>
+        <location filename="../lib/db_x509.cpp" line="363"/>
         <source>Signed on %1 by &apos;%2&apos;</source>
         <translation>%1 podpísané „%2”</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="365"/>
+        <location filename="../lib/db_x509.cpp" line="364"/>
         <source>Unknown</source>
         <translation>Neznáme</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="453"/>
+        <location filename="../lib/db_x509.cpp" line="454"/>
         <source>Invalid public key</source>
         <translation>Neplatný verejný kľúč</translation>
     </message>
@@ -3996,17 +4008,17 @@ a tak nebol importovaný</translation>
         <translation type="vanished">Bez šablóny</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="479"/>
+        <location filename="../lib/db_x509.cpp" line="480"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Kľúč, zvolený na podpísanie, nie je súkromný.</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="258"/>
+        <location filename="../lib/db_x509.cpp" line="266"/>
         <source>Failed to create directory &apos;%1&apos;</source>
         <translation>Nemožno vytvoriť zložku „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="520"/>
+        <location filename="../lib/db_x509.cpp" line="521"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Uložiť certifikát do kľúča na tokene „%1 (#%2)”?</translation>
     </message>
@@ -4043,18 +4055,18 @@ a tak nebol importovaný</translation>
         <translation type="vanished">Export certifikátu</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="602"/>
-        <location filename="../lib/db_x509.cpp" line="651"/>
+        <location filename="../lib/db_x509.cpp" line="599"/>
+        <location filename="../lib/db_x509.cpp" line="649"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Nebol nájdený kľúč certifikátu: „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="605"/>
+        <location filename="../lib/db_x509.cpp" line="602"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Nie je možné pre kľúč tokenu: „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="655"/>
+        <location filename="../lib/db_x509.cpp" line="653"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Nie je možné pre Certifikát kľúča tokenu „%1”</translation>
     </message>
@@ -4224,12 +4236,12 @@ a tak nebola uložená</translation>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="15"/>
+        <location filename="../lib/pass_info.cpp" line="12"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../lib/pass_info.cpp" line="22"/>
+        <location filename="../lib/pass_info.cpp" line="18"/>
         <source>PIN</source>
         <translation>PIN</translation>
     </message>
@@ -4237,12 +4249,12 @@ a tak nebola uložená</translation>
 <context>
     <name>pkcs11_lib</name>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="37"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="36"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>Zlyhalo otvorenie knižnice PKCS#11: %1: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="43"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="42"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
         <translation>Toto nevyzerá ako knižnica PKCS#11. Symbol &apos;C_GetFunctionList&apos; nenájdený.</translation>
     </message>
@@ -4250,47 +4262,47 @@ a tak nebola uložená</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="287"/>
+        <location filename="../lib/pki_base.cpp" line="282"/>
         <source>Unknown</source>
         <translation>Neznáme</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="288"/>
+        <location filename="../lib/pki_base.cpp" line="283"/>
         <source>Imported</source>
         <translation>Importovaný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="289"/>
+        <location filename="../lib/pki_base.cpp" line="284"/>
         <source>Generated</source>
         <translation>Generovaný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="290"/>
+        <location filename="../lib/pki_base.cpp" line="285"/>
         <source>Transformed</source>
         <translation>Transformovaný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="291"/>
+        <location filename="../lib/pki_base.cpp" line="286"/>
         <source>Token</source>
         <translation>Token</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="292"/>
+        <location filename="../lib/pki_base.cpp" line="287"/>
         <source>Legacy Database</source>
         <translation>Stará databáza</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="293"/>
+        <location filename="../lib/pki_base.cpp" line="288"/>
         <source>Renewed</source>
         <translation>Obnovené</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="436"/>
+        <location filename="../lib/pki_base.cpp" line="431"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation>Vlastnosť „%1” nie je zahrnutá v „pki_base::print”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="123"/>
+        <location filename="../lib/pki_base.cpp" line="113"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interná chyba: Neočakávaná správa: %1 %2</translation>
     </message>
@@ -4306,32 +4318,32 @@ a tak nebola uložená</translation>
 <context>
     <name>pki_crl</name>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="57"/>
+        <location filename="../lib/pki_crl.cpp" line="59"/>
         <source>Successfully imported the revocation list &apos;%1&apos;</source>
         <translation>Úspešne importovaný Zoznam odvolaní „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="58"/>
+        <location filename="../lib/pki_crl.cpp" line="60"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
         <translation>Odstrániť Zoznam odvolaní „%1”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="59"/>
+        <location filename="../lib/pki_crl.cpp" line="61"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>Úspešne vytvorený Zoznam odvolaní „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="61"/>
+        <location filename="../lib/pki_crl.cpp" line="63"/>
         <source>Delete the %1 revocation lists: %2?</source>
         <translation>Odstrániť %1 uoznamov odvolaní: %2?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="145"/>
+        <location filename="../lib/pki_crl.cpp" line="147"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Nemožno načítať zoznam odvolaní zo súboru %1. Vyskúšaný formát CRL PEM a DER.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="160"/>
+        <location filename="../lib/pki_crl.cpp" line="162"/>
         <source>No issuer given</source>
         <translation>Nebol zadaný vydavateľ</translation>
     </message>
@@ -4340,24 +4352,24 @@ a tak nebola uložená</translation>
         <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="421"/>
+        <location filename="../lib/pki_crl.cpp" line="423"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation>Termín obnovenia CRL CA „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="422"/>
+        <location filename="../lib/pki_crl.cpp" line="424"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
         <translation>Posledné CRL vydané CA „%1” vyprší %2.
 Je uložené v databáze XCA „%3”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="430"/>
+        <location filename="../lib/pki_crl.cpp" line="432"/>
         <source>Renew CRL: %1</source>
         <translation>Obnoviť CRL: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="431"/>
+        <location filename="../lib/pki_crl.cpp" line="433"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
         <translation>XCA CRL „%1”, vydané %3 vyprší %4.
@@ -4371,24 +4383,24 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="230"/>
+        <location filename="../lib/pki_evp.cpp" line="239"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>Prosím, zadajte heslo na dešifrovanie súkromného kľúča %1.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="297"/>
+        <location filename="../lib/pki_evp.cpp" line="307"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation>Kľúč zo súboru „%1” je nekompletný ale nekonzistentný.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="386"/>
+        <location filename="../lib/pki_evp.cpp" line="396"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation>Prosím, zadajte heslo na dešifrovanie súkromného kľúča zo súboru:
 %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="453"/>
+        <location filename="../lib/pki_evp.cpp" line="463"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation>Nemožno načítať súkromný kľúč zo súboru %1. Vyskúšaný PEM a DER súkromný, verejný, typy kľúčov PKCS#8 a formát SSH2.</translation>
     </message>
@@ -4397,43 +4409,48 @@ Je uložené v databáze XCA „%5”</translation>
         <translation type="vanished">Ignorujem nepodporovaný súkromný kľúč</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="469"/>
+        <location filename="../lib/pki_evp.cpp" line="479"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo na dešifrovanie súkromného kľúča: „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="472"/>
-        <location filename="../lib/pki_evp.cpp" line="486"/>
+        <location filename="../lib/pki_evp.cpp" line="482"/>
+        <location filename="../lib/pki_evp.cpp" line="496"/>
         <source>Password input aborted</source>
         <translation>Zadávanie hesla zrušené</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="482"/>
+        <location filename="../lib/pki_evp.cpp" line="492"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo databázy na dešifrovanie kľúča „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="537"/>
+        <location filename="../lib/pki_evp.cpp" line="516"/>
+        <source>Decryption of private key &apos;%1&apos; failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="560"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo na ochranu súkromného kľúča: „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="555"/>
+        <location filename="../lib/pki_evp.cpp" line="578"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation>Prosím, zadajte heslo databázy na zašifrovanie kľúča</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="716"/>
+        <location filename="../lib/pki_evp.cpp" line="739"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo na ochranu kľúča PKCS#8 „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="736"/>
+        <location filename="../lib/pki_evp.cpp" line="759"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo na ochranu kľúča Microsoft PVK „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="789"/>
+        <location filename="../lib/pki_evp.cpp" line="812"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo exportu súkromného kľúča „%1”</translation>
     </message>
@@ -4445,246 +4462,246 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_export</name>
     <message>
-        <location filename="../lib/pki_export.cpp" line="43"/>
-        <location filename="../lib/pki_export.cpp" line="70"/>
-        <location filename="../lib/pki_export.cpp" line="73"/>
+        <location filename="../lib/pki_export.cpp" line="58"/>
+        <location filename="../lib/pki_export.cpp" line="85"/>
+        <location filename="../lib/pki_export.cpp" line="88"/>
         <source>PEM Text format with headers</source>
         <translation>Textový formát PEM s hlavičkami</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="44"/>
+        <location filename="../lib/pki_export.cpp" line="59"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Zlúčený zoznam zvolených položiek v jednom textovom súbore PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="45"/>
+        <location filename="../lib/pki_export.cpp" line="60"/>
         <source>PEM chain</source>
         <translation>Reťaz PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="45"/>
+        <location filename="../lib/pki_export.cpp" line="60"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
         <translation>Zlúčený textový formát úplnej reťaze certifikátu v jednom súbore PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="46"/>
+        <location filename="../lib/pki_export.cpp" line="61"/>
         <source>PEM + key</source>
         <translation>PEM + kľúč</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="46"/>
+        <location filename="../lib/pki_export.cpp" line="61"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
         <translation>Spojenie certifikátu a nešifrovaného súkromného kľúča v jednom súbore PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="47"/>
+        <location filename="../lib/pki_export.cpp" line="62"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
         <translation>Spojenie certifikátu a šifrovaného súkromného kľúča v jednom súbore PKCS#8</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="48"/>
+        <location filename="../lib/pki_export.cpp" line="63"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>PKCS#7 kódovaný jeden certifikát</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="49"/>
+        <location filename="../lib/pki_export.cpp" line="64"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
         <translation>Všetky zvolené certifikáty kódované v jednom súbore PKCS#7</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="50"/>
+        <location filename="../lib/pki_export.cpp" line="65"/>
         <source>PKCS #7 chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="50"/>
+        <location filename="../lib/pki_export.cpp" line="65"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>PKCS#7 kódovaná úplná reťaz certifikátov</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="51"/>
+        <location filename="../lib/pki_export.cpp" line="66"/>
         <source>Binary DER encoded certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="52"/>
+        <location filename="../lib/pki_export.cpp" line="67"/>
         <source>PKCS #12 chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="52"/>
+        <location filename="../lib/pki_export.cpp" line="67"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
         <translation>Úplná reťaz certifikátu a súkromný kľúč ako šifrovaný súbor PKCS#12</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="53"/>
+        <location filename="../lib/pki_export.cpp" line="68"/>
         <source>PKCS #12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="53"/>
+        <location filename="../lib/pki_export.cpp" line="68"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
         <translation>Certifikát a súkromný kľúč ako šifrovaný súbor PKCS#12</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="54"/>
+        <location filename="../lib/pki_export.cpp" line="69"/>
         <source>Certificate Index file</source>
         <translation>Súbor indexu certifikátov</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="54"/>
+        <location filename="../lib/pki_export.cpp" line="69"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
         <translation>Súbor indexu certifikátov, špecifický pre OpenSSL, vytvorený ako príkazom „ca” a vyžadovaný nástrojom OCSP</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="55"/>
-        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="70"/>
+        <location filename="../lib/pki_export.cpp" line="90"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="55"/>
+        <location filename="../lib/pki_export.cpp" line="70"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>Pripomienka vCalendar vypršania platnosti zvolených položiek</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="56"/>
+        <location filename="../lib/pki_export.cpp" line="71"/>
         <source>CA vCalendar</source>
         <translation>CA vCalendar</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="56"/>
+        <location filename="../lib/pki_export.cpp" line="71"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
         <translation>Pripomienka vCalendar vypršania platnosti všetkých vydaných, platných certifikátov, samotnej CA i posledného CRL</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="58"/>
+        <location filename="../lib/pki_export.cpp" line="73"/>
         <source>PEM public</source>
         <translation>PEM verejný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="58"/>
+        <location filename="../lib/pki_export.cpp" line="73"/>
         <source>Text format of the public key in one PEM file</source>
         <translation>Textový formát verejného kľúča v súbore PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="59"/>
+        <location filename="../lib/pki_export.cpp" line="74"/>
         <source>PEM private</source>
         <translation>PEM súkromný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="59"/>
-        <location filename="../lib/pki_export.cpp" line="61"/>
+        <location filename="../lib/pki_export.cpp" line="74"/>
+        <location filename="../lib/pki_export.cpp" line="76"/>
         <source>Unencrypted private key in text format</source>
         <translation>Nešifrovaný súkromný kľúč v textovom formáte</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="60"/>
+        <location filename="../lib/pki_export.cpp" line="75"/>
         <source>PEM encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="60"/>
+        <location filename="../lib/pki_export.cpp" line="75"/>
         <source>OpenSSL specific encrypted private key in text format</source>
         <translation>Šifrovaný súkromný kľúč v textovom formáte (špecifický pre OpenSSL)</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="61"/>
+        <location filename="../lib/pki_export.cpp" line="76"/>
         <source>SSH2 private</source>
         <translation>SSH2 súkromný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="62"/>
+        <location filename="../lib/pki_export.cpp" line="77"/>
         <source>SSH2 public</source>
         <translation>SSH2 verejný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="62"/>
+        <location filename="../lib/pki_export.cpp" line="77"/>
         <source>The public key encoded in SSH2 format</source>
         <translation>Verejný kľúč kódovaný vo formáte SSH2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="63"/>
+        <location filename="../lib/pki_export.cpp" line="78"/>
         <source>DER public</source>
         <translation>DER verejný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="63"/>
+        <location filename="../lib/pki_export.cpp" line="78"/>
         <source>Binary DER format of the public key</source>
         <translation>Binárny formát DER verejného kľúča</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="64"/>
+        <location filename="../lib/pki_export.cpp" line="79"/>
         <source>DER private</source>
         <translation>DER súkromný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="64"/>
+        <location filename="../lib/pki_export.cpp" line="79"/>
         <source>Unencrypted private key in binary DER format</source>
         <translation>Nešifrovaný súkromný kľúč v binárnom formáte DER</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="65"/>
+        <location filename="../lib/pki_export.cpp" line="80"/>
         <source>PVK private</source>
         <translation>PVK súkromný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="65"/>
+        <location filename="../lib/pki_export.cpp" line="80"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
         <translation>Súkromný kľúč vo formáte Microsoft PVK, nešifrovaný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="66"/>
+        <location filename="../lib/pki_export.cpp" line="81"/>
         <source>PVK encrypted</source>
         <translation>PVK šifrovaný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="66"/>
+        <location filename="../lib/pki_export.cpp" line="81"/>
         <source>Encrypted private key in Microsoft PVK format</source>
         <translation>Šifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="67"/>
+        <location filename="../lib/pki_export.cpp" line="82"/>
         <source>PKCS #8 encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="67"/>
+        <location filename="../lib/pki_export.cpp" line="82"/>
         <source>Encrypted private key in PKCS#8 text format</source>
         <translation>Šifrovaný súkromný kľúč v textovom formáte PKCS#8</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="68"/>
+        <location filename="../lib/pki_export.cpp" line="83"/>
         <source>PKCS #8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="68"/>
+        <location filename="../lib/pki_export.cpp" line="83"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
         <translation>Nešifrovaný súkromný kľúč v textovom formáte PKCS#8</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="71"/>
+        <location filename="../lib/pki_export.cpp" line="86"/>
         <source>Binary DER format of the certificate request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="74"/>
+        <location filename="../lib/pki_export.cpp" line="89"/>
         <source>Binary DER format of the revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="90"/>
         <source>vCalendar reminder for the CRL expiry date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="77"/>
+        <location filename="../lib/pki_export.cpp" line="92"/>
         <source>XCA template in PEM-like format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="78"/>
+        <location filename="../lib/pki_export.cpp" line="93"/>
         <source>All selected XCA templates in PEM-like format</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4724,49 +4741,49 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_key.cpp" line="58"/>
         <location filename="../lib/pki_key.cpp" line="222"/>
-        <location filename="../lib/pki_key.cpp" line="857"/>
+        <location filename="../lib/pki_key.cpp" line="871"/>
         <source>Public key</source>
         <translation>Verejný kľúč</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="457"/>
+        <location filename="../lib/pki_key.cpp" line="463"/>
         <source>Common</source>
         <translation>Spoločný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="457"/>
+        <location filename="../lib/pki_key.cpp" line="463"/>
         <source>Private</source>
         <translation>Súkromný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="457"/>
+        <location filename="../lib/pki_key.cpp" line="463"/>
         <source>Bogus</source>
         <translation>Pododný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="457"/>
+        <location filename="../lib/pki_key.cpp" line="463"/>
         <source>PIN</source>
         <translation>PIN</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="467"/>
+        <location filename="../lib/pki_key.cpp" line="473"/>
         <source>No password</source>
         <translation>Bez hesla</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="564"/>
-        <location filename="../lib/pki_key.cpp" line="669"/>
+        <location filename="../lib/pki_key.cpp" line="570"/>
+        <location filename="../lib/pki_key.cpp" line="675"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
         <translation>Neočakávaný obsah SSH2: „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="584"/>
         <location filename="../lib/pki_key.cpp" line="590"/>
+        <location filename="../lib/pki_key.cpp" line="596"/>
         <source>Invalid SSH2 public key</source>
         <translation>Neplatný verejný kľúč SSH2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="787"/>
+        <location filename="../lib/pki_key.cpp" line="793"/>
         <source>Failed writing to %1</source>
         <translation>Zlyhal zápis do %1</translation>
     </message>
@@ -4774,7 +4791,7 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="131"/>
+        <location filename="../lib/pki_multi.cpp" line="138"/>
         <source>No known PEM encoded items found</source>
         <translation>Nájdené neznáme kódované položky PEM</translation>
     </message>
@@ -4782,29 +4799,29 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="38"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="37"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>Prosím, zadajte heslo na dešifrovanie súboru PKCS#12:
 %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="52"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="51"/>
         <source>Unable to load the PKCS#12 (pfx) file %1.</source>
         <translation>Nemožno načítať súbor PKCS#12 (pfx) %1.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="84"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="83"/>
         <source>The supplied password was wrong (%1)</source>
         <translation>Zadané heslo je zlé (%1)</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="138"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="137"/>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
         <translation>Prosím, zadajte heslo na zašifrovanie súboru PKCS#12</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="141"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="140"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>Nie je to kľúč, ani Certifikát a ani PKCS#12</translation>
     </message>
@@ -4812,7 +4829,7 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_pkcs7</name>
     <message>
-        <location filename="../lib/pki_pkcs7.cpp" line="186"/>
+        <location filename="../lib/pki_pkcs7.cpp" line="185"/>
         <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
         <translation>Nemožno načítať súbor PKCS#7 %1. Vyskúšaný formát PEM a DER.</translation>
     </message>
@@ -4820,52 +4837,52 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="48"/>
+        <location filename="../lib/pki_scard.cpp" line="45"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>Úspešne importovaný kľúč tokenu „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="49"/>
+        <location filename="../lib/pki_scard.cpp" line="46"/>
         <source>Delete the token key &apos;%1&apos;?</source>
         <translation>Odstrániť kľúč tokenu „%1”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="50"/>
+        <location filename="../lib/pki_scard.cpp" line="47"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>úspešne vytvorený kľúč tokenu „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="52"/>
+        <location filename="../lib/pki_scard.cpp" line="49"/>
         <source>Delete the %1 keys: %2?</source>
         <translation>Odstrániť %1 kľúčov: %2?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="379"/>
+        <location filename="../lib/pki_scard.cpp" line="376"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Odstrániť súkromný kľúč „%1” z tokenu „%2 (#%3)”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="452"/>
+        <location filename="../lib/pki_scard.cpp" line="449"/>
         <source>This Key is already on the token</source>
         <translation>Tento kľúč už je na tokene</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="538"/>
+        <location filename="../lib/pki_scard.cpp" line="535"/>
         <source>PIN input aborted</source>
         <translation>Zadanie PIN zrušené</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="550"/>
+        <location filename="../lib/pki_scard.cpp" line="547"/>
         <source>Unable to find copied key on the token</source>
         <translation>Nemožno nájsť kópiu kľúča na tokene</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="638"/>
+        <location filename="../lib/pki_scard.cpp" line="635"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Prosím, vložte kartu: %1 %2 [%3] so sér. číslom: %4</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="704"/>
+        <location filename="../lib/pki_scard.cpp" line="701"/>
         <source>Unable to find generated key on card</source>
         <translation>Nemožno nájsť vygenerovaný kľúč na karte</translation>
     </message>
@@ -4878,23 +4895,23 @@ Je uložené v databáze XCA „%5”</translation>
         <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="715"/>
+        <location filename="../lib/pki_scard.cpp" line="712"/>
         <source>Token %1</source>
         <translation>Token %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="724"/>
-        <location filename="../lib/pki_scard.cpp" line="737"/>
+        <location filename="../lib/pki_scard.cpp" line="721"/>
+        <location filename="../lib/pki_scard.cpp" line="734"/>
         <source>Failed to find the key on the token</source>
         <translation>Zlyhalo nájdenie kľúča na tokene</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="731"/>
+        <location filename="../lib/pki_scard.cpp" line="728"/>
         <source>Invalid Pin for the token</source>
         <translation>Neplatný PIN tokenu</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="743"/>
+        <location filename="../lib/pki_scard.cpp" line="740"/>
         <source>Failed to initialize the key on the token</source>
         <translation>Zlyhal inicializácia kľúča na tokene</translation>
     </message>
@@ -4910,42 +4927,42 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="163"/>
+        <location filename="../lib/pki_temp.cpp" line="158"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Úspešne importovaná šablóna XCA „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="164"/>
+        <location filename="../lib/pki_temp.cpp" line="159"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
         <translation>Odstrániť šablónu XCA „%1”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="165"/>
+        <location filename="../lib/pki_temp.cpp" line="160"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>Úspešne vytvorená šablóna XCA „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="167"/>
+        <location filename="../lib/pki_temp.cpp" line="162"/>
         <source>Delete the %1 XCA templates: %2?</source>
         <translation>Odstrániť %1 šablón XCA: %2?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="367"/>
+        <location filename="../lib/pki_temp.cpp" line="362"/>
         <source>Wrong Size %1</source>
         <translation>Zlá veľkosť %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="454"/>
+        <location filename="../lib/pki_temp.cpp" line="449"/>
         <source>Template file content error (too small)</source>
         <translation>Chyba obsahu súboru šablóny (príliš malá)</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="504"/>
+        <location filename="../lib/pki_temp.cpp" line="499"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation>Šablóna XCA nie je vo formáte PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="512"/>
+        <location filename="../lib/pki_temp.cpp" line="507"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>Nie je šablóna XCA, ale „%1”</translation>
     </message>
@@ -4957,42 +4974,42 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="62"/>
+        <location filename="../lib/pki_x509.cpp" line="60"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Úspešne importovaný certifikát „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="63"/>
+        <location filename="../lib/pki_x509.cpp" line="61"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
         <translation>Odstrániť certifikát „%1”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="64"/>
+        <location filename="../lib/pki_x509.cpp" line="62"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>Úspešne vytvorený certifikát „%1”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="66"/>
+        <location filename="../lib/pki_x509.cpp" line="64"/>
         <source>Delete the %1 certificates: %2?</source>
         <translation>Odstrániť %1 certifikátov: %2?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="228"/>
+        <location filename="../lib/pki_x509.cpp" line="233"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Nemožno načítať certifikát zo súboru %1. Vyskúšaný certifikát PEM a DER.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="373"/>
+        <location filename="../lib/pki_x509.cpp" line="375"/>
         <source>This certificate is already on the security token</source>
         <translation>Tento certifikát už je na bezpečnostnom tokene</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="436"/>
+        <location filename="../lib/pki_x509.cpp" line="438"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
         <translation>Odstrániť certifikát „%1” z tokenu „%2 (#%3)”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="569"/>
+        <location filename="../lib/pki_x509.cpp" line="571"/>
         <source>There is no key for signing !</source>
         <translation>Chýba kľúč na podpísanie!</translation>
     </message>
@@ -5001,22 +5018,22 @@ Je uložené v databáze XCA „%5”</translation>
         <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="855"/>
+        <location filename="../lib/pki_x509.cpp" line="857"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="857"/>
+        <location filename="../lib/pki_x509.cpp" line="859"/>
         <source>Yes</source>
         <translation>Áno</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="887"/>
+        <location filename="../lib/pki_x509.cpp" line="889"/>
         <source>Renew certificate: %1</source>
         <translation>Obnoviť certifikát: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="888"/>
+        <location filename="../lib/pki_x509.cpp" line="890"/>
         <source>The XCA certificate &apos;%1&apos;, issued on %2 will expire on %3.
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Certifikát XCA „%1”, vydaný %2 vyprší %3.
@@ -5026,32 +5043,32 @@ Je uložený v databáze XCA „%4”</translation>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="109"/>
+        <location filename="../lib/pki_x509req.cpp" line="108"/>
         <source>Signing key not valid (public key)</source>
         <translation>Podpisujúci kľúč neplatný (verejný kľúč)</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="151"/>
+        <location filename="../lib/pki_x509req.cpp" line="150"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
         <translation>úspešne importovaná %1 žiadosť o certifikát „%2”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="152"/>
+        <location filename="../lib/pki_x509req.cpp" line="151"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
         <translation>Odstrániť %1 žiadosť o certifikát „%2”?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="153"/>
+        <location filename="../lib/pki_x509req.cpp" line="152"/>
         <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
         <translation>Úspešne vytvorená %1 žiadosť o certifikát „%2”</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="155"/>
+        <location filename="../lib/pki_x509req.cpp" line="154"/>
         <source>Delete the %1 certificate requests: %2?</source>
         <translation>Odstrániť %1 žiadosť o certifikát: %2?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="184"/>
+        <location filename="../lib/pki_x509req.cpp" line="185"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>Nemožno načítať žiadosť o certifikát zo súboru %1. Vyskúšané formáty PEM, DER a SPKAC.</translation>
     </message>
@@ -5060,12 +5077,12 @@ Je uložený v databáze XCA „%4”</translation>
         <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="370"/>
+        <location filename="../lib/pki_x509req.cpp" line="371"/>
         <source>Signed</source>
         <translation>Podpísaný</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="370"/>
+        <location filename="../lib/pki_x509req.cpp" line="371"/>
         <source>Unhandled</source>
         <translation>Nespracované</translation>
     </message>
@@ -5178,7 +5195,7 @@ Je uložený v databáze XCA „%4”</translation>
 <context>
     <name>xcaWarningGui</name>
     <message>
-        <location filename="../widgets/XcaWarning.cpp" line="72"/>
+        <location filename="../widgets/XcaWarning.cpp" line="71"/>
         <source>Copy to Clipboard</source>
         <translation>Kopírovať do schránky</translation>
     </message>
