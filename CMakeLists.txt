@@ -27,6 +27,16 @@ file(WRITE ${PROJECT_BINARY_DIR}/PKGVERSION.txt ${PROJECT_VERSION}\n)
 
 ##### Build specifications
 
+find_program(CCACHE_EXECUTABLE ccache)
+mark_as_advanced(CCACHE_EXECUTABLE)
+if(CCACHE_EXECUTABLE)
+  if(NOT DEFINED CMAKE_CXX_COMPILER_LAUNCHER AND NOT
+                 CMAKE_CXX_COMPILER MATCHES ".*/ccache")
+    message(STATUS "Enabling ccache")
+    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_EXECUTABLE} CACHE STRING "")
+  endif()
+endif()
+
 set(ADDRESS_SANITIZER OFF CACHE BOOL "Enable Address sanitizing")
 set(APPSTORE_COMPLIANT OFF CACHE BOOL "Create an Appstore compliant, sanboxed app")
 set(PROVISIONPROFILE "" CACHE STRING "Location of the embedded.provisionprofile")
