@@ -51,6 +51,7 @@ ExpandSources(xcalib)
 ExpandSources(xcadoc)
 
 macro(Test name)
+  set(${name}_sources ${ARGN})
   add_executable(${name} EXCLUDE_FROM_ALL ${name}.cpp)
   ExpandSources(${name})
   target_link_libraries(${name} PRIVATE
@@ -63,18 +64,11 @@ macro(Test name)
 endmacro()
 
 if(BUILD_TESTING)
-  list(APPEND test_biobytearray_sources BioByteArray.cpp BioByteArray.h)
-  list(APPEND test_asn1int_sources asn1int.cpp asn1int.h func_base.h func_base.cpp)
-  list(APPEND test_asn1time_sources asn1time.cpp asn1time.h func_base.h func_base.cpp)
-  list(APPEND test_entropy_sources entropy.cpp entropy.h func.h func_base.cpp xfile.h)
-  list(APPEND test_x509name_sources x509name.cpp x509name.h func_base.h func_base.cpp
+  Test(test_biobytearray BioByteArray.cpp BioByteArray.h)
+  Test(test_asn1int asn1int.cpp asn1int.h func_base.h func_base.cpp)
+  Test(test_asn1time asn1time.cpp asn1time.h func_base.h func_base.cpp)
+  Test(test_entropy entropy.cpp entropy.h func.h func_base.cpp xfile.h)
+  Test(test_x509name x509name.cpp x509name.h func_base.h func_base.cpp
                                     BioByteArray.h BioByteArray.cpp )
-  list(APPEND test_digest_sources digest.cpp digest.h func_base.cpp func_base.h)
-
-  Test(test_biobytearray)
-  Test(test_asn1int)
-  Test(test_asn1time)
-  Test(test_entropy)
-  Test(test_x509name)
-  Test(test_digest)
+  Test(test_digest digest.cpp digest.h func_base.cpp func_base.h)
 endif()
