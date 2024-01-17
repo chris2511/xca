@@ -100,7 +100,7 @@ QSqlError database_model::initSqlDB()
 		if (i >= ARRAY_SIZE(schemas))
 			break;
 		foreach(QString sql, schemas[i]) {
-			sql = sql.arg(b64_blob);
+			sql.replace("{B64_BLOB}", b64_blob);
 			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
 			if (!q.exec(sql) || q.lastError().isValid()) {
 				TransRollback();
@@ -333,17 +333,9 @@ void database_model::as_default_database(const QString &db)
 database_model::~database_model()
 {
 	QByteArray ba;
-	QString connName;
-	bool dbopen;
+	QString connName =  QSqlDatabase::database().connectionName();
 
-	{
-		/* Destroy "db" at the end of the block */
-		QSqlDatabase db = QSqlDatabase::database();
-		connName= db.connectionName();
-		dbopen = db.isOpen();
-	}
-
-	if (!dbopen) {
+	if (!QSqlDatabase::database().isOpen()) {
 		QSqlDatabase::removeDatabase(connName);
 		Settings.clear();
 		return;

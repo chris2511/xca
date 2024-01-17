@@ -8,7 +8,7 @@
  * on mysql where LONGTEXT is used.
  */
 
-#define B64_BLOB "%1"
+#define B64_BLOB "{B64_BLOB}"
 
 /*
  * The B64(DER(something)) function means DER encode something
