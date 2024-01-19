@@ -360,7 +360,9 @@ unsigned pki_base::hash(const QByteArray &ba)
 }
 unsigned pki_base::hash() const
 {
-	return hash(i2d());
+	if (!hashcache)
+		hashcache = hash(i2d());
+	return hashcache;
 }
 
 QString pki_base::get_dump_filename(const QString &dir,

@@ -50,6 +50,8 @@ class pki_base : public QObject
 {
 		Q_OBJECT
 
+		mutable unsigned hashcache{};
+
 	public: /* static */
 		static QRegularExpression limitPattern;
 		static QString rmslashdot(const QString &fname);
