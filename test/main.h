@@ -11,19 +11,25 @@
 #include "lib/entropy.h"
 #include "lib/pki_evp.h"
 
+#include "PwDialogMock.h"
+
 class test_main: public QObject
 {
     Q_OBJECT
 	Entropy *entropy {};
+	PwDialogMock *pwdialog{};
 
 	void openDB();
+	void dbstatus();
 	static const QMap<QString, QString> pemdata;
 
   private slots:
 	void initTestCase();
 	void cleanupTestCase();
+	void cleanup();
 	void newKey();
 	void importPEM();
+	void exportFormat();
 };
 
 #endif

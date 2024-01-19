@@ -1,5 +1,6 @@
 
-list(APPEND srcs PwDialogMock.h importPEM.cpp main.cpp main.h newKey.cpp pem.cpp)
+list(APPEND srcs PwDialogMock.h importPEM.cpp main.cpp main.h
+	newKey.cpp pem.cpp export.cpp)
 
 list(TRANSFORM srcs PREPEND ${PROJECT_SOURCE_DIR}/test/)
 

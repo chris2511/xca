@@ -5,6 +5,8 @@
  * All rights reserved.
  */
 
+#ifndef __PWDIALOGMOCK_H
+#define __PWDIALOGMOCK_H
 #include <QDebug>
 
 #include "lib/debug_info.h"
@@ -42,17 +44,27 @@ class PwDialogMock: public PwDialogUI_i
 		pwe->pi.setTitle(p->getTitle());
 		pwe->pi.setDescription(p->getDescription());
 
-		qWarning() << "PwDialogMock" << p->getDescription() << expect_idx;
+		qWarning() << "PwDialogMock" << p->getDescription() << expect_idx
+					<< "Password:" << pwe->pass_return;
 		*passwd = pwe->pass_return;
 		return pwe->result;
 	}
+
+	~PwDialogMock()
+	{
+		qDeleteAll(pw_expectations);
+	}
+
 	public:
-		int expect_idx{};
-		QList<pw_expect*> pw_expectations{};
-		void setExpectations(const QList<pw_expect*> pwe)
-		{
-			qDeleteAll(pw_expectations);
-			pw_expectations = pwe;
-			expect_idx = 0;
-		}
+
+	int expect_idx{};
+	QList<pw_expect*> pw_expectations{};
+
+	void setExpectations(const QList<pw_expect*> pwe)
+	{
+		qDeleteAll(pw_expectations);
+		pw_expectations = pwe;
+		expect_idx = 0;
+	}
 };
+#endif

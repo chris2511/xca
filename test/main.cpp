@@ -6,6 +6,14 @@
  */
 
 #include <QTest>
+#include <QFile>
+
+#include <openssl/opensslv.h>
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+#include <openssl/provider.h>
+#else
+#define OSSL_PROVIDER_try_load(a,b,c) do{}while(0)
+#endif
 
 #include "widgets/MainWindow.h"
 #include "ui_MainWindow.h"
@@ -20,6 +28,8 @@ char segv_data[1024];
 
 void test_main::initTestCase()
 {
+	OSSL_PROVIDER_try_load(0, "legacy", 1);
+
 	debug_info::init();
 
 	entropy = new Entropy;
@@ -29,23 +39,46 @@ void test_main::initTestCase()
 
 	mainwin = new MainWindow();
 	mainwin->show();
+
+	pwdialog = new PwDialogMock();
+	PwDialogCore::setGui(pwdialog);
+
+	xcaWarning::setGui(new xcaWarningCore());
 }
 
 void test_main::cleanupTestCase()
 {
-	Database.close();
+	mainwin->close_database();
 	delete entropy;
 	delete mainwin;
 	pki_export::free_elements();
+	QFile::remove("testdb.xdb");
+}
+
+void test_main::cleanup()
+{
+	mainwin->close_database();
+	dbstatus();
+	QFile::remove("testdb.xdb");
 }
 
 void test_main::openDB()
 {
-	pki_evp::passwd = "pass";
-	QString salt = Entropy::makeSalt();
-    pki_evp::passHash = pki_evp::sha512passwT(pki_evp::passwd, salt);
-    Settings["pwhash"] = pki_evp::passHash;
-	Database.open("testdb.xdb");
+	pwdialog->setExpectations(QList<pw_expect*>{
+		new pw_expect("testdbpass", pw_ok),
+	});
+	mainwin->init_database("testdb.xdb");
+	dbstatus();
+}
+
+void test_main::dbstatus()
+{
+	QList<pki_base*> allitems = Store.getAll<pki_base>();
+	QStringList out;
+	foreach(pki_base *p, allitems)
+		out << QString("%1[%2]").arg(p->getIntName()).arg(p->getTypeString());
+	qDebug("%s ALL: %lld %s", Database.isOpen() ? "OPEN" : "CLOSED",
+		allitems.size(), out.join(", ").toUtf8().constData());
 }
 
 QTEST_MAIN(test_main)

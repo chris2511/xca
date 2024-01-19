@@ -14,39 +14,48 @@
 
 #include "lib/pki_multi.h"
 
-#include "PwDialogMock.h"
 #include "main.h"
 
 void test_main::importPEM()
 {
 	try {
-	class PwDialogMock *pwdialog = new PwDialogMock();
-	PwDialogCore::setGui(pwdialog);
-	xcaWarning::setGui(new xcaWarningCore());
 
 	ign_openssl_error();
 	openDB();
+	dbstatus();
 	pki_multi *pem = new pki_multi();
-	pem->fromPEMbyteArray(pemdata["interca1"].toUtf8(), QString());
 
+	pem->fromPEMbyteArray(pemdata["Inter CA 1"].toUtf8(), QString());
+	pem->fromPEMbyteArray(pemdata["Root CA"].toUtf8(), QString());
+
+	// Enter a wrong password and then abort
 	pwdialog->setExpectations(QList<pw_expect*>{
-			new pw_expect("Title", pw_ok),
+		new pw_expect("wrongPassword", pw_ok),
 	});
 	QVERIFY_EXCEPTION_THROWN(pem->fromPEMbyteArray(
-				pemdata["interpk8"].toUtf8(), QString()), errorEx);
+				pemdata["Inter CA 1 EncKey"].toUtf8(), QString()), errorEx);
 
+
+	// Enter a wrong password and then the correct one
 	pwdialog->setExpectations(QList<pw_expect*>{
-			new pw_expect("pass", pw_ok),
+		new pw_expect("BadPassword", pw_ok),
+		new pw_expect("pass", pw_ok),
 	});
-	pem->fromPEMbyteArray(pemdata["interpk8"].toUtf8(), QString());
+	pem->fromPEMbyteArray(pemdata["Inter CA 1 Key"].toUtf8(), QString());
+
 	QCOMPARE(pem->failed_files.count(), 0);
 	ImportMulti *dlg = new ImportMulti(mainwin);
 	dlg->addItem(pem);
 
 	dlg->show();
 	Q_ASSERT(QTest::qWaitForWindowActive(dlg));
+	dlg->on_butOk_clicked();
+
 	delete dlg;
+	QList<pki_base*> allitems = Store.getAll<pki_base>();
+	QCOMPARE(allitems.count() , 3);
 	} catch (...) {
 		QVERIFY2(false, "Exception thrown");
 	}
+	dbstatus();
 }
