@@ -19,7 +19,7 @@ else
         echo "using USER_ID from .Xauthority: $USER_ID"
     else
         USER_ID=$default_userid
-        echo "using default: $USER_ID"
+        echo "using default USER_ID: $USER_ID"
     fi
 fi
 

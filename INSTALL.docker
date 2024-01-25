@@ -52,7 +52,7 @@ This makes ./some_local_directory accessible in the container as /backup.
 Run over X-Forwarding with SSH
 ------------------------------
 
-To run with X-Forwarding over an SSH connection, you need to mount volumes and fix OpenGL usage:
+To run with X-Forwarding over an SSH connection, you can mount .Xauthority. If the application windows doesn't show up, likely you also want to switch to OpenGL done in software:
 
 	docker run --rm -it --network=host \
 		-e DISPLAY=$DISPLAY -e "QT_X11_NO_MITSHM=1" -e LIBGL_ALWAYS_SOFTWARE=1 \
