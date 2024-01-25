@@ -3,6 +3,8 @@ ARG CODENAME=jammy
 
 FROM ${REGISTRY_PREFIX}ubuntu:${CODENAME} as builder
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN set -x \
 	&& apt update \
 	&& apt upgrade -y \
