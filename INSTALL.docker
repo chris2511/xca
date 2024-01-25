@@ -12,7 +12,7 @@ Build XCA container
 
 Use the following command to build XCA container:
 
-	docker build --rm --build-arg USER_ID=`id -u` --tag xca .
+	docker build --rm --tag xca .
 
 This will build a container named "xca" using default configuration.
 
@@ -24,8 +24,6 @@ option to add options.
 
 CODENAME              : code name of ubuntu version
                         example: --build-arg CODENAME=jammy
-USER_ID               : id of user "user" inside of container
-                        example: --build-arg USER_ID=`id -u`
 PARALLELMFLAGS        : make flags for parralel build
                         example: --build-arg PARALLELMFLAGS=-j2
 
@@ -34,7 +32,7 @@ Run XCA
 
 Once the container is built, run it using the following command:
 
-	docker run --rm -it --user `id -u` --network=host \
+	docker run --rm -it -e USER_ID=`id -u` --network=host \
 		-e DISPLAY=$DISPLAY -e "QT_X11_NO_MITSHM=1" \
 		xca
 
@@ -44,9 +42,21 @@ Share local directory
 Use docker volumes to share a local directory. This might be useful to store data base files.
 
 	mkdir -p ./some_local_directory
-	docker run --rm -it --user `id -u` --network=host \
+	docker run --rm -it -e USER_ID=`id -u` --network=host \
 		-e DISPLAY=$DISPLAY -e "QT_X11_NO_MITSHM=1" \
 		-v ./some_local_directory:/backup \
 		xca
 
 This makes ./some_local_directory accessible in the container as /backup.
+
+Run over X-Forwarding with SSH
+------------------------------
+
+To run with X-Forwarding over an SSH connection, you can mount .Xauthority. If the application windows doesn't show up, likely you also want to switch to OpenGL done in software:
+
+	docker run --rm -it --network=host \
+		-e DISPLAY=$DISPLAY -e "QT_X11_NO_MITSHM=1" -e LIBGL_ALWAYS_SOFTWARE=1 \
+		-v $HOME/.Xauthority:/home/user/.Xauthority \
+		xca
+
+Note: the environment variable USER_ID doesn't need to be set, since USER_ID is derived from ownership of .Xauthority file.
