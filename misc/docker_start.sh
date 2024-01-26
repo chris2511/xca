@@ -25,4 +25,4 @@ fi
 
 useradd -u "$USER_ID" -M -s /bin/bash user
 
-exec su user -c "xca $@"
+exec su user -c "xca $*"
