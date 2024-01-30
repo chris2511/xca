@@ -129,7 +129,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	pki_openssl_error();
 }
 
-void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
+void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo, bool legacy) const
 {
 	Passwd pass;
 	PKCS12 *pkcs12;
@@ -148,11 +148,16 @@ void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 		if (x && x != cert)
 			sk_X509_push(certstack, x->getCert());
 	}
-	int encAlgoNid = encAlgo.getEncAlgoNid();
+	int encAlgoNid = legacy ? NID_pbe_WithSHA1And3_Key_TripleDES_CBC : encAlgo.getEncAlgoNid();
 	pkcs12 = PKCS12_create(pass.data(), getIntName().toUtf8().data(),
 				key->decryptKey(), cert->getCert(), certstack,
 				encAlgoNid, encAlgoNid,
-				0, 0, 0);
+				0, legacy ? 1 : 0, 0);
+
+	if (legacy) {
+		PKCS12_set_mac(pkcs12, pass.data(), -1, NULL, 0, 1, EVP_get_digestbyname("SHA1"));
+	}
+	
 	BioByteArray b;
 	i2d_PKCS12_bio(b, pkcs12);
 	sk_X509_free(certstack);

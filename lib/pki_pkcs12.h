@@ -57,7 +57,7 @@ class pki_pkcs12: public pki_multi
 		{
 			return cert;
 		}
-		void writePKCS12(XFile &file, encAlgo &encAlgo) const;
+		void writePKCS12(XFile &file, encAlgo &encAlgo, bool legacy = false) const;
 		void collect_properties(QMap<QString, QString> &prp) const;
 };
 #endif

@@ -54,6 +54,7 @@ Options::Options(QWidget *parent)
 	onlyTokenHashes->setCheckState(Settings["only_token_hashes"]);
 	disableNetscape->setCheckState(Settings["disable_netscape"]);
 	adapt_explicit_subj->setCheckState(Settings["adapt_explicit_subj"]);
+	pkcs12LegacyMACALG->setCheckState(Settings["pkcs12_legacy_macalg"]);
 
 	QStringList units;
 	QString x = Settings["ical_expiry"];
@@ -151,7 +152,8 @@ int Options::exec()
 	Settings["disable_netscape"] = disableNetscape->checkState();
 
 	Settings["default_hash"] = hashAlgo->current().name();
-    	Settings["pkcs12_enc_algo"] = pkcs12EncAlgo->current().name();
+	Settings["pkcs12_enc_algo"] = pkcs12EncAlgo->current().name();
+	Settings["pkcs12_legacy_macalg"] = pkcs12LegacyMACALG->checkState();
 	Settings["mandatory_dn"] = getDnString(extDNlist);
 	Settings["explicit_dn"] = getDnString(expDNlist);
 	Settings["string_opt"] = string_opts[mbstring->currentIndex()];

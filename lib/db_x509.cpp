@@ -661,7 +661,7 @@ void db_x509::writePKCS12(pki_x509 *cert, XFile &file, bool chain) const
 			signer = signer->getSigner();
 		}
 		encAlgo encAlgo((QString) Settings["pkcs12_enc_algo"]);
-		p12->writePKCS12(file, encAlgo);
+		p12->writePKCS12(file, encAlgo, Settings["pkcs12_legacy_macalg"]);
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);

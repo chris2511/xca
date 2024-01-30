@@ -85,6 +85,13 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="pkcs12LegacyMACALG">
+         <property name="text">
+          <string>Export PKCS#12 with legacy MAC ALG (SHA1)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="suppress">
          <property name="text">
           <string>Suppress success messages</string>
