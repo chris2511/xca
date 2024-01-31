@@ -29,7 +29,10 @@ class encAlgo
 
 	QString name() const;
 	int getEncAlgoNid() const;
-
+	bool legacy() const
+	{
+		return encAlgo_nid == NID_pbe_WithSHA1And3_Key_TripleDES_CBC;
+	}
 	static void setDefault(const QString &def);
 	static const encAlgo getDefault();
 };

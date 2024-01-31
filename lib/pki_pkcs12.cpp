@@ -153,6 +153,10 @@ void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 				key->decryptKey(), cert->getCert(), certstack,
 				encAlgoNid, encAlgoNid,
 				0, 0, 0);
+
+	if (encAlgo.legacy())
+		PKCS12_set_mac(pkcs12, pass.data(), -1, NULL, 0, 1, EVP_sha1());
+
 	BioByteArray b;
 	i2d_PKCS12_bio(b, pkcs12);
 	sk_X509_free(certstack);
