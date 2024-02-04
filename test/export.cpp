@@ -63,7 +63,7 @@ void check_pems(const QString &name, int n, QStringList matches = QStringList())
 	QCOMPARE(begin, n);
 	QCOMPARE(end, n);
 	foreach(QString m, matches) {
-		QWARN(qPrintable(QString("Pattern %1 not found in %2").arg(m).arg(name)));
+		qWarning() << QString("Pattern %1 not found in %2").arg(m).arg(name);
 	}
 	QCOMPARE(matches.size(), 0);
 }

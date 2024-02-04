@@ -15,7 +15,8 @@
 
 class test_main: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
+
 	Entropy *entropy {};
 	PwDialogMock *pwdialog{};
 
@@ -30,6 +31,27 @@ class test_main: public QObject
 	void newKey();
 	void importPEM();
 	void exportFormat();
+	void revoke();
+
+  public:
+	template <class T> static T *findWindow(const QString &name)
+	{
+		T *ret = nullptr;
+		for (int i=0; i < 200; i++) {
+			foreach (QWidget *w, QApplication::allWidgets()) {
+				T *dest = dynamic_cast<T*>(w);
+				if (dest && name == dest->objectName() && dest->isVisible()) {
+					qDebug() << "Widget found:" << name << dest << i << dest->isVisible();
+					ret = dest;
+				}
+			}
+			if (ret)
+				return ret;
+			QThread::msleep(50);
+		}
+		qWarning() << "Widget not found:" << name;
+		return nullptr;
+	}
 };
 
 #endif
