@@ -765,13 +765,15 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			newcert->sign(signkey, oldcert->getDigest());
 			newcert = dynamic_cast<pki_x509 *>(insert(newcert));
 			createSuccess(newcert);
-
-			// delete old certificate if requested
-			if (doReplace)
-				deletePKI(idx);
 		}
 		if (doRevoke)
 			do_revoke(indexes, r);
+
+		// delete old certificates if requested
+		if (doReplace)
+			foreach(idx, indexes)
+				if (fromIndex<pki_x509>(idx))
+					deletePKI(idx);
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);
