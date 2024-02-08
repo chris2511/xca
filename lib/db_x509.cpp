@@ -770,10 +770,12 @@ void db_x509::certRenewal(QModelIndexList indexes)
 			do_revoke(indexes, r);
 
 		// delete old certificates if requested
-		if (doReplace)
-			foreach(idx, indexes)
+		if (doReplace) {
+			foreach(idx, indexes) {
 				if (fromIndex<pki_x509>(idx))
 					deletePKI(idx);
+			}
+		}
 	}
 	catch (errorEx &err) {
 		XCA_ERROR(err);
