@@ -67,7 +67,10 @@ void test_main::openDB()
 	pwdialog->setExpectations(QList<pw_expect*>{
 		new pw_expect("testdbpass", pw_ok),
 	});
-	mainwin->init_database("testdb.xdb");
+	mainwin->close_database();
+	Database.open("testdb.xdb");
+	Settings["pkcs12_keep_legacy"] = true;
+	mainwin->setup_open_database();
 	dbstatus();
 }
 

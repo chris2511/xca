@@ -35,6 +35,7 @@
 #include "lib/pki_scard.h"
 #include "lib/dhgen.h"
 #include "lib/load_obj.h"
+#include "lib/pki_pkcs12.h"
 
 #include "XcaDialog.h"
 #include "XcaWarning.h"
@@ -600,7 +601,26 @@ enum open_result MainWindow::setup_open_database()
 		XCA_WARN(tr("The currently used default hash '%1' is insecure. Please select at least 'SHA 224' for security reasons.").arg(defdig.name()));
 		setOptions();
 	}
-
+	encAlgo encalg = encAlgo::getDefault();
+	if (encalg.legacy() && !Settings["pkcs12_keep_legacy"]) {
+		QString text(tr("The currently used PFX / PKCS#12 algorithm '%1' is insecure.")
+				.arg(encalg.name()));
+		xcaWarningBox msg(this, text);
+		msg.addButton(QMessageBox::Ok);
+        msg.addButton(QMessageBox::Ignore);
+        msg.addButton(QMessageBox::Apply, tr("Change"));
+		switch (msg.exec())
+		{
+			case QMessageBox::Ok:
+				break;
+			case QMessageBox::Ignore:
+				Settings["pkcs12_keep_legacy"] = true;
+				break;
+			case QMessageBox::Apply:
+				setOptions();
+				break;
+		}
+	}
 	keyView->setModel(Database.model<db_key>());
 	reqView->setModel(Database.model<db_x509req>());
 	certView->setModel(Database.model<db_x509>());
