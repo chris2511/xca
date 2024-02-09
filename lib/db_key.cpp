@@ -242,6 +242,49 @@ void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
 		throw errorEx(tr("Internal error"));
 }
 
+void db_key::updateKeyEncryptionScheme()
+{
+	bool common_success = true;
+	if (!pki_evp::validateDatabasePassword(pki_evp::passwd))
+		return;
+	if (Settings["legacy-keys-updated"])
+		return;
+
+	QList<pki_evp *> privates, withOwnPassword;
+	privates = Store.sqlSELECTpki<pki_evp>("SELECT item from private_keys");
+
+	qDebug() << "Updating encryption scheme of" << privates.size() << "keys";
+
+	Transaction;
+	if (!TransBegin())
+		return;
+
+	for (pki_evp *key : privates) {
+		if (key->isPubKey()) {
+			qWarning() << "BUG: private key" << key << "is not private";
+			continue; // Should not happen
+		}
+		bool conv_success = key->updateLegacyEncryption();
+		if (!conv_success && key->getOwnPass() == pki_key::ptPrivate) {
+			withOwnPassword << key;
+		} else {
+			common_success &= conv_success;
+		}
+	}
+	qDebug() << "Success:" << common_success << "Legacy keys:"
+			<< withOwnPassword.size();
+	ign_openssl_error();
+	TransCommit();
+	if (withOwnPassword.size() > 0) {
+		QString items;
+		for (pki_evp *key : withOwnPassword)
+			items += "'" + key->getIntName() + "' ";
+		XCA_WARN(tr("Internal key update: The keys: %1 must be updated once by resetting and setting its private password").arg(items));
+	}
+	if (common_success && withOwnPassword.isEmpty())
+		Settings["legacy-keys-updated"] = true;
+}
+
 void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)
 {
 	pki_evp *targetKey = fromIndex<pki_evp>(idx);

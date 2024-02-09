@@ -537,12 +537,12 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	unsigned char iv[EVP_MAX_IV_LENGTH];
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 
+	qDebug() << "legacyDecrypt" << this << myencKey.size();
 	EVP_PKEY *tmpkey;
 	EVP_CIPHER_CTX *ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	p = (unsigned char *)OPENSSL_malloc(myencKey.size());
 	Q_CHECK_PTR(p);
-	pki_openssl_error();
 	p1 = p;
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 
@@ -560,13 +560,10 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 
 	EVP_CIPHER_CTX_cleanup(ctx);
 	decsize += outl;
-	pki_openssl_error();
 	tmpkey = d2i_PrivateKey(getKeyType(), NULL, &p1, decsize);
-	pki_openssl_error();
 	OPENSSL_cleanse(p, myencKey.size());
 	OPENSSL_free(p);
 	EVP_CIPHER_CTX_free(ctx);
-
 	pki_openssl_error();
 	if (EVP_PKEY_type(getKeyType()) == EVP_PKEY_RSA) {
 		RSA *rsa = EVP_PKEY_get1_RSA(tmpkey);
@@ -574,6 +571,42 @@ EVP_PKEY *pki_evp::legacyDecryptKey(QByteArray &myencKey,
 	}
 	myencKey.fill(0);
 	return tmpkey;
+}
+
+// Returns true if it was converted or already a PKCS#8 structure
+bool pki_evp::updateLegacyEncryption()
+{
+	try {
+		QByteArray myencKey = getEncKey();
+		qDebug() << "myencKey:" << myencKey.size();
+		X509_SIG *p8 = d2i_PKCS8_bio(BioByteArray(myencKey).ro(), NULL);
+		X509_SIG_free(p8);
+		if (p8) {
+			qDebug() << "Key" << this << "already in PKCS#8 format";
+			return true;
+		}
+		if (getOwnPass() == ptPrivate) {
+			// Keys with individual password cannot be converted automatically
+			return false;
+		}
+		pki_ign_openssl_error();
+
+		EVP_PKEY *newkey = legacyDecryptKey(myencKey, passwd);
+		ign_openssl_error();
+		if (newkey) {
+			set_evp_key(newkey);
+			encryptKey();
+			sqlUpdatePrivateKey();
+			qDebug() << "Successfully updated encryption scheme of" << this;
+			return true;
+		}
+		qDebug() << "updating encryption scheme of" << this << "failed" << myencKey.size();
+
+	} catch (...) {
+		qDebug() << "CATCH: updating encryption scheme of" << this << "failed";
+	}
+	pki_ign_openssl_error();
+	return false;
 }
 
 EVP_PKEY *pki_evp::decryptKey() const

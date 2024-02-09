@@ -36,6 +36,7 @@ class db_key: public db_base
 		int exportFlags(const QModelIndex &index) const;
 		void exportItem(const QModelIndex &index,
 			const pki_export *xport, XFile &file) const;
+		void updateKeyEncryptionScheme();
 
 	signals:
 		void delKey(pki_key *delkey);

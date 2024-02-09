@@ -53,6 +53,7 @@ class pki_evp: public pki_key
 		void set_evp_key(EVP_PKEY *pkey);
 		void encryptKey(const char *password = NULL);
 		void bogusEncryptKey();
+		bool updateLegacyEncryption();
 		EVP_PKEY *decryptKey() const;
 		EVP_PKEY *tryDecryptKey() const;
 		EVP_PKEY *legacyDecryptKey(QByteArray &myencKey,

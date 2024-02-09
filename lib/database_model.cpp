@@ -182,11 +182,15 @@ database_model::database_model(const QString &name, const Passwd &pass)
 	 * keys first, followed by x509[req], and crls last.
 	 * Templates don't care.
 	 */
-	models << new db_key();
+	db_key *dbkey = new db_key();
+	models << dbkey;
 	models << new db_x509req();
 	models << new db_x509();
 	models << new db_crl();
 	models << new db_temp();
+
+	if (dbkey)
+		dbkey->updateKeyEncryptionScheme();
 
 	foreach(db_base *m, models) {
 		Q_CHECK_PTR(m);
