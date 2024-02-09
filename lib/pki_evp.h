@@ -41,6 +41,7 @@ class pki_evp: public pki_key
 		static QString md5passwd(QByteArray pass);
 		static QString sha512passwd(QByteArray pass, QString salt);
 		static QString sha512passwT(QByteArray pass, QString salt);
+		static bool validateDatabasePassword(const Passwd &passwd);
 
 		pki_evp(const QString &n = QString(), int type = EVP_PKEY_RSA);
 		pki_evp(const pki_evp *pkey);

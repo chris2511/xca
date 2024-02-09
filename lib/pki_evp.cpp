@@ -465,6 +465,13 @@ void pki_evp::fload(const QString &fname)
 	set_EVP_PKEY(pkey, fname);
 }
 
+bool pki_evp::validateDatabasePassword(const Passwd &passwd)
+{
+	return !passHash.isEmpty() &&
+			(sha512passwT(passwd, passHash) == passHash ||
+			 sha512passwd(passwd, passHash) == passHash);
+}
+
 EVP_PKEY *pki_evp::tryDecryptKey() const
 {
 	Passwd ownPassBuf;
@@ -485,10 +492,7 @@ EVP_PKEY *pki_evp::tryDecryptKey() const
 		ownPassBuf = "Bogus";
 	} else {
 		ownPassBuf = passwd;
-		while (passHash.isEmpty() ||
-			(sha512passwT(ownPassBuf, passHash) != passHash &&
-			 sha512passwd(ownPassBuf, passHash) != passHash))
-		{
+		while (!validateDatabasePassword(ownPassBuf)) {
 			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key '%1'").arg(getIntName()));
 			ret = PwDialogCore::execute(&p, &ownPassBuf,
 							passHash.isEmpty());
@@ -627,10 +631,7 @@ void pki_evp::encryptKey(const char *password)
 			int ret = 0;
 			ownPassBuf = passwd;
 			pass_info p(XCA_TITLE, tr("Please enter the database password for encrypting the key"));
-			while (passHash.isEmpty() ||
-				(sha512passwT(ownPassBuf, passHash) != passHash &&
-				 sha512passwd(ownPassBuf, passHash) != passHash))
-			{
+			while (!validateDatabasePassword(ownPassBuf)) {
 				ret = PwDialogCore::execute(&p, &ownPassBuf,
 							passHash.isEmpty());
 				if (ret != 1)
