@@ -125,8 +125,11 @@ void pki_key::write_SSH2_ed25519_private(BIO *b,
 
 bool pki_key::pem(BioByteArray &b)
 {
-	const pki_export *xport = pki_export::by_id(Settings["KeyFormat"]);
+	return pem(b, pki_export::by_id(Settings["KeyFormat"]));
+}
 
+bool pki_key::pem(BioByteArray &b, const pki_export *xport)
+{
 	if (xport->match_all(F_PRIVATE))
 		return false;
 	if (xport->match_all(F_SSH2))

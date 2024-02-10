@@ -215,6 +215,15 @@ void test_main::exportFormat()
 	export_by_id(7, file, list, certs);
 	verify_key(file, QList<unsigned> { END_HASH, ENDKEY_HASH }, true);
 	check_pems(file, 2, QStringList { " ENCRYPTED PRIVATE KEY-", " CERTIFICATE-" });
+	// Export OpenVPN format
+	file = AUTOFILE(OPENVPN)
+	export_by_id(4, file, list, certs);
+	verify_key(file, QList<unsigned> {
+			ROOT_HASH, INTER_HASH, END_HASH, ENDKEY_HASH }, true);
+	check_pems(file, 4, QStringList { " RSA PRIVATE KEY-",
+		" CERTIFICATE-", " CERTIFICATE-"," CERTIFICATE-",
+		"<ca>", "</ca>", "<extra-certs>", "</extra-certs>",
+		"<cert>", "</cert>", "<key>", "</key>" });
 	// Export Endentity as PKCS#7
 	file = AUTOFILE(CERTP7)
 	export_by_id(8, file, list, certs);

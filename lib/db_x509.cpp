@@ -566,6 +566,15 @@ int db_x509::exportFlags(const QModelIndex &idx) const
 	return disable_flags;
 }
 
+void db_x509::writeTaggedPEM(BioByteArray &b, const QString &tag, XFile &file)
+{
+	if (b.size() > 0) {
+		file.write(QString("<%1>\n").arg(tag).toLatin1());
+		file.write(b);
+		file.write(QString("</%1>\n").arg(tag).toLatin1());
+	}
+}
+
 void db_x509::exportItems(const QModelIndexList &list,
 			const pki_export *xport, XFile &file) const
 {
@@ -582,7 +591,25 @@ void db_x509::exportItems(const QModelIndexList &list,
 	}
 
 	if (xport->match_all(F_PEM)) {
-		if (xport->match_all(F_CHAIN)) {
+		if (xport->match_all(F_OVPN)) {
+			BioByteArray key, cert, extra, ca;
+			pki_evp *pkey = (pki_evp *)crt->getRefKey();
+			if (pkey)
+				pkey->pem(key, pki_export::by_id(20)); // PEM unencrypted
+			for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
+			{
+				if (crt == crt->getSigner())
+					crt->pem(ca);
+				else if (cert.size() == 0)
+					crt->pem(cert);
+				else
+					crt->pem(extra);
+			}
+			writeTaggedPEM(ca, "ca", file);
+			writeTaggedPEM(extra, "extra-certs", file);
+			writeTaggedPEM(cert, "cert", file);
+			writeTaggedPEM(key, "key", file);
+		} else if (xport->match_all(F_CHAIN)) {
 			for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
 				crt->writeCert(file, true);
 		} else if (xport->match_all(F_UNREVOKED)) {

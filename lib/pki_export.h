@@ -47,6 +47,7 @@ enum {
 	F_INDEX     = BIT(17),
 	F_CAL       = BIT(18),/* Calendar entry */
 	F_DER       = BIT(19),/* DER format */
+	F_OVPN      = BIT(20),/* OpenVPN format */
 };
 
 class pki_export : public QObject {

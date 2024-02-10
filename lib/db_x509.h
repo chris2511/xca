@@ -23,6 +23,8 @@ class db_x509: public db_x509super
 {
 	Q_OBJECT
 
+		static void writeTaggedPEM(BioByteArray &b,
+						const QString &tag, XFile &file);
 	protected:
 		dbheaderList getHeaders();
 		void dereferenceIssuer();

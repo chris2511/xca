@@ -768,11 +768,10 @@ QSqlError pki_evp::deleteSqlData()
 	return q.lastError();
 }
 
-bool pki_evp::pem(BioByteArray &b)
+bool pki_evp::pem(BioByteArray &b, const pki_export *xport)
 {
 	EVP_PKEY *pkey;
 	int keytype;
-	const pki_export *xport = pki_export::by_id(Settings["KeyFormat"]);
 
 	if (xport->match_all(F_PEM | F_PRIVATE)) {
 		pkey = decryptKey();
