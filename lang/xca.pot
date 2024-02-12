@@ -1015,14 +1015,14 @@ msgctxt "MainWindow|"
 msgid "Revocation lists"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:594
+#: ../widgets/MainWindow.cpp:595
 msgctxt "MainWindow|"
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
 "correct password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:600
+#: ../widgets/MainWindow.cpp:601
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1300,95 +1300,106 @@ msgctxt "MainWindow|"
 msgid "About"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:253
+#: ../widgets/MainWindow.cpp:254
 msgctxt "MainWindow|"
 msgid "Import PEM data"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:282
+#: ../widgets/MainWindow.cpp:283
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:113 ../widgets/MainWindow.cpp:738
+#: ../widgets/MainWindow.cpp:114 ../widgets/MainWindow.cpp:758
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:288
+#: ../widgets/MainWindow.cpp:289
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the new SO PIN (PUK) for the token '%1'"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:295
+#: ../widgets/MainWindow.cpp:296
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The new label of the token '%1'"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:403
+#: ../widgets/MainWindow.cpp:404
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:450
+#: ../widgets/MainWindow.cpp:451
 msgctxt "MainWindow|"
 msgid "Current Password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:451
+#: ../widgets/MainWindow.cpp:452
 msgctxt "MainWindow|"
 msgid "Please enter the current database password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:461
+#: ../widgets/MainWindow.cpp:462
 msgctxt "MainWindow|"
 msgid "The entered password is wrong"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:466
+#: ../widgets/MainWindow.cpp:467
 msgctxt "MainWindow|"
 msgid "New Password"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:466
+#: ../widgets/MainWindow.cpp:467
 msgctxt "MainWindow|"
 msgid ""
 "Please enter the new password to encrypt your private keys in the "
 "database-file"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:490
+#: ../widgets/MainWindow.cpp:491
 msgctxt "MainWindow|"
 msgid "Transaction start failed"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:577
+#: ../widgets/MainWindow.cpp:578
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Database: %1"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:658
+#: ../widgets/MainWindow.cpp:606
+#, qt-format
+msgctxt "MainWindow|"
+msgid "The currently used PFX / PKCS#12 algorithm '%1' is insecure."
+msgstr ""
+
+#: ../widgets/MainWindow.cpp:611
+msgctxt "MainWindow|"
+msgid "Change"
+msgstr ""
+
+#: ../widgets/MainWindow.cpp:678
 msgctxt "MainWindow|"
 msgid "Certificate Index ( index.txt )"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:659 ../widgets/MainWindow.cpp:715
+#: ../widgets/MainWindow.cpp:679 ../widgets/MainWindow.cpp:735
 msgctxt "MainWindow|"
 msgid "All files ( * )"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:682
+#: ../widgets/MainWindow.cpp:702
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Diffie-Hellman parameters saved as: %1"
 msgstr ""
 
-#: ../widgets/MainWindow.cpp:700
+#: ../widgets/MainWindow.cpp:720
 msgctxt "MainWindow|"
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
@@ -3252,31 +3263,31 @@ msgid ""
 "Please enter the password to access the database server %2 as user '%1'."
 msgstr ""
 
-#: ../lib/database_model.cpp:278
+#: ../lib/database_model.cpp:282
 #, qt-format
 msgctxt "database_model|"
 msgid "Unable to create '%1': %2"
 msgstr ""
 
-#: ../lib/database_model.cpp:449
+#: ../lib/database_model.cpp:445
 #, qt-format
 msgctxt "database_model|"
 msgid "The file '%1' is not an XCA database"
 msgstr ""
 
-#: ../lib/database_model.cpp:476
+#: ../lib/database_model.cpp:472
 msgctxt "database_model|"
 msgid ""
 "No SqLite3 driver available. Please install the qt-sqlite package of your "
 "distribution"
 msgstr ""
 
-#: ../lib/database_model.cpp:517
+#: ../lib/database_model.cpp:513
 msgctxt "database_model|"
 msgid "New Password"
 msgstr ""
 
-#: ../lib/database_model.cpp:517
+#: ../lib/database_model.cpp:513
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3285,12 +3296,12 @@ msgid ""
 "%1"
 msgstr ""
 
-#: ../lib/database_model.cpp:537
+#: ../lib/database_model.cpp:533
 msgctxt "database_model|"
 msgid "Password"
 msgstr ""
 
-#: ../lib/database_model.cpp:538
+#: ../lib/database_model.cpp:534
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3480,7 +3491,15 @@ msgctxt "db_key|"
 msgid "Internal error"
 msgstr ""
 
-#: ../lib/db_key.cpp:253
+#: ../lib/db_key.cpp:282
+#, qt-format
+msgctxt "db_key|"
+msgid ""
+"Internal key update: The keys: %1 must be updated once by resetting and "
+"setting its private password"
+msgstr ""
+
+#: ../lib/db_key.cpp:296
 msgctxt "db_key|"
 msgid "Tried to change password of a token"
 msgstr ""
@@ -3603,19 +3622,19 @@ msgctxt "db_x509|"
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
-#: ../lib/db_x509.cpp:599 ../lib/db_x509.cpp:649
+#: ../lib/db_x509.cpp:626 ../lib/db_x509.cpp:676
 #, qt-format
 msgctxt "db_x509|"
 msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:602
+#: ../lib/db_x509.cpp:629
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for a token key: '%1'"
 msgstr ""
 
-#: ../lib/db_x509.cpp:653
+#: ../lib/db_x509.cpp:680
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for the token-key Certificate '%1'"
@@ -3805,7 +3824,7 @@ msgctxt "pki_base|"
 msgid "Renewed"
 msgstr ""
 
-#: ../lib/pki_base.cpp:431
+#: ../lib/pki_base.cpp:433
 #, qt-format
 msgctxt "pki_base|"
 msgid "Property '%1' not listed in 'pki_base::print'"
@@ -3910,59 +3929,59 @@ msgid ""
 "public, PKCS#8 key types and SSH2 format."
 msgstr ""
 
-#: ../lib/pki_evp.cpp:479
+#: ../lib/pki_evp.cpp:486
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:482 ../lib/pki_evp.cpp:496
+#: ../lib/pki_evp.cpp:489 ../lib/pki_evp.cpp:500
 msgctxt "pki_evp|"
 msgid "Password input aborted"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:492
+#: ../lib/pki_evp.cpp:496
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:516
+#: ../lib/pki_evp.cpp:520
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Decryption of private key '%1' failed"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:560
+#: ../lib/pki_evp.cpp:648
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password to protect the private key: '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:578
+#: ../lib/pki_evp.cpp:666
 msgctxt "pki_evp|"
 msgid "Please enter the database password for encrypting the key"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:739
+#: ../lib/pki_evp.cpp:823
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password protecting the PKCS#8 key '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:759
+#: ../lib/pki_evp.cpp:843
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the password protecting the Microsoft PVK key '%1'"
 msgstr ""
 
-#: ../lib/pki_evp.cpp:812
+#: ../lib/pki_evp.cpp:896
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the export password for the private key '%1'"
 msgstr ""
 
-#: ../lib/pki_export.cpp:58 ../lib/pki_export.cpp:85 ../lib/pki_export.cpp:88
+#: ../lib/pki_export.cpp:58 ../lib/pki_export.cpp:86 ../lib/pki_export.cpp:89
 msgctxt "pki_export|"
 msgid "PEM Text format with headers"
 msgstr ""
@@ -3985,311 +4004,318 @@ msgstr ""
 
 #: ../lib/pki_export.cpp:61
 msgctxt "pki_export|"
+msgid ""
+"The complete certificate chain and the private key of the selected "
+"certificate with tags usable in OpenVPN configuration files"
+msgstr ""
+
+#: ../lib/pki_export.cpp:62
+msgctxt "pki_export|"
 msgid "PEM + key"
 msgstr ""
 
-#: ../lib/pki_export.cpp:61
+#: ../lib/pki_export.cpp:62
 msgctxt "pki_export|"
 msgid ""
 "Concatenation of the certificate and the unencrypted private key in one PEM "
 "file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:62
+#: ../lib/pki_export.cpp:63
 msgctxt "pki_export|"
 msgid ""
 "Concatenation of the certificate and the encrypted private key in PKCS#8 "
 "format in one file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:63
+#: ../lib/pki_export.cpp:64
 msgctxt "pki_export|"
 msgid "PKCS#7 encoded single certificate"
 msgstr ""
 
-#: ../lib/pki_export.cpp:64
+#: ../lib/pki_export.cpp:65
 msgctxt "pki_export|"
 msgid "All selected certificates encoded in one PKCS#7 file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:65
+#: ../lib/pki_export.cpp:66
 msgctxt "pki_export|"
 msgid "PKCS #7 chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:65
+#: ../lib/pki_export.cpp:66
 msgctxt "pki_export|"
 msgid "PKCS#7 encoded complete certificate chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:66
+#: ../lib/pki_export.cpp:67
 msgctxt "pki_export|"
 msgid "Binary DER encoded certificate"
 msgstr ""
 
-#: ../lib/pki_export.cpp:67
+#: ../lib/pki_export.cpp:68
 msgctxt "pki_export|"
 msgid "PKCS #12 chain"
 msgstr ""
 
-#: ../lib/pki_export.cpp:67
+#: ../lib/pki_export.cpp:68
 msgctxt "pki_export|"
 msgid ""
 "The complete certificate chain and the private key as encrypted PKCS#12 file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:68
+#: ../lib/pki_export.cpp:69
 msgctxt "pki_export|"
 msgid "PKCS #12"
 msgstr ""
 
-#: ../lib/pki_export.cpp:68
+#: ../lib/pki_export.cpp:69
 msgctxt "pki_export|"
 msgid "The certificate and the private key as encrypted PKCS#12 file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:69
+#: ../lib/pki_export.cpp:70
 msgctxt "pki_export|"
 msgid "Certificate Index file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:69
+#: ../lib/pki_export.cpp:70
 msgctxt "pki_export|"
 msgid ""
 "OpenSSL specific Certificate Index file as created by the 'ca' command and "
 "required by the OCSP tool"
 msgstr ""
 
-#: ../lib/pki_export.cpp:70 ../lib/pki_export.cpp:90
+#: ../lib/pki_export.cpp:71 ../lib/pki_export.cpp:91
 msgctxt "pki_export|"
 msgid "vCalendar"
 msgstr ""
 
-#: ../lib/pki_export.cpp:70
+#: ../lib/pki_export.cpp:71
 msgctxt "pki_export|"
 msgid "vCalendar expiry reminder for the selected items"
 msgstr ""
 
-#: ../lib/pki_export.cpp:71
+#: ../lib/pki_export.cpp:72
 msgctxt "pki_export|"
 msgid "CA vCalendar"
 msgstr ""
 
-#: ../lib/pki_export.cpp:71
+#: ../lib/pki_export.cpp:72
 msgctxt "pki_export|"
 msgid ""
 "vCalendar expiry reminder containing all issued, valid certificates, the CA "
 "itself and the latest CRL"
 msgstr ""
 
-#: ../lib/pki_export.cpp:73
+#: ../lib/pki_export.cpp:74
 msgctxt "pki_export|"
 msgid "PEM public"
 msgstr ""
 
-#: ../lib/pki_export.cpp:73
+#: ../lib/pki_export.cpp:74
 msgctxt "pki_export|"
 msgid "Text format of the public key in one PEM file"
 msgstr ""
 
-#: ../lib/pki_export.cpp:74
+#: ../lib/pki_export.cpp:75
 msgctxt "pki_export|"
 msgid "PEM private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:74 ../lib/pki_export.cpp:76
+#: ../lib/pki_export.cpp:75 ../lib/pki_export.cpp:77
 msgctxt "pki_export|"
 msgid "Unencrypted private key in text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:75
+#: ../lib/pki_export.cpp:76
 msgctxt "pki_export|"
 msgid "PEM encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:75
+#: ../lib/pki_export.cpp:76
 msgctxt "pki_export|"
 msgid "OpenSSL specific encrypted private key in text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:76
+#: ../lib/pki_export.cpp:77
 msgctxt "pki_export|"
 msgid "SSH2 private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:77
+#: ../lib/pki_export.cpp:78
 msgctxt "pki_export|"
 msgid "SSH2 public"
 msgstr ""
 
-#: ../lib/pki_export.cpp:77
+#: ../lib/pki_export.cpp:78
 msgctxt "pki_export|"
 msgid "The public key encoded in SSH2 format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:78
+#: ../lib/pki_export.cpp:79
 msgctxt "pki_export|"
 msgid "DER public"
 msgstr ""
 
-#: ../lib/pki_export.cpp:78
+#: ../lib/pki_export.cpp:79
 msgctxt "pki_export|"
 msgid "Binary DER format of the public key"
 msgstr ""
 
-#: ../lib/pki_export.cpp:79
+#: ../lib/pki_export.cpp:80
 msgctxt "pki_export|"
 msgid "DER private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:79
+#: ../lib/pki_export.cpp:80
 msgctxt "pki_export|"
 msgid "Unencrypted private key in binary DER format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:80
+#: ../lib/pki_export.cpp:81
 msgctxt "pki_export|"
 msgid "PVK private"
 msgstr ""
 
-#: ../lib/pki_export.cpp:80
+#: ../lib/pki_export.cpp:81
 msgctxt "pki_export|"
 msgid "Private key in Microsoft PVK format not encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:81
+#: ../lib/pki_export.cpp:82
 msgctxt "pki_export|"
 msgid "PVK encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:81
+#: ../lib/pki_export.cpp:82
 msgctxt "pki_export|"
 msgid "Encrypted private key in Microsoft PVK format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:82
+#: ../lib/pki_export.cpp:83
 msgctxt "pki_export|"
 msgid "PKCS #8 encrypted"
 msgstr ""
 
-#: ../lib/pki_export.cpp:82
+#: ../lib/pki_export.cpp:83
 msgctxt "pki_export|"
 msgid "Encrypted private key in PKCS#8 text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:83
+#: ../lib/pki_export.cpp:84
 msgctxt "pki_export|"
 msgid "PKCS #8"
 msgstr ""
 
-#: ../lib/pki_export.cpp:83
+#: ../lib/pki_export.cpp:84
 msgctxt "pki_export|"
 msgid "Unencrypted private key in PKCS#8 text format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:86
+#: ../lib/pki_export.cpp:87
 msgctxt "pki_export|"
 msgid "Binary DER format of the certificate request"
 msgstr ""
 
-#: ../lib/pki_export.cpp:89
+#: ../lib/pki_export.cpp:90
 msgctxt "pki_export|"
 msgid "Binary DER format of the revocation list"
 msgstr ""
 
-#: ../lib/pki_export.cpp:90
+#: ../lib/pki_export.cpp:91
 msgctxt "pki_export|"
 msgid "vCalendar reminder for the CRL expiry date"
 msgstr ""
 
-#: ../lib/pki_export.cpp:92
+#: ../lib/pki_export.cpp:93
 msgctxt "pki_export|"
 msgid "XCA template in PEM-like format"
 msgstr ""
 
-#: ../lib/pki_export.cpp:93
+#: ../lib/pki_export.cpp:94
 msgctxt "pki_export|"
 msgid "All selected XCA templates in PEM-like format"
 msgstr ""
 
-#: ../lib/pki_key.cpp:199
+#: ../lib/pki_key.cpp:202
 #, qt-format
 msgctxt "pki_key|"
 msgid "Successfully imported the %1 public key '%2'"
 msgstr ""
 
-#: ../lib/pki_key.cpp:200
+#: ../lib/pki_key.cpp:203
 #, qt-format
 msgctxt "pki_key|"
 msgid "Delete the %1 public key '%2'?"
 msgstr ""
 
-#: ../lib/pki_key.cpp:205
+#: ../lib/pki_key.cpp:208
 #, qt-format
 msgctxt "pki_key|"
 msgid "Successfully imported the %1 private key '%2'"
 msgstr ""
 
-#: ../lib/pki_key.cpp:206
+#: ../lib/pki_key.cpp:209
 #, qt-format
 msgctxt "pki_key|"
 msgid "Delete the %1 private key '%2'?"
 msgstr ""
 
-#: ../lib/pki_key.cpp:207
+#: ../lib/pki_key.cpp:210
 #, qt-format
 msgctxt "pki_key|"
 msgid "Successfully created the %1 private key '%2'"
 msgstr ""
 
-#: ../lib/pki_key.cpp:213
+#: ../lib/pki_key.cpp:216
 #, qt-format
 msgctxt "pki_key|"
 msgid "Delete the %1 keys: %2?"
 msgstr ""
 
-#: ../lib/pki_key.cpp:58 ../lib/pki_key.cpp:222 ../lib/pki_key.cpp:871
+#: ../lib/pki_key.cpp:58 ../lib/pki_key.cpp:225 ../lib/pki_key.cpp:874
 msgctxt "pki_key|"
 msgid "Public key"
 msgstr ""
 
-#: ../lib/pki_key.cpp:463
+#: ../lib/pki_key.cpp:466
 msgctxt "pki_key|"
 msgid "Common"
 msgstr ""
 
-#: ../lib/pki_key.cpp:463
+#: ../lib/pki_key.cpp:466
 msgctxt "pki_key|"
 msgid "Private"
 msgstr ""
 
-#: ../lib/pki_key.cpp:463
+#: ../lib/pki_key.cpp:466
 msgctxt "pki_key|"
 msgid "Bogus"
 msgstr ""
 
-#: ../lib/pki_key.cpp:463
+#: ../lib/pki_key.cpp:466
 msgctxt "pki_key|"
 msgid "PIN"
 msgstr ""
 
-#: ../lib/pki_key.cpp:473
+#: ../lib/pki_key.cpp:476
 msgctxt "pki_key|"
 msgid "No password"
 msgstr ""
 
-#: ../lib/pki_key.cpp:570 ../lib/pki_key.cpp:675
+#: ../lib/pki_key.cpp:573 ../lib/pki_key.cpp:678
 #, qt-format
 msgctxt "pki_key|"
 msgid "Unexpected SSH2 content: '%1'"
 msgstr ""
 
-#: ../lib/pki_key.cpp:590 ../lib/pki_key.cpp:596
+#: ../lib/pki_key.cpp:593 ../lib/pki_key.cpp:599
 msgctxt "pki_key|"
 msgid "Invalid SSH2 public key"
 msgstr ""
 
-#: ../lib/pki_key.cpp:793
+#: ../lib/pki_key.cpp:796
 #, qt-format
 msgctxt "pki_key|"
 msgid "Failed writing to %1"

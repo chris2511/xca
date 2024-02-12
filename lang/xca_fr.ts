@@ -1187,7 +1187,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Listes de révocation</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="594"/>
+        <location filename="../widgets/MainWindow.cpp" line="595"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Il sera impossible d&apos;utiliser ou d&apos;exporter des clés privées sans fournir le mot de passe correct.</translation>
     </message>
@@ -1196,7 +1196,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation type="vanished">Base de données</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="600"/>
+        <location filename="../widgets/MainWindow.cpp" line="601"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>L&apos;algorithme de hachage &apos;%1&apos; sélectionné n&apos;est pas sûr. SVP choisissez au moins &apos;SHA 224&apos; pour raisons de sécurité.</translation>
     </message>
@@ -1472,89 +1472,99 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>A propos</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="253"/>
+        <location filename="../widgets/MainWindow.cpp" line="254"/>
         <source>Import PEM data</source>
         <translation>Importer les données PEM</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="282"/>
+        <location filename="../widgets/MainWindow.cpp" line="283"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>SVP saisir le PUK original du jeton &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="113"/>
-        <location filename="../widgets/MainWindow.cpp" line="738"/>
+        <location filename="../widgets/MainWindow.cpp" line="114"/>
+        <location filename="../widgets/MainWindow.cpp" line="758"/>
         <source>Search</source>
         <translation>Rechercher</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="288"/>
+        <location filename="../widgets/MainWindow.cpp" line="289"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>SVP saisir le nouveau NIP SO (PUK) pour le jeton: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="295"/>
+        <location filename="../widgets/MainWindow.cpp" line="296"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>La nouvelle étiquette du jeton &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="403"/>
+        <location filename="../widgets/MainWindow.cpp" line="404"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Le jeton &apos;%1&apos; ne contient aucune clé ni aucun certificat</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="450"/>
+        <location filename="../widgets/MainWindow.cpp" line="451"/>
         <source>Current Password</source>
         <translation>Mot de passe actuel</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="451"/>
+        <location filename="../widgets/MainWindow.cpp" line="452"/>
         <source>Please enter the current database password</source>
         <translation>SVP saisir le mot de passe de la base de données</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="461"/>
+        <location filename="../widgets/MainWindow.cpp" line="462"/>
         <source>The entered password is wrong</source>
         <translation>Le mot de passe renseigné est inexact</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="466"/>
+        <location filename="../widgets/MainWindow.cpp" line="467"/>
         <source>New Password</source>
         <translation>Nouveau mot de passe</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="466"/>
+        <location filename="../widgets/MainWindow.cpp" line="467"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>SVP saisir le nouveau mot de passe pour chiffrer les clés privées dans le fichier de base de données</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="490"/>
+        <location filename="../widgets/MainWindow.cpp" line="491"/>
         <source>Transaction start failed</source>
         <translation>Le démarrage de la transaction a échoué</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="577"/>
+        <location filename="../widgets/MainWindow.cpp" line="578"/>
         <source>Database: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="658"/>
+        <location filename="../widgets/MainWindow.cpp" line="606"/>
+        <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/MainWindow.cpp" line="611"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/MainWindow.cpp" line="678"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Index des certificats ( index.txt )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="659"/>
-        <location filename="../widgets/MainWindow.cpp" line="715"/>
+        <location filename="../widgets/MainWindow.cpp" line="679"/>
+        <location filename="../widgets/MainWindow.cpp" line="735"/>
         <source>All files ( * )</source>
         <translation>Tous les fichiers ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="682"/>
+        <location filename="../widgets/MainWindow.cpp" line="702"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
         <translation>Les paramètres Diffie-Hellman on été sauvegardés dans: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="700"/>
+        <location filename="../widgets/MainWindow.cpp" line="720"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>Les paramètres de Diffie-Hellman sont nécessaires à certaines applications mais ne sont pas gérés par XCA.
@@ -3499,39 +3509,39 @@ Dans la bibliothèque %3
         <translation>SVP saisir le mot de passe de l&apos;utilisateur &apos;%1&apos; sur le serveur de base de données %2.</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="278"/>
+        <location filename="../lib/database_model.cpp" line="282"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation>Impossible de créer &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="449"/>
+        <location filename="../lib/database_model.cpp" line="445"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation>Le fichier &apos;%1&apos; n&apos;est pas une base de données XCA</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="476"/>
+        <location filename="../lib/database_model.cpp" line="472"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Le pilote SqLite3 n&apos;est pas disponible. SVP installez le paquetage qt-sqlite de votre distribution</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="517"/>
+        <location filename="../lib/database_model.cpp" line="513"/>
         <source>New Password</source>
         <translation>Nouveau mot de passe</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="517"/>
+        <location filename="../lib/database_model.cpp" line="513"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
         <translation>Veuillez saisir un mot de passe, qui sera utilisé pour chiffrer vos clés privées dans la base de données:
 %1</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="537"/>
+        <location filename="../lib/database_model.cpp" line="533"/>
         <source>Password</source>
         <translation>Mot de passe</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="538"/>
+        <location filename="../lib/database_model.cpp" line="534"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
         <translation>Veuillez entrer le mot passe pour déverrouiller la base de données:
@@ -3818,7 +3828,12 @@ En conséquence, cette dernière sera complétée par la partie privée de la cl
         <translation>Erreur interne</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="253"/>
+        <location filename="../lib/db_key.cpp" line="282"/>
+        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/db_key.cpp" line="296"/>
         <source>Tried to change password of a token</source>
         <translation>Tentative de changement de mot de passe d&apos;un jeton de sécurité</translation>
     </message>
@@ -4011,18 +4026,18 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation type="vanished">Exportation de certificat</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="599"/>
-        <location filename="../lib/db_x509.cpp" line="649"/>
+        <location filename="../lib/db_x509.cpp" line="626"/>
+        <location filename="../lib/db_x509.cpp" line="676"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Aucune clé n&apos;a été trouvée pour le Certificat. &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="602"/>
+        <location filename="../lib/db_x509.cpp" line="629"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Impossible pour une clé d&apos;un jeton de sécurité: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="653"/>
+        <location filename="../lib/db_x509.cpp" line="680"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Impossible pour le certificat d&apos;une clé d&apos;un jeton de sécurité: &apos;%1&apos;</translation>
     </message>
@@ -4245,7 +4260,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Renouvelé</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="431"/>
+        <location filename="../lib/pki_base.cpp" line="433"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation>Propriété &apos;%1&apos; non listée dans &apos;pki_base::print&apos;</translation>
     </message>
@@ -4345,48 +4360,48 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation type="vanished">Clé privée non-supportée: ignorée</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="479"/>
+        <location filename="../lib/pki_evp.cpp" line="486"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe pour déchiffrer la clé privée: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="482"/>
-        <location filename="../lib/pki_evp.cpp" line="496"/>
+        <location filename="../lib/pki_evp.cpp" line="489"/>
+        <location filename="../lib/pki_evp.cpp" line="500"/>
         <source>Password input aborted</source>
         <translation>Saisie du mot de passe abandonnée</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="492"/>
+        <location filename="../lib/pki_evp.cpp" line="496"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe de la base de données pour déchiffrer la clé &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="516"/>
+        <location filename="../lib/pki_evp.cpp" line="520"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="560"/>
+        <location filename="../lib/pki_evp.cpp" line="648"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe pour protéger la clé privée: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="578"/>
+        <location filename="../lib/pki_evp.cpp" line="666"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation>SVP saisir le mot de passe de la base de données pour chiffrer la clé</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="739"/>
+        <location filename="../lib/pki_evp.cpp" line="823"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe protégeant la clé en PKCS#8 &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="759"/>
+        <location filename="../lib/pki_evp.cpp" line="843"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe protégeant la clé en format Microsoft PVK &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="812"/>
+        <location filename="../lib/pki_evp.cpp" line="896"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe d&apos;exportation pour la clé privée &apos;%1&apos;</translation>
     </message>
@@ -4395,8 +4410,8 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="58"/>
-        <location filename="../lib/pki_export.cpp" line="85"/>
-        <location filename="../lib/pki_export.cpp" line="88"/>
+        <location filename="../lib/pki_export.cpp" line="86"/>
+        <location filename="../lib/pki_export.cpp" line="89"/>
         <source>PEM Text format with headers</source>
         <translation>Format textuel PEM avec des en-têtes</translation>
     </message>
@@ -4417,223 +4432,228 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="61"/>
+        <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="62"/>
         <source>PEM + key</source>
         <translation>PEM + clé</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="61"/>
+        <location filename="../lib/pki_export.cpp" line="62"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
         <translation>La concaténation du certificat et de sa clé privée non-chiffrée dans un seul fichier PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="62"/>
+        <location filename="../lib/pki_export.cpp" line="63"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
         <translation>La concaténation du certificat et de sa clé privée chiffrée en format PKCS#8 dans un seul fichier</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="63"/>
+        <location filename="../lib/pki_export.cpp" line="64"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>Un seul certificat en format PKCS#7</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="64"/>
+        <location filename="../lib/pki_export.cpp" line="65"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
         <translation>Tous les certificats sélectionnés dans un seul fichier en format PKCS#7</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="65"/>
+        <location filename="../lib/pki_export.cpp" line="66"/>
         <source>PKCS #7 chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="65"/>
+        <location filename="../lib/pki_export.cpp" line="66"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>La chaîne complète de certificats en format PKCS#7 dans un seul fichier</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="66"/>
+        <location filename="../lib/pki_export.cpp" line="67"/>
         <source>Binary DER encoded certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="67"/>
+        <location filename="../lib/pki_export.cpp" line="68"/>
         <source>PKCS #12 chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="67"/>
+        <location filename="../lib/pki_export.cpp" line="68"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
         <translation>La chaîne complète des certificats et la clé privée en un seul fichier chiffré en format PKCS#12</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="68"/>
+        <location filename="../lib/pki_export.cpp" line="69"/>
         <source>PKCS #12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="68"/>
+        <location filename="../lib/pki_export.cpp" line="69"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
         <translation>Le certificat et sa clé privée dans un fichier en format PKCS#12</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="69"/>
+        <location filename="../lib/pki_export.cpp" line="70"/>
         <source>Certificate Index file</source>
         <translation>Ficher d&apos;index des certificats</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="69"/>
+        <location filename="../lib/pki_export.cpp" line="70"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
         <translation>Fichier d&apos;index des certificats spécifique à OpenSSL, tel que créé par la commande &apos;ca&apos; et nécessaire à l&apos;outil OCSP</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="70"/>
-        <location filename="../lib/pki_export.cpp" line="90"/>
+        <location filename="../lib/pki_export.cpp" line="71"/>
+        <location filename="../lib/pki_export.cpp" line="91"/>
         <source>vCalendar</source>
         <translation>message vCalendar</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="70"/>
+        <location filename="../lib/pki_export.cpp" line="71"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>message vCalendar de rappel d&apos;expiration des éléments sélectionnés</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="71"/>
+        <location filename="../lib/pki_export.cpp" line="72"/>
         <source>CA vCalendar</source>
         <translation>message vCalendar pour le CA</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="71"/>
+        <location filename="../lib/pki_export.cpp" line="72"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
         <translation>message vCalendar de rappel d&apos;expiration contenant tous les certificats valides émis, le CA lui-même et la liste de révocation la plus récente</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="73"/>
+        <location filename="../lib/pki_export.cpp" line="74"/>
         <source>PEM public</source>
         <translation>clé publique PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="73"/>
+        <location filename="../lib/pki_export.cpp" line="74"/>
         <source>Text format of the public key in one PEM file</source>
         <translation>Formattage textuel de la clé publique dans un fichier PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="74"/>
+        <location filename="../lib/pki_export.cpp" line="75"/>
         <source>PEM private</source>
         <translation>Clé privée PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="74"/>
-        <location filename="../lib/pki_export.cpp" line="76"/>
+        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="77"/>
         <source>Unencrypted private key in text format</source>
         <translation>Clé privée non-chiffrée en format texte</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="76"/>
         <source>PEM encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="76"/>
         <source>OpenSSL specific encrypted private key in text format</source>
         <translation>Clé privée chiffrée spécifiquement par OpenSSL en format texte</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="76"/>
+        <location filename="../lib/pki_export.cpp" line="77"/>
         <source>SSH2 private</source>
         <translation>Clé privée SSH2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="77"/>
+        <location filename="../lib/pki_export.cpp" line="78"/>
         <source>SSH2 public</source>
         <translation>Clé publique SSH2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="77"/>
+        <location filename="../lib/pki_export.cpp" line="78"/>
         <source>The public key encoded in SSH2 format</source>
         <translation>La clé publique en format SSH2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="78"/>
+        <location filename="../lib/pki_export.cpp" line="79"/>
         <source>DER public</source>
         <translation>Clé publique DER</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="78"/>
+        <location filename="../lib/pki_export.cpp" line="79"/>
         <source>Binary DER format of the public key</source>
         <translation>Format binaire DER de la clé publique</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="79"/>
+        <location filename="../lib/pki_export.cpp" line="80"/>
         <source>DER private</source>
         <translation>Clé privée DER</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="79"/>
+        <location filename="../lib/pki_export.cpp" line="80"/>
         <source>Unencrypted private key in binary DER format</source>
         <translation>Clé privée non-chiffrée en format binaire DER</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="80"/>
+        <location filename="../lib/pki_export.cpp" line="81"/>
         <source>PVK private</source>
         <translation>Clé privée PVK</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="80"/>
+        <location filename="../lib/pki_export.cpp" line="81"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
         <translation>La clé privée en format Microsoft PVK n&apos;est pas chiffrée</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="81"/>
+        <location filename="../lib/pki_export.cpp" line="82"/>
         <source>PVK encrypted</source>
         <translation>Chiffrée en PVK</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="81"/>
+        <location filename="../lib/pki_export.cpp" line="82"/>
         <source>Encrypted private key in Microsoft PVK format</source>
         <translation>Clé privée chiffrée en format Microsoft PVK</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="82"/>
+        <location filename="../lib/pki_export.cpp" line="83"/>
         <source>PKCS #8 encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="82"/>
+        <location filename="../lib/pki_export.cpp" line="83"/>
         <source>Encrypted private key in PKCS#8 text format</source>
         <translation>Clé privée chiffrée en format texte PKCS#8</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="83"/>
+        <location filename="../lib/pki_export.cpp" line="84"/>
         <source>PKCS #8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="83"/>
+        <location filename="../lib/pki_export.cpp" line="84"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
         <translation>Clé privée non-chiffrée en format texte PKCS#8</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="86"/>
+        <location filename="../lib/pki_export.cpp" line="87"/>
         <source>Binary DER format of the certificate request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="89"/>
+        <location filename="../lib/pki_export.cpp" line="90"/>
         <source>Binary DER format of the revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="90"/>
+        <location filename="../lib/pki_export.cpp" line="91"/>
         <source>vCalendar reminder for the CRL expiry date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="92"/>
+        <location filename="../lib/pki_export.cpp" line="93"/>
         <source>XCA template in PEM-like format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="93"/>
+        <location filename="../lib/pki_export.cpp" line="94"/>
         <source>All selected XCA templates in PEM-like format</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4641,81 +4661,81 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="199"/>
+        <location filename="../lib/pki_key.cpp" line="202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>La clé publique %1 &apos;%2&apos; a été importée avec succès</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="200"/>
+        <location filename="../lib/pki_key.cpp" line="203"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
         <translation>Détruire la clé publique %1 &apos;%2&apos; ?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="205"/>
+        <location filename="../lib/pki_key.cpp" line="208"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <translation>La clé privée %1 &apos;%2&apos; a été importée avec succès</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="206"/>
+        <location filename="../lib/pki_key.cpp" line="209"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
         <translation>Détruire la clé privée %1 &apos;%2&apos; ?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="207"/>
+        <location filename="../lib/pki_key.cpp" line="210"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <translation>La clé privée %1 &apos;%2&apos; a été créée avec succès</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="213"/>
+        <location filename="../lib/pki_key.cpp" line="216"/>
         <source>Delete the %1 keys: %2?</source>
         <translation>Détruire les %1 clés: %2?</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="58"/>
-        <location filename="../lib/pki_key.cpp" line="222"/>
-        <location filename="../lib/pki_key.cpp" line="871"/>
+        <location filename="../lib/pki_key.cpp" line="225"/>
+        <location filename="../lib/pki_key.cpp" line="874"/>
         <source>Public key</source>
         <translation>Clé publique</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="463"/>
+        <location filename="../lib/pki_key.cpp" line="466"/>
         <source>Common</source>
         <translation>Global</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="463"/>
+        <location filename="../lib/pki_key.cpp" line="466"/>
         <source>Private</source>
         <translation>Privé</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="463"/>
+        <location filename="../lib/pki_key.cpp" line="466"/>
         <source>Bogus</source>
         <translation>Erroné</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="463"/>
+        <location filename="../lib/pki_key.cpp" line="466"/>
         <source>PIN</source>
         <translation>NIP</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="473"/>
+        <location filename="../lib/pki_key.cpp" line="476"/>
         <source>No password</source>
         <translation>Pas de mot de passe</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="570"/>
-        <location filename="../lib/pki_key.cpp" line="675"/>
+        <location filename="../lib/pki_key.cpp" line="573"/>
+        <location filename="../lib/pki_key.cpp" line="678"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
         <translation>Contenu SSH2 inattendu: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="590"/>
-        <location filename="../lib/pki_key.cpp" line="596"/>
+        <location filename="../lib/pki_key.cpp" line="593"/>
+        <location filename="../lib/pki_key.cpp" line="599"/>
         <source>Invalid SSH2 public key</source>
         <translation>Clé publique SSH2 invalide</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="793"/>
+        <location filename="../lib/pki_key.cpp" line="796"/>
         <source>Failed writing to %1</source>
         <translation>Echec d&apos;écriture sur %1</translation>
     </message>

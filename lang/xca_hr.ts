@@ -1450,7 +1450,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+594"/>
+        <location filename="../widgets/MainWindow.cpp" line="+595"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
@@ -1839,12 +1839,12 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     </message>
     <message>
         <location line="-169"/>
-        <location line="+625"/>
+        <location line="+644"/>
         <source>Search</source>
         <translation>Traži</translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-469"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>Unesite novi SO PIN (PUK) za pametni token &apos;%1&apos;</translation>
     </message>
@@ -1894,6 +1894,16 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+28"/>
+        <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Change</source>
+        <translation type="unfinished">Promijeni</translation>
+    </message>
+    <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
         <translation type="vanished">Unesite zaporku za kripciju privatnih ključeva u bazi podataka:
@@ -1928,7 +1938,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
         <translation type="vanished">Kopiraj u Clipboard</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+67"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Kazalo Potvrda ( index.txt )</translation>
     </message>
@@ -4146,12 +4156,12 @@ U knjižnici %3
         <translation>Unesite zaporku za pristup poslužitelju baze podatka %2 kao korisnik &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+118"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation>Nije moguće stvoriti &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+163"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation>Datoteka &apos;%1&apos; nije XCA baza podataka</translation>
     </message>
@@ -4629,7 +4639,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Interna greška</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+40"/>
+        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Tried to change password of a token</source>
         <translation>Pokušaj promjene zaporke tokena</translation>
     </message>
@@ -5075,7 +5090,7 @@ i zbog toga nije uvezena</translation>
         <translation type="vanished">X509 potvrde ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+105"/>
         <location line="+50"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Nije pronađen ključ za Potvrdu: &apos;%1&apos;</translation>
@@ -5551,7 +5566,7 @@ i zbog toga nije spremljen</translation>
         <translation>Obnovljeno</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+145"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation>Karakteristika &apos;%1&apos; nije navedena u &apos;pki_base::print&apos;</translation>
     </message>
@@ -5560,7 +5575,7 @@ i zbog toga nije spremljen</translation>
         <translation type="vanished">Greška:</translation>
     </message>
     <message>
-        <location line="-318"/>
+        <location line="-320"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interna greška: Neočekivana poruka: %1 %2</translation>
     </message>
@@ -5681,13 +5696,13 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="vanished">Ignoriram nepodržani privatni ključ</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+23"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Unesite zaporku za dekripciju privatnog ključa: &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+14"/>
+        <location line="+11"/>
         <source>Password input aborted</source>
         <translation>Prekinut unos zaporke</translation>
     </message>
@@ -5702,7 +5717,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+128"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Unesite zaporku za zaštitu privatnog ključa: &apos;%1&apos;</translation>
     </message>
@@ -5712,7 +5727,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Unesite zaporku baze podataka za kripciju ključa</translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+157"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>Unesite zaporku za zaštitu PKCS#8 ključa &apos;%1&apos;</translation>
     </message>
@@ -5731,13 +5746,13 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+27"/>
+        <location line="+28"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
         <translation>PEM Tekst format sa zaglavljima</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-30"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Lista svih odabranih stavki spojena u jednu PEM datoteku</translation>
     </message>
@@ -5750,6 +5765,11 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
         <translation>Tekstualni format s cjelokupnim lancem potvrda spojenim u jednu PEM datoteku</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5989,7 +6009,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="obsolete">Izvezi nekriptirani privatni ključ</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+199"/>
+        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Uspješno uvezen %1 javni ključ &apos;%2&apos;</translation>
     </message>
@@ -6023,8 +6043,8 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="obsolete">javni ključ</translation>
     </message>
     <message>
-        <location line="-155"/>
-        <location line="+164"/>
+        <location line="-158"/>
+        <location line="+167"/>
         <location line="+649"/>
         <source>Public key</source>
         <translation>Javni ključ</translation>

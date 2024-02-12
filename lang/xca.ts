@@ -1063,7 +1063,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+594"/>
+        <location filename="../widgets/MainWindow.cpp" line="+595"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1355,12 +1355,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="-169"/>
-        <location line="+625"/>
+        <location line="+644"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-469"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1410,7 +1410,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+28"/>
+        <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
         <source>Certificate Index ( index.txt )</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3306,12 +3316,12 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+118"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+163"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3525,7 +3535,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+40"/>
+        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Tried to change password of a token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3648,7 +3663,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+105"/>
         <location line="+50"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
@@ -3864,12 +3879,12 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+145"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-318"/>
+        <location line="-320"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3953,13 +3968,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+23"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+14"/>
+        <location line="+11"/>
         <source>Password input aborted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3974,7 +3989,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+128"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3984,7 +3999,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+157"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4003,13 +4018,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+27"/>
+        <location line="+28"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-30"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4021,6 +4036,11 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4249,7 +4269,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+199"/>
+        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4279,8 +4299,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-155"/>
-        <location line="+164"/>
+        <location line="-158"/>
+        <location line="+167"/>
         <location line="+649"/>
         <source>Public key</source>
         <translation type="unfinished"></translation>

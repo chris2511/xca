@@ -1195,7 +1195,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>فهرست های ابطال</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+594"/>
+        <location filename="../widgets/MainWindow.cpp" line="+595"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>استفاده و یا برون‌داد کلید‌های خصوصی بدون گذرواژه‌ی درست امکان‌پذیر نیست</translation>
     </message>
@@ -1488,12 +1488,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="-169"/>
-        <location line="+625"/>
+        <location line="+644"/>
         <source>Search</source>
         <translation>جست‌وجو</translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-469"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>خواهشمند است گذرواژه‌ی عددی مدیر (PUK) برای توکن &apos;%1&apos; را وارد نمایید</translation>
     </message>
@@ -1543,7 +1543,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>پایگاه‌داده: %1</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+28"/>
+        <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>نمایه‌ی گواهی ( index.txt )</translation>
     </message>
@@ -3554,12 +3564,12 @@ In library %3
         <translation>خواهشمند است گذرواژه ی دستیابی به خدمت‌گزار پایگاه‌‌داده &apos;%2&apos; به عنوان کاربر &apos;%1&apos; وارد کنید.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+118"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation>امکان ساخت &apos;%1&apos; نیست: %2</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+163"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation>پرونده‌ی &apos;%1&apos; یک پایگاه داده‌ی XCA نیست</translation>
     </message>
@@ -3818,7 +3828,12 @@ and will be completed by the new, private part of the key</source>
         <translation>خطای درونی</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+40"/>
+        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Tried to change password of a token</source>
         <translation>برای تغییر گذرواژه‌ی توکن تلاش شد</translation>
     </message>
@@ -4013,7 +4028,7 @@ and so it was not imported</source>
         <translation>ذخیره گواهی برای کلید موجود روی توکن &apos;%1 (#%2)&apos;  ؟</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+105"/>
         <location line="+50"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>کلیدی برای گواهی&apos;%1&apos; یافت نشد</translation>
@@ -4317,12 +4332,12 @@ and thus was not stored</source>
         <translation>تمدید‌شده</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+145"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation>مشخصه‌ی &apos;%1&apos; در &apos;pki_base::print&apos; فهرست نشده است</translation>
     </message>
     <message>
-        <location line="-318"/>
+        <location line="-320"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>خطای درونی: پیام نامنتظره: %1 %2</translation>
     </message>
@@ -4410,13 +4425,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>بارگذاری کلید خصوصی در پرونده‌ی %1 امکان‌پذیر نیست. قالب‌های PEM و DER خصوصی، عمومی، کلید نوع PKCS#8 و قالب SSH2 مورد آزمایش قرار گرفت.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+23"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>خواهشمند است برای رمزگشایی کلید خصوصی گذرواژه را وارد نمائید: &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+14"/>
+        <location line="+11"/>
         <source>Password input aborted</source>
         <translation>ورود گذرواژه متوقف شد</translation>
     </message>
@@ -4431,7 +4446,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+128"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>خواهشمند است برای محافظت از کلید خصوصی، گذرواژه را وارد نمائید: %1</translation>
     </message>
@@ -4441,7 +4456,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>خواهشمند است برای رمزگشایی کلید، گذرواژه‌ی پایگاه‌داده را وارد نمائید</translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+157"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>خواهشمند است گذرواژه‌ی محافظت از کلید PKCS#8 را وارد نمائید: &apos;%1&apos;</translation>
     </message>
@@ -4472,13 +4487,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+27"/>
+        <location line="+28"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
         <translation>قالب متنی PEM با سرآیند</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-30"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>فهرست همه‌ی موارد در یک پرونده‌ی متنی PEM الحاق‌شده</translation>
     </message>
@@ -4491,6 +4506,11 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
         <translation>قالب متنی الحاق‌شده از زنجیره‌ی کامل گواهی در یک پرونده‌ی PEM</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4718,7 +4738,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+199"/>
+        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>%1 کلید عمومی &apos;%2&apos; با موفقیت درون‌داد شد</translation>
     </message>
@@ -4748,8 +4768,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>آیا %1 کلید (ها) حدف شوند: %2؟</translation>
     </message>
     <message>
-        <location line="-155"/>
-        <location line="+164"/>
+        <location line="-158"/>
+        <location line="+167"/>
         <location line="+649"/>
         <source>Public key</source>
         <translation>کلید عمومی</translation>

@@ -1191,7 +1191,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation>Liste di revoca</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+594"/>
+        <location filename="../widgets/MainWindow.cpp" line="+595"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Utilizzo ed esportazione di chiavi private non consentito senza fornire la password corretta</translation>
     </message>
@@ -1527,12 +1527,12 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <location line="-169"/>
-        <location line="+625"/>
+        <location line="+644"/>
         <source>Search</source>
         <translation>Cerca</translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-469"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>Prego inserire il nuovo SO PIN (PUK) del token &apos;%1&apos;</translation>
     </message>
@@ -1582,6 +1582,16 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+28"/>
+        <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
         <translation type="vanished">Prego inserire una password che verrà utilizzata per crittare le chiavi private nel database:
@@ -1610,7 +1620,7 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
         <translation type="vanished">Copia negli appunti</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+67"/>
         <source>Certificate Index ( index.txt )</source>
         <translation>Indice dei certificati ( index.txt )</translation>
     </message>
@@ -3606,12 +3616,12 @@ nella libreria %3
         <translation>Prego inserire la password di accesso al database server %2 come utente: &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+118"/>
         <source>Unable to create &apos;%1&apos;: %2</source>
         <translation>Impossibile creare &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+163"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation>Il file &apos;%1&apos; non è un database XCA</translation>
     </message>
@@ -3939,7 +3949,12 @@ e sarà completata con la nuova parte privata della chiave</translation>
         <translation>Errore interno</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+40"/>
+        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Tried to change password of a token</source>
         <translation>Si è tentato di cambiare la password di un token</translation>
     </message>
@@ -4148,7 +4163,7 @@ pertanto non è stato importato</translation>
         <translation type="vanished">Certificati x509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+105"/>
         <location line="+50"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Nessuna chiave trovata per il certificato: &apos;%1&apos;</translation>
@@ -4398,12 +4413,12 @@ pertanto non è stata salvata</translation>
         <translation>Rinnovato</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+145"/>
         <source>Property &apos;%1&apos; not listed in &apos;pki_base::print&apos;</source>
         <translation>Proprieà &apos;%1&apos; non prevista in &apos;pki_base::print&apos;</translation>
     </message>
     <message>
-        <location line="-318"/>
+        <location line="-320"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Errore interno: Messaggio inaspettato: %1 %2</translation>
     </message>
@@ -4519,13 +4534,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">Ignorata chiave privata non supportata</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+23"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Prego inserire la password per decrittare la chiave privata: &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+14"/>
+        <location line="+11"/>
         <source>Password input aborted</source>
         <translation>Inserimento password abortito</translation>
     </message>
@@ -4540,7 +4555,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+128"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Prego inserire la password per proteggere la chiave privata: &apos;%1&apos;</translation>
     </message>
@@ -4550,7 +4565,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Prego inserire la password del database per crittare la chiave</translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+157"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>Prego inserire la password della chiave PKCS#8 &apos;%1&apos;</translation>
     </message>
@@ -4569,13 +4584,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+27"/>
+        <location line="+28"/>
         <location line="+3"/>
         <source>PEM Text format with headers</source>
         <translation>Formato testo PEM con intestazioni</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-30"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Lista concatenata di tutti gli oggetti selezionati in un file di testo PEM</translation>
     </message>
@@ -4588,6 +4603,11 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
         <translation>Formato testo concatenato della catena di certificazione completa in un file PEM</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4815,7 +4835,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+199"/>
+        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Chiave pubblica &apos;%2&apos; di %1 importata correttamente</translation>
     </message>
@@ -4845,8 +4865,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Eliminare le chiavi di %1: %2?</translation>
     </message>
     <message>
-        <location line="-155"/>
-        <location line="+164"/>
+        <location line="-158"/>
+        <location line="+167"/>
         <location line="+649"/>
         <source>Public key</source>
         <translation>Chiave pubblica</translation>
