@@ -100,7 +100,7 @@ QSqlError database_model::initSqlDB()
 		if (i >= ARRAY_SIZE(schemas))
 			break;
 		foreach(QString sql, schemas[i]) {
-			sql.replace("{B64_BLOB}", b64_blob);
+			sql.replace("_B64_BLOB_", b64_blob);
 			qDebug("EXEC[%d]: '%s'", i, CCHAR(sql));
 			if (!q.exec(sql) || q.lastError().isValid()) {
 				TransRollback();
