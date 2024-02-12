@@ -103,12 +103,6 @@ int main(int argc, char *argv[])
 	signal(SIGSEGV, segv_handler_gui);
 #endif
 
-#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
-	if (OSSL_PROVIDER_try_load(0, "legacy", 1))
-		qDebug() << "Legacy provider loaded";
-	else
-		qWarning() << "Legacy provider NOT loaded";
-#endif
 	bool console_only = arguments::is_console(argc, argv);
 	XcaApplication *gui = nullptr;
 	QCoreApplication *coreApp = nullptr;
@@ -124,6 +118,18 @@ int main(int argc, char *argv[])
 		is_gui_app = true;
 	}
 
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+#if defined(Q_OS_WIN32)
+	OSSL_PROVIDER_set_default_search_path(NULL,
+		QCoreApplication::applicationDirPath().toUtf8().data());
+	qDebug() << "OSSL_PROVIDER_set_default_search_path"
+				<< QCoreApplication::applicationDirPath();
+#endif
+	if (OSSL_PROVIDER_try_load(0, "legacy", 1))
+		qDebug() << "Legacy provider loaded";
+	else
+		qWarning() << "Legacy provider NOT loaded";
+#endif
 	QSharedPointer<UI_METHOD> uimeth(
 			UI_create_method("xca-method"), UI_destroy_method);
 	UI_method_set_writer(uimeth.data(), uiwriter);

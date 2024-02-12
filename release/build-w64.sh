@@ -8,27 +8,26 @@ do_openssl() {
   test -f "$OSSL".tar.gz || curl -O https://www.openssl.org/source/"$OSSL".tar.gz
   test -d "$OSSL" || tar zxf "$OSSL".tar.gz
   cd "$OSSL"
-  ./Configure mingw64 --prefix=/c/OpenSSL --libdir=lib
+  ./Configure mingw64 --prefix=$INSTALL_DIR --libdir=lib
   make -j4
   make install
 }
 
-BUILD=build
-OSSL="openssl-3.1.4"
+OSSL="openssl-3.1.5"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
-QT_DIR="$TOP_DIR/6.5.3/mingw_64"
-
+QT_DIR="$TOP_DIR/QT/6.6.0/mingw_64"
 BUILDDIR="$TOP_DIR/w64-release"
-
 INSTALL_DIR="/c/OpenSSL"
 JOBS=7
 
-cd $TOP_DIR
+PATH="$TOP_DIR/QT/Tools/mingw1120_64/bin:$INSTALL_DIR/bin:$PATH"
 
+cd $TOP_DIR
 do_openssl
 
-cmake -B "$BUILDDIR" -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="$QT_DIR" xca
+cd $TOP_DIR
+cmake -B "$BUILDDIR" -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="$QT_DIR:$INSTALL_DIR" xca
 cmake --build "$BUILDDIR" -j5
 cmake --build "$BUILDDIR" -t install
 cd "$BUILDDIR" && cpack

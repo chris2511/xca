@@ -249,7 +249,7 @@ elseif(WIN32)
      ${CMAKE_BINARY_DIR}/doc/documentation.wxs
      ${CMAKE_BINARY_DIR}/misc/misc.wxs
      ${CMAKE_BINARY_DIR}/misc/dynamic.wxs
-     )
+  )
   target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -mwindows -MD)
   install(DIRECTORY
 	  ${CMAKE_BINARY_DIR}/platforms
@@ -269,6 +269,10 @@ elseif(WIN32)
 		${OPENSSL_ROOT_DIR}/bin/libcrypto-${OPENSSL_LIBRARY_MAJOR}-x64.dll
 	  DESTINATION ${RUNTIME_DEST}
   )
+  if (OPENSSL_LIBRARY_MAJOR EQUAL 3)
+      install(FILES ${OPENSSL_ROOT_DIR}/lib/ossl-modules/legacy.dll
+	      DESTINATION ${RUNTIME_DEST})
+  endif()
   install(CODE "execute_process(COMMAND cmake -E chdir \${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")
   set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
