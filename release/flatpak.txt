@@ -1,0 +1,8 @@
+
+export B=flatpak-build
+export YAML=misc/de.hohnstaedt.xca.yaml
+export REPO=xca-origin
+
+flatpak-builder --force-clean $B $YAML
+flatpak-builder --force-clean --user --install $B $YAML
+flatpak-builder --force-clean --repo=$REPO $B $YAML
