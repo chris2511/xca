@@ -52,7 +52,7 @@ ExpandSources(xcadoc)
 
 macro(Test name)
   set(${name}_sources ${ARGN})
-  add_executable(${name} EXCLUDE_FROM_ALL ${name}.cpp)
+  add_executable(${name} ${name}.cpp)
   ExpandSources(${name})
   target_link_libraries(${name} PRIVATE
     OpenSSL::Crypto ${QT}::Core ${QT}::Test ${QT}::Sql ${ASAN_LIB}

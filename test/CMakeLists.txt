@@ -4,8 +4,7 @@ list(APPEND srcs PwDialogMock.h importPEM.cpp main.cpp main.h
 
 list(TRANSFORM srcs PREPEND ${PROJECT_SOURCE_DIR}/test/)
 
-add_executable(testxca EXCLUDE_FROM_ALL
-		img/imgres.qrc ${srcs}
+add_executable(testxca img/imgres.qrc ${srcs}
 		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 
 add_test(NAME testxca COMMAND testxca)
