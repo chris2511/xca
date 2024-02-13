@@ -62,7 +62,7 @@ do_mysql()
 }
 
 OSSL_MAJOR="3"
-OSSL="openssl-3.1.4"
+OSSL="openssl-3.1.5"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/6.6.0/macos"
