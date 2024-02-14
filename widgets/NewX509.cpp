@@ -960,6 +960,7 @@ void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
 		img->clear();
 		return;
 	}
+	setupTmpCtx();
 	ign_openssl_error();
 	switch (nid) {
 	case NID_subject_alt_name:
