@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = '@PROJECT_NAME@'
-copyright = '2023, Christian Hohnstädt'
+copyright = '2024, Christian Hohnstädt'
 author = 'Christian Hohnstädt'
 master_doc = 'index'
 

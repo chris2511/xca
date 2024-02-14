@@ -103,7 +103,7 @@ void MainWindow::about()
 	Entropy::seed_rng();
 	cont = QString(
 	"<p><h3><center><u>XCA%7</u></center></h3>"
-	"<p>Copyright 2001 - 2023 by Christian Hohnstädt\n"
+	"<p>Copyright 2001 - 2024 by Christian Hohnstädt\n"
 	"<p>Version: %3<p>%1" /* commithash, OpenSSL & Qt Version */
 	"<p><a href=\"https://hohnstaedt.de/xca\">https://hohnstaedt.de/xca</a>"
 	"<p>Entropy strength: %2"

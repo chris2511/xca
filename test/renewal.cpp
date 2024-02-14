@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2023 Christian Hohnstaedt.
+ * Copyright (C) 2024 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
