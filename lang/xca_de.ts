@@ -17,7 +17,7 @@
     <message>
         <location filename="../ui/CaProperties.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1024,7 +1024,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Standarddatenbank konnte nicht geöffnet werden</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1243,7 +1243,7 @@ Seriennummer: %3</translation>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation type="unfinished"></translation>
+        <translation>Format für die Zwischenablage</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1353,12 +1353,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+115"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der aktuell verwendete PFX/PKCS#12 Algorithmus &apos;%1&apos; ist unsicher.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished">Ändern</translation>
+        <translation>Ändern</translation>
     </message>
     <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
@@ -1444,12 +1444,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="-9"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Persisch</translation>
     </message>
     <message>
         <location line="-18"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulgarisch</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1479,7 +1479,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="-10"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonesisch</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2695,7 +2695,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+4"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Zertifikat enthält ungültige Erweiterungen.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2940,7 +2940,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="-33"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 Verschlüsselungsalgorithmus</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -3671,7 +3671,7 @@ in Bibliothek %3
     <message>
         <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datenbank konnte nicht auf das neue Schema aktualisiert werden</translation>
     </message>
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+33"/>
@@ -3873,12 +3873,12 @@ in Bibliothek %3
     <message>
         <location line="+38"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlagenexport</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Vorlagen ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -3963,12 +3963,12 @@ in Bibliothek %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Öffnen der Datei %1: %2</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Zurückspulen der Datei %1: %2</translation>
     </message>
 </context>
 <context>
@@ -3976,7 +3976,7 @@ in Bibliothek %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="+47"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
 </context>
 <context>
@@ -4551,7 +4551,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne Schlüsselaktualisierung: Die Schlüssel: %1 müssen einmal aktualisiert werden indem das Passwort zurück gesetzt und neu gesetzt wird</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -5636,7 +5636,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+34"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte den Schlüssel &apos;%1&apos; nicht entschlüsseln</translation>
     </message>
     <message>
         <location line="+146"/>
@@ -5691,7 +5691,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>Die vollständige Zertifikatskette und der private Schlüssel des ausgewählten Zertifikats mit den passenden Markern zum Einsatz als OpenVPN Konfigurationsdatei</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5731,7 +5731,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>Binary DER encoded certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Binäre DER formatiertes Zertifikat</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5746,7 +5746,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5808,7 +5808,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="-1"/>
         <source>PEM encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM verschlüsselt</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5873,7 +5873,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#8 verschlüsselt</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5883,7 +5883,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #8</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#8</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5893,27 +5893,27 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation>Binäres DER Format der Zertifikatsanfrage</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>Binäres DER Format der Sperrliste</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>Fälligkeitserinnerung für das CRL Ablaufdatum im vCalendar Format</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Vorlage in PEM ähnlichen Textformat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle ausgewählten XCA Vorlagen in PEM ähnlichen Textformat</translation>
     </message>
 </context>
 <context>
