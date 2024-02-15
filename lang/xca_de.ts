@@ -1285,7 +1285,7 @@ Seriennummer: %3</translation>
     <message>
         <location line="+81"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsselexport</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
