@@ -226,7 +226,7 @@ ExportDialog *KeyTreeView::exportDialog(const QModelIndexList &indexes)
 		return NULL;
 	pki_key *key = db_base::fromIndex<pki_key>(indexes[0]);
 	return new ExportDialog(this,
-		tr("Export public key [%1]").arg(key->getTypeString()),
+		tr("Key export"),
 		tr("Private Keys ( *.pem *.der *.pk8 );; "
 		   "SSH Public Keys ( *.pub )"), indexes,
 		QPixmap(key->isToken() ? ":scardImg" : ":keyImg"),
