@@ -1284,8 +1284,12 @@ Seriennummer: %3</translation>
     </message>
     <message>
         <location line="+81"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Export des öffentlichen Schlüssels [%1]</translation>
+        <translation type="vanished">Export des öffentlichen Schlüssels [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2414,7 +2418,7 @@ Bitte die DH Parameter bits angeben</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -2477,7 +2481,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation type="vanished">Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-700"/>
+        <location filename="../widgets/NewX509.cpp" line="-701"/>
         <source>Create Certificate signing request</source>
         <translation>Erstelle einen Zertifikatsantrag</translation>
     </message>
@@ -2491,7 +2495,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+812"/>
+        <location line="+813"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2608,7 +2612,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
     </message>
     <message>
-        <location line="-1040"/>
+        <location line="-1041"/>
         <source>Critical</source>
         <translation>Wichtig</translation>
     </message>
@@ -2642,7 +2646,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Der Schlüssel &apos;%1&apos; wurde neu erstellt</translation>
     </message>
     <message>
-        <location line="+510"/>
+        <location line="+511"/>
         <source>Select other signer</source>
         <translation>Andere CA wählen</translation>
     </message>
@@ -2724,7 +2728,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1093"/>
+        <location filename="../widgets/NewX509.cpp" line="-1094"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2744,7 +2748,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Keine Sonderzeichen oder Umlaute</translation>
     </message>
     <message>
-        <location line="+738"/>
+        <location line="+739"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>

@@ -952,7 +952,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     </message>
     <message>
         <location line="+52"/>
-        <source>Export public key [%1]</source>
+        <source>Key export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1928,7 +1928,7 @@ Podaj liczbę bitów parametru DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Zmień</translation>
     </message>
@@ -1969,7 +1969,7 @@ Podaj liczbę bitów parametru DH</translation>
         <translation>Nazwa używana wewnętrznie, nie będzie widoczna w wynikowym certyfikacie</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>Krytyczne</translation>
     </message>
@@ -2029,7 +2029,7 @@ Podaj liczbę bitów parametru DH</translation>
         <translation>Utworzony nowy klucz &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>Pozostałe ustawienia</translation>
     </message>

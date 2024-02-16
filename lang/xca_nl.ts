@@ -1064,8 +1064,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Openbare sleutel exporteren [%1]</translation>
+        <translation type="vanished">Openbare sleutel exporteren [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2013,7 +2017,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
@@ -2054,7 +2058,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Deze naam wordt alleen intern gebruikt en verschijnt niet in het resulterende certificaat</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>Kritisch</translation>
     </message>
@@ -2114,7 +2118,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Nieuwe sleutel &apos;%1&apos; gemaakt</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>Andere tabbladen</translation>
     </message>

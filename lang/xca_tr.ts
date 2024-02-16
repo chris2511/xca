@@ -1800,7 +1800,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="229"/>
-        <source>Export public key [%1]</source>
+        <source>Key export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2704,7 +2704,7 @@ Please enter the DH parameter bits</source>
         <location filename="../ui/NewX509.ui" line="762"/>
         <location filename="../ui/NewX509.ui" line="795"/>
         <location filename="../ui/NewX509.ui" line="831"/>
-        <location filename="../widgets/NewX509.cpp" line="1012"/>
+        <location filename="../widgets/NewX509.cpp" line="1013"/>
         <source>Edit</source>
         <translation>Düzenle</translation>
     </message>
@@ -2730,7 +2730,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1163"/>
-        <location filename="../widgets/NewX509.cpp" line="1022"/>
+        <location filename="../widgets/NewX509.cpp" line="1023"/>
         <source>Validate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2800,183 +2800,183 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1045"/>
+        <location filename="../widgets/NewX509.cpp" line="1046"/>
         <source>Other Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1059"/>
+        <location filename="../widgets/NewX509.cpp" line="1060"/>
         <source>Advanced Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1066"/>
+        <location filename="../widgets/NewX509.cpp" line="1067"/>
         <source>Errors</source>
         <translation>Hatalar</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1084"/>
+        <location filename="../widgets/NewX509.cpp" line="1085"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1207"/>
-        <location filename="../widgets/NewX509.cpp" line="1220"/>
-        <location filename="../widgets/NewX509.cpp" line="1239"/>
-        <location filename="../widgets/NewX509.cpp" line="1251"/>
-        <location filename="../widgets/NewX509.cpp" line="1267"/>
-        <location filename="../widgets/NewX509.cpp" line="1281"/>
-        <location filename="../widgets/NewX509.cpp" line="1315"/>
-        <location filename="../widgets/NewX509.cpp" line="1334"/>
-        <location filename="../widgets/NewX509.cpp" line="1357"/>
-        <location filename="../widgets/NewX509.cpp" line="1380"/>
-        <location filename="../widgets/NewX509.cpp" line="1413"/>
-        <location filename="../widgets/NewX509.cpp" line="1433"/>
-        <source>Abort rollout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/NewX509.cpp" line="1216"/>
-        <source>The following length restrictions of RFC3280 are violated:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/NewX509.cpp" line="1219"/>
-        <location filename="../widgets/NewX509.cpp" line="1280"/>
-        <source>Edit subject</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
+        <location filename="../widgets/NewX509.cpp" line="1208"/>
         <location filename="../widgets/NewX509.cpp" line="1221"/>
+        <location filename="../widgets/NewX509.cpp" line="1240"/>
+        <location filename="../widgets/NewX509.cpp" line="1252"/>
+        <location filename="../widgets/NewX509.cpp" line="1268"/>
         <location filename="../widgets/NewX509.cpp" line="1282"/>
+        <location filename="../widgets/NewX509.cpp" line="1316"/>
         <location filename="../widgets/NewX509.cpp" line="1335"/>
         <location filename="../widgets/NewX509.cpp" line="1358"/>
         <location filename="../widgets/NewX509.cpp" line="1381"/>
         <location filename="../widgets/NewX509.cpp" line="1414"/>
         <location filename="../widgets/NewX509.cpp" line="1434"/>
+        <source>Abort rollout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1217"/>
+        <source>The following length restrictions of RFC3280 are violated:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1220"/>
+        <location filename="../widgets/NewX509.cpp" line="1281"/>
+        <source>Edit subject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1222"/>
+        <location filename="../widgets/NewX509.cpp" line="1283"/>
+        <location filename="../widgets/NewX509.cpp" line="1336"/>
+        <location filename="../widgets/NewX509.cpp" line="1359"/>
+        <location filename="../widgets/NewX509.cpp" line="1382"/>
+        <location filename="../widgets/NewX509.cpp" line="1415"/>
+        <location filename="../widgets/NewX509.cpp" line="1435"/>
         <source>Continue rollout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1237"/>
+        <location filename="../widgets/NewX509.cpp" line="1238"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1238"/>
+        <location filename="../widgets/NewX509.cpp" line="1239"/>
         <source>Continue anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1249"/>
+        <location filename="../widgets/NewX509.cpp" line="1250"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1250"/>
+        <location filename="../widgets/NewX509.cpp" line="1251"/>
         <source>Edit name</source>
         <translation>İsmi Düzenle</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1265"/>
+        <location filename="../widgets/NewX509.cpp" line="1266"/>
         <source>There is no Key selected for signing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1266"/>
+        <location filename="../widgets/NewX509.cpp" line="1267"/>
         <source>Select key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1278"/>
+        <location filename="../widgets/NewX509.cpp" line="1279"/>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1312"/>
+        <location filename="../widgets/NewX509.cpp" line="1313"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1313"/>
+        <location filename="../widgets/NewX509.cpp" line="1314"/>
         <source>Select other signer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1313"/>
+        <location filename="../widgets/NewX509.cpp" line="1314"/>
         <source>Select other key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1323"/>
+        <location filename="../widgets/NewX509.cpp" line="1324"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1324"/>
+        <location filename="../widgets/NewX509.cpp" line="1325"/>
         <source>Select other algorithm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1325"/>
+        <location filename="../widgets/NewX509.cpp" line="1326"/>
         <source>Use algorithm anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1331"/>
+        <location filename="../widgets/NewX509.cpp" line="1332"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1333"/>
-        <location filename="../widgets/NewX509.cpp" line="1356"/>
-        <location filename="../widgets/NewX509.cpp" line="1379"/>
+        <location filename="../widgets/NewX509.cpp" line="1334"/>
+        <location filename="../widgets/NewX509.cpp" line="1357"/>
+        <location filename="../widgets/NewX509.cpp" line="1380"/>
         <source>Edit dates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1336"/>
-        <location filename="../widgets/NewX509.cpp" line="1359"/>
+        <location filename="../widgets/NewX509.cpp" line="1337"/>
+        <location filename="../widgets/NewX509.cpp" line="1360"/>
         <source>Adjust date and continue</source>
         <translation>Tarihi düzenler ve devam eder</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1354"/>
+        <location filename="../widgets/NewX509.cpp" line="1355"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1377"/>
+        <location filename="../widgets/NewX509.cpp" line="1378"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1399"/>
+        <location filename="../widgets/NewX509.cpp" line="1400"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1403"/>
+        <location filename="../widgets/NewX509.cpp" line="1404"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1407"/>
+        <location filename="../widgets/NewX509.cpp" line="1408"/>
         <source>The certificate contains invalid extensions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1412"/>
-        <location filename="../widgets/NewX509.cpp" line="1432"/>
+        <location filename="../widgets/NewX509.cpp" line="1413"/>
+        <location filename="../widgets/NewX509.cpp" line="1433"/>
         <source>Edit extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1431"/>
+        <location filename="../widgets/NewX509.cpp" line="1432"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation type="unfinished"></translation>
     </message>

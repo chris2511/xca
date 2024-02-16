@@ -1064,8 +1064,12 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Ekspor kunci publik [%1]</translation>
+        <translation type="vanished">Ekspor kunci publik [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1968,7 +1972,7 @@ Harap masukkan bit parameter DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Sunting</translation>
     </message>
@@ -2009,7 +2013,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Nama ini hanya dipakai secara internal dan tidak muncul dalam sertifikat yang dihasilkan</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>Kritikal</translation>
     </message>
@@ -2069,7 +2073,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Kunci baru &apos;%1&apos; telah dibuat</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>Tab Lain</translation>
     </message>

@@ -1593,8 +1593,12 @@ Esto borrará la clave &apos;%1&apos; y imposibilitará su exportación</transla
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished">Exportar clave</translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Exportar la clave pública [%1]</translation>
+        <translation type="vanished">Exportar la clave pública [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2569,7 +2573,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
@@ -2614,7 +2618,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation type="obsolete">Nombre interno</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>Crítica</translation>
     </message>
@@ -2674,7 +2678,7 @@ Por favor, introduzca los bits de parámetros DH</translation>
         <translation>Nueva clave &apos;%1&apos; creada</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>Otras pestañas</translation>
     </message>

@@ -1304,8 +1304,12 @@ Serijski broj: %3</translation>
     </message>
     <message>
         <location line="+81"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Izvezi javni ključ [%1]</translation>
+        <translation type="vanished">Izvezi javni ključ [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2474,7 +2478,7 @@ Unesite bitove za DH parametre</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
@@ -2563,7 +2567,7 @@ Unesite bitove za DH parametre</translation>
         <translation type="vanished">Izradi &amp;samopotpisanu potvrdu s MD5 sažetkom CA serijskog broja</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-710"/>
+        <location filename="../widgets/NewX509.cpp" line="-711"/>
         <source>Create Certificate signing request</source>
         <translation>Izradi zahtjev za izdavanje potvrde (CSR)</translation>
     </message>
@@ -2597,7 +2601,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Izradi x509 Potvrdu</translation>
     </message>
     <message>
-        <location line="+689"/>
+        <location line="+690"/>
         <source>From PKCS#10 request</source>
         <translation>Iz PKCS#10 zahtjeva</translation>
     </message>
@@ -2607,7 +2611,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Druge Kartice</translation>
     </message>
     <message>
-        <location line="-773"/>
+        <location line="-774"/>
         <source>Critical</source>
         <translation>Ključan</translation>
     </message>
@@ -2641,7 +2645,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Izrađen je novi ključ &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+257"/>
         <source>Advanced Tab</source>
         <translation>Kartica Napredno</translation>
     </message>

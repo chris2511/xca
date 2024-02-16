@@ -906,9 +906,8 @@ msgid ""
 msgstr ""
 
 #: ../widgets/KeyTreeView.cpp:229
-#, qt-format
 msgctxt "KeyTreeView|"
-msgid "Export public key [%1]"
+msgid "Key export"
 msgstr ""
 
 #: ../widgets/KeyTreeView.cpp:230
@@ -1788,7 +1787,7 @@ msgid "DNS: IP: URI: email: RID:"
 msgstr ""
 
 #: ../ui/NewX509.ui:745 ../ui/NewX509.ui:762 ../ui/NewX509.ui:795
-#: ../ui/NewX509.ui:831 ../widgets/NewX509.cpp:1012
+#: ../ui/NewX509.ui:831 ../widgets/NewX509.cpp:1013
 msgctxt "NewX509|"
 msgid "Edit"
 msgstr ""
@@ -1813,7 +1812,7 @@ msgctxt "NewX509|"
 msgid "Advanced"
 msgstr ""
 
-#: ../ui/NewX509.ui:1163 ../widgets/NewX509.cpp:1022
+#: ../ui/NewX509.ui:1163 ../widgets/NewX509.cpp:1023
 msgctxt "NewX509|"
 msgid "Validate"
 msgstr ""
@@ -1896,89 +1895,89 @@ msgctxt "NewX509|"
 msgid "New key '%1' created"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1045
+#: ../widgets/NewX509.cpp:1046
 msgctxt "NewX509|"
 msgid "Other Tabs"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1059
+#: ../widgets/NewX509.cpp:1060
 msgctxt "NewX509|"
 msgid "Advanced Tab"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1066
+#: ../widgets/NewX509.cpp:1067
 msgctxt "NewX509|"
 msgid "Errors"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1084
+#: ../widgets/NewX509.cpp:1085
 msgctxt "NewX509|"
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1207 ../widgets/NewX509.cpp:1220
-#: ../widgets/NewX509.cpp:1239 ../widgets/NewX509.cpp:1251
-#: ../widgets/NewX509.cpp:1267 ../widgets/NewX509.cpp:1281
-#: ../widgets/NewX509.cpp:1315 ../widgets/NewX509.cpp:1334
-#: ../widgets/NewX509.cpp:1357 ../widgets/NewX509.cpp:1380
-#: ../widgets/NewX509.cpp:1413 ../widgets/NewX509.cpp:1433
+#: ../widgets/NewX509.cpp:1208 ../widgets/NewX509.cpp:1221
+#: ../widgets/NewX509.cpp:1240 ../widgets/NewX509.cpp:1252
+#: ../widgets/NewX509.cpp:1268 ../widgets/NewX509.cpp:1282
+#: ../widgets/NewX509.cpp:1316 ../widgets/NewX509.cpp:1335
+#: ../widgets/NewX509.cpp:1358 ../widgets/NewX509.cpp:1381
+#: ../widgets/NewX509.cpp:1414 ../widgets/NewX509.cpp:1434
 msgctxt "NewX509|"
 msgid "Abort rollout"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1216
+#: ../widgets/NewX509.cpp:1217
 msgctxt "NewX509|"
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1219 ../widgets/NewX509.cpp:1280
+#: ../widgets/NewX509.cpp:1220 ../widgets/NewX509.cpp:1281
 msgctxt "NewX509|"
 msgid "Edit subject"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1221 ../widgets/NewX509.cpp:1282
-#: ../widgets/NewX509.cpp:1335 ../widgets/NewX509.cpp:1358
-#: ../widgets/NewX509.cpp:1381 ../widgets/NewX509.cpp:1414
-#: ../widgets/NewX509.cpp:1434
+#: ../widgets/NewX509.cpp:1222 ../widgets/NewX509.cpp:1283
+#: ../widgets/NewX509.cpp:1336 ../widgets/NewX509.cpp:1359
+#: ../widgets/NewX509.cpp:1382 ../widgets/NewX509.cpp:1415
+#: ../widgets/NewX509.cpp:1435
 msgctxt "NewX509|"
 msgid "Continue rollout"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1237
+#: ../widgets/NewX509.cpp:1238
 msgctxt "NewX509|"
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1238
+#: ../widgets/NewX509.cpp:1239
 msgctxt "NewX509|"
 msgid "Continue anyway"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1249
+#: ../widgets/NewX509.cpp:1250
 msgctxt "NewX509|"
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1250
+#: ../widgets/NewX509.cpp:1251
 msgctxt "NewX509|"
 msgid "Edit name"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1265
+#: ../widgets/NewX509.cpp:1266
 msgctxt "NewX509|"
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1266
+#: ../widgets/NewX509.cpp:1267
 msgctxt "NewX509|"
 msgid "Select key"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1278
+#: ../widgets/NewX509.cpp:1279
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -1987,22 +1986,22 @@ msgid ""
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1312
+#: ../widgets/NewX509.cpp:1313
 msgctxt "NewX509|"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1313
+#: ../widgets/NewX509.cpp:1314
 msgctxt "NewX509|"
 msgid "Select other signer"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1313
+#: ../widgets/NewX509.cpp:1314
 msgctxt "NewX509|"
 msgid "Select other key"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1323
+#: ../widgets/NewX509.cpp:1324
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -2010,73 +2009,73 @@ msgid ""
 "used."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1324
+#: ../widgets/NewX509.cpp:1325
 msgctxt "NewX509|"
 msgid "Select other algorithm"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1325
+#: ../widgets/NewX509.cpp:1326
 msgctxt "NewX509|"
 msgid "Use algorithm anyway"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1331
+#: ../widgets/NewX509.cpp:1332
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1333 ../widgets/NewX509.cpp:1356
-#: ../widgets/NewX509.cpp:1379
+#: ../widgets/NewX509.cpp:1334 ../widgets/NewX509.cpp:1357
+#: ../widgets/NewX509.cpp:1380
 msgctxt "NewX509|"
 msgid "Edit dates"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1336 ../widgets/NewX509.cpp:1359
+#: ../widgets/NewX509.cpp:1337 ../widgets/NewX509.cpp:1360
 msgctxt "NewX509|"
 msgid "Adjust date and continue"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1354
+#: ../widgets/NewX509.cpp:1355
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1377
+#: ../widgets/NewX509.cpp:1378
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1399
+#: ../widgets/NewX509.cpp:1400
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1403
+#: ../widgets/NewX509.cpp:1404
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains no extensions. You may apply the extensions of one "
 "of the templates to define the purpose of the certificate."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1407
+#: ../widgets/NewX509.cpp:1408
 msgctxt "NewX509|"
 msgid "The certificate contains invalid extensions."
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1412 ../widgets/NewX509.cpp:1432
+#: ../widgets/NewX509.cpp:1413 ../widgets/NewX509.cpp:1433
 msgctxt "NewX509|"
 msgid "Edit extensions"
 msgstr ""
 
-#: ../widgets/NewX509.cpp:1431
+#: ../widgets/NewX509.cpp:1432
 msgctxt "NewX509|"
 msgid ""
 "The subject alternative name shall contain a copy of the common name. "

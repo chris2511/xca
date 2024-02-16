@@ -1072,8 +1072,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>برون‌داد کلید مومی [%1]</translation>
+        <translation type="vanished">برون‌داد کلید مومی [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2024,7 +2028,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>ویرایش</translation>
     </message>
@@ -2065,7 +2069,7 @@ Please enter the DH parameter bits</source>
         <translation>این نام تنها به صورت درونی استفاده شده است و در گواهی نهایی ظاهر نمی‌شود</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>بحرانی</translation>
     </message>
@@ -2125,7 +2129,7 @@ Please enter the DH parameter bits</source>
         <translation>کلید جدید &apos;%1 ساخته شد</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>زبانه‌های دیگر</translation>
     </message>

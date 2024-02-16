@@ -1064,8 +1064,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>公開キーのエクスポート[%1]</translation>
+        <translation type="vanished">公開キーのエクスポート[%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2012,7 +2016,7 @@ DHパラメータビットを入力してください</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
@@ -2053,7 +2057,7 @@ DHパラメータビットを入力してください</translation>
         <translation>この名前は内部でのみ使用され、結果の証明書には表示されません</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>重要</translation>
     </message>
@@ -2113,7 +2117,7 @@ DHパラメータビットを入力してください</translation>
         <translation>新しい秘密鍵「%1」が作成されました</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>その他のタブ</translation>
     </message>

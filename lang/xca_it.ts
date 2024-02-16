@@ -1068,8 +1068,12 @@ Ciò eliminerà la chiave &apos;%1&apos; e la renderà non esportabile</translat
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Esporta chiave pubblica [%1]</translation>
+        <translation type="vanished">Esporta chiave pubblica [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2044,7 +2048,7 @@ Prego inserire i bit dei parametri DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Modifica</translation>
     </message>
@@ -2085,7 +2089,7 @@ Prego inserire i bit dei parametri DH</translation>
         <translation>Questo nome è utilizzato solo internamente e non compare nel certificato risultante</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>Critico</translation>
     </message>
@@ -2145,7 +2149,7 @@ Prego inserire i bit dei parametri DH</translation>
         <translation>Creata nuova chiave &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>Altre Tab</translation>
     </message>

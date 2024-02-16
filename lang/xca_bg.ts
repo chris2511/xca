@@ -1063,8 +1063,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation type="unfinished">Експортиране на публичния ключ [%1]</translation>
+        <translation type="obsolete">Експортиране на публичния ключ [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1972,7 +1976,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation type="unfinished">Редактиране</translation>
     </message>
@@ -2013,7 +2017,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Това име се използва само вътрешно и не се появява в сертификата, който получавате</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation type="unfinished">Критичен</translation>
     </message>
@@ -2073,7 +2077,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Новият ключ &apos;%1&apos; е създаден</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation type="unfinished">Други раздели</translation>
     </message>

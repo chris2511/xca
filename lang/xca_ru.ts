@@ -1140,8 +1140,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Экспортировать открытый ключ [%1]</translation>
+        <translation type="vanished">Экспортировать открытый ключ [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2159,7 +2163,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -2185,7 +2189,7 @@ Please enter the DH parameter bits</source>
         <translation type="vanished">Создать &amp;самоподписанный сертификат с серийным номером хэшированным MD5</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-700"/>
+        <location filename="../widgets/NewX509.cpp" line="-701"/>
         <source>Create Certificate signing request</source>
         <translation>Создать запрос на сертификат</translation>
     </message>
@@ -2195,7 +2199,7 @@ Please enter the DH parameter bits</source>
         <translation>Создать сертификат x509</translation>
     </message>
     <message>
-        <location line="+812"/>
+        <location line="+813"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2314,7 +2318,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Выбранный для подписи ключ не закрытый.</translation>
     </message>
     <message>
-        <location line="-1040"/>
+        <location line="-1041"/>
         <source>Critical</source>
         <translation>Критично</translation>
     </message>
@@ -2348,7 +2352,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Создан новый ключ &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+510"/>
+        <location line="+511"/>
         <source>Select other signer</source>
         <translation>Выберите другого издателя</translation>
     </message>
@@ -2430,7 +2434,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Применить всё</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1093"/>
+        <location filename="../widgets/NewX509.cpp" line="-1094"/>
         <source>minimum size: %1</source>
         <translation>минимальный размер: %1</translation>
     </message>
@@ -2450,7 +2454,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>только 7-битные символы</translation>
     </message>
     <message>
-        <location line="+738"/>
+        <location line="+739"/>
         <source>From PKCS#10 request</source>
         <translation>Из запроса PKCS#10</translation>
     </message>

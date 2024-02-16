@@ -1064,8 +1064,12 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     </message>
     <message>
         <location line="+52"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Exportar chave pública [%1]</translation>
+        <translation type="vanished">Exportar chave pública [%1]</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1968,7 +1972,7 @@ Entrar com bits dos parâmetros DH</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+407"/>
+        <location filename="../widgets/NewX509.cpp" line="+408"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
@@ -2009,7 +2013,7 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>Este nome é usado somente internamente e não aparece no certificado</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-750"/>
+        <location filename="../widgets/NewX509.cpp" line="-751"/>
         <source>Critical</source>
         <translation>Crítico</translation>
     </message>
@@ -2069,7 +2073,7 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>Nova Chave  &apos;%1&apos; criada</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+243"/>
         <source>Other Tabs</source>
         <translation>Outras abas</translation>
     </message>

@@ -1064,8 +1064,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="229"/>
+        <source>Key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Export public key [%1]</source>
-        <translation>Exportovať verejný kľúč [%1]</translation>
+        <translation type="vanished">Exportovať verejný kľúč [%1]</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="230"/>
@@ -1988,7 +1992,7 @@ Prosím, zadajte bity parametra DH</translation>
         <location filename="../ui/NewX509.ui" line="762"/>
         <location filename="../ui/NewX509.ui" line="795"/>
         <location filename="../ui/NewX509.ui" line="831"/>
-        <location filename="../widgets/NewX509.cpp" line="1012"/>
+        <location filename="../widgets/NewX509.cpp" line="1013"/>
         <source>Edit</source>
         <translation>Upraviť</translation>
     </message>
@@ -2014,7 +2018,7 @@ Prosím, zadajte bity parametra DH</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1163"/>
-        <location filename="../widgets/NewX509.cpp" line="1022"/>
+        <location filename="../widgets/NewX509.cpp" line="1023"/>
         <source>Validate</source>
         <translation>Overiť</translation>
     </message>
@@ -2089,99 +2093,99 @@ Prosím, zadajte bity parametra DH</translation>
         <translation>Vytvorený nový kľúč „%1”</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1045"/>
+        <location filename="../widgets/NewX509.cpp" line="1046"/>
         <source>Other Tabs</source>
         <translation>Záložka Iné</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1059"/>
+        <location filename="../widgets/NewX509.cpp" line="1060"/>
         <source>Advanced Tab</source>
         <translation>Záložka Pokročilé</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1066"/>
+        <location filename="../widgets/NewX509.cpp" line="1067"/>
         <source>Errors</source>
         <translation>Chyby</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1084"/>
+        <location filename="../widgets/NewX509.cpp" line="1085"/>
         <source>From PKCS#10 request</source>
         <translation>Zo žiadosti PKCS#10</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1207"/>
-        <location filename="../widgets/NewX509.cpp" line="1220"/>
-        <location filename="../widgets/NewX509.cpp" line="1239"/>
-        <location filename="../widgets/NewX509.cpp" line="1251"/>
-        <location filename="../widgets/NewX509.cpp" line="1267"/>
-        <location filename="../widgets/NewX509.cpp" line="1281"/>
-        <location filename="../widgets/NewX509.cpp" line="1315"/>
-        <location filename="../widgets/NewX509.cpp" line="1334"/>
-        <location filename="../widgets/NewX509.cpp" line="1357"/>
-        <location filename="../widgets/NewX509.cpp" line="1380"/>
-        <location filename="../widgets/NewX509.cpp" line="1413"/>
-        <location filename="../widgets/NewX509.cpp" line="1433"/>
-        <source>Abort rollout</source>
-        <translation>Prerušiť operáciu</translation>
-    </message>
-    <message>
-        <location filename="../widgets/NewX509.cpp" line="1216"/>
-        <source>The following length restrictions of RFC3280 are violated:</source>
-        <translation>Nie sú splnené Nasledujúce obmedzenia veľkosti z RFC3280:</translation>
-    </message>
-    <message>
-        <location filename="../widgets/NewX509.cpp" line="1219"/>
-        <location filename="../widgets/NewX509.cpp" line="1280"/>
-        <source>Edit subject</source>
-        <translation>Upraviť predmet</translation>
-    </message>
-    <message>
+        <location filename="../widgets/NewX509.cpp" line="1208"/>
         <location filename="../widgets/NewX509.cpp" line="1221"/>
+        <location filename="../widgets/NewX509.cpp" line="1240"/>
+        <location filename="../widgets/NewX509.cpp" line="1252"/>
+        <location filename="../widgets/NewX509.cpp" line="1268"/>
         <location filename="../widgets/NewX509.cpp" line="1282"/>
+        <location filename="../widgets/NewX509.cpp" line="1316"/>
         <location filename="../widgets/NewX509.cpp" line="1335"/>
         <location filename="../widgets/NewX509.cpp" line="1358"/>
         <location filename="../widgets/NewX509.cpp" line="1381"/>
         <location filename="../widgets/NewX509.cpp" line="1414"/>
         <location filename="../widgets/NewX509.cpp" line="1434"/>
+        <source>Abort rollout</source>
+        <translation>Prerušiť operáciu</translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1217"/>
+        <source>The following length restrictions of RFC3280 are violated:</source>
+        <translation>Nie sú splnené Nasledujúce obmedzenia veľkosti z RFC3280:</translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1220"/>
+        <location filename="../widgets/NewX509.cpp" line="1281"/>
+        <source>Edit subject</source>
+        <translation>Upraviť predmet</translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1222"/>
+        <location filename="../widgets/NewX509.cpp" line="1283"/>
+        <location filename="../widgets/NewX509.cpp" line="1336"/>
+        <location filename="../widgets/NewX509.cpp" line="1359"/>
+        <location filename="../widgets/NewX509.cpp" line="1382"/>
+        <location filename="../widgets/NewX509.cpp" line="1415"/>
+        <location filename="../widgets/NewX509.cpp" line="1435"/>
         <source>Continue rollout</source>
         <translation>Pokračovať v operácii</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1237"/>
+        <location filename="../widgets/NewX509.cpp" line="1238"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Overenie žiadosti o certifikát zlyhalo.
 Operácia by mala byť prerušená.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1238"/>
+        <location filename="../widgets/NewX509.cpp" line="1239"/>
         <source>Continue anyway</source>
         <translation>Pokračovať i tak</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1249"/>
+        <location filename="../widgets/NewX509.cpp" line="1250"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation>Interný názov a bežný názov sú prázdne.
 Prosím, zadajte aspoň interný názov.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1250"/>
+        <location filename="../widgets/NewX509.cpp" line="1251"/>
         <source>Edit name</source>
         <translation>Upraviť názov</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1265"/>
+        <location filename="../widgets/NewX509.cpp" line="1266"/>
         <source>There is no Key selected for signing.</source>
         <translation>Nebol zvolený kľúč na podpísanie.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1266"/>
+        <location filename="../widgets/NewX509.cpp" line="1267"/>
         <source>Select key</source>
         <translation>Vybrať kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1278"/>
+        <location filename="../widgets/NewX509.cpp" line="1279"/>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
@@ -2190,86 +2194,86 @@ though you have declared them as mandatory in the options menu.</source>
 hoci ste ich v nastavení definovali ako povinné.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1312"/>
+        <location filename="../widgets/NewX509.cpp" line="1313"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Kľúč, zvolený na podpísanie, nie je súkromný.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1313"/>
+        <location filename="../widgets/NewX509.cpp" line="1314"/>
         <source>Select other signer</source>
         <translation>Zvoliť iného vydavateľa</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1313"/>
+        <location filename="../widgets/NewX509.cpp" line="1314"/>
         <source>Select other key</source>
         <translation>Zvoliť iný kľúč</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1323"/>
+        <location filename="../widgets/NewX509.cpp" line="1324"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
         <translation>Aktuálne zvolený algoritmus odtlačku „%1” nie je bezpečný a nemá byť používaný.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1324"/>
+        <location filename="../widgets/NewX509.cpp" line="1325"/>
         <source>Select other algorithm</source>
         <translation>Zvoľte iný algoritmus</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1325"/>
+        <location filename="../widgets/NewX509.cpp" line="1326"/>
         <source>Use algorithm anyway</source>
         <translation>Použiť algoritmus aj tak</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1331"/>
+        <location filename="../widgets/NewX509.cpp" line="1332"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Certifikát bude platný skôr ako jeho vydavateľ. To asi nie je to, čo chcete.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1333"/>
-        <location filename="../widgets/NewX509.cpp" line="1356"/>
-        <location filename="../widgets/NewX509.cpp" line="1379"/>
+        <location filename="../widgets/NewX509.cpp" line="1334"/>
+        <location filename="../widgets/NewX509.cpp" line="1357"/>
+        <location filename="../widgets/NewX509.cpp" line="1380"/>
         <source>Edit dates</source>
         <translation>Upraviť dátumy</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1336"/>
-        <location filename="../widgets/NewX509.cpp" line="1359"/>
+        <location filename="../widgets/NewX509.cpp" line="1337"/>
+        <location filename="../widgets/NewX509.cpp" line="1360"/>
         <source>Adjust date and continue</source>
         <translation>Opraviť dátum a pokračovať</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1354"/>
+        <location filename="../widgets/NewX509.cpp" line="1355"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Certifikát bude platný dlhšie ako jeho vydavateľ. To asi nie je to, čo chcete.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1377"/>
+        <location filename="../widgets/NewX509.cpp" line="1378"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Certifikát vyprší ešte pred nadobudnutím platnosti. Pravdepodobne ste zamenili oba dátumy.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1399"/>
+        <location filename="../widgets/NewX509.cpp" line="1400"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Certifikát obsahuje neplatné alebo duplicitné rozšírenia. Skontrolujte platnosť na záložke Pokročilé.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1403"/>
+        <location filename="../widgets/NewX509.cpp" line="1404"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation>Certifikát neobsahuje rozšírenia. Na definovanie určenia certifikátu môžete pridať rozšírenia jednej zo šablón.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1407"/>
+        <location filename="../widgets/NewX509.cpp" line="1408"/>
         <source>The certificate contains invalid extensions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1412"/>
-        <location filename="../widgets/NewX509.cpp" line="1432"/>
+        <location filename="../widgets/NewX509.cpp" line="1413"/>
+        <location filename="../widgets/NewX509.cpp" line="1433"/>
         <source>Edit extensions</source>
         <translation>Upraviť rozšírenia</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1431"/>
+        <location filename="../widgets/NewX509.cpp" line="1432"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>Alternatívne meno predmetu má obsahovať kópiu bežného mena. Avšak, bežné meno je prázdne.</translation>
     </message>
