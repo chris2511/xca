@@ -78,6 +78,8 @@ MainWindow::MainWindow() : QMainWindow()
 	dbindex->setMargin(6);
 
 	dn_translations_setup();
+	pki_export::init_elements();
+
 	statusBar()->addWidget(dbindex, 1);
 
 	setupUi(this);
@@ -750,6 +752,7 @@ void MainWindow::changeEvent(QEvent *event)
 	if (event->type() == QEvent::LanguageChange) {
 		retranslateUi(this);
 		dn_translations_setup();
+		pki_export::init_elements();
 		init_menu();
 		foreach(db_base *model, Database.getModels())
 			model->updateHeaders();

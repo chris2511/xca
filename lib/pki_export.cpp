@@ -52,9 +52,15 @@ void pki_export::free_elements()
 	}
 #endif
 	qDeleteAll(elements);
+	elements.clear();
 }
 
-QList<pki_export*> pki_export::elements {
+QList<pki_export*> pki_export::elements;
+void pki_export::init_elements()
+{
+	free_elements();
+	elements = QList<pki_export*> {
+
 new pki_export( 1, x509, "crt", "PEM",               F_PEM | F_USUAL | F_SINGLE,             tr("PEM Text format with headers")),
 new pki_export( 3, x509, "pem", "PEM",               F_PEM | F_MULTI,                        tr("Concatenated list of all selected items in one PEM text file")),
 new pki_export( 2, x509, "pem", tr("PEM chain"),     F_PEM | F_USUAL | F_CHAIN | F_SINGLE,   tr("Concatenated text format of the complete certificate chain in one PEM file")),
@@ -93,3 +99,4 @@ new pki_export(34, revocation, "ics", tr("vCalendar"), F_CAL,            tr("vCa
 new pki_export(35, tmpl, "xca", "PEM", F_PEM | F_SINGLE,                 tr("XCA template in PEM-like format")),
 new pki_export(36, tmpl, "pem", "PEM", F_PEM | F_MULTI,                  tr("All selected XCA templates in PEM-like format")),
 	};
+}
