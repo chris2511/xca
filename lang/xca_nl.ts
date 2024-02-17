@@ -4,10 +4,6 @@
 <context>
     <name>CaProperties</name>
     <message>
-        <source>CA Properties</source>
-        <translation type="vanished">CA Eigenschappen</translation>
-    </message>
-    <message>
         <location filename="../ui/CaProperties.ui" line="+14"/>
         <source>Form</source>
         <translation>Form</translation>
@@ -581,118 +577,6 @@
         <translation>Alle bestanden ( * )</translation>
     </message>
     <message>
-        <source>PEM Text format with headers</source>
-        <translation type="vanished">PEM Tekst formaat met koppen</translation>
-    </message>
-    <message>
-        <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="vanished">Samengevoegde lijst van alle geselecteerde items in één PEM tekstbestand</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="vanished">Samengevoegd tekstformaat van de volledige certificaat reeks in één PEM bestand</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of all certificates in one PEM file</source>
-        <translation type="vanished">Samengevoegd tekstformaat van alle certificaten in één PEM bestand</translation>
-    </message>
-    <message>
-        <source>Binary DER encoded file</source>
-        <translation type="vanished">Binair DER gecodeerd bestand</translation>
-    </message>
-    <message>
-        <source>PKCS#7 encoded single certificate</source>
-        <translation type="vanished">PKCS#7 gecodeerd mono certificaat</translation>
-    </message>
-    <message>
-        <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="vanished">PKCS#7 gecodeerde, complete certificaat reeks</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
-        <translation type="vanished">Samengevoegd tekstformaat van alle niet-ingetrokken certificaten in één PEM bestand</translation>
-    </message>
-    <message>
-        <source>All unrevoked certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Alle niet-ingetrokken certificaten gecodeerd in één PKCS#7 bestand</translation>
-    </message>
-    <message>
-        <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Alle geselecteerde certificaten gecodeerd in één PKCS#7 bestand</translation>
-    </message>
-    <message>
-        <source>All certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Alle certificaten gecodeerd in een PKCS#7 bestand</translation>
-    </message>
-    <message>
-        <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="vanished">Het certificaat en de privé-sleutel als versleuteld PKCS#12 bestand</translation>
-    </message>
-    <message>
-        <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="vanished">De volledige certificaat reeks en de privé-sleutel als versleuteld PKCS#12 bestand</translation>
-    </message>
-    <message>
-        <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="vanished">Samenvoeging van het certificaat en de niet-versleutelde privé-sleutel in één PEM bestand</translation>
-    </message>
-    <message>
-        <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="vanished">Samenvoeging van het certificaat en de versleutelde privé-sleutel in PKCS#8 bestand</translation>
-    </message>
-    <message>
-        <source>Text format of the public key in one PEM file</source>
-        <translation type="vanished">Tekstformaat van de openbare sleutel in één PEM bestand</translation>
-    </message>
-    <message>
-        <source>Binary DER format of the public key</source>
-        <translation type="vanished">Binair DER-formaat van de openbare sleutel</translation>
-    </message>
-    <message>
-        <source>Unencrypted private key in text format</source>
-        <translation type="vanished">Niet-versleutelde privé-sleutel in tekst formaat</translation>
-    </message>
-    <message>
-        <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="vanished">OpenSSL-specifieke versleutelde privé-sleutel in tekstformaat</translation>
-    </message>
-    <message>
-        <source>Unencrypted private key in binary DER format</source>
-        <translation type="vanished">Niet-versleutelde privé-sleutel in binair DER formaat</translation>
-    </message>
-    <message>
-        <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="vanished">Niet-versleutelde privé-sleutel in PKCS#8 formaat</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="vanished">Versleutelde privé-sleutel in PKCS#8 formaat</translation>
-    </message>
-    <message>
-        <source>The public key encoded in SSH2 format</source>
-        <translation type="vanished">De openbare sleutel gecodeerd in SSH2-indeling</translation>
-    </message>
-    <message>
-        <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="vanished">OpenSSL-specifiek certificaat-indexbestand, gemaakt met de opdracht &apos;ca&apos; en vereist voor de OCSP-tool</translation>
-    </message>
-    <message>
-        <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="vanished">vCalendar vervaldatum herinnering voor de geselecteerde items</translation>
-    </message>
-    <message>
-        <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="vanished">vCalendar vervaldatum herinnering met daarin bevattend: alle uitgegeven, geldige certificaten, de CA zelf en de nieuwste CRL</translation>
-    </message>
-    <message>
-        <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="vanished">Niet-versleutelde privé-sleutel in Microsoft PVK formaat</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="vanished">Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
-    </message>
-    <message>
         <location line="+56"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Het bestand: &apos;%1&apos; bestaat al!</translation>
@@ -833,10 +717,6 @@ Serienummer: %3</translation>
         <translation>Beheer beveiligingstoken</translation>
     </message>
     <message>
-        <source>Details of the item &apos;%1&apos; cannot be shown</source>
-        <translation type="vanished">Details van het item &apos;%1&apos; kunnen niet worden weergegeven</translation>
-    </message>
-    <message>
         <location line="+35"/>
         <location line="+194"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
@@ -845,7 +725,7 @@ Serienummer: %3</translation>
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard database openen is niet mogelijk</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1065,11 +945,7 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+52"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export public key [%1]</source>
-        <translation type="vanished">Openbare sleutel exporteren [%1]</translation>
+        <translation>Sleutel export</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1196,25 +1072,9 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Het gebruik of exporteren van privé-sleutels is niet mogelijk zonder het juiste wachtwoord op te geven</translation>
     </message>
     <message>
-        <source>Database</source>
-        <translation type="vanished">Database</translation>
-    </message>
-    <message>
         <location line="+6"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>De momenteel gebruikte standaard hash &apos;%1&apos; is onveilig. Selecteer om veiligheidsredenen ten minste &apos;SHA 224&apos;.</translation>
-    </message>
-    <message>
-        <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="vanished">Legacy database indeling gedetecteerd. Een reservekopie wordt gemaakt met de naam &apos;%1&apos; en de database wordt geconverteerd naar de nieuwe indeling</translation>
-    </message>
-    <message>
-        <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="vanished">Kan het database bestand niet hernoemen, omdat het bestand al bestaat</translation>
-    </message>
-    <message>
-        <source>No deleted items found</source>
-        <translation type="vanished">Geen verwijderde gegevens gevonden</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-49"/>
@@ -1488,10 +1348,6 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Over</translation>
     </message>
     <message>
-        <source>no such option: %1</source>
-        <translation type="vanished">Onbekende keuze: %1</translation>
-    </message>
-    <message>
         <location filename="../widgets/MainWindow.cpp" line="-347"/>
         <source>Import PEM data</source>
         <translation>Importeer PEM gegevens</translation>
@@ -1560,40 +1416,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+28"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het huidig gebruikte PFX / PKCS#12 algoritme &apos;%1&apos; is niet veilig.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database:
-%1</source>
-        <translation type="vanished">Voer een wachtwoord in, dat zal worden gebruikt om uw privé-sleutels in de database te versleutelen:
-%1</translation>
-    </message>
-    <message>
-        <source>Password verify error, please try again</source>
-        <translation type="vanished">Fout bij wachtwoordverificatie, probeer het opnieuw</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="vanished">Wachtwoord</translation>
-    </message>
-    <message>
-        <source>Please enter the password for unlocking the database:
-%1</source>
-        <translation type="vanished">Voer het wachtwoord in om de database te ontgrendelen:
-%1</translation>
-    </message>
-    <message>
-        <source>The following error occurred:</source>
-        <translation type="vanished">De volgende fout is opgetreden:</translation>
-    </message>
-    <message>
-        <source>Copy to Clipboard</source>
-        <translation type="vanished">Kopieer naar klembord</translation>
+        <translation>Veranderen</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -2398,14 +2226,6 @@ een van de tekstuele Engelse omschrijvingen in</translation>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Geen SqLite3-stuurprogramma beschikbaar. Installeer alstublieft het qt-sqlite-pakket van uw distributie</translation>
     </message>
-    <message>
-        <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
-        <translation type="vanished">Voer het wachtwoord in om toegang te krijgen tot de database server %2 als gebruiker &apos;%1&apos;.</translation>
-    </message>
-    <message>
-        <source>The database driver does not support transactions. This may happen if the client and server have different versions. Continue with care.</source>
-        <translation type="vanished">Het database stuurprogramma ondersteunt geen transacties. Dit kan gebeuren als de client en de server verschillende software versies hebben. Ga voorzichtig verder.</translation>
-    </message>
 </context>
 <context>
     <name>Options</name>
@@ -2590,10 +2410,6 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <translation>Neem als hexadecimale-string</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation type="vanished">Wachtwoord</translation>
-    </message>
-    <message>
         <location filename="../widgets/PwDialog.cpp" line="+72"/>
         <source>Repeat %1</source>
         <translation>Herhaal %1</translation>
@@ -2612,37 +2428,6 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <location line="+29"/>
         <source>Exit</source>
         <translation>Sluiten</translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation type="vanished">Sluiten</translation>
-    </message>
-</context>
-<context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">OK</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Sluiten</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Annuleren</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">Toepassen</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">Ja</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">Nee</translation>
     </message>
 </context>
 <context>
@@ -2707,10 +2492,6 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <location line="+11"/>
         <source>Error finding endmarker of string</source>
         <translation>Fout bij het vinden van einde markering van tekenreeks</translation>
-    </message>
-    <message>
-        <source>Out of Memory at %1:%2</source>
-        <translation type="vanished">Geheugen vol op %1:%2</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="+20"/>
@@ -2866,18 +2647,6 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <location filename="../lib/pkcs11.h" line="+96"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>Vereiste PIN grootte: %1 - %2</translation>
-    </message>
-    <message>
-        <source>Invalid filename: %1</source>
-        <translation type="vanished">Ongeldige bestandsnaam: %1</translation>
-    </message>
-    <message>
-        <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="vanished">Openen van PKCS#11-bibliotheek bestand is mislukt: %1: %2</translation>
-    </message>
-    <message>
-        <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="vanished">Dit lijkt geen PKCS#11 bibliotheek bestand. Teken: &apos;C_GetFunctionList&apos; not found.</translation>
     </message>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+118"/>
@@ -3459,7 +3228,7 @@ In bibliotheek bestand %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="+47"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
 </context>
 <context>
@@ -3557,14 +3326,6 @@ In bibliotheek bestand %3
 </context>
 <context>
     <name>database_model</name>
-    <message>
-        <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="vanished">Legacy database indeling gedetecteerd. Een reservekopie wordt gemaakt met de naam &apos;%1&apos; en de database wordt geconverteerd naar de nieuwe indeling</translation>
-    </message>
-    <message>
-        <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="vanished">Kan het database bestand niet hernoemen, omdat het bestand al bestaat</translation>
-    </message>
     <message>
         <location filename="../lib/database_model.cpp" line="+51"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
@@ -3672,30 +3433,6 @@ In bibliotheek bestand %3
         <source>Could not create directory %1</source>
         <translation>Maken van folder is mislukt %1</translation>
     </message>
-    <message>
-        <source>Item properties</source>
-        <translation type="vanished">Item eigenschappen</translation>
-    </message>
-    <message>
-        <source>How to export the %1 selected items</source>
-        <translation type="vanished">Hoe moeten de %1 geselecteerde items geëxporteerd worden</translation>
-    </message>
-    <message>
-        <source>All in one PEM file</source>
-        <translation type="vanished">Alles in één PEM bestand</translation>
-    </message>
-    <message>
-        <source>Each item in one file</source>
-        <translation type="vanished">Elk item in één bestand</translation>
-    </message>
-    <message>
-        <source>Save %1 items in one file as</source>
-        <translation type="vanished">Sla %1 items in één bestand op als</translation>
-    </message>
-    <message>
-        <source>PEM files ( *.pem );; All files ( * )</source>
-        <translation type="vanished">PEM bestanden ( *.pem );; Alle bestanden ( * )</translation>
-    </message>
 </context>
 <context>
     <name>db_crl</name>
@@ -3742,26 +3479,6 @@ and so it was not imported</source>
         <translation>De intrekkingslijst bestaat al in de database als:
 &apos;%1&apos;
 en dus werd het niet geïmporteerd</translation>
-    </message>
-    <message>
-        <source>Revocation list export</source>
-        <translation type="vanished">Intrekkingslijst exporteren</translation>
-    </message>
-    <message>
-        <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="vanished">CRL ( *.pem *.der *.crl )</translation>
-    </message>
-    <message>
-        <source>There are no CA certificates for CRL generation</source>
-        <translation type="vanished">Er zijn geen CA certificaten voor CRL-generatie</translation>
-    </message>
-    <message>
-        <source>Select CA certificate</source>
-        <translation type="vanished">Selecteer CA certificaat</translation>
-    </message>
-    <message>
-        <source>Create CRL</source>
-        <translation type="vanished">creëer een CRL</translation>
     </message>
     <message>
         <location line="+74"/>
@@ -3837,66 +3554,6 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
         <translation>Bent u zeker om een sleutel van deze grootte te maken: %1 ?</translation>
     </message>
     <message>
-        <source>PEM public</source>
-        <translation type="vanished">PEM openbaar</translation>
-    </message>
-    <message>
-        <source>SSH2 public</source>
-        <translation type="vanished">SSH2 openbaar</translation>
-    </message>
-    <message>
-        <source>PEM private</source>
-        <translation type="vanished">PEM privé</translation>
-    </message>
-    <message>
-        <source>SSH2 private</source>
-        <translation type="vanished">SSH2 privé</translation>
-    </message>
-    <message>
-        <source>Export keys to Clipboard</source>
-        <translation type="vanished">Exporteer sleutels naar het klembord</translation>
-    </message>
-    <message>
-        <source>Clipboard</source>
-        <translation type="vanished">Klembord</translation>
-    </message>
-    <message>
-        <source>Export public key [%1]</source>
-        <translation type="vanished">Openbare sleutel exporteren [%1]</translation>
-    </message>
-    <message>
-        <source>DER public</source>
-        <translation type="vanished">DER openbaar</translation>
-    </message>
-    <message>
-        <source>DER private</source>
-        <translation type="vanished">DER privé</translation>
-    </message>
-    <message>
-        <source>PEM encryped</source>
-        <translation type="vanished">PEM versleuteld</translation>
-    </message>
-    <message>
-        <source>PVK private</source>
-        <translation type="vanished">PVK privé</translation>
-    </message>
-    <message>
-        <source>PVK encrypted</source>
-        <translation type="vanished">PVK versleuteld</translation>
-    </message>
-    <message>
-        <source>PKCS#8 encrypted</source>
-        <translation type="vanished">PKCS#8 versleuteld</translation>
-    </message>
-    <message>
-        <source>Export private key [%1]</source>
-        <translation type="vanished">privé-sleutel exporteren [%1]</translation>
-    </message>
-    <message>
-        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="vanished">Privé-sleutels ( *.pem *.der *.pk8 );; SSH Openbare sleutels ( *.pub )</translation>
-    </message>
-    <message>
         <location line="+82"/>
         <source>Internal error</source>
         <translation>Interne fout</translation>
@@ -3904,7 +3561,7 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne sleutel update: De sleutels: &apos;%1&apos; moeten eenmalig aangepast worden door het resetten en ingeven van het privé wachtwoord</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -3923,18 +3580,6 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
         <location line="-27"/>
         <source>Empty template</source>
         <translation>Lege sjabloon</translation>
-    </message>
-    <message>
-        <source>Preset Template values</source>
-        <translation type="vanished">Preset-sjabloonwaarden</translation>
-    </message>
-    <message>
-        <source>Save template as</source>
-        <translation type="vanished">Sla sjabloon op als</translation>
-    </message>
-    <message>
-        <source>XCA templates ( *.xca );; All files ( * )</source>
-        <translation type="vanished">XCA sjablonen ( *.xca );; Alle bestanden ( * )</translation>
     </message>
 </context>
 <context>
@@ -4000,14 +3645,6 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
         <translation>CRL Vervaldatum</translation>
     </message>
     <message>
-        <source>Plain View</source>
-        <translation type="vanished">Tekst weergave</translation>
-    </message>
-    <message>
-        <source>Tree View</source>
-        <translation type="vanished">Vertakkingen overzicht</translation>
-    </message>
-    <message>
         <location line="+226"/>
         <source>Failed to retrieve unique random serial</source>
         <translation>Het ophalen van een uniek willekeurig getal is mislukt</translation>
@@ -4037,34 +3674,6 @@ en dus werd het niet geïmporteerd</translation>
         <translation>Ongeldige openbare sleutel</translation>
     </message>
     <message>
-        <source>PKCS#7 unrevoked</source>
-        <translation type="vanished">PKCS#7 niet ingetrokken</translation>
-    </message>
-    <message>
-        <source>PEM unrevoked</source>
-        <translation type="vanished">PEM niet ingetrokken</translation>
-    </message>
-    <message>
-        <source>vCalendar</source>
-        <translation type="vanished">vCalendar</translation>
-    </message>
-    <message>
-        <source>CA vCalendar</source>
-        <translation type="vanished">CA vCalendar</translation>
-    </message>
-    <message>
-        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="vanished">X.509 Certificaten ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
-    </message>
-    <message>
-        <source>days</source>
-        <translation type="vanished">dagen</translation>
-    </message>
-    <message>
-        <source>No template</source>
-        <translation type="vanished">Geen sjabloon</translation>
-    </message>
-    <message>
         <location line="+26"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>De sleutel die geselecteerd is voor ondertekening, is geen privésleutel.</translation>
@@ -4078,42 +3687,6 @@ en dus werd het niet geïmporteerd</translation>
         <location line="+255"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Sla het certificaat op de sleutel op, op token &apos;%1 (#%2)&apos; ?</translation>
-    </message>
-    <message>
-        <source>PEM chain</source>
-        <translation type="vanished">PEM reeks</translation>
-    </message>
-    <message>
-        <source>PKCS#7 chain</source>
-        <translation type="vanished">PKCS#7 reeks</translation>
-    </message>
-    <message>
-        <source>PKCS#12 chain</source>
-        <translation type="vanished">PKCS#12 reeks</translation>
-    </message>
-    <message>
-        <source>PKCS#7 all</source>
-        <translation type="vanished">PKCS#7-alles</translation>
-    </message>
-    <message>
-        <source>PEM + key</source>
-        <translation type="vanished">PEM + sleutel</translation>
-    </message>
-    <message>
-        <source>PEM all</source>
-        <translation type="vanished">PEM alles</translation>
-    </message>
-    <message>
-        <source>Certificate Index file</source>
-        <translation type="vanished">Certificaat index bestand</translation>
-    </message>
-    <message>
-        <source>Certificate export</source>
-        <translation type="vanished">Certificaat export</translation>
-    </message>
-    <message>
-        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</source>
-        <translation type="vanished">X.509 Certificaten ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <location line="+105"/>
@@ -4196,14 +3769,6 @@ and thus was not stored</source>
 &apos;%1&apos;
 en werd dus niet opgeslagen</translation>
     </message>
-    <message>
-        <source>Certificate request export</source>
-        <translation type="vanished">Exporteren van certificaat verzoeken</translation>
-    </message>
-    <message>
-        <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="vanished">Certificaataanvraag (* .pem * .der * .csr)</translation>
-    </message>
 </context>
 <context>
     <name>db_x509super</name>
@@ -4253,14 +3818,6 @@ en werd dus niet opgeslagen</translation>
         <location line="+28"/>
         <source>Certificate request</source>
         <translation>Certificaat verzoek</translation>
-    </message>
-    <message>
-        <source>Save as OpenSSL config</source>
-        <translation type="vanished">Opslaan als OpenSSL-configuratie</translation>
-    </message>
-    <message>
-        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="vanished">Configuratiebestanden ( *.conf *.cnf);; Alle bestanden ( * )</translation>
     </message>
     <message>
         <location line="-5"/>
@@ -4393,10 +3950,6 @@ en werd dus niet opgeslagen</translation>
         <translation>Geen uitgever genoemd</translation>
     </message>
     <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Verkeerde grootte %1</translation>
-    </message>
-    <message>
         <location line="+261"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation>CRL Vernieuwing van CA nodig op &apos;%1&apos;</translation>
@@ -4424,14 +3977,6 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <source>Failed to decrypt the key (bad password) %1</source>
-        <translation type="vanished">Decoderen van de sleutel niet gelukt (onjuist wachtwoord) %1</translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key.</source>
-        <translation type="vanished">Voer het wachtwoord in om de privé-sleutel te decoderen.</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="+239"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>Geef het wachtwoord voor het decoderen van de privé sleutel %1.</translation>
@@ -4454,10 +3999,6 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Laden van de privé-sleutel in bestand %1 niet mogelijk. Gebruikte methoden PEM- en DER privé, openbaar, PKCS#8 sleuteltypen en SSH2 formaat.</translation>
     </message>
     <message>
-        <source>Ignoring unsupported private key</source>
-        <translation type="vanished">Niet-ondersteunde privé-sleutel wordt genegeerd</translation>
-    </message>
-    <message>
         <location line="+23"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Voer het wachtwoord in om de privé-sleutel te decoderen: &apos;%1&apos;</translation>
@@ -4476,7 +4017,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+24"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodering van de privé-sleutel &apos;%1&apos; is mislukt</translation>
     </message>
     <message>
         <location line="+128"/>
@@ -4531,7 +4072,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>De volledige certificaten reeks en de privé-sleutel van het geselecteerde certificaat met labels bruikbaar in OpenVPN configuratie bestanden</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4932,21 +4473,9 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Voer de kaart in: %1 %2 [%3] met het serienummer: %4</translation>
     </message>
     <message>
-        <source>Illegal Key generation method</source>
-        <translation type="vanished">Illegale methode voor het genereren van sleutels</translation>
-    </message>
-    <message>
         <location line="+66"/>
         <source>Unable to find generated key on card</source>
         <translation>Kan gegenereerde sleutel niet vinden op kaart</translation>
-    </message>
-    <message>
-        <source>Ignoring unsupported token key</source>
-        <translation type="vanished">Niet-ondersteunde token-sleutel negeren</translation>
-    </message>
-    <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Verkeerde grootte %1</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5056,10 +4585,6 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Er is geen sleutel voor ondertekening !</translation>
     </message>
     <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Verkeerde grootte %1</translation>
-    </message>
-    <message>
         <location line="+286"/>
         <source>No</source>
         <translation>Nee</translation>
@@ -5113,10 +4638,6 @@ Het certificaat is opgeslagen in de XCA database &apos;%4&apos;</translation>
         <location line="+31"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>Het certificaatverzoek is niet geladen in bestand %1. Geprobeerd met PEM-, DER- en SPKAC formaat.</translation>
-    </message>
-    <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Verkeerde grootte %1</translation>
     </message>
     <message>
         <location line="+186"/>
@@ -5221,17 +4742,6 @@ Het certificaat is opgeslagen in de XCA database &apos;%4&apos;</translation>
 &apos;%1&apos;</source>
         <translation>Validatie succesvol:
 &apos;%1&apos;</translation>
-    </message>
-</context>
-<context>
-    <name>xcaWarning</name>
-    <message>
-        <source>The following error occurred:</source>
-        <translation type="vanished">De volgende fout is opgetreden:</translation>
-    </message>
-    <message>
-        <source>Copy to Clipboard</source>
-        <translation type="vanished">Kopieer naar klembord</translation>
     </message>
 </context>
 <context>
