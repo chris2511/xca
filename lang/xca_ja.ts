@@ -218,12 +218,12 @@
     <message>
         <location line="+11"/>
         <source>Not before</source>
-        <translation>前ではない</translation>
+        <translation>開始日時</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Not after</source>
-        <translation>以降でない</translation>
+        <translation>終了日時</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -477,12 +477,12 @@
     <message>
         <location line="+18"/>
         <source>Next update</source>
-        <translation>次回の更新</translation>
+        <translation>次回更新日時</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Last update</source>
-        <translation>最終更新</translation>
+        <translation>最終更新日時</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -713,12 +713,12 @@
     <message>
         <location filename="../ui/TimeInput.ui" line="+32"/>
         <source>last update</source>
-        <translation type="unfinished"></translation>
+        <translation>最終更新日時</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>next update</source>
-        <translation type="unfinished"></translation>
+        <translation>次回更新日時</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -779,7 +779,7 @@
     <message>
         <location filename="../ui/ImportMulti.ui" line="+36"/>
         <source>Import PKI Items</source>
-        <translation>PKI項目のインポート</translation>
+        <translation>PKIアイテムのインポート</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -845,7 +845,7 @@ Serial: %3</source>
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>デフォルトのデータベースを開けませんでした</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1016,7 +1016,7 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation type="unfinished"></translation>
+        <translation>クリップボードフォーマット</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1065,7 +1065,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>キーエクスポート</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1270,12 +1270,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-9"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>ペルシャ語</translation>
     </message>
     <message>
         <location line="-18"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>ブルガリア語</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1305,7 +1305,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-10"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>インドネシア語</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1555,17 +1555,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+87"/>
         <source>Database: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>データベース: %1</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>現在使用されている PFX / PKCS#12 アルゴリズム &apos;%1&apos; は安全ではありません。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>変更</translation>
     </message>
     <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
@@ -1624,12 +1624,12 @@ DHパラメータビットを入力してください</translation>
     <message>
         <location filename="../ui/NewCrl.ui" line="+32"/>
         <source>Last update</source>
-        <translation>最終更新</translation>
+        <translation>最終更新日時</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Next update</source>
-        <translation>最終更新</translation>
+        <translation>次回更新日時</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1962,7 +1962,7 @@ DHパラメータビットを入力してください</translation>
     <message>
         <location line="+17"/>
         <source>Time range</source>
-        <translation>範囲</translation>
+        <translation>時間の範囲</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2288,7 +2288,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+4"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation>証明書に無効な拡張子が含まれています。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2464,7 +2464,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="-33"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS12暗号化アルゴリズム</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -3164,7 +3164,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
-        <translation type="unfinished"></translation>
+        <translation>データベース・スキーマを現在のバージョンに更新するのに失敗しました。</translation>
     </message>
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+33"/>
@@ -3283,7 +3283,7 @@ In library %3
     <message>
         <location line="+7"/>
         <source>Invalid since</source>
-        <translation>無効な日付です</translation>
+        <translation>失効日時</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3362,12 +3362,12 @@ In library %3
     <message>
         <location line="+38"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートエクスポート</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Templates ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -3375,27 +3375,27 @@ In library %3
     <message>
         <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation type="unfinished"></translation>
+        <translation>証明書の信頼</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>Trustment</source>
-        <translation type="unfinished"></translation>
+        <translation>信頼</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>この証明書を信用しない(&amp;N)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="unfinished"></translation>
+        <translation>署名者を信頼できる場合のみ、この証明書を信頼する。(&amp;T)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>この証明書を常に信頼する(&amp;A)</translation>
     </message>
 </context>
 <context>
@@ -3444,12 +3444,12 @@ In library %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルを開くときにエラーが発生しました： &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルの復旧エラー： &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -3457,7 +3457,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="+47"/>
         <source>Import</source>
-        <translation type="unfinished">インポート</translation>
+        <translation>インポート</translation>
     </message>
 </context>
 <context>
@@ -3902,7 +3902,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translation>内部キーの更新: プライベート・パスワードをリセットして設定することで、キー %1 を一度更新する必要があります。</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4474,7 +4474,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+24"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>秘密鍵 &apos;%1&apos; の復号化に失敗しました。</translation>
     </message>
     <message>
         <location line="+128"/>
@@ -4529,7 +4529,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>選択された証明書の完全な証明書チェーンと秘密鍵が、OpenVPN コンフィギュレーション・ファイルで使用可能なタグ付きで表示されます。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4559,7 +4559,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #7 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7チェーン</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4569,12 +4569,12 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+1"/>
         <source>Binary DER encoded certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>バイナリ DER エンコードされた証明書</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS #12 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #12 チェーン</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4584,7 +4584,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #12</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4646,7 +4646,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="-1"/>
         <source>PEM encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM暗号化</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4711,7 +4711,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #8 暗号化</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4721,7 +4721,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #8</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #8</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4731,27 +4731,27 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation>証明書要求のバイナリ DER フォーマット</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>失効リストのバイナリDERフォーマット</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>vCRL有効期限のカレンダーリマインダー</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>PEMライクフォーマットのXCAテンプレート</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>選択されたすべてのXCAテンプレートはPEMライクフォーマットです</translation>
     </message>
 </context>
 <context>
