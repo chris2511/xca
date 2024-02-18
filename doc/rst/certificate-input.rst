@@ -143,6 +143,12 @@ template. Applying the time range means to set notBefore to "now" and notAfter
 to "now + time range". If the *midnight* button is set both dates will be
 rounded down and up to midnight.
 
+Subject Alternative Name
+........................
+
+The subject alternative name accepts a special entry *DNS:copycn*.
+This will copy the *commonName* entry frome th subject as DNS entry.
+
 .. index:: wizard_advanced (wizard_advanced)
 
 Advanced
