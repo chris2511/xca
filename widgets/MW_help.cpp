@@ -40,7 +40,7 @@ const QList<QStringList> MainWindow::getTranslators() const
 	QStringList{ "it", tr("Italian"),
 		"Paolo Basenghi", "paul69", "libero.it" },
 	QStringList{ "ja", tr("Japanese"),
-		"ぶらすず", "burasuzu", "gmail.com" },
+		"D2N", "gritty.hat3143", "mx.d2-networks.jp" },
 	QStringList{ "fa", tr("Persian"),
 		"Erfan Esmayili Barzi", "erfankam", "gmail.com" },
 	QStringList{ "pl", tr("Polish"),

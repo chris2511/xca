@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="sk_SK">
+    <extra-po-header-language>sk</extra-po-header-language>
+    <extra-po-header-language_team>slovenčina &lt;linux@slavino.sk&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Slavko &lt;linux@slavino.sk&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2024-02-17 09:21+0100</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2018-03-16 18:14+0200</extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version>X Certificate and Key management 2..6.0</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Gtranslator 45.3</extra-po-header-x_generator>
+    <extra-po-header_comment># This file is distributed under the same license as the XCA package.
+# Slavko &lt;linux@slavino.sk&gt;, 2016-2024.
+#</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Generator,Plural-Forms,X-Qt-Contexts</extra-po-headers>
 <context>
     <name>CaProperties</name>
     <message>
-        <source>CA Properties</source>
-        <translation type="vanished">Vlastnosti CA</translation>
-    </message>
-    <message>
         <location filename="../ui/CaProperties.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../ui/CaProperties.ui" line="20"/>
@@ -180,7 +188,7 @@
     <message>
         <location filename="../widgets/CertDetail.cpp" line="147"/>
         <source>Revoked at %1</source>
-        <translation>Odvolaný %1: </translation>
+        <translation>Odvolaný %1</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="152"/>
@@ -273,7 +281,7 @@
     <message>
         <location filename="../ui/CertExtend.ui" line="226"/>
         <source>Replace old certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradiť starý certifikát</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="236"/>
@@ -472,7 +480,7 @@
     <message>
         <location filename="../ui/CrlDetail.ui" line="197"/>
         <source>issuing dates</source>
-        <translation>Dátumy vydania</translation>
+        <translation>dátumy vydania</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="215"/>
@@ -512,7 +520,7 @@
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="53"/>
         <source>Unknown signer</source>
-        <translation>Neznámy podpis</translation>
+        <translation>Neznámy vydavateľ</translation>
     </message>
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="56"/>
@@ -535,7 +543,7 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="69"/>
         <source>Revocation list export</source>
-        <translation>Export Zoznamu odvolaných</translation>
+        <translation>Export zoznamu odvolaných</translation>
     </message>
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="70"/>
@@ -578,119 +586,7 @@
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="48"/>
         <source>All files ( * )</source>
-        <translation>Všetky súbory (*)</translation>
-    </message>
-    <message>
-        <source>PEM Text format with headers</source>
-        <translation type="vanished">Textový formát PEM s hlavičkami</translation>
-    </message>
-    <message>
-        <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="vanished">Zlúčený zoznam zvolených položiek v jednom textovom súbore PEM</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="vanished">Zlúčený textový formát úplnej reťaze certifikátu v jednom súbore PEM</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of all certificates in one PEM file</source>
-        <translation type="vanished">Zlúčený textový formát všetkých certifikátov v jednom súbore PEM</translation>
-    </message>
-    <message>
-        <source>Binary DER encoded file</source>
-        <translation type="vanished">Binárne kódovaný súbor DER</translation>
-    </message>
-    <message>
-        <source>PKCS#7 encoded single certificate</source>
-        <translation type="vanished">PKCS#7 kódovaný jeden certifikát</translation>
-    </message>
-    <message>
-        <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="vanished">PKCS#7 kódovaná úplná reťaz certifikátov</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
-        <translation type="vanished">Zlúčený textový formát všetkých dôveryhodných certifikátov v jednom súbore PEM</translation>
-    </message>
-    <message>
-        <source>All unrevoked certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Všetky neodvolané certifikáty kódované v jednom súbore PKCS#7</translation>
-    </message>
-    <message>
-        <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Všetky zvolené certifikáty kódované v jednom súbore PKCS#7</translation>
-    </message>
-    <message>
-        <source>All certificates encoded in one PKCS#7 file</source>
-        <translation type="vanished">Všetky certifikáty kódované v jednom súbore PKCS#7</translation>
-    </message>
-    <message>
-        <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="vanished">Certifikát a súkromný kľúč ako šifrovaný súbor PKCS#12</translation>
-    </message>
-    <message>
-        <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="vanished">Úplná reťaz certifikátu a súkromný kľúč ako šifrovaný súbor PKCS#12</translation>
-    </message>
-    <message>
-        <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="vanished">Spojenie certifikátu a nešifrovaného súkromného kľúča v jednom súbore PEM</translation>
-    </message>
-    <message>
-        <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="vanished">Spojenie certifikátu a šifrovaného súkromného kľúča v jednom súbore PKCS#8</translation>
-    </message>
-    <message>
-        <source>Text format of the public key in one PEM file</source>
-        <translation type="vanished">Textový formát verejného kľúča v súbore PEM</translation>
-    </message>
-    <message>
-        <source>Binary DER format of the public key</source>
-        <translation type="vanished">Binárny formát DER verejného kľúča</translation>
-    </message>
-    <message>
-        <source>Unencrypted private key in text format</source>
-        <translation type="vanished">Nešifrovaný súkromný kľúč v textovom formáte</translation>
-    </message>
-    <message>
-        <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="vanished">Šifrovaný súkromný kľúč v textovom formáte (špecifický pre OpenSSL)</translation>
-    </message>
-    <message>
-        <source>Unencrypted private key in binary DER format</source>
-        <translation type="vanished">Nešifrovaný súkromný kľúč v binárnom formáte DER</translation>
-    </message>
-    <message>
-        <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="vanished">Nešifrovaný súkromný kľúč v textovom formáte PKCS#8</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="vanished">Šifrovaný súkromný kľúč v textovom formáte PKCS#8</translation>
-    </message>
-    <message>
-        <source>The public key encoded in SSH2 format</source>
-        <translation type="vanished">Verejný kľúč kódovaný vo formáte SSH2</translation>
-    </message>
-    <message>
-        <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
-        <translation type="vanished">Súbor indexu certifikátov, špecifický pre OpenSSL, vytvorený ako príkazom „ca” a vyžadovaný nástrojom OCSP</translation>
-    </message>
-    <message>
-        <source>vCalendar expiry reminder for the selected items</source>
-        <translation type="vanished">Pripomienka vCalendar vypršania platnosti zvolených položiek</translation>
-    </message>
-    <message>
-        <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
-        <translation type="vanished">Pripomienka vCalendar vypršania platnosti všetkých vydaných, platných certifikátov, samotnej CA i posledného CRL</translation>
-    </message>
-    <message>
-        <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="vanished">Súkromný kľúč vo formáte Microsoft PVK, nešifrovaný</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="vanished">Šifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
+        <translation>Všetky súbory ( * )</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="104"/>
@@ -707,33 +603,49 @@
         <source>Do not overwrite</source>
         <translation>Neprepísať</translation>
     </message>
+    <message>
+        <source>Concatenated text format of all certificates in one PEM file</source>
+        <translation type="vanished">Zlúčený textový formát všetkých certifikátov v jednom súbore PEM</translation>
+    </message>
+    <message>
+        <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
+        <translation type="vanished">Zlúčený textový formát všetkých dôveryhodných certifikátov v jednom súbore PEM</translation>
+    </message>
+    <message>
+        <source>All unrevoked certificates encoded in one PKCS#7 file</source>
+        <translation type="vanished">Všetky neodvolané certifikáty kódované v jednom súbore PKCS#7</translation>
+    </message>
+    <message>
+        <source>All certificates encoded in one PKCS#7 file</source>
+        <translation type="vanished">Všetky certifikáty kódované v jednom súbore PKCS#7</translation>
+    </message>
 </context>
 <context>
     <name>Form</name>
     <message>
         <location filename="../ui/TimeInput.ui" line="32"/>
         <source>last update</source>
-        <translation type="unfinished"></translation>
+        <translation>posled. aktualizácia</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="46"/>
         <source>next update</source>
-        <translation type="unfinished"></translation>
+        <translation>nasled. aktualizácia</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="70"/>
         <source>Days</source>
-        <translation>Dni</translation>
+        <translation>Dní</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="75"/>
         <source>Months</source>
-        <translation>Mesiace</translation>
+        <translation>Mesiacov</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="80"/>
         <source>Years</source>
-        <translation>Roky</translation>
+        <translation>Rokov</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="88"/>
@@ -799,7 +711,7 @@
     <message>
         <location filename="../ui/ImportMulti.ui" line="115"/>
         <source>&amp;Remove from list</source>
-        <translation>Odstrániť zo zoznamu</translation>
+        <translation>&amp;Odstrániť zo zoznamu</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="122"/>
@@ -833,10 +745,6 @@ Sér. č.: %3</translation>
         <translation>Spravovať bezpečnostný token</translation>
     </message>
     <message>
-        <source>Details of the item &apos;%1&apos; cannot be shown</source>
-        <translation type="vanished">Podrobnosti položky „%1” nemožno zobraziť</translation>
-    </message>
-    <message>
         <location filename="../widgets/ImportMulti.cpp" line="106"/>
         <location filename="../widgets/ImportMulti.cpp" line="300"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
@@ -845,7 +753,7 @@ Sér. č.: %3</translation>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="252"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>Nemožno otvoriť predvolenú databázu</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="328"/>
@@ -856,6 +764,10 @@ Sér. č.: %3</translation>
         <location filename="../widgets/ImportMulti.cpp" line="331"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
         <translation>%1 súbory: „%2” neobsahuje dáta PKI</translation>
+    </message>
+    <message>
+        <source>Details of the item &apos;%1&apos; cannot be shown</source>
+        <translation type="vanished">Podrobnosti položky „%1” nemožno zobraziť</translation>
     </message>
 </context>
 <context>
@@ -973,7 +885,7 @@ Sér. č.: %3</translation>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="90"/>
         <source>Not available</source>
-        <translation>Nedostupné</translation>
+        <translation>Nedostupný</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="103"/>
@@ -1016,7 +928,7 @@ Sér. č.: %3</translation>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="32"/>
         <source>Clipboard format</source>
-        <translation type="unfinished"></translation>
+        <translation>Formát schránky</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="52"/>
@@ -1065,11 +977,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="229"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export public key [%1]</source>
-        <translation type="vanished">Exportovať verejný kľúč [%1]</translation>
+        <translation>Export kľúča</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="230"/>
@@ -1132,7 +1040,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../ui/MainWindow.ui" line="124"/>
         <source>Certificate signing requests</source>
-        <translation>Žiadosti o podpísanie</translation>
+        <translation>Žiadosti o certifikát</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="148"/>
@@ -1196,10 +1104,6 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <translation>Použitie alebo exportovanie súkromných kľúčov nebude možné bez zadania správneho hesla</translation>
     </message>
     <message>
-        <source>Database</source>
-        <translation type="vanished">Databáza</translation>
-    </message>
-    <message>
         <location filename="../widgets/MainWindow.cpp" line="601"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
         <translation>Aktuálne použitý predvolený odtlačok „%1” nie je bezpečný. Prosím, kvôli bezpečnosti, zvoľte aspoň „SHA 224”.</translation>
@@ -1218,87 +1122,87 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_help.cpp" line="30"/>
         <source>Croatian</source>
-        <translation>chorvátsky</translation>
+        <translation>Chorvátčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="33"/>
         <source>English</source>
-        <translation>anglicky</translation>
+        <translation>Angličtina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="34"/>
         <source>French</source>
-        <translation>francúzsky</translation>
+        <translation>Francúzština</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="36"/>
         <source>German</source>
-        <translation>nemecky</translation>
+        <translation>Nemčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="42"/>
         <source>Japanese</source>
-        <translation>japonsky</translation>
+        <translation>Japončina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="50"/>
         <source>Russian</source>
-        <translation>rusky</translation>
+        <translation>Ruština</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="51"/>
         <source>Slovak</source>
-        <translation>slovensky</translation>
+        <translation>Slovenčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="53"/>
         <source>Spanish</source>
-        <translation>španielsky</translation>
+        <translation>Španielčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="44"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Peržština</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="26"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulharčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="46"/>
         <source>Polish</source>
-        <translation>poľsky</translation>
+        <translation>Poľština</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="40"/>
         <source>Italian</source>
-        <translation>taliansky</translation>
+        <translation>Taliančina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="28"/>
         <source>Chinese</source>
-        <translation>čínsky</translation>
+        <translation>Čínština</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="32"/>
         <source>Dutch</source>
-        <translation>holandsky</translation>
+        <translation>Holandčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="48"/>
         <source>Portuguese in Brazil</source>
-        <translation>brazílska portugalčina</translation>
+        <translation>Brazílska portugalčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="38"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonézština</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="55"/>
         <source>Turkish</source>
-        <translation>turecky</translation>
+        <translation>Turečtina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="85"/>
@@ -1318,7 +1222,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_menu.cpp" line="117"/>
         <source>Set as default DataBase</source>
-        <translation>Predvolená databáza</translation>
+        <translation>Nastaviť ako predvolenú DB</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="105"/>
@@ -1338,7 +1242,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_menu.cpp" line="124"/>
         <source>Options</source>
-        <translation>Voľby</translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="132"/>
@@ -1348,7 +1252,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_menu.cpp" line="143"/>
         <source>I&amp;mport</source>
-        <translation>&amp;Importovať</translation>
+        <translation>I&amp;mportovať</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="144"/>
@@ -1383,7 +1287,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_menu.cpp" line="151"/>
         <source>PEM file</source>
-        <translation>Ssúbor PEM</translation>
+        <translation>Súbor PEM</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="152"/>
@@ -1418,7 +1322,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_menu.cpp" line="161"/>
         <source>&amp;Change PIN</source>
-        <translation>Zmeniť @PIN</translation>
+        <translation>Zmeniť &amp;PIN</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="163"/>
@@ -1539,17 +1443,17 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MainWindow.cpp" line="578"/>
         <source>Database: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Databáza: %1</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="606"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuálne zvolený algoritmus PFX / PKCS#12 „%1” nie je bezpečný.</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="611"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmeniť</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="678"/>
@@ -2264,7 +2168,7 @@ hoci ste ich v nastavení definovali ako povinné.</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1408"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Certifikát obsahuje neplatné rozšírenie.</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1413"/>
@@ -2436,7 +2340,7 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <location filename="../ui/Options.ui" line="64"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmus šifrovania PKCS12</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="141"/>
@@ -2560,10 +2464,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Zadajte šestnástkový reťazec</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation type="vanished">Heslo</translation>
-    </message>
-    <message>
         <location filename="../widgets/PwDialog.cpp" line="72"/>
         <source>Repeat %1</source>
         <translation>Opakovať %1</translation>
@@ -2584,35 +2484,12 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <translation>Skončiť</translation>
     </message>
     <message>
+        <source>Password</source>
+        <translation type="vanished">Heslo</translation>
+    </message>
+    <message>
         <source>E&amp;xit</source>
         <translation type="vanished">S&amp;končiť</translation>
-    </message>
-</context>
-<context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">OK</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Zatvoriť</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Zrušiť</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">Použiť</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">Áno</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">Nie</translation>
     </message>
 </context>
 <context>
@@ -2677,10 +2554,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <location filename="../lib/pki_temp.cpp" line="52"/>
         <source>Error finding endmarker of string</source>
         <translation>Chyba nájdenia koncovej značky reťazca</translation>
-    </message>
-    <message>
-        <source>Out of Memory at %1:%2</source>
-        <translation type="vanished">Nedostatok pamäte na %1:%2</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="20"/>
@@ -2836,18 +2709,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
         <location filename="../lib/pkcs11.h" line="96"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>Požadovaná veľkosť PIN: %1 - %2</translation>
-    </message>
-    <message>
-        <source>Invalid filename: %1</source>
-        <translation type="vanished">Neplatné meno súboru: %1</translation>
-    </message>
-    <message>
-        <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="vanished">Zlyhalo otvorenie knižnice PKCS#11: %1: %2</translation>
-    </message>
-    <message>
-        <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="vanished">Toto nevyzerá ako knižnica PKCS#11. Symbol &apos;C_GetFunctionList&apos; nenájdený.</translation>
     </message>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="118"/>
@@ -3134,6 +2995,24 @@ V knižnici %3
         <translation>Nastala nasledujúca chyba:</translation>
     </message>
     <message>
+        <location filename="../lib/database_model.cpp" line="113"/>
+        <source>Failed to update the database schema to the current version</source>
+        <translation>Zlyhala aktualizácia schémy DB na aktuálnu verziu</translation>
+    </message>
+    <message>
+        <location filename="../lib/PwDialogCore.cpp" line="33"/>
+        <source>Password</source>
+        <translation>Heslo</translation>
+    </message>
+    <message>
+        <source>Out of Memory at %1:%2</source>
+        <translation type="vanished">Nedostatok pamäte na %1:%2</translation>
+    </message>
+    <message>
+        <source>Invalid filename: %1</source>
+        <translation type="vanished">Neplatné meno súboru: %1</translation>
+    </message>
+    <message>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
         <translation type="vanished">Premenovanie DB: „%1” už je použité</translation>
     </message>
@@ -3144,16 +3023,6 @@ V knižnici %3
     <message>
         <source>DB: Write error %1 - %2</source>
         <translation type="vanished">DB: Chyba zápisu %1 – %2</translation>
-    </message>
-    <message>
-        <location filename="../lib/database_model.cpp" line="113"/>
-        <source>Failed to update the database schema to the current version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/PwDialogCore.cpp" line="33"/>
-        <source>Password</source>
-        <translation>Heslo</translation>
     </message>
 </context>
 <context>
@@ -3181,7 +3050,7 @@ V knižnici %3
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="75"/>
         <source>Certificate request export</source>
-        <translation>Export Žiadosti o certifikát</translation>
+        <translation>Export žiadosti o certifikát</translation>
     </message>
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="76"/>
@@ -3346,12 +3215,12 @@ V knižnici %3
     <message>
         <location filename="../widgets/TempTreeView.cpp" line="124"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation>Export šablóny</translation>
     </message>
     <message>
         <location filename="../widgets/TempTreeView.cpp" line="125"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation>Šablóny XCA ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -3359,27 +3228,27 @@ V knižnici %3
     <message>
         <location filename="../ui/TrustState.ui" line="33"/>
         <source>Certificate trust</source>
-        <translation type="unfinished"></translation>
+        <translation>D§veryhodnosť o certifikátu</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="93"/>
         <source>Trustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Dôveryhodnosť</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="102"/>
         <source>&amp;Never trust this certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Tomuto certifikátu &amp;nikdy nedôverovať</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="109"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="unfinished"></translation>
+        <translation>Tomuto certifikátu &amp;dôverovať, ak dôverujem vydavateľovi</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="116"/>
         <source>&amp;Always trust this certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Tomuto certifikátu &amp;vždy dôverovať</translation>
     </message>
 </context>
 <context>
@@ -3433,7 +3302,7 @@ V knižnici %3
     <message>
         <location filename="../lib/xfile.h" line="41"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba posunu súboru: „%1”: %2</translation>
     </message>
 </context>
 <context>
@@ -3441,7 +3310,7 @@ V knižnici %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="47"/>
         <source>Import</source>
-        <translation type="unfinished">Importovať</translation>
+        <translation>Import</translation>
     </message>
 </context>
 <context>
@@ -3540,14 +3409,6 @@ V knižnici %3
 <context>
     <name>database_model</name>
     <message>
-        <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
-        <translation type="vanished">Detegovaný starý formát databázy. Vytvorená záložná kópia, nazvaná: „%1” a databáza konvertovaná do nového formátu</translation>
-    </message>
-    <message>
-        <source>Failed to rename the database file, because the target already exists</source>
-        <translation type="vanished">Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje</translation>
-    </message>
-    <message>
         <location filename="../lib/database_model.cpp" line="164"/>
         <source>Please enter the password to access the database server %2 as user &apos;%1&apos;.</source>
         <translation>Prosím, zadajte heslo na prístup k databázovému serveru %2 ako používateľ „%1”.</translation>
@@ -3590,6 +3451,14 @@ V knižnici %3
 %1</source>
         <translation>Prosím, zadajte heslo na odomknutie databázy:
 %1</translation>
+    </message>
+    <message>
+        <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
+        <translation type="vanished">Detegovaný starý formát databázy. Vytvorená záložná kópia, nazvaná: „%1” a databáza konvertovaná do nového formátu</translation>
+    </message>
+    <message>
+        <source>Failed to rename the database file, because the target already exists</source>
+        <translation type="vanished">Premenovanie súboru databázy zlyhalo, pretože cieľ už existuje</translation>
     </message>
 </context>
 <context>
@@ -3653,10 +3522,6 @@ V knižnici %3
         <location filename="../lib/db_base.cpp" line="374"/>
         <source>Could not create directory %1</source>
         <translation>Nemožno vytvoriť zložku %1</translation>
-    </message>
-    <message>
-        <source>Item properties</source>
-        <translation type="vanished">Vlastnosti položky</translation>
     </message>
     <message>
         <source>How to export the %1 selected items</source>
@@ -3728,14 +3593,6 @@ and so it was not imported</source>
         <translation>Zoznam odvolaní už v databáze existuje ako:
 „%1”,
 a tak nebol importovaný</translation>
-    </message>
-    <message>
-        <source>Revocation list export</source>
-        <translation type="vanished">Export Zoznamu odvolaných</translation>
-    </message>
-    <message>
-        <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="vanished">CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="169"/>
@@ -3811,20 +3668,19 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation>Naozaj chcete vytvoriť kľúč s veľkosťou: %1?</translation>
     </message>
     <message>
-        <source>PEM public</source>
-        <translation type="vanished">PEM verejný</translation>
+        <location filename="../lib/db_key.cpp" line="242"/>
+        <source>Internal error</source>
+        <translation>Interná chyba</translation>
     </message>
     <message>
-        <source>SSH2 public</source>
-        <translation type="vanished">SSH2 verejný</translation>
+        <location filename="../lib/db_key.cpp" line="282"/>
+        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
+        <translation>Interná aktualizácia kľúča: Kľúče: %1 musia byť pri zmene a aktualizácii ich hesla aktualizované</translation>
     </message>
     <message>
-        <source>PEM private</source>
-        <translation type="vanished">PEM súkromný</translation>
-    </message>
-    <message>
-        <source>SSH2 private</source>
-        <translation type="vanished">SSH2 súkromný</translation>
+        <location filename="../lib/db_key.cpp" line="296"/>
+        <source>Tried to change password of a token</source>
+        <translation>Vyskúšaná zmena hesla tokenu</translation>
     </message>
     <message>
         <source>Export keys to Clipboard</source>
@@ -3839,51 +3695,8 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation type="vanished">Exportovať verejný kľúč [%1]</translation>
     </message>
     <message>
-        <source>DER public</source>
-        <translation type="vanished">DER verejný</translation>
-    </message>
-    <message>
-        <source>DER private</source>
-        <translation type="vanished">DER súkromný</translation>
-    </message>
-    <message>
-        <source>PEM encryped</source>
-        <translation type="vanished">PEM šifrovaný</translation>
-    </message>
-    <message>
-        <source>PVK private</source>
-        <translation type="vanished">PVK súkromný</translation>
-    </message>
-    <message>
-        <source>PVK encrypted</source>
-        <translation type="vanished">PVK šifrovaný</translation>
-    </message>
-    <message>
-        <source>PKCS#8 encrypted</source>
-        <translation type="vanished">PKCS#8 šifrovaný</translation>
-    </message>
-    <message>
         <source>Export private key [%1]</source>
         <translation type="vanished">Exportovať súkromný kľúč [%1]</translation>
-    </message>
-    <message>
-        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="vanished">Súkromné kľúče ( *.pem *.der *.pk8 );; Verejné kľúče SSH ( *.pub )</translation>
-    </message>
-    <message>
-        <location filename="../lib/db_key.cpp" line="242"/>
-        <source>Internal error</source>
-        <translation>Interná chyba</translation>
-    </message>
-    <message>
-        <location filename="../lib/db_key.cpp" line="282"/>
-        <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/db_key.cpp" line="296"/>
-        <source>Tried to change password of a token</source>
-        <translation>Vyskúšaná zmena hesla tokenu</translation>
     </message>
 </context>
 <context>
@@ -3999,34 +3812,6 @@ a tak nebol importovaný</translation>
         <translation>Neplatný verejný kľúč</translation>
     </message>
     <message>
-        <source>PKCS#7 unrevoked</source>
-        <translation type="vanished">Neodvolané PKCS#7</translation>
-    </message>
-    <message>
-        <source>PEM unrevoked</source>
-        <translation type="vanished">Neodvolané PEM</translation>
-    </message>
-    <message>
-        <source>vCalendar</source>
-        <translation type="vanished">vCalendar</translation>
-    </message>
-    <message>
-        <source>CA vCalendar</source>
-        <translation type="vanished">CA vCalendar</translation>
-    </message>
-    <message>
-        <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="vanished">Certifikáty X509 ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
-    </message>
-    <message>
-        <source>days</source>
-        <translation type="vanished">dní</translation>
-    </message>
-    <message>
-        <source>No template</source>
-        <translation type="vanished">Bez šablóny</translation>
-    </message>
-    <message>
         <location filename="../lib/db_x509.cpp" line="480"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Kľúč, zvolený na podpísanie, nie je súkromný.</translation>
@@ -4040,38 +3825,6 @@ a tak nebol importovaný</translation>
         <location filename="../lib/db_x509.cpp" line="521"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Uložiť certifikát do kľúča na tokene „%1 (#%2)”?</translation>
-    </message>
-    <message>
-        <source>PEM chain</source>
-        <translation type="vanished">Reťaz PEM</translation>
-    </message>
-    <message>
-        <source>PKCS#7 chain</source>
-        <translation type="vanished">Reťaz PKCS #7</translation>
-    </message>
-    <message>
-        <source>PKCS#12 chain</source>
-        <translation type="vanished">Reťaz PKCS#12</translation>
-    </message>
-    <message>
-        <source>PKCS#7 all</source>
-        <translation type="vanished">PKCS#7 všetky</translation>
-    </message>
-    <message>
-        <source>PEM + key</source>
-        <translation type="vanished">PEM + kľúč</translation>
-    </message>
-    <message>
-        <source>PEM all</source>
-        <translation type="vanished">PEM všetky</translation>
-    </message>
-    <message>
-        <source>Certificate Index file</source>
-        <translation type="vanished">Súbor indexu certifikátov</translation>
-    </message>
-    <message>
-        <source>Certificate export</source>
-        <translation type="vanished">Export certifikátu</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="626"/>
@@ -4088,6 +3841,22 @@ a tak nebol importovaný</translation>
         <location filename="../lib/db_x509.cpp" line="680"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Nie je možné pre Certifikát kľúča tokenu „%1”</translation>
+    </message>
+    <message>
+        <source>PKCS#7 unrevoked</source>
+        <translation type="vanished">Neodvolané PKCS#7</translation>
+    </message>
+    <message>
+        <source>PEM unrevoked</source>
+        <translation type="vanished">Neodvolané PEM</translation>
+    </message>
+    <message>
+        <source>PKCS#7 all</source>
+        <translation type="vanished">PKCS#7 všetky</translation>
+    </message>
+    <message>
+        <source>PEM all</source>
+        <translation type="vanished">PEM všetky</translation>
     </message>
     <message>
         <source>Plain View</source>
@@ -4162,14 +3931,6 @@ and thus was not stored</source>
 „%1”,
 a tak nebola uložená</translation>
     </message>
-    <message>
-        <source>Certificate request export</source>
-        <translation type="vanished">Export Žiadosti o certifikát</translation>
-    </message>
-    <message>
-        <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="vanished">Žiadosť o certifikát ( *.pem *.der *.csr )</translation>
-    </message>
 </context>
 <context>
     <name>db_x509super</name>
@@ -4221,14 +3982,6 @@ a tak nebola uložená</translation>
         <translation>Žiadosť o certifikát</translation>
     </message>
     <message>
-        <source>Save as OpenSSL config</source>
-        <translation type="vanished">Uložiť ako konfiguráciu OpenSSL</translation>
-    </message>
-    <message>
-        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="vanished">Konfiguračné súbory ( *.conf *.cnf );; Všetky súbory ( * )</translation>
-    </message>
-    <message>
         <location filename="../lib/db_x509super.cpp" line="163"/>
         <source>The following extensions were not ported into the template</source>
         <translation>Do šablóny neboli prenesené nasledujúce rozšírenia</translation>
@@ -4275,7 +4028,7 @@ a tak nebola uložená</translation>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="42"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation>Toto nevyzerá ako knižnica PKCS#11. Symbol &apos;C_GetFunctionList&apos; nenájdený.</translation>
+        <translation>Toto nevyzerá ako knižnica PKCS#11. Symbol „C_GetFunctionList” nenájdený.</translation>
     </message>
 </context>
 <context>
@@ -4326,10 +4079,6 @@ a tak nebola uložená</translation>
         <translation>Interná chyba: Neočakávaná správa: %1 %2</translation>
     </message>
     <message>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="vanished">Chyba otvorenia súboru: „%1”: %2</translation>
-    </message>
-    <message>
         <source>Error writing to file: &apos;%1&apos;: %2</source>
         <translation type="vanished">Chyba zápisu do súboru „%1”: %2</translation>
     </message>
@@ -4367,10 +4116,6 @@ a tak nebola uložená</translation>
         <translation>Nebol zadaný vydavateľ</translation>
     </message>
     <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Zlá veľkosť %1</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_crl.cpp" line="423"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation>Termín obnovenia CRL CA „%1”</translation>
@@ -4393,6 +4138,10 @@ Je uložené v databáze XCA „%3”</translation>
 It is stored in the XCA database &apos;%5&apos;</source>
         <translation>XCA CRL „%1”, vydané %3 vyprší %4.
 Je uložené v databáze XCA „%5”</translation>
+    </message>
+    <message>
+        <source>Wrong Size %1</source>
+        <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -4424,10 +4173,6 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Nemožno načítať súkromný kľúč zo súboru %1. Vyskúšaný PEM a DER súkromný, verejný, typy kľúčov PKCS#8 a formát SSH2.</translation>
     </message>
     <message>
-        <source>Ignoring unsupported private key</source>
-        <translation type="vanished">Ignorujem nepodporovaný súkromný kľúč</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="486"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo na dešifrovanie súkromného kľúča: „%1”</translation>
@@ -4446,7 +4191,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_evp.cpp" line="520"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Dešifrovanie súkromného kľúča „%1” zlyhalo</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="648"/>
@@ -4472,6 +4217,10 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_evp.cpp" line="896"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Prosím, zadajte heslo exportu súkromného kľúča „%1”</translation>
+    </message>
+    <message>
+        <source>Ignoring unsupported private key</source>
+        <translation type="vanished">Ignorujem nepodporovaný súkromný kľúč</translation>
     </message>
     <message>
         <source>Failed to decrypt the key (bad password) %1</source>
@@ -4505,7 +4254,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="61"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>Úplná reťaz certifikátu a jeho súkromný kľúč, použiteľný v konfigurácii OpenVPN</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="62"/>
@@ -4515,17 +4264,17 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="62"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation>Spojenie certifikátu a nešifrovaného súkromného kľúča v jednom súbore PEM</translation>
+        <translation>Zlúčenie certifikátu a nešifrovaného súkromného kľúča v jednom súbore PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="63"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation>Spojenie certifikátu a šifrovaného súkromného kľúča v jednom súbore PKCS#8</translation>
+        <translation>Zlúčenie certifikátu a šifrovaného súkromného kľúča vo formáte PKCS#8 v jednom súbore</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="64"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation>PKCS#7 kódovaný jeden certifikát</translation>
+        <translation>Jeden certifikát, kódovaný PKCS#7</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
@@ -4535,22 +4284,22 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="66"/>
         <source>PKCS #7 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Reťaz PKCS #7</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="66"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation>PKCS#7 kódovaná úplná reťaz certifikátov</translation>
+        <translation>Úplná reťaz certifikátov kódovaná v PKCS#7</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="67"/>
         <source>Binary DER encoded certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Binárne kódovaný certifikát DER</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="68"/>
         <source>PKCS #12 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Reťaz PKCS #12</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="68"/>
@@ -4560,7 +4309,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="69"/>
         <source>PKCS #12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #12</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="69"/>
@@ -4622,12 +4371,12 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="76"/>
         <source>PEM encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM šifrovaný</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="76"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation>Šifrovaný súkromný kľúč v textovom formáte (špecifický pre OpenSSL)</translation>
+        <translation>Šifrovaný súkromný kľúč v textovom formáte špecifickom pre OpenSSL</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="77"/>
@@ -4672,7 +4421,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="81"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation>Súkromný kľúč vo formáte Microsoft PVK, nešifrovaný</translation>
+        <translation>Nešifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="82"/>
@@ -4687,7 +4436,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="83"/>
         <source>PKCS #8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #8 šifrovaný</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="83"/>
@@ -4697,7 +4446,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="84"/>
         <source>PKCS #8</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #8</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="84"/>
@@ -4707,27 +4456,27 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="87"/>
         <source>Binary DER format of the certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation>Binárny formát DER žiadosti o certifikát</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="90"/>
         <source>Binary DER format of the revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>Binárny formát DER zoznamu odvolaní</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="91"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>Pripomienka vCalendar vypršania platnosti CRL</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="93"/>
         <source>XCA template in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>Šablóna XCA vo formáte podobnom PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="94"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>Všetky šablóny XCA vo formáte podobnom PEM</translation>
     </message>
 </context>
 <context>
@@ -4911,14 +4660,6 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Nemožno nájsť vygenerovaný kľúč na karte</translation>
     </message>
     <message>
-        <source>Ignoring unsupported token key</source>
-        <translation type="vanished">Ignorovanie nepodporovaného kľúča tokenu</translation>
-    </message>
-    <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Zlá veľkosť %1</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_scard.cpp" line="712"/>
         <source>Token %1</source>
         <translation>Token %1</translation>
@@ -4938,6 +4679,14 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_scard.cpp" line="740"/>
         <source>Failed to initialize the key on the token</source>
         <translation>Zlyhal inicializácia kľúča na tokene</translation>
+    </message>
+    <message>
+        <source>Ignoring unsupported token key</source>
+        <translation type="vanished">Ignorovanie nepodporovaného kľúča tokenu</translation>
+    </message>
+    <message>
+        <source>Wrong Size %1</source>
+        <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
     <message>
         <source>Illegal Key generation method</source>
@@ -5038,10 +4787,6 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Chýba kľúč na podpísanie!</translation>
     </message>
     <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Zlá veľkosť %1</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_x509.cpp" line="857"/>
         <source>No</source>
         <translation>Nie</translation>
@@ -5062,6 +4807,10 @@ Je uložené v databáze XCA „%5”</translation>
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Certifikát XCA „%1”, vydaný %2 vyprší %3.
 Je uložený v databáze XCA „%4”</translation>
+    </message>
+    <message>
+        <source>Wrong Size %1</source>
+        <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
 </context>
 <context>
@@ -5097,10 +4846,6 @@ Je uložený v databáze XCA „%4”</translation>
         <translation>Nemožno načítať žiadosť o certifikát zo súboru %1. Vyskúšané formáty PEM, DER a SPKAC.</translation>
     </message>
     <message>
-        <source>Wrong Size %1</source>
-        <translation type="vanished">Zlá veľkosť %1</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_x509req.cpp" line="371"/>
         <source>Signed</source>
         <translation>Podpísaný</translation>
@@ -5109,6 +4854,10 @@ Je uložený v databáze XCA „%4”</translation>
         <location filename="../lib/pki_x509req.cpp" line="371"/>
         <source>Unhandled</source>
         <translation>Nespracované</translation>
+    </message>
+    <message>
+        <source>Wrong Size %1</source>
+        <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
 </context>
 <context>
@@ -5206,22 +4955,38 @@ Je uložený v databáze XCA „%4”</translation>
     </message>
 </context>
 <context>
-    <name>xcaWarning</name>
-    <message>
-        <source>The following error occurred:</source>
-        <translation type="vanished">Nastala nasledujúca chyba:</translation>
-    </message>
-    <message>
-        <source>Copy to Clipboard</source>
-        <translation type="vanished">Kopírovať do schránky</translation>
-    </message>
-</context>
-<context>
     <name>xcaWarningGui</name>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="71"/>
         <source>Copy to Clipboard</source>
         <translation>Kopírovať do schránky</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">OK</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="vanished">Zatvoriť</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Zrušiť</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">Použiť</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="vanished">Áno</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="vanished">Nie</translation>
     </message>
 </context>
 </TS>
