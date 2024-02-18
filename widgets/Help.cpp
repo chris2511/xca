@@ -99,3 +99,9 @@ void Help::register_ctxhelp_button(QDialog *dlg, const QString &help_ctx) const
 		buttonBox->button(QDialogButtonBox::Help)->setEnabled(false);
 	}
 }
+
+void Help::changeEvent(QEvent *event)
+{
+	if (event->type() == QEvent::LanguageChange)
+		retranslateUi(this);
+}

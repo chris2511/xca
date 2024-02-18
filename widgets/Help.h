@@ -29,6 +29,7 @@ class Help: public QWidget, public Ui::Help
 	QList<QUrl> url_by_ctx(const QString &ctx) const;
 
   public slots:
+	void changeEvent(QEvent *event);
 	void contexthelp();
 	void contexthelp(const QString &context);
 	void content();
