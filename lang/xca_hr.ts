@@ -35,7 +35,7 @@
         <location line="+10"/>
         <source>Default template</source>
         <translatorcomment>Osnovni obrazac</translatorcomment>
-        <translation>Osnovni predložak</translation>
+        <translation>Zadani predložak</translation>
     </message>
     <message>
         <source>Next serial for signing</source>
@@ -322,7 +322,7 @@
     <message>
         <location line="+10"/>
         <source>Replace old certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamijeni staru potvrdu</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -337,14 +337,14 @@
     <message>
         <location line="-33"/>
         <source>Local time</source>
-        <translatorcomment>Dug naziv, ne stane</translatorcomment>
-        <translation>Lok. vrijeme</translation>
+        <translatorcomment>Dug naziv, ne stane (stane, promijenjeno neodređeno trajanje)</translatorcomment>
+        <translation>Lokalno vrijeme</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>No well-defined expiration</source>
         <translatorcomment>Neodređeno trajanje</translatorcomment>
-        <translation>Nejasno definirano trajanje</translation>
+        <translation>Neodređeno trajanje</translation>
     </message>
     <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
@@ -962,7 +962,7 @@ PKCS#8 je službeni format za razmjenu ključeva</translation>
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Primijeni</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -972,12 +972,12 @@ PKCS#8 je službeni format za razmjenu ključeva</translation>
     <message>
         <location line="+7"/>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalno vrijeme</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished"></translation>
+        <translation>Neodređeno trajanje</translation>
     </message>
 </context>
 <context>
@@ -1075,7 +1075,7 @@ Serijski broj: %3</translation>
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne mogu otvoriti zadanu bazu podataka</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1263,7 +1263,7 @@ Serijski broj: %3</translation>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation type="unfinished"></translation>
+        <translation>Format međuspremnika</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1305,7 +1305,7 @@ Serijski broj: %3</translation>
     <message>
         <location line="+81"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvoz ključa</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1465,7 +1465,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="+6"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
-        <translation>Trenutno korišteni osnovni sažetak &apos;%1&apos; je nesiguran. Iz sigurnosnih razloga odaberite barem &apos;SHA 224&apos;.</translation>
+        <translation>Trenutno korišteni zadani sažetak &apos;%1&apos; je nesiguran. Iz sigurnosnih razloga odaberite barem &apos;SHA 224&apos;.</translation>
     </message>
     <message>
         <source>Legacy database format detected. Creating a backup copy called: &apos;%1&apos; and converting the database to the new format</source>
@@ -1536,12 +1536,12 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="-9"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Perzijski</translation>
     </message>
     <message>
         <location line="-18"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bugarski</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1571,7 +1571,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="-10"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonezijski</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1633,7 +1633,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="-64"/>
         <source>Set as default DataBase</source>
-        <translation>Postavi kao osnovnu bazu podataka</translation>
+        <translation>Postavi kao zadanu bazu podataka</translation>
     </message>
     <message>
         <source>&amp;Close DataBase</source>
@@ -1895,17 +1895,17 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="+87"/>
         <source>Database: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Baza podataka: %1</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trenutno korišten PFX / PKCS#12 algoritam &apos;%1&apos; je nesiguran.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished">Promijeni</translation>
+        <translation>Promijeni</translation>
     </message>
     <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
@@ -2139,7 +2139,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+10"/>
         <source>Remember as default</source>
-        <translation>Zapamti kao osnovnu vrijednost</translation>
+        <translation>Zapamti kao zadanu vrijednost</translation>
     </message>
     <message>
         <location filename="../widgets/NewKey.cpp" line="+135"/>
@@ -2460,7 +2460,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation>Nejasno definiran istek roka</translation>
+        <translation>Neodređeno trajanje</translation>
     </message>
     <message>
         <source>subject alternative name</source>
@@ -2806,7 +2806,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="+4"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrda sadrži neispravna proširenja.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2955,7 +2955,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="-255"/>
         <source>Default hash algorithm</source>
-        <translation>Osnovni algoritam sažetka</translation>
+        <translation>Zadani algoritam sažetka</translation>
     </message>
     <message>
         <location line="-8"/>
@@ -3005,7 +3005,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="-33"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS12 algoritam kriptiranja</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -3046,7 +3046,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <location line="+25"/>
         <source>Default</source>
         <translatorcomment>Osnovno</translatorcomment>
-        <translation>Osnovni</translation>
+        <translation>Zadano</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -3067,7 +3067,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <location filename="../widgets/Options.cpp" line="+35"/>
         <source>Printable string or UTF8 (default)</source>
         <translatorcomment>!!! Ispisljivi koja je alternativa za Čitljivi</translatorcomment>
-        <translation>Čitljivi niz ili UTF8 (osnovni odabir)</translation>
+        <translation>Čitljivi niz ili UTF8 (zadani odabir)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3735,7 +3735,7 @@ U knjižnici %3
     <message>
         <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće modernizirati shemu baze podataka na trenutnu inačicu</translation>
     </message>
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+33"/>
@@ -3941,12 +3941,12 @@ U knjižnici %3
     <message>
         <location line="+38"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvoz predloška</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Predlošci ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -4036,7 +4036,7 @@ U knjižnici %3
     <message>
         <location line="+13"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Greška u premotavanju datoteke: &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -4044,7 +4044,7 @@ U knjižnici %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="+47"/>
         <source>Import</source>
-        <translation type="unfinished">Uvezi</translation>
+        <translation>Uvezi</translation>
     </message>
 </context>
 <context>
@@ -4645,7 +4645,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translation>Obnova internog ključa: Ključevi: %1 moraju biti jednokratno obnovljeni poništenjem i novim postavljanjem privatnih zaporki</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -5718,7 +5718,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+24"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Dekripcija privatnog ključa &apos;%1&apos; nije uspjela</translation>
     </message>
     <message>
         <location line="+128"/>
@@ -5773,7 +5773,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>Cijeli lanac povjerenja potvrda i privatni ključ odabrane potvrde s oznakama se može koristiti u OpenVPN konfiguracijskim datotekama</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5813,7 +5813,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>Binary DER encoded certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Binarno DER kodirana potvrda</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5828,7 +5828,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>PKCS #12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #12</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5838,7 +5838,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>Certificate Index file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kazalo datoteka Potvrda</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5890,7 +5890,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="-1"/>
         <source>PEM encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM kriptirani</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5955,7 +5955,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>PKCS #8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#8 kriptirani</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5965,7 +5965,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>PKCS #8</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#8</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5975,27 +5975,27 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation>Binarni DER format zahtjeva za potvrdu</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>Binarni DER format popisa opozvanih potvrda</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar podsjetnik o datumu isteka CRL</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA predložak u formatu nalik PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi odabrani XCA predlošci u formatu nalik PEM</translation>
     </message>
 </context>
 <context>
@@ -6579,7 +6579,7 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="+71"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiraj u Međuspremnik</translation>
     </message>
 </context>
 </TS>
