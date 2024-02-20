@@ -68,6 +68,7 @@ void test_main::openDB()
 		new pw_expect("testdbpass", pw_ok),
 	});
 	mainwin->close_database();
+	QFile::remove("testdb.xdb");
 	Database.open("testdb.xdb");
 	Settings["pkcs12_keep_legacy"] = true;
 	mainwin->setup_open_database();

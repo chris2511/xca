@@ -17,6 +17,8 @@
 #include "exception.h"
 #include "pass_info.h"
 
+#include <openssl/rand.h>
+
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super(), cert(c)
 {
@@ -143,6 +145,7 @@ QSqlError pki_x509::deleteSqlData()
 		<< "UPDATE crls SET issuer=NULL WHERE issuer=?"
 		<< "UPDATE certs SET issuer=NULL WHERE issuer=?"
 		<< "DELETE FROM revocations WHERE caId=?"
+		<< "DELETE FROM takeys WHERE item=?"
 		;
 	foreach(QString task, tasks) {
 		SQL_PREPARE(q, task);
@@ -271,6 +274,42 @@ pki_x509 *pki_x509::getBySerial(const a1int &a) const
 			return pki;
 	}
 	return NULL;
+}
+
+QString pki_x509::getTaKey()
+{
+	XSqlQuery q;
+	QByteArray b;
+	pki_x509 *issuer = getSigner();
+	if (!isCA() && issuer && issuer != this)
+		return issuer->getTaKey();
+
+	Transaction;
+	if (!TransBegin())
+		return QString();
+
+	SQL_PREPARE(q, "SELECT value FROM takeys WHERE item = ?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	if (q.next()) {
+		b = QByteArray::fromBase64(q.value(0).toByteArray());
+		qDebug() << "Loaded TA key" << this << b.size() << QString::fromLatin1(b.toHex()).left(6);
+	} else {
+		b.resize(2048/8);
+		RAND_bytes((unsigned char*)b.data(), 2048/8);
+		SQL_PREPARE(q, "INSERT INTO takeys (item, value) VALUES ( ?, ? )");
+		q.bindValue(0, sqlItemId);
+		q.bindValue(1, b.toBase64());
+		q.exec();
+		qDebug() << "Generated TA key" << this << b.size() << QString::fromLatin1(b.toHex()).left(6);
+	}
+	TransCommit();
+	QString takey("-----BEGIN OpenVPN Static key V1-----\n");
+	QString hex(QString::fromLatin1(b.toHex()));
+	for (int i=0; i<16; i++)
+		takey += hex.mid(32*i, 32) + "\n";
+	takey += "-----END OpenVPN Static key V1-----\n";
+	return takey;
 }
 
 a1int pki_x509::hashInfo(const EVP_MD *md) const

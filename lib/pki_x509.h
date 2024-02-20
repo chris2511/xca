@@ -163,6 +163,7 @@ class pki_x509 : public pki_x509super
 		void restoreSql(const QSqlRecord &rec);
 		QStringList icsVEVENT() const;
 		QStringList icsVEVENT_ca() const;
+		QString getTaKey();
 };
 
 Q_DECLARE_METATYPE(pki_x509 *);

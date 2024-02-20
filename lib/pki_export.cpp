@@ -77,6 +77,7 @@ new pki_export(16, x509, "txt", tr("Certificate Index file"), F_INDEX | F_CA,   
 new pki_export(17, x509, "ics", tr("vCalendar"),     F_CAL,                                  tr("vCalendar expiry reminder for the selected items")),
 new pki_export(18, x509, "ics", tr("CA vCalendar"),  F_CAL | F_CA,                           tr("vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL")),
 new pki_export(38, x509, "conf", tr("OpenSSL config"), F_SINGLE | F_CONFIG,                  tr("OpenSSL configuration file to create a certificate or request with the openssl commandline tool")),
+new pki_export(39, x509, "key", tr("OpenVPN tls-auth key"), F_SINGLE | F_TAKEY,              tr("The OpenVPN tls-auth key is a secret key shared between endpoints")),
 
 new pki_export(19, asym_key, "pem", tr("PEM public"),    F_PEM | F_CLIPBOARD,                            tr("Text format of the public key in one PEM file")),
 new pki_export(20, asym_key, "pem", tr("PEM private"),   F_PEM | F_PRIVATE | F_USUAL | F_CLIPBOARD,      tr("Unencrypted private key in text format")),

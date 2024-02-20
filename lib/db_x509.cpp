@@ -566,11 +566,11 @@ int db_x509::exportFlags(const QModelIndex &idx) const
 	return disable_flags;
 }
 
-void db_x509::writeTaggedPEM(BioByteArray &b, const QString &tag, XFile &file)
+void db_x509::writeTaggedPEM(const BioByteArray &b, const QString &tag, XFile &file)
 {
 	if (b.size() > 0) {
 		file.write(QString("<%1>\n").arg(tag).toLatin1());
-		file.write(b);
+		file.write(b.byteArray());
 		file.write(QString("</%1>\n").arg(tag).toLatin1());
 	}
 }
@@ -609,6 +609,7 @@ void db_x509::exportItems(const QModelIndexList &list,
 			writeTaggedPEM(extra, "extra-certs", file);
 			writeTaggedPEM(cert, "cert", file);
 			writeTaggedPEM(key, "key", file);
+			writeTaggedPEM(crt->getTaKey().toLatin1(), "tls-auth", file);
 		} else if (xport->match_all(F_CHAIN)) {
 			for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
 				crt->writeCert(file, true);
@@ -655,6 +656,8 @@ void db_x509::exportItems(const QModelIndexList &list,
 		writeVcalendar(file, vcal);
 	} else if (xport->match_all(F_CONFIG)) {
 		crt->opensslConf(file);
+	} else if (xport->match_all(F_TAKEY)) {
+		file.write(crt->getTaKey().toLatin1());
 	}
 }
 

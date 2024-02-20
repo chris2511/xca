@@ -72,8 +72,8 @@ const QString &database_model::detect_provider()
 
 QSqlError database_model::initSqlDB()
 {
-#define MAX_SCHEMAS 7
-#define SCHEMA_VERSION "7"
+#define MAX_SCHEMAS 8
+#define SCHEMA_VERSION "8"
 
 	QStringList schemas[MAX_SCHEMAS];
 

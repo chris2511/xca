@@ -24,14 +24,14 @@
 void check_pems(const QString &name, int n, QStringList matches = QStringList())
 {
 	int begin = 0, end = 0;
-	qWarning() << "Expecting" << n << "PEMs in" << name;
+	qDebug() << "Expecting" << n << "PEMs in" << name;
 
 #if 0
 	// This is an endless loop: open_read() succeeds,
 	// but isOpen returns false. Stop investigating, use POSIX open()
 	XFile F(name);
 	while (!F.isOpen()) {
-		qWarning() << "OPEN" << name;
+		qDebug() << "OPEN" << name;
 		F.close();
 		Q_ASSERT(F.open_read());
 	}
@@ -45,7 +45,7 @@ void check_pems(const QString &name, int n, QStringList matches = QStringList())
 	QByteArray all(buf, ret);
 	close(fd);
 #endif
-	qWarning() << "ALL" << name << all.size();
+	qDebug() << "ALL" << name << all.size();
 
 	foreach(QByteArray b, all.split('\n')) {
 		if (b.indexOf("-----BEGIN ") == 0)
@@ -63,7 +63,7 @@ void check_pems(const QString &name, int n, QStringList matches = QStringList())
 	QCOMPARE(begin, n);
 	QCOMPARE(end, n);
 	foreach(QString m, matches) {
-		qWarning() << QString("Pattern %1 not found in %2").arg(m).arg(name);
+		qDebug() << QString("Pattern %1 not found in %2").arg(m).arg(name);
 	}
 	QCOMPARE(matches.size(), 0);
 }
@@ -76,7 +76,7 @@ void verify_key(const QString &name, QList<unsigned> hashes, bool priv)
 	QCOMPARE(pems->get().size(), hashes.size());
 	foreach (pki_base *pki, pems->get()) {
 		unsigned hash = pki->hash();
-		qWarning() << pki->getIntName() << hash;
+		qDebug() << pki->getIntName() << hash;
 		QVERIFY2(hashes.contains(hash),
 			qPrintable(QString("%1 not expected in %2")
 				.arg(pki->getIntName())
@@ -220,10 +220,11 @@ void test_main::exportFormat()
 	export_by_id(4, file, list, certs);
 	verify_key(file, QList<unsigned> {
 			ROOT_HASH, INTER_HASH, END_HASH, ENDKEY_HASH }, true);
-	check_pems(file, 4, QStringList { " RSA PRIVATE KEY-",
+	check_pems(file, 5, QStringList { " RSA PRIVATE KEY-",
 		" CERTIFICATE-", " CERTIFICATE-"," CERTIFICATE-",
 		"<ca>", "</ca>", "<extra-certs>", "</extra-certs>",
-		"<cert>", "</cert>", "<key>", "</key>" });
+		"<cert>", "</cert>", "<key>", "</key>",
+		"<tls-auth>", "</tls-auth>" });
 	// Export Endentity as PKCS#7
 	file = AUTOFILE(CERTP7)
 	export_by_id(8, file, list, certs);
@@ -235,9 +236,15 @@ void test_main::exportFormat()
 	verify_file(file, QList<unsigned> { ROOT_HASH, INTER_HASH, END_HASH });
 	check_pems(file, 0);
 	// Export Endentity as DER certificate
+	file = AUTOFILE(CERTDER)
 	export_by_id(13, file, list, certs);
 	verify_file(file, QList<unsigned> {  END_HASH });
 	check_pems(file, 0);
+	// Export Endentity as OpenVPN config file
+	file = AUTOFILE(OPENVPNTA)
+	export_by_id(39, file, list, certs);
+	check_pems(file, 1, QStringList {
+		"BEGIN OpenVPN Static key V1", "END OpenVPN Static key V1" });
 
 	// Export Endentity key
 	list.clear();
