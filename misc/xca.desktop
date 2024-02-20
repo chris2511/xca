@@ -11,6 +11,7 @@ Comment[id]=Antar muka pengguna grafis untuk menangani dan menerbitkan Sertifika
 Comment[nl]=Een grafische gebruikers interface voor behandeling en uitgifte van X.509 conforme certificaten
 Comment[sk]=GUI na spracovanie a vydávanie Certifikátov X.509
 Comment[pt_BR]=Interface gráfica para gerenciar e emitir Certificados X.509
+Comment[it]=Interfaccia grafica per generare e gestire certificati X.509
 Exec=xca %F
 Icon=de.hohnstaedt.xca
 Terminal=false
