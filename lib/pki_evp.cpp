@@ -812,7 +812,7 @@ bool pki_evp::pem(BioByteArray &b, const pki_export *xport)
 					 NULL, NULL);
 		EVP_PKEY_free(pkey);
 	} else
-		return pki_key::pem(b);
+		return pki_key::pem(b, xport);
 
 	return true;
 }
