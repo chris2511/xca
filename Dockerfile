@@ -3,6 +3,8 @@ ARG CODENAME=jammy
 
 FROM ${REGISTRY_PREFIX}ubuntu:${CODENAME} as builder
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN set -x \
 	&& apt update \
 	&& apt upgrade -y \
@@ -21,11 +23,10 @@ RUN set -x \
 	&& cmake --build BUILD ${PARALLELMFLAGS} \
 	&& cmake --install BUILD \
 	&& cd \
+	&& mv ${BUILD_DIR}/misc/docker_start.sh / \
 	&& rm -rf ${BUILD_DIR}
 
-ARG USER_ID=1000
-RUN set -x \
-	&& useradd -u "$USER_ID" -ms /bin/bash user
+RUN mkdir -p /home/user && chmod 0777 /home/user
 
-ENTRYPOINT ["xca"]
+ENTRYPOINT ["/docker_start.sh"]
 
