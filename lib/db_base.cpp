@@ -19,13 +19,11 @@ void db_base::restart_timer()
 {
 	if (!IS_GUI_APP)
 		return;
-	killTimer(secondsTimer);
-	killTimer(minutesTimer);
-	killTimer(hoursTimer);
 
-	secondsTimer = startTimer(1000);
-	minutesTimer = startTimer(MSECS_PER_MINUTE);
-	hoursTimer = startTimer(MSECS_PER_HOUR);
+	maintenanceTimer.setSingleShot(true);
+
+	maintenanceTimer.setInterval(1000);
+	maintenanceTimer.start();
 }
 
 db_base::db_base(const char *classname)
@@ -34,6 +32,8 @@ db_base::db_base(const char *classname)
 	rootItem = new pki_base(QString("ROOTitem(%1)").arg(classname));
 	treeItem = new pki_base(QString("TREEitem(%1)").arg(classname));
 	class_name = classname;
+	connect(&maintenanceTimer, SIGNAL(timeout()),
+		this, SLOT(timerMaintenance()));
 	restart_timer();
 }
 
@@ -559,12 +559,27 @@ void db_base::updateItem(pki_base *pki)
 	restart_timer();
 }
 
-void db_base::timerEvent(QTimerEvent *event)
+void db_base::timerMaintenance()
 {
 	int youngest = SECS_PER_DAY;
-	int id = event->timerId();
+	bool minuteElapsed = false, hourElapsed = false;
 
-	foreach(pki_base *pki, Store.getAll<pki_base>()) {
+	if (!rootItem)
+		return;
+
+	if (minuteMarker.age() > SECS_PER_MINUTE) {
+		minuteElapsed = true;
+		minuteMarker = a1time::now();
+	}
+	if (hourMarker.age() > SECS_PER_HOUR) {
+		hourElapsed = true;
+		hourMarker = a1time::now();
+	}
+
+	qDebug() << "Maintenance start" << class_name << minuteElapsed
+			<< hourElapsed << rootItem->getChildItems().count();
+
+	foreach(pki_base *pki, rootItem->getChildItems()) {
 		for (int idx=0; idx < allHeaders.count(); idx++) {
 			dbheader *hd = allHeaders[idx];
 			if (hd->type != dbheader::hd_asn1time)
@@ -580,14 +595,14 @@ void db_base::timerEvent(QTimerEvent *event)
 				youngest = age;
 			if (!hd->show)
 				continue;
-			if (id == secondsTimer && (age < SECS_PER_MINUTE *2 ||
-						   age % SECS_PER_MINUTE < 2))
+
+			if ((age < SECS_PER_MINUTE *2 || age % SECS_PER_MINUTE < 2))
 				do_emit = true;
-			if (id == minutesTimer && (age % SECS_PER_HOUR < 60))
+			if (minuteElapsed && (age % SECS_PER_HOUR < SECS_PER_MINUTE *2))
 				do_emit = true;
-			if (id == hoursTimer &&
-					 (age % SECS_PER_DAY < SECS_PER_HOUR))
+			if (hourElapsed && (age % SECS_PER_DAY < SECS_PER_HOUR *2))
 				do_emit = true;
+
 			if (do_emit) {
 				qDebug() << "Date changed for" << pki->getIntName() << ":" << hd->getName() << "Col:" << idx << t.toSortable();
 				QModelIndex i;
@@ -601,14 +616,15 @@ void db_base::timerEvent(QTimerEvent *event)
 			}
 		}
 	}
-	if (secondsTimer && youngest > SECS_PER_HOUR *2) {
-		killTimer(secondsTimer);
-		secondsTimer = 0;
-	}
-	if (minutesTimer && youngest > SECS_PER_DAY *2) {
-		killTimer(minutesTimer);
-		minutesTimer = 0;
-	}
+	int delay = youngest * 100;
+	if (delay < 1000)
+		delay = 1000;
+	if (delay > SECS_PER_HOUR *1000)
+		delay = SECS_PER_HOUR *1000;
+
+	maintenanceTimer.setInterval(delay);
+	maintenanceTimer.start();
+	qDebug() << "Maintenance end" << class_name << delay << youngest;
 }
 
 bool db_base::columnHidden(int col) const

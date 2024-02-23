@@ -28,7 +28,8 @@ class db_base: public QAbstractItemModel
 	Q_OBJECT
 
 	protected:
-		int secondsTimer{}, minutesTimer{}, hoursTimer{};
+		a1time minuteMarker{}, hourMarker{};
+		QTimer maintenanceTimer{};
 		QList<enum pki_type> pkitype{};
 		QList<enum pki_type> pkitype_depends{};
 		QString class_name{};
@@ -45,7 +46,6 @@ class db_base: public QAbstractItemModel
 		virtual dbheaderList getHeaders();
 		QString sqlItemSelector();
 		bool isValidCol(int col) const;
-		void timerEvent(QTimerEvent *event);
 
 	public:
 		void restart_timer();
@@ -139,6 +139,7 @@ class db_base: public QAbstractItemModel
 		void sectionResized(int i, int, int newSize);
 		void sortIndicatorChanged(int, Qt::SortOrder);
 		void setSelected(const QVariant &v);
+		void timerMaintenance();
 
 	signals:
 		void resetHeader() const;

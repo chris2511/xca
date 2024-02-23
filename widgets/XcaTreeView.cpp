@@ -41,7 +41,6 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	//setAnimated(true);
 
 	proxy = new XcaProxyModel(this);
-	setSortingEnabled(true);
 	proxy->setDynamicSortFilter(true);
 	sortByColumn(0, Qt::AscendingOrder);
 	connect(header(), SIGNAL(sectionHandleDoubleClicked(int)),
@@ -99,9 +98,12 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 {
 	QByteArray ba;
 
+	header()->setStretchLastSection(false);
+	setSortingEnabled(false);
+
 	basemodel = dynamic_cast<db_base*>(model);
 	proxy->setSourceModel(model);
-	QTreeView::setModel(model ? proxy : NULL);
+	QTreeView::setModel(model ? proxy : nullptr);
 
 	if (basemodel) {
 		setRootIsDecorated(basemodel->treeViewMode());
@@ -123,6 +125,9 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 										const QModelIndex &)));
 
 		basemodel->initHeaderView(header());
+		setSortingEnabled(true);
+		header()->setStretchLastSection(true);
+
 	}
 	showHideSections();
 }
