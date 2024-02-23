@@ -753,8 +753,7 @@ void db_x509::certRenewal(QModelIndexList indexes)
 				signkey->isPubKey())
 			return;
 		bool renew_myself = signer == oldcert;
-		CertExtend *dlg = new CertExtend(NULL,
-					renew_myself ? NULL : signer);
+		dlg = new CertExtend(NULL, renew_myself ? NULL : signer);
 		dlg->revoke->setEnabled(!renew_myself);
 		if (!dlg->exec()) {
 			delete dlg;
@@ -821,6 +820,7 @@ void db_x509::revoke(QModelIndexList indexes)
 	if (revoke->exec()) {
 		do_revoke(indexes, revoke->getRevocation());
 	}
+	delete revoke;
 	emit columnsContentChanged();
 }
 
