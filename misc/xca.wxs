@@ -124,6 +124,9 @@
             <Component Id="Cqsqlodbc" Guid="c5dca3b3-d6f1-4012-8108-5c7516bd48a9">
                 <File Id="qsqlodbc.dll" Source="sqldrivers/qsqlodbc.dll"/>
             </Component>
+            <Component Id="Cqsqlpsql" Guid="526161ae-1023-411e-b7a1-747c93923b31">
+                <File Id="qsqlpsql.dll" Source="sqldrivers/qsqlpsql.dll"/>
+            </Component>
         </DirectoryRef>
 
         <DirectoryRef Id="styles">

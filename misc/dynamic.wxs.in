@@ -33,23 +33,20 @@
             </Component>
         </DirectoryRef>
         <FeatureGroup Id="DatabaseGroup">
-            <Feature Id="Databases" Title="Database Drivers"
-                     Description="All remote database drivers. The file based SQLite driver will be always installed." Level="1">
+            <Feature Id="Databases" Title="Remote Database Drivers"
+                     Description="QT remote database drivers. Additional DLL from the manufacturer are required. See https://github.com/chris2511/xca" Level="1">
                 <Feature Id="SqlOdbc" Title="ODBC SQL Driver" Level="1"
-                        Description="Access to ODBC databases like Microsoft SQL Server">
+                         Description="Access to ODBC databases sources like Microsoft SQL Server. This driver requires no additional DLL from Microsoft.">
                     <ComponentRef Id="Cqsqlodbc" />
                 </Feature>
                 <Feature Id="SqlPostgres" Title="PostgreSQL Driver" Level="1"
-                            Description="Native support for PostgreSQL databases. Contains 3rd party DLLs">
+                         Description="Additional PostgreSQL Commandline Tools required from: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">
                     <ComponentRef Id="Cqsqlpsql" />
+                </Feature>
+                <Feature Id="SqlMariaDB" Title="MariaDB / mySQL Driver" Level="1"
+                         Description="MariaDB support requires the MinGW variant of the https://github.com/thecodemonkey86/qt_mysql_driver ">
                 </Feature>
             </Feature>
         </FeatureGroup>
-        <DirectoryRef Id="sqldrivers">
-            <Component Id="Cqsqlpsql" Guid="526161ae-1023-411e-b7a1-747c93923b31">
-                <File Id="qsqlpsql.dll" Source="sqldrivers/qsqlpsql.dll"/>
-            </Component>
-        </DirectoryRef>
-
     </Fragment>
 </Wix>

@@ -12,6 +12,7 @@
 
 #include "MainWindow.h"
 #include "OpenDb.h"
+#include "Help.h"
 #include "XcaWarning.h"
 #include "lib/base.h"
 #include "lib/dbhistory.h"
@@ -110,6 +111,8 @@ OpenDb::OpenDb(QWidget *parent, const QString &db)
 	driver_selected();
 	connect(dbType, SIGNAL(currentIndexChanged(int)),
 		this, SLOT(driver_selected()));
+
+	mainwin->helpdlg->register_ctxhelp_button(this, "remote_db");
 }
 
 QString OpenDb::getDbType() const
