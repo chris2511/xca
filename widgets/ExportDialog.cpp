@@ -45,7 +45,7 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title,
 		fname + "." + types[0]->extension;
 	filename->setText(nativeSeparator(fn));
 
-	filter = filt + ";;" + tr("All files ( * )");
+	filter = tr("All files ( * )") + ";;" + filt;
 
 	foreach(const pki_export *t, types) {
 		if (t->flags & F_USUAL)
