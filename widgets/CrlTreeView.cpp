@@ -67,6 +67,7 @@ ExportDialog *CrlTreeView::exportDialog(const QModelIndexList &indexes)
 {
 	return new ExportDialog(this,
 		tr("Revocation list export"),
-		tr("CRL ( *.pem *.der *.crl )"), indexes, QPixmap(":revImg"),
+		tr("CRL ( *.pem *.der *.crl )") + ";;" +
+		tr("vCalendar entry ( *.ics )"), indexes, QPixmap(":revImg"),
 		pki_export::select(revocation, basemodel->exportFlags(indexes)));
 }

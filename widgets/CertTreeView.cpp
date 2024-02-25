@@ -239,8 +239,10 @@ ExportDialog *CertTreeView::exportDialog(const QModelIndexList &indexes)
 {
 	return new ExportDialog(this,
 		tr("Certificate export"),
-		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"),
-		indexes, QPixmap(":certImg"),
+		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )") + ";;"+
+		tr("vCalendar entry ( *.ics )") + ";;" +
+		tr("OpenVPN file ( *.ovpn )") + ";;" +
+		tr("OpenVPN tls-auth key ( *.key )"), indexes, QPixmap(":certImg"),
 		pki_export::select(x509, basemodel->exportFlags(indexes)),
 		                   "certexport");
 }
