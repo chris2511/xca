@@ -1,5 +1,7 @@
 xca 2.6.0 Mon Feb 26 2024
 
+ * Update documentation of certificate export and remote databases
+ * Close #520: Fix permanent processor load
  * Close #518: Export certificates for ovpn file
  * Close #512 #474 #481 #506 #509: SHA1 based MAC for PKCS12
  * Close #458 #511 #503 #500 #494 #484 #482 #475: Support legacy keys
