@@ -70,7 +70,7 @@ Key Management on the Token
 
 XCA assumes for every private key on the card a corresponding public key.
 When managing cards, XCA only searches for public keys.
-There is thus no need to enter a PIN. When using the the key for signing the
+There is thus no need to enter a PIN. When using the key for signing the
 corresponding private key on the card is selected and a PIN must be entered.
 
 Accordingly, every time a key is generated on the card,
