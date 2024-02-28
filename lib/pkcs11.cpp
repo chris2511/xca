@@ -389,7 +389,7 @@ void pkcs11::initToken(const slotid &slot, unsigned char *pin, int pinlen,
 		pk11error(slot, "C_InitToken", rv);
 }
 
-tkInfo pkcs11::tokenInfo(const slotid &slot)
+tkInfo pkcs11::tokenInfo(const slotid &slot) const
 {
 	tkInfo ti;
 	CK_RV rv = tokenInfo(slot, &ti);
@@ -400,7 +400,7 @@ tkInfo pkcs11::tokenInfo(const slotid &slot)
 	return ti;
 }
 
-CK_RV pkcs11::tokenInfo(const slotid &slot, tkInfo *tkinfo)
+CK_RV pkcs11::tokenInfo(const slotid &slot, tkInfo *tkinfo) const
 {
 	CK_TOKEN_INFO token_info;
 	CK_RV rv;
@@ -452,7 +452,7 @@ int pkcs11::deleteObjects(QList<CK_OBJECT_HANDLE> objects)
 }
 
 #define ID_LEN 8
-pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
+pk11_attr_data pkcs11::findUniqueID(unsigned long oclass) const
 {
 	pk11_attr_data id(CKA_ID);
 	pk11_attr_ulong class_att(CKA_CLASS, oclass);
@@ -576,7 +576,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 	return new_id;
 }
 
-QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
+QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts) const
 {
 	CK_RV rv;
 	CK_OBJECT_HANDLE objects[256];

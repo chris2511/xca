@@ -115,9 +115,9 @@ class pkcs11
 		pkcs11();
 		~pkcs11();
 
-		CK_RV tokenInfo(const slotid &slot, tkInfo *tkinfo);
-		tkInfo tokenInfo(const slotid &slot);
-		tkInfo tokenInfo()
+		CK_RV tokenInfo(const slotid &slot, tkInfo *tkinfo) const;
+		tkInfo tokenInfo(const slotid &slot) const;
+		tkInfo tokenInfo() const
 		{
 			return tokenInfo(p11slot);
 		}
@@ -145,7 +145,7 @@ class pkcs11
 				   CK_OBJECT_HANDLE object);
 		void storeAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
-		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts);
+		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts) const;
 		QString tokenLogin(QString name, bool so, bool force=false);
 		void getRandom();
 		void logout();
@@ -155,7 +155,7 @@ class pkcs11
 		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
 			unsigned char *pin, unsigned long pinLen);
 		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
-		pk11_attr_data findUniqueID(unsigned long oclass);
+		pk11_attr_data findUniqueID(unsigned long oclass) const;
 		pk11_attr_data generateKey(QString name,
 			unsigned long ec_rsa_mech, unsigned long bits, int nid);
 		int deleteObjects(QList<CK_OBJECT_HANDLE> objects);
