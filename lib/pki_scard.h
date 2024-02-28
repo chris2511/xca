@@ -79,6 +79,7 @@ class pki_scard: public pki_key
 		{
 			return mech_list;
 		}
+		pk11_attr_data select_id(const pkcs11 &p11) const;
 		pk11_attlist objectAttributes(bool priv) const;
 		pk11_attlist objectAttributesNoId(EVP_PKEY *pk, bool priv) const;
 		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };

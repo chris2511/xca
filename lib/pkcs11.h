@@ -114,6 +114,32 @@ public:
 		// issue to generate Domain Parameters
 		return manufacturerID() == "nCipher Corp. Ltd";
 	}
+	QList<QStringList> fixed_ids() const
+	{
+		// Yubi keys have fixed set of IDs
+		// Use QStringList to not invent a new type: (QString + unsigned)
+		static const QList<QStringList> ids {
+			{ "9a: PIV Authentication", "1" },
+			{ "9c: Digital Signature", "2" },
+			{ "9d: Key Management", "3" },
+			{ "9e: Card Authentication", "4" }
+		};
+		if (manufacturerID() == "Yubico (www.yubico.com)") {
+			if (model() == "YubiKey NEO")
+				return ids;
+			if (model() == "YubiKey YK4" || model() == "YubiKey YK5") {
+				QList<QStringList> retired(ids);
+				for (int i=0; i< 20; i++)
+					retired.append(QStringList {
+						QString("%1: Retired Key %2")
+								.arg(i+0x82, 0, 16).arg(i+1),
+						QString::number(i + 5)
+					});
+				return retired;
+			}
+		}
+		return QList<QStringList>();
+	}
 };
 
 class pkcs11
@@ -177,7 +203,8 @@ class pkcs11
 		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
 		pk11_attr_data findUniqueID(unsigned long oclass) const;
 		pk11_attr_data generateKey(QString name,
-			unsigned long ec_rsa_mech, unsigned long bits, int nid);
+			unsigned long ec_rsa_mech, unsigned long bits, int nid,
+			const pk11_attr_data &id);
 		int deleteObjects(QList<CK_OBJECT_HANDLE> objects);
 		EVP_PKEY *getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj);
 		int encrypt(int flen, const unsigned char *from,

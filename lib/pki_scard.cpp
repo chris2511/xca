@@ -19,6 +19,7 @@
 #include "XcaWarningCore.h"
 
 #include <QThread>
+#include <QInputDialog>
 
 void pki_scard::init(void)
 {
@@ -450,7 +451,7 @@ void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 		load_token(p11, objs[0]);
 		return;
 	}
-	pk11_attr_data new_id = p11.findUniqueID(CKO_PUBLIC_KEY);
+	pk11_attr_data new_id = select_id(p11);
 
 	pub_atts << new_id <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
@@ -654,24 +655,49 @@ class keygenThread: public QThread
 {
 public:
 	errorEx err;
-	pk11_attr_data id;
 	const keyjob task;
 	QString name;
 	pkcs11 *p11;
+	pk11_attr_data id;
 
-	keygenThread(const keyjob &t, const QString &n, pkcs11 *_p11)
-		: QThread(), task(t), name(n), p11(_p11) { }
+	keygenThread(const keyjob &t, const QString &n, pkcs11 *_p11,
+				const pk11_attr_data &_id)
+		: QThread(), task(t), name(n), p11(_p11), id(_id) { }
 
 	void run()
 	{
 		try {
 			id = p11->generateKey(name, task.ktype.mech, task.size,
-						task.ec_nid);
+						task.ec_nid, id);
 		} catch (errorEx &e) {
 			err = e;
 		}
 	}
 };
+
+pk11_attr_data pki_scard::select_id(const pkcs11 &p11) const
+{
+	tkInfo ti = p11.tokenInfo();
+	pk11_attr_data new_id(CKA_ID);
+
+	QList<QStringList> fixed_ids = ti.fixed_ids();
+	if (fixed_ids.size() > 0) {
+		QMap<QString, unsigned long> map;
+		QStringList items;
+		for (QStringList item : fixed_ids) {
+			items << item[0];
+			map[item[0]] = item[1].toULong();
+		}
+		QString idname = QInputDialog::getItem(nullptr, XCA_TITLE,
+			tr("Select Slot of %1").arg(ti.model()),
+			items, 0, false);
+		if (map.contains(idname))
+			new_id.setULong(map[idname]);
+	} else {
+		new_id = p11.findUniqueID(CKO_PUBLIC_KEY);
+	}
+	return new_id;
+}
 
 void pki_scard::generate(const keyjob &task)
 {
@@ -681,11 +707,13 @@ void pki_scard::generate(const keyjob &task)
 	p11.startSession(task.slot, true);
 	p11.getRandom();
 
+	pk11_attr_data new_id = select_id(p11);
+
 	if (!p11.tokenLoginForModification())
 		return;
 
 	XcaProgress progress;
-	keygenThread kt(task, getIntName(), &p11);
+	keygenThread kt(task, getIntName(), &p11, new_id);
 	kt.start();
 	while (!kt.wait(20)) {
 		progress.increment();

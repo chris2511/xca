@@ -480,7 +480,7 @@ pk11_attr_data pkcs11::findUniqueID(unsigned long oclass) const
 }
 
 pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
-				unsigned long bits, int nid)
+				unsigned long bits, int nid, const pk11_attr_data &id)
 {
 #ifdef OPENSSL_NO_EC
 	(void)nid;
@@ -492,9 +492,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 	CK_MECHANISM mechanism = {mech, NULL_PTR, 0};
 	pk11_attr_data label(CKA_LABEL, name.toUtf8());
 
-	pk11_attr_data new_id = findUniqueID(CKO_PUBLIC_KEY);
-
-	pub_atts << label << new_id <<
+	pub_atts << label << id <<
 		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_bool(CKA_PRIVATE, false) <<
@@ -502,7 +500,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 		pk11_attr_bool(CKA_VERIFY, true) <<
 		pk11_attr_bool(CKA_WRAP, true);
 
-	priv_atts << label << new_id <<
+	priv_atts << label << id <<
 		pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY) <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_bool(CKA_PRIVATE, true) <<
@@ -571,7 +569,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 	if (rv != CKR_OK) {
 		pk11error("C_GenerateKeyPair", rv);
 	}
-	return new_id;
+	return id;
 }
 
 QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts) const
