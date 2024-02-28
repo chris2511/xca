@@ -385,7 +385,7 @@ void pki_x509::store_token(bool alwaysSelect)
 		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
 		(card ? card->getIdAttr() : p11.findUniqueID(CKO_CERTIFICATE));
 
-	if (p11.tokenLogin(p11.tokenInfo().label(), false).isNull())
+	if (!p11.tokenLoginForModification())
 		return;
 
 	p11.createObject(p11_atts);
@@ -440,7 +440,7 @@ void pki_x509::deleteFromToken(const slotid &slot)
 	{
 		return;
 	}
-	if (p11.tokenLogin(ti.label(), false).isNull())
+	if (!p11.tokenLoginForModification())
 		return;
 
 	p11.deleteObjects(objs);
@@ -458,8 +458,7 @@ int pki_x509::renameOnToken(const slotid &slot, const QString &name)
 		return 0;
 
 	pk11_attr_data label(CKA_LABEL, name.toUtf8());
-	tkInfo ti = p11.tokenInfo();
-	if (p11.tokenLogin(ti.label(), false).isNull())
+	if (!p11.tokenLoginForModification())
 		return 0;
 	p11.storeAttribute(label, objs[0]);
 	return 1;

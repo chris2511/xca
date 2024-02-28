@@ -377,7 +377,7 @@ void pki_scard::deleteFromToken(const slotid &slot)
 			arg(getIntName()).arg(ti.label()).arg(ti.serial())))
 		return;
 
-	if (p11.tokenLogin(card_label, false).isNull())
+	if (!p11.tokenLoginForModification())
 		return;
 
 	pk11_attlist atts = objectAttributes(true);
@@ -395,7 +395,7 @@ int pki_scard::renameOnToken(const slotid &slot, const QString &name)
 	p11.startSession(slot, true);
 	QList<CK_OBJECT_HANDLE> objs;
 
-	if (p11.tokenLogin(card_label, false).isNull())
+	if (!p11.tokenLoginForModification())
 		return 0;
 	pk11_attr_data label(CKA_LABEL, name.toUtf8());
 
@@ -529,12 +529,14 @@ void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 
 	}
 
-
-	tkInfo ti = p11.tokenInfo();
-	if (p11.tokenLogin(ti.label(), false).isNull())
+	if (!p11.tokenLoginForModification())
 		throw errorEx(tr("PIN input aborted"));
 
-	p11.createObject(pub_atts);
+	try {
+		p11.createObject(pub_atts);
+	} catch (errorEx &e) {
+		XCA_ERROR(e);
+	}
 	p11.createObject(priv_atts);
 
 	pub_atts.reset();
@@ -678,9 +680,8 @@ void pki_scard::generate(const keyjob &task)
 	pkcs11 p11;
 	p11.startSession(task.slot, true);
 	p11.getRandom();
-	tkInfo ti = p11.tokenInfo();
 
-	if (p11.tokenLogin(ti.label(), false).isNull())
+	if (!p11.tokenLoginForModification())
 		return;
 
 	XcaProgress progress;
@@ -715,15 +716,14 @@ QString pki_scard::getTypeString(void) const
 EVP_PKEY *pki_scard::decryptKey() const
 {
 	slotid slot_id;
-	QString pin, key_id;
+	QString key_id;
 
 	if (!prepare_card(&slot_id))
 		throw errorEx(tr("Failed to find the key on the token"));
 
 	pkcs11 *p11 = new pkcs11();
 	p11->startSession(slot_id);
-	pin = p11->tokenLogin(card_label, false);
-	if (pin.isNull()) {
+	if (p11->tokenLogin(card_label, false).isNull()) {
 		delete p11;
 		throw errorEx(tr("Invalid Pin for the token"));
 	}

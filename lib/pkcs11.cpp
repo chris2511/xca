@@ -221,7 +221,13 @@ static QDialog *newPinPadBox()
 	return box;
 }
 
-QString pkcs11::tokenLogin(QString name, bool so, bool force)
+bool pkcs11::tokenLoginForModification()
+{
+	 tkInfo ti = tokenInfo();
+	 return !tokenLogin(ti.label(), ti.need_SO_for_object_mod()).isNull();
+}
+
+QString pkcs11::tokenLogin(const QString &name, bool so, bool force)
 {
 	Passwd pin;
 	bool need_login;
@@ -354,13 +360,11 @@ void pkcs11::initPin(const slotid &slot)
 {
 	Passwd newPin, pinp;
 	int ret = 1;
-	QString pin;
 
 	startSession(slot, true);
 	tkInfo ti = tokenInfo();
 
-	pin = tokenLogin(ti.label(), true, false);
-	if (pin.isNull())
+	if (tokenLogin(ti.label(), true, false).isNull())
 		return;
 
 	pass_info p(XCA_TITLE, newPinTxt.arg(ti.label()) + "\n" + ti.pinInfo());

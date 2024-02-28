@@ -102,6 +102,11 @@ public:
 		// Workaround for "www.CardContact.de" bug
 		return manufacturerID() == "www.CardContact.de";
 	}
+	bool need_SO_for_object_mod() const
+	{
+		// Yubikey Need SO Pin to modify objects
+		return manufacturerID() == "Yubico (www.yubico.com)";
+	}
 	bool set_token_attr_false_dsa_param() const
 	{
 		// nCipher Attributes
@@ -160,7 +165,8 @@ class pkcs11
 		void storeAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
 		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts) const;
-		QString tokenLogin(QString name, bool so, bool force=false);
+		QString tokenLogin(const QString &name, bool so, bool force=false);
+		bool tokenLoginForModification();
 		void getRandom();
 		void logout();
 		bool needsLogin(bool so);
