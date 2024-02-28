@@ -481,6 +481,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 #ifdef OPENSSL_NO_EC
 	(void)nid;
 #endif
+	tkInfo ti = tokenInfo();
 	CK_RV rv;
 	CK_OBJECT_HANDLE pubkey, privkey, dsa_param_obj;
 	pk11_attlist priv_atts, pub_atts, dsa_param;
@@ -506,8 +507,6 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 		pk11_attr_bool(CKA_SIGN, true) <<
 		pk11_attr_bool(CKA_UNWRAP, true);
 
-	QString mID = tokenInfo().manufacturerID();
-
 	switch (mech) {
 	case CKM_RSA_PKCS_KEY_PAIR_GEN:
 		pub_atts <<
@@ -518,17 +517,10 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 		//DSA: Spec Page 191 (175) C_GenerateKey
 		CK_MECHANISM mechanism = {CKM_DSA_PARAMETER_GEN, NULL_PTR, 0};
 
-		// nCipher Attributes
-		// as on 10/26/2015 - Thales' PKCS11 provider has
-		// issue to generate Domain Parameters
-		bool token = true;
-		if (mID == "nCipher Corp. Ltd")
-			token = false;
-
 		dsa_param << label <<
 			pk11_attr_ulong(CKA_CLASS, CKO_DOMAIN_PARAMETERS) <<
 			pk11_attr_ulong(CKA_KEY_TYPE, CKK_DSA) <<
-			pk11_attr_bool(CKA_TOKEN, token) <<
+			pk11_attr_bool(CKA_TOKEN, !ti.set_token_attr_false_dsa_param()) <<
 			pk11_attr_bool(CKA_PRIVATE, false) <<
 			pk11_attr_ulong(CKA_PRIME_BITS, bits);
 		p11slot.isValid();
@@ -553,13 +545,9 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 
 		EC_GROUP *group = EC_GROUP_new_by_curve_name(nid);
 
-		EC_GROUP_set_asn1_flag(group, info.flags & CKF_EC_NAMEDCURVE ?
-			OPENSSL_EC_NAMED_CURVE : 0);
-
-		// Workaround for "www.CardContact.de" bug
-		if (mID == "www.CardContact.de") {
-			EC_GROUP_set_asn1_flag(group, OPENSSL_EC_NAMED_CURVE);
-		}
+		EC_GROUP_set_asn1_flag(group,
+			((info.flags & CKF_EC_NAMEDCURVE) || ti.force_keygen_named_curve()) ?
+				OPENSSL_EC_NAMED_CURVE : 0);
 
 		priv_atts << pk11_attr_bool(CKA_DERIVE, false);
 		pub_atts << pk11_attr_data(CKA_EC_PARAMS,

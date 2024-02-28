@@ -97,6 +97,18 @@ public:
 			arg(token_info.ulMinPinLen).
 			arg(token_info.ulMaxPinLen);
 	}
+	bool force_keygen_named_curve() const
+	{
+		// Workaround for "www.CardContact.de" bug
+		return manufacturerID() == "www.CardContact.de";
+	}
+	bool set_token_attr_false_dsa_param() const
+	{
+		// nCipher Attributes
+		// as on 10/26/2015 - Thales' PKCS11 provider has
+		// issue to generate Domain Parameters
+		return manufacturerID() == "nCipher Corp. Ltd";
+	}
 };
 
 class pkcs11
