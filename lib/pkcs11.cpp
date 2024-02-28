@@ -41,20 +41,30 @@ void waitcursor(int start, int line)
 }
 
 pkcs11_lib_list pkcs11::libraries;
+int pkcs11::pctr;
 
 pkcs11::pkcs11()
 {
 	session = CK_INVALID_HANDLE;
 	p11obj = CK_INVALID_HANDLE;
+	qDebug() << "PKCS11 Counter"<< ++pctr;
 }
 
 pkcs11::~pkcs11()
 {
-	if (session != CK_INVALID_HANDLE && p11slot.p11()) {
+	try { closeSession(p11slot); } catch ( ... ) { }
+	qDebug() << "PKCS11 Counter"<< --pctr;
+}
+
+void pkcs11::closeSession(const slotid &slot)
+{
+	if (session != CK_INVALID_HANDLE && slot.p11()) {
 		CK_RV rv;
 		CALL_P11_C(p11slot.lib, C_CloseSession, session);
-		(void)rv;
+		if (rv != CKR_OK)
+			pk11error(slot, "C_CloseSession", rv);
 	}
+	session = CK_INVALID_HANDLE;
 }
 
 void pkcs11::startSession(const slotid &slot, bool rw)
@@ -62,12 +72,8 @@ void pkcs11::startSession(const slotid &slot, bool rw)
 	CK_RV rv;
 	unsigned long flags = CKF_SERIAL_SESSION | (rw ? CKF_RW_SESSION : 0);
 
-	if (session != CK_INVALID_HANDLE) {
-		CALL_P11_C(slot.lib, C_CloseSession, session);
-		session = CK_INVALID_HANDLE;
-		if (rv != CKR_OK)
-			pk11error(slot, "C_CloseSession", rv);
-	}
+	closeSession(slot);
+
 	CALL_P11_C(slot.lib, C_OpenSession,
 			slot.id, flags, NULL, NULL, &session);
 	if (rv != CKR_OK)

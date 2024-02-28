@@ -109,6 +109,7 @@ class pkcs11
 		slotid p11slot;
 		CK_SESSION_HANDLE session;
 		CK_OBJECT_HANDLE p11obj;
+		static int pctr;
 
 	public:
 		static pkcs11_lib_list libraries;
@@ -130,6 +131,7 @@ class pkcs11
 			return libraries.getSlotList();
 		}
 
+		void closeSession(const slotid &slot);
 		bool selectToken(slotid *slot, QWidget *w);
 		void changePin(const slotid &slot, bool so);
 		void initPin(const slotid &slot);

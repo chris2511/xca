@@ -405,6 +405,7 @@ void MainWindow::manageToken()
 			tkInfo ti = p11.tokenInfo();
 			XCA_INFO(tr("The token '%1' did not contain any keys or certificates").arg(ti.label()));
 		} else {
+			p11.closeSession(slot);
 			dlgi->execute(true);
 		}
 	} catch (errorEx &err) {
