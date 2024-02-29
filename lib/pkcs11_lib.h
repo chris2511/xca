@@ -31,7 +31,7 @@ class pkcs11_lib : public QLibrary
 	pkcs11_lib() = delete;
 	~pkcs11_lib();
 
-	QList<unsigned long> getSlotList();
+	QList<CK_SLOT_ID> getSlotList();
 	QString driverInfo() const;
 	QString filename() const
 	{
@@ -71,15 +71,11 @@ class pkcs11_lib : public QLibrary
 
 class slotid
 {
-    public:
-	CK_ULONG id;
+  public:
 	pkcs11_lib *lib;
+	CK_SLOT_ID id;
 	slotid() = default;
-	slotid(pkcs11_lib *l, CK_ULONG i)
-	{
-		lib = l;
-		id = i;
-	}
+	slotid(pkcs11_lib *l, CK_SLOT_ID i) : lib(l), id(i) { }
 	void isValid() const
 	{
 		if (!lib)

@@ -77,12 +77,13 @@ QList<unsigned long> pkcs11_lib::getSlotList()
 {
 	CK_RV rv;
 	CK_SLOT_ID *p11_slots = NULL;
-	QList<unsigned long> sl;
+	QList<CK_SLOT_ID> sl;
 	unsigned long i, num_slots = 0;
 
 	if (!isLoaded())
 		return sl;
 
+	qDebug() << "sizeof CK_SLOT_ID" << sizeof(CK_SLOT_ID) << sizeof(unsigned long);
 	/* This one helps to avoid errors.
 	 * Fist time it fails, 2nd time it works */
 	CALL_P11_C(this, C_GetSlotList, CK_TRUE, p11_slots, &num_slots);
@@ -221,9 +222,9 @@ slotidList pkcs11_lib_list::getSlotList() const
 		if (!l->isLoaded())
 			continue;
 		try {
-			QList<unsigned long> realids;
+			QList<CK_SLOT_ID> realids;
 			realids = l->getSlotList();
-			foreach(int id, realids)
+			for (CK_SLOT_ID id : realids)
 				list << slotid(l, id);
 			success = true;
 		} catch (errorEx &e) {
