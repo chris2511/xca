@@ -76,6 +76,7 @@ new pki_export(15, x509, "pfx", tr("PKCS #12"),      F_PKCS12 | F_USUAL | F_CRYP
 new pki_export(16, x509, "txt", tr("Certificate Index file"), F_INDEX | F_CA,                tr("OpenSSL specific Certificate Index file as created by the 'ca' command and required by the OCSP tool")),
 new pki_export(17, x509, "ics", tr("vCalendar"),     F_CAL,                                  tr("vCalendar expiry reminder for the selected items")),
 new pki_export(18, x509, "ics", tr("CA vCalendar"),  F_CAL | F_CA,                           tr("vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL")),
+new pki_export(38, x509, "conf", tr("OpenSSL config"), F_SINGLE | F_CONFIG,                  tr("OpenSSL configuration file to create a certificate or request with the openssl commandline tool")),
 
 new pki_export(19, asym_key, "pem", tr("PEM public"),    F_PEM | F_CLIPBOARD,                            tr("Text format of the public key in one PEM file")),
 new pki_export(20, asym_key, "pem", tr("PEM private"),   F_PEM | F_PRIVATE | F_USUAL | F_CLIPBOARD,      tr("Unencrypted private key in text format")),
@@ -91,6 +92,7 @@ new pki_export(29, asym_key, "pk8", tr("PKCS #8"),       F_PKCS8 | F_PRIVATE | F
 
 new pki_export(30, x509_req, "csr", "PEM",  F_PEM,                       tr("PEM Text format with headers")),
 new pki_export(31, x509_req, "der", "DER",  F_DER | F_SINGLE,            tr("Binary DER format of the certificate request")),
+new pki_export(37, x509_req, "conf", tr("OpenSSL config"), F_SINGLE | F_CONFIG, tr("OpenSSL configuration file to create a certificate or request with the openssl commandline tool")),
 
 new pki_export(32, revocation, "crl", "PEM",  F_PEM,                     tr("PEM Text format with headers")),
 new pki_export(33, revocation, "der", "DER",  F_DER | F_SINGLE,          tr("Binary DER format of the revocation list")),

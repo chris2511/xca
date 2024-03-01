@@ -205,7 +205,7 @@ static QString oid_sect()
 	return ret;
 }
 
-void pki_x509super::opensslConf(QString fname)
+void pki_x509super::opensslConf(XFile &file)
 {
 	QString extensions;
 	extList el = getV3ext();
@@ -229,8 +229,6 @@ void pki_x509super::opensslConf(QString fname)
 		"%2").arg(name).arg(extensions).
 			arg(ASN1_STRING_get_default_mask(), 0, 16);
 
-	XFile file(fname);
-	file.open_write();
 	file.write(final.toUtf8());
 }
 

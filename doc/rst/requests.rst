@@ -50,10 +50,11 @@ Request Export
 Requests can be exported by the context-menu or by the button on the right.
 
 - **Clipboard** Writes all selected requests in PEM format to the Clipboard.
-- **File** Write the request into a file in PEM or DER format.
-- **OpenSSL config** Create and store an OpenSSL configuration file which
-  can be used to generate a similar request with openssl
-  `openssl req -new -config <file>`
+- **File** Write the request into a file in PEM or DER format, or as
+  OpenSSL configuration file format.
+
+The OpenSSL config file format can be used to generate a similar
+request with openssl `openssl req -new -config <file>`
 
 Request Transformation
 ----------------------

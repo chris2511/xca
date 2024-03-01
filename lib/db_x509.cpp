@@ -653,6 +653,8 @@ void db_x509::exportItems(const QModelIndexList &list,
 				crt->icsVEVENT_ca() : crt->icsVEVENT();
 		}
 		writeVcalendar(file, vcal);
+	} else if (xport->match_all(F_CONFIG)) {
+		crt->opensslConf(file);
 	}
 }
 

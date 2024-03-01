@@ -25,13 +25,12 @@ class X509SuperTreeView: public XcaTreeView
 
   public:
 	X509SuperTreeView(QWidget *parent) : XcaTreeView(parent) { }
-	void fillContextMenu(QMenu *menu, QMenu *subExport,
+	void fillContextMenu(QMenu *menu, QMenu *,
 			const QModelIndex &index, QModelIndexList indexes);
 
   public slots:
 	void showPki(pki_base *pki);
 	void extractPubkey();
 	void toTemplate();
-	void toOpenssl();
 };
 #endif

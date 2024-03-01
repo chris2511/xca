@@ -103,8 +103,14 @@ void db_x509req::exportItem(const QModelIndex &index,
 		const pki_export *xport, XFile &file) const
 {
 	pki_x509req *req = fromIndex<pki_x509req>(index);
-	if (req)
+	if (!req)
+		return;
+
+	if (xport->match_all(F_CONFIG)) {
+		req->opensslConf(file);
+	} else {
 		req->writeReq(file, xport->match_all(F_PEM));
+	}
 }
 
 void db_x509req::setSigned(QModelIndex index, bool signe)

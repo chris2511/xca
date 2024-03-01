@@ -48,6 +48,7 @@ enum {
 	F_CAL       = BIT(18),/* Calendar entry */
 	F_DER       = BIT(19),/* DER format */
 	F_OVPN      = BIT(20),/* OpenVPN format */
+	F_CONFIG    = BIT(21),/* OpenSSL config format */
 };
 
 class pki_export : public QObject {

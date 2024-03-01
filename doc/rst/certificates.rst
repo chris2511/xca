@@ -106,12 +106,12 @@ Certificate Export
     to be imported into your favorite calendar app.
   - **CA vCalendar (*.ics):** expiry notifications for the CA certificate,
     valid, issued cdrtificates and the latest CRL.
+  - **OpenSSL config:** Create an OpenSSL config file from the content of
+    this certificate, which can be used to generate a similar certificate
+    with openssl: `openssl req -new -x509 -config <file>`
 
 - **Token:** Store certificate on the Security token containing the private key.
 - **Other token:** Store certificate on any Security token.
-- **OpenSSL config:** Create an OpenSSL config file from the content of this
-  certificate, which can be used to generate a similar certificate with
-  openssl: `openssl req -new -x509 -config <file>`
 
 When exporting PKCS#12 structures XCA asks later for an encryption password.
 

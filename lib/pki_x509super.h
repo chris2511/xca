@@ -57,7 +57,7 @@ class pki_x509super : public pki_x509name
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);
 		QVariant column_data(const dbheader *hd) const;
-		void opensslConf(QString fname);
+		void opensslConf(XFile &file);
 		bool visible() const;
 		bool hasPrivKey() const;
 		QVariant getIcon(const dbheader *hd) const;
