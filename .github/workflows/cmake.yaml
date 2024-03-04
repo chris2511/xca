@@ -11,23 +11,24 @@ jobs:
     strategy:
       matrix:
 
-        os: [ ubuntu, macos, windows ]
-        qt: [ "5.15.2", "6.6.0" ]
+#        os: [ ubuntu, macos, windows ]
+        os: [ windows ]
+        qt: [ "5.15.2", "6.6.2" ]
 
         include:
-        - os: ubuntu
-          generator: Unix Makefiles
-          openssl_root: /usr
-          artifact: build/xca-*-Linux.tar.gz
-          host: linux
-          runs: ubuntu-latest
-
-        - os: macos
-          generator: Unix Makefiles
-          openssl_root: /usr/local/opt/openssl@1.1
-          artifact: build/xca-*.dmg
-          host: mac
-          runs: macos-latest
+#        - os: ubuntu
+#          generator: Unix Makefiles
+#          openssl_root: /usr
+#          artifact: build/xca-*-Linux.tar.gz
+#          host: linux
+#          runs: ubuntu-latest
+#
+#        - os: macos
+#          generator: Unix Makefiles
+#          openssl_root: /usr/local/opt/openssl@1.1
+#          artifact: build/xca-*.dmg
+#          host: mac
+#          runs: macos-latest
 
         - os: windows
           generator: MinGW Makefiles
@@ -41,12 +42,14 @@ jobs:
           qt: "5.15.2"
           winarch: win64_mingw81
           runs: windows-2019
+          tools: tools_mingw,qt.tools.win64_mingw810
 
-        exclude:
+#        exclude:
         - os: windows
-          qt: "6.6.0"
-            #winarch: win64_mingw
-            #runs: windows-latest
+          qt: "6.6.2"
+          winarch: win64_mingw
+          runs: windows-latest
+          tools: tools_mingw90
 
     runs-on: ${{matrix.runs}}
 
@@ -59,6 +62,7 @@ jobs:
       with:
         arch: ${{matrix.winarch}}
         version: ${{matrix.qt}}
+        tools:  ${{matrix.tools}}
 
     - name: Install MSYS2 and OpenSSL on Windows
       uses: msys2/setup-msys2@v2
@@ -66,7 +70,7 @@ jobs:
       with:
         location: ${{env.MSYS}}
         msystem: mingw64
-        install: mingw-w64-x86_64-openssl openssl-devel base-devel mingw-w64-x86_64-gcc
+        install: openssl-devel
 
     - name: Brew install OpenSSL
       if: matrix.os == 'macos'
