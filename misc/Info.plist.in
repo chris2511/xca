@@ -34,6 +34,7 @@
 	<string>no</string>
 	<key>CFBundleLocalizations</key>
 	<array>
+		<string>en</string>
 		<string>@LANGUAGES_PLIST@</string>
 	</array>
 	<key>CFBundleDocumentTypes</key>
