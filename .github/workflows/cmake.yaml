@@ -13,7 +13,8 @@ jobs:
 
 #        os: [ ubuntu, macos, windows ]
         os: [ windows ]
-        qt: [ "5.15.2", "6.6.2" ]
+#        qt: [ "5.15.2", "6.6.2" ]
+        qt: [ "6.6.2" ]
 
         include:
 #        - os: ubuntu
@@ -38,11 +39,11 @@ jobs:
              build/xca-portable-*.zip
           host: windows
 
-        - os: windows
-          qt: "5.15.2"
-          winarch: win64_mingw81
-          runs: windows-2019
-          tools: tools_mingw,qt.tools.win64_mingw810
+#        - os: windows
+#          qt: "5.15.2"
+#          winarch: win64_mingw81
+#          runs: windows-2019
+#          tools: tools_mingw,qt.tools.win64_mingw810
 
 #        exclude:
         - os: windows
@@ -70,7 +71,7 @@ jobs:
       with:
         location: ${{env.MSYS}}
         msystem: mingw64
-        install: openssl-devel
+        install: mingw-w64-x86_64-openssl
 
     - name: Brew install OpenSSL
       if: matrix.os == 'macos'
