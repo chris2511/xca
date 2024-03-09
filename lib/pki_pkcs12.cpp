@@ -148,11 +148,19 @@ void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 		if (x && x != cert)
 			sk_X509_push(certstack, x->getCert());
 	}
-	int encAlgoNid = encAlgo.getEncAlgoNid();
+	int certAlgoNid, keyAlgoNid;
+	certAlgoNid = keyAlgoNid = encAlgo.getEncAlgoNid();
+
+	// The very ancient 40BitRC2_CBC algorithm at least can
+	// be combined with TripleDES_CBC for the keys.
+	if (keyAlgoNid == NID_pbe_WithSHA1And40BitRC2_CBC)
+		keyAlgoNid = NID_pbe_WithSHA1And3_Key_TripleDES_CBC;
+
 	pkcs12 = PKCS12_create(pass.data(), getIntName().toUtf8().data(),
 				key->decryptKey(), cert->getCert(), certstack,
-				encAlgoNid, encAlgoNid,
-				0, 0, 0);
+				keyAlgoNid, certAlgoNid, 0, 0, 0);
+	pki_openssl_error();
+	Q_CHECK_PTR(pkcs12);
 
 	if (encAlgo.legacy())
 		PKCS12_set_mac(pkcs12, pass.data(), -1, NULL, 0, 1, EVP_sha1());
@@ -175,8 +183,10 @@ void pki_pkcs12::collect_properties(QMap<QString, QString> &prp) const
 
 // see https://www.rfc-editor.org/rfc/rfc8018 Appendix B.2 for possible encryption schemes
 const QList<int> encAlgo::all_encAlgos(
-	{ NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
-	  NID_aes_256_cbc
+{
+	NID_pbe_WithSHA1And40BitRC2_CBC,
+	NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+	NID_aes_256_cbc
 });
 
 int encAlgo::default_encAlgo(NID_pbe_WithSHA1And3_Key_TripleDES_CBC);
