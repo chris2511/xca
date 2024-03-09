@@ -28,6 +28,7 @@ class encAlgo
 	encAlgo& operator=(const encAlgo &d) = default;
 
 	QString name() const;
+	QString displayName() const;
 	int getEncAlgoNid() const;
 	bool legacy() const
 	{

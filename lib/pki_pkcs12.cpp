@@ -207,6 +207,14 @@ QString encAlgo::name() const
 	return QString(encAlgo_nid == NID_undef ? "" : OBJ_nid2sn(encAlgo_nid));
 }
 
+QString encAlgo::displayName() const
+{
+	QString n = name();
+	if (legacy())
+		n += QString(" (%1)").arg(QObject::tr("insecure"));
+	return n;
+}
+
 int encAlgo::getEncAlgoNid() const
 {
 	return encAlgo_nid;

@@ -16,34 +16,34 @@ pkcs12EncBox::pkcs12EncBox(QWidget *parent)
 
 const encAlgo pkcs12EncBox::current() const
 {
-	return encAlgo(currentText());
+	return encAlgo(currentData().toInt());
 }
 
 void pkcs12EncBox::setCurrent(const encAlgo &md)
 {
-	int idx = findText(md.name());
+	int idx = findData(QVariant(md.getEncAlgoNid()));
 	if (idx != -1) {
 		setCurrentIndex(idx);
-		wanted_encAlgo = "";
+		wanted_encAlgo = NID_undef;
 	} else {
-		wanted_encAlgo = md.name();
+		wanted_encAlgo = md.getEncAlgoNid();
 	}
 }
 
 void pkcs12EncBox::setupEncAlgos(QList<int> nids)
 {
-	QString md = currentText();
+	int md = currentData().toInt();
 
-	if (!wanted_encAlgo.isEmpty())
+	if (wanted_encAlgo != NID_undef)
 		md = wanted_encAlgo;
 	clear();
 	foreach(int nid, encAlgo::all_encAlgos) {
 		if (nids.contains(nid))
-			addItem(encAlgo(nid).name());
+			addItem(encAlgo(nid).displayName(), QVariant(nid));
 	}
 	setEnabled(count() > 0);
 	setDefaultEncAlgo();
-	if (!md.isEmpty())
+	if (md != NID_undef)
 		setCurrent(encAlgo(md));
 	else
 		setDefaultEncAlgo();
