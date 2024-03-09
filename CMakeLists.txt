@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.0)
+cmake_minimum_required(VERSION 3.19.0)
 
 project(xca
 	DESCRIPTION "X Certificate and Key management"
@@ -87,6 +87,11 @@ add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
+if (NOT OPENSSL_VERSION)
+  # Educated guess
+  set(OPENSSL_VERSION 3.0.0)
+endif()
+
 if (APPLE)
   execute_process(COMMAND brew --prefix OUTPUT_STRIP_TRAILING_WHITESPACE
                   OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET)
@@ -98,8 +103,10 @@ elseif(WIN32)
   if (NOT CMAKE_PREFIX_PATH)
     set(CMAKE_PREFIX_PATH $ENV{UserProfile} $ENV{PROGRAMFILES}/OpenSSL-Win64)
   endif()
-  if (NOT OPENSSL_LIBRARY_MAJOR)
-    set(OPENSSL_LIBRARY_MAJOR 3) # For OpenSSL 1.1.1 use "1_1"
+  if (OPENSSL_VERSION VERSION_GREATER_EQUAL 3.0.0)
+    set(OPENSSL_LIBRARY_MAJOR "3")
+  else()
+    set(OPENSSL_LIBRARY_MAJOR "1_1")
   endif()
   file(TO_CMAKE_PATH $ENV{WINDIR}/system32 SYSTEM32)
 endif()
@@ -119,6 +126,7 @@ get_filename_component(_qt_bin_dir "${qmake_executable}" DIRECTORY)
 if (NOT OPENSSL_ROOT_DIR)
   get_filename_component(OPENSSL_ROOT_DIR ${OPENSSL_INCLUDE_DIR} DIRECTORY)
 endif()
+file(TO_CMAKE_PATH ${OPENSSL_ROOT_DIR}  OPENSSL_ROOT_DIR)
 
 target_link_libraries(xcalib
 	OpenSSL::Crypto
@@ -204,6 +212,13 @@ if(APPLE)
         -always-overwrite ${APPSTORE}
     COMMENT "Running macdeployqt..."
   )
+  if (OPENSSL_VERSION VERSION_GREATER_EQUAL 3.0.0)
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND cmake -E copy ${OPENSSL_ROOT_DIR}/lib/ossl-modules/legacy.dylib
+              $<TARGET_FILE_DIR:${PROJECT_NAME}>/../PlugIns/
+      COMMENT "Install OpenSSL legacy provider"
+  )
+  endif()
   if (PROVISIONPROFILE)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND cmake -E copy ${PROVISIONPROFILE}
@@ -269,7 +284,7 @@ elseif(WIN32)
 		${OPENSSL_ROOT_DIR}/bin/libcrypto-${OPENSSL_LIBRARY_MAJOR}-x64.dll
 	  DESTINATION ${RUNTIME_DEST}
   )
-  if (OPENSSL_LIBRARY_MAJOR EQUAL 3)
+  if (OPENSSL_VERSION VERSION_GREATER_EQUAL 3.0.0)
       install(FILES ${OPENSSL_ROOT_DIR}/lib/ossl-modules/legacy.dll
 	      DESTINATION ${RUNTIME_DEST})
   endif()

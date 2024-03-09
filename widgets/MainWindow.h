@@ -89,6 +89,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void showDatabaseName();
 
 	public:
+		static bool legacy_loaded;
 		int exitApp;
 		QLabel *dbindex;
 		Help *helpdlg;

@@ -106,7 +106,7 @@ void MainWindow::about()
 	"<p>Copyright 2001 - 2024 by Christian Hohnstädt\n"
 	"<p>Version: %3<p>%1" /* commithash, OpenSSL & Qt Version */
 	"<p><a href=\"https://hohnstaedt.de/xca\">https://hohnstaedt.de/xca</a>"
-	"<p>Entropy strength: %2"
+	"<p>OpenSSL legacy provider%2 loaded"
 	"<p><table border=\"0\">"
 	"<tr><td>Installation path:</td><td>%4</td></tr>"
 	"<tr><td>User settings path:</td><td>%5</td></tr>"
@@ -120,7 +120,7 @@ void MainWindow::about()
 	"</table><hr><center><u><b>Maintained Translations</b></u></center>"
 	"<p><table><tr>%8</tr></table>")
 			.arg(version)
-			.arg(Entropy::strength())
+			.arg(legacy_loaded ? "" : " not")
 			.arg(version_str(true))
 			.arg(nativeSeparator(QCoreApplication::applicationDirPath()))
 			.arg(nativeSeparator(getUserSettingsDir()))

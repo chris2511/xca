@@ -119,13 +119,20 @@ int main(int argc, char *argv[])
 	}
 
 #if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+	{
+		QString path;
 #if defined(Q_OS_WIN32)
-	OSSL_PROVIDER_set_default_search_path(NULL,
-		QCoreApplication::applicationDirPath().toUtf8().data());
-	qDebug() << "OSSL_PROVIDER_set_default_search_path"
-				<< QCoreApplication::applicationDirPath();
+		path = QCoreApplication::applicationDirPath();
+#elif defined(Q_OS_MACOS)
+		path = QCoreApplication::applicationDirPath() + "/../PlugIns";
 #endif
-	if (OSSL_PROVIDER_try_load(0, "legacy", 1))
+		if (!path.isEmpty()) {
+			OSSL_PROVIDER_set_default_search_path(NULL, path.toUtf8().data());
+			qDebug() << "OSSL_PROVIDER_set_default_search_path" << path;
+		}
+	}
+	MainWindow::legacy_loaded = OSSL_PROVIDER_try_load(0, "legacy", 1);
+	if (MainWindow::legacy_loaded)
 		qDebug() << "Legacy provider loaded";
 	else
 		qWarning() << "Legacy provider NOT loaded";

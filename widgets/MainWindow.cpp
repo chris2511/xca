@@ -47,6 +47,7 @@
 
 OidResolver *MainWindow::resolver;
 MainWindow *mainwin;
+bool MainWindow::legacy_loaded;
 
 void MainWindow::enableTokenMenu(bool enable)
 {
