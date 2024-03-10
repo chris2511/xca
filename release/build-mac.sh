@@ -65,13 +65,13 @@ OSSL_MAJOR="3"
 OSSL="openssl-3.1.5"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
-QT_DIR="$TOP_DIR/6.6.0/macos"
+QT_DIR="$TOP_DIR/6.6.2/macos"
 
 BUILDDIR="$TOP_DIR/osx-release-dmg"
 BUILDDIR_APPSTORE="$TOP_DIR/osx-release-appstore"
 
 INSTALL_DIR="$TOP_DIR/install"
-SDK="10.15"
+SDK="11.0"
 JOBS=7
 
 cd $TOP_DIR

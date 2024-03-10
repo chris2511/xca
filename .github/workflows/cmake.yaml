@@ -12,7 +12,7 @@ jobs:
       matrix:
 
         os: [ ubuntu, macos, windows ]
-        qt: [ "5.15.2", "6.6.0" ]
+        qt: [ "5.15.2", "6.6.2" ]
 
         include:
         - os: ubuntu
@@ -44,7 +44,7 @@ jobs:
 
         exclude:
         - os: windows
-          qt: "6.6.0"
+          qt: "6.6.2"
             #winarch: win64_mingw
             #runs: windows-latest
 
@@ -80,7 +80,7 @@ jobs:
     - name: Configure
       # No YAML Multiline mechanism (>, |, \, >-, >+2 whatever) works as expected
       # Give up. Live with the long line
-      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64
+      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DOPENSSL_ROOT_DIR=${{matrix.openssl_root}} --warn-uninitialized -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.15"
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build -j 5 -v
