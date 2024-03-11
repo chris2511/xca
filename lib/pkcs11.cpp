@@ -243,7 +243,7 @@ QString pkcs11::tokenLogin(const QString &name, bool so, bool force)
 		if (!need_login)
 			logout();
 		if (tokenInfo().protAuthPath()) {
-			pin.clear();
+			pin = ""; // Indicate success
 			QDialog *pinpadbox = newPinPadBox();
 			pinpadbox->show();
 			pinPadLoginThread ppt(this, so);
@@ -258,8 +258,8 @@ QString pkcs11::tokenLogin(const QString &name, bool so, bool force)
 		} else {
 			if (PwDialogCore::execute(&p, &pin, false) != 1)
 				return QString();
+			login(pin.constUchar(), pin.size(), so);
 		}
-		login(pin.constUchar(), pin.size(), so);
 	} else {
 		return QString("");
 	}
