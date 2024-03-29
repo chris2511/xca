@@ -1091,8 +1091,10 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 	if (el.size() > 0) {
 		QString errtxt;
 		ee = ee_invaldup;
-		errtxt = "<h2><center><font color=\"red\">Error:</font>"
-			"duplicate extensions:</center></h2><p><ul>\n";
+		errtxt = QString("<h2><center>"
+					"<font color=\"red\">%1:</font> %2:"
+				"</center></h2><p><ul>\n")
+			.arg(tr("Error")).arg(tr("duplicate extensions"));
 		for(int i = 0; i< el.size(); i++) {
 			errtxt += "<li>" +el[i].getObject() +"</li>\n";
 		}
@@ -1101,13 +1103,13 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 	}
 	QString lineext;
 	if (!subAltName->text().isEmpty() && !getSubAltName().isValid())
-		lineext += "The Subject Alternative Name is invalid<br>\n";
+		lineext += tr("The Subject Alternative Name is invalid") + "<br>\n";
 	if (!issAltName->text().isEmpty() && !getIssAltName().isValid())
-		lineext += "The Issuer Alternative Name is invalid<br>\n";
+		lineext += tr("The Issuer Alternative Name is invalid") + "<br>\n";
 	if (!crlDist->text().isEmpty() && !getCrlDist().isValid())
-		lineext += "The CRL Distribution Point is invalid<br>\n";
+		lineext += tr("The CRL Distribution Point is invalid") + "<br>\n";
 	if (!authInfAcc->text().isEmpty() && !getAuthInfAcc().isValid())
-		lineext += "The Authority Information Access is invalid<br>\n";
+		lineext += tr("The Authority Information Access is invalid") + "<br>\n";
 	if (!lineext.isEmpty()) {
 		if (!result.isEmpty())
 			result += "\n<hr>\n";
