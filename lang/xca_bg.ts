@@ -542,7 +542,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+79"/>
+        <location filename="../ui/ExportDialog.ui" line="+75"/>
         <source>Name</source>
         <translation type="unfinished">Име</translation>
     </message>
@@ -562,12 +562,12 @@
         <translation type="unfinished">Име на файл</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+69"/>
         <source>Export comment into PEM file</source>
         <translation type="unfinished">Експортиране на коментар в PEM файл</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-44"/>
         <source>Export Format</source>
         <translation type="unfinished">Формат за експортирането</translation>
     </message>
@@ -1190,7 +1190,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished">Списъци с анулирани сертификати</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+595"/>
+        <location filename="../widgets/MainWindow.cpp" line="+628"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished">Използването или експортирането на лични ключове няма да е възможно без предоставяне на правилната парола</translation>
     </message>
@@ -1476,7 +1476,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished">За програмата</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-347"/>
+        <location filename="../widgets/MainWindow.cpp" line="-377"/>
         <source>Import PEM data</source>
         <translation type="unfinished">Импортиране на PEM данни</translation>
     </message>
@@ -1487,13 +1487,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="-169"/>
-        <location line="+644"/>
+        <location line="+675"/>
         <source>Search</source>
         <translatorcomment>или е търси/тестване на превода и виж/оптимизирай</translatorcomment>
         <translation type="unfinished">Търсене</translation>
     </message>
     <message>
-        <location line="-469"/>
+        <location line="-500"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation type="unfinished">Моля, въведете новия SO PIN (PUK) за токена &apos;%1&apos;</translation>
     </message>
@@ -1503,12 +1503,22 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished">Новият етикет на токена &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+117"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation type="unfinished">Токенът &apos;%1&apos; не съдържа никакви ключове или сертификати</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+4"/>
+        <source>Retry with PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Retry with SO PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <source>Current Password</source>
         <translation type="unfinished">Текуща парола</translation>
     </message>
@@ -2077,12 +2087,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Новият ключ &apos;%1&apos; е създаден</translation>
     </message>
     <message>
-        <location line="+243"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation type="unfinished">Други раздели</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Advanced Tab</source>
         <translation type="unfinished">Раздел Разширени</translation>
     </message>
@@ -2092,12 +2102,42 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Грешки</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished">От PKCS#10 заявката</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+10"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>duplicate extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The Subject Alternative Name is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The Issuer Alternative Name is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The CRL Distribution Point is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The Authority Information Access is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2107,13 +2147,13 @@ Please enter the DH parameter bits</source>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+33"/>
+        <location line="+35"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation type="unfinished">Прекъсване на внедряването</translation>
     </message>
     <message>
-        <location line="-217"/>
+        <location line="-219"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation type="unfinished">Следните ограничения за дължина на RFC3280 са нарушени:</translation>
     </message>
@@ -2129,13 +2169,13 @@ Please enter the DH parameter bits</source>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+33"/>
+        <location line="+35"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation type="unfinished">Продължи с внедряването</translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-199"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation type="unfinished">Проверката на заявката за сертификат е неуспешна.
@@ -2251,7 +2291,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation type="unfinished">Редактиране на разширенията</translation>
@@ -2342,7 +2382,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+56"/>
+        <location filename="../widgets/OpenDb.cpp" line="+57"/>
         <source>Database name</source>
         <translation type="unfinished">Име на база данни</translation>
     </message>
@@ -2352,7 +2392,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Префикс на таблицата</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+69"/>
+        <location filename="../widgets/OpenDb.cpp" line="+71"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation type="unfinished">Няма наличен SqLite3 драйвер. Моля, инсталирайте пакета qt-sqlite на вашата дистрибуция</translation>
     </message>
@@ -2777,13 +2817,13 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished">Зареждане на PEM кодиран файл</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+213"/>
+        <location filename="../lib/pkcs11.cpp" line="+219"/>
         <source>Please enter the PIN on the PinPad</source>
         <translatorcomment>Тествай/провери дали трябва да се преведе към пин пад?</translatorcomment>
         <translation type="unfinished">Моля, въведете PIN на PinPad</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+17"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation type="unfinished">Моля, въведете SO PIN (PUK) на токена %1</translation>
     </message>
@@ -2830,7 +2870,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="obsolete">Това не изглежда като a PKCS#11 библиотека. Символът &apos;C_GetFunctionList&apos; не е намерен.</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+118"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+119"/>
         <source>Disabled</source>
         <translation type="unfinished">Деактивирано</translation>
     </message>
@@ -3125,6 +3165,11 @@ In library %3
         <source>Password</source>
         <translation type="unfinished">Парола</translation>
     </message>
+    <message>
+        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <source>insecure</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -3363,12 +3408,11 @@ In library %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">OpenSSL конфигурация</translation>
+        <translation type="obsolete">OpenSSL конфигурация</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>Transform</source>
         <translation type="unfinished">Преобразуване</translation>
     </message>
@@ -3383,14 +3427,12 @@ In library %3
         <translation type="unfinished">Публичен ключ</translation>
     </message>
     <message>
-        <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation type="unfinished">Съхрани като OpenSSL конфигурация</translation>
+        <translation type="obsolete">Съхрани като OpenSSL конфигурация</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="unfinished">Конфигурационни файлове ( *.conf *.cnf);; Всички файлове ( * )</translation>
+        <translation type="obsolete">Конфигурационни файлове ( *.conf *.cnf);; Всички файлове ( * )</translation>
     </message>
 </context>
 <context>
@@ -3417,7 +3459,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+330"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
         <source>Item properties</source>
         <translation type="unfinished">Свойства на елемент</translation>
     </message>
@@ -4024,18 +4066,18 @@ and so it was not imported</source>
         <translation type="obsolete">Експортиране на сертификат</translation>
     </message>
     <message>
-        <location line="+105"/>
-        <location line="+50"/>
+        <location line="+106"/>
+        <location line="+54"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished">Не беше намерен ключ за сертификата: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location line="-51"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation type="unfinished">Невъзможно за токен ключ: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+55"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation type="unfinished">Невъзможно за сертификата за токен-ключ &apos;%1&apos;</translation>
     </message>
@@ -4210,7 +4252,7 @@ and thus was not stored</source>
 <context>
     <name>pkcs11_lib</name>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="-455"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="-456"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation type="unfinished">Възникна грешка при отваряне на PKCS11 библиотеката: %1: %2</translation>
     </message>
@@ -4399,14 +4441,14 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_export</name>
     <message>
-        <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+28"/>
-        <location line="+3"/>
+        <location filename="../lib/pki_export.cpp" line="+64"/>
+        <location line="+30"/>
+        <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation type="unfinished">PEM Текстов формат с хедери</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-33"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation type="unfinished">Конкатениран списък на всички избрани елементи в един PEM текстов файл</translation>
     </message>
@@ -4497,12 +4539,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+20"/>
+        <location line="+23"/>
         <source>vCalendar</source>
         <translation type="unfinished">vCalendar</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="-23"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation type="unfinished">vCalendar напомняне за изтичане на избраните елементи</translation>
     </message>
@@ -4515,6 +4557,28 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
         <translation type="unfinished">Напомняне за изтичане чрез vCalendar, съдържащо всички издадени валидни сертификати, самия CA и последния CRL</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+17"/>
+        <source>OpenSSL config</source>
+        <translation type="unfinished">OpenSSL конфигурация</translation>
+    </message>
+    <message>
+        <location line="-17"/>
+        <location line="+17"/>
+        <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-16"/>
+        <source>OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4628,7 +4692,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Binary DER format of the revocation list</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4741,7 +4805,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+37"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation type="unfinished">Моля, въведете паролата, за да декодирате на файла PKCS#12:
@@ -4779,7 +4843,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+45"/>
+        <location filename="../lib/pki_scard.cpp" line="+46"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation type="unfinished">Успешно импортиран ключ за токен &apos;%1&apos;</translation>
     </message>
@@ -4809,12 +4873,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished">Този ключ вече е на токена</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+84"/>
         <source>PIN input aborted</source>
         <translation type="unfinished">Въвеждането на PIN е прекратено</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+16"/>
         <source>Unable to find copied key on the token</source>
         <translation type="unfinished">Не може да се намери копиран ключ на токена</translation>
     </message>
@@ -4824,7 +4888,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished">Моля, поставете карта: %1 %2 [%3] със сериен номер: %4</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+54"/>
+        <source>Select Slot of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
         <source>Unable to find generated key on card</source>
         <translation type="unfinished">Не може да се намери генериран ключ на картата</translation>
     </message>
@@ -4835,7 +4904,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+9"/>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Failed to find the key on the token</source>
         <translation type="unfinished">Неуспешно намиране на ключа на токена</translation>
     </message>
@@ -4896,7 +4965,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+60"/>
+        <location filename="../lib/pki_x509.cpp" line="+62"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation type="unfinished">Успешно импортиран сертификат &apos;%1&apos;</translation>
     </message>
@@ -4916,12 +4985,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished">Изтриване на сертификатите %1: %2?</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+170"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation type="unfinished">Не може да се зареди сертификатът във файл %1. Опитах PEM и DER сертификат.</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+178"/>
         <source>This certificate is already on the security token</source>
         <translation type="unfinished">Този сертификат вече е на токена за сигурност</translation>
     </message>
@@ -4931,7 +5000,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished">Изтриване на сертификата &apos;%1&apos; от токена &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+132"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished">Няма ключ за подписване!</translation>
     </message>

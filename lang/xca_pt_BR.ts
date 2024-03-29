@@ -542,7 +542,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+79"/>
+        <location filename="../ui/ExportDialog.ui" line="+75"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
@@ -562,12 +562,12 @@
         <translation>Nome do Arquivo</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+69"/>
         <source>Export comment into PEM file</source>
         <translation>Exportar comentários para o arquivo PEM</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-44"/>
         <source>Export Format</source>
         <translation>Formato da Exportação</translation>
     </message>
@@ -1067,7 +1067,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>Lista de Revogação</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+595"/>
+        <location filename="../widgets/MainWindow.cpp" line="+628"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Não é possível Usar ou Exportar Chaves Privadas sem fornecer a senha correta</translation>
     </message>
@@ -1348,7 +1348,7 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>Sobre</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-347"/>
+        <location filename="../widgets/MainWindow.cpp" line="-377"/>
         <source>Import PEM data</source>
         <translation>Importar dados PEM</translation>
     </message>
@@ -1359,12 +1359,12 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     </message>
     <message>
         <location line="-169"/>
-        <location line="+644"/>
+        <location line="+675"/>
         <source>Search</source>
         <translation>Busca</translation>
     </message>
     <message>
-        <location line="-469"/>
+        <location line="-500"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>Favor entrar com o  novo SO PIN (PUK) para o dispositivo &apos;%1&apos;</translation>
     </message>
@@ -1374,12 +1374,22 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
         <translation>A nova etiqueta do dispositivo &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+117"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>O dispositivo &apos;%1&apos; não contém qualquer chave ou certificados</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+4"/>
+        <source>Retry with PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Retry with SO PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <source>Current Password</source>
         <translation>Senha Corrente</translation>
     </message>
@@ -1945,12 +1955,12 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>Nova Chave  &apos;%1&apos; criada</translation>
     </message>
     <message>
-        <location line="+243"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>Outras abas</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Advanced Tab</source>
         <translation>Abas Avançadas</translation>
     </message>
@@ -1960,12 +1970,42 @@ Entrar com bits dos parâmetros DH</translation>
         <translation>Erros</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>From PKCS#10 request</source>
         <translation>De Requisição PKCS#10</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+10"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>duplicate extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The Subject Alternative Name is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The Issuer Alternative Name is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The CRL Distribution Point is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The Authority Information Access is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -1975,13 +2015,13 @@ Entrar com bits dos parâmetros DH</translation>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+33"/>
+        <location line="+35"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>Abortar o procedimento</translation>
     </message>
     <message>
-        <location line="-217"/>
+        <location line="-219"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Foram violadas as seguintes restrições da RFC3280:</translation>
     </message>
@@ -1997,13 +2037,13 @@ Entrar com bits dos parâmetros DH</translation>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+33"/>
+        <location line="+35"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>Continuar o procedimento</translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-199"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>A verificação do Certificado Requisitado falhou.
@@ -2119,7 +2159,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
         <translation>O certificado contém extensões inválidas.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>Editar extensões</translation>
@@ -2210,7 +2250,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+56"/>
+        <location filename="../widgets/OpenDb.cpp" line="+57"/>
         <source>Database name</source>
         <translation>Nome do Banco de Dados</translation>
     </message>
@@ -2220,7 +2260,7 @@ entretanto foi configurado que aqueles indicadores são obrigatórios no menu de
         <translation>Prefixo da Tabela</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+69"/>
+        <location filename="../widgets/OpenDb.cpp" line="+71"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>Não há driver SqLite3 disponível. Favor instalar o pacote qt-sqlite da sua distribuição</translation>
     </message>
@@ -2607,12 +2647,12 @@ Especificamente, EC e DSA somente são definidos com SHA1 na especificação do 
         <translation>Carregar Arquivo codificado PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+213"/>
+        <location filename="../lib/pkcs11.cpp" line="+219"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Favor entrar com o PIN no PinPad</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+17"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation>Favor entrar o SO PIN (PUK) do dispositivo %1</translation>
     </message>
@@ -2647,7 +2687,7 @@ Especificamente, EC e DSA somente são definidos com SHA1 na especificação do 
         <translation>Tamanho do PIN requisitado: %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+118"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+119"/>
         <source>Disabled</source>
         <translation>Desabilitado</translation>
     </message>
@@ -2940,6 +2980,11 @@ Na biblioteca %3
         <source>Password</source>
         <translation>Senha</translation>
     </message>
+    <message>
+        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <source>insecure</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqTreeView</name>
@@ -3178,12 +3223,11 @@ Na biblioteca %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>OpenSSL config</source>
-        <translation>Configuração OpenSSL</translation>
+        <translation type="vanished">Configuração OpenSSL</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>Transform</source>
         <translation>Transformar</translation>
     </message>
@@ -3198,14 +3242,12 @@ Na biblioteca %3
         <translation>Chave Pública</translation>
     </message>
     <message>
-        <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation>Salvar como Configuração OpenSSL</translation>
+        <translation type="vanished">Salvar como Configuração OpenSSL</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation>Arquivos de Configuração OpenSSL ( *.conf *.cnf);; Todos os Arquivos ( * )</translation>
+        <translation type="vanished">Arquivos de Configuração OpenSSL ( *.conf *.cnf);; Todos os Arquivos ( * )</translation>
     </message>
 </context>
 <context>
@@ -3232,7 +3274,7 @@ Na biblioteca %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+330"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
         <source>Item properties</source>
         <translation>Propriedades do ítem</translation>
     </message>
@@ -3687,18 +3729,18 @@ e, assim, ela não será importada</translation>
         <translation>Armazenar o certificado da chave no dispositivo  &apos;%1 (#%2)&apos; ?</translation>
     </message>
     <message>
-        <location line="+105"/>
-        <location line="+50"/>
+        <location line="+106"/>
+        <location line="+54"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Não foi encontrada chave para o Certificado: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location line="-51"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Impossível para a chave de dispositivo: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+55"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Impossível para o Certificado com chave de dispositivo: &apos;%1&apos;</translation>
     </message>
@@ -3857,7 +3899,7 @@ e ela não será armazenada</translation>
 <context>
     <name>pkcs11_lib</name>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="-455"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="-456"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>Falha ao abrir a biblioteca PKCS11: %1: %2</translation>
     </message>
@@ -4046,14 +4088,14 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_export</name>
     <message>
-        <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+28"/>
-        <location line="+3"/>
+        <location filename="../lib/pki_export.cpp" line="+64"/>
+        <location line="+30"/>
+        <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>Formato Texto PEM com cabeçalhos</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-33"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Lista Concatenada de todos os ítens selecionados em 1 arquivo texto PEM</translation>
     </message>
@@ -4144,12 +4186,12 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+20"/>
+        <location line="+23"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="-23"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>Lembrete de expiração vCalendar para os ítens selecionados</translation>
     </message>
@@ -4162,6 +4204,28 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
         <translation>lembrete de expiração por vCalendar contendo todos os certificados emitidos, válidos, além do próprio AC e do último CRL</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+17"/>
+        <source>OpenSSL config</source>
+        <translation type="unfinished">Configuração OpenSSL</translation>
+    </message>
+    <message>
+        <location line="-17"/>
+        <location line="+17"/>
+        <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-16"/>
+        <source>OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4275,7 +4339,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
         <translation>Formato DER binário da requisição de certificado</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Binary DER format of the revocation list</source>
         <translation>Formato DER binário da lista de revogação</translation>
     </message>
@@ -4391,7 +4455,7 @@ Common is thecommonName
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+37"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>Favor entrar com a senha para decriptar o arquivo PKCS#12:
@@ -4429,7 +4493,7 @@ Common is thecommonName
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+45"/>
+        <location filename="../lib/pki_scard.cpp" line="+46"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>A chave do dispositivo &apos;%1&apos; foi importada com sucesso</translation>
     </message>
@@ -4459,12 +4523,12 @@ Common is thecommonName
         <translation>Esta chave já está no dispositivo</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+84"/>
         <source>PIN input aborted</source>
         <translation>Entrada de PIN cancelada</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+16"/>
         <source>Unable to find copied key on the token</source>
         <translation>Impossibilitado de achar a chave copiada no dispositivo</translation>
     </message>
@@ -4474,7 +4538,12 @@ Common is thecommonName
         <translation>Favor inserir o cartão: %1 %2 [%3] n° de série: %4</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+54"/>
+        <source>Select Slot of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
         <source>Unable to find generated key on card</source>
         <translation>Imossibibilidade de localizar a chave gerada no cartão</translation>
     </message>
@@ -4485,7 +4554,7 @@ Common is thecommonName
     </message>
     <message>
         <location line="+9"/>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Failed to find the key on the token</source>
         <translation>A busca pela chave no dispositivo falhou</translation>
     </message>
@@ -4546,7 +4615,7 @@ Common is thecommonName
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+60"/>
+        <location filename="../lib/pki_x509.cpp" line="+62"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>O certificado  &apos;%1&apos; foi importado com sucesso</translation>
     </message>
@@ -4566,12 +4635,12 @@ Common is thecommonName
         <translation>Apagar %1 dos certificados: %2?</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+170"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Impossibilidade de carregar certificado no arquivo %1. Tentativas de certificado PEM e DER falharam.</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+178"/>
         <source>This certificate is already on the security token</source>
         <translation>Este certificado já existe no dispositivo de segurança</translation>
     </message>
@@ -4581,7 +4650,7 @@ Common is thecommonName
         <translation>Apagar o certificado  &apos;%1&apos; do dispositivo &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+132"/>
         <source>There is no key for signing !</source>
         <translation>Não há qualquer chave para assinar!</translation>
     </message>

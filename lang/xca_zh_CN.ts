@@ -551,7 +551,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+79"/>
+        <location filename="../ui/ExportDialog.ui" line="+75"/>
         <source>Name</source>
         <translation>内部名称</translation>
     </message>
@@ -571,12 +571,12 @@
         <translation>文件名</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+69"/>
         <source>Export comment into PEM file</source>
         <translation>导出备注至PEM文件</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-44"/>
         <source>Export Format</source>
         <translation>导出格式</translation>
     </message>
@@ -1188,7 +1188,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>吊销列表</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+595"/>
+        <location filename="../widgets/MainWindow.cpp" line="+628"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>若没有提供正确的密码，将无法使用或导出私钥</translation>
     </message>
@@ -1513,7 +1513,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="vanished">没有这个选项: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-347"/>
+        <location filename="../widgets/MainWindow.cpp" line="-377"/>
         <source>Import PEM data</source>
         <translation>导入PEM数据</translation>
     </message>
@@ -1524,12 +1524,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="-169"/>
-        <location line="+644"/>
+        <location line="+675"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location line="-469"/>
+        <location line="-500"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
         <translation>请输入安全令牌&apos;%1&apos;的新SO PIN（PUK）</translation>
     </message>
@@ -1539,12 +1539,22 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>令牌的新标签 &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+117"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>安全令牌&apos;%1&apos;不包含任何密钥和证书</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+4"/>
+        <source>Retry with PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Retry with SO PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <source>Current Password</source>
         <translation>当前密码</translation>
     </message>
@@ -2142,12 +2152,12 @@ Please enter the DH parameter bits</source>
         <translation>新密钥&apos;%1&apos;已创建</translation>
     </message>
     <message>
-        <location line="+243"/>
+        <location line="+242"/>
         <source>Other Tabs</source>
         <translation>其他标签页</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Advanced Tab</source>
         <translation>高级标签页</translation>
     </message>
@@ -2157,12 +2167,42 @@ Please enter the DH parameter bits</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>From PKCS#10 request</source>
         <translation>来自PKCS#10请求</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+10"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>duplicate extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The Subject Alternative Name is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The Issuer Alternative Name is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The CRL Distribution Point is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The Authority Information Access is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2172,13 +2212,13 @@ Please enter the DH parameter bits</source>
         <location line="+19"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+33"/>
+        <location line="+35"/>
         <location line="+20"/>
         <source>Abort rollout</source>
         <translation>中止创建</translation>
     </message>
     <message>
-        <location line="-217"/>
+        <location line="-219"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>违反了RFC3280长度限制：</translation>
     </message>
@@ -2194,13 +2234,13 @@ Please enter the DH parameter bits</source>
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location line="+33"/>
+        <location line="+35"/>
         <location line="+20"/>
         <source>Continue rollout</source>
         <translation>仍然继续</translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-199"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>证书签名请求（CSR）的有效性验证失败。
@@ -2317,7 +2357,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>新证书包含无效的扩展。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <location line="+20"/>
         <source>Edit extensions</source>
         <translation>编辑扩展信息</translation>
@@ -2407,7 +2447,7 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+14"/>
-        <location filename="../widgets/OpenDb.cpp" line="+56"/>
+        <location filename="../widgets/OpenDb.cpp" line="+57"/>
         <source>Database name</source>
         <translation>数据库名</translation>
     </message>
@@ -2417,7 +2457,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>表前缀</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="+69"/>
+        <location filename="../widgets/OpenDb.cpp" line="+71"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation>SqLite3数据库驱动不可用，请安装qt-sqlite包。</translation>
     </message>
@@ -3049,12 +3089,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>加载PEM文件</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+213"/>
+        <location filename="../lib/pkcs11.cpp" line="+219"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>请输入PIN</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+17"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation>请输入令牌%1的SO PIN (PUK)</translation>
     </message>
@@ -3101,7 +3141,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">这好像不是PKCS#11动态库。找不到符号&apos;C_GetFunctionList&apos;。</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+118"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+119"/>
         <source>Disabled</source>
         <translation>已禁用</translation>
     </message>
@@ -3203,6 +3243,11 @@ In library %3
         <location filename="../lib/PwDialogCore.cpp" line="+33"/>
         <source>Password</source>
         <translation>密码</translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <source>insecure</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3442,12 +3487,11 @@ In library %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>OpenSSL config</source>
-        <translation>OpenSSL配置</translation>
+        <translation type="vanished">OpenSSL配置</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>Transform</source>
         <translation>转换</translation>
     </message>
@@ -3462,14 +3506,12 @@ In library %3
         <translation>公钥</translation>
     </message>
     <message>
-        <location line="+30"/>
         <source>Save as OpenSSL config</source>
-        <translation>保存为OpenSSL配置</translation>
+        <translation type="vanished">保存为OpenSSL配置</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation>Config files ( *.conf *.cnf);; All files ( * )</translation>
+        <translation type="vanished">Config files ( *.conf *.cnf);; All files ( * )</translation>
     </message>
 </context>
 <context>
@@ -3496,7 +3538,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+330"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
         <source>Item properties</source>
         <translation>条目属性</translation>
     </message>
@@ -4079,13 +4121,13 @@ and so it was not imported</source>
         <translation type="vanished">证书导出</translation>
     </message>
     <message>
-        <location line="+105"/>
-        <location line="+50"/>
+        <location line="+106"/>
+        <location line="+54"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>找不到证书&apos;%1&apos;的密钥</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location line="-51"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>令牌密钥&apos;%1&apos;不可用</translation>
     </message>
@@ -4094,7 +4136,7 @@ and so it was not imported</source>
         <translation type="vanished">打开文件错误: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+55"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>令牌证书&apos;%1&apos;不可用</translation>
     </message>
@@ -4265,7 +4307,7 @@ and thus was not stored</source>
 <context>
     <name>pkcs11_lib</name>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="-455"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="-456"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
         <translation>打开PKCS11动态链接库失败: %1: %2</translation>
     </message>
@@ -4492,14 +4534,14 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_export</name>
     <message>
-        <location filename="../lib/pki_export.cpp" line="+58"/>
-        <location line="+28"/>
-        <location line="+3"/>
+        <location filename="../lib/pki_export.cpp" line="+64"/>
+        <location line="+30"/>
+        <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>带头部的PEM格式</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-33"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>导出选定的条目至PEM文件</translation>
     </message>
@@ -4590,12 +4632,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+20"/>
+        <location line="+23"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="-23"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>所选条目的vCalendar到期提醒</translation>
     </message>
@@ -4608,6 +4650,28 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+0"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
         <translation>vCalendar到期提醒（包含所有已签发的有效证书，CA本身和最新CRL）</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+17"/>
+        <source>OpenSSL config</source>
+        <translation type="unfinished">OpenSSL配置</translation>
+    </message>
+    <message>
+        <location line="-17"/>
+        <location line="+17"/>
+        <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-16"/>
+        <source>OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4721,7 +4785,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>证书签名请求（CSR）的DER二进制格式</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Binary DER format of the revocation list</source>
         <translation>证书吊销列表（CRL）的DER二进制格式</translation>
     </message>
@@ -4834,7 +4898,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+37"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>请输入密码，用于解密PKCS#12文件:
@@ -4872,7 +4936,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+45"/>
+        <location filename="../lib/pki_scard.cpp" line="+46"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>成功导入令牌密钥 &apos;%1&apos;</translation>
     </message>
@@ -4902,12 +4966,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>令牌中已存在该密钥</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+84"/>
         <source>PIN input aborted</source>
         <translation>PIN输入中止</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+16"/>
         <source>Unable to find copied key on the token</source>
         <translation>无法在令牌上找到复制的密钥</translation>
     </message>
@@ -4915,6 +4979,11 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+88"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>请插入智能卡: %1 %2 [%3] 序列号: %4</translation>
+    </message>
+    <message>
+        <location line="+54"/>
+        <source>Select Slot of %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Public Key mismatch. Please re-import card</source>
@@ -4925,7 +4994,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">不合法的密钥生成方法</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+38"/>
         <source>Unable to find generated key on card</source>
         <translation>无法在智能卡上找到生成的密钥</translation>
     </message>
@@ -4944,7 +5013,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+9"/>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Failed to find the key on the token</source>
         <translation>无法在令牌上找到密钥</translation>
     </message>
@@ -5009,7 +5078,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+60"/>
+        <location filename="../lib/pki_x509.cpp" line="+62"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>成功导入证书 &apos;%1&apos;</translation>
     </message>
@@ -5029,12 +5098,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>删除%1个证书: %2?</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+170"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>无法从文件%1加载证书。尝试使用PEM或DER格式的证书。</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+178"/>
         <source>This certificate is already on the security token</source>
         <translation>安全令牌上已存在该证书</translation>
     </message>
@@ -5044,7 +5113,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>从令牌 &apos;%2 (#%3)&apos;中删除证书 &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+132"/>
         <source>There is no key for signing !</source>
         <translation>没有可用于签名的密钥 !</translation>
     </message>
