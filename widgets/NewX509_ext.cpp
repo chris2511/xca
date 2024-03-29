@@ -270,20 +270,13 @@ void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req)
 	X509V3_set_ctx(&ext_ctx, s, s1, r, NULL, 0);
 }
 
-extList NewX509::getExtDuplicates()
+extList NewX509::getExtDuplicates(const extList &el)
 {
 	int i, start, cnt, n1, n;
 	x509v3ext e;
-	const STACK_OF(X509_EXTENSION) *sk;
-	extList el_dup, el;
+	extList el_dup;
 	QString olist;
 
-	if (ext_ctx.subject_cert) {
-		sk = X509_get0_extensions(ext_ctx.subject_cert);
-	} else
-		return el_dup;
-
-	el.setStack(sk, 0);
 	cnt = el.size();
 	for (start=0; start < cnt; start++) {
 		n1 = el[start].nid();

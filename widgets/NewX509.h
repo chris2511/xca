@@ -60,7 +60,7 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		pki_x509 *ctx_cert{};
 		QString v3ext_backup{};
 		kvmodel *extDNmodel{};
-		extList getExtDuplicates();
+		extList getExtDuplicates(const extList &el);
 		void checkIcon(const QString &text, int nid, QLabel*img);
 		void selfComment(QString msg);
 		QMap<QString, QLineEdit*> templateLineEdits{};

@@ -1026,9 +1026,8 @@ void NewX509::undo_validateExtensions()
 enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 {
 	enum extension_error ee = ee_none;
-	qsizetype ext_count = 0;
 	QStringList errors;
-	extList el, req_el;
+	extList el, el_all, req_el;
 	ign_openssl_error();
 	setupTmpCtx();
 
@@ -1041,19 +1040,20 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 		errors += err.getString();
 		el.clear();
 	}
-	ext_count += el.size();
 	if (el.size() > 0) {
 		result += "<h2><center>";
 		result += tr("Other Tabs") + "</center></h2><p>\n";
 		result += el.getHtml("<br>");
 	}
+	setupTmpCtx();
+	el_all += el;
 	try {
 		el = getAdvanced();
 	} catch (errorEx &err) {
 		errors += err.getString();
 		el.clear();
 	}
-	ext_count += el.size();
+	el_all += el;
 	if (el.size() > 0) {
 		if (!result.isEmpty())
 			result += "\n<hr>\n";
@@ -1071,6 +1071,7 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 		ee = ee_invaldup;
 	}
 	el.clear();
+	setupTmpCtx();
 	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
 		req_el = getSelectedReq()->getV3ext();
 		for (int i=0; i<req_el.count(); i++) {
@@ -1078,7 +1079,7 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 				el += req_el[i];
 		}
 	}
-	ext_count += el.size();
+	el_all += el;
 	if (el.size() > 0) {
 		if (!result.isEmpty())
 			result += "\n<hr>\n";
@@ -1086,7 +1087,7 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 		result += tr("From PKCS#10 request") +"</center></h2><p>\n";
 		result += el.getHtml("<br>");
 	}
-	el = getExtDuplicates();
+	el = getExtDuplicates(el_all);
 	if (el.size() > 0) {
 		QString errtxt;
 		ee = ee_invaldup;
@@ -1113,7 +1114,7 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 		result += lineext;
 		ee = ee_inval;
 	}
-	if (ee == ee_none && ext_count == 0 && pt == x509)
+	if (ee == ee_none && el_all.size() == 0 && pt == x509)
 		ee = ee_empty;
 
 	ign_openssl_error();
