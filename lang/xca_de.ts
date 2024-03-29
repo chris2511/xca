@@ -1332,12 +1332,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+128"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen mit PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen mit SO PIN</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2658,32 +2658,32 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+294"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppelte Erweiterung</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Der alternative Eigentümername (Subject Alternative Name) ist ungültig</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Der alterative Ausstellername (Issuer Alternative Name) ist ungültig</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Die CRL Verteilungsstelle (CRL Distribution Point) ist ungültig</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Ausstellerinformationszugriff (Authority information access) is ungültig</translation>
     </message>
     <message>
         <location line="+206"/>
@@ -3725,7 +3725,7 @@ in Bibliothek %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>Unsicher</translation>
     </message>
 </context>
 <context>
@@ -5834,23 +5834,23 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <location line="+1"/>
         <location line="+17"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">OpenSSL Konfiguration</translation>
+        <translation>OpenSSL Konfiguration</translation>
     </message>
     <message>
         <location line="-17"/>
         <location line="+17"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSL Konfigurationsdatei um ein Zertifikat oder ein Zertifikatsantrag mit dem OpenSSL Kommandozeilenwerkzeug zu erstellen</translation>
     </message>
     <message>
         <location line="-16"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth Schlüssel</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>Der tls-auth Schlüssel ist ein geheimer Schlüssel, der von allen Verbindungsteilnehmern geteilt wird</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6202,7 +6202,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle die Position auf %1</translation>
     </message>
     <message>
         <source>Illegal Key generation method</source>
