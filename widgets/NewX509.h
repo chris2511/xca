@@ -52,6 +52,7 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		void editV3ext(QLineEdit *le, QString types, int n);
 		enum pki_type pt{ none };
 		enum pki_source pkiSource{ generated };
+		enum extension_error { ee_none, ee_invaldup, ee_empty, ee_inval };
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
 		QStringList tabnames{};
@@ -114,8 +115,8 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		pki_temp *currentTemplate();
 		void gotoTab(int tab);
 		void setupLineEditByNid(int nid, QLineEdit *l);
-		int validateExtensions(QString nconf, QString &result);
-		int do_validateExtensions();
+		enum extension_error validateExtensions(QString &result);
+		enum extension_error do_validateExtensions();
 		void undo_validateExtensions();
 		enum pki_source getPkiSource() const;
 		QList<pki_x509req*> getAllRequests() const;
