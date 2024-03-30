@@ -32,7 +32,7 @@
 << "CREATE TABLE settings ("
 	"key_ CHAR(20) UNIQUE, "        // mySql does not like 'key' or 'option"
 	"value " B64_BLOB ")"
-<< "INSERT INTO settings (key_, value) VALUES ('schema', '" SCHEMA_VERSION "')"
+<< "INSERT INTO settings (key_, value) VALUES ('schema', '" INITIAL_SCHEMA_VERSION "')"
 
 /*
  * All items (keys, tokens, requests, certs, crls, templates)
