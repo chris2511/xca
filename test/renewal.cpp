@@ -45,10 +45,12 @@ void renew()
 	CertExtend *dlg = test_main::findWindow<CertExtend>("CertExtend");
 	if (!dlg)
 		return;
+	dlg->validNumber->setText("1");
+	dlg->validRange->setCurrentIndex(1);
+	dlg->applyTime->click();
+	not_after = dlg->notAfter->getDate();
 	dlg->replace->setCheckState(Qt::Unchecked);
 	dlg->revoke->setCheckState(Qt::Unchecked);
-	dlg->notAfter->setDate(not_after);
-	dlg->buttonBox->button(QDialogButtonBox::Ok)->click();
 	dlg->buttonBox->button(QDialogButtonBox::Ok)->click();
 }
 
@@ -61,7 +63,6 @@ void renew_del_keep_serial()
 	dlg->revoke->setCheckState(Qt::Unchecked);
 	dlg->noWellDefinedExpDate->setCheckState(Qt::Checked);
 	dlg->keepSerial->setCheckState(Qt::Checked);
-	dlg->buttonBox->button(QDialogButtonBox::Ok)->click();
 	dlg->buttonBox->button(QDialogButtonBox::Ok)->click();
 }
 
@@ -90,11 +91,14 @@ void test_main::revoke()
 	dbstatus();
 
 	QThread *job;
+	QList<pki_x509*> l;
 	db_x509 *certs = Database.model<db_x509>();
+	pki_x509 *cert;
+	a1int serial;
 
 	// Revoke and renew
-	pki_x509 *cert = dynamic_cast<pki_x509*>(certs->getByName("Inter CA 1"));
-	a1int serial = cert->getSerial();
+	cert = dynamic_cast<pki_x509*>(certs->getByName("Inter CA 1"));
+	serial = cert->getSerial();
 	job = QThread::create(revoke_and_renew);
 	job->start();
 	certs->certRenewal({ certs->index(cert) });
@@ -102,7 +106,7 @@ void test_main::revoke()
 
 	delete job;
 	dbstatus();
-	QList<pki_x509*> l = getcerts("Inter CA 1");
+	l = getcerts("Inter CA 1");
 	QCOMPARE(1, l.size());
 
 	bool found = false;
@@ -114,7 +118,6 @@ void test_main::revoke()
 	QVERIFY2(found, "Revoked serial not found");
 
 	// renew
-	not_after = not_after.addDays(30);
 	job = QThread::create(renew);
 	job->start();
 	certs->certRenewal({ certs->index(certs->getByName("Inter CA 1")) });

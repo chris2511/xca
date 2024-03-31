@@ -13,6 +13,9 @@
 
 #include "PwDialogMock.h"
 
+#include <QTest>
+#include <QtGlobal>
+
 class test_main: public QObject
 {
 	Q_OBJECT
@@ -45,8 +48,11 @@ class test_main: public QObject
 					ret = dest;
 				}
 			}
-			if (ret)
+			if (ret) {
+				if (!QTest::qWaitForWindowActive(ret))
+					return nullptr;
 				return ret;
+			}
 			QThread::msleep(50);
 		}
 		qWarning() << "Widget not found:" << name;
