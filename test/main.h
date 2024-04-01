@@ -35,6 +35,7 @@ class test_main: public QObject
 	void importPEM();
 	void exportFormat();
 	void revoke();
+	void testValidity();
 
   public:
 	template <class T> static T *findWindow(const QString &name)

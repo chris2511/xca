@@ -57,7 +57,6 @@ void Validity::localTime(int state)
 		break;
 	}
 	updateFormatString();
-	setMyTime(time());
 }
 
 void Validity::hideTimeCheck(int state)
@@ -112,6 +111,7 @@ void Validity::updateFormatString()
 void Validity::setDate(const a1time &a)
 {
 	setDateTime(a);
+	setMyTime(a.time());
 }
 
 void Validity::setDiff(const Validity *start, int number, int range)
@@ -134,8 +134,7 @@ void Validity::setDiff(const Validity *start, int number, int range)
 
 void Validity::setNow()
 {
-	setDateTime(a1time::now());
-	setMyTime(time());
+	setDate(a1time());
 }
 
 void Validity::setMyTime(const QTime &time)
@@ -143,3 +142,8 @@ void Validity::setMyTime(const QTime &time)
 	mytime = time;
 }
 
+void Validity::setEndDate(bool ed)
+{
+	endDate = ed;
+	hideTime(midnight);
+}

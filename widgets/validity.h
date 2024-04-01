@@ -28,10 +28,8 @@ class Validity : public QDateTimeEdit
 	void setDate(const a1time &a);
 	void setDiff(const Validity *start, int number, int range);
 	void hideTime(bool hide);
-	void setEndDate(bool ed)
-	{
-		endDate = ed;
-	}
+	void setEndDate(bool ed);
+
   protected slots:
 	void setMyTime(const QTime & time);
 
