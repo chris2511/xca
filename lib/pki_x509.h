@@ -164,6 +164,7 @@ class pki_x509 : public pki_x509super
 		QStringList icsVEVENT() const;
 		QStringList icsVEVENT_ca() const;
 		QString getTaKey();
+		bool importTaKey(const QByteArray &takey);
 };
 
 Q_DECLARE_METATYPE(pki_x509 *);

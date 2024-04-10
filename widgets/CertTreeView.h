@@ -42,5 +42,6 @@ class CertTreeView: public X509SuperTreeView
 	void revoke();
 	void unRevoke();
 	void load();
+	void loadTaKey();
 };
 #endif

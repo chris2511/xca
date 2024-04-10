@@ -152,6 +152,14 @@ load_db::load_db()
 	caption = QObject::tr("Open XCA Database");
 }
 
+/* OpenVPN TA key */
+load_takey::load_takey()
+	:load_base()
+{
+	filter = QObject::tr("OpenVPN tls-auth key ( *.key );;") + filter;
+	caption = QObject::tr("Import OpenVPN tls-auth key");
+}
+
 /* Shared library */
 load_pkcs11::load_pkcs11()
 	:load_base()

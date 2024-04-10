@@ -19,6 +19,7 @@
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
+#include <QFileDialog>
 #include <QMenu>
 
 void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
@@ -27,7 +28,6 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	QMenu *subCa;
 	bool parentCanSign, multi, hasScard, sameParent,
 		allRevoked, allUnrevoked;
-	pki_key *privkey;
 
 	X509SuperTreeView::fillContextMenu(menu, subExport, index, indexes);
 
@@ -35,13 +35,12 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 
 	pki_x509 *cert = db_base::fromIndex<pki_x509>(index);
-	pki_x509 *parent;
 
 	if (indexes.size() == 0 || !cert)
 		return;
 
-	privkey = cert->getRefKey();
-	parent = cert->getSigner();
+	pki_key *privkey = cert->getRefKey();
+	pki_x509 *parent = cert->getSigner();
 	parentCanSign = parent && parent->canSign() && (parent != cert);
 	hasScard = pkcs11::libraries.loaded();
 
@@ -79,8 +78,11 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
 		subCa->addAction(tr("Manage revocations"), this,
-			 SLOT(manageRevocations()));
+			SLOT(manageRevocations()));
 		subCa->setEnabled(cert->canSign());
+
+		menu->addAction(tr("Import OpenVPN tls-auth key"), this,
+			SLOT(loadTaKey()))->setEnabled(cert->isCA());
 	}
 	if (parent == cert && parent->canSign())
 		menu->addAction(tr("Renewal"), this, SLOT(certRenewal()));
@@ -123,6 +125,22 @@ void CertTreeView::loadPKCS7()
 {
 	load_pkcs7 l;
 	load_default(&l);
+}
+
+void CertTreeView::loadTaKey()
+{
+	pki_x509 *ca = db_base::fromIndex<pki_x509>(currentIndex());
+	if (!ca || !ca->isCA())
+		return;
+
+	load_takey l;
+	QString fname = QFileDialog::getOpenFileName(this, l.caption,
+					getHomeDir(), l.filter);
+	if (fname.isEmpty())
+		return;
+	XFile f(fname);
+	f.open_read();
+	ca->importTaKey(f.read(4096));
 }
 
 void CertTreeView::genCrl()

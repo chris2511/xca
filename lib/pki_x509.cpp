@@ -276,6 +276,9 @@ pki_x509 *pki_x509::getBySerial(const a1int &a) const
 	return NULL;
 }
 
+#define D5 "-----"
+#define OVPN_TA_KEY "OpenVPN Static key V1"
+
 QString pki_x509::getTaKey()
 {
 	XSqlQuery q;
@@ -304,12 +307,67 @@ QString pki_x509::getTaKey()
 		qDebug() << "Generated TA key" << this << b.size() << QString::fromLatin1(b.toHex()).left(6);
 	}
 	TransCommit();
-	QString takey("-----BEGIN OpenVPN Static key V1-----\n");
+	QString takey(D5 "BEGIN " OVPN_TA_KEY D5 "\n");
 	QString hex(QString::fromLatin1(b.toHex()));
 	for (int i=0; i<16; i++)
 		takey += hex.mid(32*i, 32) + "\n";
-	takey += "-----END OpenVPN Static key V1-----\n";
+	takey += D5 "END " OVPN_TA_KEY D5 "\n";
 	return takey;
+}
+
+bool pki_x509::importTaKey(const QByteArray &takey)
+{
+	int start = takey.indexOf(D5 "BEGIN " OVPN_TA_KEY D5);
+	int end = takey.indexOf(D5 "END " OVPN_TA_KEY D5);
+	QByteArray data, existing_takey;
+	bool existed= false;
+
+	if (start >= 0 && end > 0 && start < end) {
+		start += sizeof D5 "BEGIN " OVPN_TA_KEY D5;
+		data = QByteArray::fromHex(takey.mid(start, end-start));
+		qDebug() << "TAKEY content" << start << end << data.size();
+	}
+	if (data.size() != 2048/8) {
+		XCA_ERROR(tr("Invalid OpenVPN tls-auth key"));
+		return false;
+	}
+
+	XSqlQuery q;
+	Transaction;
+	if (!TransBegin())
+		return false;
+
+	SQL_PREPARE(q, "SELECT value FROM takeys WHERE item = ?");
+	q.bindValue(0, sqlItemId);
+	q.exec();
+	if (q.next()) {
+		existed = true;
+		existing_takey = QByteArray::fromBase64(q.value(0).toByteArray());
+		qDebug() << "Existing TA key" << this << existing_takey.size()
+				<< QString::fromLatin1(existing_takey.toHex()).left(6);
+	}
+	if (existing_takey != data) {
+		if (existed)
+			SQL_PREPARE(q, "UPDATE takeys SET value = ? WHERE item = ?");
+		else
+			SQL_PREPARE(q, "INSERT INTO takeys (item, value) VALUES ( ?, ? )");
+		q.bindValue(0, sqlItemId);
+		q.bindValue(1, data.toBase64());
+		q.exec();
+	}
+	TransCommit();
+	QSqlError e = q.lastError();
+	if (e.isValid()) {
+		XCA_ERROR(tr("Failed to import tls-auth key"));
+		return false;
+	} else if (existing_takey == data) {
+		XCA_INFO(tr("Same tls-auth key already stored for this CA"));
+	} else if (existing_takey.isEmpty()) {
+		XCA_INFO(tr("New tls-auth key successfully imported"));
+	} else {
+		XCA_INFO(tr("Existing tls-auth key successfully replaced"));
+	}
+	return true;
 }
 
 a1int pki_x509::hashInfo(const EVP_MD *md) const
