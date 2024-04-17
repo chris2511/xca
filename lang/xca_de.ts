@@ -1646,7 +1646,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="-79"/>
         <source>Ch&amp;ange Template</source>
-        <translation>Vorl&amp;age Ändern</translation>
+        <translation>Vorl&amp;age ändern</translation>
     </message>
     <message>
         <location line="+61"/>
@@ -1710,7 +1710,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+4"/>
         <source>Open DataBase</source>
-        <translation>Datenbank Öffnen</translation>
+        <translation>Datenbank öffnen</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1908,7 +1908,7 @@ Bitte die DH Parameter bits angeben</translation>
     <message>
         <location line="-64"/>
         <source>Set as default DataBase</source>
-        <translation>Als Standard datenbank</translation>
+        <translation>Als Standarddatenbank</translation>
     </message>
     <message>
         <source>&amp;Token</source>
@@ -2192,7 +2192,7 @@ Bitte die DH Parameter bits angeben</translation>
     <message>
         <location line="+27"/>
         <source>Signature algorithm</source>
-        <translation>Signatur algorithmus</translation>
+        <translation>Signatur-Algorithmus</translation>
     </message>
     <message>
         <location line="+28"/>
