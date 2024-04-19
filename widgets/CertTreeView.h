@@ -21,7 +21,11 @@ class CertTreeView: public X509SuperTreeView
 	}
 
     public:
-	CertTreeView(QWidget *parent) : X509SuperTreeView(parent) { }
+	CertTreeView(QWidget *parent) : X509SuperTreeView(parent)
+	{
+		ClipboardSettings = "CertFormat";
+		ClipboardPki_type = x509;
+	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
 	ExportDialog *exportDialog(const QModelIndexList &index);

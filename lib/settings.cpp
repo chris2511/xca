@@ -48,6 +48,7 @@ settings::settings()
 	defaul["fp_separator"] = ":";
 	defaul["fp_digits"] = "2";
 	defaul["KeyFormat"] = QString::number(DEFAULT_KEY_CLIPBOARD_TYPE);
+	defaul["CertFormat"] = QString::number(DEFAULT_CERT_CLIPBOARD_TYPE);
 
 	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
 }

@@ -13,6 +13,7 @@
 #include <QRegularExpression>
 #include <QFileDialog>
 #include <QClipboard>
+#include <QActionGroup>
 
 #include "OidResolver.h"
 #include "XcaHeaderView.h"
@@ -531,11 +532,15 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 		menu->addAction(tr("Delete"), this, SLOT(deleteItems()))->
 				setShortcut(QKeySequence::Delete);
 		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("Clipboard"), this,
+		const pki_export *xport = pki_export::by_id(Settings[ClipboardSettings]);
+		subExport->addAction(QString("%1 (%2)")
+							.arg(tr("Clipboard")).arg(xport->desc), this,
 				SLOT(pem2clipboard()))->setShortcut(QKeySequence::Copy);
 		subExport->addAction(tr("File"), this, SLOT(exportItems()))->
 				setShortcut(QKeySequence::Save);
 	}
+
+	clipboardFormatMenu(menu);
 
 	fillContextMenu(menu, subExport, index, indexes);
 
@@ -584,4 +589,32 @@ void XcaTreeView::changeEvent(QEvent *event)
 			break;
 	}
     QTreeView::changeEvent(event);
+}
+
+void XcaTreeView::clipboardFormatMenu(QMenu *menu)
+{
+	if (!ClipboardSettings || !ClipboardPki_type)
+		return;
+	int exp_type = Settings[ClipboardSettings];
+
+	QActionGroup *group = new QActionGroup(menu);
+	QMenu *clipboard = menu->addMenu(tr("Clipboard format"));
+	foreach(const pki_export *x, pki_export::select(ClipboardPki_type, 0)) {
+		if (!(x->flags & F_CLIPBOARD))
+			continue;
+		QAction *a = clipboard->addAction(x->desc);
+		a->setData(x->id);
+		a->setCheckable(true);
+		a->setChecked(exp_type == x->id);
+		group->addAction(a);
+	}
+
+	connect(group, SIGNAL(triggered(QAction*)),
+		this, SLOT(clipboardFormat(QAction*)));
+}
+
+void XcaTreeView::clipboardFormat(QAction *a)
+{
+	if (ClipboardSettings)
+		Settings[ClipboardSettings] = a->data().toInt();
 }

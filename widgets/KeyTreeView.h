@@ -22,7 +22,11 @@ class KeyTreeView: public XcaTreeView
 	}
 
   public:
-	KeyTreeView(QWidget *parent) : XcaTreeView(parent) { }
+	KeyTreeView(QWidget *parent) : XcaTreeView(parent)
+	{
+		ClipboardSettings = "KeyFormat";
+		ClipboardPki_type = asym_key;
+	}
 	void fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes);
 	void showPki(pki_base *pki);
@@ -38,6 +42,5 @@ class KeyTreeView: public XcaTreeView
 	void newItem();
 	void load();
 	void newItem(const QString &name);
-	void clipboardFormat(QAction*);
 };
 #endif

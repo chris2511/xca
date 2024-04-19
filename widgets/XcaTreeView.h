@@ -14,6 +14,8 @@
 #include <QSortFilterProxyModel>
 #include <QTimer>
 
+#include "lib/pki_export.h"
+
 class database_model;
 class MainWindow;
 class db_base;
@@ -36,6 +38,9 @@ class XcaTreeView: public QTreeView
 	db_base *basemodel{};
 	QSortFilterProxyModel *proxy{};
 	MainWindow *mainwin{};
+	const char *ClipboardSettings{};
+	enum pki_type ClipboardPki_type{ none };
+	void clipboardFormatMenu(QMenu *menu);
 
   public:
 	XcaTreeView(QWidget *parent = nullptr);
@@ -85,5 +90,6 @@ class XcaTreeView: public QTreeView
 	void showItem(const QModelIndex &index);
 	void showItem(const QString &name);
 	void itemSelectionChanged(const QModelIndex &m, const QModelIndex &);
+	void clipboardFormat(QAction*);
 };
 #endif

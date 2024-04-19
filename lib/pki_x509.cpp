@@ -717,7 +717,26 @@ QString pki_x509::getIndexEntry()
 
 bool pki_x509::pem(BioByteArray &b)
 {
-	return PEM_write_bio_X509(b, cert);
+	const pki_export *xport = pki_export::by_id(Settings["CertFormat"]);
+
+	if (xport->match_all(F_PEM | F_CHAIN)) {
+		pki_x509 *iss, *prev;
+		for (iss = this, prev = nullptr; iss && iss != prev;
+			prev = iss, iss = iss->getSigner())
+		{
+			qDebug() << "Exporting to ClipBoard" << iss->getIntName();
+			if (!PEM_write_bio_X509(b, iss->cert))
+				return false;
+		}
+	} else if (xport->match_all(F_PEM | F_PRIVATE)) {
+		pki_key *key = getRefKey();
+		if (!key || !PEM_write_bio_X509(b, cert))
+			return false;
+		return key->pem(b, xport);
+	} else {
+		return PEM_write_bio_X509(b, cert);
+	}
+	return true;
 }
 
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
@@ -725,7 +744,6 @@ bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);
 	pki_openssl_error();
 	return ret;
-
 }
 
 bool pki_x509::verify_only(const pki_x509 *signer) const

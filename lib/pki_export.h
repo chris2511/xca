@@ -15,6 +15,7 @@
 
 #define BIT(n) (1<<n)
 #define DEFAULT_KEY_CLIPBOARD_TYPE 19
+#define DEFAULT_CERT_CLIPBOARD_TYPE 1
 
 enum pki_type {
 	none,
