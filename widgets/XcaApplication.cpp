@@ -110,6 +110,7 @@ void XcaApplication::setupLanguage(const QLocale &lang)
 	}
 	xcaTr->load(lang, "xca", getI18nDir());
 	QLocale::setDefault(lang);
+	setLayoutDirection(lang.textDirection());
 	installTranslator(qtTr);
 	installTranslator(xcaTr);
 	if (mainw)
