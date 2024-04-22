@@ -650,7 +650,7 @@ void db_x509::exportItems(const QModelIndexList &list,
 	} else if (xport->match_all(F_CAL)) {
 		QStringList vcal;
 		foreach(crt, certs) {
-			vcal += xport->match_all(F_CHAIN) ?
+			vcal += xport->match_all(F_CA) ?
 				crt->icsVEVENT_ca() : crt->icsVEVENT();
 		}
 		writeVcalendar(file, vcal);
