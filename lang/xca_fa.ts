@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fa_IR">
+<TS version="2.1" language="fa_IR" sourcelanguage="en_US">
 <context>
     <name>CaProperties</name>
     <message>
@@ -841,10 +841,6 @@ Serial: %3</source>
         <translation>مدیریت توکن امنیتی</translation>
     </message>
     <message>
-        <source>Details of the item &apos;%1&apos; cannot be shown</source>
-        <translation type="vanished">جزئیات مورد &apos;%1&apos; قابل نمایش نیست</translation>
-    </message>
-    <message>
         <location line="+35"/>
         <location line="+194"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
@@ -853,7 +849,7 @@ Serial: %3</source>
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>امکان باز کردن پایگاه داده‌ی پیش‌فرض نیست</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -864,6 +860,10 @@ Serial: %3</source>
         <location line="+3"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
         <translation>%1 قایل: %2 حاوی هیچ داده‌ی زیرساخت کلید عمومی نیست</translation>
+    </message>
+    <message>
+        <source>Details of the item &apos;%1&apos; cannot be shown</source>
+        <translation type="vanished">جزئیات مورد &apos;%1&apos; قابل نمایش نیست</translation>
     </message>
 </context>
 <context>
@@ -1073,16 +1073,16 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export public key [%1]</source>
-        <translation type="vanished">برون‌داد کلید مومی [%1]</translation>
+        <translation>پرون‌داد کلید</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>کلید‌های خصوصی ( با قالب‌های pem، der و pk8);; کلیدهای عمومی SSH (با قالب pub)</translation>
+    </message>
+    <message>
+        <source>Export public key [%1]</source>
+        <translation type="vanished">برون‌داد کلید مومی [%1]</translation>
     </message>
 </context>
 <context>
@@ -1267,7 +1267,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-18"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>بلغاری</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1549,12 +1549,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+28"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>الگوریتم کنونی &apos;%1&apos; استفاده‌شده در PFX/PKCS#12 ناامن است.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>تغییر</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -2296,7 +2296,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+4"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation>گواهی دارای افزونه‌های نادرست می‌باشد.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2623,33 +2623,6 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <source>E&amp;xit</source>
         <translation type="vanished">خ&amp;روج</translation>
-    </message>
-</context>
-<context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">تأیید</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">بستن</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">لغو</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">اعمال</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">بله</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">خیر</translation>
     </message>
 </context>
 <context>
@@ -3464,7 +3437,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="+47"/>
         <source>Import</source>
-        <translation type="unfinished">درون‌داد</translation>
+        <translation>درون‌داد</translation>
     </message>
 </context>
 <context>
@@ -3834,7 +3807,8 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>reset و set تنها به بازنشانی ترجمه شد.</translatorcomment>
+        <translation>به روز‌رسانی کلید درونی: کلید‌های: %1 باید به وسیله‌ی بازنشانی گذرواژه‌هایشان، به روز شوند</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4447,7 +4421,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+24"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>رمزگشایی کلید خصوصی &apos;%1&apos; با شکست روبه‌رو شد</translation>
     </message>
     <message>
         <location line="+128"/>
@@ -4514,7 +4488,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>زنجیره‌ی کامل و کلید خصوصی گواهی گزینش‌شده با برچسب قابل استفاده در پرونده‌های پیکربندی OpenVPN</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5202,6 +5176,41 @@ It is stored in the XCA database &apos;%4&apos;</source>
     </message>
 </context>
 <context>
+    <name>xcaWarningGui</name>
+    <message>
+        <location filename="../widgets/XcaWarning.cpp" line="+71"/>
+        <source>Copy to Clipboard</source>
+        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">تأیید</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="vanished">بستن</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">لغو</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">اعمال</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="vanished">بله</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="vanished">خیر</translation>
+    </message>
+</context>
+<context>
     <name>xcaWarning</name>
     <message>
         <source>The following error occurred:</source>
@@ -5210,14 +5219,6 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <source>Copy to Clipboard</source>
         <translation type="vanished">ایجاد رونوشت در حافظه‌رونوشت</translation>
-    </message>
-</context>
-<context>
-    <name>xcaWarningGui</name>
-    <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+71"/>
-        <source>Copy to Clipboard</source>
-        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
     </message>
 </context>
 </TS>
