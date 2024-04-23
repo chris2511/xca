@@ -72,10 +72,14 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 	installEventFilter(this);
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#define QT_MAJOR "qt6"
+#else
+#define QT_MAJOR "qt5"
+#endif
+
 void XcaApplication::setupLanguage(const QLocale &lang)
 {
-	QStringList dirs;
-
 	if (qtTr) {
 		removeTranslator(qtTr);
 		delete qtTr;
@@ -86,20 +90,20 @@ void XcaApplication::setupLanguage(const QLocale &lang)
 		delete xcaTr;
 	}
 	xcaTr = new XcaTranslator();
-	dirs
+
+	const QStringList dirs = {
 #ifdef XCA_DEFAULT_QT_TRANSLATE
-		<< XCA_DEFAULT_QT_TRANSLATE
+		XCA_DEFAULT_QT_TRANSLATE,
 #endif
-		<< getI18nDir()
+		getI18nDir(),
 #ifndef WIN32
-		<< "/usr/local/share/qt5/translations/"
-		<< "/usr/share/qt5/translations/"
-		<< "/usr/share/qt/translations/"
+		"/usr/local/share/" QT_MAJOR "/translations/",
+		"/usr/share/" QT_MAJOR "/translations/"
 #endif
-		;
+	};
 
 	qDebug() << "Setup language: " << lang;
-	foreach(QString dir, dirs) {
+	for (const QString &dir : dirs) {
 		if (qtTr->load(lang, "qt", dir)) {
 			break;
 		}

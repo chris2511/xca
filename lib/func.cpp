@@ -262,6 +262,9 @@ const QString getI18nDir()
 {
 	QString qm = QStandardPaths::locate(QStandardPaths::AppDataLocation,
 		I18N_DIR "xca_de.qm");
+	if (qm.isEmpty())
+		qm = QCoreApplication::applicationDirPath() + "/xca_de.qm";
+	qDebug() << "QM" << qm;
 	return QFileInfo(qm).path();
 }
 
@@ -334,9 +337,8 @@ QString hostId()
 
 #else
 	QString mach_id;
-	QStringList dirs; dirs <<
-			"/etc" << "/var/lib/dbus" << "/var/db/dbus";
-	foreach(QString dir, dirs) {
+	const QStringList dirs = { "/etc", "/var/lib/dbus", "/var/db/dbus" };
+	for (const QString &dir : dirs) {
 		QFile file(dir + "/machine-id");
 		if (file.open(QIODevice::ReadOnly)) {
 			QTextStream in(&file);
