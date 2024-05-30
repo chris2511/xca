@@ -11,6 +11,7 @@ add_test(NAME testxca COMMAND testxca)
 set_tests_properties(testxca PROPERTIES LABELS gui)
 add_dependencies(tests testxca)
 target_link_libraries(testxca ${ASAN_LIB} ${QT}::Test xcalib)
+target_link_options(testxca PRIVATE -pthread)
 
 if (APPLE)
   target_link_libraries(testxca
