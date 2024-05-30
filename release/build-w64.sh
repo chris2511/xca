@@ -16,7 +16,7 @@ do_openssl() {
 OSSL="openssl-3.1.5"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
-QT_DIR="$TOP_DIR/QT/6.6.2/mingw_64"
+QT_DIR="$TOP_DIR/QT/6.6.3/mingw_64"
 BUILDDIR="$TOP_DIR/w64-release"
 INSTALL_DIR="/c/OpenSSL"
 JOBS=7

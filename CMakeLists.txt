@@ -111,7 +111,7 @@ elseif(WIN32)
   file(TO_CMAKE_PATH $ENV{WINDIR}/system32 SYSTEM32)
 endif()
 
-set(QTFIXEDVERSION Qt6 Qt5 CACHE STRING "Force q specific QT version 'Qt5' or 'Qt6'")
+set(QTFIXEDVERSION Qt6 Qt5 CACHE STRING "Force a specific QT version 'Qt5' or 'Qt6'")
 find_package(OpenSSL REQUIRED)
 find_package(QT NAMES ${QTFIXEDVERSION} REQUIRED COMPONENTS Core)
 set(QT Qt${QT_VERSION_MAJOR})
