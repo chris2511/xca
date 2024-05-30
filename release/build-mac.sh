@@ -18,10 +18,14 @@ do_openssl()
     )
     PARTS_crypto="$PARTS_crypto ${OSSL}-${arch}/libcrypto.${OSSL_MAJOR}.dylib"
     PARTS_ssl="$PARTS_ssl ${OSSL}-${arch}/libssl.${OSSL_MAJOR}.dylib"
+    PARTS_providers="$PARTS_providers ${OSSL}-${arch}/providers/legacy.dylib"
   done
-  rm -f "$INSTALL"/lib/libcrypto.3.dylib "$INSTALL"/lib/libssl.${OSSL_MAJOR}.dylib
+  rm -f "$INSTALL"/lib/libcrypto.${OSSL_MAJOR}.dylib \
+	"$INSTALL"/lib/libssl.${OSSL_MAJOR}.dylib \
+	"$INSTALL"/lib/ossl-modules/legacy.dylib
   lipo -create -output "$INSTALL_DIR"/lib/libcrypto.${OSSL_MAJOR}.dylib $PARTS_crypto
   lipo -create -output "$INSTALL_DIR"/lib/libssl.${OSSL_MAJOR}.dylib $PARTS_ssl
+  lipo -create -output "$INSTALL_DIR"/lib/ossl-modules/legacy.dylib $PARTS_providers
 }
 
 # need to install ninja via "brew install ninja"
