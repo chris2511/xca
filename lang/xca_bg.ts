@@ -710,17 +710,17 @@
     <message>
         <location filename="../ui/TimeInput.ui" line="+32"/>
         <source>last update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">последна актуализация</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>next update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">следваща актуализация</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дни</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -735,7 +735,7 @@
     <message>
         <location line="+8"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Приложи</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -750,7 +750,7 @@
     <message>
         <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Няма ясно дефиниран срок на изтичане</translation>
     </message>
 </context>
 <context>
@@ -842,7 +842,7 @@ Serial: %3</source>
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не успях да отворя базата данни по подразбиране</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1015,7 +1015,7 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клипборд формат</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1064,7 +1064,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Екпортирай ключа</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1257,12 +1257,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-9"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">персийски</translation>
     </message>
     <message>
         <location line="-18"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">български</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1292,7 +1292,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-10"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">индонезийски</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1550,17 +1550,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+87"/>
         <source>Database: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">База данни: %1</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Използваният в момента PFX / PKCS#12 алгоритъм &apos;%1&apos; е несигурен.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Промени</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -2288,7 +2288,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+4"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сертификатът съдържа невалидни разширения.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2456,7 +2456,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="-33"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS12 алгоритъм за криптиране</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -3158,7 +3158,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неуспешно актуализиране на схемата на базата данни до текущата версия</translation>
     </message>
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+33"/>
@@ -3262,7 +3262,7 @@ In library %3
     <message>
         <location filename="../ui/Revoke.ui" line="+30"/>
         <source>Certificate revocation</source>
-        <translation type="unfinished">Отмяна на сертфиката</translation>
+        <translation type="unfinished">Отмяна на сертификата</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -3361,12 +3361,12 @@ In library %3
     <message>
         <location line="+38"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Експортирай шаблон</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">XCA Шаблони ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -3374,27 +3374,27 @@ In library %3
     <message>
         <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Доверие в сертификат</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>Trustment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Доверие</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">и Никога не се доверявайте на this сертификат</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="unfinished"></translation>
+        <source>Only trust this certificate if you trust the one who signed it</source>
+        <translation type="unfinished">Само се доверете на this сертификат, if се доверявате на този, който го е подписал</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">и Винаги се доверявайте на this сертификат</translation>
     </message>
 </context>
 <context>
@@ -3440,12 +3440,12 @@ In library %3
     <message>
         <location filename="../lib/xfile.h" line="+28"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Грешка при отваряне на файл: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Грешка при превъртане на файла: &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -3878,7 +3878,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Актуализация на вътрешния ключ: Ключовете: %1 трябва да се актуализират веднъж чрез нулиране и задаване на личната му парола</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4410,7 +4410,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+24"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дешифриране на частен ключ &apos;%1&apos; се провали</translation>
     </message>
     <message>
         <location line="+128"/>
@@ -4465,7 +4465,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пълната верига от сертификати и частният ключ на избрания сертификат с тагове, които могат да се използват в конфигурационните файлове на OpenVPN</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4495,7 +4495,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #7 chain</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #7 верига</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4505,12 +4505,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>Binary DER encoded certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Двоично DER кодиран сертификат</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS #12 chain</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #12 верига</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4520,7 +4520,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #12</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #12</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4604,7 +4604,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-1"/>
         <source>PEM encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PEM криптиран</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4669,7 +4669,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #8 криптиран</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4679,7 +4679,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #8</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #8</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4689,27 +4689,27 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Двоичен DER формат на заявката за сертификат</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Binary DER format of the revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Двоичен DER формат на списъка за анулиране</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">vCalendar напомняне за датата на изтичане на CRL</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">XCA шаблон във формат, подобен на PEM</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всички избрани XCA шаблони в подобен на PEM формат</translation>
     </message>
 </context>
 <context>
