@@ -57,6 +57,8 @@
                         <Verb Id="open" Command="Open" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
                     </Extension>
                 </ProgId>
+            </Component>
+            <Component Id="Cextensions" Guid="97df41c4-624f-488b-84b8-7f1cf4018da3" KeyPath="yes">
                 <ProgId Id="XCA.PEM" Description="Privacy Enhanced Mail" Icon="xca.exe" IconIndex="0">
                     <Extension Id="pem" ContentType="application/x-pem-file">
                         <Verb Id="openwithxca.pem" Command="Open with XCA" TargetFile="xca.exe" Argument="&quot;%1&quot;" />
@@ -193,6 +195,11 @@
                 <ComponentGroupRef Id="GroupBasic" />
                 <ComponentGroupRef Id="GroupI18n" />
                 <ComponentGroupRef Id="GroupMisc" />
+            </Feature>
+            <Feature Id="FileAssociations" Title="File Associations" Level="1"
+                     Description="PKI file associations like .pem .pfx .crt .crl .p12">
+                <ComponentGroupRef Id="GroupBasic" />
+                <ComponentRef Id="Cextensions" />
             </Feature>
             <Feature Id="Documentation" Title="Documentation" Level="1"
                      Description="The HTML documentation and changelog file.">
