@@ -1,3 +1,18 @@
+ * Windows/Mac build: switch to QT 6.6.3
+ * Close #554: Missing option to disable file association in Windows setup
+ * Close #395: Flexible Clipboard Export
+ * Close #550: Fix compiling tests issue by providing -pthread link flag.
+ * Fix calendar export for CAs
+ * Support importing existing OpenVPN TLS Auth keys
+ * Fix "Copy extensions from request" function
+ * Fix login via PinPad on e.g ReinerSCT
+ * Extend #383: tag insecure PFX/PKCS#12 algorithms
+ * Close #536: macos include OpenSSL legacy provider
+ * Close #532: XCA not in English on macos
+ * Close #89: ta.key for OpenVPN tls-auth
+ * Close #496: PKCS11 access to AWS CloudHSM failed
+ * Yubikey improvements
+
 xca 2.6.0 Mon Feb 26 2024
 
  * Update documentation of certificate export and remote databases
