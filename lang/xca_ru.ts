@@ -18,7 +18,7 @@
     <message>
         <location filename="../ui/CaProperties.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>От</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -777,12 +777,12 @@
     <message>
         <location filename="../ui/TimeInput.ui" line="+32"/>
         <source>last update</source>
-        <translation type="unfinished"></translation>
+        <translation>последнее обновление</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>next update</source>
-        <translation type="unfinished"></translation>
+        <translation>слегдующее обновление</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -873,7 +873,7 @@
     <message>
         <location line="-48"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть базу данных по умолчанию</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1092,7 +1092,7 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation type="unfinished"></translation>
+        <translation>формат буфера обмена</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1141,7 +1141,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+52"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>экспорт ключа</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1230,12 +1230,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-9"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Персидский</translation>
     </message>
     <message>
         <location line="-18"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Болгарский</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1265,7 +1265,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-10"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Индонезийский</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1684,12 +1684,12 @@ Please enter the DH parameter bits</source>
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторить ввод PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторить ввод SO PIN</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -1714,17 +1714,18 @@ Please enter the DH parameter bits</source>
     <message>
         <location line="+87"/>
         <source>Database: %1</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>можно сократить как БД</translatorcomment>
+        <translation>База данных: %1</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Используемый алгоритм &quot;%1&quot; PFX / PKCS#12 небезопасен.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
@@ -2364,32 +2365,33 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+294"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>повторяющиеся расширения</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Недопустимое альтернативное имя субъекта</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>эмитента или издатель?</translatorcomment>
+        <translation>Недопустимое Альтернативное имя издателя</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Недопустимая точка распространения списка отозванных сертификатов</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Недопустимая информация о полномочиях доступа</translation>
     </message>
     <message>
         <location line="+206"/>
@@ -2445,7 +2447,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+4"/>
         <source>The certificate contains invalid extensions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертификат содержит недопустимые расширения.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2693,7 +2695,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="-33"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>алгоритм шифрования PKCS12</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -3407,7 +3409,7 @@ In library %3
     <message>
         <location filename="../lib/database_model.cpp" line="+113"/>
         <source>Failed to update the database schema to the current version</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка обновления схемы БД до текущей версии</translation>
     </message>
     <message>
         <location filename="../lib/PwDialogCore.cpp" line="+33"/>
@@ -3417,7 +3419,7 @@ In library %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>опасный</translation>
     </message>
 </context>
 <context>
@@ -3618,12 +3620,12 @@ In library %3
     <message>
         <location line="+38"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт шаблона</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблоны XCA ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -3702,7 +3704,7 @@ In library %3
     <message>
         <location line="+13"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка перемотки файла: &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -3710,7 +3712,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="+47"/>
         <source>Import</source>
-        <translation type="unfinished">Импорт</translation>
+        <translation>Импорт</translation>
     </message>
 </context>
 <context>
@@ -4172,7 +4174,7 @@ and so it was not imported</source>
     <message>
         <location line="+40"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновление внутреннего ключа: Ключи %1 необходимо обновить один раз путем сброса и установки личного пароля</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4816,7 +4818,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+34"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось расшифровать закрытый ключ &quot;%1&quot;</translation>
     </message>
     <message>
         <location line="+146"/>
@@ -4871,7 +4873,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>Полная цепочка сертификатов и закрытый ключ выбранного сертификата с тегами, которые можно использовать в файлах конфигурации OpenVPN</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4901,7 +4903,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #7 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>цепочка PKCS#7</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4911,12 +4913,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>Binary DER encoded certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Двоичный DER формат</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS #12 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Цепочка PKCS#12</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4926,7 +4928,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4968,23 +4970,23 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+1"/>
         <location line="+17"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Конфигурация OpenSSL</translation>
+        <translation>Конфигурация OpenSSL</translation>
     </message>
     <message>
         <location line="-17"/>
         <location line="+17"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл конфигурации OpenSSL для создания сертификата или запроса с помощью openssl</translation>
     </message>
     <message>
         <location line="-16"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>ключ tls-аутентификации OpenVPN</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ tls-auth OpenVPN&#xa0;— это секретный ключ, общий для всех конечных точек</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5010,7 +5012,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-1"/>
         <source>PEM encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Зашифрованный PEM</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5075,7 +5077,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Зашифрованный PKCS#8</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5085,7 +5087,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #8</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #8</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5095,27 +5097,27 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос на сертификат в двоичном формате DER</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Binary DER format of the revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>Список отзыва в двоичном формате DER</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>Напоминание об окончании срока действия CRL в формате vCalendar</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблон XCA в PEM-подобном формате</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="unfinished"></translation>
+        <translation>Все выбранные шаблоны XCA в PEM-подобном формате</translation>
     </message>
 </context>
 <context>
@@ -5320,7 +5322,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите слот %1</translation>
     </message>
     <message>
         <source>Illegal Key generation method</source>
