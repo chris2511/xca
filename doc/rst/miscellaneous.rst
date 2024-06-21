@@ -6,7 +6,7 @@ Updating
 --------
 
 Usually XCA knows database formats used in previous versions and does
-an automatic upgrade of the database if neccessary when opened the first time.
+an automatic upgrade of the database if necessary when opened the first time.
 
 *Updating from versions earlier than 2.0.0*
 
@@ -19,7 +19,7 @@ was the inaccessibility by external tools. Since years users ask for
 command-line access to the database.
 
 The new database can be queried by external tools like `sqlite3` or
-`sqlitebrowser` to extract verify or modify content.
+`sqlitebrowser` to extract, verify or modify content.
 Please see :ref:`extracting-items`
 
 .. Note::
@@ -30,7 +30,7 @@ Please see :ref:`extracting-items`
   Please be careful with older XCA versions.
   XCA before 1.4.0 will overwrite the new SQLite database during database open.
 
-For file based databases the SQLite database format is used.
+For file based databases, the SQLite database format is used.
 Since XCA uses SQL, it can also be connected to a network database.
 The databases *MariaDB (mySQL)* *PostgreSQL* and *Microsoft SqlServer* are tested.
 Please use the *Open Remote DataBase* menu item to connect to a remote host.
@@ -70,7 +70,7 @@ XCA seeds it very thoroughly.
      - A *.rnd* state file in the XCA application directory is
        read on startup and erased afterwards to avoid replays.
 
-  2) Before any key or parameter generation a "re-seeding" is done.
+  2) Before any key or parameter generation, a "re-seeding" is done.
      Some say re-seeding is not necessary, but all say it does not harm.
 
      - XCA collects entropy by mouse and keyboard events and its timing.
