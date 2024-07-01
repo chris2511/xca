@@ -1025,7 +1025,7 @@ Seriale: %3</translation>
     <message>
         <location line="+20"/>
         <source>Change password</source>
-        <translation>Cambio passoword</translation>
+        <translation>Cambio password</translation>
     </message>
     <message>
         <location line="+4"/>
