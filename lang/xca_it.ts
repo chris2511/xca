@@ -1868,7 +1868,7 @@ Prego inserire i bit dei parametri DH</translation>
     <message>
         <location line="+22"/>
         <source>Apply extensions</source>
-        <translation>Applica le estesnsioni</translation>
+        <translation>Applica le estensioni</translation>
     </message>
     <message>
         <location line="+7"/>
