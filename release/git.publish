@@ -17,7 +17,7 @@ releasedir="$HOME/xca-$TVERSION"
        s/>/\&gt;/g;
        s#^xca \([^ ]*\) *\(.*\)#</ul></div><div id="changelog_\1"><h3>xca \1 \2</h3><hr/><ul>#;
        s#\*\(.*\)#</li><li>\1#' changelog
-  echo "/ul></div></body></html>"
+  echo "</ul></div></body></html>"
 ) > changelog.html
 
 ./release/gen-binary-hash "$releasedir"
