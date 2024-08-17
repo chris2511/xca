@@ -20,7 +20,7 @@ foreach(file ${FILENAMES})
   list(APPEND QTHELP_DEST "${D}/qthelp/${file}.html")
 endforeach()
 
-foreach(doc ${HTML_FILE} xca.qhc xca.qch)
+foreach(doc ${HTML_FILE} xca.qhc)
   string(REPLACE "-" "" id ${doc})
   guid(${doc})
   list(APPEND DOC_COMPREFS "  <ComponentRef Id=\"Csphinx.${id}\"/>\n")
@@ -115,9 +115,9 @@ if(SPHINX)
     endif()
   endif()
   if(QHELPGEN)
-    set(QTHELP_IDX ${D}/qthelp/xca.qhc ${D}/qthelp/xca.qch)
+    set(QTHELP_IDX ${D}/qthelp/xca.qhc)
     add_custom_command(
-	OUTPUT ${QTHELP_IDX}
+	OUTPUT ${QTHELP_IDX} ${D}/qthelp/xca.qch
 	COMMAND ${QHELPGEN} ${D}/qthelp/xca.qhcp
 	DEPENDS sphinx-qthelp
 	COMMENT "Create context sensitive help index"
