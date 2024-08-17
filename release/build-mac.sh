@@ -5,7 +5,7 @@ do_openssl()
 {
   test -x $INSTALL_DIR/lib/libcrypto.dylib && return
 
-  test -f "$OSSL".tar.gz || curl -O https://www.openssl.org/source/"$OSSL".tar.gz
+  test -f "$OSSL".tar.gz || curl -L -O https://www.openssl.org/source/"$OSSL".tar.gz
   test -d "$OSSL" || tar zxf "$OSSL".tar.gz
   mkdir -p ${INSTALL_DIR}/lib
   for arch in x86_64 arm64; do
@@ -66,7 +66,7 @@ do_mysql()
 }
 
 OSSL_MAJOR="3"
-OSSL="openssl-3.1.5"
+OSSL="openssl-3.3.1"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/6.6.3/macos"

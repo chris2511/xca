@@ -54,13 +54,18 @@ void test_asn1time::output()
 
 #if !defined(Q_OS_WIN32)
 	a.setTimeZone(QTimeZone("UTC"));
-	QCOMPARE(a.toPretty(), "Monday, 25 November 2019 15:30:15 UTC");
+	#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+		#define UTC "GMT"
+	#else
+		#define UTC "UTC"
+	#endif
+	QCOMPARE(a.toPretty(), "Monday, 25 November 2019 15:30:15 " UTC);
 
 	a.setTimeZone(QTimeZone("Europe/Berlin"));
-	QCOMPARE(a.toPretty(), "Monday, 25 November 2019 14:30:15 UTC");
+	QCOMPARE(a.toPretty(), "Monday, 25 November 2019 14:30:15 " UTC);
 
 	a.setTimeZone(QTimeZone("UTC+07:00"));
-	QCOMPARE(a.toPretty(), "Monday, 25 November 2019 08:30:15 UTC");
+	QCOMPARE(a.toPretty(), "Monday, 25 November 2019 08:30:15 " UTC);
 #endif
 }
 

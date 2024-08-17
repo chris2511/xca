@@ -5,7 +5,7 @@
 # Build xca on Windows 
 do_openssl() {
   test -f $INSTALL_DIR/bin/libcrypto-3-x64.dll && return
-  test -f "$OSSL".tar.gz || curl -O https://www.openssl.org/source/"$OSSL".tar.gz
+  test -f "$OSSL".tar.gz || curl -L -O https://www.openssl.org/source/"$OSSL".tar.gz
   test -d "$OSSL" || tar zxf "$OSSL".tar.gz
   cd "$OSSL"
   ./Configure mingw64 --prefix=$INSTALL_DIR --libdir=lib
@@ -13,15 +13,13 @@ do_openssl() {
   make install
 }
 
-OSSL="openssl-3.1.5"
+OSSL="openssl-3.3.1"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/QT/6.6.3/mingw_64"
 BUILDDIR="$TOP_DIR/w64-release"
 INSTALL_DIR="/c/OpenSSL"
 JOBS=7
-
-PATH="$TOP_DIR/QT/Tools/mingw1120_64/bin:$INSTALL_DIR/bin:$PATH"
 
 cd $TOP_DIR
 do_openssl
