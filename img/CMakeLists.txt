@@ -51,5 +51,7 @@ if (UNIX AND NOT APPLE)
   Install_PNG(32x32)
   Install_PNG(48x48)
   Install_PNG(64x64)
+  Install_PNG(128x128)
+  Install_PNG(256x256)
 
 endif()
