@@ -1,4 +1,4 @@
-# XCA -- X Certificate and Key Management
+# XCA - X Certificate and Key Management
 
 [![CMake](https://github.com/chris2511/xca/actions/workflows/cmake.yaml/badge.svg)](https://github.com/chris2511/xca/actions/workflows/cmake.yaml)
 
@@ -37,9 +37,13 @@ To build XCA you need:
  - Install the dependencies
    ```
    # Bookworm
-   sudo apt install build-essential libssl-dev pkg-config qtbase5-dev qttools5-dev-tools libqt5sql5 libqt5help5 cmake qttools5-dev python3-sphinxcontrib.qthelp
+   sudo apt install build-essential libssl-dev pkg-config cmake qttools5-dev python3-sphinxcontrib.qthelp
    # Bullseye
-   sudo apt install build-essential libssl-dev pkg-config qtbase5-dev qttools5-dev-tools libqt5sql5 libqt5help5 cmake qttools5-dev python3-sphinx
+   sudo apt install build-essential libssl-dev pkg-config cmake qttools5-dev python3-sphinx
+   # Either Qt5
+   sudo apt install qtbase5-dev qttools5-dev-tools libqt5sql5 libqt5help5 qttools5-dev
+   # Or Qt6
+   sudo apt install qt6-base-dev qt6-tools-dev
    ```
  - Clone: `git clone https://github.com/chris2511/xca.git`
  - Configure: `cmake -B build xca`
@@ -77,23 +81,23 @@ XCA can be used with Xcode after initializing the directory with:
   - Add the PATH shown by pip to your PATH
   - Install Qt, cmake and the MinGW toolchain
     ```
-    aqt install-qt windows desktop 6.6.0 win64_mingw
+    aqt install-qt windows desktop 6.6.3 win64_mingw
     aqt install-tool windows desktop tools_mingw90 qt.tools.win64_mingw900
     aqt install-tool windows desktop tools_vcredist qt.tools.vcredist_64
     ```
   - If 7z is missing, install it from the store. `7-Zip File Manager (unofficial)` or from 7-zip.org
   - Install the "vcredist\\vcredist_64.exe"
-  - Add cmake, MinGW, OpenSSL and Qt5 to your Path
+  - Add cmake, MinGW, OpenSSL and Qt6 to your Path
     ```
     %USERPROFILE%\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts;
     %USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
     %USERPROFILE%\Tools\CMake_64\bin;
     %USERPROFILE%\Tools\mingw_64\bin;
-    %USERPROFILE%\5.15.2\mingw_64\bin;
+    %USERPROFILE%\6.6.3\mingw_64\bin;
     ```
   - Create `CMAKE_PREFIX_PATH` environment variable:
     ```
-    %USERPROFILE%\6.6.0\mingw_64\lib\cmake
+    %USERPROFILE%\6.6.3\mingw_64\lib\cmake
     ```
   - Install `https://wixtoolset.org/releases/` if you want to create the MSI installer
 
