@@ -87,7 +87,6 @@ new pki_export(23, asym_key, "pub" ,tr("SSH2 public"),   F_SSH2,                
 new pki_export(24, asym_key, "der", tr("DER public"),    F_DER | F_SINGLE,                               tr("Binary DER format of the public key")),
 new pki_export(25, asym_key, "der", tr("DER private"),   F_DER | F_PRIVATE | F_SINGLE,                   tr("Unencrypted private key in binary DER format")),
 new pki_export(26, asym_key, "pvk", tr("PVK private"),   F_PVK | F_PRIVATE | F_SINGLE,                   tr("Private key in Microsoft PVK format not encrypted")),
-new pki_export(27, asym_key, "pvk", tr("PVK encrypted"), F_PVK | F_PRIVATE | F_CRYPT | F_SINGLE,         tr("Encrypted private key in Microsoft PVK format")),
 new pki_export(28, asym_key, "pk8", tr("PKCS #8 encrypted"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_USUAL | F_SINGLE, tr("Encrypted private key in PKCS#8 text format")),
 new pki_export(29, asym_key, "pk8", tr("PKCS #8"),       F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_SINGLE,  tr("Unencrypted private key in PKCS#8 text format")),
 

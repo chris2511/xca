@@ -237,7 +237,7 @@ void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
 	else if (xport->match_all(F_SSH2))
 		key->writeSSH2public(file);
 	else if (privkey && xport->match_all(F_PVK))
-		privkey->writePVKprivate(file, pwCallback);
+		privkey->writePVKprivate(file);
 	else
 		throw errorEx(tr("Internal error"));
 }

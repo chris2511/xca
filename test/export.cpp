@@ -304,16 +304,6 @@ void test_main::exportFormat()
 	verify_key(file, QList<unsigned> {  ENDKEY_HASH }, true);
 	check_pems(file, 0);
 
-	// Private PVK Key encrypted
-	file = AUTOFILE(PVK)
-	pwdialog->setExpectations(QList<pw_expect*>{
-		new pw_expect("pass", pw_ok),
-		new pw_expect("pass", pw_ok),
-	});
-	export_by_id(27, file, list, keys);
-	verify_key(file, QList<unsigned> {  ENDKEY_HASH }, true);
-	check_pems(file, 0);
-
 	} catch (...) {
 		QString m = QString("Exception thrown L %1").arg(l);
 		QVERIFY2(false, m.toUtf8().constData());
