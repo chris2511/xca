@@ -56,8 +56,11 @@ echo "$TVERSION" > VERSION.txt
  cat changelog
 ) > changelog.new
 mv changelog.new changelog
+sed -i "s|\(<releases>\)|\1\n        <release date=\"$(date -I)\" version=\"$TVERSION\" />|"\
+	misc/de.hohnstaedt.xca.metainfo.xml
 
-git commit VERSION.txt changelog -m "Prepare XCA $TVERSION"
+git commit VERSION.txt changelog  misc/de.hohnstaedt.xca.metainfo.xml \
+	-m "Prepare XCA $TVERSION"
 git tag -a "$TAG" -m "Release version $TVERSION"
 
 # Create the tar.gz
