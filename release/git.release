@@ -51,8 +51,10 @@ fi
 
 echo "$TVERSION" > VERSION.txt
 (
- LANG=C date +"xca $TVERSION %a %b %d %Y"
- echo
+ MSG=$(LANG=C date +"xca $TVERSION %a %b %d %Y")
+ echo "$MSG"
+ head -c ${#MSG} /dev/zero | tr '\0' '-'
+ echo '\n'
  cat changelog
 ) > changelog.new
 mv changelog.new changelog

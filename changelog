@@ -14,6 +14,7 @@
  * Yubikey improvements
 
 xca 2.6.0 Mon Feb 26 2024
+-------------------------
 
  * Update documentation of certificate export and remote databases
  * Close #520: Fix permanent processor load
@@ -35,6 +36,7 @@ xca 2.6.0 Mon Feb 26 2024
  * Make XCA AppStore compliant with -DAPPSTORE_COMPLIANT=ON
 
 xca 2.5.0 Sun Sep 24 2023
+-------------------------
 
  * Close #423: parameter --name is not respected when running with CLI
  * Close #457: Support Qt5 < 5.12 / python3-sphinxcontrib.qthelp
@@ -68,6 +70,7 @@ xca 2.5.0 Sun Sep 24 2023
  * Drop support for OpenSSL < 1.1.0
 
 xca 2.4.0 Fri May 07 2021
+-------------------------
 
  * Unify XCA icon (certificate) on all platforms
  * Close #247: Apple silicon (M1) configure fixes
@@ -92,6 +95,7 @@ xca 2.4.0 Fri May 07 2021
  * Add command line support for creating CRLs, keys and analyzing items
 
 xca 2.3.0 Wed Apr 29 2020
+-------------------------
 
  * Close #191 OID LN differs warning popups at startup
  * Close #189 Database compaction #189
@@ -108,10 +112,12 @@ xca 2.3.0 Wed Apr 29 2020
  * Close #163: Show key type/size on column of Certificates tab
 
 xca 2.2.1 Thu Jan 30 2020
+-------------------------
 
  * Close #159 Opening existing database
 
 xca 2.2.0 Wed Jan 29 2020
+-------------------------
 
  * Switch to MSI installer
  * Close #129 Unattended Installation
@@ -150,6 +156,7 @@ xca 2.2.0 Wed Jan 29 2020
  * Verify imported keys thoroughly
 
 xca 2.1.2 Wed Nov 07 2018
+-------------------------
 
  * Close #40 macOS: Crash after xca v2.0.1 quit
  * Close #37: XCA 2: EVP_DecryptFinal_ex:bad decrypt
@@ -161,6 +168,7 @@ xca 2.1.2 Wed Nov 07 2018
  * Add new maintained languages: Polish, Spanish, Portuguese
 
 xca 2.1.1 Thu Sep 13 2018
+-------------------------
 
  * Allow manual override of the CSR signed flag
  * Close #56: Duplicate Serials after Upgrade 2.1.0
@@ -171,6 +179,7 @@ xca 2.1.1 Thu Sep 13 2018
  * Close #50: Hang while importing 1.4.1 database into 2.1.0
 
 xca 2.1.0 Tue Jul 24 2018
+-------------------------
 
  * Close #48: The SKI tickbox isn't generating an SKI extension for CSRs
  * Fix translation of dates
@@ -187,6 +196,7 @@ xca 2.1.0 Tue Jul 24 2018
  * Generate calender (.ics) files for certificate and CRL expiries
 
 xca 2.0.1 Tue May 08 2018
+-------------------------
 
  * Close #32: Version field contains "Created by Qt/QMake" on MacOSX
  * Review and update russian ltranslation
@@ -198,6 +208,7 @@ xca 2.0.1 Tue May 08 2018
  * Close #19: Replace 3DES encryption by AES-256 during key export
 
 xca 2.0.0 Tue Apr 10 2018
+-------------------------
 
  * Open database before starting a transaction
  * Fix default hash during startup
@@ -208,6 +219,7 @@ xca 2.0.0 Tue Apr 10 2018
  * Add another missing windows postgres library
 
 xca 2.0.0-pre04 Thu Mar 22 2018
+-------------------------------
 
  * Accept drivers that don't support transactions
  * Install MySQL and PostgreSQL drivers on windows
@@ -216,11 +228,13 @@ xca 2.0.0-pre04 Thu Mar 22 2018
  * Update translations
 
 xca 2.0.0-pre03 Thu Mar 15 2018
+-------------------------------
 
  * Fix installation of sql plugins in the Windows installer
  * Fix opening, importing and dropping databases
 
 xca 2.0.0-pre02 Tue Mar 13 2018
+-------------------------------
 
  * Fix crash during PKCS#12 export
  * Update HTTPS_server template and add example SAN
@@ -228,6 +242,7 @@ xca 2.0.0-pre02 Tue Mar 13 2018
  * Fix legacy database-without-password import
 
 xca 2.0.0-pre01 Sun Mar 11 2018
+-------------------------------
 
  * Close GitHub Bug #5: Exporting a private key results
    in too-permissive permissions
@@ -247,11 +262,13 @@ xca 2.0.0-pre01 Sun Mar 11 2018
  * Change database format to SQL(ite) and support MySQL and PostgreSQL.
 
 xca 1.4.1 Sat Mar 3 2018
+------------------------
 
  * Replace links to XCA on Sourceforge in the software and
    documentation by links to my Site.
 
 xca 1.4.1-pre02 Thu Mar 1 2018
+-------------------------------
 
  * SF Bug #122 isValid() tried to convert the serial to 64 bit
  * Beautify mandatory distinguished name entry errors
@@ -259,6 +276,7 @@ xca 1.4.1-pre02 Thu Mar 1 2018
  * Show User settings and installation path in the about dialog
 
 xca 1.4.1-pre01 Sun Feb 18 2018
+-------------------------------
 
  * Remove SPKAC support. Netscape is not of this world anymore.
  * SF bug #124 Wrong assumptions about slots returned by PKCS11 library
@@ -275,6 +293,7 @@ xca 1.4.1-pre01 Sun Feb 18 2018
  * Fix starting xca with a database as first arg
 
 xca 1.4.0 Thu Jan 4 2018
+-------------------------
 
  * Update OpenSSL version for MacOSX and W32 to 1.1.0g
  * Change default hash to SHA-256 and
@@ -289,6 +308,7 @@ xca 1.4.0 Thu Jan 4 2018
  * Add Slovak translation
 
 xca 1.3.2 Sat Oct 10 2015
+-------------------------
 
  * Gentoo Bug #562288 linking fails
  * Add OID resolver, move some Menu items to "Extra"
@@ -297,10 +317,12 @@ xca 1.3.2 Sat Oct 10 2015
  * Don't validate notBefore and notAfter if they are disabled.
 
 xca 1.3.1 Fri Aug 21 2015
+-------------------------
 
  * Fix endless loop while searching for a signer of a CRL
 
 xca 1.3.0 Thu Aug 11 2015
+-------------------------
 
  * Update to OpenSSL 1.0.2d for Windows and MAC
  * SF Bug #105 1.2.0 OS X Retina Display Support
@@ -328,6 +350,7 @@ xca 1.3.0 Thu Aug 11 2015
    - Transform generates another XCA item
 
 xca 1.2.0 Sat Mar 21 2015
+-------------------------
 
  * Update to OpenSSL 1.0.2a for Windows and MAC
    drop brainpool extra builds
@@ -338,6 +361,7 @@ xca 1.2.0 Sat Mar 21 2015
  * add "xca extract" to export items from the database on the commandline
 
 xca 1.1.0 Sat Nov 22 2014
+-------------------------
 
  * SF Bug #79 Template export from WinXP
    cannot be imported in Linux and Mac OS X
@@ -366,6 +390,7 @@ xca 1.1.0 Sat Nov 22 2014
  * SF Bug #95 XCA 1.0 only runs in French on a UK English Mac
 
 xca 1.0.0 Wed Oct 22 2014
+-------------------------
 
  *  SF Bug #89 Validating CRL distribution point results in error
  *  SF Feature Req. #69 Create "Recent databases..." file menu item
@@ -384,10 +409,12 @@ xca 1.0.0 Wed Oct 22 2014
  *  SF Bug #83 Inappropriate gcc argument order in configure script
 
 xca 0.9.3 Sat May 12 2012
+-------------------------
 
   * Fix double free in a1time resulting in random crashes
 
 xca 0.9.2 Sun May 6 2012
+-------------------------
 
   * Support for Local timezone dates.
     Differentiate between invalid and undefined dates.
@@ -398,6 +425,7 @@ xca 0.9.2 Sun May 6 2012
   * Add warning colors for expired dates.
 
 xca 0.9.1 Fri Oct 21 2011
+-------------------------
 
   * Close bug [ 3372449 ] All numeric names cannot be used
   * add search functionality for PKCS#11 libraries
@@ -420,6 +448,7 @@ xca 0.9.1 Fri Oct 21 2011
   * Fix PKCS#11 library handling
 
 xca 0.9.0 Sun Aug 29 2010
+-------------------------
 
   * support loading more than one PKCS#11 library
   * remove the need for engine_pkcs11
@@ -456,10 +485,12 @@ xca 0.9.0 Sun Aug 29 2010
     - delete keys and certs from a token
 
 xca 0.8.1 Tue Jan 5 2010
+-------------------------
 
   * fix string conversion from QString to ASN1
 
 xca 0.8.0 Thu Dec 10 2009
+-------------------------
 
   * improve documentation
   * improve file-dialog handling
@@ -476,6 +507,7 @@ xca 0.8.0 Thu Dec 10 2009
   * set proper file-extension .xdb on opening databases
 
 xca 0.7.0 Fri Sep 11 2009
+-------------------------
 
   * support modifying the CSR subject during signing
   * update key images
@@ -498,6 +530,7 @@ xca 0.7.0 Fri Sep 11 2009
   * extend PEM import to import all items from a PEM file
 
 xca 0.6.4 Mon Aug 13 2007
+-------------------------
 
   * Bug "tree view loose track" fixed
   * check for certificate errors and display them instead of crashing
@@ -510,6 +543,7 @@ xca 0.6.4 Mon Aug 13 2007
     and viewed.
 
 xca 0.6.3 Thu May 17 2007
+-------------------------
 
   * show CRL signature algorithm information
   * Add options dialog to set the default hash algo,
@@ -518,27 +552,30 @@ xca 0.6.3 Thu May 17 2007
   * make cert, crl and key details copy&paste able
   * fix background color of clicklabels
     Bug [ 1704699 ]
-  * remove missleading tooltips 
+  * remove missleading tooltips
     Bug [ 1704700 ]
   * fix segfault
   * switch string handling to UTF8
 
 xca 0.6.2 Mon Apr 9 2007
+-------------------------
 
   * break endless loop in chain building
     Bug [ 1696878 ]
 
 xca 0.6.1 Thu Apr 5 2007
+-------------------------
 
   * minor documentation updates
-  * Fix openssl-cross patch 
+  * Fix openssl-cross patch
   * recognize certificates with circular references
     [ xca-Bugs-1693027 ]
   * be compatibile to QT-4.1 (thanks Tamas TEVESZ)
-  * remove all usages of QT3 backward lib 
+  * remove all usages of QT3 backward lib
     [ xca-Feature Requests-1692800 ]
 
 xca 0.6.0 Fri Mar 16 2007
+-------------------------
 
   * set initial sorting to ascending order
   * add RFC2253 representation of subject and issuer
@@ -556,6 +593,7 @@ xca 0.6.0 Fri Mar 16 2007
   * fix database shrinking of curent db during opening of new db
 
 xca 0.6.0-beta02 Fri Feb 2 2007
+-------------------------------
 
   * correct and fixate the order of x509name entries
   * Add CRL properties dialog to select the dates and the
@@ -584,12 +622,14 @@ xca 0.6.0-beta02 Fri Feb 2 2007
   * Allow different passwords for keys
 
 xca 0.5.1 Tue Jul 13 2004
+-------------------------
 
   * support for different languages on WIN platform (Thanks Ilya)
   * better installation and deinstallation on WIN platform
   * documentation updated
 
 xca 0.5.0 Sun Jun 13 2004
+-------------------------
 
   * orthographical changes
   * more translations
@@ -598,6 +638,7 @@ xca 0.5.0 Sun Jun 13 2004
   * store "midnight" in template
 
 xca 0.4.7-RC2 Fri Apr 16 2004
+-----------------------------
 
   * open db if explicit mentioned, otherwise do not.
   * Errormessage on a wrong pkcs12 password more comprehensive
@@ -609,6 +650,7 @@ xca 0.4.7-RC2 Fri Apr 16 2004
   * allow empty passwords on PKCS#12 import
 
 xca 0.4.7-RC1 Thu Feb 5 2004
+----------------------------
 
   * debian menu-entry added
   * Open and closing of different databases
@@ -626,6 +668,7 @@ xca 0.4.7-RC1 Thu Feb 5 2004
   * Requestdetail is now tabdialog
 
 xca 0.4.6 Tue Nov 25 2003
+--------------------------
 
   * Country is State or Province
   * xca.dsp: WIN32 changes from Ilya
@@ -644,6 +687,7 @@ xca 0.4.6 Tue Nov 25 2003
     - Netscape SPKAC support added
 
 xca 0.4.5 Wed Aug 13 2003
+--------------------------
 
   * more german translations
   * [ 737036 ] make error texts copiable from pop-up-windows to clipboard
@@ -654,11 +698,13 @@ xca 0.4.5 Wed Aug 13 2003
   * [ 765774 ] change password for database
 
 xca 0.4.4 Wed Aug 6 2003
+--------------------------
 
   * [ 783853 ] renewal uses 'notBefore' as 'notAfter' date
   * [ 783830 ] GeneralizedTime-format breaks browsers
 
 xca 0.4.3 Tue Aug 5 2003
+--------------------------
 
   * remove Certificate creation bug (AuthKeyId)
   * always take the right cert for signing
@@ -671,6 +717,7 @@ xca 0.4.3 Tue Aug 5 2003
   * VPN OIDs added to Ext. Keyusage
 
 xca 0.4.2 Sun Jul 20 2003
+--------------------------
 
   * Memory leak removed
   * Template import and export added
@@ -684,6 +731,7 @@ xca 0.4.2 Sun Jul 20 2003
   * Authority Key identifier repaired
 
 xca 0.4.1 Tue Jul 15 2003
+--------------------------
 
   * some compiling issues removed
   * Import via commandline repaired,
@@ -695,6 +743,7 @@ xca 0.4.1 Tue Jul 15 2003
     [ 755599 ] add PFX import button to Keytab
 
 xca 0.4.0 Tue Jul 8 2003
+--------------------------
 
   * Solved bugs:
   * [ 752111 ] Cannot handle dates past 32-bit boundary (2038)
@@ -711,6 +760,7 @@ xca 0.4.0 Tue Jul 8 2003
     ([ 763954 ] xca.desktop file) Thanks to Enrico Scholz
 
 xca 0.3.2 Thu May 15 2003
+--------------------------
 
   * Optimizations, icon for WIN32 platform
   * MS Registry and %USERPROFILE% support
@@ -718,11 +768,13 @@ xca 0.3.2 Thu May 15 2003
   * small UI changes
 
 xca 0.3.1 Thu Apr 24 2003
+--------------------------
 
   * Tool Tips added
   * CRL handling (import, export, details) added
 
 xca 0.3.0 Fri Apr 25 2003
+--------------------------
 
   * several bugfixes and memoryleaks removed
   * export to TinyCA and "openssl ca" added
@@ -737,6 +789,7 @@ xca 0.3.0 Fri Apr 25 2003
   * The wizard invokes the key generation process only if really needed
 
 xca 0.2.12 Mon Jan 6 2003
+--------------------------
 
   * PKCS#7 encryption and signing of files added
   * First attempt of documentation added
@@ -744,6 +797,7 @@ xca 0.2.12 Mon Jan 6 2003
   * Certificate renewal repaired
 
 xca 0.2.11 Wed Dec 4 2002
+--------------------------
 
   * Certificate export enhanced, increase signer-serial on certimport.
   * interpretation of serial as hex and not as dezimal.
@@ -751,6 +805,7 @@ xca 0.2.11 Wed Dec 4 2002
   * $HOME/xca is created if it does not exist.
 
 xca 0.2.10 Tue Oct 29 2002
+--------------------------
 
   * shows not After time and serial in listview
   * some segfaults removed
@@ -761,6 +816,7 @@ xca 0.2.10 Tue Oct 29 2002
   * FreeBSD paths and libs  recognized by configure
 
 xca 0.2.9 Mon Oct 21 2002
+-------------------------
 
   * several segfaults eliminated
   * key-use counter corrected
@@ -771,6 +827,7 @@ xca 0.2.9 Mon Oct 21 2002
   * exception-handling completed
 
 xca 0.2.8 Sun Oct 13 2002
+-------------------------
 
   * consistency checks for Iss-alt-name and Sub-alt-name
   * Check for certificate dates to not exceed those of the signer
@@ -780,11 +837,13 @@ xca 0.2.8 Sun Oct 13 2002
   * key-use counter works now well
 
 xca 0.2.7 Tue Oct 8 2002
+-------------------------
 
   * segfaults removed
   * minor wizard changes
 
 xca 0.2.6 Mon Sep 30 2002
+-------------------------
 
   * show common name in request list and certificate list
   * CRL generation added
@@ -793,7 +852,7 @@ xca 0.2.6 Mon Sep 30 2002
   * Fix for windows filenames
 
 xca 0.2.5 Tue Sep 24 2002
-
+-------------------------
   *  Certificate and Template Wizard completed
   *  CA-serial can be changed and is stored with the cert
   *  Passwordboxes set focus right (Andrey Brindeew <abr@abr.pp.ru>)
@@ -804,11 +863,13 @@ xca 0.2.5 Tue Sep 24 2002
   *  Windows Installer added (Nullsoft)
 
 xca 0.2.4 Tue Sep 10 2002
+-------------------------
 
   * PKCS#12 import added
   * bugfixes fileview, requestgeneration
 
 xca 0.2.3 Wed Sep 4 2002
+------------------------
 
   * icons changed
   * context menu on right mousebutton
@@ -819,6 +880,7 @@ xca 0.2.3 Wed Sep 4 2002
   * no more images in .ui files
 
 xca 0.2.2 Thu Jul 18 2002
+-------------------------
 
   * basic constraints, key usage and subject/authority key identifier
   * signing wizard...
@@ -827,6 +889,7 @@ xca 0.2.2 Thu Jul 18 2002
   * password is saved as md5sum
 
 xca 0.1.12 Thu Jul 11 2002
+--------------------------
 
   * icons added
   * treeview for Certificates
@@ -835,6 +898,7 @@ xca 0.1.12 Thu Jul 11 2002
   * some segfaulting bugs removed
 
 xca 0.1.11 Wed Jul 3 2002
+-------------------------
 
   * RSA Keys are generated and stored to or loaded from a file
     in either DER or PEM format.

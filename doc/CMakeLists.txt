@@ -66,6 +66,7 @@ if(SPHINX)
   )
   add_custom_command(
 	OUTPUT ${D}/rst.stamp
+	BYPRODUCTS ${D}/rst/COPYRIGHT ${D}/rst/changelog ${RST_DEST}
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${D}/rst/_static
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different
 				${PROJECT_SOURCE_DIR}/img/bigcert.png
@@ -74,6 +75,7 @@ if(SPHINX)
 				${PROJECT_SOURCE_DIR}/COPYRIGHT
 				${PROJECT_SOURCE_DIR}/changelog
 				${RST_SOURCE} ${D}/rst
+	COMMAND ${CMAKE_COMMAND} -E touch ${D}/rst.stamp
 	DEPENDS ${PROJECT_SOURCE_DIR}/COPYRIGHT
 		${PROJECT_SOURCE_DIR}/changelog
 		${RST_SOURCE}

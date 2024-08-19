@@ -10,16 +10,6 @@ export TVERSION
 
 releasedir="$HOME/xca-$TVERSION"
 
-(
-  echo "<html><body><div><ul>"
-  sed 's/&/\&amp;/g;
-       s/</\&lt;/g;
-       s/>/\&gt;/g;
-       s#^xca \([^ ]*\) *\(.*\)#</ul></div><div id="changelog_\1"><h3>xca \1 \2</h3><hr/><ul>#;
-       s#\*\(.*\)#</li><li>\1#' changelog
-  echo "</ul></div></body></html>"
-) > changelog.html
-
 ./release/gen-binary-hash "$releasedir"
 git commit -a -m "Release XCA $TVERSION done"
 
@@ -31,6 +21,5 @@ After verifying the commits, tags and github release,
 finally do:
   git push origin --tags main
   scp -r ${releasedir}/doc/html hohnstaedt.de:xca-doc/
-  scp -r changelog.html hohnstaedt.de:xca-doc/
   Un-draft the release on github
 EOF
