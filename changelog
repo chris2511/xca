@@ -1,3 +1,4 @@
+ * Drop support of encrypted PVK files.
  * Windows/Mac build: switch to QT 6.6.3
  * Close #554: Missing option to disable file association in Windows setup
  * Close #395: Flexible Clipboard Export
