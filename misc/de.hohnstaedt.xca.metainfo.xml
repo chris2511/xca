@@ -6,8 +6,12 @@
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>BSD-3-Clause</project_license>
     <provides>
+        <id>io.github.chris2511.xca</id>
         <binary>xca</binary>
     </provides>
+    <replaces>
+        <id>io.github.chris2511.xca</id>
+    </replaces>
     <launchable type="desktop-id">de.hohnstaedt.xca.desktop</launchable>
     <description>
         <p>
@@ -29,7 +33,9 @@
             <li>Adapt the columns to have your important information at a glance</li>
         </ul>
     </description>
-    <developer_name>Christian Hohnstädt, Kerstin Steinhauff et al.</developer_name>
+    <developer id="de.hohnstaedt.christian">
+        <name>Christian Hohnstädt</name>
+    </developer>
     <releases>
         <release date="2024-08-27" version="2.7.0" />
         <release date="2024-02-06" version="2.6.0" />
