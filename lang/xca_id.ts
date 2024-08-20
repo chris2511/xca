@@ -375,7 +375,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Impor kunci tls-auth OpenVPN</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -431,17 +431,17 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>Entri vCalendar ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>Berkas OpenVPN ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth OpenVPN ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -565,7 +565,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>Entri vCalendar ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -1094,12 +1094,12 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
     <message>
         <location line="+3"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci Privat SSH ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci PVK Microsoft ( *.pvk )</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1543,12 +1543,12 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Coba lagi dengan PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Coba lagi dengan PIN SO</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2139,32 +2139,32 @@ Harap masukkan bit parameter DH</translation>
     <message>
         <location line="+10"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesalahan</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>ekstensi duplikat</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Subject Alternative Name tidak valid</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Issuer Alternative Name tidak valid</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL Distribution Point tidak valid</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Authority Information Access tidak valid</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2816,12 +2816,12 @@ Khususnya EC dan DSA hanya didefinisiakn dengan SHA1 dalam spesifikasi PKCS#1.</
     <message>
         <location line="+7"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth OpenVPN ( *.key );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Impor kunci tls-auth OpenVPN</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3202,7 +3202,7 @@ Dalam pustaka %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>tidak aman</translation>
     </message>
 </context>
 <context>
@@ -3585,7 +3585,7 @@ Dalam pustaka %3
     <message>
         <location line="+62"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Format papan klip</translation>
+        <translation>Format papan klip</translation>
     </message>
 </context>
 <context>
@@ -4619,23 +4619,23 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <location line="+1"/>
         <location line="+16"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Konfig OpenSSL</translation>
+        <translation>Konfig OpenSSL</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Berkas konfigurasi OpenSSL untuk membuat suatu sertifikat atau meminta dengan alat baris perintah openssl</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth OpenVPN</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth OpenVPN adalah sebuah kunci rahasia yang dipakai bersama antar titik akhir</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4945,7 +4945,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilih Slot dari %1</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -5055,27 +5055,27 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth OpenVPN tidak valid</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal mengimpor kunci tls-auth</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth yang sama sudah disimpan bagi CA ini</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth baru sukses diimpor</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunci tls-auth yang ada sukses digantikan</translation>
     </message>
     <message>
         <location line="+104"/>
