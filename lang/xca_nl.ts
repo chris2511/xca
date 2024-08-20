@@ -324,7 +324,7 @@
         <translation>Importeren van PKCS#7 bestand</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>Verzoek</translation>
     </message>
@@ -369,7 +369,12 @@
         <translation>Beheer intrekkingen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>Vernieuwing</translation>
@@ -385,7 +390,7 @@
         <translation>Intrekken ongedaan maken</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+80"/>
         <source>Plain View</source>
         <translation>Tekst weergave</translation>
     </message>
@@ -418,6 +423,21 @@
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
         <translation>X.509 Certificaten ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -537,6 +557,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -894,12 +919,11 @@ Serienummer: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>Klembord formaat</translation>
+        <translation type="vanished">Klembord formaat</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>Verander het wachtwoord</translation>
     </message>
@@ -943,7 +967,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+47"/>
         <source>Key export</source>
         <translation>Sleutel export</translation>
     </message>
@@ -951,6 +975,16 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>Privé-sleutels ( *.pem *.der *.pk8 );; SSH Openbare sleutels ( *.pub )</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2619,6 +2653,16 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <translation>Open XCA database</translation>
     </message>
     <message>
+        <location line="+7"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+8"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation>PKCS#11 bibliotheek ( *.dll );;</translation>
@@ -2973,7 +3017,7 @@ In bibliotheek bestand %3
         <translation>De volgende fout is opgetreden:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>Kan het databaseschema niet bijwerken naar de huidige versie</translation>
     </message>
@@ -3217,7 +3261,7 @@ In bibliotheek bestand %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>yyyy-MM-dd hh:mm</translation>
     </message>
@@ -3276,7 +3320,7 @@ In bibliotheek bestand %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
         <source>Item properties</source>
         <translation>Item eigenschappen</translation>
     </message>
@@ -3356,7 +3400,7 @@ In bibliotheek bestand %3
         <translation>Exporteren</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>Klembord</translation>
     </message>
@@ -3364,6 +3408,11 @@ In bibliotheek bestand %3
         <location line="+2"/>
         <source>File</source>
         <translation>Bestand</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">Klembord formaat</translation>
     </message>
 </context>
 <context>
@@ -4082,7 +4131,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Voer het wachtwoord in dat de Microsoft PVK-sleutel &apos;%1&apos; beschermt</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Voer het exportwachtwoord in voor de privé-sleutel &apos;%1&apos;</translation>
     </message>
@@ -4091,13 +4140,13 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>PEM Tekst formaat met koppen</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Samengevoegde lijst van alle geselecteerde items in één PEM tekstbestand</translation>
     </message>
@@ -4188,12 +4237,12 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>vCalendar vervaldatum herinnering voor de geselecteerde items</translation>
     </message>
@@ -4209,18 +4258,18 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">OpenSSL configuratie</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4306,14 +4355,12 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Niet-versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>PVK versleuteld</translation>
+        <translation type="vanished">PVK versleuteld</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
+        <translation type="vanished">Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4639,7 +4686,32 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Kon het certificaat niet laden in bestand %1. Geprobeerd met PEM- en DER-certificaat.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+95"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
         <source>This certificate is already on the security token</source>
         <translation>Dit certificaat bevindt zich al in het beveiligingstoken</translation>
     </message>
@@ -4654,7 +4726,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Er is geen sleutel voor ondertekening !</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+304"/>
         <source>No</source>
         <translation>Nee</translation>
     </message>

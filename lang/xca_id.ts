@@ -328,7 +328,7 @@
         <translation>Impor dari PKCS#7</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>Permintaan</translation>
     </message>
@@ -373,7 +373,12 @@
         <translation>Kelola pencabutan</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>Pembaruan</translation>
@@ -389,7 +394,7 @@
         <translation>Tak jadi cabut</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+80"/>
         <source>Plain View</source>
         <translation>Tilikan Polos</translation>
     </message>
@@ -422,6 +427,21 @@
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
         <translation>Sertifikat X509 ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -541,6 +561,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1014,12 +1039,11 @@ Serial: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>Format papan klip</translation>
+        <translation type="vanished">Format papan klip</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>Ubah kata sandi</translation>
     </message>
@@ -1063,16 +1087,26 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+47"/>
         <source>Key export</source>
         <translation>Ekspor kunci</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
         <translation type="vanished">Ekspor kunci publik [%1]</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-3"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>Kunci Privat ( *.pem *.der *.pk8 );; Kunci Publik SSH ( *.pub )</translation>
     </message>
@@ -2780,6 +2814,16 @@ Khususnya EC dan DSA hanya didefinisiakn dengan SHA1 dalam spesifikasi PKCS#1.</
         <translation>Buka Basis Data XCA</translation>
     </message>
     <message>
+        <location line="+7"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+8"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation>Pustaka PKCS#11 ( *.dll );;</translation>
@@ -3146,7 +3190,7 @@ Dalam pustaka %3
         <translation>Terjadi kesalahan berikut:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>Gagal memperbarui skema basis data ke versi saat ini</translation>
     </message>
@@ -3390,7 +3434,7 @@ Dalam pustaka %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>yyyy-MM-dd hh:mm</translation>
     </message>
@@ -3449,7 +3493,7 @@ Dalam pustaka %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
         <source>Item properties</source>
         <translation>Properti butir</translation>
     </message>
@@ -3529,7 +3573,7 @@ Dalam pustaka %3
         <translation>Ekspor</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>Papan klip</translation>
     </message>
@@ -3537,6 +3581,11 @@ Dalam pustaka %3
         <location line="+2"/>
         <source>File</source>
         <translation>Berkas</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">Format papan klip</translation>
     </message>
 </context>
 <context>
@@ -4441,7 +4490,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Harap masukkan kata sandi untuk melindungi kunci PVK Microsoft &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Harap masukkan kata sandi ekspor untuk kunci privat &apos;%1&apos;</translation>
     </message>
@@ -4450,13 +4499,13 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>Format Teks PEM dengan header</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Daftar tersambung dari semua butir yang dipilih dalam satu berkas teks PEM</translation>
     </message>
@@ -4547,12 +4596,12 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>Pengingat kedaluwarsa vCalendar bagi butir-butir yang dipilih</translation>
     </message>
@@ -4568,18 +4617,18 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">Konfig OpenSSL</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4665,14 +4714,12 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Kunci privat dalam format PVK Microsoft yang tidak terenkripsi</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>PVK terenkripsi</translation>
+        <translation type="vanished">PVK terenkripsi</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>Kunci privat terenkripsi dalam format PVK Microsoft</translation>
+        <translation type="vanished">Kunci privat terenkripsi dalam format PVK Microsoft</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5006,7 +5053,32 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Tidak bisa memuat sertifikat dalam berkas %1. Dicoba sertifikat PEM dan DER.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+95"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
         <source>This certificate is already on the security token</source>
         <translation>Sertifikat ini sudah ada dalam token keamanan</translation>
     </message>
@@ -5025,7 +5097,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation type="vanished">Salah Ukuran %1</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+304"/>
         <source>No</source>
         <translation>Tidak</translation>
     </message>

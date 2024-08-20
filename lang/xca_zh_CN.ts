@@ -333,7 +333,7 @@
         <translation>导入PKCS#7</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>证书签名请求（CSR）</translation>
     </message>
@@ -378,7 +378,12 @@
         <translation>吊销管理</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>续签</translation>
@@ -394,7 +399,7 @@
         <translation>反吊销</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+80"/>
         <source>Plain View</source>
         <translation>扁平视图</translation>
     </message>
@@ -427,6 +432,21 @@
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
         <translation>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -546,6 +566,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1011,12 +1036,11 @@ Serial: %3</source>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>剪贴板格式</translation>
+        <translation type="vanished">剪贴板格式</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>修改密码</translation>
     </message>
@@ -1060,16 +1084,26 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 这将删除密钥 &apos;%1&apos;并使其无法导出</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+47"/>
         <source>Key export</source>
         <translation>导出密钥</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
         <translation type="vanished">导出公钥 [%1]</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-3"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</translation>
     </message>
@@ -3059,6 +3093,16 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>打开XCA数据库</translation>
     </message>
     <message>
+        <location line="+7"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+8"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation>PKCS#11 library ( *.dll );;</translation>
@@ -3235,7 +3279,7 @@ In library %3
         <translation>发生以下错误:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>更新XCA数据库格式至当前版本失败</translation>
     </message>
@@ -3479,7 +3523,7 @@ In library %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>yyyy-MM-dd hh:mm</translation>
     </message>
@@ -3538,7 +3582,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
         <source>Item properties</source>
         <translation>条目属性</translation>
     </message>
@@ -3618,7 +3662,7 @@ In library %3
         <translation>导出</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>剪贴板</translation>
     </message>
@@ -3626,6 +3670,11 @@ In library %3
         <location line="+2"/>
         <source>File</source>
         <translation>文件</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">剪贴板格式</translation>
     </message>
 </context>
 <context>
@@ -4526,7 +4575,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>请输入密码，用于保护Microsoft PVK密钥 &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>请输入私钥&apos;%1&apos;的导出密码</translation>
     </message>
@@ -4535,13 +4584,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>带头部的PEM格式</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>导出选定的条目至PEM文件</translation>
     </message>
@@ -4632,12 +4681,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>所选条目的vCalendar到期提醒</translation>
     </message>
@@ -4653,18 +4702,18 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">OpenSSL配置</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4750,14 +4799,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>导出未加密的私钥至Microsoft PVK文件</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>PVK加密</translation>
+        <translation type="vanished">PVK加密</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>导出加密的私钥至Microsoft PVK文件</translation>
+        <translation type="vanished">导出加密的私钥至Microsoft PVK文件</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5103,7 +5150,32 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>无法从文件%1加载证书。尝试使用PEM或DER格式的证书。</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+95"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
         <source>This certificate is already on the security token</source>
         <translation>安全令牌上已存在该证书</translation>
     </message>
@@ -5122,7 +5194,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">错误的大小%1</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+304"/>
         <source>No</source>
         <translation>否</translation>
     </message>

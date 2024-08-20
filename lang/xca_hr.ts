@@ -399,7 +399,7 @@
         <translation>Uvezi PKCS#7</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>Zahtjev</translation>
     </message>
@@ -444,7 +444,12 @@
         <translation>Upravljaj opozivima</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+91"/>
         <source>Plain View</source>
         <translation>Običan pregled</translation>
     </message>
@@ -479,11 +484,26 @@
         <translation>X509 potvrde ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Trust</source>
         <translation type="vanished">Povjerenje</translation>
     </message>
     <message>
-        <location line="-156"/>
+        <location line="-175"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>Obnovi</translation>
@@ -659,6 +679,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1261,12 +1286,11 @@ Serijski broj: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>Format međuspremnika</translation>
+        <translation type="vanished">Format međuspremnika</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>Promjena zaporke</translation>
     </message>
@@ -1303,16 +1327,26 @@ Serijski broj: %3</translation>
         <translation>Ovo nije token</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+76"/>
         <source>Key export</source>
         <translation>Izvoz ključa</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
         <translation type="vanished">Izvezi javni ključ [%1]</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-3"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>Privatni ključevi ( *.pem *.der *.pk8 );; SSH javni ključevi ( *.pub )</translation>
     </message>
@@ -1329,7 +1363,7 @@ Serijski broj: %3</translation>
         <translation type="obsolete">Pokušaj inicijalizacije SO PIN ključa</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-48"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Da li originalni ključ &apos;%1&apos; treba biti zamijenjen ključem iz tokena?
@@ -3397,6 +3431,16 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <translation>Otvori XCA Bazu podataka</translation>
     </message>
     <message>
+        <location line="+7"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+8"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation>PKCS#11 knjižnica ( *.dll );;</translation>
@@ -3773,7 +3817,7 @@ U knjižnici %3
         <translation>Dogodila se sljedeća greška:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>Nije moguće modernizirati shemu baze podataka na trenutnu inačicu</translation>
     </message>
@@ -4029,7 +4073,7 @@ U knjižnici %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>yyyy-MM-dd hh:mm</translation>
     </message>
@@ -4092,7 +4136,7 @@ U knjižnici %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+405"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+406"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
@@ -4176,7 +4220,7 @@ U knjižnici %3
         <translation>Izvezi</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>Međuspremnik</translation>
     </message>
@@ -4184,6 +4228,11 @@ U knjižnici %3
         <location line="+2"/>
         <source>File</source>
         <translation>Datoteka</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">Format međuspremnika</translation>
     </message>
 </context>
 <context>
@@ -5783,7 +5832,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Unesite zaporku za zaštitu Microsoft PVK ključa &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Unesite zaporku za izvoz privatnog ključa &apos;%1&apos;</translation>
     </message>
@@ -5792,13 +5841,13 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>PEM Tekst format sa zaglavljima</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Lista svih odabranih stavki spojena u jednu PEM datoteku</translation>
     </message>
@@ -5889,12 +5938,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>vCalendar podsjetnik o prestanku važenja odabranih stavki</translation>
     </message>
@@ -5910,18 +5959,18 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">OpenSSL konfiguracija</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6007,14 +6056,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Privatni ključ u Microsoft PVK formatu nije kriptiran</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>PVK kriptirani</translation>
+        <translation type="vanished">PVK kriptirani</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>Kriptirani privatni ključ u Microsoft PVK formatu</translation>
+        <translation type="vanished">Kriptirani privatni ključ u Microsoft PVK formatu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6397,7 +6444,32 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation>Nije moguće učitati potvrdu u datoteci %1. Proban je PEM i DER format.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+95"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
         <source>This certificate is already on the security token</source>
         <translation>Ova potvrda se već nalazi na pametnom tokenu</translation>
     </message>
@@ -6416,7 +6488,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <translation type="vanished">Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="+318"/>
+        <location line="+336"/>
         <source>Renew certificate: %1</source>
         <translation>Obnovi potvrdu: %1</translation>
     </message>

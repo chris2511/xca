@@ -330,7 +330,7 @@
         <translation>درون‌داد از PKCS#7</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>درخواست</translation>
     </message>
@@ -376,7 +376,12 @@
         <translation>مدیریت ابطال</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>تمدید</translation>
@@ -392,7 +397,7 @@
         <translation>لغو ابطال</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+80"/>
         <source>Plain View</source>
         <translation>نمایش بدون قالب</translation>
     </message>
@@ -425,6 +430,21 @@
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
         <translation>گواهی x509  (با قالب‌های pem, cer, crt, p12, pfx, p7b)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -544,6 +564,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>فهرست ابطال  (CRL) (*.pem *der *.crl)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1022,12 +1047,11 @@ Serial: %3</source>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>قالب حافظه‌ی رونوشت</translation>
+        <translation type="vanished">قالب حافظه‌ی رونوشت</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>تغییر گذرواژه</translation>
     </message>
@@ -1071,7 +1095,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 این گزینه کلید &apos;%1&apos; را پاک خواهد کرد و آن را غیرقابل استخراج می‌کند</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+47"/>
         <source>Key export</source>
         <translation>پرون‌داد کلید</translation>
     </message>
@@ -1079,6 +1103,16 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+1"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>کلید‌های خصوصی ( با قالب‌های pem، der و pk8);; کلیدهای عمومی SSH (با قالب pub)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -2666,6 +2700,33 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     </message>
 </context>
 <context>
+    <name>QMessageBox</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">تأیید</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="vanished">بستن</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">لغو</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">اعمال</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="vanished">بله</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="vanished">خیر</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../lib/asn1time.cpp" line="+142"/>
@@ -2812,6 +2873,16 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <location line="+1"/>
         <source>Open XCA Database</source>
         <translation>باز کردن پایگاه‌داده‌ی XCA</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3166,7 +3237,7 @@ In library %3
         <translation>خطای زیر ایجاد شد:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>به‌روزرسانی شمای پایگاه‌داده به نگارش کنونی امکان‌پذیر نیست</translation>
     </message>
@@ -3426,7 +3497,7 @@ In library %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>yyyy-MM-dd hh:mm</translation>
     </message>
@@ -3485,7 +3556,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+335"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
         <source>Item properties</source>
         <translation>مشخصه‌های موارد</translation>
     </message>
@@ -3565,7 +3636,7 @@ In library %3
         <translation>برون‌داد</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>حافظه‌ی رونوشت</translation>
     </message>
@@ -3573,6 +3644,11 @@ In library %3
         <location line="+2"/>
         <source>File</source>
         <translation>پرونده</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">قالب حافظه‌ی رونوشت</translation>
     </message>
 </context>
 <context>
@@ -4486,7 +4562,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>خواهشمند است گذرواژه‌ی محافظت از کلید Microsoft PVK را وارد نمائید: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>خواهشمند است گذرواژه‌ی برون‌داد کلید خصوصی را وارد نمائید: &apos;%1&apos;</translation>
     </message>
@@ -4507,13 +4583,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>قالب متنی PEM با سرآیند</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>فهرست همه‌ی موارد در یک پرونده‌ی متنی PEM الحاق‌شده</translation>
     </message>
@@ -4604,12 +4680,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>یاآوری انقضای vCalander برای موارد انتخاب‌شده</translation>
     </message>
@@ -4625,18 +4701,18 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">پیکربندی OpenSSL</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4722,14 +4798,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>کلید خصوصی در قالب Microsoft PVK به صورت رمزنگاری‌نشده</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>PVK رمزنگاری‌شده</translation>
+        <translation type="vanished">PVK رمزنگاری‌شده</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>کلید خصوصی رمزنگاری‌شده در قالب Microsoft PVK</translation>
+        <translation type="vanished">کلید خصوصی رمزنگاری‌شده در قالب Microsoft PVK</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5066,7 +5140,32 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>بارگذاری گواهی از پرونده‌ی %1 امکان‌پذیر نیست. قالب‌های PEM و DER آزمایش شد.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+95"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
         <source>This certificate is already on the security token</source>
         <translation>گواهی در حال حاضر بر روی توکن امنیتی موجود است</translation>
     </message>
@@ -5081,7 +5180,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>هیچ کلیدی برای امضا وجود ندارد!</translation>
     </message>
     <message>
-        <location line="+286"/>
+        <location line="+304"/>
         <source>No</source>
         <translation>خیر</translation>
     </message>
@@ -5245,41 +5344,6 @@ It is stored in the XCA database &apos;%4&apos;</source>
     </message>
 </context>
 <context>
-    <name>xcaWarningGui</name>
-    <message>
-        <location filename="../widgets/XcaWarning.cpp" line="+71"/>
-        <source>Copy to Clipboard</source>
-        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
-    </message>
-</context>
-<context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">تأیید</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">بستن</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">لغو</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">اعمال</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">بله</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">خیر</translation>
-    </message>
-</context>
-<context>
     <name>xcaWarning</name>
     <message>
         <source>The following error occurred:</source>
@@ -5288,6 +5352,14 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <source>Copy to Clipboard</source>
         <translation type="vanished">ایجاد رونوشت در حافظه‌رونوشت</translation>
+    </message>
+</context>
+<context>
+    <name>xcaWarningGui</name>
+    <message>
+        <location filename="../widgets/XcaWarning.cpp" line="+71"/>
+        <source>Copy to Clipboard</source>
+        <translation>ایجاد رونوشت در حافظه‌رونوشت</translation>
     </message>
 </context>
 </TS>

@@ -379,7 +379,7 @@
         <translation>Импорт из PKCS#7</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>Запрос</translation>
     </message>
@@ -424,7 +424,12 @@
         <translation>Управление отзывами</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+91"/>
         <source>Plain View</source>
         <translation>В виде списка</translation>
     </message>
@@ -459,11 +464,26 @@
         <translation>Сертификаты X509 ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Trust</source>
         <translation type="vanished">Доверять</translation>
     </message>
     <message>
-        <location line="-156"/>
+        <location line="-175"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>Продлить</translation>
@@ -597,6 +617,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>Списки отзыва ( *.pem *.der *.crl );;</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1090,12 +1115,11 @@ Serial: %3</source>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>формат буфера обмена</translation>
+        <translation type="vanished">формат буфера обмена</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>Изменить пароль</translation>
     </message>
@@ -1139,16 +1163,26 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 Ключ &apos;%1&apos; будет безвозвратно удалён</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+47"/>
         <source>Key export</source>
         <translation>экспорт ключа</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
         <translation type="vanished">Экспортировать открытый ключ [%1]</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-3"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>Закрытые ключи ( *.pem *.der *.pk8 );; Открытые ключи SSH ( *.pub )</translation>
     </message>
@@ -2952,7 +2986,17 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Базы данных XCA ( *.xdb );;</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+8"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>PKCS#11 library ( *.dylib *.so );;</source>
         <translation>Библиотека PKCS#11 ( *.dylib *.so );;</translation>
     </message>
@@ -2982,7 +3026,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>%1 длиннее, чем %2 байт: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="-154"/>
+        <location filename="../lib/load_obj.cpp" line="-162"/>
         <source>All files ( * )</source>
         <translation>Все файлы ( * )</translation>
     </message>
@@ -3045,7 +3089,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="vanished">DB: Не найдено значение для переименования: %1</translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+140"/>
+        <location filename="../lib/load_obj.cpp" line="+148"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation>Библиотека PKCS#11 ( *.dll );;</translation>
     </message>
@@ -3407,7 +3451,7 @@ In library %3
         <translation>Произошла ошибка:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>Ошибка обновления схемы БД до текущей версии</translation>
     </message>
@@ -3659,7 +3703,7 @@ In library %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>гггг-ММ-дд чч:мм</translation>
     </message>
@@ -3718,7 +3762,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+405"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+406"/>
         <source>Subject entries</source>
         <translation>Поля субъекта</translation>
     </message>
@@ -3802,7 +3846,7 @@ In library %3
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>Буфер обмена</translation>
     </message>
@@ -3810,6 +3854,11 @@ In library %3
         <location line="+2"/>
         <source>File</source>
         <translation>Файл</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">формат буфера обмена</translation>
     </message>
 </context>
 <context>
@@ -4836,12 +4885,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Пожалуйста, введите пароль для защиты ключа Microsoft PVK &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль для экспорта закрытого ключа &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-400"/>
+        <location line="-399"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль к базе данных для расшифровки ключа  &apos;%1&apos;</translation>
     </message>
@@ -4850,13 +4899,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>Текстовый PEM формат с заголовками</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Все выбранные элементы в одном PEM файле</translation>
     </message>
@@ -4947,12 +4996,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>Напоминание об окончании срока для выбранных сертификатов в формате vCalendar</translation>
     </message>
@@ -4968,18 +5017,18 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation>Конфигурация OpenSSL</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation>Файл конфигурации OpenSSL для создания сертификата или запроса с помощью openssl</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation>ключ tls-аутентификации OpenVPN</translation>
     </message>
@@ -5065,14 +5114,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Закрытый ключ в формате Microsoft PVK без пароля</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>Зашифрованный PVK</translation>
+        <translation type="vanished">Зашифрованный PVK</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>Закрытый ключ в формате Microsoft PVK с паролем</translation>
+        <translation type="vanished">Закрытый ключ в формате Microsoft PVK с паролем</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5421,12 +5468,37 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>Удалить %1 сертификатов: %2?</translation>
     </message>
     <message>
-        <location line="+411"/>
+        <location line="+265"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+167"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
         <translation>Удалить сертификат &apos;%1&apos; из модуля защиты &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+450"/>
+        <location line="+468"/>
         <source>Renew certificate: %1</source>
         <translation>Продлить сертификат %1</translation>
     </message>
@@ -5460,17 +5532,17 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location line="-288"/>
+        <location line="-306"/>
         <source>There is no key for signing !</source>
         <translation>Не выбран ключ для подписи!</translation>
     </message>
     <message>
-        <location line="-373"/>
+        <location line="-431"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Не удалось загрузить сертификат из файла %1. Испробованные форматы: PEM и DER.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+236"/>
         <source>This certificate is already on the security token</source>
         <translation>Этот сертификат уже есть в модуле защиты</translation>
     </message>

@@ -383,7 +383,7 @@
         <translation>Import aus PKCS #7</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Request</source>
         <translation>Zertifikatsantrag</translation>
     </message>
@@ -428,7 +428,12 @@
         <translation>Sperrlisteneinträge bearbeiten</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+4"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+91"/>
         <source>Plain View</source>
         <translation>Einfache Ansicht</translation>
     </message>
@@ -463,11 +468,26 @@
         <translation>X509 Zertifikate ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN file ( *.ovpn )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>OpenVPN tls-auth key ( *.key )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Trust</source>
         <translation type="vanished">Vertrauen</translation>
     </message>
     <message>
-        <location line="-156"/>
+        <location line="-175"/>
         <location line="+3"/>
         <source>Renewal</source>
         <translation>Verlängerung</translation>
@@ -643,6 +663,11 @@
         <location line="+1"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>vCalendar entry ( *.ics )</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1241,12 +1266,11 @@ Seriennummer: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <location filename="../widgets/KeyTreeView.cpp" line="+32"/>
         <source>Clipboard format</source>
-        <translation>Format für die Zwischenablage</translation>
+        <translation type="vanished">Format für die Zwischenablage</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>Passwort ändern</translation>
     </message>
@@ -1283,16 +1307,26 @@ Seriennummer: %3</translation>
         <translation>Dies ist keine Smartcard</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+76"/>
         <source>Key export</source>
         <translation>Schlüsselexport</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>SSH Private Keys ( *.priv )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Microsoft PVK Keys ( *.pvk )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
         <translation type="vanished">Export des öffentlichen Schlüssels [%1]</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-3"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
         <translation>Private Schlüssel ( *.pem *.der *.pk8 );; Öffentliche SSH Schlüssel ( *.pub )</translation>
     </message>
@@ -1301,7 +1335,7 @@ Seriennummer: %3</translation>
         <translation type="obsolete">Die PIN eines Schlüssels ohne Chipkarte kann nicht geändert werden</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-48"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Soll der Originalschlüssel &apos;%1&apos; durch den Chipkartenschlüssel ersetzt werden?
@@ -3253,7 +3287,17 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>XCA Datenbanken ( *.xdb );;</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+8"/>
+        <source>OpenVPN tls-auth key ( *.key );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>PKCS#11 library ( *.dylib *.so );;</source>
         <translation>PKCS#11 Bibliothek ( *.dylib *.so );;</translation>
     </message>
@@ -3283,7 +3327,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>%1 ist länger als %2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="-154"/>
+        <location filename="../lib/load_obj.cpp" line="-162"/>
         <source>All files ( * )</source>
         <translation>Alle Dateien ( * )</translation>
     </message>
@@ -3346,7 +3390,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation type="vanished">DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+140"/>
+        <location filename="../lib/load_obj.cpp" line="+148"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation></translation>
     </message>
@@ -3713,7 +3757,7 @@ in Bibliothek %3
         <translation>Der folgende Fehler ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="+113"/>
+        <location filename="../lib/database_model.cpp" line="+117"/>
         <source>Failed to update the database schema to the current version</source>
         <translation>Die Datenbank konnte nicht auf das neue Schema aktualisiert werden</translation>
     </message>
@@ -3965,7 +4009,7 @@ in Bibliothek %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+92"/>
+        <location filename="../widgets/validity.cpp" line="+91"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>dd.MM.yyyy hh:mm</translation>
     </message>
@@ -4028,7 +4072,7 @@ in Bibliothek %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+405"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+406"/>
         <source>Subject entries</source>
         <translation>Namensteile</translation>
     </message>
@@ -4112,7 +4156,7 @@ in Bibliothek %3
         <translation>Export</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Clipboard</source>
         <translation>Zwischenablage</translation>
     </message>
@@ -4120,6 +4164,11 @@ in Bibliothek %3
         <location line="+2"/>
         <source>File</source>
         <translation>Datei</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Clipboard format</source>
+        <translation type="unfinished">Format für die Zwischenablage</translation>
     </message>
 </context>
 <context>
@@ -5700,12 +5749,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <translation>Bitte das Passwort zum Schutz des Microsoft PVK Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Bitte das Passwort zum Schutz des privaten Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location line="-400"/>
+        <location line="-399"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Bitte das Datenbankpasswort zur Entschlüsselung des Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
@@ -5714,13 +5763,13 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>PEM Textformat mit Kopf- und Fußzeilen</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
         <translation>Aneinandergereihte Liste aller ausgewählter Einträge in eine PEM Text Datei</translation>
     </message>
@@ -5811,12 +5860,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+23"/>
+        <location line="+22"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-22"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>Fälligkeitserinnerung für alle ausgewählten Elemente im vCalendar Format</translation>
     </message>
@@ -5832,18 +5881,18 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL Konfiguration</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+17"/>
+        <location line="-16"/>
+        <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation>OpenSSL Konfigurationsdatei um ein Zertifikat oder ein Zertifikatsantrag mit dem OpenSSL Kommandozeilenwerkzeug zu erstellen</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
         <translation>OpenVPN tls-auth Schlüssel</translation>
     </message>
@@ -5929,14 +5978,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <translation>Nicht verschlüsselter privater Schlüssel im Microsoft PVK Format</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>PVK encrypted</source>
-        <translation>PVK verschlüsselt</translation>
+        <translation type="vanished">PVK verschlüsselt</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation>Verschlüsselter privater Schlüssel in einer Microsoft PVK-Datei</translation>
+        <translation type="vanished">Verschlüsselter privater Schlüssel in einer Microsoft PVK-Datei</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6301,12 +6348,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <translation type="vanished">Immer Vertraut</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+609"/>
+        <location filename="../lib/pki_x509.cpp" line="+667"/>
         <source>There is no key for signing !</source>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
-        <location line="-546"/>
+        <location line="-604"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
         <translation>Das Zertifikat &apos;%1&apos; löschen?</translation>
     </message>
@@ -6326,7 +6373,32 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <translation>Das Zertifikat aus der Datei %1 konnte nicht geladen werden. Ist weder PEM noch DER.</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+95"/>
+        <source>Invalid OpenVPN tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Failed to import tls-auth key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Same tls-auth key already stored for this CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>New tls-auth key successfully imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Existing tls-auth key successfully replaced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
         <source>This certificate is already on the security token</source>
         <translation>Dieses Zertifikat ist bereits auf der Chipkarte</translation>
     </message>
@@ -6336,7 +6408,7 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+450"/>
+        <location line="+468"/>
         <source>Renew certificate: %1</source>
         <translation>Zertifikat %1 erneuern</translation>
     </message>
@@ -6372,7 +6444,7 @@ Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
         <translation>Ja</translation>
     </message>
     <message>
-        <location line="-835"/>
+        <location line="-911"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
