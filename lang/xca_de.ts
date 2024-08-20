@@ -430,7 +430,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth Schlüssel importieren</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -470,17 +470,17 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar Ereignisse ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN Datei ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth Schlüssel ( *.key )</translation>
     </message>
     <message>
         <source>Trust</source>
@@ -667,7 +667,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar Ereignisse ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -1314,12 +1314,12 @@ Seriennummer: %3</translation>
     <message>
         <location line="+3"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>Private SSH Schlüssel ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft PVK Schlüssel ( *.pvk )</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -3289,12 +3289,12 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
     <message>
         <location line="+8"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth Schlüssel ( *.key )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth Schlüssel importieren</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4168,7 +4168,7 @@ in Bibliothek %3
     <message>
         <location line="+62"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Format für die Zwischenablage</translation>
+        <translation>Format für die Zwischenablage</translation>
     </message>
 </context>
 <context>
@@ -6375,27 +6375,27 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiger OpenVPN tls-auth Schlüssel</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Import des tls-auth Schlüssels fehlgeschlagen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Der selbe tls-auth Schlüssel war für diese CA bereits gespeichert</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer tls-auth Schlüssel erfolgreich importiert</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorhandener tls-auth Schlüssel erfolgreich ersetzt</translation>
     </message>
     <message>
         <location line="+104"/>
