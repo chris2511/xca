@@ -1,7 +1,9 @@
 
-set(S "${PROJECT_SOURCE_DIR}/doc")
-set(D "${PROJECT_BINARY_DIR}/doc")
-file(MAKE_DIRECTORY "${D}")
+set(S ${PROJECT_SOURCE_DIR}/doc)
+set(D ${PROJECT_BINARY_DIR}/doc)
+set(RST ${D}/rst-build)
+
+file(MAKE_DIRECTORY ${RST})
 
 find_program(SPHINX sphinx-build)
 find_package(Qt6 QUIET OPTIONAL_COMPONENTS ToolsTools)
@@ -13,11 +15,11 @@ set(FILENAMES
 )
 
 foreach(file ${FILENAMES})
-  list(APPEND RST_SOURCE "${S}/rst/${file}.rst")
-  list(APPEND RST_DEST "${D}/rst/${file}.rst")
-  list(APPEND HTML_DEST "${D}/html/${file}.html")
-  list(APPEND HTML_FILE "${file}.html")
-  list(APPEND QTHELP_DEST "${D}/qthelp/${file}.html")
+  list(APPEND RST_SOURCE ${S}/rst/${file}.rst)
+  list(APPEND RST_DEST ${RST}/${file}.rst)
+  list(APPEND HTML_DEST ${D}/html/${file}.html)
+  list(APPEND HTML_FILE ${file}.html)
+  list(APPEND QTHELP_DEST ${D}/qthelp/${file}.html)
 endforeach()
 
 foreach(doc ${HTML_FILE} xca.qhc)
@@ -37,44 +39,44 @@ string(APPEND WIX_DOC_CONTENT
 WixFile(${D}/documentation.wxs ${WIX_DOC_CONTENT})
 
 if(SPHINX)
-  configure_file(${S}/conf.py.in ${D}/rst/conf.py)
+  configure_file(${S}/conf.py.in ${RST}/conf.py)
   add_custom_command(
 	OUTPUT ${HTML_DEST}
-	COMMAND ${SPHINX} -q -b html ${D}/rst ${D}/html
-	DEPENDS ${D}/rst/conf.py sphinx-src
+	COMMAND ${SPHINX} -q -b html ${RST} ${D}/html
+	DEPENDS ${RST}/conf.py sphinx-src
 	COMMENT "Create HTML documentation"
   )
   add_custom_target(sphinx-html DEPENDS ${HTML_DEST})
   add_custom_command(
 	OUTPUT ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
-	COMMAND ${SPHINX} -q -b qthelp ${D}/rst ${D}/qthelp
-	DEPENDS ${D}/rst/conf.py sphinx-src
+	COMMAND ${SPHINX} -q -b qthelp ${RST} ${D}/qthelp
+	DEPENDS ${RST}/conf.py sphinx-src
 	COMMENT "Create context sensitive help"
   )
   add_custom_target(sphinx-qthelp
 	DEPENDS ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
   )
   add_custom_command(
-	OUTPUT ${D}/rst/database_schema.sql
-	COMMAND ${CMAKE_COMMAND} -E make_directory ${D}/rst/_static
+	OUTPUT ${RST}/database_schema.sql
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${RST}/_static
 	COMMAND ${CMAKE_COMMAND}
 		-D SRC=${PROJECT_SOURCE_DIR}/lib/database_schema.cpp
-		-D DST=${D}/rst/database_schema.sql
+		-D DST=${RST}/database_schema.sql
 		-P ${PROJECT_SOURCE_DIR}/cmake/database_schema.cmake
 	DEPENDS ${PROJECT_SOURCE_DIR}/lib/database_schema.cpp
 	COMMENT "Generating database schema SQL documentation"
   )
   add_custom_command(
 	OUTPUT ${D}/rst.stamp
-	BYPRODUCTS ${D}/rst/COPYRIGHT ${D}/rst/changelog ${RST_DEST}
-	COMMAND ${CMAKE_COMMAND} -E make_directory ${D}/rst/_static
+	BYPRODUCTS ${RST}/COPYRIGHT ${RST}/changelog ${RST_DEST}
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${RST}/_static
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different
 				${PROJECT_SOURCE_DIR}/img/bigcert.png
-				${D}/rst/_static
+				${RST}/_static
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different
 				${PROJECT_SOURCE_DIR}/COPYRIGHT
 				${PROJECT_SOURCE_DIR}/changelog
-				${RST_SOURCE} ${D}/rst
+				${RST_SOURCE} ${RST}
 	COMMAND ${CMAKE_COMMAND} -E touch ${D}/rst.stamp
 	DEPENDS ${PROJECT_SOURCE_DIR}/COPYRIGHT
 		${PROJECT_SOURCE_DIR}/changelog
@@ -82,16 +84,16 @@ if(SPHINX)
 	COMMENT "Prepare Sphinx source directory"
   )
   add_custom_command(
-	OUTPUT ${D}/rst/arguments.rst
-	COMMAND xcadoc rst ${D}/rst/arguments.rst
+	OUTPUT ${RST}/arguments.rst
+	COMMAND xcadoc rst ${RST}/arguments.rst
 	COMMENT "Generate 'rst' commandline documentation"
   )
   add_dependencies(${CMAKE_PROJECT_NAME} sphinx-html)
   target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${HTML_DEST})
   add_custom_target(sphinx-src
 	DEPENDS ${D}/rst.stamp
-		${D}/rst/database_schema.sql
-		${D}/rst/arguments.rst
+		${RST}/database_schema.sql
+		${RST}/arguments.rst
   )
 
   if (UNIX)
