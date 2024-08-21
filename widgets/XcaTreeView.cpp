@@ -533,9 +533,11 @@ void XcaTreeView::showContextMenu(QContextMenuEvent *e,
 				setShortcut(QKeySequence::Delete);
 		subExport = menu->addMenu(tr("Export"));
 		const pki_export *xport = pki_export::by_id(Settings[ClipboardSettings]);
+		QString clipboard = tr("Clipboard");
 		if (xport)
-			subExport->addAction(QString("%1 (%2)").arg(
-				tr("Clipboard")).arg(xport->desc), this,
+			clipboard = QString("%1 (%2)").arg(clipboard).arg(xport->desc);
+
+		subExport->addAction(clipboard, this,
 				SLOT(pem2clipboard()))->setShortcut(QKeySequence::Copy);
 		subExport->addAction(tr("File"), this, SLOT(exportItems()))->
 				setShortcut(QKeySequence::Save);
