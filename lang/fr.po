@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: xca 1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 18:14+0200\n"
-"PO-Revision-Date: 2024-02-20 11:22+0100\n"
+"PO-Revision-Date: 2024-08-21 14:57+0200\n"
 "Last-Translator: Patrick Monnerat <.>\n"
 "Language-Team: French <>\n"
 "Language: fr\n"
@@ -337,100 +337,120 @@ msgctxt "CertTreeView|"
 msgid "Import from PKCS#7"
 msgstr "Importer en PKCS#7"
 
-#: ../widgets/CertTreeView.cpp:64
+#: ../widgets/CertTreeView.cpp:63
 msgctxt "CertTreeView|"
 msgid "Request"
 msgstr "Requête"
 
-#: ../widgets/CertTreeView.cpp:66
+#: ../widgets/CertTreeView.cpp:65
 msgctxt "CertTreeView|"
 msgid "Security token"
 msgstr "Jeton de sécurité"
 
-#: ../widgets/CertTreeView.cpp:68
+#: ../widgets/CertTreeView.cpp:67
 msgctxt "CertTreeView|"
 msgid "Other token"
 msgstr "Autre jeton"
 
-#: ../widgets/CertTreeView.cpp:72
+#: ../widgets/CertTreeView.cpp:71
 msgctxt "CertTreeView|"
 msgid "Similar Certificate"
 msgstr "Certificat similaire"
 
-#: ../widgets/CertTreeView.cpp:75
+#: ../widgets/CertTreeView.cpp:74
 msgctxt "CertTreeView|"
 msgid "Delete from Security token"
 msgstr "Détruire sur le jeton de sécurité"
 
-#: ../widgets/CertTreeView.cpp:78
+#: ../widgets/CertTreeView.cpp:77
 msgctxt "CertTreeView|"
 msgid "CA"
 msgstr "CA"
 
-#: ../widgets/CertTreeView.cpp:79
+#: ../widgets/CertTreeView.cpp:78
 msgctxt "CertTreeView|"
 msgid "Properties"
 msgstr "Propriétés"
 
-#: ../widgets/CertTreeView.cpp:80
+#: ../widgets/CertTreeView.cpp:79
 msgctxt "CertTreeView|"
 msgid "Generate CRL"
 msgstr "Générer la liste de révocation"
 
-#: ../widgets/CertTreeView.cpp:81
+#: ../widgets/CertTreeView.cpp:80
 msgctxt "CertTreeView|"
 msgid "Manage revocations"
 msgstr "Gérer les révocations"
 
-#: ../widgets/CertTreeView.cpp:86 ../widgets/CertTreeView.cpp:89
+#: ../widgets/CertTreeView.cpp:84
+msgctxt "CertTreeView|"
+msgid "Import OpenVPN tls-auth key"
+msgstr "Importer la clé tls-auth de OpenVPN"
+
+#: ../widgets/CertTreeView.cpp:88 ../widgets/CertTreeView.cpp:91
 msgctxt "CertTreeView|"
 msgid "Renewal"
 msgstr "Renouvellement"
 
-#: ../widgets/CertTreeView.cpp:91
+#: ../widgets/CertTreeView.cpp:93
 msgctxt "CertTreeView|"
 msgid "Revoke"
 msgstr "Révoquer"
 
-#: ../widgets/CertTreeView.cpp:93
+#: ../widgets/CertTreeView.cpp:95
 msgctxt "CertTreeView|"
 msgid "Unrevoke"
 msgstr "Dé-révoquer"
 
-#: ../widgets/CertTreeView.cpp:157
+#: ../widgets/CertTreeView.cpp:175
 msgctxt "CertTreeView|"
 msgid "Plain View"
 msgstr "Vue à plat"
 
-#: ../widgets/CertTreeView.cpp:157
+#: ../widgets/CertTreeView.cpp:175
 msgctxt "CertTreeView|"
 msgid "Tree View"
 msgstr "Vue arborescente"
 
-#: ../widgets/CertTreeView.cpp:186
+#: ../widgets/CertTreeView.cpp:204
 msgctxt "CertTreeView|"
 msgid "days"
 msgstr "jours"
 
-#: ../widgets/CertTreeView.cpp:194
+#: ../widgets/CertTreeView.cpp:212
 msgctxt "CertTreeView|"
 msgid "No template"
 msgstr "Pas de modèle"
 
-#: ../widgets/CertTreeView.cpp:199
+#: ../widgets/CertTreeView.cpp:217
 msgctxt "CertTreeView|"
 msgid "CA Properties"
 msgstr "Propriétés du CA"
 
-#: ../widgets/CertTreeView.cpp:241
+#: ../widgets/CertTreeView.cpp:259
 msgctxt "CertTreeView|"
 msgid "Certificate export"
 msgstr "Exportation de certificat"
 
-#: ../widgets/CertTreeView.cpp:242
+#: ../widgets/CertTreeView.cpp:260
 msgctxt "CertTreeView|"
 msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )"
 msgstr "Certificats X509 ( *.pem *.cer *.crt *.p12  *.pfx *.p7b )"
+
+#: ../widgets/CertTreeView.cpp:261
+msgctxt "CertTreeView|"
+msgid "vCalendar entry ( *.ics )"
+msgstr "inscription vCalendar ( *ics )"
+
+#: ../widgets/CertTreeView.cpp:262
+msgctxt "CertTreeView|"
+msgid "OpenVPN file ( *.ovpn )"
+msgstr "Fichier OpenVPN ( *.ovpn )"
+
+#: ../widgets/CertTreeView.cpp:263
+msgctxt "CertTreeView|"
+msgid "OpenVPN tls-auth key ( *.key )"
+msgstr "Clé tls-auth de OpenVPN ( *.key )"
 
 #: ../widgets/clicklabel.cpp:37
 msgctxt "ClickLabel|"
@@ -542,32 +562,37 @@ msgctxt "CrlTreeView|"
 msgid "CRL ( *.pem *.der *.crl )"
 msgstr "CRL ( *.pem *.der *.crl )"
 
-#: ../ui/ExportDialog.ui:79
+#: ../widgets/CrlTreeView.cpp:71
+msgctxt "CrlTreeView|"
+msgid "vCalendar entry ( *.ics )"
+msgstr "inscription vCalendar ( *.ics )"
+
+#: ../ui/ExportDialog.ui:75
 msgctxt "ExportDialog|"
 msgid "Name"
 msgstr "Nom"
 
-#: ../ui/ExportDialog.ui:86
+#: ../ui/ExportDialog.ui:82
 msgctxt "ExportDialog|"
 msgid "The internal name of the CRL in the database"
 msgstr "Le nom interne de la liste de révocation dans la base de données"
 
-#: ../ui/ExportDialog.ui:115
+#: ../ui/ExportDialog.ui:111
 msgctxt "ExportDialog|"
 msgid "..."
 msgstr "..."
 
-#: ../ui/ExportDialog.ui:99
+#: ../ui/ExportDialog.ui:95
 msgctxt "ExportDialog|"
 msgid "Filename"
 msgstr "Nom du fichier"
 
-#: ../ui/ExportDialog.ui:151
+#: ../ui/ExportDialog.ui:164
 msgctxt "ExportDialog|"
 msgid "Export comment into PEM file"
 msgstr "Exporter le commentaire dans le fichier PEM"
 
-#: ../ui/ExportDialog.ui:171
+#: ../ui/ExportDialog.ui:120
 msgctxt "ExportDialog|"
 msgid "Export Format"
 msgstr "Format d'exportation"
@@ -878,48 +903,43 @@ msgctxt "KeyDetail|"
 msgid "Unknown key"
 msgstr "Clé inconnue"
 
-#: ../widgets/KeyTreeView.cpp:32
-msgctxt "KeyTreeView|"
-msgid "Clipboard format"
-msgstr "Format du presse-papier"
-
-#: ../widgets/KeyTreeView.cpp:52
+#: ../widgets/KeyTreeView.cpp:31
 msgctxt "KeyTreeView|"
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
-#: ../widgets/KeyTreeView.cpp:56
+#: ../widgets/KeyTreeView.cpp:35
 msgctxt "KeyTreeView|"
 msgid "Reset password"
 msgstr "Effacer le mot de passe"
 
-#: ../widgets/KeyTreeView.cpp:68
+#: ../widgets/KeyTreeView.cpp:47
 msgctxt "KeyTreeView|"
 msgid "Change PIN"
 msgstr "Changer le NIP"
 
-#: ../widgets/KeyTreeView.cpp:70
+#: ../widgets/KeyTreeView.cpp:49
 msgctxt "KeyTreeView|"
 msgid "Init PIN with SO PIN (PUK)"
 msgstr "Initialiser le NIP avec le PUK"
 
-#: ../widgets/KeyTreeView.cpp:72
+#: ../widgets/KeyTreeView.cpp:51
 msgctxt "KeyTreeView|"
 msgid "Change SO PIN (PUK)"
 msgstr "Changer le PUK"
 
-#: ../widgets/KeyTreeView.cpp:75
+#: ../widgets/KeyTreeView.cpp:54
 msgctxt "KeyTreeView|"
 msgid "Security token"
 msgstr "Jeton de sécurité"
 
-#: ../widgets/KeyTreeView.cpp:112 ../widgets/KeyTreeView.cpp:130
-#: ../widgets/KeyTreeView.cpp:148
+#: ../widgets/KeyTreeView.cpp:91 ../widgets/KeyTreeView.cpp:109
+#: ../widgets/KeyTreeView.cpp:127
 msgctxt "KeyTreeView|"
 msgid "This is not a token"
 msgstr "Ce n'est pas un jeton"
 
-#: ../widgets/KeyTreeView.cpp:177
+#: ../widgets/KeyTreeView.cpp:156
 #, qt-format
 msgctxt "KeyTreeView|"
 msgid ""
@@ -930,15 +950,25 @@ msgstr ""
 "jeton ?\n"
 "Cela détruirait la clé '%1' et la rendrait non-exportable."
 
-#: ../widgets/KeyTreeView.cpp:229
+#: ../widgets/KeyTreeView.cpp:203
 msgctxt "KeyTreeView|"
 msgid "Key export"
 msgstr "Exporter la clé"
 
-#: ../widgets/KeyTreeView.cpp:230
+#: ../widgets/KeyTreeView.cpp:204
 msgctxt "KeyTreeView|"
 msgid "Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )"
 msgstr "Clés privées ( *.pem *.der *.pk8 );; Clé publiques SSH ( *.pub )"
+
+#: ../widgets/KeyTreeView.cpp:206
+msgctxt "KeyTreeView|"
+msgid "SSH Private Keys ( *.priv )"
+msgstr "Clés SSH privées ( *.priv )"
+
+#: ../widgets/KeyTreeView.cpp:207
+msgctxt "KeyTreeView|"
+msgid "Microsoft PVK Keys ( *.pvk )"
+msgstr "Clés Microsoft PVK ( *.pvk )"
 
 #: ../ui/MainWindow.ui:25
 msgctxt "MainWindow|"
@@ -1039,7 +1069,7 @@ msgctxt "MainWindow|"
 msgid "Revocation lists"
 msgstr "Listes de révocation"
 
-#: ../widgets/MainWindow.cpp:595
+#: ../widgets/MainWindow.cpp:628
 msgctxt "MainWindow|"
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
@@ -1048,7 +1078,7 @@ msgstr ""
 "Il sera impossible d'utiliser ou d'exporter des clés privées sans fournir le "
 "mot de passe correct."
 
-#: ../widgets/MainWindow.cpp:601
+#: ../widgets/MainWindow.cpp:634
 #, qt-format
 msgctxt "MainWindow|"
 msgid ""
@@ -1328,61 +1358,71 @@ msgctxt "MainWindow|"
 msgid "About"
 msgstr "A propos"
 
-#: ../widgets/MainWindow.cpp:254
+#: ../widgets/MainWindow.cpp:257
 msgctxt "MainWindow|"
 msgid "Import PEM data"
 msgstr "Importer les données PEM"
 
-#: ../widgets/MainWindow.cpp:283
+#: ../widgets/MainWindow.cpp:286
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr "SVP saisir le PUK original du jeton '%1'"
 
-#: ../widgets/MainWindow.cpp:114 ../widgets/MainWindow.cpp:758
+#: ../widgets/MainWindow.cpp:117 ../widgets/MainWindow.cpp:792
 msgctxt "MainWindow|"
 msgid "Search"
 msgstr "Rechercher"
 
-#: ../widgets/MainWindow.cpp:289
+#: ../widgets/MainWindow.cpp:292
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Please enter the new SO PIN (PUK) for the token '%1'"
 msgstr "SVP saisir le nouveau NIP SO (PUK) pour le jeton: '%1'"
 
-#: ../widgets/MainWindow.cpp:296
+#: ../widgets/MainWindow.cpp:299
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The new label of the token '%1'"
 msgstr "La nouvelle étiquette du jeton '%1'"
 
-#: ../widgets/MainWindow.cpp:404
+#: ../widgets/MainWindow.cpp:416
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr "Le jeton '%1' ne contient aucune clé ni aucun certificat"
 
-#: ../widgets/MainWindow.cpp:451
+#: ../widgets/MainWindow.cpp:420
+msgctxt "MainWindow|"
+msgid "Retry with PIN"
+msgstr "Réessayer avec le NIP"
+
+#: ../widgets/MainWindow.cpp:421
+msgctxt "MainWindow|"
+msgid "Retry with SO PIN"
+msgstr "Réessayer avec le NIP d'agende sécurité"
+
+#: ../widgets/MainWindow.cpp:484
 msgctxt "MainWindow|"
 msgid "Current Password"
 msgstr "Mot de passe actuel"
 
-#: ../widgets/MainWindow.cpp:452
+#: ../widgets/MainWindow.cpp:485
 msgctxt "MainWindow|"
 msgid "Please enter the current database password"
 msgstr "SVP saisir le mot de passe de la base de données"
 
-#: ../widgets/MainWindow.cpp:462
+#: ../widgets/MainWindow.cpp:495
 msgctxt "MainWindow|"
 msgid "The entered password is wrong"
 msgstr "Le mot de passe renseigné est inexact"
 
-#: ../widgets/MainWindow.cpp:467
+#: ../widgets/MainWindow.cpp:500
 msgctxt "MainWindow|"
 msgid "New Password"
 msgstr "Nouveau mot de passe"
 
-#: ../widgets/MainWindow.cpp:467
+#: ../widgets/MainWindow.cpp:500
 msgctxt "MainWindow|"
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
@@ -1391,45 +1431,45 @@ msgstr ""
 "SVP saisir le nouveau mot de passe pour chiffrer les clés privées dans le "
 "fichier de base de données"
 
-#: ../widgets/MainWindow.cpp:491
+#: ../widgets/MainWindow.cpp:524
 msgctxt "MainWindow|"
 msgid "Transaction start failed"
 msgstr "Le démarrage de la transaction a échoué"
 
-#: ../widgets/MainWindow.cpp:578
+#: ../widgets/MainWindow.cpp:611
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Database: %1"
 msgstr "Base de données: %1"
 
-#: ../widgets/MainWindow.cpp:606
+#: ../widgets/MainWindow.cpp:639
 #, qt-format
 msgctxt "MainWindow|"
 msgid "The currently used PFX / PKCS#12 algorithm '%1' is insecure."
 msgstr "L'algorithme '%1' utilisé pour PFX / PKCS#12 est peu sûr."
 
-#: ../widgets/MainWindow.cpp:611
+#: ../widgets/MainWindow.cpp:644
 msgctxt "MainWindow|"
 msgid "Change"
 msgstr "Changer"
 
-#: ../widgets/MainWindow.cpp:678
+#: ../widgets/MainWindow.cpp:711
 msgctxt "MainWindow|"
 msgid "Certificate Index ( index.txt )"
 msgstr "Index des certificats ( index.txt )"
 
-#: ../widgets/MainWindow.cpp:679 ../widgets/MainWindow.cpp:735
+#: ../widgets/MainWindow.cpp:712 ../widgets/MainWindow.cpp:768
 msgctxt "MainWindow|"
 msgid "All files ( * )"
 msgstr "Tous les fichiers ( * )"
 
-#: ../widgets/MainWindow.cpp:702
+#: ../widgets/MainWindow.cpp:735
 #, qt-format
 msgctxt "MainWindow|"
 msgid "Diffie-Hellman parameters saved as: %1"
 msgstr "Les paramètres Diffie-Hellman on été sauvegardés dans: %1"
 
-#: ../widgets/MainWindow.cpp:720
+#: ../widgets/MainWindow.cpp:753
 msgctxt "MainWindow|"
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
@@ -1935,57 +1975,87 @@ msgctxt "NewX509|"
 msgid "New key '%1' created"
 msgstr "La nouvelle clé '%1' a été créée"
 
-#: ../widgets/NewX509.cpp:1046
+#: ../widgets/NewX509.cpp:1045
 msgctxt "NewX509|"
 msgid "Other Tabs"
 msgstr "Autres Onglets"
 
-#: ../widgets/NewX509.cpp:1060
+#: ../widgets/NewX509.cpp:1061
 msgctxt "NewX509|"
 msgid "Advanced Tab"
 msgstr "Onglet Avancé"
 
-#: ../widgets/NewX509.cpp:1067
+#: ../widgets/NewX509.cpp:1068
 msgctxt "NewX509|"
 msgid "Errors"
 msgstr "Erreurs"
 
-#: ../widgets/NewX509.cpp:1085
+#: ../widgets/NewX509.cpp:1087
 msgctxt "NewX509|"
 msgid "From PKCS#10 request"
 msgstr "A partir d'une requête en PKCS#10"
 
-#: ../widgets/NewX509.cpp:1208 ../widgets/NewX509.cpp:1221
-#: ../widgets/NewX509.cpp:1240 ../widgets/NewX509.cpp:1252
-#: ../widgets/NewX509.cpp:1268 ../widgets/NewX509.cpp:1282
-#: ../widgets/NewX509.cpp:1316 ../widgets/NewX509.cpp:1335
-#: ../widgets/NewX509.cpp:1358 ../widgets/NewX509.cpp:1381
-#: ../widgets/NewX509.cpp:1414 ../widgets/NewX509.cpp:1434
+#: ../widgets/NewX509.cpp:1097
+msgctxt "NewX509|"
+msgid "Error"
+msgstr "Erreur"
+
+#: ../widgets/NewX509.cpp:1097
+msgctxt "NewX509|"
+msgid "duplicate extensions"
+msgstr "Extensions à double"
+
+#: ../widgets/NewX509.cpp:1106
+msgctxt "NewX509|"
+msgid "The Subject Alternative Name is invalid"
+msgstr "Le nom alternatif du sujet est invalide"
+
+#: ../widgets/NewX509.cpp:1108
+msgctxt "NewX509|"
+msgid "The Issuer Alternative Name is invalid"
+msgstr "Le nom alternatif de l'émetteur est invalide"
+
+#: ../widgets/NewX509.cpp:1110
+msgctxt "NewX509|"
+msgid "The CRL Distribution Point is invalid"
+msgstr "Le point de distribution de la CRL est invalide"
+
+#: ../widgets/NewX509.cpp:1112
+msgctxt "NewX509|"
+msgid "The Authority Information Access is invalid"
+msgstr "L'accès à l'information de l'autorité est invalide"
+
+#: ../widgets/NewX509.cpp:1212 ../widgets/NewX509.cpp:1225
+#: ../widgets/NewX509.cpp:1244 ../widgets/NewX509.cpp:1256
+#: ../widgets/NewX509.cpp:1272 ../widgets/NewX509.cpp:1286
+#: ../widgets/NewX509.cpp:1320 ../widgets/NewX509.cpp:1339
+#: ../widgets/NewX509.cpp:1362 ../widgets/NewX509.cpp:1385
+#: ../widgets/NewX509.cpp:1420 ../widgets/NewX509.cpp:1440
 msgctxt "NewX509|"
 msgid "Abort rollout"
 msgstr "Interrompre le déploiement"
 
-#: ../widgets/NewX509.cpp:1217
+#: ../widgets/NewX509.cpp:1221
 msgctxt "NewX509|"
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 "Pour être en conformité avec la RFC3280, les règles de restriction de "
 "longueur suivantes ne sont pas respectées:"
 
-#: ../widgets/NewX509.cpp:1220 ../widgets/NewX509.cpp:1281
+#: ../widgets/NewX509.cpp:1224 ../widgets/NewX509.cpp:1285
 msgctxt "NewX509|"
 msgid "Edit subject"
 msgstr "Modifier le sujet"
 
-#: ../widgets/NewX509.cpp:1222 ../widgets/NewX509.cpp:1283
-#: ../widgets/NewX509.cpp:1336 ../widgets/NewX509.cpp:1359
-#: ../widgets/NewX509.cpp:1382 ../widgets/NewX509.cpp:1415
-#: ../widgets/NewX509.cpp:1435
+#: ../widgets/NewX509.cpp:1226 ../widgets/NewX509.cpp:1287
+#: ../widgets/NewX509.cpp:1340 ../widgets/NewX509.cpp:1363
+#: ../widgets/NewX509.cpp:1386 ../widgets/NewX509.cpp:1421
+#: ../widgets/NewX509.cpp:1441
 msgctxt "NewX509|"
 msgid "Continue rollout"
 msgstr "Continuer le déploiement"
 
-#: ../widgets/NewX509.cpp:1238
+#: ../widgets/NewX509.cpp:1242
 msgctxt "NewX509|"
 msgid ""
 "The verification of the Certificate request failed.\n"
@@ -1994,12 +2064,12 @@ msgstr ""
 "La vérification de la requête de signature à échoué.\n"
 "Le déploiement devrait être interrompu."
 
-#: ../widgets/NewX509.cpp:1239
+#: ../widgets/NewX509.cpp:1243
 msgctxt "NewX509|"
 msgid "Continue anyway"
 msgstr "Continuer quand-même"
 
-#: ../widgets/NewX509.cpp:1250
+#: ../widgets/NewX509.cpp:1254
 msgctxt "NewX509|"
 msgid ""
 "The internal name and the common name are empty.\n"
@@ -2008,22 +2078,22 @@ msgstr ""
 "Le nom interne et le nom commun sont vides.\n"
 "SVP saisir au moins le nom interne."
 
-#: ../widgets/NewX509.cpp:1251
+#: ../widgets/NewX509.cpp:1255
 msgctxt "NewX509|"
 msgid "Edit name"
 msgstr "Modifier le nom"
 
-#: ../widgets/NewX509.cpp:1266
+#: ../widgets/NewX509.cpp:1270
 msgctxt "NewX509|"
 msgid "There is no Key selected for signing."
 msgstr "Aucune clé n'est sélectionnée pour la signature."
 
-#: ../widgets/NewX509.cpp:1267
+#: ../widgets/NewX509.cpp:1271
 msgctxt "NewX509|"
 msgid "Select key"
 msgstr "Sélectionner la clé"
 
-#: ../widgets/NewX509.cpp:1279
+#: ../widgets/NewX509.cpp:1283
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -2035,22 +2105,22 @@ msgstr ""
 "%1\n"
 "bien que vous les avez déclarées comme obligatoires dans le menu des options."
 
-#: ../widgets/NewX509.cpp:1313
+#: ../widgets/NewX509.cpp:1317
 msgctxt "NewX509|"
 msgid "The key you selected for signing is not a private one."
 msgstr "La clé sélectionnée pour la signature n'est pas une clé privée."
 
-#: ../widgets/NewX509.cpp:1314
+#: ../widgets/NewX509.cpp:1318
 msgctxt "NewX509|"
 msgid "Select other signer"
 msgstr "Sélectionner un autre signataire"
 
-#: ../widgets/NewX509.cpp:1314
+#: ../widgets/NewX509.cpp:1318
 msgctxt "NewX509|"
 msgid "Select other key"
 msgstr "Sélectionner une autre clé"
 
-#: ../widgets/NewX509.cpp:1324
+#: ../widgets/NewX509.cpp:1328
 #, qt-format
 msgctxt "NewX509|"
 msgid ""
@@ -2060,17 +2130,17 @@ msgstr ""
 "L'algorithme de hachage sélectionné '%1' est peu sûr et ne devrait pas être "
 "utilisé."
 
-#: ../widgets/NewX509.cpp:1325
+#: ../widgets/NewX509.cpp:1329
 msgctxt "NewX509|"
 msgid "Select other algorithm"
 msgstr "Sélectionner un autre algorithme"
 
-#: ../widgets/NewX509.cpp:1326
+#: ../widgets/NewX509.cpp:1330
 msgctxt "NewX509|"
 msgid "Use algorithm anyway"
 msgstr "Utiliser quand même cet algorithme"
 
-#: ../widgets/NewX509.cpp:1332
+#: ../widgets/NewX509.cpp:1336
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
@@ -2079,18 +2149,18 @@ msgstr ""
 "Le certificat serait valide avant son signataire. Ce n'est probablement pas "
 "ce qui est désiré."
 
-#: ../widgets/NewX509.cpp:1334 ../widgets/NewX509.cpp:1357
-#: ../widgets/NewX509.cpp:1380
+#: ../widgets/NewX509.cpp:1338 ../widgets/NewX509.cpp:1361
+#: ../widgets/NewX509.cpp:1384
 msgctxt "NewX509|"
 msgid "Edit dates"
 msgstr "Modifier les limites de validité"
 
-#: ../widgets/NewX509.cpp:1337 ../widgets/NewX509.cpp:1360
+#: ../widgets/NewX509.cpp:1341 ../widgets/NewX509.cpp:1364
 msgctxt "NewX509|"
 msgid "Adjust date and continue"
 msgstr "Ajuster la date et continuer"
 
-#: ../widgets/NewX509.cpp:1355
+#: ../widgets/NewX509.cpp:1359
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
@@ -2099,7 +2169,7 @@ msgstr ""
 "Le certificat serait valide plus longtemps que son signataire. Ce n'est "
 "probablement pas ce qui est désiré."
 
-#: ../widgets/NewX509.cpp:1378
+#: ../widgets/NewX509.cpp:1382
 msgctxt "NewX509|"
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
@@ -2108,7 +2178,7 @@ msgstr ""
 "Le certificat serait échu avant de devenir actif. Vous avez probablement "
 "interverti les deux dates."
 
-#: ../widgets/NewX509.cpp:1400
+#: ../widgets/NewX509.cpp:1404
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
@@ -2117,7 +2187,7 @@ msgstr ""
 "Le certificat contient des extensions dupliquées ou invalides. Vérifier la "
 "validité sur l'onglet \"Avancé\"."
 
-#: ../widgets/NewX509.cpp:1404
+#: ../widgets/NewX509.cpp:1408
 msgctxt "NewX509|"
 msgid ""
 "The certificate contains no extensions. You may apply the extensions of one "
@@ -2126,17 +2196,17 @@ msgstr ""
 "Le certificat ne contient aucune extension. Vous pouvez appliquer des "
 "extensions à partir de l'un des modèles pour définir l'usage du certificat"
 
-#: ../widgets/NewX509.cpp:1408
+#: ../widgets/NewX509.cpp:1412
 msgctxt "NewX509|"
 msgid "The certificate contains invalid extensions."
 msgstr "Le certificat contient des extensions invalides."
 
-#: ../widgets/NewX509.cpp:1413 ../widgets/NewX509.cpp:1433
+#: ../widgets/NewX509.cpp:1419 ../widgets/NewX509.cpp:1439
 msgctxt "NewX509|"
 msgid "Edit extensions"
 msgstr "Modifier les extensions"
 
-#: ../widgets/NewX509.cpp:1432
+#: ../widgets/NewX509.cpp:1438
 msgctxt "NewX509|"
 msgid ""
 "The subject alternative name shall contain a copy of the common name. "
@@ -2216,7 +2286,7 @@ msgctxt "OpenDb|"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../ui/OpenDb.ui:142 ../widgets/OpenDb.cpp:56
+#: ../ui/OpenDb.ui:142 ../widgets/OpenDb.cpp:57
 msgctxt "OpenDb|"
 msgid "Database name"
 msgstr "Nom de la base de données"
@@ -2226,7 +2296,7 @@ msgctxt "OpenDb|"
 msgid "Table prefix"
 msgstr "Préfixe du nom des tables"
 
-#: ../widgets/OpenDb.cpp:125
+#: ../widgets/OpenDb.cpp:128
 msgctxt "OpenDb|"
 msgid ""
 "No SqLite3 driver available. Please install the qt-sqlite package of your "
@@ -2602,70 +2672,80 @@ msgctxt "QObject|"
 msgid "Open XCA Database"
 msgstr "Ouvrir une Base de Données XCA"
 
+#: ../lib/load_obj.cpp:159
+msgctxt "QObject|"
+msgid "OpenVPN tls-auth key ( *.key );;"
+msgstr "clé tls-auth de OpenVPN ( *.key );;"
+
 #: ../lib/load_obj.cpp:160
+msgctxt "QObject|"
+msgid "Import OpenVPN tls-auth key"
+msgstr "Importer une clé tls-auth de OpenVPN"
+
+#: ../lib/load_obj.cpp:168
 msgctxt "QObject|"
 msgid "PKCS#11 library ( *.dll );;"
 msgstr "Bibliothèque PKCS#11 ( *.dll );;"
 
-#: ../lib/load_obj.cpp:162
+#: ../lib/load_obj.cpp:170
 msgctxt "QObject|"
 msgid "PKCS#11 library ( *.dylib *.so );;"
 msgstr "Bibliothèque PKCS#11 ( *.dylib *.so );;"
 
-#: ../lib/load_obj.cpp:164
+#: ../lib/load_obj.cpp:172
 msgctxt "QObject|"
 msgid "PKCS#11 library ( *.so );;"
 msgstr "Bibliothèque PKCS#11 ( *.so );;"
 
-#: ../lib/load_obj.cpp:166
+#: ../lib/load_obj.cpp:174
 msgctxt "QObject|"
 msgid "Open PKCS#11 shared library"
 msgstr "Ouvrir une bibliothèque partagée PKCS#11"
 
-#: ../lib/load_obj.cpp:173
+#: ../lib/load_obj.cpp:181
 msgctxt "QObject|"
 msgid "PEM files ( *.pem );;"
 msgstr "Fichiers PEM ( *.pem );;"
 
-#: ../lib/load_obj.cpp:174
+#: ../lib/load_obj.cpp:182
 msgctxt "QObject|"
 msgid "Load PEM encoded file"
 msgstr "Charger un fichier en format PEM"
 
-#: ../lib/pkcs11.cpp:213
+#: ../lib/pkcs11.cpp:219
 msgctxt "QObject|"
 msgid "Please enter the PIN on the PinPad"
 msgstr "Saisir le NIP sur le pavé prévu à cet effet SVP"
 
-#: ../lib/pkcs11.cpp:224
+#: ../lib/pkcs11.cpp:236
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the SO PIN (PUK) of the token %1"
 msgstr "SVP saisir le PUK du jeton '%1'"
 
-#: ../lib/pkcs11.cpp:225
+#: ../lib/pkcs11.cpp:237
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the PIN of the token %1"
 msgstr "SVP saisir le NIP du jeton '%1'"
 
-#: ../lib/pkcs11.cpp:279
+#: ../lib/pkcs11.cpp:291
 msgctxt "QObject|"
 msgid "No Security token found"
 msgstr "Aucun jeton de sécurité trouvé"
 
-#: ../lib/pkcs11.cpp:290
+#: ../lib/pkcs11.cpp:302
 msgctxt "QObject|"
 msgid "Select"
 msgstr "Sélectionner"
 
-#: ../lib/pkcs11.cpp:313
+#: ../lib/pkcs11.cpp:325
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr "SVP saisir le nouveau PUK pour le jeton: '%1'"
 
-#: ../lib/pkcs11.cpp:315
+#: ../lib/pkcs11.cpp:327
 #, qt-format
 msgctxt "QObject|"
 msgid "Please enter the new PIN for the token: '%1'"
@@ -2677,23 +2757,23 @@ msgctxt "QObject|"
 msgid "Required PIN size: %1 - %2"
 msgstr "Taille du NIP requise: %1 - %2"
 
-#: ../lib/pkcs11_lib.cpp:118
+#: ../lib/pkcs11_lib.cpp:119
 msgctxt "QObject|"
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: ../lib/pkcs11_lib.cpp:122
+#: ../lib/pkcs11_lib.cpp:123
 msgctxt "QObject|"
 msgid "Library loading failed"
 msgstr "Le chargement de la bibliothèque a échoué"
 
-#: ../lib/pkcs11_lib.cpp:483
+#: ../lib/pkcs11_lib.cpp:484
 #, qt-format
 msgctxt "QObject|"
 msgid "PKCS#11 function '%1' failed: %2"
 msgstr "La fonction PKCS#11 '%1' a échoué: %2"
 
-#: ../lib/pkcs11_lib.cpp:491
+#: ../lib/pkcs11_lib.cpp:492
 #, qt-format
 msgctxt "QObject|"
 msgid ""
@@ -2984,7 +3064,7 @@ msgctxt "QObject|"
 msgid "The following error occurred:"
 msgstr "L'erreur suivante s'est produite:"
 
-#: ../lib/database_model.cpp:113
+#: ../lib/database_model.cpp:117
 msgctxt "QObject|"
 msgid "Failed to update the database schema to the current version"
 msgstr ""
@@ -2995,6 +3075,11 @@ msgstr ""
 msgctxt "QObject|"
 msgid "Password"
 msgstr "Mot de passe"
+
+#: ../lib/pki_pkcs12.cpp:214
+msgctxt "QObject|"
+msgid "insecure"
+msgstr "précaire"
 
 #: ../widgets/ReqTreeView.cpp:27
 msgctxt "ReqTreeView|"
@@ -3203,40 +3288,25 @@ msgctxt "TrustState|"
 msgid "&Always trust this certificate"
 msgstr "&Toujours se fier à ce certificat"
 
-#: ../widgets/validity.cpp:92
+#: ../widgets/validity.cpp:91
 msgctxt "Validity|"
 msgid "yyyy-MM-dd hh:mm"
 msgstr "yyyy-MM-dd hh:mm"
 
 #: ../widgets/X509SuperTreeView.cpp:28
 msgctxt "X509SuperTreeView|"
-msgid "OpenSSL config"
-msgstr "Configuration OpenSSL"
-
-#: ../widgets/X509SuperTreeView.cpp:29
-msgctxt "X509SuperTreeView|"
 msgid "Transform"
 msgstr "Transformer"
 
-#: ../widgets/X509SuperTreeView.cpp:30
+#: ../widgets/X509SuperTreeView.cpp:29
 msgctxt "X509SuperTreeView|"
 msgid "Template"
 msgstr "Modèle"
 
-#: ../widgets/X509SuperTreeView.cpp:31
+#: ../widgets/X509SuperTreeView.cpp:30
 msgctxt "X509SuperTreeView|"
 msgid "Public key"
 msgstr "Clé publique"
-
-#: ../widgets/X509SuperTreeView.cpp:61
-msgctxt "X509SuperTreeView|"
-msgid "Save as OpenSSL config"
-msgstr "Enregistrer en format de configuration OpenSSL"
-
-#: ../widgets/X509SuperTreeView.cpp:62
-msgctxt "X509SuperTreeView|"
-msgid "Config files ( *.conf *.cnf);; All files ( * )"
-msgstr "Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )"
 
 #: ../lib/xfile.h:28
 #, qt-format
@@ -3255,97 +3325,102 @@ msgctxt "XcaDetail|"
 msgid "Import"
 msgstr "Importer"
 
-#: ../widgets/XcaTreeView.cpp:330
+#: ../widgets/XcaTreeView.cpp:336
 msgctxt "XcaTreeView|"
 msgid "Item properties"
 msgstr "Propriétés de l'élement"
 
-#: ../widgets/XcaTreeView.cpp:400
+#: ../widgets/XcaTreeView.cpp:406
 msgctxt "XcaTreeView|"
 msgid "Subject entries"
 msgstr "Inscriptions du sujet"
 
-#: ../widgets/XcaTreeView.cpp:401
+#: ../widgets/XcaTreeView.cpp:407
 msgctxt "XcaTreeView|"
 msgid "X509v3 Extensions"
 msgstr "Extensions X509v3"
 
-#: ../widgets/XcaTreeView.cpp:402
+#: ../widgets/XcaTreeView.cpp:408
 msgctxt "XcaTreeView|"
 msgid "Netscape extensions"
 msgstr "Extensions Netscape"
 
-#: ../widgets/XcaTreeView.cpp:403
+#: ../widgets/XcaTreeView.cpp:409
 msgctxt "XcaTreeView|"
 msgid "Key properties"
 msgstr "Propriétés de la clé"
 
-#: ../widgets/XcaTreeView.cpp:404
+#: ../widgets/XcaTreeView.cpp:410
 msgctxt "XcaTreeView|"
 msgid "Reset"
 msgstr "Réinitialisation"
 
-#: ../widgets/XcaTreeView.cpp:407
+#: ../widgets/XcaTreeView.cpp:413
 msgctxt "XcaTreeView|"
 msgid "Hide Column"
 msgstr "Cacher la colonne"
 
-#: ../widgets/XcaTreeView.cpp:409
+#: ../widgets/XcaTreeView.cpp:415
 msgctxt "XcaTreeView|"
 msgid "Details"
 msgstr "Détails"
 
-#: ../widgets/XcaTreeView.cpp:450
+#: ../widgets/XcaTreeView.cpp:456
 msgctxt "XcaTreeView|"
 msgid "Columns"
 msgstr "Colonnes"
 
-#: ../widgets/XcaTreeView.cpp:516
+#: ../widgets/XcaTreeView.cpp:522
 msgctxt "XcaTreeView|"
 msgid "New"
 msgstr "Créer"
 
-#: ../widgets/XcaTreeView.cpp:517
+#: ../widgets/XcaTreeView.cpp:523
 msgctxt "XcaTreeView|"
 msgid "Import"
 msgstr "Importer"
 
-#: ../widgets/XcaTreeView.cpp:518
+#: ../widgets/XcaTreeView.cpp:524
 msgctxt "XcaTreeView|"
 msgid "Paste PEM data"
 msgstr "Coller les données en format PEM"
 
-#: ../widgets/XcaTreeView.cpp:522
+#: ../widgets/XcaTreeView.cpp:528
 msgctxt "XcaTreeView|"
 msgid "Rename"
 msgstr "Renommer"
 
-#: ../widgets/XcaTreeView.cpp:523
+#: ../widgets/XcaTreeView.cpp:529
 msgctxt "XcaTreeView|"
 msgid "Properties"
 msgstr "Propriétés"
 
-#: ../widgets/XcaTreeView.cpp:526
+#: ../widgets/XcaTreeView.cpp:532
 msgctxt "XcaTreeView|"
 msgid "Delete"
 msgstr "Enlever"
 
-#: ../widgets/XcaTreeView.cpp:528
+#: ../widgets/XcaTreeView.cpp:534
 msgctxt "XcaTreeView|"
 msgid "Export"
 msgstr "Exporter"
 
-#: ../widgets/XcaTreeView.cpp:529
+#: ../widgets/XcaTreeView.cpp:538
 msgctxt "XcaTreeView|"
 msgid "Clipboard"
 msgstr "Presse-papier"
 
-#: ../widgets/XcaTreeView.cpp:531
+#: ../widgets/XcaTreeView.cpp:540
 msgctxt "XcaTreeView|"
 msgid "File"
 msgstr "Fichier"
 
-#: ../lib/database_model.cpp:164
+#: ../widgets/XcaTreeView.cpp:602
+msgctxt "XcaTreeView|"
+msgid "Clipboard format"
+msgstr "Format du presse-papier"
+
+#: ../lib/database_model.cpp:168
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3354,19 +3429,19 @@ msgstr ""
 "SVP saisir le mot de passe de l'utilisateur '%1' sur le serveur de base de "
 "données %2."
 
-#: ../lib/database_model.cpp:282
+#: ../lib/database_model.cpp:286
 #, qt-format
 msgctxt "database_model|"
 msgid "Unable to create '%1': %2"
 msgstr "Impossible de créer '%1': %2"
 
-#: ../lib/database_model.cpp:445
+#: ../lib/database_model.cpp:449
 #, qt-format
 msgctxt "database_model|"
 msgid "The file '%1' is not an XCA database"
 msgstr "Le fichier '%1' n'est pas une base de données XCA"
 
-#: ../lib/database_model.cpp:472
+#: ../lib/database_model.cpp:476
 msgctxt "database_model|"
 msgid ""
 "No SqLite3 driver available. Please install the qt-sqlite package of your "
@@ -3375,12 +3450,12 @@ msgstr ""
 "Le pilote SqLite3 n'est pas disponible. SVP installez le paquetage qt-sqlite "
 "de votre distribution"
 
-#: ../lib/database_model.cpp:513
+#: ../lib/database_model.cpp:517
 msgctxt "database_model|"
 msgid "New Password"
 msgstr "Nouveau mot de passe"
 
-#: ../lib/database_model.cpp:513
+#: ../lib/database_model.cpp:517
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3392,12 +3467,12 @@ msgstr ""
 "privées dans la base de données:\n"
 "%1"
 
-#: ../lib/database_model.cpp:533
+#: ../lib/database_model.cpp:537
 msgctxt "database_model|"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../lib/database_model.cpp:534
+#: ../lib/database_model.cpp:538
 #, qt-format
 msgctxt "database_model|"
 msgid ""
@@ -3736,19 +3811,19 @@ msgctxt "db_x509|"
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr "Enregistrer le certificate avec la clé sur le jeton '%1 (#%2)' ?"
 
-#: ../lib/db_x509.cpp:626 ../lib/db_x509.cpp:676
+#: ../lib/db_x509.cpp:627 ../lib/db_x509.cpp:681
 #, qt-format
 msgctxt "db_x509|"
 msgid "There was no key found for the Certificate: '%1'"
 msgstr "Aucune clé n'a été trouvée pour le Certificat. '%1'"
 
-#: ../lib/db_x509.cpp:629
+#: ../lib/db_x509.cpp:630
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for a token key: '%1'"
 msgstr "Impossible pour une clé d'un jeton de sécurité: '%1'"
 
-#: ../lib/db_x509.cpp:680
+#: ../lib/db_x509.cpp:685
 #, qt-format
 msgctxt "db_x509|"
 msgid "Not possible for the token-key Certificate '%1'"
@@ -4107,37 +4182,37 @@ msgid "Please enter the password protecting the Microsoft PVK key '%1'"
 msgstr ""
 "SVP saisir le mot de passe protégeant la clé en format Microsoft PVK '%1'"
 
-#: ../lib/pki_evp.cpp:896
+#: ../lib/pki_evp.cpp:895
 #, qt-format
 msgctxt "pki_evp|"
 msgid "Please enter the export password for the private key '%1'"
 msgstr "SVP saisir le mot de passe d'exportation pour la clé privée '%1'"
 
-#: ../lib/pki_export.cpp:58 ../lib/pki_export.cpp:86 ../lib/pki_export.cpp:89
+#: ../lib/pki_export.cpp:64 ../lib/pki_export.cpp:93 ../lib/pki_export.cpp:97
 msgctxt "pki_export|"
 msgid "PEM Text format with headers"
 msgstr "Format textuel PEM avec des en-têtes"
 
-#: ../lib/pki_export.cpp:59
+#: ../lib/pki_export.cpp:65
 msgctxt "pki_export|"
 msgid "Concatenated list of all selected items in one PEM text file"
 msgstr ""
 "Concaténation de tous les éléments sélectionnés dans un seul fichier texte "
 "en format PEM"
 
-#: ../lib/pki_export.cpp:60
+#: ../lib/pki_export.cpp:66
 msgctxt "pki_export|"
 msgid "PEM chain"
 msgstr "Chaîne en PEM"
 
-#: ../lib/pki_export.cpp:60
+#: ../lib/pki_export.cpp:66
 msgctxt "pki_export|"
 msgid ""
 "Concatenated text format of the complete certificate chain in one PEM file"
 msgstr ""
 "Fichier PEM contenant la concaténation de tous les certificats de la chaîne"
 
-#: ../lib/pki_export.cpp:61
+#: ../lib/pki_export.cpp:67
 msgctxt "pki_export|"
 msgid ""
 "The complete certificate chain and the private key of the selected "
@@ -4147,12 +4222,12 @@ msgstr ""
 "sélectionné avec des balises utilisables dans les fichiers de configuration "
 "d'OpenVPN"
 
-#: ../lib/pki_export.cpp:62
+#: ../lib/pki_export.cpp:68
 msgctxt "pki_export|"
 msgid "PEM + key"
 msgstr "PEM + clé"
 
-#: ../lib/pki_export.cpp:62
+#: ../lib/pki_export.cpp:68
 msgctxt "pki_export|"
 msgid ""
 "Concatenation of the certificate and the unencrypted private key in one PEM "
@@ -4161,7 +4236,7 @@ msgstr ""
 "La concaténation du certificat et de sa clé privée non-chiffrée dans un seul "
 "fichier PEM"
 
-#: ../lib/pki_export.cpp:63
+#: ../lib/pki_export.cpp:69
 msgctxt "pki_export|"
 msgid ""
 "Concatenation of the certificate and the encrypted private key in PKCS#8 "
@@ -4170,38 +4245,38 @@ msgstr ""
 "La concaténation du certificat et de sa clé privée chiffrée en format PKCS#8 "
 "dans un seul fichier"
 
-#: ../lib/pki_export.cpp:64
+#: ../lib/pki_export.cpp:70
 msgctxt "pki_export|"
 msgid "PKCS#7 encoded single certificate"
 msgstr "Un seul certificat en format PKCS#7"
 
-#: ../lib/pki_export.cpp:65
+#: ../lib/pki_export.cpp:71
 msgctxt "pki_export|"
 msgid "All selected certificates encoded in one PKCS#7 file"
 msgstr ""
 "Tous les certificats sélectionnés dans un seul fichier en format PKCS#7"
 
-#: ../lib/pki_export.cpp:66
+#: ../lib/pki_export.cpp:72
 msgctxt "pki_export|"
 msgid "PKCS #7 chain"
 msgstr "Chaîne PKCS#7"
 
-#: ../lib/pki_export.cpp:66
+#: ../lib/pki_export.cpp:72
 msgctxt "pki_export|"
 msgid "PKCS#7 encoded complete certificate chain"
 msgstr "La chaîne complète de certificats en format PKCS#7"
 
-#: ../lib/pki_export.cpp:67
+#: ../lib/pki_export.cpp:73
 msgctxt "pki_export|"
 msgid "Binary DER encoded certificate"
 msgstr "Certificat codé en format binaire DER"
 
-#: ../lib/pki_export.cpp:68
+#: ../lib/pki_export.cpp:74
 msgctxt "pki_export|"
 msgid "PKCS #12 chain"
 msgstr "Chaîne PKCS #12"
 
-#: ../lib/pki_export.cpp:68
+#: ../lib/pki_export.cpp:74
 msgctxt "pki_export|"
 msgid ""
 "The complete certificate chain and the private key as encrypted PKCS#12 file"
@@ -4209,22 +4284,22 @@ msgstr ""
 "La chaîne complète des certificats et la clé privée en un seul fichier "
 "chiffré en format PKCS#12"
 
-#: ../lib/pki_export.cpp:69
+#: ../lib/pki_export.cpp:75
 msgctxt "pki_export|"
 msgid "PKCS #12"
 msgstr "PKCS #12"
 
-#: ../lib/pki_export.cpp:69
+#: ../lib/pki_export.cpp:75
 msgctxt "pki_export|"
 msgid "The certificate and the private key as encrypted PKCS#12 file"
 msgstr "Le certificat et sa clé privée dans un fichier en format PKCS#12"
 
-#: ../lib/pki_export.cpp:70
+#: ../lib/pki_export.cpp:76
 msgctxt "pki_export|"
 msgid "Certificate Index file"
 msgstr "Fichier d'index des certificats"
 
-#: ../lib/pki_export.cpp:70
+#: ../lib/pki_export.cpp:76
 msgctxt "pki_export|"
 msgid ""
 "OpenSSL specific Certificate Index file as created by the 'ca' command and "
@@ -4233,22 +4308,22 @@ msgstr ""
 "Fichier d'index des certificats spécifique à OpenSSL, tel que créé par la "
 "commande 'ca' et nécessaire à l'outil OCSP"
 
-#: ../lib/pki_export.cpp:71 ../lib/pki_export.cpp:91
+#: ../lib/pki_export.cpp:77 ../lib/pki_export.cpp:99
 msgctxt "pki_export|"
 msgid "vCalendar"
 msgstr "Message vCalendar"
 
-#: ../lib/pki_export.cpp:71
+#: ../lib/pki_export.cpp:77
 msgctxt "pki_export|"
 msgid "vCalendar expiry reminder for the selected items"
 msgstr "message vCalendar de rappel d'expiration des éléments sélectionnés"
 
-#: ../lib/pki_export.cpp:72
+#: ../lib/pki_export.cpp:78
 msgctxt "pki_export|"
 msgid "CA vCalendar"
 msgstr "message vCalendar pour le CA"
 
-#: ../lib/pki_export.cpp:72
+#: ../lib/pki_export.cpp:78
 msgctxt "pki_export|"
 msgid ""
 "vCalendar expiry reminder containing all issued, valid certificates, the CA "
@@ -4257,132 +4332,148 @@ msgstr ""
 "message vCalendar de rappel d'expiration contenant tous les certificats "
 "valides émis, le CA lui-même et la liste de révocation la plus récente"
 
-#: ../lib/pki_export.cpp:74
+#: ../lib/pki_export.cpp:79 ../lib/pki_export.cpp:95
+msgctxt "pki_export|"
+msgid "OpenSSL config"
+msgstr "Configuration OpenSSL"
+
+#: ../lib/pki_export.cpp:79 ../lib/pki_export.cpp:95
+msgctxt "pki_export|"
+msgid ""
+"OpenSSL configuration file to create a certificate or request with the "
+"openssl commandline tool"
+msgstr ""
+"Fichier de configuration OpenSSL pour créer un certificat ou une requête au "
+"moyen de l'outil openssl en ligne de commande"
+
+#: ../lib/pki_export.cpp:80
+msgctxt "pki_export|"
+msgid "OpenVPN tls-auth key"
+msgstr "clé tls-auth de OpenVPN"
+
+#: ../lib/pki_export.cpp:80
+msgctxt "pki_export|"
+msgid "The OpenVPN tls-auth key is a secret key shared between endpoints"
+msgstr ""
+"La clé tls-auth de OpenVPN est une clé secrète partagée entre les points "
+"d'accès"
+
+#: ../lib/pki_export.cpp:82
 msgctxt "pki_export|"
 msgid "PEM public"
 msgstr "clé publique PEM"
 
-#: ../lib/pki_export.cpp:74
+#: ../lib/pki_export.cpp:82
 msgctxt "pki_export|"
 msgid "Text format of the public key in one PEM file"
 msgstr "Formattage textuel de la clé publique dans un fichier PEM"
 
-#: ../lib/pki_export.cpp:75
+#: ../lib/pki_export.cpp:83
 msgctxt "pki_export|"
 msgid "PEM private"
 msgstr "Clé privée PEM"
 
-#: ../lib/pki_export.cpp:75 ../lib/pki_export.cpp:77
+#: ../lib/pki_export.cpp:83 ../lib/pki_export.cpp:85
 msgctxt "pki_export|"
 msgid "Unencrypted private key in text format"
 msgstr "Clé privée non-chiffrée en format texte"
 
-#: ../lib/pki_export.cpp:76
+#: ../lib/pki_export.cpp:84
 msgctxt "pki_export|"
 msgid "PEM encrypted"
 msgstr "Chiffrée en PEM"
 
-#: ../lib/pki_export.cpp:76
+#: ../lib/pki_export.cpp:84
 msgctxt "pki_export|"
 msgid "OpenSSL specific encrypted private key in text format"
 msgstr "Clé privée chiffrée spécifiquement par OpenSSL en format texte"
 
-#: ../lib/pki_export.cpp:77
+#: ../lib/pki_export.cpp:85
 msgctxt "pki_export|"
 msgid "SSH2 private"
 msgstr "Clé privée SSH2"
 
-#: ../lib/pki_export.cpp:78
+#: ../lib/pki_export.cpp:86
 msgctxt "pki_export|"
 msgid "SSH2 public"
 msgstr "Clé publique SSH2"
 
-#: ../lib/pki_export.cpp:78
+#: ../lib/pki_export.cpp:86
 msgctxt "pki_export|"
 msgid "The public key encoded in SSH2 format"
 msgstr "La clé publique codée en format SSH2"
 
-#: ../lib/pki_export.cpp:79
+#: ../lib/pki_export.cpp:87
 msgctxt "pki_export|"
 msgid "DER public"
 msgstr "Clé publique DER"
 
-#: ../lib/pki_export.cpp:79
+#: ../lib/pki_export.cpp:87
 msgctxt "pki_export|"
 msgid "Binary DER format of the public key"
 msgstr "Format binaire DER de la clé publique"
 
-#: ../lib/pki_export.cpp:80
+#: ../lib/pki_export.cpp:88
 msgctxt "pki_export|"
 msgid "DER private"
 msgstr "Clé privée DER"
 
-#: ../lib/pki_export.cpp:80
+#: ../lib/pki_export.cpp:88
 msgctxt "pki_export|"
 msgid "Unencrypted private key in binary DER format"
 msgstr "Clé privée non-chiffrée en format binaire DER"
 
-#: ../lib/pki_export.cpp:81
+#: ../lib/pki_export.cpp:89
 msgctxt "pki_export|"
 msgid "PVK private"
 msgstr "Clé privée PVK"
 
-#: ../lib/pki_export.cpp:81
+#: ../lib/pki_export.cpp:89
 msgctxt "pki_export|"
 msgid "Private key in Microsoft PVK format not encrypted"
 msgstr "La clé privée en format Microsoft PVK n'est pas chiffrée"
 
-#: ../lib/pki_export.cpp:82
-msgctxt "pki_export|"
-msgid "PVK encrypted"
-msgstr "Chiffrée en PVK"
-
-#: ../lib/pki_export.cpp:82
-msgctxt "pki_export|"
-msgid "Encrypted private key in Microsoft PVK format"
-msgstr "Clé privée chiffrée en format Microsoft PVK"
-
-#: ../lib/pki_export.cpp:83
+#: ../lib/pki_export.cpp:90
 msgctxt "pki_export|"
 msgid "PKCS #8 encrypted"
 msgstr "Chiffrée en PKCS #8"
 
-#: ../lib/pki_export.cpp:83
+#: ../lib/pki_export.cpp:90
 msgctxt "pki_export|"
 msgid "Encrypted private key in PKCS#8 text format"
 msgstr "Clé privée chiffrée en format texte PKCS#8"
 
-#: ../lib/pki_export.cpp:84
+#: ../lib/pki_export.cpp:91
 msgctxt "pki_export|"
 msgid "PKCS #8"
 msgstr "PKCS #8"
 
-#: ../lib/pki_export.cpp:84
+#: ../lib/pki_export.cpp:91
 msgctxt "pki_export|"
 msgid "Unencrypted private key in PKCS#8 text format"
 msgstr "Clé privée non-chiffrée en format texte PKCS#8"
 
-#: ../lib/pki_export.cpp:87
+#: ../lib/pki_export.cpp:94
 msgctxt "pki_export|"
 msgid "Binary DER format of the certificate request"
 msgstr "Format binaire DER de la clé publique"
 
-#: ../lib/pki_export.cpp:90
+#: ../lib/pki_export.cpp:98
 msgctxt "pki_export|"
 msgid "Binary DER format of the revocation list"
 msgstr "Format binaire DER de la liste de révocation"
 
-#: ../lib/pki_export.cpp:91
+#: ../lib/pki_export.cpp:99
 msgctxt "pki_export|"
 msgid "vCalendar reminder for the CRL expiry date"
 msgstr "message vCalendar de rappel d'expiration de la liste de révocation"
 
-#: ../lib/pki_export.cpp:93
+#: ../lib/pki_export.cpp:101
 msgctxt "pki_export|"
 msgid "XCA template in PEM-like format"
 msgstr "Modèle XCA en format similaire à PEM"
 
-#: ../lib/pki_export.cpp:94
+#: ../lib/pki_export.cpp:102
 msgctxt "pki_export|"
 msgid "All selected XCA templates in PEM-like format"
 msgstr "Tous les modèles XCA sélectionnés en format similaire à PEM"
@@ -4515,79 +4606,85 @@ msgstr ""
 "Impossible de charger le fichier en PKCS#7 %1. Les formats PEM et DER ont "
 "été essayés."
 
-#: ../lib/pki_scard.cpp:45
+#: ../lib/pki_scard.cpp:46
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Successfully imported the token key '%1'"
 msgstr "La clé du jeton '%1' a été importée avec succès"
 
-#: ../lib/pki_scard.cpp:46
+#: ../lib/pki_scard.cpp:47
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Delete the token key '%1'?"
 msgstr "Détruire la clé du jeton '%1' ?"
 
-#: ../lib/pki_scard.cpp:47
+#: ../lib/pki_scard.cpp:48
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Successfully created the token key '%1'"
 msgstr "La clé du jeton '%1' a été créée avec succès"
 
-#: ../lib/pki_scard.cpp:49
+#: ../lib/pki_scard.cpp:50
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Delete the %1 keys: %2?"
 msgstr "Détruire les %1 clés: %2?"
 
-#: ../lib/pki_scard.cpp:376
+#: ../lib/pki_scard.cpp:377
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Delete the private key '%1' from the token '%2 (#%3)' ?"
 msgstr "Détruire la clé privée '%1' sur le jeton '%2 (#%3)' ?"
 
-#: ../lib/pki_scard.cpp:449
+#: ../lib/pki_scard.cpp:450
 msgctxt "pki_scard|"
 msgid "This Key is already on the token"
 msgstr "Cette clé est déjà sur le jeton"
 
-#: ../lib/pki_scard.cpp:535
+#: ../lib/pki_scard.cpp:534
 msgctxt "pki_scard|"
 msgid "PIN input aborted"
 msgstr "Saisie du NIP abandonnée"
 
-#: ../lib/pki_scard.cpp:547
+#: ../lib/pki_scard.cpp:550
 msgctxt "pki_scard|"
 msgid "Unable to find copied key on the token"
 msgstr "Impossible de trouver la clé copiée sur le jeton"
 
-#: ../lib/pki_scard.cpp:635
+#: ../lib/pki_scard.cpp:638
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr "SVP insérer la carte %1 %2 [%3] avec le numéro de série: %4"
 
-#: ../lib/pki_scard.cpp:701
+#: ../lib/pki_scard.cpp:692
+#, qt-format
+msgctxt "pki_scard|"
+msgid "Select Slot of %1"
+msgstr "Sélectionner le créneau de %1"
+
+#: ../lib/pki_scard.cpp:730
 msgctxt "pki_scard|"
 msgid "Unable to find generated key on card"
 msgstr "Impossible de trouver la clé générée sur la carte"
 
-#: ../lib/pki_scard.cpp:712
+#: ../lib/pki_scard.cpp:741
 #, qt-format
 msgctxt "pki_scard|"
 msgid "Token %1"
 msgstr "Jeton %1"
 
-#: ../lib/pki_scard.cpp:721 ../lib/pki_scard.cpp:734
+#: ../lib/pki_scard.cpp:750 ../lib/pki_scard.cpp:762
 msgctxt "pki_scard|"
 msgid "Failed to find the key on the token"
 msgstr "Impossible de trouver la clé sur le jeton"
 
-#: ../lib/pki_scard.cpp:728
+#: ../lib/pki_scard.cpp:756
 msgctxt "pki_scard|"
 msgid "Invalid Pin for the token"
 msgstr "NIP invalide pour le jeton"
 
-#: ../lib/pki_scard.cpp:740
+#: ../lib/pki_scard.cpp:768
 msgctxt "pki_scard|"
 msgid "Failed to initialize the key on the token"
 msgstr "Impossible d'initialiser la clé sur le jeton"
@@ -4638,31 +4735,31 @@ msgctxt "pki_temp|"
 msgid "Not an XCA Template, but '%1'"
 msgstr "Ce n'est pas un modèle XCA, mais '%1'"
 
-#: ../lib/pki_x509.cpp:60
+#: ../lib/pki_x509.cpp:62
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Successfully imported the certificate '%1'"
 msgstr "Le certificat '%1' a été importé avec succès"
 
-#: ../lib/pki_x509.cpp:61
+#: ../lib/pki_x509.cpp:63
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the certificate '%1'?"
 msgstr "Détruire le certificat '%1' ?"
 
-#: ../lib/pki_x509.cpp:62
+#: ../lib/pki_x509.cpp:64
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Successfully created the certificate '%1'"
 msgstr "Le certificat '%1' a été créé avec succès"
 
-#: ../lib/pki_x509.cpp:64
+#: ../lib/pki_x509.cpp:66
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the %1 certificates: %2?"
 msgstr "Détruire les %1 certificats: '%2' ?"
 
-#: ../lib/pki_x509.cpp:233
+#: ../lib/pki_x509.cpp:236
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
@@ -4671,39 +4768,64 @@ msgstr ""
 "Impossible de charger le certificat du fichier %1. Les formats PEM et DER "
 "ont été essayés."
 
-#: ../lib/pki_x509.cpp:375
+#: ../lib/pki_x509.cpp:331
+msgctxt "pki_x509|"
+msgid "Invalid OpenVPN tls-auth key"
+msgstr "Clé tls-auth de OpenVPN invalide"
+
+#: ../lib/pki_x509.cpp:361
+msgctxt "pki_x509|"
+msgid "Failed to import tls-auth key"
+msgstr "Impossible d'importer la clé tls-auth"
+
+#: ../lib/pki_x509.cpp:364
+msgctxt "pki_x509|"
+msgid "Same tls-auth key already stored for this CA"
+msgstr "La même clé tls-auth est déjà stockée pour ce CA"
+
+#: ../lib/pki_x509.cpp:366
+msgctxt "pki_x509|"
+msgid "New tls-auth key successfully imported"
+msgstr "La nouvelle clé tls-auth a été importée"
+
+#: ../lib/pki_x509.cpp:368
+msgctxt "pki_x509|"
+msgid "Existing tls-auth key successfully replaced"
+msgstr "La clé tls-auth existante a été remplacée"
+
+#: ../lib/pki_x509.cpp:472
 msgctxt "pki_x509|"
 msgid "This certificate is already on the security token"
 msgstr "Ce certificat est déjà dans le jeton de sécurité"
 
-#: ../lib/pki_x509.cpp:438
+#: ../lib/pki_x509.cpp:535
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Delete the certificate '%1' from the token '%2 (#%3)'?"
 msgstr "Détruire le certificat '%1' sur le jeton '%2 (#%3)' ?"
 
-#: ../lib/pki_x509.cpp:571
+#: ../lib/pki_x509.cpp:667
 msgctxt "pki_x509|"
 msgid "There is no key for signing !"
 msgstr "Il n'y a pas de clé pour signer !"
 
-#: ../lib/pki_x509.cpp:857
+#: ../lib/pki_x509.cpp:971
 msgctxt "pki_x509|"
 msgid "No"
 msgstr "Non"
 
-#: ../lib/pki_x509.cpp:859
+#: ../lib/pki_x509.cpp:973
 msgctxt "pki_x509|"
 msgid "Yes"
 msgstr "Oui"
 
-#: ../lib/pki_x509.cpp:889
+#: ../lib/pki_x509.cpp:1003
 #, qt-format
 msgctxt "pki_x509|"
 msgid "Renew certificate: %1"
 msgstr "Renouvellement du certificat: %1"
 
-#: ../lib/pki_x509.cpp:890
+#: ../lib/pki_x509.cpp:1004
 #, qt-format
 msgctxt "pki_x509|"
 msgid ""
