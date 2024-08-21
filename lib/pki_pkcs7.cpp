@@ -41,7 +41,7 @@ void pki_pkcs7::encryptBio(pki_x509 *crt, BIO *bio)
 	openssl_error();
 	if (p7)
 		PKCS7_free(p7);
-	p7 = PKCS7_encrypt(certstack, bio, EVP_des_ede3_cbc(), PKCS7_BINARY);
+	p7 = PKCS7_encrypt(certstack, bio, EVP_aes_256_cbc(), PKCS7_BINARY);
 	openssl_error();
 	sk_X509_free(certstack);
 }
