@@ -371,7 +371,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeer OpenVPN tls-auth sleutel</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -427,17 +427,17 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar entiteit ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN bestand ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth sleutel ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -561,7 +561,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar entiteit ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -919,10 +919,6 @@ Serienummer: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <source>Clipboard format</source>
-        <translation type="vanished">Klembord formaat</translation>
-    </message>
-    <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+31"/>
         <source>Change password</source>
         <translation>Verander het wachtwoord</translation>
@@ -979,12 +975,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+2"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH Private Sleutels ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft PVK Sleutels ( *.pvk )</translation>
     </message>
 </context>
 <context>
@@ -1415,12 +1411,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Opnieuw proberen met PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Opnieuw proberen met SO PIN</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2012,32 +2008,32 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
     <message>
         <location line="+10"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>dubbele extensies</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>De Subject Alternative Name is ongeldig</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>De Issuer Alternative Name is ongeldig</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>De CRL Distribution Point is ongeldig</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>De Authority Information Access is ongeldig</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2655,12 +2651,12 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
     <message>
         <location line="+7"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth sleutel ( *.key );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeer OpenVPN tls-auth sleutel</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3029,7 +3025,7 @@ In bibliotheek bestand %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>onveilig</translation>
     </message>
 </context>
 <context>
@@ -3269,10 +3265,6 @@ In bibliotheek bestand %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <source>OpenSSL config</source>
-        <translation type="vanished">OpenSSL configuratie</translation>
-    </message>
-    <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="+28"/>
         <source>Transform</source>
         <translation>Transformeren</translation>
@@ -3286,14 +3278,6 @@ In bibliotheek bestand %3
         <location line="+1"/>
         <source>Public key</source>
         <translation>Openbare sleutel</translation>
-    </message>
-    <message>
-        <source>Save as OpenSSL config</source>
-        <translation type="vanished">Opslaan als OpenSSL-configuratie</translation>
-    </message>
-    <message>
-        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="vanished">Configuratiebestanden ( *.conf *.cnf);; Alle bestanden ( * )</translation>
     </message>
 </context>
 <context>
@@ -3412,7 +3396,7 @@ In bibliotheek bestand %3
     <message>
         <location line="+62"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Klembord formaat</translation>
+        <translation>Klembord formaat</translation>
     </message>
 </context>
 <context>
@@ -4260,23 +4244,23 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <location line="+1"/>
         <location line="+16"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">OpenSSL configuratie</translation>
+        <translation>OpenSSL configuratie</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSL-configuratiebestand om een ​​certificaat of verzoek te maken met behulp van OpenSSL opdrachtregels</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth sleutel</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>De OpenVPN tls-auth sleutel is een geheime sleutel die alleen tussen de eindpunten wordt gedeeld</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4353,14 +4337,6 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
         <translation>Niet-versleutelde privé-sleutel in Microsoft PVK formaat</translation>
-    </message>
-    <message>
-        <source>PVK encrypted</source>
-        <translation type="vanished">PVK versleuteld</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="vanished">Versleutelde privé-sleutel in Microsoft PVK formaat</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4586,7 +4562,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer Slot van %1</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -4688,27 +4664,27 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldige OpenVPN tls-auth sleutel</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeren van de tls-auth sleutel is mislukt</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze tls-auth sleutel is al opgeslagen voor deze CA</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe tls-auth sleutel is succesvol geïmporteerd</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestaande tls-auth sleutel is succesvol vervangen</translation>
     </message>
     <message>
         <location line="+104"/>
