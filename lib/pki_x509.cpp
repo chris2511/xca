@@ -1091,6 +1091,11 @@ QVariant pki_x509::getIcon(const dbheader *hd) const
 	return QVariant(QPixmap(icon_names[pixnum]));
 }
 
+bool pki_x509::unusable() const
+{
+	return getNotAfter() < a1time::now() || isRevoked();
+}
+
 bool pki_x509::visible() const
 {
 	if (pki_x509super::visible())

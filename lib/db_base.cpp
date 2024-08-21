@@ -453,7 +453,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:
-			return item->isVisible();
+			return item->isVisible() != 0 && (!Settings["hide_unusable"] || !item->unusable());
 		case Qt::ToolTipRole:
 			if (hd->id==HD_internal_name || item->isVisible()==1)
 				return item->column_tooltip(hd);

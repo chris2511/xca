@@ -47,6 +47,7 @@ settings::settings()
 	defaul["serial_len"] = "64";
 	defaul["fp_separator"] = ":";
 	defaul["fp_digits"] = "2";
+	defaul["hide_unusable"] = "no";
 	defaul["KeyFormat"] = QString::number(DEFAULT_KEY_CLIPBOARD_TYPE);
 	defaul["CertFormat"] = QString::number(DEFAULT_CERT_CLIPBOARD_TYPE);
 

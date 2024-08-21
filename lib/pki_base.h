@@ -190,6 +190,10 @@ class pki_base : public QObject
 		virtual QVariant column_tooltip(const dbheader *hd) const;
 		virtual a1time column_a1time(const dbheader *hd) const;
 		virtual bool visible() const;
+		virtual bool unusable() const
+		{
+			return false;
+		}
 		int isVisible();
 		bool childVisible() const;
 

@@ -136,6 +136,7 @@ class pki_x509 : public pki_x509super
 		bool hasExtension(int nid) const;
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		bool visible() const;
+		bool unusable() const;
 		void updateView();
 		void print(BioByteArray &b, enum print_opt opt) const;
 		x509v3ext getExtByNid(int nid) const;

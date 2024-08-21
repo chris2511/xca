@@ -47,5 +47,6 @@ class CertTreeView: public X509SuperTreeView
 	void unRevoke();
 	void load();
 	void loadTaKey();
+	void toggleHideExpired(bool);
 };
 #endif

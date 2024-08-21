@@ -31,6 +31,13 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 	X509SuperTreeView::fillContextMenu(menu, subExport, index, indexes);
 
+	QAction *a = menu->addAction(tr("Hide unusable certificates"));
+	a->setCheckable(true);
+	a->setChecked(Settings["hide_unusable"]);
+
+	connect(a, SIGNAL(triggered(bool)),
+		this, SLOT(toggleHideExpired(bool)));
+
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 
@@ -263,4 +270,11 @@ ExportDialog *CertTreeView::exportDialog(const QModelIndexList &indexes)
 		tr("OpenVPN tls-auth key ( *.key )"), indexes, QPixmap(":certImg"),
 		pki_export::select(x509, basemodel->exportFlags(indexes)),
 		                   "certexport");
+}
+
+void CertTreeView::toggleHideExpired(bool hide)
+{
+	qDebug() << "Hide expired certificates" << hide;
+	Settings["hide_unusable"] = hide;
+	columnsChanged();
 }
