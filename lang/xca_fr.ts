@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="fr_FR">
+    <extra-po-header-language>fr</extra-po-header-language>
+    <extra-po-header-language_team>French &lt;&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Patrick Monnerat &lt;.&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2024-08-21 14:57+0200</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2018-03-16 18:14+0200</extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version>xca 1.3.3</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Gtranslator 45.3</extra-po-header-x_generator>
+    <extra-po-header_comment>#
+# demonipuch &lt;Unknown&gt;, 2012, 2014, 2015.
+# Patrick Monnerat &lt;.&gt;, 2011-2024.
+#</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Generator,Plural-Forms,X-Qt-Contexts</extra-po-headers>
 <context>
     <name>CaProperties</name>
     <message>
@@ -371,7 +384,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="84"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer la clé tls-auth de OpenVPN</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="88"/>
@@ -427,17 +440,17 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="261"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>inscription vCalendar ( *ics )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="262"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier OpenVPN ( *.ovpn )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="263"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé tls-auth de OpenVPN ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -561,7 +574,7 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="71"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>inscription vCalendar ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -919,10 +932,6 @@ Numéro de série: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <source>Clipboard format</source>
-        <translation type="vanished">Format du presse-papier</translation>
-    </message>
-    <message>
         <location filename="../widgets/KeyTreeView.cpp" line="31"/>
         <source>Change password</source>
         <translation>Changer le mot de passe</translation>
@@ -979,12 +988,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="206"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>Clés SSH privées ( *.priv )</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="207"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Clés Microsoft PVK ( *.pvk )</translation>
     </message>
 </context>
 <context>
@@ -1415,12 +1424,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location filename="../widgets/MainWindow.cpp" line="420"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Réessayer avec le NIP</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="421"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Réessayer avec le NIP d&apos;agende sécurité</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="484"/>
@@ -2011,32 +2020,32 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1097"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1097"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensions à double</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1106"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nom alternatif du sujet est invalide</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1108"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nom alternatif de l&apos;émetteur est invalide</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1110"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Le point de distribution de la CRL est invalide</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1112"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;accès à l&apos;information de l&apos;autorité est invalide</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1212"/>
@@ -2653,12 +2662,12 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
     <message>
         <location filename="../lib/load_obj.cpp" line="159"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>clé tls-auth de OpenVPN ( *.key );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="160"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer une clé tls-auth de OpenVPN</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="168"/>
@@ -3027,7 +3036,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>précaire</translation>
     </message>
 </context>
 <context>
@@ -3267,10 +3276,6 @@ Dans la bibliothèque %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <source>OpenSSL config</source>
-        <translation type="vanished">Configuration OpenSSL</translation>
-    </message>
-    <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="28"/>
         <source>Transform</source>
         <translation>Transformer</translation>
@@ -3284,14 +3289,6 @@ Dans la bibliothèque %3
         <location filename="../widgets/X509SuperTreeView.cpp" line="30"/>
         <source>Public key</source>
         <translation>Clé publique</translation>
-    </message>
-    <message>
-        <source>Save as OpenSSL config</source>
-        <translation type="vanished">Enregistrer en format de configuration OpenSSL</translation>
-    </message>
-    <message>
-        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-        <translation type="vanished">Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )</translation>
     </message>
 </context>
 <context>
@@ -3410,7 +3407,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="602"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Format du presse-papier</translation>
+        <translation>Format du presse-papier</translation>
     </message>
 </context>
 <context>
@@ -4258,23 +4255,23 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location filename="../lib/pki_export.cpp" line="79"/>
         <location filename="../lib/pki_export.cpp" line="95"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Configuration OpenSSL</translation>
+        <translation>Configuration OpenSSL</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="79"/>
         <location filename="../lib/pki_export.cpp" line="95"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier de configuration OpenSSL pour créer un certificat ou une requête au moyen de l&apos;outil openssl en ligne de commande</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="80"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>clé tls-auth de OpenVPN</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="80"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé tls-auth de OpenVPN est une clé secrète partagée entre les points d&apos;accès</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="82"/>
@@ -4351,14 +4348,6 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location filename="../lib/pki_export.cpp" line="89"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
         <translation>La clé privée en format Microsoft PVK n&apos;est pas chiffrée</translation>
-    </message>
-    <message>
-        <source>PVK encrypted</source>
-        <translation type="vanished">Chiffrée en PVK</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="vanished">Clé privée chiffrée en format Microsoft PVK</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="90"/>
@@ -4584,7 +4573,7 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_scard.cpp" line="692"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner le créneau de %1</translation>
     </message>
     <message>
         <location filename="../lib/pki_scard.cpp" line="730"/>
@@ -4686,27 +4675,27 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_x509.cpp" line="331"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé tls-auth de OpenVPN invalide</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="361"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;importer la clé tls-auth</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="364"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>La même clé tls-auth est déjà stockée pour ce CA</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="366"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>La nouvelle clé tls-auth a été importée</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="368"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé tls-auth existante a été remplacée</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="472"/>
