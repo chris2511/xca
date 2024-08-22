@@ -78,9 +78,9 @@ void verify_key(const QString &name, QList<unsigned> hashes, bool priv)
 		unsigned hash = pki->hash();
 		qDebug() << pki->getIntName() << hash;
 		QVERIFY2(hashes.contains(hash),
-			qPrintable(QString("%1 not expected in %2")
+			qPrintable(QString("%1 not expected in %2 (%3)")
 				.arg(pki->getIntName())
-				.arg(name)
+				.arg(name).arg(hash)
 			)
 		);
 		pki_key *key = dynamic_cast<pki_key*>(pki);
@@ -174,6 +174,7 @@ void test_main::exportFormat()
 #define INTER_HASH 376625776
 #define END_HASH 94304590
 #define ENDKEY_HASH 1121702347
+#define ED25519_HASH 318722247
 
 #define xstr(s) str(s)
 #define str(s) #s
@@ -303,6 +304,45 @@ void test_main::exportFormat()
 	export_by_id(26, file, list, keys);
 	verify_key(file, QList<unsigned> {  ENDKEY_HASH }, true);
 	check_pems(file, 0);
+
+	// Import ED25519 Key
+	key = new pki_evp();
+	key->fromPEMbyteArray(pemdata["ED25519 Key"].toUtf8(), QString("ED25519 Key"));
+	openssl_error();
+	Database.insert(key);
+	dbstatus();
+
+	list.clear();
+	key = dynamic_cast<pki_key*>(keys->getByName("ED25519 Key"));
+	list << keys->index(key);
+
+	// Export ED25519 as Private SSH Key
+	file = AUTOFILE(ED25519PRIVSSH)
+	export_by_id(22, file, list, keys);
+	verify_key(file, QList<unsigned> { ED25519_HASH }, true);
+	check_pems(file, 1, QStringList{ "BEGIN OPENSSH PRIVATE KEY" });
+
+	// Export ED25519 as unencrypted PEM Private Key
+	file = AUTOFILE(ED25519PRIVPEM)
+	export_by_id(20, file, list, keys);
+	verify_key(file, QList<unsigned> { ED25519_HASH }, true);
+	check_pems(file, 1, QStringList{ "BEGIN PRIVATE KEY" });
+
+	// Export ED25519 as unencrypted PKCS#8 Key (Same output as above)
+	file = AUTOFILE(ED25519PRIVPKCS8)
+	export_by_id(29, file, list, keys);
+	verify_key(file, QList<unsigned> { ED25519_HASH }, true);
+	check_pems(file, 1, QStringList{ "BEGIN PRIVATE KEY" });
+
+	// Export ED25519 as encrypted PKCS#8 Key
+	file = AUTOFILE(ED25519PRIVPKCS8ENC)
+	pwdialog->setExpectations(QList<pw_expect*>{
+		new pw_expect("pass", pw_ok),
+		new pw_expect("pass", pw_ok),
+	});
+	export_by_id(28, file, list, keys);
+	verify_key(file, QList<unsigned> { ED25519_HASH }, true);
+	check_pems(file, 1, QStringList{ "BEGIN ENCRYPTED PRIVATE KEY" });
 
 	} catch (...) {
 		QString m = QString("Exception thrown L %1").arg(l);
