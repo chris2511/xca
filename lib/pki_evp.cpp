@@ -768,40 +768,27 @@ QSqlError pki_evp::deleteSqlData()
 	return q.lastError();
 }
 
+#ifndef LIBRESSL_VERSION_NUMBER
+int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
+                                         const EVP_CIPHER *enc,
+                                         unsigned char *kstr, int klen,
+                                         pem_password_cb *cb, void *u)
+{
+	QString pem = keytype::byPKEY(x).traditionalPemName();
+
+	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
+			pem.toLatin1(), bp, (char*)x, enc, kstr, klen, cb, u);
+}
+#endif
+
 bool pki_evp::pem(BioByteArray &b, const pki_export *xport)
 {
 	EVP_PKEY *pkey;
-	int keytype;
 
 	if (xport->match_all(F_PEM | F_PRIVATE)) {
 		pkey = decryptKey();
-		keytype = EVP_PKEY_id(pkey);
-		switch (keytype) {
-		case EVP_PKEY_RSA:
-			PEM_write_bio_RSAPrivateKey(b,
-				EVP_PKEY_get0_RSA(pkey),
-				NULL, NULL, 0, NULL, NULL);
-			break;
-		case EVP_PKEY_DSA:
-			PEM_write_bio_DSAPrivateKey(b,
-				EVP_PKEY_get0_DSA(pkey),
-				NULL, NULL, 0, NULL, NULL);
-			break;
-#ifndef OPENSSL_NO_EC
-		case EVP_PKEY_EC:
-			PEM_write_bio_ECPrivateKey(b,
-				EVP_PKEY_get0_EC_KEY(pkey),
-				NULL, NULL, 0, NULL, NULL);
-			break;
-#ifdef EVP_PKEY_ED25519
-		case EVP_PKEY_ED25519:
-			 if (xport->match_all(F_PRIVATE))
-				return false;
-			write_SSH2_ed25519_private(b, pkey, NULL);
-			break;
-#endif
-#endif
-		}
+		PEM_write_bio_PrivateKey_traditional(b, pkey, nullptr,
+						nullptr, 0, nullptr, nullptr);
 		EVP_PKEY_free(pkey);
 	} else if (xport->match_all(F_PKCS8 | F_PRIVATE)) {
 		const EVP_CIPHER *algo = xport->match_all(F_CRYPT) ?
@@ -874,19 +861,6 @@ void pki_evp::writeDefault(const QString &dirname) const
 	writeKey(file, pki_evp::passwd.isEmpty() ? NULL : EVP_aes_256_cbc(),
 			mycb, true);
 }
-
-#ifndef LIBRESSL_VERSION_NUMBER
-int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
-                                         const EVP_CIPHER *enc,
-                                         unsigned char *kstr, int klen,
-                                         pem_password_cb *cb, void *u)
-{
-	QString pem = keytype::byPKEY(x).traditionalPemName();
-
-	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
-			pem.toLatin1(), bp, (char*)x, enc, kstr, klen, cb, u);
-}
-#endif
 
 void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem) const

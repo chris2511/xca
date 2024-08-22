@@ -61,7 +61,9 @@ class keytype
 	}
 	QString traditionalPemName() const
 	{
-		return name + " PRIVATE KEY";
+		return type == EVP_PKEY_ED25519 ?
+			QString("PRIVATE KEY") :
+			QString("%1 PRIVATE KEY").arg(name);
 	}
 	static const keytype byType(int type)
 	{
