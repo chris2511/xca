@@ -94,6 +94,9 @@ int read_cmdline(int argc, char *argv[], bool console_only,
 	if (console_only)
 		database_model::open_without_password = true;
 
+	if (cmd_opts.has("no-native-dialogs"))
+		QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
+
 	if (cmd_opts.has("database"))
 		Database.open(cmd_opts["database"], sqlpw);
 

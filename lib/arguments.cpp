@@ -46,6 +46,8 @@ const QList<arg_option> arguments::opts = {
 		"List all items in the database."),
 	arg_option("name", "internal-name", required_argument, false, true,
 		"Provides the name of new generated items. An automatic name will be generated if omitted."),
+	arg_option("no-native-dialogs", NULL, no_argument, false, false,
+		"Disables the native dialogs of the operating system for messages and file operations and uses Qt specific dialogs instead."),
 	arg_option("no-gui", NULL, no_argument, true, false,
 		"Do not start the GUI. Alternatively set environment variable XCA_NO_GUI=1 or call xca as 'xca-console' symlink."),
 	arg_option("password", "password", required_argument, false, false,
