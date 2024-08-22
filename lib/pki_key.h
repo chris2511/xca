@@ -61,9 +61,11 @@ class keytype
 	}
 	QString traditionalPemName() const
 	{
-		return type == EVP_PKEY_ED25519 ?
-			QString("PRIVATE KEY") :
-			QString("%1 PRIVATE KEY").arg(name);
+		return
+#ifdef EVP_PKEY_ED25519
+			type == EVP_PKEY_ED25519 ? QString("PRIVATE KEY") :
+#endif
+				QString("%1 PRIVATE KEY").arg(name);
 	}
 	static const keytype byType(int type)
 	{
@@ -255,11 +257,8 @@ class pki_key: public pki_base
 		QByteArray i2d() const;
 		EVP_PKEY *load_ssh2_key(const QByteArray &ba);
 		void writeSSH2public(XFile &file) const;
-		void writeSSH2private(XFile &file, pem_password_cb *cb) const;
 		QString fingerprint(const QString &format) const;
 		bool SSH2_compatible() const;
-		void write_SSH2_ed25519_private(BIO *b,
-			const EVP_PKEY *pkey, const EVP_CIPHER *enc) const;
 		void print(BioByteArray &b, enum print_opt opt) const;
 		void resetUcount()
 		{

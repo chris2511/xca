@@ -232,8 +232,8 @@ void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
 		key->writePublic(file, true);
 	else if (privkey && xport->match_all(F_PKCS8))
 		privkey->writePKCS8(file, algo, pwCallback, true);
-	else if (xport->match_all(F_SSH2 | F_PRIVATE))
-		key->writeSSH2private(file, pwCallback);
+	else if (privkey && xport->match_all(F_SSH2 | F_PRIVATE))
+		privkey->writeSSH2private(file);
 	else if (xport->match_all(F_SSH2))
 		key->writeSSH2public(file);
 	else if (privkey && xport->match_all(F_PVK))

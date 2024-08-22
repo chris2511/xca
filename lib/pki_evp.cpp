@@ -891,6 +891,53 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 	file.write(b);
 }
 
+void pki_evp::write_SSH2_ed25519_private(BIO *b, const EVP_PKEY *pkey) const
+{
+#ifndef OPENSSL_NO_EC
+	static const char data0001[] = { 0, 0, 0, 1};
+	char buf_nonce[8];
+	QByteArray data, priv, pubfull;
+
+	pubfull = SSH2publicQByteArray(true);
+	RAND_bytes((unsigned char*)buf_nonce, sizeof buf_nonce);
+	priv.append(buf_nonce, sizeof buf_nonce);
+	priv += pubfull;
+	ssh_key_QBA2data(ed25519PrivKey(pkey) + ed25519PubKey(), &priv);
+
+	data = "openssh-key-v1";
+	data.append('\0');
+	ssh_key_QBA2data("none", &data); // enc-alg
+	ssh_key_QBA2data("none", &data); // KDF name
+	ssh_key_QBA2data("", &data); // KDF data
+	data.append(data0001, sizeof data0001);
+	ssh_key_QBA2data(pubfull, &data);
+	ssh_key_QBA2data(priv, &data);
+
+	PEM_write_bio(b, PEM_STRING_OPENSSH_KEY, (char*)"",
+		(unsigned char*)(data.data()), data.size());
+	pki_openssl_error();
+#else
+	(void)b;
+	(void)pkey;
+#endif
+}
+void pki_evp::writeSSH2private(XFile &file) const
+{
+	EVP_PKEY *pkey = decryptKey();
+	if (!pkey) {
+		pki_openssl_error();
+		return;
+	}
+#ifdef EVP_PKEY_ED25519
+	if (getKeyType() == EVP_PKEY_ED25519) {
+		BioByteArray b;
+		write_SSH2_ed25519_private(b, pkey);
+		file.write(b);
+	} else
+#endif
+		writeKey(file, nullptr, nullptr, true);
+}
+
 bool pki_evp::verify(EVP_PKEY *pkey) const
 {
 	if (!EVP_PKEY_isPrivKey(pkey))

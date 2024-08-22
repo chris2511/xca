@@ -71,6 +71,8 @@ class pki_evp: public pki_key
 		void writePKCS8(XFile &file, const EVP_CIPHER *enc,
 				pem_password_cb *cb, bool pem) const;
 		void writePVKprivate(XFile &file) const;
+		void writeSSH2private(XFile &file) const;
+		void write_SSH2_ed25519_private(BIO *b, const EVP_PKEY *pkey) const;
 		bool verify(EVP_PKEY *pkey) const;
 		QVariant getIcon(const dbheader *hd) const;
 		bool sqlUpdatePrivateKey();

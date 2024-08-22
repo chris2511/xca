@@ -90,39 +90,6 @@ QByteArray pki_key::i2d() const
 	return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
 
-void pki_key::write_SSH2_ed25519_private(BIO *b,
-			 const EVP_PKEY *pkey, const EVP_CIPHER *enc) const
-{
-	(void)enc;
-#ifndef OPENSSL_NO_EC
-	static const char data0001[] = { 0, 0, 0, 1};
-	char buf_nonce[8];
-	QByteArray data, priv, pubfull;
-
-	pubfull = SSH2publicQByteArray(true);
-	RAND_bytes((unsigned char*)buf_nonce, sizeof buf_nonce);
-	priv.append(buf_nonce, sizeof buf_nonce);
-	priv += pubfull;
-	ssh_key_QBA2data(ed25519PrivKey(pkey) + ed25519PubKey(), &priv);
-
-	data = "openssh-key-v1";
-	data.append('\0');
-	ssh_key_QBA2data("none", &data); // enc-alg
-	ssh_key_QBA2data("none", &data); // KDF name
-	ssh_key_QBA2data("", &data); // KDF data
-	data.append(data0001, sizeof data0001);
-	ssh_key_QBA2data(pubfull, &data);
-	ssh_key_QBA2data(priv, &data);
-
-	PEM_write_bio(b, PEM_STRING_OPENSSH_KEY, (char*)"",
-		(unsigned char*)(data.data()), data.size());
-	pki_openssl_error();
-#else
-	(void)b;
-	(void)pkey;
-#endif
-}
-
 bool pki_key::pem(BioByteArray &b)
 {
 	return pem(b, pki_export::by_id(Settings["KeyFormat"]));
@@ -138,21 +105,6 @@ bool pki_key::pem(BioByteArray &b, const pki_export *xport)
 		PEM_write_bio_PUBKEY(b, key);
 
 	return true;
-}
-
-void pki_key::writeSSH2private(XFile &file, pem_password_cb *cb) const
-{
-	(void)cb;
-//	pass_info p(XCA_TITLE, tr("Please enter the password protecting the SSH2 private key '%1'").arg(getIntName()));
-
-	EVP_PKEY *pkey = decryptKey();
-	if (!pkey) {
-		pki_openssl_error();
-		return;
-	}
-	BioByteArray b;
-	write_SSH2_ed25519_private(b, pkey, NULL);
-	file.write(b);
 }
 
 QString pki_key::length() const
