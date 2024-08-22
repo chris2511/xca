@@ -380,7 +380,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>导入OpenVPN TLS认证密钥</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1580,12 +1580,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>使用PIN重试</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>使用SO PIN重试</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2208,32 +2208,32 @@ Please enter the DH parameter bits</source>
     <message>
         <location line="+10"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>重复扩展</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>无效的主题可选名称（SAN）</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>无效的签发人可选名称（IAN）</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>无效的CRL吊销点</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>无效的CA信息访问</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -3291,7 +3291,7 @@ In library %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>不安全的</translation>
     </message>
 </context>
 <context>
@@ -3568,7 +3568,7 @@ In library %3
     <message>
         <location line="+13"/>
         <source>Error rewinding file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>重置文件指针错误: &apos;%1&apos;: %2</translation>
     </message>
 </context>
 <context>
@@ -4710,17 +4710,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="-16"/>
         <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSL配置文件，用于使用OpenSSL命令行工具创建证书或请求</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN TLS认证密钥</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls认证密钥是端点之间共享的密钥</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4904,7 +4904,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Bogus</source>
-        <translation type="unfinished"></translation>
+        <translation>伪造的</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5030,7 +5030,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>选择%1的插槽</translation>
     </message>
     <message>
         <source>Public Key mismatch. Please re-import card</source>
@@ -5152,27 +5152,27 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>无效的OpenVPN TLS认证密钥</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>导入OpenVPN TLS认证密钥失败</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>此CA中已存在相同的OpenVPN TLS认证密钥</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>新的OpenVPN TLS认证密钥已导入</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>旧的OpenVPN TLS认证密钥被替换</translation>
     </message>
     <message>
         <location line="+104"/>
