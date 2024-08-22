@@ -51,6 +51,7 @@ enum {
 	F_OVPN      = BIT(20),/* OpenVPN format */
 	F_CONFIG    = BIT(21),/* OpenSSL config format */
 	F_TAKEY     = BIT(22),/* OpenVPN TLS-Auth key */
+	F_TRADITION = BIT(23),/* Traditional OpenSSL encrypted PEM */
 };
 
 class pki_export : public QObject {

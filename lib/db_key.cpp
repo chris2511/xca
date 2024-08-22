@@ -197,7 +197,7 @@ int db_key::exportFlags(const QModelIndex &index) const
 		disable_flags |= F_PVK;
 #ifdef EVP_PKEY_ED25519
 	if (keytype == EVP_PKEY_ED25519)
-		disable_flags |= F_CRYPT;
+		disable_flags |= F_TRADITION;
 #endif
 	if (!key->SSH2_compatible())
 		disable_flags |= F_SSH2;

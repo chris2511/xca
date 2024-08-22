@@ -81,7 +81,7 @@ new pki_export(39, x509, "key", tr("OpenVPN tls-auth key"), F_SINGLE | F_TAKEY, 
 
 new pki_export(19, asym_key, "pem", tr("PEM public"),    F_PEM | F_CLIPBOARD,                            tr("Text format of the public key in one PEM file")),
 new pki_export(20, asym_key, "pem", tr("PEM private"),   F_PEM | F_PRIVATE | F_USUAL | F_CLIPBOARD,      tr("Unencrypted private key in text format")),
-new pki_export(21, asym_key, "pem", tr("PEM encrypted"), F_PEM | F_PRIVATE | F_CRYPT | F_SINGLE,         tr("OpenSSL specific encrypted private key in text format")),
+new pki_export(21, asym_key, "pem", tr("PEM encrypted"), F_PEM | F_PRIVATE | F_CRYPT | F_SINGLE | F_TRADITION, tr("OpenSSL specific encrypted private key in text format")),
 new pki_export(22, asym_key, "priv",tr("SSH2 private"),  F_PRIVATE | F_SSH2 | F_SINGLE,                  tr("Unencrypted private key in text format")),
 new pki_export(23, asym_key, "pub" ,tr("SSH2 public"),   F_SSH2,                                         tr("The public key encoded in SSH2 format")),
 new pki_export(24, asym_key, "der", tr("DER public"),    F_DER | F_SINGLE,                               tr("Binary DER format of the public key")),
