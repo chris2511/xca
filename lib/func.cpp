@@ -222,6 +222,9 @@ const QString getDocDir()
 #ifdef DOCDIR
 	docs << QString(DOCDIR);
 #endif
+#ifdef INSTALL_DATA_PREFIX
+	docs << QString(INSTALL_DATA_PREFIX);
+#endif
 	docs += QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
 	foreach (docdir, docs) {
 #ifndef Q_OS_MACOS
@@ -260,12 +263,21 @@ const QString getUserSettingsDir()
 
 const QString getI18nDir()
 {
-	QString qm = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-		I18N_DIR "xca_de.qm");
+	static QString qm;
+	if (!qm.isEmpty())
+		return qm;
+#ifdef INSTALL_DATA_PREFIX
+	if (QFileInfo::exists(INSTALL_DATA_PREFIX "/xca_de.qm"))
+		qm = INSTALL_DATA_PREFIX "/xca_de.qm";
+#endif
+	if (qm.isEmpty())
+		qm = QStandardPaths::locate(QStandardPaths::AppDataLocation,
+			I18N_DIR "xca_de.qm");
 	if (qm.isEmpty())
 		qm = QCoreApplication::applicationDirPath() + "/xca_de.qm";
+	qm = QFileInfo(qm).path();
 	qDebug() << "QM" << qm;
-	return QFileInfo(qm).path();
+	return qm;
 }
 
 void migrateOldPaths()

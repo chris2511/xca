@@ -11,3 +11,8 @@
 
 /* Build an AppStore compliant version */
 #cmakedefine APPSTORE_COMPLIANT
+
+/* Install PREFIX (linux only) */
+#if defined Q_OS_UNIX && ! defined Q_OS_MACOS
+#define INSTALL_DATA_PREFIX "@CMAKE_INSTALL_PREFIX@/share/xca"
+#endif

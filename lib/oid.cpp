@@ -25,6 +25,16 @@ NIDlist distname_nid;
 QMap<QString,const char*> oid_name_clash;
 QMap<QString,int> oid_lower_map;
 
+static QStringList searchdirs()
+{
+	QStringList dirs = QStandardPaths::standardLocations(
+				QStandardPaths::AppDataLocation);
+#ifdef INSTALL_DATA_PREFIX
+	dirs << QString(INSTALL_DATA_PREFIX);
+#endif
+	return dirs;
+}
+
 static void addToLowerMap(int nid)
 {
 	QString n = OBJ_nid2sn(nid);
@@ -120,7 +130,7 @@ static void readOIDs(const QString &fname)
 	int line = 0;
 	QFile file(fname);
 	if (!file.open(QIODevice::ReadOnly))
-                return;
+		return;
 	qDebug() << "Read additional OIDs from" << fname;
 	QTextStream in(&file);
 	while (!in.atEnd()) {
@@ -171,8 +181,7 @@ static NIDlist read_nidlist(const QString &name)
 {
 	NIDlist nl;
 
-	foreach(QString d, QStandardPaths::standardLocations(
-				QStandardPaths::AppDataLocation))
+	foreach(QString d, searchdirs())
 	{
 		nl = readNIDlist(d + "/" + name);
 		qDebug() << "Read" << nl.count() << "NIDs from"
@@ -191,8 +200,7 @@ void initOIDs()
 		addToLowerMap(i);
 	ign_openssl_error();
 
-	foreach(QString d, QStandardPaths::standardLocations(
-				QStandardPaths::AppDataLocation))
+	foreach(QString d, searchdirs())
 		readOIDs(d + "/oids.txt");
 
 	extkeyuse_nid = read_nidlist("eku.txt");
