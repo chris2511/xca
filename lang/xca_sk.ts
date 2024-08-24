@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="sk_SK">
+    <extra-po-header-language>sk</extra-po-header-language>
+    <extra-po-header-language_team>slovenčina &lt;linux@slavino.sk&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Slavko &lt;linux@slavino.sk&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2024-08-24 12:21+0200</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2018-03-16 18:14+0200</extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version>X Certificate and Key management 2..6.0</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Gtranslator 46.1</extra-po-header-x_generator>
+    <extra-po-header_comment># This file is distributed under the same license as the XCA package.
+# Slavko &lt;linux@slavino.sk&gt;, 2016-2024.
+#</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Generator,Plural-Forms,X-Qt-Contexts</extra-po-headers>
 <context>
     <name>CaProperties</name>
     <message>
@@ -371,7 +383,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="84"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importovať kľúč OpenVPN tls-auth</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="88"/>
@@ -427,17 +439,17 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="261"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka vCalendar ( *.ics )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="262"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>Súbor OpenVPN ( *.ovpn )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="263"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúč OpenVPN tls-auth ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -561,7 +573,7 @@
     <message>
         <location filename="../widgets/CrlTreeView.cpp" line="71"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka vCalendar ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -939,10 +951,6 @@ Sér. č.: %3</translation>
 <context>
     <name>KeyTreeView</name>
     <message>
-        <source>Clipboard format</source>
-        <translation type="vanished">Formát schránky</translation>
-    </message>
-    <message>
         <location filename="../widgets/KeyTreeView.cpp" line="31"/>
         <source>Change password</source>
         <translation>Zmeniť heslo</translation>
@@ -999,12 +1007,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="206"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>Súkromné kľúče SSH ( *.priv )</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="207"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúče Microsoft PVK ( *.pvk )</translation>
     </message>
 </context>
 <context>
@@ -1048,7 +1056,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
         <location filename="../ui/MainWindow.ui" line="255"/>
         <location filename="../ui/MainWindow.ui" line="448"/>
         <source>&amp;Show Details</source>
-        <translation>&amp;Zobraziť podrobnosti</translation>
+        <translation>&amp;Podrobnosti</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="84"/>
@@ -1062,7 +1070,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../ui/MainWindow.ui" line="124"/>
         <source>Certificate signing requests</source>
-        <translation>Žiadosti o certifikát</translation>
+        <translation>Žiadosti</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="148"/>
@@ -1435,12 +1443,12 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MainWindow.cpp" line="420"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Opakovať s PIN</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="421"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Opakovať s SO PIN</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="484"/>
@@ -2051,32 +2059,32 @@ Prosím, zadajte bity parametra DH</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1097"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1097"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>duplicitné rozšírenie</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1106"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternatívne meno predmetu (SAN) je neplatné</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1108"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternatívny názov vydavateľa (IAN) je neplatné</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1110"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Distribučné bod CRL je neplatný</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1112"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Prístup k informácii CA (AIA) je neplatný</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1212"/>
@@ -2555,33 +2563,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     </message>
 </context>
 <context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">OK</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Zatvoriť</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Zrušiť</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">Použiť</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">Áno</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">Nie</translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
         <location filename="../lib/asn1time.cpp" line="142"/>
@@ -2732,12 +2713,12 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <location filename="../lib/load_obj.cpp" line="159"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúč OpenVPN tls-auth ( *.key );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="160"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importovať kľúč OpenVPN tls-auth</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="168"/>
@@ -3104,6 +3085,11 @@ V knižnici %3
         <translation>Heslo</translation>
     </message>
     <message>
+        <location filename="../lib/pki_pkcs12.cpp" line="214"/>
+        <source>insecure</source>
+        <translation>nie bezpečné</translation>
+    </message>
+    <message>
         <source>Out of Memory at %1:%2</source>
         <translation type="vanished">Nedostatok pamäte na %1:%2</translation>
     </message>
@@ -3122,11 +3108,6 @@ V knižnici %3
     <message>
         <source>DB: Write error %1 - %2</source>
         <translation type="vanished">DB: Chyba zápisu %1 – %2</translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="214"/>
-        <source>insecure</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3149,7 +3130,7 @@ V knižnici %3
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="35"/>
         <source>Similar Request</source>
-        <translation>Podobné žiadosti</translation>
+        <translation>Podobná žiadosť</translation>
     </message>
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="75"/>
@@ -3366,10 +3347,6 @@ V knižnici %3
 <context>
     <name>X509SuperTreeView</name>
     <message>
-        <source>OpenSSL config</source>
-        <translation type="vanished">Konfigurácia OpenSSL</translation>
-    </message>
-    <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="28"/>
         <source>Transform</source>
         <translation>Transformovať</translation>
@@ -3509,7 +3486,7 @@ V knižnici %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="602"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Formát schránky</translation>
+        <translation>Formát schránky</translation>
     </message>
 </context>
 <context>
@@ -4457,23 +4434,23 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_export.cpp" line="79"/>
         <location filename="../lib/pki_export.cpp" line="95"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Konfigurácia OpenSSL</translation>
+        <translation>Konfigurácia OpenSSL</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="79"/>
         <location filename="../lib/pki_export.cpp" line="95"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguračný súbor OpenSSL na vytvorenie certifikátu alebo žiadosti pomocou nástroja príkazového riadka openssl</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="80"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúč OpenVPN tls-auth</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="80"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>Kľúč OpenVPN tls-auth je tajný kľúč zdieľaný medzi koncovými bodmi</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="82"/>
@@ -4552,14 +4529,6 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Nešifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
     </message>
     <message>
-        <source>PVK encrypted</source>
-        <translation type="vanished">PVK šifrovaný</translation>
-    </message>
-    <message>
-        <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="vanished">Šifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_export.cpp" line="90"/>
         <source>PKCS #8 encrypted</source>
         <translation>PKCS #8 šifrovaný</translation>
@@ -4603,6 +4572,14 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_export.cpp" line="102"/>
         <source>All selected XCA templates in PEM-like format</source>
         <translation>Všetky šablóny XCA vo formáte podobnom PEM</translation>
+    </message>
+    <message>
+        <source>PVK encrypted</source>
+        <translation type="vanished">PVK šifrovaný</translation>
+    </message>
+    <message>
+        <source>Encrypted private key in Microsoft PVK format</source>
+        <translation type="vanished">Šifrovaný súkromný kľúč vo formáte Microsoft PVK</translation>
     </message>
 </context>
 <context>
@@ -4783,7 +4760,7 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_scard.cpp" line="692"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvoliť slot z %1</translation>
     </message>
     <message>
         <location filename="../lib/pki_scard.cpp" line="730"/>
@@ -4905,27 +4882,27 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_x509.cpp" line="331"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Neplatný kľúč OpenVPN tls-auth</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="361"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Import kľúča tls-auth zlyhal</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="364"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Táto CA už má nejaký kľúč tls-auth uložený</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="366"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nový kľúč tls-auth úspešne importovaný</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="368"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>Existujúci kľúč tls-auth úspešne nahradený</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="472"/>
@@ -5116,6 +5093,33 @@ Je uložený v databáze XCA „%4”</translation>
         <location filename="../widgets/XcaWarning.cpp" line="71"/>
         <source>Copy to Clipboard</source>
         <translation>Kopírovať do schránky</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">OK</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="vanished">Zatvoriť</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Zrušiť</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">Použiť</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="vanished">Áno</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="vanished">Nie</translation>
     </message>
 </context>
 </TS>
