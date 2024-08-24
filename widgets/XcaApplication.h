@@ -23,8 +23,7 @@ class XcaTranslator : public QTranslator
 	bool load(const QLocale &locale, const QString &filename,
 		const QString &dir)
 	{
-		return QTranslator::load(QString("%1_%2").arg(filename)
-						.arg(locale.name()), dir);
+		return QTranslator::load(locale, filename, "_", dir, ".qm");
 	}
 };
 

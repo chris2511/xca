@@ -12,9 +12,9 @@ foreach(lang ${XCA_LANGUAGES})
   list(APPEND LANG_COMPREFS "  <ComponentRef Id=\"Ci18n.${lang}\"/>\n")
   set(LANG_COMPS "  <Component Id=\"Ci18n.${lang}\" Guid=\"${GUID}\">
     <File Id=\"xca_${lang}.qm\" Source=\"${D}/xca_${lang}.qm\" KeyPath=\"yes\"/>\n")
-  if(EXISTS ${_qt_bin_dir}/../translations/qt_${lang}.qm)
-    list(APPEND QM_FILES ${_qt_bin_dir}/../translations/qt_${lang}.qm)
-    string(APPEND LANG_COMPS "    <File Id=\"qt_${lang}.qm\" Source=\"${_qt_bin_dir}/../translations/qt_${lang}.qm\"/>\n")
+  if(EXISTS ${_qt_bin_dir}/../translations/qtbase_${lang}.qm)
+    list(APPEND QT_QM_FILES ${_qt_bin_dir}/../translations/qtbase_${lang}.qm)
+    string(APPEND LANG_COMPS "    <File Id=\"qtbase_${lang}.qm\" Source=\"${_qt_bin_dir}/../translations/qtbase_${lang}.qm\"/>\n")
   endif()
   string(APPEND LANG_COMPS "  </Component>\n")
   list(APPEND LANG_ALLCOMPS ${LANG_COMPS})
@@ -40,15 +40,15 @@ else()
   )
   add_custom_target(trans DEPENDS xca_lupdate "${D}/xca.pot")
 endif()
-list(APPEND APP_RESOURCES ${QM_FILES})
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES})
+list(APPEND APP_RESOURCES ${QM_FILES} ${QT_QM_FILES})
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES} ${QT_QM_FILES})
 
 if (UNIX AND NOT APPLE)
   install(FILES ${QM_FILES}
 	DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/i18n
   )
 elseif(WIN32)
-  install(FILES ${QM_FILES}
+  install(FILES ${QM_FILES} ${QT_QM_FILES}
 	  DESTINATION ${RUNTIME_DEST}/i18n
   )
 endif()
