@@ -375,7 +375,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth key形式でインポート</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -431,17 +431,18 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar entry ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN file ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>OpenVPN tls-auth key ( *.key )</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -565,7 +566,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar entry ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -1094,12 +1095,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+3"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH Private Keys ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft PVK Keys ( *.pvk )</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1559,12 +1560,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PINで再試行</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>SO PINで再試行</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2183,32 +2184,32 @@ DHパラメータビットを入力してください</translation>
     <message>
         <location line="+10"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>エラー</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>エクステンションが重複しています</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Subject Alternative Name が無効です</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Issuer Alternative Name が無効です</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL Distribution Point が無効です</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Authority Information Access が無効です</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2872,12 +2873,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+7"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth key ( *.key );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth key のインポート</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3258,7 +3259,7 @@ In library %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>安全でない</translation>
     </message>
 </context>
 <context>
@@ -3641,7 +3642,7 @@ In library %3
     <message>
         <location line="+62"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">クリップボードフォーマット</translation>
+        <translation>クリップボードフォーマット</translation>
     </message>
 </context>
 <context>
@@ -4717,23 +4718,23 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <location line="+1"/>
         <location line="+16"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">OpenSSL コンフィグ</translation>
+        <translation>OpenSSL コンフィグ</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSLコマンドラインツールを使って証明書またはリクエストを作成するためのOpenSSL設定ファイル</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth key</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth key はエンドポイント間で共有される秘密鍵です</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5043,7 +5044,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>スロット %1 を選択</translation>
     </message>
     <message>
         <source>Illegal Key generation method</source>
@@ -5157,27 +5158,27 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth key が無効です</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>tls-auth key のインポートに失敗しました</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>この CA には同じ tls-auth key が保存されています</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>新しい tls-auth key を保存しました</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>既に存在する tls-auth keyを新しい tls-auth keyで正常に置き換えました</translation>
     </message>
     <message>
         <location line="+104"/>
