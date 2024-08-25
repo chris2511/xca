@@ -446,7 +446,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi OpenVPN tls-auth ključ</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -486,17 +486,17 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar format ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN datoteka ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth ključ ( *.key )</translation>
     </message>
     <message>
         <source>Trust</source>
@@ -535,7 +535,7 @@
     <message>
         <location filename="../widgets/clicklabel.cpp" line="+37"/>
         <source>Double click for details</source>
-        <translation>Dvaput kliknite za detalje</translation>
+        <translation>Dvaput klikni za detalje</translation>
     </message>
 </context>
 <context>
@@ -683,7 +683,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar format ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -1334,12 +1334,12 @@ Serijski broj: %3</translation>
     <message>
         <location line="+3"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH privatni ključevi ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft PVK ključevi ( *.pvk )</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -1899,12 +1899,12 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Probajte ponovo s PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Probajte ponovo sa SO PIN</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2701,32 +2701,32 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+29"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Greška</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>duplicirana proširenja</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativno ime subjekta je neispravno</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativno ime izdavača je neispravno</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Točka objave popisa opozvanih potvrda je neispravna</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Dohvat informacija Autoriteta je neispravno</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -3433,12 +3433,12 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="+7"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth ključ ( *.key );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi OpenVPN TLS-auth ključ</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3829,7 +3829,7 @@ U knjižnici %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>nesigurno</translation>
     </message>
 </context>
 <context>
@@ -4232,7 +4232,7 @@ U knjižnici %3
     <message>
         <location line="+62"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Format međuspremnika</translation>
+        <translation>Format međuspremnika</translation>
     </message>
 </context>
 <context>
@@ -5961,23 +5961,23 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="+1"/>
         <location line="+16"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">OpenSSL konfiguracija</translation>
+        <translation>OpenSSL konfiguracija</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSL konfiguracijska datoteka za izradu certifikata ili zahtjev s openssl naredbom iz komandne linije</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth ključ</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth ključ je tajni ključ dijeljen između krajnjih točaka</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6293,7 +6293,7 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+242"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Odaberi utor od %1</translation>
     </message>
     <message>
         <source>Only RSA and EC keys can be stored on tokens</source>
@@ -6446,27 +6446,27 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Neispravan OpenVPN tls-auth ključ</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće uvesti tls-auth ključ</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Isti tls-auth ključ je već spremljen za ovaj CA</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Novi tls-auth ključ je uspješno uvezen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>Postojeći tls-auth ključ je uspješno zamijenjen</translation>
     </message>
     <message>
         <location line="+104"/>
