@@ -371,7 +371,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar autent TLS OpenVPN></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -427,17 +427,17 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada vCalendar ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivo OpenVPN ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>Chave autentic TLS OpenVPN ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -561,7 +561,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada vCalendar ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -979,12 +979,12 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     <message>
         <location line="+2"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaves Privadas SSH ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaves Microsoft PVK ( *.pvk )</translation>
     </message>
 </context>
 <context>
@@ -1415,12 +1415,12 @@ Esta operação apagará a chave  &apos;%1&apos; e a fará não exportável</tra
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentar Novamente com PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentar Novamente com PIN SO</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2011,32 +2011,32 @@ Entrar com bits dos parâmetros DH</translation>
     <message>
         <location line="+10"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>extensões duplicadas</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome Aternativo da Finalidade é Inválido</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome Alternativo do Emissor é Inválido</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>O Ponto de Distribuição CRL é Inválido</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>O Acesso da Informação da Autoridade CA é inválido</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2653,12 +2653,12 @@ Especificamente, EC e DSA somente são definidos com SHA1 na especificação do 
     <message>
         <location line="+7"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Chave autentic TLS OpenVPN ( *.key );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Chave de autentic TLS do OpenVPN </translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3027,7 +3027,7 @@ Na biblioteca %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>insegura</translation>
     </message>
 </context>
 <context>
@@ -3410,7 +3410,7 @@ Na biblioteca %3
     <message>
         <location line="+62"/>
         <source>Clipboard format</source>
-        <translation type="unfinished">Formato da Área de Transferência</translation>
+        <translation>Formato da Área de Transferência</translation>
     </message>
 </context>
 <context>
@@ -4258,23 +4258,23 @@ Ela está armazenada no Banco de Dados XCA &apos;%5&apos;</translation>
         <location line="+1"/>
         <location line="+16"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Configuração OpenSSL</translation>
+        <translation>Configuração OpenSSL</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+16"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivo de configuração OpenSSL para criar ou requisitar um certificado via linha de comando da aplicação openssl</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Chave autentic TLS OpenVPN</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>A Chave autentic TLS OpenVPN é a chave secreta compartilhada entre os pontos extremos do canal</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4587,7 +4587,7 @@ Common is thecommonName
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecionar o Canal de %1</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -4689,27 +4689,27 @@ Common is thecommonName
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Chave de Autent TLS OpenVPN Inválida</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha ao importar a chave de autent TLS</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation>A mesma chave de autentic TLS já foi armazenada para este CA</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova chave de autentic TLS importada com sucesso</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation>Chave de autentic TLS existente substituída com sucesso</translation>
     </message>
     <message>
         <location line="+104"/>
