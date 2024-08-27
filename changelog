@@ -1,3 +1,6 @@
+xca 2.7.0 Tue Aug 27 2024
+-------------------------
+
  * Close #311: Install QT translation files again
  * Close #304: oids.txt not found etc if prefix non-standard
  * Add cmdline option to disable native dialogs

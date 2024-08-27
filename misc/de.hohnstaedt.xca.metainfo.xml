@@ -31,6 +31,7 @@
     </description>
     <developer_name>Christian Hohnstädt, Kerstin Steinhauff et al.</developer_name>
     <releases>
+        <release date="2024-08-27" version="2.7.0" />
         <release date="2024-02-06" version="2.6.0" />
         <release date="2023-09-24" version="2.5.0" />
         <release date="2021-05-07" version="2.4.0" />
