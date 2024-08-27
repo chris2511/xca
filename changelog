@@ -1,3 +1,9 @@
+ * Close #311: Install QT translation files again
+ * Close #304: oids.txt not found etc if prefix non-standard
+ * Add cmdline option to disable native dialogs
+ * Close #364: Export ED25519 private key with password
+ * Switch encryption in "Cert+PKCS#8" and "Database dump
+   mode from DES3-EDE to AES-256
  * Drop support of encrypted PVK files.
  * Windows/Mac build: switch to QT 6.6.3
  * Close #554: Missing option to disable file association in Windows setup
