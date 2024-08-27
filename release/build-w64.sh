@@ -25,7 +25,7 @@ cd $TOP_DIR
 do_openssl
 
 cd $TOP_DIR
-cmake -B "$BUILDDIR" -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="$QT_DIR:$INSTALL_DIR" xca
+cmake -B "$BUILDDIR" -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="$QT_DIR:$INSTALL_DIR" $XCA_DIR
 cmake --build "$BUILDDIR" -j5
 cmake --build "$BUILDDIR" -t install
 cd "$BUILDDIR" && cpack

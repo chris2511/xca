@@ -20,6 +20,6 @@ cat << EOF
 After verifying the commits, tags and github release,
 finally do:
   git push origin --tags main
-  scp -r ${releasedir}/doc/html hohnstaedt.de:xca-doc/
+  scp -r ${releasedir}/html hohnstaedt.de:xca-doc/
   Un-draft the release on github
 EOF

@@ -3,9 +3,9 @@
 [![CMake](https://github.com/chris2511/xca/actions/workflows/cmake.yaml/badge.svg)](https://github.com/chris2511/xca/actions/workflows/cmake.yaml)
 
 ## __Release Notes__
- * The latest release is *2.6.0*
+ * The latest release is *2.7.0*
  * Drivers for SQL Servers must be [installed separately](#sql-remote-database-drivers) since 2.5.0
- * Fix a lot of bugs
+ * Database Schema changed and is not backwards-compatible. Backup your database.
  * Please report issues on github <https://github.com/chris2511/xca/issues>
 
 ## __Changelog:__
