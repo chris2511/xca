@@ -90,5 +90,10 @@
   "xca-2.6.0.tar.gz":"55a39f22eabadcce4532ebfcf07f796372bdb0d323720db6b6e0deaf267b1709",
   "xca-portable-2.6.0.zip":"1cff363a7772d6e33faa50b4c24eb0def9778567514c218e7a78fd50edb2b6de",
 
+  "xca-2.7.0-Darwin.dmg":"14652229069a75c7c2346d1c67bc84136c12ed95caced7bff2548b0debb8d066",
+  "xca-2.7.0-win64.msi":"f32c7a13fa67f978b005b1172d8627e70909e70bc56eca6b8da3d08be58282ca",
+  "xca-2.7.0.tar.gz":"15ff6fbe4c004ac2ad18885ab35ae6940364a8246d5fe8562a41312fe45ec15e",
+  "xca-portable-2.7.0.zip":"44202a13ca29d59dc5b31e8b6e66ec7c80bf2d2d450dfb2b4296936f3d805700",
+
   "last":""
 }
