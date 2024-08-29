@@ -1,5 +1,6 @@
 
 list(APPEND xcadoc_sources arguments.cpp arguments.h xcadoc.cpp)
+list(APPEND xcaexport_sources pki_export.cpp pki_export.h xcaexport.cpp)
 
 list(APPEND xcalib_sources
 BioByteArray.cpp	dbhistory.cpp		pki_key.cpp
@@ -49,6 +50,7 @@ endmacro()
 
 ExpandSources(xcalib)
 ExpandSources(xcadoc)
+ExpandSources(xcaexport)
 
 macro(Test name)
   set(${name}_sources ${ARGN})

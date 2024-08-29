@@ -84,6 +84,7 @@ add_library(xcalib STATIC)
 add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc lib/main.cpp
 		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
+add_executable(xcaexport ${PROJECT_BINARY_DIR}/local.h)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
@@ -136,6 +137,7 @@ target_link_libraries(xcalib
 target_link_libraries(xcadoc
 	OpenSSL::Crypto ${QT}::Core ${ASAN_LIB}
 )
+target_link_libraries(xcaexport ${QT}::Core ${ASAN_LIB})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${ASAN_LIB} xcalib)
 
 if (APPLE)
@@ -250,6 +252,11 @@ elseif(WIN32)
     COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:xcadoc>
         --dir ${CMAKE_BINARY_DIR} --no-translations
     COMMENT "Running windeployqt on xcadoc ..."
+  )
+  add_custom_command(TARGET xcaexport POST_BUILD
+    COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:xcaexport>
+        --dir ${CMAKE_BINARY_DIR} --no-translations
+    COMMENT "Running windeployqt on xcaexport ..."
   )
   set(QT_USE_QTMAIN TRUE)
   set(CPACK_GENERATOR WIX)

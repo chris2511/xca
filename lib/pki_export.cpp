@@ -62,7 +62,7 @@ void pki_export::init_elements()
 	elements = QList<pki_export*> {
 
 new pki_export( 1, x509, "crt", "PEM",               F_PEM | F_USUAL | F_SINGLE | F_CLIPBOARD, tr("PEM Text format with headers")),
-new pki_export( 3, x509, "pem", "PEM",               F_PEM | F_MULTI,                        tr("Concatenated list of all selected items in one PEM text file")),
+new pki_export( 3, x509, "pem", tr("PEM selected"),  F_PEM | F_MULTI,                        tr("Concatenated list of all selected items in one PEM text file")),
 new pki_export( 2, x509, "pem", tr("PEM chain"),     F_PEM | F_USUAL | F_CHAIN | F_SINGLE | F_CLIPBOARD, tr("Concatenated text format of the complete certificate chain in one PEM file")),
 new pki_export( 4, x509, "ovpn","OpenVPN",           F_PEM | F_OVPN | F_CHAIN | F_PRIVATE | F_SINGLE, tr("The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files")),
 new pki_export( 6, x509, "pem", tr("PEM + key"),     F_PEM | F_PRIVATE| F_SINGLE | F_CLIPBOARD, tr("Concatenation of the certificate and the unencrypted private key in one PEM file")),

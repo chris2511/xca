@@ -78,37 +78,15 @@ also displayed in a format defined in RFC2253 for copy&paste.
 Certificate Export
 ------------------
 
-- **Clipboard:** Copy all selected certificates to the clipboard as PEM file
+- **Clipboard:** Export certificates to the clipboard
+- **Clipboard format:** The format for the clipboard can be selected as follows:
+
+.. include:: export-x509-clp.rst
+
 - **File:** Export to external file.
   The filename can be selected in the export dialog and the Export format:
 
-  - **PEM:** PEM encoded
-  - **PEM with Certificate chain:** PEM encoded certificate
-    and all issuers up to the root certificate in one file
-  - **DER:** DER encoded certificate.
-  - **PKCS#7:** DER encoded PKCS#7 structure containing the certificate.
-  - **PKCS#7 chain:** DER encoded PKCS#7 structure containing
-    the selected certificate and all issuers up to the root certificate.
-  - **PKCS#7 selected certificates:** DER encoded PKCS#7 structure
-    containing all selected certificates.
-  - **PKCS#12:** PKCS#12 structure containing the certificate
-    and the corresponding private key
-  - **PKCS#12 chain:** PKCS#12 structure containing the certificate, the
-    corresponding private key and the chain of all issuers certificates.
-  - **PEM cert + key:** concatenation of the private key and certificate
-    in a format used by apache or the X509 patch for OpenSSH.
-  - **PEM cert + PKCS8 key:** concatenation of the
-    private key in PKCS#8 format and certificate.
-  - **OpenVPN:** The selected certificate, its corresponding private key
-    and all issuing certificates in one text file with tags suitable
-    as part of an OpenVPN configuration file.
-  - **vCalendar (*.ics):** expiry notifications for all selected certificates
-    to be imported into your favorite calendar app.
-  - **CA vCalendar (*.ics):** expiry notifications for the CA certificate,
-    valid, issued cdrtificates and the latest CRL.
-  - **OpenSSL config:** Create an OpenSSL config file from the content of
-    this certificate, which can be used to generate a similar certificate
-    with openssl: `openssl req -new -x509 -config <file>`
+.. include:: export-x509.rst
 
 - **Token:** Store certificate on the Security token containing the private key.
 - **Other token:** Store certificate on any Security token.

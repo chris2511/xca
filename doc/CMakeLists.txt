@@ -85,15 +85,28 @@ if(SPHINX)
   )
   add_custom_command(
 	OUTPUT ${RST}/arguments.rst
+	DEPENDS xcadoc
 	COMMAND xcadoc rst ${RST}/arguments.rst
 	COMMENT "Generate 'rst' commandline documentation"
   )
-  add_dependencies(${CMAKE_PROJECT_NAME} sphinx-html)
   target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${HTML_DEST})
+  foreach(EXPORT_TOPIC x509 x509-clp key key-clp request revocation)
+    set(EXPORT_DEST ${RST}/export-${EXPORT_TOPIC}.rst)
+    add_custom_command(
+      OUTPUT ${EXPORT_DEST}
+      DEPENDS xcaexport
+      COMMAND xcaexport ${EXPORT_TOPIC} ${EXPORT_DEST}
+      COMMENT "Generate '${EXPORT_TOPIC}' export documentation"
+    )
+    list(APPEND EXPORT_TOPICS ${EXPORT_DEST})
+  endforeach()
+
+  add_dependencies(${CMAKE_PROJECT_NAME} sphinx-html)
   add_custom_target(sphinx-src
 	DEPENDS ${D}/rst.stamp
 		${RST}/database_schema.sql
 		${RST}/arguments.rst
+    ${EXPORT_TOPICS}
   )
 
   if (UNIX)

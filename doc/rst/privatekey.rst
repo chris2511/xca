@@ -86,21 +86,16 @@ Key Export
 
 Keys can be exported by either selecting the key and pressing *Export*
 or by using the context-menu.
-It may be chosen to export the key to the clipboard as PEM public, SSH2 public
-or unencrypted PEM private format.
-In case of a file export a dialog-box opens where next to the filename
-one of the following formats may be selected:
 
-- **PEM public:** the public part of the key in PEM format
-- **DER public:** the public part of the key in DER format
-- **SSH2 public:** the public part of the key in SSH2 format
-- **PEM private:** the private key unencrypt in PEM format
-- **PKCS#8 encrypted:** the encrypted private key in PKCS#8 format
-- **DER private:** the private key in binary DER format
-- **PEM encrypted:** the private key in PEM format with an OpenSSL specific
-  extensions for encryption
-- **PKCS#8 unencrypted:** the private key unencrypted in PKCS#8 format
-- **SSH2 private:** the private key unencrypted in SSH2 format
+- **Clipboard:** Export the private or public key to the clipboard
+- **Clipboard format:** The format for the clipboard-export can be selected as follows:
+
+.. include:: export-key-clp.rst
+
+- **File:** Export to external file.
+  The filename can be selected in the export dialog and the Export format:
+
+.. include:: export-key.rst
 
 The filename is the internal name plus a *pem*, *der*, *pk8*, *pub* or *priv*
 suffix.  When changing the file-format, the suffix of the filename changes
@@ -112,4 +107,3 @@ Of course, encryption does not make sense if the private part is not exported.
 When exporting the key via SQL from the database, see :ref:`extracting-items`
 openssl asks for the password, which is either the database password or
 its own password in case the password type is *private*.
-
