@@ -617,6 +617,10 @@ void db_x509::exportItems(const QModelIndexList &list,
 			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
 				if (!pki->isRevoked())
 					pki->writeCert(file, true);
+		} else if (xport->match_all(F_UNUSABLE)) {
+			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
+				if (pki->unusable())
+					pki->writeCert(file, true);
 		} else if (xport->match_all(F_ALL)) {
 			foreach(pki_x509 *pki, Store.getAll<pki_x509>())
 				pki->writeCert(file, true);
@@ -717,6 +721,11 @@ void db_x509::writePKCS7(pki_x509 *cert, XFile &file, int flags,
 		} else if (flags & (F_UNREVOKED | F_ALL)) {
 			foreach(pki_x509 *cer, Store.getAll<pki_x509>()) {
 				if ((flags & F_ALL) || !cer->isRevoked())
+					p7->append_item(cer);
+			}
+		} else if (flags & F_UNUSABLE) {
+			foreach(pki_x509 *cer, Store.getAll<pki_x509>()) {
+				if (cer->unusable())
 					p7->append_item(cer);
 			}
 		} else if (flags) {
