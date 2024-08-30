@@ -363,7 +363,7 @@ void pki_temp::old_fromData(const unsigned char *p, int size, int version)
 	}
 }
 
-QByteArray pki_temp::toData() const
+QByteArray pki_temp::toData(bool for_export) const
 {
 	QByteArray ba;
 
@@ -373,6 +373,12 @@ QByteArray pki_temp::toData() const
 	buf.open(QIODevice::WriteOnly | QIODevice::Append);
 	QDataStream out(&buf);
 	out.setVersion(TEMPLATE_DS_VERSION);
+	if (for_export) {
+		out << QMap<QString, QString>{
+			{ "internal_name", getIntName() },
+			{ "internal_comment", getComment() }
+		};
+	}
 	out << settings;
 	buf.close();
 	return ba;
@@ -394,6 +400,14 @@ void pki_temp::fromData(QByteArray &ba, int version)
 		if (settings.contains(key))
 			settings[translate[key]] = settings.take(key);
 	}
+	if (settings.contains("internal_name")) {
+		qDebug() << "Import internal_name" << settings["internal_name"];
+		setIntName(settings.take("internal_name"));
+	}
+	if (settings.contains("internal_comment")) {
+		qDebug() << "Import internal_comment" << settings["internal_comment"];
+		setComment(settings.take("internal_comment"));
+	}
 	buf.close();
 	(void)version;
 	//if (version < 11) ....
@@ -414,7 +428,7 @@ QByteArray pki_temp::toExportData() const
 	QByteArray data, header;
 	BioByteArray b;
 
-	data = toData();
+	data = toData(true);
 	header = db::intToData(data.size());
 	header += db::intToData(TMPL_VERSION);
 	header += data;
@@ -485,7 +499,7 @@ void pki_temp::fload(const QString &fname)
 	}
 }
 
-void pki_temp::fromPEM_BIO(BIO *bio, const QString &name)
+void pki_temp::fromPEM_BIO(BIO *bio, const QString &)
 {
 	QByteArray ba;
 	QString msg;
@@ -502,7 +516,6 @@ void pki_temp::fromPEM_BIO(BIO *bio, const QString &name)
 	if (!strcmp(nm, PEM_STRING_XCA_TEMPLATE)) {
 		ba = QByteArray::fromRawData((char*)data, len);
 		fromExportData(ba);
-		setIntName(rmslashdot(name));
 	} else {
 		msg = tr("Not an XCA Template, but '%1'").arg(nm);
 	}
@@ -528,4 +541,12 @@ QVariant pki_temp::getIcon(const dbheader *hd) const
 {
 	return hd->id == HD_internal_name ?
 			QVariant(QPixmap(":templateIco")) : QVariant();
+}
+
+void pki_temp::autoIntName(const QString &file)
+{
+	if (getIntName().isEmpty())
+		setIntName(rmslashdot(file));
+	if (getIntName().isEmpty())
+		pki_x509name::autoIntName(file);
 }

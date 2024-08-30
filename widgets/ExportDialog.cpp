@@ -32,11 +32,11 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title,
 	if (indexes.size() == 1) {
 		pki_base *pki = db_base::fromIndex(indexes[0]);
 		if (pki) {
-			descr->setText(pki->getIntName());
+			description->setText(pki->getIntName());
 			fname = pki->getUnderlinedName();
 		}
 	}
-	descr->setReadOnly(true);
+	description->setReadOnly(true);
 	image->setPixmap(img);
 	label->setText(title);
 	mainwin->helpdlg->register_ctxhelp_button(this, help_ctx);

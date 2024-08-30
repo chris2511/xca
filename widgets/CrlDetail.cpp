@@ -62,7 +62,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	connect(issuerIntName, SIGNAL(doubleClicked(QString)),
 		this, SLOT(showIssuer()));
 
-	descr->setText(crl->getIntName());
+	description->setText(crl->getIntName());
 	lUpdate->setText(crl->getLastUpdate().toPretty());
 	lUpdate->setToolTip(crl->getLastUpdate().toPrettyGMT());
 	nUpdate->setText(crl->getNextUpdate().toPretty());
@@ -85,7 +85,7 @@ void CrlDetail::itemChanged(pki_base *pki)
 	if (pkiSqlId == issuerSqlId)
 		issuerIntName->setText(pki->getIntName());
 	if (pkiSqlId == crlSqlId)
-		descr->setText(pki->getIntName());
+		description->setText(pki->getIntName());
 }
 
 void CrlDetail::showIssuer()

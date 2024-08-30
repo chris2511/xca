@@ -100,7 +100,7 @@ new pki_export(32, revocation, "crl", "PEM",  F_PEM,                     tr("PEM
 new pki_export(33, revocation, "der", "DER",  F_DER | F_SINGLE,          tr("Binary DER format of the revocation list")),
 new pki_export(34, revocation, "ics", tr("vCalendar"), F_CAL,            tr("vCalendar reminder for the CRL expiry date")),
 
-new pki_export(35, tmpl, "xca", "PEM", F_PEM | F_SINGLE,                 tr("XCA template in PEM-like format")),
-new pki_export(36, tmpl, "pem", "PEM", F_PEM | F_MULTI,                  tr("All selected XCA templates in PEM-like format")),
+new pki_export(35, tmpl, "xca", "PEM", F_PEM | F_SINGLE,                 tr("XCA template in PEM-like format. Templates include the internal name and comment")),
+new pki_export(36, tmpl, "pem", "PEM", F_PEM | F_MULTI,                  tr("All selected XCA templates in PEM-like format. Templates include the internal name and comment")),
 	};
 }

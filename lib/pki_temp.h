@@ -70,7 +70,7 @@ class pki_temp: public pki_x509name
 			pre_defined = true;
 		}
 		QString comboText() const;
-		QByteArray toData() const;
+		QByteArray toData(bool for_export = false) const;
 		QString toB64Data()
 		{
 			return QString::fromLatin1(toData().toBase64());
@@ -92,6 +92,7 @@ class pki_temp: public pki_x509name
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();
 		void restoreSql(const QSqlRecord &rec);
+		void autoIntName(const QString &file);
 };
 
 Q_DECLARE_METATYPE(pki_temp *);

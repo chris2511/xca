@@ -41,7 +41,7 @@ void CertDetail::on_showExt_clicked()
 
 void CertDetail::setX509super(pki_x509super *x)
 {
-	descr->setText(x->getIntName());
+	description->setText(x->getIntName());
 	thisSqlId = x->getSqlItemId();
 
 	connect_pki(x);
@@ -262,7 +262,7 @@ void CertDetail::itemChanged(pki_base *pki)
 	if (pkiSqlId == issuerSqlId)
 		signature->setText(pki->getIntName());
 	if (pkiSqlId == thisSqlId)
-		descr->setText(pki->getIntName());
+		description->setText(pki->getIntName());
 }
 
 void CertDetail::showPubKey()

@@ -108,7 +108,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="descr">
+           <widget class="QLineEdit" name="description">
             <property name="toolTip">
              <string>The internal name of the certificate in the database</string>
             </property>

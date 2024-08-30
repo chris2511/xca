@@ -73,7 +73,7 @@ void KeyDetail::setupFingerprints(pki_key *key)
 void KeyDetail::setKey(pki_key *key, bool import)
 {
 	keySqlId = key->getSqlItemId();
-	descr->setText(key->getIntName());
+	description->setText(key->getIntName());
 	keyLength->setText(key->length());
 	if (import)
 		connect_pki(key);
@@ -147,7 +147,7 @@ void KeyDetail::setKey(pki_key *key, bool import)
 void KeyDetail::itemChanged(pki_base *pki)
 {
 	if (pki->getSqlItemId() == keySqlId)
-		descr->setText(pki->getIntName());
+		description->setText(pki->getIntName());
 }
 
 void KeyDetail::showKey(QWidget *parent, pki_key *key, bool import)
@@ -157,7 +157,7 @@ void KeyDetail::showKey(QWidget *parent, pki_key *key, bool import)
 	KeyDetail *dlg = new KeyDetail(parent);
 	bool ro = !key->getSqlItemId().isValid();
 	dlg->setKey(key, import);
-	dlg->descr->setReadOnly(ro);
+	dlg->description->setReadOnly(ro);
 	dlg->comment->setReadOnly(ro);
 
 	dlg->exec();

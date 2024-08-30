@@ -56,9 +56,9 @@ void XcaDetail::updateNameComment()
 {
 	if (!pki)
 		return;
-	QLineEdit *descr = findChild<QLineEdit*>("descr");
-	if (descr)
-		pki->setIntName(descr->text());
+	QLineEdit *description = findChild<QLineEdit*>("description");
+	if (description)
+		pki->setIntName(description->text());
 	QTextEdit *comment = findChild<QTextEdit*>("comment");
 	if (comment)
 		pki->setComment(comment->toPlainText());
@@ -79,9 +79,9 @@ void XcaDetail::import()
 	if (buttonBox && !pki && importbut) {
 		buttonBox->removeButton(importbut);
 		importbut = nullptr;
-		QLineEdit *descr = findChild<QLineEdit*>("descr");
-		if (descr)
-			descr->setReadOnly(true);
+		QLineEdit *description = findChild<QLineEdit*>("description");
+		if (description)
+			description->setReadOnly(true);
 		QTextEdit *comment = findChild<QTextEdit*>("comment");
 		if (comment)
 			comment->setReadOnly(true);
