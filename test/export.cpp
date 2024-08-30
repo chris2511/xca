@@ -6,6 +6,7 @@
  */
 
 #include <QTest>
+#include <QDir>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -122,6 +123,7 @@ void test_main::exportFormat()
 	int l=0;
 	QModelIndex idx;
 	QModelIndexList list;
+	QDir d; d.mkpath("testdata");
 
 	try {
 
@@ -180,7 +182,7 @@ void test_main::exportFormat()
 
 #define xstr(s) str(s)
 #define str(s) #s
-#define AUTOFILE(type) "_" # type "_Line" xstr(__LINE__) ".data" ;
+#define AUTOFILE(type) "testdata/" # type "_Line" xstr(__LINE__) ".data" ;
 
 	const char *file = AUTOFILE(ALLCERT)
 	// Export All certs in one PEM File
