@@ -9,6 +9,7 @@
 #include "asn1int.h"
 #include "func_base.h"
 #include "exception.h"
+#include "limits.h"
 #include <openssl/err.h>
 #include <openssl/bn.h>
 
@@ -137,9 +138,11 @@ const ASN1_INTEGER *a1int::get0() const
 
 long a1int::getLong() const
 {
-	long l = ASN1_INTEGER_get(get0());
-	openssl_error();
-	return l;
+	int64_t value;
+	int r = ASN1_INTEGER_get_int64(&value,get0());
+	if (r == 0 || value > LONG_MAX || value < LONG_MIN)
+		throw errorEx(QString("ASN1 Integer: Failed to convert %1 to long").arg(toDec()));
+	return (long)value;
 }
 
 a1int &a1int::operator ++ (void)
