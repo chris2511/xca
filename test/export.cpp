@@ -132,7 +132,8 @@ void test_main::exportFormat()
 	QString all = pemdata["Inter CA 1"] +
 				pemdata["Inter CA 1 Key"] +
 				pemdata["Root CA"] +
-				pemdata["Endentity"];
+				pemdata["Endentity"] +
+				pemdata["CA CRL Test"];
 
 	pem->fromPEMbyteArray(all.toUtf8(), QString());
 	QCOMPARE(pem->failed_files.count(), 0);
@@ -173,6 +174,7 @@ void test_main::exportFormat()
 #define ROOT_HASH 531145749
 #define INTER_HASH 376625776
 #define END_HASH 94304590
+#define EXPIRED_HASH 1359605174
 #define ENDKEY_HASH 1121702347
 #define ED25519_HASH 318722247
 
@@ -246,6 +248,30 @@ void test_main::exportFormat()
 	export_by_id(39, file, list, certs);
 	check_pems(file, 1, QStringList {
 		"BEGIN OpenVPN Static key V1", "END OpenVPN Static key V1" });
+
+	// Revoke endentity
+	pki_x509 *endentity = dynamic_cast<pki_x509*>(certs->getByName("Endentity"));
+	QVERIFY(endentity != nullptr);
+	x509rev rev;
+	rev.setSerial(endentity->getSerial());
+	rev.setDate(a1time::now());
+	endentity->setRevoked(rev);
+	QVERIFY(endentity->isRevoked());
+	// List must not be empty, but may contain anything
+	list.clear();
+	list << certs->index(certs->getByName("Inter CA 1"));
+	// Export unusable as PEM
+	file = AUTOFILE(UNUSABLEPEM)
+	export_by_id(40, file, list, certs);
+	verify_file(file, QList<unsigned> { END_HASH, EXPIRED_HASH });
+	check_pems(file, 2);
+	// Once more as PKCS#7
+	file = AUTOFILE(UNUSABLEP7)
+	export_by_id(41, file, list, certs);
+	verify_file(file, QList<unsigned> { END_HASH, EXPIRED_HASH });
+	check_pems(file, 0);
+
+	///////////////////////////////
 
 	// Export Endentity key
 	list.clear();
