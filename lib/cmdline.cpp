@@ -242,7 +242,7 @@ int read_cmdline(int argc, char *argv[], bool console_only,
 		}
 	}
 
-	BioByteArray bba;
+	BioByteArray bba, bbafile;
 	foreach(pki_base *pki, cmdline_items->get()) {
 		QString filename = pki->getFilename();
 		if ((cmd_opts.has("text") || cmd_opts.has("print")) &&
@@ -255,11 +255,25 @@ int read_cmdline(int argc, char *argv[], bool console_only,
 			pki->print(bba, pki_base::print_coloured);
 		if (cmd_opts.has("text"))
 			pki->print(bba, pki_base::print_openssl_txt);
-		if (cmd_opts.has("pem"))
+		if (cmd_opts.has("pem-file"))
+			pki->print(bbafile, pki_base::print_pem);
+		else if (cmd_opts.has("pem"))
 			pki->print(bba, pki_base::print_pem);
 	}
 	if (bba.size() > 0)
 		console_write(stdout, bba);
+
+	if (bbafile.size() > 0)
+	{
+		QString filename = cmd_opts["pem-file"];
+		XFile f(filename);
+		if (f.open_write())
+			f.write(bbafile);
+		else
+			XCA_ERROR(QObject::tr("Failed to write PEM data to '%1'")
+					.arg(filename));
+		f.close();
+	}
 	if (cmd_opts.has("import")) {
 		Database.insert(cmdline_items);
 		*_cmdline_items = nullptr;

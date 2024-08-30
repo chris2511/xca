@@ -54,6 +54,8 @@ const QList<arg_option> arguments::opts = {
 		"Database password for unlocking the database. See below for password format options."),
 	arg_option("pem", NULL, no_argument, true, false,
 		"Print PEM representation of provided files. Prints only the public part of private keys."),
+	arg_option("pem-file", NULL, file_argument, true, false,
+		"Specify a file name for the PEM data. Implies '--pem'."),
 	arg_option("print", NULL, no_argument, true, false,
 		"Print a synopsis of provided files."),
 	arg_option("select", "id-list", required_argument, true, true,
