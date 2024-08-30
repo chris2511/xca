@@ -39,7 +39,7 @@ settings::settings()
 	defaul["mandatory_dn"] = "";
 	defaul["explicit_dn"] = "C,ST,L,O,OU,CN,emailAddress";
 	defaul["string_opt"] = "MASK:0x2002";
-	defaul["workingdir"] = "";
+	defaul["workingdir"] = getHomeDir() + "/";
 	defaul["default_hash"] = digest::getDefault().name();
 	defaul["pkcs12_enc_algo"] = encAlgo::getDefault().name();
 	defaul["ical_expiry"] = "1W";
