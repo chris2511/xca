@@ -15,7 +15,9 @@
 
 #include "lib/pki_multi.h"
 #include "lib/db_x509.h"
+#include "lib/db_temp.h"
 #include "lib/pki_x509.h"
+#include "lib/pki_temp.h"
 #include "lib/xfile.h"
 #include "lib/database_model.h"
 
@@ -96,6 +98,21 @@ void verify_file(const QString &name, QList<unsigned> hashes)
 	verify_key(name, hashes, false);
 }
 
+void verify_template(const QString &name)
+{
+	pki_multi *pems = new pki_multi();
+	pems->probeAnything(name);
+	QList<pki_base *> temps = pems->pull();
+	QCOMPARE(temps.size(), 1);
+	pki_temp *temp = dynamic_cast<pki_temp*>(temps[0]);
+	QVERIFY(temp != nullptr);
+	QCOMPARE(temp->getIntName(), "My Template Internal Name");
+	QCOMPARE(temp->getComment(), "My XCA TEMPLATE comment");
+	x509name xn = temp->getSubject();
+	QCOMPARE(xn.getEntryByNid(NID_commonName), "CA Template");
+	QCOMPARE(xn.getEntryByNid(NID_pkcs9_emailAddress), "mail@address.to");
+}
+
 void export_by_id(int id, const QString &name,
 				QModelIndexList &list, db_base *db)
 {
@@ -135,7 +152,8 @@ void test_main::exportFormat()
 				pemdata["Inter CA 1 Key"] +
 				pemdata["Root CA"] +
 				pemdata["Endentity"] +
-				pemdata["CA CRL Test"];
+				pemdata["CA CRL Test"] +
+				pemdata["XCA Template"];
 
 	pem->fromPEMbyteArray(all.toUtf8(), QString());
 	QCOMPARE(pem->failed_files.count(), 0);
@@ -371,6 +389,20 @@ void test_main::exportFormat()
 	export_by_id(28, file, list, keys);
 	verify_key(file, QList<unsigned> { ED25519_HASH }, true);
 	check_pems(file, 1, QStringList{ "BEGIN ENCRYPTED PRIVATE KEY" });
+
+	// Export XCA Template and verify the internal name and comment
+	file = AUTOFILE(XCA_TEMPLATE)
+	db_base *temps = Database.model<db_temp>();
+	list.clear();
+	pki_base *temp = temps->getByName("CA Template"); // The common name
+	Q_ASSERT(temp != nullptr);
+	Q_ASSERT(temp->getComment().isEmpty());
+	temp->setComment("My XCA TEMPLATE comment");
+	temp->setIntName("My Template Internal Name");
+	list << temps->index(temp);
+	export_by_id(35, file, list, temps);
+	verify_template(file);
+	check_pems(file, 1, QStringList{ "BEGIN XCA TEMPLATE" });
 
 	} catch (...) {
 		QString m = QString("Exception thrown L %1").arg(l);
