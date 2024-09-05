@@ -43,6 +43,8 @@ const QList<QStringList> MainWindow::getTranslators() const
 		"D2N", "gritty.hat3143", "mx.d2-networks.jp" },
 	QStringList{ "fa", tr("Persian"),
 		"Erfan Esmayili Barzi", "erfankam", "gmail.com" },
+	QStringList{ "ko", tr("Korean"),
+		"Kim Dongil", "icoicoya", "naver.com" },
 	QStringList{ "pl", tr("Polish"),
 		"Jacek Tyborowski", "jacek", "tyborowski.pl" },
 	QStringList{ "pt_BR", tr("Portuguese in Brazil"),

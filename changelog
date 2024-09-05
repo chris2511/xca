@@ -1,3 +1,4 @@
+ * Add korean translation
  * Close #287: template don't save/restore correctly
  * Close #351: a1int::getLong() doesn't handle all error cases
  * Close #401: Write PEM data to a file especially for crlgen
