@@ -69,14 +69,14 @@ class extList : public QList<x509v3ext>
 {
     public:
 	void setStack(const STACK_OF(X509_EXTENSION) *st, int start=0);
-	STACK_OF(X509_EXTENSION) *getStack();
+	STACK_OF(X509_EXTENSION) *getStack() const;
 	QString getHtml(const QString &sep) const;
 	QString getConsole(const QString &indent) const;
 	bool delByNid(int nid);
 	int delInvalid();
-	int idxByNid(int nid);
+	int idxByNid(int nid) const;
 	bool genConf(int nid, QString *single, QString *adv = NULL);
 	void genGenericConf(QString *adv);
-	bool search(const QRegularExpression &pattern);
+	bool search(const QRegularExpression &pattern) const;
 };
 #endif

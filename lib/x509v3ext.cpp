@@ -1065,7 +1065,7 @@ void extList::setStack(const STACK_OF(X509_EXTENSION) *st, int start)
 	}
 }
 
-STACK_OF(X509_EXTENSION) *extList::getStack()
+STACK_OF(X509_EXTENSION) *extList::getStack() const
 {
 	STACK_OF(X509_EXTENSION) *sk = sk_X509_EXTENSION_new_null();
 	Q_CHECK_PTR(sk);
@@ -1074,7 +1074,7 @@ STACK_OF(X509_EXTENSION) *extList::getStack()
 	return sk;
 }
 
-bool extList::search(const QRegularExpression &pattern)
+bool extList::search(const QRegularExpression &pattern) const
 {
 	foreach(const x509v3ext &e, *this)
 		if (e.getValue().contains(pattern))
@@ -1113,7 +1113,7 @@ bool extList::delByNid(int nid)
 	return false;
 }
 
-int extList::idxByNid(int nid)
+int extList::idxByNid(int nid) const
 {
 	for(int i = 0; i< size(); i++) {
 		if (at(i).nid() == nid) {
