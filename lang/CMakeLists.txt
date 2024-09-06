@@ -34,9 +34,9 @@ else()
   get_target_property(LIBSRC xcalib SOURCES)
   get_target_property(XCASRC xca SOURCES)
   qt_add_translations(xca TS_FILES ${TS_FILES} ${S}/xca.ts
-			  LRELEASE_OPTIONS -silent
-			  QM_FILES_OUTPUT_VARIABLE QM_FILES
-			  SOURCES ${LIBSRC} ${XCASRC}
+                          LRELEASE_OPTIONS -silent
+                          QM_FILES_OUTPUT_VARIABLE QM_FILES
+                          SOURCES ${LIBSRC} ${XCASRC}
   )
   add_custom_target(trans DEPENDS xca_lupdate "${D}/xca.pot")
 endif()
@@ -45,21 +45,21 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES} ${QT_QM_FILES})
 
 if (UNIX AND NOT APPLE)
   install(FILES ${QM_FILES}
-	DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/i18n
+          DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/i18n
   )
 elseif(WIN32)
   install(FILES ${QM_FILES} ${QT_QM_FILES}
-	  DESTINATION ${RUNTIME_DEST}/i18n
+          DESTINATION ${RUNTIME_DEST}/i18n
   )
 endif()
 
 find_program(LCONVERT lconvert HINTS ${_qt_bin_dir})
 if (LCONVERT)
   add_custom_command(
-	OUTPUT "${D}/xca.pot"
-	COMMAND ${LCONVERT} -if ts -of po -i "${S}/xca.ts" -o "${D}/xca.pot"
-	COMMAND ${CMAKE_COMMAND} -E copy "${D}/xca.pot" "${S}/xca.pot"
-	DEPENDS "${S}/xca.ts"
-	COMMENT "Update POT file"
+    OUTPUT "${D}/xca.pot"
+    COMMAND ${LCONVERT} -if ts -of po -i "${S}/xca.ts" -o "${D}/xca.pot"
+    COMMAND ${CMAKE_COMMAND} -E copy "${D}/xca.pot" "${S}/xca.pot"
+    DEPENDS "${S}/xca.ts"
+    COMMENT "Update POT file"
   )
 endif()

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.19.0)
 
 project(xca
-	DESCRIPTION "X Certificate and Key management"
-	HOMEPAGE_URL http://xca.hohnstaedt.de
-	LANGUAGES CXX
+    DESCRIPTION "X Certificate and Key management"
+    HOMEPAGE_URL http://xca.hohnstaedt.de
+    LANGUAGES CXX
 )
 
 file(READ VERSION.txt ver)
@@ -11,12 +11,12 @@ string(REGEX MATCH "([0-9\.]*)" _ ${ver})
 set(PROJECT_VERSION ${CMAKE_MATCH_1})
 
 cmake_host_system_information(RESULT OS_DATA_LIST QUERY
-	OS_NAME OS_RELEASE OS_VERSION OS_PLATFORM)
+    OS_NAME OS_RELEASE OS_VERSION OS_PLATFORM)
 list(JOIN OS_DATA_LIST " -- " OS_DATA)
 message(STATUS ${OS_DATA})
 
 string(REGEX MATCH  "([0-9]+\.[0-9]+\.[0-9]+)" OSX_SDK_MINIMUM
-	${CMAKE_OSX_DEPLOYMENT_TARGET} ".0.0.0")
+    ${CMAKE_OSX_DEPLOYMENT_TARGET} ".0.0.0")
 
 include(GNUInstallDirs)
 include(CTest)
@@ -82,7 +82,7 @@ configure_file(local.h.in local.h)
 ##### Libraries and executables
 add_library(xcalib STATIC)
 add_executable(${CMAKE_PROJECT_NAME} img/imgres.qrc lib/main.cpp
-		${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
+        ${UI_FILES} ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcadoc ${PROJECT_BINARY_DIR}/local.h)
 add_executable(xcaexport ${PROJECT_BINARY_DIR}/local.h)
 
@@ -130,12 +130,12 @@ endif()
 file(TO_CMAKE_PATH ${OPENSSL_ROOT_DIR}  OPENSSL_ROOT_DIR)
 
 target_link_libraries(xcalib
-	OpenSSL::Crypto
-	${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
-	${ASAN_LIB}
+    OpenSSL::Crypto
+    ${QT}::Widgets ${QT}::Core ${QT}::Sql ${QT}::Help
+    ${ASAN_LIB}
 )
 target_link_libraries(xcadoc
-	OpenSSL::Crypto ${QT}::Core ${ASAN_LIB}
+    OpenSSL::Crypto ${QT}::Core ${ASAN_LIB}
 )
 target_link_libraries(xcaexport ${QT}::Core ${ASAN_LIB})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${ASAN_LIB} xcalib)
@@ -145,7 +145,7 @@ if (APPLE)
   find_library(IOKIT_LIBRARY IOKit)
   find_library(COREFOUNDATION_LIBRARY CoreFoundation)
   target_link_libraries(${CMAKE_PROJECT_NAME}
-	${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
+    ${IOKIT_LIBRARY} ${COREFOUNDATION_LIBRARY}
   )
   set(CMAKE_MACOSX_BUNDLE ON)
 
@@ -191,9 +191,9 @@ include(img/CMakeLists.txt)
 include(test/CMakeLists.txt)
 
 install(TARGETS ${CMAKE_PROJECT_NAME}
-	RESOURCE DESTINATION Resources
-	BUNDLE DESTINATION .
-	RUNTIME DESTINATION ${RUNTIME_DEST}
+    RESOURCE DESTINATION Resources
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${RUNTIME_DEST}
 )
 
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
@@ -203,10 +203,10 @@ set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 
 if(APPLE)
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
-	MACOSX_BUNDLE TRUE
-	XCODE_ATTRIBUTE_INSTALL_PATH /Applications
-	XCODE_ATTRIBUTE_SKIP_INSTALL No
-	RESOURCE "${APP_RESOURCES}"
+    MACOSX_BUNDLE TRUE
+    XCODE_ATTRIBUTE_INSTALL_PATH /Applications
+    XCODE_ATTRIBUTE_SKIP_INSTALL No
+    RESOURCE "${APP_RESOURCES}"
   )
   find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS ${_qt_bin_dir})
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -230,9 +230,9 @@ if(APPLE)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND codesign --deep --signature-size=96000
                 --options=runtime --timestamp
-		--entitlements ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
-		--force -s ${APPLE_DEVELOPER_CERT}
-		$<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
+        --entitlements ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
+        --force -s ${APPLE_DEVELOPER_CERT}
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
       COMMENT "Running codesign for ${APPLE_DEVELOPER_CERT} ..."
       DEPENDS ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
     )
@@ -274,26 +274,26 @@ elseif(WIN32)
   )
   target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -mwindows -MD)
   install(DIRECTORY
-	  ${CMAKE_BINARY_DIR}/platforms
-	  ${CMAKE_BINARY_DIR}/sqldrivers
-	  ${CMAKE_BINARY_DIR}/styles
-	  DESTINATION ${RUNTIME_DEST}
+      ${CMAKE_BINARY_DIR}/platforms
+      ${CMAKE_BINARY_DIR}/sqldrivers
+      ${CMAKE_BINARY_DIR}/styles
+      DESTINATION ${RUNTIME_DEST}
   )
   install(FILES ${CMAKE_BINARY_DIR}/${QT}Core.dll
-		${CMAKE_BINARY_DIR}/${QT}Gui.dll
-		${CMAKE_BINARY_DIR}/${QT}Help.dll
-		${CMAKE_BINARY_DIR}/${QT}Sql.dll
-		${CMAKE_BINARY_DIR}/${QT}Widgets.dll
-		${CMAKE_BINARY_DIR}/libgcc_s_seh-1.dll
-		${CMAKE_BINARY_DIR}/libstdc++-6.dll
-		${CMAKE_BINARY_DIR}/libwinpthread-1.dll
-		${SYSTEM32}/vcruntime140.dll
-		${OPENSSL_ROOT_DIR}/bin/libcrypto-${OPENSSL_LIBRARY_MAJOR}-x64.dll
-	  DESTINATION ${RUNTIME_DEST}
+        ${CMAKE_BINARY_DIR}/${QT}Gui.dll
+        ${CMAKE_BINARY_DIR}/${QT}Help.dll
+        ${CMAKE_BINARY_DIR}/${QT}Sql.dll
+        ${CMAKE_BINARY_DIR}/${QT}Widgets.dll
+        ${CMAKE_BINARY_DIR}/libgcc_s_seh-1.dll
+        ${CMAKE_BINARY_DIR}/libstdc++-6.dll
+        ${CMAKE_BINARY_DIR}/libwinpthread-1.dll
+        ${SYSTEM32}/vcruntime140.dll
+        ${OPENSSL_ROOT_DIR}/bin/libcrypto-${OPENSSL_LIBRARY_MAJOR}-x64.dll
+      DESTINATION ${RUNTIME_DEST}
   )
   if (OPENSSL_VERSION VERSION_GREATER_EQUAL 3.0.0)
       install(FILES ${OPENSSL_ROOT_DIR}/lib/ossl-modules/legacy.dll
-	      DESTINATION ${RUNTIME_DEST})
+          DESTINATION ${RUNTIME_DEST})
   endif()
   install(CODE "execute_process(COMMAND cmake -E chdir \${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")
   set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})

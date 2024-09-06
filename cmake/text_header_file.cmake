@@ -11,9 +11,9 @@ if (FILE AND SRC AND DST)
   file(READ "${SRC}/preamble.txt" PREAMBLE)
   file(READ "${SRC}/${FILE}.text" CONT)
   file(WRITE "${DST}/${FILE}.txt"
-		${PREAMBLE} "\n# "
-		${DIR_HINT} "\n"
-		${CONT})
+       ${PREAMBLE} "\n# "
+       ${DIR_HINT} "\n"
+       ${CONT})
 else()
   message(FATAL_ERROR "Mandatory FILE or SRC variable not defined")
 endif()
