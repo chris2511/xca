@@ -147,7 +147,10 @@ Subject Alternative Name
 ........................
 
 The subject alternative name accepts a special entry *DNS:copycn*.
-This will copy the *commonName* entry frome th subject as DNS entry.
+This will copy all *commonName* entries from the subject as DNS entries.
+
+Together with the issuer alternative name it accepts the special entry *UPN:*
+as short form of *otherName:msUPN;UTF8:*
 
 .. index:: wizard_advanced (wizard_advanced)
 

@@ -1125,13 +1125,13 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 
 void NewX509::on_editSubAlt_clicked()
 {
-	QString s = "URI,email,RID,DNS,IP,otherName";
+	QString s = "URI,email,RID,DNS,IP,UPN,otherName";
 	editV3ext(subAltName, s, NID_subject_alt_name);
 }
 
 void NewX509::on_editIssAlt_clicked()
 {
-	QString s = "URI,email,RID,DNS,IP,otherName,issuer";
+	QString s = "URI,email,RID,DNS,IP,UPN,otherName,issuer";
 	editV3ext(issAltName, s, NID_issuer_alt_name);
 }
 
