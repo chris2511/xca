@@ -39,23 +39,6 @@ string(APPEND WIX_DOC_CONTENT
 WixFile(${D}/documentation.wxs ${WIX_DOC_CONTENT})
 
 if(SPHINX)
-  configure_file(${S}/conf.py.in ${RST}/conf.py)
-  add_custom_command(
-    OUTPUT ${HTML_DEST}
-    COMMAND ${SPHINX} -q -b html ${RST} ${D}/html
-    DEPENDS ${RST}/conf.py sphinx-src
-    COMMENT "Create HTML documentation"
-  )
-  add_custom_target(sphinx-html DEPENDS ${HTML_DEST})
-  add_custom_command(
-    OUTPUT ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
-    COMMAND ${SPHINX} -q -b qthelp ${RST} ${D}/qthelp
-    DEPENDS ${RST}/conf.py sphinx-src
-    COMMENT "Create context sensitive help"
-  )
-  add_custom_target(sphinx-qthelp
-    DEPENDS ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
-  )
   add_custom_command(
     OUTPUT ${RST}/database_schema.sql
     COMMAND ${CMAKE_COMMAND} -E make_directory ${RST}/_static
@@ -101,12 +84,26 @@ if(SPHINX)
     list(APPEND EXPORT_TOPICS ${EXPORT_DEST})
   endforeach()
 
+  configure_file(${S}/conf.py.in ${RST}/conf.py)
+  set(SPHINX_SRC ${D}/rst.stamp ${RST}/database_schema.sql
+      ${RST}/arguments.rst ${RST}/conf.py ${EXPORT_TOPICS}
+  )
+  add_custom_target(sphinx-src DEPENDS ${SPHINX_SRC})
+
+  add_custom_command(
+    OUTPUT ${HTML_DEST}
+    COMMAND ${SPHINX} -q -b html ${RST} ${D}/html
+    DEPENDS sphinx-src ${SPHINX_SRC}
+    COMMENT "Create HTML documentation"
+  )
+  add_custom_target(sphinx-html DEPENDS ${HTML_DEST})
   add_dependencies(${CMAKE_PROJECT_NAME} sphinx-html)
-  add_custom_target(sphinx-src
-    DEPENDS ${D}/rst.stamp
-            ${RST}/database_schema.sql
-            ${RST}/arguments.rst
-            ${EXPORT_TOPICS}
+
+  add_custom_command(
+    OUTPUT ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
+    COMMAND ${SPHINX} -q -b qthelp ${RST} ${D}/qthelp
+    DEPENDS sphinx-src ${SPHINX_SRC}
+    COMMENT "Create context sensitive help"
   )
 
   if (UNIX)
@@ -134,9 +131,9 @@ if(SPHINX)
   if(QHELPGEN)
     set(QTHELP_IDX ${D}/qthelp/xca.qhc)
     add_custom_command(
-      OUTPUT ${QTHELP_IDX} ${D}/qthelp/xca.qch
-      COMMAND ${QHELPGEN} ${D}/qthelp/xca.qhcp
-      DEPENDS sphinx-qthelp
+      OUTPUT ${QTHELP_IDX}
+      COMMAND ${QHELPGEN} -s ${D}/qthelp/xca.qhcp
+      DEPENDS ${D}/qthelp/xca.qhcp ${D}/qthelp/xca.qhp ${QTHELP_DEST}
       COMMENT "Create context sensitive help index"
     )
     add_custom_target(sphinx-qtcollgen DEPENDS ${QTHELP_IDX})
