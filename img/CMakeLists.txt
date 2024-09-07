@@ -41,10 +41,6 @@ elseif(WIN32)
 endif()
 
 if (UNIX AND NOT APPLE)
-
-  install(FILES ${S}/xca-32x32.xpm
-	DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
-  )
   set(ICONDIR ${CMAKE_INSTALL_DATADIR}/icons/hicolor)
 
   Install_PNG(16x16)
