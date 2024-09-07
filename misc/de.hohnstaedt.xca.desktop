@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=XCA
 Type=Application
 Comment=A graphical user interface for handling and issuing X.509 compliant Certificates
@@ -15,5 +14,5 @@ Comment[it]=Interfaccia grafica per generare e gestire certificati X.509
 Exec=xca %F
 Icon=de.hohnstaedt.xca
 Terminal=false
-Categories=Application;Utility;Qt;
+Categories=Utility;Qt
 MimeType=application/x-xca-database;application/x-xca-template;application/x-x509-ca-cert;application/pkcs10;application/x-pkcs7-certificates;application/x-pkcs12;

@@ -142,8 +142,8 @@ int main(int argc, char *argv[])
 	UI_method_set_writer(uimeth.data(), uiwriter);
 	UI_set_default_method(uimeth.data());
 
-	coreApp->setApplicationName(PACKAGE_TARNAME);
-	coreApp->setOrganizationDomain("de.hohnstaedt");
+	coreApp->setApplicationName("de.hohnstaedt.xca");
+	coreApp->setOrganizationDomain("hohnstaedt.de");
 	coreApp->setApplicationVersion(XCA_VERSION);
 	xcaWarning::setGui(new xcaWarningCore());
 

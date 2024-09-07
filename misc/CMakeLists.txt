@@ -56,7 +56,7 @@ if (UNIX AND NOT APPLE)
   install(FILES ${TEXT_FILES} ${XCA_TEMPLATES}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}
   )
-  install(FILES misc/xca.desktop
+  install(FILES misc/de.hohnstaedt.xca.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
   )
   install(FILES misc/xca.completion
