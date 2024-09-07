@@ -1,3 +1,5 @@
+ * Close #552: issues with icons in gnome dock
+ * Close #315 Support UPN type for EAP/802.1X certificate
  * Add korean translation
  * Close #287: template don't save/restore correctly
  * Close #351: a1int::getLong() doesn't handle all error cases
