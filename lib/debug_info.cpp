@@ -8,6 +8,8 @@
 #include <QStringList>
 #include <QDebug>
 #include <QElapsedTimer>
+#include <QFileInfo>
+#include <QDir>
 #include <stdlib.h>
 
 #include "debug_info.h"
@@ -43,6 +45,7 @@ dbg_pattern::dbg_pattern(QString part)
 			}
 		}
 	}
+	file = QDir::cleanPath(file);
 	qDebug() << "New debug match" << (inv ? "Not" : "") << file << func << first << last;
 }
 
@@ -84,16 +87,16 @@ debug_info::debug_info(const QMessageLogContext &ctx)
 {
 	line = ctx.line;
 	if (ctx.file && ctx.line) {
-		int pos;
-		short_file = ctx.file, short_func = ctx.function;
-		pos = short_file.lastIndexOf("/");
-		short_file.remove(0, pos +1);
-		pos = short_func.indexOf("(");
+		QFileInfo f(ctx.file);
+		short_file = f.fileName();
+
+		short_func = ctx.function;
+		int pos = short_func.indexOf("(");
 		short_func.remove(pos, short_func.size());
 		pos = short_func.lastIndexOf(" ");
 		short_func.remove(0, pos +1);
 	}
-	//std::cerr << "DBG '" << (ctx.function ?: "(NULL)" )<< "' '" << CCHAR(short_func) << "' " << std::endl;
+	//std::cerr << "DBG '" << (ctx.function ?: "(NULL)" )<< "' '" << CCHAR(short_func) << "' " << short_file << std::endl;
 }
 
 QString debug_info::log_prefix() const
