@@ -95,11 +95,11 @@ class settings
 	bool loaded{};
 	QStringList db_keys{}, hostspecific{};
 	QMap<QString, QString> values{};
-	QMap<QString, QString> defaul{};
 	void load_settings();
 	QString get(QString key);
 	void set(QString key, QString value);
 	void setAction(const QString &key, const QString &value);
+	const QMap<QString, QString> defaults() const;
 
   public:
 	settings();

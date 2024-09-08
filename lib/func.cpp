@@ -117,6 +117,7 @@ static QString registryInstallDir()
 int portable_app()
 {
 	static int portable = -1;
+	qDebug() << "portable" << portable;
 	QString f1, f2;
 	if (portable == -1) {
 #if defined(Q_OS_WIN32)

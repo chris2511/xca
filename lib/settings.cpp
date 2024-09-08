@@ -28,6 +28,7 @@ QString svalue::get() const
 {
 	return setting ? setting->get(key) : QString();
 }
+
 void svalue::set(const QString &val)
 {
 	if (setting)
@@ -36,22 +37,27 @@ void svalue::set(const QString &val)
 
 settings::settings()
 {
-	defaul["mandatory_dn"] = "";
-	defaul["explicit_dn"] = "C,ST,L,O,OU,CN,emailAddress";
-	defaul["string_opt"] = "MASK:0x2002";
-	defaul["workingdir"] = getHomeDir() + "/";
-	defaul["default_hash"] = digest::getDefault().name();
-	defaul["pkcs12_enc_algo"] = encAlgo::getDefault().name();
-	defaul["ical_expiry"] = "1W";
-	defaul["cert_expiry"] = "80%";
-	defaul["serial_len"] = "64";
-	defaul["fp_separator"] = ":";
-	defaul["fp_digits"] = "2";
-	defaul["hide_unusable"] = "no";
-	defaul["KeyFormat"] = QString::number(DEFAULT_KEY_CLIPBOARD_TYPE);
-	defaul["CertFormat"] = QString::number(DEFAULT_CERT_CLIPBOARD_TYPE);
+	hostspecific = QStringList({ "pkcs11path", "workingdir", "mw_geometry" });
+}
 
-	hostspecific << "pkcs11path" << "workingdir" << "mw_geometry";
+const QMap<QString, QString> settings::defaults() const
+{
+	return QMap<QString, QString> {
+		{ "mandatory_dn", "" },
+		{ "explicit_dn", "C,ST,L,O,OU,CN,emailAddress" },
+		{ "string_opt", "MASK:0x2002" },
+		{ "workingdir", getHomeDir() + "/" },
+		{ "default_hash", digest::getDefault().name() },
+		{ "pkcs12_enc_algo", encAlgo::getDefault().name() },
+		{ "ical_expiry", "1W" },
+		{ "cert_expiry", "80%" },
+		{ "serial_len", "64" },
+		{ "fp_separator", ":" },
+		{ "fp_digits", "2" },
+		{ "hide_unusable", "no" },
+		{ "KeyFormat", QString::number(DEFAULT_KEY_CLIPBOARD_TYPE) },
+		{ "CertFormat", QString::number(DEFAULT_CERT_CLIPBOARD_TYPE) },
+	};
 }
 
 void settings::clear()
@@ -59,8 +65,9 @@ void settings::clear()
 	loaded = false;
 	values.clear();
 	db_keys.clear();
-	foreach(QString key, defaul.keys())
-		setAction(key, defaul[key]);
+	const QMap<QString, QString> def = defaults();
+	for(QString key : def.keys())
+		setAction(key, def[key]);
 }
 
 void settings::setAction(const QString &key, const QString &value)
@@ -93,7 +100,7 @@ void settings::setAction(const QString &key, const QString &value)
 
 QString settings::defaults(const QString &key)
 {
-	return defaul[key];
+	return defaults()[key];
 }
 
 void settings::load_settings()
