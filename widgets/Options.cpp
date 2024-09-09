@@ -16,6 +16,7 @@
 #include <openssl/objects.h>
 #include <QFileDialog>
 #include <QToolTip>
+#include <QDir>
 
 Options::Options(QWidget *parent)
 	:QDialog(parent)
@@ -173,14 +174,14 @@ void Options::on_addButton_clicked(void)
 	QString fname;
 
 	fname = QFileDialog::getOpenFileName(this, l.caption,
-		getLibDir(), l.filter);
+		getLibDir(), l.filter, nullptr, QFileDialog::DontResolveSymlinks);
 
 	addLib(fname);
 }
 
 void Options::addLib(QString fname)
 {
-	fname = QFileInfo(fname).canonicalFilePath();
+	fname = QDir::cleanPath(fname);
 	pkcs11_lib *l = pkcs11::libraries.add_lib(fname);
 
 	if (searchP11 && l)

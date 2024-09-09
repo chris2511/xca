@@ -39,7 +39,8 @@ SearchPkcs11::~SearchPkcs11()
 void SearchPkcs11::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getExistingDirectory(this, QString(XCA_TITLE),
-		filename->text());
+		filename->text(),
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
 	if (!s.isEmpty())
 		filename->setText(nativeSeparator(s));
