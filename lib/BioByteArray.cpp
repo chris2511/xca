@@ -6,7 +6,23 @@
  */
 
 #include "BioByteArray.h"
+#include "func_base.h"
 #include <QDebug>
+
+BioByteArray::BioByteArray(const BIGNUM *bn, int bits)
+{
+	int len = (bits+7) >> 3;
+	qDebug() << bits << len;
+	if (!bn)
+		return;
+	store.resize(BN_num_bytes(bn));
+	BN_bn2bin(bn, (unsigned char *)store.data());
+	openssl_error();
+	if (store.size() > 0 && (char)store[0] < 0)
+		store.prepend('\0');
+	if (len > 0 && store.size() < len)
+		store.prepend(len - store.size(), 0);
+}
 
 void BioByteArray::set(const QByteArray &qba)
 {

@@ -66,7 +66,8 @@ macro(Test name)
 endmacro()
 
 if(BUILD_TESTING)
-  Test(test_biobytearray BioByteArray.cpp BioByteArray.h)
+  Test(test_biobytearray BioByteArray.cpp BioByteArray.h
+                                    func_base.cpp func_base.h)
   Test(test_asn1int asn1int.cpp asn1int.h func_base.h func_base.cpp)
   Test(test_asn1time asn1time.cpp asn1time.h func_base.h func_base.cpp)
   Test(test_entropy entropy.cpp entropy.h func.h func_base.cpp xfile.h)

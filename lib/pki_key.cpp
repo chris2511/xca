@@ -382,22 +382,10 @@ void pki_key::writePublic(XFile &file, bool pem) const
 
 QString pki_key::BN2QString(const BIGNUM *bn) const
 {
-	if (bn == NULL)
-		return "--";
-	QString x="";
-	char zs[10];
-	int j, size = BN_num_bytes(bn);
-	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
-	Q_CHECK_PTR(buf);
-	BN_bn2bin(bn, buf);
-	for (j = 0; j< size; j++) {
-		snprintf(zs, sizeof zs, "%02X%c",buf[j], ((j+1)%16 == 0) ? '\n' :
-				j<size-1 ? ':' : ' ');
-		x += zs;
-	}
-	OPENSSL_free(buf);
-	pki_openssl_error();
-	return x;
+	QByteArray hex, ba = BioByteArray(bn);
+	for(int i = 0; i<ba.size(); i += 16)
+		hex += ba.mid(i, 16).toHex(':') + '\n';
+	return QString::fromLatin1(hex);
 }
 
 QVariant pki_key::column_data(const dbheader *hd) const
@@ -638,13 +626,7 @@ void pki_key::ssh_key_QBA2data(const QByteArray &ba, QByteArray *data) const
 
 void pki_key::ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const
 {
-	QByteArray big;
-	big.resize(BN_num_bytes(bn));
-	BN_bn2bin(bn, (unsigned char *)big.data());
-	pki_openssl_error();
-	if ((unsigned char)big[0] >= 0x80)
-		big.prepend('\0');
-	ssh_key_QBA2data(big, data);
+	ssh_key_QBA2data(BioByteArray(bn), data);
 }
 
 bool pki_key::SSH2_compatible() const

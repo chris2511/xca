@@ -11,6 +11,7 @@
 #include <QByteArray>
 #include <QString>
 #include <openssl/bio.h>
+#include <openssl/bn.h>
 
 class BioByteArray
 {
@@ -27,6 +28,7 @@ class BioByteArray
   public:
 	BioByteArray(const QByteArray &qba) : store(qba) { }
 	BioByteArray(const BioByteArray &bba) : store(bba.byteArray()) { }
+	BioByteArray(const BIGNUM *bn, int len = 0);
 	BioByteArray() { }
 	~BioByteArray();
 	int size() const;
