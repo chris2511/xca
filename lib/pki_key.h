@@ -14,7 +14,6 @@
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 #include "pki_base.h"
-//#include "pki_export.h"
 #include "builtin_curves.h"
 
 #define PEM_STRING_OPENSSH_KEY "OPENSSH PRIVATE KEY"
@@ -181,7 +180,6 @@ class pki_key: public pki_base
 		bool isPub;
 		EVP_PKEY *key;
 		QString BN2QString(const BIGNUM *bn) const;
-		QString BNoneLine(BIGNUM *bn) const;
 		QByteArray SSH2publicQByteArray(bool raw=false) const;
 		QByteArray X509_PUBKEY_public_key() const;
 		QByteArray PEM_comment() const;

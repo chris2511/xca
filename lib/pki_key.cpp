@@ -380,18 +380,6 @@ void pki_key::writePublic(XFile &file, bool pem) const
 	file.write(b);
 }
 
-QString pki_key::BNoneLine(BIGNUM *bn) const
-{
-	QString x;
-	if (bn) {
-		char *hex = BN_bn2hex(bn);
-		x = hex;
-		OPENSSL_free(hex);
-		pki_openssl_error();
-	}
-	return x;
-}
-
 QString pki_key::BN2QString(const BIGNUM *bn) const
 {
 	if (bn == NULL)
