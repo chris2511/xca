@@ -36,6 +36,7 @@ class BioByteArray
 	BIO *ro();
 	QByteArray byteArray() const;
 	QString qstring() const;
+	QString base64UrlEncode() const;
 	operator BIO*();
 	operator QByteArray();
 	BioByteArray &operator = (const BioByteArray &other);

@@ -149,6 +149,7 @@ class pki_base : public QObject
 		{
 			return QString::fromLatin1(i2d().toBase64());
 		}
+		QString base64UrlEncode(const BIGNUM *bn, int bits = 0) const;
 		a1time getInsertionDate() const
 		{
 			return insertion_date;
@@ -179,6 +180,8 @@ class pki_base : public QObject
 		virtual void fromPEMbyteArray(const QByteArray &, const QString &);
 		virtual void fload(const QString &);
 		virtual void writeDefault(const QString&) const;
+		virtual void fillJWK(QJsonObject &, const pki_export *) const { };
+		void exportToJWK(XFile &file, const pki_export *xport) const;
 
 		/* Qt Model-View methods */
 		virtual QVariant bg_color(const dbheader *) const

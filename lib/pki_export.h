@@ -53,6 +53,7 @@ enum {
 	F_TAKEY     = BIT(22),/* OpenVPN TLS-Auth key */
 	F_TRADITION = BIT(23),/* Traditional OpenSSL encrypted PEM */
 	F_UNUSABLE  = BIT(24),/* Unusable certificates */
+	F_JWK       = BIT(25),/* JSON Web Key (JWK) RFC-7517 */
 };
 
 class pki_export : public QObject {

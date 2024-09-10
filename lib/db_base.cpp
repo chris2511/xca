@@ -682,6 +682,14 @@ void db_base::exportItems(const QModelIndexList &indexes,
 		exportItem(idx, xport, file);
 }
 
+void db_base::exportItem(const QModelIndex &index,
+			const pki_export *xport, XFile &file) const
+{
+	pki_base *pki = fromIndex<pki_base>(index);
+	if (xport->match_all(F_JWK))
+		pki->exportToJWK(file, xport);
+}
+
 int db_base::exportFlags(const QModelIndexList &indexes) const
 {
 	int disabled_flags = 0;

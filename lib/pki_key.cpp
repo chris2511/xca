@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include <QJsonDocument>
 
 #include "pki_key.h"
 #include "pki_x509super.h"
@@ -106,6 +107,66 @@ bool pki_key::pem(BioByteArray &b, const pki_export *xport)
 
 	return true;
 }
+
+QString pki_key::getJWKcrv() const
+{
+	const char *name = nullptr;
+#ifndef OPENSSL_NO_EC
+	if (getKeyType() == EVP_PKEY_EC) {
+		const EC_KEY *ec = EVP_PKEY_get0_EC_KEY(key);
+		int nid = EC_GROUP_get_curve_name(EC_KEY_get0_group(ec));
+		switch (nid) {
+		case NID_X9_62_prime256v1:
+		case NID_secp384r1:
+		case NID_secp521r1:
+		case NID_secp256k1:
+			name = EC_curve_nid2nist(nid);
+			if (!name)
+				name = OBJ_nid2sn(nid);
+		}
+		qDebug() << name << OBJ_nid2sn(nid) << nid;
+	}
+#endif
+	return QString(name);
+}
+
+void pki_key::fillJWK(QJsonObject &json, const pki_export *) const
+{
+	json["kid"] = getIntName();
+
+	switch (getKeyType()) {
+	case EVP_PKEY_RSA: {
+		const RSA *rsa = EVP_PKEY_get0_RSA(key);
+		Q_CHECK_PTR(rsa);
+		const BIGNUM *n, *e;
+		RSA_get0_key(rsa, &n, &e, NULL);
+		json["n"] = base64UrlEncode(n);
+		json["e"] = base64UrlEncode(e);
+		json["kty"] = "RSA";
+		break;
+		}
+#ifndef OPENSSL_NO_EC
+	case EVP_PKEY_EC: {
+		const EC_KEY *ec = EVP_PKEY_get0_EC_KEY(key);
+		BIGNUM *x = BN_new(), *y = BN_new();
+		Q_CHECK_PTR(x);
+		Q_CHECK_PTR(y);
+		if (EC_POINT_get_affine_coordinates_GFp(EC_KEY_get0_group(ec),
+			EC_KEY_get0_public_key(ec), x, y, NULL))
+		{
+			int bits = EVP_PKEY_bits(key);
+			json["x"] = base64UrlEncode(x, bits);
+			json["y"] = base64UrlEncode(y, bits);
+			json["kty"] = "EC";
+			json["crv"] = getJWKcrv();
+		}
+		BN_free(x);
+		BN_free(y);
+		break;
+		}
+#endif
+	}
+};
 
 QString pki_key::length() const
 {

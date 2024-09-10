@@ -204,6 +204,8 @@ int db_key::exportFlags(const QModelIndex &index) const
 
 	if (key->isPubKey() || key->isToken())
 		disable_flags |= F_PRIVATE;
+	if (keytype != EVP_PKEY_RSA && key->getJWKcrv().isEmpty())
+		disable_flags |= F_JWK;
 
 	return disable_flags;
 }
@@ -239,7 +241,7 @@ void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
 	else if (privkey && xport->match_all(F_PVK))
 		privkey->writePVKprivate(file);
 	else
-		throw errorEx(tr("Internal error"));
+		db_base::exportItem(index, xport, file);
 }
 
 void db_key::updateKeyEncryptionScheme()

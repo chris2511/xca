@@ -70,7 +70,7 @@ class db_base: public QAbstractItemModel
 			return 0;
 		}
 		virtual void exportItem(const QModelIndex &,
-			const pki_export *, XFile &) const { };
+			const pki_export *, XFile &) const;
 		virtual void exportItems(const QModelIndexList &indexes,
 			const pki_export *xport, XFile &file) const;
 

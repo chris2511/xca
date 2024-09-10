@@ -9,6 +9,7 @@
 #define __PKI_KEY_H
 
 #include <QString>
+#include <QJsonObject>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>
@@ -191,8 +192,10 @@ class pki_key: public pki_base
 		void ssh_key_QBA2data(const QByteArray &ba,
 					QByteArray *data) const;
 		void ssh_key_bn2data(const BIGNUM *bn, QByteArray *data) const;
+
 	private:
 		mutable int useCount; // usage counter
+
 	public:
 
 		pki_key(const QString &name = QString());
@@ -210,6 +213,8 @@ class pki_key: public pki_base
 		QString getMsg(msg_type msg) const;
 
 		void writePublic(XFile &file, bool pem) const;
+		QString getJWKcrv() const;
+		void fillJWK(QJsonObject &json, const pki_export *xport) const;
 		bool compare(const pki_base *ref) const;
 		int getKeyType() const;
 		bool isPrivKey() const;

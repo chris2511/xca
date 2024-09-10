@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include <QJsonDocument>
 
 #include "pki_evp.h"
 #include "pass_info.h"
@@ -803,6 +804,44 @@ bool pki_evp::pem(BioByteArray &b, const pki_export *xport)
 
 	return true;
 }
+
+void pki_evp::fillJWK(QJsonObject &json, const pki_export *xport) const
+{
+	pki_key::fillJWK(json, xport);
+	if (!xport->match_all(F_PRIVATE))
+		return;
+
+	EVP_PKEY *pkey = decryptKey();
+
+	switch (getKeyType()) {
+	case EVP_PKEY_RSA: {
+		const RSA *rsa = EVP_PKEY_get0_RSA(pkey);
+		const BIGNUM *p, *q, *d, *dp, *dq, *qi;
+		Q_CHECK_PTR(rsa);
+		RSA_get0_key(rsa, NULL, NULL, &d);
+		RSA_get0_factors(rsa, &p, &q);
+		RSA_get0_crt_params(rsa, &dp, &dq, &qi);
+		json["p"] = base64UrlEncode(p);
+		json["q"] = base64UrlEncode(q);
+		json["d"] = base64UrlEncode(d);
+		json["dp"] = base64UrlEncode(dp);
+		json["dq"] = base64UrlEncode(dq);
+		json["qi"] = base64UrlEncode(qi);
+		break;
+		}
+#ifndef OPENSSL_NO_EC
+	case EVP_PKEY_EC: {
+		const EC_KEY *ec = EVP_PKEY_get0_EC_KEY(pkey);
+		Q_CHECK_PTR(ec);
+		json["d"] = base64UrlEncode(EC_KEY_get0_private_key(ec),
+		                            EVP_PKEY_bits(key));
+		break;
+		}
+#endif
+	}
+	EVP_PKEY_free(pkey);
+};
+
 void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem) const
 {

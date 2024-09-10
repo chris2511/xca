@@ -501,3 +501,16 @@ void pki_base::setupColors(const QPalette &pal)
 	yellow = QBrush(QColor(255, 255, 0).lighter(factor));
 	cyan = QBrush(QColor(127, 255, 212).lighter(factor));
 }
+
+QString pki_base::base64UrlEncode(const BIGNUM *bn, int bits) const
+{
+	BioByteArray big(bn, bits);
+	return big.base64UrlEncode();
+}
+
+void pki_base::exportToJWK(XFile &file, const pki_export *xport) const
+{
+	QJsonObject json;
+	fillJWK(json, xport);
+	file.write(QJsonDocument(json).toJson());
+}

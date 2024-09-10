@@ -35,6 +35,7 @@ class pki_evp: public pki_key
 
 	protected:
 		bool openssl_pw_error() const;
+
 	public:
 		static QString passHash;
 		static Passwd passwd;
@@ -73,6 +74,7 @@ class pki_evp: public pki_key
 		void writePVKprivate(XFile &file) const;
 		void writeSSH2private(XFile &file) const;
 		void write_SSH2_ed25519_private(BIO *b, const EVP_PKEY *pkey) const;
+		void fillJWK(QJsonObject &json, const pki_export *xport) const;
 		bool verify(EVP_PKEY *pkey) const;
 		QVariant getIcon(const dbheader *hd) const;
 		bool sqlUpdatePrivateKey();

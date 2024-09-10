@@ -152,3 +152,10 @@ BioByteArray &BioByteArray::operator += (const QByteArray &qba)
 	add(qba);
 	return *this;
 }
+
+QString BioByteArray::base64UrlEncode() const
+{
+	return QString::fromLatin1(byteArray().toBase64(
+			QByteArray::Base64UrlEncoding |
+			QByteArray::OmitTrailingEquals));
+}
