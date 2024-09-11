@@ -64,6 +64,7 @@ class db_x509: public db_x509super
 		int exportFlags(const QModelIndex &idx) const;
 		void exportItems(const QModelIndexList &indexes,
 				const pki_export *xport, XFile &file) const;
+		void exportItem(const QModelIndex &, const pki_export *, XFile &) const;
 
 	public slots:
 		void newItem();

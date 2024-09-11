@@ -563,6 +563,11 @@ int db_x509::exportFlags(const QModelIndex &idx) const
 	if (!crt->isCA())
 		disable_flags |= F_CA;
 
+	pki_key *key = crt->getPubKey();
+	if (key && key->getKeyType() != EVP_PKEY_RSA && key->getJWKcrv().isEmpty())
+		disable_flags |= F_JWK;
+	delete key;
+
 	return disable_flags;
 }
 
@@ -643,12 +648,8 @@ void db_x509::exportItems(const QModelIndexList &list,
 			foreach(crt, certs)
 				crt->writeCert(file, true);
 		}
-	} else if (xport->match_all(F_DER)) {
-		crt->writeCert(file, false);
 	} else if (xport->match_all(F_PKCS7)) {
 		writePKCS7(crt, file, xport->flags, list);
-	} else if (xport->match_all(F_PKCS12)) {
-		writePKCS12(crt, file, xport->match_all(F_CHAIN));
 	} else if (xport->match_all(F_INDEX)) {
 		writeIndex(file, certs);
 	} else if (xport->match_all(F_CAL)) {
@@ -658,10 +659,27 @@ void db_x509::exportItems(const QModelIndexList &list,
 				crt->icsVEVENT_ca() : crt->icsVEVENT();
 		}
 		writeVcalendar(file, vcal);
-	} else if (xport->match_all(F_CONFIG)) {
-		crt->opensslConf(file);
 	} else if (xport->match_all(F_TAKEY)) {
 		file.write(crt->getTaKey().toLatin1());
+	} else {
+		qDebug() << "exportItems: db_base";
+		db_base::exportItems(list, xport, file);
+	}
+}
+
+void db_x509::exportItem(const QModelIndex &index,
+			const pki_export *xport, XFile &file) const
+{
+	pki_x509 *crt = fromIndex<pki_x509>(index);
+
+	if (xport->match_all(F_DER)) {
+		crt->writeCert(file, false);
+	} else if (xport->match_all(F_PKCS12)) {
+		writePKCS12(crt, file, xport->match_all(F_CHAIN));
+	} else if (xport->match_all(F_CONFIG)) {
+		crt->opensslConf(file);
+	} else {
+		db_base::exportItem(index, xport, file);
 	}
 }
 

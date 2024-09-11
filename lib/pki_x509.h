@@ -80,12 +80,13 @@ class pki_x509 : public pki_x509super
 		bool isCA() const;
 		bool canSign() const;
 		void writeCert(XFile &file, bool PEM) const;
+		void fillJWK(QJsonObject &json, const pki_export *xport) const;
 		QString getIndexEntry();
 		bool verify(pki_x509 *signer);
 		bool verify_only(const pki_x509 *signer) const;
 		pki_key *getPubKey() const;
 		void setPubKey(pki_key *key);
-		pki_x509 *getSigner();
+		pki_x509 *getSigner() const;
 		void delSigner(pki_base *s);
 		QString fingerprint(const EVP_MD *digest) const;
 		extList getV3ext() const;

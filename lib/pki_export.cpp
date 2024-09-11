@@ -80,6 +80,8 @@ new pki_export(17, x509, "ics", tr("vCalendar"),     F_CAL,                     
 new pki_export(18, x509, "ics", tr("CA vCalendar"),  F_CAL | F_CA,                           tr("vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL")),
 new pki_export(38, x509, "conf", tr("OpenSSL config"), F_SINGLE | F_CONFIG,                  tr("OpenSSL configuration file to create a certificate or request with the openssl commandline tool")),
 new pki_export(39, x509, "key", tr("OpenVPN tls-auth key"), F_SINGLE | F_TAKEY,              tr("The OpenVPN tls-auth key is a secret key shared between endpoints")),
+new pki_export(42, x509, "jwk", tr("JSON Web Kit"),  F_JWK,                                  tr("The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)")),
+new pki_export(43, x509, "jwk", tr("JSON Web Kit chain"),  F_JWK | F_JWK_X5C,                      tr("The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)")),
 
 new pki_export(19, asym_key, "pem", tr("PEM public"),    F_PEM | F_CLIPBOARD,                            tr("Text format of the public key in one PEM file")),
 new pki_export(20, asym_key, "pem", tr("PEM private"),   F_PEM | F_PRIVATE | F_USUAL | F_CLIPBOARD,      tr("Unencrypted private key in text format")),

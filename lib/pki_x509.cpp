@@ -739,6 +739,28 @@ bool pki_x509::pem(BioByteArray &b)
 	return true;
 }
 
+void pki_x509::fillJWK(QJsonObject &json, const pki_export *xport) const
+{
+	QByteArray der = i2d();
+	pki_key *key = getPubKey();
+
+	key->fillJWK(json, xport);
+	json["kid"] = getIntName();
+	json["x5t"] = BioByteArray(Digest(der, EVP_sha1())).base64UrlEncode();
+	json["x5t#256"] = BioByteArray(Digest(der, EVP_sha256())).base64UrlEncode();
+	if (xport->match_all(F_JWK_X5C)) {
+		QJsonArray x5c;
+		for (const pki_x509 *cert = this, *prev = nullptr;
+			cert && cert != prev;
+			prev = cert, cert = cert->getSigner())
+		{
+			x5c.append(cert->i2d_b64());
+		}
+		json["x5c"] = x5c;
+	}
+	delete key;
+}
+
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 {
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);
@@ -869,7 +891,7 @@ void pki_x509::setPubKey(pki_key *key)
 
 QString pki_x509::fingerprint(const EVP_MD *digest) const
 {
-	return ::fingerprint(i2d_bytearray(I2D_VOID(i2d_X509), cert), digest);
+	return ::fingerprint(i2d(), digest);
 }
 
 bool pki_x509::checkDate()
@@ -918,7 +940,7 @@ int pki_x509::sigAlg() const
 	return X509_get_signature_nid(cert);
 }
 
-pki_x509 *pki_x509::getSigner()
+pki_x509 *pki_x509::getSigner() const
 {
 	return Store.lookupPki<pki_x509>(issuerSqlId);
 }

@@ -54,6 +54,7 @@ enum {
 	F_TRADITION = BIT(23),/* Traditional OpenSSL encrypted PEM */
 	F_UNUSABLE  = BIT(24),/* Unusable certificates */
 	F_JWK       = BIT(25),/* JSON Web Key (JWK) RFC-7517 */
+	F_JWK_X5C   = BIT(26),/* JSON Web Key (JWK) RFC-7517 X.509 Certificate Chain */
 };
 
 class pki_export : public QObject {
