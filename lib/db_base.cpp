@@ -678,8 +678,31 @@ void db_base::writeVcalendar(XFile &file, QStringList vcal) const
 void db_base::exportItems(const QModelIndexList &indexes,
 		const pki_export *xport, XFile &file) const
 {
-	foreach(QModelIndex idx, indexes)
-		exportItem(idx, xport, file);
+	if (xport->match_all(F_JWK) && indexes.size() > 1) {
+		QJsonArray arr;
+		QSet<QString> names;
+
+		foreach(QModelIndex idx, indexes) {
+			QJsonObject jwk;
+			pki_base *pki = fromIndex<pki_base>(idx);
+			if (pki) {
+				pki->fillJWK(jwk, xport);
+				QString name = jwk["kid"].toString();
+				for (int i = 1; names.contains(name); i++)
+					name = QString("%1 (%2)").arg(jwk["kid"].toString()).arg(i);
+
+				jwk["kid"] = name;
+				names.insert(name);
+				arr.append(jwk);
+			}
+		}
+		QJsonObject obj { { "keys", arr } };
+		QJsonDocument doc(obj);
+		file.write(doc.toJson());
+	} else {
+		foreach(QModelIndex idx, indexes)
+			exportItem(idx, xport, file);
+	}
 }
 
 void db_base::exportItem(const QModelIndex &index,
