@@ -19,6 +19,8 @@ class test_biobytearray: public QObject
 		void add();
 		void bio_ro();
 		void bio_wr();
+		void bio_BN();
+		void bio_base64UrlEncode();
 };
 
 void test_biobytearray::set()
@@ -60,6 +62,37 @@ void test_biobytearray::bio_wr()
 
 	QCOMPARE(ba.byteArray(), QByteArray("Suppengrüneinlage"));
 	QCOMPARE(ba.size(), sizeof "Suppengrüneinlage" -1);
+}
+
+void test_biobytearray::bio_BN()
+{
+	BIGNUM *bn = nullptr;
+	BN_hex2bn(&bn, "1234567890abcdef");
+	BioByteArray ba(bn, 64);
+	BioByteArray bb(bn, 80);
+
+	QCOMPARE(ba.byteArray().size(), 8);
+	QCOMPARE(ba.byteArray(), QByteArray::fromHex("1234567890abcdef"));
+	QCOMPARE(bb.byteArray().size(), 10);
+	QCOMPARE(bb.byteArray(), QByteArray::fromHex("00001234567890abcdef"));
+
+	BN_hex2bn(&bn, "7FFFFFFF");
+	BioByteArray bc(bn);
+	QCOMPARE(bc.byteArray().size(), 4);
+	QCOMPARE(bc.byteArray(), QByteArray::fromHex("7fffffff"));
+
+	BN_hex2bn(&bn, "80000000");
+	BioByteArray bd(bn);
+	QCOMPARE(bd.byteArray().size(), 5);
+	QCOMPARE(bd.byteArray(), QByteArray::fromHex("0080000000"));
+}
+
+void test_biobytearray::bio_base64UrlEncode()
+{
+	BioByteArray ba("Suppe");
+	QCOMPARE(ba.base64UrlEncode(), QString("U3VwcGU"));
+	BioByteArray bb(QByteArray::fromBase64("abc+def/ghijAA=="));
+	QCOMPARE(bb.base64UrlEncode(), QString("abc-def_ghijAA"));
 }
 
 QTEST_MAIN(test_biobytearray)
