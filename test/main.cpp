@@ -81,8 +81,8 @@ void test_main::dbstatus()
 	QStringList out;
 	foreach(pki_base *p, allitems)
 		out << QString("%1[%2]").arg(p->getIntName()).arg(p->getTypeString());
-	qDebug("%s ALL: %lld %s", Database.isOpen() ? "OPEN" : "CLOSED",
-		allitems.size(), out.join(", ").toUtf8().constData());
+	qDebug("%s ALL: %ld %s", Database.isOpen() ? "OPEN" : "CLOSED",
+		(long)allitems.size(), out.join(", ").toUtf8().constData());
 }
 
 QTEST_MAIN(test_main)
