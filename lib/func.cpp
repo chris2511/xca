@@ -384,5 +384,9 @@ QString fingerprint(const QByteArray &data, const EVP_MD *type)
 
 void update_workingdir(const QString &file)
 {
-	Settings["workingdir"] = QFileInfo(file).absolutePath();
+	QFileInfo fi(file);
+	if (fi.isDir())
+		Settings["workingdir"] = fi.absoluteFilePath();
+	else
+		Settings["workingdir"] = fi.absolutePath();
 }

@@ -718,10 +718,6 @@ int db_base::exportFlags(const QModelIndexList &indexes) const
 	int disabled_flags = 0;
 	foreach(const QModelIndex &idx, indexes)
 		disabled_flags |= exportFlags(idx);
-	if (indexes.size() > 1)
-		disabled_flags |= F_SINGLE;
-	else
-		disabled_flags |= F_MULTI;
 	return disabled_flags;
 }
 

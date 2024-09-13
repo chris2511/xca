@@ -187,14 +187,14 @@ void test_main::exportFormat()
 	idx = certs->index(certs->getByName("Root CA"));
 	list << idx;
 	QCOMPARE(certs->exportFlags(idx) , F_CHAIN | F_PRIVATE);
-	QCOMPARE(certs->exportFlags(list) , F_CHAIN | F_PRIVATE | F_MULTI);
+	QCOMPARE(certs->exportFlags(list) , F_CHAIN | F_PRIVATE);
 
 	// Inter CA 1: All export options permitted
 	// Together with "Root CA" in "list": No chain, private or single
 	idx = certs->index(certs->getByName("Inter CA 1"));
 	list << idx;
 	QCOMPARE(certs->exportFlags(idx) , 0);
-	QCOMPARE(certs->exportFlags(list) , F_CHAIN | F_PRIVATE | F_SINGLE);
+	QCOMPARE(certs->exportFlags(list) , F_CHAIN | F_PRIVATE);
 
 	// Endentity has no private key and id no CA
 	idx = certs->index(certs->getByName("Endentity"));

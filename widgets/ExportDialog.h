@@ -20,7 +20,8 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 	Q_OBJECT
 
   protected:
-	QString filter{};
+	QString filter{}, savedFile{}, filenameLabelOrig{};
+	QList<const pki_export*> alltypes;
 
   public:
 	ExportDialog(QWidget *w, const QString &title, const QString &filt,
@@ -30,9 +31,11 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 	~ExportDialog();
 	static bool mayWriteFile(const QString &fname);
 	const pki_export *export_type(int idx = -1) const;
+	void setupExportFormat(int disable_flag);
 
   public slots:
 	void on_fileBut_clicked();
+	void on_separateFiles_clicked(bool checked);
 	void on_exportFormat_activated(int);
 	void on_exportFormat_highlighted(int index);
 	void accept();

@@ -26,6 +26,8 @@
 #include "ExportDialog.h"
 #include "ImportMulti.h"
 #include "lib/load_obj.h"
+#include "lib/pass_info.h"
+#include "lib/PwDialogCore.h"
 
 #include "ui_ItemProperties.h"
 
@@ -480,24 +482,57 @@ void XcaTreeView::changeView()
 	show();
 }
 
+void XcaTreeView::exportItems(const QModelIndexList &indexes,
+	const QString &filename, const pki_export *xport)
+{
+	XFile file(filename);
+
+	if (xport->match_all(F_PRIVATE))
+		file.open_key();
+	else
+		file.open_write();
+
+	basemodel->exportItems(indexes, xport, file);
+}
+
 void XcaTreeView::exportItems(const QModelIndexList &indexes)
 {
 	if (!basemodel || indexes.empty())
 		return;
 
 	ExportDialog *dlg = exportDialog(indexes);
-
 	if (dlg && dlg->exec()) {
 		try {
+			QString fname = dlg->filename->text();
 			const pki_export *xport = dlg->export_type();
-			XFile file(dlg->filename->text());
 
-			if (xport->match_all(F_PRIVATE))
-				file.open_key();
-			else
-				file.open_write();
+			if (dlg->separateFiles->isChecked()) {
+				Passwd pass;
+				if (xport->match_all(F_CRYPT)) {
+					// Plural form not required for < 2 items
+					// Will only be called for 2 or more items
+					pass_info p(tr("Export Password"),
+							tr("Please enter the password to encrypt all %n "
+							   "exported private key(s) in:\n%1", "",
+									indexes.size()).arg(fname),
+							this);
 
-			basemodel->exportItems(indexes, xport, file);
+					// Ask for an encryption password once
+					if (PwDialogCore::execute(&p, &pass, true) != 1)
+						return;
+				}
+				for (QModelIndex idx : indexes) {
+					pki_base *pki = db_base::fromIndex(idx);
+					// Will be cleared by PwDialogCore
+					PwDialogCore::cmdline_passwd = pass;
+					QString fn = pki->get_dump_filename(fname,
+							QString(".%1").arg(xport->extension));
+					exportItems(QModelIndexList() << idx, fn, xport);
+				}
+				PwDialogCore::cmdline_passwd.cleanse();
+			} else {
+				exportItems(indexes, fname, xport);
+			}
 		} catch (errorEx &err) {
 			XCA_ERROR(err);
 		}

@@ -23,9 +23,8 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title,
 			const QString &filt, const QModelIndexList &indexes,
 			const QPixmap &img, QList<const pki_export*> types,
 			const QString &help_ctx)
-	: QDialog(w ? w : mainwin)
+	: QDialog(w ? w : mainwin), filter(filt), savedFile(), alltypes(types)
 {
-	QList<const pki_export*> usual, normal;
 	QString fname = "selected_items";
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
@@ -35,24 +34,37 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title,
 			description->setText(pki->getIntName());
 			fname = pki->getUnderlinedName();
 		}
+		separateFiles->hide();
+		setupExportFormat(F_MULTI);
+	} else {
+		// Plural form not required for < 2 items
+		// Will only be called for 2 or more items
+		description->setText(tr("%n selected item(s)", "", indexes.size()));
+		setupExportFormat(F_SINGLE);
 	}
 	description->setReadOnly(true);
 	image->setPixmap(img);
 	label->setText(title);
 	mainwin->helpdlg->register_ctxhelp_button(this, help_ctx);
 
-	QString fn = Settings["workingdir"] +
-		fname + "." + types[0]->extension;
-	filename->setText(nativeSeparator(fn));
+	fname = Settings["workingdir"] + fname + "." + types[0]->extension;
+	filename->setText(nativeSeparator(fname));
+	filter = tr("All files ( * )") + ";;" + filter;
+	filenameLabelOrig = filenameLabel->text();
+}
 
-	filter = tr("All files ( * )") + ";;" + filt;
-
-	foreach(const pki_export *t, types) {
+void ExportDialog::setupExportFormat(int disable_flag)
+{
+	QList<const pki_export*> usual, normal;
+	for (const pki_export *t : alltypes) {
+		if (t->flags & disable_flag)
+			continue;
 		if (t->flags & F_USUAL)
 			usual << t;
 		else
 			normal << t;
 	}
+	exportFormat->clear();
 	foreach(const pki_export *t, usual + normal) {
 		exportFormat->addItem(QString("%1 (*.%2)").
 			arg(t->desc).arg(t->extension), QVariant(t->id));
@@ -71,10 +83,15 @@ ExportDialog::~ExportDialog()
 
 void ExportDialog::on_fileBut_clicked()
 {
-	QString s = QFileDialog::getSaveFileName(this, QString(),
-		filename->text(), filter, NULL,
-		QFileDialog::DontConfirmOverwrite);
-
+	QString s;
+	if (separateFiles->isChecked()) {
+		s = QFileDialog::getExistingDirectory(this, QString(), filename->text(),
+			QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	} else {
+		s = QFileDialog::getSaveFileName(this, QString(),
+			filename->text(), filter, NULL,
+			QFileDialog::DontConfirmOverwrite);
+	}
 	if (!s.isEmpty())
 		filename->setText(nativeSeparator(s));
 }
@@ -99,7 +116,8 @@ void ExportDialog::on_exportFormat_activated(int selected)
 
 bool ExportDialog::mayWriteFile(const QString &fname)
 {
-	if (QFile::exists(fname)) {
+	QFileInfo fi(fname);
+	if (fi.exists() && !fi.isDir()) {
 		xcaWarningBox msg(NULL,
 			tr("The file: '%1' already exists!").arg(fname));
 		msg.addButton(QMessageBox::Ok, tr("Overwrite"));
@@ -144,4 +162,22 @@ void ExportDialog::on_exportFormat_highlighted(int index)
 		return;
 	infoBox->setText(x->help);
 	pemComment->setEnabled(x->flags & F_PEM);
+}
+
+void ExportDialog::on_separateFiles_clicked(bool checked)
+{
+	if (checked) {
+		filenameLabel->setText(tr("Directory"));
+		QFileInfo fi(filename->text());
+		savedFile =	fi.fileName();
+		filename->setText(nativeSeparator(fi.path()));
+		setupExportFormat(F_MULTI);
+	} else {
+		filenameLabel->setText(filenameLabelOrig);
+		if (!savedFile.isEmpty()) {
+			QString completefile = filename->text() + "/" + savedFile;
+			filename->setText(nativeSeparator(completefile));
+		}
+		setupExportFormat(F_SINGLE);
+	}
 }

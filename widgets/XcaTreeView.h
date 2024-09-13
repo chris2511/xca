@@ -68,6 +68,8 @@ class XcaTreeView: public QTreeView
 	virtual void exportItems(const QModelIndexList &indexes);
 	virtual void load_default(load_base *load);
 	virtual ExportDialog *exportDialog(const QModelIndexList &indexes);
+	virtual void exportItems(const QModelIndexList &indexes,
+		const QString &filename, const pki_export *xport);
 
    public slots:
 	void changeView();
