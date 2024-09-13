@@ -64,7 +64,7 @@ void pki_export::init_elements()
 new pki_export( 1, x509, "crt", "PEM",               F_PEM | F_USUAL | F_SINGLE | F_CLIPBOARD, tr("PEM Text format with headers")),
 new pki_export( 3, x509, "pem", tr("PEM selected"),  F_PEM | F_MULTI,                        tr("Concatenated list of all selected certificates in one PEM text file")),
 new pki_export( 2, x509, "pem", tr("PEM chain"),     F_PEM | F_USUAL | F_CHAIN | F_SINGLE | F_CLIPBOARD, tr("Concatenated text format of the complete certificate chain in one PEM file")),
-new pki_export( 4, x509, "ovpn",   "OpenVPN",        F_PEM | F_OVPN | F_CHAIN | F_PRIVATE | F_SINGLE, tr("The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files")),
+new pki_export( 4, x509, "ovpn",   "OpenVPN",        F_OVPN | F_CHAIN | F_PRIVATE | F_SINGLE, tr("The complete certificate chain and the private key of the selected certificate with tags usable in OpenVPN configuration files")),
 new pki_export( 6, x509, "pem", tr("PEM + key"),     F_PEM | F_PRIVATE| F_SINGLE | F_CLIPBOARD, tr("Concatenation of the certificate and the unencrypted private key in one PEM file")),
 new pki_export( 7, x509, "pem",    "PEM + PKCS#8",   F_PEM | F_PKCS8 | F_PRIVATE | F_CRYPT | F_SINGLE | F_CLIPBOARD, tr("Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file")),
 new pki_export(40, x509, "pem", tr("All unusable"),  F_PEM | F_UNUSABLE,                     tr("Concatenation of all expired or revoked certificates in one PEM file")),

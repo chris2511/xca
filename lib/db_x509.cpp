@@ -596,26 +596,7 @@ void db_x509::exportItems(const QModelIndexList &list,
 	}
 
 	if (xport->match_all(F_PEM)) {
-		if (xport->match_all(F_OVPN)) {
-			BioByteArray key, cert, extra, ca;
-			pki_evp *pkey = (pki_evp *)crt->getRefKey();
-			if (pkey)
-				pkey->pem(key, pki_export::by_id(20)); // PEM unencrypted
-			for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
-			{
-				if (crt == crt->getSigner())
-					crt->pem(ca);
-				else if (cert.size() == 0)
-					crt->pem(cert);
-				else
-					crt->pem(extra);
-			}
-			writeTaggedPEM(ca, "ca", file);
-			writeTaggedPEM(extra, "extra-certs", file);
-			writeTaggedPEM(cert, "cert", file);
-			writeTaggedPEM(key, "key", file);
-			writeTaggedPEM(crt->getTaKey().toLatin1(), "tls-auth", file);
-		} else if (xport->match_all(F_CHAIN)) {
+		if (xport->match_all(F_CHAIN)) {
 			for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
 				crt->writeCert(file, true);
 		} else if (xport->match_all(F_UNREVOKED)) {
@@ -648,6 +629,25 @@ void db_x509::exportItems(const QModelIndexList &list,
 			foreach(crt, certs)
 				crt->writeCert(file, true);
 		}
+	} else if (xport->match_all(F_OVPN)) {
+		BioByteArray key, cert, extra, ca;
+		pki_evp *pkey = (pki_evp *)crt->getRefKey();
+		if (pkey)
+			pkey->pem(key, pki_export::by_id(20)); // PEM unencrypted
+		for (; crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
+		{
+			if (crt == crt->getSigner())
+				crt->pem(ca);
+			else if (cert.size() == 0)
+				crt->pem(cert);
+			else
+				crt->pem(extra);
+		}
+		writeTaggedPEM(ca, "ca", file);
+		writeTaggedPEM(extra, "extra-certs", file);
+		writeTaggedPEM(cert, "cert", file);
+		writeTaggedPEM(key, "key", file);
+		writeTaggedPEM(crt->getTaKey().toLatin1(), "tls-auth", file);
 	} else if (xport->match_all(F_PKCS7)) {
 		writePKCS7(crt, file, xport->flags, list);
 	} else if (xport->match_all(F_INDEX)) {
