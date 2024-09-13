@@ -2,8 +2,8 @@
 set(S "${PROJECT_SOURCE_DIR}/lang")
 set(D "${PROJECT_BINARY_DIR}")
 
-list(APPEND XCA_QT_LANGUAGES de fr ja pl ru tr es it sk bg)
-list(APPEND XCA_LANGUAGES id hr ko nl pt_BR zh_CN fa ${XCA_QT_LANGUAGES})
+# English (en) must be first for Info.plist
+list(APPEND XCA_LANGUAGES en bg de es fa fr hr id it ja ko nl pl pt_BR ru sk tr zh_CN)
 list(JOIN XCA_LANGUAGES "</string>\n		<string>" LANGUAGES_PLIST)
 
 foreach(lang ${XCA_LANGUAGES})
@@ -33,9 +33,13 @@ if (${QT_VERSION} VERSION_LESS 6.0.0 )
 else()
   get_target_property(LIBSRC xcalib SOURCES)
   get_target_property(XCASRC xca SOURCES)
+  if (${QT_VERSION} VERSION_LESS 6.7.0 )
+    message(STATUS "At least QT 6.7.0 required for PLURALS_TS_FILE")
+  endif()
   qt_add_translations(xca TS_FILES ${TS_FILES} ${S}/xca.ts
                           LRELEASE_OPTIONS -silent
                           QM_FILES_OUTPUT_VARIABLE QM_FILES
+                          PLURALS_TS_FILE ${S}/xca_en.ts
                           SOURCES ${LIBSRC} ${XCASRC}
   )
   add_custom_target(trans DEPENDS xca_lupdate "${D}/xca.pot")

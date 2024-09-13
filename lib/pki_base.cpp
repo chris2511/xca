@@ -108,7 +108,7 @@ int pki_base::isVisible()
 	return iamvisible;
 }
 
-QString pki_base::getMsg(msg_type msg) const
+QString pki_base::getMsg(msg_type msg, int) const
 {
 	return tr("Internal error: Unexpected message: %1 %2")
 		.arg(getClassName()).arg(msg);

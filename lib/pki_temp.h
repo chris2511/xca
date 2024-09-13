@@ -78,7 +78,7 @@ class pki_temp: public pki_x509name
 		bool compare(const pki_base *ref) const;
 		void writeTemp(XFile &file) const;
 		QVariant getIcon(const dbheader *hd) const;
-		QString getMsg(msg_type msg) const;
+		QString getMsg(msg_type msg, int n = 1) const;
 		x509name getSubject() const;
 		void setSubject(x509name n)
 		{

@@ -239,8 +239,7 @@ void XcaTreeView::deleteItems()
 {
 	QModelIndex index;
 	QModelIndexList indexes = getSelectedIndexes();
-	QString items, msg;
-	int count = 0;
+	QStringList items;
 	pki_base *pki = NULL;
 
 	if (indexes.count() == 0 || !basemodel)
@@ -248,21 +247,16 @@ void XcaTreeView::deleteItems()
 
 	foreach(index, indexes) {
 		pki = db_base::fromIndex(index);
-		items += "'" + pki->getIntName() + "' ";
-		count++;
+		if (pki)
+			items << pki->getIntName();
 	}
 
 	Transaction;
 	if (!TransBegin())
 		return;
 
-	if (count == 1)
-		msg = pki->getMsg(pki_base::msg_delete).arg(pki->getIntName());
-	else
-		msg = pki->getMsg(pki_base::msg_delete_multi).arg(count).
-				arg(items);
-
-	if (!XCA_OKCANCEL(msg))
+	if (!XCA_OKCANCEL(pki->getMsg(pki_base::msg_delete,
+			items.size()).arg(items.join("', '"))))
 		return;
 
 	foreach(index, indexes) {
@@ -514,7 +508,8 @@ void XcaTreeView::exportItems(const QModelIndexList &indexes)
 					// Will only be called for 2 or more items
 					pass_info p(tr("Export Password"),
 							tr("Please enter the password to encrypt all %n "
-							   "exported private key(s) in:\n%1", "",
+							   "exported private key(s) in:\n%1",
+							   "Singular form for 0 or 1 item can be ignored. Will always be called with n >= 2",
 									indexes.size()).arg(fname),
 							this);
 

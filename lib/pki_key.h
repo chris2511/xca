@@ -210,7 +210,7 @@ class pki_key: public pki_base
 		virtual bool isToken();
 		virtual QString getTypeString(void) const;
 		virtual QList<int> possibleHashNids();
-		QString getMsg(msg_type msg) const;
+		QString getMsg(msg_type msg, int n = 1) const;
 
 		void writePublic(XFile &file, bool pem) const;
 		QString getJWKcrv() const;

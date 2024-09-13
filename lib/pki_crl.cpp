@@ -47,7 +47,7 @@ void pki_crl::fromPEM_BIO(BIO *bio, const QString &name)
 	crl = _crl;
 }
 
-QString pki_crl::getMsg(msg_type msg) const
+QString pki_crl::getMsg(msg_type msg, int n) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -57,10 +57,8 @@ QString pki_crl::getMsg(msg_type msg) const
 	 */
 	switch (msg) {
 	case msg_import: return tr("Successfully imported the revocation list '%1'");
-	case msg_delete: return tr("Delete the revocation list '%1'?");
+	case msg_delete: return tr("Delete the %n revocation list(s): '%1'?", "", n);
 	case msg_create: return tr("Successfully created the revocation list '%1'");
-	/* %1: Number of CRLs; %2: list of CRL names */
-	case msg_delete_multi: return tr("Delete the %1 revocation lists: %2?");
 	}
 	return pki_base::getMsg(msg);
 }

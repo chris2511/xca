@@ -90,7 +90,7 @@ class pki_scard: public pki_key
 		void deleteFromToken(const slotid &slot);
 		void store_token(const slotid &slot, EVP_PKEY *pkey);
 		int renameOnToken(const slotid &slot, const QString &name);
-		QString getMsg(msg_type msg) const;
+		QString getMsg(msg_type msg, int n = 1) const;
 		bool visible() const;
 		QSqlError insertSqlData();
 		QSqlError deleteSqlData();

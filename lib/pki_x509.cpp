@@ -49,7 +49,7 @@ pki_x509::pki_x509(const QString &name)
 	pki_openssl_error();
 }
 
-QString pki_x509::getMsg(msg_type msg) const
+QString pki_x509::getMsg(msg_type msg, int n) const
 {
 	/*
 	 * We do not construct english sentences from fragments
@@ -60,10 +60,8 @@ QString pki_x509::getMsg(msg_type msg) const
 	 */
 	switch (msg) {
 	case msg_import: return tr("Successfully imported the certificate '%1'");
-	case msg_delete: return tr("Delete the certificate '%1'?");
+	case msg_delete: return tr("Delete the %n certificate(s): '%1'?", "", n);
 	case msg_create: return tr("Successfully created the certificate '%1'");
-	/* %1: Number of certs; %2: list of cert names */
-	case msg_delete_multi: return tr("Delete the %1 certificates: %2?");
 	}
 	return pki_base::getMsg(msg);
 }

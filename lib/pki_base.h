@@ -81,7 +81,6 @@ class pki_base : public QObject
 		enum msg_type {
 			msg_import,
 			msg_delete,
-			msg_delete_multi,
 			msg_create,
 		};
 		enum print_opt {
@@ -156,7 +155,7 @@ class pki_base : public QObject
 		}
 		virtual QByteArray i2d() const;
 		virtual bool compare(const pki_base *) const;
-		virtual QString getMsg(msg_type msg) const;
+		virtual QString getMsg(msg_type msg, int n = 1) const;
 		virtual const char *getClassName() const;
 
 		/* Tree View management */

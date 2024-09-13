@@ -93,7 +93,7 @@ class pki_crl: public pki_x509name
 		QVariant column_data(const dbheader *hd) const;
 		QVariant getIcon(const dbheader *hd) const;
 		a1time column_a1time(const dbheader *hd) const;
-		QString getMsg(msg_type msg) const;
+		QString getMsg(msg_type msg, int n = 1) const;
 		void d2i(QByteArray &ba);
 		QByteArray i2d() const;
 		void setCrlNumber(a1int num);
