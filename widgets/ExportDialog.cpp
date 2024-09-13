@@ -35,6 +35,7 @@ ExportDialog::ExportDialog(QWidget *w, const QString &title,
 			fname = pki->getUnderlinedName();
 		}
 		separateFiles->hide();
+		samePassword->hide();
 		setupExportFormat(F_MULTI);
 	} else {
 		// Plural form not required for < 2 items
@@ -162,6 +163,7 @@ void ExportDialog::on_exportFormat_highlighted(int index)
 		return;
 	infoBox->setText(x->help);
 	pemComment->setEnabled(x->flags & F_PEM);
+	samePassword->setEnabled(x->flags & F_CRYPT);
 }
 
 void ExportDialog::on_separateFiles_clicked(bool checked)

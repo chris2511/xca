@@ -508,7 +508,8 @@ void XcaTreeView::exportItems(const QModelIndexList &indexes)
 
 			if (dlg->separateFiles->isChecked()) {
 				Passwd pass;
-				if (xport->match_all(F_CRYPT)) {
+				if (xport->match_all(F_CRYPT) && dlg->samePassword->isChecked())
+				{
 					// Plural form not required for < 2 items
 					// Will only be called for 2 or more items
 					pass_info p(tr("Export Password"),

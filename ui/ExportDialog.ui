@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>589</width>
-    <height>366</height>
+    <width>520</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,18 +116,32 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="separateFiles">
-     <property name="text">
-      <string>Each Item in a separate file</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Export Format</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="separateFiles">
+        <property name="text">
+         <string>Each Item in a separate file</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="samePassword">
+        <property name="text">
+         <string>Same encryption password for all items</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="pemComment">
+        <property name="text">
+         <string>Export comment into PEM file</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -165,13 +179,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="pemComment">
-        <property name="text">
-         <string>Export comment into PEM file</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
