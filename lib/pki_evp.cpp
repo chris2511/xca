@@ -866,8 +866,6 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 
 void pki_evp::writePVKprivate(XFile &file) const
 {
-	pass_info p(XCA_TITLE, tr("Please enter the password protecting the Microsoft PVK key '%1'").arg(getIntName()));
-
 	EVP_PKEY *pkey = decryptKey();
 	if (!pkey) {
 		pki_openssl_error();
@@ -877,7 +875,7 @@ void pki_evp::writePVKprivate(XFile &file) const
 	 *   PEMerr(PEM_F_I2B_PVK_BIO, PEM_R_BIO_WRITE_FAILURE)
 	 * is set. Workaround this behavior */
 	BioByteArray b;
-	if (i2b_PVK_bio(b, pkey, 0, nullptr, &p) == -1) {
+	if (i2b_PVK_bio(b, pkey, 0, nullptr, nullptr) == -1) {
 		pki_openssl_error();
 		PEMerr(PEM_F_I2B_PVK_BIO, PEM_R_BIO_WRITE_FAILURE);
 		pki_openssl_error();
