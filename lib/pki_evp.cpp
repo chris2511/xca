@@ -846,8 +846,8 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem) const
 {
 	pass_info p(XCA_TITLE,
-		tr("Please enter the password protecting the PKCS#8 key '%1'")
-			.arg(getIntName()));
+		tr("Please enter the password to protect the PKCS#8 key '%1' in file:\n%2")
+			.arg(getIntName()).arg(nativeSeparator(file.fileName())));
 	EVP_PKEY *pkey = decryptKey();
 	if (!pkey) {
 		pki_openssl_error();
@@ -903,8 +903,8 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem) const
 {
 	pass_info p(XCA_TITLE,
-		tr("Please enter the export password for the private key '%1'")
-			.arg(getIntName()));
+		tr("Please enter the password to protect the private key '%1' in file:\n%2")
+			.arg(getIntName()).arg(nativeSeparator(file.fileName())));
 
 	if (isPubKey()) {
 		writePublic(file, pem);

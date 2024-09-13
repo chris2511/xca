@@ -133,11 +133,14 @@ void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 {
 	Passwd pass;
 	PKCS12 *pkcs12;
-	pass_info p(XCA_TITLE,
-		tr("Please enter the password to encrypt the PKCS#12 file"));
 
 	if (cert == NULL || key == NULL)
 		my_error(tr("No key or no Cert and no pkcs12"));
+
+	pass_info p(XCA_TITLE,
+		tr("Please enter the password to encrypt the key of certificate '%1' "
+		   "in the PKCS#12 file:\n%2")
+			.arg(cert->getIntName()).arg(nativeSeparator(file.fileName())));
 
 	if (PwDialogCore::execute(&p, &pass, true) != 1)
 		return;
