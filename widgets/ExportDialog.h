@@ -29,8 +29,8 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 		     QList<const pki_export*> types,
 		     const QString &help_ctx = QString());
 	~ExportDialog();
-	static bool mayWriteFile(const QString &fname);
 	const pki_export *export_type(int idx = -1) const;
+	static bool mayWriteFile(const QString &fname, bool inSeparateFiles);
 	void setupExportFormat(int disable_flag);
 
   public slots:

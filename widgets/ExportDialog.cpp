@@ -115,16 +115,50 @@ void ExportDialog::on_exportFormat_activated(int selected)
 	on_exportFormat_highlighted(selected);
 }
 
-bool ExportDialog::mayWriteFile(const QString &fname)
+bool ExportDialog::mayWriteFile(const QString &fname, bool inSeparateFiles)
 {
 	QFileInfo fi(fname);
-	if (fi.exists() && !fi.isDir()) {
-		xcaWarningBox msg(NULL,
-			tr("The file: '%1' already exists!").arg(fname));
-		msg.addButton(QMessageBox::Ok, tr("Overwrite"));
-		msg.addButton(QMessageBox::Cancel, tr("Do not overwrite"));
-		if (msg.exec() != QMessageBox::Ok)
-			return false;
+	QString dirname(fname);
+	if (!inSeparateFiles) {
+		if (fi.exists()) {
+			if (fi.isFile()) {
+				xcaWarningBox msg(NULL,
+					tr("The file: '%1' already exists!").arg(fname));
+				msg.addButton(QMessageBox::Ok, tr("Overwrite"));
+				msg.addButton(QMessageBox::Cancel, tr("Do not overwrite"));
+				if (msg.exec() != QMessageBox::Ok)
+					return false;
+			} else {
+				XCA_ERROR(tr("The path: '%1' exist, but is not a file")
+					.arg(nativeSeparator(fname)));
+				return false;
+			}
+		}
+		dirname = fi.path();
+	}
+
+	QFileInfo dir(dirname);
+	qDebug() << "Checking" << fname << dirname << "isDir" << dir.isDir() << "exists" << dir.exists();
+	if (dir.isDir())
+		return true;
+	if (dir.exists()) {
+		XCA_ERROR(tr("The path: '%1' exist, but is not a directory")
+			.arg(nativeSeparator(fname)));
+		return false;
+	}
+	xcaWarningBox msg(NULL,
+		tr("The directory: '%1' does not exist. Should it be created?")
+			.arg(nativeSeparator(dirname)));
+	msg.addButton(QMessageBox::Ok, tr("Create"));
+	msg.addButton(QMessageBox::Cancel);
+	if (msg.exec() != QMessageBox::Ok)
+		return false;
+
+	if (!QDir().mkpath(dirname)) {
+		xcaWarningBox msg(NULL, tr("Failed to create directory '%1'")
+				.arg(nativeSeparator(fname)));
+		msg.exec();
+		return false;
 	}
 	return true;
 }
@@ -142,7 +176,7 @@ void ExportDialog::accept()
 		reject();
 		return;
 	}
-	if (mayWriteFile(fn)) {
+	if (mayWriteFile(fn, separateFiles->isChecked())) {
 		update_workingdir(fn);
 		QDialog::accept();
 	}
