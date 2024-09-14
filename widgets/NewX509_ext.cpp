@@ -105,6 +105,11 @@ x509v3ext NewX509::getEkeyUsage()
 	return x509v3ext(NID_ext_key_usage, cont.join(", "), &ext_ctx);
 }
 
+x509v3ext NewX509::getNameConstraints()
+{
+	return x509v3ext(NID_name_constraints, nameCons->text(), &ext_ctx);
+}
+
 x509v3ext NewX509::getSubAltName()
 {
 	QString s = subAltName->text();
@@ -211,6 +216,7 @@ extList NewX509::getGuiExt()
 	ne << getAuthKeyIdent();
 	ne << getKeyUsage();
 	ne << getEkeyUsage();
+	ne << getNameConstraints();
 	ne << getSubAltName();
 	ne << getIssAltName();
 	ne << getCrlDist();

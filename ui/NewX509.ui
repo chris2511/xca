@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>747</width>
-    <height>637</height>
+    <height>640</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -100,7 +100,16 @@
           <item>
            <widget class="QWidget" name="reqWidget" native="true">
             <layout class="QGridLayout">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <item row="0" column="1">
@@ -141,8 +150,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="attrWidget" native="true">
-           </widget>
+           <widget class="QWidget" name="attrWidget" native="true"/>
           </item>
          </layout>
         </widget>
@@ -537,7 +545,16 @@
             <string notr="true">Key identifier</string>
            </property>
            <layout class="QVBoxLayout">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>8</number>
+            </property>
+            <property name="topMargin">
+             <number>8</number>
+            </property>
+            <property name="rightMargin">
+             <number>8</number>
+            </property>
+            <property name="bottomMargin">
              <number>8</number>
             </property>
             <item>
@@ -584,7 +601,16 @@
           <bool>true</bool>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="margin">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
            <number>0</number>
           </property>
           <item>
@@ -652,6 +678,20 @@
                </item>
               </widget>
              </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="checkBox">
+               <property name="text">
+                <string>Local time</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" colspan="2">
+              <widget class="QCheckBox" name="noWellDefinedExpDate">
+               <property name="text">
+                <string>No well-defined expiration</string>
+               </property>
+              </widget>
+             </item>
              <item row="0" column="3">
               <widget class="QPushButton" name="applyTime">
                <property name="sizePolicy">
@@ -675,20 +715,6 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QCheckBox" name="checkBox">
-               <property name="text">
-                <string>Local time</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2" colspan="2">
-              <widget class="QCheckBox" name="noWellDefinedExpDate">
-               <property name="text">
-                <string>No well-defined expiration</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -709,11 +735,15 @@
         </spacer>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_12">
-         <item row="0" column="0">
-          <widget class="DoubleClickLabel" name="sanLbl"/>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="5" column="2" colspan="2">
+          <widget class="QCheckBox" name="OCSPstaple">
+           <property name="text">
+            <string notr="true">OCSP Must Staple</string>
+           </property>
+          </widget>
          </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="QLabel" name="subAltIco">
            <property name="minimumSize">
             <size>
@@ -732,7 +762,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
+         <item row="1" column="2">
           <widget class="QLineEdit" name="subAltName">
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
@@ -740,30 +770,108 @@
           </widget>
          </item>
          <item row="0" column="3">
+          <widget class="QPushButton" name="editNameCons">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="nameConsIco">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
           <widget class="QPushButton" name="editSubAlt">
            <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="DoubleClickLabel" name="ianLbl"/>
+         <item row="0" column="0">
+          <widget class="DoubleClickLabel" name="nameConsLbl"/>
          </item>
-         <item row="1" column="2">
-          <widget class="QLineEdit" name="issAltName">
+         <item row="0" column="2">
+          <widget class="QLineEdit" name="nameCons">
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
+         <item row="1" column="0">
+          <widget class="DoubleClickLabel" name="sanLbl"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="DoubleClickLabel" name="ianLbl"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="DoubleClickLabel" name="crldpLbl"/>
+         </item>
+         <item row="2" column="3">
           <widget class="QPushButton" name="editIssAlt">
            <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="issAltName">
+           <property name="toolTip">
+            <string>DNS: IP: URI: email: RID:</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="1">
+          <widget class="QLabel" name="issAltIco">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="DoubleClickLabel" name="aiaLbl"/>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLineEdit" name="authInfAcc">
+           <property name="toolTip">
+            <string>DNS: IP: URI: email: RID:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="3">
+          <widget class="QPushButton" name="editAuthInfAcc">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
           <widget class="QLabel" name="crlDistIco">
            <property name="minimumSize">
             <size>
@@ -782,24 +890,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QLineEdit" name="crlDist">
-           <property name="toolTip">
-            <string>URI:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
+         <item row="3" column="3">
           <widget class="QPushButton" name="editCrlDist">
            <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="DoubleClickLabel" name="aiaLbl"/>
-         </item>
-         <item row="3" column="1">
+         <item row="4" column="1">
           <widget class="QLabel" name="authInfAccIco">
            <property name="minimumSize">
             <size>
@@ -819,45 +917,9 @@
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QLineEdit" name="authInfAcc">
+          <widget class="QLineEdit" name="crlDist">
            <property name="toolTip">
-            <string>DNS: IP: URI: email: RID:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="3">
-          <widget class="QPushButton" name="editAuthInfAcc">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="issAltIco">
-           <property name="minimumSize">
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="DoubleClickLabel" name="crldpLbl"/>
-         </item>
-         <item row="4" column="2">
-          <widget class="QCheckBox" name="OCSPstaple">
-           <property name="text">
-            <string notr="true">OCSP Must Staple</string>
+            <string>URI:</string>
            </property>
           </widget>
          </item>
@@ -870,7 +932,16 @@
        <string>Key usage</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>8</number>
+       </property>
+       <property name="topMargin">
+        <number>8</number>
+       </property>
+       <property name="rightMargin">
+        <number>8</number>
+       </property>
+       <property name="bottomMargin">
         <number>8</number>
        </property>
        <item>
@@ -878,7 +949,16 @@
          <item>
           <widget class="QGroupBox" name="kuBox">
            <layout class="QVBoxLayout">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>8</number>
+            </property>
+            <property name="topMargin">
+             <number>8</number>
+            </property>
+            <property name="rightMargin">
+             <number>8</number>
+            </property>
+            <property name="bottomMargin">
              <number>8</number>
             </property>
             <item>
@@ -949,7 +1029,16 @@
          <item>
           <widget class="QGroupBox" name="ekuBox">
            <layout class="QVBoxLayout">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>8</number>
+            </property>
+            <property name="topMargin">
+             <number>8</number>
+            </property>
+            <property name="rightMargin">
+             <number>8</number>
+            </property>
+            <property name="bottomMargin">
              <number>8</number>
             </property>
             <item>

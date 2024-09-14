@@ -134,6 +134,8 @@ NewX509::NewX509(QWidget *w) : XcaDetail(w)
 	connect(extDNlist->itemDelegateForColumn(1),
 		SIGNAL(setupLineEdit(const QString &, QLineEdit *)),
 		       this, SLOT(setupExtDNwidget(const QString &, QLineEdit *)));
+	connect(nameCons, SIGNAL(textChanged(const QString &)),
+	        this, SLOT(checkNameConstraints(const QString &)));
 	connect(subAltName, SIGNAL(textChanged(const QString &)),
 	        this, SLOT(checkSubAltName(const QString &)));
 	connect(issAltName, SIGNAL(textChanged(const QString &)),
@@ -210,6 +212,7 @@ NewX509::NewX509(QWidget *w) : XcaDetail(w)
 	basicPath->setValidator(new QIntValidator(0, 1000, this));
 
 	QMap<int, QWidget*> nidWidget;
+	nidWidget[NID_name_constraints] = nameConsLbl;
 	nidWidget[NID_subject_alt_name] = sanLbl;
 	nidWidget[NID_issuer_alt_name] = ianLbl;
 	nidWidget[NID_crl_distribution_points] = crldpLbl;
@@ -277,6 +280,7 @@ NewX509::NewX509(QWidget *w) : XcaDetail(w)
 
 	// Setup widget <-> Template mapping
 #define MAP_LE(name) templateLineEdits[#name] = name;
+	MAP_LE(nameCons);
 	MAP_LE(subAltName);
 	MAP_LE(issAltName);
 	MAP_LE(crlDist);
@@ -537,6 +541,7 @@ void NewX509::extensionsFromTemplate(pki_temp *temp)
 	QMapIterator<QString, QLineEdit*> l(templateLineEdits);
 	while (l.hasNext()) {
 		l.next();
+		qDebug() << "APPLY LineEdits" << l.key() << temp->getSetting(l.key());
 		l.value()->setText(temp->getSetting(l.key()));
 	}
 	QMapIterator<QString, QCheckBox*> i(templateCheckBoxes);
@@ -963,6 +968,9 @@ void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
 	setupTmpCtx();
 	ign_openssl_error();
 	switch (nid) {
+	case NID_name_constraints:
+		ext = getNameConstraints();
+		break;
 	case NID_subject_alt_name:
 		ext = getSubAltName();
 		break;
@@ -977,6 +985,11 @@ void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
 		break;
 	}
 	img->setPixmap(ext.isValid() ? QPixmap(":doneIco") : QPixmap(":warnIco"));
+}
+
+void NewX509::checkNameConstraints(const QString & text)
+{
+	checkIcon(text, NID_name_constraints, nameConsIco);
 }
 
 void NewX509::checkSubAltName(const QString & text)
@@ -1102,6 +1115,8 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 		result = errtxt + result;
 	}
 	QString lineext;
+	if (!nameCons->text().isEmpty() && !getNameConstraints().isValid())
+		lineext += tr("The Name Constraints are invalid") + "<br>\n";
 	if (!subAltName->text().isEmpty() && !getSubAltName().isValid())
 		lineext += tr("The Subject Alternative Name is invalid") + "<br>\n";
 	if (!issAltName->text().isEmpty() && !getIssAltName().isValid())
@@ -1121,6 +1136,17 @@ enum NewX509::extension_error NewX509::validateExtensions(QString &result)
 
 	ign_openssl_error();
 	return ee;
+}
+
+void NewX509::on_editNameCons_clicked()
+{
+	QStringList permut;
+	for (const QString &group : QStringList { "permitted", "excluded" }) {
+		for(const QString &type : QStringList { "URI", "email", "RID", "DNS", "IP" }) {
+			permut << QString("%1;%2").arg(group).arg(type);
+		}
+	}
+	editV3ext(nameCons, permut.join(","), NID_name_constraints);
 }
 
 void NewX509::on_editSubAlt_clicked()

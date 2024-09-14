@@ -58,6 +58,7 @@ namespace db {
 };
 
 const QList<QString> pki_temp::tmpl_keys = {
+	"nameCons",
 	"subAltName",
 	"issAltName",
 	"crlDist",
@@ -223,6 +224,7 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			xname.addEntryByNid(nid, n.getEntry(i));
 	}
 
+	fromExtList(&el, NID_name_constraints, "nameCons");
 	fromExtList(&el, NID_subject_alt_name, "subAltName");
 	fromExtList(&el, NID_issuer_alt_name, "issAltName");
 	fromExtList(&el, NID_crl_distribution_points, "crlDist");

@@ -924,7 +924,7 @@ static bool nameConstraint(STACK_OF(GENERAL_SUBTREE) *trees,
 	return true;
 }
 
-bool x509v3ext::parse_nameConstraints(QString *, QString *adv) const
+bool x509v3ext::parse_nameConstraints(QString *single, QString *adv) const
 {
 	bool retval = true;
 	QString sect, ret;
@@ -947,11 +947,14 @@ bool x509v3ext::parse_nameConstraints(QString *, QString *adv) const
 	if (ret.size() > 0)
 		permEx << ret;
 
-	if (adv && retval &&permEx.size() > 0) {
+	if (retval && permEx.size() > 0) {
 		ret = permEx.join(", ");
-		qDebug("%s %d '%s'\n", __func__, retval, CCHAR(ret));
-		*adv = QString("%1=%2\n").arg(tag).
-			arg(parse_critical() +ret) + *adv + sect;
+		qDebug() << retval << ret;
+		if (single)
+			*single = ret;
+		else if (adv)
+			*adv = QString("%1=%2\n").arg(tag).
+				arg(parse_critical() +ret) + *adv + sect;
 	}
 	NAME_CONSTRAINTS_free(cons);
 	return retval;

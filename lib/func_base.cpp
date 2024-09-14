@@ -244,6 +244,7 @@ D[NID_pkcs9_unstructuredName] = QObject::tr("Unstructured name");
 D[NID_pkcs9_challengePassword] = QObject::tr("Challenge password");
 
 D[NID_basic_constraints] = QObject::tr("Basic Constraints");
+D[NID_name_constraints] = QObject::tr("Name Constraints");
 D[NID_subject_alt_name] = QObject::tr("Subject alternative name");
 D[NID_issuer_alt_name] = QObject::tr("issuer alternative name");
 D[NID_subject_key_identifier] = QObject::tr("Subject key identifier");

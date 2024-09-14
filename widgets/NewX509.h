@@ -96,6 +96,7 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		x509v3ext getOCSPstaple();
 		x509v3ext getKeyUsage();
 		x509v3ext getEkeyUsage();
+		x509v3ext getNameConstraints();
 		x509v3ext getSubAltName();
 		x509v3ext getIssAltName();
 		x509v3ext getCrlDist();
@@ -132,6 +133,7 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		void on_reqList_currentIndexChanged(int);
 		void newKeyDone(pki_key *nkey);
 		void on_applyTime_clicked();
+		void on_editNameCons_clicked();
 		void on_editSubAlt_clicked();
 		void on_editIssAlt_clicked();
 		void on_editCrlDist_clicked();
@@ -150,6 +152,7 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		void accept();
 		void itemChanged(pki_base*);
 		void setupExtDNwidget(const QString &s, QLineEdit *w);
+		void checkNameConstraints(const QString & text);
 		void checkSubAltName(const QString & text);
 		void checkIssAltName(const QString & text);
 		void checkCrlDist(const QString & text);
