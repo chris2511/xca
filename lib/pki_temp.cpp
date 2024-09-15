@@ -191,12 +191,14 @@ void pki_temp::fromExtList(extList *el, int nid, const char *item)
 {
 	QString target;
 	el->genConf(nid, &target, &adv_ext);
-	if (nid == NID_subject_alt_name || nid == NID_issuer_alt_name) {
+	if (nid == NID_subject_alt_name || nid == NID_issuer_alt_name ||
+	    nid == NID_name_constraints)
+	{
 		QStringList sl = target.split(",");
+		QRegularExpression match("([a-z]+;)*otherName:msUPN;UTF8:");
 		for (int i=0; i<sl.size(); i++) {
 			QString s = sl[i].trimmed();
-			if (s.startsWith("otherName:msUPN;UTF8:"))
-				sl[i] = s.replace("otherName:msUPN;UTF8:", "UPN:");
+			sl[i] = s.replace(match, "\\1UPN:");
 		}
 		target = sl.join(",");
 	}

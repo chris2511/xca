@@ -83,12 +83,12 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 			if (new_san.size() > 0)
 				etext.replace(QString("DNS:copycn"), new_san.join(","));
 		}
-		if (nid == NID_subject_alt_name || nid == NID_issuer_alt_name) {
+		if (nid == NID_subject_alt_name || nid == NID_issuer_alt_name || nid == NID_name_constraints) {
 			QStringList sl = etext.split(",");
+			QRegularExpression match("([a-z]+;)*UPN:");
 			for (int i=0; i<sl.size(); i++) {
 				QString s = sl[i].trimmed();
-				if (s.startsWith("UPN:"))
-					sl[i] = s.replace("UPN:", "otherName:msUPN;UTF8:");
+				sl[i] = s.replace(match, "\\1otherName:msUPN;UTF8:");
 			}
 			etext = sl.join(",");
 		}

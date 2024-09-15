@@ -1142,7 +1142,7 @@ void NewX509::on_editNameCons_clicked()
 {
 	QStringList permut;
 	for (const QString &group : QStringList { "permitted", "excluded" }) {
-		for(const QString &type : QStringList { "URI", "email", "RID", "DNS", "IP" }) {
+		for(const QString &type : QStringList { "URI", "email", "RID", "DNS", "IP", "UPN", "othername" }) {
 			permut << QString("%1;%2").arg(group).arg(type);
 		}
 	}
