@@ -13,6 +13,7 @@
 #include <openssl/err.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
+#include <openssl/x509_vfy.h>
 
 #include <QDir>
 #include <QStringList>
@@ -214,6 +215,17 @@ QByteArray Digest(const QByteArray &data, const EVP_MD *type)
 	EVP_Digest(data.constData(), data.size(), m, &n, type, NULL);
 	openssl_error();
 	return QByteArray((char*)m, (int)n);
+}
+
+QString get_ossl_verify_error(int err)
+{
+	// https://docs.openssl.org/master/man3/X509_STORE_CTX_get_error/#error-codes
+	static const QMap<int, const char*> ossl_verify_errors = {
+		#define V_ERR(x) { x, #x },
+		V_ERR(X509_V_OK)
+		#include "openssl_v_err.c"
+	};
+	return ossl_verify_errors.value(err, "Unknown error");
 }
 
 QMap<int, QString> dn_translations;

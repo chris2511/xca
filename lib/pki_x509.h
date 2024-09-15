@@ -94,7 +94,7 @@ class pki_x509 : public pki_x509super
 		bool addV3ext(const x509v3ext &e, bool skip_existing = false);
 		void sign(pki_key *signkey, const digest &digest);
 		pki_x509 *findIssuer();
-		X509 *getCert()
+		X509 *getCert() const
 		{
 			return cert;
 		}
@@ -167,6 +167,9 @@ class pki_x509 : public pki_x509super
 		QStringList icsVEVENT_ca() const;
 		QString getTaKey();
 		bool importTaKey(const QByteArray &takey);
+		QList<int> ossl_verify() const;
+		bool check_ca() const;
+		QList<X509_PURPOSE *> purposes() const;
 };
 
 Q_DECLARE_METATYPE(pki_x509 *);

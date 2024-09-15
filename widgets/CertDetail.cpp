@@ -13,6 +13,7 @@
 #include "clicklabel.h"
 #include "Help.h"
 #include "OidResolver.h"
+#include "lib/func_base.h"
 #include "lib/func.h"
 #include "lib/XcaWarningCore.h"
 #include <QLabel>
@@ -23,6 +24,7 @@
 CertDetail::CertDetail(QWidget *w) : XcaDetail(w)
 {
 	setupUi(this);
+	tabwidget->setCurrentIndex(0);
 }
 
 void CertDetail::on_showExt_clicked()
@@ -37,6 +39,15 @@ void CertDetail::on_showExt_clicked()
 		showExt->setText(tr("Show extensions"));
 	}
 
+}
+
+int CertDetail::tabIndexByName(const QString &tabname) const
+{
+	for (int i=0; i<tabwidget->count(); i++) {
+		if (tabwidget->widget(i)->objectName() == tabname)
+			return i;
+	}
+	return -1;
 }
 
 void CertDetail::setX509super(pki_x509super *x)
@@ -79,7 +90,8 @@ void CertDetail::setX509super(pki_x509super *x)
 	// V3 extensions
 	extList el = x->getV3ext();
 	if (el.count() == 0) {
-		tabwidget->removeTab(4);
+		tabwidget->removeTab(tabIndexByName("extensionsTab"));
+		tabwidget->removeTab(tabIndexByName("validationTab"));
 	} else {
 		exts = el.getHtml("<br>");
 		el.genGenericConf(&conf);
@@ -102,11 +114,38 @@ void CertDetail::setCert(pki_x509 *cert)
 {
 	if (!cert)
 		return;
+	QList<int> errors;
 	init("certdetail", ":certImg");
+	errors = cert->ossl_verify();
+	QString html;
+	for (int err : errors) {
+		html += QString("<li><b><u>%1:</u></b><br/>%2</li>\n")
+					.arg(get_ossl_verify_error(err))
+					.arg(X509_verify_cert_error_string(err));
+	}
+	if (html.isEmpty())
+		html = tr("No verification errors found.");
+	else
+		html = "<ul>\n" + html + "</ul>\n";
+
+	validation->setHtml(html);
+	QList<X509_PURPOSE*> purposes = cert->purposes();
+	for (X509_PURPOSE *purp : purposes) {
+		QString purpname = X509_PURPOSE_get0_name(purp);
+		int id = X509_PURPOSE_get_id(purp);
+		qDebug() << "Purpose: " << purpname << " (" << id << ")";
+		purposeList->addItem(QString("%1 (%2)").arg(purpname).arg(id));
+	}
 	headerLabel->setText(tr("Details of the Certificate"));
 	try {
 		// No attributes
-		tabwidget->removeTab(3);
+		tabwidget->removeTab(tabIndexByName("attributesTab"));
+		if (cert->isCA()) {
+			tabwidget->removeTab(tabIndexByName("validationTab"));
+		} else {
+			if (errors.size() > 0)
+				tabwidget->tabBar()->setTabTextColor(tabIndexByName("validationTab"),Qt::red);
+		}
 
 		// examine the signature
 		if (cert->getSigner() == NULL) {
@@ -177,7 +216,8 @@ void CertDetail::setReq(pki_x509req *req)
 	headerLabel->setText(tr("Details of the certificate signing request"));
 	try {
 		// No issuer
-		tabwidget->removeTab(2);
+		tabwidget->removeTab(tabIndexByName("issuerTab"));
+		tabwidget->removeTab(tabIndexByName("validationTab"));
 
 		// verification
 		if (!req->verify() ) {
@@ -236,7 +276,7 @@ void CertDetail::setReq(pki_x509req *req)
 			ii++;
 		}
 		if (!added) {
-			tabwidget->removeTab(2);
+			tabwidget->removeTab(tabIndexByName("attributesTab"));
 		}
 		openssl_error();
 	} catch (errorEx &err) {

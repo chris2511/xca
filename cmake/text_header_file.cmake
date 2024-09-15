@@ -17,4 +17,3 @@ if (FILE AND SRC AND DST)
 else()
   message(FATAL_ERROR "Mandatory FILE or SRC variable not defined")
 endif()
-

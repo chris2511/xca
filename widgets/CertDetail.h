@@ -26,6 +26,7 @@ class CertDetail: public XcaDetail, public Ui::CertDetail
 		pki_key *myPubKey{}, *tmpPubKey{};
 		void setCert(pki_x509 *cert);
 		void setReq(pki_x509req *req);
+		int tabIndexByName(const QString &tabname) const;
 
 	public:
 		CertDetail(QWidget *w = nullptr);

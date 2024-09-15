@@ -38,7 +38,7 @@ if(CCACHE_EXECUTABLE)
 endif()
 
 set(ADDRESS_SANITIZER OFF CACHE BOOL "Enable Address sanitizing")
-set(APPSTORE_COMPLIANT OFF CACHE BOOL "Create an Appstore compliant, sanboxed app")
+set(APPSTORE_COMPLIANT OFF CACHE BOOL "Create an Appstore compliant, sandboxed app")
 set(PROVISIONPROFILE "" CACHE STRING "Location of the embedded.provisionprofile")
 if (APPSTORE_COMPLIANT)
   set(APPLE_DEVELOPER_CERT "3rd Party Mac Developer Application")
@@ -119,6 +119,7 @@ set(QT Qt${QT_VERSION_MAJOR})
 find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 find_package(${QT} QUIET COMPONENTS Test)
 
+include(cmake/openssl_v_err.cmake)
 message(STATUS "Using ${QT} with version ${QT_VERSION}")
 
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)

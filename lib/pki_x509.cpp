@@ -18,6 +18,8 @@
 #include "pass_info.h"
 
 #include <openssl/rand.h>
+#include <openssl/x509_vfy.h>
+#include <openssl/err.h>
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super(), cert(c)
@@ -632,15 +634,7 @@ void pki_x509::delSigner(pki_base *s)
 
 bool pki_x509::isCA() const
 {
-	bool ca;
-	int crit;
-	BASIC_CONSTRAINTS *bc = (BASIC_CONSTRAINTS *)
-		X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
-	pki_openssl_error();
-	ca = bc && bc->ca;
-	if (bc)
-		BASIC_CONSTRAINTS_free(bc);
-	return ca;
+	return X509_check_ca(cert) == 1;
 }
 
 bool pki_x509::canSign() const
@@ -1185,4 +1179,80 @@ QVariant pki_x509::bg_color(const dbheader *hd) const
 			}
 	}
 	return QVariant();
+}
+
+static int verify_cb(int ok, X509_STORE_CTX *ctx)
+{
+	int cert_error = X509_STORE_CTX_get_error(ctx);
+	QList<int> *errors = (QList<int>*)X509_STORE_CTX_get_app_data(ctx);
+
+	if (cert_error != X509_V_OK && errors->indexOf(cert_error) == -1)
+		errors->append(cert_error);
+
+	qDebug() << "OK:" << ok << "Error:" << cert_error
+		<< get_ossl_verify_error(cert_error);
+	return 1;
+}
+
+QList<int> pki_x509::ossl_verify() const
+{
+	STACK_OF(X509) *untrusted = sk_X509_new_null();
+	Q_CHECK_PTR(untrusted);
+	STACK_OF(X509) *trusted = sk_X509_new_null();
+	Q_CHECK_PTR(trusted);
+	X509_STORE_CTX *csc = X509_STORE_CTX_new();
+	Q_CHECK_PTR(csc);
+
+	for (pki_x509 *crt = getSigner(), *oldcrt = nullptr;
+		 crt && crt != oldcrt; oldcrt = crt, crt = crt->getSigner())
+	{
+		if (crt && crt == crt->getSigner())
+			sk_X509_push(trusted, crt->getCert());
+		else
+			sk_X509_push(untrusted, crt->getCert());
+	}
+	QList<int> errors;
+	X509_STORE_CTX_init(csc, NULL, cert, untrusted);
+	X509_STORE_CTX_set0_trusted_stack(csc, trusted);
+	X509_STORE_CTX_set_verify_cb(csc, verify_cb);
+	X509_STORE_CTX_set_app_data(csc, (void *)&errors);
+
+	X509_VERIFY_PARAM *param = X509_VERIFY_PARAM_new();
+	Q_CHECK_PTR(param);
+	X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_POLICY_CHECK | X509_V_FLAG_X509_STRICT);
+	X509_VERIFY_PARAM_set_depth(param, 20);
+	X509_STORE_CTX_set0_param(csc, param);
+
+	qDebug() << "########### START VERIFY" << getIntName();
+	int i = X509_verify_cert(csc);
+	for (int cert_error : errors) {
+		qDebug() << "VERIFY_CB" << getIntName() << cert_error
+			<< get_ossl_verify_error(cert_error)
+			<< X509_verify_cert_error_string(cert_error);
+	}
+	qDebug() << "########### END VERIFY" << getIntName() << i;
+
+	X509_STORE_CTX_free(csc);
+	sk_X509_free(untrusted);
+	sk_X509_free(trusted);
+
+	pki_ign_openssl_error();
+	return errors;
+}
+
+QList<X509_PURPOSE *> pki_x509::purposes() const
+{
+	QList<X509_PURPOSE *> purposes;
+	for (int i = 0; i< X509_PURPOSE_get_count(); i++) {
+		X509_PURPOSE *purp = X509_PURPOSE_get0(i);
+		int id = X509_PURPOSE_get_id(purp);
+		if (id == X509_PURPOSE_ANY)
+			continue;
+		Q_CHECK_PTR(purp);
+		int r = X509_check_purpose(cert, id, 0);
+		qDebug() << "Purpose" << i << X509_PURPOSE_get0_name(purp) << isCA() << r;
+		if (r)
+			purposes << purp;
+	}
+	return purposes;
 }

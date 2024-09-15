@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>535</width>
-    <height>498</height>
+    <width>712</width>
+    <height>502</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -73,7 +73,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="unnamed">
+     <widget class="QWidget" name="statusTab">
       <attribute name="title">
        <string>Status</string>
       </attribute>
@@ -278,7 +278,16 @@
           <string>Validity</string>
          </property>
          <layout class="QHBoxLayout">
-          <property name="margin">
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
            <number>8</number>
           </property>
           <item>
@@ -323,12 +332,21 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="unnamed_1">
+     <widget class="QWidget" name="subjectTab">
       <attribute name="title">
        <string>Subject</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>11</number>
+       </property>
+       <property name="topMargin">
+        <number>11</number>
+       </property>
+       <property name="rightMargin">
+        <number>11</number>
+       </property>
+       <property name="bottomMargin">
         <number>11</number>
        </property>
        <item>
@@ -336,12 +354,21 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="issuerTab">
       <attribute name="title">
        <string>Issuer</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>11</number>
+       </property>
+       <property name="topMargin">
+        <number>11</number>
+       </property>
+       <property name="rightMargin">
+        <number>11</number>
+       </property>
+       <property name="bottomMargin">
         <number>11</number>
        </property>
        <item>
@@ -349,7 +376,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="attributesTab">
       <attribute name="title">
        <string>Attributes</string>
       </attribute>
@@ -359,7 +386,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="unnamed_2">
+     <widget class="QWidget" name="extensionsTab">
       <attribute name="title">
        <string>Extensions</string>
       </attribute>
@@ -376,6 +403,37 @@
          <property name="text">
           <string>Show config</string>
          </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="validationTab">
+      <attribute name="title">
+       <string>Validation</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Purposes</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <widget class="QListWidget" name="purposeList"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Strict RFC 5280 validation</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <item>
+           <widget class="QTextEdit" name="validation"/>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

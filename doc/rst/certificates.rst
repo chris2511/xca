@@ -1,5 +1,4 @@
 
-.. index:: certdetail (certdetail)
 .. _certificates:
 
 X.509 Certificates
@@ -58,11 +57,13 @@ to be signed.
 If a *CA certificate* is selected in the certificate list, this
 certificate will be preselected as issuing certificate.
 
+.. index:: certdetail (certdetail)
+
 Certificate details
 -------------------
 
-The signer is the internal name of the issuers certificate,
-*SELF SIGNED* if it is self signed or *SIGNER UNKNOWN* if the issuer's
+The signer is the internal name of the issuers certificate in the database.
+Or *SELF SIGNED* if it is self signed or *SIGNER UNKNOWN* if the issuer's
 certificate is not available.
 The validity is set to *valid* if the certificate's dates are valid
 or to *Not valid* if they are not, compared to the internal
@@ -72,6 +73,18 @@ If the certificate is revoked, the revocation date will be shown instead.
 
 On the *Subject* and *Issuer* tab the distinguished name is
 also displayed in a format defined in RFC2253 for copy&paste.
+
+Certificate validation
+^^^^^^^^^^^^^^^^^^^^^^
+
+For end entity certificates an OpenSSL certificate validation and purpose checking is executed
+and the result is shown in the *Validation* tab.
+The Error codes and their meaning can be found in the
+`OpenSSL documentation <https://docs.openssl.org/master/man3/X509_STORE_CTX_get_error/#error-codes>`_
+or explained in more detail at https://x509errors.org/.
+XCA also displays the internal OpenSSL error keyword for a better lookup.
+
+The certificate purpose is described here: https://docs.openssl.org/master/man3/X509_check_purpose
 
 .. index:: certexport (certexport)
 
