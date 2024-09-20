@@ -69,6 +69,8 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		void setupExplicitDN(NIDlist my_dn_nid);
 		QList<nameEdit> setupExplicitInputs(NIDlist nid_list,
 				QWidget *parent, QWidget *old, int columns);
+	protected:
+		void updateNameComment();
 
 	public:
 		NewX509(QWidget *w = nullptr);
@@ -77,7 +79,6 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		void setRequest(); // reduce to request form
 		void setTemp(pki_temp *temp); // reduce to template form
 		void setCert(); // reduce to certificate form
-		void disableAllButNameComment();
 		void toTemplate(pki_temp *temp);
 		void fromTemplate(pki_temp *temp);
 		void defineTemplate(pki_temp *temp);

@@ -383,16 +383,6 @@ void NewX509::setTemp(pki_temp *temp)
 	connect_pki(temp);
 }
 
-void NewX509::disableAllButNameComment()
-{
-	tab_0->setEnabled(false);
-	tab_2->setEnabled(false);
-	tab_3->setEnabled(false);
-	tab_4->setEnabled(false);
-	distNameBox->setEnabled(false);
-	privKeyBox->setEnabled(false);
-}
-
 /* Initialize dialog for Certificate creation */
 void NewX509::setCert()
 {
@@ -565,8 +555,17 @@ void NewX509::fromTemplate(pki_temp *temp)
 	extensionsFromTemplate(temp);
 }
 
+void NewX509::updateNameComment()
+{
+	// If we display a template, import all changes to the template
+	pki_temp *temp = dynamic_cast<pki_temp*>(pki);
+	toTemplate(temp);
+}
+
 void NewX509::toTemplate(pki_temp *temp)
 {
+	if (!temp)
+		return;
 	temp->setIntName(description->text());
 	temp->setSubject(getX509name());
 
@@ -1486,7 +1485,6 @@ void NewX509::showTemp(QWidget *parent, pki_temp *x)
 		return;
 	NewX509 *dlg = new NewX509(parent);
 	dlg->setTemp(x);
-	dlg->disableAllButNameComment();
 	dlg->exec();
 	delete dlg;
 }

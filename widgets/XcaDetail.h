@@ -21,7 +21,7 @@ class XcaDetail: public QDialog
 		pki_base *pki{};
 		ImportMulti *importmulti{};
 		QPushButton *importbut{};
-		void updateNameComment();
+		virtual void updateNameComment();
 
 	public:
 		XcaDetail(QWidget *w);
