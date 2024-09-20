@@ -270,6 +270,8 @@ void pki_x509name::autoIntName(const QString &file)
 	pki_base::autoIntName(file);
 	if (!name.isEmpty())
 		setIntName(name);
+	if (getIntName().isEmpty())
+		setIntName("Pasted");
 }
 
 QVariant pki_x509name::column_data(const dbheader *hd) const

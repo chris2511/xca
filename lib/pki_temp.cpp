@@ -376,21 +376,18 @@ void pki_temp::old_fromData(const unsigned char *p, int size, int version)
 
 QByteArray pki_temp::toData(bool for_export) const
 {
-	QByteArray ba;
-
-	ba += xname.i2d();
+	QByteArray ba(xname.i2d());
 
 	QBuffer buf(&ba);
 	buf.open(QIODevice::WriteOnly | QIODevice::Append);
 	QDataStream out(&buf);
 	out.setVersion(TEMPLATE_DS_VERSION);
+	QMap<QString, QString> export_settings = settings;
 	if (for_export) {
-		out << QMap<QString, QString>{
-			{ "internal_name", getIntName() },
-			{ "internal_comment", getComment() }
-		};
+		export_settings["internal_name"] = getIntName();
+		export_settings["internal_comment"] = getComment();
 	}
-	out << settings;
+	out << export_settings;
 	buf.close();
 	return ba;
 }
@@ -407,7 +404,7 @@ void pki_temp::fromData(QByteArray &ba, int version)
 	translate["eKyUseCritical"] = "ekuCritical";
 	translate["keyUseCritical"] ="kuCritical";
 
-	foreach(QString key, translate.keys()) {
+	for (const QString &key : translate.keys()) {
 		if (settings.contains(key))
 			settings[translate[key]] = settings.take(key);
 	}
