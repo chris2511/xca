@@ -872,7 +872,7 @@ void NewX509::setX509name(const x509name &n)
 		ne.edit->setText("");
 	}
 
-	if (Settings["adapt_explicit_subject"]) {
+	if (Settings["adapt_explicit_subj"]) {
 		NIDlist mydn;
 		for (int i=0; i< n.entryCount(); i++)
 			mydn << n.nid(i);
