@@ -159,14 +159,22 @@ void *d2i_bytearray(void *(*d2i)(void *, unsigned char **, long),
 	return ret;
 }
 
+static int __ecb(const char *st, size_t len, void *u)
+{
+	QByteArray *ba = (QByteArray *)u;
+	ba->append(st, len);
+	return 1;
+}
+
 void _openssl_error(const QString &txt, const char *file, int line)
 {
 	QString error;
+	QByteArray ba;
 
-	while (int i = ERR_get_error() ) {
-		error += QString(ERR_error_string(i, NULL)) + "\n";
+	ERR_print_errors_cb(__ecb, &ba);
+	if (!ba.isEmpty()) {
 		fputs(CCHAR(QString("OpenSSL error (%1:%2) : %3\n").
-			arg(file).arg(line).arg(ERR_error_string(i, NULL))),
+			arg(file).arg(line).arg(QString::fromLatin1(ba))),
 			stderr);
 	}
 	if (!error.isEmpty()) {
