@@ -444,6 +444,7 @@ QString pki_key::BN2QString(const BIGNUM *bn) const
 	QByteArray hex, ba = BioByteArray(bn);
 	for(int i = 0; i<ba.size(); i += 16)
 		hex += ba.mid(i, 16).toHex(':') + '\n';
+	hex.chop(1);
 	return QString::fromLatin1(hex);
 }
 
