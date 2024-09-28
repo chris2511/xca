@@ -191,7 +191,7 @@ pki_x509 *pki_x509::findIssuer()
 	q.exec();
 	while (q.next()) {
 		pki_x509 *an_issuer = Store.lookupPki<pki_x509>(q.value(0));
-		qDebug() << "Possibvle Issuer of" << *this << *an_issuer << an_issuer->getNotAfter();
+		qDebug() << "Possible Issuer of" << *this << *an_issuer << an_issuer->getNotAfter();
 		if (!an_issuer) {
 			qDebug("Certificate with id %d not found", q.value(0).toInt());
 			continue;
@@ -762,21 +762,7 @@ bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 
 bool pki_x509::verify_only(const pki_x509 *signer) const
 {
-	const X509_NAME *subject = X509_get_subject_name(signer->cert);
-	const X509_NAME *issuer = X509_get_issuer_name(cert);
-	pki_openssl_error();
-	if (X509_NAME_cmp(subject, issuer)) {
-		return false;
-	}
-	EVP_PKEY *pub = X509_get_pubkey(signer->cert);
-	if (!pub) {
-		pki_ign_openssl_error();
-		return false;
-	}
-	int i = X509_verify(cert, pub);
-	EVP_PKEY_free(pub);
-	pki_ign_openssl_error();
-	return i>0;
+	return X509_check_issued(signer->getCert(), cert) == X509_V_OK;
 }
 
 bool pki_x509::verify(pki_x509 *signer)
