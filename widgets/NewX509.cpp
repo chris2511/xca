@@ -36,6 +36,7 @@
 #include "lib/db_temp.h"
 #include "lib/oid.h"
 #include "lib/func.h"
+#include "lib/pki_evp.h"
 
 void NewX509::setupExplicitDN(NIDlist my_dn_nid = NIDlist())
 {
@@ -932,6 +933,8 @@ void NewX509::setupTmpCtx()
 		ctx_cert->setIssuer(ctx_cert->getSubject());
 	}
 	ctx_cert->setSerial(serial);
+	ctx_cert->setNotBefore(notBefore->getDate());
+	ctx_cert->setNotAfter(notAfter->getDate());
 	initCtx(ctx_cert, signcert, req);
 }
 
@@ -1474,6 +1477,40 @@ void NewX509::accept()
 				return;
 			case QMessageBox::Apply:
 				break;
+		}
+	}
+	if (foreignSignRB->isChecked()) {
+		setupTmpCtx();
+		// Update SAN and BC of ctx_cert
+		getBasicConstraints();
+		getSubAltName();
+		for (pki_x509 *crt = getSelectedSigner(), *oldcrt = nullptr;
+			crt && crt != oldcrt;
+			oldcrt = crt, crt = crt->getSigner())
+		{
+			int rc = ctx_cert->name_constraint_check(crt);
+			qDebug() << ctx_cert->getIntName() << "Issuer"
+			         << crt->getIntName()<< get_ossl_verify_error(rc);
+			if (rc == X509_V_OK)
+				continue;
+			gotoTab(2);
+			xcaWarningBox msg(this, tr("A name constraint of the issuer '%1' is violated: %2")
+				.arg(crt->getIntName()).arg(get_ossl_verify_error(rc)));
+			msg.setInformativeText(crt->getExtByNid(NID_name_constraints).getValue());
+			msg.addButton(QMessageBox::Ok, tr("Edit extensions"));
+			msg.addButton(QMessageBox::Close, tr("Abort rollout"));
+			msg.addButton(QMessageBox::Apply, tr("Continue rollout"));
+			switch (msg.exec())
+			{
+				case QMessageBox::Ok:
+				case QMessageBox::Cancel:
+					return;
+				case QMessageBox::Close:
+					reject();
+					return;
+				case QMessageBox::Apply:
+					break;
+			}
 		}
 	}
 	XcaDetail::accept();

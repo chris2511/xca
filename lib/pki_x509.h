@@ -170,6 +170,7 @@ class pki_x509 : public pki_x509super
 		QList<int> ossl_verify() const;
 		bool check_ca() const;
 		QList<X509_PURPOSE *> purposes() const;
+		int name_constraint_check(pki_x509 *issuer) const;
 };
 
 Q_DECLARE_METATYPE(pki_x509 *);

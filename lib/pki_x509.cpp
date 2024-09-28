@@ -18,8 +18,9 @@
 #include "pass_info.h"
 
 #include <openssl/rand.h>
-#include <openssl/x509_vfy.h>
 #include <openssl/err.h>
+#include <openssl/x509_vfy.h>
+#include <openssl/x509v3.h>
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super(), cert(c)
@@ -1241,4 +1242,28 @@ QList<X509_PURPOSE *> pki_x509::purposes() const
 			purposes << purp;
 	}
 	return purposes;
+}
+
+int pki_x509::name_constraint_check(pki_x509 *issuer) const
+{
+	int rc = X509_V_OK;
+
+	if (!issuer || issuer == this)
+		return rc;
+
+	x509v3ext e = issuer->getExtByNid(NID_name_constraints);
+	if (e.nid() != NID_name_constraints)
+		return rc;
+
+	NAME_CONSTRAINTS *nc = (NAME_CONSTRAINTS *)e.d2i();
+	Q_CHECK_PTR(nc);
+	rc = NAME_CONSTRAINTS_check(cert, nc);
+#ifndef LIBRESSL_VERSION_NUMBER
+	if (!isCA() && rc == X509_V_OK)
+		rc = NAME_CONSTRAINTS_check_CN(cert, nc);
+#endif
+	NAME_CONSTRAINTS_free(nc);
+	pki_openssl_error();
+	qDebug() << getIntName() << issuer->getIntName() << get_ossl_verify_error(rc);
+	return rc;
 }
