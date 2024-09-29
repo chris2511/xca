@@ -6198,7 +6198,7 @@ in %2 ein</translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished">JSON Web Key privat</translation>
+        <translation>JSON Web Key privat</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -6208,12 +6208,12 @@ in %2 ein</translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished">JSON Web Key öffentlich</translation>
+        <translation>JSON Web Key öffentlich</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished">Öffentlicher Schlüssel im JSON Web Key Format</translation>
+        <translation>Öffentlicher Schlüssel im JSON Web Key Format</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6292,13 +6292,13 @@ in %2 ein</translation>
         <location line="-644"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Der öffentliche %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
+        <translation>Der öffentliche %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Den öffentlichen %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
             <numerusform>Die %n öffentlichen %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
         </translation>
@@ -6313,7 +6313,7 @@ in %2 ein</translation>
         <location line="+2"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Den privaten %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
             <numerusform>Die %n privaten %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
         </translation>
@@ -6322,7 +6322,7 @@ in %2 ein</translation>
         <location line="+2"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Der private %1 Schlüssel &apos;%2&apos; wurde erfolgreich erstellt</translation>
+        <translation>Der private %1 Schlüssel &apos;%2&apos; wurde erfolgreich erstellt</translation>
     </message>
     <message>
         <location line="+230"/>
@@ -6407,7 +6407,7 @@ in %2 ein</translation>
         <location line="+58"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished">Bitte geben sie das Passwort zur Verschlüsselung des Schlüssels für Zertifikat &apos;%1&apos; in der PKCS#12 Datei:
+        <translation>Bitte geben sie das Passwort zur Verschlüsselung des Schlüssels für Zertifikat &apos;%1&apos; in der PKCS#12 Datei:
 %2 ein</translation>
     </message>
 </context>
@@ -6442,7 +6442,7 @@ in %2 ein</translation>
     <message numerus="yes">
         <location line="-501"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Den Chipkartenschlüssel &apos;%1&apos; löschen?</numerusform>
             <numerusform>Die %n Chipkartenschlüssel &apos;%1&apos; löschen?</numerusform>
         </translation>
@@ -6624,7 +6624,7 @@ in %2 ein</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Das Zertifikat &apos;%1&apos; löschen?</numerusform>
             <numerusform>Die %n Zertifikate &apos;%1&apos; löschen?</numerusform>
         </translation>
@@ -6741,12 +6741,12 @@ Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     <message>
         <location line="+39"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished">Der Zertifikatsantrag &apos;%1&apos; wurde erfolgreich importiert</translation>
+        <translation>Der Zertifikatsantrag &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>Den Zertifikatsantrag &apos;%1&apos; löschen?</numerusform>
             <numerusform>Die %n Zertifikatsanträge &apos;%1&apos; löschen?</numerusform>
         </translation>
@@ -6754,7 +6754,7 @@ Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zertifikatsantrag &apos;%1&apos; wurde erfolgreich erstellt</translation>
     </message>
     <message>
         <location line="+31"/>
