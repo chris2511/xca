@@ -26,13 +26,13 @@
 <context>
     <name>CertDetail</name>
     <message>
+        <location filename="../widgets/CertDetail.cpp" line="+139"/>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+106"/>
         <source>Details of the Certificate</source>
         <translation>証明書の詳細</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location filename="../ui/CertDetail.ui" line="+135"/>
         <source>Serial</source>
         <translation>シリアル番号</translation>
     </message>
@@ -107,7 +107,7 @@
         <translation>有効期限</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>The time since the certificate is valid</source>
         <translation>証明書が有効になってからの時間</translation>
     </message>
@@ -122,38 +122,53 @@
         <translation>サブジェクト</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+22"/>
         <source>Issuer</source>
         <translation>発行者</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Extensions</source>
         <translation>拡張キー</translation>
     </message>
     <message>
         <location line="+21"/>
+        <source>Validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Purposes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Strict RFC 5280 validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Comment</source>
         <translation>コメント</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-62"/>
         <source>Attributes</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-73"/>
+        <location filename="../widgets/CertDetail.cpp" line="-104"/>
+        <location filename="../ui/CertDetail.ui" line="+23"/>
         <source>Show config</source>
         <translation>コンフィグを表示</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+4"/>
+        <location line="+4"/>
         <source>Show extensions</source>
         <translation>拡張キーを表示</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Show public key</source>
         <translation>公開キーを表示</translation>
     </message>
@@ -168,7 +183,12 @@
         <translation>使用不可</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+49"/>
+        <source>No verification errors found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Signer unknown</source>
         <translation>署名者不明</translation>
     </message>
@@ -319,6 +339,11 @@
     <name>CertTreeView</name>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
+        <source>Hide unusable certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Import PKCS#12</source>
         <translation>PKCS#12形式でインポート</translation>
     </message>
@@ -572,7 +597,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+75"/>
+        <location filename="../ui/ExportDialog.ui" line="+76"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
@@ -592,17 +617,27 @@
         <translation>ファイル名</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+31"/>
+        <source>Each Item in a separate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Same encryption password for all items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Export comment into PEM file</source>
         <translation>コメントをPEMファイルにエクスポート</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-20"/>
         <source>Export Format</source>
         <translation>エクスポートフォーマット</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+48"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+53"/>
         <source>All files ( * )</source>
         <translation>All files ( * )</translation>
     </message>
@@ -718,8 +753,15 @@
         <source>Encrypted private key in Microsoft PVK format</source>
         <translation type="vanished">Microsoft PVK形式の暗号化された秘密鍵</translation>
     </message>
+    <message numerus="yes">
+        <location line="-10"/>
+        <source>%n selected item(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location line="+56"/>
+        <location line="+83"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>ファイル「%1 」はすでに存在します!</translation>
     </message>
@@ -732,6 +774,36 @@
         <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>上書きしない</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The path: &apos;%1&apos; exist, but is not a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The path: &apos;%1&apos; exist, but is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create</source>
+        <translation type="unfinished">作成</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished">ディレクトリ &apos;%1&apos; の作成に失敗しました</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Directory</source>
+        <translation type="unfinished">ディレクトリ</translation>
     </message>
 </context>
 <context>
@@ -1175,13 +1247,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>署名リクエスト(&amp;N)</translation>
     </message>
     <message>
-        <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="+146"/>
+        <location filename="../ui/MainWindow.ui" line="+68"/>
         <source>Certificates</source>
         <translation>署名済証明書</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location filename="../ui/MainWindow.ui" line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>新しい証明書を作成(&amp;N)</translation>
     </message>
@@ -1288,7 +1360,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>日本語</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Russian</source>
         <translation>ロシア語</translation>
     </message>
@@ -1303,7 +1380,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>スペイン語</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-11"/>
         <source>Persian</source>
         <translation>ペルシャ語</translation>
     </message>
@@ -1313,12 +1390,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>ブルガリア語</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+22"/>
         <source>Polish</source>
         <translation>ポーランド語</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-8"/>
         <source>Italian</source>
         <translation>イタリア語</translation>
     </message>
@@ -1333,17 +1410,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>オランダ語</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Portuguese in Brazil</source>
         <translation>ポルトガル語(ブラジル)</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Indonesian</source>
         <translation>インドネシア語</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Turkish</source>
         <translation>トルコ語</translation>
     </message>
@@ -1814,7 +1891,7 @@ DHパラメータビットを入力してください</translation>
         <translation>署名リクエスト</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+24"/>
         <source>Show request</source>
         <translation>リクエストを表示</translation>
     </message>
@@ -1834,7 +1911,7 @@ DHパラメータビットを入力してください</translation>
         <translation>証明書署名要求のサブジェクトを変更する</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+32"/>
         <source>Signing</source>
         <translation>署名</translation>
     </message>
@@ -1884,13 +1961,13 @@ DHパラメータビットを入力してください</translation>
         <translation>すべてに適用</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+605"/>
+        <location filename="../widgets/NewX509.cpp" line="+611"/>
+        <location filename="../ui/NewX509.ui" line="+29"/>
         <source>Subject</source>
         <translation>サブジェクト</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location filename="../ui/NewX509.ui" line="+8"/>
         <source>Internal Name</source>
         <translation>内部名</translation>
     </message>
@@ -1980,7 +2057,7 @@ DHパラメータビットを入力してください</translation>
         <translation>機関キー識別子</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>PKIXガイドラインに従って、キーのハッシュを作成します</translation>
     </message>
@@ -1990,7 +2067,7 @@ DHパラメータビットを入力してください</translation>
         <translation>発行者から機関キー識別子をコピーする</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+46"/>
         <source>Validity</source>
         <translation>有効期間</translation>
     </message>
@@ -2025,7 +2102,7 @@ DHパラメータビットを入力してください</translation>
         <translation>年</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>Apply</source>
         <translation>適用</translation>
     </message>
@@ -2040,7 +2117,7 @@ DHパラメータビットを入力してください</translation>
         <translation>深夜時間</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-30"/>
         <source>Local time</source>
         <translation>ローカル時間</translation>
     </message>
@@ -2050,33 +2127,35 @@ DHパラメータビットを入力してください</translation>
         <translation>有効期限が明確に定義されていない</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+17"/>
-        <location line="+69"/>
+        <location line="+77"/>
+        <location line="+43"/>
+        <location line="+23"/>
+        <location line="+29"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-79"/>
-        <location line="+17"/>
-        <location line="+33"/>
-        <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+408"/>
+        <location filename="../widgets/NewX509.cpp" line="+418"/>
+        <location filename="../ui/NewX509.ui" line="-88"/>
+        <location line="+26"/>
+        <location line="+26"/>
+        <location line="+43"/>
+        <location line="+26"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location filename="../ui/NewX509.ui" line="+26"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+10"/>
         <source>Key usage</source>
         <translation>キー使用法</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+138"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
@@ -2086,28 +2165,28 @@ DHパラメータビットを入力してください</translation>
         <translation>詳細設定</translation>
     </message>
     <message>
-        <location line="+24"/>
         <location filename="../widgets/NewX509.cpp" line="+10"/>
+        <location filename="../ui/NewX509.ui" line="+24"/>
         <source>Validate</source>
         <translation>検証</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location filename="../ui/NewX509.ui" line="+23"/>
         <source>Comment</source>
         <translation>コメント</translation>
     </message>
     <message>
-        <location line="-835"/>
+        <location line="-916"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>この名前は内部でのみ使用され、結果の証明書には表示されません</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-751"/>
+        <location filename="../widgets/NewX509.cpp" line="-763"/>
         <source>Critical</source>
         <translation>重要</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Create Certificate signing request</source>
         <translation>証明書署名要求の作成</translation>
     </message>
@@ -2137,12 +2216,12 @@ DHパラメータビットを入力してください</translation>
         <translation>XCA テンプレートの編集</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+15"/>
         <source>Create x509 Certificate</source>
         <translation>x509証明書の作成</translation>
     </message>
     <message>
-        <location line="+378"/>
+        <location line="+388"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>テンプレート「%1 」が適用されました</translation>
     </message>
@@ -2162,7 +2241,7 @@ DHパラメータビットを入力してください</translation>
         <translation>新しい秘密鍵「%1」が作成されました</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+252"/>
         <source>Other Tabs</source>
         <translation>その他のタブ</translation>
     </message>
@@ -2193,6 +2272,11 @@ DHパラメータビットを入力してください</translation>
     </message>
     <message>
         <location line="+9"/>
+        <source>The Name Constraints are invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>The Subject Alternative Name is invalid</source>
         <translation>Subject Alternative Name が無効です</translation>
     </message>
@@ -2212,7 +2296,7 @@ DHパラメータビットを入力してください</translation>
         <translation>Authority Information Access が無効です</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+111"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2224,11 +2308,12 @@ DHパラメータビットを入力してください</translation>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Abort rollout</source>
         <translation>展開の注視</translation>
     </message>
     <message>
-        <location line="-219"/>
+        <location line="-252"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>RFC3280の次の長さ制限に違反しています:</translation>
     </message>
@@ -2246,11 +2331,12 @@ DHパラメータビットを入力してください</translation>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Continue rollout</source>
         <translation>展開を続ける</translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-232"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>証明書要求の検証に失敗しました。
@@ -2368,16 +2454,22 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+7"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Edit extensions</source>
         <translation>拡張キーの編集</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-34"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>サブジェクト代替名は、コモンネームのコピーを含む。ただし、コモンネームは空です。</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
+        <location line="+31"/>
+        <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
         <source>Configfile error on line %1
 </source>
         <translation>%1行目のコンフィグエラー
@@ -2456,13 +2548,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>パスワード</translation>
     </message>
     <message>
-        <location line="+14"/>
         <location filename="../widgets/OpenDb.cpp" line="+57"/>
+        <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Database name</source>
         <translation>データベース名</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../ui/OpenDb.ui" line="+10"/>
         <source>Table prefix</source>
         <translation>テーブルプレフィクス</translation>
     </message>
@@ -2615,7 +2707,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+35"/>
+        <location filename="../widgets/Options.cpp" line="+36"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>印刷可能な文字列またはUTF8(デフォルト)</translation>
     </message>
@@ -3002,12 +3094,12 @@ In library %3
         <translation>%1は%2バイトを超えています:&apos;%3</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+103"/>
+        <location filename="../lib/x509v3ext.cpp" line="+112"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>「%2 」の文字列「%1 」に無効な文字が含まれています</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+48"/>
+        <location filename="../lib/oid.cpp" line="+58"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>%2行目の構成ファイル%1の読み取り中にエラーが発生しました</translation>
     </message>
@@ -3032,7 +3124,7 @@ In library %3
         <translation>データベーストランザクションを開始できませんでした</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="+224"/>
+        <location filename="../lib/func_base.cpp" line="+244"/>
         <source>Country code</source>
         <translation>Country code</translation>
     </message>
@@ -3143,6 +3235,11 @@ In library %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Name Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Subject alternative name</source>
         <translation>Subject alternative name</translation>
     </message>
@@ -3222,7 +3319,7 @@ In library %3
         <translation>Comment</translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="+163"/>
+        <location filename="../lib/cmdline.cpp" line="+166"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>インデックス・ファイルを&apos;%1&apos;に書き込みました</translation>
     </message>
@@ -3235,6 +3332,11 @@ In library %3
         <location line="+13"/>
         <source>Unknown key type %1</source>
         <translation>不明な鍵タイプ %1</translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Failed to write PEM data to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3257,7 +3359,7 @@ In library %3
         <translation>パスワード</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+217"/>
         <source>insecure</source>
         <translation>安全でない</translation>
     </message>
@@ -3404,7 +3506,7 @@ In library %3
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+76"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>PKCS#11ライブラリには、次のファイルがあります</translation>
     </message>
@@ -3463,29 +3565,24 @@ In library %3
 <context>
     <name>TrustState</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation>証明書の信頼</translation>
+        <translation type="vanished">証明書の信頼</translation>
     </message>
     <message>
-        <location line="+60"/>
         <source>Trustment</source>
-        <translation>信頼</translation>
+        <translation type="vanished">信頼</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation>この証明書を信用しない(&amp;N)</translation>
+        <translation type="vanished">この証明書を信用しない(&amp;N)</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation>署名者を信頼できる場合のみ、この証明書を信頼する。(&amp;T)</translation>
+        <translation type="vanished">署名者を信頼できる場合のみ、この証明書を信頼する。(&amp;T)</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation>この証明書を常に信頼する(&amp;A)</translation>
+        <translation type="vanished">この証明書を常に信頼する(&amp;A)</translation>
     </message>
 </context>
 <context>
@@ -3550,7 +3647,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+332"/>
         <source>Item properties</source>
         <translation>アイテムのプロパティ</translation>
     </message>
@@ -3595,7 +3692,21 @@ In library %3
         <translation>項目</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+57"/>
+        <source>Export Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Please enter the password to encrypt all %n exported private key(s) in:
+%1</source>
+        <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>New</source>
         <translation>新規</translation>
     </message>
@@ -3630,12 +3741,12 @@ In library %3
         <translation>エクスポート</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Clipboard</source>
         <translation>クリップボード</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>File</source>
         <translation>ファイル</translation>
     </message>
@@ -3987,12 +4098,11 @@ and will be completed by the new, private part of the key</source>
         <translation type="vanished">Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</translation>
     </message>
     <message>
-        <location line="+82"/>
         <source>Internal error</source>
-        <translation>内部エラー</translation>
+        <translation type="vanished">内部エラー</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+124"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translation>内部キーの更新: プライベート・パスワードをリセットして設定することで、キー %1 を一度更新する必要があります。</translation>
     </message>
@@ -4206,18 +4316,18 @@ and so it was not imported</source>
         <translation type="vanished">X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
-        <location line="+106"/>
-        <location line="+54"/>
+        <location line="+96"/>
+        <location line="+86"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>証明書&apos;%1&apos;のキーが見つかりませんでした</translation>
     </message>
     <message>
-        <location line="-51"/>
+        <location line="-83"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>トークンキー&apos;%1&apos;は使用できません</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+87"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>トークンキー証明書&apos;%1&apos;は使用できません</translation>
     </message>
@@ -4458,19 +4568,17 @@ and thus was not stored</source>
         <translation>失効リスト&apos;%1&apos;が正常にインポートされました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation>失効リスト&apos;%1&apos;を削除しますか?</translation>
+        <translation type="vanished">失効リスト&apos;%1&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>失効リスト&apos;%1&apos;が正常に作成されました</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 revocation lists: %2?</source>
-        <translation>%1失効リストを削除しますか:%2?</translation>
+        <translation type="vanished">%1失効リストを削除しますか:%2?</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -4486,8 +4594,15 @@ and thus was not stored</source>
         <source>Wrong Size %1</source>
         <translation type="vanished">サイズ%1が間違っています</translation>
     </message>
+    <message numerus="yes">
+        <location line="-100"/>
+        <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location line="+261"/>
+        <location line="+361"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation>CA「%1」のCRL更新期限</translation>
     </message>
@@ -4522,7 +4637,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation type="vanished">秘密鍵を解読するためのパスワードを入力してください。</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <location filename="../lib/pki_evp.cpp" line="+240"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>秘密鍵 %1 を復号化するためのパスワードを入力してください。</translation>
     </message>
@@ -4579,34 +4694,52 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>キーを暗号化するためのデータベースパスワードを入力してください</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+182"/>
+        <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Please enter the password to protect the private key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation>PKCS#8キー&apos;%1&apos;を保護するパスワードを入力してください</translation>
+        <translation type="vanished">PKCS#8キー&apos;%1&apos;を保護するパスワードを入力してください</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation>Microsoft PVKキー&apos;%1&apos;を保護するパスワードを入力してください</translation>
+        <translation type="vanished">Microsoft PVKキー&apos;%1&apos;を保護するパスワードを入力してください</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
-        <translation>秘密鍵&apos;%1&apos;のエクスポートパスワードを入力してください</translation>
+        <translation type="vanished">秘密鍵&apos;%1&apos;のエクスポートパスワードを入力してください</translation>
     </message>
 </context>
 <context>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+29"/>
+        <location line="+35"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>ヘッダ付きPEMテキスト形式</translation>
     </message>
     <message>
-        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation>1つのPEMテキストファイルで選択されたすべての項目を連結したリスト</translation>
+        <translation type="vanished">1つのPEMテキストファイルで選択されたすべての項目を連結したリスト</translation>
+    </message>
+    <message>
+        <location line="-38"/>
+        <source>PEM selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenated list of all selected certificates in one PEM text file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4640,6 +4773,16 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>All unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenation of all expired or revoked certificates in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>PKCS#7でエンコードされた単一の証明書</translation>
     </message>
@@ -4657,6 +4800,16 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>PKCS#7エンコードされた完全な証明書チェーン</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #7 unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4695,12 +4848,12 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+22"/>
+        <location line="+26"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-22"/>
+        <location line="-26"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>選択したアイテムのvCalendar有効期限リマインダ</translation>
     </message>
@@ -4716,18 +4869,18 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+16"/>
+        <location line="+20"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL コンフィグ</translation>
     </message>
     <message>
-        <location line="-16"/>
-        <location line="+16"/>
+        <location line="-20"/>
+        <location line="+20"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation>OpenSSLコマンドラインツールを使って証明書またはリクエストを作成するためのOpenSSL設定ファイル</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-19"/>
         <source>OpenVPN tls-auth key</source>
         <translation>OpenVPN tls-auth key</translation>
     </message>
@@ -4735,6 +4888,26 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
         <translation>OpenVPN tls-auth key はエンドポイント間で共有される秘密鍵です</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4813,6 +4986,16 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>Microsoft PVK形式の秘密鍵は暗号化されていません</translation>
     </message>
     <message>
+        <location line="+14"/>
+        <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>PVK encrypted</source>
         <translation type="vanished">PVK暗号化</translation>
     </message>
@@ -4821,7 +5004,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation type="vanished">Microsoft PVK形式の暗号化された秘密鍵</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-14"/>
         <source>PKCS #8 encrypted</source>
         <translation>PKCS #8 暗号化</translation>
     </message>
@@ -4841,6 +5024,26 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>PKCS#8テキスト形式の暗号化されていない非公開キー</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>JSON Web Key private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Key public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Public key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
         <translation>証明書要求のバイナリ DER フォーマット</translation>
@@ -4856,57 +5059,83 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>vCRL有効期限のカレンダーリマインダー</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation>PEMライクフォーマットのXCAテンプレート</translation>
+        <translation type="vanished">PEMライクフォーマットのXCAテンプレート</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation>選択されたすべてのXCAテンプレートはPEMライクフォーマットです</translation>
+        <translation type="vanished">選択されたすべてのXCAテンプレートはPEMライクフォーマットです</translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation>%1公開キー&apos;%2&apos;のインポートに成功しました</translation>
+        <translation type="vanished">%1公開キー&apos;%2&apos;のインポートに成功しました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation>%1公開キー&apos;%2&apos;を削除しますか?</translation>
+        <translation type="vanished">%1公開キー&apos;%2&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation>%1秘密鍵&apos;%2&apos;のインポートに成功しました</translation>
+        <translation type="vanished">%1秘密鍵&apos;%2&apos;のインポートに成功しました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation>%1形式の秘密鍵&apos;%2&apos;を削除しますか?</translation>
+        <translation type="vanished">%1形式の秘密鍵&apos;%2&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation>%1形式の秘密鍵&apos;%2&apos;の作成に成功しました</translation>
+        <translation type="vanished">%1形式の秘密鍵&apos;%2&apos;の作成に成功しました</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>%1キーを削除しますか:%2?</translation>
+        <translation type="vanished">%1キーを削除しますか:%2?</translation>
     </message>
     <message>
-        <location line="-158"/>
-        <location line="+167"/>
-        <location line="+649"/>
+        <location filename="../lib/pki_key.cpp" line="+59"/>
+        <location line="+177"/>
+        <location line="+620"/>
         <source>Public key</source>
         <translation>公開キー</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-644"/>
+        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1公開キー&apos;%2&apos;のインポートに成功しました</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1秘密鍵&apos;%2&apos;のインポートに成功しました</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Successfully created the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1形式の秘密鍵&apos;%2&apos;の作成に成功しました</translation>
+    </message>
+    <message>
+        <location line="+230"/>
         <source>Common</source>
         <translation>共通</translation>
     </message>
@@ -4943,7 +5172,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>無効なSSH2公開キーです</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+191"/>
         <source>Failed writing to %1</source>
         <translation>%1への書き込みに失敗しました</translation>
     </message>
@@ -4959,7 +5188,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-180"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>PKCS#12ファイルを復号化するためのパスワードを入力してください:
@@ -4976,12 +5205,17 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>指定されたパスワードが間違っています(%1)</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation>PKCS#12ファイルを暗号化するためのパスワードを入力してください</translation>
+        <location line="+58"/>
+        <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
+%2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <translation type="vanished">PKCS#12ファイルを暗号化するためのパスワードを入力してください</translation>
+    </message>
+    <message>
+        <location line="-3"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>キーまたはCertがないか、pkcs12がありません</translation>
     </message>
@@ -5002,22 +5236,27 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>トークンキー&apos;%1&apos;が正常にインポートされました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the token key &apos;%1&apos;?</source>
-        <translation>トークンキー&apos;%1&apos;を削除しますか?</translation>
+        <translation type="vanished">トークンキー&apos;%1&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>トークンキー&apos;%1&apos;が正常に作成されました</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>%1キーを削除しますか:%2?</translation>
+        <translation type="vanished">%1キーを削除しますか:%2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n token key(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+328"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>トークン「%2(#%3) 」から秘密鍵「%1」を削除しますか?</translation>
     </message>
@@ -5088,32 +5327,37 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+106"/>
+        <location filename="../lib/pki_temp.cpp" line="+107"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>XCAテンプレート&apos;%1&apos;が正常にインポートされました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation>XCAテンプレート&apos;%1&apos;を削除しますか?</translation>
+        <translation type="vanished">XCAテンプレート&apos;%1&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>XCAテンプレート&apos;%1&apos;が正常に作成されました</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation>%1XCAテンプレートを削除しますか:%2?</translation>
+        <translation type="vanished">%1XCAテンプレートを削除しますか:%2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+213"/>
         <source>Wrong Size %1</source>
         <translation>サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+98"/>
         <source>Template file content error (too small)</source>
         <translation>テンプレートファイルのコンテンツエラー(小さすぎる)</translation>
     </message>
@@ -5123,7 +5367,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>PEMエンコードされたXCAテンプレートではありません</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>XCAテンプレートではありませんが&apos;%1&apos;</translation>
     </message>
@@ -5131,27 +5375,32 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+65"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>証明書&apos;%1&apos;が正常にインポートされました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation>証明書&apos;%1&apos;を削除しますか?</translation>
+        <translation type="vanished">証明書&apos;%1&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>証明書&apos;%1&apos;が正常に作成されました</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificates: %2?</source>
-        <translation>%1証明書を削除しますか:%2?</translation>
+        <translation type="vanished">%1証明書を削除しますか:%2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+171"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>ファイル%1の証明書を読み込めません。PEMおよびDER証明書を試しました。</translation>
     </message>
@@ -5191,7 +5440,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation>トークン&apos;%2(#%3)&apos;から証明書「%1 」を削除しますか?</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+124"/>
         <source>There is no key for signing !</source>
         <translation>署名用のキーがありません!</translation>
     </message>
@@ -5200,7 +5449,7 @@ XCAデータベース&apos;%5&apos;に保存されています</translation>
         <translation type="vanished">サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location line="+312"/>
         <source>No</source>
         <translation>いいえ</translation>
     </message>
@@ -5230,27 +5479,23 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation>署名キーが無効です(公開キー)</translation>
     </message>
     <message>
-        <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation>%1証明書要求&apos;%2&apos;が正常にインポートされました</translation>
+        <translation type="vanished">%1証明書要求&apos;%2&apos;が正常にインポートされました</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation>%1証明書要求&apos;%2&apos;を削除しますか?</translation>
+        <translation type="vanished">%1証明書要求&apos;%2&apos;を削除しますか?</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation>%1証明書要求&apos;%2&apos;が正常に作成されました</translation>
+        <translation type="vanished">%1証明書要求&apos;%2&apos;が正常に作成されました</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificate requests: %2?</source>
-        <translation>%1証明書要求を削除しますか:%2?</translation>
+        <translation type="vanished">%1証明書要求を削除しますか:%2?</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+72"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>ファイル%1の証明書要求を読み込めません。PEM、DER、およびSPKAC形式を試しました。</translation>
     </message>
@@ -5259,7 +5504,24 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation type="vanished">サイズ%1が間違っています</translation>
     </message>
     <message>
-        <location line="+186"/>
+        <location line="-33"/>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+217"/>
         <source>Signed</source>
         <translation>署名済み</translation>
     </message>

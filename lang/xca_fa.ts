@@ -26,13 +26,13 @@
 <context>
     <name>CertDetail</name>
     <message>
+        <location filename="../widgets/CertDetail.cpp" line="+139"/>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+106"/>
         <source>Details of the Certificate</source>
         <translation>جزئیات گواهی</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location filename="../ui/CertDetail.ui" line="+135"/>
         <source>Serial</source>
         <translation>شماره‌ی دنباله</translation>
     </message>
@@ -108,7 +108,7 @@
         <translation>اعتبار</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>The time since the certificate is valid</source>
         <translation>زمانی که گواهی معتبر می‌شود</translation>
     </message>
@@ -123,38 +123,53 @@
         <translation>پذیرنده</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+22"/>
         <source>Issuer</source>
         <translation>صادرکننده</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Extensions</source>
         <translation>افزونه‌ها</translation>
     </message>
     <message>
         <location line="+21"/>
+        <source>Validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Purposes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Strict RFC 5280 validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Comment</source>
         <translation>دیدگاه‌ها</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-62"/>
         <source>Attributes</source>
         <translation>مشخصه‌ها</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-73"/>
+        <location filename="../widgets/CertDetail.cpp" line="-104"/>
+        <location filename="../ui/CertDetail.ui" line="+23"/>
         <source>Show config</source>
         <translation>نمایش پیکربندی‌</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+4"/>
+        <location line="+4"/>
         <source>Show extensions</source>
         <translation>نمایش افزونه‌ها</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Show public key</source>
         <translation>نمایش کلید عمومی</translation>
     </message>
@@ -169,7 +184,12 @@
         <translation>غیر قابل دسترسی</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+49"/>
+        <source>No verification errors found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Signer unknown</source>
         <translation>امضاکننده‌ی ناشناس</translation>
     </message>
@@ -320,6 +340,11 @@
     <name>CertTreeView</name>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
+        <source>Hide unusable certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Import PKCS#12</source>
         <translation>درون داد PKCS#12</translation>
     </message>
@@ -574,7 +599,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+75"/>
+        <location filename="../ui/ExportDialog.ui" line="+76"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -598,22 +623,39 @@
         </translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+31"/>
+        <source>Each Item in a separate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Same encryption password for all items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Export comment into PEM file</source>
         <translation>برون‌داد دیدگاه در پرونده PEM</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-20"/>
         <source>Export Format</source>
         <translation>قالب برون‌داد</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../widgets/ExportDialog.cpp" line="+43"/>
+        <source>%n selected item(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+48"/>
+        <location line="+10"/>
         <source>All files ( * )</source>
         <translation>همه‌ی پرونده‌ها (*)</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+73"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>پرونده‌ی %1 در حال حاضر موجود می‌باشد!</translation>
     </message>
@@ -626,6 +668,36 @@
         <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>بدون بازنویسی</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The path: &apos;%1&apos; exist, but is not a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The path: &apos;%1&apos; exist, but is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create</source>
+        <translation type="unfinished">ساختن</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished">ساخت پوشه‌ی &apos;%1&apos; با خطا مواجه شد</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Directory</source>
+        <translation type="unfinished">مسیر پوشه</translation>
     </message>
     <message>
         <source>PEM Text format with headers</source>
@@ -1182,13 +1254,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;درخواست جدید</translation>
     </message>
     <message>
-        <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="+146"/>
+        <location filename="../ui/MainWindow.ui" line="+68"/>
         <source>Certificates</source>
         <translation>گواهی</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location filename="../ui/MainWindow.ui" line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;گواهی جدید</translation>
     </message>
@@ -1279,7 +1351,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>ژاپنی</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Russian</source>
         <translation>روسی</translation>
     </message>
@@ -1294,7 +1371,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>اسپانیایی</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-11"/>
         <source>Persian</source>
         <translation>فارسی</translation>
     </message>
@@ -1304,12 +1381,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>بلغاری</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+22"/>
         <source>Polish</source>
         <translation>لهستانی</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-8"/>
         <source>Italian</source>
         <translation>ایتالیایی</translation>
     </message>
@@ -1324,17 +1401,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>هلندی</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Portuguese in Brazil</source>
         <translation>پرتقالی در برزیل</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Indonesian</source>
         <translation>اندونزیایی</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Turkish</source>
         <translation>ترکی</translation>
     </message>
@@ -1822,7 +1899,7 @@ Please enter the DH parameter bits</source>
         <translation>درخواست امضای گواهی</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+24"/>
         <source>Show request</source>
         <translation>نمایش درخواست</translation>
     </message>
@@ -1842,7 +1919,7 @@ Please enter the DH parameter bits</source>
         <translation>ویرایش اطلاعات صاحب گواهی</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+32"/>
         <source>Signing</source>
         <translation>امضا</translation>
     </message>
@@ -1892,13 +1969,13 @@ Please enter the DH parameter bits</source>
         <translation>اعمال همه</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+605"/>
+        <location filename="../widgets/NewX509.cpp" line="+611"/>
+        <location filename="../ui/NewX509.ui" line="+29"/>
         <source>Subject</source>
         <translation>صاحب گواهی</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location filename="../ui/NewX509.ui" line="+8"/>
         <source>Internal Name</source>
         <translation>نام درونی</translation>
     </message>
@@ -1990,7 +2067,7 @@ Please enter the DH parameter bits</source>
         <translation>مشخصه‌ی یکتای کلید</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>این مورد یک چکیده از کلید مطابق شیوه‌های PKIX ایجاد می‌کند</translation>
     </message>
@@ -2000,7 +2077,7 @@ Please enter the DH parameter bits</source>
         <translation>رونوشت از مشخصه‌ی کلید صاحب گواهی صادرکننده</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+46"/>
         <source>Validity</source>
         <translation>اعتبار</translation>
     </message>
@@ -2035,7 +2112,7 @@ Please enter the DH parameter bits</source>
         <translation>سال</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>Apply</source>
         <translation>اعمال</translation>
     </message>
@@ -2050,7 +2127,7 @@ Please enter the DH parameter bits</source>
         <translation>نیمه‌شب</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-30"/>
         <source>Local time</source>
         <translation>زمان محلی</translation>
     </message>
@@ -2060,34 +2137,36 @@ Please enter the DH parameter bits</source>
         <translation>انقضای نامشخص</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+17"/>
-        <location line="+69"/>
+        <location line="+77"/>
+        <location line="+43"/>
+        <location line="+23"/>
+        <location line="+29"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translatorcomment>در این مورد ترجمه‌ای صورت نگرفت.</translatorcomment>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-79"/>
-        <location line="+17"/>
-        <location line="+33"/>
-        <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+408"/>
+        <location filename="../widgets/NewX509.cpp" line="+418"/>
+        <location filename="../ui/NewX509.ui" line="-88"/>
+        <location line="+26"/>
+        <location line="+26"/>
+        <location line="+43"/>
+        <location line="+26"/>
         <source>Edit</source>
         <translation>ویرایش</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location filename="../ui/NewX509.ui" line="+26"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+10"/>
         <source>Key usage</source>
         <translation>کاربرد کلید</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+138"/>
         <source>Netscape</source>
         <translation>نت‌اسکیپ</translation>
     </message>
@@ -2097,28 +2176,28 @@ Please enter the DH parameter bits</source>
         <translation>پیشرفته</translation>
     </message>
     <message>
-        <location line="+24"/>
         <location filename="../widgets/NewX509.cpp" line="+10"/>
+        <location filename="../ui/NewX509.ui" line="+24"/>
         <source>Validate</source>
         <translation>اعتبارسنجی</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location filename="../ui/NewX509.ui" line="+23"/>
         <source>Comment</source>
         <translation>دیدگاه</translation>
     </message>
     <message>
-        <location line="-835"/>
+        <location line="-916"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>این نام تنها به صورت درونی استفاده شده است و در گواهی نهایی ظاهر نمی‌شود</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-751"/>
+        <location filename="../widgets/NewX509.cpp" line="-763"/>
         <source>Critical</source>
         <translation>بحرانی</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Create Certificate signing request</source>
         <translation>ساخت درخواست گواهی امضا‌شده</translation>
     </message>
@@ -2148,12 +2227,12 @@ Please enter the DH parameter bits</source>
         <translation>ویرایش قالب XCA</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+15"/>
         <source>Create x509 Certificate</source>
         <translation>صدور گواهی X509</translation>
     </message>
     <message>
-        <location line="+378"/>
+        <location line="+388"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>قالب %1 اعمال شد</translation>
     </message>
@@ -2173,7 +2252,7 @@ Please enter the DH parameter bits</source>
         <translation>کلید جدید &apos;%1 ساخته شد</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+252"/>
         <source>Other Tabs</source>
         <translation>زبانه‌های دیگر</translation>
     </message>
@@ -2204,6 +2283,11 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+9"/>
+        <source>The Name Constraints are invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>The Subject Alternative Name is invalid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2223,7 +2307,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+111"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2235,11 +2319,12 @@ Please enter the DH parameter bits</source>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Abort rollout</source>
         <translation>در مورد تجدید</translation>
     </message>
     <message>
-        <location line="-219"/>
+        <location line="-252"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>محدودیت‌های طول در RFC3280  نقض شده است:</translation>
     </message>
@@ -2257,11 +2342,12 @@ Please enter the DH parameter bits</source>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Continue rollout</source>
         <translation>ادامه‌ی تجدید</translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-232"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>اعتبارسنجی درخواست گواهی با شکست مواجه شد. فرایند تجدید باید لغو شود.</translation>
@@ -2375,16 +2461,22 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+7"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Edit extensions</source>
         <translation>ویرایش افزونه‌ها</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-34"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>نام جایگزین دارنده باید شامل یک رونوشت از نام عمومی باشد. در هر حال، نام عمومی خالی است.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
+        <location line="+31"/>
+        <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
         <source>Configfile error on line %1
 </source>
         <translation>خطای پرونده‌ی پیکربندی در خط %1
@@ -2463,13 +2555,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>گذرواژه</translation>
     </message>
     <message>
-        <location line="+14"/>
         <location filename="../widgets/OpenDb.cpp" line="+57"/>
+        <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Database name</source>
         <translation>نام پایگاه‌داده</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../ui/OpenDb.ui" line="+10"/>
         <source>Table prefix</source>
         <translation>پیشوند جدول</translation>
     </message>
@@ -2623,7 +2715,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>جست‌وجو</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+35"/>
+        <location filename="../widgets/Options.cpp" line="+36"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>رشته‌ی قابل چاپ یا UTF8 (پیش‌فرض)</translation>
     </message>
@@ -2992,12 +3084,12 @@ In library %3
         <translation>%1 بلندتر از %2 بایت است: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+103"/>
+        <location filename="../lib/x509v3ext.cpp" line="+112"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>رشته‌ی &apos;%1&apos; برای &apos;%2&apos; دارای نویسه‌های نادرست است</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+48"/>
+        <location filename="../lib/oid.cpp" line="+58"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>خطا در خوانش پرونده‌ی پیکربندی %1 در خط %2</translation>
     </message>
@@ -3022,7 +3114,7 @@ In library %3
         <translation>آغاز تراکنش پایگاه داده با شکست مواجه شد</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="+224"/>
+        <location filename="../lib/func_base.cpp" line="+244"/>
         <source>Country code</source>
         <translation>کد کشور</translation>
     </message>
@@ -3133,6 +3225,11 @@ In library %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Name Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Subject alternative name</source>
         <translation>نام جایگزین صاحب گواهی</translation>
     </message>
@@ -3212,7 +3309,7 @@ In library %3
         <translation>دیدگاه</translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="+163"/>
+        <location filename="../lib/cmdline.cpp" line="+166"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>پرونده‌ی نمایه‌ها نوشته شده بر روی &apos;%1&apos;</translation>
     </message>
@@ -3225,6 +3322,11 @@ In library %3
         <location line="+13"/>
         <source>Unknown key type %1</source>
         <translation>نوع کلید ناشناخته %1</translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Failed to write PEM data to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3263,7 +3365,7 @@ In library %3
         <translation type="vanished">به نظر نمی‌رسد که این کتابخانه‌ی PKCS#11 معتبر باشد. نماد تابع &apos;C_GetFunctionList&apos; یافت نشد.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+217"/>
         <source>insecure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3410,7 +3512,7 @@ In library %3
         <translation>جست‌وجو</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+76"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>پرونده‌های زیر کتابخانه‌های مورد استفاده‌ی PKCS#7 هستند</translation>
     </message>
@@ -3469,29 +3571,24 @@ In library %3
 <context>
     <name>TrustState</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation>گواهی اعتماد</translation>
+        <translation type="vanished">گواهی اعتماد</translation>
     </message>
     <message>
-        <location line="+60"/>
         <source>Trustment</source>
-        <translation>اعتماد</translation>
+        <translation type="vanished">اعتماد</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation>&amp;هرگز به این گواهی اعتماد نکن</translation>
+        <translation type="vanished">&amp;هرگز به این گواهی اعتماد نکن</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation>فقط به این گواهی &amp;اعتماد کن، اگر ما به امضا کننده اعتماد کردیم</translation>
+        <translation type="vanished">فقط به این گواهی &amp;اعتماد کن، اگر ما به امضا کننده اعتماد کردیم</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation>&amp;همیشه به این گواهی اعتماد کن</translation>
+        <translation type="vanished">&amp;همیشه به این گواهی اعتماد کن</translation>
     </message>
 </context>
 <context>
@@ -3556,7 +3653,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+332"/>
         <source>Item properties</source>
         <translation>مشخصه‌های موارد</translation>
     </message>
@@ -3601,7 +3698,21 @@ In library %3
         <translation>ستون‌ها</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+57"/>
+        <source>Export Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Please enter the password to encrypt all %n exported private key(s) in:
+%1</source>
+        <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>New</source>
         <translation>جدید</translation>
     </message>
@@ -3636,12 +3747,12 @@ In library %3
         <translation>برون‌داد</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Clipboard</source>
         <translation>حافظه‌ی رونوشت</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>File</source>
         <translation>پرونده</translation>
     </message>
@@ -3918,12 +4029,11 @@ and will be completed by the new, private part of the key</source>
         <translation>آیا از ساخت کلید با اندازه‌ی %1 اطمینان دارید ؟</translation>
     </message>
     <message>
-        <location line="+82"/>
         <source>Internal error</source>
-        <translation>خطای درونی</translation>
+        <translation type="vanished">خطای درونی</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+124"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translatorcomment>reset و set تنها به بازنشانی ترجمه شد.</translatorcomment>
         <translation>به روز‌رسانی کلید درونی: کلید‌های: %1 باید به وسیله‌ی بازنشانی گذرواژه‌هایشان، به روز شوند</translation>
@@ -4124,18 +4234,18 @@ and so it was not imported</source>
         <translation>ذخیره گواهی برای کلید موجود روی توکن &apos;%1 (#%2)&apos;  ؟</translation>
     </message>
     <message>
-        <location line="+106"/>
-        <location line="+54"/>
+        <location line="+96"/>
+        <location line="+86"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>کلیدی برای گواهی&apos;%1&apos; یافت نشد</translation>
     </message>
     <message>
-        <location line="-51"/>
+        <location line="-83"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>برای کلید توکن امکان پذیر نیست &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+87"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>برای کلید توکنی امکان‌پذیر نیست &apos;%1&apos;</translation>
     </message>
@@ -4446,22 +4556,27 @@ and thus was not stored</source>
         <translation>فهرست ابطال &apos;%1&apos; با موفقیت درون‌داد شد</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation>حذف کردن فهرست ابطال &apos;%1&apos;؟</translation>
+        <translation type="vanished">حذف کردن فهرست ابطال &apos;%1&apos;؟</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>فهرست ابطال &apos;%1&apos; با موفقیت ساخته شد</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 revocation lists: %2?</source>
-        <translation>حذف %1 فهرست ابطال‌ها: %2؟</translation>
+        <translation type="vanished">حذف %1 فهرست ابطال‌ها: %2؟</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+85"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>بارگذاری فهرست ابطال در پرونده‌ی %1 امکان‌پذیر نیست قالب‌های فهرست ابطال PEM و DER مورد آزمایش قرار گرفت.</translation>
     </message>
@@ -4500,7 +4615,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <location filename="../lib/pki_evp.cpp" line="+240"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>خواهشمند است برای رمزگشایی کلید خصوصی گذرواژه را وارد نمائید: %1.</translation>
     </message>
@@ -4552,19 +4667,28 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>خواهشمند است برای رمزگشایی کلید، گذرواژه‌ی پایگاه‌داده را وارد نمائید</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+182"/>
+        <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Please enter the password to protect the private key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation>خواهشمند است گذرواژه‌ی محافظت از کلید PKCS#8 را وارد نمائید: &apos;%1&apos;</translation>
+        <translation type="vanished">خواهشمند است گذرواژه‌ی محافظت از کلید PKCS#8 را وارد نمائید: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation>خواهشمند است گذرواژه‌ی محافظت از کلید Microsoft PVK را وارد نمائید: &apos;%1&apos;</translation>
+        <translation type="vanished">خواهشمند است گذرواژه‌ی محافظت از کلید Microsoft PVK را وارد نمائید: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
-        <translation>خواهشمند است گذرواژه‌ی برون‌داد کلید خصوصی را وارد نمائید: &apos;%1&apos;</translation>
+        <translation type="vanished">خواهشمند است گذرواژه‌ی برون‌داد کلید خصوصی را وارد نمائید: &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Failed to decrypt the key (bad password) %1</source>
@@ -4583,15 +4707,24 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+29"/>
+        <location line="+35"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>قالب متنی PEM با سرآیند</translation>
     </message>
     <message>
-        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation>فهرست همه‌ی موارد در یک پرونده‌ی متنی PEM الحاق‌شده</translation>
+        <translation type="vanished">فهرست همه‌ی موارد در یک پرونده‌ی متنی PEM الحاق‌شده</translation>
+    </message>
+    <message>
+        <location line="-38"/>
+        <source>PEM selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenated list of all selected certificates in one PEM text file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4625,6 +4758,16 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>All unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenation of all expired or revoked certificates in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>تک‌‌گواهی در قالب PKCS#7</translation>
     </message>
@@ -4642,6 +4785,16 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>زنجیره‌ی کامل گواهی در قالب PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #7 unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4680,12 +4833,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+22"/>
+        <location line="+26"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-22"/>
+        <location line="-26"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>یاآوری انقضای vCalander برای موارد انتخاب‌شده</translation>
     </message>
@@ -4701,24 +4854,44 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+16"/>
+        <location line="+20"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">پیکربندی OpenSSL</translation>
     </message>
     <message>
-        <location line="-16"/>
-        <location line="+16"/>
+        <location line="-20"/>
+        <location line="+20"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-19"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4798,6 +4971,16 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>کلید خصوصی در قالب Microsoft PVK به صورت رمزنگاری‌نشده</translation>
     </message>
     <message>
+        <location line="+14"/>
+        <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>PVK encrypted</source>
         <translation type="vanished">PVK رمزنگاری‌شده</translation>
     </message>
@@ -4806,7 +4989,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="vanished">کلید خصوصی رمزنگاری‌شده در قالب Microsoft PVK</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-14"/>
         <source>PKCS #8 encrypted</source>
         <translation>PKCS#8 رمزنگاری‌شده</translation>
     </message>
@@ -4826,6 +5009,26 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>کلید خصوصی رمزنگاری‌نشده در قالب متنی PKCS#8</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>JSON Web Key private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Key public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Public key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
         <translation>قالب دودویی DER درخواست گواهی</translation>
@@ -4841,57 +5044,83 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>یاآوری انقضای vCalander برای تاریخ انقضا</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation>قالب XCA در قالب مشابه PEM</translation>
+        <translation type="vanished">قالب XCA در قالب مشابه PEM</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation>همه ی قالب‌های XCA انتخاب‌شده در قالب مشابه PEM</translation>
+        <translation type="vanished">همه ی قالب‌های XCA انتخاب‌شده در قالب مشابه PEM</translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation>%1 کلید عمومی &apos;%2&apos; با موفقیت درون‌داد شد</translation>
+        <translation type="vanished">%1 کلید عمومی &apos;%2&apos; با موفقیت درون‌داد شد</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation>آیا %1 با کلید عمومی &apos;%2&apos; حذف شود؟</translation>
+        <translation type="vanished">آیا %1 با کلید عمومی &apos;%2&apos; حذف شود؟</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation>شئ %1 با موفقیت  کلید خصوصی درون‌داد شد &apos;%2&apos;</translation>
+        <translation type="vanished">شئ %1 با موفقیت  کلید خصوصی درون‌داد شد &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation>آیا %1 کلید خصوصی &apos;%2&apos; حذف شود؟</translation>
+        <translation type="vanished">آیا %1 کلید خصوصی &apos;%2&apos; حذف شود؟</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation>%1 کلید خصوصی &apos;%2&apos; با موفقیت ساخته شد</translation>
+        <translation type="vanished">%1 کلید خصوصی &apos;%2&apos; با موفقیت ساخته شد</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>آیا %1 کلید (ها) حدف شوند: %2؟</translation>
+        <translation type="vanished">آیا %1 کلید (ها) حدف شوند: %2؟</translation>
     </message>
     <message>
-        <location line="-158"/>
-        <location line="+167"/>
-        <location line="+649"/>
+        <location filename="../lib/pki_key.cpp" line="+59"/>
+        <location line="+177"/>
+        <location line="+620"/>
         <source>Public key</source>
         <translation>کلید عمومی</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-644"/>
+        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1 کلید عمومی &apos;%2&apos; با موفقیت درون‌داد شد</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">شئ %1 با موفقیت  کلید خصوصی درون‌داد شد &apos;%2&apos;</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Successfully created the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1 کلید خصوصی &apos;%2&apos; با موفقیت ساخته شد</translation>
+    </message>
+    <message>
+        <location line="+230"/>
         <source>Common</source>
         <translation>عمومی</translation>
     </message>
@@ -4928,7 +5157,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>کلید عمومی SSH2 نامعتبر</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+191"/>
         <source>Failed writing to %1</source>
         <translation>عملیات نوشتن روی %1 با شکست مواجه شد</translation>
     </message>
@@ -4944,7 +5173,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-180"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>خواهشمند است گذرواژه برای رمزگشایی پرونده‌ی PKCS#12 را وارد نمایید: %1</translation>
@@ -4960,12 +5189,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>گذرواژه‌ی وارد‌شده اشتباه بود (%1)</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation>خواهشمند است گذرواژه برای رمزنگاری پرونده‌ی PKCS#12 را وارد نمایید</translation>
+        <location line="+58"/>
+        <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
+%2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <translation type="vanished">خواهشمند است گذرواژه برای رمزنگاری پرونده‌ی PKCS#12 را وارد نمایید</translation>
+    </message>
+    <message>
+        <location line="-3"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>کلید یا گواهی و pkcs12 امکان‌پذیر نیست</translation>
     </message>
@@ -4986,22 +5220,27 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>کلید توکن &apos;%1&apos; با موفقیت درون‌داد شد</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the token key &apos;%1&apos;?</source>
-        <translation>آیا کلید توکن &apos;%1&apos; حذف شود؟</translation>
+        <translation type="vanished">آیا کلید توکن &apos;%1&apos; حذف شود؟</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>کلید توکن &apos;%1&apos; با موفقیت صادر شد</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>آیا %1 کلید (ها) حدف شوند: %2؟</translation>
+        <translation type="vanished">آیا %1 کلید (ها) حدف شوند: %2؟</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n token key(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+328"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>آیا کلید خصوصی &apos;%1&apos; از توکن &apos;%2(#%3)&apos; حذف شود؟</translation>
     </message>
@@ -5072,32 +5311,37 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+106"/>
+        <location filename="../lib/pki_temp.cpp" line="+107"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>قالب XCA با نام &apos;%1&apos; با موفقیت درون‌داد شد</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation>قالب XCA با نام &apos;%1&apos; حذف شود؟</translation>
+        <translation type="vanished">قالب XCA با نام &apos;%1&apos; حذف شود؟</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>قالب XCA با نام &apos;%1&apos; با موفقیت ساخته شد</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation>آیا قالب XCA با نام %1 از &apos;%2&apos; حذف شود؟</translation>
+        <translation type="vanished">آیا قالب XCA با نام %1 از &apos;%2&apos; حذف شود؟</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+213"/>
         <source>Wrong Size %1</source>
         <translation>%1 اندازه‌ی نادرست</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+98"/>
         <source>Template file content error (too small)</source>
         <translation>پرونده‌ی قالب دارای خطا (بسیار کوچک)</translation>
     </message>
@@ -5107,7 +5351,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>قالب رمزنگاری‌شده PEM برای XCA شناخته نشد</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>به جز &apos;%1&apos;، قالب XCA شناخته نشد</translation>
     </message>
@@ -5115,27 +5359,32 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+65"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>گواهی &apos;%1&apos; با موفقیت درون‌داد شد</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation>آیا گواهی &apos;%1&apos; حذف شود؟</translation>
+        <translation type="vanished">آیا گواهی &apos;%1&apos; حذف شود؟</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>گواهی &apos;%1&apos; با موفقیت صادر شد</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificates: %2?</source>
-        <translation>آیا گواهی‌های %1 حذف شوند:‌ %2؟</translation>
+        <translation type="vanished">آیا گواهی‌های %1 حذف شوند:‌ %2؟</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+171"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>بارگذاری گواهی از پرونده‌ی %1 امکان‌پذیر نیست. قالب‌های PEM و DER آزمایش شد.</translation>
     </message>
@@ -5175,12 +5424,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation>آیا گواهی &apos;%1&apos; از توکن &apos;%2(#%3)&apos; حذف شود؟</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+124"/>
         <source>There is no key for signing !</source>
         <translation>هیچ کلیدی برای امضا وجود ندارد!</translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location line="+312"/>
         <source>No</source>
         <translation>خیر</translation>
     </message>
@@ -5213,24 +5462,37 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation>کلید امضا معتبر نیست (کلید عمومی)</translation>
     </message>
     <message>
-        <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation>با موفقیت &apos;%1&apos; از درخواست گواهی &apos;%2&apos; درون‌داد شد</translation>
+        <translation type="vanished">با موفقیت &apos;%1&apos; از درخواست گواهی &apos;%2&apos; درون‌داد شد</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation>آیا %1 از درخواست گواهی &apos;%2&apos; حذف شود؟</translation>
+        <translation type="vanished">آیا %1 از درخواست گواهی &apos;%2&apos; حذف شود؟</translation>
+    </message>
+    <message>
+        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
+        <translation type="vanished">با موفقیت %1 از درخواست گواهی &apos;%2&apos; ساخته شد</translation>
+    </message>
+    <message>
+        <source>Delete the %1 certificate requests: %2?</source>
+        <translation type="vanished">حذف %1 از درخواست‌های گواهی:%2؟</translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation>با موفقیت %1 از درخواست گواهی &apos;%2&apos; ساخته شد</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Delete the %1 certificate requests: %2?</source>
-        <translation>حذف %1 از درخواست‌های گواهی:%2؟</translation>
+        <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>

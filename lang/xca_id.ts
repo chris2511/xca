@@ -26,13 +26,13 @@
 <context>
     <name>CertDetail</name>
     <message>
+        <location filename="../widgets/CertDetail.cpp" line="+139"/>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+106"/>
         <source>Details of the Certificate</source>
         <translation>Rincian Sertifikat</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location filename="../ui/CertDetail.ui" line="+135"/>
         <source>Serial</source>
         <translation>Serial</translation>
     </message>
@@ -107,7 +107,7 @@
         <translation>Validitas</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>The time since the certificate is valid</source>
         <translation>Sejak kapan sertifikat valid</translation>
     </message>
@@ -122,38 +122,53 @@
         <translation>Subjek</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+22"/>
         <source>Issuer</source>
         <translation>Penerbit</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Extensions</source>
         <translation>Ekstensi</translation>
     </message>
     <message>
         <location line="+21"/>
+        <source>Validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Purposes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Strict RFC 5280 validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Comment</source>
         <translation>Komentar</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-62"/>
         <source>Attributes</source>
         <translation>Atribut</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-73"/>
+        <location filename="../widgets/CertDetail.cpp" line="-104"/>
+        <location filename="../ui/CertDetail.ui" line="+23"/>
         <source>Show config</source>
         <translation>Tampilkan konfig</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+4"/>
+        <location line="+4"/>
         <source>Show extensions</source>
         <translation>Tampilkan ekstensi</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Show public key</source>
         <translation>Tampilkan kunci publik</translation>
     </message>
@@ -168,7 +183,12 @@
         <translation>Tidak tersedia</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+49"/>
+        <source>No verification errors found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Signer unknown</source>
         <translation>Penandatangan tidak dikenal</translation>
     </message>
@@ -319,6 +339,11 @@
     <name>CertTreeView</name>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
+        <source>Hide unusable certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Import PKCS#12</source>
         <translation>Impor PKCS#12</translation>
     </message>
@@ -571,7 +596,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+75"/>
+        <location filename="../ui/ExportDialog.ui" line="+76"/>
         <source>Name</source>
         <translation>Nama</translation>
     </message>
@@ -591,17 +616,27 @@
         <translation>Nama berkas</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+31"/>
+        <source>Each Item in a separate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Same encryption password for all items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Export comment into PEM file</source>
         <translation>Ekspor komentar ke dalam berkas PEM</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-20"/>
         <source>Export Format</source>
         <translation>Format Ekspor</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+48"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+53"/>
         <source>All files ( * )</source>
         <translation>Semua berkas ( * )</translation>
     </message>
@@ -717,8 +752,15 @@
         <source>Encrypted private key in Microsoft PVK format</source>
         <translation type="vanished">Kunci privat terenkripsi dalam format PVK Microsoft</translation>
     </message>
+    <message numerus="yes">
+        <location line="-10"/>
+        <source>%n selected item(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location line="+56"/>
+        <location line="+83"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Berkas &apos;%1&apos; sudah ada!</translation>
     </message>
@@ -731,6 +773,36 @@
         <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>Jangan timpa</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The path: &apos;%1&apos; exist, but is not a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The path: &apos;%1&apos; exist, but is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create</source>
+        <translation type="unfinished">Buat</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished">Gagal membuat direktori &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Directory</source>
+        <translation type="unfinished">Direktori</translation>
     </message>
 </context>
 <context>
@@ -1174,13 +1246,13 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Permi&amp;ntaan Baru</translation>
     </message>
     <message>
-        <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="+146"/>
+        <location filename="../ui/MainWindow.ui" line="+68"/>
         <source>Certificates</source>
         <translation>Sertifikat</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location filename="../ui/MainWindow.ui" line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>Sertifikat &amp;Baru</translation>
     </message>
@@ -1275,7 +1347,12 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Jepang</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Russian</source>
         <translation>Rusia</translation>
     </message>
@@ -1290,7 +1367,7 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Spanyol</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-11"/>
         <source>Persian</source>
         <translation>Persia</translation>
     </message>
@@ -1300,12 +1377,12 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Bulgaria</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+22"/>
         <source>Polish</source>
         <translation>Polandia</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-8"/>
         <source>Italian</source>
         <translation>Italia</translation>
     </message>
@@ -1320,17 +1397,17 @@ Ini akan menghapus kunci &apos;%1&apos; dan membuatnya tidak dapat diekspor</tra
         <translation>Belanda</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Portuguese in Brazil</source>
         <translation>Portugis di Brazil</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Indonesian</source>
         <translation>Indonesia</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Turkish</source>
         <translation>Turki</translation>
     </message>
@@ -1769,7 +1846,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Permintaan penandatanganan</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+24"/>
         <source>Show request</source>
         <translation>Tunjukkan permintaan</translation>
     </message>
@@ -1789,7 +1866,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Ubah subjek permintaan</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+32"/>
         <source>Signing</source>
         <translation>Penandatanganan</translation>
     </message>
@@ -1839,13 +1916,13 @@ Harap masukkan bit parameter DH</translation>
         <translation>Terapkan semua</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+605"/>
+        <location filename="../widgets/NewX509.cpp" line="+611"/>
+        <location filename="../ui/NewX509.ui" line="+29"/>
         <source>Subject</source>
         <translation>Subjek</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location filename="../ui/NewX509.ui" line="+8"/>
         <source>Internal Name</source>
         <translation>Nama Internal</translation>
     </message>
@@ -1935,7 +2012,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Identifier kunci</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>Membuat sebuah hash dari kunci mengikuti panduan PKIX</translation>
     </message>
@@ -1945,7 +2022,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Salin Subject Key Identifier dari penerbit</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+46"/>
         <source>Validity</source>
         <translation>Validitas</translation>
     </message>
@@ -1980,7 +2057,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Tahun</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>Apply</source>
         <translation>Terapkan</translation>
     </message>
@@ -1995,7 +2072,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Tengah malam</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-30"/>
         <source>Local time</source>
         <translation>Waktu lokal</translation>
     </message>
@@ -2005,33 +2082,35 @@ Harap masukkan bit parameter DH</translation>
         <translation>Tidak ada kedaluwarsa yang jelas</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+17"/>
-        <location line="+69"/>
+        <location line="+77"/>
+        <location line="+43"/>
+        <location line="+23"/>
+        <location line="+29"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-79"/>
-        <location line="+17"/>
-        <location line="+33"/>
-        <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+408"/>
+        <location filename="../widgets/NewX509.cpp" line="+418"/>
+        <location filename="../ui/NewX509.ui" line="-88"/>
+        <location line="+26"/>
+        <location line="+26"/>
+        <location line="+43"/>
+        <location line="+26"/>
         <source>Edit</source>
         <translation>Sunting</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location filename="../ui/NewX509.ui" line="+26"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+10"/>
         <source>Key usage</source>
         <translation>Guna kunci</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+138"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
@@ -2041,28 +2120,28 @@ Harap masukkan bit parameter DH</translation>
         <translation>Tingkat lanjut</translation>
     </message>
     <message>
-        <location line="+24"/>
         <location filename="../widgets/NewX509.cpp" line="+10"/>
+        <location filename="../ui/NewX509.ui" line="+24"/>
         <source>Validate</source>
         <translation>Validasikan</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location filename="../ui/NewX509.ui" line="+23"/>
         <source>Comment</source>
         <translation>Komentar</translation>
     </message>
     <message>
-        <location line="-835"/>
+        <location line="-916"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Nama ini hanya dipakai secara internal dan tidak muncul dalam sertifikat yang dihasilkan</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-751"/>
+        <location filename="../widgets/NewX509.cpp" line="-763"/>
         <source>Critical</source>
         <translation>Kritikal</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Create Certificate signing request</source>
         <translation>Buat Certificate signing request</translation>
     </message>
@@ -2092,12 +2171,12 @@ Harap masukkan bit parameter DH</translation>
         <translation>Sunting templat XCA</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+15"/>
         <source>Create x509 Certificate</source>
         <translation>Buat Sertifikat x509</translation>
     </message>
     <message>
-        <location line="+378"/>
+        <location line="+388"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Templat &apos;%1&apos; diterapkan</translation>
     </message>
@@ -2117,7 +2196,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Kunci baru &apos;%1&apos; telah dibuat</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+252"/>
         <source>Other Tabs</source>
         <translation>Tab Lain</translation>
     </message>
@@ -2148,6 +2227,11 @@ Harap masukkan bit parameter DH</translation>
     </message>
     <message>
         <location line="+9"/>
+        <source>The Name Constraints are invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>The Subject Alternative Name is invalid</source>
         <translation>Subject Alternative Name tidak valid</translation>
     </message>
@@ -2167,7 +2251,7 @@ Harap masukkan bit parameter DH</translation>
         <translation>Authority Information Access tidak valid</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+111"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2179,11 +2263,12 @@ Harap masukkan bit parameter DH</translation>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Abort rollout</source>
         <translation>Tentang rollout</translation>
     </message>
     <message>
-        <location line="-219"/>
+        <location line="-252"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Pembatasan panjang berikut dari RFC3280 dilanggar:</translation>
     </message>
@@ -2201,11 +2286,12 @@ Harap masukkan bit parameter DH</translation>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Continue rollout</source>
         <translation>Lanjutkan rollout</translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-232"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Verifikasi permintaan sertifikat gagal.
@@ -2323,16 +2409,22 @@ walaupun Anda telah menyatakan mereka sebagai wajib dalam menu opsi.</translatio
     <message>
         <location line="+7"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Edit extensions</source>
         <translation>Suting ekstensi</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-34"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>Subject alternative name akan memuat salinan dari common name. Namun common name kosong.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
+        <location line="+31"/>
+        <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
         <source>Configfile error on line %1
 </source>
         <translation>Kesalahan berkas konfig pada baris %1
@@ -2411,13 +2503,13 @@ walaupun Anda telah menyatakan mereka sebagai wajib dalam menu opsi.</translatio
         <translation>Kata sandi</translation>
     </message>
     <message>
-        <location line="+14"/>
         <location filename="../widgets/OpenDb.cpp" line="+57"/>
+        <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Database name</source>
         <translation>Nama basis data</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../ui/OpenDb.ui" line="+10"/>
         <source>Table prefix</source>
         <translation>Prefiks tabel</translation>
     </message>
@@ -2562,7 +2654,7 @@ Khususnya EC dan DSA hanya didefinisiakn dengan SHA1 dalam spesifikasi PKCS#1.</
         <translation>Cari</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+35"/>
+        <location filename="../widgets/Options.cpp" line="+36"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>String yang dapat dicetak atau UTF8 (baku)</translation>
     </message>
@@ -2945,12 +3037,12 @@ Dalam pustaka %3
         <translation>%1 lebih panjang dari %2 byte: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+103"/>
+        <location filename="../lib/x509v3ext.cpp" line="+112"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>String &apos;%1&apos; bagi &apos;%2&apos; memuat karakter yang tidak valid</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+48"/>
+        <location filename="../lib/oid.cpp" line="+58"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>Kesalahan saat membaca berkas konfig %1 pada baris %2</translation>
     </message>
@@ -2975,7 +3067,7 @@ Dalam pustaka %3
         <translation>Gagal memulai suatu transaksi basis data</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="+224"/>
+        <location filename="../lib/func_base.cpp" line="+244"/>
         <source>Country code</source>
         <translation>Kode negara</translation>
     </message>
@@ -3086,6 +3178,11 @@ Dalam pustaka %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Name Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Subject alternative name</source>
         <translation>Nama alternatif subjek</translation>
     </message>
@@ -3165,7 +3262,7 @@ Dalam pustaka %3
         <translation>Komentar</translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="+163"/>
+        <location filename="../lib/cmdline.cpp" line="+166"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Berkas indeks ditulis ke &apos;%1&apos;</translation>
     </message>
@@ -3178,6 +3275,11 @@ Dalam pustaka %3
         <location line="+13"/>
         <source>Unknown key type %1</source>
         <translation>Tipe kunci tak dikenal %1</translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Failed to write PEM data to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3200,7 +3302,7 @@ Dalam pustaka %3
         <translation>Kata sandi</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+217"/>
         <source>insecure</source>
         <translation>tidak aman</translation>
     </message>
@@ -3347,7 +3449,7 @@ Dalam pustaka %3
         <translation>Cari</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+76"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>Berkas-berkas berikut adalah pustaka PKCS#11 yang mungkin</translation>
     </message>
@@ -3406,29 +3508,24 @@ Dalam pustaka %3
 <context>
     <name>TrustState</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation>Kepercayaan sertifikat</translation>
+        <translation type="vanished">Kepercayaan sertifikat</translation>
     </message>
     <message>
-        <location line="+60"/>
         <source>Trustment</source>
-        <translation>Kepercayaan</translation>
+        <translation type="vanished">Kepercayaan</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation>Ja&amp;ngan pernah percayai sertifikat ini</translation>
+        <translation type="vanished">Ja&amp;ngan pernah percayai sertifikat ini</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation>Hanya percayai ser&amp;tifikat ini, bila kita percaya penandatangan</translation>
+        <translation type="vanished">Hanya percayai ser&amp;tifikat ini, bila kita percaya penandatangan</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation>Sel&amp;alu percayai sertifikat ini</translation>
+        <translation type="vanished">Sel&amp;alu percayai sertifikat ini</translation>
     </message>
 </context>
 <context>
@@ -3493,7 +3590,7 @@ Dalam pustaka %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+332"/>
         <source>Item properties</source>
         <translation>Properti butir</translation>
     </message>
@@ -3538,7 +3635,21 @@ Dalam pustaka %3
         <translation>Kolom</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+57"/>
+        <source>Export Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Please enter the password to encrypt all %n exported private key(s) in:
+%1</source>
+        <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>New</source>
         <translation>Baru</translation>
     </message>
@@ -3573,12 +3684,12 @@ Dalam pustaka %3
         <translation>Ekspor</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Clipboard</source>
         <translation>Papan klip</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>File</source>
         <translation>Berkas</translation>
     </message>
@@ -3918,12 +4029,11 @@ dan akan dilengkapi oleh bagian privat dari kunci yang baru</translation>
         <translation type="vanished">Kunci Privat ( *.pem *.der *.pk8 );; Kunci Publik SSH ( *.pub )</translation>
     </message>
     <message>
-        <location line="+82"/>
         <source>Internal error</source>
-        <translation>Kesalahan internal</translation>
+        <translation type="vanished">Kesalahan internal</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+124"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translation>Pembaruan kunci internal: Kunci: %1 harus diperbarui sekali dengan me-reset dan menata kata sandi privatnya</translation>
     </message>
@@ -4117,18 +4227,18 @@ sehingga itu tidak diimpor</translation>
         <translation type="vanished">Ekspor sertifikat</translation>
     </message>
     <message>
-        <location line="+106"/>
-        <location line="+54"/>
+        <location line="+96"/>
+        <location line="+86"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Tidak ditemukan kunci bagi Sertifikat: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-51"/>
+        <location line="-83"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Tidak mungkin bagi sebuah kunci token: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+87"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Tidak mungkin bagi Sertifikat kunci token &apos;%1&apos;</translation>
     </message>
@@ -4367,19 +4477,17 @@ and thus was not stored</source>
         <translation>Sukses mengimpor daftar pencabutan &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation>Hapus daftar pencabutan &apos;%1&apos;?</translation>
+        <translation type="vanished">Hapus daftar pencabutan &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>Sukses membuat daftar pencabutan &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 revocation lists: %2?</source>
-        <translation>Hapus daftar pencabutan %1: %2?</translation>
+        <translation type="vanished">Hapus daftar pencabutan %1: %2?</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -4395,8 +4503,15 @@ and thus was not stored</source>
         <source>Wrong Size %1</source>
         <translation type="vanished">Salah Ukuran %1</translation>
     </message>
+    <message numerus="yes">
+        <location line="-100"/>
+        <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location line="+261"/>
+        <location line="+361"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation>Saatnya Pembaruan CRL dari CA &apos;%1&apos;</translation>
     </message>
@@ -4423,7 +4538,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <location filename="../lib/pki_evp.cpp" line="+240"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>Harap masukkan kata sandi untuk mendekripsi kunci privat %1.</translation>
     </message>
@@ -4480,34 +4595,52 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Harap masukkan kata sandi basis data untuk mengenkripsi kunci</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+182"/>
+        <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Please enter the password to protect the private key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation>Harap masukkan kata sandi untuk melindungi kunci PKCS#8 &apos;%1&apos;</translation>
+        <translation type="vanished">Harap masukkan kata sandi untuk melindungi kunci PKCS#8 &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation>Harap masukkan kata sandi untuk melindungi kunci PVK Microsoft &apos;%1&apos;</translation>
+        <translation type="vanished">Harap masukkan kata sandi untuk melindungi kunci PVK Microsoft &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
-        <translation>Harap masukkan kata sandi ekspor untuk kunci privat &apos;%1&apos;</translation>
+        <translation type="vanished">Harap masukkan kata sandi ekspor untuk kunci privat &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+29"/>
+        <location line="+35"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>Format Teks PEM dengan header</translation>
     </message>
     <message>
-        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation>Daftar tersambung dari semua butir yang dipilih dalam satu berkas teks PEM</translation>
+        <translation type="vanished">Daftar tersambung dari semua butir yang dipilih dalam satu berkas teks PEM</translation>
+    </message>
+    <message>
+        <location line="-38"/>
+        <source>PEM selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenated list of all selected certificates in one PEM text file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4541,6 +4674,16 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>All unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenation of all expired or revoked certificates in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>Sertifikat tunggal terenkode PKCS#7</translation>
     </message>
@@ -4558,6 +4701,16 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>Rantai sertifikat lengkap terenkode PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #7 unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4596,12 +4749,12 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+22"/>
+        <location line="+26"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-22"/>
+        <location line="-26"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>Pengingat kedaluwarsa vCalendar bagi butir-butir yang dipilih</translation>
     </message>
@@ -4617,18 +4770,18 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+16"/>
+        <location line="+20"/>
         <source>OpenSSL config</source>
         <translation>Konfig OpenSSL</translation>
     </message>
     <message>
-        <location line="-16"/>
-        <location line="+16"/>
+        <location line="-20"/>
+        <location line="+20"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation>Berkas konfigurasi OpenSSL untuk membuat suatu sertifikat atau meminta dengan alat baris perintah openssl</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-19"/>
         <source>OpenVPN tls-auth key</source>
         <translation>Kunci tls-auth OpenVPN</translation>
     </message>
@@ -4636,6 +4789,26 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
         <translation>Kunci tls-auth OpenVPN adalah sebuah kunci rahasia yang dipakai bersama antar titik akhir</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4714,6 +4887,16 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Kunci privat dalam format PVK Microsoft yang tidak terenkripsi</translation>
     </message>
     <message>
+        <location line="+14"/>
+        <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>PVK encrypted</source>
         <translation type="vanished">PVK terenkripsi</translation>
     </message>
@@ -4722,7 +4905,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation type="vanished">Kunci privat terenkripsi dalam format PVK Microsoft</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-14"/>
         <source>PKCS #8 encrypted</source>
         <translation>PKCS #8 terenkripsi</translation>
     </message>
@@ -4742,6 +4925,26 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Kunci privat tak terenkripsi dalam format teks PKCS#8</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>JSON Web Key private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Key public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Public key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
         <translation>Format DER biner dari permintaan sertifikat</translation>
@@ -4757,57 +4960,83 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Pengingat vCalendar bagi tanggal kedaluwarsa CRL</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>XCA template in PEM-like format</source>
-        <translation>Templat XCA dalam format mirip PEM</translation>
+        <translation type="vanished">Templat XCA dalam format mirip PEM</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation>Semua templat XCA yang dipilih dalam format mirip PEM</translation>
+        <translation type="vanished">Semua templat XCA yang dipilih dalam format mirip PEM</translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation>Sukses mengimpor kunci publik %1 &apos;%2&apos;</translation>
+        <translation type="vanished">Sukses mengimpor kunci publik %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation>Hapus kunci publik %1 &apos;%2&apos;?</translation>
+        <translation type="vanished">Hapus kunci publik %1 &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation>Sukses mengimpor kunci privat %1 &apos;%2&apos;</translation>
+        <translation type="vanished">Sukses mengimpor kunci privat %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation>Hapus kunci privat %1 &apos;%2&apos;?</translation>
+        <translation type="vanished">Hapus kunci privat %1 &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation>Sukses membuat kunci privat %1 &apos;%2&apos;</translation>
+        <translation type="vanished">Sukses membuat kunci privat %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>Hapus kunci %1 &apos;%2&apos;?</translation>
+        <translation type="vanished">Hapus kunci %1 &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="-158"/>
-        <location line="+167"/>
-        <location line="+649"/>
+        <location filename="../lib/pki_key.cpp" line="+59"/>
+        <location line="+177"/>
+        <location line="+620"/>
         <source>Public key</source>
         <translation>Kunci publik</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-644"/>
+        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">Sukses mengimpor kunci publik %1 &apos;%2&apos;</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">Sukses mengimpor kunci privat %1 &apos;%2&apos;</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Successfully created the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">Sukses membuat kunci privat %1 &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <location line="+230"/>
         <source>Common</source>
         <translation>Umum</translation>
     </message>
@@ -4844,7 +5073,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Kunci publik SSH2 yang tidak valid</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+191"/>
         <source>Failed writing to %1</source>
         <translation>Gagal menulis ke %1</translation>
     </message>
@@ -4860,7 +5089,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-180"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>Harap masukkan kata sandi untuk mendekripsi berkas PKCS#12:
@@ -4877,12 +5106,17 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Kata sandi yang diberikan salah (%1)</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation>Harap masukkan kata sandi untuk mengenkripsi berkas PKCS#12</translation>
+        <location line="+58"/>
+        <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
+%2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <translation type="vanished">Harap masukkan kata sandi untuk mengenkripsi berkas PKCS#12</translation>
+    </message>
+    <message>
+        <location line="-3"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>Tidak ada kunci atau tidak ada Sertifikat dan tidak ada pkcs12</translation>
     </message>
@@ -4903,22 +5137,27 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Sukses mengimpor kunci token &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the token key &apos;%1&apos;?</source>
-        <translation>Hapus kunci token &apos;%1&apos;?</translation>
+        <translation type="vanished">Hapus kunci token &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>Sukses membuat kunci token &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>Hapus kunci %1 &apos;%2&apos;?</translation>
+        <translation type="vanished">Hapus kunci %1 &apos;%2&apos;?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n token key(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+328"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Hapus kunci privat &apos;%1&apos; dari token &apos;%2 (#%3)&apos;?</translation>
     </message>
@@ -4985,32 +5224,37 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+106"/>
+        <location filename="../lib/pki_temp.cpp" line="+107"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Sukses mengimpor templat XCA &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation>Hapus templat XCA &apos;%1&apos;?</translation>
+        <translation type="vanished">Hapus templat XCA &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>Sukses membuat templat XCA &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation>Hapus templat XCA %1: %2?</translation>
+        <translation type="vanished">Hapus templat XCA %1: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+213"/>
         <source>Wrong Size %1</source>
         <translation>Salah Ukuran %1</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+98"/>
         <source>Template file content error (too small)</source>
         <translation>Kesalahan konten berkas templat (terlalu kecil)</translation>
     </message>
@@ -5020,7 +5264,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Bukan suatu Templat XCA yang terenkode PEM</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>Bukan suatu Templat XCA, tapi &apos;%1&apos;</translation>
     </message>
@@ -5028,27 +5272,32 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+65"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Sukses mengimpor sertifikat &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation>Hapus sertifikat &apos;%1&apos;?</translation>
+        <translation type="vanished">Hapus sertifikat &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>Sukses membuat sertifikat &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificates: %2?</source>
-        <translation>Hapus sertifikat &apos;%1&apos;: %2?</translation>
+        <translation type="vanished">Hapus sertifikat &apos;%1&apos;: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+171"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Tidak bisa memuat sertifikat dalam berkas %1. Dicoba sertifikat PEM dan DER.</translation>
     </message>
@@ -5088,7 +5337,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation>Hapus sertifikat &apos;%1&apos; dari token &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+124"/>
         <source>There is no key for signing !</source>
         <translation>Tidak ada kunci untuk penandatanganan !</translation>
     </message>
@@ -5097,7 +5346,7 @@ Itu disimpan dalam basis data XCA &apos;%5&apos;</translation>
         <translation type="vanished">Salah Ukuran %1</translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location line="+312"/>
         <source>No</source>
         <translation>Tidak</translation>
     </message>
@@ -5127,27 +5376,23 @@ Itu disimpan dalam basis data XCA &apos;%4&apos;</translation>
         <translation>Kunci penandatanganan tidak valid (kunci publik)</translation>
     </message>
     <message>
-        <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation>Sukses mengimpor permintaan sertifikat %1 &apos;%2&apos;</translation>
+        <translation type="vanished">Sukses mengimpor permintaan sertifikat %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation>Hapus permintaan sertifikat %1 &apos;%2&apos;?</translation>
+        <translation type="vanished">Hapus permintaan sertifikat %1 &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation>Sukses membuat permintaan sertifikat %1 &apos;%2&apos;</translation>
+        <translation type="vanished">Sukses membuat permintaan sertifikat %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificate requests: %2?</source>
-        <translation>Hapus permintaan sertifikat %1: %2?</translation>
+        <translation type="vanished">Hapus permintaan sertifikat %1: %2?</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+72"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>Tidak bisa memuat permintaan sertifikat dalam berkas %1. Dicoba format PEM, DER, dan SPKAC.</translation>
     </message>
@@ -5156,7 +5401,24 @@ Itu disimpan dalam basis data XCA &apos;%4&apos;</translation>
         <translation type="vanished">Salah Ukuran %1</translation>
     </message>
     <message>
-        <location line="+186"/>
+        <location line="-33"/>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+217"/>
         <source>Signed</source>
         <translation>Ditandatangani</translation>
     </message>

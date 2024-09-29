@@ -882,8 +882,8 @@ PEM base64 kodlanmış DER dosyası
 <context>
     <name>CertDetail</name>
     <message>
+        <location filename="../widgets/CertDetail.cpp" line="139"/>
         <location filename="../ui/CertDetail.ui" line="30"/>
-        <location filename="../widgets/CertDetail.cpp" line="106"/>
         <source>Details of the Certificate</source>
         <translation>Sertifika bilgileri</translation>
     </message>
@@ -963,93 +963,113 @@ PEM base64 kodlanmış DER dosyası
         <translation>Geçerlilik</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="287"/>
+        <location filename="../ui/CertDetail.ui" line="296"/>
         <source>The time since the certificate is valid</source>
         <translation>Zamana kadar geçerli sertifika</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="294"/>
+        <location filename="../ui/CertDetail.ui" line="303"/>
         <source>The time until the certificate is valid</source>
         <translation>Bu zaman kadar sertifika geçerli</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="328"/>
+        <location filename="../ui/CertDetail.ui" line="337"/>
         <source>Subject</source>
         <translation>Konu</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="341"/>
+        <location filename="../ui/CertDetail.ui" line="359"/>
         <source>Issuer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="354"/>
+        <location filename="../ui/CertDetail.ui" line="381"/>
         <source>Attributes</source>
         <translation>Nitelikler</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="364"/>
+        <location filename="../ui/CertDetail.ui" line="391"/>
         <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="377"/>
-        <location filename="../widgets/CertDetail.cpp" line="33"/>
+        <location filename="../ui/CertDetail.ui" line="412"/>
+        <source>Validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/CertDetail.ui" line="418"/>
+        <source>Purposes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/CertDetail.ui" line="430"/>
+        <source>Strict RFC 5280 validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/CertDetail.cpp" line="35"/>
+        <location filename="../ui/CertDetail.ui" line="404"/>
         <source>Show config</source>
         <translation>Yapılandırmayı göster</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="385"/>
+        <location filename="../ui/CertDetail.ui" line="443"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="37"/>
+        <location filename="../widgets/CertDetail.cpp" line="39"/>
         <source>Show extensions</source>
         <translation>Uzantıları göster</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="60"/>
+        <location filename="../widgets/CertDetail.cpp" line="71"/>
         <source>Show public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="63"/>
+        <location filename="../widgets/CertDetail.cpp" line="74"/>
         <source>This key is not in the database.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="67"/>
+        <location filename="../widgets/CertDetail.cpp" line="78"/>
         <source>Not available</source>
         <translation>Kullanılamaz</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="113"/>
-        <source>Signer unknown</source>
-        <translation>Bilinmeyen imzalayan makam</translation>
-    </message>
-    <message>
-        <location filename="../widgets/CertDetail.cpp" line="117"/>
-        <source>Self signed</source>
-        <translation>Kendinden imzalı</translation>
-    </message>
-    <message>
-        <location filename="../widgets/CertDetail.cpp" line="147"/>
-        <source>Revoked at %1</source>
+        <location filename="../widgets/CertDetail.cpp" line="127"/>
+        <source>No verification errors found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="152"/>
+        <source>Signer unknown</source>
+        <translation>Bilinmeyen imzalayan makam</translation>
+    </message>
+    <message>
+        <location filename="../widgets/CertDetail.cpp" line="156"/>
+        <source>Self signed</source>
+        <translation>Kendinden imzalı</translation>
+    </message>
+    <message>
+        <location filename="../widgets/CertDetail.cpp" line="186"/>
+        <source>Revoked at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/CertDetail.cpp" line="191"/>
         <source>Not valid</source>
         <translation>Geçersiz</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="156"/>
+        <location filename="../widgets/CertDetail.cpp" line="195"/>
         <source>Valid</source>
         <translation>Geçerli</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="177"/>
+        <location filename="../widgets/CertDetail.cpp" line="216"/>
         <source>Details of the certificate signing request</source>
         <translation>sertifika imzalama isteği detayları</translation>
     </message>
@@ -1175,127 +1195,132 @@ PEM base64 kodlanmış DER dosyası
     <name>CertTreeView</name>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="34"/>
+        <source>Hide unusable certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/CertTreeView.cpp" line="41"/>
         <source>Import PKCS#12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="35"/>
+        <location filename="../widgets/CertTreeView.cpp" line="42"/>
         <source>Import from PKCS#7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="63"/>
+        <location filename="../widgets/CertTreeView.cpp" line="70"/>
         <source>Request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="65"/>
+        <location filename="../widgets/CertTreeView.cpp" line="72"/>
         <source>Security token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="67"/>
+        <location filename="../widgets/CertTreeView.cpp" line="74"/>
         <source>Other token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="71"/>
+        <location filename="../widgets/CertTreeView.cpp" line="78"/>
         <source>Similar Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="74"/>
+        <location filename="../widgets/CertTreeView.cpp" line="81"/>
         <source>Delete from Security token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="77"/>
+        <location filename="../widgets/CertTreeView.cpp" line="84"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="78"/>
+        <location filename="../widgets/CertTreeView.cpp" line="85"/>
         <source>Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="79"/>
+        <location filename="../widgets/CertTreeView.cpp" line="86"/>
         <source>Generate CRL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="80"/>
+        <location filename="../widgets/CertTreeView.cpp" line="87"/>
         <source>Manage revocations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="84"/>
+        <location filename="../widgets/CertTreeView.cpp" line="91"/>
         <source>Import OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="88"/>
-        <location filename="../widgets/CertTreeView.cpp" line="91"/>
+        <location filename="../widgets/CertTreeView.cpp" line="95"/>
+        <location filename="../widgets/CertTreeView.cpp" line="98"/>
         <source>Renewal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="93"/>
+        <location filename="../widgets/CertTreeView.cpp" line="100"/>
         <source>Revoke</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="95"/>
+        <location filename="../widgets/CertTreeView.cpp" line="102"/>
         <source>Unrevoke</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="175"/>
+        <location filename="../widgets/CertTreeView.cpp" line="182"/>
         <source>Plain View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="175"/>
+        <location filename="../widgets/CertTreeView.cpp" line="182"/>
         <source>Tree View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="204"/>
+        <location filename="../widgets/CertTreeView.cpp" line="211"/>
         <source>days</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="212"/>
+        <location filename="../widgets/CertTreeView.cpp" line="219"/>
         <source>No template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="217"/>
+        <location filename="../widgets/CertTreeView.cpp" line="224"/>
         <source>CA Properties</source>
         <translation>CA Özellikleri</translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="259"/>
+        <location filename="../widgets/CertTreeView.cpp" line="266"/>
         <source>Certificate export</source>
         <translation>Sertifika dışa aktar</translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="260"/>
+        <location filename="../widgets/CertTreeView.cpp" line="267"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="261"/>
+        <location filename="../widgets/CertTreeView.cpp" line="268"/>
         <source>vCalendar entry ( *.ics )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="262"/>
+        <location filename="../widgets/CertTreeView.cpp" line="269"/>
         <source>OpenVPN file ( *.ovpn )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertTreeView.cpp" line="263"/>
+        <location filename="../widgets/CertTreeView.cpp" line="270"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1427,54 +1452,101 @@ PEM base64 kodlanmış DER dosyası
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="75"/>
+        <location filename="../ui/ExportDialog.ui" line="76"/>
         <source>Name</source>
         <translation>İsim</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="82"/>
+        <location filename="../ui/ExportDialog.ui" line="83"/>
         <source>The internal name of the CRL in the database</source>
         <translation>CRL veritabanındaki isim</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="95"/>
+        <location filename="../ui/ExportDialog.ui" line="96"/>
         <source>Filename</source>
         <translation>Dosya adı</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="111"/>
+        <location filename="../ui/ExportDialog.ui" line="112"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="164"/>
+        <location filename="../ui/ExportDialog.ui" line="127"/>
+        <source>Each Item in a separate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ExportDialog.ui" line="134"/>
+        <source>Same encryption password for all items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ExportDialog.ui" line="141"/>
         <source>Export comment into PEM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="120"/>
+        <location filename="../ui/ExportDialog.ui" line="121"/>
         <source>Export Format</source>
         <translation>Verme biçimi</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../widgets/ExportDialog.cpp" line="43"/>
+        <source>%n selected item(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="48"/>
+        <location filename="../widgets/ExportDialog.cpp" line="53"/>
         <source>All files ( * )</source>
         <translation>Bütün dosyalar ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="104"/>
+        <location filename="../widgets/ExportDialog.cpp" line="126"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Dosya: 2%1&apos; zaten var</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="105"/>
+        <location filename="../widgets/ExportDialog.cpp" line="127"/>
         <source>Overwrite</source>
         <translation>Üzerine yaz</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="106"/>
+        <location filename="../widgets/ExportDialog.cpp" line="128"/>
         <source>Do not overwrite</source>
         <translation>Üzerine yazmayın</translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="132"/>
+        <source>The path: &apos;%1&apos; exist, but is not a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="145"/>
+        <source>The path: &apos;%1&apos; exist, but is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="150"/>
+        <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="152"/>
+        <source>Create</source>
+        <translation type="unfinished">Oluştur</translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="158"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="206"/>
+        <source>Directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1902,8 +1974,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="216"/>
         <location filename="../widgets/MW_menu.cpp" line="146"/>
+        <location filename="../ui/MainWindow.ui" line="216"/>
         <source>Certificates</source>
         <translation>Sertifikalar</translation>
     </message>
@@ -2118,26 +2190,31 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="46"/>
-        <source>Polish</source>
+        <source>Korean</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="48"/>
-        <source>Portuguese in Brazil</source>
+        <source>Polish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="50"/>
+        <source>Portuguese in Brazil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="52"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="51"/>
+        <location filename="../widgets/MW_help.cpp" line="53"/>
         <source>Slovak</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="53"/>
+        <location filename="../widgets/MW_help.cpp" line="55"/>
         <source>Spanish</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2147,7 +2224,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="55"/>
+        <location filename="../widgets/MW_help.cpp" line="57"/>
         <source>Turkish</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2492,566 +2569,581 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="112"/>
+        <location filename="../ui/NewX509.ui" line="121"/>
         <source>Show request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="119"/>
+        <location filename="../ui/NewX509.ui" line="128"/>
         <source>Sign this Certificate signing &amp;request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="126"/>
+        <location filename="../ui/NewX509.ui" line="135"/>
         <source>Copy extensions from the request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="136"/>
+        <location filename="../ui/NewX509.ui" line="145"/>
         <source>Modify subject of the request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="169"/>
+        <location filename="../ui/NewX509.ui" line="177"/>
         <source>Signing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="177"/>
+        <location filename="../ui/NewX509.ui" line="185"/>
         <source>Create a &amp;self signed certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="191"/>
+        <location filename="../ui/NewX509.ui" line="199"/>
         <source>Use &amp;this Certificate for signing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="198"/>
+        <location filename="../ui/NewX509.ui" line="206"/>
         <source>All certificates in your database that can create valid signatures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="225"/>
+        <location filename="../ui/NewX509.ui" line="233"/>
         <source>Signature algorithm</source>
         <translation>İmza algoritması</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="253"/>
+        <location filename="../ui/NewX509.ui" line="261"/>
         <source>Template for the new certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="265"/>
+        <location filename="../ui/NewX509.ui" line="273"/>
         <source>All available templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="287"/>
+        <location filename="../ui/NewX509.ui" line="295"/>
         <source>Apply extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="294"/>
+        <location filename="../ui/NewX509.ui" line="302"/>
         <source>Apply subject</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="307"/>
+        <location filename="../ui/NewX509.ui" line="315"/>
         <source>Apply all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="336"/>
-        <location filename="../widgets/NewX509.cpp" line="605"/>
+        <location filename="../widgets/NewX509.cpp" line="611"/>
+        <location filename="../ui/NewX509.ui" line="344"/>
         <source>Subject</source>
         <translation>Konu</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="344"/>
+        <location filename="../ui/NewX509.ui" line="352"/>
         <source>Internal Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="351"/>
+        <location filename="../ui/NewX509.ui" line="359"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="360"/>
+        <location filename="../ui/NewX509.ui" line="368"/>
         <source>Distinguished name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="386"/>
+        <location filename="../ui/NewX509.ui" line="394"/>
         <source>Add</source>
         <translation>Ekle</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="393"/>
+        <location filename="../ui/NewX509.ui" line="401"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="430"/>
+        <location filename="../ui/NewX509.ui" line="438"/>
         <source>Private key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="442"/>
+        <location filename="../ui/NewX509.ui" line="450"/>
         <source>This list only contains unused keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="449"/>
+        <location filename="../ui/NewX509.ui" line="457"/>
         <source>Used keys too</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="456"/>
+        <location filename="../ui/NewX509.ui" line="464"/>
         <source>&amp;Generate a new key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="467"/>
+        <location filename="../ui/NewX509.ui" line="475"/>
         <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="478"/>
+        <location filename="../ui/NewX509.ui" line="486"/>
         <source>Type</source>
         <translation>Tür</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="485"/>
+        <location filename="../ui/NewX509.ui" line="493"/>
         <source>If this will become a CA certificate or not</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="489"/>
+        <location filename="../ui/NewX509.ui" line="497"/>
         <source>Not defined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="494"/>
+        <location filename="../ui/NewX509.ui" line="502"/>
         <source>Certification Authority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="499"/>
+        <location filename="../ui/NewX509.ui" line="507"/>
         <source>End Entity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="507"/>
+        <location filename="../ui/NewX509.ui" line="515"/>
         <source>Path length</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="514"/>
+        <location filename="../ui/NewX509.ui" line="522"/>
         <source>How much CAs may be below this.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="521"/>
+        <location filename="../ui/NewX509.ui" line="529"/>
         <source>The basic constraints should always be critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="534"/>
+        <location filename="../ui/NewX509.ui" line="542"/>
         <source>Key identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="546"/>
+        <location filename="../ui/NewX509.ui" line="563"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="556"/>
+        <location filename="../ui/NewX509.ui" line="573"/>
         <source>Copy the Subject Key Identifier from the issuer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="593"/>
+        <location filename="../ui/NewX509.ui" line="619"/>
         <source>Validity</source>
         <translation>Geçerlilik</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="599"/>
+        <location filename="../ui/NewX509.ui" line="625"/>
         <source>Not before</source>
         <translation>Öncedeğil</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="613"/>
+        <location filename="../ui/NewX509.ui" line="639"/>
         <source>Not after</source>
         <translation>Sonradeğil</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="630"/>
+        <location filename="../ui/NewX509.ui" line="656"/>
         <source>Time range</source>
         <translation>Zaman aralığı</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="640"/>
+        <location filename="../ui/NewX509.ui" line="666"/>
         <source>Days</source>
         <translation>Gün</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="645"/>
+        <location filename="../ui/NewX509.ui" line="671"/>
         <source>Months</source>
         <translation>Ay</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="650"/>
+        <location filename="../ui/NewX509.ui" line="676"/>
         <source>Years</source>
         <translation>Yıl</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="664"/>
+        <location filename="../ui/NewX509.ui" line="704"/>
         <source>Apply</source>
         <translation>Uygula</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="671"/>
+        <location filename="../ui/NewX509.ui" line="711"/>
         <source>Set the time to 00:00:00 and 23:59:59 respectively</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="674"/>
+        <location filename="../ui/NewX509.ui" line="714"/>
         <source>Midnight</source>
         <translation>Gece Yarısı</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="681"/>
+        <location filename="../ui/NewX509.ui" line="684"/>
         <source>Local time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="688"/>
+        <location filename="../ui/NewX509.ui" line="691"/>
         <source>No well-defined expiration</source>
         <translation>Tanımlanmamış son</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="738"/>
-        <location filename="../ui/NewX509.ui" line="755"/>
-        <location filename="../ui/NewX509.ui" line="824"/>
+        <location filename="../ui/NewX509.ui" line="768"/>
+        <location filename="../ui/NewX509.ui" line="811"/>
+        <location filename="../ui/NewX509.ui" line="834"/>
+        <location filename="../ui/NewX509.ui" line="863"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="745"/>
-        <location filename="../ui/NewX509.ui" line="762"/>
-        <location filename="../ui/NewX509.ui" line="795"/>
-        <location filename="../ui/NewX509.ui" line="831"/>
-        <location filename="../widgets/NewX509.cpp" line="1013"/>
+        <location filename="../widgets/NewX509.cpp" line="1029"/>
+        <location filename="../ui/NewX509.ui" line="775"/>
+        <location filename="../ui/NewX509.ui" line="801"/>
+        <location filename="../ui/NewX509.ui" line="827"/>
+        <location filename="../ui/NewX509.ui" line="870"/>
+        <location filename="../ui/NewX509.ui" line="896"/>
         <source>Edit</source>
         <translation>Düzenle</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="788"/>
+        <location filename="../ui/NewX509.ui" line="922"/>
         <source>URI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="870"/>
+        <location filename="../ui/NewX509.ui" line="932"/>
         <source>Key usage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="981"/>
+        <location filename="../ui/NewX509.ui" line="1070"/>
         <source>Netscape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1139"/>
+        <location filename="../ui/NewX509.ui" line="1228"/>
         <source>Advanced</source>
         <translation>Gelişmiş</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1163"/>
-        <location filename="../widgets/NewX509.cpp" line="1023"/>
+        <location filename="../widgets/NewX509.cpp" line="1039"/>
+        <location filename="../ui/NewX509.ui" line="1252"/>
         <source>Validate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1186"/>
+        <location filename="../ui/NewX509.ui" line="1275"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="272"/>
+        <location filename="../widgets/NewX509.cpp" line="276"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="312"/>
+        <location filename="../widgets/NewX509.cpp" line="317"/>
         <source>Create Certificate signing request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="338"/>
+        <location filename="../widgets/NewX509.cpp" line="343"/>
         <source>minimum size: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="340"/>
+        <location filename="../widgets/NewX509.cpp" line="345"/>
         <source>maximum size: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="342"/>
+        <location filename="../widgets/NewX509.cpp" line="347"/>
         <source>only a-z A-Z 0-9 &apos;()+,-./:=?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="346"/>
+        <location filename="../widgets/NewX509.cpp" line="351"/>
         <source>only 7-bit clean characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="371"/>
+        <location filename="../widgets/NewX509.cpp" line="376"/>
         <source>Edit XCA template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="395"/>
+        <location filename="../widgets/NewX509.cpp" line="391"/>
         <source>Create x509 Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="773"/>
+        <location filename="../widgets/NewX509.cpp" line="779"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="780"/>
+        <location filename="../widgets/NewX509.cpp" line="786"/>
         <source>Subject applied from template &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="788"/>
+        <location filename="../widgets/NewX509.cpp" line="794"/>
         <source>Extensions applied from template &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="803"/>
+        <location filename="../widgets/NewX509.cpp" line="809"/>
         <source>New key &apos;%1&apos; created</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1045"/>
+        <location filename="../widgets/NewX509.cpp" line="1061"/>
         <source>Other Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1061"/>
+        <location filename="../widgets/NewX509.cpp" line="1077"/>
         <source>Advanced Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1068"/>
+        <location filename="../widgets/NewX509.cpp" line="1084"/>
         <source>Errors</source>
         <translation>Hatalar</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1087"/>
+        <location filename="../widgets/NewX509.cpp" line="1103"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1097"/>
+        <location filename="../widgets/NewX509.cpp" line="1113"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1097"/>
+        <location filename="../widgets/NewX509.cpp" line="1113"/>
         <source>duplicate extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1106"/>
+        <location filename="../widgets/NewX509.cpp" line="1122"/>
+        <source>The Name Constraints are invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509.cpp" line="1124"/>
         <source>The Subject Alternative Name is invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1108"/>
+        <location filename="../widgets/NewX509.cpp" line="1126"/>
         <source>The Issuer Alternative Name is invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1110"/>
+        <location filename="../widgets/NewX509.cpp" line="1128"/>
         <source>The CRL Distribution Point is invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1112"/>
+        <location filename="../widgets/NewX509.cpp" line="1130"/>
         <source>The Authority Information Access is invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1212"/>
-        <location filename="../widgets/NewX509.cpp" line="1225"/>
-        <location filename="../widgets/NewX509.cpp" line="1244"/>
-        <location filename="../widgets/NewX509.cpp" line="1256"/>
-        <location filename="../widgets/NewX509.cpp" line="1272"/>
-        <location filename="../widgets/NewX509.cpp" line="1286"/>
-        <location filename="../widgets/NewX509.cpp" line="1320"/>
-        <location filename="../widgets/NewX509.cpp" line="1339"/>
-        <location filename="../widgets/NewX509.cpp" line="1362"/>
-        <location filename="../widgets/NewX509.cpp" line="1385"/>
-        <location filename="../widgets/NewX509.cpp" line="1420"/>
-        <location filename="../widgets/NewX509.cpp" line="1440"/>
+        <location filename="../widgets/NewX509.cpp" line="1241"/>
+        <location filename="../widgets/NewX509.cpp" line="1254"/>
+        <location filename="../widgets/NewX509.cpp" line="1273"/>
+        <location filename="../widgets/NewX509.cpp" line="1285"/>
+        <location filename="../widgets/NewX509.cpp" line="1301"/>
+        <location filename="../widgets/NewX509.cpp" line="1315"/>
+        <location filename="../widgets/NewX509.cpp" line="1349"/>
+        <location filename="../widgets/NewX509.cpp" line="1368"/>
+        <location filename="../widgets/NewX509.cpp" line="1391"/>
+        <location filename="../widgets/NewX509.cpp" line="1414"/>
+        <location filename="../widgets/NewX509.cpp" line="1449"/>
+        <location filename="../widgets/NewX509.cpp" line="1469"/>
+        <location filename="../widgets/NewX509.cpp" line="1502"/>
         <source>Abort rollout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1221"/>
+        <location filename="../widgets/NewX509.cpp" line="1250"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1224"/>
-        <location filename="../widgets/NewX509.cpp" line="1285"/>
+        <location filename="../widgets/NewX509.cpp" line="1253"/>
+        <location filename="../widgets/NewX509.cpp" line="1314"/>
         <source>Edit subject</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1226"/>
-        <location filename="../widgets/NewX509.cpp" line="1287"/>
-        <location filename="../widgets/NewX509.cpp" line="1340"/>
-        <location filename="../widgets/NewX509.cpp" line="1363"/>
-        <location filename="../widgets/NewX509.cpp" line="1386"/>
-        <location filename="../widgets/NewX509.cpp" line="1421"/>
-        <location filename="../widgets/NewX509.cpp" line="1441"/>
+        <location filename="../widgets/NewX509.cpp" line="1255"/>
+        <location filename="../widgets/NewX509.cpp" line="1316"/>
+        <location filename="../widgets/NewX509.cpp" line="1369"/>
+        <location filename="../widgets/NewX509.cpp" line="1392"/>
+        <location filename="../widgets/NewX509.cpp" line="1415"/>
+        <location filename="../widgets/NewX509.cpp" line="1450"/>
+        <location filename="../widgets/NewX509.cpp" line="1470"/>
+        <location filename="../widgets/NewX509.cpp" line="1503"/>
         <source>Continue rollout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1242"/>
+        <location filename="../widgets/NewX509.cpp" line="1271"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1243"/>
+        <location filename="../widgets/NewX509.cpp" line="1272"/>
         <source>Continue anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1254"/>
+        <location filename="../widgets/NewX509.cpp" line="1283"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1255"/>
+        <location filename="../widgets/NewX509.cpp" line="1284"/>
         <source>Edit name</source>
         <translation>İsmi Düzenle</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1270"/>
+        <location filename="../widgets/NewX509.cpp" line="1299"/>
         <source>There is no Key selected for signing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1271"/>
+        <location filename="../widgets/NewX509.cpp" line="1300"/>
         <source>Select key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1283"/>
+        <location filename="../widgets/NewX509.cpp" line="1312"/>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1317"/>
+        <location filename="../widgets/NewX509.cpp" line="1346"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1318"/>
+        <location filename="../widgets/NewX509.cpp" line="1347"/>
         <source>Select other signer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1318"/>
+        <location filename="../widgets/NewX509.cpp" line="1347"/>
         <source>Select other key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1328"/>
+        <location filename="../widgets/NewX509.cpp" line="1357"/>
         <source>The currently selected hash algorithm &apos;%1&apos; is insecure and should not be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1329"/>
+        <location filename="../widgets/NewX509.cpp" line="1358"/>
         <source>Select other algorithm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1330"/>
+        <location filename="../widgets/NewX509.cpp" line="1359"/>
         <source>Use algorithm anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1336"/>
+        <location filename="../widgets/NewX509.cpp" line="1365"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1338"/>
-        <location filename="../widgets/NewX509.cpp" line="1361"/>
-        <location filename="../widgets/NewX509.cpp" line="1384"/>
+        <location filename="../widgets/NewX509.cpp" line="1367"/>
+        <location filename="../widgets/NewX509.cpp" line="1390"/>
+        <location filename="../widgets/NewX509.cpp" line="1413"/>
         <source>Edit dates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1341"/>
-        <location filename="../widgets/NewX509.cpp" line="1364"/>
+        <location filename="../widgets/NewX509.cpp" line="1370"/>
+        <location filename="../widgets/NewX509.cpp" line="1393"/>
         <source>Adjust date and continue</source>
         <translation>Tarihi düzenler ve devam eder</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1359"/>
+        <location filename="../widgets/NewX509.cpp" line="1388"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1382"/>
+        <location filename="../widgets/NewX509.cpp" line="1411"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1404"/>
+        <location filename="../widgets/NewX509.cpp" line="1433"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1408"/>
+        <location filename="../widgets/NewX509.cpp" line="1437"/>
         <source>The certificate contains no extensions. You may apply the extensions of one of the templates to define the purpose of the certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1412"/>
+        <location filename="../widgets/NewX509.cpp" line="1441"/>
         <source>The certificate contains invalid extensions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1419"/>
-        <location filename="../widgets/NewX509.cpp" line="1439"/>
+        <location filename="../widgets/NewX509.cpp" line="1448"/>
+        <location filename="../widgets/NewX509.cpp" line="1468"/>
+        <location filename="../widgets/NewX509.cpp" line="1501"/>
         <source>Edit extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1438"/>
+        <location filename="../widgets/NewX509.cpp" line="1467"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="169"/>
+        <location filename="../widgets/NewX509.cpp" line="1498"/>
+        <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509_ext.cpp" line="173"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished"></translation>
@@ -3129,8 +3221,8 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Parola</translation>
     </message>
     <message>
-        <location filename="../ui/OpenDb.ui" line="142"/>
         <location filename="../widgets/OpenDb.cpp" line="57"/>
+        <location filename="../ui/OpenDb.ui" line="142"/>
         <source>Database name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3278,37 +3370,37 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="35"/>
+        <location filename="../widgets/Options.cpp" line="36"/>
         <source>Printable string or UTF8 (default)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="36"/>
+        <location filename="../widgets/Options.cpp" line="37"/>
         <source>PKIX recommendation in RFC2459</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="37"/>
+        <location filename="../widgets/Options.cpp" line="38"/>
         <source>No BMP strings, only printable and T61</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="38"/>
+        <location filename="../widgets/Options.cpp" line="39"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="39"/>
+        <location filename="../widgets/Options.cpp" line="40"/>
         <source>All strings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="61"/>
+        <location filename="../widgets/Options.cpp" line="62"/>
         <source>Days</source>
         <translation>Gün</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="61"/>
+        <location filename="../widgets/Options.cpp" line="62"/>
         <source>Weeks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3404,192 +3496,197 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="224"/>
+        <location filename="../lib/func_base.cpp" line="244"/>
         <source>Country code</source>
         <translation>Ülke kodu</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="225"/>
+        <location filename="../lib/func_base.cpp" line="245"/>
         <source>State or Province</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="226"/>
+        <location filename="../lib/func_base.cpp" line="246"/>
         <source>Locality</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="227"/>
+        <location filename="../lib/func_base.cpp" line="247"/>
         <source>Organisation</source>
         <translation>Organizasyon</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="228"/>
+        <location filename="../lib/func_base.cpp" line="248"/>
         <source>Organisational unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="229"/>
+        <location filename="../lib/func_base.cpp" line="249"/>
         <source>Common name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="230"/>
+        <location filename="../lib/func_base.cpp" line="250"/>
         <source>E-Mail address</source>
         <translation>E-posta adresi</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="231"/>
+        <location filename="../lib/func_base.cpp" line="251"/>
         <source>Serial number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="232"/>
+        <location filename="../lib/func_base.cpp" line="252"/>
         <source>Given name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="233"/>
+        <location filename="../lib/func_base.cpp" line="253"/>
         <source>Surname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="234"/>
+        <location filename="../lib/func_base.cpp" line="254"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="235"/>
+        <location filename="../lib/func_base.cpp" line="255"/>
         <source>Initials</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="236"/>
+        <location filename="../lib/func_base.cpp" line="256"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="237"/>
+        <location filename="../lib/func_base.cpp" line="257"/>
         <source>Role</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="238"/>
+        <location filename="../lib/func_base.cpp" line="258"/>
         <source>Pseudonym</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="239"/>
+        <location filename="../lib/func_base.cpp" line="259"/>
         <source>Generation Qualifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="240"/>
+        <location filename="../lib/func_base.cpp" line="260"/>
         <source>x500 Unique Identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="241"/>
+        <location filename="../lib/func_base.cpp" line="261"/>
         <source>Name</source>
         <translation>İsim</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="242"/>
+        <location filename="../lib/func_base.cpp" line="262"/>
         <source>DN Qualifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="243"/>
+        <location filename="../lib/func_base.cpp" line="263"/>
         <source>Unstructured name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="244"/>
+        <location filename="../lib/func_base.cpp" line="264"/>
         <source>Challenge password</source>
         <translation>Yeni Parola</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="246"/>
+        <location filename="../lib/func_base.cpp" line="266"/>
         <source>Basic Constraints</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="247"/>
+        <location filename="../lib/func_base.cpp" line="267"/>
+        <source>Name Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/func_base.cpp" line="268"/>
         <source>Subject alternative name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="248"/>
+        <location filename="../lib/func_base.cpp" line="269"/>
         <source>issuer alternative name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="249"/>
+        <location filename="../lib/func_base.cpp" line="270"/>
         <source>Subject key identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="250"/>
+        <location filename="../lib/func_base.cpp" line="271"/>
         <source>Authority key identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="251"/>
+        <location filename="../lib/func_base.cpp" line="272"/>
         <source>Key usage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="252"/>
+        <location filename="../lib/func_base.cpp" line="273"/>
         <source>Extended key usage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="253"/>
+        <location filename="../lib/func_base.cpp" line="274"/>
         <source>CRL distribution points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="254"/>
+        <location filename="../lib/func_base.cpp" line="275"/>
         <source>Authority information access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="255"/>
+        <location filename="../lib/func_base.cpp" line="276"/>
         <source>Certificate type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="256"/>
+        <location filename="../lib/func_base.cpp" line="277"/>
         <source>Base URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="257"/>
+        <location filename="../lib/func_base.cpp" line="278"/>
         <source>Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="258"/>
+        <location filename="../lib/func_base.cpp" line="279"/>
         <source>CA Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="259"/>
+        <location filename="../lib/func_base.cpp" line="280"/>
         <source>Certificate renewal URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="260"/>
+        <location filename="../lib/func_base.cpp" line="281"/>
         <source>CA policy URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="261"/>
+        <location filename="../lib/func_base.cpp" line="282"/>
         <source>SSL server name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="262"/>
+        <location filename="../lib/func_base.cpp" line="283"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3719,37 +3816,42 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="163"/>
+        <location filename="../lib/cmdline.cpp" line="166"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="170"/>
+        <location filename="../lib/cmdline.cpp" line="173"/>
         <source>Index hierarchy written to &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="183"/>
+        <location filename="../lib/cmdline.cpp" line="186"/>
         <source>Unknown key type %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="48"/>
+        <location filename="../lib/cmdline.cpp" line="273"/>
+        <source>Failed to write PEM data to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/oid.cpp" line="58"/>
         <source>Error reading config file %1 at line %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="86"/>
+        <location filename="../lib/oid.cpp" line="96"/>
         <source>The Object &apos;%1&apos; from file %2 line %3 is already known as &apos;%4:%5:%6&apos; and should be removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="95"/>
+        <location filename="../lib/oid.cpp" line="105"/>
         <source>The identifier &apos;%1&apos; for OID %2 from file %3 line %4 is already used for a different OID as &apos;%5:%6:%7&apos; and should be changed to avoid conflicts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="160"/>
+        <location filename="../lib/oid.cpp" line="170"/>
         <source>Unknown object &apos;%1&apos; in file %2 line %3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3852,7 +3954,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="103"/>
+        <location filename="../lib/x509v3ext.cpp" line="112"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3867,7 +3969,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="214"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="217"/>
         <source>insecure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4014,7 +4116,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="75"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="76"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4067,34 +4169,6 @@ In library %3
     <message>
         <location filename="../widgets/TempTreeView.cpp" line="125"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TrustState</name>
-    <message>
-        <location filename="../ui/TrustState.ui" line="33"/>
-        <source>Certificate trust</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/TrustState.ui" line="93"/>
-        <source>Trustment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/TrustState.ui" line="102"/>
-        <source>&amp;Never trust this certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/TrustState.ui" line="109"/>
-        <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/TrustState.ui" line="116"/>
-        <source>&amp;Always trust this certificate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4156,97 +4230,111 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="336"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="332"/>
         <source>Item properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="406"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="402"/>
         <source>Subject entries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="407"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="403"/>
         <source>X509v3 Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="408"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="404"/>
         <source>Netscape extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="409"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="405"/>
         <source>Key properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="410"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="406"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="413"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="409"/>
         <source>Hide Column</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="415"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="411"/>
         <source>Details</source>
         <translation>Detaylar</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="456"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="452"/>
         <source>Columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="522"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="509"/>
+        <source>Export Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../widgets/XcaTreeView.cpp" line="510"/>
+        <source>Please enter the password to encrypt all %n exported private key(s) in:
+%1</source>
+        <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../widgets/XcaTreeView.cpp" line="553"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="523"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="554"/>
         <source>Import</source>
         <translation>&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="524"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="555"/>
         <source>Paste PEM data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="528"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="559"/>
         <source>Rename</source>
         <translation>Dosya adı</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="529"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="560"/>
         <source>Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="532"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="563"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="534"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="565"/>
         <source>Export</source>
         <translation>Verme biçimi</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="538"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="567"/>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="540"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="573"/>
         <source>File</source>
         <translation>&amp;Dosya</translation>
     </message>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="602"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="635"/>
         <source>Clipboard format</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4473,17 +4561,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="242"/>
-        <source>Internal error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/db_key.cpp" line="282"/>
+        <location filename="../lib/db_key.cpp" line="284"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="296"/>
+        <location filename="../lib/db_key.cpp" line="298"/>
         <source>Tried to change password of a token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4606,18 +4689,18 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="627"/>
-        <location filename="../lib/db_x509.cpp" line="681"/>
+        <location filename="../lib/db_x509.cpp" line="617"/>
+        <location filename="../lib/db_x509.cpp" line="703"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="630"/>
+        <location filename="../lib/db_x509.cpp" line="620"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="685"/>
+        <location filename="../lib/db_x509.cpp" line="707"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4840,48 +4923,45 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="60"/>
-        <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/pki_crl.cpp" line="61"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../lib/pki_crl.cpp" line="63"/>
-        <source>Delete the %1 revocation lists: %2?</source>
-        <translation type="unfinished"></translation>
+    <message numerus="yes">
+        <location filename="../lib/pki_crl.cpp" line="60"/>
+        <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="147"/>
+        <location filename="../lib/pki_crl.cpp" line="145"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="162"/>
+        <location filename="../lib/pki_crl.cpp" line="160"/>
         <source>No issuer given</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="423"/>
+        <location filename="../lib/pki_crl.cpp" line="421"/>
         <source>CRL Renewal of CA &apos;%1&apos; due</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="424"/>
+        <location filename="../lib/pki_crl.cpp" line="422"/>
         <source>The latest CRL issued by the CA &apos;%1&apos; will expire on %2.
 It is stored in the XCA database &apos;%3&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="432"/>
+        <location filename="../lib/pki_crl.cpp" line="430"/>
         <source>Renew CRL: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_crl.cpp" line="433"/>
+        <location filename="../lib/pki_crl.cpp" line="431"/>
         <source>The XCA CRL &apos;%1&apos;, issued on %3 will expire on %4.
 It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
@@ -4890,70 +4970,67 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="239"/>
+        <location filename="../lib/pki_evp.cpp" line="240"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="307"/>
+        <location filename="../lib/pki_evp.cpp" line="308"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="396"/>
+        <location filename="../lib/pki_evp.cpp" line="397"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="463"/>
+        <location filename="../lib/pki_evp.cpp" line="464"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="486"/>
+        <location filename="../lib/pki_evp.cpp" line="487"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="489"/>
-        <location filename="../lib/pki_evp.cpp" line="500"/>
+        <location filename="../lib/pki_evp.cpp" line="490"/>
+        <location filename="../lib/pki_evp.cpp" line="501"/>
         <source>Password input aborted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="496"/>
+        <location filename="../lib/pki_evp.cpp" line="497"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="520"/>
+        <location filename="../lib/pki_evp.cpp" line="521"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="648"/>
+        <location filename="../lib/pki_evp.cpp" line="649"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="666"/>
+        <location filename="../lib/pki_evp.cpp" line="667"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="823"/>
-        <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
+        <location filename="../lib/pki_evp.cpp" line="849"/>
+        <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
+%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="843"/>
-        <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_evp.cpp" line="895"/>
-        <source>Please enter the export password for the private key &apos;%1&apos;</source>
+        <location filename="../lib/pki_evp.cpp" line="906"/>
+        <source>Please enter the password to protect the private key &apos;%1&apos; in file:
+%2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4961,14 +5038,19 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="64"/>
-        <location filename="../lib/pki_export.cpp" line="93"/>
-        <location filename="../lib/pki_export.cpp" line="97"/>
+        <location filename="../lib/pki_export.cpp" line="99"/>
+        <location filename="../lib/pki_export.cpp" line="103"/>
         <source>PEM Text format with headers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
-        <source>Concatenated list of all selected items in one PEM text file</source>
+        <source>PEM selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="65"/>
+        <source>Concatenated list of all selected certificates in one PEM text file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5003,302 +5085,366 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="70"/>
-        <source>PKCS#7 encoded single certificate</source>
+        <source>All unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="70"/>
+        <source>Concatenation of all expired or revoked certificates in one PEM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="71"/>
+        <source>PKCS#7 encoded single certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="72"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="72"/>
+        <location filename="../lib/pki_export.cpp" line="73"/>
         <source>PKCS #7 chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="72"/>
+        <location filename="../lib/pki_export.cpp" line="73"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="73"/>
+        <location filename="../lib/pki_export.cpp" line="74"/>
+        <source>PKCS #7 unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="74"/>
+        <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="75"/>
         <source>Binary DER encoded certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="74"/>
+        <location filename="../lib/pki_export.cpp" line="76"/>
         <source>PKCS #12 chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="74"/>
+        <location filename="../lib/pki_export.cpp" line="76"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="77"/>
         <source>PKCS #12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="75"/>
+        <location filename="../lib/pki_export.cpp" line="77"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="76"/>
+        <location filename="../lib/pki_export.cpp" line="78"/>
         <source>Certificate Index file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="76"/>
+        <location filename="../lib/pki_export.cpp" line="78"/>
         <source>OpenSSL specific Certificate Index file as created by the &apos;ca&apos; command and required by the OCSP tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="77"/>
-        <location filename="../lib/pki_export.cpp" line="99"/>
+        <location filename="../lib/pki_export.cpp" line="79"/>
+        <location filename="../lib/pki_export.cpp" line="105"/>
         <source>vCalendar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="77"/>
+        <location filename="../lib/pki_export.cpp" line="79"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="78"/>
+        <location filename="../lib/pki_export.cpp" line="80"/>
         <source>CA vCalendar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="78"/>
+        <location filename="../lib/pki_export.cpp" line="80"/>
         <source>vCalendar expiry reminder containing all issued, valid certificates, the CA itself and the latest CRL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="79"/>
-        <location filename="../lib/pki_export.cpp" line="95"/>
+        <location filename="../lib/pki_export.cpp" line="81"/>
+        <location filename="../lib/pki_export.cpp" line="101"/>
         <source>OpenSSL config</source>
         <translation type="unfinished">Yapılandırmayı göster</translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="79"/>
-        <location filename="../lib/pki_export.cpp" line="95"/>
+        <location filename="../lib/pki_export.cpp" line="81"/>
+        <location filename="../lib/pki_export.cpp" line="101"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="80"/>
+        <location filename="../lib/pki_export.cpp" line="82"/>
         <source>OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="80"/>
+        <location filename="../lib/pki_export.cpp" line="82"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="82"/>
+        <location filename="../lib/pki_export.cpp" line="83"/>
+        <source>JSON Web Kit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="83"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="84"/>
+        <source>JSON Web Kit chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="84"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="86"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="82"/>
+        <location filename="../lib/pki_export.cpp" line="86"/>
         <source>Text format of the public key in one PEM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="83"/>
+        <location filename="../lib/pki_export.cpp" line="87"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="83"/>
-        <location filename="../lib/pki_export.cpp" line="85"/>
+        <location filename="../lib/pki_export.cpp" line="87"/>
+        <location filename="../lib/pki_export.cpp" line="89"/>
         <source>Unencrypted private key in text format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="84"/>
+        <location filename="../lib/pki_export.cpp" line="88"/>
         <source>PEM encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="84"/>
+        <location filename="../lib/pki_export.cpp" line="88"/>
         <source>OpenSSL specific encrypted private key in text format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="85"/>
+        <location filename="../lib/pki_export.cpp" line="89"/>
         <source>SSH2 private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="86"/>
+        <location filename="../lib/pki_export.cpp" line="90"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="86"/>
+        <location filename="../lib/pki_export.cpp" line="90"/>
         <source>The public key encoded in SSH2 format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="87"/>
+        <location filename="../lib/pki_export.cpp" line="91"/>
         <source>DER public</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="87"/>
+        <location filename="../lib/pki_export.cpp" line="91"/>
         <source>Binary DER format of the public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="88"/>
+        <location filename="../lib/pki_export.cpp" line="92"/>
         <source>DER private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="88"/>
+        <location filename="../lib/pki_export.cpp" line="92"/>
         <source>Unencrypted private key in binary DER format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="89"/>
+        <location filename="../lib/pki_export.cpp" line="93"/>
         <source>PVK private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="89"/>
+        <location filename="../lib/pki_export.cpp" line="93"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="90"/>
+        <location filename="../lib/pki_export.cpp" line="94"/>
         <source>PKCS #8 encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="90"/>
+        <location filename="../lib/pki_export.cpp" line="94"/>
         <source>Encrypted private key in PKCS#8 text format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="91"/>
+        <location filename="../lib/pki_export.cpp" line="95"/>
         <source>PKCS #8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="91"/>
+        <location filename="../lib/pki_export.cpp" line="95"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="94"/>
+        <location filename="../lib/pki_export.cpp" line="96"/>
+        <source>JSON Web Key private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="96"/>
+        <source>Unencrypted private key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="97"/>
+        <source>JSON Web Key public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="97"/>
+        <source>Public key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_export.cpp" line="100"/>
         <source>Binary DER format of the certificate request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="98"/>
+        <location filename="../lib/pki_export.cpp" line="104"/>
         <source>Binary DER format of the revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="99"/>
+        <location filename="../lib/pki_export.cpp" line="105"/>
         <source>vCalendar reminder for the CRL expiry date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="101"/>
-        <source>XCA template in PEM-like format</source>
+        <location filename="../lib/pki_export.cpp" line="107"/>
+        <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_export.cpp" line="102"/>
-        <source>All selected XCA templates in PEM-like format</source>
+        <location filename="../lib/pki_export.cpp" line="108"/>
+        <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="58"/>
-        <location filename="../lib/pki_key.cpp" line="225"/>
-        <location filename="../lib/pki_key.cpp" line="874"/>
+        <location filename="../lib/pki_key.cpp" line="59"/>
+        <location filename="../lib/pki_key.cpp" line="236"/>
+        <location filename="../lib/pki_key.cpp" line="856"/>
         <source>Public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="202"/>
+        <location filename="../lib/pki_key.cpp" line="212"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../lib/pki_key.cpp" line="203"/>
-        <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+    <message numerus="yes">
+        <location filename="../lib/pki_key.cpp" line="214"/>
+        <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="208"/>
+        <location filename="../lib/pki_key.cpp" line="220"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../lib/pki_key.cpp" line="209"/>
-        <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+    <message numerus="yes">
+        <location filename="../lib/pki_key.cpp" line="222"/>
+        <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="210"/>
+        <location filename="../lib/pki_key.cpp" line="224"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="216"/>
-        <source>Delete the %1 keys: %2?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_key.cpp" line="466"/>
+        <location filename="../lib/pki_key.cpp" line="454"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="466"/>
+        <location filename="../lib/pki_key.cpp" line="454"/>
         <source>Private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="466"/>
+        <location filename="../lib/pki_key.cpp" line="454"/>
         <source>Bogus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="466"/>
+        <location filename="../lib/pki_key.cpp" line="454"/>
         <source>PIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="476"/>
+        <location filename="../lib/pki_key.cpp" line="464"/>
         <source>No password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="573"/>
-        <location filename="../lib/pki_key.cpp" line="678"/>
+        <location filename="../lib/pki_key.cpp" line="561"/>
+        <location filename="../lib/pki_key.cpp" line="666"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="593"/>
-        <location filename="../lib/pki_key.cpp" line="599"/>
+        <location filename="../lib/pki_key.cpp" line="581"/>
+        <location filename="../lib/pki_key.cpp" line="587"/>
         <source>Invalid SSH2 public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="796"/>
+        <location filename="../lib/pki_key.cpp" line="778"/>
         <source>Failed writing to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5330,12 +5476,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="137"/>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <location filename="../lib/pki_pkcs12.cpp" line="141"/>
+        <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
+%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="140"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="138"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5356,73 +5503,70 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="47"/>
-        <source>Delete the token key &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/pki_scard.cpp" line="48"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../lib/pki_scard.cpp" line="50"/>
-        <source>Delete the %1 keys: %2?</source>
-        <translation type="unfinished"></translation>
+    <message numerus="yes">
+        <location filename="../lib/pki_scard.cpp" line="47"/>
+        <source>Delete the %n token key(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="377"/>
+        <location filename="../lib/pki_scard.cpp" line="375"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="450"/>
+        <location filename="../lib/pki_scard.cpp" line="448"/>
         <source>This Key is already on the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="534"/>
+        <location filename="../lib/pki_scard.cpp" line="532"/>
         <source>PIN input aborted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="550"/>
+        <location filename="../lib/pki_scard.cpp" line="548"/>
         <source>Unable to find copied key on the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="638"/>
+        <location filename="../lib/pki_scard.cpp" line="636"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="692"/>
+        <location filename="../lib/pki_scard.cpp" line="690"/>
         <source>Select Slot of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="730"/>
+        <location filename="../lib/pki_scard.cpp" line="728"/>
         <source>Unable to find generated key on card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="741"/>
+        <location filename="../lib/pki_scard.cpp" line="739"/>
         <source>Token %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="750"/>
-        <location filename="../lib/pki_scard.cpp" line="762"/>
+        <location filename="../lib/pki_scard.cpp" line="748"/>
+        <location filename="../lib/pki_scard.cpp" line="760"/>
         <source>Failed to find the key on the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="756"/>
+        <location filename="../lib/pki_scard.cpp" line="754"/>
         <source>Invalid Pin for the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="768"/>
+        <location filename="../lib/pki_scard.cpp" line="766"/>
         <source>Failed to initialize the key on the token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5430,42 +5574,39 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="158"/>
+        <location filename="../lib/pki_temp.cpp" line="159"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="159"/>
-        <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_temp.cpp" line="160"/>
+        <location filename="../lib/pki_temp.cpp" line="161"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../lib/pki_temp.cpp" line="162"/>
-        <source>Delete the %1 XCA templates: %2?</source>
-        <translation type="unfinished"></translation>
+    <message numerus="yes">
+        <location filename="../lib/pki_temp.cpp" line="160"/>
+        <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="362"/>
+        <location filename="../lib/pki_temp.cpp" line="373"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="449"/>
+        <location filename="../lib/pki_temp.cpp" line="471"/>
         <source>Template file content error (too small)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="499"/>
+        <location filename="../lib/pki_temp.cpp" line="521"/>
         <source>Not a PEM encoded XCA Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="507"/>
+        <location filename="../lib/pki_temp.cpp" line="528"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5473,87 +5614,84 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="62"/>
+        <location filename="../lib/pki_x509.cpp" line="65"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="63"/>
-        <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_x509.cpp" line="64"/>
+        <location filename="../lib/pki_x509.cpp" line="67"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <location filename="../lib/pki_x509.cpp" line="66"/>
-        <source>Delete the %1 certificates: %2?</source>
-        <translation type="unfinished"></translation>
+        <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="236"/>
+        <location filename="../lib/pki_x509.cpp" line="237"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="331"/>
+        <location filename="../lib/pki_x509.cpp" line="332"/>
         <source>Invalid OpenVPN tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="361"/>
+        <location filename="../lib/pki_x509.cpp" line="362"/>
         <source>Failed to import tls-auth key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="364"/>
+        <location filename="../lib/pki_x509.cpp" line="365"/>
         <source>Same tls-auth key already stored for this CA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="366"/>
+        <location filename="../lib/pki_x509.cpp" line="367"/>
         <source>New tls-auth key successfully imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="368"/>
+        <location filename="../lib/pki_x509.cpp" line="369"/>
         <source>Existing tls-auth key successfully replaced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="472"/>
+        <location filename="../lib/pki_x509.cpp" line="473"/>
         <source>This certificate is already on the security token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="535"/>
+        <location filename="../lib/pki_x509.cpp" line="536"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="667"/>
+        <location filename="../lib/pki_x509.cpp" line="660"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="971"/>
+        <location filename="../lib/pki_x509.cpp" line="972"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="973"/>
+        <location filename="../lib/pki_x509.cpp" line="974"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="1003"/>
+        <location filename="../lib/pki_x509.cpp" line="1004"/>
         <source>Renew certificate: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="1004"/>
+        <location filename="../lib/pki_x509.cpp" line="1005"/>
         <source>The XCA certificate &apos;%1&apos;, issued on %2 will expire on %3.
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation type="unfinished"></translation>
@@ -5567,37 +5705,34 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="150"/>
-        <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
+        <location filename="../lib/pki_x509req.cpp" line="147"/>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../lib/pki_x509req.cpp" line="148"/>
+        <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_x509req.cpp" line="149"/>
+        <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="151"/>
-        <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_x509req.cpp" line="152"/>
-        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_x509req.cpp" line="154"/>
-        <source>Delete the %1 certificate requests: %2?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/pki_x509req.cpp" line="185"/>
+        <location filename="../lib/pki_x509req.cpp" line="180"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="371"/>
+        <location filename="../lib/pki_x509req.cpp" line="366"/>
         <source>Signed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="371"/>
+        <location filename="../lib/pki_x509req.cpp" line="366"/>
         <source>Unhandled</source>
         <translation type="unfinished"></translation>
     </message>

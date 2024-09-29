@@ -22,13 +22,13 @@
 <context>
     <name>CertDetail</name>
     <message>
+        <location filename="../widgets/CertDetail.cpp" line="+139"/>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+106"/>
         <source>Details of the Certificate</source>
         <translation>인증서 세부 정보</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location filename="../ui/CertDetail.ui" line="+135"/>
         <source>Serial</source>
         <translation>일련번호</translation>
     </message>
@@ -103,7 +103,7 @@
         <translation>유효성</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>The time since the certificate is valid</source>
         <translation>인증서 유효기간 시작일</translation>
     </message>
@@ -118,38 +118,53 @@
         <translation>주제</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+22"/>
         <source>Issuer</source>
         <translation>발행자</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Extensions</source>
         <translation>확장 키</translation>
     </message>
     <message>
         <location line="+21"/>
+        <source>Validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Purposes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Strict RFC 5280 validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Comment</source>
         <translation>코멘트</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-62"/>
         <source>Attributes</source>
         <translation>속성</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-73"/>
+        <location filename="../widgets/CertDetail.cpp" line="-104"/>
+        <location filename="../ui/CertDetail.ui" line="+23"/>
         <source>Show config</source>
         <translation>구성 보기</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+4"/>
+        <location line="+4"/>
         <source>Show extensions</source>
         <translation>확장 키 표시</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Show public key</source>
         <translation>공개키 표시</translation>
     </message>
@@ -164,7 +179,12 @@
         <translation>사용할 수 없음</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+49"/>
+        <source>No verification errors found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Signer unknown</source>
         <translation>서명자 불명</translation>
     </message>
@@ -315,6 +335,11 @@
     <name>CertTreeView</name>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
+        <source>Hide unusable certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Import PKCS#12</source>
         <translation>PKCS#12 가져오기</translation>
     </message>
@@ -567,7 +592,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+75"/>
+        <location filename="../ui/ExportDialog.ui" line="+76"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>
@@ -587,22 +612,39 @@
         <translation>파일명</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+31"/>
+        <source>Each Item in a separate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Same encryption password for all items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Export comment into PEM file</source>
         <translation>주석을 PEM 파일로 내보내기</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-20"/>
         <source>Export Format</source>
         <translation>내보내기 형식</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../widgets/ExportDialog.cpp" line="+43"/>
+        <source>%n selected item(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+48"/>
+        <location line="+10"/>
         <source>All files ( * )</source>
         <translation>모든 파일 ( * )</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+73"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>파일: &apos;%1&apos;이 이미 존재합니다!</translation>
     </message>
@@ -615,6 +657,36 @@
         <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>덮어쓰지 않음</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The path: &apos;%1&apos; exist, but is not a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The path: &apos;%1&apos; exist, but is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create</source>
+        <translation type="unfinished">생성</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished">디렉토리 &apos;%1&apos;을(를) 생성하지 못했습니다.</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Directory</source>
+        <translation type="unfinished">디렉토리</translation>
     </message>
 </context>
 <context>
@@ -1046,13 +1118,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>CSR 생성(&amp;N)</translation>
     </message>
     <message>
-        <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="+146"/>
+        <location filename="../ui/MainWindow.ui" line="+68"/>
         <source>Certificates</source>
         <translation>인증서</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location filename="../ui/MainWindow.ui" line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>인증서 생성(&amp;N)</translation>
     </message>
@@ -1143,7 +1215,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>일본어</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Russian</source>
         <translation>러시아어</translation>
     </message>
@@ -1158,7 +1235,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>스페인어</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-11"/>
         <source>Persian</source>
         <translation>페르시아어</translation>
     </message>
@@ -1168,12 +1245,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>불가리아어</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+22"/>
         <source>Polish</source>
         <translation>폴란드어</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-8"/>
         <source>Italian</source>
         <translation>이탈리아어</translation>
     </message>
@@ -1188,17 +1265,17 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>네덜란드어</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Portuguese in Brazil</source>
         <translation>브라질의 포르투갈어</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Indonesian</source>
         <translation>인도네시아어</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Turkish</source>
         <translation>튀르키예어</translation>
     </message>
@@ -1637,7 +1714,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>서명 요청</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+24"/>
         <source>Show request</source>
         <translation>요청 보기</translation>
     </message>
@@ -1657,7 +1734,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>서명 요청의 주제 변경</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+32"/>
         <source>Signing</source>
         <translation>서명</translation>
     </message>
@@ -1707,13 +1784,13 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>모두 적용</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+605"/>
+        <location filename="../widgets/NewX509.cpp" line="+611"/>
+        <location filename="../ui/NewX509.ui" line="+29"/>
         <source>Subject</source>
         <translation>주제</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location filename="../ui/NewX509.ui" line="+8"/>
         <source>Internal Name</source>
         <translation>내부이름</translation>
     </message>
@@ -1803,7 +1880,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>키 속성</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>PKIX 지침에 따라 키의 해시를 생성합니다.</translation>
     </message>
@@ -1813,7 +1890,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>발급자로부터 주체 키 식별자를 복사합니다.</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+46"/>
         <source>Validity</source>
         <translation>유효성</translation>
     </message>
@@ -1848,7 +1925,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>년</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
@@ -1863,7 +1940,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>자정시간</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-30"/>
         <source>Local time</source>
         <translation>현지시간</translation>
     </message>
@@ -1873,33 +1950,35 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>정의된 만료일 없음</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+17"/>
-        <location line="+69"/>
+        <location line="+77"/>
+        <location line="+43"/>
+        <location line="+23"/>
+        <location line="+29"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-79"/>
-        <location line="+17"/>
-        <location line="+33"/>
-        <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+408"/>
+        <location filename="../widgets/NewX509.cpp" line="+418"/>
+        <location filename="../ui/NewX509.ui" line="-88"/>
+        <location line="+26"/>
+        <location line="+26"/>
+        <location line="+43"/>
+        <location line="+26"/>
         <source>Edit</source>
         <translation>편집</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location filename="../ui/NewX509.ui" line="+26"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+10"/>
         <source>Key usage</source>
         <translation>키 사용</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+138"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
@@ -1909,28 +1988,28 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>고급설정</translation>
     </message>
     <message>
-        <location line="+24"/>
         <location filename="../widgets/NewX509.cpp" line="+10"/>
+        <location filename="../ui/NewX509.ui" line="+24"/>
         <source>Validate</source>
         <translation>검증</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location filename="../ui/NewX509.ui" line="+23"/>
         <source>Comment</source>
         <translation>코멘트</translation>
     </message>
     <message>
-        <location line="-835"/>
+        <location line="-916"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>이 이름은 내부적으로만 사용되며 결과 인증서에는 나타나지 않습니다.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-751"/>
+        <location filename="../widgets/NewX509.cpp" line="-763"/>
         <source>Critical</source>
         <translation>중요한</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Create Certificate signing request</source>
         <translation>인증서 서명 요청 생성</translation>
     </message>
@@ -1960,12 +2039,12 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>XCA 템플릿 편집</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+15"/>
         <source>Create x509 Certificate</source>
         <translation>x509 인증서 생성</translation>
     </message>
     <message>
-        <location line="+378"/>
+        <location line="+388"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>템플릿 &apos;%1&apos;이 적용되었습니다.</translation>
     </message>
@@ -1985,7 +2064,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>새로운 키 &apos;%1&apos;이 생성되었습니다.</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+252"/>
         <source>Other Tabs</source>
         <translation>기타 탭</translation>
     </message>
@@ -2016,6 +2095,11 @@ DH 매개변수 비트를 입력하세요.</translation>
     </message>
     <message>
         <location line="+9"/>
+        <source>The Name Constraints are invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>The Subject Alternative Name is invalid</source>
         <translation>주체 대체 이름(SAN)이 잘못 되었습니다.</translation>
     </message>
@@ -2035,7 +2119,7 @@ DH 매개변수 비트를 입력하세요.</translation>
         <translation>Authority Information Access 이 잘못되었습니다.</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+111"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2047,11 +2131,12 @@ DH 매개변수 비트를 입력하세요.</translation>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Abort rollout</source>
         <translation>배포 중단</translation>
     </message>
     <message>
-        <location line="-219"/>
+        <location line="-252"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>RFC3280의 다음 길이 제한을 위반했습니다.</translation>
     </message>
@@ -2069,11 +2154,12 @@ DH 매개변수 비트를 입력하세요.</translation>
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Continue rollout</source>
         <translation>배포 계속</translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-232"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>인증서 요청 검증에 실패했습니다.
@@ -2191,16 +2277,22 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+7"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Edit extensions</source>
         <translation>확장 프로그램 편집</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-34"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>주제 대체 이름 (SAN) 에는 일반 이름의 사본이 포함되어야 합니다. 그러나 일반 이름은 비어 있습니다.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
+        <location line="+31"/>
+        <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
         <source>Configfile error on line %1
 </source>
         <translation>%1번 줄에 Configfile 오류가 있습니다
@@ -2279,13 +2371,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>비밀번호</translation>
     </message>
     <message>
-        <location line="+14"/>
         <location filename="../widgets/OpenDb.cpp" line="+57"/>
+        <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Database name</source>
         <translation>데이터베이스 이름</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../ui/OpenDb.ui" line="+10"/>
         <source>Table prefix</source>
         <translation>테이블 접두사</translation>
     </message>
@@ -2430,7 +2522,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>검색</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+35"/>
+        <location filename="../widgets/Options.cpp" line="+36"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>인쇄 가능한 문자열 또는 UTF8(기본값)</translation>
     </message>
@@ -2766,12 +2858,12 @@ In library %3
         <translation>%1은 %2바이트보다 깁니다: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+103"/>
+        <location filename="../lib/x509v3ext.cpp" line="+112"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>&apos;%2&apos;에 대한 문자열 &apos;%1&apos;에 잘못된 문자가 포함되어 있습니다.</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+48"/>
+        <location filename="../lib/oid.cpp" line="+58"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>%2행에서 구성 파일 %1을(를) 읽는 동안 오류가 발생했습니다.</translation>
     </message>
@@ -2796,7 +2888,7 @@ In library %3
         <translation>데이터베이스 트랜잭션을 시작하지 못했습니다.</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="+224"/>
+        <location filename="../lib/func_base.cpp" line="+244"/>
         <source>Country code</source>
         <translation>국가 코드</translation>
     </message>
@@ -2907,6 +2999,11 @@ In library %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Name Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Subject alternative name</source>
         <translation>주제 대체 이름 (SAN)</translation>
     </message>
@@ -2986,7 +3083,7 @@ In library %3
         <translation>코멘트</translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="+163"/>
+        <location filename="../lib/cmdline.cpp" line="+166"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>인덱스 파일이 &apos;%1&apos;에 기록되었습니다.</translation>
     </message>
@@ -2999,6 +3096,11 @@ In library %3
         <location line="+13"/>
         <source>Unknown key type %1</source>
         <translation>알 수 없는 키 유형 %1</translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Failed to write PEM data to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3021,7 +3123,7 @@ In library %3
         <translation>비밀번호</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+217"/>
         <source>insecure</source>
         <translation>안전하지 않음</translation>
     </message>
@@ -3168,7 +3270,7 @@ In library %3
         <translation>검색</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+76"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>다음 파일은 사용 가능한 PKCS#11 라이브러리입니다</translation>
     </message>
@@ -3227,29 +3329,24 @@ In library %3
 <context>
     <name>TrustState</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation>인증서 신뢰</translation>
+        <translation type="vanished">인증서 신뢰</translation>
     </message>
     <message>
-        <location line="+60"/>
         <source>Trustment</source>
-        <translation>신뢰</translation>
+        <translation type="vanished">신뢰</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation>이 인증서를 절대 신뢰하지 마십시오(&amp;N)</translation>
+        <translation type="vanished">이 인증서를 절대 신뢰하지 마십시오(&amp;N)</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation>서명자를 신뢰하는 경우에만 이 인증서를 신뢰하세요.(&amp;T)</translation>
+        <translation type="vanished">서명자를 신뢰하는 경우에만 이 인증서를 신뢰하세요.(&amp;T)</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation>이 인증서를 항상 신뢰(&amp;A)</translation>
+        <translation type="vanished">이 인증서를 항상 신뢰(&amp;A)</translation>
     </message>
 </context>
 <context>
@@ -3302,7 +3399,7 @@ In library %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+332"/>
         <source>Item properties</source>
         <translation>항목 속성</translation>
     </message>
@@ -3347,7 +3444,21 @@ In library %3
         <translation>열</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+57"/>
+        <source>Export Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Please enter the password to encrypt all %n exported private key(s) in:
+%1</source>
+        <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>New</source>
         <translation>신규</translation>
     </message>
@@ -3382,12 +3493,12 @@ In library %3
         <translation>내보내기</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Clipboard</source>
         <translation>클립보드</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
@@ -3627,12 +3738,11 @@ and will be completed by the new, private part of the key</source>
         <translation>%1 크기의 키를 생성하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+82"/>
         <source>Internal error</source>
-        <translation>내부 오류</translation>
+        <translation type="vanished">내부 오류</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+124"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translation>내부 키 업데이트: 키: %1은(는) 개인 비밀번호를 재설정하고 설정하여 한 번 업데이트해야 합니다.</translation>
     </message>
@@ -3762,18 +3872,18 @@ and so it was not imported</source>
         <translation>토큰 &apos;%1 (#%2)&apos;의 키에 인증서를 저장하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+106"/>
-        <location line="+54"/>
+        <location line="+96"/>
+        <location line="+86"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>인증서에 대한 키를 찾을 수 없습니다: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-51"/>
+        <location line="-83"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>토큰 키 &apos;%1&apos;을(를) 사용할 수 없습니다</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+87"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>토큰 키 인증서 &apos;%1&apos;을(를) 사용할 수 없습니다.</translation>
     </message>
@@ -3998,22 +4108,27 @@ and thus was not stored</source>
         <translation>폐기 목록 &apos;%1&apos;을(를) 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation>폐기 목록 &apos;%1&apos;을(를) 삭제하시겠습니까?</translation>
+        <translation type="vanished">폐기 목록 &apos;%1&apos;을(를) 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>폐기 목록 &apos;%1&apos;을(를) 성공적으로 생성했습니다.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 revocation lists: %2?</source>
-        <translation>%1 폐기 목록을 삭제하시겠습니까? %2?</translation>
+        <translation type="vanished">%1 폐기 목록을 삭제하시겠습니까? %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+85"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>파일 %1에서 해지 목록을 로드할 수 없습니다. PEM 및 DER 형식의 CRL을 시도했습니다.</translation>
     </message>
@@ -4050,7 +4165,7 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <location filename="../lib/pki_evp.cpp" line="+240"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>개인 키 %1을(를) 해독하려면 암호를 입력하세요.</translation>
     </message>
@@ -4103,34 +4218,52 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>키를 암호화하기 위한 데이터베이스 비밀번호를 입력하세요.</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+182"/>
+        <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Please enter the password to protect the private key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation>PKCS#8 키 &apos;%1&apos;을 보호하는 비밀번호를 입력하세요.</translation>
+        <translation type="vanished">PKCS#8 키 &apos;%1&apos;을 보호하는 비밀번호를 입력하세요.</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation>Microsoft PVK 키 &apos;%1&apos;을 보호하는 비밀번호를 입력하세요.</translation>
+        <translation type="vanished">Microsoft PVK 키 &apos;%1&apos;을 보호하는 비밀번호를 입력하세요.</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
-        <translation>개인 키 &apos;%1&apos;에 대한 내보내기 비밀번호를 입력하세요.</translation>
+        <translation type="vanished">개인 키 &apos;%1&apos;에 대한 내보내기 비밀번호를 입력하세요.</translation>
     </message>
 </context>
 <context>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+29"/>
+        <location line="+35"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>헤더가 있는 PEM 텍스트 형식</translation>
     </message>
     <message>
-        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation>선택된 모든 항목을 하나의 PEM 텍스트 파일에 연결된 목록</translation>
+        <translation type="vanished">선택된 모든 항목을 하나의 PEM 텍스트 파일에 연결된 목록</translation>
+    </message>
+    <message>
+        <location line="-38"/>
+        <source>PEM selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenated list of all selected certificates in one PEM text file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4164,6 +4297,16 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>All unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenation of all expired or revoked certificates in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>PKCS#7 인코딩된 단일 인증서</translation>
     </message>
@@ -4181,6 +4324,16 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>PKCS#7 인코딩된 완전한 인증서 체인</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #7 unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4219,12 +4372,12 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+22"/>
+        <location line="+26"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-22"/>
+        <location line="-26"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>선택한 항목에 대한 vCalendar 만료 알림</translation>
     </message>
@@ -4240,18 +4393,18 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+16"/>
+        <location line="+20"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL 구성</translation>
     </message>
     <message>
-        <location line="-16"/>
-        <location line="+16"/>
+        <location line="-20"/>
+        <location line="+20"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation>openssl 명령줄 도구를 사용하여 인증서나 요청을 생성하기 위한 OpenSSL 구성 파일</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-19"/>
         <source>OpenVPN tls-auth key</source>
         <translation>OpenVPN TLS 인증 키</translation>
     </message>
@@ -4259,6 +4412,26 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
         <translation>OpenVPN TLS 인증 키는 엔드포인트 간에 공유되는 비밀 키입니다.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4357,6 +4530,26 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>PKCS#8 텍스트 형식의 암호화되지 않은 개인 키</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>JSON Web Key private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Key public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Public key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
         <translation>인증서 요청의 2진 DER 형식</translation>
@@ -4373,56 +4566,92 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>XCA template in PEM-like format</source>
-        <translation>PEM과 유사한 형식의 XCA 템플릿</translation>
+        <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XCA template in PEM-like format</source>
+        <translation type="vanished">PEM과 유사한 형식의 XCA 템플릿</translation>
+    </message>
+    <message>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation>PEM과 유사한 형식의 선택된 모든 XCA 템플릿</translation>
+        <translation type="vanished">PEM과 유사한 형식의 선택된 모든 XCA 템플릿</translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation>%1 공개 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
+        <translation type="vanished">%1 공개 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation>%1 공개 키 &apos;%2&apos;을(를) 삭제하시겠습니까?</translation>
+        <translation type="vanished">%1 공개 키 &apos;%2&apos;을(를) 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation>%1 개인 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
+        <translation type="vanished">%1 개인 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation>%1 개인 키 &apos;%2&apos;을(를) 삭제하시겠습니까?</translation>
+        <translation type="vanished">%1 개인 키 &apos;%2&apos;을(를) 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation>%1 개인 키 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
+        <translation type="vanished">%1 개인 키 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>%1 키를 삭제하시겠습니까: %2?</translation>
+        <translation type="vanished">%1 키를 삭제하시겠습니까: %2?</translation>
     </message>
     <message>
-        <location line="-158"/>
-        <location line="+167"/>
-        <location line="+649"/>
+        <location filename="../lib/pki_key.cpp" line="+59"/>
+        <location line="+177"/>
+        <location line="+620"/>
         <source>Public key</source>
         <translation>공개 키</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-644"/>
+        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1 공개 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1 개인 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Successfully created the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">%1 개인 키 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
+    </message>
+    <message>
+        <location line="+230"/>
         <source>Common</source>
         <translation>코멘트</translation>
     </message>
@@ -4459,7 +4688,7 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>잘못된 SSH2 공개 키</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+191"/>
         <source>Failed writing to %1</source>
         <translation>%1에 쓰지 못했습니다.</translation>
     </message>
@@ -4475,7 +4704,7 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-180"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>PKCS#12 파일을 해독하려면 비밀번호를 입력하세요:
@@ -4492,12 +4721,17 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>제공된 비밀번호가 잘못되었습니다 (%1)</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation>PKCS#12 파일을 암호화하려면 비밀번호를 입력하세요.</translation>
+        <location line="+58"/>
+        <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
+%2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <translation type="vanished">PKCS#12 파일을 암호화하려면 비밀번호를 입력하세요.</translation>
+    </message>
+    <message>
+        <location line="-3"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>키 없음, 인증서 없음, pkcs12 없음</translation>
     </message>
@@ -4518,22 +4752,27 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>토큰 키 &apos;%1&apos;을(를) 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the token key &apos;%1&apos;?</source>
-        <translation>토큰 키 &apos;%1&apos;을(를) 삭제하시겠습니까?</translation>
+        <translation type="vanished">토큰 키 &apos;%1&apos;을(를) 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>토큰 키 &apos;%1&apos;을(를) 성공적으로 생성했습니다.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>%1 키를 삭제하시겠습니까: %2?</translation>
+        <translation type="vanished">%1 키를 삭제하시겠습니까: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n token key(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+328"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>토큰 &apos;%2 (#%3)&apos;에서 개인 키 &apos;%1&apos;을(를) 삭제하시겠습니까?</translation>
     </message>
@@ -4592,32 +4831,37 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+106"/>
+        <location filename="../lib/pki_temp.cpp" line="+107"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>XCA 템플릿 &apos;%1&apos;을 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation>XCA 템플릿 &apos;%1&apos;을 삭제하시겠습니까?</translation>
+        <translation type="vanished">XCA 템플릿 &apos;%1&apos;을 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>XCA 템플릿 &apos;%1&apos;을 성공적으로 생성했습니다.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation>%1 XCA 템플릿을 삭제하시겠습니까: %2?</translation>
+        <translation type="vanished">%1 XCA 템플릿을 삭제하시겠습니까: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+213"/>
         <source>Wrong Size %1</source>
         <translation>잘못된 크기 %1</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+98"/>
         <source>Template file content error (too small)</source>
         <translation>템플릿 파일 내용 오류(너무 작음)</translation>
     </message>
@@ -4627,7 +4871,7 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>PEM 인코딩된 XCA 템플릿이 아닙니다.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>XCA 템플릿이 아니지만 &apos;%1&apos;</translation>
     </message>
@@ -4635,27 +4879,32 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+65"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>인증서 &apos;%1&apos;을 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation>인증서 &apos;%1&apos;을 삭제하시겠습니까?</translation>
+        <translation type="vanished">인증서 &apos;%1&apos;을 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>인증서 &apos;%1&apos;을(를) 성공적으로 생성했습니다.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificates: %2?</source>
-        <translation>%1 인증서를 삭제하시겠습니까: %2?</translation>
+        <translation type="vanished">%1 인증서를 삭제하시겠습니까: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+171"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>%1 파일의 인증서를 로드할 수 없습니다. PEM 및 DER 인증서를 시도했습니다.</translation>
     </message>
@@ -4695,12 +4944,12 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <translation>토큰 &apos;%2 (#%3)&apos;에서 인증서 &apos;%1&apos;을 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+124"/>
         <source>There is no key for signing !</source>
         <translation>서명할 열쇠가 없습니다!</translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location line="+312"/>
         <source>No</source>
         <translation>아니요</translation>
     </message>
@@ -4730,24 +4979,37 @@ XCA 데이터베이스 &apos;%4&apos;에 저장되어 있습니다.</translation
         <translation>서명 키가 유효하지 않습니다(공개 키)</translation>
     </message>
     <message>
-        <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation>%1 인증서 요청 &apos;%2&apos;을 성공적으로 가져왔습니다.</translation>
+        <translation type="vanished">%1 인증서 요청 &apos;%2&apos;을 성공적으로 가져왔습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation>%1 인증서 요청 &apos;%2&apos;을(를) 삭제하시겠습니까?</translation>
+        <translation type="vanished">%1 인증서 요청 &apos;%2&apos;을(를) 삭제하시겠습니까?</translation>
+    </message>
+    <message>
+        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
+        <translation type="vanished">%1 인증서 요청 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
+    </message>
+    <message>
+        <source>Delete the %1 certificate requests: %2?</source>
+        <translation type="vanished">%1 인증서 요청을 삭제하시겠습니까: %2?</translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation>%1 인증서 요청 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Delete the %1 certificate requests: %2?</source>
-        <translation>%1 인증서 요청을 삭제하시겠습니까: %2?</translation>
+        <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>

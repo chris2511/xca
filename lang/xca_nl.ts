@@ -22,13 +22,13 @@
 <context>
     <name>CertDetail</name>
     <message>
+        <location filename="../widgets/CertDetail.cpp" line="+139"/>
         <location filename="../ui/CertDetail.ui" line="+30"/>
-        <location filename="../widgets/CertDetail.cpp" line="+106"/>
         <source>Details of the Certificate</source>
         <translation>Eigenschappen van het certificaat</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location filename="../ui/CertDetail.ui" line="+135"/>
         <source>Serial</source>
         <translation>Serienummer</translation>
     </message>
@@ -103,7 +103,7 @@
         <translation>Geldigheid</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+18"/>
         <source>The time since the certificate is valid</source>
         <translation>Het tijdstip sinds het certificaat geldig is</translation>
     </message>
@@ -118,38 +118,53 @@
         <translation>Onderwerp</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+22"/>
         <source>Issuer</source>
         <translation>Uitgever</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Extensions</source>
         <translation>Uitbreidingen</translation>
     </message>
     <message>
         <location line="+21"/>
+        <source>Validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Purposes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Strict RFC 5280 validation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Comment</source>
         <translation>Commentaar</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-62"/>
         <source>Attributes</source>
         <translation>Attributen</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location filename="../widgets/CertDetail.cpp" line="-73"/>
+        <location filename="../widgets/CertDetail.cpp" line="-104"/>
+        <location filename="../ui/CertDetail.ui" line="+23"/>
         <source>Show config</source>
         <translation>Toon configuratie</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+4"/>
+        <location line="+4"/>
         <source>Show extensions</source>
         <translation>Toon uitbreidingen</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Show public key</source>
         <translation>Toon openbare sleutel</translation>
     </message>
@@ -164,7 +179,12 @@
         <translation>Niet beschikbaar</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+49"/>
+        <source>No verification errors found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Signer unknown</source>
         <translation>Onbekende ondertekenaar</translation>
     </message>
@@ -315,6 +335,11 @@
     <name>CertTreeView</name>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
+        <source>Hide unusable certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Import PKCS#12</source>
         <translation>Importeren van PKCS#12 bestand</translation>
     </message>
@@ -567,7 +592,7 @@
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+75"/>
+        <location filename="../ui/ExportDialog.ui" line="+76"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
@@ -587,22 +612,40 @@
         <translation>Bestandsnaam</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+31"/>
+        <source>Each Item in a separate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Same encryption password for all items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Export comment into PEM file</source>
         <translation>Exporteer commentaar in het PEM bestand</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-20"/>
         <source>Export Format</source>
         <translation>Exporteer formaat</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../widgets/ExportDialog.cpp" line="+43"/>
+        <source>%n selected item(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+48"/>
+        <location line="+10"/>
         <source>All files ( * )</source>
         <translation>Alle bestanden ( * )</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+73"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Het bestand: &apos;%1&apos; bestaat al!</translation>
     </message>
@@ -615,6 +658,36 @@
         <location line="+1"/>
         <source>Do not overwrite</source>
         <translation>Niet overschrijven</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The path: &apos;%1&apos; exist, but is not a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The path: &apos;%1&apos; exist, but is not a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create</source>
+        <translation type="unfinished">Creëren</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished">Maken van directory is mislukt &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Directory</source>
+        <translation type="unfinished">Directory (X.500)</translation>
     </message>
 </context>
 <context>
@@ -1046,13 +1119,13 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>&amp;Nieuw Verzoek</translation>
     </message>
     <message>
-        <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="+146"/>
+        <location filename="../ui/MainWindow.ui" line="+68"/>
         <source>Certificates</source>
         <translation>Certificaten</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location filename="../ui/MainWindow.ui" line="+18"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;Nieuw certificaat</translation>
     </message>
@@ -1143,7 +1216,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Japans</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+4"/>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Russian</source>
         <translation>Russisch</translation>
     </message>
@@ -1158,7 +1236,7 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Spaans</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-11"/>
         <source>Persian</source>
         <translation>Perzisch</translation>
     </message>
@@ -1168,12 +1246,12 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Bulgaars</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+22"/>
         <source>Polish</source>
         <translation>Pools</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-8"/>
         <source>Italian</source>
         <translation>Italiaans</translation>
     </message>
@@ -1188,17 +1266,17 @@ Hiermee wordt de sleutel %1 verwijderd en wordt deze onbruikbaar gemaakt</transl
         <translation>Nederlands</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Portuguese in Brazil</source>
         <translation>Braziliaans Portugees</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Indonesian</source>
         <translation>Indonesisch</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Turkish</source>
         <translation>Turks</translation>
     </message>
@@ -1638,7 +1716,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Ondertekeningsverzoek</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+24"/>
         <source>Show request</source>
         <translation>Verzoek weergeven</translation>
     </message>
@@ -1658,7 +1736,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Wijzig het onderwerp van het verzoek</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+32"/>
         <source>Signing</source>
         <translation>Ondertekening</translation>
     </message>
@@ -1708,13 +1786,13 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Alles toepassen</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+605"/>
+        <location filename="../widgets/NewX509.cpp" line="+611"/>
+        <location filename="../ui/NewX509.ui" line="+29"/>
         <source>Subject</source>
         <translation>Onderwerp</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location filename="../ui/NewX509.ui" line="+8"/>
         <source>Internal Name</source>
         <translation>Interne naam</translation>
     </message>
@@ -1804,7 +1882,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Sleutelidentificatie</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>Creëert een hash van de sleutel volgens de PKIX-richtlijnen</translation>
     </message>
@@ -1814,7 +1892,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Kopieer de Onderwerp Key Identifier van de uitgever</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+46"/>
         <source>Validity</source>
         <translation>Geldigheid</translation>
     </message>
@@ -1849,7 +1927,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Jaren</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>Apply</source>
         <translation>Toepassen</translation>
     </message>
@@ -1864,7 +1942,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Middernacht</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-30"/>
         <source>Local time</source>
         <translation>Lokale tijdstip</translation>
     </message>
@@ -1874,33 +1952,35 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Geen correct gedefinieerde expiratie</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+17"/>
-        <location line="+69"/>
+        <location line="+77"/>
+        <location line="+43"/>
+        <location line="+23"/>
+        <location line="+29"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-79"/>
-        <location line="+17"/>
-        <location line="+33"/>
-        <location line="+36"/>
-        <location filename="../widgets/NewX509.cpp" line="+408"/>
+        <location filename="../widgets/NewX509.cpp" line="+418"/>
+        <location filename="../ui/NewX509.ui" line="-88"/>
+        <location line="+26"/>
+        <location line="+26"/>
+        <location line="+43"/>
+        <location line="+26"/>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location filename="../ui/NewX509.ui" line="+26"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+10"/>
         <source>Key usage</source>
         <translation>Sleutelgebruik</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+138"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
@@ -1910,28 +1990,28 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Gevorderd</translation>
     </message>
     <message>
-        <location line="+24"/>
         <location filename="../widgets/NewX509.cpp" line="+10"/>
+        <location filename="../ui/NewX509.ui" line="+24"/>
         <source>Validate</source>
         <translation>Valideren</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location filename="../ui/NewX509.ui" line="+23"/>
         <source>Comment</source>
         <translation>Commentaar</translation>
     </message>
     <message>
-        <location line="-835"/>
+        <location line="-916"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Deze naam wordt alleen intern gebruikt en verschijnt niet in het resulterende certificaat</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-751"/>
+        <location filename="../widgets/NewX509.cpp" line="-763"/>
         <source>Critical</source>
         <translation>Kritisch</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Create Certificate signing request</source>
         <translation>Maak een certificaat ondertekeningsverzoek</translation>
     </message>
@@ -1961,12 +2041,12 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Bewerk XCA sjabloon</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+15"/>
         <source>Create x509 Certificate</source>
         <translation>Maak een X.509 certificaat</translation>
     </message>
     <message>
-        <location line="+378"/>
+        <location line="+388"/>
         <source>Template &apos;%1&apos; applied</source>
         <translation>Sjabloon &apos;%1&apos; wordt toegepast</translation>
     </message>
@@ -1986,7 +2066,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>Nieuwe sleutel &apos;%1&apos; gemaakt</translation>
     </message>
     <message>
-        <location line="+242"/>
+        <location line="+252"/>
         <source>Other Tabs</source>
         <translation>Andere tabbladen</translation>
     </message>
@@ -2017,6 +2097,11 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
     </message>
     <message>
         <location line="+9"/>
+        <source>The Name Constraints are invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>The Subject Alternative Name is invalid</source>
         <translation>De Subject Alternative Name is ongeldig</translation>
     </message>
@@ -2036,7 +2121,7 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <translation>De Authority Information Access is ongeldig</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+111"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -2048,11 +2133,12 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Abort rollout</source>
         <translation>Uitgave stopzetten</translation>
     </message>
     <message>
-        <location line="-219"/>
+        <location line="-252"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>De volgende lengtebeperkingen van RFC3280 worden overtreden:</translation>
     </message>
@@ -2070,11 +2156,12 @@ Voer de Diffie-Hellman bit modulus in, voor later gebruik (Advies &gt; 2048 bit)
         <location line="+23"/>
         <location line="+35"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Continue rollout</source>
         <translation>Uitgave voortzetten</translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-232"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>De verificatie van de certificaataanvraag is mislukt.
@@ -2192,16 +2279,22 @@ hoewel ze als verplicht zijn aangegeven in het optiemenu.</translation>
     <message>
         <location line="+7"/>
         <location line="+20"/>
+        <location line="+33"/>
         <source>Edit extensions</source>
         <translation>Bewerk uitbreidingen</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-34"/>
         <source>The subject alternative name shall contain a copy of the common name. However, the common name is empty.</source>
         <translation>De alternatieve naam van het onderwerp moet een kopie van de commonName (CN) bevatten. De commonName is echter leeg.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+169"/>
+        <location line="+31"/>
+        <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
         <source>Configfile error on line %1
 </source>
         <translation>Config bestand fout op regel %1
@@ -2281,13 +2374,13 @@ een van de tekstuele Engelse omschrijvingen in</translation>
         <translation>Wachtwoord</translation>
     </message>
     <message>
-        <location line="+14"/>
         <location filename="../widgets/OpenDb.cpp" line="+57"/>
+        <location filename="../ui/OpenDb.ui" line="+14"/>
         <source>Database name</source>
         <translation>Database naam</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../ui/OpenDb.ui" line="+10"/>
         <source>Table prefix</source>
         <translation>Tabel voorvoegsel</translation>
     </message>
@@ -2432,7 +2525,7 @@ Vooral EC en DSA worden alleen gedefinieerd met SHA1 in de PKCS#11-specificatie.
         <translation>Zoeken</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+35"/>
+        <location filename="../widgets/Options.cpp" line="+36"/>
         <source>Printable string or UTF8 (default)</source>
         <translation>Afdrukbare reeks of UTF8 (standaard)</translation>
     </message>
@@ -2768,12 +2861,12 @@ In bibliotheek bestand %3
         <translation>%1 is langer dan %2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/x509v3ext.cpp" line="+103"/>
+        <location filename="../lib/x509v3ext.cpp" line="+112"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
         <translation>Tekenreeks &apos;%1&apos; voor &apos;%2&apos; bevat ongeldige tekens</translation>
     </message>
     <message>
-        <location filename="../lib/oid.cpp" line="+48"/>
+        <location filename="../lib/oid.cpp" line="+58"/>
         <source>Error reading config file %1 at line %2</source>
         <translation>Fout bij het lezen van configuratiebestand %1 op regel %2</translation>
     </message>
@@ -2798,7 +2891,7 @@ In bibliotheek bestand %3
         <translation>Starten van database transactie is mislukt</translation>
     </message>
     <message>
-        <location filename="../lib/func_base.cpp" line="+224"/>
+        <location filename="../lib/func_base.cpp" line="+244"/>
         <source>Country code</source>
         <translation>Landcode</translation>
     </message>
@@ -2909,6 +3002,11 @@ In bibliotheek bestand %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Name Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Subject alternative name</source>
         <translation>Alternatieve naam van het onderwerp</translation>
     </message>
@@ -2988,7 +3086,7 @@ In bibliotheek bestand %3
         <translation>Commentaar</translation>
     </message>
     <message>
-        <location filename="../lib/cmdline.cpp" line="+163"/>
+        <location filename="../lib/cmdline.cpp" line="+166"/>
         <source>Index file written to &apos;%1&apos;</source>
         <translation>Index bestand is opgeslagen in &apos;%1&apos;</translation>
     </message>
@@ -3001,6 +3099,11 @@ In bibliotheek bestand %3
         <location line="+13"/>
         <source>Unknown key type %1</source>
         <translation>Onbekend sleuteltype %1</translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Failed to write PEM data to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3023,7 +3126,7 @@ In bibliotheek bestand %3
         <translation>Wachtwoord</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+214"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+217"/>
         <source>insecure</source>
         <translation>onveilig</translation>
     </message>
@@ -3170,7 +3273,7 @@ In bibliotheek bestand %3
         <translation>Zoeken</translation>
     </message>
     <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+75"/>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+76"/>
         <source>The following files are possible PKCS#11 libraries</source>
         <translation>De volgende bestanden zijn mogelijk PKCS#11 bibliotheken</translation>
     </message>
@@ -3229,29 +3332,24 @@ In bibliotheek bestand %3
 <context>
     <name>TrustState</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation>Certificaat vertrouwen</translation>
+        <translation type="vanished">Certificaat vertrouwen</translation>
     </message>
     <message>
-        <location line="+60"/>
         <source>Trustment</source>
-        <translation>Vertrouwen</translation>
+        <translation type="vanished">Vertrouwen</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
-        <translation>&amp;Vertrouw dit certificaat nooit</translation>
+        <translation type="vanished">&amp;Vertrouw dit certificaat nooit</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation>V&amp;ertrouw dit certificaat alleen als de ondertekenaar wordt vertrouwd</translation>
+        <translation type="vanished">V&amp;ertrouw dit certificaat alleen als de ondertekenaar wordt vertrouwd</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
-        <translation>Ve&amp;rtrouw dit certificaat altijd</translation>
+        <translation type="vanished">Ve&amp;rtrouw dit certificaat altijd</translation>
     </message>
 </context>
 <context>
@@ -3304,7 +3402,7 @@ In bibliotheek bestand %3
 <context>
     <name>XcaTreeView</name>
     <message>
-        <location filename="../widgets/XcaTreeView.cpp" line="+336"/>
+        <location filename="../widgets/XcaTreeView.cpp" line="+332"/>
         <source>Item properties</source>
         <translation>Item eigenschappen</translation>
     </message>
@@ -3349,7 +3447,22 @@ In bibliotheek bestand %3
         <translation>Kolommen</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+57"/>
+        <source>Export Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Please enter the password to encrypt all %n exported private key(s) in:
+%1</source>
+        <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>New</source>
         <translation>Nieuw</translation>
     </message>
@@ -3384,12 +3497,12 @@ In bibliotheek bestand %3
         <translation>Exporteren</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>Clipboard</source>
         <translation>Klembord</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>File</source>
         <translation>Bestand</translation>
     </message>
@@ -3629,12 +3742,11 @@ en wordt voltooid door het nieuwe, privégedeelte van de sleutel</translation>
         <translation>Bent u zeker om een sleutel van deze grootte te maken: %1 ?</translation>
     </message>
     <message>
-        <location line="+82"/>
         <source>Internal error</source>
-        <translation>Interne fout</translation>
+        <translation type="vanished">Interne fout</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+124"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translation>Interne sleutel update: De sleutels: &apos;%1&apos; moeten eenmalig aangepast worden door het resetten en ingeven van het privé wachtwoord</translation>
     </message>
@@ -3764,18 +3876,18 @@ en dus werd het niet geïmporteerd</translation>
         <translation>Sla het certificaat op de sleutel op, op token &apos;%1 (#%2)&apos; ?</translation>
     </message>
     <message>
-        <location line="+106"/>
-        <location line="+54"/>
+        <location line="+96"/>
+        <location line="+86"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Er is geen sleutel gevonden voor het certificaat: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-51"/>
+        <location line="-83"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Niet mogelijk voor een tokensleutel: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+87"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Niet mogelijk voor het tokensleutel-certificaat &apos;%1&apos;</translation>
     </message>
@@ -4000,22 +4112,28 @@ en werd dus niet opgeslagen</translation>
         <translation>De intrekkingslijst &apos;%1&apos; is succesvol geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation>Verwijder de intrekkingslijst &apos;%1&apos;?</translation>
+        <translation type="vanished">Verwijder de intrekkingslijst &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>De intrekkingslijst &apos;%1&apos; is succesvol aangemaakt</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 revocation lists: %2?</source>
-        <translation>Verwijder de %1 intrekkingslijsten: %2?</translation>
+        <translation type="vanished">Verwijder de %1 intrekkingslijsten: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+85"/>
         <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Kan de intrekkingslijst niet laden in bestand %1. Geprobeerd met PEM en DER geformatteerde CRL.</translation>
     </message>
@@ -4052,7 +4170,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+239"/>
+        <location filename="../lib/pki_evp.cpp" line="+240"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation>Geef het wachtwoord voor het decoderen van de privé sleutel %1.</translation>
     </message>
@@ -4105,34 +4223,52 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Voer het database wachtwoord in om de sleutel te versleutelen</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+182"/>
+        <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Please enter the password to protect the private key &apos;%1&apos; in file:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation>Voer het wachtwoord in dat de PKCS#8-sleutel &apos;%1&apos; beschermt</translation>
+        <translation type="vanished">Voer het wachtwoord in dat de PKCS#8-sleutel &apos;%1&apos; beschermt</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation>Voer het wachtwoord in dat de Microsoft PVK-sleutel &apos;%1&apos; beschermt</translation>
+        <translation type="vanished">Voer het wachtwoord in dat de Microsoft PVK-sleutel &apos;%1&apos; beschermt</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
-        <translation>Voer het exportwachtwoord in voor de privé-sleutel &apos;%1&apos;</translation>
+        <translation type="vanished">Voer het exportwachtwoord in voor de privé-sleutel &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
     <name>pki_export</name>
     <message>
         <location filename="../lib/pki_export.cpp" line="+64"/>
-        <location line="+29"/>
+        <location line="+35"/>
         <location line="+4"/>
         <source>PEM Text format with headers</source>
         <translation>PEM Tekst formaat met koppen</translation>
     </message>
     <message>
-        <location line="-32"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation>Samengevoegde lijst van alle geselecteerde items in één PEM tekstbestand</translation>
+        <translation type="vanished">Samengevoegde lijst van alle geselecteerde items in één PEM tekstbestand</translation>
+    </message>
+    <message>
+        <location line="-38"/>
+        <source>PEM selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenated list of all selected certificates in one PEM text file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4166,6 +4302,16 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>All unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Concatenation of all expired or revoked certificates in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
         <translation>PKCS#7 gecodeerd mono certificaat</translation>
     </message>
@@ -4183,6 +4329,16 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <location line="+0"/>
         <source>PKCS#7 encoded complete certificate chain</source>
         <translation>PKCS#7 gecodeerde, complete certificaat reeks</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKCS #7 unusable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4221,12 +4377,12 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+22"/>
+        <location line="+26"/>
         <source>vCalendar</source>
         <translation>vCalendar</translation>
     </message>
     <message>
-        <location line="-22"/>
+        <location line="-26"/>
         <source>vCalendar expiry reminder for the selected items</source>
         <translation>vCalendar vervaldatum herinnering voor de geselecteerde items</translation>
     </message>
@@ -4242,18 +4398,18 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+16"/>
+        <location line="+20"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL configuratie</translation>
     </message>
     <message>
-        <location line="-16"/>
-        <location line="+16"/>
+        <location line="-20"/>
+        <location line="+20"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
         <translation>OpenSSL-configuratiebestand om een ​​certificaat of verzoek te maken met behulp van OpenSSL opdrachtregels</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-19"/>
         <source>OpenVPN tls-auth key</source>
         <translation>OpenVPN tls-auth sleutel</translation>
     </message>
@@ -4261,6 +4417,26 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
         <translation>De OpenVPN tls-auth sleutel is een geheime sleutel die alleen tussen de eindpunten wordt gedeeld</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Kit chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4359,6 +4535,26 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Niet-versleutelde privé-sleutel in PKCS#8 formaat</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>JSON Web Key private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unencrypted private key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON Web Key public</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Public key in JSON Web Key format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+3"/>
         <source>Binary DER format of the certificate request</source>
         <translation>Binair DER-formaat van de certificaataanvraag</translation>
@@ -4375,56 +4571,94 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>XCA template in PEM-like format</source>
-        <translation>XCA-sjabloon in PEM-achtig formaat</translation>
+        <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XCA template in PEM-like format</source>
+        <translation type="vanished">XCA-sjabloon in PEM-achtig formaat</translation>
+    </message>
+    <message>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation>Alle geselecteerde XCA-sjablonen in PEM-achtig formaat</translation>
+        <translation type="vanished">Alle geselecteerde XCA-sjablonen in PEM-achtig formaat</translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+202"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation>De %1-openbare sleutel &apos;%2&apos; is succesvol geïmporteerd</translation>
+        <translation type="vanished">De %1-openbare sleutel &apos;%2&apos; is succesvol geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation>De %1 openbare sleutel &apos;%2&apos; verwijderen?</translation>
+        <translation type="vanished">De %1 openbare sleutel &apos;%2&apos; verwijderen?</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation>De %1 privé-sleutel &apos;%2&apos; is geïmporteerd</translation>
+        <translation type="vanished">De %1 privé-sleutel &apos;%2&apos; is geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation>De %1 privé-sleutel &apos;%2&apos; verwijderen?</translation>
+        <translation type="vanished">De %1 privé-sleutel &apos;%2&apos; verwijderen?</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation>De %1 privé-sleutel &apos;%2&apos; is succesvol aangemaakt</translation>
+        <translation type="vanished">De %1 privé-sleutel &apos;%2&apos; is succesvol aangemaakt</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>Verwijder de %1-sleutels: %2?</translation>
+        <translation type="vanished">Verwijder de %1-sleutels: %2?</translation>
     </message>
     <message>
-        <location line="-158"/>
-        <location line="+167"/>
-        <location line="+649"/>
+        <location filename="../lib/pki_key.cpp" line="+59"/>
+        <location line="+177"/>
+        <location line="+620"/>
         <source>Public key</source>
         <translation>Openbare sleutel</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-644"/>
+        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">De %1-openbare sleutel &apos;%2&apos; is succesvol geïmporteerd</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">De %1 privé-sleutel &apos;%2&apos; is geïmporteerd</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Successfully created the %1 private key &apos;%2&apos;</source>
+        <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
+        <translation type="unfinished">De %1 privé-sleutel &apos;%2&apos; is succesvol aangemaakt</translation>
+    </message>
+    <message>
+        <location line="+230"/>
         <source>Common</source>
         <translation>Gemeenschappelijk</translation>
     </message>
@@ -4461,7 +4695,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Ongeldige openbare SSH2-sleutel</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+191"/>
         <source>Failed writing to %1</source>
         <translation>Schrijven naar %1 is mislukt</translation>
     </message>
@@ -4477,7 +4711,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="-177"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="-180"/>
         <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
         <translation>Voer het wachtwoord in om het PKCS#12 bestand te decoderen:
@@ -4494,12 +4728,17 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Het opgegeven wachtwoord was fout (%1)</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation>Voer het wachtwoord in om het PKCS#12 bestand te versleutelen</translation>
+        <location line="+58"/>
+        <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
+%2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <translation type="vanished">Voer het wachtwoord in om het PKCS#12 bestand te versleutelen</translation>
+    </message>
+    <message>
+        <location line="-3"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>Geen sleutel of Cert én geen PKCS#12</translation>
     </message>
@@ -4520,22 +4759,28 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>De token-sleutel &apos;%1&apos; is succesvol geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the token key &apos;%1&apos;?</source>
-        <translation>De token-sleutel &apos;%1&apos; verwijderen?</translation>
+        <translation type="vanished">De token-sleutel &apos;%1&apos; verwijderen?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>De token-sleutel &apos;%1&apos; is succesvol aangemaakt</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>Verwijder de %1-sleutels: %2?</translation>
+        <translation type="vanished">Verwijder de %1-sleutels: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n token key(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+328"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Verwijder de privé-sleutel &apos;%1&apos; uit het token &apos;%2 (#%3)&apos; ?</translation>
     </message>
@@ -4594,32 +4839,38 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+106"/>
+        <location filename="../lib/pki_temp.cpp" line="+107"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Het XCA sjabloon &apos;%1&apos; is succesvol geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation>Het XCA sjabloon &apos;%1&apos; verwijderen?</translation>
+        <translation type="vanished">Het XCA sjabloon &apos;%1&apos; verwijderen?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>Het XCA sjabloon &apos;%1&apos; is succesvol aangemaakt</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation>Verwijder de %1 XCA sjablonen: %2?</translation>
+        <translation type="vanished">Verwijder de %1 XCA sjablonen: %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+213"/>
         <source>Wrong Size %1</source>
         <translation>Verkeerde grootte %1</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+98"/>
         <source>Template file content error (too small)</source>
         <translation>Sjabloon bestand bevat inhoudsfout (te klein)</translation>
     </message>
@@ -4629,7 +4880,7 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Geen PEM gecodeerd XCA sjabloon</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation>Geen XCA sjabloon, maar &apos;%1&apos;</translation>
     </message>
@@ -4637,27 +4888,33 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+62"/>
+        <location filename="../lib/pki_x509.cpp" line="+65"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Het certificaat &apos;%1&apos; is succesvol geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation>Het certificaat &apos;%1&apos; verwijderen?</translation>
+        <translation type="vanished">Het certificaat &apos;%1&apos; verwijderen?</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>Het certificaat &apos;%1&apos; is succesvol aangemaakt</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete the %1 certificates: %2?</source>
-        <translation>Verwijder de &apos;%1&apos; certificaten : %2?</translation>
+        <translation type="vanished">Verwijder de &apos;%1&apos; certificaten : %2?</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-1"/>
+        <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+171"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Kon het certificaat niet laden in bestand %1. Geprobeerd met PEM- en DER-certificaat.</translation>
     </message>
@@ -4697,12 +4954,12 @@ De CRL is opgeslagen in de XCA database &apos;%5&apos;</translation>
         <translation>Verwijder het certificaat &apos;%1&apos; van het token &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+124"/>
         <source>There is no key for signing !</source>
         <translation>Er is geen sleutel voor ondertekening !</translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location line="+312"/>
         <source>No</source>
         <translation>Nee</translation>
     </message>
@@ -4732,24 +4989,38 @@ Het certificaat is opgeslagen in de XCA database &apos;%4&apos;</translation>
         <translation>Sleutel voor ondertekening is niet geldig (openbare sleutel)</translation>
     </message>
     <message>
-        <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation>Het %1 certificaatverzoek &apos;%2&apos; is succesvol geïmporteerd</translation>
+        <translation type="vanished">Het %1 certificaatverzoek &apos;%2&apos; is succesvol geïmporteerd</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation>Verwijder het %1 certificaatverzoek &apos;%2&apos;?</translation>
+        <translation type="vanished">Verwijder het %1 certificaatverzoek &apos;%2&apos;?</translation>
+    </message>
+    <message>
+        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
+        <translation type="vanished">Het %1 certificaatverzoek &apos;%2&apos; is succesvol aangemaakt</translation>
+    </message>
+    <message>
+        <source>Delete the %1 certificate requests: %2?</source>
+        <translation type="vanished">Verwijder de %1 certificaatverzoeken: %2?</translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation>Het %1 certificaatverzoek &apos;%2&apos; is succesvol aangemaakt</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Delete the %1 certificate requests: %2?</source>
-        <translation>Verwijder de %1 certificaatverzoeken: %2?</translation>
+        <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>
