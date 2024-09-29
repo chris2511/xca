@@ -47,7 +47,6 @@ x509v3ext NewX509::getSubKeyIdent()
 	return ext;
 }
 
-
 x509v3ext NewX509::getOCSPstaple()
 {
 	x509v3ext ext;
@@ -61,7 +60,7 @@ x509v3ext NewX509::getOCSPstaple()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	if (!authKey->isChecked() || !authKey->isEnabled())
+	if (!authKey->isChecked() || !authKey->isEnabled() || selfSignRB->isChecked())
 		return ext;
 
 	QString x = "keyid,issuer";
