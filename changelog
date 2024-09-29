@@ -1,3 +1,13 @@
+ * Close #199: Templates and Key Identifiers
+ * Close #239: Check existing Name Constraints
+ * Add OpenSSL PURPOSE and validation results
+ * Close #587: Incomplete refactoring of adapt_explicit_subj
+ * Combine #90 and #315 and support UPN in name constraints
+ * Close #90, #361: Name Constraints (RFC5280 section 4.2.1.10)
+ * Close #296: Proper plurals
+ * Close #88: Export to multiple files with common or individual password
+ * Close #313: Support JWK export format of certificates
+ * Close #359: Symlink to PKCS#11 lib resolved
  * Close #552: issues with icons in gnome dock
  * Close #315 Support UPN type for EAP/802.1X certificate
  * Add korean translation
