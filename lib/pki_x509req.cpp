@@ -144,7 +144,7 @@ QString pki_x509req::getMsg(msg_type msg, int n) const
 	 */
 
 	switch (msg) {
-	case msg_import: return tr("Successfully imported the PKCS#10 certificate request '%2'");
+	case msg_import: return tr("Successfully imported the PKCS#10 certificate request '%1'");
 	case msg_delete: return tr("Delete the %n PKCS#10 certificate request(s): '%1'?", "", n);
 	case msg_create: return tr("Successfully created the PKCS#10 certificate request '%1'");
 	}

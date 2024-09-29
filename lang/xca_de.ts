@@ -6740,7 +6740,7 @@ Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
         <translation type="unfinished">Der Zertifikatsantrag &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message numerus="yes">

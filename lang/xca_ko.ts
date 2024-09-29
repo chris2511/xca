@@ -4996,7 +4996,7 @@ XCA 데이터베이스 &apos;%4&apos;에 저장되어 있습니다.</translation
     </message>
     <message>
         <location line="+39"/>
-        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">

@@ -5509,7 +5509,7 @@ It is stored in the XCA database &apos;%3&apos;</source>
     </message>
     <message>
         <location line="-33"/>
-        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">

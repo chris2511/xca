@@ -5612,7 +5612,7 @@ E&apos; mantenuta nel database XCA &apos;%3&apos;</translation>
     </message>
     <message>
         <location line="-33"/>
-        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">

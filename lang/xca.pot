@@ -4844,7 +4844,7 @@ msgstr ""
 #: ../lib/pki_x509req.cpp:147
 #, qt-format
 msgctxt "pki_x509req|"
-msgid "Successfully imported the PKCS#10 certificate request '%2'"
+msgid "Successfully imported the PKCS#10 certificate request '%1'"
 msgstr ""
 
 #: ../lib/pki_x509req.cpp:148

@@ -5031,7 +5031,7 @@ Ela está armazenada no Banco de Dados XCA &apos;%4&apos;</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
+        <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
