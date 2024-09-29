@@ -62,7 +62,7 @@ bool TempTreeView::runTempDlg(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(this);
 
-	dlg->setTemp(temp);
+	dlg->setTemp(temp, true);
 	if (!dlg->exec()) {
 		delete dlg;
 		return false;

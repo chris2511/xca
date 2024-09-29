@@ -77,7 +77,7 @@ class NewX509: public XcaDetail, public Ui::NewX509
 		virtual ~NewX509();
 		void initCtx();
 		void setRequest(); // reduce to request form
-		void setTemp(pki_temp *temp); // reduce to template form
+		void setTemp(pki_temp *temp, bool create = false); // reduce to template form
 		void setCert(); // reduce to certificate form
 		void toTemplate(pki_temp *temp);
 		void fromTemplate(pki_temp *temp);

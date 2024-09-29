@@ -370,7 +370,7 @@ void NewX509::setReqAttributes(pki_x509req *req)
 }
 
 /* Initialize dialog for Template creation */
-void NewX509::setTemp(pki_temp *temp)
+void NewX509::setTemp(pki_temp *temp, bool create)
 {
 	description->setText(temp->getIntName());
 	capt->setText(tr("Edit XCA template"));
@@ -381,7 +381,8 @@ void NewX509::setTemp(pki_temp *temp)
 	pt = tmpl;
 	fromTemplate(temp);
 	comment->setPlainText(temp->getComment());
-	connect_pki(temp);
+	if (!create)
+		connect_pki(temp);
 }
 
 /* Initialize dialog for Certificate creation */
