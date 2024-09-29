@@ -33,16 +33,21 @@ if (${QT_VERSION} VERSION_LESS 6.0.0 )
 else()
   get_target_property(LIBSRC xcalib SOURCES)
   get_target_property(XCASRC xca SOURCES)
-  if (${QT_VERSION} VERSION_LESS 6.7.0 )
-    message(STATUS "At least QT 6.7.0 required for PLURALS_TS_FILE")
-  endif()
   qt_add_translations(xca TS_FILES ${TS_FILES} ${S}/xca.ts
                           LRELEASE_OPTIONS -silent
                           QM_FILES_OUTPUT_VARIABLE QM_FILES
                           PLURALS_TS_FILE ${S}/xca_en.ts
                           SOURCES ${LIBSRC} ${XCASRC}
   )
-  add_custom_target(trans DEPENDS xca_lupdate "${D}/xca.pot")
+  if (${QT_VERSION} VERSION_LESS 6.7.0)
+    message(STATUS "At least QT 6.7.0 required for PLURALS_TS_FILE")
+    add_custom_target(trans COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan
+        "At least QT 6.7.0 required for PLURALS_TS_FILE. It will explode the xca_en.ts"
+        COMMENT "Target 'trans' does not work with QT ${QT_VERSION}"
+    )
+  else()
+    add_custom_target(trans DEPENDS xca_lupdate "${D}/xca.pot")
+  endif()
 endif()
 list(APPEND APP_RESOURCES ${QM_FILES} ${QT_QM_FILES})
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QM_FILES} ${QT_QM_FILES})
