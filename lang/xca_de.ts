@@ -63,7 +63,7 @@
     <message>
         <location line="+49"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Verifikationsfehler gefunden.</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -228,17 +228,17 @@
     <message>
         <location line="+21"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Überprüfung</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendungszweck</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Strenge Prüfung der RFC 5280 Regeln</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -395,7 +395,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbenutzbare Zertifikate verbergen</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -762,12 +762,12 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+31"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedes Element in eine eigene Datei</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>Selbes Verschlüsselungspasswort für alle Elemente</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -915,9 +915,9 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message numerus="yes">
         <location line="-10"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Ausgewähltes Element</numerusform>
+            <numerusform>%n ausgewählte Elemente</numerusform>
         </translation>
     </message>
     <message>
@@ -938,32 +938,32 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     <message>
         <location line="+4"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Pfad: &apos;%1&apos; existiert, ist aber keine Datei</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Pfad: &apos;%1&apos; existiert, ist aber kein Verzeichnis</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Verzeichnis: &apos;%1&apos; existiert nicht. Soll es angelegt werden?</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Create</source>
-        <translation type="unfinished">Erstellen</translation>
+        <translation>Erstellen</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">Verzeichnis &apos;%1&apos; konnte nicht angelegt werden</translation>
+        <translation>Das Verzeichnis &apos;%1&apos; konnte nicht angelegt werden</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Directory</source>
-        <translation type="unfinished">Verzeichnis</translation>
+        <translation>Verzeichnis</translation>
     </message>
 </context>
 <context>
@@ -1550,7 +1550,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     <message>
         <location line="+4"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreanisch</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2784,7 +2784,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+9"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Die &apos;Name-Constraints&apos; sind ungültig</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2877,7 +2877,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+31"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Namenseinschränkung des Ausstellers &apos;%1&apos; wurde verletzt: %2</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="-396"/>
@@ -3709,7 +3709,7 @@ in Bibliothek %3
     <message>
         <location line="+1"/>
         <source>Name Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Namenseinschränkungen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3847,7 +3847,7 @@ in Bibliothek %3
     <message>
         <location line="+87"/>
         <source>Failed to write PEM data to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Die PEM Daten konnten nicht nach &apos;%1&apos; geschrieben werden</translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -4221,16 +4221,18 @@ in Bibliothek %3
     <message>
         <location line="+57"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportpasswort</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Bitte das Passwort eingeben, mit dem der exportierte private Schlüssel in:
+&apos;%1&apos; verschlüsselt werden soll</numerusform>
+            <numerusform>Bitte das Passwort eingeben mit dem alle %n exportierten privaten Schlüssel in:
+&apos;%1&apos; verschlüsselt werden sollen</numerusform>
         </translation>
     </message>
     <message>
@@ -5727,9 +5729,9 @@ und wurde daher nicht importiert</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Die Sperrliste &apos;%1&apos; löschen?</numerusform>
+            <numerusform>Die %n Sperrlisten: %1 löschen?</numerusform>
         </translation>
     </message>
     <message>
@@ -5841,13 +5843,15 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <location line="+385"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte geben sie das Passwort zur Verschlüsselung des PKCS#8 Schlüssels: &apos;%1&apos;
+in %2 ein</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte geben sie das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;%1&apos; 
+in %2 ein</translation>
     </message>
     <message>
         <source>Ignoring unsupported private key</source>
@@ -5902,12 +5906,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="-38"/>
         <source>PEM selected</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM ausgewählt</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated list of all selected certificates in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Zertifikate aneinandergehängt in einer PEM Datei</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5942,12 +5946,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>All unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle nicht verwendbaren</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of all expired or revoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle abgelaufenen oder gesperrten Zertifikate aneinandergehängt in einer PEM Datei</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5972,12 +5976,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #7 unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7 unbenutzbar</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammlung aller abgelaufenen oder gesperrten Zertifikate im PKCS#7 Format</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6060,22 +6064,22 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
-        <translation type="unfinished"></translation>
+        <translation>Der öffentliche Schlüssel des Zertifikats im JSON Web Kit Format mit X.509 Fingerabdruck (x5t)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit chain</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit Liste</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
-        <translation type="unfinished"></translation>
+        <translation>Der öffentliche Schlüssel des Zertifikats im JSON Web Kit Format mit X.509 Fingerabdruck (x5t) und Zertifikatskette (x5c)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6156,12 +6160,12 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+14"/>
         <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Vorlage in PEM-ähnlichem Format. Vorlagen enthalten auch den internen Namen und die Kommentare</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle ausgewählten XCA Vorlagen in PEM-ähnlichem Format. Vorlagen enthalten auch den internen Namen und die Kommentare</translation>
     </message>
     <message>
         <source>PVK encrypted</source>
@@ -6194,22 +6198,22 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JSON Web Key privat</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>Unverschlüsselter privater Schlüssel im JSON Web Key Format</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JSON Web Key öffentlich</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Öffentlicher Schlüssel im JSON Web Key Format</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6295,23 +6299,23 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Den öffentlichen %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
+            <numerusform>Die %n öffentlichen %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Der private %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
+        <translation>Der private %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Den privaten %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
+            <numerusform>Die %n privaten %1 Schlüssel &apos;%2&apos; löschen?</numerusform>
         </translation>
     </message>
     <message>
@@ -6403,7 +6407,8 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <location line="+58"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bitte geben sie das Passwort zur Verschlüsselung des Schlüssels für Zertifikat &apos;%1&apos; in der PKCS#12 Datei:
+%2 ein</translation>
     </message>
 </context>
 <context>
@@ -6438,8 +6443,8 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <location line="-501"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Den Chipkartenschlüssel &apos;%1&apos; löschen?</numerusform>
+            <numerusform>Die %n Chipkartenschlüssel &apos;%1&apos; löschen?</numerusform>
         </translation>
     </message>
     <message>
@@ -6565,9 +6570,9 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Die XCA Vorlage &apos;%1&apos; löschen?</numerusform>
+            <numerusform>Die %n XCA Vorlagen &apos;%1&apos; löschen?</numerusform>
         </translation>
     </message>
     <message>
@@ -6620,8 +6625,8 @@ Diese ist in der XCA Datenbank &apos;%5&apos; gespeichert</translation>
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Das Zertifikat &apos;%1&apos; löschen?</numerusform>
+            <numerusform>Die %n Zertifikate &apos;%1&apos; löschen?</numerusform>
         </translation>
     </message>
     <message>
@@ -6736,14 +6741,14 @@ Sie ist in der XCA Datenbank &apos;%3&apos; gespeichert</translation>
     <message>
         <location line="+39"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Zertifikatsantrag &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Den Zertifikatsantrag &apos;%1&apos; löschen?</numerusform>
+            <numerusform>Die %n Zertifikatsanträge &apos;%1&apos; löschen?</numerusform>
         </translation>
     </message>
     <message>
