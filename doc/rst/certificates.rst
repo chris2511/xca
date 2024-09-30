@@ -106,6 +106,13 @@ Certificate Export
 
 When exporting PKCS#12 structures XCA asks later for an encryption password.
 
+Microsoft Cryptographic Service Provider (CSP)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The PKCS#12/PFX export function will include the CSP from the comment section
+of the corresponding private key. The first line containing "CSP: <CSP Name>"
+like **CSP: Microsoft Tatooine Sand Provider** will put the CSP Name into the PKCS#12 file.
+
 Certificate Transformation
 --------------------------
 

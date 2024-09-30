@@ -103,7 +103,6 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	}
 	if (mykey) {
 		key = new pki_evp(mykey);
-		Q_CHECK_PTR(key);
 		key->setIntName(alias + "_key");
 		key->pkiSource = imported;
 		inheritFilename(key);
@@ -159,10 +158,22 @@ void pki_pkcs12::writePKCS12(XFile &file, encAlgo &encAlgo) const
 	if (keyAlgoNid == NID_pbe_WithSHA1And40BitRC2_CBC)
 		keyAlgoNid = NID_pbe_WithSHA1And3_Key_TripleDES_CBC;
 
+	EVP_PKEY *pkey = key->decryptKey();
+	for (const QString &line : key->getComment().split('\n')) {
+		QStringList kv = line.split(":");
+		qDebug() << line << kv;
+		if (kv.size() != 2 || kv[0] != "CSP")
+			continue;
+		QByteArray csp = kv[1].trimmed().toLatin1();
+		EVP_PKEY_add1_attr_by_NID(pkey, NID_ms_csp_name,
+			MBSTRING_ASC, (const unsigned char*)csp.constData(), csp.size());
+	}
+
 	pkcs12 = PKCS12_create(pass.data(), getIntName().toUtf8().data(),
-				key->decryptKey(), cert->getCert(), certstack,
+				pkey, cert->getCert(), certstack,
 				keyAlgoNid, certAlgoNid, 0, 0, 0);
 	pki_openssl_error();
+	EVP_PKEY_free(pkey);
 	Q_CHECK_PTR(pkcs12);
 
 	if (encAlgo.legacy())

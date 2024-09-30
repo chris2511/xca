@@ -307,7 +307,7 @@ void CertDetail::itemChanged(pki_base *pki)
 
 void CertDetail::showPubKey()
 {
-	KeyDetail::showKey(this, myPubKey, false);
+	KeyDetail::showKey(this, myPubKey, keySqlId.isValid());
 }
 
 void CertDetail::showIssuer()
