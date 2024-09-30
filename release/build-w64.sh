@@ -13,7 +13,7 @@ do_openssl() {
   make install
 }
 
-OSSL="openssl-3.3.1"
+OSSL="openssl-3.3.2"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/QT/6.6.3/mingw_64"
