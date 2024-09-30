@@ -5,9 +5,6 @@
         <DirectoryRef Id="INSTALLDIR">
             <Component Id="Clibcrypto11x64" Guid="44133d17-96b5-4aee-8a24-9c722482add5">
                 <File Id="libcrypto11x64.dll" Source="@OPENSSL_ROOT_DIR@/bin/libcrypto-@OPENSSL_LIBRARY_MAJOR@-x64.dll" KeyPath="yes"/>
-                <?if @OPENSSL_LIBRARY_MAJOR@ = 3 ?>
-                    <File Id="libcryptolegacy.dll" Source="@OPENSSL_ROOT_DIR@/lib/ossl-modules/legacy.dll"/>
-                <?endif?>
             </Component>
             <Component Id="Cvcruntime140" Guid="f0b03b2a-14f7-4631-bfe3-d4c6c9b57e1d">
                 <File Id="vcruntime140.dll" Source="@SYSTEM32@/vcruntime140.dll" KeyPath="yes"/>

@@ -11,21 +11,18 @@ do_openssl()
   for arch in x86_64 arm64; do
     mkdir -p "${OSSL}-${arch}"
     (cd ${OSSL}-${arch}
-     ../$OSSL/Configure darwin64-${arch}-cc shared \
+     ../$OSSL/Configure darwin64-${arch}-cc shared no-module \
 	--prefix="${INSTALL_DIR}" \
 	-mmacosx-version-min="$SDK"
      make -j $JOBS build_libs && make install_sw
     )
     PARTS_crypto="$PARTS_crypto ${OSSL}-${arch}/libcrypto.${OSSL_MAJOR}.dylib"
     PARTS_ssl="$PARTS_ssl ${OSSL}-${arch}/libssl.${OSSL_MAJOR}.dylib"
-    PARTS_providers="$PARTS_providers ${OSSL}-${arch}/providers/legacy.dylib"
   done
   rm -f "$INSTALL"/lib/libcrypto.${OSSL_MAJOR}.dylib \
-	"$INSTALL"/lib/libssl.${OSSL_MAJOR}.dylib \
-	"$INSTALL"/lib/ossl-modules/legacy.dylib
+	"$INSTALL"/lib/libssl.${OSSL_MAJOR}.dylib
   lipo -create -output "$INSTALL_DIR"/lib/libcrypto.${OSSL_MAJOR}.dylib $PARTS_crypto
   lipo -create -output "$INSTALL_DIR"/lib/libssl.${OSSL_MAJOR}.dylib $PARTS_ssl
-  lipo -create -output "$INSTALL_DIR"/lib/ossl-modules/legacy.dylib $PARTS_providers
 }
 
 # need to install ninja via "brew install ninja"

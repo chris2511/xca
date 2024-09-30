@@ -215,13 +215,6 @@ if(APPLE)
         -always-overwrite ${APPSTORE}
     COMMENT "Running macdeployqt..."
   )
-  if (OPENSSL_VERSION VERSION_GREATER_EQUAL 3.0.0)
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-      COMMAND cmake -E copy ${OPENSSL_ROOT_DIR}/lib/ossl-modules/legacy.dylib
-              $<TARGET_FILE_DIR:${PROJECT_NAME}>/../PlugIns/
-      COMMENT "Install OpenSSL legacy provider"
-  )
-  endif()
   if (PROVISIONPROFILE)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND cmake -E copy ${PROVISIONPROFILE}
@@ -292,10 +285,6 @@ elseif(WIN32)
         ${OPENSSL_ROOT_DIR}/bin/libcrypto-${OPENSSL_LIBRARY_MAJOR}-x64.dll
       DESTINATION ${RUNTIME_DEST}
   )
-  if (OPENSSL_VERSION VERSION_GREATER_EQUAL 3.0.0)
-      install(FILES ${OPENSSL_ROOT_DIR}/lib/ossl-modules/legacy.dll
-          DESTINATION ${RUNTIME_DEST})
-  endif()
   install(CODE "execute_process(COMMAND cmake -E chdir \${CMAKE_INSTALL_PREFIX} tar cvf ${RUNTIME_DEST}.zip --format=zip -- ${RUNTIME_DEST})")
   set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 

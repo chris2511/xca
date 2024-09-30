@@ -8,7 +8,7 @@ do_openssl() {
   test -f "$OSSL".tar.gz || curl -L -O https://www.openssl.org/source/"$OSSL".tar.gz
   test -d "$OSSL" || tar zxf "$OSSL".tar.gz
   cd "$OSSL"
-  ./Configure mingw64 --prefix=$INSTALL_DIR --libdir=lib
+  ./Configure mingw64 --prefix=$INSTALL_DIR --libdir=lib no-module
   make -j4
   make install
 }
