@@ -133,7 +133,7 @@ do_openssl
 # aqt install-src mac 6.6.3 --archives qtbase
 # qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt:
 #    -qt_internal_force_macos_intel_arch(QMYSQLDriverPlugin)
-# do_qsqlmysql
+do_qsqlmysql
 
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \
