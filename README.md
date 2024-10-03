@@ -27,7 +27,7 @@ This application is documented in the *Help* menu and here:
 To build XCA you need:
  - a toolchain
  - cmake: https://cmake.org
- - Qt5 or Qt6: https://www.qt.io
+ - Qt5 or Qt6: https://www.qt.io (5.10.1 or higher)
  - OpenSSL: https://www.openssl.org (1.1.1 or higher)
    or libressl-3.6.x
  - Sphinx-Build: https://www.sphinx-doc.org
