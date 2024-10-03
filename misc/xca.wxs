@@ -13,7 +13,7 @@
                  Keywords="Installer" Description="XCA Installer"
                  Languages="1033" SummaryCodepage="1252"
                  Comments="X Certificate and key management"
-                 Manufacturer="Open Source Developer, Christian Hohnstaedt" />
+                 Manufacturer="Christian Hohnstädt" />
 
 	<MajorUpgrade Schedule="afterInstallInitialize"
                       DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
