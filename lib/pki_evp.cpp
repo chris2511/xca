@@ -351,8 +351,7 @@ EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
 	kdf = ssh_key_next_chunk(&content);
 
 	if (enc_algo != "none" || kdfname != "none") {
-		qCritical("Encrypted SSH ED25519 keys not supported, yet");
-		return NULL;
+		throw(errorEx(tr("Encrypted SSH ED25519 keys not supported, yet")));
 	}
 	// check bytes 00 00 00 01
 	const char *d = content.constData();
