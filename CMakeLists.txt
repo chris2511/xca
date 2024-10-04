@@ -160,6 +160,11 @@ if (APPLE)
 elseif(WIN32)
 
   set(RUNTIME_DEST ${CMAKE_PROJECT_NAME}-portable-${PROJECT_VERSION})
+  if (${QT_VERSION} VERSION_LESS 6.7.0)
+    set(WINDOWSSTYLE "windowsvistastyle")
+  else()
+    set(WINDOWSSTYLE "modernwindowsstyle")
+  endif()
 
 else()
 
