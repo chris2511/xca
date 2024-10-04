@@ -152,7 +152,7 @@
     <message>
         <location line="+22"/>
         <source>Issuer</source>
-        <translation>Izdavač</translation>
+        <translation>Izdavatelj</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -162,17 +162,17 @@
     <message>
         <location line="+21"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Provjera</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>Namjena</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosljedna RFC 5280 provjera</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -186,7 +186,7 @@
     </message>
     <message>
         <source>&amp;Issuer</source>
-        <translation type="vanished">&amp;Izdavač</translation>
+        <translation type="vanished">&amp;Izdavatelj</translation>
     </message>
     <message>
         <location line="-62"/>
@@ -228,7 +228,7 @@
     <message>
         <location line="+49"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kod provjere nisu pronađene greške.</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -242,7 +242,7 @@
     <message>
         <location line="-34"/>
         <source>Signer unknown</source>
-        <translation>Potpisnik (izdavač) nepoznat</translation>
+        <translation>Potpisnik (izdavatelj) nepoznat</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -411,7 +411,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Sakrij neupotrebljive potvrde</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -631,7 +631,7 @@
     <message>
         <location line="-85"/>
         <source>&amp;Issuer</source>
-        <translation>&amp;Izdavač</translation>
+        <translation>&amp;Izdavatelj</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -671,7 +671,7 @@
     <message>
         <location line="+5"/>
         <source>Unknown signer</source>
-        <translation>Nepoznat potpisnik (izdavač)</translation>
+        <translation>Nepoznat potpisnik (izdavatelj)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -776,12 +776,12 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location line="+31"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Svaka stavka u zasebnoj datoteci</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ista enkripcijska zaporka za sve stavke</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -932,10 +932,10 @@ PEM je base64 kodirana DER datoteka</translation>
     <message numerus="yes">
         <location line="-10"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n odabrana stavka</numerusform>
+            <numerusform>%n odabrane stavke</numerusform>
+            <numerusform>%n odabrane stavke</numerusform>
         </translation>
     </message>
     <message>
@@ -956,32 +956,32 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location line="+4"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Putanja &apos;%1&apos; postoji, no nije datoteka</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Putanja &apos;%1&apos; postoji, no nije mapa</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa &apos;%1&apos; ne postoji. Treba li ju stvoriti?</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Create</source>
-        <translation type="unfinished">Izradi</translation>
+        <translation>Izradi</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">Neuspješno stvaranje &apos;%1&apos;</translation>
+        <translation>Neuspješno stvaranje mape &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Directory</source>
-        <translation type="unfinished">Mape</translation>
+        <translation>Mapa</translation>
     </message>
 </context>
 <context>
@@ -1634,7 +1634,7 @@ To će obrisati ključ &apos;%1&apos; i onemogućiti njegov izvoz</translation>
     <message>
         <location line="+4"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Korejski</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2497,7 +2497,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+8"/>
         <source>Path length</source>
-        <translation>Dužina puta</translation>
+        <translation>Dužina putanje</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2522,7 +2522,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+10"/>
         <source>Copy the Subject Key Identifier from the issuer</source>
-        <translation>Kopiraj Oznaku ključa Subjekta iz izdavača</translation>
+        <translation>Kopiraj Oznaku ključa Subjekta iz izdavatelja</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -2609,7 +2609,7 @@ Unesite bitove za DH parametre</translation>
     </message>
     <message>
         <source>issuer alternative name</source>
-        <translation type="obsolete">alternativno ime izdavača</translation>
+        <translation type="obsolete">alternativno ime izdavatelja</translation>
     </message>
     <message>
         <source>CRL distribution point</source>
@@ -2792,7 +2792,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+9"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ograničenja imena su neispravna</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2802,7 +2802,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation>Alternativno ime izdavača je neispravno</translation>
+        <translation>Alternativno ime izdavatelja je neispravno</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2985,7 +2985,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="+31"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ograničenje naziva izdavatelja &apos;%1&apos; je prekršeno: %2</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
@@ -3773,7 +3773,7 @@ U knjižnici %3
     <message>
         <location line="+1"/>
         <source>Name Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Ograničenja imena</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3787,7 +3787,7 @@ U knjižnici %3
     <message>
         <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation>alternativno ime izdavača</translation>
+        <translation>alternativno ime izdavatelja</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3908,7 +3908,7 @@ U knjižnici %3
     <message>
         <location line="+87"/>
         <source>Failed to write PEM data to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuspješno pisanje PEM podataka u &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -4064,7 +4064,7 @@ U knjižnici %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="+41"/>
         <source>Directory</source>
-        <translation>Mape</translation>
+        <translation>Mapa</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -4162,7 +4162,7 @@ U knjižnici %3
     </message>
     <message>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="vanished">&amp;Vjeruj potvrdi, ali samo ako vjerujemo izdavaču</translation>
+        <translation type="vanished">&amp;Vjeruj potvrdi, ali samo ako vjerujemo izdavatelju</translation>
     </message>
     <message>
         <source>&amp;Always trust this certificate</source>
@@ -4286,17 +4286,20 @@ U knjižnici %3
     <message>
         <location line="+57"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaporka za izvoz</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Unesite zaporku za kriptiranje %n izvezenog privatnog ključa u:
+%1</numerusform>
+            <numerusform>Unesite zaporku za kriptiranje %n izvezena privatna ključa u:
+%1</numerusform>
+            <numerusform>Unesite zaporku za kriptiranje svih %n izvezenih privatnih ključeva u:
+%1</numerusform>
         </translation>
     </message>
     <message>
@@ -5044,7 +5047,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+178"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation>Neuspješno stvaranje &apos;%1&apos;</translation>
+        <translation>Neuspješno stvaranje mape &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -5445,7 +5448,7 @@ i zbog toga nije uvezena</translation>
     </message>
     <message>
         <source>issuer alternative name</source>
-        <translation type="obsolete">alternativno ime izdavača</translation>
+        <translation type="obsolete">alternativno ime izdavatelja</translation>
     </message>
     <message>
         <source>Subject key identifier</source>
@@ -5817,7 +5820,7 @@ i zbog toga nije spremljen</translation>
     <message>
         <location line="+15"/>
         <source>No issuer given</source>
-        <translation>Nije naveden izdavač</translation>
+        <translation>Nije naveden izdavatelj</translation>
     </message>
     <message>
         <source>Wrong Size %1</source>
@@ -5826,10 +5829,10 @@ i zbog toga nije spremljen</translation>
     <message numerus="yes">
         <location line="-100"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Obrisati %n listu opozvanih potvrda: &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n liste opozvanih potvrda: &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n lista opozvanih potvrda: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5946,13 +5949,15 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="+182"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesite zaporku za zaštitu PKCS#8 ključa &apos;%1&apos; u datoteci:
+%2</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesite zaporku za zaštitu privatnog ključa: &apos;%1&apos; u datoteci:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
@@ -5983,12 +5988,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="-38"/>
         <source>PEM selected</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM odabran</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated list of all selected certificates in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista svih odabranih stavki spojena u jednu PEM datoteku</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6023,12 +6028,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>All unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi neupotrebljivi</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of all expired or revoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstualni format sa isteklim ili povučenim potvrdama spojenim u jednu PEM datoteku</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6053,12 +6058,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>PKCS #7 unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7 neupotrebljivi</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 kodirana zbirka svih isteklih ili opozvanih potvrda</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6141,22 +6146,22 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
-        <translation type="unfinished"></translation>
+        <translation>Javni ključ potvrde u JSON Web Kit formatu s X.509 otiskom certifikata (x5t)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit chain</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit lanac</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
-        <translation type="unfinished"></translation>
+        <translation>Javni ključ potvrde u JSON Web Kit formatu s X.509 otiskom certifikata (x5t) i lancem potvrda (x5c)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6237,12 +6242,12 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+14"/>
         <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA predložak u formatu nalik PEM. Obrasci uključuju interno ime i komentar</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Svi odabrni XCA predlošci u formatu nalik PEM. Obrasci uključuju interno ime i komentar</translation>
     </message>
     <message>
         <source>PVK encrypted</source>
@@ -6275,22 +6280,22 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Ključ privatni</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekriptirani privatni ključ u JSON Web Key formatu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Ključ javni</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>Javni ključ u JSON Web Key formatu</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6369,13 +6374,13 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="-644"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Uspješno uvezen %1 javni ključ &apos;%2&apos;</translation>
+        <translation>Uspješno uvezen %1 javni ključ &apos;%2&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
+        <translation>
             <numerusform></numerusform>
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -6385,23 +6390,23 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="+6"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Uspješno uvezen %1 privatni ključ &apos;%2&apos;</translation>
+        <translation>Uspješno uvezen %1 privatni ključ &apos;%2&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Obrisati %n %1 privatni ključ &apos;%2&apos;?</numerusform>
+            <numerusform>Obrisati %n %1 privatna ključa &apos;%2&apos;?</numerusform>
+            <numerusform>Obrisati %n %1 privatnih ključeva &apos;%2&apos;?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Uspješno izrađen %1 privatni ključ &apos;%2&apos;</translation>
+        <translation>Uspješno izrađen %1 privatni ključ &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+230"/>
@@ -6481,7 +6486,8 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
         <location line="+58"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesite zaporku za kripciju ključa certifikata &apos;%1&apos; u PKCS#12 datoteku:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
@@ -6580,10 +6586,10 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message numerus="yes">
         <location line="-681"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Obrisati %n ključ za token &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n ključa za token &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n ključeva za token &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -6631,10 +6637,10 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Obrisati %n XCA predložak: &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n XCA predloška: &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n XCA predloška: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -6697,10 +6703,10 @@ Spremljen je u XCA bazi &apos;%5&apos;  </translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Obrisati %n potvrdu: &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n potvrde: &apos;%1&apos;?</numerusform>
+            <numerusform>Obrisati %n potvrda: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -6814,7 +6820,7 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
     </message>
     <message>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation type="vanished">Obriši %1 zahtjev a izdavanje potvrde &apos;%2&apos;?</translation>
+        <translation type="vanished">Obriši %1 zahtjev za izdavanje potvrde &apos;%2&apos;?</translation>
     </message>
     <message>
         <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
@@ -6827,21 +6833,21 @@ Spremljen je u XCA bazi &apos;%3&apos;</translation>
     <message>
         <location line="+39"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Uspješno uvezen PKCS#10 zahtjev za izdavanje potvrde &apos;%1&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Obriši %n PKCS#10 zahtjev za izdavanje potvrde &apos;%1&apos;?</numerusform>
+            <numerusform>Obriši %n PKCS#10 zahtjeva za izdavanje potvrde &apos;%1&apos;?</numerusform>
+            <numerusform>Obriši %n PKCS#10 zahtjeva za izdavanje potvrde &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Uspješno izrađen PKCS#10 zahtjev za izdavanje potvrde &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+31"/>
