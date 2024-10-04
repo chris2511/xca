@@ -120,6 +120,9 @@ find_package(${QT} REQUIRED COMPONENTS Core Widgets Sql Help LinguistTools)
 find_package(${QT} QUIET COMPONENTS Test)
 
 include(cmake/openssl_v_err.cmake)
+if (${QT_VERSION} VERSION_LESS 5.10.0)
+  message(FATAL_ERROR "Qt-${QT_VERSION} not supported, please use at least Qt-5.10.1")
+endif()
 message(STATUS "Using ${QT} with version ${QT_VERSION}")
 
 get_target_property(qmake_executable ${QT}::qmake IMPORTED_LOCATION)
@@ -157,6 +160,11 @@ if (APPLE)
 elseif(WIN32)
 
   set(RUNTIME_DEST ${CMAKE_PROJECT_NAME}-portable-${PROJECT_VERSION})
+  if (${QT_VERSION} VERSION_LESS 6.7.0)
+    set(WINDOWSSTYLE "windowsvistastyle")
+  else()
+    set(WINDOWSSTYLE "modernwindowsstyle")
+  endif()
 
 else()
 

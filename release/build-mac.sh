@@ -5,7 +5,7 @@ do_openssl()
 {
   test -x $INSTALL_DIR/lib/libcrypto.dylib && return
 
-  test -f "$OSSL".tar.gz || curl -L -O https://www.openssl.org/source/"$OSSL".tar.gz
+  test -f "$OSSL".tar.gz || curl -L -O https://github.com/openssl/openssl/releases/download/$OSSL/${OSSL}.tar.gz
   test -d "$OSSL" || tar zxf "$OSSL".tar.gz
   mkdir -p ${INSTALL_DIR}/lib
   for arch in x86_64 arm64; do
@@ -25,42 +25,93 @@ do_openssl()
   lipo -create -output "$INSTALL_DIR"/lib/libssl.${OSSL_MAJOR}.dylib $PARTS_ssl
 }
 
-# need to install ninja via "brew install ninja"
-do_mysql()
+do_zstd()
 {
-  PLUGIN="$QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib"
-  #test -f "$PLUGIN" && return
+  ZSTDV=1.5.6
+  ARCHIVE=zstd-${ZSTDV}.tar.gz
+  test -f $ARCHIVE || curl -L https://github.com/facebook/zstd/archive/refs/tags/v${ZSTDV}.tar.gz -o ${ARCHIVE}
+  for arch in x86_64 arm64; do
+    ZBUILD=zstd-${arch}
+    mkdir -p "$ZBUILD"
+    (cd "$ZBUILD"
+      tar -zxf ../${ARCHIVE} --strip-components 1
+      export CFLAGS="-target ${arch}-apple-macos11 -mmacosx-version-min=$SDK"
+      export PREFIX="$INSTALL_DIR"
+      make -j5 && make install
+    )
+    # DESTDIR="$INSTALL_DIR" make install
+    PARTS_dylib="$PARTS_dylib $ZBUILD/lib/libzstd.dylib"
+    PARTS_a="$PARTS_a $ZBUILD/lib/libzstd.a"
+  done
+  rm -f "$INSTALL_DIR"/lib/libzstd.dylib "$INSTALL_DIR"/lib/libzstd.a
+  lipo -create -output "$INSTALL_DIR"/lib/libzstd.dylib $PARTS_dylib
+  lipo -create -output "$INSTALL_DIR"/lib/libzstd.a $PARTS_a
+}
 
+do_mariadb_connector_c()
+{
+  REPO=mariadb-connector-c-3.4.1-src
+  ARCHIVE=${REPO}.tar.gz
+  test -f $ARCHIVE || curl -LO https://mirror.kumi.systems/mariadb/connector-c-3.4.1/$ARCHIVE
+  test -d $REPO || tar zxf "$ARCHIVE"
   B="$TOP_DIR/mariadb-build"
   mkdir -p ${B}
   cmake -B ${B} -DCMAKE_C_FLAGS=-Wno-deprecated-non-prototype \
-	   -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
-	   -DCMAKE_PREFIX_PATH="$INSTALL_DIR" \
-	   -DINSTALL_LIBDIR=lib \
-	   $TOP_DIR/mariadb-connector-c-3.3.7-src
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
+	-DCMAKE_PREFIX_PATH="$INSTALL_DIR" \
+	-DINSTALL_LIBDIR=lib -DCMAKE_MACOSX_RPATH=1 \
+	-DWITH_EXTERNAL_ZLIB=OFF \
+	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
+	-S $TOP_DIR/$REPO
   cmake --build ${B} -j$JOBS
   cmake --install ${B} --prefix="$INSTALL_DIR"
+}
 
-#############################
-
+# need to install ninja via "brew install ninja"
+do_qsqlmysql()
+{
+  PLUGIN="$QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib"
+#  test -f "$PLUGIN" && return
   SQL_BUILD="$TOP_DIR/build-sqlplugins"
+  ( cd "$QT_DIR/../Src/qtbase"
+    ./configure -cmake-generator Ninja -release -no-feature-x86intrin -sql-mysql \
+	CMAKE_BUILD_TYPE=Release \
+	CMAKE_PREFIX_PATH="$INSTALL_DIR" \
+	CMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
+	DMySQL_ROOT="$INSTALL_DIR" \
+	FEATURE_sql_odbc=OFF FEATURE_sql_sqlite=OFF
+  )
+
+  rm -rf "$SQL_BUILD"
   mkdir -p "$SQL_BUILD"
 
-  cmake -B $SQL_BUILD \
-	-DCMAKE_INSTALL_PREFIX="$QT_DIR" \
+  cmake -B $SQL_BUILD -G "Ninja" \
 	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
+	-DCMAKE_INSTALL_PREFIX="$QT_DIR" \
+	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
+	-DMySQL_ROOT="$INSTALL_DIR" \
+	"$QT_DIR/../Src/qtbase/src/plugins/sqldrivers"
+
+  cmake --build $SQL_BUILD -j$JOBS -v
+  cmake --install $SQL_BUILD
+  install_name_tool -change @rpath/libmariadb.3.dylib\
+                "$INSTALL_DIR"/lib/libmariadb.3.dylib \
+        $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
+
+  file $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
+  file $SQL_BUILD/plugins/sqldrivers/libqsqlmysql.dylib
+  otool -L $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
+}
+
+( echo >/dev/null \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DMySQL_ROOT="$INSTALL_DIR" \
 	-DMySQL_INCLUDE_DIR="$INSTALL_DIR/include/mariadb" \
 	-DMySQL_LIBRARY="$INSTALL_DIR/lib/libmariadb.dylib" \
 	-DFEATURE_sql_odbc=OFF -DFEATURE_sql_sqlite=OFF \
-	"$QT_DIR/../Src/qtbase/src/plugins/sqldrivers"
 
-  cmake --build $SQL_BUILD -j$JOBS
-  cmake --install $SQL_BUILD
-  install_name_tool -change libmariadb.3.dylib "$INSTALL_DIR"/lib/libmariadb.3.dylib \
-                              $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
-  file  $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
-  file  $SQL_BUILD/plugins/sqldrivers/libqsqlmysql.dylib
-}
+)
 
 OSSL_MAJOR="3"
 OSSL="openssl-3.3.2"
@@ -76,14 +127,19 @@ SDK="11.0"
 JOBS=7
 
 cd $TOP_DIR
-
 do_openssl
-# Only builds x86_64 binaries, hell knows why...
-# do_mysql
+#do_zstd
+#do_mariadb_connector_c
+# aqt install-src mac 6.6.3 --archives qtbase
+# qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt:
+#    -qt_internal_force_macos_intel_arch(QMYSQLDriverPlugin)
+do_qsqlmysql
+
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \
 	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
 	-DCMAKE_PREFIX_PATH="$QT_DIR/lib/cmake;$INSTALL_DIR" \
+	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK
 
 cmake --build "$BUILDDIR" -j$JOBS
@@ -102,6 +158,7 @@ cmake -B "$BUILDDIR_APPSTORE" "$XCA_DIR" \
 	-DCMAKE_PREFIX_PATH="$QT_DIR/lib/cmake;$INSTALL_DIR" \
 	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
 	-DAPPSTORE_COMPLIANT=ON \
+	-DCMAKE_BUILD_TYPE=Release \
 	-DPROVISIONPROFILE="$TOP_DIR/XCA_AppStore_Provisioning.provisionprofile"
 
 read xca_version < "$BUILDDIR_APPSTORE"/PKGVERSION.txt

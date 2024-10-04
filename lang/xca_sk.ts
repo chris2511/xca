@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="sk_SK">
+    <extra-po-header-language>sk</extra-po-header-language>
+    <extra-po-header-language_team>slovenčina &lt;linux@slavino.sk&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Slavko &lt;linux@slavino.sk&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2024-10-01 14:52+0200</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2018-03-16 18:14+0200</extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version>X Certificate and Key management 2..6.0</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Gtranslator 46.1</extra-po-header-x_generator>
+    <extra-po-header_comment># This file is distributed under the same license as the XCA package.
+# Slavko &lt;linux@slavino.sk&gt;, 2016-2024.
+#</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Generator,Plural-Forms,X-Qt-Contexts</extra-po-headers>
 <context>
     <name>CaProperties</name>
     <message>
@@ -130,17 +142,17 @@
     <message>
         <location filename="../ui/CertDetail.ui" line="412"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Overenie</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="418"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>Účely</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="430"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Striktné overenie RFC 5280</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="443"/>
@@ -181,7 +193,7 @@
     <message>
         <location filename="../widgets/CertDetail.cpp" line="127"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neboli nájdené žiadne chyby overenia.</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="152"/>
@@ -336,7 +348,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Skryť nepoužiteľné certifikáty</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="41"/>
@@ -396,7 +408,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="91"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation>Importovať kľúč OpenVPN tls-auth</translation>
+        <translation>Importovať OpenVPN tls-auth</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="95"/>
@@ -462,7 +474,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="270"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation>Kľúč OpenVPN tls-auth ( *.key )</translation>
+        <translation>OpenVPN tls-auth ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -614,12 +626,12 @@
     <message>
         <location filename="../ui/ExportDialog.ui" line="127"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Každá položka v samostatnom súbore</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="134"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>Rovnaké heslo šifrovania pre všetky položky</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="141"/>
@@ -634,10 +646,10 @@
     <message numerus="yes">
         <location filename="../widgets/ExportDialog.cpp" line="43"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n zvolená položka</numerusform>
+            <numerusform>%n zvolené položky</numerusform>
+            <numerusform>%n zvolených položiek</numerusform>
         </translation>
     </message>
     <message>
@@ -663,40 +675,36 @@
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="132"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Cesta: „%1” existuje, ale nie je to súbor</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="145"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Cesta: „%1” existuje, ale nie je to adresár</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="150"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresár: „%1” neexistuje. Má byť vytvorený?</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="152"/>
         <source>Create</source>
-        <translation type="unfinished">Vytvoriť</translation>
+        <translation>Vytvoriť</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="158"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">Nemožno vytvoriť zložku „%1”</translation>
+        <translation>Vytvorenie adresára „%1” zlyhalo</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="206"/>
         <source>Directory</source>
-        <translation type="unfinished">Adresár</translation>
+        <translation>Adresár</translation>
     </message>
     <message>
         <source>Concatenated text format of all certificates in one PEM file</source>
         <translation type="vanished">Zlúčený textový formát všetkých certifikátov v jednom súbore PEM</translation>
-    </message>
-    <message>
-        <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
-        <translation type="vanished">Zlúčený textový formát všetkých dôveryhodných certifikátov v jednom súbore PEM</translation>
     </message>
     <message>
         <source>All unrevoked certificates encoded in one PKCS#7 file</source>
@@ -1239,7 +1247,7 @@ Týmto bude kľúč „%1” odstránený a nebude ho možné exportovať</trans
     <message>
         <location filename="../widgets/MW_help.cpp" line="46"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Kórejčina</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="52"/>
@@ -2138,7 +2146,7 @@ Prosím, zadajte bity parametra DH</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1122"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Obmedzenia mena sú neplatné</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1124"/>
@@ -2148,7 +2156,7 @@ Prosím, zadajte bity parametra DH</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1126"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation>Alternatívny názov vydavateľa (IAN) je neplatné</translation>
+        <translation>Alternatívny názov vydavateľa (IAN) je neplatný</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1128"/>
@@ -2331,7 +2339,7 @@ hoci ste ich v nastavení definovali ako povinné.</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1498"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Obmedzenie mena vydavateľa „%1” je porušené: %2</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509_ext.cpp" line="173"/>
@@ -2642,33 +2650,6 @@ Najmä EC a DSA sú v špecifikácii PKCS#11 definované len s SHA1.</translatio
     <message>
         <source>E&amp;xit</source>
         <translation type="vanished">S&amp;končiť</translation>
-    </message>
-</context>
-<context>
-    <name>QMessageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">OK</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Zatvoriť</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Zrušiť</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">Použiť</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">Áno</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">Nie</translation>
     </message>
 </context>
 <context>
@@ -3081,7 +3062,7 @@ V knižnici %3
     <message>
         <location filename="../lib/func_base.cpp" line="267"/>
         <source>Name Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Obmedzenia mena</translation>
     </message>
     <message>
         <location filename="../lib/func_base.cpp" line="268"/>
@@ -3181,7 +3162,7 @@ V knižnici %3
     <message>
         <location filename="../lib/cmdline.cpp" line="273"/>
         <source>Failed to write PEM data to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlyhal zápis dát PEM do „%1”</translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="23"/>
@@ -3428,29 +3409,6 @@ V knižnici %3
     </message>
 </context>
 <context>
-    <name>TrustState</name>
-    <message>
-        <source>Certificate trust</source>
-        <translation type="vanished">D§veryhodnosť o certifikátu</translation>
-    </message>
-    <message>
-        <source>Trustment</source>
-        <translation type="vanished">Dôveryhodnosť</translation>
-    </message>
-    <message>
-        <source>&amp;Never trust this certificate</source>
-        <translation type="vanished">Tomuto certifikátu &amp;nikdy nedôverovať</translation>
-    </message>
-    <message>
-        <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="vanished">Tomuto certifikátu &amp;dôverovať, ak dôverujem vydavateľovi</translation>
-    </message>
-    <message>
-        <source>&amp;Always trust this certificate</source>
-        <translation type="vanished">Tomuto certifikátu &amp;vždy dôverovať</translation>
-    </message>
-</context>
-<context>
     <name>Validity</name>
     <message>
         <location filename="../widgets/validity.cpp" line="91"/>
@@ -3555,17 +3513,20 @@ V knižnici %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="509"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Heslo exportu</translation>
     </message>
     <message numerus="yes">
         <location filename="../widgets/XcaTreeView.cpp" line="510"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Prosím, zadajte heslo na šifrovanie exportovaného súkromného kľúča v:
+%1</numerusform>
+            <numerusform>Prosím, zadajte heslo na šifrovanie %n exportovaných súkromných kľúčov v:
+%1</numerusform>
+            <numerusform>Prosím, zadajte heslo na šifrovanie %n exportovaných súkromných kľúčov v:
+%1</numerusform>
         </translation>
     </message>
     <message>
@@ -3734,7 +3695,7 @@ V knižnici %3
     <message>
         <location filename="../lib/db_base.cpp" line="374"/>
         <source>Could not create directory %1</source>
-        <translation>Nemožno vytvoriť zložku %1</translation>
+        <translation>Nemožno vytvoriť adresár %1</translation>
     </message>
     <message>
         <source>How to export the %1 selected items</source>
@@ -3743,10 +3704,6 @@ V knižnici %3
     <message>
         <source>All in one PEM file</source>
         <translation type="vanished">Všetky v jednom súbore PEM</translation>
-    </message>
-    <message>
-        <source>Each item in one file</source>
-        <translation type="vanished">Každá položka v samostatnom súbore</translation>
     </message>
     <message>
         <source>Save %1 items in one file as</source>
@@ -3881,10 +3838,6 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <translation>Naozaj chcete vytvoriť kľúč s veľkosťou: %1?</translation>
     </message>
     <message>
-        <source>Internal error</source>
-        <translation type="vanished">Interná chyba</translation>
-    </message>
-    <message>
         <location filename="../lib/db_key.cpp" line="284"/>
         <source>Internal key update: The keys: %1 must be updated once by resetting and setting its private password</source>
         <translation>Interná aktualizácia kľúča: Kľúče: %1 musia byť pri zmene a aktualizácii ich hesla aktualizované</translation>
@@ -3893,6 +3846,10 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <location filename="../lib/db_key.cpp" line="298"/>
         <source>Tried to change password of a token</source>
         <translation>Vyskúšaná zmena hesla tokenu</translation>
+    </message>
+    <message>
+        <source>Internal error</source>
+        <translation type="vanished">Interná chyba</translation>
     </message>
     <message>
         <source>Export keys to Clipboard</source>
@@ -4004,7 +3961,7 @@ a bude doplnená novou, súkromnou, časťou kľúča</translation>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
-        <translation>Certifikát v databáze už existuje ako:
+        <translation>Certifikát už v databáze existuje ako:
 „%1”,
 a tak nebol importovaný</translation>
     </message>
@@ -4031,7 +3988,7 @@ a tak nebol importovaný</translation>
     <message>
         <location filename="../lib/db_x509.cpp" line="266"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation>Nemožno vytvoriť zložku „%1”</translation>
+        <translation>Vytvorenie adresára „%1” zlyhalo</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="521"/>
@@ -4061,10 +4018,6 @@ a tak nebol importovaný</translation>
     <message>
         <source>PEM unrevoked</source>
         <translation type="vanished">Neodvolané PEM</translation>
-    </message>
-    <message>
-        <source>PKCS#7 all</source>
-        <translation type="vanished">PKCS#7 všetky</translation>
     </message>
     <message>
         <source>PEM all</source>
@@ -4303,25 +4256,17 @@ a tak nebola uložená</translation>
         <translation>Úspešne importovaný Zoznam odvolaní „%1”</translation>
     </message>
     <message>
-        <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation type="vanished">Odstrániť Zoznam odvolaní „%1”?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_crl.cpp" line="61"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>Úspešne vytvorený Zoznam odvolaní „%1”</translation>
     </message>
-    <message>
-        <source>Delete the %1 revocation lists: %2?</source>
-        <translation type="vanished">Odstrániť %1 uoznamov odvolaní: %2?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_crl.cpp" line="60"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť zoznam odvolaní: &apos;%1&apos;?</numerusform>
+            <numerusform>Odstrániť %n zoznamy odvolaní: &apos;%1&apos;?</numerusform>
+            <numerusform>Odstrániť %n zoznamov odvolaní: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -4357,6 +4302,10 @@ Je uložené v databáze XCA „%3”</translation>
 It is stored in the XCA database &apos;%5&apos;</source>
         <translation>XCA CRL „%1”, vydané %3 vyprší %4.
 Je uložené v databáze XCA „%5”</translation>
+    </message>
+    <message>
+        <source>Delete the %1 revocation lists: %2?</source>
+        <translation type="vanished">Odstrániť %1 uoznamov odvolaní: %2?</translation>
     </message>
     <message>
         <source>Wrong Size %1</source>
@@ -4426,17 +4375,15 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_evp.cpp" line="849"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosím, zadajte heslo na ochranu kľúča PKCS#8 „%1” v súbore:
+%2</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="906"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation type="vanished">Prosím, zadajte heslo na ochranu kľúča PKCS#8 „%1”</translation>
+        <translation>Prosím, zadajte heslo na ochranu súkromného kľúča: „%1” v súbore:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
@@ -4465,18 +4412,14 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Textový formát PEM s hlavičkami</translation>
     </message>
     <message>
-        <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="vanished">Zlúčený zoznam zvolených položiek v jednom textovom súbore PEM</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
         <source>PEM selected</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM zvolený</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
         <source>Concatenated list of all selected certificates in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlúčený zoznam zvolených certifikátov v jednom textovom súbore PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="66"/>
@@ -4511,12 +4454,12 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="70"/>
         <source>All unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>Všetky nepoužiteľné</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="70"/>
         <source>Concatenation of all expired or revoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlúčenie všetkých vypršaných alebo odvolaných certifikátov v jednom súbore PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="71"/>
@@ -4541,12 +4484,12 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="74"/>
         <source>PKCS #7 unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 nepoužiteľné</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="74"/>
         <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Kódovaná kolekcia PKCS#7 všetkých vypršaných alebo odvolaných certifikátov</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="75"/>
@@ -4629,22 +4572,22 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="83"/>
         <source>JSON Web Kit</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="83"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verejný kľúč certifikátu vo formáte JSON Web Kit s X.509 Certificate Thumbprint (x5t)</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="84"/>
         <source>JSON Web Kit chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Reťaz JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="84"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verejný kľúč certifikátu vo formáte JSON Web Kit s X.509 Certificate Thumbprint (x5t) a reťazou certifikátu (x5c)</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="86"/>
@@ -4745,22 +4688,22 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="96"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished"></translation>
+        <translation>Súkromný kľúč JSON Web Key</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="96"/>
         <source>Unencrypted private key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>Nešifrovaný súkromný kľúč vo formáte JSON Web Key</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="97"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished"></translation>
+        <translation>Verejný kľúč JSON Web Key</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="97"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>Verejný kľúč vo formáte JSON Web Key</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="100"/>
@@ -4780,20 +4723,16 @@ Je uložené v databáze XCA „%5”</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="107"/>
         <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Šablóna XCA vo formáte podobnom PEM. Šablóna zahŕňa interné meno a komentár</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="108"/>
         <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Všetky zvolené šablóny XCA vo formáte podobnom PEM. Šablóny zahŕňajú interné meno a komentár</translation>
     </message>
     <message>
         <source>XCA template in PEM-like format</source>
         <translation type="vanished">Šablóna XCA vo formáte podobnom PEM</translation>
-    </message>
-    <message>
-        <source>All selected XCA templates in PEM-like format</source>
-        <translation type="vanished">Všetky šablóny XCA vo formáte podobnom PEM</translation>
     </message>
     <message>
         <source>PVK encrypted</source>
@@ -4807,30 +4746,6 @@ Je uložené v databáze XCA „%5”</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation type="vanished">Úspešne importovaný %1 verejný kľúč „%2”</translation>
-    </message>
-    <message>
-        <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation type="vanished">Odstrániť %1 verejný kľúč „%2”?</translation>
-    </message>
-    <message>
-        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation type="vanished">Úspešne importovaný %1 súkromný kľúč „%2”</translation>
-    </message>
-    <message>
-        <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation type="vanished">Odstrániť %1 súkromný kľúč „%2”?</translation>
-    </message>
-    <message>
-        <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation type="vanished">Úspešne vytvorený %1 súkromný kľúč „%2”</translation>
-    </message>
-    <message>
-        <source>Delete the %1 keys: %2?</source>
-        <translation type="vanished">Odstrániť %1 kľúčov: %2?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_key.cpp" line="59"/>
         <location filename="../lib/pki_key.cpp" line="236"/>
         <location filename="../lib/pki_key.cpp" line="856"/>
@@ -4841,39 +4756,39 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_key.cpp" line="212"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Úspešne importovaný %1 verejný kľúč „%2”</translation>
+        <translation>Úspešne importovaný %1 verejný kľúč „%2”</translation>
     </message>
     <message numerus="yes">
         <location filename="../lib/pki_key.cpp" line="214"/>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť %1 verejný kľúč „%2”?</numerusform>
+            <numerusform>Odstrániť %1 verejné kľúče „%2”?</numerusform>
+            <numerusform>Odstrániť %1 verejných kľúčov „%2”?</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="220"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Úspešne importovaný %1 súkromný kľúč „%2”</translation>
+        <translation>Úspešne importovaný %1 súkromný kľúč „%2”</translation>
     </message>
     <message numerus="yes">
         <location filename="../lib/pki_key.cpp" line="222"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť %1 súkromný kľúč „%2”?</numerusform>
+            <numerusform>Odstrániť %1 súkromné kľúče „%2”?</numerusform>
+            <numerusform>Odstrániť %1 súkromných kľúčov „%2”?</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="224"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Úspešne vytvorený %1 súkromný kľúč „%2”</translation>
+        <translation>Úspešne vytvorený %1 súkromný kľúč „%2”</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="454"/>
@@ -4917,6 +4832,10 @@ Je uložené v databáze XCA „%5”</translation>
         <source>Failed writing to %1</source>
         <translation>Zlyhal zápis do %1</translation>
     </message>
+    <message>
+        <source>Delete the %1 keys: %2?</source>
+        <translation type="vanished">Odstrániť %1 kľúčov: %2?</translation>
+    </message>
 </context>
 <context>
     <name>pki_multi</name>
@@ -4949,16 +4868,17 @@ Je uložené v databáze XCA „%5”</translation>
         <location filename="../lib/pki_pkcs12.cpp" line="141"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation type="vanished">Prosím, zadajte heslo na zašifrovanie súboru PKCS#12</translation>
+        <translation>Prosím, zadajte heslo na zašifrovanie kľúča certifikátu „%1” v súbore PKCS#12:
+%2</translation>
     </message>
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="138"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation>Nie je to kľúč, ani Certifikát a ani PKCS#12</translation>
+    </message>
+    <message>
+        <source>Please enter the password to encrypt the PKCS#12 file</source>
+        <translation type="vanished">Prosím, zadajte heslo na zašifrovanie súboru PKCS#12</translation>
     </message>
 </context>
 <context>
@@ -4977,25 +4897,17 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Úspešne importovaný kľúč tokenu „%1”</translation>
     </message>
     <message>
-        <source>Delete the token key &apos;%1&apos;?</source>
-        <translation type="vanished">Odstrániť kľúč tokenu „%1”?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_scard.cpp" line="48"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>úspešne vytvorený kľúč tokenu „%1”</translation>
     </message>
-    <message>
-        <source>Delete the %1 keys: %2?</source>
-        <translation type="vanished">Odstrániť %1 kľúčov: %2?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_scard.cpp" line="47"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť kľúč tokenu „%1”?</numerusform>
+            <numerusform>Odstrániť %n kľúče tokenu „%1”?</numerusform>
+            <numerusform>Odstrániť %n kľúčov tokenu „%1”?</numerusform>
         </translation>
     </message>
     <message>
@@ -5055,6 +4967,10 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Zlyhal inicializácia kľúča na tokene</translation>
     </message>
     <message>
+        <source>Delete the %1 keys: %2?</source>
+        <translation type="vanished">Odstrániť %1 kľúčov: %2?</translation>
+    </message>
+    <message>
         <source>Ignoring unsupported token key</source>
         <translation type="vanished">Ignorovanie nepodporovaného kľúča tokenu</translation>
     </message>
@@ -5079,25 +4995,17 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Úspešne importovaná šablóna XCA „%1”</translation>
     </message>
     <message>
-        <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation type="vanished">Odstrániť šablónu XCA „%1”?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_temp.cpp" line="161"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>Úspešne vytvorená šablóna XCA „%1”</translation>
     </message>
-    <message>
-        <source>Delete the %1 XCA templates: %2?</source>
-        <translation type="vanished">Odstrániť %1 šablón XCA: %2?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_temp.cpp" line="160"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť šablónu XCA „%1”?</numerusform>
+            <numerusform>Odstrániť %n šablóny XCA „%1”?</numerusform>
+            <numerusform>Odstrániť %n šablón XCA „%1”?</numerusform>
         </translation>
     </message>
     <message>
@@ -5121,6 +5029,10 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Nie je šablóna XCA, ale „%1”</translation>
     </message>
     <message>
+        <source>Delete the %1 XCA templates: %2?</source>
+        <translation type="vanished">Odstrániť %1 šablón XCA: %2?</translation>
+    </message>
+    <message>
         <source>Template file content error (too small): %1</source>
         <translation type="vanished">Chyba obsahu súboru šablóny (príliš malá): %1</translation>
     </message>
@@ -5133,25 +5045,17 @@ Je uložené v databáze XCA „%5”</translation>
         <translation>Úspešne importovaný certifikát „%1”</translation>
     </message>
     <message>
-        <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation type="vanished">Odstrániť certifikát „%1”?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_x509.cpp" line="67"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>Úspešne vytvorený certifikát „%1”</translation>
     </message>
-    <message>
-        <source>Delete the %1 certificates: %2?</source>
-        <translation type="vanished">Odstrániť %1 certifikátov: %2?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_x509.cpp" line="66"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť certifikát „%1”?</numerusform>
+            <numerusform>Odstrániť %n certifikáty „%1”?</numerusform>
+            <numerusform>Odstrániť %n certifikátov „%1”?</numerusform>
         </translation>
     </message>
     <message>
@@ -5222,6 +5126,10 @@ It is stored in the XCA database &apos;%4&apos;</source>
 Je uložený v databáze XCA „%4”</translation>
     </message>
     <message>
+        <source>Delete the %1 certificates: %2?</source>
+        <translation type="vanished">Odstrániť %1 certifikátov: %2?</translation>
+    </message>
+    <message>
         <source>Wrong Size %1</source>
         <translation type="vanished">Zlá veľkosť %1</translation>
     </message>
@@ -5234,39 +5142,23 @@ Je uložený v databáze XCA „%4”</translation>
         <translation>Podpisujúci kľúč neplatný (verejný kľúč)</translation>
     </message>
     <message>
-        <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation type="vanished">úspešne importovaná %1 žiadosť o certifikát „%2”</translation>
-    </message>
-    <message>
-        <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation type="vanished">Odstrániť %1 žiadosť o certifikát „%2”?</translation>
-    </message>
-    <message>
-        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation type="vanished">Úspešne vytvorená %1 žiadosť o certifikát „%2”</translation>
-    </message>
-    <message>
-        <source>Delete the %1 certificate requests: %2?</source>
-        <translation type="vanished">Odstrániť %1 žiadosť o certifikát: %2?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_x509req.cpp" line="147"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Úspešne importovaná žiadosť o certifikát PKCS#10 „%1”</translation>
     </message>
     <message numerus="yes">
         <location filename="../lib/pki_x509req.cpp" line="148"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odstrániť žiadosť o certifikát PKCS#10 „%1”?</numerusform>
+            <numerusform>Odstrániť %n žiadosti o certifikát PKCS#10 „%1”?</numerusform>
+            <numerusform>Odstrániť %n žiadostí o certifikát PKCS#10 „%1”?</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../lib/pki_x509req.cpp" line="149"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Úspešne vytvorená žiadosť o certifikát PKCS#10 „%1”</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509req.cpp" line="180"/>
@@ -5282,6 +5174,10 @@ Je uložený v databáze XCA „%4”</translation>
         <location filename="../lib/pki_x509req.cpp" line="366"/>
         <source>Unhandled</source>
         <translation>Nespracované</translation>
+    </message>
+    <message>
+        <source>Delete the %1 certificate requests: %2?</source>
+        <translation type="vanished">Odstrániť %1 žiadosť o certifikát: %2?</translation>
     </message>
     <message>
         <source>Wrong Size %1</source>
@@ -5388,6 +5284,56 @@ Je uložený v databáze XCA „%4”</translation>
         <location filename="../widgets/XcaWarning.cpp" line="71"/>
         <source>Copy to Clipboard</source>
         <translation>Kopírovať do schránky</translation>
+    </message>
+</context>
+<context>
+    <name>TrustState</name>
+    <message>
+        <source>Certificate trust</source>
+        <translation type="vanished">D§veryhodnosť o certifikátu</translation>
+    </message>
+    <message>
+        <source>Trustment</source>
+        <translation type="vanished">Dôveryhodnosť</translation>
+    </message>
+    <message>
+        <source>&amp;Never trust this certificate</source>
+        <translation type="vanished">Tomuto certifikátu &amp;nikdy nedôverovať</translation>
+    </message>
+    <message>
+        <source>Only &amp;trust this certificate, if we trust the signer</source>
+        <translation type="vanished">Tomuto certifikátu &amp;dôverovať, ak dôverujem vydavateľovi</translation>
+    </message>
+    <message>
+        <source>&amp;Always trust this certificate</source>
+        <translation type="vanished">Tomuto certifikátu &amp;vždy dôverovať</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">OK</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="vanished">Zatvoriť</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Zrušiť</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">Použiť</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="vanished">Áno</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="vanished">Nie</translation>
     </message>
 </context>
 </TS>

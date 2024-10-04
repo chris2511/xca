@@ -409,6 +409,22 @@ void database_model::openRemoteDatabase(const QString &connName,
 	db.setUserName(params["user"]);
 	db.setPassword(pass);
 
+	const QStringList sql_opt_files = {
+		QString("%1-%2.options").arg(db.driverName()).arg(params["host"]),
+		QString("%1.options").arg(db.driverName())
+	};
+	for (const QString &file : sql_opt_files) {
+		QString path = getUserSettingsDir() + "/" + file;
+		qDebug() << "TRYING" << path;
+		XFile f(getUserSettingsDir() + "/" + file);
+		if (f.exists() && f.open_read()) {
+			qDebug() << "READING" << file;
+			QString opts = f.readAll();
+			db.setConnectOptions(opts);
+			break;
+		}
+		f.close();
+	}
 	QString envvar(QString("XCA_%1_OPTIONS").arg(db.driverName()));
 	const char *opts = getenv(envvar.toLatin1());
 	if (opts)

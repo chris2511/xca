@@ -65,6 +65,8 @@ void pki_evp::setOwnPass(enum passType x)
 
 bool pki_evp::sqlUpdatePrivateKey()
 {
+	if (encKey.size() <= 0)
+		return false;
 	Transaction;
 	if (!TransBegin())
 		return false;
@@ -349,8 +351,7 @@ EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
 	kdf = ssh_key_next_chunk(&content);
 
 	if (enc_algo != "none" || kdfname != "none") {
-		qCritical("Encrypted SSH ED25519 keys not supported, yet");
-		return NULL;
+		throw(errorEx(tr("Encrypted SSH ED25519 keys not supported, yet")));
 	}
 	// check bytes 00 00 00 01
 	const char *d = content.constData();
@@ -505,7 +506,8 @@ EVP_PKEY *pki_evp::tryDecryptKey() const
 	QByteArray myencKey = getEncKey();
 	qDebug() << "myencKey.size()"<<myencKey.size();
 	if (myencKey.size() == 0)
-		return NULL;
+		throw errorEx(tr("Private key has 0 size"));
+
 	EVP_PKEY *priv = NULL;
 	X509_SIG *p8 = d2i_PKCS8_bio(BioByteArray(myencKey).ro(), NULL);
 	if (p8) {
@@ -597,9 +599,9 @@ bool pki_evp::updateLegacyEncryption()
 		if (newkey) {
 			set_evp_key(newkey);
 			encryptKey();
-			sqlUpdatePrivateKey();
-			qDebug() << "Successfully updated encryption scheme of" << this;
-			return true;
+			bool success = sqlUpdatePrivateKey();
+			qDebug() << "Updated encryption scheme of" << this << success;
+			return success;
 		}
 		qDebug() << "updating encryption scheme of" << this << "failed" << myencKey.size();
 
@@ -613,8 +615,12 @@ bool pki_evp::updateLegacyEncryption()
 EVP_PKEY *pki_evp::decryptKey() const
 {
 	EVP_PKEY *priv = nullptr;
-	while (!priv)
+	for (int i = 0; !priv; i++) {
 		priv = tryDecryptKey();
+		if (i > 200)
+			// break the loop after 200 tries
+			throw errorEx(tr("Internal error decrypting the private key"));
+	}
 	return priv;
 }
 

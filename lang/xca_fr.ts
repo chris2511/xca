@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="fr_FR">
+    <extra-po-header-language>fr</extra-po-header-language>
+    <extra-po-header-language_team>French &lt;&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Patrick Monnerat &lt;.&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2024-10-01 15:58+0200</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2018-03-16 18:14+0200</extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version>xca 1.3.3</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Gtranslator 45.3</extra-po-header-x_generator>
+    <extra-po-header_comment>#
+# demonipuch &lt;Unknown&gt;, 2012, 2014, 2015.
+# Patrick Monnerat &lt;.&gt;, 2011-2024.
+#</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Generator,Plural-Forms,X-Qt-Contexts</extra-po-headers>
 <context>
     <name>CaProperties</name>
     <message>
@@ -130,17 +143,17 @@
     <message>
         <location filename="../ui/CertDetail.ui" line="412"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Validation</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="418"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>Buts</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="430"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Validation RFC 5280 stricte</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="443"/>
@@ -181,7 +194,7 @@
     <message>
         <location filename="../widgets/CertDetail.cpp" line="127"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune erreur de validation trouvée.</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="152"/>
@@ -336,7 +349,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Masquer les certificats inutilisables</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="41"/>
@@ -614,12 +627,12 @@
     <message>
         <location filename="../ui/ExportDialog.ui" line="127"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaque objet dans un fichier séparé</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="134"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>Même mot de passe de chiffrement pour tous les objets</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="141"/>
@@ -634,9 +647,9 @@
     <message numerus="yes">
         <location filename="../widgets/ExportDialog.cpp" line="43"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n objet(s) sélectionné(s)</numerusform>
+            <numerusform>%n objet(s) sélectionné(s)</numerusform>
         </translation>
     </message>
     <message>
@@ -662,32 +675,32 @@
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="132"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Le chemin &apos;%1&apos; existe mais n&apos;est pas un fichier</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="145"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Le chemin &apos;%1&apos; existe mais n&apos;est pas un répertoire</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="150"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>Le répertoire &apos;%1&apos; n&apos;existe pas. Faut-il le créer ?</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="152"/>
         <source>Create</source>
-        <translation type="unfinished">Créer</translation>
+        <translation>Créer</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="158"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">Impossible de créer le répertoire %1</translation>
+        <translation>Impossible de créer le répertoire &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="206"/>
         <source>Directory</source>
-        <translation type="unfinished">Dossier</translation>
+        <translation>Répertoire</translation>
     </message>
 </context>
 <context>
@@ -1218,7 +1231,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location filename="../widgets/MW_help.cpp" line="46"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Coréen</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="52"/>
@@ -2097,7 +2110,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1122"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Les contraintes sur le nom sont invalides</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="1124"/>
@@ -2290,7 +2303,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     <message>
         <location filename="../widgets/NewX509.cpp" line="1498"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Une contrainte du signataire &apos;%1&apos; sur le nom n&apos;est pas respectée: %2</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509_ext.cpp" line="173"/>
@@ -3001,7 +3014,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../lib/func_base.cpp" line="267"/>
         <source>Name Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraintes sur le nom</translation>
     </message>
     <message>
         <location filename="../lib/func_base.cpp" line="268"/>
@@ -3101,7 +3114,7 @@ Dans la bibliothèque %3
     <message>
         <location filename="../lib/cmdline.cpp" line="273"/>
         <source>Failed to write PEM data to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;écrire les données en PEM dans &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="23"/>
@@ -3328,29 +3341,6 @@ Dans la bibliothèque %3
     </message>
 </context>
 <context>
-    <name>TrustState</name>
-    <message>
-        <source>Certificate trust</source>
-        <translation type="vanished">Fiabilité du certificat</translation>
-    </message>
-    <message>
-        <source>Trustment</source>
-        <translation type="vanished">Fiabilité</translation>
-    </message>
-    <message>
-        <source>&amp;Never trust this certificate</source>
-        <translation type="vanished">&amp;Ne jamais se fier à ce certificat</translation>
-    </message>
-    <message>
-        <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="vanished">Se &amp;fier à ce certificat seulement si l&apos;on fait confiance au signataire</translation>
-    </message>
-    <message>
-        <source>&amp;Always trust this certificate</source>
-        <translation type="vanished">&amp;Toujours se fier à ce certificat</translation>
-    </message>
-</context>
-<context>
     <name>Validity</name>
     <message>
         <location filename="../widgets/validity.cpp" line="91"/>
@@ -3447,16 +3437,18 @@ Dans la bibliothèque %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="509"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe d&apos;exportation</translation>
     </message>
     <message numerus="yes">
         <location filename="../widgets/XcaTreeView.cpp" line="510"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>SVP saisir le mot de passe pour chiffrer les %n clé(s) privée(s) exportée(s) vers:
+%1</numerusform>
+            <numerusform>SVP saisir le mot de passe pour chiffrer les %n clé(s) privée(s) exportée(s) vers:
+%1</numerusform>
         </translation>
     </message>
     <message>
@@ -3738,10 +3730,6 @@ En conséquence, cette dernière sera complétée par la partie privée de la cl
         <location filename="../lib/db_key.cpp" line="160"/>
         <source>You are sure to create a key of the size: %1 ?</source>
         <translation>Etes-vous sûr de vouloir créer une clé de taille %1 ?</translation>
-    </message>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Erreur interne</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="284"/>
@@ -4110,24 +4098,16 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>La liste de révocation &apos;%1&apos; a été importée avec succès</translation>
     </message>
     <message>
-        <source>Delete the revocation list &apos;%1&apos;?</source>
-        <translation type="vanished">Détruire la liste de révocation &apos;%1&apos; ?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_crl.cpp" line="61"/>
         <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>La liste de révocation &apos;%1&apos; a été créée avec succès</translation>
     </message>
-    <message>
-        <source>Delete the %1 revocation lists: %2?</source>
-        <translation type="vanished">Détruire les %1 listes de révocation: %2 ?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_crl.cpp" line="60"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les %n liste(s) de révocation &apos;%1&apos; ?</numerusform>
+            <numerusform>Détruire les %n liste(s) de révocation &apos;%1&apos; ?</numerusform>
         </translation>
     </message>
     <message>
@@ -4224,25 +4204,15 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location filename="../lib/pki_evp.cpp" line="849"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>SVP saisir le mot de passe protégeant la clé en PKCS#8 &apos;%1&apos; dans le fichier
+%2</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="906"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
-        <translation type="vanished">SVP saisir le mot de passe protégeant la clé en PKCS#8 &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Please enter the password protecting the Microsoft PVK key &apos;%1&apos;</source>
-        <translation type="vanished">SVP saisir le mot de passe protégeant la clé en format Microsoft PVK &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Please enter the export password for the private key &apos;%1&apos;</source>
-        <translation type="vanished">SVP saisir le mot de passe d&apos;exportation pour la clé privée &apos;%1&apos;</translation>
+        <translation>SVP saisir le mot de passe pour protéger la clé privée &apos;%1&apos; dans le fichier:
+%2</translation>
     </message>
 </context>
 <context>
@@ -4255,18 +4225,14 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>Format textuel PEM avec des en-têtes</translation>
     </message>
     <message>
-        <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="vanished">Concaténation de tous les éléments sélectionnés dans un seul fichier texte en format PEM</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
         <source>PEM selected</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM sélectionné</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="65"/>
         <source>Concatenated list of all selected certificates in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>Concaténation de tous les certificats sélectionnés dans un seul fichier texte en format PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="66"/>
@@ -4301,12 +4267,12 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="70"/>
         <source>All unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les inutilisables</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="70"/>
         <source>Concatenation of all expired or revoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Concaténation de tous les certificats expirés ou révoqués dans un seul fichier texte en format PEM</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="71"/>
@@ -4331,12 +4297,12 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="74"/>
         <source>PKCS #7 unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7 inutilisable</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="74"/>
         <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Collection PKCS#7 chiffrée de tous les certificats expirés ou révoqués</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="75"/>
@@ -4419,22 +4385,22 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="83"/>
         <source>JSON Web Kit</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="83"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé publique du certificat en format JSON Web Kit avec une empreinte lisible du certificat X.509 (x5t)</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="84"/>
         <source>JSON Web Kit chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaîne JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="84"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé publique du certificat en format JSON Web Kit avec une empreinte du certificat X.509 et la chaîne des certificats signataires (x5c)</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="86"/>
@@ -4535,22 +4501,22 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="96"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé privée JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="96"/>
         <source>Unencrypted private key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé privée non-chiffrée en format JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="97"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished"></translation>
+        <translation>Clé publique JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="97"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>La clé publique codée en format JSON Web Kit</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="100"/>
@@ -4570,48 +4536,16 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
     <message>
         <location filename="../lib/pki_export.cpp" line="107"/>
         <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Modèle XCA en format similaire à PEM. Les modèles contiennent leurs nom interne et commentaire</translation>
     </message>
     <message>
         <location filename="../lib/pki_export.cpp" line="108"/>
         <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>XCA template in PEM-like format</source>
-        <translation type="vanished">Modèle XCA en format similaire à PEM</translation>
-    </message>
-    <message>
-        <source>All selected XCA templates in PEM-like format</source>
-        <translation type="vanished">Tous les modèles XCA sélectionnés en format similaire à PEM</translation>
+        <translation>Tous les modèles XCA sélectionnés en format similaire à PEM. Les modèles contiennent leurs nom interne et commentaire</translation>
     </message>
 </context>
 <context>
     <name>pki_key</name>
-    <message>
-        <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation type="vanished">La clé publique %1 &apos;%2&apos; a été importée avec succès</translation>
-    </message>
-    <message>
-        <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation type="vanished">Détruire la clé publique %1 &apos;%2&apos; ?</translation>
-    </message>
-    <message>
-        <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation type="vanished">La clé privée %1 &apos;%2&apos; a été importée avec succès</translation>
-    </message>
-    <message>
-        <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation type="vanished">Détruire la clé privée %1 &apos;%2&apos; ?</translation>
-    </message>
-    <message>
-        <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation type="vanished">La clé privée %1 &apos;%2&apos; a été créée avec succès</translation>
-    </message>
-    <message>
-        <source>Delete the %1 keys: %2?</source>
-        <translation type="vanished">Détruire les %1 clés: %2?</translation>
-    </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="59"/>
         <location filename="../lib/pki_key.cpp" line="236"/>
@@ -4623,37 +4557,37 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location filename="../lib/pki_key.cpp" line="212"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">La clé publique %1 &apos;%2&apos; a été importée avec succès</translation>
+        <translation>La clé %1 publique &apos;%2&apos; a été importée avec succès</translation>
     </message>
     <message numerus="yes">
         <location filename="../lib/pki_key.cpp" line="214"/>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les %n clé(s) %1 publique(s) &apos;%2&apos; ?</numerusform>
+            <numerusform>Détruire les %n clé(s) %1 publique(s) &apos;%2&apos; ?</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="220"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">La clé privée %1 &apos;%2&apos; a été importée avec succès</translation>
+        <translation>La clé %1 privée &apos;%2&apos; a été importée avec succès</translation>
     </message>
     <message numerus="yes">
         <location filename="../lib/pki_key.cpp" line="222"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les %n clé(s) %1 privée(s) &apos;%2&apos; ?</numerusform>
+            <numerusform>Détruire les %n clé(s) %1 privée(s) &apos;%2&apos; ?</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="224"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">La clé privée %1 &apos;%2&apos; a été créée avec succès</translation>
+        <translation>La clé %1 privée &apos;%2&apos; a été créée avec succès</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="454"/>
@@ -4729,11 +4663,8 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <location filename="../lib/pki_pkcs12.cpp" line="141"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password to encrypt the PKCS#12 file</source>
-        <translation type="vanished">SVP saisir le mot de passe pour chiffrer le fichier en PKCS#12</translation>
+        <translation>SVP saisir le mot de passe pour chiffrer la clé du certificat &apos;%1&apos; dans le fichier en PKCS#12:
+%2</translation>
     </message>
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="138"/>
@@ -4757,24 +4688,16 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>La clé du jeton &apos;%1&apos; a été importée avec succès</translation>
     </message>
     <message>
-        <source>Delete the token key &apos;%1&apos;?</source>
-        <translation type="vanished">Détruire la clé du jeton &apos;%1&apos; ?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_scard.cpp" line="48"/>
         <source>Successfully created the token key &apos;%1&apos;</source>
         <translation>La clé du jeton &apos;%1&apos; a été créée avec succès</translation>
     </message>
-    <message>
-        <source>Delete the %1 keys: %2?</source>
-        <translation type="vanished">Détruire les %1 clés: %2?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_scard.cpp" line="47"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les %n clé(s) du jeton &apos;%1&apos; ?</numerusform>
+            <numerusform>Détruire les %n clé(s) du jeton &apos;%1&apos; ?</numerusform>
         </translation>
     </message>
     <message>
@@ -4842,24 +4765,16 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>Le modèle XCA &apos;%1&apos; a été importé avec succès</translation>
     </message>
     <message>
-        <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation type="vanished">Détruire le modèle XCA &apos;%1&apos; ?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_temp.cpp" line="161"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
         <translation>Le modèle XCA &apos;%1&apos; a été créé avec succès</translation>
     </message>
-    <message>
-        <source>Delete the %1 XCA templates: %2?</source>
-        <translation type="vanished">Détruire les %1 modèles XCA: %2 ?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_temp.cpp" line="160"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les %n modèle(s) XCA: &apos;%1&apos; ?</numerusform>
+            <numerusform>Détruire les %n modèle(s) XCA: &apos;%1&apos; ?</numerusform>
         </translation>
     </message>
     <message>
@@ -4891,24 +4806,16 @@ Elle est stockée dans la base de données XCA &apos;%5&apos;</translation>
         <translation>Le certificat &apos;%1&apos; a été importé avec succès</translation>
     </message>
     <message>
-        <source>Delete the certificate &apos;%1&apos;?</source>
-        <translation type="vanished">Détruire le certificat &apos;%1&apos; ?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_x509.cpp" line="67"/>
         <source>Successfully created the certificate &apos;%1&apos;</source>
         <translation>Le certificat &apos;%1&apos; a été créé avec succès</translation>
     </message>
-    <message>
-        <source>Delete the %1 certificates: %2?</source>
-        <translation type="vanished">Détruire les %1 certificats: &apos;%2&apos; ?</translation>
-    </message>
     <message numerus="yes">
         <location filename="../lib/pki_x509.cpp" line="66"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les %n certificat(s): &apos;%1&apos; ?</numerusform>
+            <numerusform>Détruire les %n certificat(s): &apos;%1&apos; ?</numerusform>
         </translation>
     </message>
     <message>
@@ -4987,38 +4894,22 @@ Il est stocké dans la base de données XCA &apos;%4&apos;</translation>
         <translation>La clé de signature n&apos;est pas valide (c&apos;est une clé publique)</translation>
     </message>
     <message>
-        <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation type="vanished">La requête %1 de signature &apos;%2&apos; a été importée avec succès</translation>
-    </message>
-    <message>
-        <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation type="vanished">Détruire la requête %1 de signature &apos;%2&apos; ?</translation>
-    </message>
-    <message>
-        <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation type="vanished">La requête %1 de signature &apos;%2&apos; a été créée avec succès</translation>
-    </message>
-    <message>
-        <source>Delete the %1 certificate requests: %2?</source>
-        <translation type="vanished">Détruire la requête %1 de signature &apos;%2&apos; ?</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_x509req.cpp" line="147"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>La requête PKCS#10 de signature &apos;%1&apos; a été importée avec succès</translation>
     </message>
     <message numerus="yes">
         <location filename="../lib/pki_x509req.cpp" line="148"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Détruire les requête(s) PKCS#10 de signature: &apos;%1&apos; ?</numerusform>
+            <numerusform>Détruire les requête(s) PKCS#10 de signature: &apos;%1&apos; ?</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../lib/pki_x509req.cpp" line="149"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>La requête PKCS#10 de signature &apos;%1&apos; a été créée avec succès</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509req.cpp" line="180"/>

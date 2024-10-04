@@ -45,20 +45,44 @@ Apple macos
  - **ODBC**: It requires the /usr/local/opt/libiodbc/lib/libiodbc.2.dylib.
    When installing unixodbc via brew the library must be symlinked from
    /opt/homebrew/Cellar/libiodbc/3.52.16/lib/libiodbc.2.dylib
- - **MariaDB**: Probably via ODBC ?
+ - **MariaDB**: Since XCA-2.8.0 the MariaDB plugin is included in the
+   xca.app bundle. No additional installation is required.
 
 Windows
 .......
 
  - **PostgreSQL**: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-   (Commandline tools are sufficient). Add the bin directory of the Postgres
+   (Commandline tools are sufficient). Add the *bin* directory of the Postgres
    installation directory to your PATH (C:\\Program Files\\PostgreSQL\\16)
- - **ODBC**: Use the *ODBC Datasources 64bit* app to configure the SQL Server
-   If the data source is configured completel, only the matching DSN
+ - **ODBC**: Use the *ODBC Datasources 64bit* app to configure the SQL Server.
+   If the data source is configured completel, only the matching DSN is required
+   in the XCA connection settings.
  - **MariaDB (MySQL)**: Install the Plugin from here:
    https://github.com/thecodemonkey86/qt_mysql_driver. Select the MinGW variant
    and install it as documented.
 
+Driver specific configurations
+..............................
+
+Additional options for the database connection can be set in configuration files.
+They must be put in the XCA configuration directory, which is displayed in the about dialog.
+If there is already a file called *dbhistory* then you know you are in the right place.
+The options-file must be named after the database driver, e.g. *QPSQL*, *QMYSQL* or *QODBC*
+optionally followed by a dash and the database-hostname (exactly as used in the connection settings
+including an optional port number) and a *.options* extension.
+
+Examples:
+
+ - QMYSQL-192.168.12.13.options
+ - QPSQL.options
+
+Also the environment variable XCA_<driver-name>_OPTIONS may be used to set the options.
+
+The file must contain the options as ; separated key=value pairs. The recognized options depend
+on the database driver. See:
+https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS for PostgreSQL and
+https://doc.qt.io/qt-6/sql-driver.html#connection-options for MySQL and
+https://doc.qt.io/qt-6/sql-driver.html#odbc-unicode-support for ODBC.
 
 .. _extracting-items:
 

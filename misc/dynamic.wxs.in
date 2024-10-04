@@ -29,6 +29,12 @@
                 <File Id="QtHelp.dll" Source="@QT@Help.dll" KeyPath="yes"/>
             </Component>
         </DirectoryRef>
+        <DirectoryRef Id="styles">
+            <Component Id="Cqwindowsstyle" Guid="8e3dfb18-9a16-4b94-a5a5-90d9c4cc0038">
+                <File Id="q@WINDOWSSTYLE@.dll" Source="styles/q@WINDOWSSTYLE@.dll" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+
         <FeatureGroup Id="DatabaseGroup">
             <Feature Id="Databases" Title="Remote Database Drivers"
                      Description="QT remote database drivers. Additional DLL from the manufacturer are required. See https://github.com/chris2511/xca" Level="1">

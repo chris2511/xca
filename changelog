@@ -1,3 +1,8 @@
+ * Close #593: App freezes/crashes when trying to export certain keys
+ * Close #306 #537: Allow Database-driver options in config file
+ * Close #537: macos: Compile mariadb-connector and qsqlmysql
+ * Close #152: How can we specify the Cryptographic Service Provider
+ * Close #590: MacOS OpenSSL legacy provider not loaded
  * Close #199: Templates and Key Identifiers
  * Close #239: Check existing Name Constraints
  * Add OpenSSL PURPOSE and validation results
