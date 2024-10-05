@@ -130,17 +130,17 @@
     <message>
         <location line="+21"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Weryfikacja</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>Przeznaczenie</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ścisła weryfikacja RFC 5280</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -181,7 +181,7 @@
     <message>
         <location line="+49"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono błędów weryfikacji.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -340,7 +340,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj nieprzydatne certyfikaty</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -618,12 +618,12 @@
     <message>
         <location line="+31"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Każdy element w oddzielnym pliku</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>Takie samo hasło dla wszystkich elementów</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -638,10 +638,10 @@
     <message numerus="yes">
         <location filename="../widgets/ExportDialog.cpp" line="+43"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n wybrany element</numerusform>
+            <numerusform>%n wybrane elementy</numerusform>
+            <numerusform>%n wybranych elementów</numerusform>
         </translation>
     </message>
     <message>
@@ -667,32 +667,32 @@
     <message>
         <location line="+4"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ścieżka: &apos;%1&apos; istnieje, ale nie jest plikiem</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Ścieżka: &apos;%1&apos; istnieje, ale nie jest folderem</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>Folder: &apos;%1&apos; nie istnieje. Czy chcesz go utworzyć?</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Create</source>
-        <translation type="unfinished">Wygeneruj</translation>
+        <translation>Utwórz</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">Nie można utworzyć katalogu &apos;%1&apos;</translation>
+        <translation>Nie można utworzyć folderu &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Directory</source>
-        <translation type="unfinished">Folder</translation>
+        <translation>Folder</translation>
     </message>
 </context>
 <context>
@@ -970,7 +970,7 @@ Numer seryjny: %3</translation>
     <message>
         <location line="+9"/>
         <source>Sub prime</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1041,7 +1041,7 @@ Numer seryjny: %3</translation>
         <location line="+29"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation>Czy nadpisać oryginalny klucz &apos;%1&apos; pobranym z tokena?
+        <translation>Nadpisać oryginalny klucz &apos;%1&apos; pobranym z tokena?
 Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</translation>
     </message>
     <message>
@@ -1243,7 +1243,7 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="+4"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreański</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1542,12 +1542,12 @@ Operacja usunie klucz &apos;%1&apos; i oznaczy go jako nieeksportowalny</transla
     <message>
         <location line="+4"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponów z kodem PIN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponów z kodem SO PIN</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2182,7 +2182,7 @@ Podaj liczbę bitów parametru DH</translation>
     <message>
         <location line="+9"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ograniczenia nazwy są niepoprawne</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2202,7 +2202,7 @@ Podaj liczbę bitów parametru DH</translation>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje o urzędzie certyfikacji są niepoprawne</translation>
     </message>
     <message>
         <location line="+111"/>
@@ -2374,7 +2374,7 @@ podczas, gdy ustawiono je jako obowiązkowe w menu opcji.</translation>
     <message>
         <location line="+31"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ograniczenie nazwy wystawcy &apos;%1&apos; zostało naruszone: %2</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
@@ -2659,7 +2659,7 @@ W szczególności EC i DSA są zdefiniowane tylko z funkcją SHA1 w specyfikacji
     <message>
         <location filename="../ui/PwDialog.ui" line="+118"/>
         <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasło jest traktowane jako 2-cyfrowy kod szesnastkowy. Musi mieć parzystą liczbę cyfr (0-9 i a-f)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3150,7 +3150,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Authority information access</source>
-        <translation>Informacje o urzędzie certyfikacji</translation>
+        <translation type="unfinished">Informacje o urzędzie certyfikacji</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3428,12 +3428,12 @@ In library %3
     <message>
         <location line="+38"/>
         <source>Template export</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport szablonu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>XCA Templates ( *.xca )</source>
-        <translation type="unfinished"></translation>
+        <translation>Szablon XCA ( *.xca )</translation>
     </message>
 </context>
 <context>
@@ -3537,17 +3537,20 @@ In library %3
     <message>
         <location line="+57"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasło eksportu</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Podaj hasło do zaszyfrowania %n eksportowanego klucza prywatnego do:
+%1</numerusform>
+            <numerusform>Podaj hasło do zaszyfrowania %n eksportowanych kluczy prywatnych do:
+%1</numerusform>
+            <numerusform>Podaj hasło do zaszyfrowania %n eksportowanych kluczy prywatnych do:
+%1</numerusform>
         </translation>
     </message>
     <message>
@@ -4292,10 +4295,10 @@ i nie zostało ponowanie zapisane</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Usunąć %n listę unieważnień: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n listy unieważnień: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n list unieważnień: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -4400,13 +4403,15 @@ Lista jest przechowywana w bazie danych XCA &apos;%5&apos;</translation>
         <location line="+182"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj hasło do ochrony klucza PKCS#8 &apos;%1&apos; w pliku:
+%2</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj hasło do ochrony klucza prywatnego &apos;%1&apos; w pliku:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
@@ -4787,39 +4792,39 @@ Lista jest przechowywana w bazie danych XCA &apos;%5&apos;</translation>
         <location line="-644"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Poprawnie zaimportowano klucz publiczny %1 jako &apos;%2&apos;</translation>
+        <translation>Zaimportowano klucz publiczny %1 &apos;%2&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Usunąć %n klucz publiczny %1 &apos;%2&apos;?</numerusform>
+            <numerusform>Usunąć %n klucze publiczne %1 &apos;%2&apos;?</numerusform>
+            <numerusform>Usunąć %n kluczy publicznych %1 &apos;%2&apos;?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Poprawnie zaimportowano klucz prywatny %1 jako &apos;%2&apos;</translation>
+        <translation>Zaimportowano klucz prywatny %1 &apos;%2&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Usunąć %n klucz prywatny %1 &apos;%2&apos;?</numerusform>
+            <numerusform>Usunąć %n klucze prywatne %1 &apos;%2&apos;?</numerusform>
+            <numerusform>Usunąć %n kluczy prywatnych %1 &apos;%2&apos;?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">Poprawnie utworzono klucz prywatny %1 jako &apos;%2&apos;</translation>
+        <translation>Utworzono klucz prywatny %1 &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+230"/>
@@ -4895,7 +4900,8 @@ Lista jest przechowywana w bazie danych XCA &apos;%5&apos;</translation>
         <location line="+58"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj hasło do zaszyfrowania klucza certyfikatu &apos;%1&apos; w pliku PKCS#12:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
@@ -5016,10 +5022,10 @@ Lista jest przechowywana w bazie danych XCA &apos;%5&apos;</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Usunąć %n szablon XCA: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n szablony XCA: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n szablonów XCA: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5066,10 +5072,10 @@ Lista jest przechowywana w bazie danych XCA &apos;%5&apos;</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Usunąć %n certyfikat: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n certyfikaty: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n certyfikatów: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5110,7 +5116,7 @@ Lista jest przechowywana w bazie danych XCA &apos;%5&apos;</translation>
     <message>
         <location line="+63"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
-        <translation>Czy chcesz usunąć certyfikat &apos;%1&apos; z tokena &apos;%2 (#%3)&apos;?</translation>
+        <translation>Usunąć certyfikat &apos;%1&apos; z tokena &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
         <location line="+124"/>
@@ -5166,21 +5172,21 @@ Certyfikat jest przechowywany w bazie danych XCA &apos;%4&apos;</translation>
     <message>
         <location line="+39"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie zaimportowano żądanie certyfikacyjne PKCS#10 &apos;%1&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Usunąć %n żądanie certyfikacyjne PKCS#10: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n żądania certyfikacyjne PKCS#10: &apos;%1&apos;?</numerusform>
+            <numerusform>Usunąć %n żądań certyfikacyjnych PKCS#10: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprawnie utworzono żądanie certyfikacyjne PKCS#10 &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+31"/>
