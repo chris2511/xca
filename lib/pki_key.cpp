@@ -389,19 +389,25 @@ QByteArray pki_key::ed25519PrivKey(const EVP_PKEY *) const
 QList<int> pki_key::possibleHashNids()
 {
 	QList<int> nids;
+	QList<int> allSha2 = { NID_sha224, NID_sha256, NID_sha384, NID_sha512 };
+#ifndef LIBRESSL_VERSION_NUMBER
+	QList<int> allSha3 = { NID_sha3_224, NID_sha3_256, NID_sha3_384, NID_sha3_512 };
+#else
+	QList<int> allSha3;
+#endif
 
 	switch (EVP_PKEY_type(getKeyType())) {
 		case EVP_PKEY_RSA:
-			nids << NID_md5 << NID_ripemd160 << NID_sha1 << NID_sha224 << NID_sha256 <<
-				NID_sha384 << NID_sha512;
+			nids << NID_md5 << NID_ripemd160 << NID_sha1;
+			nids += allSha2 + allSha3;
 			break;
 		case EVP_PKEY_DSA:
-			nids << NID_sha1 << NID_sha256;
+			nids << NID_sha1 << NID_sha224 << NID_sha256;
 			break;
 #ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
-			nids << NID_sha1 << NID_sha224 << NID_sha256 <<
-				NID_sha384 << NID_sha512;
+			nids << NID_sha1;
+			nids += allSha2 + allSha3;
 			break;
 #ifdef EVP_PKEY_ED25519
 		case EVP_PKEY_ED25519:

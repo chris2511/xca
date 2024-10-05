@@ -979,6 +979,8 @@ void pki_evp::writeSSH2private(XFile &file) const
 	} else
 #endif
 		writeKey(file, nullptr, nullptr, true);
+
+	EVP_PKEY_free(pkey);
 }
 
 bool pki_evp::verify(EVP_PKEY *pkey) const

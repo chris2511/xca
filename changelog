@@ -1,3 +1,4 @@
+ * Add SHA3 algorithms to th select box
  * Close #593: App freezes/crashes when trying to export certain keys
  * Close #306 #537: Allow Database-driver options in config file
  * Close #537: macos: Compile mariadb-connector and qsqlmysql
