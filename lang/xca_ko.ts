@@ -65,7 +65,7 @@
     <message>
         <location line="+46"/>
         <source>Fingerprints</source>
-        <translation>지문</translation>
+        <translation>지문 값들</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -130,17 +130,17 @@
     <message>
         <location line="+21"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>유효성</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>목적</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>엄격한 RFC 5280 검증</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -181,7 +181,7 @@
     <message>
         <location line="+49"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>검증 오류가 발견되지 않았습니다.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -336,7 +336,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>사용할 수 없는 인증서 숨기기</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -614,12 +614,12 @@
     <message>
         <location line="+31"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>각 항목을 개별 파일로 분리</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 항목에 동일한 암호화 비밀번호 사용</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -634,8 +634,8 @@
     <message numerus="yes">
         <location filename="../widgets/ExportDialog.cpp" line="+43"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n개의 선택된 항목(들)</numerusform>
         </translation>
     </message>
     <message>
@@ -661,32 +661,32 @@
     <message>
         <location line="+4"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>경로: &apos;%1&apos;이 존재하지만 파일이 아닙니다.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>경로: &apos;%1&apos;이 존재하지만 디렉토리가 아닙니다.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>디렉토리: &apos;%1&apos;이 존재하지 않습니다. 생성할까요?</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Create</source>
-        <translation type="unfinished">생성</translation>
+        <translation>생성</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">디렉토리 &apos;%1&apos;을(를) 생성하지 못했습니다.</translation>
+        <translation>디렉토리 &apos;%1&apos;을(를) 생성하지 못했습니다.</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Directory</source>
-        <translation type="unfinished">디렉토리</translation>
+        <translation>디렉토리</translation>
     </message>
 </context>
 <context>
@@ -694,12 +694,12 @@
     <message>
         <location filename="../ui/TimeInput.ui" line="+32"/>
         <source>last update</source>
-        <translation>마지막 업데이트 일시</translation>
+        <translation>마지막 업데이트</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>next update</source>
-        <translation>다음번 업데이트 일시</translation>
+        <translation>다음 업데이트</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -850,7 +850,7 @@ Serial: %3</source>
     <message>
         <location line="+10"/>
         <source>Insertion date</source>
-        <translation>삽일날짜</translation>
+        <translation>등록 날짜</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1025,7 +1025,7 @@ Serial: %3</source>
         <location line="+18"/>
         <location line="+18"/>
         <source>This is not a token</source>
-        <translation>이것은 토큰이 아닙니다</translation>
+        <translation>이것은 토큰이 아닙니다.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1217,7 +1217,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+4"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>한국어</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1667,7 +1667,7 @@ DH 매개변수 비트를 입력하세요.</translation>
     <message>
         <location line="+30"/>
         <source>Curve name</source>
-        <translation>커브 이름</translation>
+        <translation>곡선 이름</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1693,7 +1693,7 @@ DH 매개변수 비트를 입력하세요.</translation>
     <message>
         <location line="+10"/>
         <source>Remember as default</source>
-        <translation>기본값으로 기억</translation>
+        <translation>기본값으로 설정</translation>
     </message>
     <message>
         <location filename="../widgets/NewKey.cpp" line="+135"/>
@@ -2096,7 +2096,7 @@ DH 매개변수 비트를 입력하세요.</translation>
     <message>
         <location line="+9"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>이름 제약 조건이 잘못되었습니다.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2289,7 +2289,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+31"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>발급자 &apos;%1&apos;의 이름 제약 조건이 위반되었습니다: %2</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
@@ -3000,7 +3000,7 @@ In library %3
     <message>
         <location line="+1"/>
         <source>Name Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>이름 제약 조건</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3100,7 +3100,7 @@ In library %3
     <message>
         <location line="+87"/>
         <source>Failed to write PEM data to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos;에 PEM ​​데이터를 쓰지 못했습니다.</translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3446,15 +3446,17 @@ In library %3
     <message>
         <location line="+57"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호 내보내기</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translatorcomment>0 또는 1개 항목에 대한 단수형은 무시할 수 있습니다. 항상 n &gt;= 2로 호출됩니다.</translatorcomment>
+        <translation>
+            <numerusform>%n개의 내보낸 개인 키를 모두 암호화하려면 비밀번호를 입력하세요:
+%1</numerusform>
         </translation>
     </message>
     <message>
@@ -4123,8 +4125,8 @@ and thus was not stored</source>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n개의 폐기 목록(들)을 삭제하시겠습니까: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -4221,13 +4223,15 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <location line="+182"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>파일에서 PKCS#8 키 &apos;%1&apos;을 보호하려면 비밀번호를 입력하세요:
+%2</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>파일에서 개인 키 &apos;%1&apos;을 보호하려면 비밀번호를 입력하세요:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
@@ -4258,12 +4262,12 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message>
         <location line="-38"/>
         <source>PEM selected</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM 선택됨</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated list of all selected certificates in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>선택된 모든 인증서의 연결된 목록을 하나의 PEM 텍스트 파일에 저장</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4298,12 +4302,12 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message>
         <location line="+1"/>
         <source>All unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>모두 사용불가</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of all expired or revoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>만료되거나 취소된 모든 인증서를 하나의 PEM 파일에 연결</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4328,12 +4332,12 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message>
         <location line="+1"/>
         <source>PKCS #7 unusable</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7을 사용할 수 없습니다</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>만료되거나 취소된 모든 인증서의 PKCS#7 인코딩된 모음</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4416,22 +4420,22 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
-        <translation type="unfinished"></translation>
+        <translation>X.509 인증서 지문(x5t)이 있는 JSON Web Kit 형식의 인증서 공개 키</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit chain</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Kit 체인</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
-        <translation type="unfinished"></translation>
+        <translation>X.509 인증서 지문(x5t) 및 인증서 체인(x5c)이 포함된 JSON Web Kit 형식의 인증서 공개 키</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4532,22 +4536,22 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message>
         <location line="+1"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON 웹 키 비공개</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Key 형식의 암호화되지 않은 개인 키</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON 웹 키 공개</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Web Key 형식의 공개 키</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4567,12 +4571,12 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message>
         <location line="+2"/>
         <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM과 유사한 형식의 XCA 템플릿. 템플릿에는 내부 이름과 주석이 포함됩니다.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM과 유사한 형식의 모든 선택된 XCA 템플릿. 템플릿에는 내부 이름과 주석이 포함됩니다.</translation>
     </message>
     <message>
         <source>XCA template in PEM-like format</source>
@@ -4620,35 +4624,40 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <location line="-644"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">%1 공개 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
+        <translatorcomment>%1은 &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;로 대체됩니다. %2는 키의 내부 이름입니다.</translatorcomment>
+        <translation>%1 공개 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 public key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translatorcomment>%1은 &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;로 대체됩니다. %2는 키의 내부 이름입니다.</translatorcomment>
+        <translation>
+            <numerusform>%n %1 공개 키(들) &apos;%2&apos;을(를) 삭제하시겠습니까?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">%1 개인 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
+        <translatorcomment>%1은 &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;로 대체됩니다. %2는 키의 내부 이름입니다.</translatorcomment>
+        <translation>%1 개인 키 &apos;%2&apos;을(를) 성공적으로 가져왔습니다.</translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translatorcomment>%1은 &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;로 대체됩니다. %2는 키의 내부 이름입니다.</translatorcomment>
+        <translation>
+            <numerusform>%n %1 개인 키(들) &apos;%2&apos;을(를) 삭제하시겠습니까?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is the internal name of the key</comment>
-        <translation type="unfinished">%1 개인 키 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
+        <translatorcomment>%1은 &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;로 대체됩니다. %2는 키의 내부 이름입니다.</translatorcomment>
+        <translation>%1 개인 키 &apos;%2&apos;을(를) 성공적으로 생성했습니다.</translation>
     </message>
     <message>
         <location line="+230"/>
@@ -4724,7 +4733,8 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
         <location line="+58"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 파일에서 인증서 &apos;%1&apos;의 키를 암호화하기 위한 비밀번호를 입력하세요:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
@@ -4767,8 +4777,8 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n개의 토큰 키(들)를(을) 삭제하시겠습니까: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -4851,8 +4861,8 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n개의 XCA 템플릿(들)을 삭제하시겠습니까: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -4899,8 +4909,8 @@ XCA 데이터베이스 &apos;%5&apos;에 저장됨</translation>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n개의 토큰 키(들)를(을) 삭제하시겠습니까: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -4997,19 +5007,19 @@ XCA 데이터베이스 &apos;%4&apos;에 저장되어 있습니다.</translation
     <message>
         <location line="+39"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#10 인증서 요청 &apos;%1&apos;을 성공적으로 가져왔습니다.</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n개의 PKCS#10 인증서 요청(들)을 삭제하시겠습니까: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#10 인증서 요청 &apos;%1&apos;을(를) 성공적으로 생성했습니다.</translation>
     </message>
     <message>
         <location line="+31"/>
