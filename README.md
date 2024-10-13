@@ -3,9 +3,14 @@
 [![CMake](https://github.com/chris2511/xca/actions/workflows/cmake.yaml/badge.svg)](https://github.com/chris2511/xca/actions/workflows/cmake.yaml)
 
 ## __Release Notes__
- * The latest release is *2.7.0*
- * Drivers for SQL Servers must be [installed separately](#sql-remote-database-drivers) since 2.5.0
- * Database Schema changed and is not backwards-compatible. Backup your database.
+ * The latest release is *2.8.0*
+ * Most notable new features:
+   - Support for SHA3
+   - Name the MS CryptographicServiceProvider in the comment
+   - OpenSSL PURPOSE and validation results in the certificate details
+   - Support UniveralPrincipalName (UPN) and NameConstraints
+   - Support JSON Web Key (JWK) export format
+   - Hide unusable (expired / revoked) certificates
  * Please report issues on github <https://github.com/chris2511/xca/issues>
 
 ## __Changelog:__
@@ -115,6 +120,7 @@ MySQL plugins are not shipped with QT anymore because of license issues.
 
 - Debian: `libqt6sql6-psql` `libqt6sql6-mysql` or `libqt6sql6-odbc`.
 - RPM: `libqt6-database-plugin-pgsql` `libqt6-database-plugin-mysql` `libqt6-database-plugin-odbc`
+
 They should pull in all necessary dependencies.
 
 ### Apple macos
@@ -123,7 +129,7 @@ They should pull in all necessary dependencies.
 - **ODBC**: It requires the `/usr/local/opt/libiodbc/lib/libiodbc.2.dylib`.
     When installing unixodbc via `brew` the library must be symlinked from
     `/opt/homebrew/Cellar/libiodbc/3.52.16/lib/libiodbc.2.dylib`
-- **MariaDB**: Probably via ODBC ?
+- **MariaDB**: Driver included since XCA 2.8.0
 
 ### Windows
 

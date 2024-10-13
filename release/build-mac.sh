@@ -104,15 +104,6 @@ do_qsqlmysql()
   otool -L $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
 }
 
-( echo >/dev/null \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DMySQL_ROOT="$INSTALL_DIR" \
-	-DMySQL_INCLUDE_DIR="$INSTALL_DIR/include/mariadb" \
-	-DMySQL_LIBRARY="$INSTALL_DIR/lib/libmariadb.dylib" \
-	-DFEATURE_sql_odbc=OFF -DFEATURE_sql_sqlite=OFF \
-
-)
-
 OSSL_MAJOR="3"
 OSSL="openssl-3.3.2"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
