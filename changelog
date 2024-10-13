@@ -1,3 +1,6 @@
+xca 2.8.0 Sun Oct 13 2024
+-------------------------
+
  * Add SHA3 algorithms to the select box
  * Close #593: App freezes/crashes when trying to export certain keys
  * Close #306 #537: Allow Database-driver options in config file
