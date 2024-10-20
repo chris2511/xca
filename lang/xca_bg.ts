@@ -5021,7 +5021,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+2"/>
         <source>Delete the %n %1 private key(s) &apos;%2&apos;?</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
-        <translation type="unfinished">
+        <translation type="unfinished">Изтриване на %no %1 личен ключ(ове) &apos;%2 &apos;?
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -5106,7 +5106,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+58"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Моля, въведете паролата, за да шифровате ключа на сертификата &apos;%1&apos; във файла PKCS#12:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
@@ -5149,7 +5150,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation type="unfinished">Изтриване на %n токен ключ(ове): &apos;%1&apos;?
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -5182,7 +5183,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+54"/>
         <source>Select Slot of %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изберете слот на %1</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -5234,7 +5235,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation type="unfinished">Изтриване на %n XCA шаблон(и): &apos;%1&apos;?
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -5283,7 +5284,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation type="unfinished">Изтриване на %n сертификат(а): &apos;%1&apos;?
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -5296,27 +5297,27 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+95"/>
         <source>Invalid OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Невалиден OpenVPN tls-auth ключ</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неуспешно импортиране на tls-auth ключ</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Същият tls-auth ключ вече е съхранен за този CA</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Новiият tls-auth ключ е импортиран успешно</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Existing tls-auth key successfully replaced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Съществуващият tls-auth ключ е заменен успешно</translation>
     </message>
     <message>
         <location line="+104"/>
@@ -5382,12 +5383,12 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location line="+39"/>
         <source>Successfully imported the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Успешно импортирана заявка за сертификат PKCS#10 &apos;%1&apos;</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation type="unfinished">Изтриване на %n PKCS#10 заявка(и) за сертификат: &apos;%1&apos;?
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -5395,7 +5396,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location line="+1"/>
         <source>Successfully created the PKCS#10 certificate request &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Успешно създаде заявката за сертификат PKCS#10 &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+31"/>
