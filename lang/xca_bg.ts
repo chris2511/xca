@@ -4628,7 +4628,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="obsolete">Конкатениран списък на всички избрани елементи в един PEM текстов файл</translation>
+        <translation type="obsolete">Свързан списък на всички избрани елементи в един PEM текстов файл</translation>
     </message>
     <message>
         <location line="-38"/>
