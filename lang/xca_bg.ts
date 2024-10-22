@@ -336,7 +336,7 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Скриване на неизползваемите сертификати</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -396,7 +396,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Импортирайте OpenVPN tl-auth ключ</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -452,17 +452,17 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">vCalendar запис ( *.ics )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OpenVPN файл ( *.ovpn )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OpenVPN tls-auth ключ ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -586,7 +586,7 @@
     <message>
         <location line="+1"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">vCalendar запис ( *.ics )</translation>
     </message>
 </context>
 <context>
@@ -614,12 +614,12 @@
     <message>
         <location line="+31"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всеки елемент в отделен файл</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Една и съща парола за криптиране за всички елементи</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -642,15 +642,15 @@
     </message>
     <message>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="obsolete">Конкатениран списък на всички избрани елементи в един PEM текстов файл</translation>
+        <translation type="obsolete">Свързан списък на всички избрани елементи в един PEM текстов файл</translation>
     </message>
     <message>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="obsolete">Конкатениран текстов формат на пълната верига от сертификати в един PEM файл</translation>
+        <translation type="obsolete">Свързан текстов формат на пълната верига от сертификати в един PEM файл</translation>
     </message>
     <message>
         <source>Concatenated text format of all certificates in one PEM file</source>
-        <translation type="obsolete">Конкатениран текстов формат на всички сертификати в един PEM файл</translation>
+        <translation type="obsolete">Свързан текстов формат на всички сертификати в един PEM файл</translation>
     </message>
     <message>
         <source>Binary DER encoded file</source>
@@ -666,7 +666,7 @@
     </message>
     <message>
         <source>Concatenated text format of all unrevoked certificates in one PEM file</source>
-        <translation type="obsolete">Конкатениран текстов формат на всички премахнати от анулиране сертификати в един PEM файл</translation>
+        <translation type="obsolete">Свързан текстов формат на всички премахнати от анулиране сертификати в един PEM файл</translation>
     </message>
     <message>
         <source>All unrevoked certificates encoded in one PKCS#7 file</source>
@@ -690,11 +690,11 @@
     </message>
     <message>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="obsolete">Конкатенация на сертификата и некриптирания частен ключ в един PEM файл</translation>
+        <translation type="obsolete">Свързване на сертификата и некриптирания частен ключ в един PEM файл</translation>
     </message>
     <message>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="obsolete">Конкатенация на сертификата и криптирания частен ключ във формат PKCS#8 в един файл</translation>
+        <translation type="obsolete">Свързване на сертификата и криптирания частен ключ във формат PKCS#8 в един файл</translation>
     </message>
     <message>
         <source>Text format of the public key in one PEM file</source>
@@ -752,7 +752,7 @@
     <message numerus="yes">
         <location line="-10"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
+        <translation type="unfinished">%n избран(и) елемент(а)
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -775,17 +775,17 @@
     <message>
         <location line="+4"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пътят: &apos;%1&apos; съществува, но не е файл</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пътят: &apos;%1&apos; съществува, но не е директория</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Директорията: &apos;%1&apos; не съществува. Трябва ли да се създаде?</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1080,7 +1080,7 @@ Serial: %3</source>
         <location line="+9"/>
         <source>Sub prime</source>
         <translatorcomment>или Второстепенен</translatorcomment>
-        <translation type="unfinished">Подпрайм</translation>
+        <translation type="unfinished">Второстепенен</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1166,12 +1166,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+3"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">SSH частни Ключове ( *.priv )</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Microsoft PVK Ключове ( *.pvk )</translation>
     </message>
     <message>
         <source>Export public key [%1]</source>
@@ -2223,37 +2223,37 @@ Please enter the DH parameter bits</source>
     <message>
         <location line="+10"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Грешка</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>duplicate extensions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">дублирани разширения</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The Name Constraints are invalid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ограниченията на имената са невалидни</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Subject Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Алтернативното SAN име е невалидно</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Issuer Alternative Name is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Алтернативното SAN име на издателя е невалидно</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The CRL Distribution Point is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Точката за разпространение на CRL е невалидна</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Authority Information Access is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Достъпът до информация за органа е невалиден</translation>
     </message>
     <message>
         <location line="+111"/>
@@ -2426,7 +2426,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+31"/>
         <source>A name constraint of the issuer &apos;%1&apos; is violated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ограничение на името на издателя &apos;%1&apos; е нарушено: %2</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509_ext.cpp" line="+173"/>
@@ -2916,12 +2916,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+7"/>
         <source>OpenVPN tls-auth key ( *.key );;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OpenVPN tls-auth ключ ( *.key );;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Импортиране на OpenVPN tls-auth ключ</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3065,7 +3065,7 @@ In library %3
     <message>
         <location line="+9"/>
         <source>The identifier &apos;%1&apos; for OID %2 from file %3 line %4 is already used for a different OID as &apos;%5:%6:%7&apos; and should be changed to avoid conflicts.</source>
-        <translation type="unfinished">Идентификаторъ &apos;%1&apos; за OID %2 от файла %3 на ред %4 се използва от различен OID като &apos;%5:%6:%7&apos; и трябва да се промени, за да се избегнат конфликти.</translation>
+        <translation type="unfinished">Идентификаторът &apos;%1&apos; за OID %2 от файла %3 на ред %4 се използва от различен OID като &apos;%5:%6:%7&apos; и трябва да се промени, за да се избегнат конфликти.</translation>
     </message>
     <message>
         <location line="+65"/>
@@ -3290,7 +3290,7 @@ In library %3
     <message>
         <location line="+87"/>
         <source>Failed to write PEM data to &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неуспешен запис на PEM данни в &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/XcaWarningCore.h" line="+23"/>
@@ -3315,7 +3315,7 @@ In library %3
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+217"/>
         <source>insecure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">несигурен</translation>
     </message>
 </context>
 <context>
@@ -3648,14 +3648,15 @@ In library %3
     <message>
         <location line="+57"/>
         <source>Export Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Експортиране на парола</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
-        <translation type="unfinished">
+        <translation type="unfinished">Моля, въведете паролата, за да шифровате всички %n експортирани частни ключове в:
+%1
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -4494,7 +4495,7 @@ and thus was not stored</source>
     <message numerus="yes">
         <location line="-1"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
-        <translation type="unfinished">
+        <translation type="unfinished">Изтриване на %n списък(а) за отмяна: &apos;%1&apos;?
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
@@ -4593,13 +4594,15 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="+182"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Моля, въведете паролата, за да защитите PKCS#8 ключа &apos;%1&apos; във файл:
+%2</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Моля, въведете паролата, за да защитите личния ключ &apos;%1&apos; във файл:
+%2</translation>
     </message>
     <message>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
@@ -4630,12 +4633,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-38"/>
         <source>PEM selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PEM избран</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenated list of all selected certificates in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Свързан списък на всички избрани сертификати в един PEM текстов файл</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4645,7 +4648,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished">Конкатениран текстов формат на пълната верига от сертификати в един PEM файл</translation>
+        <translation type="unfinished">Свързан текстов формат на пълната верига от сертификати в един PEM файл</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4660,22 +4663,22 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished">Конкатенация на сертификата и некриптирания частен ключ в един PEM файл</translation>
+        <translation type="unfinished">Свързване на сертификата и некриптирания частен ключ в един PEM файл</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished">Конкатенация на сертификата и криптирания частен ключ във формат PKCS#8 в един файл</translation>
+        <translation type="unfinished">Свързване на сертификата и криптирания частен ключ във формат PKCS#8 в един файл</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All unusable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всички неизползваеми</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Concatenation of all expired or revoked certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Свързване на всички изтекли или отменени сертификати в един PEM файл</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4700,12 +4703,12 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>PKCS #7 unusable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #7 неизползваем</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PKCS#7 encoded collection of all expired or revoked certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS#7 кодирана колекция от всички изтекли или отменени сертификати</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4773,37 +4776,37 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="-20"/>
         <location line="+20"/>
         <source>OpenSSL configuration file to create a certificate or request with the openssl commandline tool</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OpenSSL конфигурационен файл за създаване на сертификат или заявка with инструмента за команден ред openssl</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OpenVPN tls-auth ключ</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The OpenVPN tls-auth key is a secret key shared between endpoints</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ключът OpenVPN tls-auth е таен ключ, споделен между крайни точки</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JSON Web Kit</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Публичният ключ на сертификата във формат JSON Web Kit с Thumbprint X.509 Certificate (x5t)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Kit chain</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JSON Web Kit верига</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>The public key of the certificate in JSON Web Kit format with X.509 Certificate Thumbprint (x5t) and certificate chain (x5c)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Публичният ключ на сертификата in формат JSON Web Kit with отпечатък на сертификат X.509 (x5t) и верига от сертификати (x5c)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4834,7 +4837,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished">Специфичен за OpenSSL криптиран частен ключ в текстов формат</translation>
+        <translation type="unfinished">Специфичен за OpenSSL криптиран частен ключ in текстов формат</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4849,7 +4852,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished">Публичният ключ, кодиран във формат SSH2</translation>
+        <translation type="unfinished">Публичният ключ, кодиран in формат SSH2</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4869,7 +4872,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished">Некриптиран частен ключ в двоичен DER формат</translation>
+        <translation type="unfinished">Некриптиран частен ключ in двоичен DER формат</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4879,17 +4882,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Private key in Microsoft PVK format not encrypted</source>
-        <translation type="unfinished">Частният ключ във формат Microsoft PVK не е криптиран</translation>
+        <translation type="unfinished">Частният ключ in формат Microsoft PVK не е криптиран</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>XCA template in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">XCA шаблон in формат, подобен на PEM. Шаблоните включват вътрешно име и коментар</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All selected XCA templates in PEM-like format. Templates include the internal name and comment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всички избрани XCA шаблони в подобен на PEM формат. Шаблоните включват вътрешно име и коментар</translation>
     </message>
     <message>
         <source>PVK encrypted</source>
@@ -4897,7 +4900,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     </message>
     <message>
         <source>Encrypted private key in Microsoft PVK format</source>
-        <translation type="obsolete">Криптиран частен ключ във формат Microsoft PVK</translation>
+        <translation type="obsolete">Криптиран частен ключ in формат Microsoft PVK</translation>
     </message>
     <message>
         <location line="-14"/>
@@ -4907,7 +4910,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+0"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished">Криптиран частен ключ в текстов формат PKCS#8</translation>
+        <translation type="unfinished">Криптиран частен ключ in текстов формат PKCS#8</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4922,22 +4925,22 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>JSON Web Key private</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JSON Web частен ключ</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unencrypted private key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Некриптиран частен ключ in формат JSON Web Ключ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>JSON Web Key public</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JSON Web публичен Ключ</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Public key in JSON Web Key format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Публичен ключ in формат JSON Web Ключ</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4952,15 +4955,15 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+1"/>
         <source>vCalendar reminder for the CRL expiry date</source>
-        <translation type="unfinished">vCalendar напомняне за датата на изтичане на CRL</translation>
+        <translation type="unfinished">vCalendar напомняне for датата на изтичане на CRL</translation>
     </message>
     <message>
         <source>XCA template in PEM-like format</source>
-        <translation type="obsolete">XCA шаблон във формат, подобен на PEM</translation>
+        <translation type="obsolete">XCA шаблон in формат, подобен на PEM</translation>
     </message>
     <message>
         <source>All selected XCA templates in PEM-like format</source>
-        <translation type="obsolete">Всички избрани XCA шаблони в подобен на PEM формат</translation>
+        <translation type="obsolete">Всички избрани XCA шаблони in подобен на PEM формат</translation>
     </message>
 </context>
 <context>
@@ -5178,7 +5181,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+88"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
-        <translation type="unfinished">Моля, поставете карта: %1 %2 [%3] със сериен номер: %4</translation>
+        <translation type="unfinished">Моля, поставете карта: %1 %2 [%3] with сериен номер: %4</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -5204,7 +5207,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="-6"/>
         <source>Invalid Pin for the token</source>
-        <translation type="unfinished">Невалиден ПИН за токена</translation>
+        <translation type="unfinished">Невалиден ПИН for токена</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -5302,17 +5305,17 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+30"/>
         <source>Failed to import tls-auth key</source>
-        <translation type="unfinished">Неуспешно импортиране на tls-auth ключ</translation>
+        <translation type="unfinished">Неуспешен import на tls-auth ключ</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Same tls-auth key already stored for this CA</source>
-        <translation type="unfinished">Същият tls-auth ключ вече е съхранен за този CA</translation>
+        <translation type="unfinished">Същият tls-auth ключ вече е съхранен for this CA</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>New tls-auth key successfully imported</source>
-        <translation type="unfinished">Новiият tls-auth ключ е импортиран успешно</translation>
+        <translation type="unfinished">Новият tls-auth ключ е импортиран успешно</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5332,7 +5335,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location line="+124"/>
         <source>There is no key for signing !</source>
-        <translation type="unfinished">Няма ключ за подписване!</translation>
+        <translation type="unfinished">Няма ключ for подписване!</translation>
     </message>
     <message>
         <location line="+312"/>
@@ -5354,7 +5357,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <source>The XCA certificate &apos;%1&apos;, issued on %2 will expire on %3.
 It is stored in the XCA database &apos;%4&apos;</source>
         <translation type="unfinished">XCA сертификатът &apos;%1&apos;, издаден на %2, ще изтече на %3.
-Той се съхранява в XCA базата данни &apos;%4&apos;</translation>
+Той се съхранява in XCA базата данни &apos;%4&apos;</translation>
     </message>
 </context>
 <context>
@@ -5401,7 +5404,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location line="+31"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
-        <translation type="unfinished">Не може да се зареди заявката за сертификат във файл %1. Опитах PEM, DER и SPKAC формат.</translation>
+        <translation type="unfinished">Не може да се зареди заявката за сертификат in файл %1. Опитах PEM, DER и SPKAC формат.</translation>
     </message>
     <message>
         <location line="+186"/>
