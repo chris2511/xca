@@ -55,5 +55,6 @@ int main(int argc, char *argv[])
 		QTextStream out(stdout);
 		out << doc;
 	}
+	pki_export::free_elements();
 	return EXIT_SUCCESS;
 }
