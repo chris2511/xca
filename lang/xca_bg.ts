@@ -753,8 +753,8 @@
         <location line="-10"/>
         <source>%n selected item(s)</source>
         <translation>
-            <numerusform>%n избран елемент(и)</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n избран елемент</numerusform>
+            <numerusform>%n избрани елементи</numerusform>
         </translation>
     </message>
     <message>
@@ -1991,7 +1991,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location line="+5"/>
         <source>End Entity</source>
-        <translation>Краен обект - сертификат</translation>
+        <translation>Краен обект сертификат</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2612,6 +2612,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+6"/>
         <source>Mandatory subject entries</source>
+        <translatorcomment>вместо тема - заглавие</translatorcomment>
         <translation>Задължителни записи с теми</translation>
     </message>
     <message>
@@ -2688,12 +2689,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+22"/>
         <source>Days</source>
-        <translation>дни</translation>
+        <translation>Дни</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Weeks</source>
-        <translation>седмици</translation>
+        <translation>Седмици</translation>
     </message>
 </context>
 <context>
@@ -3654,9 +3655,12 @@ In library %3
         <source>Please enter the password to encrypt all %n exported private key(s) in:
 %1</source>
         <comment>Singular form for 0 or 1 item can be ignored. Will always be called with n &gt;= 2</comment>
+        <translatorcomment>Формата за единствено число за 0 или 1 елемент може да бъде игнорирана. Винаги ще се извиква с n &gt;= 2</translatorcomment>
         <translation>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Моля, въведете паролата, за да шифровате всички %n експортирани частни ключа в:
+%1</numerusform>
+            <numerusform>Моля, въведете паролата, за да шифровате всички %n експортирани частни ключове в:
+%1</numerusform>
         </translation>
     </message>
     <message>
@@ -4350,7 +4354,7 @@ and thus was not stored</source>
     <message>
         <location line="+54"/>
         <source>Extracted from %1 &apos;%2&apos;</source>
-        <translation>Извлечено от %1 &apos;„%2&apos;</translation>
+        <translation>Извлечено от %1 &apos;%2&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4494,8 +4498,8 @@ and thus was not stored</source>
         <location line="-1"/>
         <source>Delete the %n revocation list(s): &apos;%1&apos;?</source>
         <translation>
-            <numerusform>Изтриване на %n списък(а) за отмяна: &apos;%1&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Изтриване на %n списък за отмяна: &apos;%1&apos;?</numerusform>
+            <numerusform>Изтриване на %n списъка за отмяна: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5009,8 +5013,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
         <translatorcomment>%1 ще бъде заменен от &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 е/са вътрешното име(на) на ключ(ове)</translatorcomment>
         <translation>
-            <numerusform>Изтриване на %n %1 публичен ключ(ове) &apos;%2&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Изтриване на %n %1 публичен ключ &apos;%2&apos;?</numerusform>
+            <numerusform>Изтриване на %n %1 публични ключове &apos;%2&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5025,8 +5029,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <comment>%1 will be replaced by &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 is/are the internal name(s) of the key(s)</comment>
         <translatorcomment>%1 ще бъде заменен от &apos;RSA&apos;, &apos;DSA&apos;, &apos;EC&apos;. %2 е/са вътрешното име(на) на ключ(ове)</translatorcomment>
         <translation>
-            <numerusform>Изтриване на %n %1 частен ключ(ове) &apos;%2&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Изтриване на %n %1 частен ключ &apos;%2&apos;?</numerusform>
+            <numerusform>Изтриване на %n %1 частни ключове &apos;%2&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5155,8 +5159,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="-1"/>
         <source>Delete the %n token key(s): &apos;%1&apos;?</source>
         <translation>
-            <numerusform>Да се ​​изтрие ли %n токен ключ(ове): &apos;%1&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Да се ​​изтрие ли %n токен ключ: &apos;%1&apos;?</numerusform>
+            <numerusform>Да се ​​изтрие ли %n токен ключове: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5240,8 +5244,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="-1"/>
         <source>Delete the %n XCA template(s): &apos;%1&apos;?</source>
         <translation>
-            <numerusform>Изтриване на %n XCA шаблон(и): &apos;%1&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Изтриване на %n XCA шаблон: &apos;%1&apos;?</numerusform>
+            <numerusform>Изтриване на %n XCA шаблони: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5289,8 +5293,8 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <location line="-1"/>
         <source>Delete the %n certificate(s): &apos;%1&apos;?</source>
         <translation>
-            <numerusform>Изтриване на %n сертификат(а): &apos;%1&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Изтриване на %n сертификата: &apos;%1&apos;?</numerusform>
+            <numerusform>Изтриване на %n сертификати: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
@@ -5393,8 +5397,8 @@ It is stored in the XCA database &apos;%4&apos;</source>
         <location line="+1"/>
         <source>Delete the %n PKCS#10 certificate request(s): &apos;%1&apos;?</source>
         <translation>
-            <numerusform>Изтриване на %n PKCS#10 заявка(и) за сертификат: &apos;%1&apos;?</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Изтриване на %n PKCS#10 заявка за сертификат: &apos;%1&apos;?</numerusform>
+            <numerusform>Изтриване на %n PKCS#10 заявки за сертификат: &apos;%1&apos;?</numerusform>
         </translation>
     </message>
     <message>
