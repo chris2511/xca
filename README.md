@@ -56,6 +56,8 @@ To build XCA you need:
  - Install: `sudo cmake --install build`
  - Or install local and copy later as root: `DESTDIR=DEST cmake --install build --prefix /usr`
 
+ - After running the application, you will need to import .xca files from the misc folder to have the templates.  Click on Templates and then Import. Navigate to misc folder and import the templates 
+
 ### Apple macos
 
 - Install the dependencies
