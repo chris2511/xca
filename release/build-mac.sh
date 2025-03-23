@@ -95,12 +95,15 @@ do_qsqlmysql()
 
   cmake --build $SQL_BUILD -j$JOBS -v
   cmake --install $SQL_BUILD
-  install_name_tool -change @rpath/libmariadb.3.dylib\
+  # Replace @rpath name by full path in the installed file,
+  # to trigger macdeployqt to pick up this library.
+  # This is a hack, but it works. we need to revert it
+  # after macdeployqt has run.
+  install_name_tool -change @rpath/libmariadb.3.dylib \
                 "$INSTALL_DIR"/lib/libmariadb.3.dylib \
         $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
 
   file $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
-  file $SQL_BUILD/plugins/sqldrivers/libqsqlmysql.dylib
   otool -L $QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib
 }
 
@@ -125,7 +128,6 @@ do_openssl
 # qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt:
 #    -qt_internal_force_macos_intel_arch(QMYSQLDriverPlugin)
 do_qsqlmysql
-
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \
 	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
@@ -156,3 +158,5 @@ read xca_version < "$BUILDDIR_APPSTORE"/PKGVERSION.txt
 cmake --build "$BUILDDIR_APPSTORE" -j$JOBS
 productbuild --component "$BUILDDIR_APPSTORE/xca.app" /Applications \
     --sign "3rd Party Mac Developer Installer" "$BUILDDIR_APPSTORE/xca-${xca_version}-appstore.pkg"
+
+find "${BUILDDIR_APPSTORE}/xca.app" "${BUILDDIR}/xca.app" -name "*.dylib" | xargs otool -L | grep -E "/Applications/\|$HOME"
