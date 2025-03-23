@@ -125,8 +125,7 @@ do_openssl
 #do_zstd
 #do_mariadb_connector_c
 # aqt install-src mac 6.6.3 --archives qtbase
-# qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt:
-#    -qt_internal_force_macos_intel_arch(QMYSQLDriverPlugin)
+# patch -p1 < $XCA_DIR/misc/qsqlmysql.patch
 do_qsqlmysql
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \

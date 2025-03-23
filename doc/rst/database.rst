@@ -80,9 +80,10 @@ Also the environment variable XCA_<driver-name>_OPTIONS may be used to set the o
 
 The file must contain the options as ; separated key=value pairs. The recognized options depend
 on the database driver. See:
-https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS for PostgreSQL and
-https://doc.qt.io/qt-6/sql-driver.html#connection-options for MySQL and
-https://doc.qt.io/qt-6/sql-driver.html#odbc-unicode-support for ODBC.
+
+ - https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS for PostgreSQL and
+ - https://doc.qt.io/qt-6/sql-driver.html#connection-options for MySQL and
+ - https://doc.qt.io/qt-6/sql-driver.html#odbc-unicode-support for ODBC.
 
 .. _extracting-items:
 
