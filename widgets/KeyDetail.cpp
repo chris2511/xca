@@ -50,9 +50,9 @@ void KeyDetail::setupFingerprints(pki_key *key)
 	v->addWidget(widget);
 	v->addStretch();
 
-	QStringList sl; sl <<
-		"ssh MD5" << "ssh SHA256 B64" <<
-		"x509 SHA1" << "DER SHA256";
+	QStringList sl = { "x509 SHA1", "DER SHA256" };
+	if (key->SSH2_compatible())
+		sl += QStringList({ "ssh MD5", "ssh SHA256 B64" });
 
 	foreach(QString type, sl) {
 		qDebug() << type << key->fingerprint(type);
