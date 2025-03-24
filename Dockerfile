@@ -1,5 +1,5 @@
 ARG REGISTRY_PREFIX=''
-ARG CODENAME=jammy
+ARG CODENAME=noble
 
 FROM ${REGISTRY_PREFIX}ubuntu:${CODENAME} as builder
 
@@ -9,18 +9,17 @@ RUN set -x \
 	&& apt update \
 	&& apt upgrade -y \
 	&& apt install --yes --no-install-recommends \
-		build-essential libssl-dev pkg-config qtbase5-dev \
-		qttools5-dev-tools qttools5-dev libqt5sql5 libqt5help5 \
-		python3-sphinxcontrib.qthelp git cmake
+		build-essential libssl-dev pkg-config ninja-build \
+		python3-sphinxcontrib.qthelp git cmake locales \
+		qt6-base-dev qt6-tools-dev
 
-ARG PARALLELMFLAGS=-j6
 ARG BUILD_DIR=/tmp/build
 
 COPY . ${BUILD_DIR}
 RUN set -x \
 	&& cd ${BUILD_DIR} \
-	&& cmake -B BUILD \
-	&& cmake --build BUILD ${PARALLELMFLAGS} \
+	&& cmake -B BUILD -G Ninja \
+	&& cmake --build BUILD \
 	&& cmake --install BUILD \
 	&& cd \
 	&& mv ${BUILD_DIR}/misc/docker_start.sh / \
