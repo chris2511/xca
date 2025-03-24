@@ -1,6 +1,5 @@
 #!/bin/sh
 
-if test -z "$1"; then echo "usage: $0 <filename>"; exit 1; fi
 
 set -x
 V="${1##*xca-}"
@@ -20,11 +19,33 @@ case "$OSTYPE" in
 esac
 pkcs11_id="9d8aad00d9fa2bc1f104e9744108d4551b53d2b7"
 
-osslsigncode sign \
+do_sign()
+{
+  echo "#### Signing $1"
+  osslsigncode sign \
   -key "$pkcs11_id" -pkcs11cert "$pkcs11_id" \
   -pkcs11engine "$engine" -pkcs11module "$module" \
   -n "XCA ${V}" -i https://hohnstaedt.de/xca \
   -t http://timestamp.comodoca.com -h sha2 \
   -in "${1}" -out "${1}.signed" &&
 
-exec mv "${1}.signed" "${1}"
+  mv "${1}.signed" "${1}"
+}
+
+case "$1" in
+  xca-portable-*.zip)
+    unzip "$1"
+    for file in xca-portable-*/lib*.dll xca-portable-*/xca.exe; do
+      test -f "$file"
+      do_sign "$file"
+    done
+    rm -f "$1"
+    zip "$1" xca-portable-*
+    ;;
+  *.msi|*.exe)
+    do_sign "$1"
+    ;;
+  *)
+    echo "Unexpected file : $1"
+    ;;
+esac

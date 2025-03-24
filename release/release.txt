@@ -25,6 +25,14 @@ xcrun notarytool submit "$DMG" --keychain-profile "AC_PASSWORD" --key-id HWR8GSJ
 
 xcrun stapler staple "$DMG"
 
+MS Code signing
+---------------
+Currently only works on MAC....
+
+./release/osslsign.sh xca-portable-*.zip
+./release/osslsign.sh xca-*.msi
+
+
 Microsoft Store
 -----------------
 OpenSSL:
