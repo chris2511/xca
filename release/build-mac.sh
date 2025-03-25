@@ -108,10 +108,10 @@ do_qsqlmysql()
 }
 
 OSSL_MAJOR="3"
-OSSL="openssl-3.3.2"
+OSSL="openssl-3.4.1"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
-QT_DIR="$TOP_DIR/6.6.3/macos"
+QT_DIR="$TOP_DIR/6.8.3/macos"
 
 BUILDDIR="$TOP_DIR/osx-release-dmg"
 BUILDDIR_APPSTORE="$TOP_DIR/osx-release-appstore"
@@ -124,7 +124,7 @@ cd $TOP_DIR
 do_openssl
 #do_zstd
 #do_mariadb_connector_c
-# aqt install-src mac 6.6.3 --archives qtbase
+# aqt install-src mac 6.8.3 --archives qtbase
 # patch -p1 < $XCA_DIR/misc/qsqlmysql.patch
 do_qsqlmysql
 

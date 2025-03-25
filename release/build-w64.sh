@@ -13,10 +13,10 @@ do_openssl() {
   make install
 }
 
-OSSL="openssl-3.3.2"
+OSSL="openssl-3.4.1"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
-QT_DIR="$TOP_DIR/QT/6.8.0/mingw_64"
+QT_DIR="$TOP_DIR/QT/6.8.3/mingw_64"
 BUILDDIR="$TOP_DIR/w64-release"
 INSTALL_DIR="/c/OpenSSL"
 JOBS=7
