@@ -60,19 +60,31 @@ do_mariadb_connector_c()
   cmake --install ${B} --prefix="$INSTALL_DIR"
 }
 
+do_postgres()
+{
+  PGV=17.4
+  ARCHIVE=postgresql-$PGV.tar.gz
+  test -f $ARCHIVE || curl -L https://ftp.postgresql.org/pub/source/v$PGV/$ARCHIVE -O
+  tar -zxf ${ARCHIVE}
+  (cd postgresql-$PGV
+    CFLAGS="-arch x86_64 -arch arm64 -mmacosx-version-min=$SDK" \
+    ./configure --with-ssl=openssl --without-icu --prefix="${INSTALL_DIR}" \
+       --with-includes="$INSTALL_DIR"/include --with-libraries="$INSTALL_DIR"/lib
+    make -j$JOBS && make install
+  )
+}
+
 # need to install ninja via "brew install ninja"
-do_qsqlmysql()
+do_qsql()
 {
   PLUGIN="$QT_DIR/plugins/sqldrivers/libqsqlmysql.dylib"
 #  test -f "$PLUGIN" && return
   SQL_BUILD="$TOP_DIR/build-sqlplugins"
   ( cd "$QT_DIR/../Src/qtbase"
-    ./configure -cmake-generator Ninja -release -no-feature-x86intrin -sql-mysql \
+    ./configure -cmake-generator Ninja -release -no-feature-x86intrin -sql-mysql -sql-psql \
 	CMAKE_BUILD_TYPE=Release \
 	CMAKE_PREFIX_PATH="$INSTALL_DIR" \
 	CMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
-	DMySQL_ROOT="$INSTALL_DIR" \
-	FEATURE_sql_odbc=OFF FEATURE_sql_sqlite=OFF
   )
 
   rm -rf "$SQL_BUILD"
@@ -83,9 +95,11 @@ do_qsqlmysql()
 	-DCMAKE_INSTALL_PREFIX="$QT_DIR" \
 	-DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK \
 	-DMySQL_ROOT="$INSTALL_DIR" \
+	-DPostgreSQL_ROOT="$INSTALL_DIR" \
+	-DFEATURE_sql_odbc=OFF -DFEATURE_sql_sqlite=OFF \
 	"$QT_DIR/../Src/qtbase/src/plugins/sqldrivers"
 
-  cmake --build $SQL_BUILD -j$JOBS -v
+  cmake --build $SQL_BUILD -j$JOBS
   cmake --install $SQL_BUILD
   # Replace @rpath name by full path in the installed file,
   # to trigger macdeployqt to pick up this library.
@@ -116,9 +130,10 @@ cd $TOP_DIR
 do_openssl
 #do_zstd
 #do_mariadb_connector_c
+#do_postgres
 # aqt install-src mac 6.8.3 --archives qtbase
 # patch -p1 < $XCA_DIR/misc/qsqlmysql.patch
-do_qsqlmysql
+do_qsql
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \
 	-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
@@ -128,12 +143,6 @@ cmake -B "$BUILDDIR" "$XCA_DIR" \
 
 cmake --build "$BUILDDIR" -j$JOBS
 
-if test -d /Applications/Postgres.app; then
-	echo "###### Hey Christian, rename /Applications/Postgres.app when linking, to skip those drivers !!"
-	# If the Postgres.app exists, macdeployqt will take that libpg.dylib and
-	# install it inside XCA. This destroys other links to libssl-1.1 ...
-	# Let the users install /Applications/Postgres.app
-fi
 (cd "$BUILDDIR" && cpack)
 
 ######## Create the AppStore Package
@@ -150,4 +159,9 @@ cmake --build "$BUILDDIR_APPSTORE" -j$JOBS
 productbuild --component "$BUILDDIR_APPSTORE/xca.app" /Applications \
     --sign "3rd Party Mac Developer Installer" "$BUILDDIR_APPSTORE/xca-${xca_version}-appstore.pkg"
 
-find "${BUILDDIR_APPSTORE}/xca.app" "${BUILDDIR}/xca.app" -name "*.dylib" | xargs otool -L | grep -E "/Applications/\|$HOME"
+if find "${BUILDDIR_APPSTORE}/xca.app" "${BUILDDIR}/xca.app" -name "*.dylib" | xargs otool -L | grep -e "/Applications/\|\t$HOME"
+then
+  echo
+  echo "Error: some libraries are linked to /Applications or $HOME"
+  exit 1
+fi
