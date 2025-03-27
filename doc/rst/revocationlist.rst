@@ -58,7 +58,7 @@ with revocation date, revocation reason and invalidation date.
 They get automatically updated when importing a CRL of this CA
 or by manually revoking an issued certificate.
 The Manage revocations dialog is accessible by the CA submenu of the
-ontext menu of the CA.
+context menu of the CA.
 Entries can be added, deleted and modified.
 
 .. index:: crlrevocation (crlrevocation)
