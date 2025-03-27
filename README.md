@@ -76,7 +76,7 @@ XCA can be used with Xcode after initializing the directory with:
 ### Windows
 
 - Install the dependencies
-  - Install Python for windows from the store or https://www.python.org/downloads/windows/
+  - Install Python 3.11 for windows from the store or https://www.python.org/downloads/windows/
   - Install OpenSSL from here: https://slproweb.com/download/Win64OpenSSL-3_1_5.msi and verify the sha256 from https://github.com/slproweb/opensslhashes/blob/master/win32_openssl_hashes.json
   - To install the Qt libraries, cmake and the MinGW compiler [aqtinstall](https://github.com/miurahr/aqtinstall) is used.
     Sphinx is used to generate the documentation
