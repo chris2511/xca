@@ -30,22 +30,14 @@ do_zstd()
   ZSTDV=1.5.6
   ARCHIVE=zstd-${ZSTDV}.tar.gz
   test -f $ARCHIVE || curl -L https://github.com/facebook/zstd/archive/refs/tags/v${ZSTDV}.tar.gz -o ${ARCHIVE}
-  for arch in x86_64 arm64; do
-    ZBUILD=zstd-${arch}
-    mkdir -p "$ZBUILD"
-    (cd "$ZBUILD"
-      tar -zxf ../${ARCHIVE} --strip-components 1
-      export CFLAGS="-target ${arch}-apple-macos11 -mmacosx-version-min=$SDK"
-      export PREFIX="$INSTALL_DIR"
-      make -j5 && make install
-    )
-    # DESTDIR="$INSTALL_DIR" make install
-    PARTS_dylib="$PARTS_dylib $ZBUILD/lib/libzstd.dylib"
-    PARTS_a="$PARTS_a $ZBUILD/lib/libzstd.a"
-  done
-  rm -f "$INSTALL_DIR"/lib/libzstd.dylib "$INSTALL_DIR"/lib/libzstd.a
-  lipo -create -output "$INSTALL_DIR"/lib/libzstd.dylib $PARTS_dylib
-  lipo -create -output "$INSTALL_DIR"/lib/libzstd.a $PARTS_a
+  ZBUILD=zstd-$ZSTDV
+  tar -zxf ${ARCHIVE}
+  (cd "$ZBUILD"
+    export CFLAGS="-arch x86_64 -arch arm64 -mmacosx-version-min=$SDK"
+    export PREFIX="$INSTALL_DIR"
+    make -j$JOBS && make install
+    unset CFLAGS PREFIX
+  )
 }
 
 do_mariadb_connector_c()
