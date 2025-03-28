@@ -18,12 +18,15 @@ class CertExtend: public QDialog, public Ui::CertExtend
 	Q_OBJECT
 
 	pki_x509 *signer{};
+	bool old_replace{};
+	bool old_revoke{};
 
    public:
 	CertExtend(QWidget *parent, pki_x509 *s);
 
    public slots:
 	void on_applyTime_clicked();
+	void on_keepSerial_toggled(bool);
 	void accept();
 
 };

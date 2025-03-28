@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # in C:\msys64\msys2.ini: MSYS2_PATH_TYPE=inherit
+# pacman -S vim make zip
 
 # Build xca on Windows 
 do_openssl() {
@@ -13,19 +14,18 @@ do_openssl() {
   make install
 }
 
-OSSL="openssl-3.3.2"
+OSSL="openssl-3.4.1"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
-QT_DIR="$TOP_DIR/QT/6.8.0/mingw_64"
 BUILDDIR="$TOP_DIR/w64-release"
-INSTALL_DIR="/c/OpenSSL"
+INSTALL_DIR="$TOP_DIR/OpenSSL"
 JOBS=7
 
 cd $TOP_DIR
 do_openssl
 
 cd $TOP_DIR
-cmake -B "$BUILDDIR" -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="$QT_DIR:$INSTALL_DIR" $XCA_DIR
-cmake --build "$BUILDDIR" -j5
+cmake -B "$BUILDDIR" -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="$INSTALL_DIR" $XCA_DIR
+cmake --build "$BUILDDIR" -j$JOBS
 cmake --build "$BUILDDIR" -t install
 cd "$BUILDDIR" && cpack

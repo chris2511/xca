@@ -1,3 +1,12 @@
+ * Add PostgreSQL driver to Mac OSX
+ * Update libraies: OpenSSL 3.4.1, QT 6.8.3
+ * Close #603: xca.exe(portable) without signature
+ * Close #643: secp521r1 ssh fingerprints incorrect
+ * Close #641: Keep serial number & revoke old certificate
+ * Close #642: macOS MariaDB plugin requires SSL
+ * Close #640: Fix mysql on Mac OSX
+ * Close #602: Linux/Flatpak: default template TLS_server is missing
+
 xca 2.8.0 Sun Oct 13 2024
 -------------------------
 

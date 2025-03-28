@@ -37,6 +37,25 @@ void CertExtend::on_applyTime_clicked()
 				     validRange->currentIndex());
 }
 
+void CertExtend::on_keepSerial_toggled(bool checked)
+{
+	if (checked) {
+		old_revoke = revoke->isChecked();
+		revoke->setEnabled(false);
+		revoke->setChecked(false);
+
+		old_replace = replace->isChecked();
+		replace->setEnabled(false);
+		replace->setChecked(true);
+	} else {
+		revoke->setEnabled(true);
+		revoke->setChecked(old_revoke);
+
+		replace->setEnabled(true);
+		replace->setChecked(old_replace);
+	}
+}
+
 void CertExtend::accept()
 {
 	if (signer && notBefore->getDate() < signer->getNotBefore()) {

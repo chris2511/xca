@@ -19,15 +19,25 @@ list(TRANSFORM XCA_TEMPLATES PREPEND ${S}/)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${XCA_TEMPLATES})
 list(APPEND APP_RESOURCES "${XCA_TEMPLATES}")
 
-##### Text Files ids.txt eku.txt dn.txt
+##### Text Files oids.txt eku.txt dn.txt
 
 macro(Text_header file)
-    add_custom_command(OUTPUT "${D}/${file}.txt"
-        COMMAND ${CMAKE_COMMAND} -DFILE=${file} -DSRC="${S}" -DDST="${D}"
-        -P "${PROJECT_SOURCE_DIR}/cmake/text_header_file.cmake"
-        DEPENDS "${S}/${file}.text" "${S}/preamble.txt"
-    )
-    list(APPEND TEXT_FILES "${D}/${file}.txt")
+  if (APPLE)
+    set(DIR_HINT "HOME/Library/Application Support/data/de.hohnstaedt.xca/${file}.txt")
+  elseif (WIN32)
+    set(DIR_HINT "PROFILE\\Application Data\\xca\\${file}.txt")
+  else()
+    set(DIR_HINT "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/${file}.txt or \$HOME/.local/share/de.hohnstaedt.xca/${file}.txt")
+  endif()
+
+  file(READ "${S}/preamble.txt" PREAMBLE)
+  file(READ "${S}/${file}.text" CONT)
+  file(WRITE "${D}/${file}.txt"
+       ${PREAMBLE} "\n# "
+       ${DIR_HINT} "\n"
+       ${CONT}
+  )
+  list(APPEND TEXT_FILES "${D}/${file}.txt")
 endmacro()
 
 Text_header(dn)

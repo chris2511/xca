@@ -33,9 +33,14 @@ db_temp::db_temp() : db_x509name("templates")
 	tmpl->setAsPreDefined();
 	predefs << tmpl;
 
-	foreach(QString d, QStandardPaths::standardLocations(
-				QStandardPaths::AppDataLocation))
+	QStringList dirs = QStandardPaths::standardLocations(
+	                     QStandardPaths::AppDataLocation);
+#ifdef INSTALL_DATA_PREFIX
+	dirs << QString(INSTALL_DATA_PREFIX);
+#endif
+	foreach(QString d, dirs)
 	{
+		qDebug() << "Looking for templates at" << d;
 		QFileInfoList list = QDir(d).entryInfoList(
 				QStringList("*.xca"),
 				QDir::Files | QDir::NoSymLinks |

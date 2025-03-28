@@ -152,6 +152,10 @@ original one with adjusted validity dates.
 Use the *Revoke old certificate* check-box to automatically revoke the old
 certificate.
 
+Be careful with the "Keep serial number" option. A revocation will revoke both
+certificates, because they have the same serial number. It is recommended to
+either replace the old certificate or not use this option at all.
+
 If more than one certificate of the same issuer is selected,
 all of them will be renewed at once with the same validity dates.
 The context menu shows this by adding the number of selected certificates

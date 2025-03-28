@@ -1,0 +1,26 @@
+diff --git a/qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt b/qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt
+index fb28abd9..d7a3f2da 100644
+--- a/qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt
++++ b/qtbase/src/plugins/sqldrivers/mysql/CMakeLists.txt
+@@ -21,4 +21,3 @@ qt_internal_add_plugin(QMYSQLDriverPlugin
+         Qt::SqlPrivate
+ )
+ 
+-qt_internal_force_macos_intel_arch(QMYSQLDriverPlugin)
+diff --git a/qtbase/src/plugins/sqldrivers/mysql/qsql_mysql.cpp b/qtbase/src/plugins/sqldrivers/mysql/qsql_mysql.cpp
+index 3525c257..84081b22 100644
+--- a/qtbase/src/plugins/sqldrivers/mysql/qsql_mysql.cpp
++++ b/qtbase/src/plugins/sqldrivers/mysql/qsql_mysql.cpp
+@@ -1288,6 +1288,12 @@ bool QMYSQLDriver::open(const QString &db,
+ #endif
+ #if defined(MYSQL_VERSION_ID) && MYSQL_VERSION_ID >= 50711 && !defined(MARIADB_VERSION_ID)
+         {"MYSQL_OPT_SSL_MODE"_L1,        MYSQL_OPT_SSL_MODE,        setOptionSslMode},
++#endif
++#if defined(MARIADB_VERSION_ID)
++        {"MYSQL_OPT_SSL_ENFORCE"_L1,     MYSQL_OPT_SSL_ENFORCE,     setOptionBool},
++        {"MYSQL_OPT_SSL_VERIFY_SERVER_CERT"_L1, MYSQL_OPT_SSL_VERIFY_SERVER_CERT,     setOptionBool},
++        {"MARIADB_OPT_TLS_PEER_FP"_L1,   MARIADB_OPT_TLS_PEER_FP,     setOptionString},
++        {"MARIADB_OPT_TLS_PEER_FP_LIST"_L1,     MARIADB_OPT_TLS_PEER_FP_LIST,     setOptionString},
+ #endif
+         {"MYSQL_OPT_CONNECT_TIMEOUT"_L1, MYSQL_OPT_CONNECT_TIMEOUT, setOptionInt},
+         {"MYSQL_OPT_READ_TIMEOUT"_L1,    MYSQL_OPT_READ_TIMEOUT,    setOptionInt},

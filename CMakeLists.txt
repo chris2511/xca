@@ -218,11 +218,20 @@ if(APPLE)
     RESOURCE "${APP_RESOURCES}"
   )
   find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS ${_qt_bin_dir})
+  find_program(INSTALL_NAME_TOOL install_name_tool HINTS ${_qt_bin_dir})
+
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${MACDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
         -always-overwrite ${APPSTORE}
     COMMENT "Running macdeployqt..."
   )
+  foreach(installdir ${CMAKE_PREFIX_PATH})
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND test ! -e $<TARGET_FILE_DIR:${PROJECT_NAME}>/../PlugIns/sqldrivers/libqsqlmysql.dylib ||
+          ${INSTALL_NAME_TOOL} -change ${installdir}/lib/libmariadb.3.dylib @rpath/libmariadb.3.dylib
+          $<TARGET_FILE_DIR:${PROJECT_NAME}>/../PlugIns/sqldrivers/libqsqlmysql.dylib
+    )
+  endforeach()
   if (PROVISIONPROFILE)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND cmake -E copy ${PROVISIONPROFILE}
@@ -236,7 +245,6 @@ if(APPLE)
         --force -s ${APPLE_DEVELOPER_CERT}
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/../..
       COMMENT "Running codesign for ${APPLE_DEVELOPER_CERT} ..."
-      DEPENDS ${PROJECT_SOURCE_DIR}/misc/entitlement${APPSTORE}.plist
     )
   endif()
 
