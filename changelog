@@ -1,3 +1,6 @@
+xca 2.9.0 Fri Mar 28 2025
+-------------------------
+
  * Add PostgreSQL driver to Mac OSX
  * Update libraies: OpenSSL 3.4.1, QT 6.8.3
  * Close #603: xca.exe(portable) without signature

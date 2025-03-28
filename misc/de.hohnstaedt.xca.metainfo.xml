@@ -37,6 +37,7 @@
         <name>Christian Hohnstädt</name>
     </developer>
     <releases>
+        <release date="2025-03-28" version="2.9.0" />
         <release date="2024-10-13" version="2.8.0" />
         <release date="2024-08-27" version="2.7.0" />
         <release date="2024-02-06" version="2.6.0" />
