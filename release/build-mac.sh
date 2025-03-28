@@ -97,7 +97,7 @@ do_qsql()
 	-DMySQL_ROOT="$INSTALL_DIR" \
 	-DPostgreSQL_ROOT="$INSTALL_DIR" \
 	-DFEATURE_sql_odbc=OFF -DFEATURE_sql_sqlite=OFF \
-	"$QT_DIR/../Src/qtbase/src/plugins/sqldrivers"
+	"$QT_SQL_SRC"
 
   cmake --build $SQL_BUILD -j$JOBS
   cmake --install $SQL_BUILD
@@ -118,6 +118,7 @@ OSSL="openssl-3.4.1"
 XCA_DIR="$(cd `dirname $0`/.. && pwd)"
 TOP_DIR="`dirname $XCA_DIR`"
 QT_DIR="$TOP_DIR/6.8.3/macos"
+QT_SQL_SRC="$QT_DIR/../Src/qtbase/src/plugins/sqldrivers"
 
 BUILDDIR="$TOP_DIR/osx-release-dmg"
 BUILDDIR_APPSTORE="$TOP_DIR/osx-release-appstore"
@@ -132,7 +133,10 @@ do_openssl
 #do_mariadb_connector_c
 #do_postgres
 # aqt install-src mac 6.8.3 --archives qtbase
-# patch -p1 < $XCA_DIR/misc/qsqlmysql.patch
+if grep qt_internal_force_macos_intel_arch $QT_SQL_SRC/mysql/CMakeLists.txt; then
+  (cd $QT_SQL_SRC && patch -p5 < $XCA_DIR/misc/qsqlmysql.patch)
+fi
+
 do_qsql
 
 cmake -B "$BUILDDIR" "$XCA_DIR" \
