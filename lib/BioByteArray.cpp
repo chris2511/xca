@@ -18,7 +18,7 @@ BioByteArray::BioByteArray(const BIGNUM *bn, int bits)
 	store.resize(BN_num_bytes(bn));
 	BN_bn2bin(bn, (unsigned char *)store.data());
 	openssl_error();
-	if (store.size() > 0 && (char)store[0] < 0)
+	if (store.size() > 0 && (unsigned char)store[0] >= 0x80)
 		store.prepend('\0');
 	if (len > 0 && store.size() < len)
 		store.prepend(len - store.size(), 0);
