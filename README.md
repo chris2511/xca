@@ -3,15 +3,14 @@
 [![CMake](https://github.com/chris2511/xca/actions/workflows/cmake.yaml/badge.svg)](https://github.com/chris2511/xca/actions/workflows/cmake.yaml)
 
 ## __Release Notes__
- * The latest release is *2.8.0*
- * Most notable new features:
-   - Support for SHA3
-   - Name the MS CryptographicServiceProvider in the comment
-   - OpenSSL PURPOSE and validation results in the certificate details
-   - Support UniveralPrincipalName (UPN) and NameConstraints
-   - Support JSON Web Key (JWK) export format
-   - Hide unusable (expired / revoked) certificates
- * Please report issues on github <https://github.com/chris2511/xca/issues>
+
+* The latest release is *2.9.0*
+* This release fixes some minor issues:
+  * Improve remote database support on macosx
+  * Do not revoke renewed certificate with same serial
+  * Fix default template finding on linux
+  * Use latest OpenSSL and Qt releases for the precompiled releases.
+* Please report issues on github <https://github.com/chris2511/xca/issues>
 
 ## __Changelog:__
 
