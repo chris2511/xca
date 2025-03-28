@@ -124,7 +124,7 @@ They should pull in all necessary dependencies.
 
 ### Apple macos
 
-- **PostgreSQL**: Install the https://postgresapp.com/
+- **PostgreSQL**: Driver included since XCA 2.9.0
 - **ODBC**: It requires the `/usr/local/opt/libiodbc/lib/libiodbc.2.dylib`.
     When installing unixodbc via `brew` the library must be symlinked from
     `/opt/homebrew/Cellar/libiodbc/3.52.16/lib/libiodbc.2.dylib`
