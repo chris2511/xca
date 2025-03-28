@@ -100,5 +100,12 @@
   "xca-2.8.0.tar.gz":"87955987ad6e05ba3dcac826cd22f7d9cedf00e4a409a1931e94e5347e79a7d0",
   "xca-portable-2.8.0.zip":"ca8bbc72e278e96b34237bdd26de7300f5561e332ffc3c02cda832582e581721",
 
+  "6575ChristianHohnstdt.xca_2.9.0.0_x64__y0rzgagnhdchr.msix":"49376f9b7b96ee1374edc43ce6e4f9f4b02be3f88f9f16a2e619f4f03a0c3dbc",
+  "xca-2.9.0-Darwin.dmg":"90df40a56bb57bbf46158b4db1c9fddd8a2d7cc48477b5522b457ec4e12cd45a",
+  "xca-2.9.0-appstore.pkg":"badc252e2e5186b34b144e87899fb32a60fbf519032a3b6926deacc201e677c7",
+  "xca-2.9.0-win64.msi":"b26886cffb0170c4246a09c5e64965fad9da601c9a83e6b24ad2ee1b5f173638",
+  "xca-2.9.0.tar.gz":"c8a956f6f0660356b725cb06ef5835dfb36526043a4f8c1cfe7674bb7bdd6c5c",
+  "xca-portable-2.9.0.zip":"50d8a44a795a07ebef4238e22e0318a607f85464aba9f2853e0630196de1141f",
+
   "last":""
 }
