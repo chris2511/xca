@@ -152,14 +152,14 @@ void searchThread::cancelSearch()
 
 bool searchThread::checkLib(QString file)
 {
-	qint64 siz;
+	qint64 size;
 	int r = -1;
 
 	QFile qf(file);
-	siz = qf.size();
+	size = qf.size();
 	if (qf.open(QIODevice::ReadOnly)) {
-		uchar *p = qf.map(0, siz);
-		r = QByteArray::fromRawData((char*)p, siz)
+		uchar *p = qf.map(0, size);
+		r = QByteArray::fromRawData((char*)p, size)
 			.indexOf("C_GetFunctionList");
 		qf.unmap(p);
 		qf.close();

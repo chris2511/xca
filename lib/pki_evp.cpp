@@ -358,7 +358,7 @@ EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
 	if (d[0] || d[1] || d[2] || d[3] != 1)
 		return NULL;
 	content.remove(0, 4);
-	// Handle first occurance of the public key
+	// Handle first occurrence of the public key
 	pub = ssh_key_next_chunk(&content);
 	ssh_key_check_chunk(&pub, "ssh-ed25519");
 	pub = ssh_key_next_chunk(&pub);
@@ -371,7 +371,7 @@ EVP_PKEY *pki_evp::load_ssh_ed25519_privatekey(const QByteArray &ba,
 	priv.remove(0, 8);
 
 	ssh_key_check_chunk(&priv, "ssh-ed25519");
-	// The first pubkey must match the second occurance
+	// The first pubkey must match the second occurrence
 	// in front of the private one
 	if (pub != ssh_key_next_chunk(&priv))
 		return NULL;

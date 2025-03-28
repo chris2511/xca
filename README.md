@@ -15,7 +15,7 @@
 
 ## __Changelog:__
 
-A detailled changelog can be found here:
+A detailed changelog can be found here:
 
 <https://hohnstaedt.de/xca/index.php/software/changelog>
 

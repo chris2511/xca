@@ -338,7 +338,7 @@ void pki_x509req::collect_properties(QMap<QString, QString> &prp) const
 
 	s = getAttribute(NID_pkcs9_challengePassword);
 	if (!s.isEmpty())
-		prp["Challange Password"] = s;
+		prp["Challenge Password"] = s;
 
 	pki_x509super::collect_properties(prp);
 	prp["Verify Ok"] = verify() ? "Yes" : "No";

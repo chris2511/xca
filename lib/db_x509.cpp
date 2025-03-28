@@ -375,7 +375,7 @@ void db_x509::newItem()
 	NewX509 *dlg = new NewX509();
 	dlg->setCert();
 	pki_x509 *sigcert = Store.lookupPki<pki_x509>(selected);
-	qDebug() << "SIGCERT" << (sigcert ? sigcert->getIntName() : "NULLL");
+	qDebug() << "SIGCERT" << (sigcert ? sigcert->getIntName() : "NULL");
 	dlg->defineSigner(sigcert, true);
 	if (dlg->exec()) {
 		newCert(dlg);
@@ -387,7 +387,7 @@ void db_x509::newCert(pki_x509req *req)
 {
 	NewX509 *dlg = new NewX509();
 	pki_x509 *sigcert = Store.lookupPki<pki_x509>(selected);
-	qDebug() << "SIGCERT" << (sigcert ? sigcert->getIntName() : "NULLL");
+	qDebug() << "SIGCERT" << (sigcert ? sigcert->getIntName() : "NULL");
 	dlg->setCert();
 	dlg->defineRequest(req);
 	dlg->defineSigner(sigcert, true);

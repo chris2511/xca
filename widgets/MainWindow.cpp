@@ -800,15 +800,15 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 		QMainWindow::keyPressEvent(e);
 		return;
 	}
-	int siz = XcaApplication::tableFont.pointSize();
+	int size = XcaApplication::tableFont.pointSize();
 
 	switch (e->key()) {
 	case Qt::Key_Plus:
-		XcaApplication::tableFont.setPointSize(siz +1);
+		XcaApplication::tableFont.setPointSize(size +1);
 		break;
 	case Qt::Key_Minus:
-		if (siz > 4) {
-			XcaApplication::tableFont.setPointSize(siz -1);
+		if (size > 4) {
+			XcaApplication::tableFont.setPointSize(size -1);
 		}
 		break;
 	case Qt::Key_V:

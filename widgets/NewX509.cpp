@@ -161,7 +161,7 @@ NewX509::NewX509(QWidget *w) : XcaDetail(w)
 
 	nsImg->setPixmap(QPixmap(":nsImg"));
 
-	// are there any useable private keys  ?
+	// are there any usable private keys  ?
 	newKeyDone(NULL);
 
 	// any PKCS#10 requests to be used ?

@@ -39,7 +39,7 @@ There is also a commandline option to issue a CRL:
 CRL Export
 ----------
 
-Cetificate Revocation Lists can be exported by the context-menu or by the button on the right.
+Certificate Revocation Lists can be exported by the context-menu or by the button on the right.
 
 - **Clipboard** Writes all selected requests in PEM format to the Clipboard.
 - **File:** Write the request into a file.

@@ -35,7 +35,7 @@
  *    256bit entropy. Same is true for "/dev/hwrng"
  *
  * 2) Before any key or parameter generation a "reseeding"
- *    is done. Some say reseeding is not neccessary, but
+ *    is done. Some say reseeding is not necessary, but
  *    all say it does not harm.
  *
  *    Entropy by Mouse and keyboard events

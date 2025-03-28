@@ -397,7 +397,7 @@ QString pki_base::getTypeString() const
 {
 	QString t;
 	switch (pkiType) {
-	case asym_key:   t = "Asymetric Key"; break;
+	case asym_key:   t = "Asymmetric Key"; break;
 	case x509_req:   t = "PKCS#10 Certificate request"; break;
 	case x509:       t = "x.509 Certificate"; break;
 	case revocation: t = "Certificate revocation list"; break;
@@ -413,7 +413,7 @@ void pki_base::print(BioByteArray &bba, enum print_opt opt) const
 	static const QStringList order = {
 		"Type", "Descriptor", "Subject", "Issuer", "Serial",
 		"Not Before", "Not After", "Verify Ok",
-		"Unstructured Name", "Challange Password",
+		"Unstructured Name", "Challenge Password",
 		"Last Update", "Next Update", "CA", "Self signed",
 		"Key", "Signature", "Extensions", "Comment", "Algorithm",
 		"Friendly Name"

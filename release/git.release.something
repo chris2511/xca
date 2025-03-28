@@ -10,7 +10,7 @@ test -z "$2" || commit="$2"
 
 if test -z "$TVERSION"; then
   echo "usage: $0 <VERSION> [commit]"
-  echo "   if commit is ommitted, 'master' is used"
+  echo "   if commit is omitted, 'master' is used"
   exit 1
 fi
 

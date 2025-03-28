@@ -105,7 +105,7 @@ void XcaApplication::setupLanguage(const QLocale &lang)
 	for (const QString &dir : dirs) {
 		qDebug() << "Search QT translations for:" << lang << "in" << lang;
 		if (qtTr->load(lang, "qtbase", dir)) {
-			qDebug() << "Fount QT translations for:" << lang << "in" << lang;
+			qDebug() << "Found QT translations for:" << lang << "in" << lang;
 			break;
 		}
 	}

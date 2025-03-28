@@ -15,7 +15,7 @@
  * and then Base64 encode that.
  * So finally this is PEM without newlines, header and footer
  *
- * Dates are alway stored as 'CHAR(15)' in the
+ * Dates are always stored as 'CHAR(15)' in the
  * ASN.1 Generalized time 'yyyyMMddHHmmssZ' format
  */
 

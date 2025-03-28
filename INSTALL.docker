@@ -24,7 +24,7 @@ option to add options.
 
 CODENAME              : code name of ubuntu version
                         example: --build-arg CODENAME=jammy
-PARALLELMFLAGS        : make flags for parralel build
+PARALLELMFLAGS        : make flags for parallel build
                         example: --build-arg PARALLELMFLAGS=-j2
 
 Run XCA

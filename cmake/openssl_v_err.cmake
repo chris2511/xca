@@ -1,4 +1,4 @@
-# CMake function to find the headerfile x509_vfy.h and search for all occurrances
+# CMake function to find the headerfile x509_vfy.h and search for all occurrences
 # of X509_V_ERR_ and replace them by #ifdef x V_ERR(x) #endif
 
 if (OPENSSL_INCLUDE_DIR)

@@ -152,7 +152,7 @@ if(SPHINX)
     endif()
 
   else()
-    message(WARNING "Application 'qhelpgenerator' not found. In-app documentation disabed.")
+    message(WARNING "Application 'qhelpgenerator' not found. In-app documentation disabled.")
   endif()
 else(SPHINX)
   message(WARNING "sphinx-build binary not found. Documentation generation disabled")

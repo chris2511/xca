@@ -57,7 +57,7 @@ static void segv_handler_gui(int)
 
 int uiwriter(UI *, UI_STRING *uis)
 {
-	qWarning() << "ui-writer callled:" << UI_get0_action_string(uis)
+	qWarning() << "ui-writer called:" << UI_get0_action_string(uis)
 			<< UI_get0_output_string(uis);
 	return 1;
 }

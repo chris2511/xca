@@ -11,7 +11,7 @@ test -z "$2" || commit="$2"
 
 if test -z "$TVERSION"; then
   echo "usage: $0 <VERSION> [commit]"
-  echo "   if commit is ommitted, 'HEAD' is used"
+  echo "   if commit is omitted, 'HEAD' is used"
   exit 1
 fi
 
