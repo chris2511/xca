@@ -3,7 +3,7 @@ Templates
 =========
 
 Templates are special to XCA and not interchangeable with other applications.
-They store all informations to create certificates or requests.
+They store all information to create certificates or requests.
 
 To use templates, just create a new certificate or request and apply one
 of the templates (or parts of it) in the *Source* Tab.

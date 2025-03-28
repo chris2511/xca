@@ -57,7 +57,7 @@ DER : Distinguished Encoding Rules
   is the binary ASN.1 encoding of the data.
 
 PEM : Privacy Enhanced Mail
-  is the base64 encoded version of the DER formated data with additional
+  is the base64 encoded version of the DER formatted data with additional
   header and footer lines to be transported via e.g. E-mail.
 PKCS#X : Public Key Cryptography Standards
   published by https://www.rsa.com

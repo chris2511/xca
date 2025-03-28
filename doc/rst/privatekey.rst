@@ -74,7 +74,7 @@ drop-down menu of the key-types will be shown.
 It contains the name of the token and the valid key-sizes.
 
 In case of EC keys generated on a token, the list of possible curves
-is restricted based on informations provided by the token (Key size and FP/F2M).
+is restricted based on information provided by the token (Key size and FP/F2M).
 The token may support even less ECParameters / OIDs. When selecting an
 unsupported EC curve an error will occur.
 Please consult the documentation of the provider of the PKCS#11 library.
