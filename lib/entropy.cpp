@@ -32,7 +32,7 @@
  *    Screen content on Windows.
  *
  *    If "/dev/random" exists, it will be used for additional
- *    256bit entropy. Same is true for "/dev/hwrng"
+ *    256bit entropy.
  *
  * 2) Before any key or parameter generation a "reseeding"
  *    is done. Some say reseeding is not necessary, but
@@ -177,7 +177,6 @@ Entropy::Entropy()
 	seed_strength += 8;
 
 	random_from_file("/dev/random", 32);
-	random_from_file("/dev/hwrng", 32);
 }
 
 Entropy::~Entropy()
