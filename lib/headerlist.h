@@ -13,6 +13,7 @@
 #include <QAction>
 #include <QHeaderView>
 #include <QDebug>
+#include <Qt>
 #include <openssl/objects.h>
 #include "settings.h"
 #include "pki_base.h"
@@ -70,7 +71,6 @@ class dbheader
 		hd_x509name,
 		hd_v3ext,
 		hd_v3ext_ns,
-		hd_number,
 		hd_asn1time,
 		hd_key,
 	};
@@ -86,10 +86,10 @@ class dbheader
 	virtual QString getName() { return name; }
 	virtual QString getTooltip() { return tooltip; }
 
-	dbheader(QString aname = QString()) : name(aname) { }
-	dbheader(int aid, bool ashow = false,
-		QString aname = QString(), QString atip = QString())
-		: name(aname), tooltip(atip), id(aid), show(ashow), showDefault(ashow)
+	dbheader(int aid, bool ashow = false, QString aname = QString(),
+		QString atip = QString(), enum hdr_type atype = hd_default)
+		: name(aname), tooltip(atip), id(aid), show(ashow),
+		  showDefault(ashow), type(atype)
 	{
 	}
 	virtual ~dbheader() { }
@@ -107,15 +107,13 @@ class dbheader
 			return name == h->name;
 		return id == h->id;
 	}
-	bool isNumeric()
+	virtual bool isNumeric()
 	{
-		switch (id) {
-		case NID_subject_key_identifier:
-		case NID_authority_key_identifier:
-		case HD_key_size:
-			return true;
-		}
-		return type == hd_number;
+		return false;
+	}
+	virtual Qt::AlignmentFlag alignment()
+	{
+		return isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
 	}
 	QString toData()
 	{
@@ -174,34 +172,43 @@ class nid_dbheader : public dbheader
 
   public:
 	nid_dbheader(int aid, enum hdr_type atype)
-		: dbheader(aid, aid == NID_commonName)
+		: dbheader(aid, aid == NID_commonName, QString(), QString(), atype)
 	{
-		type = atype;
 		tooltip = dn_translations[id];
 		name = OBJ_nid2ln(id);
 		sn = OBJ_nid2sn(id);
 		if (tooltip.isEmpty())
 			tooltip = name;
 	}
-	QString getName()
+	QString getName() override
 	{
 		return Settings["translate_dn"] ? tooltip : name;
 	}
-	QString getTooltip()
+	QString getTooltip() override
 	{
 		return QString("[%1] %2").arg(sn)
 			.arg(Settings["translate_dn"] ? name : tooltip);
+	}
+	bool isNumeric() override
+	{
+		return id ==NID_subject_key_identifier ||
+			id == NID_authority_key_identifier;
 	}
 };
 
 class num_dbheader : public dbheader
 {
     public:
-	num_dbheader(int aid, bool ashow = false,
-		QString aname = QString(), QString atip = QString())
-		: dbheader(aid, ashow, aname, atip)
+	num_dbheader(int aid, bool ashow = false, QString aname = QString(),
+		QString atip = QString(), enum hdr_type atype = hd_default)
+		: dbheader(aid, ashow, aname, atip, atype)
+	{ }
+	num_dbheader(int aid, QString aname, enum hdr_type atype)
+		: dbheader(aid, false, aname, QString(), atype)
+	{ }
+	bool isNumeric() override
 	{
-		type = hd_number;
+		return true;
 	}
 };
 
@@ -210,19 +217,12 @@ class date_dbheader : public dbheader
     public:
 	date_dbheader(int aid, bool ashow = false,
 		QString aname = QString(), QString atip = QString())
-		: dbheader(aid, ashow, aname, atip)
+		: dbheader(aid, ashow, aname, atip, hd_asn1time)
 	{
-		type = hd_asn1time;
 	}
-};
-
-class key_dbheader : public dbheader
-{
-    public:
-	key_dbheader(int aid, QString aname)
-		: dbheader(aid, false, aname)
+	Qt::AlignmentFlag alignment() override
 	{
-		type = hd_key;
+		return Qt::AlignRight;
 	}
 };
 

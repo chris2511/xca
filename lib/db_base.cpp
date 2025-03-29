@@ -449,7 +449,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::DecorationRole:
 			return item->getIcon(hd);
 		case Qt::TextAlignmentRole:
-			return int((hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft) | Qt::AlignVCenter);
+			return int(hd->alignment() | Qt::AlignVCenter);
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:

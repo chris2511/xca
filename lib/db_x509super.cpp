@@ -54,34 +54,34 @@ void db_x509super::loadContainer()
 dbheaderList db_x509super::getHeaders()
 {
 	dbheaderList h = db_x509name::getHeaders();
-	NIDlist v3nid, v3ns_nid;
-	v3nid <<
-		NID_subject_alt_name <<
-		NID_issuer_alt_name <<
-		NID_subject_key_identifier <<
-		NID_authority_key_identifier <<
-		NID_key_usage <<
-		NID_ext_key_usage <<
-		NID_crl_distribution_points <<
-		NID_info_access;
-	v3ns_nid <<
-		NID_netscape_cert_type <<
-		NID_netscape_base_url <<
-		NID_netscape_revocation_url <<
-		NID_netscape_ca_revocation_url <<
-		NID_netscape_renewal_url <<
-		NID_netscape_ca_policy_url <<
-		NID_netscape_ssl_server_name <<
-		NID_netscape_comment;
+	static const NIDlist v3nid {
+		NID_subject_alt_name,
+		NID_issuer_alt_name,
+		NID_subject_key_identifier,
+		NID_authority_key_identifier,
+		NID_key_usage,
+		NID_ext_key_usage,
+		NID_crl_distribution_points,
+		NID_info_access
+	},
+	v3ns_nid {
+		NID_netscape_cert_type,
+		NID_netscape_base_url,
+		NID_netscape_revocation_url,
+		NID_netscape_ca_revocation_url,
+		NID_netscape_renewal_url,
+		NID_netscape_ca_policy_url,
+		NID_netscape_ssl_server_name,
+		NID_netscape_comment
+	};
 
-	h <<	new dbheader(HD_x509key_name, false, tr("Key name"),
+	h <<new dbheader(HD_x509key_name, false, tr("Key name"),
 			tr("Internal name of the key"))
-	<<	new dbheader(HD_x509_sigalg, false,
-			tr("Signature algorithm"))
-	<<	new key_dbheader(HD_key_type, tr("Key type"))
-	<<	new key_dbheader(HD_key_size, tr("Key size"))
+	<<	new dbheader(HD_x509_sigalg, false, tr("Signature algorithm"))
+	<<	new num_dbheader(HD_key_type, tr("Key type"), dbheader::hd_key)
+	<<	new num_dbheader(HD_key_size, tr("Key size"), dbheader::hd_key)
 #ifndef OPENSSL_NO_EC
-	<<	new key_dbheader(HD_key_curve, tr("EC Group"))
+	<<	new num_dbheader(HD_key_curve, tr("EC Group"), dbheader::hd_key)
 #endif
 	;
 	foreach(int nid, v3nid)
