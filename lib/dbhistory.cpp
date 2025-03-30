@@ -13,36 +13,19 @@
 #include "dbhistory.h"
 #include "database_model.h"
 
-static QString dbhistory_file()
-{
-	return getUserSettingsDir() +  "/dbhistory";
-}
 QString dbhistory::lastRemote;
 
 dbhistory::dbhistory()
 {
 	QString name;
-	XFile file(dbhistory_file());
+	QSettings s = GlobalSettings();
 
-	try {
-		file.open_read();
-	} catch (...) {
-		return;
+	int size = s.beginReadArray("History");
+	for (int i = 0; i < size; i++) {
+		s.setArrayIndex(i);
+		history << s.value("name").toString();
 	}
-
-	while (!file.atEnd()) {
-		QByteArray ba;
-		ba = file.readLine(1024);
-		if (ba.size() == 0)
-			break;
-		name = QString::fromUtf8(ba).trimmed();
-		if (name.size() == 0)
-			continue;
-		if (history.indexOf(name) == -1)
-			history << name;
-	}
-	file.close();
-
+	s.endArray();
 	foreach(name, history) {
 		if (database_model::isRemoteDB(name)) {
 			setLastRemote(name);
@@ -70,15 +53,13 @@ void dbhistory::addEntry(const QString &name)
 	while (history.size() > 10)
 		history.removeLast();
 
-	XFile file(dbhistory_file());
-	if (!file.open_write())
-		return;
-
-	QString all = history.join("\n");
-	if (file.write(all.toUtf8()) <= 0)
-		qDebug() << "Error writing history" << file.fileName()
-			 << file.errorString();
-	file.close();
+	QSettings s = GlobalSettings();
+	s.beginWriteArray("History");
+	for (int i = 0; i < history.size(); i++) {
+		s.setArrayIndex(i);
+		s.setValue("name", history[i]);;
+	}
+	s.endArray();
 }
 
 void dbhistory::setLastRemote(const QString &db)

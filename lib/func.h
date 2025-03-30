@@ -10,6 +10,7 @@
 
 #include <QByteArray>
 #include <QMap>
+#include <QSettings>
 
 #include "base.h"
 #include "func_base.h"
@@ -39,4 +40,5 @@ QString hostId();
 QString fingerprint(const QByteArray &data, const EVP_MD *type);
 void update_workingdir(const QString &file);
 
+QSettings GlobalSettings();
 #endif

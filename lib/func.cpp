@@ -293,17 +293,59 @@ void migrateOldPaths()
 		QCoreApplication::applicationName();
 #endif
 	QDir old_dir(old);
-	if (old.isEmpty() || !old_dir.exists())
-		return;
-	qDebug() << "Old XCA directory exists" << old;
-	QString new_dir = getUserSettingsDir() + "/";
-	foreach(QString n, QStringList({"dbhistory", "defaultdb",
-					"defaultlang", ".rnd"}))
-	{
-		old_dir.rename(n, new_dir + n);
-		qDebug() << "Move file" << old + "/" + n << new_dir + n;
+	if (!old.isEmpty() && old_dir.exists()) {
+		qDebug() << "Old XCA directory exists" << old;
+		QString new_dir = getUserSettingsDir() + "/";
+		foreach(QString n, QStringList({"dbhistory", "defaultdb",
+						"defaultlang", ".rnd"}))
+		{
+			old_dir.rename(n, new_dir + n);
+			qDebug() << "Move file" << old + "/" + n << new_dir + n;
+		}
+		old_dir.rmdir(old);
 	}
-	old_dir.rmdir(old);
+
+	QString usd = getUserSettingsDir();
+	qDebug() << "User settings dir" << usd;
+	QFile file(usd + "/defaultlang");
+	if (file.open(QIODevice::ReadOnly)) {
+		QLocale lang = QLocale(QString(file.read(128)));
+		GlobalSettings().setValue("language", lang);
+		file.close();
+		file.remove();
+	}
+	qDebug() << "REMOVE" << file.fileName();
+	file.setFileName(usd + "/defaultdb");
+	if (file.open(QIODevice::ReadOnly)) {
+		QString db = QString(file.read(128));
+		if (!db.isEmpty()) {
+			db = db.trimmed();
+			GlobalSettings().setValue("defaultdb", db);
+			file.close();
+			file.remove();
+		}
+	}
+	file.setFileName(usd + "/dbhistory");
+	if (file.open(QIODevice::ReadOnly)) {
+		QStringList history;
+		QSettings s = GlobalSettings();
+		int idx = 0;
+		s.beginWriteArray("history");
+		while (!file.atEnd()) {
+			QByteArray ba(file.readLine(1024));
+			if (ba.size() == 0)
+				break;
+			QString name = QString::fromUtf8(ba).trimmed();
+			if (name.size() == 0 || history.contains(name))
+				continue;
+			history << name;
+			s.setArrayIndex(idx++);
+			s.setValue("name", name);
+		}
+		s.endArray();
+		file.close();
+		file.remove();
+	}
 }
 
 QString hostId()
@@ -389,4 +431,10 @@ void update_workingdir(const QString &file)
 		Settings["workingdir"] = fi.absoluteFilePath();
 	else
 		Settings["workingdir"] = fi.absolutePath();
+}
+
+QSettings GlobalSettings()
+{
+	return QSettings(getUserSettingsDir() + "/settings.ini",
+			QSettings::IniFormat);
 }

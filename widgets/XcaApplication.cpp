@@ -28,21 +28,13 @@ bool XcaApplication::languageAvailable(const QLocale &l)
 	return langAvail.contains(l);
 }
 
-static QString defaultlang()
-{
-	return getUserSettingsDir() + "/defaultlang";
-}
-
 XcaApplication::XcaApplication(int &argc, char *argv[])
 	: QApplication(argc, argv)
 {
 	QLocale lang;
-
-	QFile file(defaultlang());
-
-	if (file.open(QIODevice::ReadOnly)) {
-		lang = QLocale(QString(file.read(128)));
-	}
+	QString language = GlobalSettings().value("language").toString();
+	if (!language.isEmpty())
+		lang = QLocale(language);
 
 	langAvail << QLocale::system();
 	langAvail << QLocale("en");
@@ -121,16 +113,10 @@ void XcaApplication::switchLanguage(QAction* a)
 	QLocale lang = a->data().toLocale();
 	setupLanguage(lang);
 
-	QFile file(defaultlang());
-
-	if (lang == QLocale::system()) {
-		file.remove();
-		return;
-	}
-
-	if (file.open(QIODevice::WriteOnly)) {
-		file.write(lang.name().toUtf8());
-	}
+	if (lang == QLocale::system())
+		GlobalSettings().remove("language");
+	else
+		GlobalSettings().setValue("language", lang.name());
 }
 
 bool XcaApplication::eventFilter(QObject *watched, QEvent *ev)

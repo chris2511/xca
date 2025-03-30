@@ -97,7 +97,7 @@ void MainWindow::about()
 	"<p>OpenSSL legacy provider%2 loaded"
 	"<p><table border=\"0\">"
 	"<tr><td>Installation path:</td><td>%4</td></tr>"
-	"<tr><td>User settings path:</td><td>%5</td></tr>"
+	"<tr><td>User settings file:</td><td>%5</td></tr>"
 	"<tr><td>Working directory:</td><td>%6</td></tr>"
 	"</table><br/>"
 	"<hr><table border=\"0\">"
@@ -111,7 +111,7 @@ void MainWindow::about()
 			.arg(legacy_loaded ? "" : " not")
 			.arg(version_str(true))
 			.arg(nativeSeparator(QCoreApplication::applicationDirPath()))
-			.arg(nativeSeparator(getUserSettingsDir()))
+			.arg(nativeSeparator(GlobalSettings().fileName()))
 			.arg(nativeSeparator(QString(Settings["workingdir"])))
 #ifndef APPSTORE_COMPLIANT
 			.arg(portable_app() ? " (Portable)" : "")

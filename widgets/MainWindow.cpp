@@ -73,11 +73,6 @@ void MainWindow::initResolver()
 		resolver->searchOid(search);
 }
 
-static QString tableFontFileName()
-{
-	return getUserSettingsDir() + "/tablefont";
-}
-
 MainWindow::MainWindow() : QMainWindow()
 {
 	dbindex = new QLabel();
@@ -119,12 +114,9 @@ MainWindow::MainWindow() : QMainWindow()
 
 	setAcceptDrops(true);
 	tableFont = QApplication::font();
-	QFile file(tableFontFileName());
-	if (file.open(QIODevice::ReadOnly)) {
-		QString line = QString::fromUtf8(file.readLine()).trimmed();
-		bool res = tableFont.fromString(line);
-		qDebug() << "Table font LOAD:" << line << res;
-	}
+	tableFont.fromString(GlobalSettings().value("tablefont",
+	                     QApplication::font().toString()).toString());
+	qDebug() << "Table font LOAD:" << tableFont.toString();
 
 	searchEdit = new QLineEdit();
 	searchEdit->setPlaceholderText(tr("Search"));
@@ -874,11 +866,7 @@ void MainWindow::changeTableFont()
 		tableFont = dlg.selectedFont();
 
 	qDebug() << tableFont.toString();
-
-	QFile file(tableFontFileName());
-	if (file.open(QIODevice::WriteOnly))
-		file.write(tableFont.toString().toUtf8());
-
+	GlobalSettings().setValue("tablefont", tableFont.toString());
 	updateTableFont(tableFont);
 }
 
@@ -886,8 +874,7 @@ void MainWindow::resetTableFont()
 {
 	tableFont = QApplication::font();
 	updateTableFont(tableFont);
-	QFile file(tableFontFileName());
-	file.remove();
+	GlobalSettings().remove("tablefont");
 }
 
 void MainWindow::updateTableFont(const QFont &font)
