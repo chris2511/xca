@@ -16,7 +16,6 @@
 #include <QFile>
 #include <QAction>
 
-QFont XcaApplication::tableFont;
 QList<QLocale> XcaApplication::langAvail;
 
 void XcaApplication::setMainwin(MainWindow *m)
@@ -62,13 +61,6 @@ XcaApplication::XcaApplication(int &argc, char *argv[])
 	setLibraryPaths(libp);
 #endif
 
-	tableFont = QFont("Courier New", QApplication::font().pointSize()
-#if defined (Q_OS_WIN32)
-	+1
-#else
-	+2
-#endif
-	);
 	installEventFilter(this);
 }
 

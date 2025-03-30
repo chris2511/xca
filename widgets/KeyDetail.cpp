@@ -24,7 +24,6 @@ KeyDetail::KeyDetail(QWidget *w) : XcaDetail(w)
 {
 	setupUi(this);
 
-	keyModulus->setFont(XcaApplication::tableFont);
 	tabWidget->setCurrentIndex(0);
 	init("keydetail", ":keyImg");
 }

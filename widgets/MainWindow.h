@@ -84,6 +84,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		NIDlist *read_nidlist(QString name);
 		QLabel *statusLabel;
 		QString homedir;
+		QFont tableFont;
 		void keyPressEvent(QKeyEvent *e);
 		void update_history_menu();
 		void showDatabaseName();
@@ -133,6 +134,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void exportIndexHierarchy();
 		void openRemoteSqlDB();
 		void generateDHparamDone();
+		void changeTableFont();
+		void resetTableFont();
+		void updateTableFont(const QFont &font);
 
 	protected slots:
 		void closeEvent(QCloseEvent * event);

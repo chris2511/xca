@@ -42,7 +42,6 @@ class XcaApplication : public QApplication
 	virtual ~XcaApplication();
 	void setMainwin(MainWindow *m);
 	void setupLanguage(const QLocale &lang);
-	static QFont tableFont;
 	static bool languageAvailable(const QLocale &l);
 	bool eventFilter(QObject *watched, QEvent *ev);
 	bool notify(QObject* receiver, QEvent* event);

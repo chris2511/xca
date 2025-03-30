@@ -174,10 +174,14 @@ void MainWindow::init_menu()
 				SLOT(exportIndexHierarchy()));
 	acList += extra->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
-#if 0
-	acList += extra->addAction(tr("&Undelete items"), this,
-				SLOT(undelete()));
-#endif
+
+	extra->addSeparator();
+	acList += extra->addAction(tr("Change table font"), this,
+				SLOT(changeTableFont()));
+	acList += extra->addAction(tr("Reset table font"), this,
+				SLOT(resetTableFont()));
+	extra->addSeparator();
+
 	extra->addAction(tr("Generate DH parameter"), this,
 				 SLOT(generateDHparam()));
 	extra->addAction(tr("OID Resolver"), resolver, SLOT(show()));

@@ -23,6 +23,7 @@
 #include <QThread>
 #include <QMimeData>
 #include <QInputDialog>
+#include <QFontDialog>
 
 #include <openssl/err.h>
 
@@ -72,6 +73,11 @@ void MainWindow::initResolver()
 		resolver->searchOid(search);
 }
 
+static QString tableFontFileName()
+{
+	return getUserSettingsDir() + "/tablefont";
+}
+
 MainWindow::MainWindow() : QMainWindow()
 {
 	dbindex = new QLabel();
@@ -112,6 +118,13 @@ MainWindow::MainWindow() : QMainWindow()
 	EVP_add_digest_alias(SN_sha512,SN_ecdsa_with_SHA512);
 
 	setAcceptDrops(true);
+	tableFont = QApplication::font();
+	QFile file(tableFontFileName());
+	if (file.open(QIODevice::ReadOnly)) {
+		QString line = QString::fromUtf8(file.readLine()).trimmed();
+		bool res = tableFont.fromString(line);
+		qDebug() << "Table font LOAD:" << line << res;
+	}
 
 	searchEdit = new QLineEdit();
 	searchEdit->setPlaceholderText(tr("Search"));
@@ -126,8 +139,10 @@ MainWindow::MainWindow() : QMainWindow()
 
 	pki_base::setupColors(palette());
 
-	foreach(XcaTreeView *v, views)
+	foreach(XcaTreeView *v, views) {
 		v->setMainwin(this, searchEdit);
+		v->setFont(tableFont);
+	}
 
 	XcaProgress::setGui(new XcaProgressGui(this));
 	xcaWarning::setGui(new xcaWarningGui());
@@ -800,15 +815,17 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 		QMainWindow::keyPressEvent(e);
 		return;
 	}
-	int size = XcaApplication::tableFont.pointSize();
+	int size = tableFont.pointSize();
 
 	switch (e->key()) {
 	case Qt::Key_Plus:
-		XcaApplication::tableFont.setPointSize(size +1);
+		tableFont.setPointSize(size +1);
+		updateTableFont(tableFont);
 		break;
 	case Qt::Key_Minus:
 		if (size > 4) {
-			XcaApplication::tableFont.setPointSize(size -1);
+			tableFont.setPointSize(size -1);
+			updateTableFont(tableFont);
 		}
 		break;
 	case Qt::Key_V:
@@ -845,4 +862,42 @@ void MainWindow::dump_database()
 void MainWindow::default_database()
 {
 	Database.as_default();
+}
+
+void MainWindow::changeTableFont()
+{
+	QFontDialog dlg(tableFont, this);
+	connect(&dlg, SIGNAL(currentFontChanged(const QFont &)),
+		this, SLOT(updateTableFont(const QFont &)));
+
+	if (dlg.exec() == QDialog::Accepted)
+		tableFont = dlg.selectedFont();
+
+	qDebug() << tableFont.toString();
+
+	QFile file(tableFontFileName());
+	if (file.open(QIODevice::WriteOnly))
+		file.write(tableFont.toString().toUtf8());
+
+	updateTableFont(tableFont);
+}
+
+void MainWindow::resetTableFont()
+{
+	tableFont = QApplication::font();
+	updateTableFont(tableFont);
+	QFile file(tableFontFileName());
+	file.remove();
+}
+
+void MainWindow::updateTableFont(const QFont &font)
+{
+	qDebug() << "New Font: " << font.pointSize() << font.family()
+		<< font.styleName();
+	foreach(XcaTreeView *v, views) {
+		if (v) {
+			v->setFont(font);
+			v->update();
+		}
+	}
 }
