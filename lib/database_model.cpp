@@ -383,21 +383,26 @@ void database_model::openRemoteDatabase(const QString &connName,
 	db.setUserName(params["user"]);
 	db.setPassword(pass);
 
-	const QStringList sql_opt_files = {
-		QString("%1-%2.options").arg(db.driverName()).arg(params["host"]),
-		QString("%1.options").arg(db.driverName())
+	const QStringList sql_opt_sections = {
+		QString("%1-%2").arg(db.driverName()).arg(params["host"]),
+		QString("%1").arg(db.driverName())
 	};
-	for (const QString &file : sql_opt_files) {
-		QString path = getUserSettingsDir() + "/" + file;
-		qDebug() << "TRYING" << path;
-		XFile f(getUserSettingsDir() + "/" + file);
-		if (f.exists() && f.open_read()) {
-			qDebug() << "READING" << file;
-			QString opts = f.readAll();
-			db.setConnectOptions(opts);
-			break;
+	QSettings s = GlobalSettings();
+	for (const QString &section : sql_opt_sections) {
+		QStringList options;
+		s.beginGroup(section);
+		QStringList keys = s.childKeys();
+		qDebug() << "TRYING" << section << "Entries:" << keys.size();
+		if (!keys.isEmpty()) {
+			for (const QString &key : keys) {
+				QString value = s.value(key).toString();
+				qDebug() << "KEY" << key << value;
+				if (!value.isEmpty())
+					options << QString("%1=%2").arg(key).arg(value);
+			}
 		}
-		f.close();
+		s.endGroup();
+		db.setConnectOptions(options.join(";"));
 	}
 	QString envvar(QString("XCA_%1_OPTIONS").arg(db.driverName()));
 	const char *opts = getenv(envvar.toLatin1());

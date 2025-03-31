@@ -64,22 +64,28 @@ Windows
 Driver specific configurations
 ..............................
 
-Additional options for the database connection can be set in configuration files.
-They must be put in the XCA configuration directory, which is displayed in the about dialog.
-If there is already a file called *dbhistory* then you know you are in the right place.
-The options-file must be named after the database driver, e.g. *QPSQL*, *QMYSQL* or *QODBC*
+Additional options for the database connection can be set in the *settings.ini* file.
+The location of the file is displayed in the about dialog.
+The section must be named after the database driver, e.g. *QPSQL*, *QMYSQL* or *QODBC*
 optionally followed by a dash and the database-hostname (exactly as used in the connection settings
-including an optional port number) and a *.options* extension.
+including an optional port number).
 
-Examples:
+Example:
 
- - QMYSQL-192.168.12.13.options
- - QPSQL.options
+```
+[QMYSQL-192.168.12.13]
+MYSQL_OPT_CONNECT_TIMEOUT=10
+MYSQL_OPT_RECONNECT=1
+
+[QMYSQL]
+MYSQL_OPT_SSL_VERIFY_SERVER_CERT=off
+```
+In this example the QMYSQL option is used for all connections, including those to 192.168.12.13.
 
 Also the environment variable XCA_<driver-name>_OPTIONS may be used to set the options.
+The environment file must contain the options as ; separated key=value pairs.
 
-The file must contain the options as ; separated key=value pairs. The recognized options depend
-on the database driver. See:
+The recognized options depend on the database driver. See:
 
  - https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS for PostgreSQL and
  - https://doc.qt.io/qt-6/sql-driver.html#connection-options for MySQL and
