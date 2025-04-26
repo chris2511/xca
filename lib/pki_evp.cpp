@@ -938,14 +938,20 @@ void pki_evp::write_SSH2_ed25519_private(BIO *b, const EVP_PKEY *pkey) const
 {
 #ifndef OPENSSL_NO_EC
 	static const char data0001[] = { 0, 0, 0, 1};
-	char buf_nonce[8];
+	// padding required to bring private key up to required block size for encryption
+	// elected to just add fixed padding as the size of the binary data should not change due to the fixed keysizes
+	static const char padding[] = { 1, 2, 3, 4, 5 };
+	char buf_nonce[4];
 	QByteArray data, priv, pubfull;
 
 	pubfull = SSH2publicQByteArray(true);
 	RAND_bytes((unsigned char*)buf_nonce, sizeof buf_nonce);
 	priv.append(buf_nonce, sizeof buf_nonce);
+	priv.append(buf_nonce, sizeof buf_nonce);
 	priv += pubfull;
 	ssh_key_QBA2data(ed25519PrivKey(pkey) + ed25519PubKey(), &priv);
+	ssh_key_QBA2data("", &priv); // comment (blank)
+	priv.append(padding, sizeof padding);
 
 	data = "openssh-key-v1";
 	data.append('\0');
