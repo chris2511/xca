@@ -28,6 +28,8 @@ const QList<arg_option> arguments::opts = {
 		"Exit after importing items."),
 	arg_option("help", NULL, no_argument, true, false,
 		"Print this help and exit."),
+    arg_option("remove", NULL, no_argument, true, false,
+        "Remove selected item from database."),
 	arg_option("hierarchy", "directory", file_argument, true, true,
 		"Save OpenSSL index hierarchy in <dir>."),
 	arg_option("index", "file", file_argument, true, true,
