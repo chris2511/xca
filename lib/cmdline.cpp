@@ -253,6 +253,8 @@ int read_cmdline(int argc, char *argv[], bool console_only,
 		}
 		if (cmd_opts.has("print"))
 			pki->print(bba, pki_base::print_coloured);
+		if (cmd_opts.has("remove"))
+            pki->deleteSql();
 		if (cmd_opts.has("text"))
 			pki->print(bba, pki_base::print_openssl_txt);
 		if (cmd_opts.has("pem-file"))
