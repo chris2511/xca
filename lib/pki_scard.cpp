@@ -683,7 +683,8 @@ pk11_attr_data pki_scard::select_id(const pkcs11 &p11) const
 		QMap<QString, unsigned long> map;
 		QStringList items;
 		for (QStringList item : fixed_ids) {
-			items << item[0];
+			bool initialized = p11.tokenInfo(map[item[0]]).tokenInitialized();
+			items << (initialized ? "[USED]" : "[FREE]") + item[0];
 			map[item[0]] = item[1].toULong();
 		}
 		QString idname = QInputDialog::getItem(nullptr, XCA_TITLE,
