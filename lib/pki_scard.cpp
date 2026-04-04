@@ -683,8 +683,23 @@ pk11_attr_data pki_scard::select_id(const pkcs11 &p11) const
 		QMap<QString, unsigned long> map;
 		QStringList items;
 		for (QStringList item : fixed_ids) {
-			items << item[0];
-			map[item[0]] = item[1].toULong();
+			bool found = false;
+			for (auto cls : {CKO_PUBLIC_KEY, CKO_PRIVATE_KEY}) {
+				pk11_attr_data id(CKA_ID);
+				pk11_attr_ulong class_att(CKA_CLASS, cls);
+				pk11_attlist atts(class_att);
+				id.setULong(item[1].toULong());
+                atts << id;
+
+				if (p11.objectList(atts).count() != 0)
+					found = true;
+					break;
+			}
+
+			QString used = found ? "[USED]" : "[FREE]";
+			QString itemName = used + " " + item[0];
+			items << itemName;
+			map[itemName] = item[1].toULong();
 		}
 		QString idname = QInputDialog::getItem(nullptr, XCA_TITLE,
 			tr("Select Slot of %1").arg(ti.model()),
