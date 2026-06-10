@@ -113,12 +113,16 @@ x509v3ext NewX509::getSubAltName()
 {
 	QString s = subAltName->text();
 	if (pt == x509_req) {
-		QStringList sn, sl = s.split(',');
+		/* Strip the "email:copy" token that is only meaningful in a
+		 * certificate (not a CSR).  Use splitSanEntries() so that
+		 * commas *within* individual values are not mistaken for entry
+		 * separators. */
+		QStringList sn, sl = splitSanEntries(s);
 		foreach (QString str, sl) {
-			if (str != "email:copy")
-				sn += str;
+			if (str.trimmed() != "email:copy")
+				sn += str.trimmed();
 		}
-		s = sn.join(",");
+		s = sn.join(", ");
 	}
 	return x509v3ext(NID_subject_alt_name, s, &ext_ctx);
 }
@@ -127,12 +131,14 @@ x509v3ext NewX509::getIssAltName()
 {
 	QString s = issAltName->text();
 	if (pt == x509_req) {
-		QStringList sn, sl = s.split(',');
+		/* Strip the "issuer:copy" token that is only meaningful in a
+		 * certificate (not a CSR). */
+		QStringList sn, sl = splitSanEntries(s);
 		foreach (QString str, sl) {
-			if (str != "issuer:copy")
-				sn += str;
+			if (str.trimmed() != "issuer:copy")
+				sn += str.trimmed();
 		}
-		s = sn.join(",");
+		s = sn.join(", ");
 	}
 	return x509v3ext(NID_issuer_alt_name, s, &ext_ctx);
 }
