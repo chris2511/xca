@@ -11,12 +11,100 @@
 #include "func.h"
 #include "exception.h"
 #include <openssl/x509v3.h>
+#include <openssl/conf.h>
 #include <openssl/stack.h>
 #include <QStringList>
 #include <QRegularExpression>
 #include <QDebug>
 #include "base.h"
 #include "BioByteArray.h"
+
+/*
+ * Split a SAN/IAN/nameConstraints value string into individual entries.
+ *
+ * The canonical output separator is ", " (comma + space, produced by
+ * vlist2Section / genConf / v3ext::toString).  For backward compatibility
+ * with databases or user input that use a bare "," (no space), the split
+ * also fires when the character sequence after the comma is a recognised
+ * SAN type keyword such as "DNS:", "IP:", "URI:", etc.
+ *
+ * Commas that are *inside* a value are therefore left alone, e.g.
+ *   URI:tag:microsoft.com,2022-09-14:sid:S-1-5-21-...
+ * is kept as a single token because "2022" does not start a known prefix.
+ */
+QStringList splitSanEntries(const QString &text)
+{
+	static const QRegularExpression sep(
+		",(?=\\s|DNS:|IP:|email:|URI:|RID:|otherName:|dirName:|issuer:)"
+	);
+	QStringList result = text.split(sep);
+	for (QString &s : result)
+		s = s.trimmed();
+	return result;
+}
+
+/*
+ * Build a subjectAltName / issuerAltName extension using an OpenSSL CONF
+ * section.  This is required when one or more entry values contain a bare
+ * comma (e.g. URI:tag:microsoft.com,2022-09-14:sid:...), because OpenSSL's
+ * plain-string parser always splits on "," and would misinterpret such URIs
+ * as two separate entries.
+ *
+ * The section format written to the temp CONF is:
+ *   [<sn>_sect]
+ *   TYPE.0=value-of-first-entry
+ *   TYPE.1=value-of-second-entry
+ *   ...
+ *
+ * The function temporarily sets the CONF on *ctx so that
+ * X509V3_EXT_conf_nid can do the section look-up, then restores the
+ * original state before returning.
+ */
+static X509_EXTENSION *createExtBySection(int nid, bool critical,
+					   const QStringList &entries,
+					   X509V3_CTX *ctx)
+{
+	const char *sn = OBJ_nid2sn(nid);
+	QString sectionName = QString("%1_sect").arg(sn);
+	QString confText    = QString("[%1]\n").arg(sectionName);
+
+	int idx = 0;
+	for (const QString &entry : entries) {
+		QString e = entry.trimmed();
+		if (e.isEmpty())
+			continue;
+		int colon = e.indexOf(':');
+		if (colon < 0)
+			continue; /* skip malformed tokens */
+		QString type  = e.left(colon);
+		QString value = e.mid(colon + 1);
+		confText += QString("%1.%2=%3\n").arg(type).arg(idx++).arg(value);
+	}
+
+	CONF *conf = NCONF_new(NULL);
+	long err_line = 0;
+	QByteArray confBa = confText.toLocal8Bit();
+	if (NCONF_load_bio(conf, BioByteArray(confBa).ro(), &err_line) != 1) {
+		NCONF_free(conf);
+		return nullptr;
+	}
+
+	/* X509V3_EXT_nconf_nid resolves the "@section" reference directly from
+	 * the CONF object passed as its first argument.  The ctx (which may be
+	 * NULL when called without a certificate context) is passed along so
+	 * that any issuer/subject references in the extension are available. */
+	QString sectRef = "@" + sectionName;
+	QByteArray sectRefBa = sectRef.toLocal8Bit();
+	X509_EXTENSION *ext = X509V3_EXT_nconf_nid(conf, ctx,
+						    nid, sectRefBa.data());
+
+	NCONF_free(conf);
+
+	if (ext && critical)
+		X509_EXTENSION_set_critical(ext, 1);
+
+	return ext;
+}
 
 x509v3ext::x509v3ext()
 {
@@ -69,31 +157,83 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 	openssl_error();
 	if (!et.isEmpty()) {
 		QString etext = et;
+
+		// DNS:copycn expansion
 		if (et.contains("DNS:copycn") && ctx && ctx->subject_cert &&
 		    nid == NID_subject_alt_name)
 		{
 			x509name xn(X509_get_subject_name(ctx->subject_cert));
 			QStringList new_san;
 			int i, max = xn.entryCount();
-			for (i=0; i < max; i++) {
+			for (i = 0; i < max; i++) {
 				if (xn.nid(i) == NID_commonName)
 					new_san << QString("DNS:%1").arg(xn.getEntry(i));
 			}
-			qDebug() << "COUNT" << new_san.size() << new_san.join(",");
+			qDebug() << "COUNT" << new_san.size() << new_san.join(", ");
 			if (new_san.size() > 0)
-				etext.replace(QString("DNS:copycn"), new_san.join(","));
+				etext.replace(QString("DNS:copycn"), new_san.join(", "));
 		}
-		if (nid == NID_subject_alt_name || nid == NID_issuer_alt_name || nid == NID_name_constraints) {
-			QStringList sl = etext.split(",");
+
+		// SAN / IAN / nameConstraints preprocessing
+		if (nid == NID_subject_alt_name ||
+		    nid == NID_issuer_alt_name  ||
+		    nid == NID_name_constraints)
+		{
+			/* Strip the "critical," prefix before splitting so that
+			 * it is never confused with an entry value.  The prefix
+			 * may have been produced without a trailing space by
+			 * parse_critical() ("critical,...") or with one by
+			 * v3ext::toString() ("critical, ..."). */
+			bool critical = false;
+			if (etext.startsWith("critical,")) {
+				critical = true;
+				etext = etext.mid(9).trimmed(); /* skip "critical," */
+			}
+
+			/* Split on ", " or on "," followed by a known SAN type
+			 * prefix -- see splitSanEntries() for the full rationale. */
+			QStringList sl = splitSanEntries(etext);
+
+			/* UPN: -> otherName:msUPN;UTF8: alias expansion */
 			QRegularExpression match("([a-z]+;)*UPN:");
-			for (int i=0; i<sl.size(); i++) {
+			for (int i = 0; i < sl.size(); i++) {
 				QString s = sl[i].trimmed();
 				sl[i] = s.replace(match, "\\1otherName:msUPN;UTF8:");
 			}
-			etext = sl.join(",");
+
+			/* If any entry value itself contains a comma (e.g.
+			 *   URI:tag:microsoft.com,2022-09-14:sid:S-1-5-21-...)
+			 * we must route through a CONF section so that OpenSSL's
+			 * own parser does not split on the internal comma.
+			 * This path applies only to SAN/IAN; nameConstraints use a
+			 * different internal format and are left to the plain path. */
+			bool hasInternalComma = false;
+			if (nid == NID_subject_alt_name ||
+			    nid == NID_issuer_alt_name)
+			{
+				for (const QString &s : sl) {
+					if (s.contains(',')) {
+						hasInternalComma = true;
+						break;
+					}
+				}
+			}
+
+			if (hasInternalComma) {
+				ext = createExtBySection(nid, critical, sl, ctx);
+			} else {
+				/* Rebuild the plain string.  Join with ", " so the
+				 * canonical new format is used going forward. */
+				QString full = sl.join(", ");
+				if (critical)
+					full.prepend("critical,");
+				QByteArray ba = full.toLocal8Bit();
+				ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
+			}
+		} else {
+			QByteArray ba = etext.toLocal8Bit();
+			ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
 		}
-		QByteArray ba = etext.toLocal8Bit();
-		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
 	}
 	if (ext) {
 		if (ctx && ctx->subject_cert) {
