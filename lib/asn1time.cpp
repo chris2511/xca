@@ -50,7 +50,8 @@ int a1time::from_asn1(const ASN1_TIME *a)
 	gt = ASN1_TIME_to_generalizedtime((ASN1_TIME*)a, NULL);
 	if (!gt)
 		return -1;
-	t = QString::fromLatin1((char*)gt->data, gt->length);
+	t = QString::fromLatin1((char*)ASN1_STRING_get0_data(gt),
+                            ASN1_STRING_length(gt));
 	ASN1_GENERALIZEDTIME_free(gt);
 	return fromPlain(t);
 }
@@ -68,11 +69,15 @@ int a1time::fromPlain(const QString &plain)
 
 int a1time::set_asn1(const QString &str, int type) const
 {
-	if (!atime)
-		atime = ASN1_TIME_new();
-	if (!atime)
-		return -1;
-	atime->type = type;
+	if (atime && ASN1_STRING_type(atime) != type) {
+		ASN1_STRING_free(atime);
+		atime = NULL;
+    }
+	if (!atime) {
+		atime = ASN1_STRING_type_new(type);
+		if (!atime)
+			return -1;
+    }
 	if (ASN1_STRING_set(atime, str.toLatin1(), str.length()))
 		return -1;
 	return 0;

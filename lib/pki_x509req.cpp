@@ -204,7 +204,9 @@ void pki_x509req::addAttribute(int nid, QString content)
 		return;
 
 	ASN1_STRING *a = QStringToAsn1(content, nid);
-	X509_REQ_add1_attr_by_NID(request, nid, a->type, a->data, a->length);
+	X509_REQ_add1_attr_by_NID(request, nid, ASN1_STRING_type(a),
+							  ASN1_STRING_get0_data(a),
+							  ASN1_STRING_length(a));
 	ASN1_STRING_free(a);
 	openssl_error_msg(QString("'%1' (%2)").arg(content).arg(OBJ_nid2ln(nid)));
 }

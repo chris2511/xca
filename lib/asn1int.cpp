@@ -67,7 +67,7 @@ a1int &a1int::set(long l)
 QString a1int::toQString(int dec) const
 {
 	QString r;
-	if (in->length == 0) {
+	if (ASN1_STRING_length(in.get()) == 0) {
 		return r;
 	}
 	QSharedPointer<BIGNUM> bn(ASN1_INTEGER_to_BN(get0(), NULL), BN_free);

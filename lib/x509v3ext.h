@@ -35,7 +35,7 @@ class x509v3ext
 	// bool operator == (const x509v3ext &x) const;
 	QString getObject() const;
 	int getCritical() const;
-	ASN1_OCTET_STRING *getData() const;
+	const ASN1_OCTET_STRING *getData() const;
 	QString getValue() const;
 	QString getHtmlValue() const;
 	QString getConsoleValue(const QString &indent) const;

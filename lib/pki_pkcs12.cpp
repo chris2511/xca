@@ -85,7 +85,7 @@ pki_pkcs12::pki_pkcs12(const QString &fname)
 	}
 	pki_ign_openssl_error();
 	if (mycert) {
-		unsigned char *str = X509_alias_get0(mycert, NULL);
+		const unsigned char *str = X509_alias_get0(mycert, NULL);
 		if (str)
 			alias = QString::fromUtf8((const char *)str);
 		alias = QString::fromUtf8(alias.toLatin1());
