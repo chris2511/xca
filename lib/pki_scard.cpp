@@ -345,8 +345,11 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		break;
 #ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519:
-		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC_EDWARDS);
-		// should it also return params, somehow?
+		static const unsigned char ed25519_oid[] = {
+			0x06, 0x03, 0x2B, 0x65, 0x70
+		};
+		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC_EDWARDS) <<
+			pk11_attr_data(CKA_EC_PARAMS, ed25519_oid, sizeof(ed25519_oid));
 		break;
 #endif
 #endif
@@ -521,6 +524,40 @@ void pki_scard::store_token(const slotid &slot, EVP_PKEY *pkey)
 					EC_KEY_get0_private_key(ec));
 		break;
 	}
+#ifdef EVP_PKEY_ED25519
+	case EVP_PKEY_ED25519: {
+		/* Public Key */
+		size_t size;
+		unsigned char *buf;
+		ASN1_OCTET_STRING *os;
+
+		EVP_PKEY_get_raw_public_key(pkey, NULL, &size);
+		pki_openssl_error();
+		buf = (unsigned char *)OPENSSL_malloc(size);
+		Q_CHECK_PTR(buf);
+		EVP_PKEY_get_raw_public_key(pkey, buf, &size);
+		pki_openssl_error();
+		os = ASN1_OCTET_STRING_new();
+		/* set0 -> ASN1_OCTET_STRING_free() also free()s buf */
+		ASN1_STRING_set0(os, buf, size);
+		ba = i2d_bytearray(I2D_VOID(i2d_ASN1_OCTET_STRING), os);
+		ASN1_OCTET_STRING_free(os);
+		pki_openssl_error();
+		pub_atts << pk11_attr_data(CKA_EC_POINT, ba);
+
+		/* Private key */
+		EVP_PKEY_get_raw_private_key(pkey, NULL, &size);
+		pki_openssl_error();
+		buf = (unsigned char *)OPENSSL_malloc(size);
+		Q_CHECK_PTR(buf);
+		EVP_PKEY_get_raw_private_key(pkey, buf, &size);
+		pki_openssl_error();
+		ba = QByteArray((const char *) buf, size);
+		OPENSSL_free(buf);
+		priv_atts << pk11_attr_data(CKA_VALUE, ba);
+		break;
+	}
+#endif
 #endif
 	default:
 		throw errorEx(QString("Unknown Keytype %d")
