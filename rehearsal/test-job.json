@@ -1,0 +1,25 @@
+{
+  "issuer": 32,
+  "key": { "generate": "RSA:4096" },
+  "name": "john.nucleix.test",
+  "subject": {
+    "C": "US",
+    "ST": "California",
+    "L": "San Diego",
+    "O": "Nucleix Inc",
+    "OU": "Information Technology",
+    "CN": "john.nucleix",
+    "emailAddress": "john@nucleix.com"
+  },
+  "days": 365,
+  "extensions": {
+    "basicConstraints": "critical,CA:FALSE",
+    "keyUsage": "digitalSignature,keyEncipherment,dataEncipherment,keyAgreement",
+    "extendedKeyUsage": "clientAuth"
+  },
+  "output": {
+    "cert": "work/test-cert.pem",
+    "key": "work/test-key.pem",
+    "chain": "work/test-chain.pem"
+  }
+}

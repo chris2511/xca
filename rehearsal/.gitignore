@@ -1,0 +1,6 @@
+work/
+*.xdb
+*.pem
+*.key
+*.pfx
+.env
