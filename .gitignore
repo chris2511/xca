@@ -8,3 +8,6 @@ ui_*.h
 moc_*
 xca
 misc/variables.wxi
+
+# CMake build tree
+build/
