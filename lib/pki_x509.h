@@ -16,6 +16,7 @@
 #include "x509rev.h"
 #include "x509v3ext.h"
 #include "pkcs11.h"
+#include "digest.h"
 
 #define VIEW_x509_serial 7
 #define VIEW_x509_issuer 8
@@ -29,6 +30,27 @@
 #define VIEW_x509_revocation 16
 
 class pki_key;
+class pki_x509req;
+class pki_x509;
+
+class signjob
+{
+  public:
+	pki_x509req *req{};
+	pki_x509 *signer{};
+	digest hashAlgo{};
+	a1time notBefore{};
+	int notAfterDays{};
+	bool copyReqExt{};
+
+	signjob(pki_x509req *r = nullptr, pki_x509 *s = nullptr)
+		: req(r), signer(s),
+		hashAlgo(digest::getDefault()),
+		notAfterDays(365),
+		copyReqExt(false)
+	{
+	}
+};
 
 class pki_x509 : public pki_x509super
 {

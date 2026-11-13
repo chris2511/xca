@@ -543,6 +543,69 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
     return cert;
 }
 
+pki_x509 *db_x509::newCert(const signjob &task, const QString &name)
+{
+	pki_x509 *cert = NULL;
+	pki_x509req *req = task.req;
+	pki_x509 *signer = task.signer;
+	pki_key *signkey = NULL;
+	a1int serial;
+
+    try {
+	Transaction;
+	if (!req || !signer)
+		throw errorEx(tr("Invalid request or signer"));
+
+	signkey = signer->getRefKey();
+	if (!signkey || signkey->isPubKey())
+		throw errorEx(tr("The key of the signer is not a private one."));
+
+	cert = new pki_x509();
+	cert->setIntName(name.isEmpty() ? req->getIntName() : name);
+	cert->setSubject(req->getSubject());
+	cert->setPubKey(req->getPubKey());
+	cert->setIssuer(signer->getSubject());
+
+	serial = getUniqueSerial(signer);
+	cert->setSerial(serial);
+
+	cert->setNotBefore(task.notBefore);
+	cert->setNotAfter(task.notBefore.addDays(task.notAfterDays));
+
+	if (task.copyReqExt) {
+		extList el = req->getV3ext();
+		int m = el.count();
+		for (int i = 0; i < m; i++)
+			cert->addV3ext(el[i], true);
+	}
+	X509V3_CTX ext_ctx;
+	X509V3_set_ctx(&ext_ctx, signer->getCert(), cert->getCert(),
+			req->getReq(), NULL, 0);
+	X509V3_set_ctx_nodb(&ext_ctx);
+	x509v3ext e;
+	/* x509v3ext::create() adds the extension to ctx->subject_cert,
+	 * which is the newly created certificate here. */
+	e.create(NID_subject_key_identifier, "hash", &ext_ctx);
+	e.create(NID_authority_key_identifier,
+			"keyid:always,issuer", &ext_ctx);
+
+	cert->sign(signkey, task.hashAlgo);
+	cert->pkiSource = generated;
+
+	cert = dynamic_cast<pki_x509 *>(insert(cert));
+	createSuccess(cert);
+	if (cert)
+		markRequestSigned(req, cert);
+	TransCommit();
+    }
+    catch (errorEx &err) {
+	XCA_ERROR(err);
+	delete cert;
+	cert = NULL;
+    }
+    return cert;
+}
+
 int db_x509::exportFlags(const QModelIndex &idx) const
 {
 	QStringList filt;
