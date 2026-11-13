@@ -9,6 +9,7 @@
 #include "base.h"
 #include "func_base.h"
 #include "BioByteArray.h"
+#include "openssl_compat.h"
 #include <openssl/asn1.h>
 #include <openssl/err.h>
 #include "exception.h"
@@ -89,7 +90,7 @@ QString x509name::getMostPopular() const
 QString x509name::getEntry(int i) const
 {
 	QString ret;
-	ASN1_STRING *d;
+	const ASN1_STRING *d;
 
 	if ( i<0 || i>entryCount() )
 		return ret;
@@ -102,7 +103,7 @@ QString x509name::getEntry(int i) const
 QString x509name::getEntryTag(int i) const
 {
 	QString s = QObject::tr("Invalid");
-	ASN1_STRING *d;
+	const ASN1_STRING *d;
 
 	if (i<0 || i>=entryCount())
 		i = entryCount() - 1;
@@ -111,7 +112,7 @@ QString x509name::getEntryTag(int i) const
 	if (!d)
 		return s;
 
-	s = ASN1_tag2str(d->type);
+	s = ASN1_tag2str(ASN1_STRING_type(d));
 	return s;
 }
 
@@ -154,13 +155,13 @@ QStringList x509name::entryList(int i) const
 
 int x509name::nid(int i) const
 {
-	X509_NAME_ENTRY *ne = X509_NAME_get_entry(get0(), i);
+	x509_name_entry_c *ne = X509_NAME_get_entry(get0(), i);
 	return ne ? OBJ_obj2nid(X509_NAME_ENTRY_get_object(ne)) : NID_undef;
 }
 
 QString x509name::getOid(int i) const
 {
-	X509_NAME_ENTRY *ne = X509_NAME_get_entry(_get(), i);
+	x509_name_entry_c *ne = X509_NAME_get_entry(_get(), i);
 	return ne ? OBJ_obj2QString(X509_NAME_ENTRY_get_object(ne), 1) : QString();
 }
 
@@ -258,7 +259,9 @@ void x509name::addEntryByNid(int nid, const QString &entry)
 	if (entry.isEmpty())
 		return;
 	ASN1_STRING *a = QStringToAsn1(entry.simplified(), nid);
-	X509_NAME_add_entry_by_NID(_get(), nid, a->type, a->data, a->length, -1, 0);
+	X509_NAME_add_entry_by_NID(_get(), nid, ASN1_STRING_type(a),
+			ASN1_STRING_get0_data(a), ASN1_STRING_length(a),
+			-1, 0);
 	ASN1_STRING_free(a);
 	openssl_error_msg(QString("'%1' (%2)").arg(entry).arg(OBJ_nid2ln(nid)));
 }

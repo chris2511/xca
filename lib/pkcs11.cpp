@@ -650,7 +650,10 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	return size;
 }
 
-#if not defined OPENSSL_NO_EC and defined EVP_PKEY_ED25519
+#if not defined OPENSSL_NO_EC and defined EVP_PKEY_ED25519 and \
+	OPENSSL_VERSION_NUMBER < 0x40000000L
+/* OpenSSL >= 4.0 removed the EVP_PKEY_METHOD API. Signing Ed25519
+ * token keys requires the provider API instead. */
 // Shared between libressl and openssl
 static int eng_idx = -1;
 static int eng_finish(ENGINE *e)
@@ -832,6 +835,8 @@ static EC_KEY_METHOD *setup_ec_key_meth()
 }
 #ifdef EVP_PKEY_ED25519
 
+#if OPENSSL_VERSION_NUMBER < 0x40000000L
+
 static EVP_PKEY_METHOD *p11_eddsa_method;
 
 static int eddsa_eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
@@ -894,7 +899,8 @@ static int eng_pmeth_ctrl_eddsa(EVP_PKEY_CTX *, int type, int p1, void *p2)
 	qWarning() << "EC Don't call me" << type;
 	return -2;
 }
-#endif
+#endif /* OPENSSL_VERSION_NUMBER < 0x40000000L */
+#endif /* EVP_PKEY_ED25519 */
 #endif
 
 EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
@@ -907,6 +913,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifdef EVP_PKEY_ED25519
 	static ENGINE *e = NULL;
 
+#if OPENSSL_VERSION_NUMBER < 0x40000000L
 	if (!e) {
 		e = ENGINE_new();
 		Q_CHECK_PTR(e);
@@ -931,6 +938,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 			EVP_PKEY_meth_set_copy(p11_eddsa_method, eng_pmeth_copy);
 		}
 	}
+#endif /* OPENSSL_VERSION_NUMBER < 0x40000000L */
 #endif
 #endif
 	RSA *rsa;
@@ -991,16 +999,29 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519:
 		size_t len;
+#if OPENSSL_VERSION_NUMBER < 0x40000000L
 		if (ENGINE_get_ex_data(e, eng_idx))
 			qWarning() << "We forgot to free the previous Card key.";
 		ENGINE_set_ex_data(e, eng_idx, this);
+#endif
 		p11obj = obj;
 		EVP_PKEY_get_raw_public_key(pub, NULL, &len);
 		unsigned char *pubkey = (unsigned char *)OPENSSL_malloc(len);
 		Q_CHECK_PTR(pubkey);
 		EVP_PKEY_get_raw_public_key(pub, pubkey, &len);
+#if OPENSSL_VERSION_NUMBER < 0x40000000L
 		evp = EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, e, pubkey, len);
 		openssl_error();
+#else
+		/* OpenSSL >= 4.0 removed the EVP_PKEY_METHOD API, signing
+		 * Ed25519 token keys is not supported with it, yet. The
+		 * public part still works. */
+		qWarning() << "Signing Ed25519 token keys with OpenSSL >= 4.0 "
+			"is not supported, yet";
+		evp = EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, NULL,
+						pubkey, len);
+		openssl_error();
+#endif
 		OPENSSL_free(pubkey);
 		//EVP_PKEY_set1_engine(evp, e);
 		break;
