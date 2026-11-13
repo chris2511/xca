@@ -16,6 +16,15 @@
 
 #include <openssl/opensslv.h>
 
+/* OpenSSL 4.0 returned const pointers from several getters.
+ * This typedef keeps the surrounding code compilable with
+ * OpenSSL 1.1.1, 3.x, 4.x and LibreSSL. */
+#if OPENSSL_VERSION_NUMBER >= 0x40000000L
+typedef const X509_NAME_ENTRY x509_name_entry_c;
+#else
+typedef X509_NAME_ENTRY x509_name_entry_c;
+#endif
+
 #if OPENSSL_VERSION_NUMBER < 0x10101000L
 
 static inline int
