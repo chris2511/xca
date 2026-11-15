@@ -836,7 +836,7 @@ pki_key *pki_x509::getPubKey() const
 bool pki_x509::compareNameAndKey(pki_x509 *other)
 {
 	int r;
-	X509_NAME *s1, *s2;
+	const X509_NAME *s1, *s2;
 	EVP_PKEY *pub1, *pub2;
 
 	if (!cert || !other->cert)

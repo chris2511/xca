@@ -269,7 +269,7 @@ void CertDetail::setReq(pki_x509req *req)
 
 			int count = X509_ATTRIBUTE_count(att);
 			for (int j=0; j<count; j++) {
-				ASN1_TYPE *at = X509_ATTRIBUTE_get0_type(att, j);
+				const ASN1_TYPE *at = X509_ATTRIBUTE_get0_type(att, j);
 				label = labelFromAsn1String(at->value.asn1_string);
 				attrLayout->addWidget(label, ii, j +1);
 			}
@@ -289,7 +289,7 @@ QLabel *CertDetail::labelFromAsn1String(ASN1_STRING *s)
 	QLabel *label;
 	label = new CopyLabel(this);
 	label->setText(asn1ToQString(s));
-	label->setToolTip(QString(ASN1_tag2str(s->type)));
+	label->setToolTip(QString(ASN1_tag2str(ASN1_STRING_type(s))));
 	return label;
 }
 

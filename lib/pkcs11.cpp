@@ -17,7 +17,6 @@
 
 #include <openssl/opensslv.h>
 #include <openssl/rand.h>
-#include <openssl/engine.h>
 #include <openssl/evp.h>
 #include <QThread>
 
@@ -650,29 +649,6 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	return size;
 }
 
-#if not defined OPENSSL_NO_EC and defined EVP_PKEY_ED25519
-// Shared between libressl and openssl
-static int eng_idx = -1;
-static int eng_finish(ENGINE *e)
-{
-	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, eng_idx);
-	delete p11;
-	ENGINE_set_ex_data(e, eng_idx, NULL);
-	return 1;
-}
-
-#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
-static int eng_pmeth_copy(EVP_PKEY_CTX *dst, const EVP_PKEY_CTX *src)
-#else
-static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
-#endif
-{
-	void *p = EVP_PKEY_CTX_get_app_data((EVP_PKEY_CTX *)src);
-	EVP_PKEY_CTX_set_app_data(dst,  p);
-	return 1;
-}
-#endif
-
 static int rsa_privdata_free(RSA *rsa)
 {
 	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
@@ -830,9 +806,34 @@ static EC_KEY_METHOD *setup_ec_key_meth()
 				ec_set_private_proc, ec_set_public_proc);
 	return ec_key_meth;
 }
-#ifdef EVP_PKEY_ED25519
+
+
+#if defined(EVP_PKEY_ED25519) && OPENSSL_VERSION_NUMBER < 0x40000000L
+
+#include <openssl/engine.h>
 
 static EVP_PKEY_METHOD *p11_eddsa_method;
+
+// Shared between libressl and openssl
+static int eng_idx = -1;
+static int eng_finish(ENGINE *e)
+{
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, eng_idx);
+	delete p11;
+	ENGINE_set_ex_data(e, eng_idx, NULL);
+	return 1;
+}
+
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
+static int eng_pmeth_copy(EVP_PKEY_CTX *dst, const EVP_PKEY_CTX *src)
+#else
+static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
+#endif
+{
+	void *p = EVP_PKEY_CTX_get_app_data((EVP_PKEY_CTX *)src);
+	EVP_PKEY_CTX_set_app_data(dst,  p);
+	return 1;
+}
 
 static int eddsa_eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 {
@@ -904,7 +905,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifndef OPENSSL_NO_EC
 	static EC_KEY_METHOD *ec_key_meth = NULL;
 	EC_KEY *ec;
-#ifdef EVP_PKEY_ED25519
+#if defined(EVP_PKEY_ED25519) && OPENSSL_VERSION_NUMBER < 0x40000000L
 	static ENGINE *e = NULL;
 
 	if (!e) {
@@ -991,6 +992,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519:
 		size_t len;
+#if OPENSSL_VERSION_NUMBER < 0x40000000L
 		if (ENGINE_get_ex_data(e, eng_idx))
 			qWarning() << "We forgot to free the previous Card key.";
 		ENGINE_set_ex_data(e, eng_idx, this);
@@ -1003,6 +1005,17 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		openssl_error();
 		OPENSSL_free(pubkey);
 		//EVP_PKEY_set1_engine(evp, e);
+#else
+		p11obj = obj;
+		EVP_PKEY_get_raw_public_key(pub, NULL, &len);
+		unsigned char *pubkey = (unsigned char *)OPENSSL_malloc(len);
+		Q_CHECK_PTR(pubkey);
+		EVP_PKEY_get_raw_public_key(pub, pubkey, &len);
+		evp = EVP_PKEY_new_raw_public_key_ex(OSSL_LIB_CTX_get0_global_default(),
+			"ED25519", NULL, pubkey, len);
+		openssl_error();
+		OPENSSL_free(pubkey);
+#endif
 		break;
 #endif
 #endif

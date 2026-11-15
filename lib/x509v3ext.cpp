@@ -49,8 +49,8 @@ x509v3ext::~x509v3ext()
 x509v3ext &x509v3ext::set(const X509_EXTENSION *n)
 {
 	if (n) {
-		ASN1_OCTET_STRING *str = X509_EXTENSION_get_data((X509_EXTENSION *)n);
-		if (!str || !str->length)
+		const ASN1_OCTET_STRING *str = X509_EXTENSION_get_data((X509_EXTENSION *)n);
+		if (!str || !ASN1_STRING_length(str))
 			n = nullptr;
 	}
 	if (ext != nullptr)
@@ -116,7 +116,7 @@ x509v3ext &x509v3ext::create_ia5(int nid, const QString &et, X509V3_CTX *ctx)
 
 const ASN1_OBJECT *x509v3ext::object() const
 {
-	ASN1_OBJECT *obj = nullptr;
+	const ASN1_OBJECT *obj = nullptr;
 	if (ext) {
 		obj = X509_EXTENSION_get_object(ext);
 		ign_openssl_error();
@@ -166,9 +166,9 @@ int x509v3ext::getCritical() const
 	return ext ? X509_EXTENSION_get_critical(ext) : 0;
 }
 
-ASN1_OCTET_STRING *x509v3ext::getData() const
+const ASN1_OCTET_STRING *x509v3ext::getData() const
 {
-	return ext ? X509_EXTENSION_get_data(ext) : nullptr;;
+	return ext ? X509_EXTENSION_get_data(ext) : nullptr;
 }
 
 QString x509v3ext::getValue() const
@@ -318,7 +318,7 @@ static QString ipv6_from_binary(const unsigned char *p)
 static bool
 genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 {
-	unsigned char *p;
+	const unsigned char *p;
 	QString ret;
 
 	switch (gen->type) {
@@ -335,22 +335,23 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 		return true;
 	}
 	case GEN_IPADD:
-		p = gen->d.ip->data;
-		if (gen->d.ip->length == 4) {
+		p = ASN1_STRING_get0_data(gen->d.ip);
+		if (ASN1_STRING_length(gen->d.ip) == 4) {
 			*single = QString("IP:%1.%2.%3.%4").
 				arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
 			return true;
-		} else if(gen->d.ip->length == 8) {
+		} else if(ASN1_STRING_length(gen->d.ip) == 8) {
 			*single = QString("IP:%1.%2.%3.%4/%5.%6.%7.%8").
 			                    arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]).
 			                    arg(p[4]).arg(p[5]).arg(p[6]).arg(p[7]);
 			return true;
-		} else if(gen->d.ip->length == 16) {
-			*single = "IP:" + ipv6_from_binary(gen->d.ip->data);
+		} else if(ASN1_STRING_length(gen->d.ip) == 16) {
+			*single = "IP:" + ipv6_from_binary(ASN1_STRING_get0_data(gen->d.ip));
 			return true;
-		} else if(gen->d.ip->length == 32) {
-			*single = "IP:" + ipv6_from_binary(gen->d.ip->data) +
-				"/" + ipv6_from_binary(gen->d.ip->data +16);
+		} else if(ASN1_STRING_length(gen->d.ip) == 32) {
+			*single = "IP:" +
+				ipv6_from_binary(ASN1_STRING_get0_data(gen->d.ip)) +
+				"/" + ipv6_from_binary(ASN1_STRING_get0_data(gen->d.ip) + 16);
 			return true;
 		}
 		return false;
@@ -372,9 +373,9 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 			*single = QString("otherName:%1;FORMAT:HEX,%2").
 			arg(obj2SnOid(gen->d.otherName->type_id)).
 			arg(asn1Type2Name(type));
-			for (int i=0; i<a->length; i++) {
+			for (int i=0; i<ASN1_STRING_length(a); i++) {
 				*single += QString(":%1").
-				arg((int)(a->data[i]), 2, 16, QChar('0'));
+				arg((int)(ASN1_STRING_get0_data(a)[i]), 2, 16, QChar('0'));
 			}
 		}
 		return true;
@@ -423,12 +424,12 @@ bool x509v3ext::parse_ia5(QString *single, QString *adv) const
 		return false;
 
 	if (!str) {
-		const unsigned char *p = getData()->data;
-		str = d2i_ASN1_OCTET_STRING(NULL, &p, getData()->length);
+		const unsigned char *p = ASN1_STRING_get0_data(getData());
+		str = d2i_ASN1_OCTET_STRING(NULL, &p, ASN1_STRING_length(getData()));
 		if (ign_openssl_error() || !str)
 			return false;
 		ret = QString("<ERROR: NOT IA5 but %1>%2").
-			arg(asn1Type2Name(str->type)).
+			arg(asn1Type2Name(ASN1_STRING_type(str))).
 			arg(QString(asn1ToQString(str)));
 	} else {
 		ret = QString(asn1ToQString(str));
@@ -824,10 +825,10 @@ bool x509v3ext::parse_generic(QString *, QString *adv) const
 
 	const ASN1_OBJECT *o = object();
 	QString der, obj = o ? obj2SnOid(o) : QString("INVALID");
-	ASN1_OCTET_STRING *v = getData();
+	const ASN1_OCTET_STRING *v = getData();
 
-	for (int i=0; v && i < v->length; i++)
-		der += QString(":%1").arg((int)(v->data[i]), 2, 16, QChar('0'));
+	for (int i=0; v && i < ASN1_STRING_length(v); i++)
+		der += QString(":%1").arg((int)(ASN1_STRING_get0_data(v)[i]), 2, 16, QChar('0'));
 
 	if (adv)
 		*adv = QString("%1=%2DER%3\n").arg(obj).
@@ -1037,7 +1038,7 @@ X509_EXTENSION *x509v3ext::get() const
 
 bool x509v3ext::isValid() const
 {
-	return ext && getData() && getData()->length > 0 &&
+	return ext && getData() && ASN1_STRING_length(getData()) > 0 &&
 		OBJ_obj2nid(X509_EXTENSION_get_object(ext)) != NID_undef;
 }
 
