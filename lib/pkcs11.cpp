@@ -1002,7 +1002,11 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 		}
 		unsigned char *pubkey = (unsigned char *)OPENSSL_malloc(len);
 		Q_CHECK_PTR(pubkey);
-		EVP_PKEY_get_raw_public_key(pub, pubkey, &len);
+		if (EVP_PKEY_get_raw_public_key(pub, pubkey, &len) <= 0) {
+			OPENSSL_free(pubkey);
+			throw errorEx(QObject::tr(
+				"Failed to get the raw public key"));
+		}
 		p11obj = obj;
 		evp = pkcs11_provider_key(pubkey, len, p11slot.lib->ptr(),
 					session, obj);

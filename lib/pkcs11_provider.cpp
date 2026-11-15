@@ -25,7 +25,6 @@
 #include <openssl/evp.h>
 #include <openssl/err.h>
 #include <cstring>
-#include <strings.h>
 #include "opensc-pkcs11.h"
 
 /* Private OSSL_PARAM carrying the PKCS#11 context at key import */
@@ -242,8 +241,8 @@ static int p11_sig_digest_sign_init(void *sigctx, const char *mdname,
 	(void)params;
 	/* Ed25519 is a pure signature algorithm: only the NULL digest
 	 * (as md_null) is accepted. */
-	if (mdname != NULL && strcasecmp(mdname, "NULL") != 0 &&
-			strcasecmp(mdname, "MD_NULL") != 0) {
+	if (mdname != NULL && OPENSSL_strcasecmp(mdname, "NULL") != 0 &&
+			OPENSSL_strcasecmp(mdname, "MD_NULL") != 0) {
 		ERR_raise_data(ERR_LIB_PROV, ERR_R_UNSUPPORTED,
 				"Ed25519 does not accept a digest (%s)",
 				mdname);
@@ -362,7 +361,7 @@ static const OSSL_ALGORITHM p11_signature_algorithm[] = {
 static const OSSL_ALGORITHM *p11_query_operation(void *, int operation_id,
 						int *no_cache)
 {
-	(void)no_cache;
+	*no_cache = 0;
 	switch (operation_id) {
 	case OSSL_OP_KEYMGMT:
 		return p11_keymgmt_algorithm;
@@ -431,8 +430,10 @@ EVP_PKEY *pkcs11_provider_key(const unsigned char *pub, size_t publen,
 	OSSL_PARAM params[3];
 	OSSL_LIB_CTX *libctx = p11_libctx();
 
-	if (libctx == NULL)
+	if (libctx == NULL) {
+		ERR_raise(ERR_LIB_PROV, ERR_R_INTERNAL_ERROR);
 		return NULL;
+	}
 	tok.fl = fl;
 	tok.session = session;
 	tok.object = object;
