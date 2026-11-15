@@ -204,7 +204,7 @@ static const OSSL_DISPATCH p11_keymgmt_functions[] = {
 	{ OSSL_FUNC_KEYMGMT_GET_PARAMS, (void (*)(void))p11_key_get_params },
 	{ OSSL_FUNC_KEYMGMT_GETTABLE_PARAMS,
 		(void (*)(void))p11_key_gettable_params },
-	OSSL_DISPATCH_END
+	{ 0, NULL }
 };
 
 /* ---------------- signature ---------------- */
@@ -343,7 +343,7 @@ static const OSSL_DISPATCH p11_sig_functions[] = {
 		(void (*)(void))p11_sig_get_ctx_params },
 	{ OSSL_FUNC_SIGNATURE_GETTABLE_CTX_PARAMS,
 		(void (*)(void))p11_sig_gettable_ctx_params },
-	OSSL_DISPATCH_END
+	{ 0, NULL }
 };
 
 static const OSSL_ALGORITHM p11_keymgmt_algorithm[] = {
@@ -381,7 +381,7 @@ static const OSSL_DISPATCH p11_provider_functions[] = {
 	{ OSSL_FUNC_PROVIDER_QUERY_OPERATION,
 		(void (*)(void))p11_query_operation },
 	{ OSSL_FUNC_PROVIDER_TEARDOWN, (void (*)(void))p11_teardown },
-	OSSL_DISPATCH_END
+	{ 0, NULL }
 };
 
 } // namespace
