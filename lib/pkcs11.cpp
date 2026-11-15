@@ -8,6 +8,8 @@
 #include "pkcs11_lib.h"
 #include "pkcs11.h"
 #include "pk11_attribute.h"
+#include "pkcs11_provider.h"
+#include "openssl_compat.h"
 #include "exception.h"
 #include "db_base.h"
 #include "func.h"
@@ -808,7 +810,7 @@ static EC_KEY_METHOD *setup_ec_key_meth()
 }
 
 
-#if defined(EVP_PKEY_ED25519) && OPENSSL_VERSION_NUMBER < 0x40000000L
+#if defined(EVP_PKEY_ED25519) && !XCA_HAS_PROVIDERS
 
 #include <openssl/engine.h>
 
@@ -905,7 +907,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifndef OPENSSL_NO_EC
 	static EC_KEY_METHOD *ec_key_meth = NULL;
 	EC_KEY *ec;
-#if defined(EVP_PKEY_ED25519) && OPENSSL_VERSION_NUMBER < 0x40000000L
+#if defined(EVP_PKEY_ED25519) && !XCA_HAS_PROVIDERS
 	static ENGINE *e = NULL;
 
 	if (!e) {
@@ -992,6 +994,25 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifdef EVP_PKEY_ED25519
 	case EVP_PKEY_ED25519:
 		size_t len;
+#if XCA_HAS_PROVIDERS
+		if (EVP_PKEY_get_raw_public_key(pub, NULL, &len) <= 0) {
+			openssl_error();
+			throw errorEx(QObject::tr(
+				"Failed to get the raw public key"));
+		}
+		unsigned char *pubkey = (unsigned char *)OPENSSL_malloc(len);
+		Q_CHECK_PTR(pubkey);
+		if (EVP_PKEY_get_raw_public_key(pub, pubkey, &len) <= 0) {
+			OPENSSL_free(pubkey);
+			throw errorEx(QObject::tr(
+				"Failed to get the raw public key"));
+		}
+		p11obj = obj;
+		evp = pkcs11_provider_key(pubkey, len, p11slot.lib->ptr(),
+					session, obj);
+		openssl_error();
+		OPENSSL_free(pubkey);
+#else
 #if OPENSSL_VERSION_NUMBER < 0x40000000L
 		if (ENGINE_get_ex_data(e, eng_idx))
 			qWarning() << "We forgot to free the previous Card key.";
@@ -1015,6 +1036,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 			"ED25519", NULL, pubkey, len);
 		openssl_error();
 		OPENSSL_free(pubkey);
+#endif
 #endif
 		break;
 #endif

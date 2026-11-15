@@ -16,6 +16,13 @@
 
 #include <openssl/opensslv.h>
 
+/* OpenSSL >= 3.0 supports the provider API (LibreSSL does not). */
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L && !defined(LIBRESSL_VERSION_NUMBER)
+# define XCA_HAS_PROVIDERS 1
+#else
+# define XCA_HAS_PROVIDERS 0
+#endif
+
 #if OPENSSL_VERSION_NUMBER < 0x10101000L
 
 static inline int
