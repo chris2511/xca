@@ -18,6 +18,7 @@ class pki_x509req;
 class pki_x509;
 class pki_temp;
 class pki_crl;
+class signjob;
 
 class db_x509: public db_x509super
 {
@@ -46,6 +47,7 @@ class db_x509: public db_x509super
 		pki_base *insert(pki_base *item);
 		void markRequestSigned(pki_x509req *req, pki_x509 *cert);
 		pki_x509 *newCert(NewX509 *dlg);
+		pki_x509 *newCert(const signjob &task, const QString &name);
 		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, XFile &file, bool chain) const;
 		void writePKCS7(pki_x509 *cert, XFile &file, int flags,

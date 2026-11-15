@@ -22,6 +22,8 @@
 #include "PwDialogCore.h"
 #include "BioByteArray.h"
 #include "db_x509.h"
+#include "pki_x509req.h"
+#include "db_x509req.h"
 #include "db_crl.h"
 
 static const char *xca_name = "xca";
@@ -74,6 +76,22 @@ static bool compare_pki_base(pki_base* a, pki_base* b)
 {
 	return (a->getSqlItemId().toULongLong() <
 		b->getSqlItemId().toULongLong());
+}
+
+/* Find an item of type T in the database by SQL item id or internal name */
+template <class T> static T *lookup_item(const QString &needle)
+{
+	bool ok;
+	qulonglong id = needle.toULongLong(&ok);
+	T *pki = ok ? Store.lookupPki<T>(QVariant(id)) : NULL;
+	if (pki)
+		return pki;
+	foreach(pki_base *p, Store.getAll<pki_base>()) {
+		T *c = dynamic_cast<T *>(p);
+		if (c && c->getIntName() == needle)
+			return c;
+	}
+	return NULL;
 }
 
 int read_cmdline(int argc, char *argv[], bool console_only,
@@ -229,6 +247,108 @@ int read_cmdline(int argc, char *argv[], bool console_only,
 			pki_crl *crl = crls->newCrl(task, cmd_opts["name"]);
 			if (crl)
 				cmdline_items->append_item(crl);
+		}
+	}
+	if (cmd_opts.has("revoke") || cmd_opts.has("unrevoke")) {
+		bool revoke = cmd_opts.has("revoke");
+		QString what = cmd_opts[revoke ? "revoke" : "unrevoke"];
+		pki_x509 *cert = lookup_item<pki_x509>(what);
+		pki_x509 *signer = cert ? cert->getSigner() : NULL;
+
+		if (!cert) {
+			XCA_ERROR(QObject::tr("Certificate '%1' not found")
+					.arg(what));
+		} else if (!signer) {
+			XCA_ERROR(QObject::tr("Certificate '%1' has no issuer")
+					.arg(cert->getIntName()));
+		} else if (revoke) {
+			QString reason = cmd_opts["reason"];
+			x509rev rev;
+
+			rev.setSerial(cert->getSerial());
+			rev.setDate(a1time());
+			if (!reason.isEmpty()) {
+				if (!x509rev::crlreasons().contains(reason)) {
+					Database.close();
+					throw errorEx(QObject::tr(
+						"Unknown revocation reason '%1'")
+						.arg(reason));
+				}
+				rev.setReason(reason);
+			}
+			cert->setRevoked(rev);
+			x509revList revlist;
+			revlist << rev;
+			signer->mergeRevList(revlist);
+			XCA_INFO(QObject::tr("Certificate '%1' revoked")
+					.arg(cert->getIntName()));
+		} else {
+			x509rev rev;
+
+			rev.setSerial(cert->getSerial());
+			cert->setRevoked(x509rev());
+			x509revList revList = signer->getRevList();
+			int i = revList.indexOf(rev);
+			if (i != -1)
+				revList.takeAt(i);
+			signer->setRevocations(revList);
+			XCA_INFO(QObject::tr(
+				"Revocation of certificate '%1' removed")
+				.arg(cert->getIntName()));
+		}
+	}
+	if (cmd_opts.has("sign-req")) {
+		QString reqid = cmd_opts["sign-req"];
+		QString signerid = cmd_opts["signer"];
+		db_x509 *certs = Database.model<db_x509>();
+		pki_x509req *req = lookup_item<pki_x509req>(reqid);
+		pki_x509 *signer = signerid.isEmpty() ? NULL :
+					lookup_item<pki_x509>(signerid);
+
+		if (!req) {
+			XCA_ERROR(QObject::tr("Request '%1' not found")
+					.arg(reqid));
+		} else if (!signer) {
+			XCA_ERROR(QObject::tr("Signer '%1' not found")
+					.arg(signerid));
+		} else if (!signer->canSign()) {
+			XCA_ERROR(QObject::tr(
+				"'%1' is not a CA with an associated private key")
+				.arg(signer->getIntName()));
+		} else {
+			signjob task(req, signer);
+			QString hash = cmd_opts["hash"];
+			QString days = cmd_opts["days"];
+			pki_key *signkey = signer->getPubKey();
+
+			if (signkey) {
+				task.hashAlgo.adjust(signkey->possibleHashNids());
+				delete signkey;
+			}
+			if (!hash.isEmpty()) {
+				task.hashAlgo = digest(hash);
+				if (task.hashAlgo.name().isEmpty()) {
+					Database.close();
+					throw errorEx(QObject::tr(
+						"Unknown hash algorithm '%1'")
+						.arg(hash));
+				}
+			}
+			if (!days.isEmpty()) {
+				bool ok;
+				int d = days.toInt(&ok);
+				if (!ok || d < 1) {
+					Database.close();
+					throw errorEx(QObject::tr(
+						"Invalid value for 'days': '%1'")
+						.arg(days));
+				}
+				task.notAfterDays = d;
+			}
+			task.copyReqExt = cmd_opts.has("copy-req-ext");
+			pki_x509 *cert = certs->newCert(task, cmd_opts["name"]);
+			if (cert)
+				cmdline_items->append_item(cert);
 		}
 	}
 	if (!cmd_opts["select"].isEmpty()) {
