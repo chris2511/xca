@@ -348,12 +348,19 @@ bool pki_x509::importTaKey(const QByteArray &takey)
 				<< QString::fromLatin1(existing_takey.toHex()).left(6);
 	}
 	if (existing_takey != data) {
-		if (existed)
+		/* The two statements take their parameters in opposite order,
+		 * so each branch binds its own. Sharing one pair of
+		 * bindValue() calls put the item id into the key column and
+		 * searched for the row by the key data. */
+		if (existed) {
 			SQL_PREPARE(q, "UPDATE takeys SET value = ? WHERE item = ?");
-		else
+			q.bindValue(0, data.toBase64());
+			q.bindValue(1, sqlItemId);
+		} else {
 			SQL_PREPARE(q, "INSERT INTO takeys (item, value) VALUES ( ?, ? )");
-		q.bindValue(0, sqlItemId);
-		q.bindValue(1, data.toBase64());
+			q.bindValue(0, sqlItemId);
+			q.bindValue(1, data.toBase64());
+		}
 		q.exec();
 	}
 	TransCommit();
