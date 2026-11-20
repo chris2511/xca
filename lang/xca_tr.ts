@@ -866,12 +866,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CaProperties.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../ui/CaProperties.ui" line="20"/>
         <source>Days until next CRL issuing</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir Sonraki CRL Yayınına Kalan Gün</translation>
     </message>
     <message>
         <location filename="../ui/CaProperties.ui" line="30"/>
@@ -882,15 +882,15 @@ PEM base64 kodlanmış DER dosyası
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="139"/>
         <location filename="../ui/CertDetail.ui" line="30"/>
+        <location filename="../widgets/CertDetail.cpp" line="139"/>
         <source>Details of the Certificate</source>
         <translation>Sertifika bilgileri</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="78"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Durum</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="106"/>
@@ -915,7 +915,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertDetail.ui" line="165"/>
         <source>Serial</source>
-        <translation>Seri</translation>
+        <translation>Seri Numarası</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="178"/>
@@ -980,7 +980,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertDetail.ui" line="359"/>
         <source>Issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Veren Kuruluş</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="381"/>
@@ -990,33 +990,33 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertDetail.ui" line="391"/>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzantılar</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="412"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Doğrulama</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="418"/>
         <source>Purposes</source>
-        <translation type="unfinished"></translation>
+        <translation>Amaçlar</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="430"/>
         <source>Strict RFC 5280 validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Tam RFC 5280 doğrulaması</translation>
     </message>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="35"/>
         <location filename="../ui/CertDetail.ui" line="404"/>
+        <location filename="../widgets/CertDetail.cpp" line="35"/>
         <source>Show config</source>
         <translation>Yapılandırmayı göster</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="443"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Açıklama</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="39"/>
@@ -1026,12 +1026,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="71"/>
         <source>Show public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık anahtarı göster</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="74"/>
         <source>This key is not in the database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu anahtar veritabanında değil.</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="78"/>
@@ -1041,7 +1041,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="127"/>
         <source>No verification errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Doğrulama hatası bulunamadı.</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="152"/>
@@ -1056,7 +1056,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="186"/>
         <source>Revoked at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 tarihinde iptal edildi</translation>
     </message>
     <message>
         <location filename="../widgets/CertDetail.cpp" line="191"/>
@@ -1071,7 +1071,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertDetail.cpp" line="216"/>
         <source>Details of the certificate signing request</source>
-        <translation>sertifika imzalama isteği detayları</translation>
+        <translation>Sertifika imzalama isteği detayları</translation>
     </message>
 </context>
 <context>
@@ -1094,12 +1094,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertExtend.ui" line="111"/>
         <source>Not before</source>
-        <translation>Öncedeğil</translation>
+        <translation>Önce değil</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="118"/>
         <source>Not after</source>
-        <translation>Sonradeğil</translation>
+        <translation>Sonra değil</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="144"/>
@@ -1109,7 +1109,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertExtend.ui" line="150"/>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel saat</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="158"/>
@@ -1144,49 +1144,49 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CertExtend.ui" line="216"/>
         <source>Revoke old certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Eski sertifikayı iptal et</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="226"/>
         <source>Replace old certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Eski sertifikayı değiştir</translation>
     </message>
     <message>
         <location filename="../ui/CertExtend.ui" line="236"/>
         <source>Keep serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Seri numarasını koru</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="43"/>
+        <location filename="../widgets/CertExtend.cpp" line="62"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="45"/>
-        <location filename="../widgets/CertExtend.cpp" line="67"/>
+        <location filename="../widgets/CertExtend.cpp" line="64"/>
+        <location filename="../widgets/CertExtend.cpp" line="86"/>
         <source>Edit dates</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarihleri düzenle</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="46"/>
-        <location filename="../widgets/CertExtend.cpp" line="68"/>
+        <location filename="../widgets/CertExtend.cpp" line="65"/>
+        <location filename="../widgets/CertExtend.cpp" line="87"/>
         <source>Abort rollout</source>
-        <translation type="unfinished"></translation>
+        <translation>Yayını iptal et</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="47"/>
-        <location filename="../widgets/CertExtend.cpp" line="69"/>
+        <location filename="../widgets/CertExtend.cpp" line="66"/>
+        <location filename="../widgets/CertExtend.cpp" line="88"/>
         <source>Continue rollout</source>
-        <translation type="unfinished"></translation>
+        <translation>Yayına devam et</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="48"/>
-        <location filename="../widgets/CertExtend.cpp" line="70"/>
+        <location filename="../widgets/CertExtend.cpp" line="67"/>
+        <location filename="../widgets/CertExtend.cpp" line="89"/>
         <source>Adjust date and continue</source>
         <translation>Tarihi düzenler ve devam eder</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="65"/>
+        <location filename="../widgets/CertExtend.cpp" line="84"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
@@ -1196,103 +1196,103 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="34"/>
         <source>Hide unusable certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılamayan sertifikaları gizle</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="41"/>
         <source>Import PKCS#12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 İçe Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="42"/>
         <source>Import from PKCS#7</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 İçe Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="70"/>
         <source>Request</source>
-        <translation type="unfinished"></translation>
+        <translation>İstek</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="72"/>
         <source>Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirteci</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="74"/>
         <source>Other token</source>
-        <translation type="unfinished"></translation>
+        <translation>Diğer belirteç</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="78"/>
         <source>Similar Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Benzer Sertifika</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="81"/>
         <source>Delete from Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirtecinden sil</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="84"/>
         <source>CA</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="85"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Özellikler</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="86"/>
         <source>Generate CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL Oluştur</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="87"/>
         <source>Manage revocations</source>
-        <translation type="unfinished"></translation>
+        <translation>İptalleri yönet</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="91"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth anahtarını içe aktar</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="95"/>
         <location filename="../widgets/CertTreeView.cpp" line="98"/>
         <source>Renewal</source>
-        <translation type="unfinished"></translation>
+        <translation>Yenileme</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="100"/>
         <source>Revoke</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal et</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="102"/>
         <source>Unrevoke</source>
-        <translation type="unfinished"></translation>
+        <translation>İptali kaldır</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="182"/>
         <source>Plain View</source>
-        <translation type="unfinished"></translation>
+        <translation>Düz Görünüm</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="182"/>
         <source>Tree View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ağaç Görünümü</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="211"/>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>günler</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="219"/>
         <source>No template</source>
-        <translation type="unfinished"></translation>
+        <translation>Şablon yok</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="224"/>
@@ -1307,22 +1307,22 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="267"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</source>
-        <translation type="unfinished"></translation>
+        <translation>X509 Sertifikaları ( *.pem *.cer *.crt *.p12 *.pfx *.p7b )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="268"/>
         <source>vCalendar entry ( *.ics )</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar girdisi ( *.ics )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="269"/>
         <source>OpenVPN file ( *.ovpn )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN dosyası ( *.ovpn )</translation>
     </message>
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="270"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenVPN tls-auth anahtarı ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -1330,7 +1330,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/clicklabel.cpp" line="37"/>
         <source>Double click for details</source>
-        <translation>Detaylariçin çift tıklayın</translation>
+        <translation>Detaylar için çift tıklayın</translation>
     </message>
 </context>
 <context>
@@ -1358,7 +1358,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CrlDetail.ui" line="170"/>
         <source>Signed by</source>
-        <translation>İmzalayan:</translation>
+        <translation>İmzalayan</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="177"/>
@@ -1373,27 +1373,27 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CrlDetail.ui" line="197"/>
         <source>issuing dates</source>
-        <translation>Verilen tarih</translation>
+        <translation>Veriliş Tarihleri</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="215"/>
         <source>Next update</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonraki Güncelleme</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="222"/>
         <source>Last update</source>
-        <translation type="unfinished"></translation>
+        <translation>Son Güncelleme</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="255"/>
         <source>&amp;Issuer</source>
-        <translation>&amp;veren</translation>
+        <translation>&amp;Veren</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="277"/>
         <source>&amp;Extensions</source>
-        <translation>&amp;Uzantıları</translation>
+        <translation>&amp;Uzantılar</translation>
     </message>
     <message>
         <location filename="../ui/CrlDetail.ui" line="306"/>
@@ -1403,7 +1403,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/CrlDetail.ui" line="340"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Açıklama</translation>
     </message>
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="48"/>
@@ -1474,17 +1474,17 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/ExportDialog.ui" line="127"/>
         <source>Each Item in a separate file</source>
-        <translation type="unfinished"></translation>
+        <translation>Her öğe ayrı bir dosyada</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="134"/>
         <source>Same encryption password for all items</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüm öğeler için aynı şifreleme parolası</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="141"/>
         <source>Export comment into PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Açıklamaları PEM dosyasına dışa aktar</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="121"/>
@@ -1494,8 +1494,8 @@ PEM base64 kodlanmış DER dosyası
     <message numerus="yes">
         <location filename="../widgets/ExportDialog.cpp" line="43"/>
         <source>%n selected item(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n seçili öğe(ler)</numerusform>
         </translation>
     </message>
     <message>
@@ -1506,7 +1506,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="126"/>
         <source>The file: &apos;%1&apos; already exists!</source>
-        <translation>Dosya: 2%1&apos; zaten var</translation>
+        <translation>Dosya: &apos;%1&apos; zaten var!</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="127"/>
@@ -1521,32 +1521,32 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="132"/>
         <source>The path: &apos;%1&apos; exist, but is not a file</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; yolu mevcut, ancak bir dosya değil</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="145"/>
         <source>The path: &apos;%1&apos; exist, but is not a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; yolu mevcut, ancak bir dizin değil</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="150"/>
         <source>The directory: &apos;%1&apos; does not exist. Should it be created?</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; dizini mevcut değil. Oluşturulsun mu?</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="152"/>
         <source>Create</source>
-        <translation type="unfinished">Oluştur</translation>
+        <translation>Oluştur</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="158"/>
         <source>Failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; dizini oluşturulamadı</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="206"/>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Dizin</translation>
     </message>
 </context>
 <context>
@@ -1554,12 +1554,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/TimeInput.ui" line="32"/>
         <source>last update</source>
-        <translation type="unfinished"></translation>
+        <translation>son güncelleme</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="46"/>
         <source>next update</source>
-        <translation type="unfinished"></translation>
+        <translation>gelecek güncelleme</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="70"/>
@@ -1589,7 +1589,7 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/TimeInput.ui" line="102"/>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel saat</translation>
     </message>
     <message>
         <location filename="../ui/TimeInput.ui" line="109"/>
@@ -1620,12 +1620,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/ImportMulti.ui" line="36"/>
         <source>Import PKI Items</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI Öğelerini İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="94"/>
         <source>Import &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Hepsini &amp;İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="101"/>
@@ -1650,12 +1650,12 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location filename="../ui/ImportMulti.ui" line="129"/>
         <source>Delete from token</source>
-        <translation type="unfinished"></translation>
+        <translation>Belirteçten sil</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="136"/>
         <source>Rename on token</source>
-        <translation type="unfinished"></translation>
+        <translation>Belirteçte ad değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="66"/>
@@ -1663,33 +1663,36 @@ PEM base64 kodlanmış DER dosyası
 Name: %1
 Model: %2
 Serial: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Ad: %1
+Model: %2
+Seri No: %3</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="71"/>
         <source>Manage security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirtecini yönet</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="106"/>
         <location filename="../widgets/ImportMulti.cpp" line="300"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; öğesinin türü tanınmıyor</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="252"/>
         <source>Could not open the default database</source>
-        <translation type="unfinished"></translation>
+        <translation>Varsayılan veritabanı açılamadı</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="328"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; dosyası PKI verisi içermiyor</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="331"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyaları: &apos;%2&apos; PKI verisi içermiyor</translation>
     </message>
 </context>
 <context>
@@ -1707,12 +1710,12 @@ Serial: %3</source>
     <message>
         <location filename="../ui/ItemProperties.ui" line="42"/>
         <source>Insertion date</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenme tarihi</translation>
     </message>
     <message>
         <location filename="../ui/ItemProperties.ui" line="54"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Açıklama</translation>
     </message>
 </context>
 <context>
@@ -1725,7 +1728,7 @@ Serial: %3</source>
     <message>
         <location filename="../ui/KeyDetail.ui" line="89"/>
         <source>The internal name of the key used by xca</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA tarafından kullanılan anahtarın dahili adı</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="102"/>
@@ -1736,68 +1739,68 @@ Serial: %3</source>
     <message>
         <location filename="../ui/KeyDetail.ui" line="110"/>
         <source>Public Exponent</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık Üs</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="136"/>
         <source>Keysize</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtar boyutu</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="163"/>
         <source>Private Exponent</source>
-        <translation type="unfinished"></translation>
+        <translation>Özel Üs</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="214"/>
         <source>Security Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirteci</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="235"/>
         <location filename="../ui/KeyDetail.ui" line="306"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiket</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="245"/>
         <source>PKCS#11 ID</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#11 ID</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="270"/>
         <source>Token information</source>
-        <translation type="unfinished"></translation>
+        <translation>Belirteç bilgisi</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="276"/>
         <source>Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="286"/>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Üretici</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="296"/>
         <source>Serial</source>
-        <translation>Seri</translation>
+        <translation>Seri Numarası</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="324"/>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Parmak izi</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="329"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Açıklama</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="84"/>
         <source>Details of the %1 key</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 anahtarının detayları</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="90"/>
@@ -1807,42 +1810,42 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="101"/>
         <source>Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirteci</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="103"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Mevcut</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="112"/>
         <source>Sub prime</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt asal sayı</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="113"/>
         <location filename="../widgets/KeyDetail.cpp" line="122"/>
         <location filename="../widgets/KeyDetail.cpp" line="134"/>
         <source>Public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık anahtar</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="114"/>
         <location filename="../widgets/KeyDetail.cpp" line="123"/>
         <location filename="../widgets/KeyDetail.cpp" line="135"/>
         <source>Private key</source>
-        <translation type="unfinished"></translation>
+        <translation>ÖZel anahtar</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="124"/>
         <location filename="../widgets/KeyDetail.cpp" line="136"/>
         <source>Curve name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eğri adı</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="143"/>
         <source>Unknown key</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmeyen anahtar</translation>
     </message>
 </context>
 <context>
@@ -1850,65 +1853,66 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="31"/>
         <source>Change password</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolayı değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="35"/>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolayı sıfırla</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="47"/>
         <source>Change PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN’i değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="49"/>
         <source>Init PIN with SO PIN (PUK)</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN’i SO PIN (PUK) ile başlat</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="51"/>
         <source>Change SO PIN (PUK)</source>
-        <translation type="unfinished"></translation>
+        <translation>SO PIN’i (PUK) değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="54"/>
         <source>Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirteci</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="91"/>
         <location filename="../widgets/KeyTreeView.cpp" line="109"/>
         <location filename="../widgets/KeyTreeView.cpp" line="127"/>
         <source>This is not a token</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu bir belirteç değil</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="156"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation type="unfinished"></translation>
+        <translation>Orijinal anahtar &apos;%1&apos;, belirteç üzerindeki anahtarla değiştirilsin mi?
+Bu işlem, &apos;%1&apos; anahtarını silecek ve dışa aktarılamaz hale getirecek</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="203"/>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtar dışa aktarımı</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="204"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished"></translation>
+        <translation>Özel Anahtarlar ( *.pem *.der *.pk8 );;SSH Açık Anahtarlar ( *.pub )</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="206"/>
         <source>SSH Private Keys ( *.priv )</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH Özel Anahtarlar ( *.priv )</translation>
     </message>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="207"/>
         <source>Microsoft PVK Keys ( *.pvk )</source>
-        <translation type="unfinished"></translation>
+        <translation>Microsoft PVK Anahtarları ( *.pvk )</translation>
     </message>
 </context>
 <context>
@@ -1916,12 +1920,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../ui/MainWindow.ui" line="25"/>
         <source>Private Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Özel Anahtarlar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="49"/>
         <source>&amp;New Key</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni Anahtar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="56"/>
@@ -1930,7 +1934,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location filename="../ui/MainWindow.ui" line="369"/>
         <location filename="../ui/MainWindow.ui" line="434"/>
         <source>&amp;Export</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dışa Aktar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="63"/>
@@ -1944,7 +1948,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../ui/MainWindow.ui" line="70"/>
         <source>Import PFX (PKCS#12)</source>
-        <translation type="unfinished"></translation>
+        <translation>PFX (PKCS#12) İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="77"/>
@@ -1952,7 +1956,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location filename="../ui/MainWindow.ui" line="255"/>
         <location filename="../ui/MainWindow.ui" line="448"/>
         <source>&amp;Show Details</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Detayları Göster</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="84"/>
@@ -1966,119 +1970,119 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../ui/MainWindow.ui" line="124"/>
         <source>Certificate signing requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika İmzalama İstekleri</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="148"/>
         <source>&amp;New Request</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni İstekler</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="146"/>
         <location filename="../ui/MainWindow.ui" line="216"/>
+        <location filename="../widgets/MW_menu.cpp" line="146"/>
         <source>Certificates</source>
         <translation>Sertifikalar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="234"/>
         <source>&amp;New Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni Sertifika</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="269"/>
         <source>Import &amp;PKCS#12</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;PKCS#12 İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="276"/>
         <source>Import P&amp;KCS#7</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;PKCS#7 İçe Aktar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="283"/>
         <source>Plain View</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık Metin Görünümü</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="323"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Şablonlar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="341"/>
         <source>&amp;New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni Şablon</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="348"/>
         <source>Ch&amp;ange Template</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Şablonu Değiştir</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="409"/>
         <source>Revocation lists</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal listeleri</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="427"/>
         <source>&amp;New CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni CRL</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="117"/>
         <location filename="../widgets/MainWindow.cpp" line="792"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="257"/>
         <source>Import PEM data</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM verisini içe aktar</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="286"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Lütfen &apos;%1&apos; belirtecinin orijinal SO PIN’ini (PUK) girin</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="292"/>
         <source>Please enter the new SO PIN (PUK) for the token &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Lütfen &apos;%1&apos; belirteci için yeni SO PIN’ini (PUK) girin</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="299"/>
         <source>The new label of the token &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; belirtecinin yeni etiketi</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="416"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; belirteci herhangi bir anahtar veya sertifika içermiyor</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="420"/>
         <source>Retry with PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN ile yeniden dene</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="421"/>
         <source>Retry with SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>SO PIN ile yeniden dene</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="484"/>
         <source>Current Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mevcut Parola</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="485"/>
         <source>Please enter the current database password</source>
-        <translation type="unfinished"></translation>
+        <translation>Lütfen mevcut veritabanı parolasını giriniz</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="495"/>
         <source>The entered password is wrong</source>
-        <translation type="unfinished"></translation>
+        <translation>Girdiğiniz parola hatalı</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="500"/>
@@ -2088,42 +2092,42 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="500"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
-        <translation type="unfinished"></translation>
+        <translation>Lütfen veritabanı dosyasındaki özel anahtarlarınızı şifrelemek için yeni parolayı giriniz</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="524"/>
         <source>Transaction start failed</source>
-        <translation type="unfinished"></translation>
+        <translation>İşlem başlatılamadı</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="611"/>
         <source>Database: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Veritabanı: %1</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="628"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
-        <translation type="unfinished"></translation>
+        <translation>Doğru parola girilmeden özel anahtarların kullanılması veya dışa aktarılması mümkün değildir</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="634"/>
         <source>The currently used default hash &apos;%1&apos; is insecure. Please select at least &apos;SHA 224&apos; for security reasons.</source>
-        <translation type="unfinished"></translation>
+        <translation>Şu anda kullanılan varsayılan özetleme algoritması &apos;%1&apos; güvenli değildir. Güvenlik nedeniyle lütfen en az &apos;SHA 224&apos; seçin.</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="639"/>
         <source>The currently used PFX / PKCS#12 algorithm &apos;%1&apos; is insecure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Şu anda kullanılan PFX / PKCS#12 algoritması &apos;%1&apos; güvenli değildir.</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="644"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="711"/>
         <source>Certificate Index ( index.txt )</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika Dizini (index.txt)</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="712"/>
@@ -2134,119 +2138,120 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="735"/>
         <source>Diffie-Hellman parameters saved as: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Diffie-Hellman parametreleri kaydedildi: %1</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="753"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
-        <translation type="unfinished"></translation>
+        <translation>Diffie-Hellman parametreleri çeşitli uygulamalar için gereklidir, ancak XCA tarafından işlenmez.
+Lütfen DH parametrelerinin bit uzunluğunu giriniz</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="25"/>
         <location filename="../widgets/MW_menu.cpp" line="40"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="27"/>
+        <source>Chinese</source>
+        <translation>Çince</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="28"/>
-        <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <source>Croatian</source>
+        <translation>Hırvatça</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="29"/>
+        <source>Dutch</source>
+        <translation>Flemenkçe</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="30"/>
-        <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <source>English</source>
+        <translation>İngilizce</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="31"/>
+        <source>French</source>
+        <translation>Fransızca</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="32"/>
-        <source>Dutch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="33"/>
-        <source>English</source>
-        <translation type="unfinished"></translation>
+        <source>German</source>
+        <translation>Almanca</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="34"/>
-        <source>French</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="36"/>
-        <source>German</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="40"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>İtalyanca</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="42"/>
+        <location filename="../widgets/MW_help.cpp" line="35"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japonca</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="46"/>
+        <location filename="../widgets/MW_help.cpp" line="37"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="48"/>
-        <source>Polish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="50"/>
-        <source>Portuguese in Brazil</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="52"/>
-        <source>Russian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="53"/>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/MW_help.cpp" line="55"/>
-        <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Korece</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="38"/>
+        <source>Polish</source>
+        <translation>Lehçe</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="39"/>
+        <source>Portuguese in Brazil</source>
+        <translation>Brezilya Portekizcesi</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="40"/>
+        <source>Russian</source>
+        <translation>Rusça</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="41"/>
+        <source>Slovak</source>
+        <translation>Slovakça</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="42"/>
+        <source>Spanish</source>
+        <translation>İspanyolca</translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_help.cpp" line="33"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Endonezce</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="57"/>
+        <location filename="../widgets/MW_help.cpp" line="43"/>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Türkçe</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_help.cpp" line="44"/>
+        <location filename="../widgets/MW_help.cpp" line="36"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Farsça</translation>
     </message>
     <message>
         <location filename="../widgets/MW_help.cpp" line="26"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulgarca</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="97"/>
         <source>Recent DataBases</source>
-        <translation type="unfinished"></translation>
+        <translation>Son Veritabanları</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="85"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Dil</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="103"/>
@@ -2256,32 +2261,32 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="105"/>
         <source>New DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni Veritabanı</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="109"/>
         <source>Open DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Veritabanını Aç</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="113"/>
         <source>Open Remote DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzak Veritabanını Aç</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="117"/>
         <source>Set as default DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Varsayılan Veritabanı Yap</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="119"/>
         <source>Close DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Veritabanını Kapat</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="124"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçenekler</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="132"/>
@@ -2291,117 +2296,117 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="143"/>
         <source>I&amp;mport</source>
-        <translation type="unfinished"></translation>
+        <translation>İç&amp;e Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="144"/>
         <source>Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtarlar</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="145"/>
         <source>Requests</source>
-        <translation type="unfinished"></translation>
+        <translation>İstekler</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="147"/>
         <source>PKCS#12</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="148"/>
         <source>PKCS#7</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="149"/>
         <source>Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Şablon</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="150"/>
         <source>Revocation list</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal Listesi</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="151"/>
         <source>PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM dosyası</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="152"/>
         <source>Paste PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM Dosyasını Yapıştır</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="156"/>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Belirteç</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="157"/>
         <source>&amp;Manage Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik Belirteci’ni &amp;Yönet</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="159"/>
         <source>&amp;Init Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirtecini &amp;Başlat</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="161"/>
         <source>&amp;Change PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN’i &amp;Değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="163"/>
         <source>Change &amp;SO PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;SO PIN’ini Değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="165"/>
         <source>Init PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>PIN’i Başlat</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="168"/>
         <source>Extra</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekstra</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="169"/>
         <source>&amp;Dump DataBase</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Veritabanını Dışa Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="171"/>
         <source>&amp;Export Certificate Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika İndeksini &amp;Dışa Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="173"/>
         <source>Export Certificate &amp;Index hierarchy</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika &amp;İndeks Hiyerarşisini Dışa Aktar</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="175"/>
         <source>C&amp;hange DataBase password</source>
-        <translation type="unfinished"></translation>
+        <translation>Veri&amp;tabanı parolasını değiştir</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="178"/>
         <source>&amp;Undelete items</source>
-        <translation type="unfinished"></translation>
+        <translation>Silinen Öğeleri &amp;Geri Getir</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="181"/>
         <source>Generate DH parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>DH Parametresi Oluştur</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="183"/>
         <source>OID Resolver</source>
-        <translation type="unfinished"></translation>
+        <translation>OID Çözücü</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="190"/>
@@ -2411,12 +2416,12 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="191"/>
         <source>Content</source>
-        <translation type="unfinished"></translation>
+        <translation>İçerik</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="193"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Hakkında</translation>
     </message>
 </context>
 <context>
@@ -2424,12 +2429,12 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewCrl.ui" line="32"/>
         <source>Last update</source>
-        <translation type="unfinished"></translation>
+        <translation>Son güncelleme</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="46"/>
         <source>Next update</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonraki güncelleme</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="70"/>
@@ -2449,12 +2454,12 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewCrl.ui" line="88"/>
         <source>Midnight</source>
-        <translation>Gece Yarısı</translation>
+        <translation>Gece yarısı</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="95"/>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel saat</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="102"/>
@@ -2464,37 +2469,37 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewCrl.ui" line="128"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçenekler</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="134"/>
         <source>Hash algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Özetleme algoritması</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="144"/>
         <source>Subject alternative name</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternatif konu adı</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="158"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Yetki anahtarı tanımlayıcısı</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="172"/>
         <source>CRL number</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL numarası</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="199"/>
         <source>Revocation reasons</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal nedenleri</translation>
     </message>
     <message>
         <location filename="../widgets/NewCrl.cpp" line="78"/>
         <source>Create CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL oluştur</translation>
     </message>
 </context>
 <context>
@@ -2503,17 +2508,17 @@ Please enter the DH parameter bits</source>
         <location filename="../ui/NewKey.ui" line="39"/>
         <location filename="../ui/NewKey.ui" line="124"/>
         <source>New Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni Anahtar</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="86"/>
         <source>Please give a name to the new key and select the desired keysize</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni anahtar için bir isim girin ve anahtar boyutunu seçin</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="96"/>
         <source>Key properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtar Özellikleri</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="102"/>
@@ -2523,32 +2528,32 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewKey.ui" line="121"/>
         <source>The internal name of the new key</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni anahtarın dahili adı</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="151"/>
         <source>Curve name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eğri adı</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="158"/>
         <source>Keysize</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtar boyutu</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="171"/>
         <source>Usually at least 2048 bit keys are recommended</source>
-        <translation type="unfinished"></translation>
+        <translation>Genellikle en az 2048 bit anahtarlar önerilir</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="178"/>
         <source>Keytype</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtar türü</translation>
     </message>
     <message>
         <location filename="../ui/NewKey.ui" line="188"/>
         <source>Remember as default</source>
-        <translation type="unfinished"></translation>
+        <translation>Varsayılan olarak hatırla</translation>
     </message>
     <message>
         <location filename="../widgets/NewKey.cpp" line="135"/>
@@ -2626,7 +2631,7 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="295"/>
         <source>Apply extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzantıları uygula</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="302"/>
@@ -2636,11 +2641,11 @@ Please enter the DH parameter bits</source>
     <message>
         <location filename="../ui/NewX509.ui" line="315"/>
         <source>Apply all</source>
-        <translation type="unfinished"></translation>
+        <translation>Hepsini uygula</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="611"/>
         <location filename="../ui/NewX509.ui" line="344"/>
+        <location filename="../widgets/NewX509.cpp" line="611"/>
         <source>Subject</source>
         <translation>Konu</translation>
     </message>
@@ -2818,12 +2823,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1029"/>
         <location filename="../ui/NewX509.ui" line="775"/>
         <location filename="../ui/NewX509.ui" line="801"/>
         <location filename="../ui/NewX509.ui" line="827"/>
         <location filename="../ui/NewX509.ui" line="870"/>
         <location filename="../ui/NewX509.ui" line="896"/>
+        <location filename="../widgets/NewX509.cpp" line="1029"/>
         <source>Edit</source>
         <translation>Düzenle</translation>
     </message>
@@ -2848,8 +2853,8 @@ Please enter the DH parameter bits</source>
         <translation>Gelişmiş</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1039"/>
         <location filename="../ui/NewX509.ui" line="1252"/>
+        <location filename="../widgets/NewX509.cpp" line="1039"/>
         <source>Validate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3198,22 +3203,22 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../ui/OpenDb.ui" line="36"/>
         <source>Open remote database</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzak veritabanını aç</translation>
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="98"/>
         <source>Database type</source>
-        <translation type="unfinished"></translation>
+        <translation>Veritabanı türü</translation>
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="108"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucu adı</translation>
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="118"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="128"/>
@@ -3221,20 +3226,20 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Parola</translation>
     </message>
     <message>
-        <location filename="../widgets/OpenDb.cpp" line="57"/>
         <location filename="../ui/OpenDb.ui" line="142"/>
+        <location filename="../widgets/OpenDb.cpp" line="57"/>
         <source>Database name</source>
-        <translation type="unfinished"></translation>
+        <translation>Veritabanı adı</translation>
     </message>
     <message>
         <location filename="../ui/OpenDb.ui" line="152"/>
         <source>Table prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Tablo ön eki</translation>
     </message>
     <message>
         <location filename="../widgets/OpenDb.cpp" line="128"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>SqLite3 sürücüsü mevcut değil. Lütfen dağıtımınızın qt-sqlite paketini yükleyin</translation>
     </message>
 </context>
 <context>
@@ -3242,89 +3247,91 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../ui/Options.ui" line="28"/>
         <source>XCA Options</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Seçenekleri</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="42"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayarlar</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="50"/>
         <source>Default hash algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Varsayılan özet algoritması</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="64"/>
         <source>PKCS12 encryption algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 şifreleme algoritması</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="78"/>
         <source>String types</source>
-        <translation type="unfinished"></translation>
+        <translation>Karakter dizisi türleri</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="90"/>
         <source>Suppress success messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Başarı mesajlarını gösterme</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="97"/>
         <source>Disable legacy Netscape extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Eski Netscape uzantılarını devre dışı bırak</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="104"/>
         <source>Translate established x509 terms (%1 -&gt; %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerleşik X.509 terimlerini çevir (%1 → %2)</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="111"/>
         <source>The hashing functionality of the token is not used by XCA.
 It may however honor a restricted hash-set propagated by the token.
 Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</source>
-        <translation type="unfinished"></translation>
+        <translation>Token’ın özetleme işlevi XCA tarafından kullanılmaz.
+Ancak token tarafından aktarılan sınırlı bir özet algoritması kümesine uyulabilir.
+Özellikle EC ve DSA, PKCS#11 spesifikasyonunda yalnızca SHA1 ile tanımlanmıştır.</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="116"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
-        <translation type="unfinished"></translation>
+        <translation>Token anahtarıyla imzalama yaparken yalnızca token tarafından desteklenen hash’leri kullan</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="123"/>
         <source>Don&apos;t colorize expired certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Süresi dolmuş sertifikaları renklendirme</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="141"/>
         <source>Certificate expiry warning threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika süresi dolma uyarı eşiği</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="160"/>
         <source>Send vCalendar expiry reminder</source>
-        <translation type="unfinished"></translation>
+        <translation>vCalendar süresi dolma hatırlatıcısı gönder</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="171"/>
         <source>Serial number length</source>
-        <translation type="unfinished"></translation>
+        <translation>Seri numarası uzunluğu</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="178"/>
         <source> bit</source>
-        <translation type="unfinished"></translation>
+        <translation> bit</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="213"/>
         <source>Distinguished name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayırt edici ad</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="219"/>
         <source>Mandatory subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Zorunlu subject konu girdileri</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="237"/>
@@ -3342,57 +3349,57 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../ui/Options.ui" line="269"/>
         <source>Explicit subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Açıkça belirtilmiş konu girdileri</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="287"/>
         <source>Dynamically arrange explicit subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Konu alanlarını dinamik olarak düzenle</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="312"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Varsayılan</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="338"/>
         <source>PKCS#11 provider</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#11 sağlayıcısı</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="393"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaldır</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="400"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="36"/>
         <source>Printable string or UTF8 (default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Yazdırılabilir karakter dizisi veya UTF8 (varsayılan)</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="37"/>
         <source>PKIX recommendation in RFC2459</source>
-        <translation type="unfinished"></translation>
+        <translation>RFC2459 içindeki PKIX önerisi</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="38"/>
         <source>No BMP strings, only printable and T61</source>
-        <translation type="unfinished"></translation>
+        <translation>BMP dizeleri kullanma, yalnızca yazdırılabilir ve T61 karakterleri</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="39"/>
         <source>UTF8 strings only (RFC2459)</source>
-        <translation type="unfinished"></translation>
+        <translation>Yalnızca UTF8 karakter dizileri (RFC2459)</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="40"/>
         <source>All strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüm dizeler</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="62"/>
@@ -3402,7 +3409,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../widgets/Options.cpp" line="62"/>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>Haftalar</translation>
     </message>
 </context>
 <context>
@@ -3410,27 +3417,27 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../ui/PwDialog.ui" line="118"/>
         <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
-        <translation type="unfinished"></translation>
+        <translation>Parola, 2 basamaklı onaltılık kod olarak ayrıştırılır. 0-9 ve a-f karakterlerinden oluşmalı ve basamak sayısı çift olmalıdır</translation>
     </message>
     <message>
         <location filename="../ui/PwDialog.ui" line="121"/>
         <source>Take as HEX string</source>
-        <translation type="unfinished"></translation>
+        <translation>HEX dizesi olarak al</translation>
     </message>
     <message>
         <location filename="../widgets/PwDialog.cpp" line="72"/>
         <source>Repeat %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1’i tekrar girin</translation>
     </message>
     <message>
         <location filename="../widgets/PwDialog.cpp" line="85"/>
         <source>%1 mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 eşleşmiyor</translation>
     </message>
     <message>
         <location filename="../widgets/PwDialog.cpp" line="92"/>
         <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Hex parola yalnızca &apos;0&apos; - &apos;9&apos; ve &apos;a&apos; - &apos;f&apos; karakterlerini içermeli ve karakter sayısı çift olmalıdır</translation>
     </message>
     <message>
         <location filename="../widgets/PwDialog.cpp" line="121"/>
@@ -3533,7 +3540,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location filename="../lib/func_base.cpp" line="251"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Seri Numarası</translation>
     </message>
     <message>
         <location filename="../lib/func_base.cpp" line="252"/>
@@ -3969,7 +3976,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="217"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="228"/>
         <source>insecure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3979,7 +3986,7 @@ In library %3
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="27"/>
         <source>Sign</source>
-        <translation>İmzalayan:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="29"/>
@@ -4012,7 +4019,7 @@ In library %3
     <message>
         <location filename="../ui/RevocationList.ui" line="30"/>
         <source>Manage revocations</source>
-        <translation type="unfinished"></translation>
+        <translation>İptalleri Yönet</translation>
     </message>
     <message>
         <location filename="../ui/RevocationList.ui" line="96"/>
@@ -4032,12 +4039,12 @@ In library %3
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
         <source>No.</source>
-        <translation type="unfinished"></translation>
+        <translation>No.</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
         <source>Serial</source>
-        <translation>Seri</translation>
+        <translation>Seri Numarası</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="77"/>
@@ -4057,7 +4064,7 @@ In library %3
     <message>
         <location filename="../widgets/RevocationList.cpp" line="107"/>
         <source>Generate CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL Oluştur</translation>
     </message>
 </context>
 <context>
@@ -4065,32 +4072,32 @@ In library %3
     <message>
         <location filename="../ui/Revoke.ui" line="30"/>
         <source>Certificate revocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika İptali</translation>
     </message>
     <message>
         <location filename="../ui/Revoke.ui" line="87"/>
         <source>Revocation details</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal Detayları</translation>
     </message>
     <message>
         <location filename="../ui/Revoke.ui" line="96"/>
         <source>Revocation reason</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal nedeni</translation>
     </message>
     <message>
         <location filename="../ui/Revoke.ui" line="110"/>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel saat</translation>
     </message>
     <message>
         <location filename="../ui/Revoke.ui" line="117"/>
         <source>Invalid since</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçersizlik başlangıcı</translation>
     </message>
     <message>
         <location filename="../ui/Revoke.ui" line="124"/>
         <source>Serial</source>
-        <translation>Seri</translation>
+        <translation>Seri Numarası</translation>
     </message>
 </context>
 <context>
@@ -4098,7 +4105,7 @@ In library %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="41"/>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Dizin</translation>
     </message>
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="57"/>
@@ -4108,17 +4115,17 @@ In library %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="64"/>
         <source>Include subdirectories</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt dizinleri dahil et</translation>
     </message>
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="71"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <location filename="../widgets/SearchPkcs11.cpp" line="76"/>
         <source>The following files are possible PKCS#11 libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Aşağıdaki dosyalar olası PKCS#11 kütüphaneleridir</translation>
     </message>
 </context>
 <context>
@@ -4126,12 +4133,12 @@ In library %3
     <message>
         <location filename="../ui/SelectToken.ui" line="39"/>
         <source>Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Güvenlik belirteci</translation>
     </message>
     <message>
         <location filename="../ui/SelectToken.ui" line="86"/>
         <source>Please select the security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Lütfen güvenlik belirtecini seçin</translation>
     </message>
 </context>
 <context>
@@ -4224,7 +4231,7 @@ In library %3
     <message>
         <location filename="../widgets/XcaDetail.cpp" line="47"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation>İçe Aktar</translation>
     </message>
 </context>
 <context>
@@ -4352,33 +4359,33 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="449"/>
+        <location filename="../lib/database_model.cpp" line="465"/>
         <source>The file &apos;%1&apos; is not an XCA database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="476"/>
+        <location filename="../lib/database_model.cpp" line="492"/>
         <source>No SqLite3 driver available. Please install the qt-sqlite package of your distribution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="517"/>
+        <location filename="../lib/database_model.cpp" line="533"/>
         <source>New Password</source>
         <translation>Yeni Parola</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="517"/>
+        <location filename="../lib/database_model.cpp" line="533"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="537"/>
+        <location filename="../lib/database_model.cpp" line="553"/>
         <source>Password</source>
         <translation>Parola</translation>
     </message>
     <message>
-        <location filename="../lib/database_model.cpp" line="538"/>
+        <location filename="../lib/database_model.cpp" line="554"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
         <translation type="unfinished"></translation>
@@ -4394,7 +4401,7 @@ In library %3
     <message>
         <location filename="../lib/db_base.cpp" line="161"/>
         <source>No.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/db_base.cpp" line="162"/>
@@ -4514,7 +4521,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_key.cpp" line="54"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Boyut</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="56"/>
@@ -4524,7 +4531,7 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_key.cpp" line="58"/>
         <source>Use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kullanım</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="59"/>
@@ -4579,7 +4586,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="59"/>
+        <location filename="../lib/db_temp.cpp" line="64"/>
         <source>Bad template: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4599,27 +4606,27 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="79"/>
         <source>Serial</source>
-        <translation>Seri</translation>
+        <translation>Seri Numarası</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="80"/>
         <source>MD5 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>MD5 parmak izi</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="81"/>
         <source>SHA1 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA1 parmak izi</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="82"/>
         <source>SHA256 fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA256 parmak izi</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="83"/>
         <source>Start date</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlangıç tarihi</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="84"/>
@@ -4629,7 +4636,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="85"/>
         <source>Expiry date</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanım süresi bitimi</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="86"/>
@@ -4644,7 +4651,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="88"/>
         <source>CRL Expiration</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL Miadı</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="266"/>
@@ -4671,12 +4678,12 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="364"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmeyen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="454"/>
         <source>Invalid public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçersiz açık anahtar</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="480"/>
@@ -4838,7 +4845,7 @@ and thus was not stored</source>
     <message>
         <location filename="../widgets/kvView.cpp" line="164"/>
         <source>Content</source>
-        <translation type="unfinished"></translation>
+        <translation>İçerik</translation>
     </message>
 </context>
 <context>
@@ -4859,12 +4866,12 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="36"/>
         <source>Failed to open PKCS11 library: %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#11 kütüphanesi açılamadı: %1: %2</translation>
     </message>
     <message>
         <location filename="../lib/pkcs11_lib.cpp" line="42"/>
         <source>This does not look like a PKCS#11 library. Symbol &apos;C_GetFunctionList&apos; not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu bir PKCS#11 kütüphanesi gibi görünmüyor. &apos;C_GetFunctionList&apos; sembolü bulunamadı.</translation>
     </message>
 </context>
 <context>
@@ -4877,27 +4884,27 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pki_base.cpp" line="282"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmeyen</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="283"/>
         <source>Imported</source>
-        <translation type="unfinished"></translation>
+        <translation>İçe Aktarıldı</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="284"/>
         <source>Generated</source>
-        <translation type="unfinished"></translation>
+        <translation>Oluşturuldu</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="285"/>
         <source>Transformed</source>
-        <translation type="unfinished"></translation>
+        <translation>Dönüştürüldü</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="286"/>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Belirteç</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="287"/>
@@ -4907,7 +4914,7 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pki_base.cpp" line="288"/>
         <source>Renewed</source>
-        <translation type="unfinished"></translation>
+        <translation>Yenilendi</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="433"/>
@@ -4970,65 +4977,80 @@ It is stored in the XCA database &apos;%5&apos;</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="240"/>
+        <location filename="../lib/pki_evp.cpp" line="242"/>
         <source>Please enter the password to decrypt the private key %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="308"/>
+        <location filename="../lib/pki_evp.cpp" line="310"/>
         <source>The key from file &apos;%1&apos; is incomplete or inconsistent.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="397"/>
+        <location filename="../lib/pki_evp.cpp" line="354"/>
+        <source>Encrypted SSH ED25519 keys not supported, yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="398"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="464"/>
+        <location filename="../lib/pki_evp.cpp" line="465"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="487"/>
+        <location filename="../lib/pki_evp.cpp" line="488"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="490"/>
-        <location filename="../lib/pki_evp.cpp" line="501"/>
+        <location filename="../lib/pki_evp.cpp" line="491"/>
+        <location filename="../lib/pki_evp.cpp" line="502"/>
         <source>Password input aborted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="497"/>
+        <location filename="../lib/pki_evp.cpp" line="498"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="521"/>
+        <location filename="../lib/pki_evp.cpp" line="509"/>
+        <source>Private key has 0 size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="523"/>
         <source>Decryption of private key &apos;%1&apos; failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="649"/>
+        <location filename="../lib/pki_evp.cpp" line="622"/>
+        <source>Internal error decrypting the private key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="655"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="667"/>
+        <location filename="../lib/pki_evp.cpp" line="673"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="849"/>
+        <location filename="../lib/pki_evp.cpp" line="855"/>
         <source>Please enter the password to protect the PKCS#8 key &apos;%1&apos; in file:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="906"/>
+        <location filename="../lib/pki_evp.cpp" line="912"/>
         <source>Please enter the password to protect the private key &apos;%1&apos; in file:
 %2</source>
         <translation type="unfinished"></translation>
@@ -5368,7 +5390,7 @@ It is stored in the XCA database &apos;%5&apos;</source>
     <message>
         <location filename="../lib/pki_key.cpp" line="59"/>
         <location filename="../lib/pki_key.cpp" line="236"/>
-        <location filename="../lib/pki_key.cpp" line="856"/>
+        <location filename="../lib/pki_key.cpp" line="862"/>
         <source>Public key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5407,44 +5429,44 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="454"/>
+        <location filename="../lib/pki_key.cpp" line="460"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="454"/>
+        <location filename="../lib/pki_key.cpp" line="460"/>
         <source>Private</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="454"/>
+        <location filename="../lib/pki_key.cpp" line="460"/>
         <source>Bogus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="454"/>
+        <location filename="../lib/pki_key.cpp" line="460"/>
         <source>PIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="464"/>
+        <location filename="../lib/pki_key.cpp" line="470"/>
         <source>No password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="561"/>
-        <location filename="../lib/pki_key.cpp" line="666"/>
+        <location filename="../lib/pki_key.cpp" line="567"/>
+        <location filename="../lib/pki_key.cpp" line="672"/>
         <source>Unexpected SSH2 content: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="581"/>
         <location filename="../lib/pki_key.cpp" line="587"/>
+        <location filename="../lib/pki_key.cpp" line="593"/>
         <source>Invalid SSH2 public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="778"/>
+        <location filename="../lib/pki_key.cpp" line="784"/>
         <source>Failed writing to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5476,13 +5498,13 @@ It is stored in the XCA database &apos;%5&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="141"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="140"/>
         <source>Please enter the password to encrypt the key of certificate &apos;%1&apos; in the PKCS#12 file:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="138"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="137"/>
         <source>No key or no Cert and no pkcs12</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5742,7 +5764,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../ui/v3ext.ui" line="26"/>
         <source>Copy Common Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ortak Adı Kopyala</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="56"/>
@@ -5762,7 +5784,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../ui/v3ext.ui" line="96"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation>Doğrula</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="125"/>
@@ -5777,17 +5799,17 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/v3ext.cpp" line="77"/>
         <source>An email address</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir e-posta adresi</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="79"/>
         <source>A registered ID: OBJECT IDENTIFIER</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kayıtlı bir kimlik: NESNE TANIMLAYICI (OID)</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="83"/>
         <source>A uniform resource indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir standart kaynak tanımlayıcısı</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="88"/>
@@ -5797,12 +5819,12 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/v3ext.cpp" line="90"/>
         <source>A DNS domain name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir DNS alan adı</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="92"/>
         <source>An IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir IP adresi</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="95"/>
@@ -5812,20 +5834,23 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/v3ext.cpp" line="99"/>
         <source>No editing. Only &apos;copy&apos; allowed here</source>
-        <translation type="unfinished"></translation>
+        <translation>Düzenleme yapılamaz. Burada yalnızca &apos;kopyalama&apos; mümkündür</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="168"/>
         <source>Validation failed:
 &apos;%1&apos;
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Doğrulama başarısız:
+‘%1’
+%2</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="173"/>
         <source>Validation successful:
 &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Doğrulama başarılı:
+&apos;%1&apos;</translation>
     </message>
 </context>
 <context>
@@ -5833,7 +5858,7 @@ It is stored in the XCA database &apos;%4&apos;</source>
     <message>
         <location filename="../widgets/XcaWarning.cpp" line="71"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Panoya Kopyala</translation>
     </message>
 </context>
 </TS>
