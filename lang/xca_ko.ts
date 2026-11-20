@@ -16,7 +16,7 @@
     <message>
         <location line="+10"/>
         <source>Default template</source>
-        <translation>기본값</translation>
+        <translation>기본 템플릿</translation>
     </message>
 </context>
 <context>
@@ -50,7 +50,7 @@
     <message>
         <location line="+28"/>
         <source>Internal name</source>
-        <translation>내부이름</translation>
+        <translation>내부 이름</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -65,7 +65,7 @@
     <message>
         <location line="+46"/>
         <source>Fingerprints</source>
-        <translation>지문 값들</translation>
+        <translation>지문 값</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -75,7 +75,7 @@
     <message>
         <location line="+13"/>
         <source>An md5 hashsum of the certificate</source>
-        <translation>인증서의 md5 해시</translation>
+        <translation>인증서의 MD5 해시값</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -85,7 +85,7 @@
     <message>
         <location line="+13"/>
         <source>A SHA-1 hashsum of the certificate</source>
-        <translation>인증서의 SHA-1 해시</translation>
+        <translation>인증서의 SHA-1 해시값</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -95,7 +95,7 @@
     <message>
         <location line="+13"/>
         <source>A SHA-256 hashsum of the certificate</source>
-        <translation>인증서의 SHA-256 해시</translation>
+        <translation>인증서의 SHA-256 해시값</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -115,7 +115,7 @@
     <message>
         <location line="+34"/>
         <source>Subject</source>
-        <translation>주제</translation>
+        <translation>주체</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -125,7 +125,7 @@
     <message>
         <location line="+32"/>
         <source>Extensions</source>
-        <translation>확장 키</translation>
+        <translation>확장 필드</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -145,7 +145,7 @@
     <message>
         <location line="+13"/>
         <source>Comment</source>
-        <translation>코멘트</translation>
+        <translation>비고</translation>
     </message>
     <message>
         <location line="-62"/>
@@ -161,12 +161,12 @@
     <message>
         <location line="+4"/>
         <source>Show extensions</source>
-        <translation>확장 키 표시</translation>
+        <translation>확장 필드 표시</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Show public key</source>
-        <translation>공개키 표시</translation>
+        <translation>공개 키 표시</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -196,7 +196,7 @@
     <message>
         <location line="+30"/>
         <source>Revoked at %1</source>
-        <translation>%1 에서 폐기됨</translation>
+        <translation>%1에 폐기됨</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -224,7 +224,7 @@
     <message>
         <location line="+44"/>
         <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
-        <translation>새로운 일련 번호와 조정된 유효 값이 포함된 기존 인증서의 사본으로 새 인증서를 생성합니다.</translation>
+        <translation>새로운 일련 번호와 조정된 유효 기간이 포함된 기존 인증서의 사본으로 새 인증서를 생성합니다.</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -317,7 +317,7 @@
         <location line="-21"/>
         <location line="+22"/>
         <source>Continue rollout</source>
-        <translation>배포 계속</translation>
+        <translation>계속 배포</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -366,7 +366,7 @@
     <message>
         <location line="+4"/>
         <source>Similar Certificate</source>
-        <translation>유사증명서</translation>
+        <translation>유사한 증명서</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -396,7 +396,7 @@
     <message>
         <location line="+4"/>
         <source>Import OpenVPN tls-auth key</source>
-        <translation>OpenVPN TLS-인증키 가져오기</translation>
+        <translation>OpenVPN TLS 인증 키 가져오기</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -417,7 +417,7 @@
     <message>
         <location line="+80"/>
         <source>Plain View</source>
-        <translation>일반 보기</translation>
+        <translation>기본 보기</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -462,7 +462,7 @@
     <message>
         <location line="+1"/>
         <source>OpenVPN tls-auth key ( *.key )</source>
-        <translation>OpenVPN TLS 인증키 ( *.key )</translation>
+        <translation>OpenVPN TLS 인증 키 ( *.key )</translation>
     </message>
 </context>
 <context>
@@ -470,7 +470,7 @@
     <message>
         <location filename="../widgets/clicklabel.cpp" line="+37"/>
         <source>Double click for details</source>
-        <translation>자세한 내용은 더블클릭하세요</translation>
+        <translation>자세한 내용은 더블 클릭하세요</translation>
     </message>
 </context>
 <context>
@@ -508,17 +508,17 @@
     <message>
         <location line="+7"/>
         <source>The internal name of the CRL in the database</source>
-        <translation>데이터베이스의 CRL 내부 이름</translation>
+        <translation>CRL의 데이터베이스 내부 이름</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>issuing dates</source>
-        <translation>발행일</translation>
+        <translation>발급일</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Next update</source>
-        <translation>다음번 업데이트 일시</translation>
+        <translation>다음 업데이트 일시</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -533,7 +533,7 @@
     <message>
         <location line="+22"/>
         <source>&amp;Extensions</source>
-        <translation>확장 키(&amp;E)</translation>
+        <translation>확장 필드(&amp;E)</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -543,7 +543,7 @@
     <message>
         <location line="+34"/>
         <source>Comment</source>
-        <translation>코멘트</translation>
+        <translation>비고</translation>
     </message>
     <message>
         <location filename="../widgets/CrlDetail.cpp" line="+48"/>
@@ -599,7 +599,7 @@
     <message>
         <location line="+7"/>
         <source>The internal name of the CRL in the database</source>
-        <translation>데이터베이스의 CRL 내부 이름</translation>
+        <translation>CRL의 데이터베이스 내부 이름</translation>
     </message>
     <message>
         <location line="+29"/>
