@@ -51,13 +51,22 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 void v3ext::addItem(const QString &list)
 {
 	int i;
-	QStringList sl;
-	sl = list.split(',');
-	if (sl[0] == "critical") {
-		sl.takeFirst();
+
+	/* The "critical" flag arrives in two formats depending on origin:
+	 *   "critical,DNS:..."  -- tight comma, from x509v3ext::parse_critical()
+	 *   "critical, DNS:..." -- space after comma, from v3ext::toString()
+	 * Handle both by stripping the prefix before the generic entry split. */
+	QString text = list;
+	if (text.startsWith("critical,")) {
+		text = text.mid(9); /* remove "critical," */
 		critical->setChecked(true);
 	}
-	for (i=0; i< sl.count(); i++) {
+
+	/* splitSanEntries() splits on ", " (new canonical format) and also on
+	 * "," followed by a known SAN type keyword for backward compatibility.
+	 * Commas inside values (e.g. URI:tag:...,2022-09-14:sid:...) are preserved. */
+	QStringList sl = splitSanEntries(text);
+	for (i = 0; i < sl.count(); i++) {
 		if (sl[i] == "DNS:copycn" && nid == NID_subject_alt_name)
 			copy_cn->setChecked(true);
 		else
@@ -81,7 +90,7 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 		v = new QRegularExpressionValidator(rx, this);
 	} else if (s == "URI") {
 		tt = tr("A uniform resource indicator");
-		QRegularExpression rx("[a-z][a-z0-9\\.\\+\\-]*://.*");
+		QRegularExpression rx("[a-zA-Z][a-zA-Z0-9\\.\\+\\-]*:.*");
 		v = new QRegularExpressionValidator(rx, this);
 	} else if (s == "DNS") {
 		if (nid == NID_subject_alt_name)

@@ -74,4 +74,14 @@ if(BUILD_TESTING)
   Test(test_x509name x509name.cpp x509name.h func_base.h func_base.cpp
                                     BioByteArray.h BioByteArray.cpp )
   Test(test_digest digest.cpp digest.h func_base.cpp func_base.h)
+
+  add_executable(test_x509v3ext
+    ${PROJECT_SOURCE_DIR}/lib/test_x509v3ext.cpp
+    ${PROJECT_BINARY_DIR}/local.h
+  )
+  target_link_libraries(test_x509v3ext PRIVATE xcalib ${QT}::Test ${ASAN_LIB})
+  set_target_properties(test_x509v3ext PROPERTIES MACOSX_BUNDLE FALSE)
+  add_test(NAME test_x509v3ext COMMAND test_x509v3ext)
+  add_dependencies(tests test_x509v3ext)
+  set_tests_properties(test_x509v3ext PROPERTIES LABELS "console;lib")
 endif()

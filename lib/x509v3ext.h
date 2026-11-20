@@ -16,6 +16,20 @@
 
 class QString;
 
+/*
+ * Split a SAN/IAN/nameConstraints string into individual entries.
+ *
+ * The canonical separator is ", " (comma + space).  For backward
+ * compatibility the function also splits on a bare "," when the text
+ * that follows it begins with a recognised SAN type keyword
+ * (e.g. "DNS:", "IP:", "URI:", ...).  Commas that appear *inside* a
+ * value, such as in:
+ *   URI:tag:microsoft.com,2022-09-14:sid:<sid>
+ * are therefore preserved because the character after the comma is
+ * a digit, not whitespace or a known prefix.
+ */
+QStringList splitSanEntries(const QString &text);
+
 class x509v3ext
 {
    private:
