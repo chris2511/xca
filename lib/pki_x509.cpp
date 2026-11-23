@@ -668,7 +668,7 @@ void pki_x509::sign(pki_key *signkey, const digest &digest)
 	}
 	tkey = signkey->decryptKey();
 	pki_openssl_error();
-	X509_sign(cert, tkey, digest.MD());
+	X509_sign(cert, tkey, signkey->signingDigest(digest.MD()));
 	pki_openssl_error();
 	EVP_PKEY_free(tkey);
 	pki_openssl_error();

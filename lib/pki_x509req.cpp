@@ -128,7 +128,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn,
 	pki_openssl_error();
 
 	privkey = key->decryptKey();
-	X509_REQ_sign(request, privkey, digest.MD());
+	X509_REQ_sign(request, privkey, key->signingDigest(digest.MD()));
 	pki_openssl_error();
 	EVP_PKEY_free(privkey);
 }

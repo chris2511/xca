@@ -243,7 +243,7 @@ void pki_crl::sign(pki_key *key, const digest &digest)
 		return;
 	X509_CRL_sort(crl);
 	pkey = key->decryptKey();
-	X509_CRL_sign(crl, pkey, digest.MD());
+	X509_CRL_sign(crl, pkey, key->signingDigest(digest.MD()));
 	EVP_PKEY_free(pkey);
 	pki_openssl_error();
 }

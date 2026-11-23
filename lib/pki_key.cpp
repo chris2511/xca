@@ -186,12 +186,46 @@ QString pki_key::length() const
 	return QString("%1 bit").arg(EVP_PKEY_bits(key));
 }
 
+/* Provider based keys (ML-DSA, ML-KEM, SLH-DSA) carry their algorithm
+ * name, but no legacy EVP_PKEY_id */
+static QString pkey_type_name(const EVP_PKEY *key)
+{
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L && !defined(LIBRESSL_VERSION_NUMBER)
+	const char *alg = key ? EVP_PKEY_get0_type_name(key) : NULL;
+	return alg ? QString::fromLatin1(alg) : QString();
+#else
+	(void)key;
+	return QString();
+#endif
+}
+
 /* getKeyTypeString() returns RSA
  * getTypeString() returns RSA or "Token RSA" for tokens
  */
 QString pki_key::getKeyTypeString() const
 {
-	return keytype::byPKEY(key).name;
+	QString name = keytype::byPKEY(key).name;
+
+	if (name.isEmpty())
+		name = pkey_type_name(key);
+	return name;
+}
+
+bool pki_key::isPostQuantum() const
+{
+	return isPqcAlgName(pkey_type_name(key));
+}
+
+/* Post quantum signatures are "pure" signatures without a pre-hash.
+ * Passing a digest to X509_sign() fails with "invalid digest". */
+bool pki_key::requiresNullDigest() const
+{
+	return isPqcSignatureName(pkey_type_name(key));
+}
+
+const EVP_MD *pki_key::signingDigest(const EVP_MD *md) const
+{
+	return requiresNullDigest() ? NULL : md;
 }
 
 QString pki_key::getTypeString() const
@@ -386,6 +420,24 @@ QByteArray pki_key::ed25519PrivKey(const EVP_PKEY *) const
 #endif
 #endif
 
+QByteArray pki_key::rawPubKey() const
+{
+	size_t len = 0;
+
+	if (!key || EVP_PKEY_get_raw_public_key(key, NULL, &len) != 1 ||
+			len == 0 || len > 0x7fffffffUL) {
+		pki_ign_openssl_error();
+		return QByteArray();
+	}
+	QByteArray raw((int)len, '\0');
+	if (EVP_PKEY_get_raw_public_key(key,
+			(unsigned char *)raw.data(), &len) != 1) {
+		pki_ign_openssl_error();
+		return QByteArray();
+	}
+	return raw;
+}
+
 QList<int> pki_key::possibleHashNids()
 {
 	QList<int> nids;
@@ -410,10 +462,18 @@ QList<int> pki_key::possibleHashNids()
 			nids += allSha2 + allSha3;
 			break;
 #ifdef EVP_PKEY_ED25519
-		case EVP_PKEY_ED25519:
-			nids << NID_undef;
+			case EVP_PKEY_ED25519:
+				nids << NID_undef;
+				break;
 #endif
 #endif
+			default:
+			/* ML-DSA and SLH-DSA are signed without a digest.
+			 * The NID_undef entry is mandatory, because callers
+			 * (digest::adjust()) require a non-empty result. */
+			if (requiresNullDigest())
+				nids << NID_undef;
+			break;
 	}
 	return nids;
 };

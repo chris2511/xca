@@ -151,7 +151,7 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 {
 	pki_key *key = NULL;
 
-	if (!task.isEC() && !task.isED25519()) {
+	if (!task.isEC() && !task.isED25519() && !task.isPqc()) {
 		if (task.size < 32) {
 			XCA_WARN(tr("Key size too small !"));
 			return NULL;
