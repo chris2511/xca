@@ -151,8 +151,20 @@ void pki_evp::generate(const keyjob &task)
 		EVP_PKEY_CTX_free(pctx);
 		EVP_PKEY_free(key);
 		key = pkey;
+		break;
 	}
 #endif
+#endif
+#ifdef EVP_PKEY_ML_DSA_44
+	case EVP_PKEY_ML_DSA_44:
+	case EVP_PKEY_ML_DSA_65:
+	case EVP_PKEY_ML_DSA_87: {
+		EVP_PKEY *pkey = EVP_PKEY_Q_keygen(NULL, NULL,
+				task.ktype.name.toLatin1().constData());
+		EVP_PKEY_free(key);
+		key = pkey;
+		break;
+	}
 #endif
 	}
 	BN_GENCB_free(bar);
@@ -183,9 +195,9 @@ pki_evp::pki_evp(const QString &n, int type)
 static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 {
 	const BIGNUM *b;
-	int keytype = EVP_PKEY_id(key);
+	int keytype = ::keytype::pkeyId(key);
 
-	switch (EVP_PKEY_type(keytype)) {
+	switch (::keytype::pkeyType(keytype)) {
 		case EVP_PKEY_RSA:
 			RSA_get0_key(EVP_PKEY_get0_RSA(key), NULL, NULL, &b);
 			return b ? true: false;
@@ -205,6 +217,16 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 			return ret && len == ED25519_KEYLEN;
 		}
 #endif
+#endif
+#ifdef EVP_PKEY_ML_DSA_44
+	case EVP_PKEY_ML_DSA_44:
+	case EVP_PKEY_ML_DSA_65:
+	case EVP_PKEY_ML_DSA_87: {
+		size_t len = 0;
+		int ret = EVP_PKEY_get_raw_private_key(key, NULL, &len);
+		ign_openssl_error();
+		return ret && len > 0;
+	}
 #endif
 	}
 	return false;
@@ -792,6 +814,16 @@ bool pki_evp::pem(BioByteArray &b, const pki_export *xport)
 {
 	EVP_PKEY *pkey;
 
+#ifdef EVP_PKEY_ML_DSA_44
+	if (xport->match_all(F_MLDSA) && keytype::isMLDSA(getKeyType())) {
+		pkey = decryptKey();
+		PKCS8_PRIV_KEY_INFO *p8 = mldsaPKCS8(pkey,
+					xport->match_all(F_MLDSA_SEED));
+		PEM_write_bio_PKCS8_PRIV_KEY_INFO(b, p8);
+		PKCS8_PRIV_KEY_INFO_free(p8);
+		EVP_PKEY_free(pkey);
+	} else
+#endif
 	if (xport->match_all(F_PEM | F_PRIVATE)) {
 		pkey = decryptKey();
 		PEM_write_bio_PrivateKey_traditional(b, pkey, nullptr,
@@ -869,6 +901,80 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 	EVP_PKEY_free(pkey);
 	file.write(b);
 }
+
+#ifdef EVP_PKEY_ML_DSA_44
+void pki_evp::writeMLDSA(XFile &file, const EVP_CIPHER *enc,
+		pem_password_cb *cb, bool seed) const
+{
+	pass_info p(XCA_TITLE,
+		tr("Please enter the password to protect the PKCS#8 key '%1' in file:\n%2")
+			.arg(getIntName()).arg(nativeSeparator(file.fileName())));
+	EVP_PKEY *pkey = decryptKey();
+	if (!pkey) {
+		pki_openssl_error();
+		return;
+	}
+	PKCS8_PRIV_KEY_INFO *p8 = mldsaPKCS8(pkey, seed);
+
+	BioByteArray b;
+	b += PEM_comment();
+	if (enc) {
+		char pw[1024];
+		int pwlen = cb(pw, sizeof pw, 1, &p);
+		if (p.getResult() != pw_ok) {
+			PKCS8_PRIV_KEY_INFO_free(p8);
+			EVP_PKEY_free(pkey);
+			throw p.getResult();
+		}
+		X509_SIG *sig = PKCS8_encrypt(-1, enc, pw, pwlen, NULL, 0, 0,
+						p8);
+		OPENSSL_cleanse(pw, sizeof pw);
+		PEM_write_bio_PKCS8(b, sig);
+		X509_SIG_free(sig);
+	} else {
+		PEM_write_bio_PKCS8_PRIV_KEY_INFO(b, p8);
+	}
+	PKCS8_PRIV_KEY_INFO_free(p8);
+	EVP_PKEY_free(pkey);
+	pki_openssl_error();
+	file.write(b);
+}
+
+/* PKCS#8 with the seed or the expanded ML-DSA private key.
+ * pkey is freed on error */
+PKCS8_PRIV_KEY_INFO *pki_evp::mldsaPKCS8(EVP_PKEY *pkey, bool seed) const
+{
+	QByteArray priv;
+	size_t len = 0;
+	if (seed) {
+		unsigned char s[32];
+		if (!EVP_PKEY_get_octet_string_param(pkey, "seed", s, sizeof s,
+						     &len)) {
+			EVP_PKEY_free(pkey);
+			ign_openssl_error();
+			throw errorEx(tr("The key '%1' has no seed, only the expanded private key can be exported")
+					.arg(getIntName()));
+		}
+		priv = "\x80\x20" + QByteArray((char*)s, len);
+		OPENSSL_cleanse(s, sizeof s);
+	} else {
+		EVP_PKEY_get_raw_private_key(pkey, NULL, &len);
+		QByteArray raw(len, 0);
+		EVP_PKEY_get_raw_private_key(pkey,
+				(unsigned char*)raw.data(), &len);
+		Q_ASSERT(len > 255 && len < 65536); // 2 byte DER length below
+		priv = QByteArray("\x04\x82") + char(len >> 8) + char(len) + raw;
+		raw.fill(0);
+	}
+	PKCS8_PRIV_KEY_INFO *p8 = PKCS8_PRIV_KEY_INFO_new();
+	Q_CHECK_PTR(p8);
+	PKCS8_pkey_set0(p8, OBJ_nid2obj(getKeyType()), 0, V_ASN1_UNDEF, NULL,
+		(unsigned char*)OPENSSL_memdup(priv.constData(), priv.size()),
+		priv.size());
+	priv.fill(0);
+	return p8;
+}
+#endif
 
 void pki_evp::writePVKprivate(XFile &file) const
 {

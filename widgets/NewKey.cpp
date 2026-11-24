@@ -102,8 +102,17 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 	foreach (int size, sizeList)
 		keyLength->addItem(QString("%1 bit").arg(size));
 
-	foreach (const keytype t, keytype::types())
-		keytypes << keyListItem(t);
+	foreach (const keytype t, keytype::types()) {
+		keyListItem item(t);
+#ifdef EVP_PKEY_ML_DSA_44
+		/* The parameter set is selected in the curve box */
+		if (t.type == EVP_PKEY_ML_DSA_65 || t.type == EVP_PKEY_ML_DSA_87)
+			continue;
+		if (t.type == EVP_PKEY_ML_DSA_44)
+			item.printname = "ML-DSA";
+#endif
+		keytypes << item;
+	}
 
 	updateCurves();
 	keyLength->setEditText(QString("%1 bit").arg(keyjob::defaultjob.size));
@@ -185,6 +194,19 @@ void NewKey::on_keyType_currentIndexChanged(int idx)
 {
 	keyListItem ki = keyType->itemData(idx).value<keyListItem>();
 
+#ifdef EVP_PKEY_ML_DSA_44
+	if (ki.ktype.type == EVP_PKEY_ML_DSA_44) {
+		curveLabel->setText(tr("Parameter set"));
+		curveBox->clear();
+		for (int nid : { EVP_PKEY_ML_DSA_44, EVP_PKEY_ML_DSA_65,
+				 EVP_PKEY_ML_DSA_87 })
+			curveBox->addItem(OBJ_nid2sn(nid), nid);
+	} else if (ki.ktype.curve && !ki.card &&
+		   curveBox->findData(EVP_PKEY_ML_DSA_44) != -1) {
+		curveLabel->setText(tr("Curve name"));
+		updateCurves();
+	}
+#endif
 	curveBox->setVisible(ki.ktype.curve);
 	curveLabel->setVisible(ki.ktype.curve);
 	keySizeLabel->setVisible(ki.ktype.length);
@@ -202,6 +224,11 @@ keyjob NewKey::getKeyJob() const
 	keyListItem selected = keyType->itemData(keyType->currentIndex())
 						.value<keyListItem>();
 	job.ktype = selected.ktype;
+#ifdef EVP_PKEY_ML_DSA_44
+	if (job.ktype.type == EVP_PKEY_ML_DSA_44)
+		job.ktype = keytype::byType(curveBox->itemData(
+				curveBox->currentIndex()).toInt());
+#endif
 	if (job.isEC()) {
 		int idx = curveBox->currentIndex();
 		job.ec_nid = curveBox->itemData(idx).toInt();

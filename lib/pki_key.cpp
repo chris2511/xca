@@ -266,7 +266,7 @@ int pki_key::getUcount() const
 
 int pki_key::getKeyType() const
 {
-	return EVP_PKEY_id(key);
+	return keytype::pkeyId(key);
 }
 
 QString pki_key::modulus() const
@@ -396,7 +396,7 @@ QList<int> pki_key::possibleHashNids()
 	QList<int> allSha3;
 #endif
 
-	switch (EVP_PKEY_type(getKeyType())) {
+	switch (keytype::pkeyType(getKeyType())) {
 		case EVP_PKEY_RSA:
 			nids << NID_md5 << NID_ripemd160 << NID_sha1;
 			nids += allSha2 + allSha3;
@@ -413,6 +413,13 @@ QList<int> pki_key::possibleHashNids()
 		case EVP_PKEY_ED25519:
 			nids << NID_undef;
 #endif
+#endif
+#ifdef EVP_PKEY_ML_DSA_44
+	case EVP_PKEY_ML_DSA_44:
+	case EVP_PKEY_ML_DSA_65:
+	case EVP_PKEY_ML_DSA_87:
+		nids << NID_undef;
+		break;
 #endif
 	}
 	return nids;

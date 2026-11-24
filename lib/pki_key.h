@@ -44,6 +44,11 @@ class keytype
 			keytype(EVP_PKEY_ED25519, "ED25519", CKM_VENDOR_DEFINED, false, false),
 #endif
 #endif
+#ifdef EVP_PKEY_ML_DSA_44
+			keytype(EVP_PKEY_ML_DSA_44, "ML-DSA-44", 0, true, false),
+			keytype(EVP_PKEY_ML_DSA_65, "ML-DSA-65", 0, true, false),
+			keytype(EVP_PKEY_ML_DSA_87, "ML-DSA-87", 0, true, false),
+#endif
 		};
 	}
 	int type{};
@@ -61,6 +66,14 @@ class keytype
 	}
 	QString traditionalPemName() const
 	{
+#ifdef EVP_PKEY_ML_DSA_44
+		switch (type) {
+		case EVP_PKEY_ML_DSA_44:
+		case EVP_PKEY_ML_DSA_65:
+		case EVP_PKEY_ML_DSA_87:
+			return "PRIVATE KEY";
+		}
+#endif
 		return
 #ifdef EVP_PKEY_ED25519
 			type == EVP_PKEY_ED25519 ? QString("PRIVATE KEY") :
@@ -93,7 +106,39 @@ class keytype
 	}
 	static const keytype byPKEY(EVP_PKEY *pkey)
 	{
-		return byType(EVP_PKEY_type(EVP_PKEY_id(pkey)));
+		return byType(pkeyType(pkeyId(pkey)));
+	}
+	static int pkeyType(int id)
+	{
+		return isMLDSA(id) ? id : EVP_PKEY_type(id);
+	}
+	/* ML-DSA keys exist only in the provider and have no legacy id */
+	static int pkeyId(const EVP_PKEY *pkey)
+	{
+		int id = EVP_PKEY_id(pkey);
+#ifdef EVP_PKEY_ML_DSA_44
+		if (id <= 0) {
+			if (EVP_PKEY_is_a(pkey, "ML-DSA-44"))
+				return EVP_PKEY_ML_DSA_44;
+			if (EVP_PKEY_is_a(pkey, "ML-DSA-65"))
+				return EVP_PKEY_ML_DSA_65;
+			if (EVP_PKEY_is_a(pkey, "ML-DSA-87"))
+				return EVP_PKEY_ML_DSA_87;
+		}
+#endif
+		return id;
+	}
+	static bool isMLDSA(int id)
+	{
+#ifdef EVP_PKEY_ML_DSA_44
+		switch (id) {
+		case EVP_PKEY_ML_DSA_44:
+		case EVP_PKEY_ML_DSA_65:
+		case EVP_PKEY_ML_DSA_87:
+			return true;
+		}
+#endif
+		return false;
 	}
 };
 
@@ -123,14 +168,14 @@ class keyjob
 		ec_nid = NID_undef;
 		if (isEC())
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
-		else if (!isED25519())
+		else if (ktype.length)
 			size = sl[1].toInt();
 		slot = slotid();
 		ign_openssl_error();
 	}
 	QString toString()
 	{
-		if (isED25519())
+		if (!ktype.length && !isEC())
 			return ktype.name;
 		return QString("%1:%2").arg(ktype.name) .arg(isEC() ?
 					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
@@ -156,7 +201,7 @@ class keyjob
 	{
 		if (!ktype.isValid())
 			return false;
-		if (isED25519())
+		if (!ktype.length && !isEC())
 			return true;
 		if (isEC() && builtinCurves.containNid(ec_nid))
 			return true;

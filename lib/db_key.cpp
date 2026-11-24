@@ -151,7 +151,7 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 {
 	pki_key *key = NULL;
 
-	if (!task.isEC() && !task.isED25519()) {
+	if (task.ktype.length) {
 		if (task.size < 32) {
 			XCA_WARN(tr("Key size too small !"));
 			return NULL;
@@ -199,6 +199,10 @@ int db_key::exportFlags(const QModelIndex &index) const
 	if (keytype == EVP_PKEY_ED25519)
 		disable_flags |= F_TRADITION;
 #endif
+	if (::keytype::isMLDSA(keytype))
+		disable_flags |= F_TRADITION;
+	else
+		disable_flags |= F_MLDSA;
 	if (!key->SSH2_compatible())
 		disable_flags |= F_SSH2;
 
@@ -224,6 +228,12 @@ void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
 		pwCallback = PwDialogCore::pwCallback;
 	}
 
+#ifdef EVP_PKEY_ML_DSA_44
+	if (privkey && xport->match_all(F_MLDSA))
+		privkey->writeMLDSA(file, algo, pwCallback,
+				xport->match_all(F_MLDSA_SEED));
+	else
+#endif
 	if (privkey && xport->match_all(F_DER | F_PRIVATE))
 		privkey->writeKey(file, NULL, NULL, false);
 	else if (privkey && xport->match_all(F_PEM | F_PRIVATE))

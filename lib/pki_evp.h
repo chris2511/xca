@@ -71,6 +71,9 @@ class pki_evp: public pki_key
 				pem_password_cb *cb, bool pem) const;
 		void writePKCS8(XFile &file, const EVP_CIPHER *enc,
 				pem_password_cb *cb, bool pem) const;
+		void writeMLDSA(XFile &file, const EVP_CIPHER *enc,
+				pem_password_cb *cb, bool seed) const;
+		PKCS8_PRIV_KEY_INFO *mldsaPKCS8(EVP_PKEY *pkey, bool seed) const;
 		void writePVKprivate(XFile &file) const;
 		void writeSSH2private(XFile &file) const;
 		void write_SSH2_ed25519_private(BIO *b, const EVP_PKEY *pkey) const;
