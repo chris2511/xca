@@ -93,6 +93,10 @@ new pki_export(25, asym_key, "der", tr("DER private"),   F_DER | F_PRIVATE | F_S
 new pki_export(26, asym_key, "pvk", tr("PVK private"),   F_PVK | F_PRIVATE | F_SINGLE,                   tr("Private key in Microsoft PVK format not encrypted")),
 new pki_export(28, asym_key, "pk8", tr("PKCS #8 encrypted"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_USUAL | F_SINGLE, tr("Encrypted private key in PKCS#8 text format")),
 new pki_export(29, asym_key, "pk8", tr("PKCS #8"),       F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_SINGLE,   tr("Unencrypted private key in PKCS#8 text format")),
+new pki_export(52, asym_key, "pk8", tr("PKCS #8 seed"), F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_MLDSA | F_MLDSA_SEED | F_SINGLE, tr("Unencrypted ML-DSA private key as seed only in PKCS#8 text format")),
+new pki_export(53, asym_key, "pk8", tr("PKCS #8 seed encrypted"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_MLDSA | F_MLDSA_SEED | F_SINGLE, tr("Encrypted ML-DSA private key as seed only in PKCS#8 text format")),
+new pki_export(54, asym_key, "pk8", tr("PKCS #8 expanded"), F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_MLDSA | F_SINGLE, tr("Unencrypted ML-DSA expanded private key without the seed in PKCS#8 text format")),
+new pki_export(55, asym_key, "pk8", tr("PKCS #8 expanded encrypted"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_MLDSA | F_SINGLE, tr("Encrypted ML-DSA expanded private key without the seed in PKCS#8 text format")),
 new pki_export(50, asym_key, "jwk", tr("JSON Web Key private"), F_JWK | F_PRIVATE,           tr("Unencrypted private key in JSON Web Key format")),
 new pki_export(51, asym_key, "jwk", tr("JSON Web Key public"),  F_JWK,                       tr("Public key in JSON Web Key format")),
 

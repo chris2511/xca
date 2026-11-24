@@ -633,7 +633,9 @@ void XcaTreeView::clipboardFormatMenu(QMenu *menu)
 
 	QActionGroup *group = new QActionGroup(menu);
 	QMenu *clipboard = menu->addMenu(tr("Clipboard format"));
-	foreach(const pki_export *x, pki_export::select(ClipboardPki_type, 0)) {
+	/* Only the ML-DSA formats depend on the selected keys */
+	int disable = basemodel->exportFlags(getSelectedIndexes()) & F_MLDSA;
+	foreach(const pki_export *x, pki_export::select(ClipboardPki_type, disable)) {
 		if (!(x->flags & F_CLIPBOARD))
 			continue;
 		QAction *a = clipboard->addAction(x->desc);

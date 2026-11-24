@@ -55,6 +55,8 @@ enum {
 	F_UNUSABLE  = BIT(24),/* Unusable certificates */
 	F_JWK       = BIT(25),/* JSON Web Key (JWK) RFC-7517 */
 	F_JWK_X5C   = BIT(26),/* JSON Web Key (JWK) RFC-7517 X.509 Certificate Chain */
+	F_MLDSA     = BIT(27),/* ML-DSA keys only */
+	F_MLDSA_SEED = BIT(28),/* ML-DSA private key as seed only */
 };
 
 class pki_export : public QObject {
