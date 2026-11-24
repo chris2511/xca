@@ -42,6 +42,13 @@ static inline bool isPqcSignatureName(const QString &name)
 	return name.startsWith("ML-DSA-") || name.startsWith("SLH-DSA-");
 }
 
+/* ML-KEM is a key encapsulation mechanism and provides no signature
+ * operation at all. */
+static inline bool isPqcKemName(const QString &name)
+{
+	return name.startsWith("ML-KEM-");
+}
+
 class keytype
 {
   public:
@@ -312,6 +319,7 @@ class pki_key: public pki_base
 		QString comboText() const;
 		QString getKeyTypeString(void) const;
 		bool isPostQuantum() const;
+		bool supportsSigning() const;
 		bool requiresNullDigest() const;
 		const EVP_MD *signingDigest(const EVP_MD *md) const;
 		QByteArray rawPubKey() const;

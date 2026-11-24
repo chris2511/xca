@@ -47,7 +47,9 @@ digest::digest(const QString &name) : md_nid(default_md)
 
 void digest::adjust(QList<int> nids)
 {
-	if (!nids.contains(md_nid))
+	/* A key without any usable digest (e.g. a KEM key) yields an
+	 * empty list - nids.last() would be undefined behaviour then. */
+	if (!nids.isEmpty() && !nids.contains(md_nid))
 		md_nid = nids.last();
 }
 

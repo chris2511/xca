@@ -216,6 +216,15 @@ bool pki_key::isPostQuantum() const
 	return isPqcAlgName(pkey_type_name(key));
 }
 
+/* ML-KEM is a key encapsulation mechanism and has no signature
+ * operation at all. OpenSSL refuses to sign with it:
+ * "operation not supported for this keytype". Such a key must never
+ * be offered or accepted as a signing key. */
+bool pki_key::supportsSigning() const
+{
+	return !isPqcKemName(pkey_type_name(key));
+}
+
 /* Post quantum signatures are "pure" signatures without a pre-hash.
  * Passing a digest to X509_sign() fails with "invalid digest". */
 bool pki_key::requiresNullDigest() const

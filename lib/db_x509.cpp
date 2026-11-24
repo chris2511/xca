@@ -474,9 +474,9 @@ pki_x509 *db_x509::newCert(NewX509 *dlg)
 	}
 
 	dlg->initCtx(cert, signcert, NULL);
-	// if we can not sign
+	/* Do not delete "cert" here: the catch handler below owns the
+	 * cleanup. Deleting it twice corrupted the heap. */
 	if (! signkey || signkey->isPubKey()) {
-		delete cert;
 		throw errorEx(tr("The key you selected for signing is not a private one."));
 	}
 
