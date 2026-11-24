@@ -151,8 +151,20 @@ void pki_evp::generate(const keyjob &task)
 		EVP_PKEY_CTX_free(pctx);
 		EVP_PKEY_free(key);
 		key = pkey;
+		break;
 	}
 #endif
+#endif
+#ifdef EVP_PKEY_ML_DSA_44
+	case EVP_PKEY_ML_DSA_44:
+	case EVP_PKEY_ML_DSA_65:
+	case EVP_PKEY_ML_DSA_87: {
+		EVP_PKEY *pkey = EVP_PKEY_Q_keygen(NULL, NULL,
+				task.ktype.name.toLatin1().constData());
+		EVP_PKEY_free(key);
+		key = pkey;
+		break;
+	}
 #endif
 	}
 	BN_GENCB_free(bar);
@@ -205,6 +217,16 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 			return ret && len == ED25519_KEYLEN;
 		}
 #endif
+#endif
+#ifdef EVP_PKEY_ML_DSA_44
+	case EVP_PKEY_ML_DSA_44:
+	case EVP_PKEY_ML_DSA_65:
+	case EVP_PKEY_ML_DSA_87: {
+		size_t len = 0;
+		int ret = EVP_PKEY_get_raw_private_key(key, NULL, &len);
+		ign_openssl_error();
+		return ret && len > 0;
+	}
 #endif
 	}
 	return false;

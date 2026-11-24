@@ -44,6 +44,11 @@ class keytype
 			keytype(EVP_PKEY_ED25519, "ED25519", CKM_VENDOR_DEFINED, false, false),
 #endif
 #endif
+#ifdef EVP_PKEY_ML_DSA_44
+			keytype(EVP_PKEY_ML_DSA_44, "ML-DSA-44", 0, true, false),
+			keytype(EVP_PKEY_ML_DSA_65, "ML-DSA-65", 0, true, false),
+			keytype(EVP_PKEY_ML_DSA_87, "ML-DSA-87", 0, true, false),
+#endif
 		};
 	}
 	int type{};
@@ -61,6 +66,14 @@ class keytype
 	}
 	QString traditionalPemName() const
 	{
+#ifdef EVP_PKEY_ML_DSA_44
+		switch (type) {
+		case EVP_PKEY_ML_DSA_44:
+		case EVP_PKEY_ML_DSA_65:
+		case EVP_PKEY_ML_DSA_87:
+			return "PRIVATE KEY";
+		}
+#endif
 		return
 #ifdef EVP_PKEY_ED25519
 			type == EVP_PKEY_ED25519 ? QString("PRIVATE KEY") :
@@ -97,11 +110,35 @@ class keytype
 	}
 	static int pkeyType(int id)
 	{
-		return EVP_PKEY_type(id);
+		return isMLDSA(id) ? id : EVP_PKEY_type(id);
 	}
+	/* ML-DSA keys exist only in the provider and have no legacy id */
 	static int pkeyId(const EVP_PKEY *pkey)
 	{
-		return EVP_PKEY_id(pkey);
+		int id = EVP_PKEY_id(pkey);
+#ifdef EVP_PKEY_ML_DSA_44
+		if (id <= 0) {
+			if (EVP_PKEY_is_a(pkey, "ML-DSA-44"))
+				return EVP_PKEY_ML_DSA_44;
+			if (EVP_PKEY_is_a(pkey, "ML-DSA-65"))
+				return EVP_PKEY_ML_DSA_65;
+			if (EVP_PKEY_is_a(pkey, "ML-DSA-87"))
+				return EVP_PKEY_ML_DSA_87;
+		}
+#endif
+		return id;
+	}
+	static bool isMLDSA(int id)
+	{
+#ifdef EVP_PKEY_ML_DSA_44
+		switch (id) {
+		case EVP_PKEY_ML_DSA_44:
+		case EVP_PKEY_ML_DSA_65:
+		case EVP_PKEY_ML_DSA_87:
+			return true;
+		}
+#endif
+		return false;
 	}
 };
 

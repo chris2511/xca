@@ -414,6 +414,13 @@ QList<int> pki_key::possibleHashNids()
 			nids << NID_undef;
 #endif
 #endif
+#ifdef EVP_PKEY_ML_DSA_44
+	case EVP_PKEY_ML_DSA_44:
+	case EVP_PKEY_ML_DSA_65:
+	case EVP_PKEY_ML_DSA_87:
+		nids << NID_undef;
+		break;
+#endif
 	}
 	return nids;
 };
