@@ -511,6 +511,21 @@ void test_main::exportFormat()
 	verify_key(file, QList<unsigned> { ED25519_HASH }, true);
 	check_pems(file, 1, QStringList{ "BEGIN ENCRYPTED PRIVATE KEY" });
 
+#ifdef EVP_PKEY_ML_DSA_44
+	// Generate ML-DSA Key and export it as unencrypted PEM Private Key
+	// A stale key size from the hidden size box must not matter
+	keyjob mljob("ML-DSA-65");
+	mljob.size = 16;
+	key = dynamic_cast<db_key*>(keys)->newKey(mljob, "ML-DSA Key");
+	QVERIFY(key != nullptr);
+	QCOMPARE(key->getKeyTypeString(), "ML-DSA-65");
+	list.clear();
+	list << keys->index(key);
+	file = AUTOFILE(MLDSAPRIVPEM)
+	export_by_id(20, file, list, keys);
+	verify_key(file, QList<unsigned> { key->hash() }, true);
+	check_pems(file, 1, QStringList{ "BEGIN PRIVATE KEY" });
+#endif
 	// Export XCA Template and verify the internal name and comment
 	file = AUTOFILE(XCA_TEMPLATE)
 	db_base *temps = Database.model<db_temp>();

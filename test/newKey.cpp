@@ -89,4 +89,32 @@ void test_main::newKey()
 #endif
 	dlg->accept();
 	delete dlg;
+
+#ifdef EVP_PKEY_ML_DSA_44
+	/* ML-DSA: The parameter set is selected in the curve box */
+	dlg = new NewKey(mainwin, "Dilithium");
+	dlg->show();
+	Q_ASSERT(QTest::qWaitForWindowActive(dlg));
+	int idx = dlg->keyType->findText("ML-DSA");
+	QVERIFY(idx != -1);
+	dlg->keyType->setCurrentIndex(idx);
+	QCOMPARE(dlg->curveBox->isVisible(),true);
+	QCOMPARE(dlg->curveLabel->isVisible(),true);
+	QCOMPARE(dlg->keyLength->isVisible(),false);
+	QCOMPARE(dlg->keySizeLabel->isVisible(),false);
+	QCOMPARE(dlg->curveBox->count(), 3);
+	dlg->curveBox->setCurrentIndex(1);
+	QCOMPARE(dlg->getKeyJob().toString(), "ML-DSA-65");
+#ifndef OPENSSL_NO_EC
+	/* Back to EC lists the curves again */
+	dlg->keyType->setCurrentIndex(2);
+	QCOMPARE(dlg->getKeyJob().ktype.name, "EC");
+	QVERIFY(dlg->curveBox->count() > 3);
+#endif
+	delete dlg;
+
+	keyjob mljob("ML-DSA-87");
+	QVERIFY(mljob.isValid());
+	QCOMPARE(mljob.toString(), "ML-DSA-87");
+#endif
 }
