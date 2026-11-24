@@ -93,7 +93,15 @@ class keytype
 	}
 	static const keytype byPKEY(EVP_PKEY *pkey)
 	{
-		return byType(EVP_PKEY_type(EVP_PKEY_id(pkey)));
+		return byType(pkeyType(pkeyId(pkey)));
+	}
+	static int pkeyType(int id)
+	{
+		return EVP_PKEY_type(id);
+	}
+	static int pkeyId(const EVP_PKEY *pkey)
+	{
+		return EVP_PKEY_id(pkey);
 	}
 };
 
@@ -123,14 +131,14 @@ class keyjob
 		ec_nid = NID_undef;
 		if (isEC())
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
-		else if (!isED25519())
+		else if (ktype.length)
 			size = sl[1].toInt();
 		slot = slotid();
 		ign_openssl_error();
 	}
 	QString toString()
 	{
-		if (isED25519())
+		if (!ktype.length && !isEC())
 			return ktype.name;
 		return QString("%1:%2").arg(ktype.name) .arg(isEC() ?
 					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
@@ -156,7 +164,7 @@ class keyjob
 	{
 		if (!ktype.isValid())
 			return false;
-		if (isED25519())
+		if (!ktype.length && !isEC())
 			return true;
 		if (isEC() && builtinCurves.containNid(ec_nid))
 			return true;

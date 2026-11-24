@@ -183,9 +183,9 @@ pki_evp::pki_evp(const QString &n, int type)
 static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 {
 	const BIGNUM *b;
-	int keytype = EVP_PKEY_id(key);
+	int keytype = ::keytype::pkeyId(key);
 
-	switch (EVP_PKEY_type(keytype)) {
+	switch (::keytype::pkeyType(keytype)) {
 		case EVP_PKEY_RSA:
 			RSA_get0_key(EVP_PKEY_get0_RSA(key), NULL, NULL, &b);
 			return b ? true: false;
