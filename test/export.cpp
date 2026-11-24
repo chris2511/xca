@@ -483,6 +483,12 @@ void test_main::exportFormat()
 	key = dynamic_cast<pki_key*>(keys->getByName("ED25519 Key"));
 	list << keys->index(key);
 
+#ifdef EVP_PKEY_ML_DSA_44
+	// The ML-DSA export formats are not offered for other keys
+	QVERIFY(!pki_export::select(asym_key, keys->exportFlags(list))
+			.contains(pki_export::by_id(52)));
+#endif
+
 	// Export ED25519 as Private SSH Key
 	file = AUTOFILE(ED25519PRIVSSH)
 	export_by_id(22, file, list, keys);
@@ -521,10 +527,60 @@ void test_main::exportFormat()
 	QCOMPARE(key->getKeyTypeString(), "ML-DSA-65");
 	list.clear();
 	list << keys->index(key);
+	QVERIFY(pki_export::select(asym_key, keys->exportFlags(list))
+			.contains(pki_export::by_id(52)));
 	file = AUTOFILE(MLDSAPRIVPEM)
 	export_by_id(20, file, list, keys);
 	verify_key(file, QList<unsigned> { key->hash() }, true);
 	check_pems(file, 1, QStringList{ "BEGIN PRIVATE KEY" });
+
+	// Export ML-DSA as seed only PKCS#8 Key
+	file = AUTOFILE(MLDSASEED)
+	export_by_id(52, file, list, keys);
+	verify_key(file, QList<unsigned> { key->hash() }, true);
+	check_pems(file, 1, QStringList{ "BEGIN PRIVATE KEY" });
+
+	// Clipboard format of the seed only key
+	BioByteArray clip;
+	dynamic_cast<pki_evp*>(key)->pem(clip, pki_export::by_id(52));
+	QVERIFY(clip.qstring().contains("BEGIN PRIVATE KEY"));
+	QVERIFY(clip.byteArray().size() < 200);
+
+	// Export ML-DSA as expanded PKCS#8 Key without seed
+	file = AUTOFILE(MLDSAEXPANDED)
+	export_by_id(54, file, list, keys);
+	verify_key(file, QList<unsigned> { key->hash() }, true);
+	check_pems(file, 1, QStringList{ "BEGIN PRIVATE KEY" });
+
+	// Export ML-DSA as encrypted seed only PKCS#8 Key
+	file = AUTOFILE(MLDSASEEDENC)
+	pwdialog->setExpectations(QList<pw_expect*>{
+		new pw_expect("pass", pw_ok),
+		new pw_expect("pass", pw_ok),
+	});
+	export_by_id(53, file, list, keys);
+	verify_key(file, QList<unsigned> { key->hash() }, true);
+	check_pems(file, 1, QStringList{ "BEGIN ENCRYPTED PRIVATE KEY" });
+
+	// Export ML-DSA as encrypted expanded PKCS#8 Key without seed
+	file = AUTOFILE(MLDSAEXPANDEDENC)
+	pwdialog->setExpectations(QList<pw_expect*>{
+		new pw_expect("pass", pw_ok),
+		new pw_expect("pass", pw_ok),
+	});
+	export_by_id(55, file, list, keys);
+	verify_key(file, QList<unsigned> { key->hash() }, true);
+	check_pems(file, 1, QStringList{ "BEGIN ENCRYPTED PRIVATE KEY" });
+
+	// Sign a certificate without digest using the ML-DSA key
+	pki_x509 *mlcert = new pki_x509();
+	mlcert->setPubKey(key);
+	mlcert->sign(key, digest(NID_undef));
+	QCOMPARE(X509_get_signature_nid(mlcert->getCert()), key->getKeyType());
+	EVP_PKEY *mlpkey = dynamic_cast<pki_evp*>(key)->decryptKey();
+	QCOMPARE(X509_verify(mlcert->getCert(), mlpkey), 1);
+	EVP_PKEY_free(mlpkey);
+	delete mlcert;
 #endif
 	// Export XCA Template and verify the internal name and comment
 	file = AUTOFILE(XCA_TEMPLATE)
