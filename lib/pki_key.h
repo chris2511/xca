@@ -49,6 +49,14 @@ static inline bool isPqcKemName(const QString &name)
 	return name.startsWith("ML-KEM-");
 }
 
+/* Only the lattice based ML-DSA (FIPS 204) and ML-KEM (FIPS 203)
+ * private keys can be stored as seed-only, as expanded key or as both
+ * (RFC 9881, RFC 9935). SLH-DSA (FIPS 205) has no such choice. */
+static inline bool isPqcSeedName(const QString &name)
+{
+	return name.startsWith("ML-DSA-") || name.startsWith("ML-KEM-");
+}
+
 class keytype
 {
   public:
@@ -156,6 +164,10 @@ class keytype
 	}
 	QString traditionalPemName() const
 	{
+		/* Provider based PQC keys have no traditional PEM format.
+		 * An empty name makes the writer fall back to PKCS#8. */
+		if (name.isEmpty() || isPqc())
+			return QString();
 		return
 #ifdef EVP_PKEY_ED25519
 			type == EVP_PKEY_ED25519 ? QString("PRIVATE KEY") :
@@ -319,6 +331,7 @@ class pki_key: public pki_base
 		QString comboText() const;
 		QString getKeyTypeString(void) const;
 		bool isPostQuantum() const;
+		bool hasSeedFormat() const;
 		bool supportsSigning() const;
 		bool requiresNullDigest() const;
 		const EVP_MD *signingDigest(const EVP_MD *md) const;

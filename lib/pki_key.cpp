@@ -216,6 +216,14 @@ bool pki_key::isPostQuantum() const
 	return isPqcAlgName(pkey_type_name(key));
 }
 
+/* The seed based PKCS#8 encodings only exist for ML-DSA and ML-KEM
+ * private keys. They are not available for ML-KEM public keys and not
+ * for SLH-DSA keys at all. */
+bool pki_key::hasSeedFormat() const
+{
+	return !isPub && isPqcSeedName(pkey_type_name(key));
+}
+
 /* ML-KEM is a key encapsulation mechanism and has no signature
  * operation at all. OpenSSL refuses to sign with it:
  * "operation not supported for this keytype". Such a key must never

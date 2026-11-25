@@ -55,6 +55,16 @@ enum {
 	F_UNUSABLE  = BIT(24),/* Unusable certificates */
 	F_JWK       = BIT(25),/* JSON Web Key (JWK) RFC-7517 */
 	F_JWK_X5C   = BIT(26),/* JSON Web Key (JWK) RFC-7517 X.509 Certificate Chain */
+	F_PQC       = BIT(27),/* Only for ML-DSA and ML-KEM private keys */
+};
+
+/* PKCS#8 form of the ML-DSA (RFC 9881) and ML-KEM (RFC 9935) private
+ * keys. The seed based forms are selected with the OpenSSL provider
+ * parameter ml-dsa.output_formats / ml-kem.output_formats */
+enum pqc_format {
+	pqcDefault,	/* Seed and expanded key - the OpenSSL default */
+	pqcSeedOnly,	/* Only the seed - the smallest encoding */
+	pqcExpanded,	/* Only the expanded key - no seed stored */
 };
 
 class pki_export : public QObject {
@@ -69,9 +79,11 @@ class pki_export : public QObject {
 	int flags;
 	QString desc;
 	QString help;
+	enum pqc_format pqc;
 
 	pki_export(int i, enum pki_type p, const QString &e,
-		   const QString &d, int f, const QString &h);
+		   const QString &d, int f, const QString &h,
+		   enum pqc_format pq = pqcDefault);
 	static QList<const pki_export*> select(enum pki_type, int);
 	static const pki_export *by_id(int id);
 	static void free_elements();

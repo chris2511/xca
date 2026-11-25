@@ -18,6 +18,8 @@
 #include "PwDialogCore.h"
 #include "XcaWarningCore.h"
 
+#include <QMutex>
+
 #include <openssl/rand.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
@@ -25,6 +27,8 @@
 #include <openssl/err.h>
 #if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 #include <openssl/proverr.h>
+#include <openssl/provider.h>
+#include <openssl/core_names.h>
 #endif
 
 Passwd pki_evp::passwd;
@@ -822,32 +826,206 @@ int PEM_write_bio_PrivateKey_traditional(BIO *bp, EVP_PKEY *x,
 {
 	QString pem = keytype::byPKEY(x).traditionalPemName();
 
+	/* Keys without a traditional format (ML-DSA, ML-KEM, SLH-DSA)
+	 * must be written as PKCS#8, otherwise an invalid PEM header
+	 * like "BEGIN ML-DSA-65 PRIVATE KEY" would be produced.
+	 * ED25519 ("PRIVATE KEY") is PKCS#8 as well and must not be
+	 * legacy-encrypted. */
+	if (pem.isEmpty() || pem == "PRIVATE KEY")
+		return PEM_write_bio_PrivateKey(bp, x, enc, kstr, klen, cb, u);
+
 	return PEM_ASN1_write_bio((i2d_of_void *)i2d_PrivateKey,
 			pem.toLatin1(), bp, (char*)x, enc, kstr, klen, cb, u);
 }
 #endif
 
+/* OSSL_PROVIDER_add_conf_parameter() and the ML-DSA / ML-KEM output
+ * format names are available since OpenSSL 3.5 */
+#if OPENSSL_VERSION_NUMBER >= 0x30500000L && !defined(LIBRESSL_VERSION_NUMBER)
+/* ML-DSA (RFC 9881) and ML-KEM (RFC 9935) private keys can be stored
+ * as seed-only, as expanded key or as both. OpenSSL chooses the PKCS#8
+ * form with a provider wide configuration parameter - neither the key
+ * nor the encoder context has such a parameter. Overriding it therefore
+ * has to be serialized and the previous value restored afterwards. */
+static QMutex pqc_output_format_mutex;
+
+/* ML-DSA and ML-KEM use different names for the provider parameters
+ * selecting the PKCS#8 form and providing the seed. */
+static const char *pqc_alg_param(const EVP_PKEY *pkey,
+				const char *dsa_param, const char *kem_param)
+{
+	const char *alg = pkey ? EVP_PKEY_get0_type_name(pkey) : nullptr;
+
+	if (!alg)
+		return nullptr;
+	if (strncmp(alg, "ML-DSA-", 7) == 0)
+		return dsa_param;
+	if (strncmp(alg, "ML-KEM-", 7) == 0)
+		return kem_param;
+	return nullptr;
+}
+
+static const char *pqc_output_format_param(const EVP_PKEY *pkey)
+{
+	return pqc_alg_param(pkey, OSSL_PKEY_PARAM_ML_DSA_OUTPUT_FORMATS,
+				  OSSL_PKEY_PARAM_ML_KEM_OUTPUT_FORMATS);
+}
+
+/* A key imported from an expanded-only PKCS#8 has no seed. Such a key
+ * can only be exported as expanded key, so check for the seed before
+ * switching the output format. */
+static bool pqc_has_seed(const EVP_PKEY *pkey)
+{
+	const char *param = pqc_alg_param(pkey, OSSL_PKEY_PARAM_ML_DSA_SEED,
+					       OSSL_PKEY_PARAM_ML_KEM_SEED);
+	size_t len = 0;
+
+	return param && EVP_PKEY_get_octet_string_param(pkey, param,
+						nullptr, 0, &len) == 1;
+}
+
+class pqc_output_format
+{
+	OSSL_PROVIDER *prov = nullptr;
+	const char *param = nullptr;
+	QByteArray previous;
+	bool seedOnly = false;
+	bool locked = false;
+
+  public:
+	explicit pqc_output_format(const EVP_PKEY *pkey, enum pqc_format format);
+	~pqc_output_format();
+	bool wantsSeedOnly() const
+	{
+		return seedOnly;
+	}
+};
+
+pqc_output_format::pqc_output_format(const EVP_PKEY *pkey,
+				     enum pqc_format format)
+{
+	/* pqcDefault is "seed and expanded key", which is the OpenSSL
+	 * default. Leaving the parameter untouched keeps the built-in
+	 * fallback to the expanded key for keys without a seed. */
+	if (format == pqcDefault)
+		return;
+	param = pqc_output_format_param(pkey);
+	if (!param)
+		return;
+	seedOnly = format == pqcSeedOnly;
+
+	pqc_output_format_mutex.lock();
+	locked = true;
+	prov = OSSL_PROVIDER_load(nullptr, "default");
+	if (!prov) {
+		ign_openssl_error();
+		return;
+	}
+	char *cur = nullptr;
+	OSSL_PARAM q[] = {
+		OSSL_PARAM_construct_utf8_ptr(param, &cur, 0),
+		OSSL_PARAM_construct_end(),
+	};
+	if (OSSL_PROVIDER_get_conf_parameters(prov, q) == 1 && cur)
+		previous = QByteArray(cur);
+
+	if (OSSL_PROVIDER_add_conf_parameter(prov, param,
+			seedOnly ? "seed-only" : "priv-only") != 1) {
+		ign_openssl_error();
+		OSSL_PROVIDER_unload(prov);
+		prov = nullptr;
+	}
+}
+
+pqc_output_format::~pqc_output_format()
+{
+	if (prov) {
+		/* An unset parameter cannot be removed again, but the
+		 * ordered list behaves exactly like the built-in default:
+		 * seed + expanded key, expanded key for seedless keys. */
+		const char *value = previous.isEmpty() ?
+				"seed-priv,priv-only" : previous.constData();
+		OSSL_PROVIDER_add_conf_parameter(prov, param, value);
+		OSSL_PROVIDER_unload(prov);
+	}
+	if (locked)
+		pqc_output_format_mutex.unlock();
+}
+#else
+/* Older OpenSSL versions cannot select the PKCS#8 form */
+class pqc_output_format
+{
+  public:
+	explicit pqc_output_format(const EVP_PKEY *, enum pqc_format) {}
+	bool wantsSeedOnly() const
+	{
+		return false;
+	}
+};
+
+static inline bool pqc_has_seed(const EVP_PKEY *)
+{
+	return false;
+}
+#endif
+
 bool pki_evp::pem(BioByteArray &b, const pki_export *xport)
 {
-	EVP_PKEY *pkey;
-
-	if (xport->match_all(F_PEM | F_PRIVATE)) {
-		pkey = decryptKey();
-		PEM_write_bio_PrivateKey_traditional(b, pkey, nullptr,
-						nullptr, 0, nullptr, nullptr);
-		EVP_PKEY_free(pkey);
-	} else if (xport->match_all(F_PKCS8 | F_PRIVATE)) {
-		const EVP_CIPHER *algo = xport->match_all(F_CRYPT) ?
-			EVP_aes_256_cbc() : NULL;
-		pkey = decryptKey();
-        PEM_write_bio_PrivateKey(b, pkey, algo,
-					 passwd.constUchar(), passwd.size(),
-					 NULL, NULL);
-		EVP_PKEY_free(pkey);
-	} else
+	if (!xport->match_all(F_PRIVATE))
 		return pki_key::pem(b, xport);
 
-	return true;
+	/* A public key cannot satisfy a private export format. Refuse it
+	 * instead of silently exporting the public part. */
+	if (isPubKey())
+		throw errorEx(tr("The key '%1' has no private part to export.")
+				.arg(getIntName()));
+
+	/* "PEM private" means a traditional key unless PKCS#8 is
+	 * requested as well. Format 7 ("PEM + PKCS#8") carries both
+	 * F_PEM and F_PKCS8 and must be exported as encrypted PKCS#8,
+	 * not as an unencrypted traditional key. */
+	const bool traditional = xport->match_all(F_PEM | F_PRIVATE) &&
+				!xport->match_all(F_PKCS8);
+	/* Provider based PQC keys (ML-DSA, ML-KEM, SLH-DSA) have no
+	 * traditional format and can only be exported as PKCS#8, even if
+	 * a traditional PEM key was requested. */
+	const bool pkcs8 = xport->match_all(F_PKCS8 | F_PRIVATE) ||
+				(isPostQuantum() && traditional);
+
+	if (!traditional && !pkcs8)
+		return pki_key::pem(b, xport);
+
+	EVP_PKEY *pkey = decryptKey();
+	if (!pkey) {
+		pki_openssl_error();
+		return false;
+	}
+
+	/* Encrypted formats use the database password for the clipboard,
+	 * the same way the PKCS#8 branch always did. */
+	const EVP_CIPHER *algo = xport->match_all(F_CRYPT) ?
+			EVP_aes_256_cbc() : nullptr;
+	unsigned char *kstr = algo ? passwd.constUchar() : nullptr;
+	const int klen = algo ? passwd.size() : 0;
+
+	bool ret = false;
+	{
+		pqc_output_format pqc(pkey, xport->pqc);
+		if (pqc.wantsSeedOnly() && !pqc_has_seed(pkey)) {
+			EVP_PKEY_free(pkey);
+			throw errorEx(tr("The key '%1' has no stored seed. "
+				"A seed-only PKCS#8 export is not possible.")
+				.arg(getIntName()));
+		}
+		if (pkcs8)
+			ret = PEM_write_bio_PrivateKey(b, pkey, algo, kstr, klen,
+							NULL, NULL) > 0;
+		else
+			ret = PEM_write_bio_PrivateKey_traditional(b, pkey, algo,
+							kstr, klen, nullptr, nullptr) > 0;
+	}
+	EVP_PKEY_free(pkey);
+	return ret;
 }
 
 void pki_evp::fillJWK(QJsonObject &json, const pki_export *xport) const
@@ -888,7 +1066,7 @@ void pki_evp::fillJWK(QJsonObject &json, const pki_export *xport) const
 };
 
 void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
-		pem_password_cb *cb, bool pem) const
+		pem_password_cb *cb, bool pem, enum pqc_format pqcFormat) const
 {
 	pass_info p(XCA_TITLE,
 		tr("Please enter the password to protect the PKCS#8 key '%1' in file:\n%2")
@@ -899,13 +1077,27 @@ void pki_evp::writePKCS8(XFile &file, const EVP_CIPHER *enc,
 		return;
 	}
 	BioByteArray b;
-	if (pem) {
-		b += PEM_comment();
-		PEM_write_bio_PKCS8PrivateKey(b, pkey, enc, NULL, 0, cb, &p);
-	} else {
-		i2d_PKCS8PrivateKey_bio(b, pkey, enc, NULL, 0, cb, &p);
+	int ret;
+	{
+		pqc_output_format pqc(pkey, pqcFormat);
+		if (pqc.wantsSeedOnly() && !pqc_has_seed(pkey)) {
+			EVP_PKEY_free(pkey);
+			throw errorEx(tr("The key '%1' has no stored seed. "
+				"A seed-only PKCS#8 export is not possible.")
+				.arg(getIntName()));
+		}
+		if (pem) {
+			b += PEM_comment();
+			ret = PEM_write_bio_PKCS8PrivateKey(b, pkey, enc,
+							NULL, 0, cb, &p);
+		} else {
+			ret = i2d_PKCS8PrivateKey_bio(b, pkey, enc,
+							NULL, 0, cb, &p);
+		}
 	}
 	EVP_PKEY_free(pkey);
+	if (ret <= 0)
+		pki_openssl_error();
 	file.write(b);
 }
 
@@ -945,7 +1137,7 @@ void pki_evp::writeDefault(const QString &dirname) const
 }
 
 void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
-			pem_password_cb *cb, bool pem) const
+			pem_password_cb *cb, bool pem, enum pqc_format pqc) const
 {
 	pass_info p(XCA_TITLE,
 		tr("Please enter the password to protect the private key '%1' in file:\n%2")
@@ -957,7 +1149,7 @@ void pki_evp::writeKey(XFile &file, const EVP_CIPHER *enc,
 	}
 	if (isPostQuantum()) {
 		/* There is no traditional format for PQC keys */
-		writePKCS8(file, enc, cb, pem);
+		writePKCS8(file, enc, cb, pem, pqc);
 		return;
 	}
 	EVP_PKEY *pkey = key ? decryptKey() : NULL;
