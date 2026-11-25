@@ -11,8 +11,9 @@
 #include "Help.h"
 #include "XcaWarning.h"
 #include "lib/base.h"
+#include "lib/db_base.h"
+#include "lib/settings.h"
 
-#include <QComboBox>
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QPushButton>
