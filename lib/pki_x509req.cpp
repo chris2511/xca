@@ -104,8 +104,17 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn,
 
 	EVP_PKEY *privkey = NULL;
 
+	if (!key) {
+		my_error(tr("There is no key for signing !"));
+		return;
+	}
 	if (key->isPubKey()) {
 		my_error(tr("Signing key not valid (public key)"));
+		return;
+	}
+	if (!key->supportsSigning()) {
+		my_error(tr("The key '%1' is a key encapsulation key (ML-KEM) "
+			"and cannot be used for signing.").arg(key->getIntName()));
 		return;
 	}
 
@@ -128,7 +137,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn,
 	pki_openssl_error();
 
 	privkey = key->decryptKey();
-	X509_REQ_sign(request, privkey, digest.MD());
+	X509_REQ_sign(request, privkey, key->signingDigest(digest.MD()));
 	pki_openssl_error();
 	EVP_PKEY_free(privkey);
 }

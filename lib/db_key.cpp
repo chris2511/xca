@@ -151,7 +151,7 @@ pki_key *db_key::newKey(const keyjob &task, const QString &name)
 {
 	pki_key *key = NULL;
 
-	if (!task.isEC() && !task.isED25519()) {
+	if (!task.isEC() && !task.isED25519() && !task.isPqc()) {
 		if (task.size < 32) {
 			XCA_WARN(tr("Key size too small !"));
 			return NULL;
@@ -199,6 +199,13 @@ int db_key::exportFlags(const QModelIndex &index) const
 	if (keytype == EVP_PKEY_ED25519)
 		disable_flags |= F_TRADITION;
 #endif
+	/* Provider based PQC keys have no traditional PEM format, they
+	 * are always exported as PKCS#8 */
+	if (key->isPostQuantum())
+		disable_flags |= F_TRADITION;
+	/* Only ML-DSA and ML-KEM keys offer the seed based PKCS#8 forms */
+	if (!key->hasSeedFormat())
+		disable_flags |= F_PQC;
 	if (!key->SSH2_compatible())
 		disable_flags |= F_SSH2;
 
@@ -224,16 +231,18 @@ void db_key::exportItem(const QModelIndex &index, const pki_export *xport,
 		pwCallback = PwDialogCore::pwCallback;
 	}
 
-	if (privkey && xport->match_all(F_DER | F_PRIVATE))
-		privkey->writeKey(file, NULL, NULL, false);
+	/* PKCS#8 is available as PEM and as binary DER */
+	if (privkey && xport->match_all(F_PKCS8 | F_PRIVATE))
+		privkey->writePKCS8(file, algo, pwCallback,
+				!xport->match_all(F_DER), xport->pqc);
+	else if (privkey && xport->match_all(F_DER | F_PRIVATE))
+		privkey->writeKey(file, NULL, NULL, false, xport->pqc);
 	else if (privkey && xport->match_all(F_PEM | F_PRIVATE))
-		privkey->writeKey(file, algo, pwCallback, true);
+		privkey->writeKey(file, algo, pwCallback, true, xport->pqc);
 	else if (xport->match_all(F_DER))
 		key->writePublic(file, false);
 	else if (xport->match_all(F_PEM))
 		key->writePublic(file, true);
-	else if (privkey && xport->match_all(F_PKCS8))
-		privkey->writePKCS8(file, algo, pwCallback, true);
 	else if (privkey && xport->match_all(F_SSH2 | F_PRIVATE))
 		privkey->writeSSH2private(file);
 	else if (xport->match_all(F_SSH2))

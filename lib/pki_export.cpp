@@ -9,8 +9,9 @@
 #include <QDebug>
 
 pki_export::pki_export(int i, enum pki_type p, const QString &e,
-			const QString &d, int f, const QString &h)
-	: id(i), pki_type(p), extension(e), flags(f), desc(d), help(h)
+			const QString &d, int f, const QString &h,
+			enum pqc_format pq)
+	: id(i), pki_type(p), extension(e), flags(f), desc(d), help(h), pqc(pq)
 {
 }
 
@@ -91,8 +92,18 @@ new pki_export(23, asym_key, "pub" ,tr("SSH2 public"),   F_SSH2,                
 new pki_export(24, asym_key, "der", tr("DER public"),    F_DER | F_SINGLE,                               tr("Binary DER format of the public key")),
 new pki_export(25, asym_key, "der", tr("DER private"),   F_DER | F_PRIVATE | F_SINGLE,                   tr("Unencrypted private key in binary DER format")),
 new pki_export(26, asym_key, "pvk", tr("PVK private"),   F_PVK | F_PRIVATE | F_SINGLE,                   tr("Private key in Microsoft PVK format not encrypted")),
-new pki_export(28, asym_key, "pk8", tr("PKCS #8 encrypted"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_USUAL | F_SINGLE, tr("Encrypted private key in PKCS#8 text format")),
-new pki_export(29, asym_key, "pk8", tr("PKCS #8"),       F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_SINGLE,   tr("Unencrypted private key in PKCS#8 text format")),
+/* Keys without a traditional encoding (ML-DSA, ML-KEM, SLH-DSA and
+ * ED25519) are written as PKCS#8 by the PEM and DER formats above.
+ * The other two seed based forms of RFC 9881 / RFC 9935 are offered
+ * separately for ML-DSA and ML-KEM */
+new pki_export(28, asym_key, "pk8", tr("PKCS #8 encrypted"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_USUAL | F_SINGLE, tr("Encrypted private key in PKCS#8 text format. For ML-DSA and ML-KEM it contains the seed and the expanded key")),
+new pki_export(29, asym_key, "pk8", tr("PKCS #8"),       F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_SINGLE,   tr("Unencrypted private key in PKCS#8 text format. For ML-DSA and ML-KEM it contains the seed and the expanded key")),
+new pki_export(60, asym_key, "pk8", tr("PKCS #8 (seed only)"), F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_SINGLE | F_PQC, tr("Unencrypted PKCS#8 private key containing only the seed"), pqcSeedOnly),
+new pki_export(61, asym_key, "pk8", tr("PKCS #8 encrypted (seed only)"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_SINGLE | F_PQC, tr("Encrypted PKCS#8 private key containing only the seed"), pqcSeedOnly),
+new pki_export(65, asym_key, "der", tr("PKCS #8 DER (seed only)"), F_DER | F_PKCS8 | F_PRIVATE | F_SINGLE | F_PQC, tr("Unencrypted PKCS#8 private key in binary format containing only the seed"), pqcSeedOnly),
+new pki_export(62, asym_key, "pk8", tr("PKCS #8 (expanded key)"), F_PKCS8 | F_PRIVATE | F_CLIPBOARD | F_SINGLE | F_PQC, tr("Unencrypted PKCS#8 private key containing only the expanded key"), pqcExpanded),
+new pki_export(63, asym_key, "pk8", tr("PKCS #8 encrypted (expanded key)"), F_PKCS8 | F_PRIVATE | F_CRYPT | F_SINGLE | F_PQC, tr("Encrypted PKCS#8 private key containing only the expanded key"), pqcExpanded),
+new pki_export(66, asym_key, "der", tr("PKCS #8 DER (expanded key)"), F_DER | F_PKCS8 | F_PRIVATE | F_SINGLE | F_PQC, tr("Unencrypted PKCS#8 private key in binary format containing only the expanded key"), pqcExpanded),
 new pki_export(50, asym_key, "jwk", tr("JSON Web Key private"), F_JWK | F_PRIVATE,           tr("Unencrypted private key in JSON Web Key format")),
 new pki_export(51, asym_key, "jwk", tr("JSON Web Key public"),  F_JWK,                       tr("Public key in JSON Web Key format")),
 

@@ -87,6 +87,45 @@ void test_main::newKey()
 	QCOMPARE(dlg->getKeyJob().toString(), "EC:secp521r1");
 	QCOMPARE(dlg->rememberDefault->isChecked(), false);
 #endif
+#if defined(EVP_PKEY_ML_DSA_65) && defined(NID_ML_KEM_768)
+	/* The post quantum parameter sets are grouped by algorithm family */
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-DSA"));
+	QCOMPARE(dlg->keyType->currentText(), QString("ML-DSA"));
+	QCOMPARE(dlg->paramBox->isVisible(), true);
+	QCOMPARE(dlg->paramLabel->isVisible(), true);
+	QCOMPARE(dlg->paramBox->count(), 3);
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-DSA-44"));
+	dlg->paramBox->setCurrentIndex(1);
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-DSA-65"));
+	QCOMPARE(dlg->keyLength->isVisible(), false);
+
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-KEM"));
+	QCOMPARE(dlg->paramBox->count(), 3);
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-KEM-512"));
+
+	/* The parameter set is remembered per algorithm family */
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-DSA"));
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-DSA-65"));
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-KEM"));
+	dlg->paramBox->setCurrentIndex(2);
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-KEM-1024"));
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-DSA"));
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-DSA-65"));
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-KEM"));
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-KEM-1024"));
+
+#ifdef EVP_PKEY_SLH_DSA_SHA2_128S
+	/* 12 parameter sets, SHA2 and SHAKE separated */
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("SLH-DSA"));
+	QCOMPARE(dlg->paramBox->count(), 13);
+	QCOMPARE(dlg->getKeyJob().toString(), QString("SLH-DSA-SHA2-128s"));
+#endif
+
+	/* Classic algorithms keep one entry and no parameter box */
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("RSA"));
+	QCOMPARE(dlg->paramBox->isVisible(), false);
+	QCOMPARE(dlg->paramLabel->isVisible(), false);
+#endif
 	dlg->accept();
 	delete dlg;
 }

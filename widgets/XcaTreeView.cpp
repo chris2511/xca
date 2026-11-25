@@ -630,10 +630,13 @@ void XcaTreeView::clipboardFormatMenu(QMenu *menu)
 	if (!ClipboardSettings || !ClipboardPki_type)
 		return;
 	int exp_type = Settings[ClipboardSettings];
+	QModelIndexList indexes = getSelectedIndexes();
+	/* Only offer the formats supported by the selected items */
+	int disabled = basemodel ? basemodel->exportFlags(indexes) : 0;
 
 	QActionGroup *group = new QActionGroup(menu);
 	QMenu *clipboard = menu->addMenu(tr("Clipboard format"));
-	foreach(const pki_export *x, pki_export::select(ClipboardPki_type, 0)) {
+	foreach(const pki_export *x, pki_export::select(ClipboardPki_type, disabled)) {
 		if (!(x->flags & F_CLIPBOARD))
 			continue;
 		QAction *a = clipboard->addAction(x->desc);

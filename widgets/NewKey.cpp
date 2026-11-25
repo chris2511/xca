@@ -24,6 +24,7 @@ class keyListItem
     public:
 	bool card;
 	keytype ktype;
+	QList<keytype> params;
 	QString printname;
 	slotid slot;
 	unsigned minKeySize;
@@ -63,12 +64,16 @@ class keyListItem
 			arg(ktype.name).
 			arg(minKeySize).
 			arg(maxKeySize);
+		params << ktype;
 		card = true;
 	}
 	keyListItem(const keytype &t = keytype())
 		: ktype(t)
 	{
-		printname = ktype.name;
+		/* Software algorithms are grouped by algorithm family,
+		 * the parameter set is selected separately */
+		printname = t.family();
+		params << t;
 		card = false;
 		slot = slotid();
 		minKeySize = 0;
@@ -102,8 +107,21 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 	foreach (int size, sizeList)
 		keyLength->addItem(QString("%1 bit").arg(size));
 
-	foreach (const keytype t, keytype::types())
-		keytypes << keyListItem(t);
+	/* Keys of the same algorithm family share one entry in the
+	 * keytype box, the parameter set is chosen in the box below */
+	foreach (const keytype t, keytype::types()) {
+		bool found = false;
+		for (int i = 0; i < keytypes.count(); i++) {
+			if (!keytypes[i].card &&
+			    keytypes[i].ktype.family() == t.family()) {
+				keytypes[i].params << t;
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+			keytypes << keyListItem(t);
+	}
 
 	updateCurves();
 	keyLength->setEditText(QString("%1 bit").arg(keyjob::defaultjob.size));
@@ -127,12 +145,57 @@ NewKey::NewKey(QWidget *parent, const QString &name)
 		q.setValue(keytypes[i]);
 		keyType->addItem(keytypes[i].printname, q);
 		if (!keytypes[i].card &&
-		    keytypes[i].type() == keyjob::defaultjob.ktype.type)
+		    keytypes[i].ktype.family() == keyjob::defaultjob.ktype.family())
 		{
 			keyType->setCurrentIndex(i);
 		}
 	}
+	updateParamBox();
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Create"));
+}
+
+/* Fill the parameter box with the parameter sets of the selected
+ * algorithm. Only ML-DSA, ML-KEM and SLH-DSA have more than one. */
+void NewKey::updateParamBox()
+{
+	keyListItem ki = keyType->itemData(keyType->currentIndex())
+						.value<keyListItem>();
+	const QString family = ki.ktype.family();
+
+	updatingParamBox = true;
+	paramBox->clear();
+	foreach (const keytype &t, ki.params) {
+		if (t.name.startsWith("SLH-DSA-SHAKE-") &&
+		    paramBox->count() > 0 &&
+		    !paramBox->itemText(paramBox->count() - 1)
+				.startsWith("SLH-DSA-SHAKE-"))
+			paramBox->insertSeparator(paramBox->count());
+		paramBox->addItem(t.name, t.name);
+	}
+
+	const bool choice = ki.params.count() > 1;
+	paramBox->setVisible(choice);
+	paramLabel->setVisible(choice);
+
+	/* Restore the last parameter set of this family, otherwise the
+	 * default key or the first parameter set */
+	QString wanted = paramChoice.value(family);
+	if (wanted.isEmpty() && keyjob::defaultjob.ktype.family() == family)
+		wanted = keyjob::defaultjob.ktype.name;
+	int idx = paramBox->findData(wanted);
+	paramBox->setCurrentIndex(idx < 0 ? 0 : idx);
+	updatingParamBox = false;
+}
+
+void NewKey::on_paramBox_currentIndexChanged(int idx)
+{
+	if (updatingParamBox)
+		return;
+	const QString name = paramBox->itemData(idx).toString();
+	keyListItem ki = keyType->itemData(keyType->currentIndex())
+						.value<keyListItem>();
+	if (!name.isEmpty() && !ki.card)
+		paramChoice[ki.ktype.family()] = name;
 }
 
 void NewKey::addCurveBoxCurves(const QList<builtin_curve> &curves)
@@ -189,6 +252,7 @@ void NewKey::on_keyType_currentIndexChanged(int idx)
 	curveLabel->setVisible(ki.ktype.curve);
 	keySizeLabel->setVisible(ki.ktype.length);
 	keyLength->setVisible(ki.ktype.length);
+	updateParamBox();
 
 	rememberDefault->setEnabled(!ki.card);
 	if (ki.ktype.curve && ki.card) {
@@ -202,6 +266,11 @@ keyjob NewKey::getKeyJob() const
 	keyListItem selected = keyType->itemData(keyType->currentIndex())
 						.value<keyListItem>();
 	job.ktype = selected.ktype;
+	if (!selected.card) {
+		keytype kt = keytype::byName(paramBox->currentData().toString());
+		if (kt.isValid())
+			job.ktype = kt;
+	}
 	if (job.isEC()) {
 		int idx = curveBox->currentIndex();
 		job.ec_nid = curveBox->itemData(idx).toInt();

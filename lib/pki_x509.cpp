@@ -245,7 +245,10 @@ pki_x509::~pki_x509()
 	if (cert) {
 		X509_free(cert);
 	}
-	pki_openssl_error();
+	/* A destructor must never throw: pki_openssl_error() raises an
+	 * errorEx, which would terminate the whole application. Just
+	 * discard whatever OpenSSL left behind. */
+	ign_openssl_error();
 }
 
 void pki_x509::init()
@@ -652,6 +655,8 @@ bool pki_x509::canSign() const
 		return false;
 	if (privkey->isToken() && !pkcs11::libraries.loaded())
 		return false;
+	if (!privkey->supportsSigning())
+		return false;
 	return isCA();
 }
 
@@ -666,9 +671,12 @@ void pki_x509::sign(pki_key *signkey, const digest &digest)
 	if (!signkey) {
 		my_error(tr("There is no key for signing !"));
 	}
+	if (!signkey->supportsSigning())
+		throw errorEx(tr("The key '%1' is a key encapsulation key (ML-KEM) "
+			"and cannot be used for signing.").arg(signkey->getIntName()));
 	tkey = signkey->decryptKey();
 	pki_openssl_error();
-	X509_sign(cert, tkey, digest.MD());
+	X509_sign(cert, tkey, signkey->signingDigest(digest.MD()));
 	pki_openssl_error();
 	EVP_PKEY_free(tkey);
 	pki_openssl_error();

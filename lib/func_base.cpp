@@ -173,6 +173,8 @@ void _openssl_error(const QString &txt, const char *file, int line)
 
 	ERR_print_errors_cb(__ecb, &ba);
 	if (!ba.isEmpty()) {
+		/* needed for the exception below */
+		error = QString::fromLatin1(ba).trimmed();
 		fputs(CCHAR(QString("OpenSSL error (%1:%2) : %3\n").
 			arg(file).arg(line).arg(QString::fromLatin1(ba))),
 			stderr);

@@ -139,8 +139,19 @@ void KeyDetail::setKey(pki_key *key, bool import)
 			break;
 #endif
 #endif
-		default:
-			tlHeader->setText(tr("Unknown key"));
+		default: {
+			QByteArray pub = key->rawPubKey();
+			if (pub.isEmpty()) {
+				tlHeader->setText(tr("Unknown key"));
+				break;
+			}
+			tlModulus->setTitle(tr("Public key"));
+			tlPubEx->setText(tr("Algorithm"));
+			tlPrivEx->setText(tr("Private key"));
+			keyPubEx->setText(key->getTypeString());
+			keyModulus->setText(pub.toHex());
+			break;
+		}
 	}
 }
 

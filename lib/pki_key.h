@@ -27,6 +27,36 @@
 
 extern builtin_curves builtinCurves;
 
+/* Post quantum algorithms are provider based only and have no legacy
+ * EVP_PKEY_id. They are identified by their OpenSSL algorithm name. */
+static inline bool isPqcAlgName(const QString &name)
+{
+	return name.startsWith("ML-DSA-") || name.startsWith("ML-KEM-") ||
+		name.startsWith("SLH-DSA-");
+}
+
+/* ML-DSA and SLH-DSA are pure signature algorithms (no pre-hash),
+ * while ML-KEM is a key encapsulation algorithm without signature. */
+static inline bool isPqcSignatureName(const QString &name)
+{
+	return name.startsWith("ML-DSA-") || name.startsWith("SLH-DSA-");
+}
+
+/* ML-KEM is a key encapsulation mechanism and provides no signature
+ * operation at all. */
+static inline bool isPqcKemName(const QString &name)
+{
+	return name.startsWith("ML-KEM-");
+}
+
+/* Only the lattice based ML-DSA (FIPS 204) and ML-KEM (FIPS 203)
+ * private keys can be stored as seed-only, as expanded key or as both
+ * (RFC 9881, RFC 9935). SLH-DSA (FIPS 205) has no such choice. */
+static inline bool isPqcSeedName(const QString &name)
+{
+	return name.startsWith("ML-DSA-") || name.startsWith("ML-KEM-");
+}
+
 class keytype
 {
   public:
@@ -44,6 +74,75 @@ class keytype
 			keytype(EVP_PKEY_ED25519, "ED25519", CKM_VENDOR_DEFINED, false, false),
 #endif
 #endif
+#if defined(EVP_PKEY_ML_DSA_44) && defined(EVP_PKEY_ML_DSA_65) && \
+	defined(EVP_PKEY_ML_DSA_87)
+			keytype(EVP_PKEY_ML_DSA_44, "ML-DSA-44",
+				CKM_VENDOR_DEFINED, false, false),
+			keytype(EVP_PKEY_ML_DSA_65, "ML-DSA-65",
+				CKM_VENDOR_DEFINED, false, false),
+			keytype(EVP_PKEY_ML_DSA_87, "ML-DSA-87",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#if defined(NID_ML_KEM_512) && defined(NID_ML_KEM_768) && \
+	defined(NID_ML_KEM_1024)
+			keytype(NID_ML_KEM_512, "ML-KEM-512",
+				CKM_VENDOR_DEFINED, false, false),
+			keytype(NID_ML_KEM_768, "ML-KEM-768",
+				CKM_VENDOR_DEFINED, false, false),
+			keytype(NID_ML_KEM_1024, "ML-KEM-1024",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+			/* SLH-DSA: FIPS 205 defines 12 parameter sets.
+			 * "s" (small signature, slow signing) and
+			 * "f" (fast signing, bigger signature) */
+#ifdef EVP_PKEY_SLH_DSA_SHA2_128S
+			keytype(EVP_PKEY_SLH_DSA_SHA2_128S, "SLH-DSA-SHA2-128s",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHA2_128F
+			keytype(EVP_PKEY_SLH_DSA_SHA2_128F, "SLH-DSA-SHA2-128f",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHA2_192S
+			keytype(EVP_PKEY_SLH_DSA_SHA2_192S, "SLH-DSA-SHA2-192s",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHA2_192F
+			keytype(EVP_PKEY_SLH_DSA_SHA2_192F, "SLH-DSA-SHA2-192f",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHA2_256S
+			keytype(EVP_PKEY_SLH_DSA_SHA2_256S, "SLH-DSA-SHA2-256s",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHA2_256F
+			keytype(EVP_PKEY_SLH_DSA_SHA2_256F, "SLH-DSA-SHA2-256f",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHAKE_128S
+			keytype(EVP_PKEY_SLH_DSA_SHAKE_128S, "SLH-DSA-SHAKE-128s",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHAKE_128F
+			keytype(EVP_PKEY_SLH_DSA_SHAKE_128F, "SLH-DSA-SHAKE-128f",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHAKE_192S
+			keytype(EVP_PKEY_SLH_DSA_SHAKE_192S, "SLH-DSA-SHAKE-192s",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHAKE_192F
+			keytype(EVP_PKEY_SLH_DSA_SHAKE_192F, "SLH-DSA-SHAKE-192f",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHAKE_256S
+			keytype(EVP_PKEY_SLH_DSA_SHAKE_256S, "SLH-DSA-SHAKE-256s",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
+#ifdef EVP_PKEY_SLH_DSA_SHAKE_256F
+			keytype(EVP_PKEY_SLH_DSA_SHAKE_256F, "SLH-DSA-SHAKE-256f",
+				CKM_VENDOR_DEFINED, false, false),
+#endif
 		};
 	}
 	int type{};
@@ -59,8 +158,28 @@ class keytype
 	{
 		return type != -1;
 	}
+	bool isPqc() const
+	{
+		return isPqcAlgName(name);
+	}
+	/* The parameter sets of ML-DSA, ML-KEM and SLH-DSA are selected
+	 * separately in the key generation dialog */
+	QString family() const
+	{
+		if (name.startsWith("ML-DSA-"))
+			return "ML-DSA";
+		if (name.startsWith("ML-KEM-"))
+			return "ML-KEM";
+		if (name.startsWith("SLH-DSA-"))
+			return "SLH-DSA";
+		return name;
+	}
 	QString traditionalPemName() const
 	{
+		/* Provider based PQC keys have no traditional PEM format.
+		 * An empty name makes the writer fall back to PKCS#8. */
+		if (name.isEmpty() || isPqc())
+			return QString();
 		return
 #ifdef EVP_PKEY_ED25519
 			type == EVP_PKEY_ED25519 ? QString("PRIVATE KEY") :
@@ -85,15 +204,28 @@ class keytype
 	}
 	static const keytype byName(const QString &name)
 	{
+		/* Case insensitive, because PQC algorithm names like
+		 * "SLH-DSA-SHA2-128s" are not all upper case */
 		foreach(const keytype t, types()) {
-			if (t.name == name.toUpper())
+			if (!t.name.compare(name, Qt::CaseInsensitive))
 				return t;
 		}
 		return keytype();
 	}
 	static const keytype byPKEY(EVP_PKEY *pkey)
 	{
-		return byType(EVP_PKEY_type(EVP_PKEY_id(pkey)));
+		keytype kt = byType(EVP_PKEY_type(EVP_PKEY_id(pkey)));
+
+		/* Provider based keys (ML-DSA, ML-KEM, SLH-DSA) have no
+		 * legacy EVP_PKEY_id and are identified by their name */
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L && !defined(LIBRESSL_VERSION_NUMBER)
+		if (!kt.isValid() && pkey) {
+			const char *alg = EVP_PKEY_get0_type_name(pkey);
+			if (alg)
+				kt = byName(QString::fromLatin1(alg));
+		}
+#endif
+		return kt;
 	}
 };
 
@@ -123,14 +255,14 @@ class keyjob
 		ec_nid = NID_undef;
 		if (isEC())
 			ec_nid = OBJ_txt2nid(sl[1].toLatin1());
-		else if (!isED25519())
+		else if (!isED25519() && !isPqc())
 			size = sl[1].toInt();
 		slot = slotid();
 		ign_openssl_error();
 	}
 	QString toString()
 	{
-		if (isED25519())
+		if (isED25519() || isPqc())
 			return ktype.name;
 		return QString("%1:%2").arg(ktype.name) .arg(isEC() ?
 					OBJ_obj2QString(OBJ_nid2obj(ec_nid)) :
@@ -152,11 +284,15 @@ class keyjob
 		return false;
 #endif
 	}
+	bool isPqc() const
+	{
+		return ktype.isPqc();
+	}
 	bool isValid()
 	{
 		if (!ktype.isValid())
 			return false;
-		if (isED25519())
+		if (isED25519() || isPqc())
 			return true;
 		if (isEC() && builtinCurves.containNid(ec_nid))
 			return true;
@@ -206,6 +342,12 @@ class pki_key: public pki_base
 		QString length() const;
 		QString comboText() const;
 		QString getKeyTypeString(void) const;
+		bool isPostQuantum() const;
+		bool hasSeedFormat() const;
+		bool supportsSigning() const;
+		bool requiresNullDigest() const;
+		const EVP_MD *signingDigest(const EVP_MD *md) const;
+		QByteArray rawPubKey() const;
 		virtual EVP_PKEY *decryptKey() const = 0;
 		virtual bool isToken();
 		virtual QString getTypeString(void) const;
