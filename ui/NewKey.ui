@@ -83,7 +83,7 @@
    <item>
     <widget class="QLabel" name="TextLabel1">
      <property name="text">
-      <string>Please give a name to the new key and select the desired keysize</string>
+      <string>Please give a name to the new key and select the desired algorithm and its parameters</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -176,6 +176,26 @@
        <widget class="QLabel" name="TextLabel1_2">
         <property name="text">
          <string>Keytype</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="paramLabel">
+        <property name="text">
+         <string>Parameter set</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QComboBox" name="paramBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>The parameter set of the selected algorithm</string>
         </property>
        </widget>
       </item>

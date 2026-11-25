@@ -162,6 +162,18 @@ class keytype
 	{
 		return isPqcAlgName(name);
 	}
+	/* The parameter sets of ML-DSA, ML-KEM and SLH-DSA are selected
+	 * separately in the key generation dialog */
+	QString family() const
+	{
+		if (name.startsWith("ML-DSA-"))
+			return "ML-DSA";
+		if (name.startsWith("ML-KEM-"))
+			return "ML-KEM";
+		if (name.startsWith("SLH-DSA-"))
+			return "SLH-DSA";
+		return name;
+	}
 	QString traditionalPemName() const
 	{
 		/* Provider based PQC keys have no traditional PEM format.
