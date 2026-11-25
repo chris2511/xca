@@ -13,11 +13,15 @@
 #include "lib/pki_key.h"
 #include "lib/builtin_curves.h"
 #include <QStringList>
+#include <QMap>
 
 class NewKey: public QDialog, public Ui::NewKey
 {
 	Q_OBJECT
 	private:
+		/* Last selected parameter set per algorithm family */
+		QMap<QString, QString> paramChoice;
+		bool updatingParamBox{};
 		void updateCurves(unsigned min=0, unsigned max=INT_MAX,
 			unsigned long ec_flags=0);
 		void addCurveBoxCurves(const QList<builtin_curve> &curves);
@@ -29,5 +33,6 @@ class NewKey: public QDialog, public Ui::NewKey
 	public slots:
 		void accept();
 		void on_keyType_currentIndexChanged(int);
+		void on_paramBox_currentIndexChanged(int);
 };
 #endif

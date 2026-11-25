@@ -103,6 +103,17 @@ void test_main::newKey()
 	QCOMPARE(dlg->paramBox->count(), 3);
 	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-KEM-512"));
 
+	/* The parameter set is remembered per algorithm family */
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-DSA"));
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-DSA-65"));
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-KEM"));
+	dlg->paramBox->setCurrentIndex(2);
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-KEM-1024"));
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-DSA"));
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-DSA-65"));
+	dlg->keyType->setCurrentIndex(dlg->keyType->findText("ML-KEM"));
+	QCOMPARE(dlg->getKeyJob().toString(), QString("ML-KEM-1024"));
+
 #ifdef EVP_PKEY_SLH_DSA_SHA2_128S
 	/* 12 parameter sets, SHA2 and SHAKE separated */
 	dlg->keyType->setCurrentIndex(dlg->keyType->findText("SLH-DSA"));

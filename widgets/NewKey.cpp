@@ -160,7 +160,9 @@ void NewKey::updateParamBox()
 {
 	keyListItem ki = keyType->itemData(keyType->currentIndex())
 						.value<keyListItem>();
+	const QString family = ki.ktype.family();
 
+	updatingParamBox = true;
 	paramBox->clear();
 	foreach (const keytype &t, ki.params) {
 		if (t.name.startsWith("SLH-DSA-SHAKE-") &&
@@ -175,10 +177,25 @@ void NewKey::updateParamBox()
 	paramBox->setVisible(choice);
 	paramLabel->setVisible(choice);
 
-	if (choice) {
-		int idx = paramBox->findData(keyjob::defaultjob.ktype.name);
-		paramBox->setCurrentIndex(idx < 0 ? 0 : idx);
-	}
+	/* Restore the last parameter set of this family, otherwise the
+	 * default key or the first parameter set */
+	QString wanted = paramChoice.value(family);
+	if (wanted.isEmpty() && keyjob::defaultjob.ktype.family() == family)
+		wanted = keyjob::defaultjob.ktype.name;
+	int idx = paramBox->findData(wanted);
+	paramBox->setCurrentIndex(idx < 0 ? 0 : idx);
+	updatingParamBox = false;
+}
+
+void NewKey::on_paramBox_currentIndexChanged(int idx)
+{
+	if (updatingParamBox)
+		return;
+	const QString name = paramBox->itemData(idx).toString();
+	keyListItem ki = keyType->itemData(keyType->currentIndex())
+						.value<keyListItem>();
+	if (!name.isEmpty() && !ki.card)
+		paramChoice[ki.ktype.family()] = name;
 }
 
 void NewKey::addCurveBoxCurves(const QList<builtin_curve> &curves)
