@@ -8,8 +8,10 @@
 
 #include <QTest>
 #include <QFile>
+#include <QPixmap>
 
 #include <openssl/obj_mac.h>
+#include <openssl/rsa.h>
 #include <openssl/x509.h>
 
 #include "widgets/MainWindow.h"
