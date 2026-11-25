@@ -37,6 +37,9 @@ class test_main: public QObject
 	void revoke();
 	void testValidity();
 	void mlkemSigning();
+	void pqcClipboardPem();
+	void pqcOutputFormats();
+	void pqcSeedFormatSelection();
 
   public:
 	template <class T> static T *findWindow(const QString &name)
